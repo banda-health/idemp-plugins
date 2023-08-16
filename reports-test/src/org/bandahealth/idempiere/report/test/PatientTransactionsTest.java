@@ -12,14 +12,16 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MOrderLine_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.report.test.utils.EntityUtils;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
@@ -244,51 +246,66 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.setStepName("Create sales order");
-		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
-		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
-				false);
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_WarehouseOrder, true,
+				false, false);
 		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create invoice");
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARInvoice, null, true, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		MInvoice_BH invoice = valueObject.getInvoice();
 		commitEx();
 
 		valueObject.setStepName("Create first charge");
 		ChuBoeCreateEntity.createCharge(valueObject);
-//		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
-//		valueObject.getCharge().saveEx();
-		MOrderLine_BH orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
-		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
-		orderLine.setDescription(valueObject.getStepMessageLong());
-		orderLine.setC_Order_ID(valueObject.getOrder().get_ID());
-		orderLine.setC_Charge_ID(valueObject.getCharge().get_ID());
-		orderLine.setQty(Env.ONE);
-		orderLine.setHeaderInfo(valueObject.getOrder());
-		orderLine.setPriceEntered(new BigDecimal(-4));
-		orderLine.setPriceActual(new BigDecimal(-4));
-		orderLine.saveEx();
+		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
+		valueObject.getCharge().saveEx();
+		MInvoiceLine invoiceLine = new MInvoiceLine(valueObject.getContext(), 0, valueObject.getTransactionName());
+		invoiceLine.setC_Invoice_ID(invoice.get_ID());
+		invoiceLine.setDescription(valueObject.getStepMessageLong());
+		invoiceLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		invoiceLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		invoiceLine.setC_UOM_ID(valueObject.getProduct().getC_UOM_ID());
+		invoiceLine.setQty(Env.ONE);
+		invoiceLine.setPrice(new BigDecimal(-4));
+		invoiceLine.saveEx();
 		commitEx();
 
-		valueObject.setStepName("Create second charge");
-		valueObject.clearCharge();
-		ChuBoeCreateEntity.createCharge(valueObject);
-//		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Donation);
-//		valueObject.getCharge().saveEx();
-		orderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
-		orderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
-		orderLine.setDescription(valueObject.getStepMessageLong());
-		orderLine.setC_Order_ID(valueObject.getOrder().get_ID());
-		orderLine.setC_Charge_ID(valueObject.getCharge().get_ID());
-		orderLine.setQty(Env.ONE);
-		orderLine.setHeaderInfo(valueObject.getOrder());
-		orderLine.setPriceEntered(new BigDecimal(-6));
-		orderLine.setPriceActual(new BigDecimal(-6));
-		orderLine.saveEx();
+		valueObject.setStepName("Create donor");
+		valueObject.stackAndClearBusinessPartner();
+		EntityUtils.getBandaHealthDonorAndAssociatedCharge(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Complete the sales order");
-		valueObject.getOrder().setDocAction(DocAction.ACTION_Complete);
-		assertTrue(valueObject.getOrder().processIt(DocAction.ACTION_Complete), "Order was completed");
+		valueObject.setStepName("Create donor invoice line discount");
+		invoiceLine = new MInvoiceLine(valueObject.getContext(), 0, valueObject.getTransactionName());
+		invoiceLine.setC_Invoice_ID(invoice.get_ID());
+		invoiceLine.setDescription(valueObject.getStepMessageLong());
+		invoiceLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		invoiceLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		invoiceLine.setC_UOM_ID(valueObject.getProduct().getC_UOM_ID());
+		invoiceLine.setQty(Env.ONE);
+		invoiceLine.setPrice(new BigDecimal(-6));
+		invoiceLine.saveEx();
+
+		invoice.setDocAction(DocAction.ACTION_Complete);
+		assertTrue(invoice.processIt(DocAction.ACTION_Complete), "Invoice completed");
+		invoice.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create donor invoice");
+		valueObject.setOrder(null);
+		valueObject.setOrderLine(null);
+		valueObject.setSalesStandardPrice(invoiceLine.getPriceActual().negate());
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARInvoice, null, true, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Generate the report");
+		valueObject.popBusinessPartnerFromStack();
 		valueObject.setProcessUuid(patientTransactionReportUuid);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);

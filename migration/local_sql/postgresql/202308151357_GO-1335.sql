@@ -74,7 +74,7 @@ WHERE
 					ad_column
 				WHERE
 						LOWER(columnname) IN
-						('bh_mpesaphntrx_Num', 'bh_nhif_claim_number', 'bh_nhif_member_id', 'bh_nhif_member_name',
+						('bh_mpesaphntrx_num', 'bh_nhif_claim_number', 'bh_nhif_member_id', 'bh_nhif_member_name',
 						 'bh_nhif_relationship', 'bh_nhif_valid', 'bh_nhif_linda_mama', 'bh_nhif_type',
 						 'bh_processing', 'bh_isservicedebt', 'bh_invoicetype', 'bh_processing', 'bh_isexpense',
 						 'bh_docaction', 'bh_docaction_2')
@@ -98,7 +98,7 @@ WHERE
 		FROM
 			ad_column
 		WHERE
-				LOWER(columnname) IN ('bh_mpesaphntrx_Num', 'bh_nhif_claim_number', 'bh_nhif_member_id', 'bh_nhif_member_name',
+				LOWER(columnname) IN ('bh_mpesaphntrx_num', 'bh_nhif_claim_number', 'bh_nhif_member_id', 'bh_nhif_member_name',
 				                      'bh_nhif_relationship', 'bh_nhif_valid', 'bh_nhif_linda_mama', 'bh_nhif_type',
 				                      'bh_processing', 'bh_isservicedebt', 'bh_invoicetype', 'bh_processing', 'bh_isexpense',
 				                      'bh_docaction', 'bh_docaction_2')
@@ -116,7 +116,7 @@ FROM
 	ad_column
 WHERE
 		LOWER(columnname) IN
-		('bh_mpesaphntrx_Num', 'bh_nhif_claim_number', 'bh_nhif_member_id', 'bh_nhif_member_name', 'bh_nhif_relationship',
+		('bh_mpesaphntrx_num', 'bh_nhif_claim_number', 'bh_nhif_member_id', 'bh_nhif_member_name', 'bh_nhif_relationship',
 		 'bh_nhif_valid', 'bh_nhif_linda_mama', 'bh_nhif_type', 'bh_processing', 'bh_isservicedebt', 'bh_invoicetype',
 		 'bh_processing', 'bh_isexpense', 'bh_docaction', 'bh_docaction_2')
 	AND ad_table_id IN (
@@ -132,7 +132,7 @@ FROM
 	ad_element
 WHERE
 		LOWER(columnname) IN
-		('bh_mpesaphntrx_Num', 'bh_nhif_claim_number', 'bh_nhif_member_id', 'bh_nhif_member_name', 'bh_nhif_relationship',
+		('bh_mpesaphntrx_nm', 'bh_nhif_claim_number', 'bh_nhif_member_id', 'bh_nhif_member_name', 'bh_nhif_relationship',
 		 'bh_nhif_valid', 'bh_nhif_linda_mama', 'bh_nhif_type', 'bh_processing', 'bh_isservicedebt', 'bh_invoicetype',
 		 'bh_processing', 'bh_isexpense', 'bh_docaction', 'bh_docaction_2')
 	AND ad_element_id NOT IN (
@@ -171,8 +171,10 @@ INSERT INTO
 	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
 VALUES
 	((
-		 SELECT MAX(ad_column_id) + 1
-		 FROM ad_column
+		 SELECT
+			 MAX(ad_column_id) + 1
+		 FROM
+			 ad_column
 	 ), 0, 0, 'Y', '2023-08-16 01:07:21.492234', '2023-08-16 01:07:21.492234', 100, 100, 'BH_Locked',
 	 'Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)',
 	 NULL, 0, 'U', 'BH_Locked', 394, 20, NULL, NULL, 1, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL,
@@ -191,8 +193,10 @@ INSERT INTO
 	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
 VALUES
 	((
-		 SELECT MAX(ad_column_id) + 1
-		 FROM ad_column
+		 SELECT
+			 MAX(ad_column_id) + 1
+		 FROM
+			 ad_column
 	 ), 0, 0, 'Y', '2023-08-16 01:07:21.492234', '2023-08-16 01:07:21.492234', 100, 100, 'BH_Locked',
 	 'Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)',
 	 NULL, 0, 'U', 'BH_Locked', 291, 20, NULL, NULL, 1, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL,
@@ -415,7 +419,7 @@ CREATE TABLE BH_BP_Specific_Payer_Info
 	BH_Payer_Info_Field_ID       numeric(10)                                             NOT NULL,
 	BH_BP_Specific_Payer_Info_ID numeric(10)                                             NOT NULL,
 	BH_BP_Specific_Payer_Info_UU VARCHAR(36)  DEFAULT NULL,
-	C_OrderLine_ID               numeric(10)                                             NOT NULL,
+	C_InvoiceLine_ID             numeric(10)                                             NOT NULL,
 	Created                      DATE         DEFAULT NOW()                              NOT NULL,
 	CreatedBy                    numeric(10)                                             NOT NULL,
 	Description                  VARCHAR(255) DEFAULT NULL,
@@ -433,7 +437,7 @@ ALTER TABLE BH_BP_Specific_Payer_Info
 ALTER TABLE BH_BP_Specific_Payer_Info
 	ADD CONSTRAINT BHPayerInfoField_BHBPSpecificP FOREIGN KEY (BH_Payer_Info_Field_ID) REFERENCES bh_payer_info_field (bh_payer_info_field_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE BH_BP_Specific_Payer_Info
-	ADD CONSTRAINT COrderLine_BHBPSpecificPayerIn FOREIGN KEY (C_OrderLine_ID) REFERENCES c_orderline (c_orderline_id) DEFERRABLE INITIALLY DEFERRED;
+	ADD CONSTRAINT CInvoiceLine_BHBPSpecificPayer FOREIGN KEY (C_InvoiceLine_ID) REFERENCES c_invoiceline (c_invoiceline_id) DEFERRABLE INITIALLY DEFERRED;
 
 -- Update an existing element that we're going to hijack
 UPDATE ad_element
@@ -2894,14 +2898,15 @@ VALUES
 			 MAX(ad_column_id) + 1
 		 FROM
 			 ad_column
-	 ), 0, 0, 'Y', '2023-08-10 17:29:14.682000', '2023-08-10 17:30:03.794000', 100, 100, 'Sales Order Line',
-	 'Sales Order Line', 'The Sales Order Line is a unique identifier for a line in an order.', 0, 'U', 'C_OrderLine_ID',
+	 ), 0, 0, 'Y', '2023-08-10 17:29:14.682000', '2023-08-10 17:30:03.794000', 100, 100, 'Invoice Line',
+	 'Invoice Detail Line', 'The Invoice Line uniquely identifies a single line of an Invoice.', 0, 'U',
+	 'C_InvoiceLine_ID',
 	 (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = 'f09bd346-9075-49a1-a6d8-c5ba882c1960'
 	 ), 19, NULL, NULL, 10, NULL, 'N', 'N', 'Y', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
-		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'c5747e24-3a7b-44cd-af2d-5c9a6dd94d58'
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '135a9501-70e3-4f88-9496-9deca5047fec'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '69734631-bd60-4d59-b3d7-6104527a00e7', 'Y', 0, 'N', 'N', NULL,
-	 'COrderLine_BHBPSpecificPayerIn', 'N', NULL, NULL);
+	 'CInvoiceLine_BHBPSpecificPayer', 'N', NULL, NULL);
 INSERT INTO
 	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
 	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
@@ -5497,24 +5502,32 @@ FROM
 -- Migrate bh_orderline_charge_info to bh_bp_specific_payer_info
 INSERT INTO
 	BH_BP_Specific_Payer_Info (AD_Client_ID, AD_Org_ID, bh_payer_info_field_id, BH_BP_Specific_Payer_Info_ID,
-	                           BH_BP_Specific_Payer_Info_UU, C_OrderLine_ID, Created, CreatedBy, Description, IsActive,
+	                           BH_BP_Specific_Payer_Info_UU, C_InvoiceLine_ID, Created, CreatedBy, Description, IsActive,
 	                           Name, Updated, UpdatedBy)
 SELECT
-	AD_Client_ID,
-	AD_Org_ID,
-	bh_charge_info_id,
-	bh_orderline_charge_info_id,
-	bh_orderline_charge_info_uu,
-	C_OrderLine_ID,
-	Created,
-	CreatedBy,
-	Description,
-	IsActive,
-	Name,
-	Updated,
-	UpdatedBy
+	olci.AD_Client_ID,
+	olci.AD_Org_ID,
+	olci.bh_charge_info_id,
+	olci.bh_orderline_charge_info_id,
+	olci.bh_orderline_charge_info_uu,
+	il.c_invoiceline_id,
+	olci.Created,
+	olci.CreatedBy,
+	olci.Description,
+	olci.IsActive,
+	olci.Name,
+	olci.Updated,
+	olci.UpdatedBy
 FROM
-	bh_orderline_charge_info;
+	bh_orderline_charge_info olci
+		JOIN c_orderline ol
+		ON ol.c_orderline_id = olci.c_orderline_id
+		JOIN c_order o
+		ON ol.c_order_id = o.c_order_id
+		JOIN c_invoice i
+		ON o.c_order_id = i.c_order_id AND i.docstatus NOT IN ('VO', 'RE', 'RA')
+		JOIN c_invoiceline il
+		ON i.c_invoice_id = il.c_invoice_id;
 
 -- Update the referenced list name
 UPDATE ad_reference
@@ -5916,6 +5929,19 @@ WHERE
 	bh_subtype IN ('I', 'D');
 $$, 'c_charge_id');
 
+-- Update the current non-patient payments that aren't waivers to have the correct subtype
+UPDATE c_charge c
+SET
+	bh_subtype = CASE WHEN c.name = 'Accounts Receivable - Donations' THEN 'D' ELSE 'I' END
+FROM
+	c_chargetype ct
+		JOIN tmp_clients_to_work_with tctww
+		ON ct.ad_client_id = tctww.ad_client_id
+WHERE
+	ct.c_chargetype_id = c.c_chargetype_id
+	AND ct.name = 'Non-Patient Payment - DO NOT CHANGE'
+	AND c.bh_subtype IS NULL;
+
 -- Remove the income charges
 DELETE
 FROM
@@ -6053,8 +6079,6 @@ WHERE
 
 -- Remove unused columns from c_charge
 ALTER TABLE c_charge
-	DROP COLUMN bh_subtype;
-ALTER TABLE c_charge
 	DROP COLUMN bh_needadditionalvisitinfo;
 ALTER TABLE c_charge
 	DROP CONSTRAINT IF EXISTS c_charge_c_elementvalue_id_fkey;
@@ -6077,7 +6101,7 @@ WHERE
 				FROM
 					ad_element
 				WHERE
-						LOWER(columnname) IN ('bh_subtype', 'bh_needadditionalvisitinfo', 'c_elementvalue_id')
+						LOWER(columnname) IN ('bh_needadditionalvisitinfo', 'c_elementvalue_id')
 			)
 			AND ad_table_id IN (
 				SELECT
@@ -6098,7 +6122,7 @@ WHERE
 		FROM
 			ad_element
 		WHERE
-				LOWER(columnname) IN ('bh_subtype', 'bh_needadditionalvisitinfo', 'c_elementvalue_id')
+				LOWER(columnname) IN ('bh_needadditionalvisitinfo', 'c_elementvalue_id')
 	)
 	AND ad_table_id IN (
 		SELECT

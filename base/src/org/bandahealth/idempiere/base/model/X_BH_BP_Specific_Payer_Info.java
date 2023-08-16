@@ -31,7 +31,7 @@ public class X_BH_BP_Specific_Payer_Info extends PO implements I_BH_BP_Specific_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230815L;
+	private static final long serialVersionUID = 20230816L;
 
     /** Standard Constructor */
     public X_BH_BP_Specific_Payer_Info (Properties ctx, int BH_BP_Specific_Payer_Info_ID, String trxName)
@@ -42,7 +42,7 @@ public class X_BH_BP_Specific_Payer_Info extends PO implements I_BH_BP_Specific_
 			setBH_BP_Payer_Info_ID (0);
 			setBH_BP_Specific_Payer_Info_ID (0);
 			setBH_Payer_Info_Field_ID (0);
-			setC_OrderLine_ID (0);
+			setC_InvoiceLine_ID (0);
         } */
     }
 
@@ -158,29 +158,29 @@ public class X_BH_BP_Specific_Payer_Info extends PO implements I_BH_BP_Specific_
 		return ii.intValue();
 	}
 
-	public org.compiere.model.I_C_OrderLine getC_OrderLine() throws RuntimeException
+	public org.compiere.model.I_C_InvoiceLine getC_InvoiceLine() throws RuntimeException
     {
-		return (org.compiere.model.I_C_OrderLine)MTable.get(getCtx(), org.compiere.model.I_C_OrderLine.Table_Name)
-			.getPO(getC_OrderLine_ID(), get_TrxName());	}
+		return (org.compiere.model.I_C_InvoiceLine)MTable.get(getCtx(), org.compiere.model.I_C_InvoiceLine.Table_Name)
+			.getPO(getC_InvoiceLine_ID(), get_TrxName());	}
 
-	/** Set Sales Order Line.
-		@param C_OrderLine_ID 
-		Sales Order Line
+	/** Set Invoice Line.
+		@param C_InvoiceLine_ID 
+		Invoice Detail Line
 	  */
-	public void setC_OrderLine_ID (int C_OrderLine_ID)
+	public void setC_InvoiceLine_ID (int C_InvoiceLine_ID)
 	{
-		if (C_OrderLine_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_C_OrderLine_ID, null);
+		if (C_InvoiceLine_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_C_InvoiceLine_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_C_OrderLine_ID, Integer.valueOf(C_OrderLine_ID));
+			set_ValueNoCheck (COLUMNNAME_C_InvoiceLine_ID, Integer.valueOf(C_InvoiceLine_ID));
 	}
 
-	/** Get Sales Order Line.
-		@return Sales Order Line
+	/** Get Invoice Line.
+		@return Invoice Detail Line
 	  */
-	public int getC_OrderLine_ID () 
+	public int getC_InvoiceLine_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_C_OrderLine_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_C_InvoiceLine_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

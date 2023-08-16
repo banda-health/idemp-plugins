@@ -15,20 +15,14 @@ import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
-import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.Charge;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.BusinessPartnerSpecificPayerInformation;
 import org.bandahealth.idempiere.rest.model.Product;
-import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MCharge;
-import org.compiere.model.MElementValue;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Ref_List;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -121,30 +115,30 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			entity.setBusinessPartnerSpecificPayerInformationList(
 					entity.getBusinessPartnerSpecificPayerInformationList().stream().map(
 							businessPartnerSpecificPayerInformation -> {
-								businessPartnerSpecificPayerInformation.setOrderLineId(entity.getId());
+								businessPartnerSpecificPayerInformation.setInvoiceLineId(entity.getId());
 								return businessPartnerSpecificPayerInformationDBService.saveEntity(
 										businessPartnerSpecificPayerInformation);
 							}).collect(Collectors.toList()));
 		} else {
 			entity.setBusinessPartnerSpecificPayerInformationList(new ArrayList<>());
 		}
-		// Delete what is no longer there
-		List<MBHBPSpecificPayerInfo> businessPartnerSpecificPayerInformationList =
-				businessPartnerSpecificPayerInformationDBService
-						.getGroupsByIds(MBHBPSpecificPayerInfo::getC_OrderLine_ID,
-								MBHBPSpecificPayerInfo.COLUMNNAME_C_OrderLine_ID, Collections.singleton(entity.getId()))
-						.get(entity.getId());
-		if (businessPartnerSpecificPayerInformationList != null) {
-			businessPartnerSpecificPayerInformationList.stream()
-					.filter(
-							existingBusinessPartnerSpecificPayerInformation -> entity.getBusinessPartnerSpecificPayerInformationList()
-									.stream()
-									.noneMatch(
-											newBusinessPartnerSpecificPayerInformation -> newBusinessPartnerSpecificPayerInformation.getUuid()
-													.equals(existingBusinessPartnerSpecificPayerInformation.getBH_BP_Specific_Payer_Info_UU())))
-					.forEach(orderLineChargeInformation -> businessPartnerSpecificPayerInformationDBService
-							.deleteEntity(orderLineChargeInformation.getBH_BP_Specific_Payer_Info_UU()));
-		}
+//		// Delete what is no longer there
+//		List<MBHBPSpecificPayerInfo> businessPartnerSpecificPayerInformationList =
+//				businessPartnerSpecificPayerInformationDBService
+//						.getGroupsByIds(MBHBPSpecificPayerInfo::getC_OrderLine_ID,
+//								MBHBPSpecificPayerInfo.COLUMNNAME_C_OrderLine_ID, Collections.singleton(entity.getId()))
+//						.get(entity.getId());
+//		if (businessPartnerSpecificPayerInformationList != null) {
+//			businessPartnerSpecificPayerInformationList.stream()
+//					.filter(
+//							existingBusinessPartnerSpecificPayerInformation -> entity.getBusinessPartnerSpecificPayerInformationList()
+//									.stream()
+//									.noneMatch(
+//											newBusinessPartnerSpecificPayerInformation -> newBusinessPartnerSpecificPayerInformation.getUuid()
+//													.equals(existingBusinessPartnerSpecificPayerInformation.getBH_BP_Specific_Payer_Info_UU())))
+//					.forEach(orderLineChargeInformation -> businessPartnerSpecificPayerInformationDBService
+//							.deleteEntity(orderLineChargeInformation.getBH_BP_Specific_Payer_Info_UU()));
+//		}
 
 		return createInstanceWithAllFields(getEntityByUuidFromDB(mOrderLine.getC_OrderLine_UU()));
 	}
@@ -202,14 +196,14 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::get_ID).collect(Collectors.toSet());
 
 		Map<Integer, MCharge_BH> chargesById = chargeDBService.getByIds(chargeIds);
-		Map<Integer, List<MBHBPSpecificPayerInfo>> businessPartnerSpecificPayerInformationByOrderLineId =
-				businessPartnerSpecificPayerInformationDBService
-						.getGroupsByIds(MBHBPSpecificPayerInfo::getC_OrderLine_ID,
-								MBHBPSpecificPayerInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds);
-		Map<Integer, MBHPayerInfoField> payerInformationFieldsById = payerInformationFieldDBService.getByIds(
-				businessPartnerSpecificPayerInformationByOrderLineId.values().stream().flatMap(
-						businessPartnerSpecificPayerInformation -> businessPartnerSpecificPayerInformation.stream()
-								.map(MBHBPSpecificPayerInfo::getBH_Payer_Info_Field_ID)).collect(Collectors.toSet()));
+//		Map<Integer, List<MBHBPSpecificPayerInfo>> businessPartnerSpecificPayerInformationByOrderLineId =
+//				businessPartnerSpecificPayerInformationDBService
+//						.getGroupsByIds(MBHBPSpecificPayerInfo::getC_OrderLine_ID,
+//								MBHBPSpecificPayerInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds);
+//		Map<Integer, MBHPayerInfoField> payerInformationFieldsById = payerInformationFieldDBService.getByIds(
+//				businessPartnerSpecificPayerInformationByOrderLineId.values().stream().flatMap(
+//						businessPartnerSpecificPayerInformation -> businessPartnerSpecificPayerInformation.stream()
+//								.map(MBHBPSpecificPayerInfo::getBH_Payer_Info_Field_ID)).collect(Collectors.toSet()));
 
 		// Get the product IDs so we can fetch storage on hand
 		Set<Integer> productIds =
@@ -229,14 +223,14 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 			if (orderLine.getChargeId() > 0) {
 				orderLine.setCharge(new Charge(chargesById.get(orderLine.getChargeId())));
 			}
-			if (businessPartnerSpecificPayerInformationByOrderLineId.containsKey(orderLine.getId())) {
-				orderLine.setBusinessPartnerSpecificPayerInformationList(
-						businessPartnerSpecificPayerInformationByOrderLineId.get(orderLine.getId()).stream()
-								.map(BusinessPartnerSpecificPayerInformation::new).peek(
-										businessPartnerSpecificPayerInformation -> businessPartnerSpecificPayerInformation.setPayerInformationFieldUuid(
-												payerInformationFieldsById.get(businessPartnerSpecificPayerInformation.getPayerInformationFieldId())
-														.getBH_Payer_Info_Field_UU())).collect(Collectors.toList()));
-			}
+//			if (businessPartnerSpecificPayerInformationByOrderLineId.containsKey(orderLine.getId())) {
+//				orderLine.setBusinessPartnerSpecificPayerInformationList(
+//						businessPartnerSpecificPayerInformationByOrderLineId.get(orderLine.getId()).stream()
+//								.map(BusinessPartnerSpecificPayerInformation::new).peek(
+//										businessPartnerSpecificPayerInformation -> businessPartnerSpecificPayerInformation.setPayerInformationFieldUuid(
+//												payerInformationFieldsById.get(businessPartnerSpecificPayerInformation.getPayerInformationFieldId())
+//														.getBH_Payer_Info_Field_UU())).collect(Collectors.toList()));
+//			}
 
 			// go-2331 - revert
 			/*if (orderLine.getProductId() > 0 && orderLine.getProduct() != null &&
@@ -263,17 +257,17 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 				.setParameters(orderId).setClient_ID().list();
 
 		// Get the associated order line charge information and delete it
-		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::getC_OrderLine_ID)
-				.collect(Collectors.toSet());
-		boolean wereChildrenDeletesSuccessful = businessPartnerSpecificPayerInformationDBService
-				.getGroupsByIds(MBHBPSpecificPayerInfo::getC_OrderLine_ID,
-						MBHBPSpecificPayerInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds)
-				.values().stream().flatMap(Collection::stream)
-				.allMatch(businessPartnerChargeInformation -> businessPartnerSpecificPayerInformationDBService
-						.deleteEntity(businessPartnerChargeInformation.getBH_BP_Specific_Payer_Info_UU()));
-		if (!wereChildrenDeletesSuccessful) {
-			throw new AdempiereException("There was an error deleting information");
-		}
+//		Set<Integer> orderLineIds = mOrderLines.stream().map(MOrderLine_BH::getC_OrderLine_ID)
+//				.collect(Collectors.toSet());
+//		boolean wereChildrenDeletesSuccessful = businessPartnerSpecificPayerInformationDBService
+//				.getGroupsByIds(MBHBPSpecificPayerInfo::getC_OrderLine_ID,
+//						MBHBPSpecificPayerInfo.COLUMNNAME_C_OrderLine_ID, orderLineIds)
+//				.values().stream().flatMap(Collection::stream)
+//				.allMatch(businessPartnerChargeInformation -> businessPartnerSpecificPayerInformationDBService
+//						.deleteEntity(businessPartnerChargeInformation.getBH_BP_Specific_Payer_Info_UU()));
+//		if (!wereChildrenDeletesSuccessful) {
+//			throw new AdempiereException("There was an error deleting information");
+//		}
 
 		for (MOrderLine_BH mOrderLine : mOrderLines) {
 			mOrderLine.deleteEx(false);

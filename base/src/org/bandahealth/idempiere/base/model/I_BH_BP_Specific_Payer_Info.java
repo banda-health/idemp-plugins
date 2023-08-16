@@ -32,7 +32,7 @@ public interface I_BH_BP_Specific_Payer_Info
     /** TableName=BH_BP_Specific_Payer_Info */
     public static final String Table_Name = "BH_BP_Specific_Payer_Info";
 
-    /** AD_Table_ID=1000042 */
+    /** AD_Table_ID=1000041 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -104,20 +104,20 @@ public interface I_BH_BP_Specific_Payer_Info
 
 	public I_BH_Payer_Info_Field getBH_Payer_Info_Field() throws RuntimeException;
 
-    /** Column name C_OrderLine_ID */
-    public static final String COLUMNNAME_C_OrderLine_ID = "C_OrderLine_ID";
+    /** Column name C_InvoiceLine_ID */
+    public static final String COLUMNNAME_C_InvoiceLine_ID = "C_InvoiceLine_ID";
 
-	/** Set Sales Order Line.
-	  * Sales Order Line
+	/** Set Invoice Line.
+	  * Invoice Detail Line
 	  */
-	public void setC_OrderLine_ID (int C_OrderLine_ID);
+	public void setC_InvoiceLine_ID (int C_InvoiceLine_ID);
 
-	/** Get Sales Order Line.
-	  * Sales Order Line
+	/** Get Invoice Line.
+	  * Invoice Detail Line
 	  */
-	public int getC_OrderLine_ID();
+	public int getC_InvoiceLine_ID();
 
-	public org.compiere.model.I_C_OrderLine getC_OrderLine() throws RuntimeException;
+	public org.compiere.model.I_C_InvoiceLine getC_InvoiceLine() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

@@ -6,6 +6,12 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 public class MCharge_BH extends MCharge {
+	public static final String NAME_BillWaiver = "Bill Waiver";
+	public static final String NAME_AccountsReceivable_Donations = "Accounts Receivable - Donations";
+	/**
+	 * Column name BH_SubType
+	 */
+	public static final String COLUMNNAME_BH_SubType = "BH_SubType";
 	/**
 	 * Column name C_ElementValue_ID
 	 */
@@ -56,5 +62,24 @@ public class MCharge_BH extends MCharge {
 	 */
 	public void setBH_Locked(boolean BH_Locked) {
 		set_Value(COLUMNNAME_BH_Locked, Boolean.valueOf(BH_Locked));
+	}
+
+	/**
+	 * Get Sub Type.
+	 *
+	 * @return Meant to be a sub-type of the charge type
+	 */
+	public String getBH_SubType() {
+		return (String) get_Value(COLUMNNAME_BH_SubType);
+	}
+
+	/**
+	 * Set Sub Type.
+	 *
+	 * @param BH_SubType Meant to be a sub-type of the charge type
+	 */
+	public void setBH_SubType(String BH_SubType) {
+
+		set_Value(COLUMNNAME_BH_SubType, BH_SubType);
 	}
 }

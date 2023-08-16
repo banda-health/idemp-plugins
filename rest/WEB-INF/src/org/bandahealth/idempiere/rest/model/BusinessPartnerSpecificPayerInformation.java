@@ -5,7 +5,7 @@ import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
 
 public class BusinessPartnerSpecificPayerInformation extends BaseEntity {
 	@JsonIgnore
-	private int orderLineId;
+	private int invoiceLineId;
 	@JsonIgnore
 	private int payerInformationFieldId;
 	private String payerInformationFieldUuid;
@@ -18,16 +18,16 @@ public class BusinessPartnerSpecificPayerInformation extends BaseEntity {
 	public BusinessPartnerSpecificPayerInformation(MBHBPSpecificPayerInfo entity) {
 		super(entity, entity.getName(), entity.getDescription(), null);
 
-		setOrderLineId(entity.getC_OrderLine_ID());
+		setInvoiceLineId(entity.getC_InvoiceLine_ID());
 		setPayerInformationFieldId(entity.getBH_BP_Payer_Info_ID());
 	}
 
-	public int getOrderLineId() {
-		return orderLineId;
+	public int getInvoiceLineId() {
+		return invoiceLineId;
 	}
 
-	public void setOrderLineId(int orderLineId) {
-		this.orderLineId = orderLineId;
+	public void setInvoiceLineId(int invoiceLineId) {
+		this.invoiceLineId = invoiceLineId;
 	}
 
 	public int getPayerInformationFieldId() {

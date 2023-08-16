@@ -11,12 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Charge extends BaseEntity {
+	private ReferenceList subType;
 	private Account account;
 	private ChargeType chargeType;
 	@JsonProperty("isLocked")
 	private boolean isLocked;
 	@JsonIgnore
 	private int chargeTypeId;
+	@JsonIgnore
+	private String subTypeValue;
 
 	/**
 	 * Empty constructor needed for deserialization
@@ -73,5 +76,23 @@ public class Charge extends BaseEntity {
 
 	public void setChargeTypeId(int chargeTypeId) {
 		this.chargeTypeId = chargeTypeId;
+	}
+
+	public ReferenceList getSubType() {
+		return subType;
+	}
+
+	public void setSubType(ReferenceList subType) {
+		this.subType = subType;
+	}
+
+	@JsonIgnore
+	public String getSubTypeValue() {
+		return subTypeValue;
+	}
+
+	@JsonIgnore
+	public void setSubTypeValue(String subTypeValue) {
+		this.subTypeValue = subTypeValue;
 	}
 }

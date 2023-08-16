@@ -36,7 +36,7 @@ public class BusinessPartnerSpecificPayerInformationDBService
 						payerInformationField.getBH_Payer_Info_Field_ID());
 			}
 		}
-		businessPartnerSpecificPaymentInformation.setC_OrderLine_ID(entity.getOrderLineId());
+		businessPartnerSpecificPaymentInformation.setC_InvoiceLine_ID(entity.getInvoiceLineId());
 		businessPartnerSpecificPaymentInformation.setName(entity.getName());
 		ModelUtil.setPropertyIfPresent(entity.getDescription(), businessPartnerSpecificPaymentInformation::setDescription);
 

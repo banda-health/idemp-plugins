@@ -2,22 +2,22 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.Account;
-import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Charge;
 import org.bandahealth.idempiere.rest.model.ChargeType;
-import org.bandahealth.idempiere.rest.model.Paging;
+import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MElementValue;
+import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_Charge_Acct;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +33,8 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 	private ChargeAccountDBService chargeAccountDBService;
 	@Autowired
 	private ValidCombinationDBService validCombinationDBService;
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
 
 	@Override
 	public Charge saveEntity(Charge entity) {
@@ -68,6 +70,13 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 			MChargeType_BH chargeType = chargeTypeDBService.getEntityByUuidFromDB(entity.getChargeType().getUuid());
 			if (chargeType != null) {
 				charge.setC_ChargeType_ID(chargeType.getC_ChargeType_ID());
+			}
+		}
+
+		if (entity.getSubType() != null) {
+			MRefList referenceList = referenceListDBService.getEntityByUuidFromDB(entity.getSubType().getUuid());
+			if (referenceList != null) {
+				charge.setBH_SubType(referenceList.getValue());
 			}
 		}
 
@@ -122,12 +131,21 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 		Map<Integer, MChargeType_BH> chargeTypesById =
 				chargeTypeDBService.getByIds(dbModels.stream().map(MCharge_BH::getC_ChargeType_ID).collect(Collectors.toSet()));
 
+		// Batch call to get reference lists for charges
+		Map<String, MRefList> subTypeByValue = referenceListDBService
+				.getTypes(MReference_BH.NON_PATIENT_PAYER_AD_REFERENCE_UU,
+						dbModels.stream().map(MCharge_BH::getBH_SubType).collect(Collectors.toSet())).stream()
+				.collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
+
 		return dbModels.stream().map(charge -> {
 			Charge chargeToReturn = new Charge(charge);
 
 			// Now fill in the child data
 			if (chargeTypesById.containsKey(charge.getC_ChargeType_ID())) {
 				chargeToReturn.setChargeType(new ChargeType(chargeTypesById.get(charge.getC_ChargeType_ID())));
+			}
+			if (!StringUtil.isNullOrEmpty(charge.getBH_SubType()) && subTypeByValue.containsKey(charge.getBH_SubType())) {
+				chargeToReturn.setSubType(new ReferenceList(subTypeByValue.get(charge.getBH_SubType())));
 			}
 			chargeToReturn.setAccount(new Account(accountsById.get(validCombinationsByValidCombinationId.get(
 					chargeAccountsByChargeId.get(charge.getC_Charge_ID()).getCh_Expense_Acct()).getAccount_ID())));
