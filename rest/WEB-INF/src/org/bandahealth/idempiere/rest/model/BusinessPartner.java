@@ -56,7 +56,7 @@ public class BusinessPartner extends BaseEntity {
 		this.isApproximateDateOfBirth = model.isBH_IsApproximateDateOfBirth();
 		this.isCustomer = model.isCustomer();
 		this.isVendor = model.isVendor();
-//		setNeedAdditionalVisitInformation(entity.isBH_NeedAdditionalVisitInfo());
+		setNeedAdditionalVisitInformation(model.isBH_NeedAdditionalVisitInfo());
 	}
 
 	public BusinessPartner(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,

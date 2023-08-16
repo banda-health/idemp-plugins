@@ -155,7 +155,51 @@ ALTER TABLE c_bp_group
 	ADD COLUMN IF NOT EXISTS bh_subtype varchar(2);
 ALTER TABLE c_bpartner
 	ADD COLUMN IF NOT EXISTS bh_needadditionalvisitinfo char;
+ALTER TABLE c_bpartner
+	ADD COLUMN bh_locked char DEFAULT 'N';
+ALTER TABLE c_bp_group
+	ADD COLUMN bh_locked char DEFAULT 'N';
 
+-- Insert the bh_locked column on c_bp_group
+INSERT INTO
+	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
+	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
+	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
+	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
+	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
+	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
+	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
+VALUES
+	((
+		 SELECT MAX(ad_column_id) + 1
+		 FROM ad_column
+	 ), 0, 0, 'Y', '2023-08-16 01:07:21.492234', '2023-08-16 01:07:21.492234', 100, 100, 'BH_Locked',
+	 'Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)',
+	 NULL, 0, 'U', 'BH_Locked', 394, 20, NULL, NULL, 1, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL,
+	 NULL, NULL, 'N', (
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'a72b2d6e-eb96-4b6d-9eee-5a099053b43a'
+	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '4101e1a2-7209-4b96-afd4-ed05a83bd534', 'Y', 0, 'N', 'N', NULL,
+	 NULL, 'N', NULL, NULL, 'N');
+-- Insert the bh_locked column on c_bpartner
+INSERT INTO
+	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
+	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
+	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
+	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
+	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
+	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
+	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
+VALUES
+	((
+		 SELECT MAX(ad_column_id) + 1
+		 FROM ad_column
+	 ), 0, 0, 'Y', '2023-08-16 01:07:21.492234', '2023-08-16 01:07:21.492234', 100, 100, 'BH_Locked',
+	 'Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)',
+	 NULL, 0, 'U', 'BH_Locked', 291, 20, NULL, NULL, 1, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL,
+	 NULL, NULL, 'N', (
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'a72b2d6e-eb96-4b6d-9eee-5a099053b43a'
+	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '05670947-68c9-400e-ae4c-8ab001596fc2', 'Y', 0, 'N', 'N', NULL,
+	 NULL, 'N', NULL, NULL, 'N');
 -- Insert the bh_subtype column on c_bp_group
 INSERT INTO
 	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
@@ -4843,52 +4887,6 @@ SET
 	bh_needadditionalvisitinfo = 'Y'
 WHERE
 	name = 'NHIF National Scheme';
-
--- Add the locked columns to BPs and GP Groups
-ALTER TABLE c_bpartner
-	ADD COLUMN bh_locked char DEFAULT 'N';
-ALTER TABLE c_bp_group
-	ADD COLUMN bh_locked char DEFAULT 'N';
-
--- Insert the columns for it
-INSERT INTO
-	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
-	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
-	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
-	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
-	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
-	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
-	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
-VALUES
-	((
-		 SELECT MAX(ad_column_id) + 1
-		 FROM ad_column
-	 ), 0, 0, 'Y', '2023-08-16 01:07:21.492234', '2023-08-16 01:07:21.492234', 100, 100, 'BH_Locked',
-	 'Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)',
-	 NULL, 0, 'U', 'BH_Locked', 394, 20, NULL, NULL, 1, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL,
-	 NULL, NULL, 'N', (
-		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'a72b2d6e-eb96-4b6d-9eee-5a099053b43a'
-	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '4101e1a2-7209-4b96-afd4-ed05a83bd534', 'Y', 0, 'N', 'N', NULL,
-	 NULL, 'N', NULL, NULL, 'N');
-INSERT INTO
-	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
-	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
-	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
-	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
-	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
-	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
-	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
-VALUES
-	((
-		 SELECT MAX(ad_column_id) + 1
-		 FROM ad_column
-	 ), 0, 0, 'Y', '2023-08-16 01:07:21.492234', '2023-08-16 01:07:21.492234', 100, 100, 'BH_Locked',
-	 'Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)',
-	 NULL, 0, 'U', 'BH_Locked', 291, 20, NULL, NULL, 1, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL,
-	 NULL, NULL, 'N', (
-		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'a72b2d6e-eb96-4b6d-9eee-5a099053b43a'
-	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '05670947-68c9-400e-ae4c-8ab001596fc2', 'Y', 0, 'N', 'N', NULL,
-	 NULL, 'N', NULL, NULL, 'N');
 
 -- Manually differentiate between capitated and not (NHIF National Scheme is the only capitated)
 DROP TABLE IF EXISTS tmp_c_bpartner;
