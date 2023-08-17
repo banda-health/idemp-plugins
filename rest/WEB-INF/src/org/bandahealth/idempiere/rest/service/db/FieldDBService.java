@@ -21,7 +21,7 @@ public class FieldDBService extends BaseDBService<Field, MField> {
 
 	@Autowired
 	private ColumnDBService columnDBService;
-	
+
 	@Autowired
 	private FieldGroupDBService fieldGroupDBService;
 
@@ -57,11 +57,20 @@ public class FieldDBService extends BaseDBService<Field, MField> {
 
 		Map<Integer, MFieldGroup> fieldGroupByFieldId = fieldGroupDBService
 				.getByIds(dbModels.stream().map(MField::getAD_FieldGroup_ID).collect(Collectors.toSet()));
-		
+
 		return dbModels.stream().map(field -> {
+
 			Field result = new Field(field);
-			result.setColumn(new Column(columnByFieldId.get(field.getAD_Column_ID())));
-			result.setFieldGroup(new FieldGroup(fieldGroupByFieldId.get(field.getAD_FieldGroup_ID())));
+			if (columnByFieldId.containsKey(field.getAD_Column_ID())) {
+				result.setColumn(columnDBService
+						.transformData(Collections.singletonList(columnByFieldId.get(field.getAD_Column_ID()))).get(0));
+			}
+
+			if (fieldGroupByFieldId.containsKey(field.getAD_FieldGroup_ID())) {
+				result.setFieldGroup(fieldGroupDBService
+						.transformData(Collections.singletonList(fieldGroupByFieldId.get(field.getAD_FieldGroup_ID())))
+						.get(0));
+			}
 			return result;
 		}).collect(Collectors.toList());
 	}
@@ -70,7 +79,7 @@ public class FieldDBService extends BaseDBService<Field, MField> {
 	protected EntityConfiguration getDefaultEntityConfiguration() {
 		return new EntityConfiguration() {
 			{
-				setShouldUseContextClientId(true);
+				setShouldUseContextClientId(false);
 				setShouldFetchFromSystemClient(true);
 			}
 		};

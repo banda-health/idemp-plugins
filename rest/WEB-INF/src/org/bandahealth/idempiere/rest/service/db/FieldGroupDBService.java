@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.Collections;
-
 import org.bandahealth.idempiere.base.model.MFieldGroup;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.FieldGroup;
@@ -28,7 +26,7 @@ public class FieldGroupDBService extends BaseDBService<FieldGroup, MFieldGroup> 
 
 	@Override
 	protected FieldGroup createInstanceWithAllFields(MFieldGroup instance) {
-		return transformData(Collections.singletonList(instance)).get(0);
+		return new FieldGroup(instance);
 	}
 
 	@Override
@@ -40,7 +38,7 @@ public class FieldGroupDBService extends BaseDBService<FieldGroup, MFieldGroup> 
 	protected EntityConfiguration getDefaultEntityConfiguration() {
 		return new EntityConfiguration() {
 			{
-				setShouldUseContextClientId(true);
+				setShouldUseContextClientId(false);
 				setShouldFetchFromSystemClient(true);
 			}
 		};

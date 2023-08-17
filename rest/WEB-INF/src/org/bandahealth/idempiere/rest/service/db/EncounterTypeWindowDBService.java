@@ -59,7 +59,7 @@ public class EncounterTypeWindowDBService extends BaseDBService<EncounterTypeWin
 		Map<Integer, MWindow> windowsById = windowDBService
 				.getByIds(dbModels.stream().map(MBHEncounterTypeWindow::getAD_Window_ID).collect(Collectors.toSet()));
 
-		return dbModels.stream().map(encounterTypeWindowMapping -> {
+		List<EncounterTypeWindow> results = dbModels.stream().map(encounterTypeWindowMapping -> {
 			EncounterTypeWindow result = new EncounterTypeWindow(encounterTypeWindowMapping);
 
 			if (windowsById.containsKey(encounterTypeWindowMapping.getAD_Window_ID())) {
@@ -72,13 +72,15 @@ public class EncounterTypeWindowDBService extends BaseDBService<EncounterTypeWin
 
 			return result;
 		}).collect(Collectors.toList());
+
+		return results;
 	}
 
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
 		return new EntityConfiguration() {
 			{
-				setShouldUseContextClientId(true);
+				setShouldUseContextClientId(false);
 				setShouldFetchFromSystemClient(true);
 			}
 		};

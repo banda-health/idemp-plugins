@@ -67,7 +67,7 @@ public class WindowDBService extends BaseDBService<Window, MWindow> {
 	protected EntityConfiguration getDefaultEntityConfiguration() {
 		return new EntityConfiguration() {
 			{
-				setShouldUseContextClientId(true);
+				setShouldUseContextClientId(false);
 				setShouldFetchFromSystemClient(true);
 			}
 		};
