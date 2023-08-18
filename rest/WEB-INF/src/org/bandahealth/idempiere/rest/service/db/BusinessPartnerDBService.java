@@ -102,10 +102,10 @@ public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBP
 					new Query(Env.getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_Address1 + "=?", null).setParameters(
 							entity.getAddress()).setClient_ID().first();
 			if (location == null) {
-				I_C_Location clientLocation = MOrgInfo_BH.get(Env.getAD_Org_ID(Env.getCtx())).getC_Location();
+				I_C_Location clientLocation = MOrgInfo_BH.get(Env.getCtx(), Env.getAD_Org_ID(Env.getCtx())).getC_Location();
 				location =
-						new MLocation(MCountry.get(clientLocation.getC_Country_ID()),
-								MRegion.get(clientLocation.getC_Region_ID()));
+						new MLocation(MCountry.get(Env.getCtx(), clientLocation.getC_Country_ID()),
+								MRegion.get(Env.getCtx(), clientLocation.getC_Region_ID()));
 			}
 			location.setAddress1(entity.getAddress());
 			location.saveEx();
