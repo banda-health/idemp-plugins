@@ -108,11 +108,7 @@ public class AuthenticationRestService {
 			throw new AdempiereException(Msg.getMsg(Env.getCtx(), MMessage_BH.WRONG_CREDENTIALS));
 		}
 
-		MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
-		if (user == null) {
-			user = checkValidSystemUserWithNoSystemRole(clients, credentials);
-		}
-
+		MUser user = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
 		/**
 		 * Copied from ChangePasswordPanel > validateChangePassword
 		 */
@@ -140,7 +136,7 @@ public class AuthenticationRestService {
 	@Path(IRestConfigs.CHANGEACCESS_PATH)
 	public AuthResponse changeAccess(Authentication credentials) {
 		try {
-			MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
+			MUser user = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
 			if (user == null) {
 				return new AuthResponse(Status.UNAUTHORIZED);
 			}
@@ -261,7 +257,7 @@ public class AuthenticationRestService {
 			for (KeyNamePair client : clients) {
 				int clientId = client.getKey();
 				Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
-				MUser clientUser = MUser.get(Env.getCtx(), credentials.getUsername());
+				MUser clientUser = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
 				if (clientUser == null) {
 					trx.rollback();
 					throw new AdempiereException(ERROR_USER_NOT_FOUND);
@@ -299,11 +295,7 @@ public class AuthenticationRestService {
 		if (clients == null || clients.length == 0) {
 			return new AuthResponse(Status.UNAUTHORIZED);
 		} else {
-			MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
-			if (user == null) {
-				user = checkValidSystemUserWithNoSystemRole(clients, credentials);
-			}
-
+			MUser user = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
 			if (user == null) {
 				return new AuthResponse(Status.UNAUTHORIZED);
 			}
@@ -510,27 +502,4 @@ public class AuthenticationRestService {
 			// PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
 		}
 	}
-
-	/**
-	 * Check valid system users with no system role.
-	 *
-	 * @param clients
-	 * @param credentials
-	 * @return
-	 */
-	private MUser checkValidSystemUserWithNoSystemRole(KeyNamePair[] clients, Authentication credentials) {
-		MUser user = null;
-		for (KeyNamePair client : clients) {
-			// update context with client id
-
-			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, client.getKey());
-			user = MUser.get(Env.getCtx(), credentials.getUsername());
-			if (user != null) {
-				break;
-			}
-		}
-
-		return user;
-	}
-
 }
