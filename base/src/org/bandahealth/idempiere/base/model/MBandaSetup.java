@@ -1389,7 +1389,7 @@ public class MBandaSetup {
 				configurationClient.getName(), DEFAULT_IDEMPIERE_ENTITY_NAME).list();
 		// PO.clearCrossTenantSafe();
 
-		I_C_Location clientLocation = MOrgInfo_BH.get(getAD_Org_ID()).getC_Location();
+		I_C_Location clientLocation = MOrgInfo_BH.get(Env.getCtx(), getAD_Org_ID()).getC_Location();
 
 		Map<Integer, Integer> clientBusinessPartnerIdsByDefaultBusinessPartnerId = new HashMap<>();
 		for (MBPartner_BH defaultBusinessPartner : defaultBusinessPartners) {
