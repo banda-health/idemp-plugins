@@ -153,7 +153,7 @@ public class MInvoice_BH extends MInvoice {
 			newInvoiceLine.saveEx();
 
 			Object[] parameters = new Object[]{newInvoiceLine.getC_InvoiceLine_ID(), invoiceLine.getC_InvoiceLine_ID()};
-			DB.executeUpdate("UPDATE bh_bp_specific_payer_info SET c_invoiceline_id = ? WHERE c_invoicelien_id = ?",
+			DB.executeUpdate("UPDATE bh_bp_specific_payer_info SET c_invoiceline_id = ? WHERE c_invoiceline_id = ?",
 					parameters, false, get_TrxName());
 		});
 

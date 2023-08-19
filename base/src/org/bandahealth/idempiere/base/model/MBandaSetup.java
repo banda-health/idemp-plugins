@@ -380,6 +380,7 @@ public class MBandaSetup {
 			charge.setDescription(defaultCharge.getDescription());
 			charge.setC_ChargeType_ID(defaultChargeTypeMap.get(defaultCharge.getC_ChargeType_ID()).get_ID());
 			charge.setBH_Locked(defaultCharge.isBH_Locked());
+			charge.setBH_SubType(defaultCharge.getBH_SubType());
 			if (!charge.save()) {
 				String errorMessage = "Default Charge NOT inserted";
 				log.log(Level.SEVERE, errorMessage);
