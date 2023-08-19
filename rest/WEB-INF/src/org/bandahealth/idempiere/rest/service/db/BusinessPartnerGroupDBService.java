@@ -64,7 +64,7 @@ public class BusinessPartnerGroupDBService extends BaseDBService<BusinessPartner
 				.collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
 
 		// Get associated customer receivables account charges
-		MTable chargeTable = MTable.get(MTable.getTable_ID(MCharge_BH.Table_Name));
+		MTable chargeTable = MTable.get(Env.getCtx(), MTable.getTable_ID(MCharge_BH.Table_Name));
 		POInfo chargePO = POInfo.getPOInfo(Env.getCtx(), chargeTable.getAD_Table_ID(), null);
 		String chargeSql = chargePO.buildSelect(true, true).toString().replaceAll(" FROM " + MCharge_BH.Table_Name, "");
 		chargeSql += ",bpg.c_bp_group_id " +
