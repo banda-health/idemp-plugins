@@ -118,8 +118,6 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 				mOrder.setBPartner(businessPartner);
 			}
 
-			mOrder.setIsSOTrx(entity.isSalesOrderTransaction());
-
 			mOrder.saveEx();
 
 			// list of persisted order line ids
