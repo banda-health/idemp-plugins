@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.rest.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -26,6 +27,7 @@ public class Order extends BaseMetadata {
 	private Timestamp dateOrdered;
 	private Timestamp dateAccount;
 	private BigDecimal grandTotal;
+	@JsonProperty("isSalesOrderTransaction")
 	private boolean isSalesOrderTransaction;
 	private Boolean isExpense;
 	private String description;
@@ -59,6 +61,7 @@ public class Order extends BaseMetadata {
 		this.visitId = model.getBH_Visit_ID();
 		this.businessPartnerId = model.getC_BPartner_ID();
 		this.warehouseId = model.getM_Warehouse_ID();
+		setDocumentTypeTargetId(model.getC_DocTypeTarget_ID());
 	}
 
 	public Order(MOrder_BH model, BusinessPartner businessPartner, List<OrderLine> orderLines) {
@@ -118,10 +121,12 @@ public class Order extends BaseMetadata {
 		this.grandTotal = grandTotal;
 	}
 
-	public boolean isIsSalesOrderTransaction() {
+	@JsonProperty("isSalesOrderTransaction")
+	public boolean isSalesOrderTransaction() {
 		return isSalesOrderTransaction;
 	}
 
+	@JsonProperty("isSalesOrderTransaction")
 	public void setIsSalesOrderTransaction(boolean isSalesOrderTransaction) {
 		this.isSalesOrderTransaction = isSalesOrderTransaction;
 	}

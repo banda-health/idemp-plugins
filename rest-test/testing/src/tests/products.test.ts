@@ -1,7 +1,7 @@
 import { productApi, serviceApi } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
 import { Product, Service } from '../types/org.bandahealth.idempiere.rest';
-import { createBusinessPartner, createOrder, createProduct, createPurchaseOrder } from '../utils';
+import { createBusinessPartner, createOrder, createProduct } from '../utils';
 
 test('inactive products and services not returned from the search method', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -16,7 +16,8 @@ test('inactive products and services not returned from the search method', async
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create product 2';
 	let product2: Partial<Product> = {
@@ -33,7 +34,8 @@ test('inactive products and services not returned from the search method', async
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create service 1';
 	let service1: Partial<Service> = {
@@ -70,7 +72,7 @@ test('inactive products and services not returned from the search method', async
 	valueObject.product = product1;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,

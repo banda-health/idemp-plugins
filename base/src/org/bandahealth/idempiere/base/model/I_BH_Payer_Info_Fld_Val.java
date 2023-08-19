@@ -21,18 +21,18 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Payer_Info_Field
+/** Generated Interface for BH_Payer_Info_Fld_Val
  *  @author iDempiere (generated) 
  *  @version Release 8.2
  */
 @SuppressWarnings("all")
-public interface I_BH_Payer_Info_Field 
+public interface I_BH_Payer_Info_Fld_Val 
 {
 
-    /** TableName=BH_Payer_Info_Field */
-    public static final String Table_Name = "BH_Payer_Info_Field";
+    /** TableName=BH_Payer_Info_Fld_Val */
+    public static final String Table_Name = "BH_Payer_Info_Fld_Val";
 
-    /** AD_Table_ID=1000048 */
+    /** AD_Table_ID=1000046 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -64,52 +64,34 @@ public interface I_BH_Payer_Info_Field
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_FillFromPatient */
-    public static final String COLUMNNAME_BH_FillFromPatient = "BH_FillFromPatient";
-
-	/** Set Fill From Patient	  */
-	public void setBH_FillFromPatient (boolean BH_FillFromPatient);
-
-	/** Get Fill From Patient	  */
-	public boolean isBH_FillFromPatient();
-
-    /** Column name BH_Payer_ID */
-    public static final String COLUMNNAME_BH_Payer_ID = "BH_Payer_ID";
-
-	/** Set Payer ID	  */
-	public void setBH_Payer_ID (int BH_Payer_ID);
-
-	/** Get Payer ID	  */
-	public int getBH_Payer_ID();
-
-	public org.compiere.model.I_C_BPartner getBH_Payer() throws RuntimeException;
-
-    /** Column name BH_Payer_Info_Field_ID */
-    public static final String COLUMNNAME_BH_Payer_Info_Field_ID = "BH_Payer_Info_Field_ID";
+    /** Column name BH_Payer_Info_Fld_ID */
+    public static final String COLUMNNAME_BH_Payer_Info_Fld_ID = "BH_Payer_Info_Fld_ID";
 
 	/** Set Payer Info Field	  */
-	public void setBH_Payer_Info_Field_ID (int BH_Payer_Info_Field_ID);
+	public void setBH_Payer_Info_Fld_ID (int BH_Payer_Info_Fld_ID);
 
 	/** Get Payer Info Field	  */
-	public int getBH_Payer_Info_Field_ID();
+	public int getBH_Payer_Info_Fld_ID();
 
-    /** Column name BH_Payer_Info_Field_UU */
-    public static final String COLUMNNAME_BH_Payer_Info_Field_UU = "BH_Payer_Info_Field_UU";
+	public I_BH_Payer_Info_Fld getBH_Payer_Info_Fld() throws RuntimeException;
 
-	/** Set BH_Payer_Info_Field_UU	  */
-	public void setBH_Payer_Info_Field_UU (String BH_Payer_Info_Field_UU);
+    /** Column name BH_Payer_Info_Fld_Val_ID */
+    public static final String COLUMNNAME_BH_Payer_Info_Fld_Val_ID = "BH_Payer_Info_Fld_Val_ID";
 
-	/** Get BH_Payer_Info_Field_UU	  */
-	public String getBH_Payer_Info_Field_UU();
+	/** Set Payer Info Values	  */
+	public void setBH_Payer_Info_Fld_Val_ID (int BH_Payer_Info_Fld_Val_ID);
 
-    /** Column name BH_PayerInfoFieldDataType */
-    public static final String COLUMNNAME_BH_PayerInfoFieldDataType = "BH_PayerInfoFieldDataType";
+	/** Get Payer Info Values	  */
+	public int getBH_Payer_Info_Fld_Val_ID();
 
-	/** Set Charge Info Data Type	  */
-	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType);
+    /** Column name BH_Payer_Info_Fld_Val_UU */
+    public static final String COLUMNNAME_BH_Payer_Info_Fld_Val_UU = "BH_Payer_Info_Fld_Val_UU";
 
-	/** Get Charge Info Data Type	  */
-	public String getBH_PayerInfoFieldDataType();
+	/** Set BH_Payer_Info_Fld_Val_UU	  */
+	public void setBH_Payer_Info_Fld_Val_UU (String BH_Payer_Info_Fld_Val_UU);
+
+	/** Get BH_Payer_Info_Fld_Val_UU	  */
+	public String getBH_Payer_Info_Fld_Val_UU();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

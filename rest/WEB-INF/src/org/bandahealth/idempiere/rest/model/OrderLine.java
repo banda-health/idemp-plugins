@@ -34,8 +34,6 @@ public class OrderLine extends BaseMetadata {
 	@JsonIgnore
 	private int chargeId;
 	private Charge charge;
-	private List<BusinessPartnerSpecificPayerInformation> businessPartnerSpecificPayerInformationList =
-			new ArrayList<>();
 	private String description;
 	@JsonIgnore
 	private MOrder_BH order;
@@ -154,15 +152,6 @@ public class OrderLine extends BaseMetadata {
 
 	public void setCharge(Charge charge) {
 		this.charge = charge;
-	}
-
-	public List<BusinessPartnerSpecificPayerInformation> getBusinessPartnerSpecificPayerInformationList() {
-		return businessPartnerSpecificPayerInformationList;
-	}
-
-	public void setBusinessPartnerSpecificPayerInformationList(
-			List<BusinessPartnerSpecificPayerInformation> businessPartnerSpecificPayerInformationList) {
-		this.businessPartnerSpecificPayerInformationList = businessPartnerSpecificPayerInformationList;
 	}
 
 	public String getDescription() {

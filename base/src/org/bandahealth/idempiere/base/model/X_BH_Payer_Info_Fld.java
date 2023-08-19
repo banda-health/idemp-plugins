@@ -22,27 +22,27 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Model for BH_Payer_Info_Field
+/** Generated Model for BH_Payer_Info_Fld
  *  @author iDempiere (generated) 
  *  @version Release 8.2 - $Id$ */
-public class X_BH_Payer_Info_Field extends PO implements I_BH_Payer_Info_Field, I_Persistent 
+public class X_BH_Payer_Info_Fld extends PO implements I_BH_Payer_Info_Fld, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230815L;
+	private static final long serialVersionUID = 20230819L;
 
     /** Standard Constructor */
-    public X_BH_Payer_Info_Field (Properties ctx, int BH_Payer_Info_Field_ID, String trxName)
+    public X_BH_Payer_Info_Fld (Properties ctx, int BH_Payer_Info_Fld_ID, String trxName)
     {
-      super (ctx, BH_Payer_Info_Field_ID, trxName);
-      /** if (BH_Payer_Info_Field_ID == 0)
+      super (ctx, BH_Payer_Info_Fld_ID, trxName);
+      /** if (BH_Payer_Info_Fld_ID == 0)
         {
 			setBH_FillFromPatient (false);
 // N
 			setBH_Payer_ID (0);
-			setBH_Payer_Info_Field_ID (0);
+			setBH_Payer_Info_Fld_ID (0);
 			setBH_PayerInfoFieldDataType (null);
 // T
 			setLine (0);
@@ -51,7 +51,7 @@ public class X_BH_Payer_Info_Field extends PO implements I_BH_Payer_Info_Field, 
     }
 
     /** Load Constructor */
-    public X_BH_Payer_Info_Field (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_Payer_Info_Fld (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -73,7 +73,7 @@ public class X_BH_Payer_Info_Field extends PO implements I_BH_Payer_Info_Field, 
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_Payer_Info_Field[")
+      StringBuilder sb = new StringBuilder ("X_BH_Payer_Info_Fld[")
         .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
@@ -125,53 +125,53 @@ public class X_BH_Payer_Info_Field extends PO implements I_BH_Payer_Info_Field, 
 	}
 
 	/** Set Payer Info Field.
-		@param BH_Payer_Info_Field_ID Payer Info Field	  */
-	public void setBH_Payer_Info_Field_ID (int BH_Payer_Info_Field_ID)
+		@param BH_Payer_Info_Fld_ID Payer Info Field	  */
+	public void setBH_Payer_Info_Fld_ID (int BH_Payer_Info_Fld_ID)
 	{
-		if (BH_Payer_Info_Field_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Field_ID, null);
+		if (BH_Payer_Info_Fld_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Field_ID, Integer.valueOf(BH_Payer_Info_Field_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_ID, Integer.valueOf(BH_Payer_Info_Fld_ID));
 	}
 
 	/** Get Payer Info Field.
 		@return Payer Info Field	  */
-	public int getBH_Payer_Info_Field_ID () 
+	public int getBH_Payer_Info_Fld_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Field_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Fld_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Set BH_Payer_Info_Field_UU.
-		@param BH_Payer_Info_Field_UU BH_Payer_Info_Field_UU	  */
-	public void setBH_Payer_Info_Field_UU (String BH_Payer_Info_Field_UU)
+	/** Set BH_Payer_Info_Fld_UU.
+		@param BH_Payer_Info_Fld_UU BH_Payer_Info_Fld_UU	  */
+	public void setBH_Payer_Info_Fld_UU (String BH_Payer_Info_Fld_UU)
 	{
-		set_Value (COLUMNNAME_BH_Payer_Info_Field_UU, BH_Payer_Info_Field_UU);
+		set_Value (COLUMNNAME_BH_Payer_Info_Fld_UU, BH_Payer_Info_Fld_UU);
 	}
 
-	/** Get BH_Payer_Info_Field_UU.
-		@return BH_Payer_Info_Field_UU	  */
-	public String getBH_Payer_Info_Field_UU () 
+	/** Get BH_Payer_Info_Fld_UU.
+		@return BH_Payer_Info_Fld_UU	  */
+	public String getBH_Payer_Info_Fld_UU () 
 	{
-		return (String)get_Value(COLUMNNAME_BH_Payer_Info_Field_UU);
+		return (String)get_Value(COLUMNNAME_BH_Payer_Info_Fld_UU);
 	}
 
 	/** Text = T */
 	public static final String BH_PAYERINFOFIELDDATATYPE_Text = "T";
 	/** List = L */
 	public static final String BH_PAYERINFOFIELDDATATYPE_List = "L";
-	/** Set Charge Info Data Type.
-		@param BH_PayerInfoFieldDataType Charge Info Data Type	  */
+	/** Set Payer Info Field Data Type.
+		@param BH_PayerInfoFieldDataType Payer Info Field Data Type	  */
 	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType)
 	{
 
 		set_Value (COLUMNNAME_BH_PayerInfoFieldDataType, BH_PayerInfoFieldDataType);
 	}
 
-	/** Get Charge Info Data Type.
-		@return Charge Info Data Type	  */
+	/** Get Payer Info Field Data Type.
+		@return Payer Info Field Data Type	  */
 	public String getBH_PayerInfoFieldDataType () 
 	{
 		return (String)get_Value(COLUMNNAME_BH_PayerInfoFieldDataType);

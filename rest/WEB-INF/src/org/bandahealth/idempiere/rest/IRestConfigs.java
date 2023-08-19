@@ -34,10 +34,6 @@ public interface IRestConfigs {
 
 	String METADATA_PATH = AUTHENTICATION_PATH + "/metadata";
 
-	String RECEIVE_PRODUCTS_PATH = AUTHENTICATION_PATH + "/receive-products";
-
-	String EXPENSES_PATH = AUTHENTICATION_PATH + "/expenses";
-
 	String ACCOUNTS_PATH = AUTHENTICATION_PATH + "/accounts";
 
 	String USERS_PATH = AUTHENTICATION_PATH + "/users";

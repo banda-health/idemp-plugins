@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.bandahealth.idempiere.base.model.MBHPayerInfoField;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.compiere.model.MRefList;
 
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ public class PayerInformationField extends BaseEntity {
 	 */
 	public PayerInformationField() {}
 
-	public PayerInformationField(MBHPayerInfoField entity) {
+	public PayerInformationField(MBHPayerInfoFld entity) {
 		this(entity, null);
 	}
 
-	public PayerInformationField(MBHPayerInfoField entity, MRefList dataType) {
+	public PayerInformationField(MBHPayerInfoFld entity, MRefList dataType) {
 		super(entity, entity.getName(), entity.getDescription(), null);
 		setPayerId(entity.getBH_Payer_ID());
 		setShouldFillFromPatient(entity.isBH_FillFromPatient());

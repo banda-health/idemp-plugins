@@ -14,6 +14,8 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
+import org.bandahealth.idempiere.rest.model.Invoice;
+import org.bandahealth.idempiere.rest.model.InvoiceLine;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -27,6 +29,7 @@ import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MUser;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -41,14 +44,13 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -70,6 +72,10 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	@Autowired
 	private OrderLineDBService orderLineDBService;
 	@Autowired
+	private InvoiceDBService invoiceDBService;
+	@Autowired
+	private InvoiceLineDBService invoiceLineDBService;
+	@Autowired
 	private UserDBService userDBService;
 	@Autowired
 	private EntityMetadataDBService entityMetadataDBService;
@@ -77,6 +83,8 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	private VoidedReasonDBService voidedReasonDBService;
 	@Autowired
 	private BusinessPartnerDBService businessPartnerDBService;
+	@Autowired
+	private DocumentTypeDBService documentTypeDBService;
 
 	private final Map<String, String> dynamicJoins = new HashMap<>() {
 		{
@@ -147,7 +155,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	}
 
 	public Visit processDependentEntities(String uuid, String docAction) throws Exception {
-		if (!orderDBService.isDocActionValidForUser(docAction)) {
+		if (!orderDBService.isDocActionValidForUser(DocumentDBService.DOCUMENTNAME_BILLS, docAction)) {
 			return null;
 		}
 
@@ -158,11 +166,52 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			List<MOrder_BH> visitsOrders =
 					orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID,
 							Collections.singleton(visit.get_ID())).get(visit.get_ID());
-			// TODO: Update this when we have mulitple orders, since we may not want to process all at the same time
+			Map<Integer, MDocType_BH> documentTypesById = documentTypeDBService.getByIds(
+					visitsOrders.stream().map(MOrder_BH::getC_DocTypeTarget_ID).collect(Collectors.toSet()));
+			// TODO: Update this when we have multiple orders, since we may not want to process all at the same time
 			for (MOrder_BH order : visitsOrders) {
 				order.set_TrxName(processVisitTransaction.getTrxName());
 				ModelUtil.processDocumentOrError(orderDBService.getDocumentProcessId(), order, docAction);
 
+				// Handle the invoices (if the order document type is appropriate)
+				MDocType_BH documentType = documentTypesById.containsKey(order.getC_DocTypeTarget_ID()) ?
+						documentTypesById.get(order.getC_DocTypeTarget_ID()) : new MDocType_BH(Env.getCtx(), 0, null);
+				if (!MDocType.DOCSUBTYPESO_OnCreditOrder.equals(documentType.getDocSubTypeSO()) &&
+						!MDocType.DOCSUBTYPESO_POSOrder.equals(documentType.getDocSubTypeSO()) &&
+						!MDocType.DOCSUBTYPESO_PrepayOrder.equals(documentType.getDocSubTypeSO())) {
+					List<MInvoice_BH> existingInvoices =
+							invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
+											Collections.singleton(visit.get_ID())).get(visit.get_ID()).stream()
+									.peek(invoice -> invoice.set_TrxName(processVisitTransaction.getTrxName()))
+									.collect(Collectors.toList());
+					Collection<MInvoice_BH> existingUnfinalizedInvoices = existingInvoices.stream()
+							.filter(
+									invoice -> !invoice.isComplete() || invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed))
+							.collect(Collectors.toList());
+					// If this is a reversal, we also need to take care of the payments
+					if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
+							docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
+							docAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
+
+						for (MInvoice_BH invoice : existingUnfinalizedInvoices) {
+							MInvoice_BH newInvoice = invoice.copy();
+							invoice.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
+							ModelUtil.processDocumentOrError(invoiceDBService.getDocumentProcessId(), invoice,
+									MInvoice_BH.DOCACTION_Reverse_Accrual);
+
+							newInvoice.setDocStatus(MInvoice_BH.DOCSTATUS_Drafted);
+							newInvoice.setBH_Visit_ID(visit.get_ID());
+							newInvoice.saveEx();
+						}
+					} else {
+						for (MInvoice_BH invoice : existingUnfinalizedInvoices) {
+							invoice.setDocAction(docAction);
+							ModelUtil.processDocumentOrError(invoiceDBService.getDocumentProcessId(), invoice, docAction);
+						}
+					}
+				}
+
+				// Handle the payments
 				List<MPayment_BH> existingPayments = paymentDBService.getByUuids(
 								paymentDBService.getPaymentsByVisitId(visit.get_ID()).stream().map(Payment::getUuid)
 										.collect(Collectors.toSet())).values().stream()
@@ -337,10 +386,9 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		if (entity.getPatient() != null && entity.getPatient().getUuid() != null &&
 				(businessPartner = businessPartnerDBService.getEntityByUuidFromDB(entity.getPatient().getUuid())) != null) {
 			visit.setPatient_ID(businessPartner.get_ID());
-			MBPartner_BH finalBusinessPartner = businessPartner;
 			entity.getOrders().forEach(order -> {
 				order.setBusinessPartner(new BusinessPartner());
-				order.getBusinessPartner().setUuid(finalBusinessPartner.getC_BPartner_UU());
+				order.getBusinessPartner().setUuid(businessPartner.getC_BPartner_UU());
 			});
 		}
 
@@ -352,27 +400,45 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		entity.setId(visit.get_ID());
 
 		// TODO: Eventually handle when orders are removed/added...
-		// Now take care of the orders
-		Optional<MDocType> onCreditOrderDocumentType =
-				Arrays.stream(MDocType_BH.getOfDocBaseType(Env.getCtx(), MDocType_BH.DOCBASETYPE_SalesOrder)).filter(
-								documentType -> documentType.getDocSubTypeSO() != null &&
-										documentType.getDocSubTypeSO().equalsIgnoreCase(MDocType_BH.DOCSUBTYPESO_OnCreditOrder))
-						.findFirst();
-		if (onCreditOrderDocumentType.isEmpty()) {
-			throw new AdempiereException("No on-credit document type found");
-		}
 		if (entity.getOrders() == null) {
 			entity.setOrders(new ArrayList<>());
 		}
+		List<Order> updatedOrders = new ArrayList<>();
 		for (Order order : entity.getOrders()) {
 			order.setVisitId(visit.get_ID());
-			order.setDocumentTypeTargetId(onCreditOrderDocumentType.get().get_ID());
-
-			order.setIsSalesOrderTransaction(true);
 			order.setDateOrdered(entity.getVisitDate());
 			order.setDateAccount(entity.getVisitDate());
 
-			orderDBService.saveEntity(order);
+			updatedOrders.add(orderDBService.saveEntity(order));
+		}
+
+		List<OrderLine> updatedOrderLines =
+				updatedOrders.stream().map(Order::getOrderLines).flatMap(Collection::stream).collect(Collectors.toList());
+		for (Invoice invoice : entity.getInvoices()) {
+			invoice.setVisitId(visit.get_ID());
+
+			// Update order associations, if there is any need
+			if (invoice.getOrder() != null && !StringUtil.isNullOrEmpty(invoice.getOrder().getUuid())) {
+				// Set the order ID with what has been saved
+				invoice.setOrderId(
+						updatedOrders.stream().filter(order -> Objects.equals(order.getUuid(), invoice.getOrder().getUuid()))
+								.findFirst().orElseThrow().getId());
+
+				// Now set order line IDs, if there are any
+				List<InvoiceLine> invoiceLinesWithOrderLineAssociations;
+				if (invoice.getInvoiceLines() != null && !(invoiceLinesWithOrderLineAssociations =
+						invoice.getInvoiceLines().stream().filter(invoiceLine -> invoiceLine.getOrderLine() != null &&
+										!StringUtil.isNullOrEmpty(invoiceLine.getOrderLine().getUuid()))
+								.collect(Collectors.toList())).isEmpty()) {
+					// There are, so set the order line IDs
+					invoiceLinesWithOrderLineAssociations.forEach(invoiceLine -> invoiceLine.setOrderLineId(
+							updatedOrderLines.stream()
+									.filter(orderLine -> Objects.equals(orderLine.getUuid(), invoiceLine.getOrderLine().getUuid()))
+									.findFirst().orElseThrow().getId()));
+				}
+			}
+
+			invoiceDBService.saveEntity(invoice);
 		}
 
 		// list of persisted payment line ids
@@ -444,7 +510,10 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				throw new AdempiereException("Visit is already completed");
 			}
 
-			// Handle order lines separately
+			// Handle invoice & order lines separately
+			if (!visitsInvoices.isEmpty()) {
+				visitsInvoices.forEach(invoice -> invoiceLineDBService.deleteInvoiceLinesByInvoice(invoice.get_ID(), ""));
+			}
 			if (!visitsOrders.isEmpty()) {
 				visitsOrders.forEach(order -> orderLineDBService.deleteOrderLinesByOrder(order.get_ID(), ""));
 			}
@@ -521,6 +590,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		}
 		visit.setPatient(businessPartnerDBService.transformData(Collections.singletonList(businessPartner)).get(0));
 		visit.setPayments(paymentDBService.getPaymentsByVisitId(instance.get_ID()));
+		// Set orders
 		visit.setOrders(orderDBService.transformData(
 				orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID,
 						Collections.singleton(visit.getId())).get(visit.getId())));
@@ -528,6 +598,17 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				visit.getOrders().stream().map(Order::getId).collect(Collectors.toSet()));
 		visit.getOrders()
 				.forEach(order -> order.setOrderLines(orderLinesByOrderId.getOrDefault(order.getId(), new ArrayList<>())));
+		// Set invoices
+		visit.setInvoices(invoiceDBService.transformData(
+				invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
+						Collections.singleton(visit.getId())).get(visit.getId())));
+		Map<Integer, List<InvoiceLine>> invoiceLinesByOrderId = invoiceLineDBService.transformData(
+						invoiceLineDBService.getGroupsByIds(MInvoiceLine::getC_Invoice_ID, MInvoiceLine.COLUMNNAME_C_Invoice_ID,
+										visit.getInvoices().stream().map(Invoice::getId).collect(Collectors.toSet())).values().stream()
+								.flatMap(Collection::stream).collect(Collectors.toList())).stream()
+				.collect(Collectors.groupingBy(InvoiceLine::getInvoiceId));
+		visit.getInvoices().forEach(
+				invoice -> invoice.setInvoiceLines(invoiceLinesByOrderId.getOrDefault(invoice.getId(), new ArrayList<>())));
 
 		// THIS NEEDS TO BE REVISED! The `createInstanceWithAllFields` call does not
 		// happen in a loop, hence it makes no sense pre-fetching a list of all users

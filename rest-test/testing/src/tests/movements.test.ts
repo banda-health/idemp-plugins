@@ -1,7 +1,7 @@
 import { movementApi, storageOnHandApi, warehouseApi } from '../api';
-import { documentAction, documentStatus } from '../models';
+import { documentAction, documentBaseType, documentStatus } from '../models';
 import { Movement, MovementLine } from '../types/org.bandahealth.idempiere.rest';
-import { createBusinessPartner, createProduct, createPurchaseOrder } from '../utils';
+import { createBusinessPartner, createOrder, createProduct } from '../utils';
 
 test('can move inventory between warehouses', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -16,7 +16,8 @@ test('can move inventory between warehouses', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create movement';
 	const differentWarehouse = (await warehouseApi.get(valueObject)).results.find(

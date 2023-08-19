@@ -29,6 +29,9 @@ public class Payment extends BaseMetadata {
 	private String docStatus;
 	private String transactionDate;
 	private BigDecimal tenderAmount;
+	@JsonIgnore
+	private int documentTypeId;
+	private DocumentType documentType;
 
 	public Payment() {
 	}
@@ -43,6 +46,7 @@ public class Payment extends BaseMetadata {
 		this.transactionDate = DateUtil.parseDateOnly(entity.getDateTrx());
 		this.tenderAmount = entity.getBH_TenderAmount();
 		setTenderType(entity.getTenderType());
+		setDocumentTypeId(entity.getC_DocType_ID());
 	}
 
 	public BusinessPartner getBusinessPartner() {
@@ -131,5 +135,21 @@ public class Payment extends BaseMetadata {
 
 	public void setTenderType(String tenderType) {
 		this.tenderType = tenderType;
+	}
+
+	public int getDocumentTypeId() {
+		return documentTypeId;
+	}
+
+	public void setDocumentTypeId(int documentTypeId) {
+		this.documentTypeId = documentTypeId;
+	}
+
+	public DocumentType getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(DocumentType documentType) {
+		this.documentType = documentType;
 	}
 }

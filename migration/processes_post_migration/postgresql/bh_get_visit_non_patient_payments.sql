@@ -51,8 +51,8 @@ FROM
 			bpspi.name
 		FROM
 			bh_bp_specific_payer_info bpspi
-				JOIN bh_payer_info_field pif
-				ON bpspi.bh_payer_info_field_id = pif.bh_payer_info_field_id
+				JOIN bh_payer_info_fld pif
+				ON bpspi.bh_payer_info_fld_id = pif.bh_payer_info_fld_id
 		WHERE
 			(pif.name IN ('Member ID', 'NHIF Number', 'Patient ID') OR pif.name IS NULL)
 	) AS bpspii
@@ -63,8 +63,8 @@ FROM
 			bpspi.name
 		FROM
 			bh_bp_specific_payer_info bpspi
-				JOIN bh_payer_info_field pif
-				ON bpspi.bh_payer_info_field_id = pif.bh_payer_info_field_id
+				JOIN bh_payer_info_fld pif
+				ON bpspi.bh_payer_info_fld_id = pif.bh_payer_info_fld_id
 		WHERE
 			(pif.name IN ('Patient Name', 'Member Name', 'Mother''s Name') OR pif.name IS NULL)
 	) bpspicl
@@ -75,8 +75,8 @@ FROM
 			bpspi.name
 		FROM
 			bh_bp_specific_payer_info bpspi
-				JOIN bh_payer_info_field pif
-				ON bpspi.bh_payer_info_field_id = pif.bh_payer_info_field_id
+				JOIN bh_payer_info_fld pif
+				ON bpspi.bh_payer_info_fld_id = pif.bh_payer_info_fld_id
 		WHERE
 			(pif.name IN ('Claim Number') OR pif.name IS NULL)
 			AND (pif.bh_payerinfofielddatatype = 'T' AND pif.bh_fillfrompatient = 'N')
@@ -88,8 +88,8 @@ FROM
 			bpspi.name
 		FROM
 			bh_bp_specific_payer_info bpspi
-				JOIN bh_payer_info_field pif
-				ON bpspi.bh_payer_info_field_id = pif.bh_payer_info_field_id
+				JOIN bh_payer_info_fld pif
+				ON bpspi.bh_payer_info_fld_id = pif.bh_payer_info_fld_id
 		WHERE
 			(pif.name IN ('Relationship') OR pif.name IS NULL)
 			AND (pif.bh_payerinfofielddatatype = 'L' AND pif.bh_fillfrompatient = 'Y')
@@ -119,7 +119,7 @@ FROM
 		JOIN c_invoiceline il
 		ON i.c_invoice_id = il.c_invoice_id
 		JOIN c_charge c
-		ON il.c_charge_id = c.c_charge_id AND name = 'Bill Waiver'
+		ON il.c_charge_id = c.c_charge_id
 		JOIN ad_reference r
 		ON r.ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'
 		JOIN ad_ref_list rl

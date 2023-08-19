@@ -16,16 +16,16 @@ test('account mapping can be set up through a charge', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	const defaultIncomeCategoryChargeType = (
+	const defaultExpenseCategoryChargeType = (
 		await chargeTypeApi.get(
 			valueObject,
 			0,
 			100,
 			undefined,
-			JSON.stringify({ isactive: true, name: 'Default Income Category - DO NOT CHANGE' }),
+			JSON.stringify({ isactive: true, name: 'Default Expense Category - DO NOT CHANGE' }),
 		)
 	).results[0];
-	expect(defaultIncomeCategoryChargeType).toBeTruthy();
+	expect(defaultExpenseCategoryChargeType).toBeTruthy();
 	const doNotChangeAccount = (
 		await accountApi.get(valueObject, undefined, undefined, undefined, JSON.stringify({ value: '99999' }))
 	).results[0];
@@ -33,7 +33,7 @@ test('account mapping can be set up through a charge', async () => {
 
 	const charge: Partial<Charge> = {
 		orgId: 0,
-		chargeType: defaultIncomeCategoryChargeType,
+		chargeType: defaultExpenseCategoryChargeType,
 		description: valueObject.getStepMessageLong(),
 		name: `${valueObject.random}_${valueObject.scenarioName}`,
 		account: { uuid: doNotChangeAccount.uuid } as Account,

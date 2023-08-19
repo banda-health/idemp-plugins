@@ -36,6 +36,9 @@ public class BusinessPartner extends BaseEntity {
 	private boolean needAdditionalVisitInformation;
 
 	public BusinessPartner() {
+		isCustomer = false;
+		isVendor = false;
+		needAdditionalVisitInformation = false;
 	}
 
 	public BusinessPartner(MBPartner_BH model) {

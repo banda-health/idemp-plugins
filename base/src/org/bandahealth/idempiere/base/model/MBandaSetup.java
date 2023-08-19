@@ -146,6 +146,17 @@ public class MBandaSetup {
 	}
 
 	/**
+	 * This takes care of creating our custom sequences, such as for the patient id
+	 *
+	 * @return Whether the creation was successful or not
+	 */
+	public boolean createSequences() {
+		MSequence_BH.createTableSequence(context,
+				MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITHOUT_PREFIX, getTransactionName(), false);
+		return true;
+	}
+
+	/**
 	 * This method updates the accounting schema costing method and level, then
 	 * ensures a costing element is created that matches the costing method
 	 *
@@ -428,16 +439,16 @@ public class MBandaSetup {
 	 * Add insurance & donation payers for this client
 	 */
 	private boolean addPayerInformationFields(Map<Integer, Integer> clientPayerIdsByDefaultPayerId) {
-		Map<Integer, MBHPayerInfoFieldValue> infoValues = getDefaultPayerInfoFieldValuesMap();
+		Map<Integer, MBHPayerInfoFldVal> infoValues = getDefaultPayerInfoFieldValuesMap();
 
 		// PO.setCrossTenantSafe();
-		List<MBHPayerInfoField> defaultPayerInfoFieldList = new Query(context, MBHPayerInfoField.Table_Name,
-				MBHPayerInfoField.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
+		List<MBHPayerInfoFld> defaultPayerInfoFieldList = new Query(context, MBHPayerInfoFld.Table_Name,
+				MBHPayerInfoFld.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		// PO.clearCrossTenantSafe();
 
-		for (MBHPayerInfoField defaultPayerInfoField : defaultPayerInfoFieldList) {
-			MBHPayerInfoField payerInfoField = new MBHPayerInfoField(context, 0, getTransactionName());
+		for (MBHPayerInfoFld defaultPayerInfoField : defaultPayerInfoFieldList) {
+			MBHPayerInfoFld payerInfoField = new MBHPayerInfoFld(context, 0, getTransactionName());
 			payerInfoField.setBH_PayerInfoFieldDataType(defaultPayerInfoField.getBH_PayerInfoFieldDataType());
 			payerInfoField.setBH_FillFromPatient(defaultPayerInfoField.isBH_FillFromPatient());
 			payerInfoField.setBH_Payer_ID(clientPayerIdsByDefaultPayerId.get(defaultPayerInfoField.getBH_Payer_ID()));
@@ -452,17 +463,17 @@ public class MBandaSetup {
 				return false;
 			}
 
-			List<MBHPayerInfoFieldValue> defaultPayerInformationFieldValuesForDefaultPayerInformationField =
+			List<MBHPayerInfoFldVal> defaultPayerInformationFieldValuesForDefaultPayerInformationField =
 					infoValues.values().stream().filter(
-							payerInformationFieldValue -> payerInformationFieldValue.getBH_Payer_Info_Field_ID() ==
-									defaultPayerInfoField.getBH_Payer_Info_Field_ID()).collect(Collectors.toList());
+							payerInformationFieldValue -> payerInformationFieldValue.getBH_Payer_Info_Fld_ID() ==
+									defaultPayerInfoField.getBH_Payer_Info_Fld_ID()).collect(Collectors.toList());
 
 			// We need to get all payer info values mapped for this charge info from the map
-			for (MBHPayerInfoFieldValue defaultPayerInformationFieldValue :
+			for (MBHPayerInfoFldVal defaultPayerInformationFieldValue :
 					defaultPayerInformationFieldValuesForDefaultPayerInformationField) {
-				MBHPayerInfoFieldValue chargeInfoValue = new MBHPayerInfoFieldValue(context, 0, getTransactionName());
+				MBHPayerInfoFldVal chargeInfoValue = new MBHPayerInfoFldVal(context, 0, getTransactionName());
 				chargeInfoValue.setName(defaultPayerInformationFieldValue.getName());
-				chargeInfoValue.setBH_Payer_Info_Field_ID(payerInfoField.getBH_Payer_Info_Field_ID());
+				chargeInfoValue.setBH_Payer_Info_Fld_ID(payerInfoField.getBH_Payer_Info_Fld_ID());
 				chargeInfoValue.setLine(defaultPayerInformationFieldValue.getLine());
 				if (!chargeInfoValue.save()) {
 					String errorMessage = "Payer Info Field Value NOT saved";
@@ -1110,14 +1121,14 @@ public class MBandaSetup {
 	 *
 	 * @return a map of the info values
 	 */
-	private Map<Integer, MBHPayerInfoFieldValue> getDefaultPayerInfoFieldValuesMap() {
+	private Map<Integer, MBHPayerInfoFldVal> getDefaultPayerInfoFieldValuesMap() {
 		// PO.setCrossTenantSafe();
-		List<MBHPayerInfoFieldValue> infoValuesList = new Query(context, MBHPayerInfoFieldValue.Table_Name,
-				MBHPayerInfoFieldValue.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
+		List<MBHPayerInfoFldVal> infoValuesList = new Query(context, MBHPayerInfoFldVal.Table_Name,
+				MBHPayerInfoFldVal.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
 		// PO.clearCrossTenantSafe();
 		return infoValuesList.stream()
-				.collect(Collectors.toMap(MBHPayerInfoFieldValue::getBH_Payer_Info_Field_Value_ID, Function.identity()));
+				.collect(Collectors.toMap(MBHPayerInfoFldVal::getBH_Payer_Info_Fld_Val_ID, Function.identity()));
 	}
 
 	/**

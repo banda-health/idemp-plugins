@@ -2,6 +2,8 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
@@ -12,7 +14,9 @@ import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MDocType;
+import org.compiere.model.MJournal;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
 import org.compiere.model.MRole;
@@ -22,6 +26,8 @@ import org.compiere.model.SystemIDs;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
+import org.eevolution.model.I_DD_Order;
+import org.eevolution.model.I_HR_Payroll;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
@@ -40,26 +46,24 @@ import java.util.stream.Collectors;
 @Component
 public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefList> {
 	private final CLogger log = CLogger.getCLogger(BaseDBService.class);
-	private final Set<String> usedDocumentTypeNames = new HashSet<>();
-	private final Map<String, Integer> documentTypeNameToADTableIdMap = new HashMap<>();
+	private final Map<String, Integer> documentBaseTypeToTableId =
+			Map.ofEntries(Map.entry(MDocType_BH.DOCBASETYPE_SalesOrder, MOrder_BH.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_PurchaseOrder, MOrder_BH.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_MaterialDelivery, MInOut_BH.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_MaterialReceipt, MInOut_BH.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_APInvoice, MInvoice_BH.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_ARInvoice, MInvoice_BH.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_APPayment, MPayment_BH.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_ARReceipt, MPayment_BH.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_GLJournal, MJournal.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_PaymentAllocation, MAllocationHdr.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_MaterialMovement, MMovement_BH.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_MaterialPhysicalInventory, MInventory_BH.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_DistributionOrder, I_DD_Order.Table_ID),
+					Map.entry(MDocType_BH.DOCBASETYPE_Payroll, I_HR_Payroll.Table_ID));
 	private MRefList modelInstance;
 
 	public ReferenceListDBService() {
-		usedDocumentTypeNames.add(DocumentDBService.DOCUMENTNAME_EXPENSES);
-		usedDocumentTypeNames.add(DocumentDBService.DOCUMENTNAME_BILLS);
-		usedDocumentTypeNames.add(DocumentDBService.DOCUMENTNAME_RECEIVE_PRODUCT);
-		usedDocumentTypeNames.add(DocumentDBService.DOCUMENTNAME_PAYMENTS);
-		usedDocumentTypeNames.add(DocumentDBService.DOCUMENTNAME_MOVEMENT);
-		usedDocumentTypeNames.add(DocumentDBService.DOCUMENTNAME_PHYSICAL_INVENTORY);
-		usedDocumentTypeNames.add(DocumentDBService.DOCUMENTNAME_CUSTOMER_INVOICE);
-		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_EXPENSES, MInvoice_BH.Table_ID);
-		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_BILLS, MOrder_BH.Table_ID);
-		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_RECEIVE_PRODUCT, MOrder_BH.Table_ID);
-		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_PAYMENTS, MPayment_BH.Table_ID);
-		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_MOVEMENT, MMovement_BH.Table_ID);
-		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_PHYSICAL_INVENTORY, MInventory_BH.Table_ID);
-		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_CUSTOMER_INVOICE, MInvoice_BH.Table_ID);
-		documentTypeNameToADTableIdMap.put(DocumentDBService.DOCUMENTNAME_VENDOR_INVOICE, MInvoice_BH.Table_ID);
 	}
 
 	@Override
@@ -111,20 +115,19 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 	 * @return Returns a lists of document actions by document type to determine what a user has access to do
 	 */
 	public Map<MDocType, List<MRefList>> getDocumentActionAccessByDocumentType() {
-		List<Object> parameters = new ArrayList<>();
-		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(usedDocumentTypeNames, parameters);
-
 		// Previously, all document action access was assigned to a role on the client (so ad_client_id checks on access
 		// would work). However, now we use master roles to house the document action, and those are assigned to the
 		// system client. So, we need to search both when getting document types associated document types
+		List<Object> parameters = new ArrayList<>();
 		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
 		parameters.add(MClient_BH.CLIENTID_SYSTEM);
+		parameters.add(0);
 
 //		PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
 
-		// Get the doc types for this user matching what the application uses
+		// Get the doc types for this user
 		List<MDocType> usedDocumentTypes = new Query(Env.getCtx(), MDocType.Table_Name,
-				MDocType.COLUMNNAME_Name + " IN (" + whereClause + ") AND " + MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?)",
+				MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?) AND " + MDocType_BH.COLUMNNAME_C_DocType_ID + ">?",
 				null).setParameters(parameters).list();
 
 //		PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
@@ -135,7 +138,7 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 				usedDocumentTypes.stream().map(MDocType::getC_DocType_ID).collect(Collectors.toList()));
 
 		parameters = new ArrayList<>();
-		whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(
 				new HashSet<>(documentActionAccess.values().stream().flatMap(
 						Collection::stream).collect(Collectors.toSet())), parameters);
 
@@ -182,10 +185,10 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 												String[] unusedDocActions = new String[50];
 												String[] mappedDocActions = new String[50];
 												Integer tableId = 0;
-												if (documentTypeNameToADTableIdMap
-														.containsKey(documentActionAccessByDocumentTypeEntry.getKey().getName())) {
-													tableId = documentTypeNameToADTableIdMap
-															.get(documentActionAccessByDocumentTypeEntry.getKey().getName());
+												if (documentBaseTypeToTableId
+														.containsKey(documentActionAccessByDocumentTypeEntry.getKey().getDocBaseType())) {
+													tableId = documentBaseTypeToTableId.get(
+															documentActionAccessByDocumentTypeEntry.getKey().getDocBaseType());
 												}
 												// Get valid next actions based on a given document action
 												// TODO: Determine if we want to find a way to include different actions that come when the
@@ -273,11 +276,11 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
-        return new EntityConfiguration() {{
-            setShouldUseContextClientId(true);
-            setShouldFetchFromSystemClient(true);
-        }};
-    }
+		return new EntityConfiguration() {{
+			setShouldUseContextClientId(true);
+			setShouldFetchFromSystemClient(true);
+		}};
+	}
 
 	/**
 	 * Get Reference List from MRefList.Table_Name

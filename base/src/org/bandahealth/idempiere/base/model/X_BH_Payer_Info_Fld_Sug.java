@@ -22,26 +22,26 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Model for BH_Payer_Info_Field_Suggestion
+/** Generated Model for BH_Payer_Info_Fld_Sug
  *  @author iDempiere (generated) 
  *  @version Release 8.2 - $Id$ */
-public class X_BH_Payer_Info_Field_Suggestion extends PO implements I_BH_Payer_Info_Field_Suggestion, I_Persistent 
+public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_Sug, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230815L;
+	private static final long serialVersionUID = 20230819L;
 
     /** Standard Constructor */
-    public X_BH_Payer_Info_Field_Suggestion (Properties ctx, int BH_Payer_Info_Field_Suggestion_ID, String trxName)
+    public X_BH_Payer_Info_Fld_Sug (Properties ctx, int BH_Payer_Info_Fld_Sug_ID, String trxName)
     {
-      super (ctx, BH_Payer_Info_Field_Suggestion_ID, trxName);
-      /** if (BH_Payer_Info_Field_Suggestion_ID == 0)
+      super (ctx, BH_Payer_Info_Fld_Sug_ID, trxName);
+      /** if (BH_Payer_Info_Fld_Sug_ID == 0)
         {
 			setBH_FillFromPatient (false);
 // N
-			setBH_Payer_Info_Field_Suggestion_ID (0);
+			setBH_Payer_Info_Fld_Sug_ID (0);
 			setBH_PayerInfoFieldDataType (null);
 // T
 			setBH_SubType (null);
@@ -52,7 +52,7 @@ public class X_BH_Payer_Info_Field_Suggestion extends PO implements I_BH_Payer_I
     }
 
     /** Load Constructor */
-    public X_BH_Payer_Info_Field_Suggestion (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_Payer_Info_Fld_Sug (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -74,7 +74,7 @@ public class X_BH_Payer_Info_Field_Suggestion extends PO implements I_BH_Payer_I
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_Payer_Info_Field_Suggestion[")
+      StringBuilder sb = new StringBuilder ("X_BH_Payer_Info_Fld_Sug[")
         .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
@@ -101,53 +101,53 @@ public class X_BH_Payer_Info_Field_Suggestion extends PO implements I_BH_Payer_I
 	}
 
 	/** Set Payer Info Field Suggestion.
-		@param BH_Payer_Info_Field_Suggestion_ID Payer Info Field Suggestion	  */
-	public void setBH_Payer_Info_Field_Suggestion_ID (int BH_Payer_Info_Field_Suggestion_ID)
+		@param BH_Payer_Info_Fld_Sug_ID Payer Info Field Suggestion	  */
+	public void setBH_Payer_Info_Fld_Sug_ID (int BH_Payer_Info_Fld_Sug_ID)
 	{
-		if (BH_Payer_Info_Field_Suggestion_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Field_Suggestion_ID, null);
+		if (BH_Payer_Info_Fld_Sug_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_Sug_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Field_Suggestion_ID, Integer.valueOf(BH_Payer_Info_Field_Suggestion_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_Sug_ID, Integer.valueOf(BH_Payer_Info_Fld_Sug_ID));
 	}
 
 	/** Get Payer Info Field Suggestion.
 		@return Payer Info Field Suggestion	  */
-	public int getBH_Payer_Info_Field_Suggestion_ID () 
+	public int getBH_Payer_Info_Fld_Sug_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Field_Suggestion_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Fld_Sug_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Set BH_Payer_Info_Field_Suggestion_UU.
-		@param BH_Payer_Info_Field_Suggestion_UU BH_Payer_Info_Field_Suggestion_UU	  */
-	public void setBH_Payer_Info_Field_Suggestion_UU (String BH_Payer_Info_Field_Suggestion_UU)
+	/** Set BH_Payer_Info_Fld_Sug_UU.
+		@param BH_Payer_Info_Fld_Sug_UU BH_Payer_Info_Fld_Sug_UU	  */
+	public void setBH_Payer_Info_Fld_Sug_UU (String BH_Payer_Info_Fld_Sug_UU)
 	{
-		set_Value (COLUMNNAME_BH_Payer_Info_Field_Suggestion_UU, BH_Payer_Info_Field_Suggestion_UU);
+		set_Value (COLUMNNAME_BH_Payer_Info_Fld_Sug_UU, BH_Payer_Info_Fld_Sug_UU);
 	}
 
-	/** Get BH_Payer_Info_Field_Suggestion_UU.
-		@return BH_Payer_Info_Field_Suggestion_UU	  */
-	public String getBH_Payer_Info_Field_Suggestion_UU () 
+	/** Get BH_Payer_Info_Fld_Sug_UU.
+		@return BH_Payer_Info_Fld_Sug_UU	  */
+	public String getBH_Payer_Info_Fld_Sug_UU () 
 	{
-		return (String)get_Value(COLUMNNAME_BH_Payer_Info_Field_Suggestion_UU);
+		return (String)get_Value(COLUMNNAME_BH_Payer_Info_Fld_Sug_UU);
 	}
 
 	/** Text = T */
 	public static final String BH_PAYERINFOFIELDDATATYPE_Text = "T";
 	/** List = L */
 	public static final String BH_PAYERINFOFIELDDATATYPE_List = "L";
-	/** Set Charge Info Data Type.
-		@param BH_PayerInfoFieldDataType Charge Info Data Type	  */
+	/** Set Payer Info Field Data Type.
+		@param BH_PayerInfoFieldDataType Payer Info Field Data Type	  */
 	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType)
 	{
 
 		set_Value (COLUMNNAME_BH_PayerInfoFieldDataType, BH_PayerInfoFieldDataType);
 	}
 
-	/** Get Charge Info Data Type.
-		@return Charge Info Data Type	  */
+	/** Get Payer Info Field Data Type.
+		@return Payer Info Field Data Type	  */
 	public String getBH_PayerInfoFieldDataType () 
 	{
 		return (String)get_Value(COLUMNNAME_BH_PayerInfoFieldDataType);

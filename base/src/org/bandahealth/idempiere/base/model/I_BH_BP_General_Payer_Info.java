@@ -93,16 +93,16 @@ public interface I_BH_BP_General_Payer_Info
 
 	public I_BH_BP_Payer_Info getBH_BP_Payer_Info() throws RuntimeException;
 
-    /** Column name BH_Payer_Info_Field_ID */
-    public static final String COLUMNNAME_BH_Payer_Info_Field_ID = "BH_Payer_Info_Field_ID";
+    /** Column name BH_Payer_Info_Fld_ID */
+    public static final String COLUMNNAME_BH_Payer_Info_Fld_ID = "BH_Payer_Info_Fld_ID";
 
 	/** Set Payer Info Field	  */
-	public void setBH_Payer_Info_Field_ID (int BH_Payer_Info_Field_ID);
+	public void setBH_Payer_Info_Fld_ID (int BH_Payer_Info_Fld_ID);
 
 	/** Get Payer Info Field	  */
-	public int getBH_Payer_Info_Field_ID();
+	public int getBH_Payer_Info_Fld_ID();
 
-	public I_BH_Payer_Info_Field getBH_Payer_Info_Field() throws RuntimeException;
+	public I_BH_Payer_Info_Fld getBH_Payer_Info_Fld() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

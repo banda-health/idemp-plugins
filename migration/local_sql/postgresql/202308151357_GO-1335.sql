@@ -252,15 +252,15 @@ VALUES
 --	2. Create new tables to hold our data
 /******************************************************************************************/
 -- Create the table to hold payer info fields (replacing bh_charge_info)
-CREATE TABLE BH_Payer_Info_Field
+CREATE TABLE BH_Payer_Info_Fld
 (
 	AD_Client_ID              numeric(10)                                                       NOT NULL,
 	AD_Org_ID                 numeric(10)                                                       NOT NULL,
 	BH_PayerInfoFieldDataType VARCHAR(2)   DEFAULT 'T'                                          NOT NULL,
 	BH_FillFromPatient        CHAR(1)      DEFAULT 'N' CHECK (BH_FillFromPatient IN ('Y', 'N')) NOT NULL,
 	BH_Payer_ID               numeric(10)                                                       NOT NULL,
-	BH_Payer_Info_Field_ID    numeric(10)                                                       NOT NULL,
-	BH_Payer_Info_Field_UU    VARCHAR(36)  DEFAULT NULL,
+	BH_Payer_Info_Fld_ID      numeric(10)                                                       NOT NULL,
+	BH_Payer_Info_Fld_UU      VARCHAR(36)  DEFAULT NULL,
 	Created                   DATE         DEFAULT NOW()                                        NOT NULL,
 	CreatedBy                 numeric(10)                                                       NOT NULL,
 	Description               VARCHAR(255) DEFAULT NULL,
@@ -269,24 +269,75 @@ CREATE TABLE BH_Payer_Info_Field
 	Name                      VARCHAR(60)                                                       NOT NULL,
 	Updated                   DATE         DEFAULT NOW()                                        NOT NULL,
 	UpdatedBy                 numeric(10)                                                       NOT NULL,
-	CONSTRAINT BH_Payer_Info_Field_Key PRIMARY KEY (BH_Payer_Info_Field_ID),
-	CONSTRAINT BH_Payer_Info_Field_UU_idx UNIQUE (BH_Payer_Info_Field_UU)
+	CONSTRAINT BH_Payer_Info_Fld_Key PRIMARY KEY (BH_Payer_Info_Fld_ID),
+	CONSTRAINT BH_Payer_Info_Fld_UU_idx UNIQUE (BH_Payer_Info_Fld_UU)
 );
-ALTER TABLE BH_Payer_Info_Field
-	ADD CONSTRAINT ADClient_BHPayerInfoField FOREIGN KEY (AD_Client_ID) REFERENCES ad_client (ad_client_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE BH_Payer_Info_Field
-	ADD CONSTRAINT ADOrg_BHPayerInfoField FOREIGN KEY (AD_Org_ID) REFERENCES ad_org (ad_org_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE BH_Payer_Info_Field
-	ADD CONSTRAINT BHPayer_BHPayerInfoField FOREIGN KEY (BH_Payer_ID) REFERENCES c_bpartner (c_bpartner_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE BH_Payer_Info_Fld
+	ADD CONSTRAINT ADClient_BHPayerInfoFld FOREIGN KEY (AD_Client_ID) REFERENCES ad_client (ad_client_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE BH_Payer_Info_Fld
+	ADD CONSTRAINT ADOrg_BHPayerInfoFld FOREIGN KEY (AD_Org_ID) REFERENCES ad_org (ad_org_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE BH_Payer_Info_Fld
+	ADD CONSTRAINT BHPayer_BHPayerInfoFld FOREIGN KEY (BH_Payer_ID) REFERENCES c_bpartner (c_bpartner_id) DEFERRABLE INITIALLY DEFERRED;
 
--- Create the table to hold payer info field values (replacing bh_payer_info_field_value)
-CREATE TABLE BH_Payer_Info_Field_Value
+-- Create the table to hold payer info field values (replacing BH_Payer_Info_Fld_Val)
+CREATE TABLE BH_Payer_Info_Fld_Val
+(
+	AD_Client_ID             numeric(10)                                             NOT NULL,
+	AD_Org_ID                numeric(10)                                             NOT NULL,
+	BH_Payer_Info_Fld_ID     numeric(10)                                             NOT NULL,
+	BH_Payer_Info_Fld_Val_ID numeric(10)                                             NOT NULL,
+	BH_Payer_Info_Fld_Val_UU VARCHAR(36)  DEFAULT NULL,
+	Created                  DATE         DEFAULT NOW()                              NOT NULL,
+	CreatedBy                numeric(10)                                             NOT NULL,
+	Description              VARCHAR(255) DEFAULT NULL,
+	IsActive                 CHAR(1)      DEFAULT 'Y' CHECK (IsActive IN ('Y', 'N')) NOT NULL,
+	Line                     numeric(10)                                             NOT NULL,
+	Name                     VARCHAR(60)                                             NOT NULL,
+	Updated                  DATE         DEFAULT NOW()                              NOT NULL,
+	UpdatedBy                numeric(10)                                             NOT NULL,
+	CONSTRAINT BH_Payer_Info_Fld_Val_Key PRIMARY KEY (BH_Payer_Info_Fld_Val_ID),
+	CONSTRAINT BH_Payer_Info_Fld_Valuuidx UNIQUE (BH_Payer_Info_Fld_Val_UU)
+);
+ALTER TABLE BH_Payer_Info_Fld_Val
+	ADD CONSTRAINT ADClient_BHPayerInfoFldVal FOREIGN KEY (AD_Client_ID) REFERENCES ad_client (ad_client_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE BH_Payer_Info_Fld_Val
+	ADD CONSTRAINT ADOrg_BHPayerInfoFieldValue FOREIGN KEY (AD_Org_ID) REFERENCES ad_org (ad_org_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE BH_Payer_Info_Fld_Val
+	ADD CONSTRAINT BHPayerInfoFld_BHPayerInfoFldV FOREIGN KEY (BH_Payer_Info_Fld_ID) REFERENCES BH_Payer_Info_Fld (BH_Payer_Info_Fld_id) DEFERRABLE INITIALLY DEFERRED;
+
+-- Create the table to hold payer info field suggestions (replacing bh_charge_info_suggestion)
+CREATE TABLE BH_Payer_Info_Fld_Sug
+(
+	AD_Client_ID              numeric(10)                                                       NOT NULL,
+	AD_Org_ID                 numeric(10)                                                       NOT NULL,
+	BH_PayerInfoFieldDataType VARCHAR(2)   DEFAULT 'T'                                          NOT NULL,
+	BH_FillFromPatient        CHAR(1)      DEFAULT 'N' CHECK (BH_FillFromPatient IN ('Y', 'N')) NOT NULL,
+	BH_Payer_Info_Fld_Sug_ID  numeric(10)                                                       NOT NULL,
+	BH_Payer_Info_Fld_Sug_UU  VARCHAR(36)  DEFAULT NULL,
+	BH_SubType                VARCHAR(2)   DEFAULT 'I'                                          NOT NULL,
+	Created                   DATE         DEFAULT NOW()                                        NOT NULL,
+	CreatedBy                 numeric(10)                                                       NOT NULL,
+	Description               VARCHAR(255) DEFAULT NULL,
+	IsActive                  CHAR(1)      DEFAULT 'Y' CHECK (IsActive IN ('Y', 'N'))           NOT NULL,
+	Line                      numeric(10)                                                       NOT NULL,
+	Name                      VARCHAR(60)                                                       NOT NULL,
+	Updated                   DATE         DEFAULT NOW()                                        NOT NULL,
+	UpdatedBy                 numeric(10)                                                       NOT NULL,
+	CONSTRAINT BH_Payer_Info_Fld_Sugges_Key PRIMARY KEY (BH_Payer_Info_Fld_Sug_ID)
+);
+ALTER TABLE BH_Payer_Info_Fld_Sug
+	ADD CONSTRAINT ADClient_BHPayerInfoFldSug FOREIGN KEY (AD_Client_ID) REFERENCES ad_client (ad_client_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE BH_Payer_Info_Fld_Sug
+	ADD CONSTRAINT ADOrg_BHPayerInfoFldSug FOREIGN KEY (AD_Org_ID) REFERENCES ad_org (ad_org_id) DEFERRABLE INITIALLY DEFERRED;
+
+-- Create the table to hold payer info field value suggestions (replacing bh_charge_info_values_suggestion)
+CREATE TABLE BH_Payer_Info_Fld_Val_Sug
 (
 	AD_Client_ID                 numeric(10)                                             NOT NULL,
 	AD_Org_ID                    numeric(10)                                             NOT NULL,
-	BH_Payer_Info_Field_ID       numeric(10)                                             NOT NULL,
-	BH_Payer_Info_Field_Value_ID numeric(10)                                             NOT NULL,
-	BH_Payer_Info_Field_Value_UU VARCHAR(36)  DEFAULT NULL,
+	BH_Payer_Info_Fld_Sug_ID     numeric(10)                                             NOT NULL,
+	BH_Payer_Info_Fld_Val_Sug_ID numeric(10)                                             NOT NULL,
+	BH_Payer_Info_Fld_Val_Sug_UU VARCHAR(36)  DEFAULT NULL,
 	Created                      DATE         DEFAULT NOW()                              NOT NULL,
 	CreatedBy                    numeric(10)                                             NOT NULL,
 	Description                  VARCHAR(255) DEFAULT NULL,
@@ -295,65 +346,14 @@ CREATE TABLE BH_Payer_Info_Field_Value
 	Name                         VARCHAR(60)                                             NOT NULL,
 	Updated                      DATE         DEFAULT NOW()                              NOT NULL,
 	UpdatedBy                    numeric(10)                                             NOT NULL,
-	CONSTRAINT BH_Payer_Info_Field_Value_Key PRIMARY KEY (BH_Payer_Info_Field_Value_ID),
-	CONSTRAINT BH_Payer_Info_Field_Valueuuidx UNIQUE (BH_Payer_Info_Field_Value_UU)
+	CONSTRAINT BH_Payer_Info_Fld_Val__Key PRIMARY KEY (BH_Payer_Info_Fld_Val_Sug_ID)
 );
-ALTER TABLE BH_Payer_Info_Field_Value
-	ADD CONSTRAINT ADClient_BHPayerInfoFieldValue FOREIGN KEY (AD_Client_ID) REFERENCES ad_client (ad_client_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE BH_Payer_Info_Field_Value
-	ADD CONSTRAINT ADOrg_BHPayerInfoFieldValue FOREIGN KEY (AD_Org_ID) REFERENCES ad_org (ad_org_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE BH_Payer_Info_Field_Value
-	ADD CONSTRAINT BHPayerInfoField_BHPayerInfoFi FOREIGN KEY (BH_Payer_Info_Field_ID) REFERENCES bh_payer_info_field (bh_payer_info_field_id) DEFERRABLE INITIALLY DEFERRED;
-
--- Create the table to hold payer info field suggestions (replacing bh_charge_info_suggestion)
-CREATE TABLE BH_Payer_Info_Field_Suggestion
-(
-	AD_Client_ID                      numeric(10)                                                       NOT NULL,
-	AD_Org_ID                         numeric(10)                                                       NOT NULL,
-	BH_PayerInfoFieldDataType         VARCHAR(2)   DEFAULT 'T'                                          NOT NULL,
-	BH_FillFromPatient                CHAR(1)      DEFAULT 'N' CHECK (BH_FillFromPatient IN ('Y', 'N')) NOT NULL,
-	BH_Payer_Info_Field_Suggestion_ID numeric(10)                                                       NOT NULL,
-	BH_Payer_Info_Field_Suggestion_UU VARCHAR(36)  DEFAULT NULL,
-	BH_SubType                        VARCHAR(2)   DEFAULT 'I'                                          NOT NULL,
-	Created                           DATE         DEFAULT NOW()                                        NOT NULL,
-	CreatedBy                         numeric(10)                                                       NOT NULL,
-	Description                       VARCHAR(255) DEFAULT NULL,
-	IsActive                          CHAR(1)      DEFAULT 'Y' CHECK (IsActive IN ('Y', 'N'))           NOT NULL,
-	Line                              numeric(10)                                                       NOT NULL,
-	Name                              VARCHAR(60)                                                       NOT NULL,
-	Updated                           DATE         DEFAULT NOW()                                        NOT NULL,
-	UpdatedBy                         numeric(10)                                                       NOT NULL,
-	CONSTRAINT BH_Payer_Info_Field_Sugges_Key PRIMARY KEY (BH_Payer_Info_Field_Suggestion_ID)
-);
-ALTER TABLE BH_Payer_Info_Field_Suggestion
-	ADD CONSTRAINT ADClient_BHPayerInfoFieldSugge FOREIGN KEY (AD_Client_ID) REFERENCES ad_client (ad_client_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE BH_Payer_Info_Field_Suggestion
-	ADD CONSTRAINT ADOrg_BHPayerInfoFieldSuggesti FOREIGN KEY (AD_Org_ID) REFERENCES ad_org (ad_org_id) DEFERRABLE INITIALLY DEFERRED;
-
--- Create the table to hold payer info field value suggestions (replacing bh_charge_info_values_suggestion)
-CREATE TABLE BH_Payer_Info_Field_Value_Suggestion
-(
-	AD_Client_ID                            numeric(10)                                             NOT NULL,
-	AD_Org_ID                               numeric(10)                                             NOT NULL,
-	BH_Payer_Info_Field_Suggestion_ID       numeric(10)                                             NOT NULL,
-	BH_Payer_Info_Field_Value_Suggestion_ID numeric(10)                                             NOT NULL,
-	BH_Payer_Info_Field_Value_Suggestion_UU VARCHAR(36)  DEFAULT NULL,
-	Created                                 DATE         DEFAULT NOW()                              NOT NULL,
-	CreatedBy                               numeric(10)                                             NOT NULL,
-	Description                             VARCHAR(255) DEFAULT NULL,
-	IsActive                                CHAR(1)      DEFAULT 'Y' CHECK (IsActive IN ('Y', 'N')) NOT NULL,
-	Line                                    numeric(10)                                             NOT NULL,
-	Name                                    VARCHAR(60)                                             NOT NULL,
-	Updated                                 DATE         DEFAULT NOW()                              NOT NULL,
-	UpdatedBy                               numeric(10)                                             NOT NULL,
-	CONSTRAINT BH_Payer_Info_Field_Value__Key PRIMARY KEY (BH_Payer_Info_Field_Value_Suggestion_ID)
-);
-ALTER TABLE BH_Payer_Info_Field_Value_Suggestion
-	ADD CONSTRAINT ADClient_BHPayerInfoFieldValSu FOREIGN KEY (AD_Client_ID) REFERENCES ad_client (ad_client_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE BH_Payer_Info_Field_Value_Suggestion
-	ADD CONSTRAINT ADOrg_BHPayerInfoFieldValueSug FOREIGN KEY (AD_Org_ID) REFERENCES ad_org (ad_org_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE BH_Payer_Info_Field_Value_Suggestion
-	ADD CONSTRAINT BHPayerInfoFieldSuggestion_BHP FOREIGN KEY (BH_Payer_Info_Field_Suggestion_ID) REFERENCES bh_payer_info_field_suggestion (bh_payer_info_field_suggestion_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE BH_Payer_Info_Fld_Val_Sug
+	ADD CONSTRAINT ADClient_BHPayerInfoFldValSug FOREIGN KEY (AD_Client_ID) REFERENCES ad_client (ad_client_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE BH_Payer_Info_Fld_Val_Sug
+	ADD CONSTRAINT ADOrg_BHPayerInfoFldValSug FOREIGN KEY (AD_Org_ID) REFERENCES ad_org (ad_org_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE BH_Payer_Info_Fld_Val_Sug
+	ADD CONSTRAINT BHPayerInfoFldSug_BHPayerInfoF FOREIGN KEY (BH_Payer_Info_Fld_Sug_ID) REFERENCES BH_Payer_Info_Fld_Sug (BH_Payer_Info_Fld_Sug_id) DEFERRABLE INITIALLY DEFERRED;
 
 -- Create the table to hold BP payer info (replacing bh_bpartner_charge)
 CREATE TABLE BH_BP_Payer_Info
@@ -391,7 +391,7 @@ CREATE TABLE BH_BP_General_Payer_Info
 	BH_BP_General_Payer_Info_ID numeric(10)                                             NOT NULL,
 	BH_BP_General_Payer_Info_UU VARCHAR(36)  DEFAULT NULL,
 	BH_BP_Payer_Info_ID         numeric(10)                                             NOT NULL,
-	BH_Payer_Info_Field_ID      numeric(10)                                             NOT NULL,
+	BH_Payer_Info_Fld_ID        numeric(10)                                             NOT NULL,
 	Created                     DATE         DEFAULT NOW()                              NOT NULL,
 	CreatedBy                   numeric(10)                                             NOT NULL,
 	Description                 VARCHAR(255) DEFAULT NULL,
@@ -409,14 +409,14 @@ ALTER TABLE BH_BP_General_Payer_Info
 ALTER TABLE BH_BP_General_Payer_Info
 	ADD CONSTRAINT BHBPPayerInfo_BHBPGeneralPayer FOREIGN KEY (BH_BP_Payer_Info_ID) REFERENCES bh_bp_payer_info (bh_bp_payer_info_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE BH_BP_General_Payer_Info
-	ADD CONSTRAINT BHPayerInfoField_BHBPGeneralPa FOREIGN KEY (BH_Payer_Info_Field_ID) REFERENCES bh_payer_info_field (bh_payer_info_field_id) DEFERRABLE INITIALLY DEFERRED;
+	ADD CONSTRAINT BHPayerInfoField_BHBPGeneralPa FOREIGN KEY (BH_Payer_Info_Fld_ID) REFERENCES BH_Payer_Info_Fld (BH_Payer_Info_Fld_id) DEFERRABLE INITIALLY DEFERRED;
 
 -- Create the table to hold BP specific payer info (replacing bh_orderline_charge_info)
 CREATE TABLE BH_BP_Specific_Payer_Info
 (
 	AD_Client_ID                 numeric(10)                                             NOT NULL,
 	AD_Org_ID                    numeric(10)                                             NOT NULL,
-	BH_Payer_Info_Field_ID       numeric(10)                                             NOT NULL,
+	BH_Payer_Info_Fld_ID         numeric(10)                                             NOT NULL,
 	BH_BP_Specific_Payer_Info_ID numeric(10)                                             NOT NULL,
 	BH_BP_Specific_Payer_Info_UU VARCHAR(36)  DEFAULT NULL,
 	C_InvoiceLine_ID             numeric(10)                                             NOT NULL,
@@ -435,7 +435,7 @@ ALTER TABLE BH_BP_Specific_Payer_Info
 ALTER TABLE BH_BP_Specific_Payer_Info
 	ADD CONSTRAINT ADOrg_BHBPSpecificPayerInfo FOREIGN KEY (AD_Org_ID) REFERENCES ad_org (ad_org_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE BH_BP_Specific_Payer_Info
-	ADD CONSTRAINT BHPayerInfoField_BHBPSpecificP FOREIGN KEY (BH_Payer_Info_Field_ID) REFERENCES bh_payer_info_field (bh_payer_info_field_id) DEFERRABLE INITIALLY DEFERRED;
+	ADD CONSTRAINT BHPayerInfoField_BHBPSpecificP FOREIGN KEY (BH_Payer_Info_Fld_ID) REFERENCES BH_Payer_Info_Fld (BH_Payer_Info_Fld_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE BH_BP_Specific_Payer_Info
 	ADD CONSTRAINT CInvoiceLine_BHBPSpecificPayer FOREIGN KEY (C_InvoiceLine_ID) REFERENCES c_invoiceline (c_invoiceline_id) DEFERRABLE INITIALLY DEFERRED;
 
@@ -459,7 +459,7 @@ VALUES
 			 MAX(ad_element_id) + 1
 		 FROM
 			 ad_element
-	 ), 0, 0, 'Y', '2023-08-10 16:59:35.640000', 100, '2023-08-10 16:59:35.640000', 100, 'BH_Payer_Info_Field_ID', 'U',
+	 ), 0, 0, 'Y', '2023-08-10 16:59:35.640000', 100, '2023-08-10 16:59:35.640000', 100, 'BH_Payer_Info_Fld_ID', 'U',
 	 'Payer Info Field', 'Payer Info Field', NULL, NULL, NULL, NULL, NULL, NULL, 'd767b978-2ec9-4f86-b614-f17a6535513f',
 	 NULL);
 INSERT INTO
@@ -472,8 +472,8 @@ VALUES
 			 MAX(ad_element_id) + 1
 		 FROM
 			 ad_element
-	 ), 0, 0, 'Y', '2023-08-10 16:59:35.690000', 100, '2023-08-10 16:59:35.690000', 100, 'BH_Payer_Info_Field_UU', 'U',
-	 'BH_Payer_Info_Field_UU', 'BH_Payer_Info_Field_UU', NULL, NULL, NULL, NULL, NULL, NULL,
+	 ), 0, 0, 'Y', '2023-08-10 16:59:35.690000', 100, '2023-08-10 16:59:35.690000', 100, 'BH_Payer_Info_Fld_UU', 'U',
+	 'BH_Payer_Info_Fld_UU', 'BH_Payer_Info_Fld_UU', NULL, NULL, NULL, NULL, NULL, NULL,
 	 'd90e9a3d-c190-4a90-92c3-76774928dd66', NULL);
 INSERT INTO
 	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
@@ -497,7 +497,7 @@ VALUES
 			 MAX(ad_element_id) + 1
 		 FROM
 			 ad_element
-	 ), 0, 0, 'Y', '2023-08-10 17:07:52.465000', 100, '2023-08-10 17:07:52.465000', 100, 'BH_Payer_Info_Field_Value_ID',
+	 ), 0, 0, 'Y', '2023-08-10 17:07:52.465000', 100, '2023-08-10 17:07:52.465000', 100, 'BH_Payer_Info_Fld_Val_ID',
 	 'U', 'Payer Info Values', 'Payer Info Values', NULL, NULL, NULL, NULL, NULL, NULL,
 	 'a9e534e0-1204-4671-b29c-8ec92921390b', NULL);
 INSERT INTO
@@ -510,8 +510,8 @@ VALUES
 			 MAX(ad_element_id) + 1
 		 FROM
 			 ad_element
-	 ), 0, 0, 'Y', '2023-08-10 17:07:52.502000', 100, '2023-08-10 17:07:52.502000', 100, 'BH_Payer_Info_Field_Value_UU',
-	 'U', 'BH_Payer_Info_Field_Value_UU', 'BH_Payer_Info_Field_Value_UU', NULL, NULL, NULL, NULL, NULL, NULL,
+	 ), 0, 0, 'Y', '2023-08-10 17:07:52.502000', 100, '2023-08-10 17:07:52.502000', 100, 'BH_Payer_Info_Fld_Val_UU',
+	 'U', 'BH_Payer_Info_Fld_Val_UU', 'BH_Payer_Info_Fld_Val_UU', NULL, NULL, NULL, NULL, NULL, NULL,
 	 '3d6ec214-2785-4fba-b325-9342a996c842', NULL);
 INSERT INTO
 	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
@@ -524,7 +524,7 @@ VALUES
 		 FROM
 			 ad_element
 	 ), 0, 0, 'Y', '2023-08-10 17:11:09.636000', 100, '2023-08-10 17:11:09.636000', 100,
-	 'BH_Payer_Info_Field_Suggestion_ID', 'U', 'Payer Info Field Suggestion', 'Payer Info Field Suggestion', NULL, NULL,
+	 'BH_Payer_Info_Fld_Sug_ID', 'U', 'Payer Info Field Suggestion', 'Payer Info Field Suggestion', NULL, NULL,
 	 NULL, NULL, NULL, NULL, 'e4859cca-bd6f-4446-8079-ca64c7619fd7', NULL);
 INSERT INTO
 	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
@@ -537,7 +537,7 @@ VALUES
 		 FROM
 			 ad_element
 	 ), 0, 0, 'Y', '2023-08-10 17:11:09.676000', 100, '2023-08-10 17:11:09.676000', 100,
-	 'BH_Payer_Info_Field_Suggestion_UU', 'U', 'BH_Payer_Info_Field_Suggestion_UU', 'BH_Payer_Info_Field_Suggestion_UU',
+	 'BH_Payer_Info_Fld_Sug_UU', 'U', 'BH_Payer_Info_Fld_Sug_UU', 'BH_Payer_Info_Fld_Sug_UU',
 	 NULL, NULL, NULL, NULL, NULL, NULL, 'f8d67a52-c7d7-40e6-a07b-bcb83a6c482a', NULL);
 INSERT INTO
 	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
@@ -550,7 +550,7 @@ VALUES
 		 FROM
 			 ad_element
 	 ), 0, 0, 'Y', '2023-08-10 17:14:34.632000', 100, '2023-08-10 17:14:34.632000', 100,
-	 'BH_Payer_Info_Field_Value_Suggestion_ID', 'U', 'Payer Info Field Value Suggestion',
+	 'BH_Payer_Info_Fld_Val_Sug_ID', 'U', 'Payer Info Field Value Suggestion',
 	 'Payer Info Field Value Suggestion', NULL, NULL, NULL, NULL, NULL, NULL, '78cd8dad-571e-4d6a-a9c3-27c50800ad3f',
 	 NULL);
 INSERT INTO
@@ -564,8 +564,8 @@ VALUES
 		 FROM
 			 ad_element
 	 ), 0, 0, 'Y', '2023-08-10 17:14:34.672000', 100, '2023-08-10 17:14:34.672000', 100,
-	 'BH_Payer_Info_Field_Value_Suggestion_UU', 'U', 'BH_Payer_Info_Field_Value_Suggestion_UU',
-	 'BH_Payer_Info_Field_Value_Suggestion_UU', NULL, NULL, NULL, NULL, NULL, NULL,
+	 'BH_Payer_Info_Fld_Val_Sug_UU', 'U', 'BH_Payer_Info_Fld_Val_Sug_UU',
+	 'BH_Payer_Info_Fld_Val_Sug_UU', NULL, NULL, NULL, NULL, NULL, NULL,
 	 '74550115-b68f-4d36-97f5-e77fe7521759', NULL);
 INSERT INTO
 	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
@@ -707,7 +707,7 @@ VALUES
 	 ), 0, 0, 'Y', '2023-08-10 17:14:22.431000', 100, '2023-08-10 17:14:22.431000', 100,
 	 'Payer Info Field Value Suggestion',
 	 'The suggested values to hold for any list types of payers defaults that will be available to clients', NULL,
-	 'BH_Payer_Info_Field_Value_Suggestion', 'N', '4', 'U', NULL, NULL, 0, 'N', 'Y', 'N', 'N', 'Y', 'L', NULL, 'N', 'Y',
+	 'BH_Payer_Info_Fld_Val_Sug', 'N', '4', 'U', NULL, NULL, 0, 'N', 'Y', 'N', 'N', 'Y', 'L', NULL, 'N', 'Y',
 	 '417447b6-ce19-46fd-a7fc-0aa737800de2', 'N', 'N', 'N', 'N');
 INSERT INTO
 	ad_table (ad_table_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description,
@@ -722,7 +722,7 @@ VALUES
 		 FROM
 			 ad_table
 	 ), 0, 0, 'Y', '2023-08-10 17:10:57.344000', 100, '2023-08-10 17:10:57.344000', 100, 'Payer Info Field Suggestion',
-	 NULL, NULL, 'BH_Payer_Info_Field_Suggestion', 'N', '4', 'U', NULL, NULL, 0, 'N', 'Y', 'N', 'N', 'Y', 'L', NULL, 'N',
+	 NULL, NULL, 'BH_Payer_Info_Fld_Sug', 'N', '4', 'U', NULL, NULL, 0, 'N', 'Y', 'N', 'N', 'Y', 'L', NULL, 'N',
 	 'Y', '365c340b-fc56-4aff-ae65-c1af9e5a5e36', 'N', 'N', 'N', 'N');
 INSERT INTO
 	ad_table (ad_table_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description,
@@ -737,7 +737,7 @@ VALUES
 		 FROM
 			 ad_table
 	 ), 0, 0, 'Y', '2023-08-10 17:07:41.362000', 100, '2023-08-10 17:07:41.362000', 100, 'Payer Info Values',
-	 'Holds any list values that may be required to limit payer info input', NULL, 'BH_Payer_Info_Field_Value', 'N', '3',
+	 'Holds any list values that may be required to limit payer info input', NULL, 'BH_Payer_Info_Fld_Val', 'N', '3',
 	 'U', NULL, NULL, 0, 'N', 'Y', 'N', 'N', 'Y', 'L', NULL, 'N', 'Y', '06800b5e-8094-4b77-8b74-32ca2a71e580', 'N', 'N',
 	 'N', 'N');
 INSERT INTO
@@ -753,7 +753,7 @@ VALUES
 		 FROM
 			 ad_table
 	 ), 0, 0, 'Y', '2023-08-10 16:58:43.294000', 100, '2023-08-10 16:58:43.294000', 100, 'Payer Info Field',
-	 'A table to dynamically hold extra information for payers', NULL, 'BH_Payer_Info_Field', 'N', '3', 'U', NULL, NULL,
+	 'A table to dynamically hold extra information for payers', NULL, 'BH_Payer_Info_Fld', 'N', '3', 'U', NULL, NULL,
 	 0, 'N', 'Y', 'N', 'N', 'Y', 'L', NULL, 'N', 'Y', '9d22b46b-7f36-4a71-a316-2746cae40cb3', 'N', 'N', 'N', 'N');
 
 -- Insert the new columns
@@ -793,7 +793,7 @@ VALUES
 		 FROM
 			 ad_column
 	 ), 0, 0, 'Y', '2023-08-10 16:59:35.628000', '2023-08-10 16:59:35.628000', 100, 100, 'Payer Info Field', NULL, NULL,
-	 1, 'U', 'BH_Payer_Info_Field_ID', (
+	 1, 'U', 'BH_Payer_Info_Fld_ID', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '9d22b46b-7f36-4a71-a316-2746cae40cb3'
 	 ), 13, NULL, NULL, 22, NULL, 'Y', 'N', 'Y', 'N', NULL, 'N', NULL, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'd767b978-2ec9-4f86-b614-f17a6535513f'
@@ -813,8 +813,8 @@ VALUES
 			 MAX(ad_column_id) + 1
 		 FROM
 			 ad_column
-	 ), 0, 0, 'Y', '2023-08-10 16:59:35.678000', '2023-08-10 16:59:35.678000', 100, 100, 'BH_Payer_Info_Field_UU', NULL,
-	 NULL, 1, 'U', 'BH_Payer_Info_Field_UU', (
+	 ), 0, 0, 'Y', '2023-08-10 16:59:35.678000', '2023-08-10 16:59:35.678000', 100, 100, 'BH_Payer_Info_Fld_UU', NULL,
+	 NULL, 1, 'U', 'BH_Payer_Info_Fld_UU', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '9d22b46b-7f36-4a71-a316-2746cae40cb3'
 	 ), 10, NULL, NULL, 36, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', NULL, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'd90e9a3d-c190-4a90-92c3-76774928dd66'
@@ -1202,7 +1202,7 @@ VALUES
 		 FROM
 			 ad_column
 	 ), 0, 0, 'Y', '2023-08-10 17:07:52.454000', '2023-08-10 17:07:52.454000', 100, 100, 'Payer Info Values', NULL, NULL,
-	 1, 'U', 'BH_Payer_Info_Field_Value_ID', (
+	 1, 'U', 'BH_Payer_Info_Fld_Val_ID', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '06800b5e-8094-4b77-8b74-32ca2a71e580'
 	 ), 13, NULL, NULL, 22, NULL, 'Y', 'N', 'Y', 'N', NULL, 'N', NULL, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'a9e534e0-1204-4671-b29c-8ec92921390b'
@@ -1222,8 +1222,8 @@ VALUES
 			 MAX(ad_column_id) + 1
 		 FROM
 			 ad_column
-	 ), 0, 0, 'Y', '2023-08-10 17:07:52.492000', '2023-08-10 17:07:52.492000', 100, 100, 'BH_Payer_Info_Field_Value_UU',
-	 NULL, NULL, 1, 'U', 'BH_Payer_Info_Field_Value_UU', (
+	 ), 0, 0, 'Y', '2023-08-10 17:07:52.492000', '2023-08-10 17:07:52.492000', 100, 100, 'BH_Payer_Info_Fld_Val_UU',
+	 NULL, NULL, 1, 'U', 'BH_Payer_Info_Fld_Val_UU', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '06800b5e-8094-4b77-8b74-32ca2a71e580'
 	 ), 10, NULL, NULL, 36, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', NULL, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '3d6ec214-2785-4fba-b325-9342a996c842'
@@ -1452,7 +1452,7 @@ VALUES
 		 FROM
 			 ad_column
 	 ), 0, 0, 'Y', '2023-08-10 17:07:52.429000', '2023-08-10 17:08:37.024000', 100, 100, 'Payer Info Field', NULL, NULL,
-	 0, 'U', 'BH_Payer_Info_Field_ID', (
+	 0, 'U', 'BH_Payer_Info_Fld_ID', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '06800b5e-8094-4b77-8b74-32ca2a71e580'
 	 ), 19, NULL, NULL, 22, NULL, 'N', 'N', 'Y', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'd767b978-2ec9-4f86-b614-f17a6535513f'
@@ -1520,7 +1520,7 @@ VALUES
 		 FROM
 			 ad_column
 	 ), 0, 0, 'Y', '2023-08-10 17:11:09.625000', '2023-08-10 17:11:09.625000', 100, 100, 'Payer Info Field Suggestion',
-	 NULL, NULL, 1, 'U', 'BH_Payer_Info_Field_Suggestion_ID', (
+	 NULL, NULL, 1, 'U', 'BH_Payer_Info_Fld_Sug_ID', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '365c340b-fc56-4aff-ae65-c1af9e5a5e36'
 	 ), 13, NULL, NULL, 22, NULL, 'Y', 'N', 'Y', 'N', NULL, 'N', NULL, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'e4859cca-bd6f-4446-8079-ca64c7619fd7'
@@ -1541,7 +1541,7 @@ VALUES
 		 FROM
 			 ad_column
 	 ), 0, 0, 'Y', '2023-08-10 17:11:09.665000', '2023-08-10 17:11:09.665000', 100, 100,
-	 'BH_Payer_Info_Field_Suggestion_UU', NULL, NULL, 1, 'U', 'BH_Payer_Info_Field_Suggestion_UU', (
+	 'BH_Payer_Info_Fld_Sug_UU', NULL, NULL, 1, 'U', 'BH_Payer_Info_Fld_Sug_UU', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '365c340b-fc56-4aff-ae65-c1af9e5a5e36'
 	 ), 10, NULL, NULL, 36, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', NULL, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'f8d67a52-c7d7-40e6-a07b-bcb83a6c482a'
@@ -1837,7 +1837,7 @@ VALUES
 		 FROM
 			 ad_column
 	 ), 0, 0, 'Y', '2023-08-10 17:14:34.622000', '2023-08-10 17:14:34.622000', 100, 100,
-	 'Payer Info Field Value Suggestion', NULL, NULL, 1, 'U', 'BH_Payer_Info_Field_Value_Suggestion_ID', (
+	 'Payer Info Field Value Suggestion', NULL, NULL, 1, 'U', 'BH_Payer_Info_Fld_Val_Sug_ID', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '417447b6-ce19-46fd-a7fc-0aa737800de2'
 	 ), 13, NULL, NULL, 22, NULL, 'Y', 'N', 'Y', 'N', NULL, 'N', NULL, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '78cd8dad-571e-4d6a-a9c3-27c50800ad3f'
@@ -1858,7 +1858,7 @@ VALUES
 		 FROM
 			 ad_column
 	 ), 0, 0, 'Y', '2023-08-10 17:14:34.664000', '2023-08-10 17:14:34.664000', 100, 100,
-	 'BH_Payer_Info_Field_Value_Suggestion_UU', NULL, NULL, 1, 'U', 'BH_Payer_Info_Field_Value_Suggestion_UU', (
+	 'BH_Payer_Info_Fld_Val_Sug_UU', NULL, NULL, 1, 'U', 'BH_Payer_Info_Fld_Val_Sug_UU', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '417447b6-ce19-46fd-a7fc-0aa737800de2'
 	 ), 10, NULL, NULL, 36, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', NULL, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '74550115-b68f-4d36-97f5-e77fe7521759'
@@ -2153,7 +2153,7 @@ VALUES
 		 FROM
 			 ad_column
 	 ), 0, 0, 'Y', '2023-08-10 17:14:34.600000', '2023-08-10 17:15:10.612000', 100, 100, 'Payer Info Field Suggestion',
-	 NULL, NULL, 0, 'U', 'BH_Payer_Info_Field_Suggestion_ID', (
+	 NULL, NULL, 0, 'U', 'BH_Payer_Info_Fld_Sug_ID', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '417447b6-ce19-46fd-a7fc-0aa737800de2'
 	 ), 19, NULL, NULL, 22, NULL, 'N', 'N', 'Y', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'e4859cca-bd6f-4446-8079-ca64c7619fd7'
@@ -2607,7 +2607,7 @@ VALUES
 		 FROM
 			 ad_column
 	 ), 0, 0, 'Y', '2023-08-10 17:25:19.747000', '2023-08-10 17:26:50.026000', 100, 100, 'Payer Info Field', NULL, NULL,
-	 0, 'U', 'BH_Payer_Info_Field_ID', (
+	 0, 'U', 'BH_Payer_Info_Fld_ID', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '18293592-398c-447d-9ca1-ffd585098118'
 	 ), 19, NULL, NULL, 22, NULL, 'N', 'N', 'Y', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'd767b978-2ec9-4f86-b614-f17a6535513f'
@@ -2877,27 +2877,6 @@ VALUES
 			 MAX(ad_column_id) + 1
 		 FROM
 			 ad_column
-	 ), 0, 0, 'Y', '2023-08-10 17:29:14.581000', '2023-08-10 17:30:03.777000', 100, 100,
-	 'Business Partner Payer Information', NULL, NULL, 0, 'U', 'BH_BP_Payer_Info_ID', (
-		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = 'f09bd346-9075-49a1-a6d8-c5ba882c1960'
-	 ), 19, NULL, NULL, 22, NULL, 'N', 'N', 'Y', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
-		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '09d13be5-7c3e-442a-90be-0e43fa3bcc4f'
-	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, 'd3e96efe-b1fe-4a1a-bbc3-e1a53b93ed5a', 'Y', 0, 'N', 'N', NULL,
-	 'BHBPPayerInfo_BHBPSpecificPaye', 'N', NULL, NULL);
-INSERT INTO
-	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
-	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
-	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
-	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
-	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
-	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
-	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder)
-VALUES
-	((
-		 SELECT
-			 MAX(ad_column_id) + 1
-		 FROM
-			 ad_column
 	 ), 0, 0, 'Y', '2023-08-10 17:29:14.682000', '2023-08-10 17:30:03.794000', 100, 100, 'Invoice Line',
 	 'Invoice Detail Line', 'The Invoice Line uniquely identifies a single line of an Invoice.', 0, 'U',
 	 'C_InvoiceLine_ID',
@@ -2922,7 +2901,7 @@ VALUES
 		 FROM
 			 ad_column
 	 ), 0, 0, 'Y', '2023-08-10 17:25:19.747000', '2023-08-10 17:26:50.026000', 100, 100, 'Payer Info Field', NULL, NULL,
-	 0, 'U', 'BH_Payer_Info_Field_ID', (
+	 0, 'U', 'BH_Payer_Info_Fld_ID', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = 'f09bd346-9075-49a1-a6d8-c5ba882c1960'
 	 ), 19, NULL, NULL, 22, NULL, 'N', 'N', 'Y', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'd767b978-2ec9-4f86-b614-f17a6535513f'
@@ -2985,7 +2964,7 @@ VALUES
 		 FROM
 			 ad_sequence
 	 ), 0, 0, 'Y', '2023-08-10 17:14:22.468000', 100, '2023-08-10 17:14:22.468000', 100,
-	 'BH_Payer_Info_Field_Value_Suggestion', 'Table BH_Payer_Info_Field_Value_Suggestion', NULL, 'Y', 1, 1000000, 1000000,
+	 'BH_Payer_Info_Fld_Val_Sug', 'Table BH_Payer_Info_Fld_Val_Sug', NULL, 'Y', 1, 1000000, 1000000,
 	 200000, 'N', 'Y', NULL, NULL, 'N', NULL, NULL, '866610c9-3ca6-4b5f-bb64-a5f72444cb49', 'N', 'N', NULL);
 INSERT INTO
 	ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name,
@@ -2998,8 +2977,8 @@ VALUES
 			 MAX(ad_sequence_id) + 1
 		 FROM
 			 ad_sequence
-	 ), 0, 0, 'Y', '2023-08-10 17:10:57.408000', 100, '2023-08-10 17:10:57.408000', 100, 'BH_Payer_Info_Field_Suggestion',
-	 'Table BH_Payer_Info_Field_Suggestion', NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL,
+	 ), 0, 0, 'Y', '2023-08-10 17:10:57.408000', 100, '2023-08-10 17:10:57.408000', 100, 'BH_Payer_Info_Fld_Sug',
+	 'Table BH_Payer_Info_Fld_Sug', NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL,
 	 NULL, 'ab5a6b0f-cad7-4e4f-b370-8daff783d9ad', 'N', 'N', NULL);
 INSERT INTO
 	ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name,
@@ -3012,8 +2991,8 @@ VALUES
 			 MAX(ad_sequence_id) + 1
 		 FROM
 			 ad_sequence
-	 ), 0, 0, 'Y', '2023-08-10 17:07:41.427000', 100, '2023-08-10 17:07:41.427000', 100, 'BH_Payer_Info_Field_Value',
-	 'Table BH_Payer_Info_Field_Value', NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL, NULL,
+	 ), 0, 0, 'Y', '2023-08-10 17:07:41.427000', 100, '2023-08-10 17:07:41.427000', 100, 'BH_Payer_Info_Fld_Val',
+	 'Table BH_Payer_Info_Fld_Val', NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL, NULL,
 	 '35afc41b-3834-4813-ba57-ef592cf97b3a', 'N', 'N', NULL);
 INSERT INTO
 	ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name,
@@ -3026,8 +3005,8 @@ VALUES
 			 MAX(ad_sequence_id) + 1
 		 FROM
 			 ad_sequence
-	 ), 0, 0, 'Y', '2023-08-10 16:58:43.394000', 100, '2023-08-10 16:58:43.394000', 100, 'BH_Payer_Info_Field',
-	 'Table BH_Payer_Info_Field', NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL, NULL,
+	 ), 0, 0, 'Y', '2023-08-10 16:58:43.394000', 100, '2023-08-10 16:58:43.394000', 100, 'BH_Payer_Info_Fld',
+	 'Table BH_Payer_Info_Fld', NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL, NULL,
 	 '54f42b1a-598c-4026-b57c-98c72e399b62', 'N', 'N', NULL);
 
 
@@ -5359,11 +5338,11 @@ WHERE
 			tmp_clients_to_work_with
 	);
 
--- Migrate bh_charge_info to bh_payer_info_field
+-- Migrate bh_charge_info to BH_Payer_Info_Fld
 INSERT INTO
-	bh_payer_info_field (AD_Client_ID, AD_Org_ID, BH_PayerInfoFieldDataType, BH_FillFromPatient, BH_Payer_ID,
-	                     BH_Payer_Info_Field_ID, BH_Payer_Info_Field_UU, Created, CreatedBy, Description, IsActive, Line,
-	                     Name, Updated, UpdatedBy)
+	BH_Payer_Info_Fld (AD_Client_ID, AD_Org_ID, BH_PayerInfoFieldDataType, BH_FillFromPatient, BH_Payer_ID,
+	                   BH_Payer_Info_Fld_ID, BH_Payer_Info_Fld_UU, Created, CreatedBy, Description, IsActive, Line,
+	                   Name, Updated, UpdatedBy)
 SELECT
 	ci.AD_Client_ID,
 	ci.AD_Org_ID,
@@ -5385,11 +5364,11 @@ FROM
 		JOIN tmp_c_bpartner tbp
 		ON ci.c_charge_id = tbp.c_charge_id;
 
--- Migrate bh_charge_info_values to bh_payer_info_field_value
+-- Migrate bh_charge_info_values to BH_Payer_Info_Fld_Val
 INSERT INTO
-	BH_Payer_Info_Field_Value (AD_Client_ID, AD_Org_ID, BH_Payer_Info_Field_ID, BH_Payer_Info_Field_Value_ID,
-	                           BH_Payer_Info_Field_Value_UU, Created, CreatedBy, Description, IsActive, Line, Name,
-	                           Updated, UpdatedBy)
+	BH_Payer_Info_Fld_Val (AD_Client_ID, AD_Org_ID, BH_Payer_Info_Fld_ID, BH_Payer_Info_Fld_Val_ID,
+	                       BH_Payer_Info_Fld_Val_UU, Created, CreatedBy, Description, IsActive, Line, Name,
+	                       Updated, UpdatedBy)
 SELECT
 	AD_Client_ID,
 	AD_Org_ID,
@@ -5407,11 +5386,11 @@ SELECT
 FROM
 	bh_charge_info_values;
 
--- Migrate bh_charge_info_suggestions to bh_payer_info_field_suggestion
+-- Migrate bh_charge_info_suggestions to BH_Payer_Info_Fld_Sug
 INSERT INTO
-	BH_Payer_Info_Field_Suggestion (AD_Client_ID, AD_Org_ID, BH_PayerInfoFieldDataType, BH_FillFromPatient,
-	                                BH_Payer_Info_Field_Suggestion_ID, BH_Payer_Info_Field_Suggestion_UU, BH_SubType,
-	                                Created, CreatedBy, Description, IsActive, Line, Name, Updated, UpdatedBy)
+	BH_Payer_Info_Fld_Sug (AD_Client_ID, AD_Org_ID, BH_PayerInfoFieldDataType, BH_FillFromPatient,
+	                       BH_Payer_Info_Fld_Sug_ID, BH_Payer_Info_Fld_Sug_UU, BH_SubType,
+	                       Created, CreatedBy, Description, IsActive, Line, Name, Updated, UpdatedBy)
 SELECT
 	AD_Client_ID,
 	AD_Org_ID,
@@ -5431,12 +5410,12 @@ SELECT
 FROM
 	bh_charge_info_suggestion;
 
--- Migrate bh_charge_info_values_suggestion to bh_payer_info_field_value_suggestion
+-- Migrate bh_charge_info_values_suggestion to BH_Payer_Info_Fld_Val_Sug
 INSERT INTO
-	BH_Payer_Info_Field_Value_Suggestion (AD_Client_ID, AD_Org_ID, BH_Payer_Info_Field_Suggestion_ID,
-	                                      BH_Payer_Info_Field_Value_Suggestion_ID,
-	                                      BH_Payer_Info_Field_Value_Suggestion_UU, Created, CreatedBy, Description,
-	                                      IsActive, Line, Name, Updated, UpdatedBy)
+	BH_Payer_Info_Fld_Val_Sug (AD_Client_ID, AD_Org_ID, BH_Payer_Info_Fld_Sug_ID,
+	                           BH_Payer_Info_Fld_Val_Sug_ID,
+	                           BH_Payer_Info_Fld_Val_Sug_UU, Created, CreatedBy, Description,
+	                           IsActive, Line, Name, Updated, UpdatedBy)
 SELECT
 	AD_Client_ID,
 	AD_Org_ID,
@@ -5480,7 +5459,7 @@ FROM
 -- Migrate bh_bpartner_charge_info to bh_bp_general_payer_info
 INSERT INTO
 	BH_BP_General_Payer_Info (AD_Client_ID, AD_Org_ID, BH_BP_General_Payer_Info_ID, BH_BP_General_Payer_Info_UU,
-	                          BH_BP_Payer_Info_ID, BH_Payer_Info_Field_ID, Created, CreatedBy, Description, IsActive,
+	                          BH_BP_Payer_Info_ID, BH_Payer_Info_Fld_ID, Created, CreatedBy, Description, IsActive,
 	                          Name, Updated, UpdatedBy)
 SELECT
 	AD_Client_ID,
@@ -5501,7 +5480,7 @@ FROM
 
 -- Migrate bh_orderline_charge_info to bh_bp_specific_payer_info
 INSERT INTO
-	BH_BP_Specific_Payer_Info (AD_Client_ID, AD_Org_ID, bh_payer_info_field_id, BH_BP_Specific_Payer_Info_ID,
+	BH_BP_Specific_Payer_Info (AD_Client_ID, AD_Org_ID, BH_Payer_Info_Fld_id, BH_BP_Specific_Payer_Info_ID,
 	                           BH_BP_Specific_Payer_Info_UU, C_InvoiceLine_ID, Created, CreatedBy, Description, IsActive,
 	                           Name, Updated, UpdatedBy)
 SELECT

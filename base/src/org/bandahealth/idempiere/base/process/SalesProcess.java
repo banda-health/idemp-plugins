@@ -46,8 +46,6 @@ public class SalesProcess extends SvrProcess {
 			order.processIt(DocAction.ACTION_Complete);
 			return null;
 		}
-		
-		setPaymentStatus(true, null, null);
 
 		// async call.
 		Adempiere.getThreadPoolExecutor()
@@ -55,7 +53,6 @@ public class SalesProcess extends SvrProcess {
 
 					@Override
 					public void onSuccess(Properties context, String transactionName) {
-						setPaymentStatus(false, context, transactionName);
 					}
 
 					@Override
@@ -69,18 +66,6 @@ public class SalesProcess extends SvrProcess {
 				}), 0, TimeUnit.MILLISECONDS);
 
 		return null;
-	}
-
-	private void setPaymentStatus(boolean processing, Properties context, String transactionName) {
-		MOrder_BH order = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_ID + "=?", get_TrxName())
-				.setParameters(orderId).first();
-		String where = MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?";
-		List<MPayment_BH> orderPayments = new Query(context == null ? getCtx() : context, MPayment_BH.Table_Name, where,
-				transactionName == null ? get_TrxName() : transactionName).setParameters(order.getBH_Visit_ID()).list();
-		for (MPayment_BH orderPayment : orderPayments) {
-			orderPayment.setBH_Processing(processing);
-			orderPayment.saveEx();
-		}
 	}
 
 	private String createHTMLBody(String error, String clientName) {

@@ -8,7 +8,6 @@ import {
 	processApi,
 	productApi,
 	productCategoryApi,
-	receiveProductsApi,
 	referenceListApi,
 	visitApi,
 	warehouseApi,
@@ -28,7 +27,6 @@ import {
 	ProcessInfoParameter,
 	Product,
 	ProductCategory,
-	ReceiveProduct,
 	Visit,
 } from '../types/org.bandahealth.idempiere.rest';
 
@@ -127,54 +125,6 @@ export async function createVisit(valueObject: ValueObject) {
 }
 
 /**
- * Create an order (don't really have an ideal method for this at the moment - it duplicates visits).
- * This requires a document type, a business partner, and a warehouse be selected on the value object.
- * @param valueObject The value object containing information to create the entity
- * @returns Nothing
- */
-export async function createPurchaseOrder(valueObject: ValueObject) {
-	valueObject.validate();
-
-	//perform further validation if needed based on business logic
-	if (!valueObject.businessPartner) {
-		throw new Error('Business Partner is Null');
-	} else if (!valueObject.warehouse) {
-		throw new Error('Warehouse is Null');
-	}
-
-	const order: Partial<ReceiveProduct> = {
-		description: valueObject.getStepMessageLong(),
-		dateOrdered: valueObject.date,
-		businessPartner: valueObject!.businessPartner,
-		warehouse: valueObject!.warehouse,
-		orderLines: [],
-	};
-	const line: Partial<OrderLine> = {
-		description: valueObject.getStepMessageLong(),
-		product: valueObject.product,
-		quantity: valueObject.quantity || 1,
-		price: (valueObject.quantity || 1) * (valueObject.product?.sellPrice || 0),
-	};
-	order.orderLines?.push(line as OrderLine);
-	valueObject.order = await receiveProductsApi.save(valueObject, order as ReceiveProduct);
-	if (!valueObject.order) {
-		throw new Error('Order not created');
-	}
-	valueObject.orderLine = valueObject.order!.orderLines[0];
-
-	if (valueObject.documentAction) {
-		valueObject.order = await receiveProductsApi.process(
-			valueObject,
-			valueObject.order!.uuid,
-			valueObject.documentAction!,
-		);
-		if (!valueObject.order) {
-			throw new Error('Order not processed');
-		}
-	}
-}
-
-/**
  * Create an order. This requires a document type, a business partner, and a warehouse be selected on the value object.
  * @param valueObject The value object containing information to create the entity
  * @returns Nothing
@@ -235,7 +185,7 @@ export async function createInvoice(valueObject: ValueObject) {
 		throw new Error('Document Type is Null');
 	} else if (!valueObject.businessPartner) {
 		throw new Error('Business Partner is Null');
-	} else if (valueObject.order && valueObject.order.docStatus !== documentStatus.Completed) {
+	} else if (valueObject.order && valueObject.order.docStatus !== documentStatus.Completed && !valueObject.visit) {
 		throw new Error('Order Not Completed');
 	}
 
@@ -245,6 +195,7 @@ export async function createInvoice(valueObject: ValueObject) {
 		businessPartner: valueObject.businessPartner,
 		dateInvoiced: valueObject.date?.toISOString(),
 		invoiceLines: [],
+		documentTypeTarget: valueObject.documentType,
 		isSalesOrderTransaction: valueObject.documentType!.isSalesTransaction,
 	};
 	const invoiceLine: Partial<InvoiceLine> = {
@@ -271,6 +222,7 @@ export async function createInvoice(valueObject: ValueObject) {
 			throw new Error('Invoice not processed');
 		}
 	}
+	valueObject.visit?.invoices?.push(valueObject.invoice!);
 }
 
 /**
@@ -289,12 +241,13 @@ export async function createPayment(valueObject: ValueObject) {
 		orgId: 0,
 		businessPartner: valueObject.businessPartner,
 		description: valueObject.getStepMessageLong(),
-		payAmount: valueObject.invoice?.grandTotal || valueObject.paymentAmount || valueObject.order?.grandTotal || 1,
+		payAmount: valueObject.paymentAmount || valueObject.invoice?.grandTotal || valueObject.order?.grandTotal || 1,
 		paymentType:
 			valueObject.tenderType ||
 			((await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 				(tenderType) => tenderType.name === tenderTypeName.CASH,
 			) as PaymentType),
+		documentType: valueObject.documentType,
 	};
 	valueObject.payment = await paymentApi.save(valueObject, payment as Payment);
 	if (!valueObject.payment) {
@@ -475,6 +428,7 @@ export async function createInventory(valueObject: ValueObject) {
 		orgId: 0,
 		description: valueObject.getStepMessageLong(),
 		warehouse: valueObject.warehouse,
+		documentType: valueObject.documentType,
 	} as Inventory;
 	const inventoryLine = {
 		orgId: 0,

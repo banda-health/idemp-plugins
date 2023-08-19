@@ -113,7 +113,7 @@ public class QueryUtil {
 		}
 
 		return MSequence_BH.getDocumentNo(Env.getAD_Client_ID(Env.getCtx()),
-				MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITHOUT_PREFIX, null, patient);
+				MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITHOUT_PREFIX, null, patient);
 	}
 
 	/**

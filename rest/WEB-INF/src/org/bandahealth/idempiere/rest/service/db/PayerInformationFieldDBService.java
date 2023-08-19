@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.bandahealth.idempiere.base.model.MBHPayerInfoField;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.bandahealth.idempiere.rest.model.PayerInformationField;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PayerInformationFieldDBService extends BaseDBService<PayerInformationField, MBHPayerInfoField> {
+public class PayerInformationFieldDBService extends BaseDBService<PayerInformationField, MBHPayerInfoFld> {
 	@Autowired
 	private PayerInformationFieldValueDBService payerInformationFieldValueDBService;
 	@Autowired
@@ -18,11 +18,11 @@ public class PayerInformationFieldDBService extends BaseDBService<PayerInformati
 
 	@Override
 	public PayerInformationField saveEntity(PayerInformationField entity) {
-		MBHPayerInfoField payerInfoField = getEntityByUuidFromDB(entity.getUuid());
+		MBHPayerInfoFld payerInfoField = getEntityByUuidFromDB(entity.getUuid());
 		if (payerInfoField == null) {
 			payerInfoField = getModelInstance();
 			if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
-				payerInfoField.setBH_Payer_Info_Field_UU(entity.getUuid());
+				payerInfoField.setBH_Payer_Info_Fld_UU(entity.getUuid());
 			}
 		}
 		payerInfoField.setBH_Payer_ID(entity.getPayerId());
@@ -40,7 +40,7 @@ public class PayerInformationFieldDBService extends BaseDBService<PayerInformati
 		ModelUtil.setPropertyIfPresent(entity.getDescription(), payerInfoField::setDescription);
 
 		payerInfoField.saveEx();
-		entity.setId(payerInfoField.getBH_Payer_Info_Field_ID());
+		entity.setId(payerInfoField.getBH_Payer_Info_Fld_ID());
 
 		// Save the values, if any
 		if (entity.getValues() != null) {
@@ -50,7 +50,7 @@ public class PayerInformationFieldDBService extends BaseDBService<PayerInformati
 			});
 		}
 
-		return createInstanceWithAllFields(getEntityByUuidFromDB(payerInfoField.getBH_Payer_Info_Field_UU()));
+		return createInstanceWithAllFields(getEntityByUuidFromDB(payerInfoField.getBH_Payer_Info_Fld_UU()));
 	}
 
 	@Override
@@ -59,17 +59,17 @@ public class PayerInformationFieldDBService extends BaseDBService<PayerInformati
 	}
 
 	@Override
-	protected PayerInformationField createInstanceWithDefaultFields(MBHPayerInfoField instance) {
+	protected PayerInformationField createInstanceWithDefaultFields(MBHPayerInfoFld instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected PayerInformationField createInstanceWithAllFields(MBHPayerInfoField instance) {
+	protected PayerInformationField createInstanceWithAllFields(MBHPayerInfoFld instance) {
 		return new PayerInformationField(instance);
 	}
 
 	@Override
-	protected MBHPayerInfoField getModelInstance() {
-		return new MBHPayerInfoField(Env.getCtx(), 0, null);
+	protected MBHPayerInfoFld getModelInstance() {
+		return new MBHPayerInfoFld(Env.getCtx(), 0, null);
 	}
 }

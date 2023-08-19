@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.bandahealth.idempiere.base.model.MBHPayerInfoFieldSuggestion;
-import org.bandahealth.idempiere.base.model.MBHPayerInfoFieldValueSuggestion;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFldSug;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFldValSug;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.PayerInformationFieldSuggestion;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class PayerInformationFieldSuggestionDBService
-		extends BaseDBService<PayerInformationFieldSuggestion, MBHPayerInfoFieldSuggestion> {
+		extends BaseDBService<PayerInformationFieldSuggestion, MBHPayerInfoFldSug> {
 	@Autowired
 	private PayerInformationFieldValueSuggestionDBService payerInformationFieldValueSuggestionDBService;
 	@Autowired
@@ -37,18 +37,18 @@ public class PayerInformationFieldSuggestionDBService
 	}
 
 	@Override
-	protected PayerInformationFieldSuggestion createInstanceWithDefaultFields(MBHPayerInfoFieldSuggestion instance) {
+	protected PayerInformationFieldSuggestion createInstanceWithDefaultFields(MBHPayerInfoFldSug instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected PayerInformationFieldSuggestion createInstanceWithAllFields(MBHPayerInfoFieldSuggestion instance) {
+	protected PayerInformationFieldSuggestion createInstanceWithAllFields(MBHPayerInfoFldSug instance) {
 		return new PayerInformationFieldSuggestion(instance);
 	}
 
 	@Override
-	protected MBHPayerInfoFieldSuggestion getModelInstance() {
-		return new MBHPayerInfoFieldSuggestion(Env.getCtx(), 0, null);
+	protected MBHPayerInfoFldSug getModelInstance() {
+		return new MBHPayerInfoFldSug(Env.getCtx(), 0, null);
 	}
 
 	@Override
@@ -60,26 +60,26 @@ public class PayerInformationFieldSuggestionDBService
 	}
 
 	@Override
-	public List<PayerInformationFieldSuggestion> transformData(List<MBHPayerInfoFieldSuggestion> dbModels) {
+	public List<PayerInformationFieldSuggestion> transformData(List<MBHPayerInfoFldSug> dbModels) {
 		Set<Integer> payerInformationFieldSuggestionIds =
-				dbModels.stream().map(MBHPayerInfoFieldSuggestion::get_ID).collect(Collectors.toSet());
+				dbModels.stream().map(MBHPayerInfoFldSug::get_ID).collect(Collectors.toSet());
 		// Batch call to get payer info field values
-		Map<Integer, List<MBHPayerInfoFieldValueSuggestion>>
+		Map<Integer, List<MBHPayerInfoFldValSug>>
 				payerInformationFIeldValueSuggestionsByPayerInformationFieldSuggestionId =
 				payerInformationFieldValueSuggestionDBService.getGroupsByIds(
-						MBHPayerInfoFieldValueSuggestion::getBH_Payer_Info_Field_Suggestion_ID,
-						MBHPayerInfoFieldValueSuggestion.COLUMNNAME_BH_Payer_Info_Field_Suggestion_ID,
+						MBHPayerInfoFldValSug::getBH_Payer_Info_Fld_Sug_ID,
+						MBHPayerInfoFldValSug.COLUMNNAME_BH_Payer_Info_Fld_Sug_ID,
 						payerInformationFieldSuggestionIds);
 
 		// Batch calls to get reference lists for payer info field value suggestions
 		Map<String, MRefList> subTypeByValue = referenceListDBService
 				.getTypes(MReference_BH.NON_PATIENT_PAYER_AD_REFERENCE_UU,
-						dbModels.stream().map(MBHPayerInfoFieldSuggestion::getBH_SubType)
+						dbModels.stream().map(MBHPayerInfoFldSug::getBH_SubType)
 								.collect(Collectors.toSet()))
 				.stream().collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
 		Map<String, MRefList> dataTypesByValue = referenceListDBService
 				.getTypes(MReference_BH.PAYER_INFORMATION_FIELD_DATA_TYPE_AD_REFERENCE_UU,
-						dbModels.stream().map(MBHPayerInfoFieldSuggestion::getBH_PayerInfoFieldDataType)
+						dbModels.stream().map(MBHPayerInfoFldSug::getBH_PayerInfoFieldDataType)
 								.collect(Collectors.toSet()))
 				.stream().collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
 

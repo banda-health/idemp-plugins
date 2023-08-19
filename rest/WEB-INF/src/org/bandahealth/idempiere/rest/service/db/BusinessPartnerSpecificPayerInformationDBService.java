@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
-import org.bandahealth.idempiere.base.model.MBHPayerInfoField;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.bandahealth.idempiere.rest.model.BusinessPartnerSpecificPayerInformation;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
@@ -27,13 +27,13 @@ public class BusinessPartnerSpecificPayerInformationDBService
 
 		// Set the charge information relationship
 		if (entity.getPayerInformationFieldId() > 0) {
-			businessPartnerSpecificPaymentInformation.setBH_Payer_Info_Field_ID(entity.getPayerInformationFieldId());
+			businessPartnerSpecificPaymentInformation.setBH_Payer_Info_Fld_ID(entity.getPayerInformationFieldId());
 		} else {
-			MBHPayerInfoField payerInformationField =
+			MBHPayerInfoFld payerInformationField =
 					payerInformationFieldDBService.getEntityByUuidFromDB(entity.getPayerInformationFieldUuid());
 			if (payerInformationField != null) {
-				businessPartnerSpecificPaymentInformation.setBH_Payer_Info_Field_ID(
-						payerInformationField.getBH_Payer_Info_Field_ID());
+				businessPartnerSpecificPaymentInformation.setBH_Payer_Info_Fld_ID(
+						payerInformationField.getBH_Payer_Info_Fld_ID());
 			}
 		}
 		businessPartnerSpecificPaymentInformation.setC_InvoiceLine_ID(entity.getInvoiceLineId());

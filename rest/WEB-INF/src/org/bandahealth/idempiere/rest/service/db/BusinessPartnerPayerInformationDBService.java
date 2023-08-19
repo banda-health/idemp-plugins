@@ -3,7 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHBPGeneralPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHBPPayerInfo;
-import org.bandahealth.idempiere.base.model.MBHPayerInfoField;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.rest.model.BusinessPartnerGeneralPayerInformation;
 import org.bandahealth.idempiere.rest.model.BusinessPartnerPayerInformation;
@@ -131,10 +131,10 @@ public class BusinessPartnerPayerInformationDBService
 						MBHBPGeneralPayerInfo.COLUMNNAME_BH_BP_Payer_Info_ID, businessPartnerPayerInformationIds);
 		Map<Integer, MBPartner_BH> payersById = businessPartnerDBService.getByIds(payerIds);
 		Map<Integer, MBPartner_BH> businessPartnersByIds = businessPartnerDBService.getByIds(businessPartnerIds);
-		Map<Integer, MBHPayerInfoField> payerInformationFieldsByIds = payerInformationFieldDBService.getByIds(
+		Map<Integer, MBHPayerInfoFld> payerInformationFieldsByIds = payerInformationFieldDBService.getByIds(
 				businessPartnerGeneralPayerInformationByBusinessPartnerPayerInformationId.values().stream().flatMap(
 						businessPartnerGeneralPayerInformation -> businessPartnerGeneralPayerInformation.stream()
-								.map(MBHBPGeneralPayerInfo::getBH_Payer_Info_Field_ID)).collect(Collectors.toSet()));
+								.map(MBHBPGeneralPayerInfo::getBH_Payer_Info_Fld_ID)).collect(Collectors.toSet()));
 
 		return dbModels.stream().map(this::createInstanceWithAllFields).peek(businessPartnerPayerInformation -> {
 			// Set the uuids
@@ -150,7 +150,7 @@ public class BusinessPartnerPayerInformationDBService
 									businessPartnerGeneralPayerInformation -> {
 										businessPartnerGeneralPayerInformation.setPayerInformationFieldUuid(
 												payerInformationFieldsByIds.get(businessPartnerGeneralPayerInformation.getPayerInformationFieldId())
-														.getBH_Payer_Info_Field_UU());
+														.getBH_Payer_Info_Fld_UU());
 									}).collect(Collectors.toList()));
 		}).collect(Collectors.toList());
 	}

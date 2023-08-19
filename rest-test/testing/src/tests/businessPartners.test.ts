@@ -1,13 +1,13 @@
 import { businessPartnerApi, visitApi } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
 import { BusinessPartner } from '../types/org.bandahealth.idempiere.rest';
-import { createBusinessPartner, createOrder, createProduct, createPurchaseOrder, createVisit, formatDate } from '../utils';
+import { createBusinessPartner, createOrder, createProduct, createVisit, formatDate } from '../utils';
 
 test(`information saved correctly`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
+	valueObject.stepName = 'Create business partner';
 	const businessPartner: Partial<BusinessPartner> = {
 		name: valueObject.getDynamicStepMessage(),
 		description: valueObject.getStepMessageLong(),
@@ -28,6 +28,13 @@ test(`get method returns the correct data`, async () => {
 
 	valueObject.stepName = 'Create business partner';
 	await createBusinessPartner(valueObject);
+	valueObject.businessPartner!.gender = 'male';
+	valueObject.businessPartner!.nationalId = '156156';
+	valueObject.businessPartner!.occupation = 'Programmer';
+	valueObject.businessPartner!.nextOfKinName = 'Wifey';
+	valueObject.businessPartner!.nextOfKinContact = '155155';
+	valueObject.businessPartner!.address = '514 E North Ave';
+	valueObject.businessPartner = await businessPartnerApi.save(valueObject, valueObject.businessPartner!);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -35,23 +42,8 @@ test(`get method returns the correct data`, async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	const businessPartner: Partial<BusinessPartner> = {
-		name: valueObject.getDynamicStepMessage(),
-		description: valueObject.getStepMessageLong(),
-		dateOfBirth: valueObject.date?.toISOString(),
-		gender: 'male',
-		nationalId: '156156',
-		occupation: 'Programmer',
-		nextOfKinName: 'Wifey',
-		nextOfKinContact: '155155',
-		address: '514 E North Ave',
-	};
-	const savedPatient = await businessPartnerApi.save(valueObject, businessPartner as BusinessPartner);
-	valueObject.businessPartner = savedPatient as BusinessPartner;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	const twoDaysAgo = new Date();
@@ -64,7 +56,7 @@ test(`get method returns the correct data`, async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
@@ -74,14 +66,20 @@ test(`get method returns the correct data`, async () => {
 	await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
 	const searchedBusinessPartners = (
-		await businessPartnerApi.get(valueObject, 0, 10, undefined, JSON.stringify({ name: savedPatient.name }))
+		await businessPartnerApi.get(
+			valueObject,
+			0,
+			10,
+			undefined,
+			JSON.stringify({ name: valueObject.businessPartner.name }),
+		)
 	).results;
 	expect(searchedBusinessPartners).toHaveLength(1);
 	expect(searchedBusinessPartners[0].lastVisitDate).toBe(formatDate(twoDaysAgo));
 	expect(searchedBusinessPartners[0].totalVisits).toBe(1);
-	expect(searchedBusinessPartners[0].nationalId).toBe(businessPartner.nationalId);
-	expect(searchedBusinessPartners[0].occupation).toBe(businessPartner.occupation);
-	expect(searchedBusinessPartners[0].nextOfKinName).toBe(businessPartner.nextOfKinName);
-	expect(searchedBusinessPartners[0].nextOfKinContact).toBe(businessPartner.nextOfKinContact);
-	expect(searchedBusinessPartners[0].address).toBe(businessPartner.address);
+	expect(searchedBusinessPartners[0].nationalId).toBe(valueObject.businessPartner.nationalId);
+	expect(searchedBusinessPartners[0].occupation).toBe(valueObject.businessPartner.occupation);
+	expect(searchedBusinessPartners[0].nextOfKinName).toBe(valueObject.businessPartner.nextOfKinName);
+	expect(searchedBusinessPartners[0].nextOfKinContact).toBe(valueObject.businessPartner.nextOfKinContact);
+	expect(searchedBusinessPartners[0].address).toBe(valueObject.businessPartner.address);
 });

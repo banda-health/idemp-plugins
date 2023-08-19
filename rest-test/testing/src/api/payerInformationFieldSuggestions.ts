@@ -2,7 +2,7 @@ import { PayerInformationFieldSuggestion } from '../types/org.bandahealth.idempi
 import { BaseApi } from './base';
 
 class PayerInformationFieldSuggestionApi extends BaseApi<PayerInformationFieldSuggestion> {
-	entityName = 'payment-information-field-suggestions';
+	entityName = 'payer-information-field-suggestions';
 }
 
 export const payerInformationFieldSuggestionApi = new PayerInformationFieldSuggestionApi();

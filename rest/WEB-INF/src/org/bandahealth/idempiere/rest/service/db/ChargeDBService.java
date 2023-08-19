@@ -50,20 +50,6 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 		ModelUtil.setPropertyIfPresent(entity.getName(), charge::setName);
 		ModelUtil.setPropertyIfPresent(entity.getDescription(), charge::setDescription);
 
-		if (entity.getAccount() != null) {
-			MElementValue account = accountDBService.getEntityByUuidFromDB(entity.getAccount().getUuid());
-			if (account != null) {
-				X_C_Charge_Acct chargeAccount =
-						new Query(Env.getCtx(), X_C_Charge_Acct.Table_Name, X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?",
-								null).setParameters(charge.getC_Charge_ID()).first();
-				chargeAccount.setCh_Expense_Acct(
-						MAccount.get(Env.getCtx(), Env.getAD_Client_ID(Env.getCtx()), 0, chargeAccount.getC_AcctSchema_ID(),
-										account.getC_ElementValue_ID(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null)
-								.getC_ValidCombination_ID());
-				chargeAccount.saveEx();
-			}
-		}
-
 		charge.setIsActive(entity.getIsActive());
 
 		if (entity.getChargeType() != null) {
@@ -82,6 +68,20 @@ public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
 
 		charge.saveEx();
 		entity.setId(charge.getC_Charge_ID());
+
+		if (entity.getAccount() != null) {
+			MElementValue account = accountDBService.getEntityByUuidFromDB(entity.getAccount().getUuid());
+			if (account != null) {
+				X_C_Charge_Acct chargeAccount =
+						new Query(Env.getCtx(), X_C_Charge_Acct.Table_Name, X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?",
+								null).setParameters(charge.getC_Charge_ID()).first();
+				chargeAccount.setCh_Expense_Acct(
+						MAccount.get(Env.getCtx(), Env.getAD_Client_ID(Env.getCtx()), 0, chargeAccount.getC_AcctSchema_ID(),
+										account.getC_ElementValue_ID(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null)
+								.getC_ValidCombination_ID());
+				chargeAccount.saveEx();
+			}
+		}
 
 		return transformData(Collections.singletonList(getEntityByUuidFromDB(charge.getC_Charge_UU()))).get(0);
 	}

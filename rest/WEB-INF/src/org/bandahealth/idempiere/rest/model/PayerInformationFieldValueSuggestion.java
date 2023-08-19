@@ -1,16 +1,16 @@
 package org.bandahealth.idempiere.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.bandahealth.idempiere.base.model.MBHPayerInfoFieldValueSuggestion;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFldValSug;
 
 public class PayerInformationFieldValueSuggestion extends BaseEntity {
 	private int lineNumber;
 	@JsonIgnore
 	private int payerInfoFieldSuggestionId;
 
-	public PayerInformationFieldValueSuggestion(MBHPayerInfoFieldValueSuggestion entity) {
+	public PayerInformationFieldValueSuggestion(MBHPayerInfoFldValSug entity) {
 		super(entity, entity.getName(), entity.getDescription(), null);
-		setPayerInfoFieldSuggestionId(entity.getBH_Payer_Info_Field_Suggestion_ID());
+		setPayerInfoFieldSuggestionId(entity.getBH_Payer_Info_Fld_Sug_ID());
 		setLineNumber(entity.getLine());
 	}
 

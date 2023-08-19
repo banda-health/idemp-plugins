@@ -19,7 +19,7 @@ public class BusinessPartnerGeneralPayerInformation extends BaseEntity {
 	public BusinessPartnerGeneralPayerInformation(MBHBPGeneralPayerInfo entity) {
 		super(entity, entity.getName(), entity.getDescription(), null);
 		setBusinessPartnerPayerInformationId(entity.getBH_BP_Payer_Info_ID());
-		setPayerInformationFieldId(entity.getBH_Payer_Info_Field_ID());
+		setPayerInformationFieldId(entity.getBH_Payer_Info_Fld_ID());
 	}
 
 	public int getBusinessPartnerPayerInformationId() {

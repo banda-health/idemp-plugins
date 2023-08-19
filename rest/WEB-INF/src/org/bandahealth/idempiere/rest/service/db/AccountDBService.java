@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.Account;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MElementValue;
@@ -67,7 +68,6 @@ public class AccountDBService extends BaseDBService<Account, MElementValue> {
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new NotImplementedException();
 	}
 }

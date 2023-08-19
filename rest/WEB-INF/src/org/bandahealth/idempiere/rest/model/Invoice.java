@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,6 +33,14 @@ public class Invoice extends BaseMetadata {
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
 	private VoidedReason voidedReason;
+	@JsonIgnore
+	private int documentTypeTargetId;
+	private DocumentType documentTypeTarget;
+	@JsonIgnore
+	private int visitId;
+	@JsonIgnore
+	private int orderId;
+	private Order order;
 
 	public Invoice() {
 	}
@@ -45,6 +54,7 @@ public class Invoice extends BaseMetadata {
 		description = entity.getDescription();
 		paymentRule = entity.getPaymentRule();
 		docStatus = entity.getDocStatus();
+		setDocumentTypeTargetId(entity.getC_DocType_ID());
 	}
 
 	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -99,12 +109,14 @@ public class Invoice extends BaseMetadata {
 		this.grandTotal = grandTotal;
 	}
 
+	@JsonProperty("isSalesOrderTransaction")
 	public boolean isSalesOrderTransaction() {
 		return isSalesOrderTransaction;
 	}
 
-	public void setIsSalesOrderTransaction(boolean isSalesOrderTransaction) {
-		this.isSalesOrderTransaction = isSalesOrderTransaction;
+	@JsonProperty("isSalesOrderTransaction")
+	public void setSalesOrderTransaction(boolean salesOrderTransaction) {
+		isSalesOrderTransaction = salesOrderTransaction;
 	}
 
 	@XmlElement
@@ -157,5 +169,49 @@ public class Invoice extends BaseMetadata {
 
 	public void setDateInvoicedCreated(Timestamp dateInvoicedCreated) {
 		this.dateInvoicedCreated = dateInvoicedCreated;
+	}
+
+	@JsonIgnore
+	public int getDocumentTypeTargetId() {
+		return documentTypeTargetId;
+	}
+
+	@JsonIgnore
+	public void setDocumentTypeTargetId(int documentTypeTargetId) {
+		this.documentTypeTargetId = documentTypeTargetId;
+	}
+
+	public DocumentType getDocumentTypeTarget() {
+		return documentTypeTarget;
+	}
+
+	public void setDocumentTypeTarget(DocumentType documentTypeTarget) {
+		this.documentTypeTarget = documentTypeTarget;
+	}
+
+	@JsonIgnore
+	public int getVisitId() {
+		return visitId;
+	}
+
+	@JsonIgnore
+	public void setVisitId(int visitId) {
+		this.visitId = visitId;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	public int getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 }

@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
-import org.bandahealth.idempiere.base.model.MBHPayerInfoFieldSuggestion;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFldSug;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.PayerInformationFieldSuggestion;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
@@ -15,8 +15,9 @@ import javax.ws.rs.core.MediaType;
 @Path(IRestConfigs.PAYER_INFORMATION_FIELD_SUGGESTION_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ChargeInformationSuggestionRestService extends
-		BaseRestService<PayerInformationFieldSuggestion, MBHPayerInfoFieldSuggestion, PayerInformationFieldSuggestionDBService> {
+public class PayerInformationFieldSuggestionRestService extends
+		BaseRestService<PayerInformationFieldSuggestion, MBHPayerInfoFldSug,
+				PayerInformationFieldSuggestionDBService> {
 	@Autowired
 	private PayerInformationFieldSuggestionDBService dbService;
 

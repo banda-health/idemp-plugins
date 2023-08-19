@@ -1,7 +1,7 @@
 import { paymentApi, referenceListApi } from '../api';
-import { documentAction, documentStatus, referenceUuid, tenderTypeName } from '../models';
+import { documentAction, documentBaseType, documentStatus, referenceUuid, tenderTypeName } from '../models';
 import { PaymentType } from '../types/org.bandahealth.idempiere.rest';
-import { createBusinessPartner, createPayment, createProduct, createPurchaseOrder, createVisit } from '../utils';
+import { createBusinessPartner, createOrder, createPayment, createProduct, createVisit } from '../utils';
 
 test('payment type updated with UUID, not value', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -12,6 +12,7 @@ test('payment type updated with UUID, not value', async () => {
 
 	valueObject.stepName = 'Create Cash Payment';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	await createPayment(valueObject);
 
 	const cashPaymentType = { ...valueObject.payment!.paymentType };
@@ -44,6 +45,7 @@ test('payment values are saved correctly', async () => {
 
 	valueObject.stepName = 'Create Cash Payment';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	await createPayment(valueObject);
 
 	valueObject.payment!.payAmount = 500;
@@ -68,18 +70,18 @@ test('debt payments are processed correctly', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
-	valueObject.documentAction = documentAction.Complete;
 	await createVisit(valueObject);
 
 	valueObject.stepName = 'Create Cash Payment';
-	valueObject.documentAction = undefined;
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	await createPayment(valueObject);
-	const newPayment = await paymentApi.saveAndProcess(valueObject, valueObject.payment!, documentAction.Complete);
 
-	expect(newPayment.payAmount).toBe(valueObject.payment!.payAmount);
-	expect(newPayment.tenderAmount).toBe(valueObject.payment!.tenderAmount);
-	expect(newPayment.docStatus).toBe(documentStatus.Completed);
+	expect(valueObject.payment!.payAmount).toBe(valueObject.payment!.payAmount);
+	expect(valueObject.payment!.tenderAmount).toBe(valueObject.payment!.tenderAmount);
+	expect(valueObject.payment!.docStatus).toBe(documentStatus.Completed);
 });

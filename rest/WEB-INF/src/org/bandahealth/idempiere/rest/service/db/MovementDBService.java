@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
@@ -48,12 +49,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	private AttributeSetInstanceDBService attributeSetInstanceDBService;
 	@Autowired
 	private LocatorDBService locatorDBService;
-	@Autowired
-	private StorageOnHandDBService storageOnHandDBService;
-	/**
-	 * Document Type
-	 */
-	private final int p_C_DocType_ID = 0;
+
 	private final Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(MWarehouse.Table_Name,
@@ -66,11 +62,6 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 							+ MUser_BH.COLUMNNAME_AD_User_ID);
 		}
 	};
-
-	@Override
-	protected String getDocumentTypeName() {
-		return DOCUMENTNAME_MOVEMENT;
-	}
 
 	@Override
 	int getDocumentProcessId() {
@@ -103,7 +94,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 					mMovement.setM_Movement_UU(entity.getUuid());
 				}
 
-				mMovement.setC_DocType_ID(p_C_DocType_ID);
+				mMovement.setC_DocType_ID(MDocType_BH.getDocType(MDocType_BH.DOCBASETYPE_MaterialMovement));
 			}
 
 			mMovement.setAD_Org_ID(fromWarehouse.getAD_Org_ID());
@@ -230,11 +221,11 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 	public Movement getEntity(String uuid) {
 		Movement movement = transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
 
-		
+
 		// We need more information for the storage on hand, so get those entities
 		Set<Integer> productIds =
 				movement.getMovementLines().stream().map(MovementLine::getProductId).collect(Collectors.toSet());
-				
+
 		// go-2331 Returning all this data is leading to serious performance issues. 
 		// TODO: Work on an efficient way of returning all the data or just the totalQuantity field
 		
@@ -357,5 +348,10 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 		});
 
 		return results;
+	}
+
+	@Override
+	int getDocumentTypeId(MMovement_BH entity) {
+		return entity.getC_DocType_ID();
 	}
 }

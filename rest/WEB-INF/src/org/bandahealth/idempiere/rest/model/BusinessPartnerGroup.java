@@ -8,6 +8,7 @@ public class BusinessPartnerGroup extends BaseEntity {
 	@JsonIgnore
 	private String subTypeValue;
 	private ReferenceList subType;
+	private Charge associatedCustomerReceivablesCharge;
 
 	public BusinessPartnerGroup() {}
 
@@ -32,5 +33,14 @@ public class BusinessPartnerGroup extends BaseEntity {
 
 	public void setSubType(ReferenceList subType) {
 		this.subType = subType;
+	}
+
+	public Charge getAssociatedCustomerReceivablesCharge() {
+		return associatedCustomerReceivablesCharge;
+	}
+
+	public void setAssociatedCustomerReceivablesCharge(
+			Charge associatedCustomerReceivablesCharge) {
+		this.associatedCustomerReceivablesCharge = associatedCustomerReceivablesCharge;
 	}
 }

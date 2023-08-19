@@ -1,13 +1,13 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.bandahealth.idempiere.base.model.MBHPayerInfoFieldValueSuggestion;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFldValSug;
 import org.bandahealth.idempiere.rest.model.PayerInformationFieldValueSuggestion;
 import org.compiere.util.Env;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PayerInformationFieldValueSuggestionDBService
-		extends BaseDBService<PayerInformationFieldValueSuggestion, MBHPayerInfoFieldValueSuggestion> {
+		extends BaseDBService<PayerInformationFieldValueSuggestion, MBHPayerInfoFldValSug> {
 	@Override
 	public PayerInformationFieldValueSuggestion saveEntity(PayerInformationFieldValueSuggestion entity) {
 		throw new UnsupportedOperationException("Not implemented");
@@ -19,18 +19,18 @@ public class PayerInformationFieldValueSuggestionDBService
 	}
 
 	@Override
-	protected PayerInformationFieldValueSuggestion createInstanceWithDefaultFields(MBHPayerInfoFieldValueSuggestion instance) {
+	protected PayerInformationFieldValueSuggestion createInstanceWithDefaultFields(MBHPayerInfoFldValSug instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected PayerInformationFieldValueSuggestion createInstanceWithAllFields(MBHPayerInfoFieldValueSuggestion instance) {
+	protected PayerInformationFieldValueSuggestion createInstanceWithAllFields(MBHPayerInfoFldValSug instance) {
 		return new PayerInformationFieldValueSuggestion(instance);
 	}
 
 	@Override
-	protected MBHPayerInfoFieldValueSuggestion getModelInstance() {
-		return new MBHPayerInfoFieldValueSuggestion(Env.getCtx(), 0, null);
+	protected MBHPayerInfoFldValSug getModelInstance() {
+		return new MBHPayerInfoFldValSug(Env.getCtx(), 0, null);
 	}
 
 	@Override

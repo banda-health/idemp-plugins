@@ -21,16 +21,16 @@ import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Payer_Info_Field_Value_Suggestion
+/** Generated Interface for BH_Payer_Info_Fld_Sug
  *  @author iDempiere (generated) 
  *  @version Release 8.2
  */
 @SuppressWarnings("all")
-public interface I_BH_Payer_Info_Field_Value_Suggestion 
+public interface I_BH_Payer_Info_Fld_Sug 
 {
 
-    /** TableName=BH_Payer_Info_Field_Value_Suggestion */
-    public static final String Table_Name = "BH_Payer_Info_Field_Value_Suggestion";
+    /** TableName=BH_Payer_Info_Fld_Sug */
+    public static final String Table_Name = "BH_Payer_Info_Fld_Sug";
 
     /** AD_Table_ID=1000045 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
@@ -64,34 +64,54 @@ public interface I_BH_Payer_Info_Field_Value_Suggestion
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_Payer_Info_Field_Suggestion_ID */
-    public static final String COLUMNNAME_BH_Payer_Info_Field_Suggestion_ID = "BH_Payer_Info_Field_Suggestion_ID";
+    /** Column name BH_FillFromPatient */
+    public static final String COLUMNNAME_BH_FillFromPatient = "BH_FillFromPatient";
+
+	/** Set Fill From Patient	  */
+	public void setBH_FillFromPatient (boolean BH_FillFromPatient);
+
+	/** Get Fill From Patient	  */
+	public boolean isBH_FillFromPatient();
+
+    /** Column name BH_Payer_Info_Fld_Sug_ID */
+    public static final String COLUMNNAME_BH_Payer_Info_Fld_Sug_ID = "BH_Payer_Info_Fld_Sug_ID";
 
 	/** Set Payer Info Field Suggestion	  */
-	public void setBH_Payer_Info_Field_Suggestion_ID (int BH_Payer_Info_Field_Suggestion_ID);
+	public void setBH_Payer_Info_Fld_Sug_ID (int BH_Payer_Info_Fld_Sug_ID);
 
 	/** Get Payer Info Field Suggestion	  */
-	public int getBH_Payer_Info_Field_Suggestion_ID();
+	public int getBH_Payer_Info_Fld_Sug_ID();
 
-	public I_BH_Payer_Info_Field_Suggestion getBH_Payer_Info_Field_Suggestion() throws RuntimeException;
+    /** Column name BH_Payer_Info_Fld_Sug_UU */
+    public static final String COLUMNNAME_BH_Payer_Info_Fld_Sug_UU = "BH_Payer_Info_Fld_Sug_UU";
 
-    /** Column name BH_Payer_Info_Field_Value_Suggestion_ID */
-    public static final String COLUMNNAME_BH_Payer_Info_Field_Value_Suggestion_ID = "BH_Payer_Info_Field_Value_Suggestion_ID";
+	/** Set BH_Payer_Info_Fld_Sug_UU	  */
+	public void setBH_Payer_Info_Fld_Sug_UU (String BH_Payer_Info_Fld_Sug_UU);
 
-	/** Set Payer Info Field Value Suggestion	  */
-	public void setBH_Payer_Info_Field_Value_Suggestion_ID (int BH_Payer_Info_Field_Value_Suggestion_ID);
+	/** Get BH_Payer_Info_Fld_Sug_UU	  */
+	public String getBH_Payer_Info_Fld_Sug_UU();
 
-	/** Get Payer Info Field Value Suggestion	  */
-	public int getBH_Payer_Info_Field_Value_Suggestion_ID();
+    /** Column name BH_PayerInfoFieldDataType */
+    public static final String COLUMNNAME_BH_PayerInfoFieldDataType = "BH_PayerInfoFieldDataType";
 
-    /** Column name BH_Payer_Info_Field_Value_Suggestion_UU */
-    public static final String COLUMNNAME_BH_Payer_Info_Field_Value_Suggestion_UU = "BH_Payer_Info_Field_Value_Suggestion_UU";
+	/** Set Payer Info Field Data Type	  */
+	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType);
 
-	/** Set BH_Payer_Info_Field_Value_Suggestion_UU	  */
-	public void setBH_Payer_Info_Field_Value_Suggestion_UU (String BH_Payer_Info_Field_Value_Suggestion_UU);
+	/** Get Payer Info Field Data Type	  */
+	public String getBH_PayerInfoFieldDataType();
 
-	/** Get BH_Payer_Info_Field_Value_Suggestion_UU	  */
-	public String getBH_Payer_Info_Field_Value_Suggestion_UU();
+    /** Column name BH_SubType */
+    public static final String COLUMNNAME_BH_SubType = "BH_SubType";
+
+	/** Set Sub Type.
+	  * Meant to be a sub-type of the charge type
+	  */
+	public void setBH_SubType (String BH_SubType);
+
+	/** Get Sub Type.
+	  * Meant to be a sub-type of the charge type
+	  */
+	public String getBH_SubType();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

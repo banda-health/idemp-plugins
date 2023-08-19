@@ -41,7 +41,7 @@ public class X_BH_BP_Specific_Payer_Info extends PO implements I_BH_BP_Specific_
         {
 			setBH_BP_Payer_Info_ID (0);
 			setBH_BP_Specific_Payer_Info_ID (0);
-			setBH_Payer_Info_Field_ID (0);
+			setBH_Payer_Info_Fld_ID (0);
 			setC_InvoiceLine_ID (0);
         } */
     }
@@ -133,26 +133,26 @@ public class X_BH_BP_Specific_Payer_Info extends PO implements I_BH_BP_Specific_
 		return (String)get_Value(COLUMNNAME_BH_BP_Specific_Payer_Info_UU);
 	}
 
-	public I_BH_Payer_Info_Field getBH_Payer_Info_Field() throws RuntimeException
+	public I_BH_Payer_Info_Fld getBH_Payer_Info_Fld() throws RuntimeException
     {
-		return (I_BH_Payer_Info_Field)MTable.get(getCtx(), I_BH_Payer_Info_Field.Table_Name)
-			.getPO(getBH_Payer_Info_Field_ID(), get_TrxName());	}
+		return (I_BH_Payer_Info_Fld)MTable.get(getCtx(), I_BH_Payer_Info_Fld.Table_Name)
+			.getPO(getBH_Payer_Info_Fld_ID(), get_TrxName());	}
 
 	/** Set Payer Info Field.
-		@param BH_Payer_Info_Field_ID Payer Info Field	  */
-	public void setBH_Payer_Info_Field_ID (int BH_Payer_Info_Field_ID)
+		@param BH_Payer_Info_Fld_ID Payer Info Field	  */
+	public void setBH_Payer_Info_Fld_ID (int BH_Payer_Info_Fld_ID)
 	{
-		if (BH_Payer_Info_Field_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Field_ID, null);
+		if (BH_Payer_Info_Fld_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Field_ID, Integer.valueOf(BH_Payer_Info_Field_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_ID, Integer.valueOf(BH_Payer_Info_Fld_ID));
 	}
 
 	/** Get Payer Info Field.
 		@return Payer Info Field	  */
-	public int getBH_Payer_Info_Field_ID () 
+	public int getBH_Payer_Info_Fld_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Field_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Fld_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();

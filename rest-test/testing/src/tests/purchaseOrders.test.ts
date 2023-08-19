@@ -3,20 +3,14 @@ import {
 	attributeSetApi,
 	attributeSetInstanceApi,
 	businessPartnerApi,
+	orderApi,
 	productApi,
-	receiveProductsApi,
 	storageOnHandApi,
 } from '../api';
 import { documentAction, documentBaseType, documentStatus, documentSubTypeSalesOrder } from '../models';
-import { AttributeSetInstance, Product, ReceiveProduct, VoidedReason } from '../types/org.bandahealth.idempiere.rest';
+import { AttributeSetInstance, Product, VoidedReason } from '../types/org.bandahealth.idempiere.rest';
 import { RoleName } from '../types/roleName';
-import {
-	createBusinessPartner,
-	createOrder,
-	createProduct,
-	createPurchaseOrder,
-	getDateOffset,
-} from '../utils';
+import { createBusinessPartner, createOrder, createProduct, getDateOffset } from '../utils';
 
 xtest(`information saved correctly after completing a purchase order`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
@@ -35,7 +29,8 @@ test(`vendor open balance is 0 after purchase order completed`, async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
@@ -68,15 +63,10 @@ test(`invalid orders can be completed`, async () => {
 	);
 
 	valueObject.stepName = 'Create purchase order';
-	valueObject.documentAction = undefined;
-	await createPurchaseOrder(valueObject);
-	let savedOrder: ReceiveProduct | undefined;
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	try {
-		let savedOrder = await receiveProductsApi.saveAndProcess(
-			valueObject,
-			valueObject.order as ReceiveProduct,
-			documentAction.Complete,
-		);
+		await createOrder(valueObject);
 		expect(true).toBe(false);
 	} catch {}
 	// uncomment for iDempeire 8.2+
@@ -84,11 +74,7 @@ test(`invalid orders can be completed`, async () => {
 
 	valueObject.stepName = 'Add expiration and complete PO';
 	valueObject.order!.orderLines[0].attributeSetInstance = expiringAttributeSetInstance as AttributeSetInstance;
-	savedOrder = await receiveProductsApi.saveAndProcess(
-		valueObject,
-		valueObject.order as ReceiveProduct,
-		documentAction.Complete,
-	);
+	const savedOrder = await orderApi.saveAndProcess(valueObject, valueObject.order!, documentAction.Complete);
 	expect(savedOrder.docStatus).toBe(documentStatus.Completed);
 });
 
@@ -105,10 +91,11 @@ test(`completed order can't be closed`, async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 	expect(valueObject.order?.docStatus).toBe(documentStatus.Completed);
 	try {
-		await receiveProductsApi.process(valueObject, valueObject.order!.uuid, documentAction.Close);
+		await orderApi.process(valueObject, valueObject.order!.uuid, documentAction.Close);
 		expect(true).toBe(false);
 	} catch {
 		expect(true).toBe(true);
@@ -128,9 +115,10 @@ test(`can't void an order after product has been sold`, async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 	expect(valueObject.order?.docStatus).toBe(documentStatus.Completed);
-	const purchaseOrder = valueObject.order as ReceiveProduct;
+	const purchaseOrder = valueObject.order!;
 
 	// Confirm quantity was received
 	expect(
@@ -149,7 +137,7 @@ test(`can't void an order after product has been sold`, async () => {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
@@ -169,10 +157,8 @@ test(`can't void an order after product has been sold`, async () => {
 		).results.reduce((totalQuantity, storageOnHand) => storageOnHand.quantityOnHand + totalQuantity, 0),
 	).toBe(0);
 
-	await expect(receiveProductsApi.process(valueObject, purchaseOrder.uuid, documentAction.Void)).rejects.toBeTruthy();
-	expect((await receiveProductsApi.getByUuid(valueObject, purchaseOrder.uuid)).docStatus).toBe(
-		documentStatus.Completed,
-	);
+	await expect(orderApi.process(valueObject, purchaseOrder.uuid, documentAction.Void)).rejects.toBeTruthy();
+	expect((await orderApi.getByUuid(valueObject, purchaseOrder.uuid)).docStatus).toBe(documentStatus.Completed);
 
 	// Confirm quantity didn't go negative
 	expect(
@@ -217,10 +203,11 @@ test(`save returns the same thing as getByUuid`, async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = undefined;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 	valueObject.order!.orderLines[0].attributeSetInstance = expiringAttributeSetInstance as AttributeSetInstance;
-	const savedOrder = await receiveProductsApi.save(valueObject, valueObject.order as ReceiveProduct);
-	const fetchedOrder = await receiveProductsApi.getByUuid(valueObject, valueObject.order!.uuid);
+	const savedOrder = await orderApi.save(valueObject, valueObject.order!);
+	const fetchedOrder = await orderApi.getByUuid(valueObject, valueObject.order!.uuid);
 	expect(isEqual(savedOrder, fetchedOrder)).toBeTruthy();
 });
 
@@ -253,11 +240,12 @@ test(`process returns the same thing as getByUuid`, async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = undefined;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 	valueObject.order!.orderLines[0].attributeSetInstance = expiringAttributeSetInstance as AttributeSetInstance;
-	valueObject.order = await receiveProductsApi.save(valueObject, valueObject.order as ReceiveProduct);
-	const processedOrder = await receiveProductsApi.process(valueObject, valueObject.order.uuid, documentAction.Complete);
-	const fetchedOrder = await receiveProductsApi.getByUuid(valueObject, valueObject.order!.uuid);
+	valueObject.order = await orderApi.save(valueObject, valueObject.order!);
+	const processedOrder = await orderApi.process(valueObject, valueObject.order.uuid, documentAction.Complete);
+	const fetchedOrder = await orderApi.getByUuid(valueObject, valueObject.order!.uuid);
 	expect(isEqual(processedOrder, fetchedOrder)).toBeTruthy();
 });
 
@@ -290,13 +278,10 @@ test(`saveAndProcess returns the same thing as getByUuid`, async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = undefined;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 	valueObject.order!.orderLines[0].attributeSetInstance = expiringAttributeSetInstance as AttributeSetInstance;
-	const savedOrder = await receiveProductsApi.saveAndProcess(
-		valueObject,
-		valueObject.order as ReceiveProduct,
-		documentAction.Complete,
-	);
-	const fetchedOrder = await receiveProductsApi.getByUuid(valueObject, valueObject.order!.uuid);
+	const savedOrder = await orderApi.saveAndProcess(valueObject, valueObject.order!, documentAction.Complete);
+	const fetchedOrder = await orderApi.getByUuid(valueObject, valueObject.order!.uuid);
 	expect(isEqual(savedOrder, fetchedOrder)).toBeTruthy();
 });

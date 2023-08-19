@@ -1,5 +1,5 @@
 import { referenceListApi } from '../api';
-import { documentAction, referenceUuid, tenderTypeName, ValueObject } from '../models';
+import { documentAction, referenceUuid, tenderTypeName } from '../models';
 import { RoleName } from '../types/roleName';
 
 test('tender type names to be correct', async () => {

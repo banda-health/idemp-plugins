@@ -22,32 +22,32 @@ import java.util.Properties;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Model for BH_Payer_Info_Field_Value
+/** Generated Model for BH_Payer_Info_Fld_Val
  *  @author iDempiere (generated) 
  *  @version Release 8.2 - $Id$ */
-public class X_BH_Payer_Info_Field_Value extends PO implements I_BH_Payer_Info_Field_Value, I_Persistent 
+public class X_BH_Payer_Info_Fld_Val extends PO implements I_BH_Payer_Info_Fld_Val, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230815L;
+	private static final long serialVersionUID = 20230819L;
 
     /** Standard Constructor */
-    public X_BH_Payer_Info_Field_Value (Properties ctx, int BH_Payer_Info_Field_Value_ID, String trxName)
+    public X_BH_Payer_Info_Fld_Val (Properties ctx, int BH_Payer_Info_Fld_Val_ID, String trxName)
     {
-      super (ctx, BH_Payer_Info_Field_Value_ID, trxName);
-      /** if (BH_Payer_Info_Field_Value_ID == 0)
+      super (ctx, BH_Payer_Info_Fld_Val_ID, trxName);
+      /** if (BH_Payer_Info_Fld_Val_ID == 0)
         {
-			setBH_Payer_Info_Field_ID (0);
-			setBH_Payer_Info_Field_Value_ID (0);
+			setBH_Payer_Info_Fld_ID (0);
+			setBH_Payer_Info_Fld_Val_ID (0);
 			setLine (0);
 			setName (null);
         } */
     }
 
     /** Load Constructor */
-    public X_BH_Payer_Info_Field_Value (Properties ctx, ResultSet rs, String trxName)
+    public X_BH_Payer_Info_Fld_Val (Properties ctx, ResultSet rs, String trxName)
     {
       super (ctx, rs, trxName);
     }
@@ -69,68 +69,68 @@ public class X_BH_Payer_Info_Field_Value extends PO implements I_BH_Payer_Info_F
 
     public String toString()
     {
-      StringBuilder sb = new StringBuilder ("X_BH_Payer_Info_Field_Value[")
+      StringBuilder sb = new StringBuilder ("X_BH_Payer_Info_Fld_Val[")
         .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
 
-	public I_BH_Payer_Info_Field getBH_Payer_Info_Field() throws RuntimeException
+	public I_BH_Payer_Info_Fld getBH_Payer_Info_Fld() throws RuntimeException
     {
-		return (I_BH_Payer_Info_Field)MTable.get(getCtx(), I_BH_Payer_Info_Field.Table_Name)
-			.getPO(getBH_Payer_Info_Field_ID(), get_TrxName());	}
+		return (I_BH_Payer_Info_Fld)MTable.get(getCtx(), I_BH_Payer_Info_Fld.Table_Name)
+			.getPO(getBH_Payer_Info_Fld_ID(), get_TrxName());	}
 
 	/** Set Payer Info Field.
-		@param BH_Payer_Info_Field_ID Payer Info Field	  */
-	public void setBH_Payer_Info_Field_ID (int BH_Payer_Info_Field_ID)
+		@param BH_Payer_Info_Fld_ID Payer Info Field	  */
+	public void setBH_Payer_Info_Fld_ID (int BH_Payer_Info_Fld_ID)
 	{
-		if (BH_Payer_Info_Field_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Field_ID, null);
+		if (BH_Payer_Info_Fld_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Field_ID, Integer.valueOf(BH_Payer_Info_Field_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_ID, Integer.valueOf(BH_Payer_Info_Fld_ID));
 	}
 
 	/** Get Payer Info Field.
 		@return Payer Info Field	  */
-	public int getBH_Payer_Info_Field_ID () 
+	public int getBH_Payer_Info_Fld_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Field_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Fld_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
 	/** Set Payer Info Values.
-		@param BH_Payer_Info_Field_Value_ID Payer Info Values	  */
-	public void setBH_Payer_Info_Field_Value_ID (int BH_Payer_Info_Field_Value_ID)
+		@param BH_Payer_Info_Fld_Val_ID Payer Info Values	  */
+	public void setBH_Payer_Info_Fld_Val_ID (int BH_Payer_Info_Fld_Val_ID)
 	{
-		if (BH_Payer_Info_Field_Value_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Field_Value_ID, null);
+		if (BH_Payer_Info_Fld_Val_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_Val_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Field_Value_ID, Integer.valueOf(BH_Payer_Info_Field_Value_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_Val_ID, Integer.valueOf(BH_Payer_Info_Fld_Val_ID));
 	}
 
 	/** Get Payer Info Values.
 		@return Payer Info Values	  */
-	public int getBH_Payer_Info_Field_Value_ID () 
+	public int getBH_Payer_Info_Fld_Val_ID () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Field_Value_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Fld_Val_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
 	}
 
-	/** Set BH_Payer_Info_Field_Value_UU.
-		@param BH_Payer_Info_Field_Value_UU BH_Payer_Info_Field_Value_UU	  */
-	public void setBH_Payer_Info_Field_Value_UU (String BH_Payer_Info_Field_Value_UU)
+	/** Set BH_Payer_Info_Fld_Val_UU.
+		@param BH_Payer_Info_Fld_Val_UU BH_Payer_Info_Fld_Val_UU	  */
+	public void setBH_Payer_Info_Fld_Val_UU (String BH_Payer_Info_Fld_Val_UU)
 	{
-		set_Value (COLUMNNAME_BH_Payer_Info_Field_Value_UU, BH_Payer_Info_Field_Value_UU);
+		set_Value (COLUMNNAME_BH_Payer_Info_Fld_Val_UU, BH_Payer_Info_Fld_Val_UU);
 	}
 
-	/** Get BH_Payer_Info_Field_Value_UU.
-		@return BH_Payer_Info_Field_Value_UU	  */
-	public String getBH_Payer_Info_Field_Value_UU () 
+	/** Get BH_Payer_Info_Fld_Val_UU.
+		@return BH_Payer_Info_Fld_Val_UU	  */
+	public String getBH_Payer_Info_Fld_Val_UU () 
 	{
-		return (String)get_Value(COLUMNNAME_BH_Payer_Info_Field_Value_UU);
+		return (String)get_Value(COLUMNNAME_BH_Payer_Info_Fld_Val_UU);
 	}
 
 	/** Set Description.

@@ -44,6 +44,7 @@ public class Visit extends BaseEntity {
 	private BigDecimal oxygenSaturation;
 	private List<Payment> payments = new ArrayList<>();
 	private List<Order> orders = new ArrayList<>();
+	private List<Invoice> invoices = new ArrayList<>();
 	private VoidedReason voidedReason;
 
 	public Visit() {
@@ -321,5 +322,13 @@ public class Visit extends BaseEntity {
 
 	public void setDocumentNumber(String documentNumber) {
 		this.documentNumber = documentNumber;
+	}
+
+	public List<Invoice> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(List<Invoice> invoices) {
+		this.invoices = invoices;
 	}
 }
