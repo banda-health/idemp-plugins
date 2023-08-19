@@ -60,12 +60,6 @@ public class NonPatientPaymentReportTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createProduct(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create donor charge");
-		ChuBoeCreateEntity.createCharge(valueObject);
-//		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Donation);
-//		valueObject.getCharge().saveEx();
-		commitEx();
-
 		valueObject.setStepName("Create PO");
 		valueObject.setDocumentAction(DocAction.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
