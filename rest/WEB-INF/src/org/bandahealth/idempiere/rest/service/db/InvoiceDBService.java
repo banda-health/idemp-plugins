@@ -96,7 +96,6 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 			invoice.setC_DocTypeTarget_ID(documentTypeTarget.get_ID());
 			invoice.setIsSOTrx(documentTypeTarget.isSOTrx());
 
-			invoice.setIsSOTrx(entity.isSalesOrderTransaction());
 			if (entity.getOrderId() > 0) {
 				invoice.setOrder(orderDBService.getEntityByIdFromDB(entity.getOrderId()));
 			} else if (entity.getOrder() != null && !StringUtil.isNullOrEmpty(entity.getOrder().getUuid())) {
