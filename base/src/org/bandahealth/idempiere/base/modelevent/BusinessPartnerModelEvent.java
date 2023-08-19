@@ -15,6 +15,9 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.osgi.service.event.Event;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 	private CLogger log = CLogger.getCLogger(BusinessPartnerModelEvent.class);
@@ -91,13 +94,11 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 				// First check to see if any pricing list has been defaulted for the BP Group
 				int priceListId = businessPartner.getBPGroup().getM_PriceList_ID();
 				if (priceListId == 0) {
-					String whereClause = MPriceList.COLUMNNAME_IsDefault + " ='Y' AND "
-							+ MPriceList.COLUMNNAME_IsSOPriceList + "='Y' AND " + MPriceList.COLUMNNAME_AD_Org_ID + "="
-							+ Env.getAD_Org_ID(Env.getCtx());
-					// Get the default sales price list
-					priceListId =
-							QueryUtil.getQueryByOrgAndClient(clientId, orgId, Env.getCtx(), MPriceList.Table_Name, whereClause,
-									businessPartner.get_TrxName()).setOnlyActiveRecords(true).firstId();
+					List<Object> parameters = new ArrayList<>(List.of("Y", "Y"));
+					priceListId = new Query(businessPartner.getCtx(), MPriceList.Table_Name,
+							MPriceList.COLUMNNAME_IsDefault + "=? AND " + MPriceList.COLUMNNAME_IsSOPriceList + "=?",
+							businessPartner.get_TrxName()).setParameters(parameters).setOnlyActiveRecords(true).setClient_ID().first()
+							.get_ID();
 				}
 				businessPartner.setM_PriceList_ID(priceListId);
 			}
