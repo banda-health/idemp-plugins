@@ -17,16 +17,28 @@ services:
       - GENERATE_PLUGIN_BUNDLE_INFO=${GENERATE_PLUGIN_BUNDLE_INFO}
       - HEALTHY_AFTER_PLUGINS_START=${HEALTHY_AFTER_PLUGINS_START}
       - INSTALLATION_HOME=${INSTALLATION_HOME}
+      - OCL_BASE_URL=http://external-mocks:${EXTERNAL_MOCKS_PORT}/ocl
     ports:
       - ${IDEMPIERE_PORT}:8080
       - ${IDEMPIERE_SSL_PORT}:8443
       - ${TELNET_PORT}:12612
+
+  external-mocks:
+    build:
+      context: ./external-mocks
+    volumes:
+      - ./external-mocks:/app
+      - /app/node_modules
+    environment:
+      - PORT=${EXTERNAL_MOCKS_PORT}
 
   tests:
     build: .
     depends_on:
       idempiere:
         condition: service_healthy
+      external-mocks:
+        condition: service_started
     environment:
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
       - IDEMPIERE_REST_TEST_CLIENT=${IDEMPIERE_REST_TEST_CLIENT}
