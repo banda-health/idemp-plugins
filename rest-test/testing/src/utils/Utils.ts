@@ -428,7 +428,6 @@ export async function createInventory(valueObject: ValueObject) {
 		orgId: 0,
 		description: valueObject.getStepMessageLong(),
 		warehouse: valueObject.warehouse,
-		documentType: valueObject.documentType,
 	} as Inventory;
 	const inventoryLine = {
 		orgId: 0,
