@@ -414,6 +414,16 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
 		List<OrderLine> updatedOrderLines =
 				updatedOrders.stream().map(Order::getOrderLines).flatMap(Collection::stream).collect(Collectors.toList());
+		List<MInvoice_BH> visitsInvoices =
+				invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
+						Collections.singleton(entity.getId())).get(entity.getId());
+		// For any invoices that aren't in the set, remove them
+		List<String> invoiceUuidsToBeSaved =
+				entity.getInvoices().stream().map(Invoice::getUuid).collect(Collectors.toList());
+		if (!visitsInvoices.stream().filter(Predicate.not(MInvoice_BH::isComplete)).map(MInvoice_BH::getC_Invoice_UU)
+				.filter(invoiceUuid -> !invoiceUuidsToBeSaved.contains(invoiceUuid)).allMatch(invoiceDBService::deleteEntity)) {
+			throw new AdempiereException("Error saving invoices");
+		}
 		for (Invoice invoice : entity.getInvoices()) {
 			invoice.setVisitId(visit.get_ID());
 

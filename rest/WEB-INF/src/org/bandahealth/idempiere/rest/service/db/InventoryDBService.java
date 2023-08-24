@@ -2,16 +2,13 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
-import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
-import org.bandahealth.idempiere.rest.model.DocumentType;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.model.InventoryLine;
 import org.bandahealth.idempiere.rest.model.Locator;
@@ -55,13 +52,6 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 
 	@Override
 	public Inventory saveEntity(Inventory entity) {
-		MDocType_BH documentTypeTarget;
-		if (entity.getDocumentType() == null ||
-				StringUtil.isNullOrEmpty(entity.getDocumentType().getUuid()) || (documentTypeTarget =
-				documentTypeDBService.getEntityByUuidFromDB(entity.getDocumentType().getUuid())) == null) {
-			throw new AdempiereException("Document Type is required");
-		}
-
 		// Ensure all lines have a product
 		if (entity.getInventoryLines().isEmpty() || entity.getInventoryLines().stream()
 				.anyMatch(inventoryLine -> StringUtil.isNullOrEmpty(inventoryLine.getProduct().getUuid()))) {
@@ -81,8 +71,6 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 				inventory.setM_Inventory_UU(entity.getUuid());
 			}
 		}
-
-		inventory.setC_DocType_ID(documentTypeTarget.get_ID());
 
 		inventory.setM_Warehouse_ID(
 				warehouseDBService.getEntityByUuidFromDB(entity.getWarehouse().getUuid()).getM_Warehouse_ID());
@@ -153,8 +141,6 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById =
 				attributeSetInstanceIds.isEmpty() ? new HashMap<>() :
 						attributeSetInstanceDBService.getByIds(attributeSetInstanceIds);
-		Map<Integer, MDocType_BH> documentTypesById = documentTypeDBService.getByIds(
-				dbModels.stream().map(MInventory_BH::getC_DocType_ID).collect(Collectors.toSet()));
 
 		return dbModels.stream().map(model -> {
 			Inventory inventory = createInstanceWithAllFields(model);
@@ -165,9 +151,6 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 			}
 			if (warehousesByIds.containsKey(model.getM_Warehouse_ID())) {
 				inventory.setWarehouse(new Warehouse(warehousesByIds.get(model.getM_Warehouse_ID())));
-			}
-			if (documentTypesById.containsKey(model.getC_DocType_ID())) {
-				inventory.setDocumentType(new DocumentType(documentTypesById.get(model.getC_DocType_ID())));
 			}
 
 			if (inventoryLinesByInventoryId.containsKey(model.getM_Inventory_ID())) {

@@ -25,7 +25,6 @@ public class Payment extends BaseMetadata {
 	private String tenderType;
 	private PaymentType paymentType;
 	private String description;
-	private NHIF nhif;
 	private String docStatus;
 	private String transactionDate;
 	private BigDecimal tenderAmount;
@@ -87,14 +86,6 @@ public class Payment extends BaseMetadata {
 
 	public void setPaymentType(PaymentType paymentType) {
 		this.paymentType = paymentType;
-	}
-
-	public NHIF getNhif() {
-		return nhif;
-	}
-
-	public void setNhif(NHIF nhif) {
-		this.nhif = nhif;
 	}
 
 	public String getDescription() {

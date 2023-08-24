@@ -120,10 +120,10 @@ FROM
 		ON i.c_invoice_id = il.c_invoice_id
 		JOIN c_charge c
 		ON il.c_charge_id = c.c_charge_id
-		JOIN ad_reference r
-		ON r.ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'
 		JOIN ad_ref_list rl
-		ON r.ad_reference_id = rl.ad_reference_id AND rl.value = 'W'
+		ON c.bh_subtype = rl.value AND rl.value = 'W'
+		JOIN ad_reference r
+		ON r.ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375' AND r.ad_reference_id = rl.ad_reference_id
 WHERE
 	v.ad_client_id = $1
 	AND v.bh_visitdate BETWEEN $2 AND $3;

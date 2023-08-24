@@ -16,6 +16,7 @@ test('account mapping can be set up through a charge', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
+	valueObject.stepName = 'Get default expense category';
 	const defaultExpenseCategoryChargeType = (
 		await chargeTypeApi.get(
 			valueObject,
@@ -31,6 +32,7 @@ test('account mapping can be set up through a charge', async () => {
 	).results[0];
 	expect(doNotChangeAccount).toBeTruthy();
 
+	valueObject.stepName = 'Create charge';
 	const charge: Partial<Charge> = {
 		orgId: 0,
 		chargeType: defaultExpenseCategoryChargeType,

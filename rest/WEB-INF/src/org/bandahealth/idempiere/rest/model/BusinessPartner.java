@@ -34,6 +34,8 @@ public class BusinessPartner extends BaseEntity {
 	@JsonProperty("isVendor")
 	private Boolean isVendor;
 	private boolean needAdditionalVisitInformation;
+	@JsonProperty("isLocked")
+	private boolean isLocked;
 
 	public BusinessPartner() {
 		isCustomer = false;
@@ -60,6 +62,7 @@ public class BusinessPartner extends BaseEntity {
 		this.isCustomer = model.isCustomer();
 		this.isVendor = model.isVendor();
 		setNeedAdditionalVisitInformation(model.isBH_NeedAdditionalVisitInfo());
+		setLocked(model.isBH_Locked());
 	}
 
 	public BusinessPartner(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -233,5 +236,15 @@ public class BusinessPartner extends BaseEntity {
 
 	public void setNeedAdditionalVisitInformation(boolean needAdditionalVisitInformation) {
 		this.needAdditionalVisitInformation = needAdditionalVisitInformation;
+	}
+
+	@JsonProperty("isLocked")
+	public boolean isLocked() {
+		return isLocked;
+	}
+
+	@JsonProperty("isLocked")
+	public void setLocked(boolean locked) {
+		isLocked = locked;
 	}
 }

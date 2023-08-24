@@ -49,6 +49,7 @@ public interface IRestConfigs {
 
 	String CHARGES = "/charges";
 	String CHARGE_PATH = AUTHENTICATION_PATH + "/charges";
+	String PAYER_INFORMATION_LIST = "/payer-information-list";
 	String PAYER_INFORMATION_FIELD_SUGGESTION_PATH = AUTHENTICATION_PATH + "/payer-information-field-suggestions";
 
 	String BUSINESS_PARTNER_PATH = AUTHENTICATION_PATH + "/business-partners";

@@ -6,8 +6,8 @@ import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.BusinessPartnerPayerInformation;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
-import org.bandahealth.idempiere.rest.service.db.BusinessPartnerPayerInformationDBService;
 import org.bandahealth.idempiere.rest.service.db.BusinessPartnerDBService;
+import org.bandahealth.idempiere.rest.service.db.BusinessPartnerPayerInformationDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
@@ -33,8 +33,8 @@ public class BusinessPartnerRestService
 	private BusinessPartnerDBService businessPartnerDBService;
 
 	@GET
-	@Path(IRestConfigs.UUID_PATH + IRestConfigs.CHARGES)
-	public List<BusinessPartnerPayerInformation> getCharges(@PathParam("uuid") String uuid) {
+	@Path(IRestConfigs.UUID_PATH + IRestConfigs.PAYER_INFORMATION_LIST)
+	public List<BusinessPartnerPayerInformation> getPayerInformationList(@PathParam("uuid") String uuid) {
 		MBPartner_BH businessPartner = businessPartnerDBService.getEntityByUuidFromDB(uuid);
 		if (businessPartner == null) {
 			return new ArrayList<>();
@@ -46,8 +46,8 @@ public class BusinessPartnerRestService
 	}
 
 	@POST
-	@Path(IRestConfigs.UUID_PATH + "/payer-information")
-	public List<BusinessPartnerPayerInformation> savePayerInformation(@PathParam("uuid") String uuid,
+	@Path(IRestConfigs.UUID_PATH + IRestConfigs.PAYER_INFORMATION_LIST)
+	public List<BusinessPartnerPayerInformation> savePayerInformationList(@PathParam("uuid") String uuid,
 			List<BusinessPartnerPayerInformation> businessPartnerPayerInformationList) {
 		MBPartner_BH businessPartner = businessPartnerDBService.getEntityByUuidFromDB(uuid);
 		if (businessPartner == null) {
@@ -77,15 +77,15 @@ public class BusinessPartnerRestService
 	}
 
 	@POST
-	@Path(IRestConfigs.UUID_PATH + IRestConfigs.CHARGES + "/{businessPartnerChargeUuid}")
-	public BusinessPartnerPayerInformation saveSingleCharge(@PathParam("uuid") String uuid,
-			@PathParam("businessPartnerChargeUuid") String businessPartnerChargeUuid,
+	@Path(IRestConfigs.UUID_PATH + IRestConfigs.PAYER_INFORMATION_LIST + "/{businessPartnerPayerInformationUuid}")
+	public BusinessPartnerPayerInformation savePayerInformation(@PathParam("uuid") String uuid,
+			@PathParam("businessPartnerPayerInformationUuid") String businessPartnerPayerInformationUuid,
 			BusinessPartnerPayerInformation businessPartnerPayerInformation) {
 		MBPartner_BH businessPartner = businessPartnerDBService.getEntityByUuidFromDB(uuid);
 		if (businessPartner == null) {
 			return null;
 		}
-		businessPartnerPayerInformation.setUuid(businessPartnerChargeUuid);
+		businessPartnerPayerInformation.setUuid(businessPartnerPayerInformationUuid);
 		businessPartnerPayerInformation.setBusinessPartnerId(businessPartner.getC_BPartner_ID());
 		return businessPartnerPayerInformationDBService.saveEntity(businessPartnerPayerInformation);
 	}

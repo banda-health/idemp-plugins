@@ -5,6 +5,7 @@ export * from './attributeSetInstances';
 export * from './attributeSets';
 export * from './authentication';
 export * from './base';
+export * from './businessPartnerGroups';
 export * from './businessPartners';
 export * from './chargeTypes';
 export * from './charges';

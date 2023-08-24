@@ -1,4 +1,4 @@
-import { businessPartnerApi, visitApi } from '../api';
+import { businessPartnerApi, businessPartnerGroupApi, visitApi } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
 import { BusinessPartner } from '../types/org.bandahealth.idempiere.rest';
 import { createBusinessPartner, createOrder, createProduct, createVisit, formatDate } from '../utils';
@@ -28,12 +28,24 @@ test(`get method returns the correct data`, async () => {
 
 	valueObject.stepName = 'Create business partner';
 	await createBusinessPartner(valueObject);
-	valueObject.businessPartner!.gender = 'male';
-	valueObject.businessPartner!.nationalId = '156156';
-	valueObject.businessPartner!.occupation = 'Programmer';
-	valueObject.businessPartner!.nextOfKinName = 'Wifey';
-	valueObject.businessPartner!.nextOfKinContact = '155155';
-	valueObject.businessPartner!.address = '514 E North Ave';
+	valueObject.businessPartner! = {
+		...valueObject.businessPartner!,
+		gender: 'male',
+		nationalId: '156156',
+		occupation: 'Programmer',
+		nextOfKinName: 'Wifey',
+		nextOfKinContact: '155155',
+		address: '514 E North Ave',
+		businessPartnerGroup: (
+			await businessPartnerGroupApi.get(
+				valueObject,
+				undefined,
+				undefined,
+				undefined,
+				JSON.stringify({ name: 'Patients - DO NOT CHANGE' }),
+			)
+		).results[0],
+	};
 	valueObject.businessPartner = await businessPartnerApi.save(valueObject, valueObject.businessPartner!);
 
 	valueObject.stepName = 'Create product';
@@ -71,7 +83,10 @@ test(`get method returns the correct data`, async () => {
 			0,
 			10,
 			undefined,
-			JSON.stringify({ name: valueObject.businessPartner.name }),
+			JSON.stringify({
+				name: valueObject.businessPartner.name,
+				c_bp_group: { name: valueObject.businessPartner.businessPartnerGroup.name },
+			}),
 		)
 	).results;
 	expect(searchedBusinessPartners).toHaveLength(1);

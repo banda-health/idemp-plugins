@@ -64,37 +64,6 @@ public class Order extends BaseMetadata {
 		setDocumentTypeTargetId(model.getC_DocTypeTarget_ID());
 	}
 
-	public Order(MOrder_BH model, BusinessPartner businessPartner, List<OrderLine> orderLines) {
-		this(model);
-
-		this.businessPartner = businessPartner == null ? new BusinessPartner() : businessPartner;
-		this.orderLines = orderLines == null ? new ArrayList<>() : orderLines;
-	}
-
-	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			BusinessPartner businessPartner, Timestamp dateOrdered, boolean isSalesOrderTransaction,
-			List<OrderLine> orderLines, String docStatus) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.businessPartner = businessPartner;
-		this.dateOrdered = dateOrdered;
-		this.isSalesOrderTransaction = isSalesOrderTransaction;
-		this.orderLines = orderLines;
-		this.docStatus = docStatus;
-	}
-
-	public Order(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			BusinessPartner businessPartner, Timestamp dateOrdered, boolean isSalesOrderTransaction, String docStatus,
-			BigDecimal grandTotal) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.businessPartner = businessPartner;
-		this.dateOrdered = dateOrdered;
-		this.isSalesOrderTransaction = isSalesOrderTransaction;
-		this.docStatus = docStatus;
-		this.grandTotal = grandTotal;
-	}
-
 	public BusinessPartner getBusinessPartner() {
 		return businessPartner;
 	}

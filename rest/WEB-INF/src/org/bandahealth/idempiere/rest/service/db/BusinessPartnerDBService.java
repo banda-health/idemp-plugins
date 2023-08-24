@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFldVal;
+import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
@@ -156,9 +157,20 @@ public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBP
 			businessPartner.setBH_IsApproximateDateOfBirth(entity.isApproximateDateOfBirth());
 		}
 
+		if (entity.getBusinessPartnerGroup() != null &&
+				!StringUtil.isNullOrEmpty(entity.getBusinessPartnerGroup().getUuid())) {
+			MBPGroup_BH businessPartnerGroup =
+					businessPartnerGroupDBService.getEntityByUuidFromDB(entity.getBusinessPartnerGroup().getUuid());
+			if (businessPartnerGroup != null) {
+				businessPartner.setC_BP_Group_ID(businessPartnerGroup.getC_BP_Group_ID());
+			}
+		}
+
 		businessPartner.setIsActive(entity.getIsActive());
+		businessPartner.setBH_NeedAdditionalVisitInfo(entity.isNeedAdditionalVisitInformation());
 
 		businessPartner.saveEx();
+		entity.setId(businessPartner.get_ID());
 
 		// Add a BP location, if there aren't any
 		if (businessPartner.getLocations(false).length == 0) {
@@ -177,8 +189,6 @@ public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBP
 				payerInformationFieldDBService.saveEntity(payerInformationField);
 			});
 		}
-
-		businessPartner.setBH_NeedAdditionalVisitInfo(entity.isNeedAdditionalVisitInformation());
 
 		return transformData(Collections.singletonList(getEntityByUuidFromDB(businessPartner.getC_BPartner_UU()))).get(0);
 	}
@@ -201,6 +211,11 @@ public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBP
 	@Override
 	protected MBPartner_BH getModelInstance() {
 		return new MBPartner_BH(Env.getCtx(), 0, null);
+	}
+
+	@Override
+	public BusinessPartner getEntity(String uuid) {
+		return transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
 	}
 
 	@Override

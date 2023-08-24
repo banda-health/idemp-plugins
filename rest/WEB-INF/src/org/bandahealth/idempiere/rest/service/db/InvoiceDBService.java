@@ -126,6 +126,7 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 			}
 
 			invoice.saveEx();
+			entity.setId(invoice.get_ID());
 
 			// list of persisted invoice line ids
 			String lineIds = "";
