@@ -150,6 +150,7 @@ public class MInvoice_BH extends MInvoice {
 			PO.copyValues(invoiceLine, newInvoiceLine);
 			newInvoiceLine.setInvoice(newInvoice);
 			newInvoiceLine.setC_Invoice_ID(newInvoice.getC_Invoice_ID());
+			newInvoiceLine.setProcessed(false);
 			newInvoiceLine.saveEx();
 
 			Object[] parameters = new Object[]{newInvoiceLine.getC_InvoiceLine_ID(), invoiceLine.getC_InvoiceLine_ID()};
