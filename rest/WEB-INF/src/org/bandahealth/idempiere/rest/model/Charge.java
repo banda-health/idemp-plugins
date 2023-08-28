@@ -62,10 +62,12 @@ public class Charge extends BaseEntity {
 		this.chargeType = chargeType;
 	}
 
+	@JsonProperty("isLocked")
 	public boolean isLocked() {
 		return isLocked;
 	}
 
+	@JsonProperty("isLocked")
 	public void setLocked(boolean locked) {
 		isLocked = locked;
 	}
