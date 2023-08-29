@@ -4,12 +4,13 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.model.BusinessPartnerSpecificPayerInformation;
 import org.bandahealth.idempiere.rest.model.Charge;
 import org.bandahealth.idempiere.rest.model.InvoiceLine;
+import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Product;
-import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.Query;
@@ -145,15 +146,11 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 	protected InvoiceLine createInstanceWithAllFields(MInvoiceLine instance) {
 		try {
 			MProduct_BH product = productDBService.getEntityByIdFromDB(instance.getM_Product_ID());
+			InvoiceLine invoiceLine = new InvoiceLine(instance);
 			if (product != null) {
-				return new InvoiceLine(instance.getAD_Client_ID(), instance.getAD_Org_ID(),
-						instance.getC_InvoiceLine_UU(), instance.isActive(), DateUtil.parse(instance.getCreated()),
-						instance.getCreatedBy(), instance.getC_Invoice_ID(),
-						new Product(product.getName(), product.getM_Product_UU(), product), instance.getPriceActual(),
-						instance.getQtyInvoiced(), instance.getLineNetAmt(), instance.getDescription(), instance);
-			} else if (instance.getC_Charge_ID() > 0) {
-				return new InvoiceLine(instance);
+				invoiceLine.setProduct(new Product(product));
 			}
+			return invoiceLine;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
 		}
@@ -172,14 +169,19 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 				chargeDBService.transformData(new ArrayList<>(chargeDBService.getByIds(chargeIds).values())).stream()
 						.collect(Collectors.toMap(Charge::getId, charge -> charge));
 
+		// Batch call to get any order lines
+		Map<Integer, MOrderLine_BH> orderLinesById = orderLineDBService.getByIds(
+				dbModels.stream().map(MInvoiceLine::getC_OrderLine_ID).filter(orderLineId -> orderLineId > 0)
+						.collect(Collectors.toSet()));
+
 		// Batch call for insurance and donor payer information
 		Set<Integer> invoiceLineIds = dbModels.stream().map(MInvoiceLine::get_ID).collect(Collectors.toSet());
-		Map<Integer, List<MBHBPSpecificPayerInfo>> businessPartnerSpecificPayerInformationByOrderLineId =
+		Map<Integer, List<MBHBPSpecificPayerInfo>> businessPartnerSpecificPayerInformationByInvoiceLineId =
 				businessPartnerSpecificPayerInformationDBService
 						.getGroupsByIds(MBHBPSpecificPayerInfo::getC_InvoiceLine_ID,
 								MBHBPSpecificPayerInfo.COLUMNNAME_C_InvoiceLine_ID, invoiceLineIds);
 		Map<Integer, MBHPayerInfoFld> payerInformationFieldsById = payerInformationFieldDBService.getByIds(
-				businessPartnerSpecificPayerInformationByOrderLineId.values().stream().flatMap(
+				businessPartnerSpecificPayerInformationByInvoiceLineId.values().stream().flatMap(
 						businessPartnerSpecificPayerInformation -> businessPartnerSpecificPayerInformation.stream()
 								.map(MBHBPSpecificPayerInfo::getBH_Payer_Info_Fld_ID)).collect(Collectors.toSet()));
 
@@ -189,13 +191,16 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 			if (products.containsKey(invoiceLine.getC_Invoice_ID())) {
 				result.setProduct(new Product(products.get(invoiceLine.getC_Invoice_ID())));
 			}
+			if (orderLinesById.containsKey(invoiceLine.getC_OrderLine_ID())) {
+				result.setOrderLine(new OrderLine(orderLinesById.get(invoiceLine.getC_OrderLine_ID())));
+			}
 
 			if (chargesById.containsKey(invoiceLine.getC_Charge_ID())) {
 				result.setCharge(chargesById.get(invoiceLine.getC_Charge_ID()));
 			}
-			if (businessPartnerSpecificPayerInformationByOrderLineId.containsKey(result.getId())) {
+			if (businessPartnerSpecificPayerInformationByInvoiceLineId.containsKey(result.getId())) {
 				result.setBusinessPartnerSpecificPayerInformationList(
-						businessPartnerSpecificPayerInformationByOrderLineId.get(result.getId()).stream()
+						businessPartnerSpecificPayerInformationByInvoiceLineId.get(result.getId()).stream()
 								.map(BusinessPartnerSpecificPayerInformation::new).peek(
 										businessPartnerSpecificPayerInformation -> businessPartnerSpecificPayerInformation.setPayerInformationFieldUuid(
 												payerInformationFieldsById.get(businessPartnerSpecificPayerInformation.getPayerInformationFieldId())

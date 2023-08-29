@@ -869,23 +869,33 @@ test(`getByUuid method returns the correct data`, async () => {
 		nextOfKinContact: '155155',
 		isCustomer: true,
 	};
-	const savedPatient = await businessPartnerApi.save(valueObject, businessPartner as BusinessPartner);
-	valueObject.businessPartner = savedPatient as BusinessPartner;
+	valueObject.businessPartner = await businessPartnerApi.save(valueObject, businessPartner as BusinessPartner);
+
+	valueObject.stepName = 'Get insurer to use';
+	const insurerOrDonorToUse = (
+		await businessPartnerApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ c_bp_group: { bh_subtype: { $in: ['I', 'D'] } } }),
+		)
+	).results.filter((businessPartner) => businessPartner.payerInformationFieldList.length)[0];
+	const payerInformationFieldToUse = insurerOrDonorToUse.payerInformationFieldList.filter(
+		(payerInformationField) =>
+			payerInformationField.dataType.value === 'T' && !payerInformationField.shouldFillFromPatient,
+	)[0];
+	const randomInformationField = randomUUID();
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
 
 	valueObject.stepName = 'Create visit';
-	valueObject.documentAction = undefined;
 	const twoDaysAgo = new Date();
 	twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
 	twoDaysAgo.setUTCHours(12);
 	valueObject.date = twoDaysAgo;
-	await createVisit(valueObject);
-
-	valueObject.stepName = 'Create order';
-	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
 		documentSubTypeSalesOrder.WarehouseOrder,
@@ -893,8 +903,98 @@ test(`getByUuid method returns the correct data`, async () => {
 		false,
 		false,
 	);
-	await createOrder(valueObject);
-	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	const salesOrderDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const customerInvoiceDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	const paymentReceiptDocumentType = valueObject.documentType!;
+	const orderUuid = randomUUID();
+	const orderLineUuid = randomUUID();
+	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
+	const visitToSave = {
+		description: valueObject.getStepMessageLong(),
+		patient: valueObject.businessPartner,
+		visitDate: valueObject.date,
+		orders: [
+			{
+				uuid: orderUuid,
+				description: valueObject.getStepMessageLong(),
+				dateOrdered: valueObject.date,
+				warehouse: valueObject.warehouse,
+				orderLines: [
+					{
+						uuid: orderLineUuid,
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+					} as OrderLine,
+				],
+				documentTypeTarget: salesOrderDocumentType,
+			} as Partial<Order>,
+		],
+		invoices: [
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: valueObject.businessPartner!,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+						orderLine: { uuid: orderLineUuid },
+					} as InvoiceLine,
+					{
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: -50,
+					} as InvoiceLine,
+				],
+				order: { uuid: orderUuid },
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: insurerOrDonorToUse,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 50,
+						businessPartnerSpecificPayerInformationList: [
+							{ payerInformationFieldUuid: payerInformationFieldToUse.uuid, name: randomInformationField },
+						],
+					} as InvoiceLine,
+				],
+				order: { uuid: orderUuid },
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+		],
+		payments: [
+			{
+				orgId: 0,
+				businessPartner: valueObject.businessPartner,
+				description: valueObject.getStepMessageLong(),
+				payAmount: 10,
+				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
+				documentType: paymentReceiptDocumentType,
+			},
+			{
+				orgId: 0,
+				businessPartner: valueObject.businessPartner,
+				description: valueObject.getStepMessageLong(),
+				payAmount: 40,
+				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
+				documentType: paymentReceiptDocumentType,
+			},
+		],
+	} as Visit;
+	valueObject.visit = await visitApi.save(valueObject, visitToSave);
 
 	const fetchedVisit = await visitApi.getByUuid(valueObject, valueObject.visit!.uuid);
 	expect(fetchedVisit.patient).toBeTruthy();
@@ -904,6 +1004,23 @@ test(`getByUuid method returns the correct data`, async () => {
 	expect(fetchedVisit.patient.occupation).toBe(businessPartner.occupation);
 	expect(fetchedVisit.patient.nextOfKinName).toBe(businessPartner.nextOfKinName);
 	expect(fetchedVisit.patient.nextOfKinContact).toBe(businessPartner.nextOfKinContact);
+	// Make sure every invoice has it's BP
+	expect(fetchedVisit.invoices.every((invoice) => !!invoice.businessPartner?.businessPartnerGroup?.uuid)).toBe(true);
+	// Make sure each invoice that has an order and every invoice line has it's order line
+	expect(fetchedVisit.invoices.some((invoice) => !!invoice.order?.uuid)).toBe(true);
+	expect(
+		fetchedVisit.invoices
+			.find((invoice) => !!invoice.order?.uuid)
+			?.invoiceLines.some((invoiceLine) => !!invoiceLine.orderLine?.uuid),
+	).toBe(true);
+	expect(
+		fetchedVisit.invoices
+			.find((invoice) =>
+				invoice.invoiceLines.find((invoiceLine) => invoiceLine.businessPartnerSpecificPayerInformationList.length),
+			)
+			?.invoiceLines.find((invoiceLine) => invoiceLine.businessPartnerSpecificPayerInformationList.length)
+			?.businessPartnerSpecificPayerInformationList[0].name,
+	).toBe(randomInformationField);
 });
 
 test(`get method returns the correct data`, async () => {
@@ -1308,7 +1425,7 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 
 	valueObject.stepName = 'Create and complete visit';
 	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
-	const businessPartnerToUse = (
+	const insurerOrDonor = (
 		await businessPartnerApi.get(
 			valueObject,
 			undefined,
@@ -1317,7 +1434,7 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 			JSON.stringify({ c_bp_group: { bh_subtype: { $in: ['I', 'D'] } } }),
 		)
 	).results.filter((businessPartner) => businessPartner.payerInformationFieldList.length)[0];
-	const payerInformationFieldToUse = businessPartnerToUse.payerInformationFieldList.filter(
+	const payerInformationFieldToUse = insurerOrDonor.payerInformationFieldList.filter(
 		(payerInformationField) => payerInformationField.dataType.value === 'T',
 	)[0];
 	const visitToSave = {
@@ -1357,11 +1474,26 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 					} as InvoiceLine,
 					{
 						description: valueObject.getStepMessageLong(),
-						charge: businessPartnerToUse.businessPartnerGroup.associatedCustomerReceivablesCharge,
+						charge: insurerOrDonor.businessPartnerGroup.associatedCustomerReceivablesCharge,
+						quantity: 1,
+						price: -50,
+					} as InvoiceLine,
+				],
+				order: { uuid: orderUuid },
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: insurerOrDonor,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						charge: insurerOrDonor.businessPartnerGroup.associatedCustomerReceivablesCharge,
 						quantity: 1,
 						price: 50,
 						businessPartnerSpecificPayerInformationList: [
-							{ payerInformationFieldUuid: payerInformationFieldToUse.uuid, value: 'Test' },
+							{ payerInformationFieldUuid: payerInformationFieldToUse.uuid, name: 'Test' },
 						],
 					} as InvoiceLine,
 				],
@@ -1483,9 +1615,6 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 						charge: insurerOrDonorToUse.businessPartnerGroup.associatedCustomerReceivablesCharge,
 						quantity: 1,
 						price: -50,
-						businessPartnerSpecificPayerInformationList: [
-							{ payerInformationFieldUuid: payerInformationFieldToUse.uuid, value: 'Test' },
-						],
 					} as InvoiceLine,
 				],
 				order: { uuid: orderUuid },
@@ -1501,6 +1630,9 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 						charge: insurerOrDonorToUse.businessPartnerGroup.associatedCustomerReceivablesCharge,
 						quantity: 1,
 						price: 50,
+						businessPartnerSpecificPayerInformationList: [
+							{ payerInformationFieldUuid: payerInformationFieldToUse.uuid, name: 'Test' },
+						],
 					} as InvoiceLine,
 				],
 				order: { uuid: orderUuid },
@@ -1574,7 +1706,8 @@ test(`visit invoice updates work`, async () => {
 		)
 	).results.filter((businessPartner) => businessPartner.payerInformationFieldList.length)[0];
 	const payerInformationFieldToUse = insurerOrDonorToUse.payerInformationFieldList.filter(
-		(payerInformationField) => payerInformationField.dataType.value === 'T',
+		(payerInformationField) =>
+			payerInformationField.dataType.value === 'T' && !payerInformationField.shouldFillFromPatient,
 	)[0];
 	const visitToSave = {
 		description: valueObject.getStepMessageLong(),
@@ -1616,9 +1749,6 @@ test(`visit invoice updates work`, async () => {
 						charge: insurerOrDonorToUse.businessPartnerGroup.associatedCustomerReceivablesCharge,
 						quantity: 1,
 						price: -50,
-						businessPartnerSpecificPayerInformationList: [
-							{ payerInformationFieldUuid: payerInformationFieldToUse.uuid, value: 'Test' },
-						],
 					} as InvoiceLine,
 				],
 				order: { uuid: orderUuid },
@@ -1634,6 +1764,9 @@ test(`visit invoice updates work`, async () => {
 						charge: insurerOrDonorToUse.businessPartnerGroup.associatedCustomerReceivablesCharge,
 						quantity: 1,
 						price: 50,
+						businessPartnerSpecificPayerInformationList: [
+							{ payerInformationFieldUuid: payerInformationFieldToUse.uuid, name: 'Test' },
+						],
 					} as InvoiceLine,
 				],
 				order: { uuid: orderUuid },
@@ -1660,6 +1793,11 @@ test(`visit invoice updates work`, async () => {
 		],
 	} as Visit;
 	valueObject.visit = await visitApi.save(valueObject, visitToSave);
+
+	expect(valueObject.visit.invoices).toHaveLength(2);
+	expect(valueObject.visit.invoices.find((invoice) => invoice.invoiceLines.length === 2)).toBeTruthy();
+	expect(valueObject.visit.invoices.find((invoice) => invoice.invoiceLines.length === 1)).toBeTruthy();
+	expect(valueObject.visit.payments).toHaveLength(2);
 
 	valueObject.stepName = 'Remove insurance payer';
 	valueObject.visit.invoices = valueObject.visit.invoices.filter(

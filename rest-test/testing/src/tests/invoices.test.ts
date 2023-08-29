@@ -1,6 +1,6 @@
-import { invoiceApi } from '../api';
+import { businessPartnerApi, invoiceApi, paymentApi } from '../api';
 import { documentAction, documentBaseType, documentStatus } from '../models';
-import { createBusinessPartner, createCharge, createInvoice } from '../utils';
+import { createBusinessPartner, createCharge, createInvoice, createPayment, createProduct } from '../utils';
 
 test('creating an invoice with a charge', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -147,4 +147,36 @@ test('can complete an invoice', async () => {
 
 	expect(valueObject.invoice).toBeTruthy();
 	expect(valueObject.invoice?.docStatus).toBe(documentStatus.Completed);
+});
+
+test('a payment for more than open invoice amounts causes the BP total open balance to be negative', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create invoice';
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	valueObject.documentAction = documentAction.Complete;
+	valueObject.setSalesPrice(10);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payment';
+	valueObject.invoice = undefined;
+	valueObject.paymentAmount = 100;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	valueObject.documentAction = documentAction.Complete;
+	await createPayment(valueObject);
+
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		-90,
+	);
+	await paymentApi.process(valueObject, valueObject.payment!.uuid, documentAction.ReverseAccrual);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		10,
+	);
 });

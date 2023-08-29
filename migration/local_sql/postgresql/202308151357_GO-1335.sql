@@ -7,7 +7,9 @@
 --	5. Migrate all default charges to be BPs
 --	6. Update table names to match our new direction
 --	7. Remove tables & columns no longer needed
---	8. Wrap-up
+--	8. Make sure the Track Income Window is visible and update the name of the non-patient
+--  payments window.
+--	9. Wrap-up
 /******************************************************************************************/
 
 DROP TABLE IF EXISTS tmp_clients_to_work_with;
@@ -261,13 +263,13 @@ CREATE TABLE BH_Payer_Info_Fld
 	BH_Payer_ID               numeric(10)                                                       NOT NULL,
 	BH_Payer_Info_Fld_ID      numeric(10)                                                       NOT NULL,
 	BH_Payer_Info_Fld_UU      VARCHAR(36)  DEFAULT NULL,
-	Created                   DATE         DEFAULT NOW()                                        NOT NULL,
+	Created                   timestamp    DEFAULT NOW()                                        NOT NULL,
 	CreatedBy                 numeric(10)                                                       NOT NULL,
 	Description               VARCHAR(255) DEFAULT NULL,
 	IsActive                  CHAR(1)      DEFAULT 'Y' CHECK (IsActive IN ('Y', 'N'))           NOT NULL,
 	Line                      numeric(10)                                                       NOT NULL,
 	Name                      VARCHAR(60)                                                       NOT NULL,
-	Updated                   DATE         DEFAULT NOW()                                        NOT NULL,
+	Updated                   timestamp    DEFAULT NOW()                                        NOT NULL,
 	UpdatedBy                 numeric(10)                                                       NOT NULL,
 	CONSTRAINT BH_Payer_Info_Fld_Key PRIMARY KEY (BH_Payer_Info_Fld_ID),
 	CONSTRAINT BH_Payer_Info_Fld_UU_idx UNIQUE (BH_Payer_Info_Fld_UU)
@@ -287,13 +289,13 @@ CREATE TABLE BH_Payer_Info_Fld_Val
 	BH_Payer_Info_Fld_ID     numeric(10)                                             NOT NULL,
 	BH_Payer_Info_Fld_Val_ID numeric(10)                                             NOT NULL,
 	BH_Payer_Info_Fld_Val_UU VARCHAR(36)  DEFAULT NULL,
-	Created                  DATE         DEFAULT NOW()                              NOT NULL,
+	Created                  timestamp    DEFAULT NOW()                              NOT NULL,
 	CreatedBy                numeric(10)                                             NOT NULL,
 	Description              VARCHAR(255) DEFAULT NULL,
 	IsActive                 CHAR(1)      DEFAULT 'Y' CHECK (IsActive IN ('Y', 'N')) NOT NULL,
 	Line                     numeric(10)                                             NOT NULL,
 	Name                     VARCHAR(60)                                             NOT NULL,
-	Updated                  DATE         DEFAULT NOW()                              NOT NULL,
+	Updated                  timestamp    DEFAULT NOW()                              NOT NULL,
 	UpdatedBy                numeric(10)                                             NOT NULL,
 	CONSTRAINT BH_Payer_Info_Fld_Val_Key PRIMARY KEY (BH_Payer_Info_Fld_Val_ID),
 	CONSTRAINT BH_Payer_Info_Fld_Valuuidx UNIQUE (BH_Payer_Info_Fld_Val_UU)
@@ -315,13 +317,13 @@ CREATE TABLE BH_Payer_Info_Fld_Sug
 	BH_Payer_Info_Fld_Sug_ID  numeric(10)                                                       NOT NULL,
 	BH_Payer_Info_Fld_Sug_UU  VARCHAR(36)  DEFAULT NULL,
 	BH_SubType                VARCHAR(2)   DEFAULT 'I'                                          NOT NULL,
-	Created                   DATE         DEFAULT NOW()                                        NOT NULL,
+	Created                   timestamp    DEFAULT NOW()                                        NOT NULL,
 	CreatedBy                 numeric(10)                                                       NOT NULL,
 	Description               VARCHAR(255) DEFAULT NULL,
 	IsActive                  CHAR(1)      DEFAULT 'Y' CHECK (IsActive IN ('Y', 'N'))           NOT NULL,
 	Line                      numeric(10)                                                       NOT NULL,
 	Name                      VARCHAR(60)                                                       NOT NULL,
-	Updated                   DATE         DEFAULT NOW()                                        NOT NULL,
+	Updated                   timestamp    DEFAULT NOW()                                        NOT NULL,
 	UpdatedBy                 numeric(10)                                                       NOT NULL,
 	CONSTRAINT BH_Payer_Info_Fld_Sugges_Key PRIMARY KEY (BH_Payer_Info_Fld_Sug_ID)
 );
@@ -338,13 +340,13 @@ CREATE TABLE BH_Payer_Info_Fld_Val_Sug
 	BH_Payer_Info_Fld_Sug_ID     numeric(10)                                             NOT NULL,
 	BH_Payer_Info_Fld_Val_Sug_ID numeric(10)                                             NOT NULL,
 	BH_Payer_Info_Fld_Val_Sug_UU VARCHAR(36)  DEFAULT NULL,
-	Created                      DATE         DEFAULT NOW()                              NOT NULL,
+	Created                      timestamp    DEFAULT NOW()                              NOT NULL,
 	CreatedBy                    numeric(10)                                             NOT NULL,
 	Description                  VARCHAR(255) DEFAULT NULL,
 	IsActive                     CHAR(1)      DEFAULT 'Y' CHECK (IsActive IN ('Y', 'N')) NOT NULL,
 	Line                         numeric(10)                                             NOT NULL,
 	Name                         VARCHAR(60)                                             NOT NULL,
-	Updated                      DATE         DEFAULT NOW()                              NOT NULL,
+	Updated                      timestamp    DEFAULT NOW()                              NOT NULL,
 	UpdatedBy                    numeric(10)                                             NOT NULL,
 	CONSTRAINT BH_Payer_Info_Fld_Val__Key PRIMARY KEY (BH_Payer_Info_Fld_Val_Sug_ID)
 );
@@ -364,12 +366,12 @@ CREATE TABLE BH_BP_Payer_Info
 	BH_BP_Payer_Info_UU VARCHAR(36)  DEFAULT NULL,
 	BH_Payer_ID         numeric(10)                                             NOT NULL,
 	C_BPartner_ID       numeric(10)                                             NOT NULL,
-	Created             DATE         DEFAULT NOW()                              NOT NULL,
+	Created             timestamp    DEFAULT NOW()                              NOT NULL,
 	CreatedBy           numeric(10)                                             NOT NULL,
 	Description         VARCHAR(255) DEFAULT NULL,
 	IsActive            CHAR(1)      DEFAULT 'Y' CHECK (IsActive IN ('Y', 'N')) NOT NULL,
 	Name                VARCHAR(60)  DEFAULT NULL,
-	Updated             DATE         DEFAULT NOW()                              NOT NULL,
+	Updated             timestamp    DEFAULT NOW()                              NOT NULL,
 	UpdatedBy           numeric(10)                                             NOT NULL,
 	CONSTRAINT BH_BP_Payer_Info_Key PRIMARY KEY (BH_BP_Payer_Info_ID),
 	CONSTRAINT BH_BP_Payer_Info_UU_idx UNIQUE (BH_BP_Payer_Info_UU)
@@ -392,12 +394,12 @@ CREATE TABLE BH_BP_General_Payer_Info
 	BH_BP_General_Payer_Info_UU VARCHAR(36)  DEFAULT NULL,
 	BH_BP_Payer_Info_ID         numeric(10)                                             NOT NULL,
 	BH_Payer_Info_Fld_ID        numeric(10)                                             NOT NULL,
-	Created                     DATE         DEFAULT NOW()                              NOT NULL,
+	Created                     timestamp    DEFAULT NOW()                              NOT NULL,
 	CreatedBy                   numeric(10)                                             NOT NULL,
 	Description                 VARCHAR(255) DEFAULT NULL,
 	IsActive                    CHAR(1)      DEFAULT 'Y' CHECK (IsActive IN ('Y', 'N')) NOT NULL,
 	Name                        VARCHAR(60)                                             NOT NULL,
-	Updated                     DATE         DEFAULT NOW()                              NOT NULL,
+	Updated                     timestamp    DEFAULT NOW()                              NOT NULL,
 	UpdatedBy                   numeric(10)                                             NOT NULL,
 	CONSTRAINT BH_BP_General_Payer_Info_Key PRIMARY KEY (BH_BP_General_Payer_Info_ID),
 	CONSTRAINT BH_BP_General_Payer_Info_uuidx UNIQUE (BH_BP_General_Payer_Info_UU)
@@ -420,12 +422,12 @@ CREATE TABLE BH_BP_Specific_Payer_Info
 	BH_BP_Specific_Payer_Info_ID numeric(10)                                             NOT NULL,
 	BH_BP_Specific_Payer_Info_UU VARCHAR(36)  DEFAULT NULL,
 	C_InvoiceLine_ID             numeric(10)                                             NOT NULL,
-	Created                      DATE         DEFAULT NOW()                              NOT NULL,
+	Created                      timestamp    DEFAULT NOW()                              NOT NULL,
 	CreatedBy                    numeric(10)                                             NOT NULL,
 	Description                  VARCHAR(255) DEFAULT NULL,
 	IsActive                     CHAR(1)      DEFAULT 'Y' CHECK (IsActive IN ('Y', 'N')) NOT NULL,
 	Name                         VARCHAR(60)  DEFAULT NULL,
-	Updated                      DATE         DEFAULT NOW()                              NOT NULL,
+	Updated                      timestamp    DEFAULT NOW()                              NOT NULL,
 	UpdatedBy                    numeric(10)                                             NOT NULL,
 	CONSTRAINT BH_BP_Specific_Payer_Info_Key PRIMARY KEY (BH_BP_Specific_Payer_Info_ID),
 	CONSTRAINT BH_BP_Specific_Payer_Infouuidx UNIQUE (BH_BP_Specific_Payer_Info_UU)
@@ -6171,7 +6173,149 @@ WHERE
 		                 '7428298d-d41a-499e-a872-ac01a0e8ecb0', '20639eca-bd84-4ae3-b890-7b32987fcb5e');
 
 /******************************************************************************************/
---	8. Wrap-up
+--	8. Make sure the Track Income Window is visible and update the name of the non-patient
+--  payments window.
+/******************************************************************************************/
+UPDATE ad_menu
+SET
+	isactive = 'Y'
+WHERE
+		ad_window_id = (
+		SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '44c02ddc-ef83-4020-8e4c-709d8cbeadc2'
+	);
+
+UPDATE ad_window
+SET
+	name = 'Insurers & Donors'
+WHERE
+	ad_window_uu = 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d';
+UPDATE ad_tab
+SET
+	name        = 'Insurers & Donors',
+	ad_table_id = 291 -- Business Partners
+WHERE
+	ad_tab_uu = '012fd982-4703-4a95-81b0-7f0f2767087d';
+INSERT INTO
+	ad_tab (ad_tab_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help,
+	        ad_table_id, ad_window_id, seqno, tablevel, issinglerow, isinfotab, istranslationtab, isreadonly,
+	        ad_column_id, hastree, whereclause, orderbyclause, commitwarning, ad_process_id, processing, ad_image_id,
+	        importfields, ad_columnsortorder_id, ad_columnsortyesno_id, issorttab, entitytype, included_tab_id,
+	        readonlylogic, displaylogic, isinsertrecord, isadvancedtab, parent_column_id, ad_tab_uu, ad_ctxhelp_id,
+	        treedisplayedon, maxqueryrecords)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_tab_id) + 1
+		 FROM
+			 ad_tab
+	 ), 0, 0, 'Y', '2023-08-29 05:58:10.185000', 100, '2023-08-29 05:58:10.185000', 100, 'Track Income', NULL, NULL, 335,
+	 (
+		 SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '44c02ddc-ef83-4020-8e4c-709d8cbeadc2'
+	 ), 10, 0, 'Y', 'N', 'N', 'N', NULL, 'N', NULL, NULL, NULL, NULL, 'N', NULL, 'N', NULL, NULL, 'N', 'U', NULL, NULL,
+	 NULL, 'Y', 'N', NULL, '392e9aa3-b743-4fe2-a961-71a64d02611d', NULL, 'B', 0);
+
+-- Update all automatic roles to have access to the Track Income window
+DROP TABLE IF EXISTS tmp_ad_window_access;
+CREATE TEMP TABLE tmp_ad_window_access
+(
+	ad_window_id        numeric(10)             NOT NULL,
+	ad_role_id          numeric(10)             NOT NULL,
+	ad_client_id        numeric(10)             NOT NULL,
+	ad_org_id           numeric(10)             NOT NULL,
+-- 	isactive            char        DEFAULT 'Y'::bpchar NOT NULL,
+-- 	created             timestamp   DEFAULT NOW()       NOT NULL,
+	createdby           numeric(10) DEFAULT 100 NOT NULL,
+-- 	updated             timestamp   DEFAULT NOW()       NOT NULL,
+	updatedby           numeric(10) DEFAULT 100 NOT NULL,
+-- 	isreadwrite         char        DEFAULT 'Y'         NOT NULL,
+	ad_window_access_uu uuid                    NOT NULL DEFAULT uuid_generate_v4()
+-- 	bh_candeactivate    char        DEFAULT 'N' NOT NULL
+);
+
+-- Track Income
+INSERT INTO
+	tmp_ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id)
+SELECT
+	(
+		SELECT ad_window_id FROM AD_Window WHERE ad_window_uu = '44c02ddc-ef83-4020-8e4c-709d8cbeadc2'
+	),
+	ad_role_id,
+	ad_client_id,
+	ad_org_id
+FROM
+	ad_role
+WHERE
+	ad_client_id NOT IN (0, 11)
+	AND ismanual = 'N'
+	AND ad_role_id NOT IN (
+		SELECT
+			ad_role_id
+		FROM
+			ad_window_access
+		WHERE
+				ad_window_id = (
+				SELECT ad_window_id FROM AD_Window WHERE ad_window_uu = '44c02ddc-ef83-4020-8e4c-709d8cbeadc2'
+			)
+	);
+
+INSERT INTO
+	ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, createdby, updatedby, ad_window_access_uu)
+SELECT
+	ad_window_id,
+	ad_role_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	ad_window_access_uu
+FROM
+	tmp_ad_window_access;
+
+-- Make sure the node ordering is correct
+WITH track_income_menu AS (
+	SELECT
+		ad_menu_id
+	FROM
+		ad_menu
+	WHERE
+			ad_window_id = (
+			SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d'
+		)
+)
+UPDATE ad_treenodemm
+SET
+	seqno = seqno + 1
+WHERE
+		parent_id = (
+		SELECT
+			ad_menu_id
+		FROM
+			ad_menu
+		WHERE
+			name = 'Accounting'
+	)
+	AND seqno >= (
+		SELECT
+			seqno
+		FROM
+			ad_treenodemm
+		WHERE
+				node_id = (
+				SELECT
+					ad_menu_id
+				FROM
+					track_income_menu
+			)
+	)
+	AND node_id != (
+		SELECT
+			ad_menu_id
+		FROM
+			track_income_menu
+	);
+
+/******************************************************************************************/
+--	9. Wrap-up
 /******************************************************************************************/
 SELECT
 	update_sequences();

@@ -19,7 +19,7 @@ public class BusinessPartnerSpecificPayerInformation extends BaseEntity {
 		super(entity, entity.getName(), entity.getDescription(), null);
 
 		setInvoiceLineId(entity.getC_InvoiceLine_ID());
-		setPayerInformationFieldId(entity.getBH_BP_Payer_Info_ID());
+		setPayerInformationFieldId(entity.getBH_Payer_Info_Fld_ID());
 	}
 
 	public int getInvoiceLineId() {

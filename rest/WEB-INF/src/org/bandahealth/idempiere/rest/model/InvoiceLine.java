@@ -48,29 +48,13 @@ public class InvoiceLine extends BaseMetadata {
 	}
 
 	public InvoiceLine(MInvoiceLine instance) {
-		super(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_InvoiceLine_UU(), instance.isActive(),
-				DateUtil.parse(instance.getCreated()), instance.getCreatedBy());
+		super(instance);
 
 		this.invoiceId = instance.getC_Invoice_ID();
 		this.price = instance.getPriceActual();
 		this.quantity = instance.getQtyEntered();
 		this.lineNetAmount = instance.getLineNetAmt();
 		this.description = instance.getDescription();
-		setOrderLineId(instance.getC_OrderLine_ID());
-		setAttributeSetInstanceId(instance.getM_AttributeSetInstance_ID());
-	}
-
-	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer invoiceId, Product product, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount,
-			String description, MInvoiceLine instance) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.invoiceId = invoiceId;
-		this.price = price;
-		this.quantity = quantity;
-		this.lineNetAmount = lineNetAmount;
-		this.product = product;
-		this.description = description;
 		setOrderLineId(instance.getC_OrderLine_ID());
 		setAttributeSetInstanceId(instance.getM_AttributeSetInstance_ID());
 	}

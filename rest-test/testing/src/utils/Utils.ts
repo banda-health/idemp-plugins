@@ -151,7 +151,7 @@ export async function createOrder(valueObject: ValueObject) {
 				description: valueObject.getStepMessageLong(),
 				product: valueObject.product,
 				quantity: valueObject.quantity || 1,
-				price: (valueObject.quantity || 1) * (valueObject.product?.sellPrice || 0),
+				price: valueObject.salesStandardPrice || (valueObject.quantity || 1) * (valueObject.product?.sellPrice || 0),
 			} as OrderLine,
 		],
 		isSalesOrderTransaction: valueObject.documentType.isSalesTransaction,
@@ -207,7 +207,8 @@ export async function createInvoice(valueObject: ValueObject) {
 	} else if (valueObject.charge) {
 		invoiceLine.charge = valueObject.charge;
 	}
-	invoiceLine.price = (invoiceLine.quantity || 0) * (invoiceLine.product?.sellPrice || 0);
+	invoiceLine.price =
+		valueObject.salesStandardPrice || (invoiceLine.quantity || 0) * (invoiceLine.product?.sellPrice || 0);
 	invoice.invoiceLines?.push(invoiceLine as unknown as InvoiceLine);
 
 	valueObject.invoice = await invoiceApi.save(valueObject, invoice as Invoice);

@@ -64,17 +64,6 @@ public interface I_BH_BP_Specific_Payer_Info
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_BP_Payer_Info_ID */
-    public static final String COLUMNNAME_BH_BP_Payer_Info_ID = "BH_BP_Payer_Info_ID";
-
-	/** Set Business Partner Payer Information	  */
-	public void setBH_BP_Payer_Info_ID (int BH_BP_Payer_Info_ID);
-
-	/** Get Business Partner Payer Information	  */
-	public int getBH_BP_Payer_Info_ID();
-
-	public I_BH_BP_Payer_Info getBH_BP_Payer_Info() throws RuntimeException;
-
     /** Column name BH_BP_Specific_Payer_Info_ID */
     public static final String COLUMNNAME_BH_BP_Specific_Payer_Info_ID = "BH_BP_Specific_Payer_Info_ID";
 

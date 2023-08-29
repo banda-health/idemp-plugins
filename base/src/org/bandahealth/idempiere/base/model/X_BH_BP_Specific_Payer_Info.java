@@ -74,31 +74,6 @@ public class X_BH_BP_Specific_Payer_Info extends PO implements I_BH_BP_Specific_
       return sb.toString();
     }
 
-	public I_BH_BP_Payer_Info getBH_BP_Payer_Info() throws RuntimeException
-    {
-		return (I_BH_BP_Payer_Info)MTable.get(getCtx(), I_BH_BP_Payer_Info.Table_Name)
-			.getPO(getBH_BP_Payer_Info_ID(), get_TrxName());	}
-
-	/** Set Business Partner Payer Information.
-		@param BH_BP_Payer_Info_ID Business Partner Payer Information	  */
-	public void setBH_BP_Payer_Info_ID (int BH_BP_Payer_Info_ID)
-	{
-		if (BH_BP_Payer_Info_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_BP_Payer_Info_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_BH_BP_Payer_Info_ID, Integer.valueOf(BH_BP_Payer_Info_ID));
-	}
-
-	/** Get Business Partner Payer Information.
-		@return Business Partner Payer Information	  */
-	public int getBH_BP_Payer_Info_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_BP_Payer_Info_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
 	/** Set Business Partner Specific Payer Information.
 		@param BH_BP_Specific_Payer_Info_ID Business Partner Specific Payer Information	  */
 	public void setBH_BP_Specific_Payer_Info_ID (int BH_BP_Specific_Payer_Info_ID)

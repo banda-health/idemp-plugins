@@ -68,8 +68,10 @@ public class MPayment_BH extends MPayment {
 		allocationHeader.setAD_Org_ID(getAD_Org_ID());
 		if (getBH_Visit_ID() > 0) {
 			// Get the invoice amount
-			List<MOrder_BH> orders = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_BH_Visit_ID + "=?",
-					get_TrxName()).setParameters(getBH_Visit_ID()).list();
+			List<MOrder_BH> orders = new Query(getCtx(), MOrder_BH.Table_Name,
+					MOrder_BH.COLUMNNAME_BH_Visit_ID + "=? AND " + MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " +
+							MOrder_BH.COLUMNNAME_C_BPartner_ID + "=?", get_TrxName()).setParameters(getBH_Visit_ID(), true,
+					getC_BPartner_ID()).list();
 			if (orders.stream().noneMatch(MOrder::isComplete)) {
 				get_Logger().severe("No orders are complete - can't allocate against any of their invoices");
 				return false;
@@ -126,11 +128,12 @@ public class MPayment_BH extends MPayment {
 					MInvoice_BH.COLUMNNAME_C_BPartner_ID + "=? AND " + MInvoice_BH.COLUMNNAME_DocStatus + "=? AND " +
 							MInvoice_BH.COLUMNNAME_IsPaid + "=?", get_TrxName()).setParameters(getC_BPartner_ID(),
 					MInvoice_BH.DOCSTATUS_Completed, "N").setOrderBy(MInvoice_BH.COLUMNNAME_Created + " ASC").list();
-			if (unpaidInvoices.size() > 0) {
+			if (!unpaidInvoices.isEmpty()) {
 				allocationHeader.saveEx();
 				BigDecimal remainingPayment = getPayAmt();
 				for (MInvoice_BH unpaidInvoice : unpaidInvoices) {
 					if (remainingPayment.signum() <= 0) {
+						remainingPayment = BigDecimal.ZERO;
 						break;
 					}
 					// Since we're emulating what's done on the Payment Allocation, set the date acct as whatever is the latest
@@ -156,6 +159,18 @@ public class MPayment_BH extends MPayment {
 							Msg.getMsg(getCtx(), "FailedProcessingDocument") + " - " + allocationHeader.getProcessMsg());
 				}
 				allocationHeader.saveEx();
+				// Since a payment could have been made for more than owed (i.e. as for insurances), update the total open
+				// balance
+				MBPartner_BH businessPartner = new MBPartner_BH(getCtx(), getC_BPartner_ID(), get_TrxName());
+				BigDecimal newBalance = businessPartner.getTotalOpenBalance();
+				if (newBalance == null) {
+					newBalance = Env.ZERO;
+				}
+				newBalance = newBalance.subtract(remainingPayment);
+
+				businessPartner.setTotalOpenBalance(newBalance);
+				businessPartner.setSOCreditStatus();
+				businessPartner.saveEx();
 				return true;
 			}
 		}

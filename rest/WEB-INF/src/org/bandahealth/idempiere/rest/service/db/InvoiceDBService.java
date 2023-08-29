@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
@@ -12,7 +13,7 @@ import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.DocumentType;
 import org.bandahealth.idempiere.rest.model.Invoice;
 import org.bandahealth.idempiere.rest.model.InvoiceLine;
-import org.bandahealth.idempiere.rest.model.OrderLine;
+import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.model.VoidedReason;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
@@ -33,6 +34,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Order (c_order) base functionality (billing, receive goods, track expenses).
@@ -53,6 +55,8 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 	protected DocumentTypeDBService documentTypeDBService;
 	@Autowired
 	protected ProductDBService productDBService;
+	@Autowired
+	protected BusinessPartnerSpecificPayerInformationDBService businessPartnerSpecificPayerInformationDBService;
 
 	private final Map<String, String> dynamicJoins = new HashMap<>() {{
 		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MInvoice_BH.Table_Name + "." +
@@ -191,6 +195,14 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 				invoice.processIt(DocAction.ACTION_None);
 				invoice.saveEx();
 			} else {
+				// Delete BP payer info
+				List<MBHBPSpecificPayerInfo> specificPayerInformationList =
+						businessPartnerSpecificPayerInformationDBService.getGroupsByIds(MBHBPSpecificPayerInfo::getC_InvoiceLine_ID,
+										MBHBPSpecificPayerInfo.COLUMNNAME_C_InvoiceLine_ID,
+										Stream.of(invoice.getLines()).map(MInvoiceLine::getC_InvoiceLine_ID).collect(Collectors.toSet()))
+								.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
+				specificPayerInformationList.forEach(specificPayerInformation -> specificPayerInformation.deleteEx(true));
+
 				invoice.deleteEx(false);
 			}
 			return true;
@@ -236,7 +248,13 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 		Set<Integer> businessPartnerIds = dbModels.stream().map(MInvoice_BH::getC_BPartner_ID)
 				.collect(Collectors.toSet());
 		// Batch call to get business partners
-		Map<Integer, MBPartner_BH> businessPartners = businessPartnerDBService.getByIds(businessPartnerIds);
+		Map<Integer, BusinessPartner> businessPartnersById = businessPartnerDBService.transformData(
+						new ArrayList<>(businessPartnerDBService.getByIds(businessPartnerIds).values())).stream()
+				.collect(Collectors.toMap(BusinessPartner::getId, businessPartner -> businessPartner));
+
+		// Batch call to get any orders
+		Map<Integer, MOrder_BH> ordersById = orderDBService.getByIds(
+				dbModels.stream().map(MInvoice_BH::getC_Order_ID).filter(orderId -> orderId > 0).collect(Collectors.toSet()));
 
 		// invoice lines
 		Set<Integer> invoiceIds = dbModels.stream().map(MInvoice_BH::get_ID).collect(Collectors.toSet());
@@ -248,11 +266,12 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 
 		// Batch ASIs & Products
 		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById = attributeSetInstanceDBService.getByIds(
-				invoiceLinesByInvoiceId.values().stream().flatMap(Collection::stream).map(InvoiceLine::getAttributeSetInstanceId)
+				invoiceLinesByInvoiceId.values().stream().flatMap(Collection::stream)
+						.map(InvoiceLine::getAttributeSetInstanceId)
 						.filter(attributeSetInstanceId -> attributeSetInstanceId > 0).collect(Collectors.toSet()));
 		Map<Integer, Product> productsByIds = productDBService.transformData(new ArrayList<>(productDBService.getByIds(
-				invoiceLinesByInvoiceId.values().stream().flatMap(Collection::stream).map(InvoiceLine::getProductId)
-						.collect(Collectors.toSet())).values())).stream()
+						invoiceLinesByInvoiceId.values().stream().flatMap(Collection::stream).map(InvoiceLine::getProductId)
+								.collect(Collectors.toSet())).values())).stream()
 				.collect(Collectors.toMap(Product::getId, product -> product));
 
 		// Batch doc types
@@ -262,11 +281,14 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 		return dbModels.stream().map(invoice -> {
 			Invoice result = new Invoice(invoice);
 
-			if (businessPartners.containsKey(invoice.getC_BPartner_ID())) {
-				result.setBusinessPartner(new BusinessPartner(businessPartners.get(invoice.getC_BPartner_ID())));
+			if (businessPartnersById.containsKey(invoice.getC_BPartner_ID())) {
+				result.setBusinessPartner(businessPartnersById.get(invoice.getC_BPartner_ID()));
 			}
 			if (documentTypesById.containsKey(invoice.getC_DocTypeTarget_ID())) {
 				result.setDocumentTypeTarget(new DocumentType(documentTypesById.get(invoice.getC_DocTypeTarget_ID())));
+			}
+			if (ordersById.containsKey(invoice.getC_Order_ID())) {
+				result.setOrder(new Order(ordersById.get(invoice.getC_Order_ID())));
 			}
 
 			if (invoiceLinesByInvoiceId.containsKey(result.getId())) {
