@@ -1812,6 +1812,16 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 	expect((await businessPartnerApi.getByUuid(valueObject, insurer.uuid)).totalOpenBalance).toBe(0);
 
+	valueObject.stepName = 'Re-complete the visit as-is';
+	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, insurer.uuid)).totalOpenBalance).toBe(50);
+
+	valueObject.stepName = 'Re-re-open visit';
+	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.ReActivate);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, insurer.uuid)).totalOpenBalance).toBe(0);
+
 	valueObject.stepName = 'Remove reversed/voided invoices and payments';
 	valueObject.visit.invoices = valueObject.visit.invoices.filter(
 		(invoice) =>
