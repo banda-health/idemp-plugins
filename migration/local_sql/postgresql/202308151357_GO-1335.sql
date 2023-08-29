@@ -6186,12 +6186,12 @@ WHERE
 
 UPDATE ad_window
 SET
-	name = 'Insurers & Donors'
+	name = 'Donors & Insurers'
 WHERE
 	ad_window_uu = 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d';
 UPDATE ad_tab
 SET
-	name        = 'Insurers & Donors',
+	name        = 'Donors & Insurers',
 	ad_table_id = 291 -- Business Partners
 WHERE
 	ad_tab_uu = '012fd982-4703-4a95-81b0-7f0f2767087d';
@@ -6312,6 +6312,17 @@ WHERE
 			ad_menu_id
 		FROM
 			track_income_menu
+	);
+
+UPDATE ad_window_access
+SET
+	bh_candeactivate = 'Y'
+WHERE
+		ad_window_id = (
+		SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '44c02ddc-ef83-4020-8e4c-709d8cbeadc2'
+	)
+	AND ad_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'e1a9a87d-dc61-4d9e-a6c9-f91d5f42e33e'
 	);
 
 /******************************************************************************************/

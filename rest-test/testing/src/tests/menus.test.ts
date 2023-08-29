@@ -16,17 +16,17 @@ test('correct menu names are returned', async () => {
 	expect(menu?.sequenceNumber).toBe(2);
 	menu = menus.find((menu) => menu.name === 'Patients');
 	expect(menu).not.toBeUndefined();
-	expect(menu?.sequenceNumber).toBe(3);
+	expect(menu?.sequenceNumber).toBe(4);
 	menu = menus.find((menu) => menu.name === 'Pharmacy Sales (OTC)');
 	expect(menu).not.toBeUndefined();
-	expect(menu?.sequenceNumber).toBe(4);
+	expect(menu?.sequenceNumber).toBe(3);
 	menu = menus.find((menu) => menu.name === 'Reports');
 	expect(menu).not.toBeUndefined();
 	expect(menu?.sequenceNumber).toBe(8);
 
 	const inventoryMenu = menus.find((menu) => menu.name === 'Inventory');
 	expect(inventoryMenu).not.toBeUndefined();
-	expect(menu?.sequenceNumber).toBe(5);
+	expect(inventoryMenu?.sequenceNumber).toBe(5);
 	menu = inventoryMenu?.subMenus.find((menu) => menu.name === 'Products & Prices');
 	expect(menu).not.toBeUndefined();
 	expect(menu?.window?.uuid).toBeTruthy();
@@ -54,7 +54,7 @@ test('correct menu names are returned', async () => {
 
 	const accountingMenu = menus.find((menu) => menu.name === 'Accounting');
 	expect(accountingMenu).not.toBeUndefined();
-	expect(menu?.sequenceNumber).toBe(6);
+	expect(accountingMenu?.sequenceNumber).toBe(6);
 	menu = accountingMenu?.subMenus.find((menu) => menu.name === 'Debt Payments');
 	expect(menu).not.toBeUndefined();
 	expect(menu?.window?.uuid).toBeTruthy();
@@ -66,11 +66,11 @@ test('correct menu names are returned', async () => {
 	menu = accountingMenu?.subMenus.find((menu) => menu.name === 'Track Income');
 	expect(menu).not.toBeUndefined();
 	expect(menu?.window?.uuid).toBeTruthy();
-	expect(menu?.sequenceNumber).toBe(2);
+	expect(menu?.sequenceNumber).toBe(3);
 	menu = accountingMenu?.subMenus.find((menu) => menu.name === 'Donors & Insurers');
 	expect(menu).not.toBeUndefined();
 	expect(menu?.window?.uuid).toBeTruthy();
-	expect(menu?.sequenceNumber).toBe(3);
+	expect(menu?.sequenceNumber).toBe(2);
 	menu = accountingMenu?.subMenus.find((menu) => menu.name === 'Expense Categories');
 	expect(menu).not.toBeUndefined();
 	expect(menu?.window?.uuid).toBeTruthy();
@@ -82,7 +82,7 @@ test('correct menu names are returned', async () => {
 
 	const backEndMenu = menus.find((menu) => menu.name === 'Back-End');
 	expect(backEndMenu).not.toBeUndefined();
-	expect(menu?.sequenceNumber).toBe(7);
+	expect(backEndMenu?.sequenceNumber).toBe(7);
 	menu = backEndMenu?.subMenus.find((menu) => menu.name === 'Diagnoses');
 	expect(menu).not.toBeUndefined();
 	expect(menu?.window?.uuid).toBeTruthy();
@@ -94,9 +94,9 @@ test('correct menu names are returned', async () => {
 	menu = backEndMenu?.subMenus.find((menu) => menu.name === 'Manage Users');
 	expect(menu).not.toBeUndefined();
 	expect(menu?.window?.uuid).toBeTruthy();
-	expect(menu?.sequenceNumber).toBe(2);
+	expect(menu?.sequenceNumber).toBe(3);
 	menu = backEndMenu?.subMenus.find((menu) => menu.name === 'Facility Information');
 	expect(menu).not.toBeUndefined();
 	expect(menu?.window?.uuid).toBeTruthy();
-	expect(menu?.sequenceNumber).toBe(3);
+	expect(menu?.sequenceNumber).toBe(2);
 });

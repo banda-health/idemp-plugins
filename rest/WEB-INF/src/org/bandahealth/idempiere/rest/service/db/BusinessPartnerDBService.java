@@ -220,6 +220,10 @@ public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBP
 
 	@Override
 	public List<BusinessPartner> transformData(List<MBPartner_BH> dbModels) {
+		if (dbModels.isEmpty()) {
+			return new ArrayList<>();
+		}
+		
 		Set<Integer> businessPartnerIds = dbModels.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet());
 		Set<Integer> businessPartnerGroupIds = dbModels.stream().map(MBPartner_BH::getC_BP_Group_ID)
 				.filter(businessPartnerGroupId -> businessPartnerGroupId > 0).collect(Collectors.toSet());
