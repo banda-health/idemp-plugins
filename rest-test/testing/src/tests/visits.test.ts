@@ -882,8 +882,7 @@ test(`getByUuid method returns the correct data`, async () => {
 		)
 	).results.filter((businessPartner) => businessPartner.payerInformationFieldList.length)[0];
 	const payerInformationFieldToUse = insurerOrDonorToUse.payerInformationFieldList.filter(
-		(payerInformationField) =>
-			payerInformationField.dataType.value === 'T' && !payerInformationField.shouldFillFromPatient,
+		(payerInformationField) => payerInformationField.dataType.value === 'T',
 	)[0];
 	const randomInformationField = randomUUID();
 
@@ -971,7 +970,6 @@ test(`getByUuid method returns the correct data`, async () => {
 						],
 					} as InvoiceLine,
 				],
-				order: { uuid: orderUuid },
 				documentTypeTarget: customerInvoiceDocumentType,
 			},
 		],
@@ -1497,7 +1495,6 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 						],
 					} as InvoiceLine,
 				],
-				order: { uuid: orderUuid },
 				documentTypeTarget: customerInvoiceDocumentType,
 			},
 		],
@@ -1635,7 +1632,6 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 						],
 					} as InvoiceLine,
 				],
-				order: { uuid: orderUuid },
 				documentTypeTarget: customerInvoiceDocumentType,
 			},
 		],
@@ -1706,8 +1702,7 @@ test(`visit invoice updates work`, async () => {
 		)
 	).results.filter((businessPartner) => businessPartner.payerInformationFieldList.length)[0];
 	const payerInformationFieldToUse = insurerOrDonorToUse.payerInformationFieldList.filter(
-		(payerInformationField) =>
-			payerInformationField.dataType.value === 'T' && !payerInformationField.shouldFillFromPatient,
+		(payerInformationField) => payerInformationField.dataType.value === 'T',
 	)[0];
 	const visitToSave = {
 		description: valueObject.getStepMessageLong(),
@@ -1769,7 +1764,6 @@ test(`visit invoice updates work`, async () => {
 						],
 					} as InvoiceLine,
 				],
-				order: { uuid: orderUuid },
 				documentTypeTarget: customerInvoiceDocumentType,
 			},
 		],
