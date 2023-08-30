@@ -132,6 +132,16 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 				newFeatureClientUuids.saveEx();
 			}
 			commitEx();
+
+			valueObject.setStepName("Run the OCL sync");
+			valueObject.setProcessUuid("dc0a5369-1478-46ff-aef4-8bac662132b7");
+			valueObject.setProcessRecordId(0);
+			valueObject.setProcessTableId(0);
+			valueObject.setProcessInformationParameters(List.of(
+					new ProcessInfoParameter("source", "BHGO", null, null, null)
+			));
+			ChuBoeCreateEntity.runProcessAsSystem(valueObject);
+			commitEx();
 		} catch (Exception exception) {
 			fail(exception);
 		} finally {
