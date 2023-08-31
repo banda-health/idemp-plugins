@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
-import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.rest.model.EncounterDiagnosis;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -19,6 +18,17 @@ public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosi
 
 	@Autowired
 	private CodedDiagnosisDBService codedDiagnosisDBService;
+
+	public void deleteEncounterDiagnosisNotInList(int encounterId, List<EncounterDiagnosis> encounterDiagnoses) {
+		// get existing diagnoses
+		List<MBHEncounterDiagnosis> mEncounterDiagnoses = new Query(Env.getCtx(), MBHEncounterDiagnosis.Table_Name,
+				MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_ID + " =?", null).setParameters(encounterId)
+						.setClient_ID().list();
+
+		mEncounterDiagnoses.stream().filter(existingDiagnosis -> encounterDiagnoses.stream().noneMatch(
+				newDiagnosis -> newDiagnosis.getUuid().equals(existingDiagnosis.getBH_Encounter_Diagnosis_UU())))
+				.forEach(entity -> deleteEntity(entity.getBH_Encounter_Diagnosis_UU()));
+	}
 
 	@Override
 	public EncounterDiagnosis saveEntity(EncounterDiagnosis entity) {
@@ -64,10 +74,11 @@ public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosi
 	protected MBHEncounterDiagnosis getModelInstance() {
 		return new MBHEncounterDiagnosis(Env.getCtx(), 0, null);
 	}
-	
+
 	public void deleteEncounterDiagnosisByEncounter(int encounterId, String transactionName) {
-		List<MBHEncounterDiagnosis> mEncounterDiagnoses = new Query(Env.getCtx(), MBHEncounterDiagnosis.Table_Name, MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_ID + " =?", transactionName)
-				.setParameters(encounterId).setClient_ID().list();
+		List<MBHEncounterDiagnosis> mEncounterDiagnoses = new Query(Env.getCtx(), MBHEncounterDiagnosis.Table_Name,
+				MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_ID + " =?", transactionName).setParameters(encounterId)
+						.setClient_ID().list();
 
 		for (MBHEncounterDiagnosis mEncounterDiagnosis : mEncounterDiagnoses) {
 			mEncounterDiagnosis.deleteEx(false);

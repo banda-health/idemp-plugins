@@ -24,7 +24,7 @@ public class Observation extends BaseMetadata {
 		super(entity);
 		
 		this.lineNo = entity.getLineNo();
-		this.value = entity.getValue();
+		this.value = entity.getBH_Value();
 		this.encounterId = entity.getBH_Encounter_ID();
 	}
 

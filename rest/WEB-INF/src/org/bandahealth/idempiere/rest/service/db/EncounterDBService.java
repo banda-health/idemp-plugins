@@ -5,23 +5,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHObservation;
-import org.bandahealth.idempiere.base.model.MBHVisit;
-import org.bandahealth.idempiere.base.model.MInOut_BH;
-import org.bandahealth.idempiere.base.model.MInvoice_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.rest.model.Encounter;
-import org.compiere.model.PO;
-import org.compiere.model.Query;
-import org.compiere.process.DocAction;
-import org.compiere.process.DocumentEngine;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,11 +46,17 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 			observationDBService.saveEntity(observation);
 		});
 
+		// delete old observations
+		observationDBService.deleteObservationsNotInList(encounterId, entity.getObservations());
+
 		// save encounter diagnosis
 		entity.getEncounterDiagnosis().stream().forEach(encounterDiagnosis -> {
 			encounterDiagnosis.setEncounterId(encounterId);
 			encounterDiagnosisDBService.saveEntity(encounterDiagnosis);
 		});
+
+		// delete old encounter diagnoses
+		encounterDiagnosisDBService.deleteEncounterDiagnosisNotInList(encounterId, entity.getEncounterDiagnosis());
 
 		return createInstanceWithAllFields(encounter);
 	}
@@ -76,11 +72,15 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 				encounterDiagnosisDBService.deleteEncounterDiagnosisByEncounter(entity.get_ID(),
 						deleteEncounter.getTrxName());
 
+				observationDBService.deleteObservationsByEncounter(entity.get_ID(),
+						deleteEncounter.getTrxName());
+
 				boolean didDelete = entity.delete(true);
 				if (!deleteEncounter.commit(true)) {
 					logger.severe("Could not commit encounter transaction");
 					return false;
 				}
+				
 				return didDelete;
 			} catch (Exception ex) {
 				try {

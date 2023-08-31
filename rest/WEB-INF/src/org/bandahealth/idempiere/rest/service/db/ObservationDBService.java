@@ -1,16 +1,12 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHObservation;
-import org.bandahealth.idempiere.base.model.MBHOrderLineChargeInfo;
-import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.rest.model.Observation;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MField;
@@ -25,6 +21,18 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 	@Autowired
 	private FieldDBService fieldDBService;
 
+	public void deleteObservationsNotInList(int encounterId, List<Observation> observations) {
+		// get existing observations
+		List<MBHObservation> mObservations = new Query(Env.getCtx(), MBHObservation.Table_Name,
+				MBHObservation.COLUMNNAME_BH_Encounter_ID + " =?", null).setParameters(encounterId).setClient_ID()
+						.list();
+
+		mObservations.stream()
+				.filter(existingObservation -> observations.stream().noneMatch(
+						newObservation -> newObservation.getUuid().equals(existingObservation.getBH_Observation_UU())))
+				.forEach(entity -> deleteEntity(entity.getBH_Observation_UU()));
+	}
+
 	@Override
 	public Observation saveEntity(Observation entity) {
 		MBHObservation observation = getEntityByUuidFromDB(entity.getUuid());
@@ -34,21 +42,35 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 		}
 
 		// save encounter
-		observation.setBH_Encounter_ID(entity.getEncounterId());
-
-		// get field
-		MField field = fieldDBService.getEntityByUuidFromDB(entity.getField().getUuid());
-		if (field != null) {
-			observation.setAD_Field_ID(field.get_ID());
+		if (entity.getEncounterId() > 0) {
+			observation.setBH_Encounter_ID(entity.getEncounterId());
+		} else {
+			throw new AdempiereException("Encounter missing!");
 		}
 
-		// get lineno
-		observation.setLineNo(entity.getLineNo());
+		if (entity.getField() != null) {
+			// get field
+			MField field = fieldDBService.getEntityByUuidFromDB(entity.getField().getUuid());
+			if (field != null) {
+				observation.setAD_Field_ID(field.get_ID());
+			} else {
+				throw new AdempiereException("Field missig!");
+			}
+		} else {
+			throw new AdempiereException("Field missing!");
+		}
 
-		// get value
-		observation.setValue(entity.getValue());
+		if (entity.getLineNo() > 0) {
+			// get lineno
+			observation.setLineNo(entity.getLineNo());
+		}
 
-		observation.setBH_Encounter_ID(entity.getEncounterId());
+		// no need to save an empty/null observation
+		if (StringUtil.isNullOrEmpty(entity.getValue())) {
+			return entity;
+		}
+
+		observation.setBH_Value(entity.getValue());
 
 		observation.saveEx();
 
@@ -66,8 +88,9 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 	}
 
 	public void deleteObservationsByEncounter(int encounterId, String transactionName) {
-		List<MBHObservation> mObservations = new Query(Env.getCtx(), MBHObservation.Table_Name, MBHObservation.COLUMNNAME_BH_Encounter_ID + " =?", transactionName)
-				.setParameters(encounterId).setClient_ID().list();
+		List<MBHObservation> mObservations = new Query(Env.getCtx(), MBHObservation.Table_Name,
+				MBHObservation.COLUMNNAME_BH_Encounter_ID + " =?", transactionName).setParameters(encounterId)
+						.setClient_ID().list();
 
 		for (MBHObservation mObservation : mObservations) {
 			mObservation.deleteEx(false);
@@ -100,7 +123,6 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 			if (fieldById.containsKey(observation.getAD_Field_ID())) {
 				result.setField(fieldDBService
 						.transformData(Collections.singletonList(fieldById.get(observation.getAD_Field_ID()))).get(0));
-				result.setValue(observation.getValue());
 			}
 
 			return result;

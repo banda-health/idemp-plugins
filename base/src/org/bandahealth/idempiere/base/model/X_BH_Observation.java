@@ -30,7 +30,7 @@ public class X_BH_Observation extends PO implements I_BH_Observation, I_Persiste
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230721L;
+	private static final long serialVersionUID = 20230822L;
 
     /** Standard Constructor */
     public X_BH_Observation (Properties ctx, int BH_Observation_ID, String trxName)
@@ -229,19 +229,19 @@ public class X_BH_Observation extends PO implements I_BH_Observation, I_Persiste
 	}
 
 	/** Set Search Key.
-		@param Value 
+		@param BH_Value 
 		Search key for the record in the format required - must be unique
 	  */
-	public void setValue (String Value)
+	public void setBH_Value (String BH_Value)
 	{
-		set_Value (COLUMNNAME_Value, Value);
+		set_Value (COLUMNNAME_BH_Value, BH_Value);
 	}
 
 	/** Get Search Key.
 		@return Search key for the record in the format required - must be unique
 	  */
-	public String getValue () 
+	public String getBH_Value () 
 	{
-		return (String)get_Value(COLUMNNAME_Value);
+		return (String)get_Value(COLUMNNAME_BH_Value);
 	}
 }

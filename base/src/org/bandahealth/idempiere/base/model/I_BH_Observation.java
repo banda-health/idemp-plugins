@@ -194,16 +194,16 @@ public interface I_BH_Observation
 	  */
 	public int getUpdatedBy();
 
-    /** Column name Value */
-    public static final String COLUMNNAME_Value = "Value";
+    /** Column name BH_Value */
+    public static final String COLUMNNAME_BH_Value = "BH_Value";
 
 	/** Set Search Key.
 	  * Search key for the record in the format required - must be unique
 	  */
-	public void setValue (String Value);
+	public void setBH_Value (String BH_Value);
 
 	/** Get Search Key.
 	  * Search key for the record in the format required - must be unique
 	  */
-	public String getValue();
+	public String getBH_Value();
 }
