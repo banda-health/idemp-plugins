@@ -26,24 +26,27 @@ import org.bandahealth.idempiere.base.model.OCLCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.OCLCodedDiagnosisMapping;
 import org.bandahealth.idempiere.base.utils.JsonUtils;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
+import org.bandahealth.idempiere.base.utils.StringUtil;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.compiere.util.DB;
 
 /**
  * Process that syncs CodedDiagnosis (concepts) with OCL
- * 
- * @author andrew
  *
+ * @author andrew
  */
 public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 	private String source = "BHGO"; // set default source
 
 	private final int LIMIT = 100;
-	private String OCL_BASE_URL = "https://api.openconceptlab.org";
+	private String OCL_BASE_URL =
+			StringUtil.isNullOrEmpty(System.getenv("OCL_BASE_URL")) ? "https://api.openconceptlab.org" :
+					System.getenv("OCL_BASE_URL");
 	private String URI_OPTIONS = "?includeRetired=true&includeMappings=true&sortAsc=name&verbose=true";
 	private String BHGO_URI = "/orgs/bandahealth/sources/";
 	private final String CIEL = "CIEL";
@@ -105,7 +108,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 			List<MBHCodedDiagnosis> mCodedDiagnoses = new Query(getCtx(), MBHCodedDiagnosis.Table_Name,
 					MBHCodedDiagnosis.COLUMNNAME_BH_Coded_Diagnosis_UU + " IN ( " + inClause + " )", null)
-							.setParameters(parameters).list();
+					.setParameters(parameters).list();
 
 			codedDiagnoses.forEach(codedDiagnosis -> {
 				try {
@@ -122,7 +125,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 						if (codedDiagnosis.getExternalId() == null || codedDiagnosis.getExternalId().isEmpty()) {
 							foundCodedDiagnosis = new Query(getCtx(), MBHCodedDiagnosis.Table_Name,
 									MBHCodedDiagnosis.COLUMNNAME_bh_cielname + " = ?", null)
-											.setParameters(codedDiagnosis.getDisplayName()).first();
+									.setParameters(codedDiagnosis.getDisplayName()).first();
 						}
 
 						if (foundCodedDiagnosis == null) {
@@ -174,6 +177,12 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 			});
 		});
 
+		// Update all client IDs to be for the system client in case it wasn't run for as the system client
+		DB.executeUpdate("UPDATE " + MBHCodedDiagnosis.Table_Name + " SET ad_client_id = 0 WHERE ad_client_id != 0",
+				get_TrxName());
+		DB.executeUpdate("UPDATE " + MBHCodedDiagnosisMapping.Table_Name + " SET ad_client_id = 0 WHERE ad_client_id != 0",
+				get_TrxName());
+
 		String successMessage = "SUCCESSFULLY created " + newRecords.get() + ", updated " + updatedRecords.get()
 				+ " records in " + (System.currentTimeMillis() - start) / 1000 + " secs";
 
@@ -192,7 +201,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 	/**
 	 * Get a list of concepts from OCL
-	 * 
+	 *
 	 * @param source
 	 * @param page
 	 * @return
@@ -217,7 +226,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 	/**
 	 * Get a concept from OCL
-	 * 
+	 *
 	 * @param source
 	 * @return
 	 */
@@ -239,7 +248,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	/**
 	 * OCL's pagination no-longer works correctly leading to an infinite loop. Make
 	 * an initial request to fetch `num_found` to use in pagination.
-	 * 
+	 *
 	 * @return count
 	 */
 	private int getCodedDiagnosisCount() {
@@ -260,7 +269,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 	/**
 	 * Fetch any child mapped concepts
-	 * 
+	 *
 	 * @param parentConcept
 	 * @param codedDiagnosisMapping
 	 */
@@ -276,7 +285,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 		List<MBHCodedDiagnosisMapping> mCodedDiagnosisMappings = new Query(getCtx(),
 				MBHCodedDiagnosisMapping.Table_Name,
 				MBHCodedDiagnosisMapping.COLUMNNAME_BH_ExternalId + " IN ( " + inClause + " )", null)
-						.setParameters(parameters).list();
+				.setParameters(parameters).list();
 
 		// save every mapping and check underlying concepts
 		codedDiagnosisMapping.forEach((mapping) -> {
