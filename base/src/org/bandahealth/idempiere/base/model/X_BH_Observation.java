@@ -23,14 +23,14 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Observation
  *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
+ *  @version Release 8.2 - $Id$ */
 public class X_BH_Observation extends PO implements I_BH_Observation, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230822L;
+	private static final long serialVersionUID = 20230901L;
 
     /** Standard Constructor */
     public X_BH_Observation (Properties ctx, int BH_Observation_ID, String trxName)
@@ -98,34 +98,6 @@ public class X_BH_Observation extends PO implements I_BH_Observation, I_Persiste
 		return ii.intValue();
 	}
 
-	public org.compiere.model.I_AD_Table getAD_Table() throws RuntimeException
-    {
-		return (org.compiere.model.I_AD_Table)MTable.get(getCtx(), org.compiere.model.I_AD_Table.Table_Name)
-			.getPO(getAD_Table_ID(), get_TrxName());	}
-
-	/** Set Table.
-		@param AD_Table_ID 
-		Database Table information
-	  */
-	public void setAD_Table_ID (int AD_Table_ID)
-	{
-		if (AD_Table_ID < 1) 
-			set_Value (COLUMNNAME_AD_Table_ID, null);
-		else 
-			set_Value (COLUMNNAME_AD_Table_ID, Integer.valueOf(AD_Table_ID));
-	}
-
-	/** Get Table.
-		@return Database Table information
-	  */
-	public int getAD_Table_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Table_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
 	public I_BH_Encounter getBH_Encounter() throws RuntimeException
     {
 		return (I_BH_Encounter)MTable.get(getCtx(), I_BH_Encounter.Table_Name)
@@ -185,60 +157,17 @@ public class X_BH_Observation extends PO implements I_BH_Observation, I_Persiste
 		return (String)get_Value(COLUMNNAME_BH_Observation_UU);
 	}
 
-	/** Set Line.
-		@param LineNo 
-		Line No
-	  */
-	public void setLineNo (int LineNo)
-	{
-		set_Value (COLUMNNAME_LineNo, Integer.valueOf(LineNo));
-	}
-
-	/** Get Line.
-		@return Line No
-	  */
-	public int getLineNo () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_LineNo);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set Record ID.
-		@param Record_ID 
-		Direct internal record ID
-	  */
-	public void setRecord_ID (int Record_ID)
-	{
-		if (Record_ID < 0) 
-			set_ValueNoCheck (COLUMNNAME_Record_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_Record_ID, Integer.valueOf(Record_ID));
-	}
-
-	/** Get Record ID.
-		@return Direct internal record ID
-	  */
-	public int getRecord_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_Record_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set Search Key.
+	/** Set BH_Value.
 		@param BH_Value 
-		Search key for the record in the format required - must be unique
+		BH_Value
 	  */
 	public void setBH_Value (String BH_Value)
 	{
 		set_Value (COLUMNNAME_BH_Value, BH_Value);
 	}
 
-	/** Get Search Key.
-		@return Search key for the record in the format required - must be unique
+	/** Get BH_Value.
+		@return BH_Value
 	  */
 	public String getBH_Value () 
 	{

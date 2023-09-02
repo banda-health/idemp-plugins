@@ -1,21 +1,25 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MBHEncounter;
+import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHObservation;
+import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.rest.model.Encounter;
+import org.bandahealth.idempiere.rest.model.ReferenceList;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MRefList;
+import org.compiere.util.Env;
+import org.compiere.util.Trx;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MBHEncounter;
-import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
-import org.bandahealth.idempiere.base.model.MBHObservation;
-import org.bandahealth.idempiere.rest.model.Encounter;
-import org.compiere.util.Env;
-import org.compiere.util.Trx;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Component
 public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
@@ -25,6 +29,8 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 	@Autowired
 	private EncounterDiagnosisDBService encounterDiagnosisDBService;
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
 
 	@Override
 	public Encounter saveEntity(Encounter entity) {
@@ -35,28 +41,31 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 			encounter.setBH_Encounter_UU(entity.getUuid());
 		}
 
-		encounter.setBH_Encounter_Type(entity.getEncounterType());
+		if (entity.getEncounterType() != null && !StringUtil.isNullOrEmpty(entity.getEncounterType().getUuid())) {
+			MRefList encounterType = referenceListDBService.getEntityByUuidFromDB(entity.getEncounterType().getUuid());
+			encounter.setBH_Encounter_Type(encounterType.getValue());
+		}
 		encounter.setBH_Visit_ID(entity.getVisitId());
 		encounter.saveEx();
 
 		// save observations
 		int encounterId = encounter.get_ID();
-		entity.getObservations().stream().forEach(observation -> {
+		entity.setObservations(entity.getObservations().stream().map(observation -> {
 			observation.setEncounterId(encounterId);
-			observationDBService.saveEntity(observation);
-		});
+			return observationDBService.saveEntity(observation);
+		}).collect(Collectors.toList()));
 
 		// delete old observations
 		observationDBService.deleteObservationsNotInList(encounterId, entity.getObservations());
 
 		// save encounter diagnosis
-		entity.getEncounterDiagnosis().stream().forEach(encounterDiagnosis -> {
+		entity.setEncounterDiagnoses(entity.getEncounterDiagnoses().stream().map(encounterDiagnosis -> {
 			encounterDiagnosis.setEncounterId(encounterId);
-			encounterDiagnosisDBService.saveEntity(encounterDiagnosis);
-		});
+			return encounterDiagnosisDBService.saveEntity(encounterDiagnosis);
+		}).collect(Collectors.toList()));
 
 		// delete old encounter diagnoses
-		encounterDiagnosisDBService.deleteEncounterDiagnosisNotInList(encounterId, entity.getEncounterDiagnosis());
+		encounterDiagnosisDBService.deleteEncounterDiagnosisNotInList(encounterId, entity.getEncounterDiagnoses());
 
 		return createInstanceWithAllFields(encounter);
 	}
@@ -80,7 +89,7 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 					logger.severe("Could not commit encounter transaction");
 					return false;
 				}
-				
+
 				return didDelete;
 			} catch (Exception ex) {
 				try {
@@ -130,8 +139,17 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 				.getGroupsByIds(MBHEncounterDiagnosis::getBH_Encounter_ID,
 						MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_ID, encounterIds);
 
+		// get reference list values
+		Map<String, ReferenceList> encounterTypesByValue = referenceListDBService.getTypes(MReference_BH.ENCOUNTER_TYPES,
+						dbModels.stream().map(MBHEncounter::getBH_Encounter_Type).collect(Collectors.toSet())).stream()
+				.collect(Collectors.toMap(MRefList::getValue, ReferenceList::new));
+
 		return dbModels.stream().map(encounter -> {
 			Encounter result = new Encounter(encounter);
+
+			if (encounterTypesByValue.containsKey(encounter.getBH_Encounter_Type())) {
+				result.setEncounterType(encounterTypesByValue.get(encounter.getBH_Encounter_Type()));
+			}
 
 			if (obsByEncounter.containsKey(encounter.getBH_Encounter_ID())) {
 				result.setObservations(
@@ -139,7 +157,7 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 			}
 
 			if (encounterDiagnosisByEncounter.containsKey(encounter.getBH_Encounter_ID())) {
-				result.setEncounterDiagnosis(encounterDiagnosisDBService
+				result.setEncounterDiagnoses(encounterDiagnosisDBService
 						.transformData(encounterDiagnosisByEncounter.get(encounter.getBH_Encounter_ID())));
 			}
 

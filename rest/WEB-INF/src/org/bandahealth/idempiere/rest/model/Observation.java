@@ -14,7 +14,6 @@ public class Observation extends BaseMetadata {
 	private Field field;
 	@JsonIgnore
 	private int encounterId;
-	private int lineNo;
 	private String value;
 
 	public Observation() {
@@ -23,7 +22,6 @@ public class Observation extends BaseMetadata {
 	public Observation(MBHObservation entity) {
 		super(entity);
 		
-		this.lineNo = entity.getLineNo();
 		this.value = entity.getBH_Value();
 		this.encounterId = entity.getBH_Encounter_ID();
 	}
@@ -36,20 +34,14 @@ public class Observation extends BaseMetadata {
 		this.field = field;
 	}
 
+	@JsonIgnore
 	public int getEncounterId() {
 		return encounterId;
 	}
 
+	@JsonIgnore
 	public void setEncounterId(int encounterId) {
 		this.encounterId = encounterId;
-	}
-
-	public int getLineNo() {
-		return lineNo;
-	}
-
-	public void setLineNo(int lineNo) {
-		this.lineNo = lineNo;
 	}
 
 	public String getValue() {

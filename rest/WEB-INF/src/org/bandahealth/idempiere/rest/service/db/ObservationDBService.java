@@ -1,12 +1,8 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHObservation;
+import org.bandahealth.idempiere.rest.model.Field;
 import org.bandahealth.idempiere.rest.model.Observation;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MField;
@@ -14,6 +10,12 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class ObservationDBService extends BaseDBService<Observation, MBHObservation> {
@@ -25,7 +27,7 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 		// get existing observations
 		List<MBHObservation> mObservations = new Query(Env.getCtx(), MBHObservation.Table_Name,
 				MBHObservation.COLUMNNAME_BH_Encounter_ID + " =?", null).setParameters(encounterId).setClient_ID()
-						.list();
+				.list();
 
 		mObservations.stream()
 				.filter(existingObservation -> observations.stream().noneMatch(
@@ -60,11 +62,6 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 			throw new AdempiereException("Field missing!");
 		}
 
-		if (entity.getLineNo() > 0) {
-			// get lineno
-			observation.setLineNo(entity.getLineNo());
-		}
-
 		// no need to save an empty/null observation
 		if (StringUtil.isNullOrEmpty(entity.getValue())) {
 			return entity;
@@ -90,7 +87,7 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 	public void deleteObservationsByEncounter(int encounterId, String transactionName) {
 		List<MBHObservation> mObservations = new Query(Env.getCtx(), MBHObservation.Table_Name,
 				MBHObservation.COLUMNNAME_BH_Encounter_ID + " =?", transactionName).setParameters(encounterId)
-						.setClient_ID().list();
+				.setClient_ID().list();
 
 		for (MBHObservation mObservation : mObservations) {
 			mObservation.deleteEx(false);
@@ -115,14 +112,14 @@ public class ObservationDBService extends BaseDBService<Observation, MBHObservat
 	@Override
 	public List<Observation> transformData(List<MBHObservation> dbModels) {
 		// get fields
-		Map<Integer, MField> fieldById = fieldDBService
-				.getByIds(dbModels.stream().map(MBHObservation::getAD_Field_ID).collect(Collectors.toSet()));
+		Map<Integer, Field> fieldsById = fieldDBService.transformData(new ArrayList<>(
+				fieldDBService.getByIds(dbModels.stream().map(MBHObservation::getAD_Field_ID).collect(Collectors.toSet()))
+						.values())).stream().collect(Collectors.toMap(Field::getId, field -> field));
 
 		return dbModels.stream().map(observation -> {
 			Observation result = new Observation(observation);
-			if (fieldById.containsKey(observation.getAD_Field_ID())) {
-				result.setField(fieldDBService
-						.transformData(Collections.singletonList(fieldById.get(observation.getAD_Field_ID()))).get(0));
+			if (fieldsById.containsKey(observation.getAD_Field_ID())) {
+				result.setField(fieldsById.get(observation.getAD_Field_ID()));
 			}
 
 			return result;

@@ -16,7 +16,6 @@ public class EncounterDiagnosis extends BaseMetadata {
 	private int lineNo;
 	@JsonIgnore
 	private int encounterId;
-	private String diagnosisType;
 
 	public EncounterDiagnosis() {
 	}
@@ -26,7 +25,6 @@ public class EncounterDiagnosis extends BaseMetadata {
 
 		this.uncodedDiagnosis = entity.getBH_Uncoded_Diagnosis();
 		this.lineNo = entity.getLineNo();
-		this.diagnosisType = entity.getBH_Diagnosis_Type();
 		this.encounterId = entity.getBH_Encounter_ID();
 	}
 
@@ -60,13 +58,5 @@ public class EncounterDiagnosis extends BaseMetadata {
 
 	public void setEncounterId(int encounterId) {
 		this.encounterId = encounterId;
-	}
-
-	public String getDiagnosisType() {
-		return diagnosisType;
-	}
-
-	public void setDiagnosisType(String diagnosisType) {
-		this.diagnosisType = diagnosisType;
 	}
 }

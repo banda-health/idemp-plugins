@@ -2,7 +2,15 @@ import axios, { AxiosError } from 'axios';
 import isEqual from 'lodash/isEqual';
 import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
-import { chargeApi, languageApi, patientApi, referenceListApi, visitApi, voidedReasonApi, encounterTypeWindowApi } from '../api';
+import {
+	chargeApi,
+	encounterTypeWindowApi,
+	languageApi,
+	patientApi,
+	referenceListApi,
+	visitApi,
+	voidedReasonApi,
+} from '../api';
 import {
 	documentAction,
 	documentBaseType,
@@ -14,7 +22,7 @@ import {
 import {
 	BusinessPartner,
 	Encounter,
-    EncounterDiagnosis,
+	EncounterDiagnosis,
 	Field,
 	Observation,
 	Order,
@@ -1168,24 +1176,23 @@ test('visit can be saved with really long chief complaint', async () => {
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
 	const longChiefComplaint = 'this hurts '.repeat(20);
-	const chiefComplaintField = (
+	const clinicalVitalsEncounterTypeWindow = (
 		await encounterTypeWindowApi.get(valueObject, 0, 1, undefined, undefined)
-	).results.filter(
-		result => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID)[0].window.tabs[0].fields.filter(
-			field => field.uuid == CHIEF_COMPLAINT_FIELD_UUID)[0] as Field;
-			
-	const observation : Partial<Observation> = {
-		value: longChiefComplaint,
-		field: chiefComplaintField,
-	};		
-	
-	const encounter : Partial<Encounter> = {
-		observations: [],
-	};
-	encounter.observations!.push(observation as Observation);
-	
-	valueObject.visit!.encounters!.push(encounter as Encounter);
-	
+	).results.find((result) => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID);
+	const chiefComplaintField = clinicalVitalsEncounterTypeWindow?.window.tabs[0].fields.filter(
+		(field) => field.uuid == CHIEF_COMPLAINT_FIELD_UUID,
+	)[0] as Field;
+
+	valueObject.visit!.encounters!.push({
+		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
+		observations: [
+			{
+				value: longChiefComplaint,
+				field: chiefComplaintField,
+			} as Observation,
+		],
+	} as Encounter);
+
 	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
 	expect(valueObject.visit.encounters[0].observations[0].value).toBe(longChiefComplaint);
 });
@@ -1200,47 +1207,84 @@ test('clinical vitals fields ', async () => {
 
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
-	
-	const fields = (
+
+	const clinicalVitalsEncounterTypeWindow = (
 		await encounterTypeWindowApi.get(valueObject, 0, 10, undefined, undefined)
-	).results.filter(
-		result => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID)[0].window.tabs[0].fields;
-		
+	).results.find((result) => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID);
+	const fields = clinicalVitalsEncounterTypeWindow?.window.tabs[0].fields;
+
 	const heightValue = '200';
 	const weightValue = '100';
-		
-	const heightObs : Partial<Observation> = {
-		value: heightValue,
-		field: fields.filter(field => field.uuid == HEIGHT_FIELD_UUID)[0],
-	};
-	
-	const labNotesObs : Partial<Observation> = {
-		value: weightValue,
-		field: fields.filter(field => field.uuid == WEIGHT_FIELD_UUID)[0],
-	};
-	
-	const encounter : Partial<Encounter> = {
-		observations: [],
-		encounterDiagnosis: [],
-	};
-	encounter!.observations!.push(heightObs as Observation);
-	encounter!.observations!.push(labNotesObs as Observation);
-	
+
 	// test uncoded diagnosis
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
-	const uncodedDiagnosis : Partial<EncounterDiagnosis> = {
-		diagnosisType: 'P',
-		uncodedDiagnosis: uncodedDiagnosisValue
+	const encounter: Partial<Encounter> = {
+		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
+		observations: [
+			{
+				value: heightValue,
+				field: fields?.filter((field) => field.uuid == HEIGHT_FIELD_UUID)[0],
+			} as Observation,
+		],
+		encounterDiagnoses: [
+			{
+				lineNo: 1,
+				uncodedDiagnosis: uncodedDiagnosisValue,
+			} as EncounterDiagnosis,
+		],
 	};
-	
-	encounter!.encounterDiagnosis!.push(uncodedDiagnosis as EncounterDiagnosis);
-	
+
 	valueObject.visit!.encounters!.push(encounter as Encounter);
-	
+
 	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit.encounters).toHaveLength(1);
+	expect(valueObject.visit.encounters[0].observations).toHaveLength(1);
+	expect(valueObject.visit.encounters[0].observations[0].value).toBe(heightValue);
+	expect(valueObject.visit.encounters[0].encounterDiagnoses).toHaveLength(1);
+	expect(valueObject.visit.encounters[0].encounterDiagnoses[0].uncodedDiagnosis).toBe(uncodedDiagnosisValue);
+
+	valueObject.stepName = 'Change observations and remove diagnosis';
+	valueObject.visit!.encounters[0].observations = [
+		{
+			value: weightValue,
+			field: fields?.filter((field) => field.uuid == WEIGHT_FIELD_UUID)[0],
+		} as Observation,
+	];
+	valueObject.visit!.encounters[0].encounterDiagnoses = [];
+
+	valueObject.stepName = 'Save visit again';
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit.encounters).toHaveLength(1);
+	expect(valueObject.visit.encounters[0].observations).toHaveLength(1);
+	expect(valueObject.visit.encounters[0].observations[0].value).toBe(weightValue);
+	expect(valueObject.visit.encounters[0].encounterDiagnoses).toHaveLength(0);
+
+	valueObject.stepName = 'Add observations and re-add diagnosis';
+	valueObject.visit!.encounters[0].observations = [
+		{
+			value: heightValue,
+			field: fields?.filter((field) => field.uuid == HEIGHT_FIELD_UUID)[0],
+		} as Observation,
+		{
+			value: weightValue,
+			field: fields?.filter((field) => field.uuid == WEIGHT_FIELD_UUID)[0],
+		} as Observation,
+	];
+	valueObject.visit!.encounters[0].encounterDiagnoses = [
+		{
+			lineNo: 1,
+			uncodedDiagnosis: uncodedDiagnosisValue,
+		} as EncounterDiagnosis,
+	];
+
+	valueObject.stepName = 'Save visit again';
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit.encounters).toHaveLength(1);
+	expect(valueObject.visit.encounters[0].observations).toHaveLength(2);
 	expect(valueObject.visit.encounters[0].observations[0].value).toBe(heightValue);
 	expect(valueObject.visit.encounters[0].observations[1].value).toBe(weightValue);
-	expect(valueObject.visit.encounters[0].encounterDiagnosis[0].uncodedDiagnosis).toBe(uncodedDiagnosisValue);
+	expect(valueObject.visit.encounters[0].encounterDiagnoses).toHaveLength(1);
+	expect(valueObject.visit.encounters[0].encounterDiagnoses[0].uncodedDiagnosis).toBe(uncodedDiagnosisValue);
 });
 
 test(`visit saved and completed matches what is returned from visit getByUuid`, async () => {
@@ -1350,10 +1394,40 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 	const chargeInformationToUse = chargeToUse.chargeInformationList.filter(
 		(chargeInformation) => chargeInformation.dataType.value === 'T',
 	)[0];
+	const clinicalVitalsEncounterTypeWindow = (
+		await encounterTypeWindowApi.get(
+			valueObject,
+			0,
+			10,
+			undefined,
+			JSON.stringify({
+				ad_window: { ad_window_uu: CLINICAL_VITALS_WINDOW_UUID },
+			}),
+		)
+	).results[0];
 	const visitToSave = {
 		description: valueObject.getStepMessageLong(),
 		patient: valueObject.businessPartner as Patient | undefined,
 		visitDate: valueObject.date,
+		encounters: [
+			{
+				encounterType: clinicalVitalsEncounterTypeWindow.encounterType,
+				observations: [
+					{
+						value: '100',
+						field: clinicalVitalsEncounterTypeWindow.window.tabs[0].fields?.filter(
+							(field) => field.uuid == HEIGHT_FIELD_UUID,
+						)[0],
+					} as Observation,
+				],
+				encounterDiagnoses: [
+					{
+						lineNo: 1,
+						uncodedDiagnosis: 'In some pain...',
+					} as EncounterDiagnosis,
+				],
+			} as Encounter,
+		],
 		orders: [
 			{
 				description: valueObject.getStepMessageLong(),
@@ -1394,6 +1468,6 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 		],
 	} as Visit;
 	valueObject.visit = await visitApi.save(valueObject, visitToSave);
-	
+
 	expect(await visitApi.delete(valueObject, valueObject.visit!.uuid)).toBeTruthy();
 });

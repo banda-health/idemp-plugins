@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Encounter
  *  @author iDempiere (generated) 
- *  @version Release 7.1
+ *  @version Release 8.2
  */
 @SuppressWarnings("all")
 public interface I_BH_Encounter 
@@ -32,7 +32,7 @@ public interface I_BH_Encounter
     /** TableName=BH_Encounter */
     public static final String Table_Name = "BH_Encounter";
 
-    /** AD_Table_ID=1000040 */
+    /** AD_Table_ID=1000041 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);

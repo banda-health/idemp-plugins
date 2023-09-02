@@ -14,11 +14,9 @@ public class Encounter extends BaseMetadata {
 
 	@JsonIgnore
 	private int visitId;
-
-	private String encounterType;
-
+	private ReferenceList encounterType;
 	private List<Observation> observations = new ArrayList<>();
-	private List<EncounterDiagnosis> encounterDiagnosis = new ArrayList<>();
+	private List<EncounterDiagnosis> encounterDiagnoses = new ArrayList<>();
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +26,6 @@ public class Encounter extends BaseMetadata {
 	public Encounter(MBHEncounter entity) {
 		super(entity);
 
-		this.encounterType = entity.getBH_Encounter_Type();
 		this.visitId = entity.getBH_Visit_ID();
 	}
 
@@ -40,11 +37,11 @@ public class Encounter extends BaseMetadata {
 		this.visitId = visitId;
 	}
 
-	public String getEncounterType() {
+	public ReferenceList getEncounterType() {
 		return encounterType;
 	}
 
-	public void setEncounterType(String encounterType) {
+	public void setEncounterType(ReferenceList encounterType) {
 		this.encounterType = encounterType;
 	}
 
@@ -56,11 +53,11 @@ public class Encounter extends BaseMetadata {
 		this.observations = observations;
 	}
 
-	public List<EncounterDiagnosis> getEncounterDiagnosis() {
-		return encounterDiagnosis;
+	public List<EncounterDiagnosis> getEncounterDiagnoses() {
+		return encounterDiagnoses;
 	}
 
-	public void setEncounterDiagnosis(List<EncounterDiagnosis> encounterDiagnosis) {
-		this.encounterDiagnosis = encounterDiagnosis;
+	public void setEncounterDiagnoses(List<EncounterDiagnosis> encounterDiagnoses) {
+		this.encounterDiagnoses = encounterDiagnoses;
 	}
 }

@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Encounter_Diagnosis
  *  @author iDempiere (generated) 
- *  @version Release 7.1
+ *  @version Release 8.2
  */
 @SuppressWarnings("all")
 public interface I_BH_Encounter_Diagnosis 
@@ -74,15 +74,6 @@ public interface I_BH_Encounter_Diagnosis
 	public int getBH_Coded_Diagnosis_ID();
 
 	public I_BH_Coded_Diagnosis getBH_Coded_Diagnosis() throws RuntimeException;
-
-    /** Column name BH_Diagnosis_Type */
-    public static final String COLUMNNAME_BH_Diagnosis_Type = "BH_Diagnosis_Type";
-
-	/** Set Diagnosis Type	  */
-	public void setBH_Diagnosis_Type (String BH_Diagnosis_Type);
-
-	/** Get Diagnosis Type	  */
-	public String getBH_Diagnosis_Type();
 
     /** Column name BH_Encounter_Diagnosis_ID */
     public static final String COLUMNNAME_BH_Encounter_Diagnosis_ID = "BH_Encounter_Diagnosis_ID";

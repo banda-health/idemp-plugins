@@ -1,31 +1,37 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindow;
+import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.EncounterTypeWindow;
-import org.compiere.model.MWindow;
+import org.bandahealth.idempiere.rest.model.ReferenceList;
+import org.bandahealth.idempiere.rest.model.Window;
+import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class EncounterTypeWindowDBService extends BaseDBService<EncounterTypeWindow, MBHEncounterTypeWindow> {
 
 	@Autowired
 	private WindowDBService windowDBService;
+	@Autowired
+	private ReferenceListDBService referenceListDBService;
 
 	@Override
 	public EncounterTypeWindow saveEntity(EncounterTypeWindow entity) {
 		MBHEncounterTypeWindow encounterTypeWindowMapping = new Query(Env.getCtx(), MBHEncounterTypeWindow.Table_Name,
 				MBHEncounterTypeWindow.COLUMNNAME_BH_Encounter_Type_Window_UU + " =?", null)
-						.setParameters(entity.getUuid()).first();
+				.setParameters(entity.getUuid()).first();
 		if (encounterTypeWindowMapping == null) {
 			throw new AdempiereException("Encounter type window mapping not found.");
 		}
@@ -56,24 +62,27 @@ public class EncounterTypeWindowDBService extends BaseDBService<EncounterTypeWin
 	@Override
 	public List<EncounterTypeWindow> transformData(List<MBHEncounterTypeWindow> dbModels) {
 		// get windows
-		Map<Integer, MWindow> windowsById = windowDBService
-				.getByIds(dbModels.stream().map(MBHEncounterTypeWindow::getAD_Window_ID).collect(Collectors.toSet()));
+		Map<Integer, Window> windowsById = windowDBService.transformData(new ArrayList<>(windowDBService.getByIds(
+						dbModels.stream().map(MBHEncounterTypeWindow::getAD_Window_ID).collect(Collectors.toSet())).values())).stream()
+				.collect(Collectors.toMap(Window::getId, window -> window));
 
-		List<EncounterTypeWindow> results = dbModels.stream().map(encounterTypeWindowMapping -> {
+		// get get encounter types
+		Map<String, ReferenceList> encounterTypesByValue = referenceListDBService.getTypes(MReference_BH.ENCOUNTER_TYPES,
+						dbModels.stream().map(MBHEncounterTypeWindow::getBH_Encounter_Type).collect(Collectors.toSet())).stream()
+				.collect(Collectors.toMap(MRefList::getValue, ReferenceList::new));
+
+		return dbModels.stream().map(encounterTypeWindowMapping -> {
 			EncounterTypeWindow result = new EncounterTypeWindow(encounterTypeWindowMapping);
 
 			if (windowsById.containsKey(encounterTypeWindowMapping.getAD_Window_ID())) {
-				result.setWindow(
-						windowDBService
-								.transformData(Collections
-										.singletonList(windowsById.get(encounterTypeWindowMapping.getAD_Window_ID())))
-								.get(0));
+				result.setWindow(windowsById.get(encounterTypeWindowMapping.getAD_Window_ID()));
+			}
+			if (encounterTypesByValue.containsKey(encounterTypeWindowMapping.getBH_Encounter_Type())) {
+				result.setEncounterType(encounterTypesByValue.get(encounterTypeWindowMapping.getBH_Encounter_Type()));
 			}
 
 			return result;
 		}).collect(Collectors.toList());
-
-		return results;
 	}
 
 	@Override

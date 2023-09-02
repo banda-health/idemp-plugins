@@ -23,14 +23,14 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Encounter_Diagnosis
  *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
+ *  @version Release 8.2 - $Id$ */
 public class X_BH_Encounter_Diagnosis extends PO implements I_BH_Encounter_Diagnosis, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230721L;
+	private static final long serialVersionUID = 20230901L;
 
     /** Standard Constructor */
     public X_BH_Encounter_Diagnosis (Properties ctx, int BH_Encounter_Diagnosis_ID, String trxName)
@@ -95,25 +95,6 @@ public class X_BH_Encounter_Diagnosis extends PO implements I_BH_Encounter_Diagn
 		return ii.intValue();
 	}
 
-	/** Primary Diagnosis = P */
-	public static final String BH_DIAGNOSIS_TYPE_PrimaryDiagnosis = "P";
-	/** Secondary Diagnosis = S */
-	public static final String BH_DIAGNOSIS_TYPE_SecondaryDiagnosis = "S";
-	/** Set Diagnosis Type.
-		@param BH_Diagnosis_Type Diagnosis Type	  */
-	public void setBH_Diagnosis_Type (String BH_Diagnosis_Type)
-	{
-
-		set_Value (COLUMNNAME_BH_Diagnosis_Type, BH_Diagnosis_Type);
-	}
-
-	/** Get Diagnosis Type.
-		@return Diagnosis Type	  */
-	public String getBH_Diagnosis_Type () 
-	{
-		return (String)get_Value(COLUMNNAME_BH_Diagnosis_Type);
-	}
-
 	/** Set Encounter Diagnosis.
 		@param BH_Encounter_Diagnosis_ID Encounter Diagnosis	  */
 	public void setBH_Encounter_Diagnosis_ID (int BH_Encounter_Diagnosis_ID)
@@ -158,9 +139,9 @@ public class X_BH_Encounter_Diagnosis extends PO implements I_BH_Encounter_Diagn
 	public void setBH_Encounter_ID (int BH_Encounter_ID)
 	{
 		if (BH_Encounter_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_Encounter_ID, null);
+			set_Value (COLUMNNAME_BH_Encounter_ID, null);
 		else 
-			set_ValueNoCheck (COLUMNNAME_BH_Encounter_ID, Integer.valueOf(BH_Encounter_ID));
+			set_Value (COLUMNNAME_BH_Encounter_ID, Integer.valueOf(BH_Encounter_ID));
 	}
 
 	/** Get Encounter.

@@ -23,14 +23,14 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Encounter
  *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
+ *  @version Release 8.2 - $Id$ */
 public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230725L;
+	private static final long serialVersionUID = 20230901L;
 
     /** Standard Constructor */
     public X_BH_Encounter (Properties ctx, int BH_Encounter_ID, String trxName)
@@ -90,14 +90,14 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Immunizations = i */
-	public static final String BH_ENCOUNTER_TYPE_Immunizations = "i";
-	/** Capture Vitals = l */
-	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "l";
+	/** Immunizations = I */
+	public static final String BH_ENCOUNTER_TYPE_Immunizations = "I";
+	/** Capture Vitals = V */
+	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "V";
 	/** Diagnosis = m */
 	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
-	/** Clinical Details = n */
-	public static final String BH_ENCOUNTER_TYPE_ClinicalDetails = "n";
+	/** Clinical Details = D */
+	public static final String BH_ENCOUNTER_TYPE_ClinicalDetails = "D";
 	/** Set Encounter Type.
 		@param BH_Encounter_Type Encounter Type	  */
 	public void setBH_Encounter_Type (String BH_Encounter_Type)

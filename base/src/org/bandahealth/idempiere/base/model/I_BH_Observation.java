@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Observation
  *  @author iDempiere (generated) 
- *  @version Release 7.1
+ *  @version Release 8.2
  */
 @SuppressWarnings("all")
 public interface I_BH_Observation 
@@ -32,7 +32,7 @@ public interface I_BH_Observation
     /** TableName=BH_Observation */
     public static final String Table_Name = "BH_Observation";
 
-    /** AD_Table_ID=1000041 */
+    /** AD_Table_ID=1000043 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -79,21 +79,6 @@ public interface I_BH_Observation
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name AD_Table_ID */
-    public static final String COLUMNNAME_AD_Table_ID = "AD_Table_ID";
-
-	/** Set Table.
-	  * Database Table information
-	  */
-	public void setAD_Table_ID (int AD_Table_ID);
-
-	/** Get Table.
-	  * Database Table information
-	  */
-	public int getAD_Table_ID();
-
-	public org.compiere.model.I_AD_Table getAD_Table() throws RuntimeException;
-
     /** Column name BH_Encounter_ID */
     public static final String COLUMNNAME_BH_Encounter_ID = "BH_Encounter_ID";
 
@@ -122,6 +107,19 @@ public interface I_BH_Observation
 
 	/** Get BH_Observation_UU	  */
 	public String getBH_Observation_UU();
+
+    /** Column name BH_Value */
+    public static final String COLUMNNAME_BH_Value = "BH_Value";
+
+	/** Set BH_Value.
+	  * BH_Value
+	  */
+	public void setBH_Value (String BH_Value);
+
+	/** Get BH_Value.
+	  * BH_Value
+	  */
+	public String getBH_Value();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -152,32 +150,6 @@ public interface I_BH_Observation
 	  */
 	public boolean isActive();
 
-    /** Column name LineNo */
-    public static final String COLUMNNAME_LineNo = "LineNo";
-
-	/** Set Line.
-	  * Line No
-	  */
-	public void setLineNo (int LineNo);
-
-	/** Get Line.
-	  * Line No
-	  */
-	public int getLineNo();
-
-    /** Column name Record_ID */
-    public static final String COLUMNNAME_Record_ID = "Record_ID";
-
-	/** Set Record ID.
-	  * Direct internal record ID
-	  */
-	public void setRecord_ID (int Record_ID);
-
-	/** Get Record ID.
-	  * Direct internal record ID
-	  */
-	public int getRecord_ID();
-
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
 
@@ -193,17 +165,4 @@ public interface I_BH_Observation
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
-
-    /** Column name BH_Value */
-    public static final String COLUMNNAME_BH_Value = "BH_Value";
-
-	/** Set Search Key.
-	  * Search key for the record in the format required - must be unique
-	  */
-	public void setBH_Value (String BH_Value);
-
-	/** Get Search Key.
-	  * Search key for the record in the format required - must be unique
-	  */
-	public String getBH_Value();
 }

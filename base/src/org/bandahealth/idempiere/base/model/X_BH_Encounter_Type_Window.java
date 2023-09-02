@@ -23,14 +23,14 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Encounter_Type_Window
  *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
+ *  @version Release 8.2 - $Id$ */
 public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Type_Window, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230725L;
+	private static final long serialVersionUID = 20230901L;
 
     /** Standard Constructor */
     public X_BH_Encounter_Type_Window (Properties ctx, int BH_Encounter_Type_Window_ID, String trxName)
@@ -38,7 +38,6 @@ public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Typ
       super (ctx, BH_Encounter_Type_Window_ID, trxName);
       /** if (BH_Encounter_Type_Window_ID == 0)
         {
-			setBH_Encounter_Type_Window_ID (0);
         } */
     }
 
@@ -98,14 +97,14 @@ public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Typ
 		return ii.intValue();
 	}
 
-	/** Immunizations = i */
-	public static final String BH_ENCOUNTER_TYPE_Immunizations = "i";
-	/** Capture Vitals = l */
-	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "l";
+	/** Immunizations = I */
+	public static final String BH_ENCOUNTER_TYPE_Immunizations = "I";
+	/** Capture Vitals = V */
+	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "V";
 	/** Diagnosis = m */
 	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
-	/** Clinical Details = n */
-	public static final String BH_ENCOUNTER_TYPE_ClinicalDetails = "n";
+	/** Clinical Details = D */
+	public static final String BH_ENCOUNTER_TYPE_ClinicalDetails = "D";
 	/** Set Encounter Type.
 		@param BH_Encounter_Type Encounter Type	  */
 	public void setBH_Encounter_Type (String BH_Encounter_Type)
@@ -119,26 +118,6 @@ public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Typ
 	public String getBH_Encounter_Type () 
 	{
 		return (String)get_Value(COLUMNNAME_BH_Encounter_Type);
-	}
-
-	/** Set Encounter Type Window.
-		@param BH_Encounter_Type_Window_ID Encounter Type Window	  */
-	public void setBH_Encounter_Type_Window_ID (int BH_Encounter_Type_Window_ID)
-	{
-		if (BH_Encounter_Type_Window_ID < 1) 
-			set_ValueNoCheck (COLUMNNAME_BH_Encounter_Type_Window_ID, null);
-		else 
-			set_ValueNoCheck (COLUMNNAME_BH_Encounter_Type_Window_ID, Integer.valueOf(BH_Encounter_Type_Window_ID));
-	}
-
-	/** Get Encounter Type Window.
-		@return Encounter Type Window	  */
-	public int getBH_Encounter_Type_Window_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Encounter_Type_Window_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
 	}
 
 	/** Set BH_Encounter_Type_Window_UU.

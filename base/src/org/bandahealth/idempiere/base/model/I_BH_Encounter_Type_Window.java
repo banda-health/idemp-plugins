@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Encounter_Type_Window
  *  @author iDempiere (generated) 
- *  @version Release 7.1
+ *  @version Release 8.2
  */
 @SuppressWarnings("all")
 public interface I_BH_Encounter_Type_Window 
@@ -32,7 +32,7 @@ public interface I_BH_Encounter_Type_Window
     /** TableName=BH_Encounter_Type_Window */
     public static final String Table_Name = "BH_Encounter_Type_Window";
 
-    /** AD_Table_ID=1000043 */
+    /** AD_Table_ID=1000044 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -87,15 +87,6 @@ public interface I_BH_Encounter_Type_Window
 
 	/** Get Encounter Type	  */
 	public String getBH_Encounter_Type();
-
-    /** Column name BH_Encounter_Type_Window_ID */
-    public static final String COLUMNNAME_BH_Encounter_Type_Window_ID = "BH_Encounter_Type_Window_ID";
-
-	/** Set Encounter Type Window	  */
-	public void setBH_Encounter_Type_Window_ID (int BH_Encounter_Type_Window_ID);
-
-	/** Get Encounter Type Window	  */
-	public int getBH_Encounter_Type_Window_ID();
 
     /** Column name BH_Encounter_Type_Window_UU */
     public static final String COLUMNNAME_BH_Encounter_Type_Window_UU = "BH_Encounter_Type_Window_UU";

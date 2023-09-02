@@ -5,6 +5,8 @@ import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHEncounter;
+import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
@@ -112,9 +114,18 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
-		valueObject.getVisit().saveEx();
 		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setRandom();
@@ -133,9 +144,18 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
-		valueObject.getVisit().saveEx();
 		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
 
 		valueObject.setStepName("Create order");
 		valueObject.setRandom();
@@ -227,10 +247,20 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_Immunizations);
-		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
+		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_ImmunizationsWellChild);
 		valueObject.getVisit().saveEx();
 		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setRandom();
@@ -250,9 +280,19 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_InpatientIPD);
-		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
 		valueObject.getVisit().saveEx();
 		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
 
 		valueObject.setStepName("Create order");
 		valueObject.setRandom();
