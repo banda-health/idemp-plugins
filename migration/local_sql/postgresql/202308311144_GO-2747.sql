@@ -346,7 +346,7 @@ VALUES
 	 ), 17, ((
 		SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'ced05cde-f4e6-4d72-9134-c16e27eb963f'
 	)
-	 ), NULL, 22, NULL, 'N', 'N', 'N', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+	 ), NULL, 22, NULL, 'N', 'N', 'Y', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '140205b3-495c-4f7d-b6ec-1e1707e383a0'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '3466dd8c-bedc-4c90-9ac9-02528ed1dfbd', 'Y', 0, 'N', 'N', NULL,
 	 NULL, NULL, NULL, NULL, 'N');
@@ -367,7 +367,7 @@ VALUES
 	 ), 0, 0, 'Y', '2023-07-06 12:03:47.168000', '2023-07-06 12:03:47.168000', 100, 100, 'Visit', NULL, NULL, 0, 'U',
 	 'BH_Visit_ID', (
 		 SELECT ad_table_id FROM AD_Table WHERE ad_table_uu = '755aac0f-8697-4520-ba42-08ad092299cd'
-	 ), 13, NULL, NULL, 22, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+	 ), 13, NULL, NULL, 22, NULL, 'N', 'N', 'Y', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'fdcfe214-3025-418b-b2ee-51e4efcfdf1a'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, 'fa2e7bc6-538b-468e-9c90-f740bbd35c4a', 'Y', 0, 'N', 'N', NULL,
 	 NULL, 'N', NULL, NULL, 'N');
@@ -742,7 +742,7 @@ VALUES
 	 ), 0, 0, 'Y', '2023-07-06 17:49:27.451000', '2023-07-11 09:43:02.859000', 100, 100, 'Coded Diagnosis', NULL, NULL, 0,
 	 'U', 'BH_Coded_Diagnosis_ID', (
 		 SELECT ad_table_id FROM AD_Table WHERE ad_table_uu = 'fcc39724-f742-4fe3-b589-587a69c128e4'
-	 ), 19, NULL, NULL, 10, NULL, 'N', 'N', 'N', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+	 ), 19, NULL, NULL, 10, NULL, 'N', 'N', 'Y', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '56eea80e-d85d-41b3-8121-55ad5f62bad4'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '65218da9-6835-4cda-a2d8-f275b313b1c4', 'Y', 0, 'N', 'N', NULL,
 	 'BHCodedDiagnosis_BHEncounterDi', 'N', NULL, NULL, 'N');
@@ -760,10 +760,10 @@ VALUES
 			 MAX(ad_column_id) + 1
 		 FROM
 			 ad_column
-	 ), 0, 0, 'Y', '2023-07-13 13:02:46.606000', '2023-07-13 13:02:46.607000', 100, 100, 'Visit', NULL, NULL, 0, 'U',
-	 'BH_Visit_ID', (
+	 ), 0, 0, 'Y', '2023-07-13 13:02:46.606000', '2023-07-13 13:02:46.607000', 100, 100, 'Encounter', NULL, NULL, 0, 'U',
+	 'BH_Encounter_ID', (
 		 SELECT ad_table_id FROM AD_Table WHERE ad_table_uu = 'fcc39724-f742-4fe3-b589-587a69c128e4'
-	 ), 19, NULL, NULL, 22, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+	 ), 19, NULL, NULL, 22, NULL, 'N', 'N', 'Y', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '1471c9f4-6679-4063-b5c6-7aa15553891b'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, 'd4e8a380-4f18-4fcd-a9ac-53f63be918d3', 'Y', 0, 'N', 'N', NULL,
 	 NULL, 'N', NULL, NULL, 'N');
@@ -775,9 +775,9 @@ VALUES
 CREATE TABLE BH_Observation
 (
 	AD_Client_ID      NUMERIC(10)                                            NOT NULL,
-	AD_Field_ID       NUMERIC(10) DEFAULT NULL,
+	AD_Field_ID       NUMERIC(10)                                            NOT NULL,
 	AD_Org_ID         NUMERIC(10)                                            NOT NULL,
-	BH_Encounter_ID   NUMERIC(10) DEFAULT NULL,
+	BH_Encounter_ID   NUMERIC(10)                                            NOT NULL,
 	BH_Observation_ID NUMERIC(10)                                            NOT NULL,
 	BH_Observation_UU VARCHAR(36) DEFAULT NULL,
 	CREATED           TIMESTAMP   DEFAULT NOW()                              NOT NULL,
@@ -1064,7 +1064,7 @@ VALUES
 	 ), 0, 0, 'Y', '2023-07-06 12:16:49.441000', '2023-07-11 10:24:51.005000', 100, 100, 'Encounter', NULL, NULL, 0, 'U',
 	 'BH_Encounter_ID', (
 		 SELECT ad_table_id FROM AD_Table WHERE AD_Table_UU = 'a9673172-25a0-496f-a40f-e53550e2de24'
-	 ), 19, NULL, NULL, 22, NULL, 'N', 'N', 'N', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+	 ), 19, NULL, NULL, 22, NULL, 'N', 'N', 'Y', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '1471c9f4-6679-4063-b5c6-7aa15553891b'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, 'c4c984e2-47d8-4a24-afcb-48f4539c6e47', 'Y', 0, 'N', 'N', NULL,
 	 'BHEncounter_BHObservation', 'N', NULL, NULL, 'N');
@@ -1085,7 +1085,7 @@ VALUES
 	 ), 0, 0, 'Y', '2023-07-06 12:17:53.993000', '2023-07-11 10:24:50.872000', 100, 100, 'Field',
 	 'Field on a database table', 'The Field identifies a field on a database table.', 0, 'U', 'AD_Field_ID', (
 		 SELECT ad_table_id FROM AD_Table WHERE AD_Table_UU = 'a9673172-25a0-496f-a40f-e53550e2de24'
-	 ), 19, NULL, 52005, 22, NULL, 'N', 'N', 'N', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', 107, NULL,
+	 ), 19, NULL, 52005, 22, NULL, 'N', 'N', 'Y', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', 107, NULL,
 	 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '32af31b7-dfe1-42f8-b346-c8720d87853a', 'Y', 0, 'N', 'N', NULL,
 	 'ADField_BHObservation', 'N', NULL, NULL, 'N');
 INSERT INTO
@@ -1105,7 +1105,7 @@ VALUES
 	 ), 0, 0, 'Y', '2023-07-06 12:26:09.267000', '2023-08-22 08:49:48.699000', 100, 100, 'BH_Value', 'BH_Value', NULL, 0,
 	 'U', 'BH_Value', (
 		 SELECT ad_table_id FROM AD_Table WHERE AD_Table_UU = 'a9673172-25a0-496f-a40f-e53550e2de24'
-	 ), 36, NULL, NULL, 0, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'Y', (
+	 ), 36, NULL, NULL, 0, NULL, 'N', 'N', 'Y', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'Y', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '7ef17536-61e1-4421-9e75-e3732e604dd2'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '8ebdaf96-dd00-454c-b5d0-37b58280ca76', 'Y', 10, 'N', 'N', NULL,
 	 NULL, NULL, NULL, NULL, 'N');
@@ -1371,7 +1371,7 @@ VALUES
 		 SELECT ad_table_id FROM AD_Table WHERE AD_Table_UU = 'be236c71-35e6-4995-a4c3-8bc258d62bab'
 	 ), 17, (
 		 SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'ced05cde-f4e6-4d72-9134-c16e27eb963f'
-	 ), NULL, 22, NULL, 'N', 'N', 'N', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+	 ), NULL, 22, NULL, 'Y', 'N', 'Y', 'N', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '140205b3-495c-4f7d-b6ec-1e1707e383a0'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '7cbc8eec-f8ba-4532-ac24-06dde60c76df', 'Y', 0, 'N', 'N', NULL,
 	 NULL, NULL, NULL, NULL, 'N');
@@ -1393,7 +1393,7 @@ VALUES
 	 'Data entry or display window', 'The Window field identifies a unique Window in the system.', 0, 'U', 'AD_Window_ID',
 	 (
 		 SELECT ad_table_id FROM AD_Table WHERE AD_Table_UU = 'be236c71-35e6-4995-a4c3-8bc258d62bab'
-	 ), 18, 284, NULL, 22, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', 143, NULL, 'N',
+	 ), 18, 284, NULL, 22, NULL, 'Y', 'N', 'Y', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', 143, NULL, 'N',
 	 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '2a30994f-7159-4802-be91-cdd770b991df', 'Y', 0, 'N', 'N', NULL,
 	 'ADWindow_BHEncounterTypeWindow', 'N', NULL, NULL, 'N');
 
@@ -1677,7 +1677,9 @@ WHERE
 		ad_column_uu IN ('9e76e902-13ed-44ac-9957-38748277d20e', '8dc7142c-10da-4499-b4bb-877fab7c716c',
 		                 '345d1405-6bfe-4cb9-9ece-f60477f46a08', '03301cba-14d8-4c1b-8a91-5f566a9f9d2c',
 		                 '4a54eba3-5712-44cc-bb3c-be8e4d618e69', '9aa46e92-7db9-432d-a6e2-6074294ee431',
-		                 'abf8f199-df91-4e86-9aea-1be26988985f', '58e4d45d-bf24-4225-bf33-8f63d3a00f9b');
+		                 'abf8f199-df91-4e86-9aea-1be26988985f', '58e4d45d-bf24-4225-bf33-8f63d3a00f9b',
+		                 '9bcfded3-3af9-41d3-94ae-319d1859bb30', 'c39eb4d2-92e2-4edb-af60-e909cca39ff3',
+		                 'c1a0c77f-ee6d-413b-957f-a97d927bac8d');
 
 -- Update element names
 UPDATE ad_element
@@ -2459,50 +2461,37 @@ CREATE FUNCTION bh_get_visit_details(ad_client_id numeric,
                                      end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
-		        bh_visit_id                  numeric,
-		        bh_visitdate                 timestamptz,
-		        c_order_id                   numeric,
-		        c_order_uu                   character varying,
-		        ad_org_id                    numeric,
-		        receipt_number               numeric,
-		        ad_user_id                   numeric,
-		        cashier_name                 character varying,
-		        createdby_user_uu            character varying,
-		        c_bpartner_id                numeric,
-		        patient_name                 character varying,
-		        bh_patienttype               character varying,
-		        bh_patienttype_name          character varying,
-		        bh_patientid                 character varying,
-		        bh_birthday                  timestamp WITHOUT TIME ZONE,
-		        bh_gender                    character varying,
-		        bh_phone                     character varying,
-		        primary_coded                numeric,
-		        secondary_coded              numeric,
-		        bh_primaryuncodeddiagnosis   character varying,
-		        bh_secondaryuncodeddiagnosis character varying,
-		        docstatus                    character,
-		        bh_clinician_user_id         numeric,
-		        processing                   character,
-		        saleslineitemtotals          numeric,
-		        salestotals                  numeric
+		        bh_visit_id                   numeric,
+		        bh_visitdate                  timestamptz,
+		        c_order_id                    numeric,
+		        c_order_uu                    character varying,
+		        ad_org_id                     numeric,
+		        receipt_number                numeric,
+		        ad_user_id                    numeric,
+		        cashier_name                  character varying,
+		        createdby_user_uu             character varying,
+		        c_bpartner_id                 numeric,
+		        patient_name                  character varying,
+		        bh_patienttype                character varying,
+		        bh_patienttype_name           character varying,
+		        bh_patientid                  character varying,
+		        bh_birthday                   timestamp WITHOUT TIME ZONE,
+		        bh_gender                     character varying,
+		        bh_phone                      character varying,
+		        bh_primarycodeddiagnosis_id   numeric,
+		        bh_secondarycodeddiagnosis_id numeric,
+		        bh_primaryuncodeddiagnosis    character varying,
+		        bh_secondaryuncodeddiagnosis  character varying,
+		        docstatus                     character,
+		        bh_clinician_user_id          numeric,
+		        processing                    character,
+		        saleslineitemtotals           numeric,
+		        salestotals                   numeric
 	        )
 	LANGUAGE sql
 	STABLE
 AS
 $$
-WITH visit_diagnoses AS (
-	SELECT
-		v.bh_visit_id,
-		ev.bh_coded_diagnosis_id,
-		ev.bh_uncoded_diagnosis,
-		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
-	FROM
-		bh_visit v
-			JOIN bh_encounter e
-				ON v.bh_visit_id = e.bh_visit_id
-			LEFT JOIN bh_encounter_diagnosis ev
-				ON e.bh_encounter_id = ev.bh_encounter_id
-)
 SELECT
 	v.bh_visit_id,
 	v.bh_visitdate                                   AS visit_date,
@@ -2521,10 +2510,10 @@ SELECT
 	bp.bh_birthday                                   AS patient_birthday,
 	bp.bh_gender                                     AS patient_gender,
 	bp.bh_phone                                      AS patient_phoneNumber,
-	pd.bh_coded_diagnosis_id                         AS primary_coded,
-	sd.bh_coded_diagnosis_id                         AS secondary_coded,
-	pd.bh_uncoded_diagnosis                          AS primary_uncoded,
-	sd.bh_uncoded_diagnosis                          AS secondary_uncoded,
+	primary_diagnosis.bh_coded_diagnosis_id          AS primary_coded,
+	secondary_diagnosis.bh_coded_diagnosis_id        AS secondary_coded,
+	primary_diagnosis.bh_uncoded_diagnosis           AS primary_uncoded,
+	secondary_diagnosis.bh_uncoded_diagnosis         AS secondary_uncoded,
 	o.docstatus                                      AS docstatus,
 	v.bh_clinician_user_id                           AS clinician_id,
 	o.processing                                     AS processing,
@@ -2533,36 +2522,60 @@ SELECT
 FROM
 	bh_visit v
 		JOIN c_order o
-			ON v.bh_visit_id = o.bh_visit_id
+		ON v.bh_visit_id = o.bh_visit_id
 		JOIN c_bpartner bp
-			ON v.patient_id = bp.c_bpartner_id
+		ON v.patient_id = bp.c_bpartner_id
 		JOIN ad_user createdby_user
-			ON v.createdby = createdby_user.ad_user_id
+		ON v.createdby = createdby_user.ad_user_id
 		JOIN ad_ref_list rl
-			ON rl.value = v.bh_patienttype
+		ON rl.value = v.bh_patienttype
 		JOIN ad_reference r
-			ON rl.ad_reference_id = r.ad_reference_id
-		LEFT JOIN visit_diagnoses pd
-			ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
-		LEFT JOIN visit_diagnoses sd
-			ON v.bh_visit_id = sd.bh_visit_id AND sd.diagnosis_rank = 2
+		ON rl.ad_reference_id = r.ad_reference_id
+		LEFT JOIN (
+		SELECT
+			v.bh_visit_id,
+			ev.bh_coded_diagnosis_id,
+			ev.bh_uncoded_diagnosis
+		FROM
+			bh_visit v
+				JOIN bh_encounter e
+				ON v.bh_visit_id = e.bh_visit_id
+				LEFT JOIN bh_encounter_diagnosis ev
+				ON e.bh_encounter_id = ev.bh_encounter_id AND lineno = 10
+		LIMIT 1
+	) primary_diagnosis
+		ON v.bh_visit_id = primary_diagnosis.bh_visit_id
+		LEFT JOIN (
+		SELECT
+			v.bh_visit_id,
+			ev.bh_coded_diagnosis_id,
+			ev.bh_uncoded_diagnosis
+		FROM
+			bh_visit v
+				JOIN bh_encounter e
+				ON v.bh_visit_id = e.bh_visit_id
+				LEFT JOIN bh_encounter_diagnosis ev
+				ON e.bh_encounter_id = ev.bh_encounter_id AND lineno = 20
+		LIMIT 1
+	) secondary_diagnosis
+		ON v.bh_visit_id = secondary_diagnosis.bh_visit_id
 		JOIN (
-			SELECT
-				o.c_order_id,
-				COALESCE(SUM(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
-				COALESCE(SUM(ol.linenetamt), 0)                                         AS salestotals
-			FROM
-				c_order o
-					JOIN c_orderline ol
-						ON o.c_order_id = ol.c_order_id
-					JOIN bh_visit v
-						ON o.bh_visit_id = v.bh_visit_id
-			WHERE
-				o.ad_client_id = $1
-				AND v.bh_visitdate BETWEEN $2 AND $3
-			GROUP BY o.c_order_id
-		) sales_details
-			ON o.c_order_id = sales_details.c_order_id
+		SELECT
+			o.c_order_id,
+			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
+			COALESCE(SUM(ol.linenetamt), 0)                                         AS salestotals
+		FROM
+			c_order o
+				JOIN c_orderline ol
+				ON o.c_order_id = ol.c_order_id
+				JOIN bh_visit v
+				ON o.bh_visit_id = v.bh_visit_id
+		WHERE
+			o.ad_client_id = $1
+			AND v.bh_visitdate BETWEEN $2 AND $3
+		GROUP BY o.c_order_id
+	) sales_details
+		ON o.c_order_id = sales_details.c_order_id
 WHERE
 	v.bh_visitdate BETWEEN $2 AND $3
 	AND v.ad_client_id = $1
