@@ -2536,6 +2536,40 @@ WHERE
 		                  '80d9a9f5-f266-47ec-bb64-6aab3611fa91', 'fc9336f9-82f5-4719-90ab-68243a2583b0',
 		                  '0cfe2ac9-cd64-492d-966d-373d0cccf018');
 
+-- Remove the fields from the visit screen that are now no longer there
+DELETE
+FROM
+	ad_field
+WHERE
+		ad_tab_id = (
+		SELECT
+			ad_tab_id
+		FROM
+			ad_tab
+		WHERE
+				ad_window_id = (
+				SELECT
+					ad_window_id
+				FROM
+					ad_window
+				WHERE
+					ad_window_uu = '317cb386-251c-4e91-90bd-204f6d4c3931'
+			)
+	)
+	AND ad_column_id IN (
+		SELECT
+			ad_column_id
+		FROM
+			ad_column
+		WHERE
+				ad_column_uu IN ('9aa46e92-7db9-432d-a6e2-6074294ee431', 'abf8f199-df91-4e86-9aea-1be26988985f',
+				                 '8dc7142c-10da-4499-b4bb-877fab7c716c', '9bcfded3-3af9-41d3-94ae-319d1859bb30',
+				                 '345d1405-6bfe-4cb9-9ece-f60477f46a08', 'c39eb4d2-92e2-4edb-af60-e909cca39ff3',
+				                 'c1a0c77f-ee6d-413b-957f-a97d927bac8d', '58e4d45d-bf24-4225-bf33-8f63d3a00f9b',
+				                 '03301cba-14d8-4c1b-8a91-5f566a9f9d2c', '9e76e902-13ed-44ac-9957-38748277d20e',
+				                 '4a54eba3-5712-44cc-bb3c-be8e4d618e69')
+	);
+
 /******************************************************************************************/
 -- 9. Update procedure that fetches diagnosis information
 /******************************************************************************************/
