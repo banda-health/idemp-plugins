@@ -6,6 +6,8 @@ import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.Encounter;
+import org.bandahealth.idempiere.rest.model.EncounterDiagnosis;
+import org.bandahealth.idempiere.rest.model.Observation;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRefList;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -130,14 +133,18 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 	public List<Encounter> transformData(List<MBHEncounter> dbModels) {
 		Set<Integer> encounterIds = dbModels.stream().map(MBHEncounter::getBH_Encounter_ID).collect(Collectors.toSet());
 
-		// get obs
-		Map<Integer, List<MBHObservation>> obsByEncounter = observationDBService.getGroupsByIds(
-				MBHObservation::getBH_Encounter_ID, MBHObservation.COLUMNNAME_BH_Encounter_ID, encounterIds);
+		// get observations
+		Map<Integer, List<Observation>> observationsByEncounterId = observationDBService.transformData(
+				observationDBService.getGroupsByIds(MBHObservation::getBH_Encounter_ID,
+								MBHObservation.COLUMNNAME_BH_Encounter_ID, encounterIds).values().stream().flatMap(Collection::stream)
+						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(Observation::getEncounterId));
 
 		// get encounter diagnosis
-		Map<Integer, List<MBHEncounterDiagnosis>> encounterDiagnosisByEncounter = encounterDiagnosisDBService
-				.getGroupsByIds(MBHEncounterDiagnosis::getBH_Encounter_ID,
-						MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_ID, encounterIds);
+		Map<Integer, List<EncounterDiagnosis>> encounterDiagnosesByEncounterId = encounterDiagnosisDBService.transformData(
+						encounterDiagnosisDBService.getGroupsByIds(MBHEncounterDiagnosis::getBH_Encounter_ID,
+										MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_ID, encounterIds).values().stream()
+								.flatMap(Collection::stream).collect(Collectors.toList())).stream()
+				.collect(Collectors.groupingBy(EncounterDiagnosis::getEncounterId));
 
 		// get reference list values
 		Map<String, ReferenceList> encounterTypesByValue = referenceListDBService.getTypes(MReference_BH.ENCOUNTER_TYPES,
@@ -151,14 +158,12 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 				result.setEncounterType(encounterTypesByValue.get(encounter.getBH_Encounter_Type()));
 			}
 
-			if (obsByEncounter.containsKey(encounter.getBH_Encounter_ID())) {
-				result.setObservations(
-						observationDBService.transformData(obsByEncounter.get(encounter.getBH_Encounter_ID())));
+			if (observationsByEncounterId.containsKey(encounter.getBH_Encounter_ID())) {
+				result.setObservations(observationsByEncounterId.get(encounter.getBH_Encounter_ID()));
 			}
 
-			if (encounterDiagnosisByEncounter.containsKey(encounter.getBH_Encounter_ID())) {
-				result.setEncounterDiagnoses(encounterDiagnosisDBService
-						.transformData(encounterDiagnosisByEncounter.get(encounter.getBH_Encounter_ID())));
+			if (encounterDiagnosesByEncounterId.containsKey(encounter.getBH_Encounter_ID())) {
+				result.setEncounterDiagnoses(encounterDiagnosesByEncounterId.get(encounter.getBH_Encounter_ID()));
 			}
 
 			return result;

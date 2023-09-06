@@ -1688,36 +1688,120 @@ SET
 	printname = 'Height (cm)'
 WHERE
 	AD_Element_UU = 'a4fc780f-3dc3-4b0c-bb4a-26eea119ff55';
+UPDATE ad_element_trl
+SET
+	name      = 'Taille (cm)',
+	printname = 'Taille (cm)'
+WHERE
+		ad_client_id = (
+		SELECT
+			ad_element_id
+		FROM
+			ad_element
+		WHERE
+			AD_Element_UU = 'a4fc780f-3dc3-4b0c-bb4a-26eea119ff55'
+	)
+	AND ad_language = 'fr_FR';
 UPDATE ad_element
 SET
 	name      = 'Weight (kg)',
 	printname = 'Weight (kg)'
 WHERE
 	AD_Element_UU = '5818719f-2ca4-4204-bb6d-48e27426a30b';
+UPDATE ad_element_trl
+SET
+	name      = 'Poids (kg)',
+	printname = 'Poids (kg)'
+WHERE
+		ad_client_id = (
+		SELECT
+			ad_element_id
+		FROM
+			ad_element
+		WHERE
+			AD_Element_UU = '5818719f-2ca4-4204-bb6d-48e27426a30b'
+	)
+	AND ad_language = 'fr_FR';
 UPDATE ad_element
 SET
 	name      = 'Temperature (°C)',
 	printname = 'Temperature (°C)'
 WHERE
 	AD_Element_UU = '836e0d1f-b921-4582-8681-a17db1ad19d5';
+UPDATE ad_element_trl
+SET
+	name      = 'Température (°C)',
+	printname = 'Température (°C)'
+WHERE
+		ad_client_id = (
+		SELECT
+			ad_element_id
+		FROM
+			ad_element
+		WHERE
+			AD_Element_UU = '836e0d1f-b921-4582-8681-a17db1ad19d5'
+	)
+	AND ad_language = 'fr_FR';
 UPDATE ad_element
 SET
 	name      = 'Blood Pressure (mmHg)',
 	printname = 'Blood Pressure (mmHg)'
 WHERE
 	AD_Element_UU = 'fd932aa2-1856-448c-8d13-e2caa4cc9a18';
+UPDATE ad_element_trl
+SET
+	name      = 'Tension artérielle (mmHg)',
+	printname = 'Tension artérielle (mmHg)'
+WHERE
+		ad_client_id = (
+		SELECT
+			ad_element_id
+		FROM
+			ad_element
+		WHERE
+			AD_Element_UU = 'fd932aa2-1856-448c-8d13-e2caa4cc9a18'
+	)
+	AND ad_language = 'fr_FR';
 UPDATE ad_element
 SET
 	name      = 'Pulse (BPM)',
 	printname = 'Pulse (BPM)'
 WHERE
 	AD_Element_UU = '6be46897-4408-4080-afe5-4bdcf199b12e';
+UPDATE ad_element_trl
+SET
+	name      = 'Pouls (BPM)',
+	printname = 'Pouls (BPM)'
+WHERE
+		ad_client_id = (
+		SELECT
+			ad_element_id
+		FROM
+			ad_element
+		WHERE
+			AD_Element_UU = '6be46897-4408-4080-afe5-4bdcf199b12e'
+	)
+	AND ad_language = 'fr_FR';
 UPDATE ad_element
 SET
 	name      = 'Respiratory Rate (RPM)',
 	printname = 'Respiratory Rate (RPM)'
 WHERE
 	AD_Element_UU = '46dd8a18-ede7-462d-8f30-85eb56c628f4';
+UPDATE ad_element_trl
+SET
+	name      = 'Fréquence respiratoire (RPM)',
+	printname = 'Fréquence respiratoire (RPM)'
+WHERE
+		ad_client_id = (
+		SELECT
+			ad_element_id
+		FROM
+			ad_element
+		WHERE
+			AD_Element_UU = '46dd8a18-ede7-462d-8f30-85eb56c628f4'
+	)
+	AND ad_language = 'fr_FR';
 UPDATE ad_element
 SET
 	name      = 'SPO² (%)',
