@@ -4,6 +4,7 @@ import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
 import {
 	chargeApi,
+	codedDiagnosisApi,
 	encounterTypeWindowApi,
 	languageApi,
 	patientApi,
@@ -1197,7 +1198,7 @@ test('visit can be saved with really long chief complaint', async () => {
 	expect(valueObject.visit.encounters[0].observations[0].value).toBe(longChiefComplaint);
 });
 
-test('clinical vitals fields ', async () => {
+test('clinical vitals fields', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
@@ -1216,7 +1217,7 @@ test('clinical vitals fields ', async () => {
 	const heightValue = '200';
 	const weightValue = '100';
 
-	// test uncoded diagnosis
+	const codedDiagnosis = (await codedDiagnosisApi.get(valueObject)).results[0];
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter: Partial<Encounter> = {
 		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
@@ -1231,6 +1232,10 @@ test('clinical vitals fields ', async () => {
 				lineNo: 1,
 				uncodedDiagnosis: uncodedDiagnosisValue,
 			} as EncounterDiagnosis,
+			{
+				lineNo: 2,
+				codedDiagnosis: { uuid: codedDiagnosis.uuid },
+			} as EncounterDiagnosis,
 		],
 	};
 
@@ -1240,8 +1245,10 @@ test('clinical vitals fields ', async () => {
 	expect(valueObject.visit.encounters).toHaveLength(1);
 	expect(valueObject.visit.encounters[0].observations).toHaveLength(1);
 	expect(valueObject.visit.encounters[0].observations[0].value).toBe(heightValue);
-	expect(valueObject.visit.encounters[0].encounterDiagnoses).toHaveLength(1);
+	expect(valueObject.visit.encounters[0].encounterDiagnoses).toHaveLength(2);
 	expect(valueObject.visit.encounters[0].encounterDiagnoses[0].uncodedDiagnosis).toBe(uncodedDiagnosisValue);
+	expect(valueObject.visit.encounters[0].encounterDiagnoses[1].codedDiagnosis.uuid).toBeTruthy();
+	expect(valueObject.visit.encounters[0].encounterDiagnoses[1].codedDiagnosis.uuid).toBe(codedDiagnosis.uuid);
 
 	valueObject.stepName = 'Change observations and remove diagnosis';
 	valueObject.visit!.encounters[0].observations = [

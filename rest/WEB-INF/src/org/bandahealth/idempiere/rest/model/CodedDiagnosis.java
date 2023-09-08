@@ -27,12 +27,8 @@ public class CodedDiagnosis extends BaseMetadata {
 	public CodedDiagnosis() {
 	}
 
-	public CodedDiagnosis(String uuid, String cielName) {
-		setUuid(uuid);
-		setCielName(cielName);
-	}
-
 	public CodedDiagnosis(MBHCodedDiagnosis entity) {
+		super(entity);
 		setUuid(entity.getBH_Coded_Diagnosis_UU());
 		setCielName(entity.getbh_cielname());
 		setCielId(entity.getBH_CielID());
@@ -45,13 +41,6 @@ public class CodedDiagnosis extends BaseMetadata {
 		setMoh705aLessThan5(entity.getbh_moh705a_lessthan5());
 		setMoh705bGreaterThan5(entity.getbh_moh705b_greaterthan5());
 		setSearchTerms(entity.getbh_searchterms());
-	}
-
-	public CodedDiagnosis(String uuid, String cielName, String icd10, String synonyms) {
-		setUuid(uuid);
-		setCielName(cielName);
-		setIcd10(icd10);
-		setSynonyms(synonyms);
 	}
 
 	public String getCielName() {
