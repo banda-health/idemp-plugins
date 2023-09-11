@@ -32,7 +32,7 @@ public interface I_BH_Visit
     /** TableName=BH_Visit */
     public static final String Table_Name = "BH_Visit";
 
-    /** AD_Table_ID=1000041 */
+    /** AD_Table_ID=1000040 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -64,24 +64,6 @@ public interface I_BH_Visit
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_BloodPressure */
-    public static final String COLUMNNAME_BH_BloodPressure = "BH_BloodPressure";
-
-	/** Set BH_BloodPressure	  */
-	public void setBH_BloodPressure (String BH_BloodPressure);
-
-	/** Get BH_BloodPressure	  */
-	public String getBH_BloodPressure();
-
-    /** Column name BH_ChiefComplaint */
-    public static final String COLUMNNAME_BH_ChiefComplaint = "BH_ChiefComplaint";
-
-	/** Set BH_ChiefComplaint	  */
-	public void setBH_ChiefComplaint (String BH_ChiefComplaint);
-
-	/** Get BH_ChiefComplaint	  */
-	public String getBH_ChiefComplaint();
-
     /** Column name BH_ClinicalNotes */
     public static final String COLUMNNAME_BH_ClinicalNotes = "BH_ClinicalNotes";
 
@@ -104,33 +86,6 @@ public interface I_BH_Visit
 	  */
 	public int getBH_Clinician_User_ID();
 
-    /** Column name bh_diastolic_blood_pressure */
-    public static final String COLUMNNAME_bh_diastolic_blood_pressure = "bh_diastolic_blood_pressure";
-
-	/** Set bh_diastolic_blood_pressure	  */
-	public void setbh_diastolic_blood_pressure (int bh_diastolic_blood_pressure);
-
-	/** Get bh_diastolic_blood_pressure	  */
-	public int getbh_diastolic_blood_pressure();
-
-    /** Column name BH_Height */
-    public static final String COLUMNNAME_BH_Height = "BH_Height";
-
-	/** Set BH_Height	  */
-	public void setBH_Height (String BH_Height);
-
-	/** Get BH_Height	  */
-	public String getBH_Height();
-
-    /** Column name BH_LabNotes */
-    public static final String COLUMNNAME_BH_LabNotes = "BH_LabNotes";
-
-	/** Set Lab Notes	  */
-	public void setBH_LabNotes (String BH_LabNotes);
-
-	/** Get Lab Notes	  */
-	public String getBH_LabNotes();
-
     /** Column name BH_NewVisit */
     public static final String COLUMNNAME_BH_NewVisit = "BH_NewVisit";
 
@@ -140,15 +95,6 @@ public interface I_BH_Visit
 	/** Get New Visit	  */
 	public boolean isBH_NewVisit();
 
-    /** Column name BH_OxygenSaturation */
-    public static final String COLUMNNAME_BH_OxygenSaturation = "BH_OxygenSaturation";
-
-	/** Set Oxygen Saturation	  */
-	public void setBH_OxygenSaturation (BigDecimal BH_OxygenSaturation);
-
-	/** Get Oxygen Saturation	  */
-	public BigDecimal getBH_OxygenSaturation();
-
     /** Column name BH_PatientType */
     public static final String COLUMNNAME_BH_PatientType = "BH_PatientType";
 
@@ -157,26 +103,6 @@ public interface I_BH_Visit
 
 	/** Get Patient Type	  */
 	public String getBH_PatientType();
-
-    /** Column name BH_PrimaryCodedDiagnosis_ID */
-    public static final String COLUMNNAME_BH_PrimaryCodedDiagnosis_ID = "BH_PrimaryCodedDiagnosis_ID";
-
-	/** Set BH_PrimaryCodedDiagnosis_ID	  */
-	public void setBH_PrimaryCodedDiagnosis_ID (int BH_PrimaryCodedDiagnosis_ID);
-
-	/** Get BH_PrimaryCodedDiagnosis_ID	  */
-	public int getBH_PrimaryCodedDiagnosis_ID();
-
-	public I_BH_Coded_Diagnosis getBH_PrimaryCodedDiagnosis() throws RuntimeException;
-
-    /** Column name bh_primaryuncodeddiagnosis */
-    public static final String COLUMNNAME_bh_primaryuncodeddiagnosis = "bh_primaryuncodeddiagnosis";
-
-	/** Set bh_primaryuncodeddiagnosis	  */
-	public void setbh_primaryuncodeddiagnosis (String bh_primaryuncodeddiagnosis);
-
-	/** Get bh_primaryuncodeddiagnosis	  */
-	public String getbh_primaryuncodeddiagnosis();
 
     /** Column name BH_Process_Stage */
     public static final String COLUMNNAME_BH_Process_Stage = "BH_Process_Stage";
@@ -190,15 +116,6 @@ public interface I_BH_Visit
 	  * Drop down field in visits for users to define the process stage
 	  */
 	public String getBH_Process_Stage();
-
-    /** Column name BH_Pulse */
-    public static final String COLUMNNAME_BH_Pulse = "BH_Pulse";
-
-	/** Set BH_Pulse	  */
-	public void setBH_Pulse (String BH_Pulse);
-
-	/** Get BH_Pulse	  */
-	public String getBH_Pulse();
 
     /** Column name bh_referral */
     public static final String COLUMNNAME_bh_referral = "bh_referral";
@@ -221,49 +138,11 @@ public interface I_BH_Visit
     /** Column name BH_RespiratoryRate */
     public static final String COLUMNNAME_BH_RespiratoryRate = "BH_RespiratoryRate";
 
-	/** Set BH_RespiratoryRate	  */
+	/** Set Respiratory Rate (RPM)	  */
 	public void setBH_RespiratoryRate (String BH_RespiratoryRate);
 
-	/** Get BH_RespiratoryRate	  */
+	/** Get Respiratory Rate (RPM)	  */
 	public String getBH_RespiratoryRate();
-
-    /** Column name bh_secondarycodeddiagnosis_ID */
-    public static final String COLUMNNAME_bh_secondarycodeddiagnosis_ID = "bh_secondarycodeddiagnosis_ID";
-
-	/** Set bh_secondarycodeddiagnosis_ID	  */
-	public void setbh_secondarycodeddiagnosis_ID (int bh_secondarycodeddiagnosis_ID);
-
-	/** Get bh_secondarycodeddiagnosis_ID	  */
-	public int getbh_secondarycodeddiagnosis_ID();
-
-	public I_BH_Coded_Diagnosis getbh_secondarycodeddiagnosis() throws RuntimeException;
-
-    /** Column name bh_secondaryuncodeddiagnosis */
-    public static final String COLUMNNAME_bh_secondaryuncodeddiagnosis = "bh_secondaryuncodeddiagnosis";
-
-	/** Set bh_secondaryuncodeddiagnosis	  */
-	public void setbh_secondaryuncodeddiagnosis (String bh_secondaryuncodeddiagnosis);
-
-	/** Get bh_secondaryuncodeddiagnosis	  */
-	public String getbh_secondaryuncodeddiagnosis();
-
-    /** Column name bh_systolic_blood_pressure */
-    public static final String COLUMNNAME_bh_systolic_blood_pressure = "bh_systolic_blood_pressure";
-
-	/** Set bh_systolic_blood_pressure	  */
-	public void setbh_systolic_blood_pressure (int bh_systolic_blood_pressure);
-
-	/** Get bh_systolic_blood_pressure	  */
-	public int getbh_systolic_blood_pressure();
-
-    /** Column name BH_Temperature */
-    public static final String COLUMNNAME_BH_Temperature = "BH_Temperature";
-
-	/** Set BH_Temperature	  */
-	public void setBH_Temperature (String BH_Temperature);
-
-	/** Get BH_Temperature	  */
-	public String getBH_Temperature();
 
     /** Column name BH_Visit_ID */
     public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
@@ -306,10 +185,10 @@ public interface I_BH_Visit
     /** Column name BH_Weight */
     public static final String COLUMNNAME_BH_Weight = "BH_Weight";
 
-	/** Set BH_Weight	  */
+	/** Set Weight (kg)	  */
 	public void setBH_Weight (String BH_Weight);
 
-	/** Get BH_Weight	  */
+	/** Get Weight (kg)	  */
 	public String getBH_Weight();
 
     /** Column name Created */
@@ -366,19 +245,6 @@ public interface I_BH_Visit
 	  * The record is active in the system
 	  */
 	public boolean isActive();
-
-    /** Column name Name */
-    public static final String COLUMNNAME_Name = "Name";
-
-	/** Set Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public void setName (String Name);
-
-	/** Get Name.
-	  * Alphanumeric identifier of the entity
-	  */
-	public String getName();
 
     /** Column name Patient_ID */
     public static final String COLUMNNAME_Patient_ID = "Patient_ID";
