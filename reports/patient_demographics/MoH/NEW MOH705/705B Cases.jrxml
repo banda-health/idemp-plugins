@@ -73,10 +73,22 @@
 				('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Tonsillitis', 'Diarrhea with some dehydration',
 				 'Diarrhea with severe dehydration', 'Other Diseases Of Respiratory System', 'Sexual Assault', 'Kalaazar',
 				 'Fevers', 'Eye Infections', 'Dracunculiasis (Guinea Worm)', 'Neoplasms', 'Newly Diagnosed HIV',
-				 'Other Central Nervous System Conditions', 'Other Convulsive Disorders', 'Other Eye Conditions',
-				 'Plague', 'Diarrhea', 'Congenital Anomalies',
-				 'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)',
+				 'Other Central Nervous System Conditions', 'Other Convulsive Disorders', 'Other Eye Conditions', 'Plague',
+				 'Diarrhea', 'Congenital Anomalies', 'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)',
 				 'Cerebral Palsy', 'Autism')
+	),
+	visit_diagnoses AS (
+		SELECT
+			v.bh_visit_id,
+			ev.bh_coded_diagnosis_id,
+			ev.bh_uncoded_diagnosis,
+			ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
+		FROM
+			bh_visit v
+				JOIN bh_encounter e
+				ON v.bh_visit_id = e.bh_visit_id
+				LEFT JOIN bh_encounter_diagnosis ev
+				ON e.bh_encounter_id = ev.bh_encounter_id
 	),
 	diagnosis_count AS (
 		SELECT DISTINCT
@@ -88,109 +100,112 @@
 				LEFT JOIN (
 				SELECT
 					bh_moh705b_greaterthan5,
-					CAST(bh_visitdate AS date)         AS calendar,
-					COUNT(bh_primarycodeddiagnosis_id) AS noofdiagnosis
+					CAST(bh_visitdate AS date)      AS calendar,
+					COUNT(pd.bh_coded_diagnosis_id) AS noofdiagnosis
 				FROM
 					bh_visit v
+						JOIN visit_diagnoses pd
+						ON pd.bh_visit_id = v.bh_visit_id AND pd.diagnosis_rank = 1
 						JOIN bh_coded_diagnosis cd
-							ON bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
+						ON pd.bh_coded_diagnosis_id = cd.bh_coded_diagnosis_id
 						JOIN date_limitter dl
-							ON dl.calendar = CAST(bh_visitdate AS date)
+						ON dl.calendar = CAST(bh_visitdate AS date)
 						JOIN c_bpartner bp
-							ON v.patient_id = bp.c_bpartner_id
+						ON v.patient_id = bp.c_bpartner_id
 				WHERE
 					v.ad_client_id = $P{AD_CLIENT_ID}
-					AND bh_primarycodeddiagnosis_id IS NOT NULL
 					AND bp.bh_birthday IS NOT NULL
 					AND DATE_PART('year', AGE(bp.bh_birthday)) >= 5
 				GROUP BY bh_moh705b_greaterthan5, CAST(bh_visitdate AS date)
 			) c
-					ON b.bh_moh705b_greaterthan5 = c.bh_moh705b_greaterthan5
+				ON b.bh_moh705b_greaterthan5 = c.bh_moh705b_greaterthan5
 		ORDER BY calendar
 	)
 SELECT
 	dl.diagnosis,
 	dali.calendar,
 	COALESCE(dc.noofdiagnosis, 0) AS noofdiagnosis
-	-- c.calendar
+-- c.calendar
 FROM
 	diagnosis_list dl
 		CROSS JOIN date_limitter dali
 		LEFT JOIN diagnosis_count dc
-			ON dc.calendar = dali.calendar
+		ON dc.calendar = dali.calendar
 		AND dl.diagnosis = dc.diagnosis
-    JOIN (
-        SELECT 'Diarrhoea' as diagnosis, 10 as "order" UNION
-        SELECT 'Tuberculosis', 20 UNION
-        SELECT 'Dysentery (Bloody Diarrhea)', 30 UNION
-        SELECT 'Cholera', 40 UNION
-        SELECT 'Meningococcal Meningitis', 50 UNION
-        SELECT 'Other Meningitis', 60 UNION
-        SELECT 'Tetanus (not neonatal)', 70 UNION
-        SELECT 'Poliomyelitis (AFP)', 80 UNION
-        SELECT 'Chickenpox', 90 UNION
-        SELECT 'Measles', 100 UNION
-        SELECT 'Hepatitis', 110 UNION
-        SELECT 'Mumps', 120 UNION
-        SELECT 'Suspected Malaria', 130 UNION
-         SELECT 'Tested for malaria', 135 UNION
-        SELECT 'Confirmed Malaria (Only Positive Cases)', 140 UNION
-        SELECT 'Malaria in Pregnancy', 150 UNION
-        SELECT 'Amoebiasis', 160 UNION
-        SELECT 'Typhoid Fever', 170 UNION
-        SELECT 'Sexually Transmitted Infections', 180 UNION
-        SELECT 'Urinary Tract Infection', 190 UNION
-        SELECT 'Bilharzia', 200 UNION
-        SELECT 'Intestinal Worms', 210 UNION
-        SELECT 'Malnutrition', 220 UNION
-        SELECT 'Anemia', 230 UNION
-        SELECT 'Eye Infections/conditions', 240 UNION
-        SELECT 'Ear infections / conditions', 250 UNION
-        SELECT 'Upper Respiratory Tract Infections', 260 UNION
-        SELECT 'Asthma', 270 UNION
-        SELECT 'Pneumonia', 280 UNION
-        SELECT 'Other Lower Respiratory Tract Infection', 290 UNION
-        SELECT 'Abortion', 300 UNION
-        SELECT 'Diseases of Puerperium and Childbirth', 310 UNION
-        SELECT 'Hypertension', 320 UNION
-        SELECT 'Mental Disorders', 330 UNION
-        SELECT 'Dental Disorders', 340 UNION
-        SELECT 'Jiggers Infestation', 350 UNION
-        SELECT 'Diseases Of The Skin', 360 UNION
-        SELECT 'Arthritis; Joint pains; etc', 370 UNION
-        SELECT 'Poisoning', 380 UNION
-        SELECT 'Road Traffic Injuries', 390 UNION
-        SELECT 'Deaths Due To Road Traffic Injuries', 400 UNION
-        SELECT 'Other Injuries', 410 UNION
-        SELECT 'Sexual violence', 420 UNION
-        SELECT 'Violence Related Injuries', 430 UNION
-        SELECT 'Burns', 440 UNION
-        SELECT 'Snakebites', 450 UNION
-        SELECT 'Dog Bites', 460 UNION
-        SELECT 'Other Bites', 470 UNION
-        SELECT 'Diabetes', 480 UNION
-        SELECT 'Epilepsy', 490 UNION
-        SELECT 'Brucellosis', 500 UNION
-        SELECT 'Cardiovascular Conditions', 510 UNION
-        SELECT 'Central Nervous System Conditions', 520 UNION
-        SELECT 'Overweight (BMI>25)', 530 UNION
-        SELECT 'Musculoskeletal Conditions', 540 UNION
-        SELECT 'Fistula (birth related)', 550 UNION
-        SELECT 'Suspected Neoplasms/Cancers', 560 UNION
-        SELECT 'Physical Disability', 570 UNION
-        SELECT 'Trypanosomiasis', 580 UNION
-        SELECT 'Rift Valley Fever', 590 UNION
-        SELECT 'Yellow Fever', 600 UNION
-        SELECT 'Viral Hemorrhagic Fever', 610 UNION
-        SELECT 'Chikugunya', 620 UNION
-        SELECT 'Dengue Fever', 630 UNION
-        SELECT 'Leishmaniasis (Kalaazar)', 640 UNION
-        SELECT 'Cutaneous leishmaniasis', 650 UNION
-        SELECT 'Suspected Anthrax', 660 UNION
-        SELECT 'All Other Diseases', 670
-    ) dlo ON dl.diagnosis = dlo.diagnosis
--- GROUP BY dl.diagnosis,noofdiagnosis,dali.calendar
-ORDER BY dlo."order", dali.calendar]]>
+		JOIN (
+		VALUES
+			('Diarrhea', 10),
+			('Tuberculosis', 20),
+			('Dysentery (Bloody Diarrhea)', 30),
+			('Cholera', 40),
+			('Meningococcal Meningitis', 50),
+			('Other Meningitis', 60),
+			('Tetanus (not neonatal)', 70),
+			('Poliomyelitis (AFP)', 80),
+			('Chickenpox', 90),
+			('Measles', 100),
+			('Hepatitis', 110),
+			('Mumps', 120),
+			('Suspected Malaria', 130),
+			('Tested for malaria', 135),
+			('Confirmed Malaria (Only Positive Cases)', 140),
+			('Malaria in Pregnancy', 150),
+			('Amoebiasis', 160),
+			('Typhoid Fever', 170),
+			('Sexually Transmitted Infections', 180),
+			('Urinary Tract Infection', 190),
+			('Bilharzia', 200),
+			('Intestinal Worms', 210),
+			('Malnutrition', 220),
+			('Anemia', 230),
+			('Eye Infections/conditions', 240),
+			('Ear infections / conditions', 250),
+			('Upper Respiratory Tract Infections', 260),
+			('Asthma', 270),
+			('Pneumonia', 280),
+			('Other Lower Respiratory Tract Infection', 290),
+			('Abortion', 300),
+			('Diseases of Puerperium and Childbirth', 310),
+			('Hypertension', 320),
+			('Mental Disorders', 330),
+			('Dental Disorders', 340),
+			('Jiggers Infestation', 350),
+			('Diseases Of The Skin', 360),
+			('Arthritis; Joint pains; etc', 370),
+			('Poisoning', 380),
+			('Road Traffic Injuries', 390),
+			('Deaths Due To Road Traffic Injuries', 400),
+			('Other Injuries', 410),
+			('Sexual violence', 420),
+			('Violence Related Injuries', 430),
+			('Burns', 440),
+			('Snakebites', 450),
+			('Dog Bites', 460),
+			('Other Bites', 470),
+			('Diabetes', 480),
+			('Epilepsy', 490),
+			('Brucellosis', 500),
+			('Cardiovascular Conditions', 510),
+			('Central Nervous System Conditions', 520),
+			('Overweight (BMI>25)', 530),
+			('Musculoskeletal Conditions', 540),
+			('Fistula (birth related)', 550),
+			('Suspected Neoplasms/Cancers', 560),
+			('Physical Disability', 570),
+			('Trypanosomiasis', 580),
+			('Rift Valley Fever', 590),
+			('Yellow Fever', 600),
+			('Viral Hemorrhagic Fever', 610),
+			('Chikugunya', 620),
+			('Dengue Fever', 630),
+			('Leishmaniasis (Kalaazar)', 640),
+			('Cutaneous leishmaniasis', 650),
+			('Suspected Anthrax', 660),
+			('All Other Diseases', 670)
+	) dlo (diagnosis, "order")
+		ON dl.diagnosis = dlo.diagnosis
+ORDER BY
+	dlo."order", dali.calendar]]>
 		</queryString>
 		<field name="diagnosis" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="diagnosis"/>
@@ -210,13 +225,28 @@ ORDER BY dlo."order", dali.calendar]]>
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SELECT
+		<![CDATA[WITH visit_diagnoses AS (
+	SELECT
+		v.bh_visit_id,
+		ev.bh_coded_diagnosis_id,
+		ev.bh_uncoded_diagnosis,
+		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
+	FROM
+		bh_visit v
+			JOIN bh_encounter e
+			ON v.bh_visit_id = e.bh_visit_id
+			LEFT JOIN bh_encounter_diagnosis ev
+			ON e.bh_encounter_id = ev.bh_encounter_id
+)
+SELECT
 	date(v.bh_visitdate) AS calendar,
 	o.name               AS name
 FROM
 	bh_visit v
+		LEFT JOIN visit_diagnoses pd
+		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
 		LEFT JOIN bh_coded_diagnosis cd
-			ON cd.bh_coded_diagnosis_id = v.bh_primarycodeddiagnosis_id
+		ON cd.bh_coded_diagnosis_id = pd.bh_coded_diagnosis_id
 		RIGHT JOIN ad_org o
 			ON v.ad_client_id = o.ad_client_id
 		AND o.isactive = 'Y'

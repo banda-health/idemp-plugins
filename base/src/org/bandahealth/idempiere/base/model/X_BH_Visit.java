@@ -17,13 +17,10 @@
 /** Generated Model - DO NOT CHANGE */
 package org.bandahealth.idempiere.base.model;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
 import org.compiere.model.*;
-import org.compiere.util.Env;
-import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_Visit
  *  @author iDempiere (generated) 
@@ -34,7 +31,7 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230427L;
+	private static final long serialVersionUID = 20230901L;
 
     /** Standard Constructor */
     public X_BH_Visit (Properties ctx, int BH_Visit_ID, String trxName)
@@ -44,7 +41,6 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
         {
 			setBH_Visit_ID (0);
 			setDocumentNo (null);
-			setName (null);
 			setPatient_ID (0);
         } */
     }
@@ -73,37 +69,9 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
     public String toString()
     {
       StringBuilder sb = new StringBuilder ("X_BH_Visit[")
-        .append(get_ID()).append(",Name=").append(getName()).append("]");
+        .append(get_ID()).append("]");
       return sb.toString();
     }
-
-	/** Set BH_BloodPressure.
-		@param BH_BloodPressure BH_BloodPressure	  */
-	public void setBH_BloodPressure (String BH_BloodPressure)
-	{
-		set_Value (COLUMNNAME_BH_BloodPressure, BH_BloodPressure);
-	}
-
-	/** Get BH_BloodPressure.
-		@return BH_BloodPressure	  */
-	public String getBH_BloodPressure () 
-	{
-		return (String)get_Value(COLUMNNAME_BH_BloodPressure);
-	}
-
-	/** Set BH_ChiefComplaint.
-		@param BH_ChiefComplaint BH_ChiefComplaint	  */
-	public void setBH_ChiefComplaint (String BH_ChiefComplaint)
-	{
-		set_Value (COLUMNNAME_BH_ChiefComplaint, BH_ChiefComplaint);
-	}
-
-	/** Get BH_ChiefComplaint.
-		@return BH_ChiefComplaint	  */
-	public String getBH_ChiefComplaint () 
-	{
-		return (String)get_Value(COLUMNNAME_BH_ChiefComplaint);
-	}
 
 	/** Set Clinical Notes.
 		@param BH_ClinicalNotes Clinical Notes	  */
@@ -142,51 +110,6 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Set bh_diastolic_blood_pressure.
-		@param bh_diastolic_blood_pressure bh_diastolic_blood_pressure	  */
-	public void setbh_diastolic_blood_pressure (int bh_diastolic_blood_pressure)
-	{
-		set_Value (COLUMNNAME_bh_diastolic_blood_pressure, Integer.valueOf(bh_diastolic_blood_pressure));
-	}
-
-	/** Get bh_diastolic_blood_pressure.
-		@return bh_diastolic_blood_pressure	  */
-	public int getbh_diastolic_blood_pressure () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_bh_diastolic_blood_pressure);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set BH_Height.
-		@param BH_Height BH_Height	  */
-	public void setBH_Height (String BH_Height)
-	{
-		set_Value (COLUMNNAME_BH_Height, BH_Height);
-	}
-
-	/** Get BH_Height.
-		@return BH_Height	  */
-	public String getBH_Height () 
-	{
-		return (String)get_Value(COLUMNNAME_BH_Height);
-	}
-
-	/** Set Lab Notes.
-		@param BH_LabNotes Lab Notes	  */
-	public void setBH_LabNotes (String BH_LabNotes)
-	{
-		set_Value (COLUMNNAME_BH_LabNotes, BH_LabNotes);
-	}
-
-	/** Get Lab Notes.
-		@return Lab Notes	  */
-	public String getBH_LabNotes () 
-	{
-		return (String)get_Value(COLUMNNAME_BH_LabNotes);
-	}
-
 	/** Set New Visit.
 		@param BH_NewVisit New Visit	  */
 	public void setBH_NewVisit (boolean BH_NewVisit)
@@ -208,31 +131,14 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return false;
 	}
 
-	/** Set Oxygen Saturation.
-		@param BH_OxygenSaturation Oxygen Saturation	  */
-	public void setBH_OxygenSaturation (BigDecimal BH_OxygenSaturation)
-	{
-		set_Value (COLUMNNAME_BH_OxygenSaturation, BH_OxygenSaturation);
-	}
-
-	/** Get Oxygen Saturation.
-		@return Oxygen Saturation	  */
-	public BigDecimal getBH_OxygenSaturation () 
-	{
-		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_BH_OxygenSaturation);
-		if (bd == null)
-			 return Env.ZERO;
-		return bd;
-	}
-
 	/** Outpatient (OPD) = O */
 	public static final String BH_PATIENTTYPE_OutpatientOPD = "O";
 	/** Inpatient (IPD) = I */
 	public static final String BH_PATIENTTYPE_InpatientIPD = "I";
 	/** Antenatal (ANC) = A */
 	public static final String BH_PATIENTTYPE_AntenatalANC = "A";
-	/** Immunizations = Im */
-	public static final String BH_PATIENTTYPE_Immunizations = "Im";
+	/** Immunizations & Well Child = Im */
+	public static final String BH_PATIENTTYPE_ImmunizationsWellChild = "Im";
 	/** Maternity = M */
 	public static final String BH_PATIENTTYPE_Maternity = "M";
 	/** Dental = D */
@@ -243,6 +149,14 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	public static final String BH_PATIENTTYPE_Surgery = "S";
 	/** Over The Counter (OTC) = ot */
 	public static final String BH_PATIENTTYPE_OverTheCounterOTC = "ot";
+	/** Home Visit = z */
+	public static final String BH_PATIENTTYPE_HomeVisit = "z";
+	/** PT/OT = y */
+	public static final String BH_PATIENTTYPE_PTOT = "y";
+	/** Follow-up = x */
+	public static final String BH_PATIENTTYPE_Follow_Up = "x";
+	/** Family Planning = u */
+	public static final String BH_PATIENTTYPE_FamilyPlanning = "u";
 	/** Set Patient Type.
 		@param BH_PatientType Patient Type	  */
 	public void setBH_PatientType (String BH_PatientType)
@@ -256,45 +170,6 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	public String getBH_PatientType () 
 	{
 		return (String)get_Value(COLUMNNAME_BH_PatientType);
-	}
-
-	public I_BH_Coded_Diagnosis getBH_PrimaryCodedDiagnosis() throws RuntimeException
-    {
-		return (I_BH_Coded_Diagnosis)MTable.get(getCtx(), I_BH_Coded_Diagnosis.Table_Name)
-			.getPO(getBH_PrimaryCodedDiagnosis_ID(), get_TrxName());	}
-
-	/** Set BH_PrimaryCodedDiagnosis_ID.
-		@param BH_PrimaryCodedDiagnosis_ID BH_PrimaryCodedDiagnosis_ID	  */
-	public void setBH_PrimaryCodedDiagnosis_ID (int BH_PrimaryCodedDiagnosis_ID)
-	{
-		if (BH_PrimaryCodedDiagnosis_ID < 1) 
-			set_Value (COLUMNNAME_BH_PrimaryCodedDiagnosis_ID, null);
-		else 
-			set_Value (COLUMNNAME_BH_PrimaryCodedDiagnosis_ID, Integer.valueOf(BH_PrimaryCodedDiagnosis_ID));
-	}
-
-	/** Get BH_PrimaryCodedDiagnosis_ID.
-		@return BH_PrimaryCodedDiagnosis_ID	  */
-	public int getBH_PrimaryCodedDiagnosis_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_PrimaryCodedDiagnosis_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set bh_primaryuncodeddiagnosis.
-		@param bh_primaryuncodeddiagnosis bh_primaryuncodeddiagnosis	  */
-	public void setbh_primaryuncodeddiagnosis (String bh_primaryuncodeddiagnosis)
-	{
-		set_Value (COLUMNNAME_bh_primaryuncodeddiagnosis, bh_primaryuncodeddiagnosis);
-	}
-
-	/** Get bh_primaryuncodeddiagnosis.
-		@return bh_primaryuncodeddiagnosis	  */
-	public String getbh_primaryuncodeddiagnosis () 
-	{
-		return (String)get_Value(COLUMNNAME_bh_primaryuncodeddiagnosis);
 	}
 
 	/** Clinician = toclinician */
@@ -321,20 +196,6 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	public String getBH_Process_Stage () 
 	{
 		return (String)get_Value(COLUMNNAME_BH_Process_Stage);
-	}
-
-	/** Set BH_Pulse.
-		@param BH_Pulse BH_Pulse	  */
-	public void setBH_Pulse (String BH_Pulse)
-	{
-		set_Value (COLUMNNAME_BH_Pulse, BH_Pulse);
-	}
-
-	/** Get BH_Pulse.
-		@return BH_Pulse	  */
-	public String getBH_Pulse () 
-	{
-		return (String)get_Value(COLUMNNAME_BH_Pulse);
 	}
 
 	/** Referral from health facilities = hf */
@@ -374,88 +235,18 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return (String)get_Value(COLUMNNAME_BH_ReferredFromTo);
 	}
 
-	/** Set BH_RespiratoryRate.
-		@param BH_RespiratoryRate BH_RespiratoryRate	  */
+	/** Set Respiratory Rate (RPM).
+		@param BH_RespiratoryRate Respiratory Rate (RPM)	  */
 	public void setBH_RespiratoryRate (String BH_RespiratoryRate)
 	{
 		set_Value (COLUMNNAME_BH_RespiratoryRate, BH_RespiratoryRate);
 	}
 
-	/** Get BH_RespiratoryRate.
-		@return BH_RespiratoryRate	  */
+	/** Get Respiratory Rate (RPM).
+		@return Respiratory Rate (RPM)	  */
 	public String getBH_RespiratoryRate () 
 	{
 		return (String)get_Value(COLUMNNAME_BH_RespiratoryRate);
-	}
-
-	public I_BH_Coded_Diagnosis getbh_secondarycodeddiagnosis() throws RuntimeException
-    {
-		return (I_BH_Coded_Diagnosis)MTable.get(getCtx(), I_BH_Coded_Diagnosis.Table_Name)
-			.getPO(getbh_secondarycodeddiagnosis_ID(), get_TrxName());	}
-
-	/** Set bh_secondarycodeddiagnosis_ID.
-		@param bh_secondarycodeddiagnosis_ID bh_secondarycodeddiagnosis_ID	  */
-	public void setbh_secondarycodeddiagnosis_ID (int bh_secondarycodeddiagnosis_ID)
-	{
-		if (bh_secondarycodeddiagnosis_ID < 1) 
-			set_Value (COLUMNNAME_bh_secondarycodeddiagnosis_ID, null);
-		else 
-			set_Value (COLUMNNAME_bh_secondarycodeddiagnosis_ID, Integer.valueOf(bh_secondarycodeddiagnosis_ID));
-	}
-
-	/** Get bh_secondarycodeddiagnosis_ID.
-		@return bh_secondarycodeddiagnosis_ID	  */
-	public int getbh_secondarycodeddiagnosis_ID () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_bh_secondarycodeddiagnosis_ID);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set bh_secondaryuncodeddiagnosis.
-		@param bh_secondaryuncodeddiagnosis bh_secondaryuncodeddiagnosis	  */
-	public void setbh_secondaryuncodeddiagnosis (String bh_secondaryuncodeddiagnosis)
-	{
-		set_Value (COLUMNNAME_bh_secondaryuncodeddiagnosis, bh_secondaryuncodeddiagnosis);
-	}
-
-	/** Get bh_secondaryuncodeddiagnosis.
-		@return bh_secondaryuncodeddiagnosis	  */
-	public String getbh_secondaryuncodeddiagnosis () 
-	{
-		return (String)get_Value(COLUMNNAME_bh_secondaryuncodeddiagnosis);
-	}
-
-	/** Set bh_systolic_blood_pressure.
-		@param bh_systolic_blood_pressure bh_systolic_blood_pressure	  */
-	public void setbh_systolic_blood_pressure (int bh_systolic_blood_pressure)
-	{
-		set_Value (COLUMNNAME_bh_systolic_blood_pressure, Integer.valueOf(bh_systolic_blood_pressure));
-	}
-
-	/** Get bh_systolic_blood_pressure.
-		@return bh_systolic_blood_pressure	  */
-	public int getbh_systolic_blood_pressure () 
-	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_bh_systolic_blood_pressure);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
-	}
-
-	/** Set BH_Temperature.
-		@param BH_Temperature BH_Temperature	  */
-	public void setBH_Temperature (String BH_Temperature)
-	{
-		set_Value (COLUMNNAME_BH_Temperature, BH_Temperature);
-	}
-
-	/** Get BH_Temperature.
-		@return BH_Temperature	  */
-	public String getBH_Temperature () 
-	{
-		return (String)get_Value(COLUMNNAME_BH_Temperature);
 	}
 
 	/** Set Visit.
@@ -531,15 +322,15 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Set BH_Weight.
-		@param BH_Weight BH_Weight	  */
+	/** Set Weight (kg).
+		@param BH_Weight Weight (kg)	  */
 	public void setBH_Weight (String BH_Weight)
 	{
 		set_Value (COLUMNNAME_BH_Weight, BH_Weight);
 	}
 
-	/** Get BH_Weight.
-		@return BH_Weight	  */
+	/** Get Weight (kg).
+		@return Weight (kg)	  */
 	public String getBH_Weight () 
 	{
 		return (String)get_Value(COLUMNNAME_BH_Weight);
@@ -578,31 +369,6 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	{
 		return (String)get_Value(COLUMNNAME_DocumentNo);
 	}
-
-	/** Set Name.
-		@param Name 
-		Alphanumeric identifier of the entity
-	  */
-	public void setName (String Name)
-	{
-		set_Value (COLUMNNAME_Name, Name);
-	}
-
-	/** Get Name.
-		@return Alphanumeric identifier of the entity
-	  */
-	public String getName () 
-	{
-		return (String)get_Value(COLUMNNAME_Name);
-	}
-
-    /** Get Record ID/ColumnName
-        @return ID/ColumnName pair
-      */
-    public KeyNamePair getKeyNamePair() 
-    {
-        return new KeyNamePair(get_ID(), getName());
-    }
 
 	public org.compiere.model.I_C_BPartner getPatient() throws RuntimeException
     {
