@@ -27,6 +27,7 @@ import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.Encounter;
@@ -34,7 +35,11 @@ import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Patient;
+import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
+import org.bandahealth.idempiere.rest.model.ProcessStage;
+import org.bandahealth.idempiere.rest.model.Referral;
+import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
@@ -447,6 +452,14 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			visit.setCreatedBy(instance.getCreatedBy());
 			visit.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
 			visit.setVisitDate(instance.getBH_VisitDate());
+			visit.setProcessStage(new ProcessStage(instance.getBH_Process_Stage()));
+			String patientType = instance.getBH_PatientType();
+			if (StringUtil.isNotNullAndEmpty(patientType)) {
+				visit.setPatientType(new PatientType(patientType, entityMetadataDBService
+						.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)));
+			}
+			visit.setReferral(new Referral(instance.getbh_referral()));
+			visit.setReferredFromTo(instance.getBH_ReferredFromTo());
 			return visit;
 		} catch (Exception ex) {
 			log.severe(ex.getMessage());
@@ -628,6 +641,8 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		Map<Integer, MBPartner_BH> businessPartnerByVisitId = businessPartnerDBService
 				.getByIds(dbModels.stream().map(MBHVisit::getPatient_ID).collect(Collectors.toSet()));
 
+		List<MUser_BH> clinicians = userDBService.getClinicians(null);
+
 		return dbModels.stream().map(visit -> {
 			Visit entity = createInstanceWithDefaultFields(visit);
 			entity.setPatient(patientDBService
@@ -638,6 +653,12 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 					order -> order.setOrderLines(orderLinesByOrderId.getOrDefault(order.getId(), new ArrayList<>())));
 			entity.setPayments(paymentIdsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
 			entity.setEncounters(encountersByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
+
+			if (visit.getBH_Clinician_User_ID() > 0) {
+				clinicians.stream().filter(user -> user.getAD_User_ID() == visit.getBH_Clinician_User_ID()).findFirst()
+						.ifPresent(clinician -> entity.setClinician(new User(clinician)));
+			}
+
 			return entity;
 		}).collect(Collectors.toList());
 	}
