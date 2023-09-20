@@ -10,6 +10,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHEncounter;
+import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
@@ -80,10 +82,19 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
 		String nonCodedDiagnosis = "The Diagnosis of the Century";
-		valueObject.getVisit().setbh_primaryuncodeddiagnosis(nonCodedDiagnosis);
-		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
-		valueObject.getVisit().saveEx();
 		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Uncoded_Diagnosis(nonCodedDiagnosis);
+		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setRandom();
@@ -147,10 +158,19 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create visit");
 		valueObject.setDate(earlyDate);
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setbh_primaryuncodeddiagnosis("Something wacky");
-		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
-		valueObject.getVisit().saveEx();
 		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Uncoded_Diagnosis("Something wacky");
+		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
 
 		valueObject.setStepName("Create sales order");
 		valueObject.setQuantity(BigDecimal.ONE);
@@ -172,11 +192,20 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create second visit");
 		valueObject.setDateOffset(1);
 		ChuBoeCreateEntity.createVisit(valueObject);
-		String nonCodedDiagnosis = "The Diagnosis of the Century";
-		valueObject.getVisit().setbh_primaryuncodeddiagnosis(nonCodedDiagnosis);
-		valueObject.getVisit().setBH_PrimaryCodedDiagnosis_ID(codedDiagnosis.get_ID());
-		valueObject.getVisit().saveEx();
 		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		String nonCodedDiagnosis = "The Diagnosis of the Century";
+		encounterDiagnosis.setBH_Uncoded_Diagnosis(nonCodedDiagnosis);
+		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
 
 		valueObject.setStepName("Create second sales order");
 		valueObject.setQuantity(BigDecimal.ONE);

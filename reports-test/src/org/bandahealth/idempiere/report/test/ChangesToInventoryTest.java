@@ -11,6 +11,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MBHEncounter;
+import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
@@ -281,9 +283,18 @@ public class ChangesToInventoryTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create visit");
 		valueObject.setDate(TimestampUtils.today());
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setbh_primaryuncodeddiagnosis("pain");
-		valueObject.getVisit().saveEx();
 		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Uncoded_Diagnosis("pain");
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
 
 		valueObject.setStepName("Create SO");
 		valueObject.setDate(TimestampUtils.today());
