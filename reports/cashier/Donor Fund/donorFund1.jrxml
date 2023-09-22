@@ -76,26 +76,42 @@
 		<parameter name="Begin Date" class="java.sql.Timestamp"/>
 		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<queryString>
-			<![CDATA[SELECT
-	v.bh_visitdate                                      AS date,
-	bp.name                                             AS name,
-	bp.bh_birthday                                      AS DOB,
-	''                                                  AS ke_NO,
-	bp.bh_patientid                                     AS patient_NO,
-	COALESCE(bh_cielname, v.bh_primaryuncodeddiagnosis) AS diagnoses,
-	(SUM(gvnpp.linenetamt)) * -1                        AS amount_tendered
+			<![CDATA[WITH visit_diagnoses AS (
+	SELECT
+		v.bh_visit_id,
+		ev.bh_coded_diagnosis_id,
+		ev.bh_uncoded_diagnosis,
+		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
+	FROM
+		bh_visit v
+			JOIN bh_encounter e
+			ON v.bh_visit_id = e.bh_visit_id
+			LEFT JOIN bh_encounter_diagnosis ev
+			ON e.bh_encounter_id = ev.bh_encounter_id
+)
+SELECT
+	v.bh_visitdate                                 AS date,
+	bp.name                                        AS name,
+	bp.bh_birthday                                 AS DOB,
+	''                                             AS ke_NO,
+	bp.bh_patientid                                AS patient_NO,
+	COALESCE(bh_cielname, pd.bh_uncoded_diagnosis) AS diagnoses,
+	(SUM(gvnpp.linenetamt)) * -1                   AS amount_tendered
 FROM
 	bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) gvnpp
 		JOIN bh_visit v
-			ON gvnpp.bh_visit_id = v.bh_visit_id
+		ON gvnpp.bh_visit_id = v.bh_visit_id
 		INNER JOIN c_bpartner bp
-			ON v.patient_id = bp.c_bpartner_id
+		ON v.patient_id = bp.c_bpartner_id
+		LEFT JOIN visit_diagnoses pd
+		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
 		LEFT JOIN bh_coded_diagnosis cd
-			ON v.bh_primarycodeddiagnosis_id = cd.bh_coded_diagnosis_id
+		ON pd.bh_coded_diagnosis_id = cd.bh_coded_diagnosis_id
 WHERE
 	gvnpp.bh_subtype = 'D'
 GROUP BY
-	v.bh_visitdate, bp.name, bp.bh_birthday, bp.bh_patientid, COALESCE(bh_cielname, v.bh_primaryuncodeddiagnosis)
+	v.bh_visitdate, bp.name, bp.bh_birthday, bp.bh_patientid,
+	COALESCE(bh_cielname, pd.bh_uncoded_diagnosis)
 ORDER BY
 	v.bh_visitdate;]]>
 		</queryString>

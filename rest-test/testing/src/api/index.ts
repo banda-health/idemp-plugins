@@ -12,6 +12,7 @@ export * from './charges';
 export * from './codedDiagnosis';
 export * from './documentTypes';
 export * from './documents';
+export * from './encounterTypeWindow';
 export * from './inventory';
 export * from './invoices';
 export * from './languages';

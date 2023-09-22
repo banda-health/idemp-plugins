@@ -73,5 +73,7 @@ public interface IRestConfigs {
 
 	String ORGANIZATIONS_PATH = AUTHENTICATION_PATH + "/organizations";
 
+	String ENCOUNTER_TYPE_WINDOWS_PATH = AUTHENTICATION_PATH + "/encounter-type-windows";
+
 	String ROLES_PATH = AUTHENTICATION_PATH + "/roles";
 }
