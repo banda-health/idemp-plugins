@@ -11,6 +11,7 @@ export * from './charges';
 export * from './codedDiagnosis';
 export * from './documentTypes';
 export * from './documents';
+export * from './encounterTypeWindow';
 export * from './expenseCategories';
 export * from './expenses';
 export * from './inventory';
