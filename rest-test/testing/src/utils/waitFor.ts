@@ -86,7 +86,7 @@ function waitFor<T>(
 			clearTimeout(overallTimeoutTimer);
 
 			if (!usingJestFakeTimers) {
-				window.clearInterval(intervalId);
+				clearInterval(intervalId);
 			}
 
 			if (error) {
