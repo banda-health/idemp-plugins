@@ -1497,7 +1497,6 @@ test(`document number should be returned for saved visits`, async () => {
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
-
 	await createVisit(valueObject);
 
 	valueObject.stepName = 'Create order';
