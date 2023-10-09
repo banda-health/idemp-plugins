@@ -85,7 +85,7 @@ function waitFor<T>(
 			finished = true;
 			clearTimeout(overallTimeoutTimer);
 
-			if (!usingJestFakeTimers && intervalId instanceof NodeJS.Timer | undefined) {
+			if (!usingJestFakeTimers && intervalId instanceof NodeJS.Timer) {
 				clearInterval(intervalId);
 			}
 
