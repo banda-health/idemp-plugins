@@ -14,7 +14,7 @@ function jestFakeTimersAreEnabled(): boolean {
 	return false;
 }
 
-function waitFor<T>(
+function waitFor<T>(timer react not timeout
 	callback: () => Promise<T> | T,
 	{
 		timeout = 15000, // 15 seconds, less than the 30 we set for Jest
@@ -27,7 +27,7 @@ function waitFor<T>(
 	}
 
 	return new Promise(async (resolve, reject) => {
-		let lastError: Error | undefined, intervalId: NodeJS.Timer | undefined;
+		let lastError: Error | undefined, intervalId: NodeJS.Timeout | undefined;
 		let finished = false;
 		let promiseStatus = 'idle';
 
@@ -85,7 +85,7 @@ function waitFor<T>(
 			finished = true;
 			clearTimeout(overallTimeoutTimer);
 
-			if (!usingJestFakeTimers && intervalId instanceof Timer) {
+			if (!usingJestFakeTimers && intervalId) {
 				clearInterval(intervalId);
 			}
 
