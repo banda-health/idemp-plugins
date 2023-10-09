@@ -713,9 +713,25 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(Payment::getVisitId));
 
-		Map<Integer, BusinessPartner> businessPartnerByVisitId = businessPartnerDBService.transformData(new ArrayList<>(
-				businessPartnerDBService.getByIds(dbModels.stream().map(MBHVisit::getPatient_ID).collect(Collectors.toSet()))
-						.values())).stream().collect(Collectors.toMap(BusinessPartner::getId, businessPartner -> businessPartner));
+		// Get BPs
+		Map<Integer, BusinessPartner> businessPartnersByBusinessPartnerId = businessPartnerDBService.transformData(
+						new ArrayList<>(businessPartnerDBService.getByIds(
+								dbModels.stream().map(MBHVisit::getPatient_ID).collect(Collectors.toSet())).values())).stream()
+				.collect(Collectors.toMap(BusinessPartner::getId, businessPartner -> businessPartner));
+
+		// Set invoices
+		Map<Integer, List<Invoice>> invoicesByVisitId = invoiceDBService.transformData(new ArrayList<>(
+						invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
+										dbModels.stream().map(MBHVisit::get_ID).collect(Collectors.toSet())).values().stream()
+								.flatMap(Collection::stream).collect(Collectors.toList()))).stream()
+				.collect(Collectors.groupingBy(Invoice::getVisitId));
+		Map<Integer, List<InvoiceLine>> invoiceLinesByInvoiceId = invoiceLineDBService.transformData(
+				invoiceLineDBService.getGroupsByIds(MInvoiceLine::getC_Invoice_ID, MInvoiceLine.COLUMNNAME_C_Invoice_ID,
+								invoicesByVisitId.values().stream().flatMap(Collection::stream).map(Invoice::getId)
+										.collect(Collectors.toSet())).values().stream().flatMap(Collection::stream)
+						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(InvoiceLine::getInvoiceId));
+		invoicesByVisitId.values().stream().flatMap(Collection::stream).forEach(
+				invoice -> invoice.setInvoiceLines(invoiceLinesByInvoiceId.getOrDefault(invoice.getId(), new ArrayList<>())));
 
 		List<MUser_BH> clinicians = userDBService.getClinicians(null);
 

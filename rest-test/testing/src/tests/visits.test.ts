@@ -4,7 +4,8 @@ import isEqual from 'lodash/isEqual';
 import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
 import {
-	chargeApi,
+	businessPartnerApi,
+	businessPartnerGroupApi,
 	codedDiagnosisApi,
 	encounterTypeWindowApi,
 	languageApi,
