@@ -192,7 +192,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 							.filter(
 									invoice -> !invoice.isComplete() || invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed))
 							.collect(Collectors.toList());
-					// If this is a reversal, we also need to take care of the payments
+					// If this is a reversal, we also need to take care of the invoices
 					if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
 							docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
 							docAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
@@ -689,7 +689,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		Map<Integer, List<OrderLine>> orderLinesByOrderId = orderLineDBService
 				.getOrderLinesByOrderIds(orders.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet()));
 
-		// Set invoices
+		// Get invoices
 		Map<Integer, List<Invoice>> invoicesByVisitId = invoiceDBService.transformData(
 						invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
 										dbModels.stream().map(MBHVisit::get_ID).collect(Collectors.toSet())).values().stream()
@@ -714,30 +714,15 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				.stream().collect(Collectors.groupingBy(Payment::getVisitId));
 
 		// Get BPs
-		Map<Integer, BusinessPartner> businessPartnersByBusinessPartnerId = businessPartnerDBService.transformData(
-						new ArrayList<>(businessPartnerDBService.getByIds(
-								dbModels.stream().map(MBHVisit::getPatient_ID).collect(Collectors.toSet())).values())).stream()
-				.collect(Collectors.toMap(BusinessPartner::getId, businessPartner -> businessPartner));
-
-		// Set invoices
-		Map<Integer, List<Invoice>> invoicesByVisitId = invoiceDBService.transformData(new ArrayList<>(
-						invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
-										dbModels.stream().map(MBHVisit::get_ID).collect(Collectors.toSet())).values().stream()
-								.flatMap(Collection::stream).collect(Collectors.toList()))).stream()
-				.collect(Collectors.groupingBy(Invoice::getVisitId));
-		Map<Integer, List<InvoiceLine>> invoiceLinesByInvoiceId = invoiceLineDBService.transformData(
-				invoiceLineDBService.getGroupsByIds(MInvoiceLine::getC_Invoice_ID, MInvoiceLine.COLUMNNAME_C_Invoice_ID,
-								invoicesByVisitId.values().stream().flatMap(Collection::stream).map(Invoice::getId)
-										.collect(Collectors.toSet())).values().stream().flatMap(Collection::stream)
-						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(InvoiceLine::getInvoiceId));
-		invoicesByVisitId.values().stream().flatMap(Collection::stream).forEach(
-				invoice -> invoice.setInvoiceLines(invoiceLinesByInvoiceId.getOrDefault(invoice.getId(), new ArrayList<>())));
+		Map<Integer, BusinessPartner> businessPartnersById = businessPartnerDBService.transformData(new ArrayList<>(
+				businessPartnerDBService.getByIds(dbModels.stream().map(MBHVisit::getPatient_ID).collect(Collectors.toSet()))
+						.values())).stream().collect(Collectors.toMap(BusinessPartner::getId, businessPartner -> businessPartner));
 
 		List<MUser_BH> clinicians = userDBService.getClinicians(null);
 
 		return dbModels.stream().map(model -> {
 			Visit visit = createInstanceWithDefaultFields(model);
-			visit.setPatient(businessPartnerByVisitId.get(model.getPatient_ID()));
+			visit.setPatient(businessPartnersById.get(model.getPatient_ID()));
 			visit.setOrders(orderIdsByVisitId.getOrDefault(model.get_ID(), new ArrayList<>()));
 			visit.getOrders().forEach(
 					order -> order.setOrderLines(orderLinesByOrderId.getOrDefault(order.getId(), new ArrayList<>())));

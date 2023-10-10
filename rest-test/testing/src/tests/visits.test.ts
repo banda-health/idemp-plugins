@@ -23,8 +23,12 @@ import {
 } from '../models';
 import {
 	BusinessPartner,
+	Encounter,
 	EncounterDiagnosis,
 	Field,
+	Invoice,
+	InvoiceLine,
+	Observation,
 	Order,
 	OrderLine,
 	Payment,
@@ -1418,7 +1422,7 @@ test('clinical vitals fields', async () => {
 
 	valueObject.stepName = 'Create patient';
 	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);

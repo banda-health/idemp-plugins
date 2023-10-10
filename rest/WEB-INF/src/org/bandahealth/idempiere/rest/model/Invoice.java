@@ -55,32 +55,7 @@ public class Invoice extends BaseMetadata {
 		paymentRule = entity.getPaymentRule();
 		docStatus = entity.getDocStatus();
 		setDocumentTypeTargetId(entity.getC_DocType_ID());
-	}
-
-	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			BusinessPartner businessPartner, String dateInvoiced, boolean isSalesOrderTransaction,
-			List<InvoiceLine> invoiceLines, String docStatus, String paymentRule) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.businessPartner = businessPartner;
-		this.dateInvoiced = dateInvoiced;
-		this.isSalesOrderTransaction = isSalesOrderTransaction;
-		this.invoiceLines = invoiceLines;
-		this.docStatus = docStatus;
-		this.paymentRule = paymentRule;
-	}
-
-	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			BusinessPartner businessPartner, String dateInvoiced, boolean isSalesOrderTransaction, String docStatus,
-			BigDecimal grandTotal, String paymentRule) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.businessPartner = businessPartner;
-		this.dateInvoiced = dateInvoiced;
-		this.isSalesOrderTransaction = isSalesOrderTransaction;
-		this.docStatus = docStatus;
-		this.grandTotal = grandTotal;
-		this.paymentRule = paymentRule;
+		setVisitId(entity.getBH_Visit_ID());
 	}
 
 	public BusinessPartner getBusinessPartner() {
