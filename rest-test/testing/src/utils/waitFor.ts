@@ -27,7 +27,7 @@ function waitFor<T>(
 	}
 
 	return new Promise(async (resolve, reject) => {
-		let lastError: Error | undefined, intervalId: NodeJS.Timer | undefined;
+		let lastError: Error | undefined, intervalId: NodeJS.Timeout | undefined;
 		let finished = false;
 		let promiseStatus = 'idle';
 
