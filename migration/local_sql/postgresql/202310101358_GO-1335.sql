@@ -273,6 +273,6 @@ ORDER BY
 $$;
 
 SELECT
-	register_migration_script('202308151358_GO-1335.sql')
+	register_migration_script('202310101358_GO-1335.sql')
 FROM
 	dual;
