@@ -1478,6 +1478,7 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 
 	expect(await visitApi.delete(valueObject, valueObject.visit!.uuid)).toBeTruthy();
 });
+
 test(`document number should be returned for saved visits`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
