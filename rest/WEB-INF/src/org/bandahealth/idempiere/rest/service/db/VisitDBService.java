@@ -453,6 +453,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			visit.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
 			visit.setVisitDate(instance.getBH_VisitDate());
 			visit.setProcessStage(new ProcessStage(instance.getBH_Process_Stage()));
+			visit.setDocumentNumber(instance.getDocumentNo());
 			String patientType = instance.getBH_PatientType();
 			if (StringUtil.isNotNullAndEmpty(patientType)) {
 				visit.setPatientType(new PatientType(patientType, entityMetadataDBService

@@ -1478,3 +1478,46 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 
 	expect(await visitApi.delete(valueObject, valueObject.visit!.uuid)).toBeTruthy();
 });
+
+test(`document number should be returned for saved visits`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	const patient: Partial<Patient> = {
+		name: valueObject.getDynamicStepMessage(),
+		description: valueObject.getStepMessageLong(),
+		dateOfBirth: valueObject.date?.toISOString(),
+	};
+	const savedPatient = await patientApi.save(valueObject, patient as Patient);
+	valueObject.businessPartner = savedPatient as BusinessPartner;
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+
+	const paginatedVisits = await visitApi.get(
+		valueObject,
+		undefined,
+		undefined,
+		undefined,
+		JSON.stringify({ bh_visit_uu: valueObject.visit!.uuid }),
+	);
+	expect(paginatedVisits.results[0].documentNumber).not.toBe('');
+});
