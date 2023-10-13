@@ -9,11 +9,9 @@
 121,Accounts Receivable - Clients,,Asset,,,Yes,,12
 12110,Accounts Receivable - Clients,Accounts Receivables,Asset,,Yes,No,C_RECEIVABLE_ACCT,121
 123,Accounts Receivable - Insurance,,Asset,,,Yes,,12
-12310,A/R - NHIF National Scheme,,Asset,,,No,,123
-12320,A/R - NHIF FFS,,Asset,,,No,,123
-12330,A/R - Insurance #3,,Asset,,,No,,123
+12310,Accounts Receivable - Insurance,,Asset,,,No,,123
 127,Accounts Receivable - Donations,,Asset,,,Yes,,12
-12710,Donor Fund,,Asset,,,No,,127
+12710,Accounts Receivable - Donations,,Asset,,,No,,127
 14,Inventory,,Asset,,,Yes,,1
 14100,Medication and Supplies,Inventory Account,Asset,,Yes,No,P_ASSET_ACCT,14
 14120,Inventory category 2,Product Inventory Account,Asset,,Yes,No,,14
@@ -31,7 +29,7 @@
 24200,Mortgage,,Liability,,,No,,24
 25,Liability Payments,,Liability,,,Yes,,2
 25100,Patient Prepayments,Prepayments for future revenue,Liability,,Yes,No,C_PREPAYMENT_ACCT,25
-25200,NHIF National Scheme Payments,Payments that come from capitation,Liability,,,No,,25
+25200,Capitation Insurance Payables,Payables for capitation,Liability,,,No,,25
 3,OWNER EQUITY,,Owner's Equity,,,Yes,,
 32,Earnings,,Owner's Equity,,,Yes,,3
 32900,Retained Earnings,Year end processing to balance account (Income Summary),Owner's Equity,,Yes,No,,32
@@ -44,7 +42,8 @@
 41140,Patient Revenue - Other,,Revenue,,,No,,41
 41150,Patient Revenue - Unassigned,,Revenue,,,No,P_REVENUE_ACCT,41
 44,Insurance Revenue,,Revenue,,,Yes,,4
-44100,NHIF National Scheme Revenue,,Revenue,,,No,,44
+44100,Capitation Insurance Revenue,Contra revenue,Revenue,,,No,,44
+44200,Regular Insurance Revenue,Contra revenue,Revenue,,,No,,44
 49,Sales Discounts,,Revenue,,,Yes,,4
 49100,Charity Services Waiver,Granted Trade discounts (corrects Product Revenue),Revenue,,Yes,No,P_TRADEDISCOUNTGRANT_ACCT,49
 49200,Payment discount expense,Granted early payment discount to customers,Revenue,,Yes,No,PAYDISCOUNT_EXP_ACCT,49

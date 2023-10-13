@@ -19,8 +19,8 @@ public class DateUtil {
 	private final static String DATE_FORMAT = "yyyy-MM-dd";
 	private final static String QUEUE_DATE_FORMAT = "E, dd MMMM - HH:mm";
 
-	private static SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_FORMAT);
-	private static CLogger log = CLogger.getCLogger(DateUtil.class);
+	private static final SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_FORMAT);
+	private static final CLogger log = CLogger.getCLogger(DateUtil.class);
 
 	public static String parse(Timestamp timestamp) {
 		if (timestamp != null) {

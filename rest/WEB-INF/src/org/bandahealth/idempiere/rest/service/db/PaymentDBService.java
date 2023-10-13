@@ -1,16 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
-import org.bandahealth.idempiere.rest.model.BaseListResponse;
-import org.bandahealth.idempiere.rest.model.NHIF;
-import org.bandahealth.idempiere.rest.model.NHIFRelationship;
-import org.bandahealth.idempiere.rest.model.NHIFType;
-import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.model.Patient;
+import org.bandahealth.idempiere.rest.model.BusinessPartner;
+import org.bandahealth.idempiere.rest.model.DocumentType;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.PaymentType;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
@@ -47,17 +45,15 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	@Autowired
 	private ReferenceListDBService referenceListDBService;
 	@Autowired
-	private PatientDBService patientDBService;
-	private Map<String, String> dynamicJoins = new HashMap<>() {{
+	private BusinessPartnerDBService businessPartnerDBService;
+	@Autowired
+	protected DocumentTypeDBService documentTypeDBService;
+
+	private final Map<String, String> dynamicJoins = new HashMap<>() {{
 		put(MBPartner_BH.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MPayment_BH.Table_Name + "." +
 				MPayment_BH.COLUMNNAME_C_BPartner_ID + " = " + MBPartner_BH.Table_Name + "." +
 				MBPartner_BH.COLUMNNAME_C_BPartner_ID);
 	}};
-
-	@Override
-	protected String getDocumentTypeName() {
-		return DOCUMENTNAME_PAYMENTS;
-	}
 
 	@Override
 	int getDocumentProcessId() {
@@ -69,15 +65,15 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 		return dynamicJoins;
 	}
 
-	public BaseListResponse<Payment> getAll(Paging pagingInfo, String sortJson, String filterJson) {
-		List<Object> parameters = new ArrayList<>();
-		parameters.add("Y");
-
-		return super.getAll(MPayment_BH.COLUMNNAME_BH_IsServiceDebt + "=?", parameters, pagingInfo, sortJson, filterJson);
-	}
-
 	@Override
 	public Payment saveEntity(Payment entity) {
+		MDocType_BH documentTypeTarget;
+		if (entity.getDocumentType() == null ||
+				StringUtil.isNullOrEmpty(entity.getDocumentType().getUuid()) || (documentTypeTarget =
+				documentTypeDBService.getEntityByUuidFromDB(entity.getDocumentType().getUuid())) == null) {
+			throw new AdempiereException("Document Type is required");
+		}
+
 		MPayment_BH mPayment = getEntityByUuidFromDB(entity.getUuid());
 		if (mPayment == null) {
 			mPayment = getModelInstance();
@@ -86,14 +82,15 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 			}
 		}
 
+		mPayment.setC_DocType_ID(documentTypeTarget.get_ID());
+		mPayment.setIsReceipt(documentTypeTarget.isSOTrx());
+
 		if (entity.getVisitId() > 0) {
 			mPayment.setBH_Visit_ID(entity.getVisitId());
-		} else {
-			mPayment.setBH_IsServiceDebt(true);
 		}
 
-		if (entity.getPatient() != null) {
-			MBPartner_BH bPartner = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
+		if (entity.getBusinessPartner() != null) {
+			MBPartner_BH bPartner = businessPartnerDBService.getEntityByUuidFromDB(entity.getBusinessPartner().getUuid());
 			if (bPartner != null) {
 				mPayment.setC_BPartner_ID(bPartner.get_ID());
 			}
@@ -128,22 +125,6 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 		MBankAccount bankAccount = getBankAccount(mPayment);
 		if (bankAccount != null) {
 			mPayment.setC_BankAccount_ID(bankAccount.get_ID());
-		}
-
-		// check nhif
-		if (entity.getNhif() != null) {
-			if (entity.getNhif().getType() != null) {
-				mPayment.setBH_NHIF_Type(entity.getNhif().getType().getValue());
-			}
-
-			if (entity.getNhif().getRelationship() != null) {
-				mPayment.setbh_nhif_relationship(entity.getNhif().getRelationship().getValue());
-			}
-
-			mPayment.setbh_nhif_member_name(entity.getNhif().getMemberName());
-			mPayment.setNHIF_Number(entity.getNhif().getNumber());
-			mPayment.setbh_nhif_member_id(entity.getNhif().getMemberId());
-			mPayment.setbh_nhif_claim_number(entity.getNhif().getClaimNumber());
 		}
 
 		// check description
@@ -300,28 +281,33 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	public List<Payment> transformData(List<MPayment_BH> dbModels) {
 		Set<Integer> businessPartnerIds = dbModels.stream().map(MPayment_BH::getC_BPartner_ID).collect(Collectors.toSet());
 		Map<Integer, MBPartner_BH> businessPartnersById =
-				businessPartnerIds.isEmpty() ? new HashMap<>() : patientDBService.getByIds(businessPartnerIds);
+				businessPartnerIds.isEmpty() ? new HashMap<>() : businessPartnerDBService.getByIds(businessPartnerIds);
 		Set<String> tenderTypeValues = dbModels.stream().map(MPayment_BH::getTenderType).collect(Collectors.toSet());
 		Map<String, MRefList> tenderTypesByValue = tenderTypeValues.isEmpty() ? new HashMap<>() :
 				referenceListDBService.getTypes(MReference_BH.TENDER_TYPE_AD_REFERENCE_UU, tenderTypeValues).stream()
 						.collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
+		Map<Integer, MDocType_BH> documentTypesById = documentTypeDBService.getByIds(
+				dbModels.stream().map(MPayment_BH::getC_DocType_ID).collect(Collectors.toSet()));
 
 		return dbModels.stream().map(payment -> {
 			Payment newPayment = new Payment(payment);
-			newPayment.setNhif(
-					new NHIF(new NHIFType(payment.getBH_NHIF_Type()), new NHIFRelationship(payment.getbh_nhif_relationship()),
-							payment.getbh_nhif_claim_number(), payment.getbh_nhif_member_id(), payment.getNHIF_Number(),
-							payment.getbh_nhif_member_name()));
 
 			if (businessPartnersById.containsKey(payment.getC_BPartner_ID())) {
 				MBPartner_BH businessPartner = businessPartnersById.get(payment.getC_BPartner_ID());
-				newPayment.setPatient(new Patient(businessPartner.getC_BPartner_UU(), businessPartner.getName(),
-						businessPartner.getTotalOpenBalance()));
+				newPayment.setBusinessPartner(new BusinessPartner(businessPartner));
 			}
 			if (tenderTypesByValue.containsKey(payment.getTenderType())) {
 				newPayment.setPaymentType(new PaymentType(tenderTypesByValue.get(payment.getTenderType())));
 			}
+			if (documentTypesById.containsKey(payment.getC_DocType_ID())) {
+				newPayment.setDocumentType(new DocumentType(documentTypesById.get(payment.getC_DocType_ID())));
+			}
 			return newPayment;
 		}).collect(Collectors.toList());
+	}
+
+	@Override
+	int getDocumentTypeId(MPayment_BH entity) {
+		return entity.getC_DocType_ID();
 	}
 }

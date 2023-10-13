@@ -58,32 +58,32 @@
 ),
 	billdetails AS (
 		SELECT
-			c_order_id,
+			bh_visit_id,
 			lineitemtotals,
 			cashier
 		FROM
-			get_visit_info($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+			bh_get_visit_info($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
 				CROSS JOIN params p
 		WHERE
-			(p.patient_type = '' OR get_visit_info.PatientType = p.patient_type)
+			(p.patient_type = '' OR bh_get_visit_info.PatientType = p.patient_type)
 	),
 	patient_payments AS (
 		SELECT
-			c_order_id  AS c_order_id,
+			bh_visit_id,
 			tendertype,
 			SUM(payamt) AS total_payments
 		FROM
 			bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
-		GROUP BY c_order_id, tendertype
+		GROUP BY bh_visit_id, tendertype
 	),
 	non_patient_payments AS (
 		SELECT
-			c_order_id           AS c_order_id,
+			bh_visit_id,
 			bh_subtype,
 			SUM(linenetamt) * -1 AS total
 		FROM
 			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
-		GROUP BY c_order_id, bh_subtype
+		GROUP BY bh_visit_id, bh_subtype
 	)
 SELECT
 	cashier                                                      AS cashier,
@@ -92,13 +92,13 @@ SELECT
 FROM
 	billdetails
 		LEFT JOIN (
-		SELECT c_order_id, SUM(total_payments) AS total_payments FROM patient_payments GROUP BY c_order_id
+		SELECT bh_visit_id, SUM(total_payments) AS total_payments FROM patient_payments GROUP BY bh_visit_id
 	) pp
-			ON billdetails.c_order_id = pp.c_order_id
+			ON billdetails.bh_visit_id = pp.bh_visit_id
 		LEFT JOIN (
-		SELECT c_order_id, SUM(total) AS total FROM non_patient_payments GROUP BY c_order_id
+		SELECT bh_visit_id, SUM(total) AS total FROM non_patient_payments GROUP BY bh_visit_id
 	) npp
-			ON billdetails.c_order_id = npp.c_order_id
+			ON billdetails.bh_visit_id = npp.bh_visit_id
 		CROSS JOIN params p
 WHERE
 	EXISTS (
@@ -106,28 +106,28 @@ WHERE
 		FROM
 			(
 				SELECT
-					billdetails.c_order_id
+					billdetails.bh_visit_id
 				FROM
 					billdetails
 						LEFT JOIN patient_payments
-							ON billdetails.c_order_id = patient_payments.c_order_id
+							ON billdetails.bh_visit_id = patient_payments.bh_visit_id
 				WHERE
 					(p.payment_mode = ''
 						OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M')))
 				UNION ALL
 				SELECT
-					billdetails.c_order_id
+					billdetails.bh_visit_id
 				FROM
 					billdetails
 						LEFT JOIN non_patient_payments
-							ON billdetails.c_order_id = non_patient_payments.c_order_id
+							ON billdetails.bh_visit_id = non_patient_payments.bh_visit_id
 				WHERE
 					(p.payment_mode = ''
 						OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
 							AND p.payment_mode IN ('I', 'W', 'T')))
 			) f
 		WHERE
-			f.c_order_id = billdetails.c_order_id
+			f.bh_visit_id = billdetails.bh_visit_id
 	)
 GROUP BY
 	cashier

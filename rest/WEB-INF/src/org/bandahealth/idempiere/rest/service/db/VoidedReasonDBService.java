@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class VoidedReasonDBService extends BaseDBService<VoidedReason, MBHVoidedReason> {
-	private Map<String, String> dynamicJoins = new HashMap<>() {
+	private final Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(MWindow.Table_Name, "LEFT JOIN " + MWindow.Table_Name + " ON " + MBHVoidedReason.Table_Name + "."
 					+ MBHVoidedReason.COLUMNNAME_bh_window_id + " = " + MWindow.Table_Name + "." + MWindow.COLUMNNAME_AD_Window_ID

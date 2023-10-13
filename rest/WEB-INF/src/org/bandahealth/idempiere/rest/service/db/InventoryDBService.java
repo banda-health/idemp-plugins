@@ -47,6 +47,8 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 	private AttributeSetInstanceDBService attributeSetInstanceDBService;
 	@Autowired
 	private InventoryLineDBService inventoryLineDBService;
+	@Autowired
+	protected DocumentTypeDBService documentTypeDBService;
 
 	@Override
 	public Inventory saveEntity(Inventory entity) {
@@ -112,8 +114,6 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 		// Get ids to batch
 		Set<Integer> inventoryIds = dbModels.stream().map(MInventory_BH::get_ID).collect(Collectors.toSet());
 		Set<Integer> warehouseIds = dbModels.stream().map(MInventory_BH::getM_Warehouse_ID).collect(Collectors.toSet());
-		Set<String> updateReasonValues =
-				dbModels.stream().map(MInventory_BH::getbh_update_reason).collect(Collectors.toSet());
 
 		Map<Integer, MWarehouse_BH> warehousesByIds = warehouseDBService.getByIds(warehouseIds);
 		Map<String, MRefList> updateReasonsByValues =
@@ -179,8 +179,8 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 	}
 
 	@Override
-	protected String getDocumentTypeName() {
-		return DOCUMENTNAME_PHYSICAL_INVENTORY;
+	int getDocumentTypeId(MInventory_BH entity) {
+		return entity.getC_DocType_ID();
 	}
 
 	@Override

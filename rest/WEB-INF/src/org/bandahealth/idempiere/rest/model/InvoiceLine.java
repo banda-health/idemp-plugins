@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -10,6 +11,8 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.compiere.model.MInvoiceLine;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Representation of iDempiere's MOrderLineItem (C_Order_line).
@@ -22,84 +25,38 @@ import java.math.BigDecimal;
 public class InvoiceLine extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private ExpenseCategory expenseCategory;
+	@JsonIgnore
+	private Integer productId;
 	private Product product;
 	private String description;
 	private Integer invoiceId;
 	private BigDecimal price;
 	private BigDecimal quantity;
 	private BigDecimal lineNetAmount;
+	@JsonIgnore
 	private Integer attributeSetInstanceId;
+	private AttributeSetInstance attributeSetInstance;
 	private Charge charge;
+	@JsonIgnore
+	private Integer orderLineId;
+	private OrderLine orderLine;
+	private List<BusinessPartnerSpecificPayerInformation> businessPartnerSpecificPayerInformationList =
+			new ArrayList<>();
 
 	public InvoiceLine() {
+		orderLineId = 0;
 	}
 
 	public InvoiceLine(MInvoiceLine instance) {
-		super(instance.getAD_Client_ID(), instance.getAD_Org_ID(), instance.getC_InvoiceLine_UU(), instance.isActive(),
-				DateUtil.parse(instance.getCreated()), instance.getCreatedBy());
+		super(instance);
 
 		this.invoiceId = instance.getC_Invoice_ID();
 		this.price = instance.getPriceActual();
 		this.quantity = instance.getQtyEntered();
 		this.lineNetAmount = instance.getLineNetAmt();
 		this.description = instance.getDescription();
-	}
-
-	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer invoiceId, Product product, BigDecimal price, BigDecimal quantity, BigDecimal lineNetAmount,
-			String description) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.invoiceId = invoiceId;
-		this.price = price;
-		this.quantity = quantity;
-		this.lineNetAmount = lineNetAmount;
-		this.product = product;
-		this.description = description;
-	}
-
-	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			ExpenseCategory expenseCategory, Integer invoiceId, BigDecimal price, BigDecimal quantity,
-			BigDecimal lineNetAmount, String description) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.expenseCategory = expenseCategory;
-		this.invoiceId = invoiceId;
-		this.price = price;
-		this.quantity = quantity;
-		this.lineNetAmount = lineNetAmount;
-		this.description = description;
-	}
-
-	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer invoiceId, Product product, BigDecimal price, BigDecimal quantity, String description) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.invoiceId = invoiceId;
-		this.price = price;
-		this.quantity = quantity;
-		this.product = product;
-		this.description = description;
-	}
-
-	public InvoiceLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			Integer invoiceId, ExpenseCategory expenseCategory, BigDecimal price, String description) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.invoiceId = invoiceId;
-		this.expenseCategory = expenseCategory;
-		this.price = price;
-		this.description = description;
-	}
-
-	@XmlElement
-	public ExpenseCategory getExpenseCategory() {
-		return expenseCategory;
-	}
-
-	public void setExpenseCategory(ExpenseCategory charge) {
-		this.expenseCategory = charge;
+		setOrderLineId(instance.getC_OrderLine_ID());
+		setAttributeSetInstanceId(instance.getM_AttributeSetInstance_ID());
 	}
 
 	@XmlElement
@@ -171,5 +128,46 @@ public class InvoiceLine extends BaseMetadata {
 
 	public void setCharge(Charge charge) {
 		this.charge = charge;
+	}
+
+	public Integer getOrderLineId() {
+		return orderLineId;
+	}
+
+	public void setOrderLineId(Integer orderLineId) {
+		this.orderLineId = orderLineId;
+	}
+
+	public OrderLine getOrderLine() {
+		return orderLine;
+	}
+
+	public void setOrderLine(OrderLine orderLine) {
+		this.orderLine = orderLine;
+	}
+
+	public List<BusinessPartnerSpecificPayerInformation> getBusinessPartnerSpecificPayerInformationList() {
+		return businessPartnerSpecificPayerInformationList;
+	}
+
+	public void setBusinessPartnerSpecificPayerInformationList(
+			List<BusinessPartnerSpecificPayerInformation> businessPartnerSpecificPayerInformationList) {
+		this.businessPartnerSpecificPayerInformationList = businessPartnerSpecificPayerInformationList;
+	}
+
+	public AttributeSetInstance getAttributeSetInstance() {
+		return attributeSetInstance;
+	}
+
+	public void setAttributeSetInstance(AttributeSetInstance attributeSetInstance) {
+		this.attributeSetInstance = attributeSetInstance;
+	}
+
+	public Integer getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer productId) {
+		this.productId = productId;
 	}
 }

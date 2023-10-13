@@ -52,8 +52,8 @@ import java.util.stream.Collectors;
 @Component
 public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
-	private static String COLUMNNAME_REORDER_LEVEL = "bh_reorder_level";
-	private static String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
+	private static final String COLUMNNAME_REORDER_LEVEL = "bh_reorder_level";
+	private static final String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
 	@Autowired
 	private AttributeSetInstanceDBService attributeSetInstanceDBService;
 	@Autowired
