@@ -7,11 +7,13 @@ import java.util.Properties;
 
 public class MReference_BH extends MReference {
 	public static final String USER_TYPE_AD_REFERENCE_UU = "5b41f508-5ce5-4b42-80de-713e10580d51";
-	public static final String NON_PATIENT_PAYMENT_AD_REFERENCE_UU = "b313a870-0826-4c1d-a9af-f9ec990b4375";
-	public static final String CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU = "15b3f5d7-205a-4d91-84c0-5e38ec36b6c6";
+	public static final String NON_PATIENT_PAYER_AD_REFERENCE_UU = "b313a870-0826-4c1d-a9af-f9ec990b4375";
+	public static final String PAYER_INFORMATION_FIELD_DATA_TYPE_AD_REFERENCE_UU = "15b3f5d7-205a-4d91-84c0" +
+			"-5e38ec36b6c6";
 	public static final String TENDER_TYPE_AD_REFERENCE_UU = "9d124599-d720-436b-a609-011bcf2eff8e";
 	public static final String REPORT_TENDER_TYPE_AD_REFERENCE_UU = "7eca6283-86b9-4dff-9c40-786162a8be7a";
 	public static final String STOCK_UPDATE_REASONS_AD_REFERENCE_UU = "dcdc79d7-8e55-428f-a8a5-e7a6f562404f";
+	public static final String ENCOUNTER_TYPES = "ced05cde-f4e6-4d72-9134-c16e27eb963f";
 	/**
 	 * This represents the reference IDs for all document actions in the system
 	 */

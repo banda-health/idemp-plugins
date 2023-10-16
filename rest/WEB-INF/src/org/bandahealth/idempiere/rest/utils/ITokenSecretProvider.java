@@ -37,5 +37,5 @@ public interface ITokenSecretProvider {
 	 * 
 	 * @return token secret
 	 */
-	public String getSecret();
+	String getSecret();
 }

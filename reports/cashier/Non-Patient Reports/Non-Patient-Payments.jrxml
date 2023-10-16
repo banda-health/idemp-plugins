@@ -83,11 +83,11 @@
 	),
 	BillTotal AS (
 		SELECT
-			c_order_id,
+			bh_visit_id,
 			SUM(linenetamt) AS total
 		FROM
 			bh_get_visit_products($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
-		GROUP BY c_order_id
+		GROUP BY bh_visit_id
 	)
 SELECT
 	Visit_info.bh_visit_id,
@@ -141,7 +141,7 @@ FROM
 	) non_patient_payment_totals
 			ON Visit_info.bh_visit_id = non_patient_payment_totals.bh_visit_id
 		LEFT JOIN BillTotal
-			ON Visit_info.bh_visit_id = BillTotal.c_order_id
+			ON Visit_info.bh_visit_id = BillTotal.bh_visit_id
 		LEFT JOIN (
 		SELECT
 			bh_visit_id,
@@ -180,10 +180,7 @@ WHERE
 ORDER BY
 	date(Visit_info.bill_date), Visit_info.patient_name;]]>
 	</queryString>
-	<field name="bh_visit_id" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="c_order_id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
-	</field>
+	<field name="bh_visit_id" class="java.lang.Integer"/>
 	<field name="billdate" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="billdate"/>
 	</field>

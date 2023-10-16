@@ -273,20 +273,6 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							"		           AND (p.isactive = 'N' OR pc.periodstatus = 'C')) AS result"
 			);
 
-			// PS: Deactivating this test - We now accept default business partners
-			// Assert default business partners are deactivated
-			/*addAssertionSQL(
-					"SELECT " +
-							"	'Default customer Business Partners are inactive' AS name, " +
-							"	NOT EXISTS(SELECT * " +
-							"	           FROM " +
-							"		           c_bpartner " +
-							"	           WHERE " +
-							"		           ad_client_id = " + client.get_ID() +
-							"		           AND iscustomer = 'Y' " +
-							"		           AND isactive = 'Y')                  AS result"
-			);*/
-
 			// Assert default business partners are created
 			MClient configurationClient = MClient_BH.get(valueObject.getContext(), MClient_BH.CLIENTID_CONFIG);
 			List<MBPartner_BH> configurationBusinessPartners = new Query(valueObject.getContext(), MBPartner_BH.Table_Name,
@@ -333,8 +319,8 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 			MSequence_BH clientPatientNumberSequence = new Query(valueObject.getContext(), 
 					MSequence_BH.Table_Name, 
 					MSequence_BH.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence_BH.COLUMNNAME_Name  + "=?", valueObject.getTransactionName())
-				.setParameters(client.get_ID(), MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
-			assertEquals(MSequence_BH.GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX, clientPatientNumberSequence.getName(), "Patient Sequence was created");
+				.setParameters(client.get_ID(), MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
+			assertEquals(MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX, clientPatientNumberSequence.getName(), "Patient Sequence was created");
 		} finally {
 			// PO.clearCrossTenantSafe();
 			// Ensure client ID is correct...

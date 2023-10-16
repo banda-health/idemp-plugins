@@ -53,42 +53,61 @@
 		<parameter name="Diagnosis" class="java.lang.String"/>
 		<parameter name="BH_Coded_Diagnosis_UU" class="java.lang.String"/>
 		<queryString>
-			<![CDATA[SELECT
-	v.bh_visitdate                         AS visit_date,
-	bp.name                                AS name,
-	DATE_PART('year', AGE(bp.bh_birthday)) AS age,
-	bp.bh_gender                           AS gender,
-	bp.bh_phone                            AS phonenumber,
-	primary_cd.bh_cielname                 AS primary_coded_diagnosis,
-	v.bh_primaryuncodeddiagnosis           AS primary_uncoded_diagnosis,
-	secondary_cd.bh_cielname               AS secondary_coded_diagnosis,
-	v.bh_secondaryuncodeddiagnosis         AS secondary_uncoded_diagnosis
+			<![CDATA[WITH visit_diagnoses AS (
+	SELECT
+		v.bh_visit_id,
+		ev.bh_coded_diagnosis_id,
+		ev.bh_uncoded_diagnosis,
+		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
+	FROM
+		bh_visit v
+			JOIN bh_encounter e
+			ON v.bh_visit_id = e.bh_visit_id
+			LEFT JOIN bh_encounter_diagnosis ev
+			ON e.bh_encounter_id = ev.bh_encounter_id
+	WHERE
+		v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+)
+SELECT
+	v.bh_visitdate                           AS visit_date,
+	bp.name                                  AS name,
+	DATE_PART('year', AGE(bp.bh_birthday))   AS age,
+	bp.bh_gender                             AS gender,
+	bp.bh_phone                              AS phonenumber,
+	primary_cd.bh_cielname                   AS primary_coded_diagnosis,
+	pd.bh_uncoded_diagnosis                  AS primary_uncoded_diagnosis,
+	secondary_cd.bh_cielname                 AS secondary_coded_diagnosis,
+	sd.bh_uncoded_diagnosis AS secondary_uncoded_diagnosis
 FROM
-  bh_visit v
+	bh_visit v
 		JOIN c_bpartner bp
-			ON v.patient_id = bp.c_bpartner_id
+		ON v.patient_id = bp.c_bpartner_id
+		LEFT JOIN visit_diagnoses pd
+		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
+		LEFT JOIN visit_diagnoses sd
+		ON v.bh_visit_id = sd.bh_visit_id AND sd.diagnosis_rank = 2
 		LEFT JOIN bh_coded_diagnosis primary_cd
-			ON primary_cd.bh_coded_diagnosis_id = v.bh_primarycodeddiagnosis_id
+		ON primary_cd.bh_coded_diagnosis_id = pd.bh_coded_diagnosis_id
 		LEFT JOIN bh_coded_diagnosis secondary_cd
-			ON secondary_cd.bh_coded_diagnosis_id = v.bh_secondarycodeddiagnosis_id
+		ON secondary_cd.bh_coded_diagnosis_id = sd.bh_coded_diagnosis_id
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
 	AND (
-		v.bh_primaryuncodeddiagnosis IS NOT NULL OR
-		v.bh_secondaryuncodeddiagnosis IS NOT NULL OR
-		v.bh_primarycodeddiagnosis_id IS NOT NULL OR
-		v.bh_secondarycodeddiagnosis_id IS NOT NULL
-	)
+			pd.bh_uncoded_diagnosis IS NOT NULL OR
+			sd.bh_uncoded_diagnosis IS NOT NULL OR
+			pd.bh_coded_diagnosis_id IS NOT NULL OR
+			sd.bh_coded_diagnosis_id IS NOT NULL
+		)
 	AND (
-		$P{Diagnosis} IS NULL OR
-		LOWER(v.bh_primaryuncodeddiagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%') OR
-		LOWER(v.bh_secondaryuncodeddiagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%')
-	)
+			$P{Diagnosis} IS NULL OR
+			LOWER(pd.bh_uncoded_diagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%') OR
+			LOWER(sd.bh_uncoded_diagnosis) LIKE LOWER('%' || COALESCE($P{Diagnosis}, '') || '%')
+		)
 	AND (
-		$P{BH_Coded_Diagnosis_UU} IS NULL OR
-		primary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU} OR
-		secondary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU}
-	)
+			$P{BH_Coded_Diagnosis_UU} IS NULL OR
+			primary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU} OR
+			secondary_cd.bh_coded_diagnosis_uu = $P{BH_Coded_Diagnosis_UU}
+		)
 	AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
 ORDER BY
 	bp.name;]]>

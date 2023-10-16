@@ -1,40 +1,53 @@
 DROP FUNCTION IF EXISTS bh_get_visit_details(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
 CREATE FUNCTION bh_get_visit_details(ad_client_id numeric,
-                                                begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
-                                                end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
+                                     begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
+                                     end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
-		        bh_visit_id                   numeric,
-		        bh_visitdate                  timestamptz,
-		        c_order_id                    numeric,
-		        c_order_uu                    character varying,
-		        ad_org_id                     numeric,
-		        receipt_number                numeric,
-		        ad_user_id                    numeric,
-		        cashier_name                  character varying,
-		        createdby_user_uu             character varying,
-		        c_bpartner_id                 numeric,
-		        patient_name                  character varying,
-		        bh_patienttype                character varying,
-		        bh_patienttype_name           character varying,
-		        bh_patientid                  character varying,
-		        bh_birthday                   timestamp WITHOUT TIME ZONE,
-		        bh_gender                     character varying,
-		        bh_phone                      character varying,
-		        bh_primarycodeddiagnosis_id   numeric,
-		        bh_secondarycodeddiagnosis_id numeric,
-		        bh_primaryuncodeddiagnosis    character varying,
-		        bh_secondaryuncodeddiagnosis  character varying,
-		        docstatus                     character,
-		        bh_clinician_user_id          numeric,
-		        processing                    character,
-		        saleslineitemtotals           numeric,
-		        salestotals                   numeric
+		        bh_visit_id                  numeric,
+		        bh_visitdate                 timestamptz,
+		        c_order_id                   numeric,
+		        c_order_uu                   character varying,
+		        ad_org_id                    numeric,
+		        receipt_number               numeric,
+		        ad_user_id                   numeric,
+		        cashier_name                 character varying,
+		        createdby_user_uu            character varying,
+		        c_bpartner_id                numeric,
+		        patient_name                 character varying,
+		        bh_patienttype               character varying,
+		        bh_patienttype_name          character varying,
+		        bh_patientid                 character varying,
+		        bh_birthday                  timestamp WITHOUT TIME ZONE,
+		        bh_gender                    character varying,
+		        bh_phone                     character varying,
+		        primary_coded                numeric,
+		        secondary_coded              numeric,
+		        bh_primaryuncodeddiagnosis   character varying,
+		        bh_secondaryuncodeddiagnosis character varying,
+		        docstatus                    character,
+		        bh_clinician_user_id         numeric,
+		        processing                   character,
+		        saleslineitemtotals          numeric,
+		        salestotals                  numeric
 	        )
 	LANGUAGE sql
 	STABLE
 AS
 $$
+WITH visit_diagnoses AS (
+	SELECT
+		v.bh_visit_id,
+		ev.bh_coded_diagnosis_id,
+		ev.bh_uncoded_diagnosis,
+		ROW_NUMBER() OVER (PARTITION BY v.bh_visit_id ORDER BY lineno) AS diagnosis_rank
+	FROM
+		bh_visit v
+			JOIN bh_encounter e
+				ON v.bh_visit_id = e.bh_visit_id
+			LEFT JOIN bh_encounter_diagnosis ev
+				ON e.bh_encounter_id = ev.bh_encounter_id
+)
 SELECT
 	v.bh_visit_id,
 	v.bh_visitdate                                   AS visit_date,
@@ -53,10 +66,10 @@ SELECT
 	bp.bh_birthday                                   AS patient_birthday,
 	bp.bh_gender                                     AS patient_gender,
 	bp.bh_phone                                      AS patient_phoneNumber,
-	v.bh_primarycodeddiagnosis_id                    AS primary_coded,
-	v.bh_secondarycodeddiagnosis_id                  AS secondary_coded,
-	v.bh_primaryuncodeddiagnosis                     AS primary_uncoded,
-	v.bh_secondaryuncodeddiagnosis                   AS secondary_uncoded,
+	pd.bh_coded_diagnosis_id                         AS primary_coded,
+	sd.bh_coded_diagnosis_id                         AS secondary_coded,
+	pd.bh_uncoded_diagnosis                          AS primary_uncoded,
+	sd.bh_uncoded_diagnosis                          AS secondary_uncoded,
 	o.docstatus                                      AS docstatus,
 	v.bh_clinician_user_id                           AS clinician_id,
 	o.processing                                     AS processing,
@@ -74,22 +87,26 @@ FROM
 			ON rl.value = v.bh_patienttype
 		JOIN ad_reference r
 			ON rl.ad_reference_id = r.ad_reference_id
+		LEFT JOIN visit_diagnoses pd
+			ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
+		LEFT JOIN visit_diagnoses sd
+			ON v.bh_visit_id = sd.bh_visit_id AND sd.diagnosis_rank = 2
 		JOIN (
-		SELECT
-			o.c_order_id,
-			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
-			COALESCE(SUM(ol.linenetamt), 0)                                         AS salestotals
-		FROM
-			c_order o
-				JOIN c_orderline ol
-					ON o.c_order_id = ol.c_order_id
-				JOIN bh_visit v
-					ON o.bh_visit_id = v.bh_visit_id
-		WHERE
-			o.ad_client_id = $1
-			AND v.bh_visitdate BETWEEN $2 AND $3
-		GROUP BY o.c_order_id
-	) sales_details
+			SELECT
+				o.c_order_id,
+				COALESCE(SUM(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
+				COALESCE(SUM(ol.linenetamt), 0)                                         AS salestotals
+			FROM
+				c_order o
+					JOIN c_orderline ol
+						ON o.c_order_id = ol.c_order_id
+					JOIN bh_visit v
+						ON o.bh_visit_id = v.bh_visit_id
+			WHERE
+				o.ad_client_id = $1
+				AND v.bh_visitdate BETWEEN $2 AND $3
+			GROUP BY o.c_order_id
+		) sales_details
 			ON o.c_order_id = sales_details.c_order_id
 WHERE
 	v.bh_visitdate BETWEEN $2 AND $3
