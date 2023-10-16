@@ -43,6 +43,7 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.compiere.model.MAcctSchema;
+import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MDiscountSchema;
@@ -162,20 +163,19 @@ public class ChuBoeCreateEntity {
 
 			businessPartner.saveEx();
 
-			// Currently, the location is created automatically on BP save
-//			//create loc
-//			MBPartnerLocation businessPartnerLocation =
-//					new MBPartnerLocation(valueObject.getContext(), 0, valueObject.getTransactionName());
-//			businessPartnerLocation.setAD_Org_ID(0);
-//			businessPartnerLocation.setC_BPartner_ID(businessPartner.get_ID());
-//			MLocation loc =
-//					new MLocation(valueObject.getContext(), valueObject.getCountry().get_ID(), valueObject.getRegion()
-//					.get_ID(),
-//							valueObject.getCity(), valueObject.getTransactionName());
-//			loc.saveEx();
-//			businessPartnerLocation.setC_Location_ID(loc.get_ID());
-//			businessPartnerLocation.setName(valueObject.getCity() + " " + valueObject.getRegion().getName());
-//			businessPartnerLocation.saveEx();
+			//create loc
+			MBPartnerLocation businessPartnerLocation =
+					new MBPartnerLocation(valueObject.getContext(), 0, valueObject.getTransactionName());
+			businessPartnerLocation.setAD_Org_ID(0);
+			businessPartnerLocation.setC_BPartner_ID(businessPartner.get_ID());
+			MLocation loc =
+					new MLocation(valueObject.getContext(), valueObject.getCountry().get_ID(), valueObject.getRegion()
+					.get_ID(),
+							valueObject.getCity(), valueObject.getTransactionName());
+			loc.saveEx();
+			businessPartnerLocation.setC_Location_ID(loc.get_ID());
+			businessPartnerLocation.setName(valueObject.getCity() + " " + valueObject.getRegion().getName());
+			businessPartnerLocation.saveEx();
 			valueObject.setBusinessPartnerLocation(businessPartner.getLocations(false)[0]);
 
 			//create contact
@@ -196,7 +196,6 @@ public class ChuBoeCreateEntity {
 			valueObject.setUser(users.get(0));
 
 			businessPartner.setIsCustomer(true);
-			businessPartner.setBH_IsPatient(true); // the BP model event currently uses this
 			businessPartner.saveEx();
 		}
 	} //create BP

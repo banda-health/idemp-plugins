@@ -28,6 +28,7 @@ public class Visit extends BaseEntity {
 	private List<Encounter> encounters = new ArrayList<>();
 	private List<Payment> payments = new ArrayList<>();
 	private List<Order> orders = new ArrayList<>();
+	private List<Invoice> invoices = new ArrayList<>();
 	private VoidedReason voidedReason;
 
 	public Visit() {
@@ -41,10 +42,10 @@ public class Visit extends BaseEntity {
 		this.documentNumber = model.getDocumentNo();
 	}
 
-	public Visit getVisitQueue(String created, String uuid, Patient patient, OrderStatus status) {
+	public Visit getVisitQueue(String created, String uuid, BusinessPartner businessPartner, OrderStatus status) {
 		setCreated(created);
 		setUuid(uuid);
-		setPatient(patient);
+		setPatient(businessPartner);
 		setStatus(status);
 
 		return this;
@@ -63,7 +64,7 @@ public class Visit extends BaseEntity {
 		return patient;
 	}
 
-	public void setPatient(Patient patient) {
+	public void setPatient(BusinessPartner patient) {
 		this.patient = patient;
 	}
 
@@ -114,6 +115,14 @@ public class Visit extends BaseEntity {
 
 	public void setDocumentNumber(String documentNumber) {
 		this.documentNumber = documentNumber;
+	}
+
+	public List<Invoice> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(List<Invoice> invoices) {
+		this.invoices = invoices;
 	}
 
 	public List<Encounter> getEncounters() {

@@ -1,23 +1,7 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
-import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -31,10 +15,11 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.Encounter;
+import org.bandahealth.idempiere.rest.model.Invoice;
+import org.bandahealth.idempiere.rest.model.InvoiceLine;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.bandahealth.idempiere.rest.model.OrderLine;
 import org.bandahealth.idempiere.rest.model.Paging;
-import org.bandahealth.idempiere.rest.model.Patient;
 import org.bandahealth.idempiere.rest.model.PatientType;
 import org.bandahealth.idempiere.rest.model.Payment;
 import org.bandahealth.idempiere.rest.model.ProcessStage;
@@ -47,7 +32,7 @@ import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
-import org.compiere.model.MField;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MUser;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -58,6 +43,20 @@ import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 /**
  * Visit/billing functionality
  *
@@ -67,13 +66,15 @@ import org.springframework.stereotype.Component;
 public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
 	@Autowired
-	private PatientDBService patientDBService;
-	@Autowired
 	private PaymentDBService paymentDBService;
 	@Autowired
 	private OrderDBService orderDBService;
 	@Autowired
 	private OrderLineDBService orderLineDBService;
+	@Autowired
+	private InvoiceDBService invoiceDBService;
+	@Autowired
+	private InvoiceLineDBService invoiceLineDBService;
 	@Autowired
 	private UserDBService userDBService;
 	@Autowired
@@ -84,8 +85,10 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	private BusinessPartnerDBService businessPartnerDBService;
 	@Autowired
 	private EncounterDBService encounterDBService;
+	@Autowired
+	private DocumentTypeDBService documentTypeDBService;
 
-	private Map<String, String> dynamicJoins = new HashMap<>() {
+	private final Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(MBPartner_BH.Table_Name,
 					"LEFT JOIN " + MBPartner_BH.Table_Name + " ON " + MBHVisit.Table_Name + "."
@@ -156,7 +159,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	}
 
 	public Visit processDependentEntities(String uuid, String docAction) throws Exception {
-		if (!orderDBService.isDocActionValidForUser(docAction)) {
+		if (!orderDBService.isDocActionValidForUser(DocumentDBService.DOCUMENTNAME_BILLS, docAction)) {
 			return null;
 		}
 
@@ -164,22 +167,61 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		Trx processVisitTransaction = Trx.get(Trx.createTrxName("ProcessVisit"), true);
 		try {
 			MBHVisit visit = getEntityByUuidFromDB(uuid);
-			List<MOrder_BH> visitsOrders = orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID,
-					MOrder_BH.COLUMNNAME_BH_Visit_ID, Collections.singleton(visit.get_ID())).get(visit.get_ID());
-			// TODO: Update this when we have mulitple orders, since we may not want to
-			// process all at the same time
+			List<MOrder_BH> visitsOrders =
+					orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID,
+							Collections.singleton(visit.get_ID())).get(visit.get_ID());
+			Map<Integer, MDocType_BH> documentTypesById = documentTypeDBService.getByIds(
+					visitsOrders.stream().map(MOrder_BH::getC_DocTypeTarget_ID).collect(Collectors.toSet()));
+			// TODO: Update this when we have multiple orders, since we may not want to process all at the same time
 			for (MOrder_BH order : visitsOrders) {
 				order.set_TrxName(processVisitTransaction.getTrxName());
 				ModelUtil.processDocumentOrError(orderDBService.getDocumentProcessId(), order, docAction);
 
-				List<MPayment_BH> existingPayments = paymentDBService
-						.getByUuids(paymentDBService.getPaymentsByVisitId(visit.get_ID()).stream().map(Payment::getUuid)
-								.collect(Collectors.toSet()))
-						.values().stream().peek(payment -> payment.set_TrxName(processVisitTransaction.getTrxName()))
-						.collect(Collectors.toList());
+				// Handle the invoices (if the order document type is appropriate)
+				MDocType_BH documentType = documentTypesById.containsKey(order.getC_DocTypeTarget_ID()) ?
+						documentTypesById.get(order.getC_DocTypeTarget_ID()) : new MDocType_BH(Env.getCtx(), 0, null);
+				if (!MDocType.DOCSUBTYPESO_OnCreditOrder.equals(documentType.getDocSubTypeSO()) &&
+						!MDocType.DOCSUBTYPESO_POSOrder.equals(documentType.getDocSubTypeSO()) &&
+						!MDocType.DOCSUBTYPESO_PrepayOrder.equals(documentType.getDocSubTypeSO())) {
+					List<MInvoice_BH> existingInvoices =
+							invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
+											Collections.singleton(visit.get_ID())).get(visit.get_ID()).stream()
+									.peek(invoice -> invoice.set_TrxName(processVisitTransaction.getTrxName()))
+									.collect(Collectors.toList());
+					Collection<MInvoice_BH> existingUnfinalizedInvoices = existingInvoices.stream()
+							.filter(
+									invoice -> !invoice.isComplete() || invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed))
+							.collect(Collectors.toList());
+					// If this is a reversal, we also need to take care of the invoices
+					if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
+							docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
+							docAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
+
+						for (MInvoice_BH invoice : existingUnfinalizedInvoices) {
+							MInvoice_BH newInvoice = invoice.copy();
+							invoice.setDocAction(MPayment_BH.DOCACTION_Reverse_Accrual);
+							ModelUtil.processDocumentOrError(invoiceDBService.getDocumentProcessId(), invoice,
+									MInvoice_BH.DOCACTION_Reverse_Accrual);
+
+							newInvoice.setDocStatus(MInvoice_BH.DOCSTATUS_Drafted);
+							newInvoice.setBH_Visit_ID(visit.get_ID());
+							newInvoice.saveEx();
+						}
+					} else {
+						for (MInvoice_BH invoice : existingUnfinalizedInvoices) {
+							invoice.setDocAction(docAction);
+							ModelUtil.processDocumentOrError(invoiceDBService.getDocumentProcessId(), invoice, docAction);
+						}
+					}
+				}
+
+				// Handle the payments
+				List<MPayment_BH> existingPayments = paymentDBService.getByUuids(
+								paymentDBService.getPaymentsByVisitId(visit.get_ID()).stream().map(Payment::getUuid)
+										.collect(Collectors.toSet())).values().stream()
+						.peek(payment -> payment.set_TrxName(processVisitTransaction.getTrxName())).collect(Collectors.toList());
 				Collection<MPayment_BH> existingUnfinalizedPayments = existingPayments.stream()
-						.filter(payment -> !payment.isComplete()
-								|| payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))
+						.filter(payment -> !payment.isComplete() || payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))
 						.collect(Collectors.toList());
 				// If this is a reversal, we also need to take care of the payments
 				if (docAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual)
@@ -266,8 +308,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		ModelUtil.setPropertyIfPresent(entity.getReferredFromTo(), visit::setBH_ReferredFromTo);
 
 		if (entity.getVoidedReason() != null && entity.getVoidedReason().getUuid() != null) {
-			MBHVoidedReason voidingReason = voidedReasonDBService
-					.getEntityByUuidFromDB(entity.getVoidedReason().getUuid());
+			MBHVoidedReason voidingReason = voidedReasonDBService.getEntityByUuidFromDB(entity.getVoidedReason().getUuid());
 			if (voidingReason != null) {
 				visit.setBH_Voided_Reason_ID(voidingReason.get_ID());
 				// Set for all orders as well
@@ -276,9 +317,8 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		}
 
 		MBPartner_BH businessPartner;
-		if (entity.getPatient() != null && entity.getPatient().getUuid() != null
-				&& (businessPartner = businessPartnerDBService
-						.getEntityByUuidFromDB(entity.getPatient().getUuid())) != null) {
+		if (entity.getPatient() != null && entity.getPatient().getUuid() != null &&
+				(businessPartner = businessPartnerDBService.getEntityByUuidFromDB(entity.getPatient().getUuid())) != null) {
 			visit.setPatient_ID(businessPartner.get_ID());
 			entity.getOrders().forEach(order -> {
 				order.setBusinessPartner(new BusinessPartner());
@@ -297,35 +337,55 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		});
 
 		// TODO: Eventually handle when orders are removed/added...
-		// Now take care of the orders
-		Optional<MDocType> onCreditOrderDocumentType = Arrays
-				.stream(MDocType_BH.getOfDocBaseType(Env.getCtx(), MDocType_BH.DOCBASETYPE_SalesOrder))
-				.filter(documentType -> documentType.getDocSubTypeSO() != null
-						&& documentType.getDocSubTypeSO().equalsIgnoreCase(MDocType_BH.DOCSUBTYPESO_OnCreditOrder))
-				.findFirst();
-		if (onCreditOrderDocumentType.isEmpty()) {
-			throw new AdempiereException("No on-credit document type found");
-		}
 		if (entity.getOrders() == null) {
 			entity.setOrders(new ArrayList<>());
 		}
+		List<Order> updatedOrders = new ArrayList<>();
 		for (Order order : entity.getOrders()) {
 			order.setVisitId(visit.get_ID());
-			order.setDocumentTypeTargetId(onCreditOrderDocumentType.get().get_ID());
-
-			// set patient
-			if (entity.getPatient() != null && entity.getPatient().getUuid() != null) {
-				MBPartner_BH patient = patientDBService.getEntityByUuidFromDB(entity.getPatient().getUuid());
-				if (patient != null) {
-					order.setBusinessPartner(new BusinessPartner(patient));
-				}
-			}
-
-			order.setIsSalesOrderTransaction(true);
 			order.setDateOrdered(entity.getVisitDate());
 			order.setDateAccount(entity.getVisitDate());
 
-			orderDBService.saveEntity(order);
+			updatedOrders.add(orderDBService.saveEntity(order));
+		}
+
+		List<OrderLine> updatedOrderLines =
+				updatedOrders.stream().map(Order::getOrderLines).flatMap(Collection::stream).collect(Collectors.toList());
+		List<MInvoice_BH> visitsInvoices =
+				invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
+						Collections.singleton(entity.getId())).get(entity.getId());
+		// For any invoices that aren't in the set, remove them
+		List<String> invoiceUuidsToBeSaved =
+				entity.getInvoices().stream().map(Invoice::getUuid).collect(Collectors.toList());
+		if (!visitsInvoices.stream().filter(Predicate.not(MInvoice_BH::isComplete)).map(MInvoice_BH::getC_Invoice_UU)
+				.filter(invoiceUuid -> !invoiceUuidsToBeSaved.contains(invoiceUuid)).allMatch(invoiceDBService::deleteEntity)) {
+			throw new AdempiereException("Error saving invoices");
+		}
+		for (Invoice invoice : entity.getInvoices()) {
+			invoice.setVisitId(visit.get_ID());
+
+			// Update order associations, if there is any need
+			if (invoice.getOrder() != null && !StringUtil.isNullOrEmpty(invoice.getOrder().getUuid())) {
+				// Set the order ID with what has been saved
+				invoice.setOrderId(
+						updatedOrders.stream().filter(order -> Objects.equals(order.getUuid(), invoice.getOrder().getUuid()))
+								.findFirst().orElseThrow().getId());
+
+				// Now set order line IDs, if there are any
+				List<InvoiceLine> invoiceLinesWithOrderLineAssociations;
+				if (invoice.getInvoiceLines() != null && !(invoiceLinesWithOrderLineAssociations =
+						invoice.getInvoiceLines().stream().filter(invoiceLine -> invoiceLine.getOrderLine() != null &&
+										!StringUtil.isNullOrEmpty(invoiceLine.getOrderLine().getUuid()))
+								.collect(Collectors.toList())).isEmpty()) {
+					// There are, so set the order line IDs
+					invoiceLinesWithOrderLineAssociations.forEach(invoiceLine -> invoiceLine.setOrderLineId(
+							updatedOrderLines.stream()
+									.filter(orderLine -> Objects.equals(orderLine.getUuid(), invoiceLine.getOrderLine().getUuid()))
+									.findFirst().orElseThrow().getId()));
+				}
+			}
+
+			invoiceDBService.saveEntity(invoice);
 		}
 
 		// list of persisted payment line ids
@@ -348,8 +408,8 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				// that the property has been overridden by another save request between when it
 				// was set for this order and now
 				if (entity.getPatient() != null) {
-					payment.setPatient(new Patient());
-					payment.getPatient().setUuid(entity.getPatient().getUuid());
+					payment.setBusinessPartner(new BusinessPartner());
+					payment.getBusinessPartner().setUuid(entity.getPatient().getUuid());
 				}
 
 				Payment response = paymentDBService.saveEntity(payment);
@@ -380,16 +440,16 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			// can't delete it
 			List<MOrder_BH> visitsOrders = new Query(Env.getCtx(), MOrder_BH.Table_Name,
 					MOrder_BH.COLUMNNAME_BH_Visit_ID + "=?", deleteVisitTransaction.getTrxName())
-							.setParameters(visit.get_ID()).list();
+					.setParameters(visit.get_ID()).list();
 			List<MInOut_BH> visitsInOuts = new Query(Env.getCtx(), MInOut_BH.Table_Name,
 					MInOut_BH.COLUMNNAME_BH_Visit_ID + "=?", deleteVisitTransaction.getTrxName())
-							.setParameters(visit.get_ID()).list();
+					.setParameters(visit.get_ID()).list();
 			List<MInvoice_BH> visitsInvoices = new Query(Env.getCtx(), MInvoice_BH.Table_Name,
 					MInvoice_BH.COLUMNNAME_BH_Visit_ID + "=?", deleteVisitTransaction.getTrxName())
-							.setParameters(visit.get_ID()).list();
+					.setParameters(visit.get_ID()).list();
 			List<MPayment_BH> visitsPayments = new Query(Env.getCtx(), MPayment_BH.Table_Name,
 					MPayment_BH.COLUMNNAME_BH_Visit_ID + "=?", deleteVisitTransaction.getTrxName())
-							.setParameters(visit.get_ID()).list();
+					.setParameters(visit.get_ID()).list();
 
 			Predicate<DocAction> isNotDrafted = (
 					DocAction entity) -> !DocumentEngine.STATUS_Drafted.equals(entity.getDocStatus());
@@ -399,7 +459,10 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				throw new AdempiereException("Visit is already completed");
 			}
 
-			// Handle order lines separately
+			// Handle invoice & order lines separately
+			if (!visitsInvoices.isEmpty()) {
+				visitsInvoices.forEach(invoice -> invoiceLineDBService.deleteInvoiceLinesByInvoice(invoice.get_ID(), ""));
+			}
 			if (!visitsOrders.isEmpty()) {
 				visitsOrders.forEach(order -> orderLineDBService.deleteOrderLinesByOrder(order.get_ID(), ""));
 			}
@@ -435,8 +498,8 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	@Override
 	protected Visit createInstanceWithDefaultFields(MBHVisit instance) {
 		try {
-			MBPartner_BH patient = patientDBService.getPatientById(instance.getPatient_ID());
-			if (patient == null) {
+			MBPartner_BH businessPartner = businessPartnerDBService.getEntityByIdFromDB(instance.getPatient_ID());
+			if (businessPartner == null) {
 				log.severe("Missing patient");
 				return null;
 			}
@@ -450,7 +513,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			visit.setCreated(DateUtil.parse(instance.getCreated()));
 			visit.setCreatedTimestamp(instance.getCreated());
 			visit.setCreatedBy(instance.getCreatedBy());
-			visit.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
+			visit.setPatient(new BusinessPartner(businessPartner));
 			visit.setVisitDate(instance.getBH_VisitDate());
 			visit.setProcessStage(new ProcessStage(instance.getBH_Process_Stage()));
 			String patientType = instance.getBH_PatientType();
@@ -519,7 +582,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
 			Query query = new Query(Env.getCtx(), getModelInstance().get_TableName(),
 					MOrder_BH.COLUMNNAME_IsSOTrx + "=? AND " + MOrder_BH.COLUMNNAME_DocStatus + " = ?", null)
-							.setClient_ID().setOnlyActiveRecords(true);
+					.setClient_ID().setOnlyActiveRecords(true);
 
 			query = query.setParameters(parameters);
 
@@ -540,15 +603,15 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				for (MOrder_BH entity : entities) {
 					if (entity != null) {
 						// get patient
-						MBPartner_BH patient = patientDBService.getPatientById(entity.getC_BPartner_ID());
-						if (patient == null) {
+						MBPartner_BH businessPartner = businessPartnerDBService.getEntityByIdFromDB(entity.getC_BPartner_ID());
+						if (businessPartner == null) {
 							continue;
 						}
 						Visit visit = new Visit();
 						visit.setCreated(DateUtil.parseQueueTime(entity.getCreated()));
 						visit.setCreatedTimestamp(entity.getCreated());
 						visit.setUuid(entity.getC_Order_UU());
-						visit.setPatient(new Patient(patient.getName(), patient.getC_BPartner_UU()));
+						visit.setPatient(new BusinessPartner(businessPartner));
 						results.add(visit);
 					}
 				}
@@ -570,10 +633,10 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	 */
 	public Integer getOpenVisitDraftsCount() {
 		List<Object> parameters = new ArrayList<>();
-		StringBuilder sqlWhere = new StringBuilder("WHERE ")
-				.append(buildOpenDraftsWhereClauseAndParameters(parameters));
+		String sqlWhere = "WHERE " +
+				buildOpenDraftsWhereClauseAndParameters(parameters);
 
-		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere.toString(), parameters);
+		return SqlUtil.getCount(MOrder_BH.Table_Name, sqlWhere, parameters);
 	}
 
 	/**
@@ -591,12 +654,12 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 	}
 
 	private String buildOpenDraftsWhereClauseAndParameters(List<Object> parameters) {
-		StringBuilder sqlWhere = new StringBuilder().append(MOrder_BH.COLUMNNAME_AD_Client_ID).append(" =?")
-				.append(AND_OPERATOR).append(MOrder_BH.COLUMNNAME_AD_Org_ID).append(" =?").append(AND_OPERATOR)
-				.append(MOrder_BH.COLUMNNAME_IsActive).append(" =?").append(AND_OPERATOR)
-				.append(MOrder_BH.COLUMNNAME_DocStatus).append(" =? ").append(AND_OPERATOR).append("to_char(")
-				.append(MOrder_BH.COLUMNNAME_Created).append(", 'YYYY-MM-DD')").append(" < ? ").append(AND_OPERATOR)
-				.append(MOrder_BH.COLUMNNAME_IsSOTrx).append(" = ?");
+		String sqlWhere = MOrder_BH.COLUMNNAME_AD_Client_ID + " =?" +
+				AND_OPERATOR + MOrder_BH.COLUMNNAME_AD_Org_ID + " =?" + AND_OPERATOR +
+				MOrder_BH.COLUMNNAME_IsActive + " =?" + AND_OPERATOR +
+				MOrder_BH.COLUMNNAME_DocStatus + " =? " + AND_OPERATOR + "to_char(" +
+				MOrder_BH.COLUMNNAME_Created + ", 'YYYY-MM-DD')" + " < ? " + AND_OPERATOR +
+				MOrder_BH.COLUMNNAME_IsSOTrx + " = ?";
 
 		if (parameters == null) {
 			parameters = new ArrayList<>();
@@ -609,7 +672,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		parameters.add(DateUtil.parseDateOnly(new Timestamp(System.currentTimeMillis())));
 		parameters.add("Y");
 
-		return sqlWhere.toString();
+		return sqlWhere;
 	}
 
 	@Override
@@ -626,6 +689,18 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		Map<Integer, List<OrderLine>> orderLinesByOrderId = orderLineDBService
 				.getOrderLinesByOrderIds(orders.stream().map(MOrder_BH::get_ID).collect(Collectors.toSet()));
 
+		// Get invoices
+		Map<Integer, List<Invoice>> invoicesByVisitId = invoiceDBService.transformData(
+						invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
+										dbModels.stream().map(MBHVisit::get_ID).collect(Collectors.toSet())).values().stream()
+								.flatMap(Collection::stream).collect(Collectors.toList())).stream()
+				.collect(Collectors.groupingBy(Invoice::getVisitId));
+		Map<Integer, List<InvoiceLine>> invoiceLinesByInvoiceId = invoiceLineDBService.transformData(
+				invoiceLineDBService.getGroupsByIds(MInvoiceLine::getC_Invoice_ID, MInvoiceLine.COLUMNNAME_C_Invoice_ID,
+								invoicesByVisitId.values().stream().flatMap(Collection::stream).map(Invoice::getId)
+										.collect(Collectors.toSet())).values().stream().flatMap(Collection::stream)
+						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(InvoiceLine::getInvoiceId));
+
 		Map<Integer, List<Encounter>> encountersByVisitId = encounterDBService
 				.transformData(encounterDBService
 						.getGroupsByIds(MBHEncounter::getBH_Visit_ID, MBHEncounter.COLUMNNAME_BH_Visit_ID, visitIds)
@@ -638,28 +713,32 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(Payment::getVisitId));
 
-		Map<Integer, MBPartner_BH> businessPartnerByVisitId = businessPartnerDBService
-				.getByIds(dbModels.stream().map(MBHVisit::getPatient_ID).collect(Collectors.toSet()));
+		// Get BPs
+		Map<Integer, BusinessPartner> businessPartnersById = businessPartnerDBService.transformData(new ArrayList<>(
+				businessPartnerDBService.getByIds(dbModels.stream().map(MBHVisit::getPatient_ID).collect(Collectors.toSet()))
+						.values())).stream().collect(Collectors.toMap(BusinessPartner::getId, businessPartner -> businessPartner));
 
 		List<MUser_BH> clinicians = userDBService.getClinicians(null);
 
-		return dbModels.stream().map(visit -> {
-			Visit entity = createInstanceWithDefaultFields(visit);
-			entity.setPatient(patientDBService
-					.transformData(Collections.singletonList(businessPartnerByVisitId.get(visit.getPatient_ID())))
-					.get(0));
-			entity.setOrders(orderIdsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
-			entity.getOrders().forEach(
+		return dbModels.stream().map(model -> {
+			Visit visit = createInstanceWithDefaultFields(model);
+			visit.setPatient(businessPartnersById.get(model.getPatient_ID()));
+			visit.setOrders(orderIdsByVisitId.getOrDefault(model.get_ID(), new ArrayList<>()));
+			visit.getOrders().forEach(
 					order -> order.setOrderLines(orderLinesByOrderId.getOrDefault(order.getId(), new ArrayList<>())));
-			entity.setPayments(paymentIdsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
-			entity.setEncounters(encountersByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>()));
+			visit.setPayments(paymentIdsByVisitId.getOrDefault(model.get_ID(), new ArrayList<>()));
+			visit.setEncounters(encountersByVisitId.getOrDefault(model.get_ID(), new ArrayList<>()));
+			visit.setInvoices(invoicesByVisitId.getOrDefault(model.get_ID(), new ArrayList<>()));
+			visit.getInvoices().forEach(
+					invoice -> invoice.setInvoiceLines(invoiceLinesByInvoiceId.getOrDefault(invoice.getId(),
+							new ArrayList<>())));
 
-			if (visit.getBH_Clinician_User_ID() > 0) {
-				clinicians.stream().filter(user -> user.getAD_User_ID() == visit.getBH_Clinician_User_ID()).findFirst()
-						.ifPresent(clinician -> entity.setClinician(new User(clinician)));
+			if (model.getBH_Clinician_User_ID() > 0) {
+				clinicians.stream().filter(user -> user.getAD_User_ID() == model.getBH_Clinician_User_ID()).findFirst()
+						.ifPresent(clinician -> visit.setClinician(new User(clinician)));
 			}
 
-			return entity;
+			return visit;
 		}).collect(Collectors.toList());
 	}
 }

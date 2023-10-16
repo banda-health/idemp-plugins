@@ -5,12 +5,11 @@ import { organizationApi, processApi, visitApi } from '../../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../../models';
 import { Image, ProcessInfoParameter } from '../../types/org.bandahealth.idempiere.rest';
 import {
+	createBusinessPartner,
+	createInvoice,
 	createOrder,
-	createPatient,
 	createPayment,
 	createProduct,
-	createPurchaseOrder,
-	createVendor,
 	createVisit,
 	runReport,
 } from '../../utils';
@@ -32,7 +31,7 @@ test('voided transactions report is runnable', async () => {
 	await organizationApi.save(valueObject, organization);
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -40,11 +39,8 @@ test('voided transactions report is runnable', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -54,15 +50,21 @@ test('voided transactions report is runnable', async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
 	valueObject.stepName = 'Create payment';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	await createPayment(valueObject);
 
 	valueObject.stepName = 'Complete visit';

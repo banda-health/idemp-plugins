@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
  */
 public class SqlUtil {
 
-	private static CLogger log = CLogger.getCLogger(SqlUtil.class);
+	private static final CLogger log = CLogger.getCLogger(SqlUtil.class);
 	private static final List<String> WORDS_TO_ESCAPE = Arrays.asList("number", "new", "limit");
 	private static final List<String> DISALLOWED_SQL_SELECT_CHARACTERS =
 			Arrays.asList("\\", "--", ";", "`", "drop ", "delete ", "insert ");

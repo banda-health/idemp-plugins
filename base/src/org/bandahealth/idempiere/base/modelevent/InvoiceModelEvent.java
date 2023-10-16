@@ -94,7 +94,7 @@ public class InvoiceModelEvent extends AbstractEventHandler {
 					Arrays.stream(order.getLines()).filter(orderLine -> orderLine.getC_Charge_ID() > 0)
 							.collect(Collectors.toList());
 			// If this order had charges on it, those will (most likely) not be carried to the invoice and need to be added
-			if (orderLinesWithCharges.size() > 0) {
+			if (!orderLinesWithCharges.isEmpty()) {
 				List<MInvoiceLine> currentInvoiceLines = Arrays.asList(invoice.getLines(true));
 				List<MOrderLine> orderLineChargesNotOnInvoice = orderLinesWithCharges.stream().filter(
 								orderLine -> currentInvoiceLines.stream().noneMatch(

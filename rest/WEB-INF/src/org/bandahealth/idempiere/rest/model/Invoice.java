@@ -14,9 +14,8 @@ import java.util.List;
 
 /**
  * Representation of iDempiere's MOrder (C_Order).
- * 
- * @author andrew
  *
+ * @author andrew
  */
 @JsonInclude(value = Include.NON_NULL)
 public class Invoice extends BaseMetadata {
@@ -28,14 +27,20 @@ public class Invoice extends BaseMetadata {
 	private BigDecimal grandTotal;
 	@JsonProperty("isSalesOrderTransaction")
 	private boolean isSalesOrderTransaction;
-	private Boolean isExpense;
 	private String description;
 	private List<InvoiceLine> invoiceLines;
 	private String paymentRule;
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
 	private VoidedReason voidedReason;
-	private String invoiceType;
+	@JsonIgnore
+	private int documentTypeTargetId;
+	private DocumentType documentTypeTarget;
+	@JsonIgnore
+	private int visitId;
+	@JsonIgnore
+	private int orderId;
+	private Order order;
 
 	public Invoice() {
 	}
@@ -46,37 +51,11 @@ public class Invoice extends BaseMetadata {
 		dateInvoicedCreated = entity.getDateInvoiced();
 		grandTotal = entity.getGrandTotal();
 		isSalesOrderTransaction = entity.isSOTrx();
-		isExpense = entity.getBH_IsExpense();
 		description = entity.getDescription();
 		paymentRule = entity.getPaymentRule();
 		docStatus = entity.getDocStatus();
-		invoiceType = entity.getBH_InvoiceType();
-	}
-
-	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			BusinessPartner businessPartner, String dateInvoiced, boolean isSalesOrderTransaction,
-			List<InvoiceLine> invoiceLines, String docStatus, String paymentRule) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.businessPartner = businessPartner;
-		this.dateInvoiced = dateInvoiced;
-		this.isSalesOrderTransaction = isSalesOrderTransaction;
-		this.invoiceLines = invoiceLines;
-		this.docStatus = docStatus;
-		this.paymentRule = paymentRule;
-	}
-
-	public Invoice(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			BusinessPartner businessPartner, String dateInvoiced, boolean isSalesOrderTransaction, String docStatus,
-			BigDecimal grandTotal, String paymentRule) {
-		super(clientId, orgId, uuid, isActive, created, createdBy);
-
-		this.businessPartner = businessPartner;
-		this.dateInvoiced = dateInvoiced;
-		this.isSalesOrderTransaction = isSalesOrderTransaction;
-		this.docStatus = docStatus;
-		this.grandTotal = grandTotal;
-		this.paymentRule = paymentRule;
+		setDocumentTypeTargetId(entity.getC_DocType_ID());
+		setVisitId(entity.getBH_Visit_ID());
 	}
 
 	public BusinessPartner getBusinessPartner() {
@@ -105,25 +84,14 @@ public class Invoice extends BaseMetadata {
 		this.grandTotal = grandTotal;
 	}
 
+	@JsonProperty("isSalesOrderTransaction")
 	public boolean isSalesOrderTransaction() {
 		return isSalesOrderTransaction;
 	}
 
-	public void setIsSalesOrderTransaction(boolean isSalesOrderTransaction) {
-		this.isSalesOrderTransaction = isSalesOrderTransaction;
-	}
-
-	@JsonIgnore
-	public Boolean isExpense() {
-		return isExpense;
-	}
-
-	public void setIsExpense(Boolean isExpense) {
-		this.isExpense = isExpense;
-		
-		if (isExpense) {
-			setInvoiceType(MInvoice_BH.EXPENSE_InvoiceType);
-		}
+	@JsonProperty("isSalesOrderTransaction")
+	public void setSalesOrderTransaction(boolean salesOrderTransaction) {
+		isSalesOrderTransaction = salesOrderTransaction;
 	}
 
 	@XmlElement
@@ -178,11 +146,47 @@ public class Invoice extends BaseMetadata {
 		this.dateInvoicedCreated = dateInvoicedCreated;
 	}
 
-	public String getInvoiceType() {
-		return invoiceType;
+	@JsonIgnore
+	public int getDocumentTypeTargetId() {
+		return documentTypeTargetId;
 	}
 
-	public void setInvoiceType(String invoiceType) {
-		this.invoiceType = invoiceType;
+	@JsonIgnore
+	public void setDocumentTypeTargetId(int documentTypeTargetId) {
+		this.documentTypeTargetId = documentTypeTargetId;
+	}
+
+	public DocumentType getDocumentTypeTarget() {
+		return documentTypeTarget;
+	}
+
+	public void setDocumentTypeTarget(DocumentType documentTypeTarget) {
+		this.documentTypeTarget = documentTypeTarget;
+	}
+
+	@JsonIgnore
+	public int getVisitId() {
+		return visitId;
+	}
+
+	@JsonIgnore
+	public void setVisitId(int visitId) {
+		this.visitId = visitId;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	public int getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 }
