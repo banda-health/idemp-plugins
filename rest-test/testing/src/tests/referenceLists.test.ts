@@ -1,5 +1,5 @@
 import { referenceListApi } from '../api';
-import { documentAction, referenceUuid, tenderTypeName } from '../models';
+import { documentAction, documentBaseType, referenceUuid, tenderTypeName } from '../models';
 import { RoleName } from '../types/roleName';
 
 test('tender type names to be correct', async () => {
@@ -57,8 +57,17 @@ test('document action access is correct for admins', async () => {
 					action === documentAction.ReverseAccrual ||
 					action === documentAction.ReverseCorrect,
 			),
-		);
+		).toBeTruthy();
 	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeTruthy();
 });
 
 test('clinic admin role has correct access', async () => {
@@ -81,8 +90,17 @@ test('clinic admin role has correct access', async () => {
 					action === documentAction.ReverseAccrual ||
 					action === documentAction.ReverseCorrect,
 			),
-		);
+		).toBeTruthy();
 	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeTruthy();
 });
 
 test('cashier/registration basic role has correct access', async () => {
@@ -105,8 +123,17 @@ test('cashier/registration basic role has correct access', async () => {
 					action === documentAction.ReverseAccrual ||
 					action === documentAction.ReverseCorrect,
 			),
-		);
+		).toBeTruthy();
 	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeFalsy();
 });
 
 test('cashier/registration advanced role has correct access', async () => {
@@ -129,8 +156,17 @@ test('cashier/registration advanced role has correct access', async () => {
 					action === documentAction.ReverseAccrual ||
 					action === documentAction.ReverseCorrect,
 			),
-		);
+		).toBeTruthy();
 	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeFalsy();
 });
 
 test('inventory/pharmacy role has correct access', async () => {
@@ -153,8 +189,17 @@ test('inventory/pharmacy role has correct access', async () => {
 					action === documentAction.ReverseAccrual ||
 					action === documentAction.ReverseCorrect,
 			),
-		);
+		).toBeTruthy();
 	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeTruthy();
 });
 
 test('clinician/nurse basic role has correct access', async () => {
@@ -177,8 +222,17 @@ test('clinician/nurse basic role has correct access', async () => {
 					action === documentAction.ReverseAccrual ||
 					action === documentAction.ReverseCorrect,
 			),
-		);
+		).toBeTruthy();
 	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeFalsy();
 });
 
 test('clinician/nurse advanced role has correct access', async () => {
@@ -201,8 +255,17 @@ test('clinician/nurse advanced role has correct access', async () => {
 					action === documentAction.ReverseAccrual ||
 					action === documentAction.ReverseCorrect,
 			),
-		);
+		).toBeTruthy();
 	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeFalsy();
 });
 
 test('triage role has correct access', async () => {
@@ -225,8 +288,17 @@ test('triage role has correct access', async () => {
 					action === documentAction.ReverseAccrual ||
 					action === documentAction.ReverseCorrect,
 			),
-		);
+		).toBeTruthy();
 	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeFalsy();
 });
 
 test('lab/radiology role has correct access', async () => {
@@ -249,8 +321,17 @@ test('lab/radiology role has correct access', async () => {
 					action === documentAction.ReverseAccrual ||
 					action === documentAction.ReverseCorrect,
 			),
-		);
+		).toBeTruthy();
 	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeFalsy();
 });
 
 test('accounting role has correct access', async () => {
@@ -273,8 +354,17 @@ test('accounting role has correct access', async () => {
 					action === documentAction.ReverseAccrual ||
 					action === documentAction.ReverseCorrect,
 			),
-		);
+		).toBeTruthy();
 	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeFalsy();
 });
 
 test('clinic user role has correct access', async () => {
@@ -297,6 +387,15 @@ test('clinic user role has correct access', async () => {
 					action === documentAction.ReverseAccrual ||
 					action === documentAction.ReverseCorrect,
 			),
-		);
+		).toBeTruthy();
 	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeFalsy();
 });
