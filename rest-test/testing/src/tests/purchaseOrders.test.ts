@@ -321,7 +321,7 @@ test(`changing a price on an old PO does not change last buying price for produc
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
 	let firstPO = valueObject.order!;
-	
+
 	expect((await productApi.getByUuid(valueObject, valueObject.product!.uuid)).buyPrice).toBe(110);
 
 	valueObject.stepName = 'Create second purchase order';
@@ -331,17 +331,59 @@ test(`changing a price on an old PO does not change last buying price for produc
 	valueObject.setPurchasePrice(120);
 	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
 	await createOrder(valueObject);
-	
+
 	expect((await productApi.getByUuid(valueObject, valueObject.product!.uuid)).buyPrice).toBe(120);
 
 	valueObject.stepName = 'Re-open first PO';
 	firstPO = await orderApi.process(valueObject, firstPO.uuid, documentAction.ReActivate);
-	
+
 	expect((await productApi.getByUuid(valueObject, valueObject.product!.uuid)).buyPrice).toBe(120);
 
 	valueObject.stepName = 'Re-complete first PO';
 	firstPO.orderLines[0].price = 115;
 	await orderApi.saveAndProcess(valueObject, firstPO, documentAction.Complete);
-	
+
 	expect((await productApi.getByUuid(valueObject, valueObject.product!.uuid)).buyPrice).toBe(120);
+});
+
+test(`reactivating a PO resets the quantity correctly`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	const expiringAttributeSet = (
+		await attributeSetApi.get(valueObject, undefined, undefined, undefined, JSON.stringify({ isguaranteedate: true }))
+	).results[0];
+	valueObject.setSalesPrice(200);
+	valueObject.setPurchasePrice(100);
+	await createProduct(valueObject);
+	valueObject.product!.attributeSet = expiringAttributeSet;
+	valueObject.product = await productApi.save(valueObject, valueObject.product as Product);
+
+	valueObject.stepName = 'Create expiring attribute set instance';
+	let expiringAttributeSetInstance: Partial<AttributeSetInstance> = {
+		guaranteeDate: getDateOffset(new Date(), 365),
+		updateReason: {} as VoidedReason,
+		attributeSet: expiringAttributeSet,
+	};
+	expiringAttributeSetInstance = await attributeSetInstanceApi.save(
+		valueObject,
+		expiringAttributeSetInstance as AttributeSetInstance,
+	);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	valueObject.attributeSetInstance = expiringAttributeSetInstance as AttributeSetInstance;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	expect((await productApi.getByUuid(valueObject, valueObject.product!.uuid)).totalQuantity).toBe(1);
+
+	valueObject.stepName = 'Re-open first PO';
+	await orderApi.process(valueObject, valueObject.order!.uuid, documentAction.ReActivate);
+
+	expect((await productApi.getByUuid(valueObject, valueObject.product!.uuid)).totalQuantity).toBe(0);
 });
