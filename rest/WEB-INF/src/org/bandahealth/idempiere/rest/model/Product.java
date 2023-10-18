@@ -31,6 +31,7 @@ public class Product extends BaseEntity {
 	@JsonIgnore
 	private Integer attributeSetId;
 	private AttributeSet attributeSet;
+	private Boolean hasBeenPurchased;
 
 	public Product() {
 	}
@@ -199,5 +200,13 @@ public class Product extends BaseEntity {
 
 	public void setAttributeSet(AttributeSet attributeSet) {
 		this.attributeSet = attributeSet;
+	}
+
+	public Boolean getHasBeenPurchased() {
+		return hasBeenPurchased;
+	}
+
+	public void setHasBeenPurchased(Boolean hasBeenPurchased) {
+		this.hasBeenPurchased = hasBeenPurchased;
 	}
 }
