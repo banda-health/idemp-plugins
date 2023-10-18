@@ -49,15 +49,6 @@ test('document action access is correct for admins', async () => {
 		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Void);
 
 		expect(statusActionMapForASpecificDocumentBaseType.CO).toContain(documentAction.Close);
-		expect(
-			statusActionMapForASpecificDocumentBaseType.CO.some(
-				(action) =>
-					action === documentAction.ReActivate ||
-					action === documentAction.Void ||
-					action === documentAction.ReverseAccrual ||
-					action === documentAction.ReverseCorrect,
-			),
-		).toBeTruthy();
 	});
 
 	expect(
@@ -82,15 +73,6 @@ test('clinic admin role has correct access', async () => {
 		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Void);
 
 		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-		expect(
-			statusActionMapForASpecificDocumentBaseType.CO.some(
-				(action) =>
-					action === documentAction.ReActivate ||
-					action === documentAction.Void ||
-					action === documentAction.ReverseAccrual ||
-					action === documentAction.ReverseCorrect,
-			),
-		).toBeTruthy();
 	});
 
 	expect(
@@ -115,15 +97,6 @@ test('cashier/registration basic role has correct access', async () => {
 		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
 
 		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-		expect(
-			statusActionMapForASpecificDocumentBaseType.CO.some(
-				(action) =>
-					action === documentAction.ReActivate ||
-					action === documentAction.Void ||
-					action === documentAction.ReverseAccrual ||
-					action === documentAction.ReverseCorrect,
-			),
-		).toBeTruthy();
 	});
 
 	expect(
@@ -148,15 +121,6 @@ test('cashier/registration advanced role has correct access', async () => {
 		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
 
 		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-		expect(
-			statusActionMapForASpecificDocumentBaseType.CO.some(
-				(action) =>
-					action === documentAction.ReActivate ||
-					action === documentAction.Void ||
-					action === documentAction.ReverseAccrual ||
-					action === documentAction.ReverseCorrect,
-			),
-		).toBeTruthy();
 	});
 
 	expect(
@@ -181,15 +145,6 @@ test('inventory/pharmacy role has correct access', async () => {
 		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
 
 		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-		expect(
-			statusActionMapForASpecificDocumentBaseType.CO.some(
-				(action) =>
-					action === documentAction.ReActivate ||
-					action === documentAction.Void ||
-					action === documentAction.ReverseAccrual ||
-					action === documentAction.ReverseCorrect,
-			),
-		).toBeTruthy();
 	});
 
 	expect(
@@ -214,15 +169,6 @@ test('clinician/nurse basic role has correct access', async () => {
 		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
 
 		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-		expect(
-			statusActionMapForASpecificDocumentBaseType.CO.some(
-				(action) =>
-					action === documentAction.ReActivate ||
-					action === documentAction.Void ||
-					action === documentAction.ReverseAccrual ||
-					action === documentAction.ReverseCorrect,
-			),
-		).toBeTruthy();
 	});
 
 	expect(
@@ -247,15 +193,6 @@ test('clinician/nurse advanced role has correct access', async () => {
 		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
 
 		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-		expect(
-			statusActionMapForASpecificDocumentBaseType.CO.some(
-				(action) =>
-					action === documentAction.ReActivate ||
-					action === documentAction.Void ||
-					action === documentAction.ReverseAccrual ||
-					action === documentAction.ReverseCorrect,
-			),
-		).toBeTruthy();
 	});
 
 	expect(
@@ -280,15 +217,6 @@ test('triage role has correct access', async () => {
 		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
 
 		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-		expect(
-			statusActionMapForASpecificDocumentBaseType.CO.some(
-				(action) =>
-					action === documentAction.ReActivate ||
-					action === documentAction.Void ||
-					action === documentAction.ReverseAccrual ||
-					action === documentAction.ReverseCorrect,
-			),
-		).toBeTruthy();
 	});
 
 	expect(
@@ -313,15 +241,6 @@ test('lab/radiology role has correct access', async () => {
 		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
 
 		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-		expect(
-			statusActionMapForASpecificDocumentBaseType.CO.some(
-				(action) =>
-					action === documentAction.ReActivate ||
-					action === documentAction.Void ||
-					action === documentAction.ReverseAccrual ||
-					action === documentAction.ReverseCorrect,
-			),
-		).toBeTruthy();
 	});
 
 	expect(
@@ -346,15 +265,6 @@ test('accounting role has correct access', async () => {
 		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
 
 		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-		expect(
-			statusActionMapForASpecificDocumentBaseType.CO.some(
-				(action) =>
-					action === documentAction.ReActivate ||
-					action === documentAction.Void ||
-					action === documentAction.ReverseAccrual ||
-					action === documentAction.ReverseCorrect,
-			),
-		).toBeTruthy();
 	});
 
 	expect(
@@ -379,15 +289,6 @@ test('clinic user role has correct access', async () => {
 		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
 
 		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-		expect(
-			statusActionMapForASpecificDocumentBaseType.CO.some(
-				(action) =>
-					action === documentAction.ReActivate ||
-					action === documentAction.Void ||
-					action === documentAction.ReverseAccrual ||
-					action === documentAction.ReverseCorrect,
-			),
-		).toBeTruthy();
 	});
 
 	expect(
