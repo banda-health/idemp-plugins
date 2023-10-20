@@ -351,6 +351,38 @@ public class AuthenticationRestService {
 	}
 
 	/**
+	 * Check if a particular username and password have access to any clients other than this one. 
+	 * This is used when creating or updating a username and/or password, to try to ensure someone 
+	 * doesn't accidentally set up a user at one client that matches one at a DIFFERENT client, 
+	 * inadvertantly giving them access to both.
+	 *  
+	 * @param credentials
+	 * @return true if the username/password has access to other clients, false if they don't
+	 */
+	@POST
+	@Path(IRestConfigs.CHECK_USER_PATH)
+	public Boolean checkUserInOtherClients(Authentication credentials) {
+		Login login = new Login(Env.getCtx());
+
+		int currentClient = Env.getAD_Client_ID(Env.getCtx());
+
+		// Retrieve list of clients that the passed in username and password already has access to.
+		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
+		if (clients == null || clients.length == 0) {
+			return false;
+		}
+
+		for(KeyNamePair client : clients) {
+			if (client.getKey() != currentClient) {
+				// We found a client that the given username and password has access to, that is NOT the same is THIS client.
+				return true;
+			}
+		}
+
+		return false;
+	}		
+
+	/**
 	 * The user needs to change their credentials, so set the appropriate data
 	 *
 	 * @param credentials
