@@ -2209,14 +2209,8 @@ test(`document number should be returned for saved visits`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	const patient: Partial<Patient> = {
-		name: valueObject.getDynamicStepMessage(),
-		description: valueObject.getStepMessageLong(),
-		dateOfBirth: valueObject.date?.toISOString(),
-	};
-	const savedPatient = await patientApi.save(valueObject, patient as Patient);
-	valueObject.businessPartner = savedPatient as BusinessPartner;
+	valueObject.stepName = 'Create business partner';
+	createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
