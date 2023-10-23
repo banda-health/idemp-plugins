@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
@@ -7,6 +8,7 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MRefList;
 import org.compiere.model.PO;
 import org.compiere.process.DocAction;
+import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
@@ -26,8 +28,6 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	@Autowired
 	protected ReferenceListDBService referenceListDBService;
 
-	protected abstract String getDocumentTypeName();
-
 	abstract int getDocumentProcessId();
 
 	/**
@@ -37,13 +37,14 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	 * @return
 	 */
 	public T processEntity(String uuid, String docAction) throws Exception {
-		if (!isDocActionValidForUser(docAction)) {
-			return null;
-		}
-
 		S documentEntity = getEntityByUuidFromDB(uuid);
 		if (documentEntity == null) {
 			log.severe("No entity with uuid = " + uuid);
+			return null;
+		}
+
+		if (!isDocActionValidForUser(MDocType_BH.get(Env.getCtx(), getDocumentTypeId(documentEntity)).getName(),
+				docAction)) {
 			return null;
 		}
 
@@ -64,12 +65,12 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	 * @param docAction The document action to perform
 	 * @return Whether the user has access
 	 */
-	protected boolean isDocActionValidForUser(String docAction) {
+	protected boolean isDocActionValidForUser(String documentTypeName, String docAction) {
 		if (StringUtil.isNullOrEmpty(docAction)) {
 			log.severe("Missing DocAction");
 			return false;
 		}
-		if (!doesUserHaveAccessToDocAction(docAction)) {
+		if (!doesUserHaveAccessToDocAction(documentTypeName, docAction)) {
 			log.severe("Unauthorized");
 			return false;
 		}
@@ -97,13 +98,13 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	 * @param docAction The document action to perform (i.e. ACTION_Void, ACTION_Complete)
 	 * @return Whether the user has access to process an entity a certain way
 	 */
-	private boolean doesUserHaveAccessToDocAction(String docAction) {
+	private boolean doesUserHaveAccessToDocAction(String documentTypeName, String docAction) {
 		Optional<Map.Entry<MDocType, List<MRefList>>> access =
 				referenceListDBService.getDocumentActionAccessByDocumentType().entrySet().stream().filter(
-						accessByDocumentType -> accessByDocumentType.getKey().getName().equals(getDocumentTypeName())).findFirst();
-		if (access.isEmpty()) {
-			return false;
-		}
-		return access.get().getValue().stream().anyMatch(refList -> refList.getValue().equals(docAction));
+						accessByDocumentType -> accessByDocumentType.getKey().getName().equals(documentTypeName)).findFirst();
+		return access.map(mDocTypeListEntry -> mDocTypeListEntry.getValue().stream()
+				.anyMatch(refList -> refList.getValue().equals(docAction))).orElse(false);
 	}
+
+	abstract int getDocumentTypeId(S entity);
 }

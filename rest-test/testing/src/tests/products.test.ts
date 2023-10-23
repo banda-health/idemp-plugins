@@ -1,14 +1,14 @@
 import { productApi, serviceApi } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
 import { Product, Service } from '../types/org.bandahealth.idempiere.rest';
-import { createOrder, createPatient, createProduct, createPurchaseOrder, createVendor } from '../utils';
+import { createBusinessPartner, createOrder, createProduct } from '../utils';
 
 test('inactive products and services not returned from the search method', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product 1';
 	await createProduct(valueObject);
@@ -16,7 +16,8 @@ test('inactive products and services not returned from the search method', async
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create product 2';
 	let product2: Partial<Product> = {
@@ -33,7 +34,8 @@ test('inactive products and services not returned from the search method', async
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create service 1';
 	let service1: Partial<Service> = {
@@ -63,14 +65,14 @@ test('inactive products and services not returned from the search method', async
 
 	valueObject.stepName = 'Create patient';
 	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Sell first product so it can be deactivated';
 	valueObject.documentAction = documentAction.Complete;
 	valueObject.product = product1;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,

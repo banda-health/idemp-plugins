@@ -25,11 +25,11 @@ BEGIN
 	FROM
 		pg_constraint
 			INNER JOIN pg_class
-				ON conrelid = pg_class.oid
+			ON conrelid = pg_class.oid
 			INNER JOIN pg_namespace
-				ON pg_namespace.oid = pg_class.relnamespace
+			ON pg_namespace.oid = pg_class.relnamespace
 	WHERE
-			LOWER(PG_GET_CONSTRAINTDEF(pg_constraint.oid)) LIKE '%' || LOWER('c_elementvalue_id') || '%'
+			LOWER(PG_GET_CONSTRAINTDEF(pg_constraint.oid)) LIKE '%' || LOWER(_column_to_remove_indexes_from) || '%'
 		AND contype != 'p'
 	ORDER BY CASE WHEN contype = 'f' THEN 0 ELSE 1 END, contype, nspname, relname, conname;
 
@@ -40,9 +40,9 @@ BEGIN
 	FROM
 		pg_constraint
 			INNER JOIN pg_class
-				ON conrelid = pg_class.oid
+			ON conrelid = pg_class.oid
 			INNER JOIN pg_namespace
-				ON pg_namespace.oid = pg_class.relnamespace
+			ON pg_namespace.oid = pg_class.relnamespace
 	WHERE
 			LOWER(PG_GET_CONSTRAINTDEF(pg_constraint.oid)) LIKE '%' || LOWER(_column_to_remove_indexes_from) || '%'
 		AND contype != 'p'

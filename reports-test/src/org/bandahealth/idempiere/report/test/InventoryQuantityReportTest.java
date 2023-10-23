@@ -12,10 +12,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.report.test.utils.NumberUtils;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
+import org.compiere.model.MInOutLine;
+import org.compiere.model.X_M_AttributeSetExclude;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
@@ -406,6 +410,132 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 					"Balanced inventory amount is correct");
 			assertEquals(endingInventory, productRow.getCell(closingColumnIndex).getNumericCellValue(),
 					"Closing inventory amount is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void productSoldWithMultiplePricesDoesntDuplicateData() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create attribute set to track expirations");
+		MAttributeSet_BH attributeSet = new MAttributeSet_BH(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
+		attributeSet.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		attributeSet.setIsGuaranteeDate(true);
+		attributeSet.setIsGuaranteeDateMandatory(true);
+		attributeSet.setName(valueObject.getScenarioName());
+		attributeSet.setDescription(valueObject.getScenarioName());
+		attributeSet.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Add exclusions for the attribute set");
+		X_M_AttributeSetExclude attributeSetExclusion =
+				new X_M_AttributeSetExclude(valueObject.getContext(), 0, valueObject.getTransactionName());
+		attributeSetExclusion.setM_AttributeSet_ID(attributeSet.get_ID());
+		attributeSetExclusion.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		attributeSetExclusion.setIsSOTrx(true);
+		attributeSetExclusion.setAD_Table_ID(MOrderLine_BH.Table_ID);
+		attributeSetExclusion.saveEx();
+
+		attributeSetExclusion = new X_M_AttributeSetExclude(valueObject.getContext(), 0, valueObject.getTransactionName());
+		attributeSetExclusion.setM_AttributeSet_ID(attributeSet.get_ID());
+		attributeSetExclusion.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		attributeSetExclusion.setIsSOTrx(true);
+		attributeSetExclusion.setAD_Table_ID(MInOutLine.Table_ID);
+		attributeSetExclusion.saveEx();
+
+		attributeSetExclusion = new X_M_AttributeSetExclude(valueObject.getContext(), 0, valueObject.getTransactionName());
+		attributeSetExclusion.setM_AttributeSet_ID(attributeSet.get_ID());
+		attributeSetExclusion.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		attributeSetExclusion.setIsSOTrx(true);
+		attributeSetExclusion.setAD_Table_ID(MInventoryLine_BH.Table_ID);
+		attributeSetExclusion.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		valueObject.getProduct().setM_AttributeSet_ID(attributeSet.get_ID());
+		valueObject.getProduct().setName(String.valueOf(valueObject.getRandomNumber()));
+		valueObject.getProduct().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create attribute set instance");
+		valueObject.setRandom();
+		MAttributeSetInstance_BH attributeSetInstance =
+				new MAttributeSetInstance_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		attributeSetInstance.setGuaranteeDate(TimestampUtils.tomorrow());
+		attributeSetInstance.setM_AttributeSet_ID(attributeSet.get_ID());
+		attributeSetInstance.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
+		attributeSetInstance.setDescription(valueObject.getScenarioName());
+		attributeSetInstance.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(BigDecimal.TEN);
+		valueObject.setAttributeSetInstance(attributeSetInstance);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setAttributeSetInstance(null);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setAttributeSetInstance(null);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.getOrderLine().setPrice(new BigDecimal(2));
+		valueObject.getOrderLine().saveEx();
+		valueObject.getOrder().setDocAction(DocumentEngine.ACTION_Complete);
+		valueObject.getOrder().processIt(DocumentEngine.ACTION_Complete);
+		assertTrue(valueObject.getOrder().processIt(valueObject.getDocumentAction()), "Order was processed");
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.lastMonth(), null, null, null),
+				new ProcessInfoParameter("End Date", new Timestamp(System.currentTimeMillis()), null, null, null)
+		));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Optional<Row> productRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(0) != null &&
+							row.getCell(0).getStringCellValue().contains(valueObject.getProduct().getName())).findFirst();
+			assertTrue(productRow.isPresent(), "Report contains product");
+			assertThat("Opening stock for this product is correct", productRow.get().getCell(1).getNumericCellValue(),
+					is(0D));
+			assertThat("Received stock for this product is correct", productRow.get().getCell(2).getNumericCellValue(),
+					is(10D));
+			assertThat("Sold stock for this product is correct", productRow.get().getCell(3).getNumericCellValue(),
+					is(2D));
+			assertThat("Balanced stock for this product is correct", productRow.get().getCell(4).getNumericCellValue(),
+					is(0D));
+			assertThat("Balanced stock for this product is correct", productRow.get().getCell(5).getNumericCellValue(),
+					is(8D));
 		}
 	}
 }

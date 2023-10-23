@@ -178,6 +178,12 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			// Start our own transaction
 			bandaSetup.start();
 
+			if (!bandaSetup.createSequences()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Custom client sequences not created"));
+			}
+			addLog(bandaSetup.getThenResetInfo());
+
 			if (!bandaSetup.updateAccountingSchemaCosting()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Update accounting schema costing failed"));

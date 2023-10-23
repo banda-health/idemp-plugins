@@ -1,14 +1,6 @@
-import { accountApi, expenseCategoryApi, invoiceApi } from '../api';
-import { expenseApi } from '../api/expenses';
+import { businessPartnerApi, invoiceApi, paymentApi } from '../api';
 import { documentAction, documentBaseType, documentStatus } from '../models';
-import {
-	BusinessPartner,
-	Expense,
-	ExpenseCategory,
-	InvoiceLine,
-	Vendor,
-} from '../types/org.bandahealth.idempiere.rest';
-import { createBusinessPartner, createCharge, createInvoice, createProduct, createVendor } from '../utils';
+import { createBusinessPartner, createCharge, createInvoice, createPayment, createProduct } from '../utils';
 
 test('creating an invoice with a charge', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -94,114 +86,48 @@ test('invoice searching', async () => {
 	expect(invoices).toHaveLength(2);
 });
 
-test(`expenses can be deleted when they haven't been completed`, async () => {
+test(`vendor invoices can be deleted when they haven't been completed`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create charge';
-	let expenseCategory: Partial<ExpenseCategory> = {
-		orgId: 0,
-		description: valueObject.getStepMessageLong(),
-		name: `${valueObject.random}_${valueObject.scenarioName}`,
-		accountUuid: (
-			await accountApi.get(
-				valueObject,
-				undefined,
-				undefined,
-				undefined,
-				JSON.stringify({ issummary: false, name: 'Utilities' }),
-			)
-		).results[0].uuid,
-	};
-	expenseCategory = await expenseCategoryApi.save(valueObject, expenseCategory as ExpenseCategory);
+	await createCharge(valueObject);
 
-	valueObject.stepName = 'Create expense';
-	let expense: Partial<Expense> = {
-		orgId: 0,
-		description: valueObject.getStepMessageLong(),
-		supplier: valueObject.businessPartner as Vendor,
-		businessPartner: {
-			...valueObject.businessPartner,
-			phoneNumber: undefined,
-			emailAddress: undefined,
-		} as BusinessPartner,
-		dateInvoiced: valueObject.date?.toISOString(),
-		invoiceLines: [],
-	};
-	const invoiceLine: Partial<InvoiceLine> = {
-		description: valueObject.getStepMessageLong(),
-		quantity: valueObject.quantity || 1,
-		expenseCategory: expenseCategory as ExpenseCategory,
-	};
-	expense.invoiceLines?.push(invoiceLine as InvoiceLine);
+	valueObject.stepName = 'Create vendor invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.APInvoice, null, false, false, false);
+	await createInvoice(valueObject);
 
-	expense = await expenseApi.save(valueObject, expense as Expense);
-	if (!expense) {
-		throw new Error('Expense not created');
-	}
-
-	expect(await expenseApi.getByUuid(valueObject, expense.uuid!)).toBeTruthy();
-	expect(await expenseApi.delete(valueObject, expense.uuid!)).toBe(true);
-	expect(await expenseApi.getByUuid(valueObject, expense.uuid!)).toBeFalsy();
+	expect(await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid)).toBeTruthy();
+	expect(await invoiceApi.delete(valueObject, valueObject.invoice!.uuid)).toBe(true);
+	expect(await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid)).toBeFalsy();
 });
 
-test(`expenses are voided when they've been completed and you try to delete them`, async () => {
+test(`vendor invoices are voided when they've been completed and you try to delete them`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create charge';
-	let expenseCategory: Partial<ExpenseCategory> = {
-		orgId: 0,
-		description: valueObject.getStepMessageLong(),
-		name: `${valueObject.random}_${valueObject.scenarioName}`,
-		accountUuid: (
-			await accountApi.get(
-				valueObject,
-				undefined,
-				undefined,
-				undefined,
-				JSON.stringify({ issummary: false, name: 'Utilities' }),
-			)
-		).results[0].uuid,
-	};
-	expenseCategory = await expenseCategoryApi.save(valueObject, expenseCategory as ExpenseCategory);
+	await createCharge(valueObject);
 
-	valueObject.stepName = 'Create expense';
-	let expense: Partial<Expense> = {
-		orgId: 0,
-		description: valueObject.getStepMessageLong(),
-		supplier: valueObject.businessPartner as Vendor,
-		businessPartner: {
-			...valueObject.businessPartner,
-			phoneNumber: undefined,
-			emailAddress: undefined,
-		} as BusinessPartner,
-		dateInvoiced: valueObject.date?.toISOString(),
-		invoiceLines: [],
-	};
-	const invoiceLine: Partial<InvoiceLine> = {
-		description: valueObject.getStepMessageLong(),
-		quantity: valueObject.quantity || 1,
-		expenseCategory: expenseCategory as ExpenseCategory,
-	};
-	invoiceLine.price = (invoiceLine.quantity || 0) * (invoiceLine.product?.sellPrice || 0);
-	expense.invoiceLines?.push(invoiceLine as InvoiceLine);
+	valueObject.stepName = 'Create vendor invoice';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.APInvoice, null, false, false, false);
+	await createInvoice(valueObject);
+	expect(valueObject.invoice).toBeTruthy();
+	expect(valueObject.invoice!.docStatus).toBe(documentStatus.Completed);
 
-	expense = await expenseApi.saveAndProcess(valueObject, expense as Expense, documentAction.Complete);
-	expect(expense).toBeTruthy();
-	expect(expense.docStatus).toBe(documentStatus.Completed);
-
-	expect(await expenseApi.getByUuid(valueObject, expense.uuid!)).toBeTruthy();
-	expect(await expenseApi.delete(valueObject, expense.uuid!)).toBe(true);
-	expense = await expenseApi.getByUuid(valueObject, expense.uuid!);
-	expect(expense).toBeTruthy();
-	expect(expense.docStatus).toBe(documentStatus.Reversed);
+	expect(await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid)).toBeTruthy();
+	expect(await invoiceApi.delete(valueObject, valueObject.invoice!.uuid)).toBe(true);
+	const invoice = await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid);
+	expect(invoice).toBeTruthy();
+	expect(invoice.docStatus).toBe(documentStatus.Reversed);
 });
 
 test('can complete an invoice', async () => {
@@ -209,7 +135,7 @@ test('can complete an invoice', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create vendor';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create charge';
 	await createCharge(valueObject);
@@ -221,4 +147,36 @@ test('can complete an invoice', async () => {
 
 	expect(valueObject.invoice).toBeTruthy();
 	expect(valueObject.invoice?.docStatus).toBe(documentStatus.Completed);
+});
+
+test('a payment for more than open invoice amounts causes the BP total open balance to be negative', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create invoice';
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	valueObject.documentAction = documentAction.Complete;
+	valueObject.setSalesPrice(10);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payment';
+	valueObject.invoice = undefined;
+	valueObject.paymentAmount = 100;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	valueObject.documentAction = documentAction.Complete;
+	await createPayment(valueObject);
+
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		-90,
+	);
+	await paymentApi.process(valueObject, valueObject.payment!.uuid, documentAction.ReverseAccrual);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		10,
+	);
 });

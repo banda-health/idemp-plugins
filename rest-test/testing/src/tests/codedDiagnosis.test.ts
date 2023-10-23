@@ -1,5 +1,4 @@
 import { codedDiagnosisApi } from '../api';
-import { Service } from '../types/org.bandahealth.idempiere.rest';
 
 test('get coded diagnosis fields', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;

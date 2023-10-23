@@ -16,19 +16,9 @@ public class MBPartner_BH extends MBPartner {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Column name BH_ApproximateYears
-	 */
-	public static final String COLUMNNAME_BH_ApproximateYears = "BH_ApproximateYears";
-
-	/**
 	 * Column name BH_Birthday
 	 */
 	public static final String COLUMNNAME_BH_Birthday = "BH_Birthday";
-
-	/**
-	 * Column name BH_C_Location_ID
-	 */
-	public static final String COLUMNNAME_BH_C_Location_ID = "BH_C_Location_ID";
 
 	/**
 	 * Column name BH_EMail
@@ -46,39 +36,14 @@ public class MBPartner_BH extends MBPartner {
 	public static final String COLUMNNAME_BH_IsApproximateDateOfBirth = "BH_IsApproximateDateOfBirth";
 
 	/**
-	 * Column name BH_IsPatient
-	 */
-	public static final String COLUMNNAME_BH_IsPatient = "BH_IsPatient";
-
-	/**
 	 * Column name bh_nextappointmentdate
 	 */
 	public static final String COLUMNNAME_bh_nextappointmentdate = "bh_nextappointmentdate";
 
 	/**
-	 * Column name bh_nhif_member_name
-	 */
-	public static final String COLUMNNAME_bh_nhif_member_name = "bh_nhif_member_name";
-
-	/**
-	 * Column name bh_nhif_relationship
-	 */
-	public static final String COLUMNNAME_bh_nhif_relationship = "bh_nhif_relationship";
-
-	/**
-	 * Column name BH_NHIF_Type
-	 */
-	public static final String COLUMNNAME_BH_NHIF_Type = "BH_NHIF_Type";
-
-	/**
 	 * Column name bh_occupation
 	 */
 	public static final String COLUMNNAME_bh_occupation = "bh_occupation";
-
-	/**
-	 * Column name bh_patient_notes
-	 */
-	public static final String COLUMNNAME_bh_patient_notes = "bh_patient_notes";
 
 	/**
 	 * Column name BH_PatientID
@@ -106,14 +71,12 @@ public class MBPartner_BH extends MBPartner {
 	public static final String COLUMNNAME_NextOfKin_Name = "NextOfKin_Name";
 
 	/**
-	 * Column name NHIF_Number
-	 */
-	public static final String COLUMNNAME_NHIF_Number = "NHIF_Number";
-
-	/**
 	 * Column name BH_Local_PatientID
 	 */
 	public static final String COLUMNNAME_BH_Local_PatientID = "BH_Local_PatientID";
+
+	/** Column name BH_Locked */
+	public static final String COLUMNNAME_BH_Locked = "BH_Locked";
 
 	/**
 	 * Female = female
@@ -123,6 +86,9 @@ public class MBPartner_BH extends MBPartner {
 	 * Male = male
 	 */
 	public static final String BH_GENDER_Male = "male";
+
+	/** Column name BH_NeedAdditionalVisitInfo */
+	public static final String COLUMNNAME_BH_NeedAdditionalVisitInfo = "BH_NeedAdditionalVisitInfo";
 
 	public MBPartner_BH(Properties ctx) {
 		super(ctx);
@@ -161,18 +127,6 @@ public class MBPartner_BH extends MBPartner {
 	}
 
 	/**
-	 * Get Approx. Years.
-	 *
-	 * @return The approximate age of a person.
-	 */
-	public BigDecimal getBH_ApproximateYears() {
-		BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_BH_ApproximateYears);
-		if (bd == null)
-			return Env.ZERO;
-		return bd;
-	}
-
-	/**
 	 * Set Birthday.
 	 *
 	 * @param BH_Birthday Birthday or Anniversary day
@@ -188,35 +142,6 @@ public class MBPartner_BH extends MBPartner {
 	 */
 	public Timestamp getBH_Birthday() {
 		return (Timestamp) get_Value(COLUMNNAME_BH_Birthday);
-	}
-
-	public I_C_Location getBH_C_Location() throws RuntimeException {
-		return (I_C_Location) MTable.get(getCtx(), I_C_Location.Table_Name)
-				.getPO(getBH_C_Location_ID(), get_TrxName());
-	}
-
-	/**
-	 * Set Address.
-	 *
-	 * @param BH_C_Location_ID Location or Address
-	 */
-	public void setBH_C_Location_ID(int BH_C_Location_ID) {
-		if (BH_C_Location_ID < 1)
-			set_Value(COLUMNNAME_BH_C_Location_ID, null);
-		else
-			set_Value(COLUMNNAME_BH_C_Location_ID, Integer.valueOf(BH_C_Location_ID));
-	}
-
-	/**
-	 * Get Address.
-	 *
-	 * @return Location or Address
-	 */
-	public int getBH_C_Location_ID() {
-		Integer ii = (Integer) get_Value(COLUMNNAME_BH_C_Location_ID);
-		if (ii == null)
-			return 0;
-		return ii.intValue();
 	}
 
 	/**
@@ -257,30 +182,6 @@ public class MBPartner_BH extends MBPartner {
 	}
 
 	/**
-	 * Set Patient/Customer.
-	 *
-	 * @param BH_IsPatient Indicates if this Business Partner is a Customer
-	 */
-	public void setBH_IsPatient(boolean BH_IsPatient) {
-		set_Value(COLUMNNAME_BH_IsPatient, Boolean.valueOf(BH_IsPatient));
-	}
-
-	/**
-	 * Get Patient/Customer.
-	 *
-	 * @return Indicates if this Business Partner is a Customer
-	 */
-	public boolean isBH_IsPatient() {
-		Object oo = get_Value(COLUMNNAME_BH_IsPatient);
-		if (oo != null) {
-			if (oo instanceof Boolean)
-				return ((Boolean) oo).booleanValue();
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/**
 	 * Set Next Appointment Date.
 	 *
 	 * @param bh_nextappointmentdate Next Appointment Date
@@ -299,62 +200,6 @@ public class MBPartner_BH extends MBPartner {
 	}
 
 	/**
-	 * Set NHIF Member Name.
-	 *
-	 * @param bh_nhif_member_name NHIF Member Name
-	 */
-	public void setbh_nhif_member_name(String bh_nhif_member_name) {
-		set_Value(COLUMNNAME_bh_nhif_member_name, bh_nhif_member_name);
-	}
-
-	/**
-	 * Get NHIF Member Name.
-	 *
-	 * @return NHIF Member Name
-	 */
-	public String getbh_nhif_member_name() {
-		return (String) get_Value(COLUMNNAME_bh_nhif_member_name);
-	}
-
-	/**
-	 * Set NHIF Relationship.
-	 *
-	 * @param bh_nhif_relationship NHIF Relationship
-	 */
-	public void setbh_nhif_relationship(String bh_nhif_relationship) {
-
-		set_Value(COLUMNNAME_bh_nhif_relationship, bh_nhif_relationship);
-	}
-
-	/**
-	 * Get NHIF Relationship.
-	 *
-	 * @return NHIF Relationship
-	 */
-	public String getbh_nhif_relationship() {
-		return (String) get_Value(COLUMNNAME_bh_nhif_relationship);
-	}
-
-	/**
-	 * Set NHIF Type.
-	 *
-	 * @param BH_NHIF_Type Select the type of NHIF the patient is registered with.
-	 */
-	public void setBH_NHIF_Type(String BH_NHIF_Type) {
-
-		set_Value(COLUMNNAME_BH_NHIF_Type, BH_NHIF_Type);
-	}
-
-	/**
-	 * Get NHIF Type.
-	 *
-	 * @return Select the type of NHIF the patient is registered with.
-	 */
-	public String getBH_NHIF_Type() {
-		return (String) get_Value(COLUMNNAME_BH_NHIF_Type);
-	}
-
-	/**
 	 * Set Occupation.
 	 *
 	 * @param bh_occupation Occupation
@@ -370,24 +215,6 @@ public class MBPartner_BH extends MBPartner {
 	 */
 	public String getbh_occupation() {
 		return (String) get_Value(COLUMNNAME_bh_occupation);
-	}
-
-	/**
-	 * Set Patient Notes.
-	 *
-	 * @param bh_patient_notes Optional additional user defined information
-	 */
-	public void setbh_patient_notes(String bh_patient_notes) {
-		set_Value(COLUMNNAME_bh_patient_notes, bh_patient_notes);
-	}
-
-	/**
-	 * Get Patient Notes.
-	 *
-	 * @return Optional additional user defined information
-	 */
-	public String getbh_patient_notes() {
-		return (String) get_Value(COLUMNNAME_bh_patient_notes);
 	}
 
 	/**
@@ -481,24 +308,6 @@ public class MBPartner_BH extends MBPartner {
 	}
 
 	/**
-	 * Set NHIF Number.
-	 *
-	 * @param NHIF_Number Patient National Hospital Insuarance Fund
-	 */
-	public void setNHIF_Number(String NHIF_Number) {
-		set_Value(COLUMNNAME_NHIF_Number, NHIF_Number);
-	}
-
-	/**
-	 * Get NHIF Number.
-	 *
-	 * @return Patient National Hospital Insuarance Fund
-	 */
-	public String getNHIF_Number() {
-		return (String) get_Value(COLUMNNAME_NHIF_Number);
-	}
-
-	/**
 	 * Set Local Patient ID.
 	 *
 	 * @param BH_Local_PatientID A unique identifier for users to manually enter
@@ -535,6 +344,51 @@ public class MBPartner_BH extends MBPartner {
 		if (oo != null) {
 			if (oo instanceof Boolean)
 				return ((Boolean) oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Need Additional Visit Info.
+	 @param BH_NeedAdditionalVisitInfo Need Additional Visit Info	  */
+	public void setBH_NeedAdditionalVisitInfo (boolean BH_NeedAdditionalVisitInfo)
+	{
+		set_Value (COLUMNNAME_BH_NeedAdditionalVisitInfo, Boolean.valueOf(BH_NeedAdditionalVisitInfo));
+	}
+
+	/** Get Need Additional Visit Info.
+	 @return Need Additional Visit Info	  */
+	public boolean isBH_NeedAdditionalVisitInfo ()
+	{
+		Object oo = get_Value(COLUMNNAME_BH_NeedAdditionalVisitInfo);
+		if (oo != null)
+		{
+			if (oo instanceof Boolean)
+				return ((Boolean)oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set BH_Locked.
+	 @param BH_Locked
+	 Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public void setBH_Locked (boolean BH_Locked)
+	{
+		set_Value (COLUMNNAME_BH_Locked, Boolean.valueOf(BH_Locked));
+	}
+
+	/** Get BH_Locked.
+	 @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public boolean isBH_Locked ()
+	{
+		Object oo = get_Value(COLUMNNAME_BH_Locked);
+		if (oo != null)
+		{
+			if (oo instanceof Boolean)
+				return ((Boolean)oo).booleanValue();
 			return "Y".equals(oo);
 		}
 		return false;
