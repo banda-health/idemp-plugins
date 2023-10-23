@@ -5503,12 +5503,10 @@ FROM
 	bh_orderline_charge_info olci
 		JOIN c_orderline ol
 		ON ol.c_orderline_id = olci.c_orderline_id
-		JOIN c_order o
-		ON ol.c_order_id = o.c_order_id
-		JOIN c_invoice i
-		ON o.c_order_id = i.c_order_id AND i.docstatus NOT IN ('VO', 'RE', 'RA')
 		JOIN c_invoiceline il
-		ON i.c_invoice_id = il.c_invoice_id;
+		ON ol.c_orderline_id = il.c_orderline_id
+		JOIN c_invoice i
+		ON i.c_invoice_id = il.c_invoice_id AND i.docstatus NOT IN ('VO', 'RE', 'RA');
 
 -- Update the referenced list name
 UPDATE ad_reference
@@ -5927,6 +5925,20 @@ WHERE
 DELETE
 FROM
 	c_charge_trl
+WHERE
+		c_charge_id IN (
+		SELECT
+			c_charge_id
+		FROM
+			c_charge
+		WHERE
+				c_chargetype_id IN (
+				SELECT c_chargetype_id FROM c_chargetype WHERE name = 'Default Income Category - DO NOT CHANGE'
+			)
+	);
+DELETE
+FROM
+	c_charge_acct
 WHERE
 		c_charge_id IN (
 		SELECT
