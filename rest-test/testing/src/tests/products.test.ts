@@ -92,3 +92,32 @@ test('inactive products and services not returned from the search method', async
 	expect(searchedResults.find((product) => product.name === service1.name)).toBeFalsy();
 	expect(searchedResults.find((product) => product.name === service2.name)).toBeTruthy();
 });
+
+test('search on page beyond returned results resets the page', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product 1';
+	await createProduct(valueObject);
+	const product1 = valueObject.product!;
+
+	valueObject.stepName = 'Create product 2';
+	valueObject.product = undefined;
+	valueObject.setRandom();
+	await createProduct(valueObject);
+
+	expect((await productApi.get(valueObject, 0, 1)).pagingInfo.totalPages).toBeGreaterThan(1);
+	const specificSearchResults = await productApi.get(
+		valueObject,
+		1,
+		1,
+		undefined,
+		JSON.stringify({ name: product1.name }),
+	);
+	expect(specificSearchResults.results.length).toBe(1);
+	expect(specificSearchResults.pagingInfo.page).toBe(0);
+	expect(specificSearchResults.pagingInfo.totalPages).toBe(1);
+});
