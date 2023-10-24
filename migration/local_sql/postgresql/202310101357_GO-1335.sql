@@ -3140,7 +3140,7 @@ SELECT
 			LIMIT 1
 		)::INT,
 		FALSE
-		);
+	);
 
 -- Add 12310 accounts for those that don't have it
 INSERT INTO
@@ -3777,7 +3777,7 @@ SELECT
 			LIMIT 1
 		)::INT,
 		FALSE
-		);
+	);
 
 -- Delete duplicate charge types
 DROP TABLE IF EXISTS tmp_chargetype_mapping;
@@ -3944,7 +3944,7 @@ SELECT
 			LIMIT 1
 		)::INT,
 		FALSE
-		);
+	);
 
 -- Insert valid combinations for each of the charges we just created
 INSERT INTO
@@ -4264,7 +4264,7 @@ SELECT
 			LIMIT 1
 		)::INT,
 		FALSE
-		);
+	);
 
 DROP TABLE IF EXISTS tmp_c_bp_group_acct;
 CREATE TEMP TABLE tmp_c_bp_group_acct
@@ -4983,7 +4983,7 @@ SELECT
 			LIMIT 1
 		)::INT,
 		FALSE
-		);
+	);
 
 -- Remove erroneous waivers
 DELETE
@@ -5002,12 +5002,14 @@ WHERE
 
 -- Insert NHIF National Scheme
 INSERT INTO
-	tmp_c_bpartner (ad_client_id, createdby, updatedby, value, name, description, c_bp_group_id, ad_language,
-	                c_paymentterm_id, m_pricelist_id, bh_needadditionalvisitinfo, c_charge_id, mapped_c_charge_id,
-	                bh_locked)
+	tmp_c_bpartner (ad_client_id, created, createdby, updated, updatedby, value, name, description, c_bp_group_id,
+	                ad_language, c_paymentterm_id, m_pricelist_id, bh_needadditionalvisitinfo, c_charge_id,
+	                mapped_c_charge_id, bh_locked)
 SELECT
 	c.ad_client_id,
+	c.created,
 	c.createdby,
+	c.updated,
 	c.updatedby,
 	c.name,
 	c.name,
@@ -5047,12 +5049,14 @@ WHERE
 	AND c.bh_subtype = 'I';
 -- Insert FFS insurance and waivers
 INSERT INTO
-	tmp_c_bpartner (ad_client_id, createdby, updatedby, value, name, description, c_bp_group_id, ad_language,
-	                c_paymentterm_id, m_pricelist_id, bh_needadditionalvisitinfo, c_charge_id, mapped_c_charge_id,
-	                bh_locked)
+	tmp_c_bpartner (ad_client_id, created, createdby, updated, updatedby, value, name, description, c_bp_group_id,
+	                ad_language, c_paymentterm_id, m_pricelist_id, bh_needadditionalvisitinfo, c_charge_id,
+	                mapped_c_charge_id, bh_locked)
 SELECT
 	c.ad_client_id,
+	c.created,
 	c.createdby,
+	c.updated,
 	c.updatedby,
 	c.name,
 	c.name,
@@ -5200,7 +5204,7 @@ SELECT
 			LIMIT 1
 		)::INT,
 		FALSE
-		);
+	);
 
 -- Add locations for each of these BPs
 INSERT INTO
@@ -5271,7 +5275,7 @@ SELECT
 			LIMIT 1
 		)::INT,
 		FALSE
-		);
+	);
 
 -- Do the temp BP location insert
 INSERT INTO
