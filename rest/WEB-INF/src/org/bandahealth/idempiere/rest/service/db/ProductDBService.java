@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
@@ -23,7 +24,6 @@ import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MLocator;
-import org.compiere.model.MProduct;
 import org.compiere.model.MProductCategory;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MTaxCategory;
@@ -193,11 +193,11 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				if (taxCategory != null) {
 					product.setC_TaxCategory_ID(taxCategory.get_ID());
 				}
-
-				// Buy price can only be set when a product gets created
-				if (entity.getBuyPrice() != null) {
-					product.setBH_BuyPrice(entity.getBuyPrice());
-				}
+			}
+			// Buy price can only be set when a product gets created or if no POs exist yet
+			if (entity.getBuyPrice() != null &&
+					(isProductNew || getProductIdsWithNoFinishedPurchaseOrders().contains(product.get_ID()))) {
+				product.setBH_BuyPrice(entity.getBuyPrice());
 			}
 
 			if (StringUtil.isNotNullAndEmpty(entity.getName())) {
@@ -369,6 +369,9 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 				attributeSetsById.values().stream().map(MAttributeSet_BH::getM_SerNoCtl_ID).collect(Collectors.toSet());
 		Map<Integer, MSerNoCtl_BH> serialNumberControlsById = serialNumberControlIds.isEmpty() ? new HashMap<>() :
 				serialNumberControlDBService.getByIds(serialNumberControlIds);
+
+		// See which products have had POs already
+		List<Integer> productIdsWithNoPurchaserOrders = getProductIdsWithNoFinishedPurchaseOrders();
 		return models.stream().peek(product -> {
 			if (attributeSetsById.containsKey(product.getAttributeSetId())) {
 				product.setAttributeSet(new AttributeSet(attributeSetsById.get(product.getAttributeSetId())));
@@ -380,6 +383,7 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			if (mostRecentPurchasesByProductId.containsKey(product.getId())) {
 				product.setBuyPrice(mostRecentPurchasesByProductId.get(product.getId()).getPurchasePrice());
 			}
+			product.setHasBeenPurchased(!productIdsWithNoPurchaserOrders.contains(product.getId()));
 		}).collect(Collectors.toList());
 	}
 
@@ -437,5 +441,47 @@ public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 			}
 		});
 		return productCostCalculations;
+	}
+
+
+	/**
+	 * Gets the IDs of products that haven't had any finished POs
+	 *
+	 * @return A list of product ids that have no POs
+	 */
+	public List<Integer> getProductIdsWithNoFinishedPurchaseOrders() {
+		List<Integer> productIds = new ArrayList<>();
+		List<Object> parameters = new ArrayList<>();
+		String sql =
+				"SELECT " +
+						" m_product_id " +
+						"FROM " +
+						" m_product " +
+						"WHERE " +
+						"   m_product_id NOT IN ( " +
+						"   SELECT " +
+						"     m_product_id " +
+						"   FROM " +
+						"     c_orderline " +
+						"   WHERE " +
+						"       c_order_id IN ( " +
+						"       SELECT c_order_id " +
+						"       FROM c_order " +
+						"       WHERE issotrx = ? " +
+						"         AND docstatus IN (?,?) " +
+						"     ) " +
+						" ) AND ad_client_id = ?";
+		parameters.add(false);
+		parameters.add(MOrder_BH.DOCSTATUS_Completed);
+		parameters.add(MOrder_BH.DOCSTATUS_Closed);
+		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		SqlUtil.executeQuery(sql, parameters, null, data -> {
+			try {
+				productIds.add((data.getInt(1)));
+			} catch (Exception e) {
+				logger.severe(e.getMessage());
+			}
+		});
+		return productIds;
 	}
 }
