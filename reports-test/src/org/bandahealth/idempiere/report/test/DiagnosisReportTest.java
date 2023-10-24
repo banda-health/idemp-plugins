@@ -36,6 +36,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 	@IPopulateAnnotation.CanRunBeforeClass
@@ -89,7 +90,8 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Uncoded_Diagnosis(nonCodedDiagnosis);
 		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
@@ -165,7 +167,8 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Uncoded_Diagnosis("Something wacky");
 		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
@@ -247,6 +250,168 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 			assertEquals(diagnosisName, visitRow.getCell(primaryCodedDiagnosisIndex).getStringCellValue(),
 					"Primary coded diagnosis is correct");
 			assertEquals(nonCodedDiagnosis, visitRow.getCell(primaryNonCodedDiagnosisIndex).getStringCellValue(),
+					"Primary non-coded diagnosis is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void draftedAndVoidedVisitsDontShowUp() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		String patientNameSuffix = String.valueOf(valueObject.getRandomNumber());
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setQuantity(BigDecimal.TEN);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first coded diagnosis");
+		valueObject.setRandom();
+		MBHCodedDiagnosis codedDiagnosis =
+				new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setbh_cielname(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create first visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create first visit diagnoses");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		MBHEncounterDiagnosis firstEncounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		firstEncounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		firstEncounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		firstEncounterDiagnosis.setLineNo(10);
+		firstEncounterDiagnosis.saveEx();
+
+		valueObject.setStepName("Create drafted sales order");
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create another coded diagnosis");
+		valueObject.setRandom();
+		codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setbh_cielname(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create second visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create second visit diagnosis");
+		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		MBHEncounterDiagnosis secondEncounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		secondEncounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		secondEncounterDiagnosis.setBH_Uncoded_Diagnosis("The Diagnosis of the Century");
+		secondEncounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		secondEncounterDiagnosis.setLineNo(10);
+		secondEncounterDiagnosis.saveEx();
+
+		valueObject.setStepName("Create voided sales order");
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.getOrder().setDocAction(DocumentEngine.ACTION_Void);
+		assertTrue(valueObject.getOrder().processIt(DocumentEngine.ACTION_Void), "order was voided");
+		valueObject.getOrder().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create final coded diagnosis");
+		valueObject.setRandom();
+		codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		codedDiagnosis.setbh_cielname(String.valueOf(valueObject.getRandomNumber()));
+		codedDiagnosis.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create third visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create third visit diagnosis");
+		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		MBHEncounterDiagnosis thirdEncounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		thirdEncounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		thirdEncounterDiagnosis.setBH_Uncoded_Diagnosis("This is getting out of control!");
+		thirdEncounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		thirdEncounterDiagnosis.setLineNo(10);
+		thirdEncounterDiagnosis.saveEx();
+
+		valueObject.setStepName("Create completed sales order");
+		valueObject.setQuantity(BigDecimal.ONE);
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("7c29028a-8dd3-4025-a5af-87701748d81f");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		commitEx();
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Visit Date");
+			int nameColumnIndex = TableUtils.getColumnIndex(headerRow, "Name");
+			int primaryCodedDiagnosisIndex = TableUtils.getColumnIndexContaining(headerRow, "Primary Coded ");
+			int primaryNonCodedDiagnosisIndex = TableUtils.getColumnIndexContaining(headerRow, "Primary Non-coded " +
+					"Diagnosis");
+
+			List<Row> visitRows = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(nameColumnIndex) != null &&
+							row.getCell(nameColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(nameColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 20))).collect(Collectors.toList());
+			assertEquals(1, visitRows.size(), "Only the completed visit shows on the report");
+
+			Row visitRow = visitRows.get(0);
+			assertEquals(codedDiagnosis.getbh_cielname(), visitRow.getCell(primaryCodedDiagnosisIndex).getStringCellValue(),
+					"Primary coded diagnosis is correct");
+			assertEquals(thirdEncounterDiagnosis.getBH_Uncoded_Diagnosis(),
+					visitRow.getCell(primaryNonCodedDiagnosisIndex).getStringCellValue(),
 					"Primary non-coded diagnosis is correct");
 		}
 	}
