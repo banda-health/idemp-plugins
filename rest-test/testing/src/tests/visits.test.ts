@@ -2143,3 +2143,64 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 	expect((await businessPartnerApi.getByUuid(valueObject, insurer.uuid)).totalOpenBalance).toBe(0);
 });
+
+test(`visit can be saved without order and invoice lines`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	valueObject.clearBusinessPartner();
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
+		true,
+		false,
+		false,
+	);
+	const salesOrderDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const customerInvoiceDocumentType = valueObject.documentType!;
+	const orderUuid = randomUUID();
+
+	valueObject.stepName = 'Create visit';
+	valueObject.visit = await visitApi.save(valueObject, {
+		description: valueObject.getStepMessageLong(),
+		patient: valueObject.businessPartner,
+		visitDate: valueObject.date,
+		orders: [
+			{
+				uuid: orderUuid,
+				description: valueObject.getStepMessageLong(),
+				dateOrdered: valueObject.date,
+				warehouse: valueObject.warehouse,
+				documentTypeTarget: salesOrderDocumentType,
+			} as Partial<Order>,
+		],
+		invoices: [
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: valueObject.businessPartner!,
+				dateInvoiced: valueObject.date?.toISOString(),
+				order: { uuid: orderUuid },
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+		],
+	} as Visit);
+
+	expect(valueObject.visit).toBeTruthy();
+	expect(valueObject.visit.orders).toHaveLength(1);
+	expect(valueObject.visit.orders[0].orderLines).toHaveLength(0);
+	expect(valueObject.visit.invoices).toHaveLength(1);
+	expect(valueObject.visit.invoices[0].invoiceLines).toHaveLength(0);
+});

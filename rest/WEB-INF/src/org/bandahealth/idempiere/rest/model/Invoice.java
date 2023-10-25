@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class Invoice extends BaseMetadata {
 	@JsonProperty("isSalesOrderTransaction")
 	private boolean isSalesOrderTransaction;
 	private String description;
-	private List<InvoiceLine> invoiceLines;
+	private List<InvoiceLine> invoiceLines = new ArrayList<>();
 	private String paymentRule;
 	// iDempiere's DocStatus i.e Drafted, InProgress, Completed, Voided etc
 	private String docStatus;
