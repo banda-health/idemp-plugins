@@ -205,7 +205,7 @@ public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBP
 
 	@Override
 	protected BusinessPartner createInstanceWithAllFields(MBPartner_BH instance) {
-		return new BusinessPartner(instance);
+		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override
