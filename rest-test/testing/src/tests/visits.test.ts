@@ -2210,7 +2210,7 @@ test(`document number should be returned for saved visits`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	createBusinessPartner(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;

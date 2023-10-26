@@ -8,6 +8,7 @@ import java.util.Properties;
 public class MCharge_BH extends MCharge {
 	public static final String NAME_BillWaiver = "Bill Waiver";
 	public static final String NAME_AccountsReceivable_Donations = "Accounts Receivable - Donations";
+	public static final String NAME_AccountsReceivable_FFS_Insurance = "Accounts Receivable - FFS Insurance";
 	/**
 	 * Column name BH_SubType
 	 */

@@ -20,7 +20,7 @@ INTO TEMP TABLE
 FROM
 	ad_client
 WHERE
-	(ad_client_id = 2
+	(ad_client_id = 2 OR ad_client_id = 11
 		OR ad_client_id > 999999)
 	AND isactive = 'Y';
 
