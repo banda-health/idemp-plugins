@@ -98,7 +98,7 @@ test(`get method returns the correct data`, async () => {
 	expect(searchedBusinessPartners[0].nextOfKinContact).toBe(valueObject.businessPartner.nextOfKinContact);
 	expect(searchedBusinessPartners[0].address).toBe(valueObject.businessPartner.address);
 
-	const specificBusinessPartner = await businessPartnerApi.getByUuid(valueObject, searchedBusinessPartners[0].uuid);
+	let specificBusinessPartner = await businessPartnerApi.getByUuid(valueObject, searchedBusinessPartners[0].uuid);
 	expect(specificBusinessPartner).toBeTruthy();
 	expect(specificBusinessPartner.lastVisitDate).toBe(formatDate(twoDaysAgo));
 	expect(specificBusinessPartner.totalVisits).toBe(1);
@@ -107,4 +107,10 @@ test(`get method returns the correct data`, async () => {
 	expect(specificBusinessPartner.nextOfKinName).toBe(valueObject.businessPartner.nextOfKinName);
 	expect(specificBusinessPartner.nextOfKinContact).toBe(valueObject.businessPartner.nextOfKinContact);
 	expect(specificBusinessPartner.address).toBe(valueObject.businessPartner.address);
+
+	specificBusinessPartner.address = 'Cool New Place';
+	specificBusinessPartner = await businessPartnerApi.save(valueObject, specificBusinessPartner);
+	expect(specificBusinessPartner.address).toBe('Cool New Place');
+	specificBusinessPartner = await businessPartnerApi.getByUuid(valueObject, specificBusinessPartner.uuid);
+	expect(specificBusinessPartner.address).toBe('Cool New Place');
 });

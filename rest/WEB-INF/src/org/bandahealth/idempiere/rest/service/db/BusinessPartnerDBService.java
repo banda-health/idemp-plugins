@@ -180,6 +180,9 @@ public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBP
 			businessPartnerLocation.setC_Location_ID(location.get_ID());
 			businessPartnerLocation.setName("Default Location");
 			businessPartnerLocation.saveEx();
+		} else {
+			businessPartner.getLocations(false)[0].setC_Location_ID(location.get_ID());
+			businessPartner.getLocations(false)[0].saveEx();
 		}
 
 		// If it has info & values, we need to update those
