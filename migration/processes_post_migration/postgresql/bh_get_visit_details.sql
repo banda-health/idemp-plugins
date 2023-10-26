@@ -1,7 +1,7 @@
 DROP FUNCTION IF EXISTS bh_get_visit_details(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
-CREATE FUNCTION bh_get_visit_details(ad_client_id numeric,
-                                     begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
-                                     end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
+CREATE FUNCTION bh_get_visit_details(_ad_client_id numeric,
+                                     _begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
+                                     _end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
 		        bh_visit_id                  numeric,
@@ -44,9 +44,12 @@ WITH visit_diagnoses AS (
 	FROM
 		bh_visit v
 			JOIN bh_encounter e
-				ON v.bh_visit_id = e.bh_visit_id
+			ON v.bh_visit_id = e.bh_visit_id
 			LEFT JOIN bh_encounter_diagnosis ev
-				ON e.bh_encounter_id = ev.bh_encounter_id
+			ON e.bh_encounter_id = ev.bh_encounter_id
+	WHERE
+		v.ad_client_id = _ad_client_id
+		AND v.bh_visitdate BETWEEN _begin_date AND _end_date
 )
 SELECT
 	v.bh_visit_id,
@@ -78,39 +81,39 @@ SELECT
 FROM
 	bh_visit v
 		JOIN c_order o
-			ON v.bh_visit_id = o.bh_visit_id
+		ON v.bh_visit_id = o.bh_visit_id
 		JOIN c_bpartner bp
-			ON v.patient_id = bp.c_bpartner_id
+		ON v.patient_id = bp.c_bpartner_id
 		JOIN ad_user createdby_user
-			ON v.createdby = createdby_user.ad_user_id
+		ON v.createdby = createdby_user.ad_user_id
 		JOIN ad_ref_list rl
-			ON rl.value = v.bh_patienttype
+		ON rl.value = v.bh_patienttype
 		JOIN ad_reference r
-			ON rl.ad_reference_id = r.ad_reference_id
+		ON rl.ad_reference_id = r.ad_reference_id
 		LEFT JOIN visit_diagnoses pd
-			ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
+		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
 		LEFT JOIN visit_diagnoses sd
-			ON v.bh_visit_id = sd.bh_visit_id AND sd.diagnosis_rank = 2
+		ON v.bh_visit_id = sd.bh_visit_id AND sd.diagnosis_rank = 2
 		JOIN (
-			SELECT
-				o.c_order_id,
-				COALESCE(SUM(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
-				COALESCE(SUM(ol.linenetamt), 0)                                         AS salestotals
-			FROM
-				c_order o
-					JOIN c_orderline ol
-						ON o.c_order_id = ol.c_order_id
-					JOIN bh_visit v
-						ON o.bh_visit_id = v.bh_visit_id
-			WHERE
-				o.ad_client_id = $1
-				AND v.bh_visitdate BETWEEN $2 AND $3
-			GROUP BY o.c_order_id
-		) sales_details
-			ON o.c_order_id = sales_details.c_order_id
+		SELECT
+			o.c_order_id,
+			COALESCE(SUM(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
+			COALESCE(SUM(ol.linenetamt), 0)                                         AS salestotals
+		FROM
+			c_order o
+				JOIN c_orderline ol
+				ON o.c_order_id = ol.c_order_id
+				JOIN bh_visit v
+				ON o.bh_visit_id = v.bh_visit_id
+		WHERE
+			o.ad_client_id = _ad_client_id
+			AND v.bh_visitdate BETWEEN _begin_date AND _end_date
+		GROUP BY o.c_order_id
+	) sales_details
+		ON o.c_order_id = sales_details.c_order_id
 WHERE
-	v.bh_visitdate BETWEEN $2 AND $3
-	AND v.ad_client_id = $1
+	v.bh_visitdate BETWEEN _begin_date AND _end_date
+	AND v.ad_client_id = _ad_client_id
 	AND ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7';
 $$;
 
