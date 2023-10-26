@@ -360,8 +360,8 @@ public class AuthenticationRestService {
 	 * @return true if the username/password has access to other clients, false if they don't
 	 */
 	@POST
-	@Path(IRestConfigs.CHECK_OTHER_CLIENTS_PATH)
-	public Boolean checkUserInOtherClients(Authentication credentials) {
+	@Path(IRestConfigs.LOGIN_CHECK_PATH)
+	public Boolean loginCheckOtherClients(Authentication credentials) {
 		Login login = new Login(Env.getCtx());
 
 		int currentClient = Env.getAD_Client_ID(Env.getCtx());
