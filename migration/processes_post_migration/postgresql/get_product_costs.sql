@@ -24,7 +24,8 @@ FROM
 			CASE
 				WHEN p.m_attributeset_id != 0 AND p_asis.m_attributesetinstance_id = 0 THEN NULL
 				ELSE
-					COALESCE(price_on_reception.po_price, costs.currentcostprice, p.bh_buyprice, productPP.PurchasePrice,
+					COALESCE(price_on_reception.po_price, CASE WHEN p.bh_buyprice = 0 THEN NULL ELSE p.bh_buyprice END,
+					         costs.currentcostprice, productPP.PurchasePrice,
 					         0) END                                                                    AS purchase_price,
 			CASE
 				WHEN p.m_attributeset_id != 0 AND

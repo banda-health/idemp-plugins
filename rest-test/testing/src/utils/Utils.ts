@@ -151,7 +151,11 @@ export async function createOrder(valueObject: ValueObject) {
 				description: valueObject.getStepMessageLong(),
 				product: valueObject.product,
 				quantity: valueObject.quantity || 1,
-				price: valueObject.salesStandardPrice || (valueObject.quantity || 1) * (valueObject.product?.sellPrice || 0),
+				price:
+					(valueObject.documentType.isSalesTransaction
+						? valueObject.salesStandardPrice || valueObject.product?.sellPrice || 0
+						: valueObject.purchaseStandardPrice || valueObject.product?.buyPrice || 0) * (valueObject.quantity || 1),
+				attributeSetInstance: valueObject.attributeSetInstance,
 			} as OrderLine,
 		],
 		isSalesOrderTransaction: valueObject.documentType.isSalesTransaction,
