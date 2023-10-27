@@ -89,6 +89,10 @@
 				ON v.bh_visit_id = e.bh_visit_id
 				LEFT JOIN bh_encounter_diagnosis ev
 				ON e.bh_encounter_id = ev.bh_encounter_id
+		WHERE
+				v.bh_visit_id IN (
+				SELECT bh_visit_id FROM c_order WHERE docstatus IN ('CO', 'CL') AND ad_client_id = $P{AD_CLIENT_ID}
+			)
 	),
 	diagnosis_count AS (
 		SELECT DISTINCT
@@ -113,10 +117,9 @@
 						JOIN c_bpartner bp
 						ON v.patient_id = bp.c_bpartner_id
 				WHERE
-					v.ad_client_id = $P{AD_CLIENT_ID}
-					AND bp.bh_birthday IS NOT NULL
+					bp.bh_birthday IS NOT NULL
 					AND DATE_PART('year', AGE(bp.bh_birthday)) >= 5
-				GROUP BY bh_moh705b_greaterthan5, CAST(bh_visitdate AS date)
+				GROUP BY bh_moh705b_greaterthan5, CAST (bh_visitdate AS DATE)
 			) c
 				ON b.bh_moh705b_greaterthan5 = c.bh_moh705b_greaterthan5
 		ORDER BY calendar
