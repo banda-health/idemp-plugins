@@ -63,7 +63,7 @@ public class OpenBalanceInvoiceTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create business partner");
 		valueObject.setSalesStandardPrice(visitCharge);
-		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createPatient(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
