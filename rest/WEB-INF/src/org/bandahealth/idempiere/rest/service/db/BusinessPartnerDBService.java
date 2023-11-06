@@ -180,6 +180,9 @@ public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBP
 			businessPartnerLocation.setC_Location_ID(location.get_ID());
 			businessPartnerLocation.setName("Default Location");
 			businessPartnerLocation.saveEx();
+		} else {
+			businessPartner.getLocations(false)[0].setC_Location_ID(location.get_ID());
+			businessPartner.getLocations(false)[0].saveEx();
 		}
 
 		// If it has info & values, we need to update those
@@ -205,7 +208,7 @@ public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBP
 
 	@Override
 	protected BusinessPartner createInstanceWithAllFields(MBPartner_BH instance) {
-		return new BusinessPartner(instance);
+		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override
