@@ -10,14 +10,19 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
+import org.bandahealth.idempiere.report.test.utils.EntityUtils;
 import org.bandahealth.idempiere.report.test.utils.PDFUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.Query;
+import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.DB;
+import org.compiere.util.Env;
 import org.hamcrest.Matchers;
 
 import java.io.FileInputStream;
@@ -380,5 +385,93 @@ public class IncomeAndExpensesTest extends ChuBoePopulateFactoryVO {
 					.filter(cell -> cell.getCellType().equals(CellType.NUMERIC)).findFirst().orElseThrow().getNumericCellValue();
 			assertEquals(100d, newExpenseTotals - initialTotalExpenses, "Old PO was not included in expenses");
 		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void insurancesShowUpOnTheReport() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create PO");
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create SO");
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_WarehouseOrder, true,
+				false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create invoice");
+		valueObject.setDocumentAction(DocAction.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARInvoice, null, true, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		MInvoice_BH invoice = valueObject.getInvoice();
+		commitEx();
+
+		valueObject.setStepName("Create insurer");
+		valueObject.stackAndClearBusinessPartner();
+		EntityUtils.getBandaHealthFeeForServiceInsurerAndAssociatedCharge(valueObject);
+		valueObject.getBusinessPartner()
+				.setName(valueObject.getRandomNumber() + valueObject.getBusinessPartner().getName());
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create insurer invoice line discount");
+		MInvoiceLine invoiceLine = new MInvoiceLine(valueObject.getContext(), 0, valueObject.getTransactionName());
+		invoiceLine.setC_Invoice_ID(invoice.get_ID());
+		invoiceLine.setDescription(valueObject.getStepMessageLong());
+		invoiceLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		invoiceLine.setC_Charge_ID(valueObject.getCharge().get_ID());
+		invoiceLine.setC_UOM_ID(valueObject.getProduct().getC_UOM_ID());
+		invoiceLine.setQty(Env.ONE);
+		invoiceLine.setPrice(new BigDecimal(-2));
+		invoiceLine.saveEx();
+
+		invoice.setDocAction(DocAction.ACTION_Complete);
+		assertTrue(invoice.processIt(DocAction.ACTION_Complete), "Invoice completed");
+		invoice.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create insurer invoice");
+		valueObject.setOrder(null);
+		valueObject.setOrderLine(null);
+		valueObject.setSalesStandardPrice(invoiceLine.getPriceActual().negate());
+		valueObject.setDocumentAction(DocAction.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARInvoice, null, true, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("f777f042-3907-4293-94c4-49fe6eb58780");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null)
+		));
+		valueObject.setReportType("pdf");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
+		assertTrue(reportContent.contains(valueObject.getBusinessPartner().getName().substring(0, 10)),
+				"Insurer shows up on the report");
 	}
 }

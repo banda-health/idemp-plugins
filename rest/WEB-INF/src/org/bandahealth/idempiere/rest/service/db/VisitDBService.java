@@ -331,7 +331,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		entity.setId(visitId);
 
 		// save encounter
-		entity.getEncounters().stream().forEach(encounter -> {
+		entity.getEncounters().forEach(encounter -> {
 			encounter.setVisitId(visitId);
 			encounterDBService.saveEntity(encounter);
 		});
@@ -346,7 +346,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			order.setDateOrdered(entity.getVisitDate());
 			order.setDateAccount(entity.getVisitDate());
 
-			updatedOrders.add(orderDBService.saveEntity(order));
+			updatedOrders.add(orderDBService.saveEntity(order, false));
 		}
 
 		List<OrderLine> updatedOrderLines =
@@ -387,6 +387,9 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
 			invoiceDBService.saveEntity(invoice);
 		}
+
+		// Now that we've (potentially) deleted invoice lines, we can delete any necessary order lines
+		entity.getOrders().forEach(order -> orderDBService.saveEntity(order, true));
 
 		// list of persisted payment line ids
 		StringBuilder lineIds = new StringBuilder();
@@ -516,6 +519,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			visit.setPatient(new BusinessPartner(businessPartner));
 			visit.setVisitDate(instance.getBH_VisitDate());
 			visit.setProcessStage(new ProcessStage(instance.getBH_Process_Stage()));
+			visit.setDocumentNumber(instance.getDocumentNo());
 			String patientType = instance.getBH_PatientType();
 			if (StringUtil.isNotNullAndEmpty(patientType)) {
 				visit.setPatientType(new PatientType(patientType, entityMetadataDBService

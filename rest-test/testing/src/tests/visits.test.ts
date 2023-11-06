@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import isEqual from 'lodash/isEqual';
 import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
+import { v4 } from 'uuid';
 import {
 	businessPartnerApi,
 	businessPartnerGroupApi,
@@ -22,7 +23,9 @@ import {
 	tenderTypeName,
 } from '../models';
 import {
+	AttributeSetInstance,
 	BusinessPartner,
+	Charge,
 	Encounter,
 	EncounterDiagnosis,
 	Field,
@@ -35,6 +38,7 @@ import {
 	PaymentType,
 	ProcessInfoParameter,
 	Visit,
+	VoidedReason,
 } from '../types/org.bandahealth.idempiere.rest';
 import {
 	createBusinessPartner,
@@ -2203,4 +2207,252 @@ test(`visit can be saved without order and invoice lines`, async () => {
 	expect(valueObject.visit.orders[0].orderLines).toHaveLength(0);
 	expect(valueObject.visit.invoices).toHaveLength(1);
 	expect(valueObject.visit.invoices[0].invoiceLines).toHaveLength(0);
+});
+
+test(`document number should be returned for saved visits`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+
+	const paginatedVisits = await visitApi.get(
+		valueObject,
+		undefined,
+		undefined,
+		undefined,
+		JSON.stringify({ bh_visit_uu: valueObject.visit!.uuid }),
+	);
+	expect(paginatedVisits.results[0].documentNumber).not.toBe('');
+});
+
+test(`can delete order & invoice lines at the same time`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product 1';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+	const product1 = valueObject.product!;
+
+	valueObject.stepName = 'Create product 2';
+	valueObject.salesStandardPrice = 120;
+	valueObject.clearProduct();
+	await createProduct(valueObject);
+	const product2 = valueObject.product!;
+
+	valueObject.stepName = 'Create visit';
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
+		true,
+		false,
+		false,
+	);
+	const salesOrderDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const customerInvoiceDocumentType = valueObject.documentType!;
+	const orderUuid = randomUUID();
+	const orderLine1Uuid = randomUUID();
+	const orderLine2Uuid = randomUUID();
+	const visit: Partial<Visit> = {
+		uuid: randomUUID(),
+		patient: valueObject.businessPartner!,
+		visitDate: new Date(1698751197099),
+		encounters: [
+			{
+				clientId: 1000000,
+				orgId: 1000000,
+				uuid: v4(),
+				created: '2023-10-31 02:20:22',
+				isActive: true,
+				createdTimestamp: new Date(1698751222099),
+				encounterType: {
+					clientId: 0,
+					orgId: 0,
+					uuid: '6b25aa54-bbae-4432-a4e9-7a9a3116fc95',
+					created: '2023-07-06 12:37:28',
+					isActive: true,
+					createdTimestamp: new Date(1688636248131),
+					name: 'Capture Vitals',
+					value: 'V',
+					description: '',
+				},
+				observations: [],
+				encounterDiagnoses: [],
+			},
+			{
+				clientId: 1000000,
+				orgId: 1000000,
+				uuid: v4(),
+				created: '2023-10-31 02:20:22',
+				isActive: true,
+				createdTimestamp: new Date(1698751222393),
+				encounterType: {
+					clientId: 0,
+					orgId: 0,
+					uuid: '9bd78d1a-3ec7-46eb-a7b9-58c183b823ae',
+					created: '2023-07-21 11:30:16',
+					isActive: true,
+					createdTimestamp: new Date(1689928216746),
+					name: 'Clinical Details',
+					description: 'clinical details',
+					value: 'D',
+				},
+				observations: [],
+				encounterDiagnoses: [],
+			},
+		],
+		orders: [
+			{
+				clientId: 1000000,
+				orgId: 1000000,
+				uuid: orderUuid,
+				created: '2023-10-31 02:20:22',
+				isActive: true,
+				createdTimestamp: new Date(1698751222709),
+				dateAccount: new Date(1698751222709),
+				businessPartner: valueObject.businessPartner!,
+				description: '',
+				dateOrdered: new Date(1698699600000),
+				grandTotal: 30200,
+				docStatus: 'DR',
+				orderLines: [
+					{
+						clientId: 1000000,
+						orgId: 1000000,
+						uuid: orderLine1Uuid,
+						created: '2023-11-01 11:56:45',
+						isActive: true,
+						createdTimestamp: new Date(1698829005247),
+						price: 200,
+						quantity: 1,
+						product: product1,
+						lineNetAmount: 200,
+						charge: null as unknown as Charge,
+						description: '',
+						attributeSetInstance: null as unknown as AttributeSetInstance,
+						instructions: '',
+					},
+					{
+						clientId: 1000000,
+						orgId: 1000000,
+						uuid: orderLine2Uuid,
+						created: '2023-10-31 02:20:22',
+						isActive: true,
+						createdTimestamp: new Date(1698751222793),
+						price: 30000,
+						quantity: 1,
+						product: product2,
+						lineNetAmount: 30000,
+						charge: null as unknown as Charge,
+						description: '',
+						attributeSetInstance: null as unknown as AttributeSetInstance,
+						instructions: '',
+					},
+				],
+				warehouse: valueObject.warehouse!,
+				voidedReason: {} as VoidedReason,
+				documentTypeTarget: salesOrderDocumentType,
+				isSalesOrderTransaction: true,
+			},
+		],
+		invoices: [
+			{
+				clientId: 1000000,
+				orgId: 1000000,
+				uuid: randomUUID(),
+				created: '2023-10-31 02:20:23',
+				isActive: true,
+				dateInvoicedCreated: new Date(1698751223299),
+				description: '',
+				createdTimestamp: new Date(1698751223299),
+				businessPartner: valueObject.businessPartner!,
+				invoiceLines: [
+					{
+						clientId: 1000000,
+						orgId: 1000000,
+						uuid: randomUUID(),
+						created: '2023-10-31 02:20:23',
+						isActive: true,
+						createdTimestamp: new Date(1698751223383),
+						invoiceId: 1838261,
+						price: 30000,
+						quantity: 1,
+						lineNetAmount: 30000,
+						product: product1,
+						attributeSetInstance: null as unknown as AttributeSetInstance,
+						businessPartnerSpecificPayerInformationList: [],
+						orderLine: { uuid: orderLine1Uuid } as OrderLine,
+						charge: null as unknown as Charge,
+						description: '',
+					},
+					{
+						clientId: 1000000,
+						orgId: 1000000,
+						uuid: '49cd1fa7-33db-4043-9ede-93f3296b80dd',
+						created: '2023-11-01 11:56:45',
+						isActive: true,
+						createdTimestamp: new Date(1698829005952),
+						invoiceId: 1838261,
+						price: 200,
+						quantity: 1,
+						lineNetAmount: 200,
+						product: product2,
+						attributeSetInstance: null as unknown as AttributeSetInstance,
+						businessPartnerSpecificPayerInformationList: [],
+						orderLine: { uuid: orderLine2Uuid } as OrderLine,
+						charge: null as unknown as Charge,
+						description: '',
+					},
+				],
+				docStatus: 'DR',
+				dateInvoiced: '2023-10-31',
+				grandTotal: 30200,
+				paymentRule: 'P',
+				voidedReason: {} as VoidedReason,
+				isSalesOrderTransaction: true,
+				documentTypeTarget: customerInvoiceDocumentType,
+				order: { uuid: orderUuid } as Order,
+			},
+		],
+	};
+	valueObject.visit = await visitApi.save(valueObject, visit as Visit);
+
+	valueObject.stepName = 'Remove order & invoice lines';
+	valueObject.visit.orders[0].orderLines = valueObject.visit.orders[0].orderLines.filter(
+		(orderLine) => orderLine.uuid === orderLine1Uuid,
+	);
+	valueObject.visit.invoices[0].invoiceLines = valueObject.visit.invoices[0].invoiceLines.filter(
+		(invoiceLine) => invoiceLine.orderLine.uuid === orderLine1Uuid,
+	);
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit).toBeTruthy();
+	expect(valueObject.visit.orders).toHaveLength(1);
+	expect(valueObject.visit.orders[0].orderLines).toHaveLength(1);
+	expect(valueObject.visit.invoices).toHaveLength(1);
+	expect(valueObject.visit.invoices[0].invoiceLines).toHaveLength(1);
 });

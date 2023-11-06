@@ -57,4 +57,55 @@ public class EntityUtils {
 
 		valueObject.setCharge(donorCharge);
 	}
+
+	/**
+	 * FFS Insurers are business partners, though they have a distantly associated charge as well. This gets both that
+	 * match our standards and sets them on the value object.
+	 */
+	public static void getBandaHealthFeeForServiceInsurerAndAssociatedCharge(ChuBoePopulateVO valueObject) {
+		// Get the appropriate BP group
+		MBPGroup_BH feeForServiceInsuranceBusinessPartnerGroup = new Query(valueObject.getContext(),
+				MBPGroup_BH.Table_Name,
+				MBPGroup_BH.COLUMNNAME_BH_SubType + "=? AND " + MBPGroup_BH.COLUMNNAME_Name + "=?",
+				valueObject.getTransactionName()).setParameters(MBPGroup_BH.BH_SUBTYPE_Insurance,
+				MBPGroup_BH.NAME_FFS_Insurance).setClient_ID().first();
+		if (feeForServiceInsuranceBusinessPartnerGroup == null) {
+			feeForServiceInsuranceBusinessPartnerGroup =
+					new MBPGroup_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+			feeForServiceInsuranceBusinessPartnerGroup.setName(MBPGroup_BH.NAME_FFS_Insurance);
+			feeForServiceInsuranceBusinessPartnerGroup.setBH_SubType(MBPGroup_BH.BH_SUBTYPE_Insurance);
+			feeForServiceInsuranceBusinessPartnerGroup.saveEx();
+		}
+
+		// Make a random BP and assign it to the group
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBPGroup(feeForServiceInsuranceBusinessPartnerGroup);
+		valueObject.getBusinessPartner().saveEx();
+
+		// Now create the charge that is used for insurers
+		MChargeType_BH nonPatientPaymentChargeType =
+				new Query(valueObject.getContext(), MChargeType_BH.Table_Name, MChargeType_BH.COLUMNNAME_Name + "=?",
+						valueObject.getTransactionName()).setParameters(MChargeType_BH.CHARGETYPENAME_NON_PATIENT_PAYMENT)
+						.setClient_ID().first();
+		if (nonPatientPaymentChargeType == null) {
+			nonPatientPaymentChargeType = new MChargeType_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+			nonPatientPaymentChargeType.setName(MChargeType_BH.CHARGETYPENAME_NON_PATIENT_PAYMENT);
+			nonPatientPaymentChargeType.saveEx();
+		}
+
+		MCharge_BH feeForServiceInsuranceCharge = new Query(valueObject.getContext(), MCharge_BH.Table_Name,
+				MCharge_BH.COLUMNNAME_Name + "=? AND " + MCharge_BH.COLUMNNAME_C_ChargeType_ID + "=?",
+				valueObject.getTransactionName()).setParameters(MCharge_BH.NAME_AccountsReceivable_FFS_Insurance,
+						nonPatientPaymentChargeType.getC_ChargeType_ID()).setClient_ID()
+				.first();
+		if (feeForServiceInsuranceCharge == null) {
+			feeForServiceInsuranceCharge = new MCharge_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+			feeForServiceInsuranceCharge.setName(MCharge_BH.NAME_AccountsReceivable_FFS_Insurance);
+			feeForServiceInsuranceCharge.setC_ChargeType_ID(nonPatientPaymentChargeType.getC_ChargeType_ID());
+			feeForServiceInsuranceCharge.setBH_SubType(MCharge_BH.BH_SUBTYPE_Insurance);
+			feeForServiceInsuranceCharge.saveEx();
+		}
+
+		valueObject.setCharge(feeForServiceInsuranceCharge);
+	}
 }

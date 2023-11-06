@@ -59,6 +59,10 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 
 	@Override
 	public Order saveEntity(Order entity) {
+		return saveEntity(entity, true);
+	}
+
+	public Order saveEntity(Order entity, boolean deleteOldOrderLines) {
 		try {
 			MDocType_BH documentTypeTarget;
 			if (entity.getDocumentTypeTarget() == null ||
@@ -153,8 +157,10 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 				}
 			}
 
-			// delete order lines not in request
-			orderLineDBService.deleteOrderLinesByOrder(mOrder.get_ID(), lineIds);
+			if (deleteOldOrderLines) {
+				// delete order lines not in request
+				orderLineDBService.deleteOrderLinesByOrder(mOrder.get_ID(), lineIds);
+			}
 
 			return transformData(Collections.singletonList(getEntityByUuidFromDB(mOrder.getC_Order_UU()))).get(0);
 

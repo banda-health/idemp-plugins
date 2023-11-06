@@ -76,7 +76,7 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 
 	@Override
 	protected Invoice createInstanceWithAllFields(MInvoice_BH instance) {
-		return new Invoice(instance);
+		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override

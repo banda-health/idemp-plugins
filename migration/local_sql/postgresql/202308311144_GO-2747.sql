@@ -2309,6 +2309,9 @@ FROM
 				WHERE
 					ad_column_uu = '03301cba-14d8-4c1b-8a91-5f566a9f9d2c'
 			)
+			AND ad_tab_id = (
+				SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
+			)
 		UNION ALL
 		SELECT
 			v.bh_visit_id,
@@ -2322,6 +2325,9 @@ FROM
 		WHERE
 				ad_column_id = (
 				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = 'c1a0c77f-ee6d-413b-957f-a97d927bac8d'
+			)
+			AND ad_tab_id = (
+				SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
 			)
 		UNION ALL
 		SELECT
@@ -2337,6 +2343,9 @@ FROM
 				ad_column_id = (
 				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = 'abf8f199-df91-4e86-9aea-1be26988985f'
 			)
+			AND ad_tab_id = (
+				SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
+			)
 		UNION ALL
 		SELECT
 			v.bh_visit_id,
@@ -2350,6 +2359,9 @@ FROM
 		WHERE
 				ad_column_id = (
 				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '9aa46e92-7db9-432d-a6e2-6074294ee431'
+			)
+			AND ad_tab_id = (
+				SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
 			)
 		UNION ALL
 		SELECT
@@ -2365,6 +2377,9 @@ FROM
 				ad_column_id = (
 				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '9e76e902-13ed-44ac-9957-38748277d20e'
 			)
+			AND ad_tab_id = (
+				SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
+			)
 		UNION ALL
 		SELECT
 			v.bh_visit_id,
@@ -2378,6 +2393,9 @@ FROM
 		WHERE
 				ad_column_id = (
 				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '4a54eba3-5712-44cc-bb3c-be8e4d618e69'
+			)
+			AND ad_tab_id = (
+				SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
 			)
 		UNION ALL
 		SELECT
@@ -2393,6 +2411,9 @@ FROM
 				ad_column_id = (
 				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = 'c39eb4d2-92e2-4edb-af60-e909cca39ff3'
 			)
+			AND ad_tab_id = (
+				SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
+			)
 		UNION ALL
 		SELECT
 			v.bh_visit_id,
@@ -2406,6 +2427,9 @@ FROM
 		WHERE
 				ad_column_id = (
 				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '8dc7142c-10da-4499-b4bb-877fab7c716c'
+			)
+			AND ad_tab_id = (
+				SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
 			)
 		UNION ALL
 		SELECT
@@ -2421,6 +2445,9 @@ FROM
 				ad_column_id = (
 				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '58e4d45d-bf24-4225-bf33-8f63d3a00f9b'
 			)
+			AND ad_tab_id = (
+				SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
+			)
 		UNION ALL
 		SELECT
 			v.bh_visit_id,
@@ -2435,6 +2462,9 @@ FROM
 				ad_column_id = (
 				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '9bcfded3-3af9-41d3-94ae-319d1859bb30'
 			)
+			AND ad_tab_id = (
+				SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '69b0d4b6-a323-4224-924e-d9d3d2aa5e1b'
+			)
 		UNION ALL
 		SELECT
 			v.bh_visit_id,
@@ -2448,6 +2478,9 @@ FROM
 		WHERE
 				ad_column_id = (
 				SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '345d1405-6bfe-4cb9-9ece-f60477f46a08'
+			)
+			AND ad_tab_id = (
+				SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '69b0d4b6-a323-4224-924e-d9d3d2aa5e1b'
 			)
 	) AS fo
 		ON fo.bh_visit_id = e.bh_visit_id AND fo.bh_encounter_type = e.bh_encounter_type;
