@@ -32,7 +32,6 @@ public class UserModelEventTest extends ChuBoePopulateFactoryVO {
 		patient.setName(valueObject.getStepMessage());
 		patient.setDescription(valueObject.getStepMessageLong());
 		patient.setIsCustomer(true);
-		patient.setBH_IsPatient(true); // the BP model event currently uses this
 		patient.saveEx();
 		commitEx();
 

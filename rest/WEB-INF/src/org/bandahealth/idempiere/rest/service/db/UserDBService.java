@@ -39,7 +39,7 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 
 	private static final int SYSTEM_ADMIN_ORG_ID = 0;
 
-	private Map<String, String> dynamicJoins = new HashMap<>() {
+	private final Map<String, String> dynamicJoins = new HashMap<>() {
 		{
 			put(MMovement_BH.Table_Name,
 					"LEFT JOIN " + MMovement_BH.Table_Name + " ON " + MMovement_BH.Table_Name + "."

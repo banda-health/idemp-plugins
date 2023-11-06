@@ -1,13 +1,13 @@
 import { storageOnHandApi } from '../api';
-import { documentAction } from '../models';
-import { createInventory, createProduct, createPurchaseOrder, createVendor } from '../utils';
+import { documentAction, documentBaseType } from '../models';
+import { createBusinessPartner, createInventory, createOrder, createProduct } from '../utils';
 
 test('inventory count can be performed', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -15,11 +15,13 @@ test('inventory count can be performed', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create inventory';
 	valueObject.quantity = 2;
 	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.MaterialPhysicalInventory, null, false, false, false);
 	await createInventory(valueObject);
 
 	expect(

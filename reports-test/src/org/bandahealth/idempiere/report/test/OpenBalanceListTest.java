@@ -8,7 +8,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.bandahealth.idempiere.base.model.MBPGroup_BH;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
 import org.hamcrest.Matchers;
 
@@ -23,6 +26,7 @@ import java.util.stream.StreamSupport;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
@@ -46,6 +50,11 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		valueObject.getBusinessPartner().setName(String.valueOf(valueObject.getRandomNumber()));
+		MBPGroup_BH patientBusinessPartnerGroup =
+				new Query(valueObject.getContext(), MBPGroup_BH.Table_Name, MBPGroup_BH.COLUMNNAME_Name + "=?",
+						valueObject.getTransactionName()).setParameters(MBPGroup_BH.NAME_Patients).setClient_ID().first();
+		assertNotNull(patientBusinessPartnerGroup, "Patient BP Group is present");
+		valueObject.getBusinessPartner().setBPGroup(patientBusinessPartnerGroup);
 		valueObject.getBusinessPartner().saveEx();
 		commitEx();
 
@@ -86,6 +95,99 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 			assertTrue(patientRow.isPresent(), "Report contains patient");
 			assertThat("Patient's open balance is correct", patientRow.get().getCell(9).getNumericCellValue(),
 					is(valueObject.getOrder().getGrandTotal().doubleValue()));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void onlyPatientsAreIncluded() throws SQLException, IOException, ParseException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create non-patient business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner()
+				.setName(valueObject.getRandomNumber() + valueObject.getBusinessPartner().getName());
+		valueObject.getBusinessPartner().saveEx();
+		MBPartner_BH nonPatientBusinessPartner = valueObject.getBusinessPartner();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(200));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.clearBusinessPartner();
+		valueObject.clearProduct();
+
+		valueObject.setStepName("Create patient business partner");
+		valueObject.clearBusinessPartner();
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner()
+				.setName(valueObject.getRandomNumber() + valueObject.getBusinessPartner().getName());
+		MBPGroup_BH patientBusinessPartnerGroup =
+				new Query(valueObject.getContext(), MBPGroup_BH.Table_Name, MBPGroup_BH.COLUMNNAME_Name + "=?",
+						valueObject.getTransactionName()).setParameters(MBPGroup_BH.NAME_Patients).setClient_ID().first();
+		assertNotNull(patientBusinessPartnerGroup, "Patient BP Group is present");
+		valueObject.getBusinessPartner().setBPGroup(patientBusinessPartnerGroup);
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(200));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("b4f11e14-b9d8-4f6c-aa46-adfd77c4f773");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		valueObject.refresh();
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Optional<Row> nonPatientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(0) != null &&
+									row.getCell(1).getStringCellValue().contains(nonPatientBusinessPartner.getName().substring(1, 10)))
+					.findFirst();
+			assertTrue(nonPatientRow.isEmpty(), "Report does not contain the non-patient");
+			Optional<Row> patientRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+							row -> row.getCell(0) != null &&
+									row.getCell(1).getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(1,
+											10)))
+					.findFirst();
+			assertTrue(patientRow.isPresent(), "Report contains patient");
 		}
 	}
 }

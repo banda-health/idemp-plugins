@@ -86,7 +86,8 @@ FROM
 					ON i.ad_client_id = params.ad_client_id
 		WHERE
 			i.docstatus = 'CO'
-			AND i.bh_isexpense = 'Y'
+			AND i.issotrx = 'N'
+			AND i.bh_visit_id IS NULL
 			AND i.dateinvoiced BETWEEN date(params.begin_date) AND date(params.end_date)
 	) AS expenses
 		CROSS JOIN (

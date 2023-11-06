@@ -1,16 +1,14 @@
 DROP FUNCTION IF EXISTS bh_get_visit_non_patient_payments(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
 CREATE FUNCTION bh_get_visit_non_patient_payments(ad_client_id numeric,
-                                                             begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
-                                                             end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
+                                                  begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
+                                                  end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
 	RETURNS TABLE
 	        (
 		        bh_visit_id         numeric,
-		        c_order_id          numeric,
-		        c_charge_id         numeric,
+		        c_invoice_id        numeric,
 		        chargetype_name     character varying,
 		        bh_subtype          character varying,
 		        charge_subtype_name character varying,
-		        c_chargetype_id     numeric,
 		        linenetamt          numeric,
 		        member_id           character varying,
 		        membername          character varying,
@@ -21,84 +19,112 @@ CREATE FUNCTION bh_get_visit_non_patient_payments(ad_client_id numeric,
 	STABLE
 AS
 $$
+-- Get insurance and donors
 SELECT
 	v.bh_visit_id,
-	ol.c_order_id,
-	c.c_charge_id,
-	c.name    AS ChargeType_name,
-	c.bh_subtype,
-	r.name    AS charge_subtype_name,
-	c.c_chargetype_id,
-	ol.linenetamt,
-	olci.name AS member_id,
-	bol.name  AS MemberName,
-	olc.name  AS ClaimNo,
-	bci.name  AS Relationship
+	i.c_invoice_id,
+	bp.name            AS ChargeType_name,
+	bpg.bh_subtype,
+	rl.name            AS charge_subtype_name,
+	il.linenetamt * -1 AS linenetamt,
+	bpspii.name        AS member_id,
+	bpspicl.name       AS MemberName,
+	bpspibp.name       AS ClaimNo,
+	bpspir.name        AS Relationship
 FROM
-	c_charge c
-		JOIN c_orderline ol
-			ON c.c_charge_id = ol.c_charge_id
-		JOIN c_order o
-			ON ol.c_order_id = o.c_order_id
-		JOIN bh_visit v
-			ON o.bh_visit_id = v.bh_visit_id
-		JOIN ad_ref_list r
-			ON r.value = c.bh_subtype
-		JOIN ad_reference a
-			ON r.ad_reference_id = a.ad_reference_id
+	bh_visit v
+		JOIN c_invoice i
+		ON v.bh_visit_id = i.bh_visit_id AND i.docstatus NOT IN ('VO', 'RE', 'RA')
+		JOIN c_bpartner bp
+		ON i.c_bpartner_id = bp.c_bpartner_id
+		JOIN c_bp_group bpg
+		ON bp.c_bp_group_id = bpg.c_bp_group_id
+		JOIN c_invoiceline il
+		ON i.c_invoice_id = il.c_invoice_id
+		JOIN ad_ref_list rl
+		ON rl.value = bpg.bh_subtype
+		JOIN ad_reference r
+		ON rl.ad_reference_id = r.ad_reference_id AND ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375'
 		LEFT JOIN (
 		SELECT
-			olci.c_orderline_id,
-			olci.name
+			bpspi.c_invoiceline_id,
+			bpspi.name
 		FROM
-			bh_orderline_charge_info olci
-				JOIN bh_charge_info ci
-					ON olci.bh_charge_info_id = ci.bh_charge_info_id
+			bh_bp_specific_payer_info bpspi
+				JOIN bh_payer_info_fld pif
+				ON bpspi.bh_payer_info_fld_id = pif.bh_payer_info_fld_id
 		WHERE
-			(ci.name IN ('Member ID', 'NHIF Number', 'Patient ID') OR ci.name IS NULL)
-	) AS olci
-			ON olci.c_orderline_id = ol.c_orderline_id
+			(pif.name IN ('Member ID', 'NHIF Number', 'Patient ID') OR pif.name IS NULL)
+	) AS bpspii
+		ON bpspii.c_invoiceline_id = il.c_invoiceline_id
 		LEFT JOIN (
 		SELECT
-			bol.c_orderline_id,
-			bol.name
+			bpspi.c_invoiceline_id,
+			bpspi.name
 		FROM
-			bh_orderline_charge_info bol
-				JOIN bh_charge_info ci
-					ON bol.bh_charge_info_id = ci.bh_charge_info_id
+			bh_bp_specific_payer_info bpspi
+				JOIN bh_payer_info_fld pif
+				ON bpspi.bh_payer_info_fld_id = pif.bh_payer_info_fld_id
 		WHERE
-			(ci.name IN ('Patient Name', 'Member Name', 'Mother''s Name') OR ci.name IS NULL)
-	) bol
-			ON bol.c_orderline_id = ol.c_orderline_id
+			(pif.name IN ('Patient Name', 'Member Name', 'Mother''s Name') OR pif.name IS NULL)
+	) bpspicl
+		ON bpspicl.c_invoiceline_id = il.c_orderline_id
 		LEFT JOIN (
 		SELECT
-			olc.c_orderline_id,
-			olc.name
+			bpspi.c_invoiceline_id,
+			bpspi.name
 		FROM
-			bh_orderline_charge_info olc
-				JOIN bh_charge_info ci
-					ON olc.bh_charge_info_id = ci.bh_charge_info_id
+			bh_bp_specific_payer_info bpspi
+				JOIN bh_payer_info_fld pif
+				ON bpspi.bh_payer_info_fld_id = pif.bh_payer_info_fld_id
 		WHERE
-			(ci.name IN ('Claim Number') OR ci.name IS NULL)
-			AND (ci.bh_chargeinfodatatype = 'T' AND ci.bh_fillfrompatient = 'N')
-	) olc
-			ON olc.c_orderline_id = ol.c_orderline_id
+			(pif.name IN ('Claim Number') OR pif.name IS NULL)
+			AND (pif.bh_payerinfofielddatatype = 'T' AND pif.bh_fillfrompatient = 'N')
+	) bpspibp
+		ON bpspibp.c_invoiceline_id = il.c_invoiceline_id
 		LEFT JOIN (
 		SELECT
-			bci.c_orderline_id,
-			bci.name
+			bpspi.c_invoiceline_id,
+			bpspi.name
 		FROM
-			bh_orderline_charge_info bci
-				JOIN bh_charge_info ci
-					ON bci.bh_charge_info_id = ci.bh_charge_info_id
+			bh_bp_specific_payer_info bpspi
+				JOIN bh_payer_info_fld pif
+				ON bpspi.bh_payer_info_fld_id = pif.bh_payer_info_fld_id
 		WHERE
-			(ci.name IN ('Relationship') OR ci.name IS NULL)
-			AND (ci.bh_chargeinfodatatype = 'L' AND ci.bh_fillfrompatient = 'Y')
-	) bci
-			ON bci.c_orderline_id = ol.c_orderline_id
+			(pif.name IN ('Relationship') OR pif.name IS NULL)
+			AND (pif.bh_payerinfofielddatatype = 'L' AND pif.bh_fillfrompatient = 'Y')
+	) bpspir
+		ON bpspir.c_invoiceline_id = il.c_invoiceline_id
 WHERE
-	ad_reference_uu = '7eca6283-86b9-4dff-9c40-786162a8be7a'
-	AND ol.c_charge_id IS NOT NULL
-	AND c.ad_client_id = $1
+	v.ad_client_id = $1
+	AND v.bh_visitdate BETWEEN $2 AND $3
+	AND bpg.bh_subtype IN ('I', 'D')
+UNION ALL
+-- Get waivers
+SELECT
+	v.bh_visit_id,
+	i.c_invoice_id,
+	c.name  AS ChargeType_name,
+	rl.value,
+	rl.name AS charge_subtype_name,
+	il.linenetamt,
+	NULL    AS member_id,
+	NULL    AS MemberName,
+	NULL    AS ClaimNo,
+	NULL    AS Relationship
+FROM
+	bh_visit v
+		JOIN c_invoice i
+		ON v.bh_visit_id = i.bh_visit_id AND i.docstatus NOT IN ('VO', 'RA', 'RE')
+		JOIN c_invoiceline il
+		ON i.c_invoice_id = il.c_invoice_id
+		JOIN c_charge c
+		ON il.c_charge_id = c.c_charge_id
+		JOIN ad_ref_list rl
+		ON c.bh_subtype = rl.value AND rl.value = 'W'
+		JOIN ad_reference r
+		ON r.ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375' AND r.ad_reference_id = rl.ad_reference_id
+WHERE
+	v.ad_client_id = $1
 	AND v.bh_visitdate BETWEEN $2 AND $3;
 $$;

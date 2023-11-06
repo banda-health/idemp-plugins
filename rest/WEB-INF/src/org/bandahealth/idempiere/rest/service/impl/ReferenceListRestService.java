@@ -70,14 +70,14 @@ public class ReferenceListRestService extends BaseRestService<ReferenceList, MRe
 	@GET
 	@Path("/non-patient-payment-sub-types")
 	public List<ReferenceList> getNonPatientPaymentSubTypes() {
-		return dbService.getTypes(MReference_BH.NON_PATIENT_PAYMENT_AD_REFERENCE_UU, null).stream()
+		return dbService.getTypes(MReference_BH.NON_PATIENT_PAYER_AD_REFERENCE_UU, null).stream()
 				.map(ReferenceList::new).collect(Collectors.toList());
 	}
 
 	@GET
 	@Path("/charge-information-data-types")
 	public List<ReferenceList> getChargeInformationDataTypes() {
-		return dbService.getTypes(MReference_BH.CHARGE_INFORMATION_DATA_TYPE_AD_REFERENCE_UU, null).stream()
+		return dbService.getTypes(MReference_BH.PAYER_INFORMATION_FIELD_DATA_TYPE_AD_REFERENCE_UU, null).stream()
 				.map(ReferenceList::new).collect(Collectors.toList());
 	}
 	

@@ -31,7 +31,6 @@ public class BusinessPartnerModelEventTest extends ChuBoePopulateFactoryVO {
 		patient.setName(valueObject.getStepMessage());
 		patient.setDescription(valueObject.getStepMessageLong());
 		patient.setIsCustomer(true);
-		patient.setBH_IsPatient(true); // the model event currently uses this
 		patient.setBH_Birthday(ChuBoeCreateEntity.getDateOffset(new Timestamp(System.currentTimeMillis()), -3 * 365));
 		patient.saveEx();
 

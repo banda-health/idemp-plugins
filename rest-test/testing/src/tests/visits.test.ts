@@ -1,13 +1,15 @@
 import axios, { AxiosError } from 'axios';
+import { randomUUID } from 'crypto';
 import isEqual from 'lodash/isEqual';
 import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
+import { v4 } from 'uuid';
 import {
-	chargeApi,
+	businessPartnerApi,
+	businessPartnerGroupApi,
 	codedDiagnosisApi,
 	encounterTypeWindowApi,
 	languageApi,
-	patientApi,
 	referenceListApi,
 	visitApi,
 	voidedReasonApi,
@@ -21,26 +23,29 @@ import {
 	tenderTypeName,
 } from '../models';
 import {
+	AttributeSetInstance,
 	BusinessPartner,
+	Charge,
 	Encounter,
 	EncounterDiagnosis,
 	Field,
+	Invoice,
+	InvoiceLine,
 	Observation,
 	Order,
 	OrderLine,
-	Patient,
 	Payment,
 	PaymentType,
 	ProcessInfoParameter,
 	Visit,
+	VoidedReason,
 } from '../types/org.bandahealth.idempiere.rest';
 import {
+	createBusinessPartner,
+	createInvoice,
 	createOrder,
-	createPatient,
 	createPayment,
 	createProduct,
-	createPurchaseOrder,
-	createVendor,
 	createVisit,
 	formatDate,
 	runReport,
@@ -62,7 +67,7 @@ test(`patient open balance is 0 after visit if complete payment was made`, async
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -70,11 +75,8 @@ test(`patient open balance is 0 after visit if complete payment was made`, async
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -84,21 +86,27 @@ test(`patient open balance is 0 after visit if complete payment was made`, async
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
 	valueObject.stepName = 'Create payment';
 	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	await createPayment(valueObject);
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
 test(`visit saved from scratch is correct`, async () => {
@@ -106,7 +114,7 @@ test(`visit saved from scratch is correct`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -114,56 +122,91 @@ test(`visit saved from scratch is correct`, async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create and complete visit';
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
+		true,
+		false,
+		false,
+	);
+	const salesOrderDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const customerInvoiceDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	const paymentReceiptDocumentType = valueObject.documentType!;
 	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
+	const orderUuid = randomUUID();
+	const orderLineUuid = randomUUID();
 	const visitToSave = {
 		description: valueObject.getStepMessageLong(),
-		patient: valueObject.businessPartner as Patient | undefined,
+		patient: valueObject.businessPartner!,
 		visitDate: valueObject.date,
 		orders: [
 			{
+				uuid: orderUuid,
 				description: valueObject.getStepMessageLong(),
 				dateOrdered: valueObject.date,
 				warehouse: valueObject.warehouse,
 				orderLines: [
 					{
+						uuid: orderLineUuid,
 						description: valueObject.getStepMessageLong(),
 						product: valueObject.product,
 						quantity: 1,
 						price: 100,
 					} as OrderLine,
 				],
+				documentTypeTarget: salesOrderDocumentType,
 			} as Partial<Order>,
+		],
+		invoices: [
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: valueObject.businessPartner!,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+						orderLine: { uuid: orderLineUuid },
+					} as InvoiceLine,
+				],
+				order: { uuid: orderUuid },
+				documentTypeTarget: customerInvoiceDocumentType,
+			} as Partial<Invoice>,
 		],
 		payments: [
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner!,
 				description: valueObject.getStepMessageLong(),
 				payAmount: 60,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
+				documentType: paymentReceiptDocumentType,
 			},
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner!,
 				description: valueObject.getStepMessageLong(),
 				payAmount: 40,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
+				documentType: paymentReceiptDocumentType,
 			},
 		],
 	} as Visit;
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, visitToSave, documentAction.Complete);
 
 	expect(valueObject.visit.orders.every((order) => order.docStatus === documentStatus.Completed));
+	expect(valueObject.visit.invoices.every((order) => order.docStatus === documentStatus.Completed));
 	expect(valueObject.visit.payments.every((order) => order.docStatus === documentStatus.Completed));
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	const fetchedVisit = (
 		await visitApi.get(
@@ -182,7 +225,7 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -190,11 +233,8 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -204,12 +244,17 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
 
 	valueObject.stepName = 'Create payment';
 	valueObject.documentAction = undefined;
@@ -217,12 +262,15 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 	valueObject.tenderType = (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 		(tenderType) => tenderType.name === tenderTypeName.CASH,
 	) as PaymentType;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	await createPayment(valueObject);
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(50);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		50,
+	);
 });
 
 test(`patient open balance reverted correctly after visit with partial payment is re-opened`, async () => {
@@ -230,7 +278,7 @@ test(`patient open balance reverted correctly after visit with partial payment i
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -238,11 +286,8 @@ test(`patient open balance reverted correctly after visit with partial payment i
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -252,12 +297,17 @@ test(`patient open balance reverted correctly after visit with partial payment i
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
 
 	valueObject.stepName = 'Create payment';
 	valueObject.documentAction = undefined;
@@ -265,17 +315,20 @@ test(`patient open balance reverted correctly after visit with partial payment i
 	valueObject.tenderType = (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 		(tenderType) => tenderType.name === tenderTypeName.CASH,
 	) as PaymentType;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	await createPayment(valueObject);
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(50);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		50,
+	);
 
 	valueObject.stepName = 'Reverse visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit';
 	const newPayment = valueObject.visit.payments.find((payment) => payment.docStatus === 'DR');
@@ -283,7 +336,9 @@ test(`patient open balance reverted correctly after visit with partial payment i
 	newPayment!.payAmount = 40;
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(60);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+		60,
+	);
 });
 
 test(`patient open balance correct with multiple payments`, async () => {
@@ -291,7 +346,7 @@ test(`patient open balance correct with multiple payments`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	const totalCharge = 100;
@@ -300,11 +355,8 @@ test(`patient open balance correct with multiple payments`, async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -314,22 +366,31 @@ test(`patient open balance correct with multiple payments`, async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	valueObject.stepName = 'Create payments';
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
 	valueObject.visit!.payments = [
 		{
 			payAmount: 50,
 			paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
+			documentType: valueObject.documentType,
 		} as Payment,
 		{
 			payAmount: 30,
 			paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
+			documentType: valueObject.documentType,
 		} as Payment,
 	];
 	let paymentTotal = valueObject.visit!.payments.reduce(
@@ -340,14 +401,14 @@ test(`patient open balance correct with multiple payments`, async () => {
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
 		totalCharge - paymentTotal,
 	);
 
 	valueObject.stepName = 'Reverse visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit';
 	const newPayment = valueObject.visit.payments.find((payment) => payment.docStatus === 'DR');
@@ -358,7 +419,7 @@ test(`patient open balance correct with multiple payments`, async () => {
 		.reduce((runningTotal, payment) => (runningTotal += payment.payAmount), 0);
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
 		totalCharge - paymentTotal,
 	);
 });
@@ -368,7 +429,7 @@ test('payments can be removed and added to re-opened visit', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -376,11 +437,8 @@ test('payments can be removed and added to re-opened visit', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -390,12 +448,17 @@ test('payments can be removed and added to re-opened visit', async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
+
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
 
 	valueObject.stepName = 'Create payment';
 	valueObject.documentAction = undefined;
@@ -403,54 +466,59 @@ test('payments can be removed and added to re-opened visit', async () => {
 	valueObject.tenderType = (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 		(tenderType) => tenderType.name === tenderTypeName.CASH,
 	) as PaymentType;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	await createPayment(valueObject);
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Reverse visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit';
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	valueObject.visit.payments = valueObject.visit.payments.filter((payment) => payment.docStatus !== 'DR');
 	valueObject.visit.payments.push({
 		payAmount: valueObject.salesStandardPrice,
 		paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 			(tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY,
 		) as PaymentType,
+		documentType: valueObject.documentType,
 	} as Payment);
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Reverse visit again';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit again';
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	valueObject.visit.payments = valueObject.visit.payments.filter((payment) => payment.docStatus !== 'DR');
 	valueObject.visit.payments.push({
 		payAmount: valueObject.salesStandardPrice,
 		paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 			(tenderType) => tenderType.name === tenderTypeName.CHEQUE,
 		) as PaymentType,
+		documentType: valueObject.documentType,
 	} as Payment);
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
-test('re-opened visit returns voided/reversed payments', async () => {
+test('re-opened visit returns voided/reversed invoices and payments', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -458,44 +526,52 @@ test('re-opened visit returns voided/reversed payments', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
-	valueObject.documentAction = undefined;
 	await createVisit(valueObject);
 
 	valueObject.stepName = 'Create order';
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	valueObject.visit!.payments = [
 		{
 			payAmount: valueObject.salesStandardPrice,
 			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 				(tenderType) => tenderType.name === tenderTypeName.CASH,
 			) as PaymentType,
+			documentType: valueObject.documentType,
 		} as Payment,
 	];
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Reverse visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
 
+	expect(
+		valueObject.visit.invoices.some(
+			(invoice) => invoice.docStatus === documentStatus.Reversed || invoice.docStatus === documentStatus.Voided,
+		),
+	).toBeTruthy();
 	expect(
 		valueObject.visit.payments.some(
 			(payment) => payment.docStatus === documentStatus.Reversed || payment.docStatus === documentStatus.Voided,
@@ -508,7 +584,7 @@ test('tender amount set correctly for payments', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -516,11 +592,8 @@ test('tender amount set correctly for payments', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -530,13 +603,19 @@ test('tender amount set correctly for payments', async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	valueObject.visit!.payments = [
 		{
 			payAmount: valueObject.salesStandardPrice,
@@ -544,23 +623,24 @@ test('tender amount set correctly for payments', async () => {
 				(tenderType) => tenderType.name === tenderTypeName.CASH,
 			) as PaymentType,
 			tenderAmount: valueObject.salesStandardPrice! + 500,
+			documentType: valueObject.documentType,
 		} as Payment,
 	];
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 	expect(valueObject.visit.payments[0].payAmount).toBe(valueObject.salesStandardPrice);
 	expect(valueObject.visit.payments[0].tenderAmount).toBe(valueObject.salesStandardPrice! + 500);
 });
 
-test('voiding visit returns voided/reversed payments', async () => {
+test('voiding visit returns voided/reversed invoices and payments', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -568,11 +648,8 @@ test('voiding visit returns voided/reversed payments', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -582,32 +659,40 @@ test('voiding visit returns voided/reversed payments', async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	valueObject.visit!.payments = [
 		{
 			payAmount: valueObject.salesStandardPrice,
 			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 				(tenderType) => tenderType.name === tenderTypeName.CASH,
 			) as PaymentType,
+			documentType: valueObject.documentType,
 		} as Payment,
 	];
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Void visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.Void);
 
+	expect(valueObject.visit.invoices.every((invoice) => invoice.docStatus === documentStatus.Reversed)).toBeTruthy();
 	expect(valueObject.visit.payments.every((payment) => payment.docStatus === documentStatus.Reversed)).toBeTruthy();
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
 test(`completing a "future" visit doesn't cause problems with the payment`, async () => {
@@ -615,7 +700,7 @@ test(`completing a "future" visit doesn't cause problems with the payment`, asyn
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -623,11 +708,8 @@ test(`completing a "future" visit doesn't cause problems with the payment`, asyn
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -638,34 +720,42 @@ test(`completing a "future" visit doesn't cause problems with the payment`, asyn
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	valueObject.visit!.payments = [
 		{
 			payAmount: valueObject.salesStandardPrice,
 			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 				(tenderType) => tenderType.name === tenderTypeName.CASH,
 			) as PaymentType,
+			documentType: valueObject.documentType,
 		} as Payment,
 	];
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
 test('correct patient shown when patient changed after initial switch', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	valueObject.stepName = 'Create first business partner';
+	await createBusinessPartner(valueObject);
+	const firstPatientName = valueObject.businessPartner!.name;
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -673,12 +763,8 @@ test('correct patient shown when patient changed after initial switch', async ()
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create first patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
-	const firstPatientName = valueObject.businessPartner!.name;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -688,18 +774,23 @@ test('correct patient shown when patient changed after initial switch', async ()
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
 	valueObject.stepName = 'Create second patient';
 	valueObject.businessPartner = undefined;
 	valueObject.setRandom();
-	await createPatient(valueObject);
-	valueObject.visit!.patient = { uuid: valueObject.businessPartner!.uuid } as Patient;
+	await createBusinessPartner(valueObject);
+	valueObject.visit!.patient = { uuid: valueObject.businessPartner!.uuid } as BusinessPartner;
 	const secondPatientName = valueObject.businessPartner!.name;
 
 	valueObject.stepName = 'Complete visit';
@@ -722,7 +813,7 @@ test('create and complete pharmacy sales visit', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -730,10 +821,11 @@ test('create and complete pharmacy sales visit', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	const pharmacySalesPatients = (
-		await patientApi.get(valueObject, 0, 10, undefined, JSON.stringify({ c_bp_group: { name: 'OTC Patient' } }))
+		await businessPartnerApi.get(valueObject, 0, 10, undefined, JSON.stringify({ c_bp_group: { name: 'OTC Patient' } }))
 	).results;
 	expect(pharmacySalesPatients.length).toBe(1);
 	const pharmacySalesPatient = pharmacySalesPatients[0];
@@ -748,33 +840,40 @@ test('create and complete pharmacy sales visit', async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	valueObject.visit!.payments = [
 		{
 			payAmount: valueObject.salesStandardPrice,
 			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 				(tenderType) => tenderType.name === tenderTypeName.CASH,
 			) as PaymentType,
+			documentType: valueObject.documentType,
 		} as Payment,
 	];
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 });
 
 test(`getByUuid method returns the correct data`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
-	const patient: Partial<Patient> = {
+	valueObject.stepName = 'Create business partner';
+	const businessPartner: Partial<BusinessPartner> = {
 		name: valueObject.getDynamicStepMessage(),
 		description: valueObject.getStepMessageLong(),
 		dateOfBirth: valueObject.date?.toISOString(),
@@ -783,42 +882,158 @@ test(`getByUuid method returns the correct data`, async () => {
 		occupation: 'Programmer',
 		nextOfKinName: 'Wifey',
 		nextOfKinContact: '155155',
+		isCustomer: true,
 	};
-	const savedPatient = await patientApi.save(valueObject, patient as Patient);
-	valueObject.businessPartner = savedPatient as BusinessPartner;
+	valueObject.businessPartner = await businessPartnerApi.save(valueObject, businessPartner as BusinessPartner);
+
+	valueObject.stepName = 'Get insurer to use';
+	const insurerOrDonorToUse = (
+		await businessPartnerApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ c_bp_group: { bh_subtype: { $in: ['I', 'D'] } } }),
+		)
+	).results.filter((businessPartner) => businessPartner.payerInformationFieldList.length)[0];
+	const payerInformationFieldToUse = insurerOrDonorToUse.payerInformationFieldList.filter(
+		(payerInformationField) => payerInformationField.dataType.value === 'T',
+	)[0];
+	const randomInformationField = randomUUID();
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
 
 	valueObject.stepName = 'Create visit';
-	valueObject.documentAction = undefined;
 	const twoDaysAgo = new Date();
 	twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
 	twoDaysAgo.setUTCHours(12);
 	valueObject.date = twoDaysAgo;
-	await createVisit(valueObject);
-
-	valueObject.stepName = 'Create order';
-	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
-	await createOrder(valueObject);
-	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	const salesOrderDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const customerInvoiceDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	const paymentReceiptDocumentType = valueObject.documentType!;
+	const orderUuid = randomUUID();
+	const orderLineUuid = randomUUID();
+	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
+	const visitToSave = {
+		description: valueObject.getStepMessageLong(),
+		patient: valueObject.businessPartner,
+		visitDate: valueObject.date,
+		orders: [
+			{
+				uuid: orderUuid,
+				description: valueObject.getStepMessageLong(),
+				dateOrdered: valueObject.date,
+				warehouse: valueObject.warehouse,
+				orderLines: [
+					{
+						uuid: orderLineUuid,
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+					} as OrderLine,
+				],
+				documentTypeTarget: salesOrderDocumentType,
+			} as Partial<Order>,
+		],
+		invoices: [
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: valueObject.businessPartner!,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+						orderLine: { uuid: orderLineUuid },
+					} as InvoiceLine,
+					{
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: -50,
+					} as InvoiceLine,
+				],
+				order: { uuid: orderUuid },
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: insurerOrDonorToUse,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 50,
+						businessPartnerSpecificPayerInformationList: [
+							{ payerInformationFieldUuid: payerInformationFieldToUse.uuid, name: randomInformationField },
+						],
+					} as InvoiceLine,
+				],
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+		],
+		payments: [
+			{
+				orgId: 0,
+				businessPartner: valueObject.businessPartner,
+				description: valueObject.getStepMessageLong(),
+				payAmount: 10,
+				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
+				documentType: paymentReceiptDocumentType,
+			},
+			{
+				orgId: 0,
+				businessPartner: valueObject.businessPartner,
+				description: valueObject.getStepMessageLong(),
+				payAmount: 40,
+				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
+				documentType: paymentReceiptDocumentType,
+			},
+		],
+	} as Visit;
+	valueObject.visit = await visitApi.save(valueObject, visitToSave);
 
 	const fetchedVisit = await visitApi.getByUuid(valueObject, valueObject.visit!.uuid);
 	expect(fetchedVisit.patient).toBeTruthy();
 	expect(fetchedVisit.patient.lastVisitDate).toBe(formatDate(twoDaysAgo));
 	expect(fetchedVisit.patient.totalVisits).toBe(1);
-	expect(fetchedVisit.patient.nationalId).toBe(patient.nationalId);
-	expect(fetchedVisit.patient.occupation).toBe(patient.occupation);
-	expect(fetchedVisit.patient.nextOfKinName).toBe(patient.nextOfKinName);
-	expect(fetchedVisit.patient.nextOfKinContact).toBe(patient.nextOfKinContact);
+	expect(fetchedVisit.patient.nationalId).toBe(businessPartner.nationalId);
+	expect(fetchedVisit.patient.occupation).toBe(businessPartner.occupation);
+	expect(fetchedVisit.patient.nextOfKinName).toBe(businessPartner.nextOfKinName);
+	expect(fetchedVisit.patient.nextOfKinContact).toBe(businessPartner.nextOfKinContact);
+	// Make sure every invoice has it's BP
+	expect(fetchedVisit.invoices.every((invoice) => !!invoice.businessPartner?.businessPartnerGroup?.uuid)).toBe(true);
+	// Make sure each invoice that has an order and every invoice line has it's order line
+	expect(fetchedVisit.invoices.some((invoice) => !!invoice.order?.uuid)).toBe(true);
+	expect(
+		fetchedVisit.invoices
+			.find((invoice) => !!invoice.order?.uuid)
+			?.invoiceLines.some((invoiceLine) => !!invoiceLine.orderLine?.uuid),
+	).toBe(true);
+	expect(
+		fetchedVisit.invoices
+			.find((invoice) =>
+				invoice.invoiceLines.find((invoiceLine) => invoiceLine.businessPartnerSpecificPayerInformationList.length),
+			)
+			?.invoiceLines.find((invoiceLine) => invoiceLine.businessPartnerSpecificPayerInformationList.length)
+			?.businessPartnerSpecificPayerInformationList[0].name,
+	).toBe(randomInformationField);
 });
 
 test(`get method returns the correct data`, async () => {
@@ -826,7 +1041,7 @@ test(`get method returns the correct data`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create patient';
-	const patient: Partial<Patient> = {
+	const businessPartner: Partial<BusinessPartner> = {
 		name: valueObject.getDynamicStepMessage(),
 		description: valueObject.getStepMessageLong(),
 		dateOfBirth: valueObject.date?.toISOString(),
@@ -835,8 +1050,9 @@ test(`get method returns the correct data`, async () => {
 		occupation: 'Programmer',
 		nextOfKinName: 'Wifey',
 		nextOfKinContact: '155155',
+		isCustomer: true,
 	};
-	const savedPatient = await patientApi.save(valueObject, patient as Patient);
+	const savedPatient = await businessPartnerApi.save(valueObject, businessPartner as BusinessPartner);
 	valueObject.businessPartner = savedPatient as BusinessPartner;
 
 	valueObject.stepName = 'Create product';
@@ -855,7 +1071,7 @@ test(`get method returns the correct data`, async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
@@ -880,7 +1096,7 @@ test('can remove a payment from a re-opened visit', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -888,11 +1104,8 @@ test('can remove a payment from a re-opened visit', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -902,26 +1115,33 @@ test('can remove a payment from a re-opened visit', async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	valueObject.visit!.payments = [
 		{
 			payAmount: valueObject.salesStandardPrice,
 			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 				(tenderType) => tenderType.name === tenderTypeName.CASH,
 			) as PaymentType,
+			documentType: valueObject.documentType,
 		} as Payment,
 	];
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Reactivate visit';
 	valueObject.visit = await visitApi.process(valueObject, valueObject.visit.uuid, documentAction.ReActivate);
@@ -932,7 +1152,7 @@ test('can remove a payment from a re-opened visit', async () => {
 	valueObject.stepName = 'Re-complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(
 		valueObject.salesStandardPrice,
 	);
 });
@@ -942,7 +1162,7 @@ test('can delete a drafted visit', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -950,11 +1170,8 @@ test('can delete a drafted visit', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -964,19 +1181,26 @@ test('can delete a drafted visit', async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	valueObject.visit!.payments = [
 		{
 			payAmount: valueObject.salesStandardPrice,
 			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 				(tenderType) => tenderType.name === tenderTypeName.CASH,
 			) as PaymentType,
+			documentType: valueObject.documentType,
 		} as Payment,
 	];
 	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
@@ -991,7 +1215,7 @@ test(`product created and sold with more than received quantity throws an error`
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -999,11 +1223,8 @@ test(`product created and sold with more than received quantity throws an error`
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create Patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
@@ -1013,7 +1234,7 @@ test(`product created and sold with more than received quantity throws an error`
 	valueObject.quantity = 100;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
@@ -1028,7 +1249,7 @@ test(`selling more than in inventory error message is correct and is the same in
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -1036,11 +1257,8 @@ test(`selling more than in inventory error message is correct and is the same in
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create Patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
@@ -1049,7 +1267,7 @@ test(`selling more than in inventory error message is correct and is the same in
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
@@ -1083,7 +1301,7 @@ test(`selling more than in inventory error message is correct and is the same in
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
@@ -1101,7 +1319,7 @@ test('voiding visits shows data on the report correctly', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -1109,11 +1327,8 @@ test('voiding visits shows data on the report correctly', async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -1123,26 +1338,33 @@ test('voiding visits shows data on the report correctly', async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
 	);
 	await createOrder(valueObject);
 
+	valueObject.stepName = 'Create invoice';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	await createInvoice(valueObject);
+
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	valueObject.visit!.payments = [
 		{
 			payAmount: valueObject.salesStandardPrice,
 			paymentType: (await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
 				(tenderType) => tenderType.name === tenderTypeName.CASH,
 			) as PaymentType,
+			documentType: valueObject.documentType,
 		} as Payment,
 	];
 
 	valueObject.stepName = 'Complete visit';
 	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
 
-	expect((await patientApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
 
 	valueObject.stepName = 'Void visit';
 	valueObject.visit!.voidedReason = (await voidedReasonApi.get(valueObject)).results[0];
@@ -1170,9 +1392,9 @@ test('visit can be saved with really long chief complaint', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	valueObject.stepName = 'Create patient';
+	valueObject.stepName = 'Create business partner';
 	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
@@ -1204,7 +1426,7 @@ test('clinical vitals fields', async () => {
 
 	valueObject.stepName = 'Create patient';
 	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
@@ -1299,7 +1521,7 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -1307,60 +1529,117 @@ test(`visit saved and completed matches what is returned from visit getByUuid`, 
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
+		true,
+		false,
+		false,
+	);
+	const salesOrderDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const customerInvoiceDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	const paymentReceiptDocumentType = valueObject.documentType!;
+	const orderUuid = randomUUID();
+	const orderLineUuid = randomUUID();
 
 	valueObject.stepName = 'Create and complete visit';
 	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
-	const chargeToUse = (await chargeApi.getNonPatientPayments(valueObject)).results.filter(
-		(charge) => charge.chargeInformationList.length,
-	)[0];
-	const chargeInformationToUse = chargeToUse.chargeInformationList.filter(
-		(chargeInformation) => chargeInformation.dataType.value === 'T',
+	const insurerOrDonor = (
+		await businessPartnerApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ c_bp_group: { bh_subtype: { $in: ['I', 'D'] } } }),
+		)
+	).results.filter((businessPartner) => businessPartner.payerInformationFieldList.length)[0];
+	const payerInformationFieldToUse = insurerOrDonor.payerInformationFieldList.filter(
+		(payerInformationField) => payerInformationField.dataType.value === 'T',
 	)[0];
 	const visitToSave = {
 		description: valueObject.getStepMessageLong(),
-		patient: valueObject.businessPartner as Patient | undefined,
+		patient: valueObject.businessPartner,
 		visitDate: valueObject.date,
 		orders: [
 			{
+				uuid: orderUuid,
 				description: valueObject.getStepMessageLong(),
 				dateOrdered: valueObject.date,
 				warehouse: valueObject.warehouse,
 				orderLines: [
 					{
+						uuid: orderLineUuid,
 						description: valueObject.getStepMessageLong(),
 						product: valueObject.product,
 						quantity: 1,
 						price: 100,
 					} as OrderLine,
+				],
+				documentTypeTarget: salesOrderDocumentType,
+			} as Partial<Order>,
+		],
+		invoices: [
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: valueObject.businessPartner!,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
 					{
 						description: valueObject.getStepMessageLong(),
-						charge: chargeToUse,
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+						orderLine: { uuid: orderLineUuid },
+					} as InvoiceLine,
+					{
+						description: valueObject.getStepMessageLong(),
+						charge: insurerOrDonor.businessPartnerGroup.associatedCustomerReceivablesCharge,
+						quantity: 1,
+						price: -50,
+					} as InvoiceLine,
+				],
+				order: { uuid: orderUuid },
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: insurerOrDonor,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						charge: insurerOrDonor.businessPartnerGroup.associatedCustomerReceivablesCharge,
 						quantity: 1,
 						price: 50,
-						chargeInformationList: [{ chargeInformationUuid: chargeInformationToUse.uuid, value: 'Test' }],
-					} as OrderLine,
+						businessPartnerSpecificPayerInformationList: [
+							{ payerInformationFieldUuid: payerInformationFieldToUse.uuid, name: 'Test' },
+						],
+					} as InvoiceLine,
 				],
-			} as Partial<Order>,
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
 		],
 		payments: [
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner,
 				description: valueObject.getStepMessageLong(),
 				payAmount: 60,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
+				documentType: paymentReceiptDocumentType,
 			},
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner,
 				description: valueObject.getStepMessageLong(),
 				payAmount: 40,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
+				documentType: paymentReceiptDocumentType,
 			},
 		],
 	} as Visit;
@@ -1379,7 +1658,7 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -1387,19 +1666,169 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
+		true,
+		false,
+		false,
+	);
+	const salesOrderDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const customerInvoiceDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	const paymentReceiptDocumentType = valueObject.documentType!;
+	const orderUuid = randomUUID();
+	const orderLineUuid = randomUUID();
 
 	valueObject.stepName = 'Create visit';
 	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
-	const chargeToUse = (await chargeApi.getNonPatientPayments(valueObject)).results.filter(
-		(charge) => charge.chargeInformationList.length,
+	const insurerOrDonorToUse = (
+		await businessPartnerApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ c_bp_group: { bh_subtype: { $in: ['I', 'D'] } } }),
+		)
+	).results.filter((businessPartner) => businessPartner.payerInformationFieldList.length)[0];
+	const payerInformationFieldToUse = insurerOrDonorToUse.payerInformationFieldList.filter(
+		(payerInformationField) => payerInformationField.dataType.value === 'T',
 	)[0];
-	const chargeInformationToUse = chargeToUse.chargeInformationList.filter(
-		(chargeInformation) => chargeInformation.dataType.value === 'T',
+	const visitToSave = {
+		description: valueObject.getStepMessageLong(),
+		patient: valueObject.businessPartner,
+		visitDate: valueObject.date,
+		orders: [
+			{
+				uuid: orderUuid,
+				description: valueObject.getStepMessageLong(),
+				dateOrdered: valueObject.date,
+				warehouse: valueObject.warehouse,
+				orderLines: [
+					{
+						uuid: orderLineUuid,
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+					} as OrderLine,
+				],
+				documentTypeTarget: salesOrderDocumentType,
+			} as Partial<Order>,
+		],
+		invoices: [
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: valueObject.businessPartner!,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+						orderLine: { uuid: orderLineUuid },
+					} as InvoiceLine,
+					{
+						description: valueObject.getStepMessageLong(),
+						charge: insurerOrDonorToUse.businessPartnerGroup.associatedCustomerReceivablesCharge,
+						quantity: 1,
+						price: -50,
+					} as InvoiceLine,
+				],
+				order: { uuid: orderUuid },
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: insurerOrDonorToUse,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						charge: insurerOrDonorToUse.businessPartnerGroup.associatedCustomerReceivablesCharge,
+						quantity: 1,
+						price: 50,
+						businessPartnerSpecificPayerInformationList: [
+							{ payerInformationFieldUuid: payerInformationFieldToUse.uuid, name: 'Test' },
+						],
+					} as InvoiceLine,
+				],
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+		],
+		payments: [
+			{
+				orgId: 0,
+				businessPartner: valueObject.businessPartner,
+				description: valueObject.getStepMessageLong(),
+				payAmount: 10,
+				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
+				documentType: paymentReceiptDocumentType,
+			},
+			{
+				orgId: 0,
+				businessPartner: valueObject.businessPartner,
+				description: valueObject.getStepMessageLong(),
+				payAmount: 40,
+				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
+				documentType: paymentReceiptDocumentType,
+			},
+		],
+	} as Visit;
+	valueObject.visit = await visitApi.save(valueObject, visitToSave);
+
+	expect(await visitApi.delete(valueObject, valueObject.visit!.uuid)).toBeTruthy();
+});
+
+test(`visit invoice updates work`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
+		true,
+		false,
+		false,
+	);
+	const salesOrderDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const customerInvoiceDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	const paymentReceiptDocumentType = valueObject.documentType!;
+	const orderUuid = randomUUID();
+	const orderLineUuid = randomUUID();
+
+	valueObject.stepName = 'Create visit';
+	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
+	const insurerOrDonorToUse = (
+		await businessPartnerApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ c_bp_group: { bh_subtype: { $in: ['I', 'D'] } } }),
+		)
+	).results.filter((businessPartner) => businessPartner.payerInformationFieldList.length)[0];
+	const payerInformationFieldToUse = insurerOrDonorToUse.payerInformationFieldList.filter(
+		(payerInformationField) => payerInformationField.dataType.value === 'T',
 	)[0];
 	const clinicalVitalsEncounterTypeWindow = (
 		await encounterTypeWindowApi.get(
@@ -1414,7 +1843,7 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 	).results[0];
 	const visitToSave = {
 		description: valueObject.getStepMessageLong(),
-		patient: valueObject.businessPartner as Patient | undefined,
+		patient: valueObject.businessPartner,
 		visitDate: valueObject.date,
 		encounters: [
 			{
@@ -1437,44 +1866,593 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 		],
 		orders: [
 			{
+				uuid: orderUuid,
 				description: valueObject.getStepMessageLong(),
 				dateOrdered: valueObject.date,
 				warehouse: valueObject.warehouse,
 				orderLines: [
 					{
+						uuid: orderLineUuid,
 						description: valueObject.getStepMessageLong(),
 						product: valueObject.product,
 						quantity: 1,
 						price: 100,
 					} as OrderLine,
+				],
+				documentTypeTarget: salesOrderDocumentType,
+			} as Partial<Order>,
+		],
+		invoices: [
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: valueObject.businessPartner!,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
 					{
 						description: valueObject.getStepMessageLong(),
-						charge: chargeToUse,
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+						orderLine: { uuid: orderLineUuid },
+					} as InvoiceLine,
+					{
+						description: valueObject.getStepMessageLong(),
+						charge: insurerOrDonorToUse.businessPartnerGroup.associatedCustomerReceivablesCharge,
+						quantity: 1,
+						price: -50,
+					} as InvoiceLine,
+				],
+				order: { uuid: orderUuid },
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: insurerOrDonorToUse,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						charge: insurerOrDonorToUse.businessPartnerGroup.associatedCustomerReceivablesCharge,
 						quantity: 1,
 						price: 50,
-						chargeInformationList: [{ chargeInformationUuid: chargeInformationToUse.uuid, value: 'Test' }],
-					} as OrderLine,
+						businessPartnerSpecificPayerInformationList: [
+							{ payerInformationFieldUuid: payerInformationFieldToUse.uuid, name: 'Test' },
+						],
+					} as InvoiceLine,
 				],
-			} as Partial<Order>,
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
 		],
 		payments: [
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner,
 				description: valueObject.getStepMessageLong(),
-				payAmount: 60,
+				payAmount: 10,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
+				documentType: paymentReceiptDocumentType,
 			},
 			{
 				orgId: 0,
-				patient: valueObject.businessPartner as unknown as Patient,
+				businessPartner: valueObject.businessPartner,
 				description: valueObject.getStepMessageLong(),
 				payAmount: 40,
 				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
+				documentType: paymentReceiptDocumentType,
 			},
 		],
 	} as Visit;
 	valueObject.visit = await visitApi.save(valueObject, visitToSave);
 
-	expect(await visitApi.delete(valueObject, valueObject.visit!.uuid)).toBeTruthy();
+	expect(valueObject.visit.invoices).toHaveLength(2);
+	expect(valueObject.visit.invoices.find((invoice) => invoice.invoiceLines.length === 2)).toBeTruthy();
+	expect(valueObject.visit.invoices.find((invoice) => invoice.invoiceLines.length === 1)).toBeTruthy();
+	expect(valueObject.visit.payments).toHaveLength(2);
+
+	valueObject.stepName = 'Remove insurance payer';
+	valueObject.visit.invoices = valueObject.visit.invoices.filter(
+		(invoice) => invoice.businessPartner.uuid === valueObject.businessPartner?.uuid,
+	);
+	valueObject.visit.invoices[0].invoiceLines = valueObject.visit.invoices[0].invoiceLines.filter(
+		(invoiceLine) => !invoiceLine.charge,
+	);
+	valueObject.visit.payments[0].payAmount += 50; // Increase the cash payment by what the insurance was previously paying
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit);
+
+	expect(valueObject.visit.invoices).toHaveLength(1);
+	expect(valueObject.visit.invoices[0].invoiceLines).toHaveLength(1);
+	expect(valueObject.visit.payments).toHaveLength(2);
+});
+
+test(`open balances are correct after re-openings and voiding`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create insurer';
+	await createBusinessPartner(valueObject);
+	valueObject.businessPartner!.businessPartnerGroup = (
+		await businessPartnerGroupApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ bh_subtype: { $in: ['I'] } }),
+		)
+	).results[0];
+	const insurer = await businessPartnerApi.save(valueObject, valueObject.businessPartner!);
+
+	valueObject.stepName = 'Create business partner';
+	valueObject.clearBusinessPartner();
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
+		true,
+		false,
+		false,
+	);
+	const salesOrderDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const customerInvoiceDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
+	const paymentReceiptDocumentType = valueObject.documentType!;
+	const orderUuid = randomUUID();
+	const orderLineUuid = randomUUID();
+
+	valueObject.stepName = 'Create visit';
+	const tenderTypes = await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false);
+	const visitToSave = {
+		description: valueObject.getStepMessageLong(),
+		patient: valueObject.businessPartner,
+		visitDate: valueObject.date,
+		orders: [
+			{
+				uuid: orderUuid,
+				description: valueObject.getStepMessageLong(),
+				dateOrdered: valueObject.date,
+				warehouse: valueObject.warehouse,
+				orderLines: [
+					{
+						uuid: orderLineUuid,
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+					} as OrderLine,
+				],
+				documentTypeTarget: salesOrderDocumentType,
+			} as Partial<Order>,
+		],
+		invoices: [
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: valueObject.businessPartner!,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						product: valueObject.product,
+						quantity: 1,
+						price: 100,
+						orderLine: { uuid: orderLineUuid },
+					} as InvoiceLine,
+					{
+						description: valueObject.getStepMessageLong(),
+						charge: insurer.businessPartnerGroup.associatedCustomerReceivablesCharge,
+						quantity: 1,
+						price: -50,
+					} as InvoiceLine,
+				],
+				order: { uuid: orderUuid },
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: insurer,
+				dateInvoiced: valueObject.date?.toISOString(),
+				invoiceLines: [
+					{
+						description: valueObject.getStepMessageLong(),
+						charge: insurer.businessPartnerGroup.associatedCustomerReceivablesCharge,
+						quantity: 1,
+						price: 50,
+					} as InvoiceLine,
+				],
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+		],
+		payments: [
+			{
+				orgId: 0,
+				businessPartner: valueObject.businessPartner,
+				description: valueObject.getStepMessageLong(),
+				payAmount: 10,
+				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.CASH) as PaymentType,
+				documentType: paymentReceiptDocumentType,
+			},
+			{
+				orgId: 0,
+				businessPartner: valueObject.businessPartner,
+				description: valueObject.getStepMessageLong(),
+				payAmount: 40,
+				paymentType: tenderTypes.find((tenderType) => tenderType.name === tenderTypeName.MOBILE_MONEY) as PaymentType,
+				documentType: paymentReceiptDocumentType,
+			},
+		],
+	} as Visit;
+	valueObject.visit = await visitApi.saveAndProcess(valueObject, visitToSave, documentAction.Complete);
+
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, insurer.uuid)).totalOpenBalance).toBe(50);
+
+	valueObject.stepName = 'Re-open visit';
+	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.ReActivate);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, insurer.uuid)).totalOpenBalance).toBe(0);
+
+	valueObject.stepName = 'Re-complete the visit as-is';
+	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, insurer.uuid)).totalOpenBalance).toBe(50);
+
+	valueObject.stepName = 'Re-re-open visit';
+	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.ReActivate);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, insurer.uuid)).totalOpenBalance).toBe(0);
+
+	valueObject.stepName = 'Remove reversed/voided invoices and payments';
+	valueObject.visit.invoices = valueObject.visit.invoices.filter(
+		(invoice) =>
+			![
+				documentStatus.Voided as string,
+				documentAction.ReverseAccrual as string,
+				documentStatus.Reversed as string,
+			].includes(invoice.docStatus),
+	);
+	valueObject.visit.payments = valueObject.visit.payments.filter(
+		(payment) =>
+			![
+				documentStatus.Voided as string,
+				documentAction.ReverseAccrual as string,
+				documentStatus.Reversed as string,
+			].includes(payment.docStatus),
+	);
+	expect(valueObject.visit.invoices).toHaveLength(2);
+	expect(valueObject.visit.payments).toHaveLength(2);
+
+	valueObject.stepName = 'Remove insurance payer';
+	valueObject.visit.invoices = valueObject.visit.invoices.filter(
+		(invoice) => invoice.businessPartner.uuid === valueObject.businessPartner?.uuid,
+	);
+	valueObject.visit.invoices[0].invoiceLines = valueObject.visit.invoices[0].invoiceLines.filter(
+		(invoiceLine) => !invoiceLine.charge,
+	);
+	valueObject.visit.payments[0].payAmount += 50; // Increase the cash payment by what the insurance was previously paying
+	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit!, documentAction.Complete);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, insurer.uuid)).totalOpenBalance).toBe(0);
+
+	valueObject.stepName = 'Void the visit';
+	valueObject.visit = await visitApi.saveAndProcess(valueObject, valueObject.visit, documentAction.Void);
+	expect((await businessPartnerApi.getByUuid(valueObject, valueObject.businessPartner!.uuid)).totalOpenBalance).toBe(0);
+	expect((await businessPartnerApi.getByUuid(valueObject, insurer.uuid)).totalOpenBalance).toBe(0);
+});
+
+test(`visit can be saved without order and invoice lines`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	valueObject.clearBusinessPartner();
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
+
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
+		true,
+		false,
+		false,
+	);
+	const salesOrderDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const customerInvoiceDocumentType = valueObject.documentType!;
+	const orderUuid = randomUUID();
+
+	valueObject.stepName = 'Create visit';
+	valueObject.visit = await visitApi.save(valueObject, {
+		description: valueObject.getStepMessageLong(),
+		patient: valueObject.businessPartner,
+		visitDate: valueObject.date,
+		orders: [
+			{
+				uuid: orderUuid,
+				description: valueObject.getStepMessageLong(),
+				dateOrdered: valueObject.date,
+				warehouse: valueObject.warehouse,
+				documentTypeTarget: salesOrderDocumentType,
+			} as Partial<Order>,
+		],
+		invoices: [
+			{
+				description: valueObject.getStepMessageLong(),
+				businessPartner: valueObject.businessPartner!,
+				dateInvoiced: valueObject.date?.toISOString(),
+				order: { uuid: orderUuid },
+				documentTypeTarget: customerInvoiceDocumentType,
+			},
+		],
+	} as Visit);
+
+	expect(valueObject.visit).toBeTruthy();
+	expect(valueObject.visit.orders).toHaveLength(1);
+	expect(valueObject.visit.orders[0].orderLines).toHaveLength(0);
+	expect(valueObject.visit.invoices).toHaveLength(1);
+	expect(valueObject.visit.invoices[0].invoiceLines).toHaveLength(0);
+});
+
+test(`document number should be returned for saved visits`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	valueObject.documentAction = undefined;
+	await createVisit(valueObject);
+
+	valueObject.stepName = 'Create order';
+	valueObject.documentAction = undefined;
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.OnCreditOrder,
+		true,
+		false,
+		false,
+	);
+	await createOrder(valueObject);
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+
+	const paginatedVisits = await visitApi.get(
+		valueObject,
+		undefined,
+		undefined,
+		undefined,
+		JSON.stringify({ bh_visit_uu: valueObject.visit!.uuid }),
+	);
+	expect(paginatedVisits.results[0].documentNumber).not.toBe('');
+});
+
+test(`can delete order & invoice lines at the same time`, async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product 1';
+	valueObject.salesStandardPrice = 100;
+	await createProduct(valueObject);
+	const product1 = valueObject.product!;
+
+	valueObject.stepName = 'Create product 2';
+	valueObject.salesStandardPrice = 120;
+	valueObject.clearProduct();
+	await createProduct(valueObject);
+	const product2 = valueObject.product!;
+
+	valueObject.stepName = 'Create visit';
+	await valueObject.setDocumentBaseType(
+		documentBaseType.SalesOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
+		true,
+		false,
+		false,
+	);
+	const salesOrderDocumentType = valueObject.documentType!;
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	const customerInvoiceDocumentType = valueObject.documentType!;
+	const orderUuid = randomUUID();
+	const orderLine1Uuid = randomUUID();
+	const orderLine2Uuid = randomUUID();
+	const visit: Partial<Visit> = {
+		uuid: randomUUID(),
+		patient: valueObject.businessPartner!,
+		visitDate: new Date(1698751197099),
+		encounters: [
+			{
+				clientId: 1000000,
+				orgId: 1000000,
+				uuid: v4(),
+				created: '2023-10-31 02:20:22',
+				isActive: true,
+				createdTimestamp: new Date(1698751222099),
+				encounterType: {
+					clientId: 0,
+					orgId: 0,
+					uuid: '6b25aa54-bbae-4432-a4e9-7a9a3116fc95',
+					created: '2023-07-06 12:37:28',
+					isActive: true,
+					createdTimestamp: new Date(1688636248131),
+					name: 'Capture Vitals',
+					value: 'V',
+					description: '',
+				},
+				observations: [],
+				encounterDiagnoses: [],
+			},
+			{
+				clientId: 1000000,
+				orgId: 1000000,
+				uuid: v4(),
+				created: '2023-10-31 02:20:22',
+				isActive: true,
+				createdTimestamp: new Date(1698751222393),
+				encounterType: {
+					clientId: 0,
+					orgId: 0,
+					uuid: '9bd78d1a-3ec7-46eb-a7b9-58c183b823ae',
+					created: '2023-07-21 11:30:16',
+					isActive: true,
+					createdTimestamp: new Date(1689928216746),
+					name: 'Clinical Details',
+					description: 'clinical details',
+					value: 'D',
+				},
+				observations: [],
+				encounterDiagnoses: [],
+			},
+		],
+		orders: [
+			{
+				clientId: 1000000,
+				orgId: 1000000,
+				uuid: orderUuid,
+				created: '2023-10-31 02:20:22',
+				isActive: true,
+				createdTimestamp: new Date(1698751222709),
+				dateAccount: new Date(1698751222709),
+				businessPartner: valueObject.businessPartner!,
+				description: '',
+				dateOrdered: new Date(1698699600000),
+				grandTotal: 30200,
+				docStatus: 'DR',
+				orderLines: [
+					{
+						clientId: 1000000,
+						orgId: 1000000,
+						uuid: orderLine1Uuid,
+						created: '2023-11-01 11:56:45',
+						isActive: true,
+						createdTimestamp: new Date(1698829005247),
+						price: 200,
+						quantity: 1,
+						product: product1,
+						lineNetAmount: 200,
+						charge: null as unknown as Charge,
+						description: '',
+						attributeSetInstance: null as unknown as AttributeSetInstance,
+						instructions: '',
+					},
+					{
+						clientId: 1000000,
+						orgId: 1000000,
+						uuid: orderLine2Uuid,
+						created: '2023-10-31 02:20:22',
+						isActive: true,
+						createdTimestamp: new Date(1698751222793),
+						price: 30000,
+						quantity: 1,
+						product: product2,
+						lineNetAmount: 30000,
+						charge: null as unknown as Charge,
+						description: '',
+						attributeSetInstance: null as unknown as AttributeSetInstance,
+						instructions: '',
+					},
+				],
+				warehouse: valueObject.warehouse!,
+				voidedReason: {} as VoidedReason,
+				documentTypeTarget: salesOrderDocumentType,
+				isSalesOrderTransaction: true,
+			},
+		],
+		invoices: [
+			{
+				clientId: 1000000,
+				orgId: 1000000,
+				uuid: randomUUID(),
+				created: '2023-10-31 02:20:23',
+				isActive: true,
+				dateInvoicedCreated: new Date(1698751223299),
+				description: '',
+				createdTimestamp: new Date(1698751223299),
+				businessPartner: valueObject.businessPartner!,
+				invoiceLines: [
+					{
+						clientId: 1000000,
+						orgId: 1000000,
+						uuid: randomUUID(),
+						created: '2023-10-31 02:20:23',
+						isActive: true,
+						createdTimestamp: new Date(1698751223383),
+						invoiceId: 1838261,
+						price: 30000,
+						quantity: 1,
+						lineNetAmount: 30000,
+						product: product1,
+						attributeSetInstance: null as unknown as AttributeSetInstance,
+						businessPartnerSpecificPayerInformationList: [],
+						orderLine: { uuid: orderLine1Uuid } as OrderLine,
+						charge: null as unknown as Charge,
+						description: '',
+					},
+					{
+						clientId: 1000000,
+						orgId: 1000000,
+						uuid: '49cd1fa7-33db-4043-9ede-93f3296b80dd',
+						created: '2023-11-01 11:56:45',
+						isActive: true,
+						createdTimestamp: new Date(1698829005952),
+						invoiceId: 1838261,
+						price: 200,
+						quantity: 1,
+						lineNetAmount: 200,
+						product: product2,
+						attributeSetInstance: null as unknown as AttributeSetInstance,
+						businessPartnerSpecificPayerInformationList: [],
+						orderLine: { uuid: orderLine2Uuid } as OrderLine,
+						charge: null as unknown as Charge,
+						description: '',
+					},
+				],
+				docStatus: 'DR',
+				dateInvoiced: '2023-10-31',
+				grandTotal: 30200,
+				paymentRule: 'P',
+				voidedReason: {} as VoidedReason,
+				isSalesOrderTransaction: true,
+				documentTypeTarget: customerInvoiceDocumentType,
+				order: { uuid: orderUuid } as Order,
+			},
+		],
+	};
+	valueObject.visit = await visitApi.save(valueObject, visit as Visit);
+
+	valueObject.stepName = 'Remove order & invoice lines';
+	valueObject.visit.orders[0].orderLines = valueObject.visit.orders[0].orderLines.filter(
+		(orderLine) => orderLine.uuid === orderLine1Uuid,
+	);
+	valueObject.visit.invoices[0].invoiceLines = valueObject.visit.invoices[0].invoiceLines.filter(
+		(invoiceLine) => invoiceLine.orderLine.uuid === orderLine1Uuid,
+	);
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit).toBeTruthy();
+	expect(valueObject.visit.orders).toHaveLength(1);
+	expect(valueObject.visit.orders[0].orderLines).toHaveLength(1);
+	expect(valueObject.visit.invoices).toHaveLength(1);
+	expect(valueObject.visit.invoices[0].invoiceLines).toHaveLength(1);
 });

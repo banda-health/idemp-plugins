@@ -63,7 +63,7 @@
 ),
 	billdetails AS (
 		SELECT
-			c_order_id,
+			bh_visit_id,
 			c_bpartner_id,
 			bh_visitdate AS bill_date,
 			cashier_name AS Cashier,
@@ -77,80 +77,80 @@
 			AND vd.docstatus != 'VO'
 			AND vd.docstatus != 'DR'
 		GROUP BY
-			c_order_id, c_bpartner_id, bh_visitdate, cashier_name, patient_name, bh_patienttype
+			bh_visit_id, c_bpartner_id, bh_visitdate, cashier_name, patient_name, bh_patienttype
 	),
 	patient_payments AS (
 		SELECT
-			c_order_id,
+			bh_visit_id,
 			SUM(payamt)       AS amount,
 			payment_mode_name AS payment_type,
 			tendertype
 		FROM
 			bh_get_visit_payments($P{AD_CLIENT_ID}, TO_TIMESTAMP($P{Begin Date}, 'YYYY-MM-DD HH24:MI')::timestamp, TO_TIMESTAMP($P{End Date}, 'YYYY-MM-DD HH24:MI')::timestamp)
-		GROUP BY c_order_id, tendertype, payment_mode_name
+		GROUP BY bh_visit_id, tendertype, payment_mode_name
 	),
 	non_patient_payments AS (
 		SELECT
-			c_order_id,
+			bh_visit_id,
 			ChargeType_name      AS payment_type,
 			bh_subtype,
 			SUM(linenetamt) * -1 AS amount
 		FROM
 			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, TO_TIMESTAMP($P{Begin Date}, 'YYYY-MM-DD HH24:MI')::timestamp, TO_TIMESTAMP($P{End Date}, 'YYYY-MM-DD HH24:MI')::timestamp)
-		GROUP BY c_order_id, ChargeType_name, bh_subtype
+		GROUP BY bh_visit_id, ChargeType_name, bh_subtype
 	)
 SELECT
-	c_order_id,
+	bh_visit_id,
 	Cashiername,
 	paymentamount,
 	paymentmode
 FROM
 	(
 		SELECT
-			billdetails.c_order_id,
+			billdetails.bh_visit_id,
 			billdetails.Cashier           AS Cashiername,
 			patient_payments.amount       AS paymentamount,
 			patient_payments.payment_type AS paymentmode
 		FROM
 			billdetails
 				LEFT JOIN patient_payments
-					ON billdetails.c_order_id = patient_payments.c_order_id
+					ON billdetails.bh_visit_id = patient_payments.bh_visit_id
 		WHERE
 			patient_payments.payment_type IS NOT NULL
 			AND patient_payments.amount IS NOT NULL
 		UNION
 		SELECT
-			billdetails.c_order_id,
+			billdetails.bh_visit_id,
 			billdetails.Cashier               AS Cashier,
 			non_patient_payments.amount       AS paymentamount,
 			non_patient_payments.payment_type AS paymentmode
 		FROM
 			billdetails
 				LEFT JOIN non_patient_payments
-					ON billdetails.c_order_id = non_patient_payments.c_order_id
+					ON billdetails.bh_visit_id = non_patient_payments.bh_visit_id
 		WHERE
 			non_patient_payments.payment_type IS NOT NULL
 			AND non_patient_payments.amount IS NOT NULL
 	) payment_data
 		CROSS JOIN params p
 WHERE
-		payment_data.c_order_id IN (
+		payment_data.bh_visit_id IN (
 		SELECT
-			billdetails.c_order_id
+			billdetails.bh_visit_id
 		FROM
 			billdetails
 				LEFT JOIN patient_payments
-					ON billdetails.c_order_id = patient_payments.c_order_id
+					ON billdetails.bh_visit_id = patient_payments.bh_visit_id
 		WHERE
 			(p.payment_mode = ''
 				OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M', 'A')))
 		UNION
 		SELECT
-			billdetails.c_order_id
+			billdetails.bh_visit_id
 		FROM
 			billdetails
 				LEFT JOIN non_patient_payments
-					ON billdetails.c_order_id = non_patient_payments.c_order_id
+					ON billdetails.bh_visit_id = non_patient_payments.bh_visit_id
 		WHERE
 			(p.payment_mode = ''
 				OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
