@@ -180,3 +180,24 @@ test('a payment for more than open invoice amounts causes the BP total open bala
 		10,
 	);
 });
+
+test('child data present when fetching an invoice', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create product';
+	await createProduct(valueObject);
+
+	valueObject.stepName = 'Create invoice';
+	await valueObject.setDocumentBaseType(documentBaseType.ARInvoice, null, true, false, false);
+	valueObject.documentAction = documentAction.Complete;
+	valueObject.setSalesPrice(10);
+	await createInvoice(valueObject);
+	
+	const fetchedInvoice = await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid);
+	expect(valueObject.invoice!.invoiceLines.length).not.toBe(0);
+	expect(fetchedInvoice.invoiceLines.length).toBe(valueObject.invoice!.invoiceLines.length);
+});

@@ -373,6 +373,12 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			// get total count without pagination parameters
 			pagingInfo.setTotalRecordCount(query.count());
 
+			// If the total record count is less than what we'd get with our page parameters, reset the page
+			int firstRecordNumberOfRequestedPage = (pagingInfo.getPage() * pagingInfo.getPageSize()) + 1;
+			if (pagingInfo.getTotalRecordCount() < firstRecordNumberOfRequestedPage) {
+				pagingInfo.setPage(0);
+			}
+
 			// set pagination params
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
 			if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
