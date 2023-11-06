@@ -48,13 +48,8 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
-		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createPatient(valueObject);
 		valueObject.getBusinessPartner().setName(String.valueOf(valueObject.getRandomNumber()));
-		MBPGroup_BH patientBusinessPartnerGroup =
-				new Query(valueObject.getContext(), MBPGroup_BH.Table_Name, MBPGroup_BH.COLUMNNAME_Name + "=?",
-						valueObject.getTransactionName()).setParameters(MBPGroup_BH.NAME_Patients).setClient_ID().first();
-		assertNotNull(patientBusinessPartnerGroup, "Patient BP Group is present");
-		valueObject.getBusinessPartner().setBPGroup(patientBusinessPartnerGroup);
 		valueObject.getBusinessPartner().saveEx();
 		commitEx();
 
@@ -136,14 +131,9 @@ public class OpenBalanceListTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create patient business partner");
 		valueObject.clearBusinessPartner();
-		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createPatient(valueObject);
 		valueObject.getBusinessPartner()
 				.setName(valueObject.getRandomNumber() + valueObject.getBusinessPartner().getName());
-		MBPGroup_BH patientBusinessPartnerGroup =
-				new Query(valueObject.getContext(), MBPGroup_BH.Table_Name, MBPGroup_BH.COLUMNNAME_Name + "=?",
-						valueObject.getTransactionName()).setParameters(MBPGroup_BH.NAME_Patients).setClient_ID().first();
-		assertNotNull(patientBusinessPartnerGroup, "Patient BP Group is present");
-		valueObject.getBusinessPartner().setBPGroup(patientBusinessPartnerGroup);
 		valueObject.getBusinessPartner().saveEx();
 		commitEx();
 

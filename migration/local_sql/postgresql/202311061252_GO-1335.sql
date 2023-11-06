@@ -81,3 +81,8 @@ WHERE
 	AND p.docstatus NOT IN ('RE', 'VO')
 	AND p2.c_payment_id IS NULL;
 $$;
+
+SELECT
+	register_migration_script('202311061252_GO-1335.sql')
+FROM
+	dual;
