@@ -29,7 +29,9 @@
 package com.chuboe.test.populate;
 
 import org.adempiere.base.Core;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHVisit;
+import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
@@ -199,6 +201,19 @@ public class ChuBoeCreateEntity {
 			businessPartner.saveEx();
 		}
 	} //create BP
+
+	// Our reports require specific BP groups assigned to patients, so we'll create a special method to handle this
+	public static void createPatient(ChuBoePopulateVO valueObject) {
+		createBusinessPartner(valueObject);
+		MBPGroup_BH patientBusinessPartnerGroup =
+				new Query(valueObject.getContext(), MBPGroup_BH.Table_Name, MBPGroup_BH.COLUMNNAME_Name + "=?",
+						valueObject.getTransactionName()).setParameters(MBPGroup_BH.NAME_Patients).setClient_ID().first();
+		if (patientBusinessPartnerGroup == null) {
+			throw new AdempiereException("Patient BP Group is not present");
+		}
+		valueObject.getBusinessPartner().setBPGroup(patientBusinessPartnerGroup);
+		valueObject.getBusinessPartner().saveEx();
+	}
 
 	//create product second
 	public static void createProduct(ChuBoePopulateVO valueObject) {
