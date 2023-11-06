@@ -80,7 +80,6 @@ public class ExpenseProcess extends SvrProcess {
 		)
 				.setParameters(invoiceId)
 				.first();
-		expense.setBH_Processing(processing);
 		expense.saveEx();
 	}
 }

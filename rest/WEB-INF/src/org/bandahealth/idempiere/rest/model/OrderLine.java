@@ -1,17 +1,16 @@
 package org.bandahealth.idempiere.rest.model;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Representation of iDempiere's MOrderLineItem (C_Order_line).
@@ -23,7 +22,6 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 public class OrderLine extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private ExpenseCategory expenseCategory;
 	@JsonIgnore
 	private Integer orderId;
 	@JsonIgnore
@@ -36,7 +34,6 @@ public class OrderLine extends BaseMetadata {
 	@JsonIgnore
 	private int chargeId;
 	private Charge charge;
-	private List<OrderLineChargeInformation> chargeInformationList = new ArrayList<>();
 	private String description;
 	@JsonIgnore
 	private MOrder_BH order;
@@ -45,6 +42,20 @@ public class OrderLine extends BaseMetadata {
 	private AttributeSetInstance attributeSetInstance;
 
 	public OrderLine() {
+	}
+
+	public OrderLine(MOrderLine_BH entity) {
+		super(entity);
+
+		this.orderId = entity.getC_Order_ID();
+		this.price = entity.getPriceActual();
+		this.quantity = entity.getQtyOrdered();
+		this.lineNetAmount = entity.getLineNetAmt();
+		this.instructions = entity.getBH_Instructions();
+		setChargeId(entity.getC_Charge_ID());
+		setDescription(entity.getDescription());
+		this.attributeSetInstanceId = entity.getM_AttributeSetInstance_ID();
+		setProductId(entity.getM_Product_ID());
 	}
 
 	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
@@ -62,31 +73,6 @@ public class OrderLine extends BaseMetadata {
 		setDescription(entity.getDescription());
 		this.attributeSetInstanceId = entity.getM_AttributeSetInstance_ID();
 		setProductId(entity.getM_Product_ID());
-	}
-
-	public OrderLine(int clientId, int orgId, String uuid, boolean isActive, String created, int createdBy,
-			ExpenseCategory expenseCategory, Integer orderId, BigDecimal price, BigDecimal quantity,
-			BigDecimal lineNetAmount, MOrderLine_BH entity) {
-		super(entity);
-
-		this.expenseCategory = expenseCategory;
-		this.orderId = orderId;
-		this.price = price;
-		this.quantity = quantity;
-		this.lineNetAmount = lineNetAmount;
-		setChargeId(entity.getC_Charge_ID());
-		setDescription(entity.getDescription());
-		this.attributeSetInstanceId = entity.getM_AttributeSetInstance_ID();
-		setProductId(entity.getM_Product_ID());
-	}
-
-	@XmlElement
-	public ExpenseCategory getExpenseCategory() {
-		return expenseCategory;
-	}
-
-	public void setExpenseCategory(ExpenseCategory charge) {
-		this.expenseCategory = charge;
 	}
 
 	@XmlElement
@@ -166,14 +152,6 @@ public class OrderLine extends BaseMetadata {
 
 	public void setCharge(Charge charge) {
 		this.charge = charge;
-	}
-
-	public List<OrderLineChargeInformation> getChargeInformationList() {
-		return chargeInformationList;
-	}
-
-	public void setChargeInformationList(List<OrderLineChargeInformation> chargeInformationList) {
-		this.chargeInformationList = chargeInformationList;
 	}
 
 	public String getDescription() {

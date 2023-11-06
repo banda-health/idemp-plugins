@@ -23,39 +23,23 @@
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
-	c.name,
-	COALESCE(SUM(ol.linenetamt), 0) * -1 AS insurance_amount
+	chargetype_name                   AS name,
+	COALESCE(SUM(linenetamt), 0) * -1 AS insurance_amount
 FROM
-	c_charge c
-		LEFT JOIN (
-		SELECT
-			ol.c_charge_id,
-			ol.linenetamt
+	(
+		SELECT DISTINCT
+			chargetype_name,
+			linenetamt
 		FROM
-			bh_visit v
-				JOIN c_order o
-					ON v.bh_visit_id = o.bh_visit_id
-				JOIN c_orderline ol
-					ON o.c_order_id = ol.c_order_id
+			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
 		WHERE
-			o.ad_client_id = $P{AD_CLIENT_ID}
-			AND v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
-			AND o.docstatus IN ('CO', 'DR')
-			AND ol.c_charge_id IS NOT NULL
-	) ol
-			ON c.c_charge_id = ol.c_charge_id
-		JOIN c_chargetype ct
-			ON ct.c_chargetype_id = c.c_chargetype_id
-WHERE
-	c.ad_client_id = $P{AD_CLIENT_ID}
-	AND ct.name = 'Non-Patient Payment - DO NOT CHANGE'
-	AND c.bh_subtype != 'W'
-	AND (ol.linenetamt * -1) > 0
-	AND c.isactive = 'Y'
+			bh_subtype = 'I'
+			AND linenetamt < 0
+	) vnpp
 GROUP BY
-	c.name
+	chargetype_name
 ORDER BY
-	c.name;]]>
+	chargetype_name;]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="name"/>

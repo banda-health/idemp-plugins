@@ -51,9 +51,11 @@
 		GENERATE_SERIES(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
 ),
 	new_list AS (
-		SELECT 'Y' AS Attendance
+		SELECT
+			'Y' AS Attendance
 		UNION ALL
-		SELECT 'N'
+		SELECT
+			'N'
 	),
 	visit_diagnoses AS (
 		SELECT
@@ -67,6 +69,16 @@
 				ON v.bh_visit_id = e.bh_visit_id
 				LEFT JOIN bh_encounter_diagnosis ev
 				ON e.bh_encounter_id = ev.bh_encounter_id
+		WHERE
+				v.bh_visit_id IN (
+				SELECT
+					bh_visit_id
+				FROM
+					c_order
+				WHERE
+					docstatus IN ('CO', 'CL')
+					AND ad_client_id = $P{AD_CLIENT_ID}
+			)
 	),
 	attendance_count AS (
 		SELECT DISTINCT
@@ -89,12 +101,11 @@
 						JOIN bh_coded_diagnosis cd
 						ON pd.bh_coded_diagnosis_id = cd.bh_coded_diagnosis_id
 						JOIN date_limitter dl
-							ON dl.calendar = CAST(bh_visitdate AS date)
+						ON dl.calendar = CAST(bh_visitdate AS date)
 						JOIN c_bpartner bp
-							ON v.patient_id = bp.c_bpartner_id
+						ON v.patient_id = bp.c_bpartner_id
 				WHERE
-					v.ad_client_id = $P{AD_CLIENT_ID}
-					AND bp.bh_birthday IS NOT NULL
+					bp.bh_birthday IS NOT NULL
 					AND DATE_PART('year', AGE(bp.bh_birthday)) >= 5
 				GROUP BY bh_newvisit, bh_moh705b_greaterthan5, CAST(bh_visitdate AS date)
 			) c
@@ -113,7 +124,7 @@ FROM
 	new_list dl
 		CROSS JOIN date_limitter dali
 		LEFT JOIN attendance_count dc
-			ON dc.calendar = dali.calendar
+		ON dc.calendar = dali.calendar
 		AND dl.Attendance = dc.attendance
 ORDER BY
 	dl.Attendance;]]>

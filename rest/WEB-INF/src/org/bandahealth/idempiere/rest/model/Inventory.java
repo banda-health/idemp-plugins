@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.rest.model;
 
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +12,18 @@ public class Inventory extends BaseEntity {
 	private ReferenceList updateReason;
 	private List<InventoryLine> inventoryLines = new ArrayList<>();
 	private String documentStatus;
+	private Timestamp movementDate;
 
 	/**
 	 * Empty constructor needed for Jackson deserialization
 	 */
-	public Inventory() {}
+	public Inventory() {
+	}
 
 	public Inventory(MInventory_BH model) {
 		super(model, null, model.getDescription(), null);
 		setDocumentStatus(model.getDocStatus());
+		setMovementDate(model.getMovementDate());
 	}
 
 	public void setUpdateReason(ReferenceList updateReason) {
@@ -52,5 +56,13 @@ public class Inventory extends BaseEntity {
 
 	public void setDocumentStatus(String documentStatus) {
 		this.documentStatus = documentStatus;
+	}
+
+	public Timestamp getMovementDate() {
+		return movementDate;
+	}
+
+	public void setMovementDate(Timestamp movementDate) {
+		this.movementDate = movementDate;
 	}
 }

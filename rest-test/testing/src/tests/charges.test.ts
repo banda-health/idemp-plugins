@@ -1,5 +1,5 @@
-import { accountApi, chargeApi, chargeTypeApi, expenseCategoryApi } from '../api';
-import { Account, Charge, ExpenseCategory } from '../types/org.bandahealth.idempiere.rest';
+import { accountApi, chargeApi, chargeTypeApi } from '../api';
+import { Account, Charge } from '../types/org.bandahealth.idempiere.rest';
 import { createCharge } from '../utils';
 
 test('charge creation', async () => {
@@ -16,24 +16,26 @@ test('account mapping can be set up through a charge', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	const defaultIncomeCategoryChargeType = (
+	valueObject.stepName = 'Get default expense category';
+	const defaultExpenseCategoryChargeType = (
 		await chargeTypeApi.get(
 			valueObject,
 			0,
 			100,
 			undefined,
-			JSON.stringify({ isactive: true, name: 'Default Income Category - DO NOT CHANGE' }),
+			JSON.stringify({ isactive: true, name: 'Default Expense Category - DO NOT CHANGE' }),
 		)
 	).results[0];
-	expect(defaultIncomeCategoryChargeType).toBeTruthy();
+	expect(defaultExpenseCategoryChargeType).toBeTruthy();
 	const doNotChangeAccount = (
 		await accountApi.get(valueObject, undefined, undefined, undefined, JSON.stringify({ value: '99999' }))
 	).results[0];
 	expect(doNotChangeAccount).toBeTruthy();
 
+	valueObject.stepName = 'Create charge';
 	const charge: Partial<Charge> = {
 		orgId: 0,
-		chargeType: defaultIncomeCategoryChargeType,
+		chargeType: defaultExpenseCategoryChargeType,
 		description: valueObject.getStepMessageLong(),
 		name: `${valueObject.random}_${valueObject.scenarioName}`,
 		account: { uuid: doNotChangeAccount.uuid } as Account,
@@ -44,7 +46,7 @@ test('account mapping can be set up through a charge', async () => {
 	expect(savedCharge.account.uuid).toBe(charge.account?.uuid);
 });
 
-test('save expense category', async () => {
+test('save charge', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
@@ -53,15 +55,15 @@ test('save expense category', async () => {
 	).results[0];
 	expect(doNotChangeAccount).toBeTruthy();
 
-	const expenseCategory: Partial<ExpenseCategory> = {
+	const charge: Partial<Charge> = {
 		orgId: 0,
 		description: valueObject.getStepMessageLong(),
 		name: `${valueObject.random}_${valueObject.scenarioName}`,
-		accountUuid: doNotChangeAccount.uuid,
+		account: { uuid: doNotChangeAccount.uuid } as Account,
 	};
-	
-	const savedExpenseCategory = await expenseCategoryApi.save(valueObject, expenseCategory as ExpenseCategory);
 
-	expect(savedExpenseCategory.name).toBe(expenseCategory.name);
-	expect(savedExpenseCategory.accountUuid).toBe(expenseCategory.accountUuid);
+	const savedCharge = await chargeApi.save(valueObject, charge as Charge);
+
+	expect(savedCharge.name).toBe(charge.name);
+	expect(savedCharge.account?.uuid).toBe(charge.account?.uuid);
 });
