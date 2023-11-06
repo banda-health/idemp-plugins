@@ -44,15 +44,27 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<queryString>
-			<![CDATA[SELECT bp.name AS PatientName, bp.c_bpartner_id, COALESCE(bp.bh_patientid, cast(0 as varchar)) AS PatientNo, MAX(cp.datetrx) AS DateofLastPayment,
-        bp.totalopenbalance AS RemainingOpenBalance
-FROM adempiere.c_bpartner bp
-LEFT JOIN adempiere.c_payment cp ON bp.c_bpartner_id = cp.c_bpartner_id
-     WHERE iscustomer='Y'
-     AND bp.ad_client_id =$P{AD_CLIENT_ID}
-AND bp.totalopenbalance > 0
-GROUP BY bp.name, bp.c_bpartner_id, bp.bh_patientid, bp.totalopenbalance
-ORDER BY bp.totalopenbalance DESC, bp.name ASC]]>
+			<![CDATA[SELECT
+	bp.name                                       AS PatientName,
+	bp.c_bpartner_id,
+	COALESCE(bp.bh_patientid, CAST(0 AS varchar)) AS PatientNo,
+	MAX(p.datetrx)                                AS DateofLastPayment,
+	bp.totalopenbalance                           AS RemainingOpenBalance
+FROM
+	c_bpartner bp
+		LEFT JOIN c_payment p
+		ON bp.c_bpartner_id = p.c_bpartner_id
+		JOIN c_bp_group bpg
+		ON bp.c_bp_group_id = bpg.c_bp_group_id
+WHERE
+	iscustomer = 'Y'
+	AND bp.ad_client_id = $P{AD_CLIENT_ID}
+	AND bp.totalopenbalance > 0
+	AND bpg.name = 'Patients - DO NOT CHANGE'
+GROUP BY
+	bp.name, bp.c_bpartner_id, bp.bh_patientid, bp.totalopenbalance
+ORDER BY
+	bp.totalopenbalance DESC, bp.name]]>
 		</queryString>
 		<field name="PatientName" class="java.lang.String"/>
 		<field name="PatientNo" class="java.lang.String"/>

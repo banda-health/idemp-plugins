@@ -15,7 +15,7 @@ import org.bandahealth.idempiere.rest.utils.DateUtil;
 public class Payment extends BaseMetadata {
 
 	private static final long serialVersionUID = 1L;
-	private Patient patient;
+	private BusinessPartner businessPartner;
 	@JsonIgnore
 	private int chargeId;
 	@JsonIgnore
@@ -25,10 +25,12 @@ public class Payment extends BaseMetadata {
 	private String tenderType;
 	private PaymentType paymentType;
 	private String description;
-	private NHIF nhif;
 	private String docStatus;
 	private String transactionDate;
 	private BigDecimal tenderAmount;
+	@JsonIgnore
+	private int documentTypeId;
+	private DocumentType documentType;
 
 	public Payment() {
 	}
@@ -43,14 +45,15 @@ public class Payment extends BaseMetadata {
 		this.transactionDate = DateUtil.parseDateOnly(entity.getDateTrx());
 		this.tenderAmount = entity.getBH_TenderAmount();
 		setTenderType(entity.getTenderType());
+		setDocumentTypeId(entity.getC_DocType_ID());
 	}
 
-	public Patient getPatient() {
-		return patient;
+	public BusinessPartner getBusinessPartner() {
+		return businessPartner;
 	}
 
-	public void setPatient(Patient patient) {
-		this.patient = patient;
+	public void setBusinessPartner(BusinessPartner businessPartner) {
+		this.businessPartner = businessPartner;
 	}
 
 	public int getChargeId() {
@@ -83,14 +86,6 @@ public class Payment extends BaseMetadata {
 
 	public void setPaymentType(PaymentType paymentType) {
 		this.paymentType = paymentType;
-	}
-
-	public NHIF getNhif() {
-		return nhif;
-	}
-
-	public void setNhif(NHIF nhif) {
-		this.nhif = nhif;
 	}
 
 	public String getDescription() {
@@ -131,5 +126,21 @@ public class Payment extends BaseMetadata {
 
 	public void setTenderType(String tenderType) {
 		this.tenderType = tenderType;
+	}
+
+	public int getDocumentTypeId() {
+		return documentTypeId;
+	}
+
+	public void setDocumentTypeId(int documentTypeId) {
+		this.documentTypeId = documentTypeId;
+	}
+
+	public DocumentType getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(DocumentType documentType) {
+		this.documentType = documentType;
 	}
 }

@@ -16,7 +16,7 @@
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
-	c_order_id           AS bill_id,
+	bh_visit_id           AS bill_id,
 	chargetype_name      AS name,
 	SUM(linenetamt) * -1 AS linenetamt
 FROM
@@ -24,10 +24,10 @@ FROM
 WHERE
 	bh_visit_id = $P{billId}
 GROUP BY
-	c_order_id, chargetype_name
+	bh_visit_id, chargetype_name
 UNION
 SELECT
-	c_order_id                             AS bill_id,
+	bh_visit_id                             AS bill_id,
 	payment_mode_name                      AS name,
 	COALESCE(SUM(tender_amt), SUM(payamt)) AS linenetamt
 FROM
@@ -35,7 +35,7 @@ FROM
 WHERE
 	bh_visit_id = $P{billId}
 GROUP BY
-	c_order_id, payment_mode_name]]>
+	bh_visit_id, payment_mode_name]]>
 	</queryString>
 	<field name="bill_id" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="bill_id"/>

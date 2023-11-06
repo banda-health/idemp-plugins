@@ -320,6 +320,182 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		assertThat("Should only pick 1 diagnosis", newNumberOfDiagnoses, is(numberOfDiagnoses + 1));
 	}
 
+	@IPopulateAnnotation.CanRun
+	public void draftedAndVoidedVisitsDontShowUp() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		String diagnosisToSearchFor = "Asthma";
+		String diagnosisAfterDiagnosisToSearchForOnReport = "Suspected Malaria";
+
+		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
+		MBHCodedDiagnosis codedDiagnosis = null;
+		try {
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
+			codedDiagnosis = new Query(valueObject.getContext(), MBHCodedDiagnosis.Table_Name,
+					MBHCodedDiagnosis.COLUMNNAME_bh_cielname + "=?", valueObject.getTransactionName())
+							.setParameters(diagnosisToSearchFor).first();
+			if (codedDiagnosis == null) {
+				valueObject.setStepName("Create asthma coded diagnosis");
+				codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis.setbh_cielname(diagnosisToSearchFor);
+			}
+			codedDiagnosis.setbh_moh705a_lessthan5("Asthma");
+			codedDiagnosis.saveEx();
+			commitEx();
+		} finally {
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
+		}
+
+		valueObject.setStepName("Generate the report to get initial data");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+
+		Timestamp threeYearsAgo = TimestampUtils.addToNow(Calendar.YEAR, -3);
+		Timestamp startOfMonth = TimestampUtils.startOfMonth();
+		Timestamp endOfMonth = TimestampUtils.endOfMonth();
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
+						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
+		ChuBoeCreateEntity.runReport(valueObject);
+		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
+		List<String> diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
+				diagnosisAfterDiagnosisToSearchForOnReport);
+		int numberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
+
+		valueObject.setStepName("Create a minor patient");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(threeYearsAgo);
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.setQuantity(null);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_ImmunizationsWellChild);
+		valueObject.getVisit().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create another minor patient");
+		valueObject.setBusinessPartner(null);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(threeYearsAgo);
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_InpatientIPD);
+		valueObject.getVisit().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Void order");
+		valueObject.getOrder().setDocAction(DocumentEngine.ACTION_Void);
+		assertTrue(valueObject.getOrder().processIt(DocumentEngine.ACTION_Void), "order was voided");
+		valueObject.getOrder().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create final minor patient");
+		valueObject.setBusinessPartner(null);
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(threeYearsAgo);
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_InpatientIPD);
+		valueObject.getVisit().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create diagnoses");
+		encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.saveEx();
+		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setLineNo(10);
+		encounterDiagnosis.saveEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
+						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
+
+		diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
+				diagnosisAfterDiagnosisToSearchForOnReport);
+		int newNumberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
+
+		assertThat("Should only pick 1 diagnosis", newNumberOfDiagnoses, is(numberOfDiagnoses + 1));
+	}
+
 	private int getDiagnosesCountForDate(Timestamp reportDataBeginDate, Timestamp dateWantingDataFor,
 			List<String> diagnosisData) {
 		// Get the index of the first data point

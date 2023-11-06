@@ -9,7 +9,6 @@ const windowUuid = {
 	diagnoses: '1f29f7ab-bc9a-427c-b35b-87589e4612b5',
 	expenseCategories: '5731bc45-3b78-475a-a347-4ca899f19e32',
 	facilityInformation: '66df8b28-5a44-40a0-b63e-d51695bdfc92',
-	incomeCategories: '20639eca-bd84-4ae3-b890-7b32987fcb5e',
 	manageInventory: '8f744d1c-427a-4b85-ab98-38e50258e86d',
 	manageUsers: '6b934ec2-7f45-4104-ba10-08e3ce54de7e',
 	nonPatientPayments: 'ab23d5c5-19ce-4c46-a17a-5ae2c37dd89d',
@@ -96,18 +95,15 @@ test('admin role has correct access', async () => {
 		),
 	).toBe(true);
 
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.incomeCategories)).not.toBeUndefined();
-	// expect(windowAccess?.[windowUuid.incomeCategories]).toMatchObject({ canWrite: true, canDeactivate: true });
-
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
-	// expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: true });
-	// expect(
-	// 	documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-	// 		(availableDocumentAction) =>
-	// 			availableDocumentAction === documentAction.ReverseAccrual ||
-	// 			availableDocumentAction === documentAction.ReverseCorrect,
-	// 	),
-	// ).toBe(true);
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: true });
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(true);
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toMatchObject({ canWrite: true, canDeactivate: true });
@@ -205,18 +201,15 @@ test('clinic admin role has correct access', async () => {
 		),
 	).toBe(true);
 
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.incomeCategories)).not.toBeUndefined();
-	// expect(windowAccess?.[windowUuid.incomeCategories]).toMatchObject({ canWrite: false, canDeactivate: false });
-
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
-	// expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: true });
-	// expect(
-	// 	documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-	// 		(availableDocumentAction) =>
-	// 			availableDocumentAction === documentAction.ReverseAccrual ||
-	// 			availableDocumentAction === documentAction.ReverseCorrect,
-	// 	),
-	// ).toBe(true);
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: true });
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(true);
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toMatchObject({ canWrite: true, canDeactivate: true });
@@ -314,18 +307,15 @@ test('cashier/registration basic role has correct access', async () => {
 		),
 	).toBe(false);
 
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.incomeCategories)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.incomeCategories]).toBeUndefined();
-
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
-	// expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: false });
-	// expect(
-	// 	documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-	// 		(availableDocumentAction) =>
-	// 			availableDocumentAction === documentAction.ReverseAccrual ||
-	// 			availableDocumentAction === documentAction.ReverseCorrect,
-	// 	),
-	// ).toBe(false);
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: false });
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
@@ -423,18 +413,15 @@ test('cashier/registration advanced role has correct access', async () => {
 		),
 	).toBe(false);
 
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.incomeCategories)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.incomeCategories]).toBeUndefined();
-
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
-	// expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: false });
-	// expect(
-	// 	documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-	// 		(availableDocumentAction) =>
-	// 			availableDocumentAction === documentAction.ReverseAccrual ||
-	// 			availableDocumentAction === documentAction.ReverseCorrect,
-	// 	),
-	// ).toBe(false);
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: false });
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
@@ -532,18 +519,15 @@ test('inventory/pharmacy role has correct access', async () => {
 		),
 	).toBe(false);
 
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.incomeCategories)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.incomeCategories]).toBeUndefined();
-
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
-	// expect(
-	// 	documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-	// 		(availableDocumentAction) =>
-	// 			availableDocumentAction === documentAction.ReverseAccrual ||
-	// 			availableDocumentAction === documentAction.ReverseCorrect,
-	// 	),
-	// ).toBe(false);
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
@@ -641,18 +625,15 @@ test('clinician/nurse basic role has correct access', async () => {
 		),
 	).toBe(false);
 
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.incomeCategories)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.incomeCategories]).toBeUndefined();
-
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
-	// expect(
-	// 	documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-	// 		(availableDocumentAction) =>
-	// 			availableDocumentAction === documentAction.ReverseAccrual ||
-	// 			availableDocumentAction === documentAction.ReverseCorrect,
-	// 	),
-	// ).toBe(false);
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
@@ -750,18 +731,15 @@ test('clinician/nurse advanced role has correct access', async () => {
 		),
 	).toBe(false);
 
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.incomeCategories)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.incomeCategories]).toBeUndefined();
-
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
-	// expect(
-	// 	documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-	// 		(availableDocumentAction) =>
-	// 			availableDocumentAction === documentAction.ReverseAccrual ||
-	// 			availableDocumentAction === documentAction.ReverseCorrect,
-	// 	),
-	// ).toBe(false);
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
@@ -859,18 +837,15 @@ test('triage role has correct access', async () => {
 		),
 	).toBe(false);
 
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.incomeCategories)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.incomeCategories]).toBeUndefined();
-
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
-	// expect(
-	// 	documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-	// 		(availableDocumentAction) =>
-	// 			availableDocumentAction === documentAction.ReverseAccrual ||
-	// 			availableDocumentAction === documentAction.ReverseCorrect,
-	// 	),
-	// ).toBe(false);
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
@@ -968,18 +943,15 @@ test('lab/radiology role has correct access', async () => {
 		),
 	).toBe(false);
 
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.incomeCategories)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.incomeCategories]).toBeUndefined();
-
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).toBeUndefined();
-	// expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
-	// expect(
-	// 	documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-	// 		(availableDocumentAction) =>
-	// 			availableDocumentAction === documentAction.ReverseAccrual ||
-	// 			availableDocumentAction === documentAction.ReverseCorrect,
-	// 	),
-	// ).toBe(false);
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
@@ -1077,18 +1049,15 @@ test('accounting role has correct access', async () => {
 		),
 	).toBe(false);
 
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.incomeCategories)).not.toBeUndefined();
-	// expect(windowAccess?.[windowUuid.incomeCategories]).toMatchObject({ canWrite: true, canDeactivate: false });
-
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
-	// expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: true });
-	// expect(
-	// 	documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-	// 		(availableDocumentAction) =>
-	// 			availableDocumentAction === documentAction.ReverseAccrual ||
-	// 			availableDocumentAction === documentAction.ReverseCorrect,
-	// 	),
-	// ).toBe(false);
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: true });
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toMatchObject({ canWrite: true, canDeactivate: false });
@@ -1186,18 +1155,15 @@ test('clinic user role has correct access', async () => {
 		),
 	).toBe(false);
 
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.incomeCategories)).not.toBeUndefined();
-	// expect(windowAccess?.[windowUuid.incomeCategories]).toMatchObject({ canWrite: false, canDeactivate: false });
-
-	// expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
-	// expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: true });
-	// expect(
-	// 	documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-	// 		(availableDocumentAction) =>
-	// 			availableDocumentAction === documentAction.ReverseAccrual ||
-	// 			availableDocumentAction === documentAction.ReverseCorrect,
-	// 	),
-	// ).toBe(false);
+	expect(menus.find((menu) => menu.window?.uuid === windowUuid.trackIncome)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ canWrite: true, canDeactivate: true });
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.nonPatientPayments)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toMatchObject({ canWrite: false, canDeactivate: false });

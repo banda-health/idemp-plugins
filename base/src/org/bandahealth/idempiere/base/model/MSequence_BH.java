@@ -9,10 +9,10 @@ public class MSequence_BH extends MSequence {
 
 	private static final long serialVersionUID = 1L;
 	
-	public static final String GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITHOUT_PREFIX = "BH_PatientID_C_BPartner";
+	public static final String GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITHOUT_PREFIX = "BH_PatientID_C_BPartner";
 	
-	public static final String GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX = 
-			"DocumentNo_" + GENERERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITHOUT_PREFIX;
+	public static final String GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX =
+			"DocumentNo_" + GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITHOUT_PREFIX;
 
 	public MSequence_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
