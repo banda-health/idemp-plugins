@@ -53,7 +53,7 @@ public class ProcessRestService extends BaseRestService<Process, MProcess_BH, Pr
 			return null;
 		}
 
-		Response.ResponseBuilder response = Response.ok((Object) report);
+		Response.ResponseBuilder response = Response.ok(report);
 		HttpHeaderUtil.setContentDisposition(response, process.getName() + "." + reportType.toString().toLowerCase());
 		return response.build();
 	}

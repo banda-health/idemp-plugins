@@ -64,32 +64,63 @@
 		<parameter name="Begin Date" class="java.sql.Timestamp"/>
 		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<queryString>
-			<![CDATA[WITH inventory_changes AS (
-	SELECT
-		m_product_id,
-		SUM(opening_stock)  AS opening_stock,
-		SUM(ending_stock)   AS ending_stock,
-		SUM(received_stock) AS received_stock,
-		SUM(sold_stock)     AS sold_stock,
-		SUM(balanced_stock) AS balanced_stock,
-		purchase_price
+			<![CDATA[WITH all_inventory_changes AS (
+	SELECT *
 	FROM
 		get_inventory_changes($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date})
-	WHERE opening_stock >= 0
-	GROUP BY m_product_id, purchase_price
-)
+	WHERE
+		opening_stock >= 0
+),
+	non_selling_inventory_changes AS (
+		SELECT DISTINCT
+			m_product_id,
+			m_attributesetinstance_id,
+			opening_stock  AS opening_stock,
+			ending_stock   AS ending_stock,
+			received_stock AS received_stock,
+			balanced_stock AS balanced_stock,
+			purchase_price
+		FROM
+			all_inventory_changes
+	),
+	selling_inventory_changes AS (
+		SELECT
+			m_product_id,
+			m_attributesetinstance_id,
+			SUM(sold_stock) AS sold_stock,
+			purchase_price
+		FROM
+			all_inventory_changes
+		GROUP BY m_product_id, m_attributesetinstance_id, purchase_price
+	),
+	summed_changes AS (
+		SELECT
+			nsic.m_product_id,
+			SUM(opening_stock)  AS opening_stock,
+			SUM(ending_stock)   AS ending_stock,
+			SUM(received_stock) AS received_stock,
+			SUM(sold_stock)     AS sold_stock,
+			SUM(balanced_stock) AS balanced_stock,
+			nsic.purchase_price
+		FROM
+			non_selling_inventory_changes nsic
+				JOIN selling_inventory_changes sic
+				ON nsic.m_product_id = sic.m_product_id AND nsic.m_attributesetinstance_id = sic.m_attributesetinstance_id AND
+				   nsic.purchase_price = sic.purchase_price
+		GROUP BY nsic.m_product_id, nsic.purchase_price
+	)
 SELECT
 	p.name            AS item_name,
-	ic.opening_stock  AS opening_stock,
-	ic.ending_stock   AS endingstock,
-	ic.received_stock AS receivedstock,
-	ic.sold_stock     AS soldstock,
-	ic.balanced_stock AS balancestock,
-	ic.purchase_price AS PurchasePrice
+	sc.opening_stock  AS opening_stock,
+	sc.ending_stock   AS endingstock,
+	sc.received_stock AS receivedstock,
+	sc.sold_stock     AS soldstock,
+	sc.balanced_stock AS balancestock,
+	sc.purchase_price AS PurchasePrice
 FROM
 	m_product p
-		JOIN inventory_changes ic
-			ON p.m_product_id = ic.m_product_id
+		JOIN summed_changes sc
+		ON p.m_product_id = sc.m_product_id
 ORDER BY
 	item_name;]]>
 		</queryString>

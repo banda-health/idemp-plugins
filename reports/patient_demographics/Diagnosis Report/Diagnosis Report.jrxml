@@ -67,17 +67,20 @@
 			ON e.bh_encounter_id = ev.bh_encounter_id
 	WHERE
 		v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+		AND v.bh_visit_id IN (
+			SELECT bh_visit_id FROM c_order WHERE docstatus IN ('CO', 'CL') AND ad_client_id = $P{AD_CLIENT_ID}
+		)
 )
 SELECT
-	v.bh_visitdate                           AS visit_date,
-	bp.name                                  AS name,
-	DATE_PART('year', AGE(bp.bh_birthday))   AS age,
-	bp.bh_gender                             AS gender,
-	bp.bh_phone                              AS phonenumber,
-	primary_cd.bh_cielname                   AS primary_coded_diagnosis,
-	pd.bh_uncoded_diagnosis                  AS primary_uncoded_diagnosis,
-	secondary_cd.bh_cielname                 AS secondary_coded_diagnosis,
-	sd.bh_uncoded_diagnosis AS secondary_uncoded_diagnosis
+	v.bh_visitdate                         AS visit_date,
+	bp.name                                AS name,
+	DATE_PART('year', AGE(bp.bh_birthday)) AS age,
+	bp.bh_gender                           AS gender,
+	bp.bh_phone                            AS phonenumber,
+	primary_cd.bh_cielname                 AS primary_coded_diagnosis,
+	pd.bh_uncoded_diagnosis                AS primary_uncoded_diagnosis,
+	secondary_cd.bh_cielname               AS secondary_coded_diagnosis,
+	sd.bh_uncoded_diagnosis                AS secondary_uncoded_diagnosis
 FROM
 	bh_visit v
 		JOIN c_bpartner bp

@@ -76,7 +76,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		Timestamp endDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, 2);
 
 		valueObject.setStepName("Create business partner");
-		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createPatient(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
@@ -195,6 +195,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create waiver charge");
 		ChuBoeCreateEntity.createCharge(valueObject);
 		valueObject.getCharge().setBH_SubType(MCharge_BH.BH_SUBTYPE_Waiver);
+		valueObject.getCharge().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create sixth visit");

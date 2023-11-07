@@ -29,7 +29,9 @@
 package com.chuboe.test.populate;
 
 import org.adempiere.base.Core;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHVisit;
+import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
@@ -43,6 +45,7 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.compiere.model.MAcctSchema;
+import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MBankAccount;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MDiscountSchema;
@@ -162,20 +165,19 @@ public class ChuBoeCreateEntity {
 
 			businessPartner.saveEx();
 
-			// Currently, the location is created automatically on BP save
-//			//create loc
-//			MBPartnerLocation businessPartnerLocation =
-//					new MBPartnerLocation(valueObject.getContext(), 0, valueObject.getTransactionName());
-//			businessPartnerLocation.setAD_Org_ID(0);
-//			businessPartnerLocation.setC_BPartner_ID(businessPartner.get_ID());
-//			MLocation loc =
-//					new MLocation(valueObject.getContext(), valueObject.getCountry().get_ID(), valueObject.getRegion()
-//					.get_ID(),
-//							valueObject.getCity(), valueObject.getTransactionName());
-//			loc.saveEx();
-//			businessPartnerLocation.setC_Location_ID(loc.get_ID());
-//			businessPartnerLocation.setName(valueObject.getCity() + " " + valueObject.getRegion().getName());
-//			businessPartnerLocation.saveEx();
+			//create loc
+			MBPartnerLocation businessPartnerLocation =
+					new MBPartnerLocation(valueObject.getContext(), 0, valueObject.getTransactionName());
+			businessPartnerLocation.setAD_Org_ID(0);
+			businessPartnerLocation.setC_BPartner_ID(businessPartner.get_ID());
+			MLocation loc =
+					new MLocation(valueObject.getContext(), valueObject.getCountry().get_ID(), valueObject.getRegion()
+					.get_ID(),
+							valueObject.getCity(), valueObject.getTransactionName());
+			loc.saveEx();
+			businessPartnerLocation.setC_Location_ID(loc.get_ID());
+			businessPartnerLocation.setName(valueObject.getCity() + " " + valueObject.getRegion().getName());
+			businessPartnerLocation.saveEx();
 			valueObject.setBusinessPartnerLocation(businessPartner.getLocations(false)[0]);
 
 			//create contact
@@ -196,10 +198,22 @@ public class ChuBoeCreateEntity {
 			valueObject.setUser(users.get(0));
 
 			businessPartner.setIsCustomer(true);
-			businessPartner.setBH_IsPatient(true); // the BP model event currently uses this
 			businessPartner.saveEx();
 		}
 	} //create BP
+
+	// Our reports require specific BP groups assigned to patients, so we'll create a special method to handle this
+	public static void createPatient(ChuBoePopulateVO valueObject) {
+		createBusinessPartner(valueObject);
+		MBPGroup_BH patientBusinessPartnerGroup =
+				new Query(valueObject.getContext(), MBPGroup_BH.Table_Name, MBPGroup_BH.COLUMNNAME_Name + "=?",
+						valueObject.getTransactionName()).setParameters(MBPGroup_BH.NAME_Patients).setClient_ID().first();
+		if (patientBusinessPartnerGroup == null) {
+			throw new AdempiereException("Patient BP Group is not present");
+		}
+		valueObject.getBusinessPartner().setBPGroup(patientBusinessPartnerGroup);
+		valueObject.getBusinessPartner().saveEx();
+	}
 
 	//create product second
 	public static void createProduct(ChuBoePopulateVO valueObject) {

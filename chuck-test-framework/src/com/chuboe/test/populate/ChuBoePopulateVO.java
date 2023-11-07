@@ -133,6 +133,13 @@ public class ChuBoePopulateVO {
 	private int processTableId = 0;
 	private int processRecordId = 0;
 
+	// We can stack BPs (in such situations as Donors & Insurance)
+	private List<MBPartner_BH> businessPartnerStack = new ArrayList<>();
+	private List<MPriceList> salesPriceListStack = new ArrayList<>();
+	private List<MPriceList> purchasePriceListStack = new ArrayList<>();
+	private List<MBPartnerLocation> businessParnterLocationStack = new ArrayList<>();
+	private List<MUser_BH> userStack = new ArrayList<>();
+
 	private File report;
 	private String reportType = "pdf";
 
@@ -185,6 +192,32 @@ public class ChuBoePopulateVO {
 			setSalesPrice(ChuBoeCreateEntity.BD_ONE);
 		}
 		return validate();
+	}
+
+	/**
+	 * This allows us to push a BP and it's associated data onto the stack, such as when dealing with insurance or
+	 * donors.
+	 */
+	public void stackAndClearBusinessPartner() {
+		businessPartnerStack.add(businessPartner);
+		salesPriceListStack.add(salesPriceList);
+		purchasePriceListStack.add(purchasePriceList);
+		businessParnterLocationStack.add(businessPartnerLocation);
+		userStack.add(user);
+		clearBusinessPartner();
+	}
+
+	/**
+	 * This allows us to pop a BP and it's associated data from the stack, such as when finished dealing with insurance or
+	 * donors.
+	 */
+	public void popBusinessPartnerFromStack() {
+		clearBusinessPartner();
+		businessPartner = businessPartnerStack.remove(businessPartnerStack.size() - 1);
+		salesPriceList = salesPriceListStack.remove(salesPriceListStack.size() - 1);
+		purchasePriceList = purchasePriceListStack.remove(purchasePriceListStack.size() - 1);
+		businessPartnerLocation = businessParnterLocationStack.remove(businessParnterLocationStack.size() - 1);
+		user = userStack.remove(userStack.size() - 1);
 	}
 
 	public void resetIt() {

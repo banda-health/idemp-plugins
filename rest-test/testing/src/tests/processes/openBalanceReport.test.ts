@@ -3,15 +3,7 @@ import { processApi, visitApi } from '../../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../../models';
 import { Process, ProcessInfoParameter } from '../../types/org.bandahealth.idempiere.rest';
 import { RoleName } from '../../types/roleName';
-import {
-	createOrder,
-	createPatient,
-	createProduct,
-	createPurchaseOrder,
-	createVendor,
-	createVisit,
-	runReport,
-} from '../../utils';
+import { createBusinessPartner, createOrder, createProduct, createVisit, runReport } from '../../utils';
 
 const reportUuid = '199f56a6-8e1f-47b4-8f22-e2bdb8da7505';
 let process: Process | undefined;
@@ -23,7 +15,7 @@ beforeAll(async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create business partner';
-	await createVendor(valueObject);
+	await createBusinessPartner(valueObject);
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -31,11 +23,8 @@ beforeAll(async () => {
 
 	valueObject.stepName = 'Create purchase order';
 	valueObject.documentAction = documentAction.Complete;
-	await createPurchaseOrder(valueObject);
-
-	valueObject.stepName = 'Create patient';
-	valueObject.businessPartner = undefined;
-	await createPatient(valueObject);
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create visit';
 	valueObject.documentAction = undefined;
@@ -45,7 +34,7 @@ beforeAll(async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.OnCreditOrder,
+		documentSubTypeSalesOrder.WarehouseOrder,
 		true,
 		false,
 		false,
