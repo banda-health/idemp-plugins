@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.rest.model.Observation;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRefList;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,18 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 		encounterDiagnosisDBService.deleteEncounterDiagnosisNotInList(encounterId, entity.getEncounterDiagnoses());
 
 		return createInstanceWithAllFields(encounter);
+	}
+	
+	public void deleteEncountersNotInList(int visitId, List<Encounter> encounters) {
+		// get existing encounters
+		List<MBHEncounter> mEncounters = new Query(Env.getCtx(), MBHEncounter.Table_Name,
+				MBHEncounter.COLUMNNAME_BH_Visit_ID + " =?", null).setParameters(visitId).setClient_ID()
+				.list();
+
+		mEncounters.stream()
+				.filter(existingEncounter -> encounters.stream().noneMatch(
+						newEncounter -> newEncounter.getUuid().equals(existingEncounter.getBH_Encounter_UU())))
+				.forEach(entity -> deleteEntity(entity.getBH_Encounter_UU()));
 	}
 
 	@Override

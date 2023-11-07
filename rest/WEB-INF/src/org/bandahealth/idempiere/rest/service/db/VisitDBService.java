@@ -295,6 +295,9 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			encounter.setVisitId(visitId);
 			encounterDBService.saveEntity(encounter);
 		});
+		
+		// delete orphan encounters not in the list
+		encounterDBService.deleteEncountersNotInList(visitId, entity.getEncounters());
 
 		// TODO: Eventually handle when orders are removed/added...
 		// Now take care of the orders
