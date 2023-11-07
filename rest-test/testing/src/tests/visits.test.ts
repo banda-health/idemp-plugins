@@ -2456,3 +2456,66 @@ test(`can delete order & invoice lines at the same time`, async () => {
 	expect(valueObject.visit.invoices).toHaveLength(1);
 	expect(valueObject.visit.invoices[0].invoiceLines).toHaveLength(1);
 });
+
+test('delete encounter', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	await createVisit(valueObject);
+
+	const clinicalVitalsEncounterTypeWindow = (
+		await encounterTypeWindowApi.get(valueObject, 0, 10, undefined, undefined)
+	).results.find((result) => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID);
+	const fields = clinicalVitalsEncounterTypeWindow?.window.tabs[0].fields;
+
+	const heightValue = '200';
+	const weightValue = '100';
+
+	const codedDiagnosis = (await codedDiagnosisApi.get(valueObject)).results[0];
+	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
+	const encounter: Partial<Encounter> = {
+		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
+		observations: [
+			{
+				value: heightValue,
+				field: fields?.filter((field) => field.uuid == HEIGHT_FIELD_UUID)[0],
+			} as Observation,
+		],
+		encounterDiagnoses: [
+			{
+				lineNo: 1,
+				uncodedDiagnosis: uncodedDiagnosisValue,
+			} as EncounterDiagnosis,
+			{
+				lineNo: 2,
+				codedDiagnosis: { uuid: codedDiagnosis.uuid },
+			} as EncounterDiagnosis,
+		],
+	};
+
+	// add first encounter
+	valueObject.visit!.encounters!.push(encounter as Encounter);
+	// add second encounter
+	valueObject.visit!.encounters!.push(encounter as Encounter);
+
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit.encounters).toHaveLength(2);
+
+	valueObject.stepName = 'Delete encounter';
+	valueObject.visit!.encounters[0].observations = [
+		{
+			value: weightValue,
+			field: fields?.filter((field) => field.uuid == WEIGHT_FIELD_UUID)[0],
+		} as Observation,
+	];
+	valueObject.visit!.encounters[1] = [];
+
+	valueObject.stepName = 'Save visit again';
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit.encounters).toHaveLength(1);
+});

@@ -71,9 +71,6 @@ VALUES
 	), 'cc62f9eb-2d59-48da-839e-d093a3f2c0e3', '2023-11-06 11:17:57.302000', 100, 'Y',
 	 '2023-11-06 11:17:57.302000', 100, 'C');
 
--- delete chief complaint field from vitals window
-DELETE FROM AD_Field WHERE AD_Field_UU='e1d01fe4-16b6-4125-a385-34cf4531c06f';
-	 
 SELECT
 	register_migration_script('202311061144_GO-2357.sql')
 FROM
