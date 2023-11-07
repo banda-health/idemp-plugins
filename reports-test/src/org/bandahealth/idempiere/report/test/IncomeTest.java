@@ -76,7 +76,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		Timestamp endDate = TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, 2);
 
 		valueObject.setStepName("Create business partner");
-		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createPatient(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
