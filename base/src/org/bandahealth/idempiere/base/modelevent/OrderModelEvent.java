@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInvoice;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
@@ -51,6 +52,12 @@ public class OrderModelEvent extends AbstractEventHandler {
 		} else if (event.getTopic().equals(IEventTopics.DOC_AFTER_COMPLETE)) {
 			if (isPurchase) {
 				createMaterialReceiptFromPurchaseOrder(order);
+			}
+		} else if (event.getTopic().equals(IEventTopics.DOC_AFTER_REACTIVATE) ||
+				event.getTopic().equals(IEventTopics.DOC_AFTER_REVERSEACCRUAL) ||
+				event.getTopic().equals(IEventTopics.DOC_AFTER_REVERSECORRECT)) {
+			if (isPurchase) {
+				createPurchaseOrderReversals(order);
 			}
 		}
 	}
@@ -110,6 +117,73 @@ public class OrderModelEvent extends AbstractEventHandler {
 		shipment.saveEx(order.get_TrxName());
 	}
 
+	/**
+	 * This is largely copied from {@link org.compiere.model.MOrder#createReversals(MDocType, Timestamp)} and meant to
+	 * apply for purchase orders.
+	 *
+	 * @return true if success
+	 */
+	private void createPurchaseOrderReversals(MOrder_BH order) {
+		logger.info("createReversals");
+		StringBuilder info = new StringBuilder();
+
+		//	Reverse All *Shipments*
+		info.append("@M_InOut_ID@:");
+		MInOut[] shipments = order.getShipments();
+		for (MInOut ship : shipments) {
+			//	if closed - ignore
+			if (MInOut.DOCSTATUS_Closed.equals(ship.getDocStatus())
+					|| MInOut.DOCSTATUS_Reversed.equals(ship.getDocStatus())
+					|| MInOut.DOCSTATUS_Voided.equals(ship.getDocStatus())) {
+				continue;
+			}
+			ship.set_TrxName(order.get_TrxName());
+
+			//	If not completed - void - otherwise reverse it
+			if (!MInOut.DOCSTATUS_Completed.equals(ship.getDocStatus())) {
+				if (ship.voidIt()) {
+					ship.setDocStatus(MInOut.DOCSTATUS_Voided);
+				}
+			} else if (ship.reverseCorrectIt()) {
+				ship.setDocStatus(MInOut.DOCSTATUS_Reversed);
+				info.append(" ").append(ship.getDocumentNo());
+			} else {
+				throw new AdempiereException("Could not reverse Shipment " + ship);
+			}
+			ship.setDocAction(MInOut.DOCACTION_None);
+			ship.saveEx(order.get_TrxName());
+		}
+
+		//	Reverse All *Invoices*
+		info.append(" - @C_Invoice_ID@:");
+		MInvoice[] invoices = order.getInvoices();
+		for (MInvoice invoice : invoices) {
+			//	if closed - ignore
+			if (MInvoice.DOCSTATUS_Closed.equals(invoice.getDocStatus())
+					|| MInvoice.DOCSTATUS_Reversed.equals(invoice.getDocStatus())
+					|| MInvoice.DOCSTATUS_Voided.equals(invoice.getDocStatus())) {
+				continue;
+			}
+			invoice.set_TrxName(order.get_TrxName());
+
+			//	If not completed - void - otherwise reverse it
+			if (!MInvoice.DOCSTATUS_Completed.equals(invoice.getDocStatus())) {
+				if (invoice.voidIt()) {
+					invoice.setDocStatus(MInvoice.DOCSTATUS_Voided);
+				}
+			} else if (invoice.reverseCorrectIt()) {
+				invoice.setDocStatus(MInvoice.DOCSTATUS_Reversed);
+				info.append(" ").append(invoice.getDocumentNo());
+			} else {
+				throw new AdempiereException("Could not reverse Invoice " + invoice);
+			}
+			invoice.setDocAction(MInvoice.DOCACTION_None);
+			invoice.saveEx(order.get_TrxName());
+		}
+
+		order.setProcessMessage(info.toString());
+	}
+
 	private void afterPurchaseOrderVoid(MOrder_BH order) {
 		// Get the material receipt associated with this order, if any
 		MInOut materialReceipt = new Query(Env.getCtx(), MInOut.Table_Name, MInOut.COLUMNNAME_C_Order_ID + "=?",
@@ -138,5 +212,8 @@ public class OrderModelEvent extends AbstractEventHandler {
 		registerTableEvent(IEventTopics.PO_BEFORE_CHANGE, MOrder_BH.Table_Name);
 		registerTableEvent(IEventTopics.DOC_AFTER_VOID, MOrder_BH.Table_Name);
 		registerTableEvent(IEventTopics.DOC_AFTER_COMPLETE, MOrder_BH.Table_Name);
+		registerTableEvent(IEventTopics.DOC_AFTER_REACTIVATE, MOrder_BH.Table_Name);
+		registerTableEvent(IEventTopics.DOC_AFTER_REVERSEACCRUAL, MOrder_BH.Table_Name);
+		registerTableEvent(IEventTopics.DOC_AFTER_REVERSECORRECT, MOrder_BH.Table_Name);
 	}
 }

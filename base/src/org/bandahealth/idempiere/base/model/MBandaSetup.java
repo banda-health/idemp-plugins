@@ -52,6 +52,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -789,15 +790,12 @@ public class MBandaSetup {
 						&& !userTypeSuffix.getValue().equals(DB_USERTYPE_Admin))
 				.collect(Collectors.toList());
 		AtomicBoolean didSuccessfullyAddedAllRoles = new AtomicBoolean(true);
+		List<MOrg> organizationsToGrantToRole = Collections.singletonList(organization);
 		// Add the new roles
 		userTypeSuffixes.forEach(userTypeSuffix -> {
 			String suffix = userTypeSuffix.getName();
 			String name = MBandaSetup.getRoleName(client.getName(), suffix);
-			if (!createRole(name, usersToAddRolesTo, new ArrayList<>() {
-				{
-					add(organization);
-				}
-			})) {
+			if (!createRole(name, usersToAddRolesTo, organizationsToGrantToRole)) {
 				didSuccessfullyAddedAllRoles.set(false);
 			}
 		});
