@@ -12,7 +12,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<parameter name="BH_Visit_UU" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="BH_Visit_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
 	o.ad_org_id,
@@ -69,7 +69,7 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
 			</textField>
-			<image scaleImage="FillFrame">
+			<image scaleImage="FillFrame" onErrorType="Blank">
 				<reportElement mode="Transparent" x="9" y="5" width="100" height="56" uuid="bc227f3b-fe3c-41e4-a1cf-1d87a72499f4"/>
 				<imageExpression><![CDATA[$F{image}]]></imageExpression>
 			</image>

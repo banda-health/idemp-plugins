@@ -817,7 +817,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
-		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createPatient(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
@@ -949,7 +949,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		valueObject.setStepName("Create business partner");
-		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		ChuBoeCreateEntity.createPatient(valueObject);
 		commitEx();
 
 		valueObject.setStepName("Create product");
