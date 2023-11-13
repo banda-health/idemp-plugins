@@ -283,10 +283,7 @@ public class FilterUtil {
 		}
 		// The keys of the comparison object are DB column names
 		for (String dbColumnName : comparisonQuerySelectors.keySet()) {
-			// We won't allow filtering of DB IDs (unless it's a column mapping specification)
-			if (dbColumnName.toLowerCase().endsWith("_id") && !dbColumnName.contains(SPECIFIC_COLUMN_MAPPING_SPECIFIER)) {
-				continue;
-			}
+			boolean isFilteringOnIdColumn = dbColumnName.toLowerCase().endsWith("_id");
 			Object comparisons = comparisonQuerySelectors.get(dbColumnName);
 
 			// If the column doesn't exist on this table as specified (or it does, but it's supposed to be mapped to another
@@ -308,8 +305,8 @@ public class FilterUtil {
 			if (dbModelInfo != null && dbModelInfo.getColumnIndex(dbColumnName) >= 0) {
 				dbColumnIsDateType = dbModelInfo.getColumnClass(dbModelInfo.getColumnIndex(dbColumnName)) == Timestamp.class;
 			}
-			// As a last precaution, check if the name has "date" in it
-			else if (dbColumnName.toLowerCase().contains("date")) {
+			// As a last precaution, check if the name has "date" in it (and it's not an ID column)
+			else if (dbColumnName.toLowerCase().contains("date") && !isFilteringOnIdColumn) {
 				dbColumnIsDateType = true;
 			}
 
@@ -318,6 +315,10 @@ public class FilterUtil {
 
 			// If this isn't a hashmap for this property, assume it's an $eq
 			if (!(comparisons instanceof HashMap)) {
+				// However, if it's an ID, we're done
+				if (isFilteringOnIdColumn) {
+					continue;
+				}
 				// If this is a date, go ahead and convert the value to be as such
 				if (dbColumnIsDateType) {
 					comparisons = DateUtil.getTimestamp(comparisons.toString());
@@ -329,6 +330,10 @@ public class FilterUtil {
 			}
 			Map<String, Object> comparisonMap = (Map<String, Object>) comparisons;
 			for (String comparison : comparisonMap.keySet()) {
+				// We're only going to allow $null if it's an ID
+				if (isFilteringOnIdColumn && !comparison.equals("$null")) {
+					continue;
+				}
 				whereClause.append(canPrependSeparator ? separator : "");
 				Object filterValue = comparisonMap.get(comparison);
 				// If this is a date, go ahead and convert the value to be as such
