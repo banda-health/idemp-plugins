@@ -4993,6 +4993,39 @@ WHERE
 		c_charge_id IN (
 		SELECT c_charge_id FROM c_charge WHERE bh_subtype = 'W' AND name != 'Bill Waiver'
 	);
+UPDATE c_invoiceline il
+SET
+	c_charge_id = c_w.c_charge_id
+FROM
+	c_charge c
+		JOIN c_charge c_w
+		ON c.ad_client_id = c_w.ad_client_id AND c_w.name = 'Bill Waiver'
+WHERE
+	c.bh_subtype = 'W'
+	AND c.name != 'Bill Waiver'
+	AND il.c_charge_id = c.c_charge_id;
+UPDATE c_orderline ol
+SET
+	c_charge_id = c_w.c_charge_id
+FROM
+	c_charge c
+		JOIN c_charge c_w
+		ON c.ad_client_id = c_w.ad_client_id AND c_w.name = 'Bill Waiver'
+WHERE
+	c.bh_subtype = 'W'
+	AND c.name != 'Bill Waiver'
+	AND ol.c_charge_id = c.c_charge_id;
+UPDATE m_inoutline iol
+SET
+	c_charge_id = c_w.c_charge_id
+FROM
+	c_charge c
+		JOIN c_charge c_w
+		ON c.ad_client_id = c_w.ad_client_id AND c_w.name = 'Bill Waiver'
+WHERE
+	c.bh_subtype = 'W'
+	AND c.name != 'Bill Waiver'
+	AND iol.c_charge_id = c.c_charge_id;
 DELETE
 FROM
 	c_charge
