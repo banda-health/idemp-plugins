@@ -9,6 +9,7 @@ public interface IRestConfigs {
 	String TERMSOFSERVICE_PATH = AUTHENTICATION_SESSION_PATH + "/terms-of-service";
 	String CHANGEPASSWORD_PATH = AUTHENTICATION_SESSION_PATH + "/change-password";
 	String CHANGEACCESS_PATH = AUTHENTICATION_SESSION_PATH + "/change-access";
+	String LOGIN_CHECK_PATH = AUTHENTICATION_SESSION_PATH + "/login/check";
 
 	String UUID_PATH = "/{uuid}";
 

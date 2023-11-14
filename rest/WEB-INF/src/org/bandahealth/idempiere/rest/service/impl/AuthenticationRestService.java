@@ -108,11 +108,7 @@ public class AuthenticationRestService {
 			throw new AdempiereException(Msg.getMsg(Env.getCtx(), MMessage_BH.WRONG_CREDENTIALS));
 		}
 
-		MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
-		if (user == null) {
-			user = checkValidSystemUserWithNoSystemRole(clients, credentials);
-		}
-
+		MUser user = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
 		/**
 		 * Copied from ChangePasswordPanel > validateChangePassword
 		 */
@@ -140,7 +136,7 @@ public class AuthenticationRestService {
 	@Path(IRestConfigs.CHANGEACCESS_PATH)
 	public AuthResponse changeAccess(Authentication credentials) {
 		try {
-			MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
+			MUser user = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
 			if (user == null) {
 				return new AuthResponse(Status.UNAUTHORIZED);
 			}
@@ -261,7 +257,7 @@ public class AuthenticationRestService {
 			for (KeyNamePair client : clients) {
 				int clientId = client.getKey();
 				Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
-				MUser clientUser = MUser.get(Env.getCtx(), credentials.getUsername());
+				MUser clientUser = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
 				if (clientUser == null) {
 					trx.rollback();
 					throw new AdempiereException(ERROR_USER_NOT_FOUND);
@@ -299,11 +295,7 @@ public class AuthenticationRestService {
 		if (clients == null || clients.length == 0) {
 			return new AuthResponse(Status.UNAUTHORIZED);
 		} else {
-			MUser user = MUser.get(Env.getCtx(), credentials.getUsername());
-			if (user == null) {
-				user = checkValidSystemUserWithNoSystemRole(clients, credentials);
-			}
-
+			MUser user = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
 			if (user == null) {
 				return new AuthResponse(Status.UNAUTHORIZED);
 			}
@@ -357,6 +349,38 @@ public class AuthenticationRestService {
 			}
 		}
 	}
+
+	/**
+	 * Check if a particular username and password have access to any clients other than this one. 
+	 * This is used when creating or updating a username and/or password, to try to ensure someone 
+	 * doesn't accidentally set up a user at one client that matches one at a DIFFERENT client, 
+	 * inadvertantly giving them access to both.
+	 *  
+	 * @param credentials
+	 * @return true if the username/password has access to other clients, false if they don't
+	 */
+	@POST
+	@Path(IRestConfigs.LOGIN_CHECK_PATH)
+	public Boolean loginCheckOtherClients(Authentication credentials) {
+		Login login = new Login(Env.getCtx());
+
+		int currentClient = Env.getAD_Client_ID(Env.getCtx());
+
+		// Retrieve list of clients that the passed in username and password already has access to.
+		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
+		if (clients == null || clients.length == 0) {
+			return false;
+		}
+
+		for(KeyNamePair client : clients) {
+			if (client.getKey() != currentClient) {
+				// We found a client that the given username and password has access to, that is NOT the same is THIS client.
+				return true;
+			}
+		}
+
+		return false;
+	}		
 
 	/**
 	 * The user needs to change their credentials, so set the appropriate data
@@ -510,27 +534,4 @@ public class AuthenticationRestService {
 			// PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
 		}
 	}
-
-	/**
-	 * Check valid system users with no system role.
-	 *
-	 * @param clients
-	 * @param credentials
-	 * @return
-	 */
-	private MUser checkValidSystemUserWithNoSystemRole(KeyNamePair[] clients, Authentication credentials) {
-		MUser user = null;
-		for (KeyNamePair client : clients) {
-			// update context with client id
-
-			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, client.getKey());
-			user = MUser.get(Env.getCtx(), credentials.getUsername());
-			if (user != null) {
-				break;
-			}
-		}
-
-		return user;
-	}
-
 }
