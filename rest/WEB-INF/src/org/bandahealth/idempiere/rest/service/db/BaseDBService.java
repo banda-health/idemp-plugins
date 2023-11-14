@@ -605,4 +605,25 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	public List<T> transformData(List<S> dbModels) {
 		return dbModels.stream().map(this::createInstanceWithDefaultFields).collect(Collectors.toList());
 	}
+	
+	public Boolean batchDelete(String[] uuids) {
+		String columnUuid = getModelInstance().get_TableName() + "_uu";
+		if (!checkColumnExists(columnUuid)) {
+			log.severe("Uuid column not found: " + columnUuid);
+			return false;
+		}
+
+		List<Object> parameters = new ArrayList<>();
+		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(Set.of(uuids), parameters);
+
+		List<S> entities = new Query(Env.getCtx(), getModelInstance().get_TableName(),
+				columnUuid + " IN(" + whereClause + ")", null).setParameters(parameters).list();
+		if (entities.isEmpty()) {
+			return false;
+		}
+
+		entities.stream().forEach(entity -> entity.deleteEx(true));
+
+		return true;
+	}
 }

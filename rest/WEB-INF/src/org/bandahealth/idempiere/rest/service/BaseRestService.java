@@ -85,6 +85,11 @@ public abstract class BaseRestService<RestModel extends BaseMetadata, iDempiereM
 	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
 		return getDBService().deleteEntity(uuid);
 	}
+	
+	@DELETE
+	public Boolean batchDelete(@QueryParam("uuids") String[] uuids) {
+		return getDBService().batchDelete(uuids);
+	}
 
 	/**
 	 * Convert requested page and size into a pagination object to be used in the DB service

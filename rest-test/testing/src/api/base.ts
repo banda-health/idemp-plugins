@@ -87,4 +87,19 @@ export abstract class BaseApi<T> {
 			)
 		).data;
 	}
+	
+	async batchDelete(valueObject: ValueObject, uuids: string[]): Promise<boolean> {
+		let queryParams = '';
+		uuids.forEach(uuid => {
+			queryParams += `uuids=${uuid}&`;
+		});
+		
+		queryParams = queryParams.slice(0, -1);
+
+		return (
+			await axios.delete<boolean>(
+				`${IDEMPIERE_ENDPOINT}/${this.entityName}?${queryParams}`, this.getAuthorizationHeaders(valueObject),
+			)
+		).data;
+	}
 }

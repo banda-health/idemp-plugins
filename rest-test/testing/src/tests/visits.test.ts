@@ -8,6 +8,7 @@ import {
 	businessPartnerApi,
 	businessPartnerGroupApi,
 	codedDiagnosisApi,
+	encounterApi,
 	encounterTypeWindowApi,
 	languageApi,
 	referenceListApi,
@@ -2507,15 +2508,6 @@ test('delete encounter', async () => {
 	expect(valueObject.visit.encounters).toHaveLength(2);
 
 	valueObject.stepName = 'Delete encounter';
-	valueObject.visit!.encounters[0].observations = [
-		{
-			value: weightValue,
-			field: fields?.filter((field) => field.uuid == WEIGHT_FIELD_UUID)[0],
-		} as Observation,
-	];
-	valueObject.visit!.encounters.pop();
-
-	valueObject.stepName = 'Save visit again';
-	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
-	expect(valueObject.visit.encounters).toHaveLength(1);
+	
+	expect(await encounterApi.batchDelete(valueObject, valueObject.visit.encounters.map(encounter => encounter.uuid))).toBe(true);
 });
