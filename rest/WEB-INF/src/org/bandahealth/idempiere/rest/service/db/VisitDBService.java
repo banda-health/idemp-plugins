@@ -335,7 +335,6 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			encounter.setVisitId(visitId);
 			encounterDBService.saveEntity(encounter);
 		});
-		
 		// TODO: Eventually handle when orders are removed/added...
 		if (entity.getOrders() == null) {
 			entity.setOrders(new ArrayList<>());

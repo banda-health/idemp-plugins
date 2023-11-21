@@ -175,7 +175,7 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 	public Boolean batchDelete(String[] uuids) {
 		Map<String, MBHEncounter> encounters = getByUuids(Set.of(uuids));
 		if (encounters.isEmpty()) {
-			return false;
+			return true;
 		}
 
 		Set<Integer> encounterIds = encounters.values().stream().map(MBHEncounter::getBH_Encounter_ID)

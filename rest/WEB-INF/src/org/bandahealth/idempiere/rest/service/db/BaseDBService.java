@@ -607,17 +607,11 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 	}
 	
 	public Boolean batchDelete(String[] uuids) {
-		String columnUuid = getModelInstance().get_TableName() + "_uu";
-		if (!checkColumnExists(columnUuid)) {
-			log.severe("Uuid column not found: " + columnUuid);
-			return false;
-		}
-
 		List<Object> parameters = new ArrayList<>();
 		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(Set.of(uuids), parameters);
 
 		List<S> entities = new Query(Env.getCtx(), getModelInstance().get_TableName(),
-				columnUuid + " IN(" + whereClause + ")", null).setParameters(parameters).list();
+				getModelInstance().getUUIDColumnName() + " IN(" + whereClause + ")", null).setParameters(parameters).list();
 		if (entities.isEmpty()) {
 			return false;
 		}

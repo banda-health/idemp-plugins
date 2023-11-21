@@ -79,7 +79,7 @@ export abstract class BaseApi<T> {
 		).data;
 	}
 
-	async delete(valueObject: ValueObject, uuid: string): Promise<boolean> {
+	async deleteByUuid(valueObject: ValueObject, uuid: string): Promise<boolean> {
 		return (
 			await axios.delete<boolean>(
 				`${IDEMPIERE_ENDPOINT}/${this.entityName}/${uuid}`,
@@ -88,18 +88,12 @@ export abstract class BaseApi<T> {
 		).data;
 	}
 	
-	async batchDelete(valueObject: ValueObject, uuids: string[]): Promise<boolean> {
-		let queryParams = '';
-		uuids.forEach(uuid => {
-			queryParams += `uuids=${uuid}&`;
-		});
-		
-		queryParams = queryParams.slice(0, -1);
-
+	async delete(valueObject: ValueObject, uuids: string[]): Promise<boolean> {
 		return (
 			await axios.delete<boolean>(
-				`${IDEMPIERE_ENDPOINT}/${this.entityName}?${queryParams}`, this.getAuthorizationHeaders(valueObject),
+				`${IDEMPIERE_ENDPOINT}/${this.entityName}?${uuids.map((uuid) => `uuids=${uuid}`).join('&')}`,
+				this.getAuthorizationHeaders(valueObject),
 			)
 		).data;
-	}
+  }
 }

@@ -1207,7 +1207,7 @@ test('can delete a drafted visit', async () => {
 	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
 
 	valueObject.stepName = 'Delete visit';
-	expect(await visitApi.delete(valueObject, valueObject.visit.uuid)).toBe(true);
+	expect(await visitApi.deleteByUuid(valueObject, valueObject.visit.uuid)).toBe(true);
 	expect(await visitApi.getByUuid(valueObject, valueObject.visit.uuid)).toBeFalsy();
 });
 
@@ -1783,7 +1783,7 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 	} as Visit;
 	valueObject.visit = await visitApi.save(valueObject, visitToSave);
 
-	expect(await visitApi.delete(valueObject, valueObject.visit!.uuid)).toBeTruthy();
+	expect(await visitApi.deleteByUuid(valueObject, valueObject.visit!.uuid)).toBeTruthy();
 });
 
 test(`visit invoice updates work`, async () => {
@@ -2509,5 +2509,5 @@ test('delete encounter', async () => {
 
 	valueObject.stepName = 'Delete encounter';
 	
-	expect(await encounterApi.batchDelete(valueObject, valueObject.visit.encounters.map(encounter => encounter.uuid))).toBe(true);
+	expect(await encounterApi.delete(valueObject, valueObject.visit.encounters.map(encounter => encounter.uuid))).toBe(true);
 });
