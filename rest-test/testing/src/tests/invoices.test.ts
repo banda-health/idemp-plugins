@@ -102,7 +102,7 @@ test(`vendor invoices can be deleted when they haven't been completed`, async ()
 	await createInvoice(valueObject);
 
 	expect(await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid)).toBeTruthy();
-	expect(await invoiceApi.delete(valueObject, valueObject.invoice!.uuid)).toBe(true);
+	expect(await invoiceApi.deleteByUuid(valueObject, valueObject.invoice!.uuid)).toBe(true);
 	expect(await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid)).toBeFalsy();
 });
 
@@ -124,7 +124,7 @@ test(`vendor invoices are voided when they've been completed and you try to dele
 	expect(valueObject.invoice!.docStatus).toBe(documentStatus.Completed);
 
 	expect(await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid)).toBeTruthy();
-	expect(await invoiceApi.delete(valueObject, valueObject.invoice!.uuid)).toBe(true);
+	expect(await invoiceApi.deleteByUuid(valueObject, valueObject.invoice!.uuid)).toBe(true);
 	const invoice = await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid);
 	expect(invoice).toBeTruthy();
 	expect(invoice.docStatus).toBe(documentStatus.Reversed);
