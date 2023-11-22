@@ -9,7 +9,6 @@ import org.bandahealth.idempiere.rest.model.Encounter;
 import org.bandahealth.idempiere.rest.model.EncounterDiagnosis;
 import org.bandahealth.idempiere.rest.model.Observation;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
-import org.bandahealth.idempiere.rest.model.Visit;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
@@ -45,8 +44,8 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
 	 * TODO: Remove this when we have GraphQL
 	 *
-	 * @param entity The visit to save
-	 * @return A somewhat updated visit (has the new UUID & ID on it for other use)
+	 * @param entity The encounter to save
+	 * @return A somewhat updated encounter (has the new UUID & ID on it for other use)
 	 */
 	public Encounter saveOnlyWithoutChildDataFetch(Encounter entity) {
 		MBHEncounter encounter = getEntityByUuidFromDB(entity.getUuid());

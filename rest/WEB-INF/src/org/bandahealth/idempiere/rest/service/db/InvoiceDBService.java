@@ -89,8 +89,8 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
 	 * TODO: Remove this when we have GraphQL
 	 *
-	 * @param entity The visit to save
-	 * @return A somewhat updated visit (has the new UUID & ID on it for other use)
+	 * @param entity The invoice to save
+	 * @return A somewhat updated invoice (has the new UUID & ID on it for other use)
 	 */
 	public Invoice saveOnlyWithoutChildDataFetch(Invoice entity) {
 		try {

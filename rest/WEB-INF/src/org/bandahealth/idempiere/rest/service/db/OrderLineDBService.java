@@ -45,8 +45,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
 	 * TODO: Remove this when we have GraphQL
 	 *
-	 * @param entity The visit to save
-	 * @return A somewhat updated visit (has the new UUID & ID on it for other use)
+	 * @param entity The order line to save
+	 * @return A somewhat updated order line (has the new UUID & ID on it for other use)
 	 */
 	public OrderLine saveOnlyWithoutChildDataFetch(OrderLine entity) {
 		MOrderLine_BH mOrderLine = getEntityByUuidFromDB(entity.getUuid());

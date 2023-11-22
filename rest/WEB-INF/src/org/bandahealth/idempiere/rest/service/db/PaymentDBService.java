@@ -74,8 +74,8 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
 	 * TODO: Remove this when we have GraphQL
 	 *
-	 * @param entity The visit to save
-	 * @return A somewhat updated visit (has the new UUID & ID on it for other use)
+	 * @param entity The payment to save
+	 * @return A somewhat updated payment (has the new UUID & ID on it for other use)
 	 */
 	public Payment saveOnlyWithoutChildDataFetch(Payment entity) {
 		MDocType_BH documentTypeTarget;
