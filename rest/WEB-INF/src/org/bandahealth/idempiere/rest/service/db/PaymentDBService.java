@@ -67,6 +67,17 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 	@Override
 	public Payment saveEntity(Payment entity) {
+		return createInstanceWithAllFields(getEntityByUuidFromDB(saveOnlyWithoutChildDataFetch(entity).getUuid()));
+	}
+
+	/**
+	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
+	 * TODO: Remove this when we have GraphQL
+	 *
+	 * @param entity The visit to save
+	 * @return A somewhat updated visit (has the new UUID & ID on it for other use)
+	 */
+	public Payment saveOnlyWithoutChildDataFetch(Payment entity) {
 		MDocType_BH documentTypeTarget;
 		if (entity.getDocumentType() == null ||
 				StringUtil.isNullOrEmpty(entity.getDocumentType().getUuid()) || (documentTypeTarget =
@@ -141,7 +152,7 @@ public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 		mPayment.saveEx();
 
-		return createInstanceWithAllFields(getEntityByUuidFromDB(mPayment.getC_Payment_UU()));
+		return new Payment(mPayment);
 	}
 
 	@Override

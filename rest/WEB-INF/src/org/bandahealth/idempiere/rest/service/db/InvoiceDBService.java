@@ -81,6 +81,18 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 
 	@Override
 	public Invoice saveEntity(Invoice entity) {
+		return transformData(
+				Collections.singletonList(getEntityByUuidFromDB(saveOnlyWithoutChildDataFetch(entity).getUuid()))).get(0);
+	}
+
+	/**
+	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
+	 * TODO: Remove this when we have GraphQL
+	 *
+	 * @param entity The visit to save
+	 * @return A somewhat updated visit (has the new UUID & ID on it for other use)
+	 */
+	public Invoice saveOnlyWithoutChildDataFetch(Invoice entity) {
 		try {
 			MDocType_BH documentTypeTarget;
 			if (entity.getDocumentTypeTarget() == null ||
@@ -155,7 +167,7 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 								attributeSetInstancesByUuid.get(invoiceLine.getAttributeSetInstance().getUuid()).get_ID());
 					}
 
-					InvoiceLine response = invoiceLineDBService.saveEntity(invoiceLine);
+					InvoiceLine response = invoiceLineDBService.saveOnlyWithoutChildDataFetch(invoiceLine);
 					lineIds += "'" + response.getUuid() + "'";
 					if (++count < invoiceLines.size()) {
 						lineIds += ",";
@@ -166,10 +178,8 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 			// delete invoice lines not in request
 			invoiceLineDBService.deleteInvoiceLinesByInvoice(invoice.get_ID(), lineIds);
 
-			return transformData(Collections.singletonList(getEntityByUuidFromDB(invoice.getC_Invoice_UU()))).get(0);
-
+			return new Invoice(invoice);
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			log.severe(ex.getMessage());
 
 			throw new AdempiereException(ex.getLocalizedMessage());

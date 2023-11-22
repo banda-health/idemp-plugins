@@ -63,6 +63,18 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 	}
 
 	public Order saveEntity(Order entity, boolean deleteOldOrderLines) {
+		return transformData(Collections.singletonList(
+				getEntityByUuidFromDB(saveOnlyWithoutChildDataFetch(entity, deleteOldOrderLines).getUuid()))).get(0);
+	}
+
+	/**
+	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
+	 * TODO: Remove this when we have GraphQL
+	 *
+	 * @param entity The visit to save
+	 * @return A somewhat updated visit (has the new UUID & ID on it for other use)
+	 */
+	public Order saveOnlyWithoutChildDataFetch(Order entity, boolean deleteOldOrderLines) {
 		try {
 			MDocType_BH documentTypeTarget;
 			if (entity.getDocumentTypeTarget() == null ||
@@ -149,7 +161,7 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 								attributeSetInstancesByUuid.get(orderLine.getAttributeSetInstance().getUuid()).get_ID());
 					}
 
-					OrderLine response = orderLineDBService.saveEntity(orderLine);
+					OrderLine response = orderLineDBService.saveOnlyWithoutChildDataFetch(orderLine);
 					lineIds += "'" + response.getUuid() + "'";
 					if (++count < orderLines.size()) {
 						lineIds += ",";
@@ -162,10 +174,8 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 				orderLineDBService.deleteOrderLinesByOrder(mOrder.get_ID(), lineIds);
 			}
 
-			return transformData(Collections.singletonList(getEntityByUuidFromDB(mOrder.getC_Order_UU()))).get(0);
-
+			return new Order(mOrder);
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			log.severe(ex.getMessage());
 
 			throw new AdempiereException(ex.getLocalizedMessage());

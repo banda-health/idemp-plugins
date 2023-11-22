@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
@@ -265,6 +266,17 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
 	@Override
 	public Visit saveEntity(Visit entity) {
+		return createInstanceWithAllFields(getEntityByUuidFromDB(saveOnlyWithoutChildDataFetch(entity).getUuid()));
+	}
+
+	/**
+	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
+	 * TODO: Remove this when we have GraphQL
+	 *
+	 * @param entity The visit to save
+	 * @return A somewhat updated visit (has the new UUID & ID on it for other use)
+	 */
+	public Visit saveOnlyWithoutChildDataFetch(Visit entity) {
 		MBHVisit visit = getEntityByUuidFromDB(entity.getUuid());
 		if (visit == null) {
 			visit = new MBHVisit(Env.getCtx(), 0, null);
@@ -327,7 +339,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		// save encounter
 		entity.getEncounters().forEach(encounter -> {
 			encounter.setVisitId(visitId);
-			encounterDBService.saveEntity(encounter);
+			encounterDBService.saveOnlyWithoutChildDataFetch(encounter);
 		});
 
 		// TODO: Eventually handle when orders are removed/added...
@@ -340,11 +352,12 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			order.setDateOrdered(entity.getVisitDate());
 			order.setDateAccount(entity.getVisitDate());
 
-			updatedOrders.add(orderDBService.saveEntity(order, false));
+			updatedOrders.add(orderDBService.saveOnlyWithoutChildDataFetch(order, false));
 		}
 
 		List<OrderLine> updatedOrderLines =
-				updatedOrders.stream().map(Order::getOrderLines).flatMap(Collection::stream).collect(Collectors.toList());
+				orderLineDBService.getOrderLinesByOrderIds(updatedOrders.stream().map(Order::getId).collect(Collectors.toSet()))
+						.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
 		List<MInvoice_BH> visitsInvoices =
 				invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
 						Collections.singleton(entity.getId())).get(entity.getId());
@@ -379,11 +392,11 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				}
 			}
 
-			invoiceDBService.saveEntity(invoice);
+			invoiceDBService.saveOnlyWithoutChildDataFetch(invoice);
 		}
 
 		// Now that we've (potentially) deleted invoice lines, we can delete any necessary order lines
-		entity.getOrders().forEach(order -> orderDBService.saveEntity(order, true));
+		entity.getOrders().forEach(order -> orderDBService.saveOnlyWithoutChildDataFetch(order, true));
 
 		// list of persisted payment line ids
 		StringBuilder lineIds = new StringBuilder();
@@ -409,7 +422,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 					payment.getBusinessPartner().setUuid(entity.getPatient().getUuid());
 				}
 
-				Payment response = paymentDBService.saveEntity(payment);
+				Payment response = paymentDBService.saveOnlyWithoutChildDataFetch(payment);
 				lineIds.append("'").append(response.getUuid()).append("'");
 				if (++count < payments.size()) {
 					lineIds.append(",");
@@ -420,7 +433,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		// delete payment lines not in request
 		paymentDBService.deletePaymentLinesByVisit(visit.get_ID(), lineIds.toString());
 
-		return createInstanceWithAllFields(visit);
+		return new Visit(visit);
 	}
 
 	@Override
