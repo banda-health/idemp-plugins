@@ -1,17 +1,18 @@
 package org.bandahealth.idempiere.rest.utils;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MUser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static org.bandahealth.idempiere.rest.utils.SqlUtil.IDEMPIERE_POSTGRESQL_NATIVE_MARKER;
 
 public class SortUtil {
 	private static final String MALFORMED_SORT_STRING_ERROR = "Sort criteria doesn't meet the standard form.";
@@ -86,9 +87,12 @@ public class SortUtil {
 				}
 				// Check to see the sort column starts with any of the expression functions
 				String finalSortColumn = sortColumn;
+				String expressionFunctionToUse = "";
 				if (EXPRESSION_FUNCTIONS.stream()
-						.allMatch(expressionFunction -> finalSortColumn.toLowerCase().startsWith(expressionFunction + "("))) {
-					sortColumn = sortColumn.replaceAll("\\$", "");
+						.anyMatch(expressionFunction -> finalSortColumn.toLowerCase().startsWith(expressionFunction + "("))) {
+					String[] splitColumn = sortColumn.split("\\(");
+					expressionFunctionToUse = IDEMPIERE_POSTGRESQL_NATIVE_MARKER + splitColumn[0].replaceAll("\\$", "");
+					sortColumn = splitColumn[1].replaceAll("\\)", "");
 				}
 				if (QueryUtil.doesDBStringHaveInvalidCharacters(sortColumn) ||
 						QueryUtil.doesDBStringHaveInvalidCharacters(sortDirection)) {
@@ -96,6 +100,9 @@ public class SortUtil {
 				}
 				if (!QueryUtil.doesTableAliasExistOnColumn(sortColumn)) {
 					sortColumn = tableName + "." + sortColumn;
+				}
+				if (!StringUtil.isNullOrEmpty(expressionFunctionToUse)) {
+					sortColumn = expressionFunctionToUse + "(" + sortColumn + ")";
 				}
 				return sortColumn + " " + sortDirection + " NULLS LAST";
 			}).filter(sortCriteria -> !StringUtil.isNullOrEmpty(sortCriteria)).collect(Collectors.joining(","));
