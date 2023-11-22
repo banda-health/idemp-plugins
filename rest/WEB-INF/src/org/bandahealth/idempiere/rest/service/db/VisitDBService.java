@@ -8,7 +8,6 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
-import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
@@ -33,6 +32,7 @@ import org.bandahealth.idempiere.rest.utils.SqlUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MRefList;
 import org.compiere.model.MUser;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -43,7 +43,6 @@ import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -98,11 +97,6 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 					"LEFT JOIN " + MUser.Table_Name + " ON " + MBHVisit.Table_Name + "."
 							+ MBHVisit.COLUMNNAME_BH_Clinician_User_ID + " = " + MUser.Table_Name + "."
 							+ MUser.COLUMNNAME_AD_User_ID);
-			put(MOrder_BH.Table_Name,
-					"LEFT JOIN (SELECT bh_visit_id, MIN(dateordered) as dateordered FROM c_order GROUP BY bh_visit_id) "
-							+ MOrder_BH.Table_Name + " ON " + MBHVisit.Table_Name + "."
-							+ MBHVisit.COLUMNNAME_BH_Visit_ID + " = " + MOrder_BH.Table_Name + "."
-							+ MOrder_BH.COLUMNNAME_BH_Visit_ID);
 		}
 	};
 
@@ -500,74 +494,17 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
 	@Override
 	protected Visit createInstanceWithDefaultFields(MBHVisit instance) {
-		try {
-			MBPartner_BH businessPartner = businessPartnerDBService.getEntityByIdFromDB(instance.getPatient_ID());
-			if (businessPartner == null) {
-				log.severe("Missing patient");
-				return null;
-			}
-
-			Visit visit = new Visit();
-			visit.setId(instance.get_ID());
-			visit.setClientId(instance.getAD_Client_ID());
-			visit.setOrgId(instance.getAD_Org_ID());
-			visit.setUuid(instance.getBH_Visit_UU());
-			visit.setIsActive(instance.isActive());
-			visit.setCreated(DateUtil.parse(instance.getCreated()));
-			visit.setCreatedTimestamp(instance.getCreated());
-			visit.setCreatedBy(instance.getCreatedBy());
-			visit.setPatient(new BusinessPartner(businessPartner));
-			visit.setVisitDate(instance.getBH_VisitDate());
-			visit.setProcessStage(new ProcessStage(instance.getBH_Process_Stage()));
-			visit.setDocumentNumber(instance.getDocumentNo());
-			String patientType = instance.getBH_PatientType();
-			if (StringUtil.isNotNullAndEmpty(patientType)) {
-				visit.setPatientType(new PatientType(patientType, entityMetadataDBService
-						.getReferenceNameByValue(EntityMetadataDBService.PATIENT_TYPE, patientType)));
-			}
-			visit.setReferral(new Referral(instance.getbh_referral()));
-			visit.setReferredFromTo(instance.getBH_ReferredFromTo());
-			return visit;
-		} catch (Exception ex) {
-			log.severe(ex.getMessage());
-		}
-
-		return null;
+		return new Visit(instance);
 	}
 
 	@Override
 	protected Visit createInstanceWithAllFields(MBHVisit instance) {
-		return transformData(Collections.singletonList(instance)).get(0);
+		return batchChildDataCalls(transformData(Collections.singletonList(instance))).get(0);
 	}
 
 	@Override
 	protected MBHVisit getModelInstance() {
 		return new MBHVisit(Env.getCtx(), 0, null);
-	}
-
-	@Override
-	public BaseListResponse<Visit> getAll(Paging pagingInfo, String sortJson, String filterJson) {
-		BaseListResponse<Visit> visits = super.getAll(pagingInfo, sortJson, filterJson);
-
-		// Since non-patient payments are negative, they'll change order totals
-		// Get updated order totals for these visits
-		if (visits != null) {
-			Map<Integer, List<MOrderLine_BH>> orderLinesByOrder = orderLineDBService.getGroupsByIds(
-					MOrderLine_BH::getC_Order_ID, MOrderLine_BH.COLUMNNAME_C_Order_ID,
-					visits.getResults().stream().flatMap(visit -> visit.getOrders().stream()).map(Order::getId)
-							.collect(Collectors.toSet()));
-
-			// Update the totals to exclude negative values in the lines
-			visits.getResults().forEach(visit -> {
-				visit.getOrders()
-						.forEach(order -> order.setGrandTotal(
-								orderLinesByOrder.get(order.getId()).stream().map(MOrderLine_BH::getLineNetAmt)
-										.filter(lineNetAmt -> lineNetAmt.compareTo(new BigDecimal(0)) >= 0)
-										.reduce(new BigDecimal(0), BigDecimal::add)));
-			});
-		}
-
-		return visits;
 	}
 
 	/**
@@ -681,7 +618,40 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
 	@Override
 	public List<Visit> transformData(List<MBHVisit> dbModels) {
+		// This will only return what's needed for the list page for performance reasons, but it should NOT do this
+		// This will be replaced once we implement GraphQL
 		Set<Integer> visitIds = dbModels.stream().map(MBHVisit::get_ID).collect(Collectors.toSet());
+
+		// Orders will be duplicated between this and batchChildDataCalls for now
+		Map<Integer, List<MOrder_BH>> ordersByVisitId =
+				orderDBService.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID, visitIds);
+
+		// Get BPs
+		Map<Integer, BusinessPartner> businessPartnersById = businessPartnerDBService.transformData(new ArrayList<>(
+				businessPartnerDBService.getByIds(dbModels.stream().map(MBHVisit::getPatient_ID).collect(Collectors.toSet()))
+						.values())).stream().collect(Collectors.toMap(BusinessPartner::getId, businessPartner -> businessPartner));
+
+		Map<String, MRefList> patientTypesByValue =
+				entityMetadataDBService.getTypes(EntityMetadataDBService.PATIENT_TYPE).stream()
+						.collect(Collectors.toMap(MRefList::getValue, referenceList -> referenceList));
+
+		// Get the patient types
+		return dbModels.stream().map(model -> {
+			Visit visit = new Visit(model);
+			visit.setPatient(businessPartnersById.get(visit.getPatientId()));
+			visit.setOrders(ordersByVisitId.getOrDefault(visit.getId(), new ArrayList<>()).stream().map(Order::new)
+					.collect(Collectors.toList()));
+
+			if (patientTypesByValue.containsKey(visit.getPatientTypeValue())) {
+				visit.setPatientType(new PatientType(visit.getPatientTypeValue(),
+						patientTypesByValue.get(visit.getPatientTypeValue()).getName()));
+			}
+			return visit;
+		}).collect(Collectors.toList());
+	}
+
+	public List<Visit> batchChildDataCalls(List<Visit> models) {
+		Set<Integer> visitIds = models.stream().map(Visit::getId).collect(Collectors.toSet());
 
 		List<MOrder_BH> orders = orderDBService
 				.getGroupsByIds(MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID, visitIds).values().stream()
@@ -695,9 +665,8 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
 		// Get invoices
 		Map<Integer, List<Invoice>> invoicesByVisitId = invoiceDBService.transformData(
-						invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
-										dbModels.stream().map(MBHVisit::get_ID).collect(Collectors.toSet())).values().stream()
-								.flatMap(Collection::stream).collect(Collectors.toList())).stream()
+						invoiceDBService.getGroupsByIds(MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID, visitIds)
+								.values().stream().flatMap(Collection::stream).collect(Collectors.toList())).stream()
 				.collect(Collectors.groupingBy(Invoice::getVisitId));
 		Map<Integer, List<InvoiceLine>> invoiceLinesByInvoiceId = invoiceLineDBService.transformData(
 				invoiceLineDBService.getGroupsByIds(MInvoiceLine::getC_Invoice_ID, MInvoiceLine.COLUMNNAME_C_Invoice_ID,
@@ -717,32 +686,25 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(Payment::getVisitId));
 
-		// Get BPs
-		Map<Integer, BusinessPartner> businessPartnersById = businessPartnerDBService.transformData(new ArrayList<>(
-				businessPartnerDBService.getByIds(dbModels.stream().map(MBHVisit::getPatient_ID).collect(Collectors.toSet()))
-						.values())).stream().collect(Collectors.toMap(BusinessPartner::getId, businessPartner -> businessPartner));
-
 		List<MUser_BH> clinicians = userDBService.getClinicians(null);
 
-		return dbModels.stream().map(model -> {
-			Visit visit = createInstanceWithDefaultFields(model);
-			visit.setPatient(businessPartnersById.get(model.getPatient_ID()));
-			visit.setOrders(orderIdsByVisitId.getOrDefault(model.get_ID(), new ArrayList<>()));
+		return models.stream().peek(visit -> {
+			visit.setOrders(orderIdsByVisitId.getOrDefault(visit.getId(), new ArrayList<>()));
 			visit.getOrders().forEach(
 					order -> order.setOrderLines(orderLinesByOrderId.getOrDefault(order.getId(), new ArrayList<>())));
-			visit.setPayments(paymentIdsByVisitId.getOrDefault(model.get_ID(), new ArrayList<>()));
-			visit.setEncounters(encountersByVisitId.getOrDefault(model.get_ID(), new ArrayList<>()));
-			visit.setInvoices(invoicesByVisitId.getOrDefault(model.get_ID(), new ArrayList<>()));
+			visit.setPayments(paymentIdsByVisitId.getOrDefault(visit.getId(), new ArrayList<>()));
+			visit.setEncounters(encountersByVisitId.getOrDefault(visit.getId(), new ArrayList<>()));
+			visit.setInvoices(invoicesByVisitId.getOrDefault(visit.getId(), new ArrayList<>()));
 			visit.getInvoices().forEach(
 					invoice -> invoice.setInvoiceLines(invoiceLinesByInvoiceId.getOrDefault(invoice.getId(),
 							new ArrayList<>())));
+			visit.setProcessStage(new ProcessStage(visit.getProcessStageValue()));
+			visit.setReferral(new Referral(visit.getReferralValue()));
 
-			if (model.getBH_Clinician_User_ID() > 0) {
-				clinicians.stream().filter(user -> user.getAD_User_ID() == model.getBH_Clinician_User_ID()).findFirst()
+			if (visit.getClinicianId() > 0) {
+				clinicians.stream().filter(user -> user.getAD_User_ID() == visit.getClinicianId()).findFirst()
 						.ifPresent(clinician -> visit.setClinician(new User(clinician)));
 			}
-
-			return visit;
 		}).collect(Collectors.toList());
 	}
 }

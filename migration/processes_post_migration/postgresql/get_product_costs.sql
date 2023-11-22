@@ -25,8 +25,7 @@ FROM
 				WHEN p.m_attributeset_id != 0 AND p_asis.m_attributesetinstance_id = 0 THEN NULL
 				ELSE
 					COALESCE(price_on_reception.po_price, CASE WHEN p.bh_buyprice = 0 THEN NULL ELSE p.bh_buyprice END,
-					         costs.currentcostprice, productPP.PurchasePrice,
-					         0) END                                                                    AS purchase_price,
+					         productPP.PurchasePrice, 0) END                                           AS purchase_price,
 			CASE
 				WHEN p.m_attributeset_id != 0 AND
 				     p_asis.m_attributesetinstance_id = 0 THEN NULL
@@ -87,28 +86,6 @@ FROM
 			) AS price_on_reception
 				ON price_on_reception.m_product_id = p.m_product_id AND
 				   price_on_reception.m_attributesetinstance_id = p_asis.m_attributesetinstance_id
-				LEFT JOIN (
-				SELECT
-					c.m_product_id,
-					c.m_attributesetinstance_id,
-					c.currentcostprice
-				FROM
-					m_cost c
-						JOIN c_acctschema actsch
-						ON c.c_acctschema_id = actsch.c_acctschema_id
-						AND c.m_costtype_id = actsch.m_costtype_id
-						JOIN m_costelement ce
-						ON c.m_costelement_id = ce.m_costelement_id
-						AND ce.costingmethod = actsch.costingmethod
-				WHERE
-					c.currentcostprice > 0
-					AND c.ad_client_id = $1
-					AND actsch.c_currency_id IN (
-						SELECT ba.c_currency_id FROM c_bankaccount ba WHERE ba.ad_client_id = $1 AND ba.isdefault = 'Y'
-					)
-			) costs
-				ON costs.m_product_id = p.m_product_id AND
-				   costs.m_attributesetinstance_id = p_asis.m_attributesetinstance_id
 				LEFT JOIN (
 				SELECT
 					pp.m_product_id,
