@@ -158,14 +158,14 @@ public class EntityMetadataDBService {
 		return referenceLists;
 	}
 
-	private List<MRefList> getTypes(String referenceName) {
+	public List<MRefList> getTypes(String referenceName) {
 		return getTypes(referenceName, null);
 	}
 
 	public String getReferenceNameByValue(String referenceName, String referenceValue) {
 		List<MRefList> refList = getTypes(referenceName, referenceValue);
 
-		if (refList != null && refList.size() > 0) {
+		if (refList != null && !refList.isEmpty()) {
 			return refList.get(0).getName();
 		}
 

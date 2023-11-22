@@ -15,17 +15,7 @@ import java.util.stream.Collectors;
 
 public class SortUtil {
 	private static final String MALFORMED_SORT_STRING_ERROR = "Sort criteria doesn't meet the standard form.";
-	private static final String[] AGGREGATE_FUNCTIONS = {"sum(", "avg(", "min(", "max(", "count("};
-
-	/**
-	 * Check to see if the table alias already exists on the column (aka Table_Name.ColumnName vs just ColumnName)
-	 *
-	 * @param dbColumn The dbColumn string to check
-	 * @return Whether a table alias is present on the dbColumn
-	 */
-	public static boolean doesTableAliasExistOnColumn(String dbColumn) {
-		return dbColumn.contains(".");
-	}
+	private static final List<String> EXPRESSION_FUNCTIONS = Arrays.asList("$date", "$time");
 
 	/**
 	 * Parse the sort string into an object
@@ -43,13 +33,22 @@ public class SortUtil {
 	 * This takes in a sort JSON model generated and converts it into an appropriate ORDER BY clause to pass to the DB.
 	 * <p>
 	 * The expected JSON has the following structure (any of the following patterns can be combined in any order)
+	 * <pre>
 	 * [
-	 * database-column
-	 * -OR-
-	 * [database-column]
-	 * -OR-
-	 * [database-column, sort-direction]
+	 *   database-column-or-expression-function
+	 *   -OR-
+	 *   [database-column-or-expression-function]
+	 *   -OR-
+	 *   [database-column-or-expression-function, sort-direction]
 	 * ]
+	 * </pre>
+	 * The following expression functions can be leveraged on columns:
+	 * <pre>
+	 * {
+	 * 	$date([database column])
+	 * 	$time([database column])
+	 * }
+	 * </pre>
 	 * </p>
 	 *
 	 * @param tableName The iDempiere table name for determining field types
@@ -84,6 +83,12 @@ public class SortUtil {
 					if (sortCriteriaColumnAndDirection.size() == 2) {
 						sortDirection = sortCriteriaColumnAndDirection.get(1);
 					}
+				}
+				// Check to see the sort column starts with any of the expression functions
+				String finalSortColumn = sortColumn;
+				if (EXPRESSION_FUNCTIONS.stream()
+						.allMatch(expressionFunction -> finalSortColumn.toLowerCase().startsWith(expressionFunction + "("))) {
+					sortColumn = sortColumn.replaceAll("\\$", "");
 				}
 				if (QueryUtil.doesDBStringHaveInvalidCharacters(sortColumn) ||
 						QueryUtil.doesDBStringHaveInvalidCharacters(sortDirection)) {
@@ -120,9 +125,6 @@ public class SortUtil {
 				}
 				String sortColumn =
 						sortCriteria instanceof String ? (String) sortCriteria : ((List<String>) sortCriteria).get(0);
-				// We can pass in functions or operations to sort by, so handle that
-				sortColumn = Arrays.stream(AGGREGATE_FUNCTIONS)
-						.reduce(sortColumn, (replacedString, aggregateFunction) -> replacedString.replace(aggregateFunction, ""));
 				// First, split by the column delimiter
 				String[] sortColumnSplits = sortColumn.split("\\.");
 				if (sortColumnSplits.length == 0) {
