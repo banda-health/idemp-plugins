@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -81,6 +82,18 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 
 	@Override
 	public Invoice saveEntity(Invoice entity) {
+		return transformData(
+				Collections.singletonList(getEntityByUuidFromDB(saveOnlyWithoutChildDataFetch(entity).getUuid()))).get(0);
+	}
+
+	/**
+	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
+	 * TODO: Remove this when we have GraphQL
+	 *
+	 * @param entity The invoice to save
+	 * @return A somewhat updated invoice (has the new UUID & ID on it for other use)
+	 */
+	public Invoice saveOnlyWithoutChildDataFetch(Invoice entity) {
 		try {
 			MDocType_BH documentTypeTarget;
 			if (entity.getDocumentTypeTarget() == null ||
@@ -129,7 +142,13 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 				invoice.setPaymentRule(entity.getPaymentRule());
 			}
 
+			// We're going to log to try and see how long things take to try and identify the cause of deadlocks
+			String randomUuid = UUID.randomUUID().toString();
+			long startTime = System.currentTimeMillis();
+			logger.info("InvoiceInternal_" + randomUuid + " before save");
 			invoice.saveEx();
+			logger.info(
+					"InvoiceInternal_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
 			entity.setId(invoice.get_ID());
 
 			// list of persisted invoice line ids
@@ -155,7 +174,7 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 								attributeSetInstancesByUuid.get(invoiceLine.getAttributeSetInstance().getUuid()).get_ID());
 					}
 
-					InvoiceLine response = invoiceLineDBService.saveEntity(invoiceLine);
+					InvoiceLine response = invoiceLineDBService.saveOnlyWithoutChildDataFetch(invoiceLine);
 					lineIds += "'" + response.getUuid() + "'";
 					if (++count < invoiceLines.size()) {
 						lineIds += ",";
@@ -166,10 +185,8 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 			// delete invoice lines not in request
 			invoiceLineDBService.deleteInvoiceLinesByInvoice(invoice.get_ID(), lineIds);
 
-			return transformData(Collections.singletonList(getEntityByUuidFromDB(invoice.getC_Invoice_UU()))).get(0);
-
+			return new Invoice(invoice);
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			log.severe(ex.getMessage());
 
 			throw new AdempiereException(ex.getLocalizedMessage());

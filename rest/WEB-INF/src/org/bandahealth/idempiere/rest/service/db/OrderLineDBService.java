@@ -38,6 +38,17 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 
 	@Override
 	public OrderLine saveEntity(OrderLine entity) {
+		return createInstanceWithAllFields(getEntityByUuidFromDB(saveOnlyWithoutChildDataFetch(entity).getUuid()));
+	}
+
+	/**
+	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
+	 * TODO: Remove this when we have GraphQL
+	 *
+	 * @param entity The order line to save
+	 * @return A somewhat updated order line (has the new UUID & ID on it for other use)
+	 */
+	public OrderLine saveOnlyWithoutChildDataFetch(OrderLine entity) {
 		MOrderLine_BH mOrderLine = getEntityByUuidFromDB(entity.getUuid());
 		if (mOrderLine == null) {
 			mOrderLine = new MOrderLine_BH(Env.getCtx(), 0, null);
@@ -99,7 +110,7 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 
 		mOrderLine.saveEx();
 
-		return createInstanceWithAllFields(getEntityByUuidFromDB(mOrderLine.getC_OrderLine_UU()));
+		return new OrderLine(mOrderLine);
 	}
 
 	@Override

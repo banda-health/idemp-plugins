@@ -652,59 +652,6 @@ public class FilterUtil {
 	}
 
 	/**
-	 * Get the table alias provided in the column
-	 *
-	 * @param dbColumn The dbColumn string to check
-	 * @return The table alias on the dbColumn
-	 */
-	private static String getTableAliasFromColumn(String dbColumn) {
-		return dbColumn.substring(0, dbColumn.indexOf("."));
-	}
-
-	/**
-	 * Parse through the field names and return a list of aliases.
-	 *
-	 * @param filterJson
-	 * @return
-	 */
-	public static List<String> getTablesNeedingJoins(String filterJson) {
-		if (StringUtil.isNullOrEmpty(filterJson)) {
-			return new ArrayList<>();
-		}
-		try {
-			Map<String, Object> expression = parseJsonString(filterJson);
-			// Make sure to return the distinct list without duplicates
-			return getTablesNeedingJoinsFromExpression(expression).stream().map(String::toLowerCase).distinct()
-					.collect(Collectors.toList());
-		} catch (Exception e) {
-			throw new AdempiereException(MALFORMED_FILTER_STRING_ERROR);
-		}
-	}
-
-	/**
-	 * Gets the list of tables that need to be JOINed from the expression
-	 *
-	 * @param expression The JSON object received for filtering
-	 * @return A list of table names that need JOINs
-	 */
-	private static List<String> getTablesNeedingJoinsFromExpression(Map<String, Object> expression) {
-		List<String> neededJoinTables = new ArrayList<>();
-		for (String logicalQuerySelectorOrDbColumnName : expression.keySet()) {
-			if (!LOGICAL_QUERY_SELECTORS.contains(logicalQuerySelectorOrDbColumnName)) {
-				// It is a DB column
-				if (doesTableAliasExistOnColumn(logicalQuerySelectorOrDbColumnName)) {
-					neededJoinTables.add(getTableAliasFromColumn(logicalQuerySelectorOrDbColumnName));
-				}
-				continue;
-			}
-			for (Object expressionList : (List<?>) expression.get(logicalQuerySelectorOrDbColumnName)) {
-				neededJoinTables.addAll(getTablesNeedingJoinsFromExpression((Map<String, Object>) expressionList));
-			}
-		}
-		return neededJoinTables;
-	}
-
-	/**
 	 * This does all the specific mapping of trying to transform the requested column into the appropriate tables and
 	 * ID mappings between those tables
 	 *

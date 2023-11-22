@@ -43,7 +43,7 @@ public class SqlUtil {
 	private static final List<String> DISALLOWED_SQL_SELECT_CHARACTERS =
 			Arrays.asList("\\", "--", ";", "`", "drop ", "delete ", "insert ");
 	// Copied from org.compiere.db.DB_PostgreSQL since that file can't be read here
-	private static final String IDEMPIERE_POSTGRESQL_NATIVE_MARKER = "NATIVE_PostgreSQL_KEYWORK";
+	public static final String IDEMPIERE_POSTGRESQL_NATIVE_MARKER = "NATIVE_PostgreSQL_KEYWORK";
 
 	public static Integer getCount(String tableName, String whereClause, List<Object> parameters) {
 		StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM ")
