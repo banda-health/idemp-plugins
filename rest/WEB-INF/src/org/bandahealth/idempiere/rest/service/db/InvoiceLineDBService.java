@@ -47,6 +47,17 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 
 	@Override
 	public InvoiceLine saveEntity(InvoiceLine entity) {
+		return createInstanceWithAllFields(getEntityByUuidFromDB(saveOnlyWithoutChildDataFetch(entity).getUuid()));
+	}
+
+	/**
+	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
+	 * TODO: Remove this when we have GraphQL
+	 *
+	 * @param entity The invoice line to save
+	 * @return A somewhat updated invoice line (has the new UUID & ID on it for other use)
+	 */
+	public InvoiceLine saveOnlyWithoutChildDataFetch(InvoiceLine entity) {
 		MInvoiceLine invoiceLine = getEntityByUuidFromDB(entity.getUuid());
 		if (invoiceLine == null) {
 			invoiceLine = new MInvoiceLine(Env.getCtx(), 0, null);
@@ -134,7 +145,7 @@ public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLin
 							.deleteEntity(orderLineChargeInformation.getBH_BP_Specific_Payer_Info_UU()));
 		}
 
-		return createInstanceWithAllFields(getEntityByUuidFromDB(invoiceLine.getC_InvoiceLine_UU()));
+		return new InvoiceLine(invoiceLine);
 	}
 
 	@Override
