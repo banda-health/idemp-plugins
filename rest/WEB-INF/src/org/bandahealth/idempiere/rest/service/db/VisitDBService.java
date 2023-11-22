@@ -239,9 +239,9 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 						ModelUtil.processDocumentOrError(paymentDBService.getDocumentProcessId(), payment, docAction);
 					}
 				}
-				if (!processVisitTransaction.commit(true)) {
-					logger.severe("Could not commit visit transaction");
-				}
+			}
+			if (!processVisitTransaction.commit(true)) {
+				logger.severe("Could not commit visit transaction");
 			}
 			visit.setBH_Process_Stage(null);
 			visit.saveEx();
