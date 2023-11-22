@@ -2456,3 +2456,47 @@ test(`can delete order & invoice lines at the same time`, async () => {
 	expect(valueObject.visit.invoices).toHaveLength(1);
 	expect(valueObject.visit.invoices[0].invoiceLines).toHaveLength(1);
 });
+
+test('expression functions work in sorting', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create visit 1';
+	valueObject.documentAction = undefined;
+	valueObject.setDateOffset(-1);
+	await createVisit(valueObject);
+	const visit1 = valueObject.visit!;
+
+	valueObject.stepName = 'Create visit 2';
+	valueObject.documentAction = undefined;
+	valueObject.setDateOffset(1);
+	valueObject.date!.setHours(12);
+	await createVisit(valueObject);
+	const visit2 = valueObject.visit!;
+
+	valueObject.stepName = 'Create visit 3';
+	valueObject.documentAction = undefined;
+	valueObject.date!.setHours(11);
+	await createVisit(valueObject);
+	const visit3 = valueObject.visit!;
+
+	const sortedVisits = (
+		await visitApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			JSON.stringify([
+				['$date(bh_visitdate)', 'DESC'],
+				['bh_visitdate', 'ASC'],
+			]),
+			JSON.stringify({ bh_visit_uu: { $in: [visit1.uuid, visit2.uuid, visit3.uuid] } }),
+		)
+	).results;
+	expect(sortedVisits).toHaveLength(3);
+	expect(sortedVisits[0].uuid).toBe(visit3.uuid);
+	expect(sortedVisits[1].uuid).toBe(visit2.uuid);
+	expect(sortedVisits[2].uuid).toBe(visit1.uuid);
+});
