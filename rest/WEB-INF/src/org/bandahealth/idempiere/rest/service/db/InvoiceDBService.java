@@ -145,6 +145,7 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 			// We're going to log to try and see how long things take to try and identify the cause of deadlocks
 			String randomUuid = UUID.randomUUID().toString();
 			long startTime = System.currentTimeMillis();
+			logger.info("InvoiceInternal_" + randomUuid + " before save");
 			invoice.saveEx();
 			logger.info(
 					"InvoiceInternal_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));

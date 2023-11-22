@@ -335,6 +335,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		// We're going to log to try and see how long things take to try and identify the cause of deadlocks
 		String randomUuid = UUID.randomUUID().toString();
 		long startTime = System.currentTimeMillis();
+		logger.info("Visit_" + randomUuid + " before save");
 		visit.saveEx();
 		logger.info("Visit_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
 		int visitId = visit.get_ID();
@@ -344,6 +345,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		entity.getEncounters().forEach(encounter -> {
 			encounter.setVisitId(visitId);
 			long internalStartTime = System.currentTimeMillis();
+			logger.info("Encounter_" + randomUuid + " before save");
 			encounterDBService.saveOnlyWithoutChildDataFetch(encounter);
 			logger.info(
 					"Encounter_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - internalStartTime));
@@ -360,6 +362,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			order.setDateAccount(entity.getVisitDate());
 
 			startTime = System.currentTimeMillis();
+			logger.info("OrderFirstRound_" + randomUuid + " before save");
 			updatedOrders.add(orderDBService.saveOnlyWithoutChildDataFetch(order, false));
 			logger.info(
 					"OrderFirstRound_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
@@ -403,6 +406,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			}
 
 			startTime = System.currentTimeMillis();
+			logger.info("Invoice_" + randomUuid + " before save");
 			invoiceDBService.saveOnlyWithoutChildDataFetch(invoice);
 			logger.info("Invoice_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
 		}
@@ -410,6 +414,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 		// Now that we've (potentially) deleted invoice lines, we can delete any necessary order lines
 		entity.getOrders().forEach(order -> {
 			long internalStartTime = System.currentTimeMillis();
+			logger.info("OrderSecondRound_" + randomUuid + " before save");
 			orderDBService.saveOnlyWithoutChildDataFetch(order, true);
 			logger.info(
 					"OrderSecondRound_" + randomUuid + " millisecond save time: " +
@@ -441,6 +446,7 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				}
 
 				startTime = System.currentTimeMillis();
+				logger.info("Payment_" + randomUuid + " before save");
 				Payment response = paymentDBService.saveOnlyWithoutChildDataFetch(payment);
 				logger.info("Payment_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
 				lineIds.append("'").append(response.getUuid()).append("'");

@@ -138,6 +138,7 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 			// We're going to log to try and see how long things take to try and identify the cause of deadlocks
 			String randomUuid = UUID.randomUUID().toString();
 			long startTime = System.currentTimeMillis();
+			logger.info("OrderInternal_" + randomUuid + " before save");
 			mOrder.saveEx();
 			logger.info(
 					"OrderInternal_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
