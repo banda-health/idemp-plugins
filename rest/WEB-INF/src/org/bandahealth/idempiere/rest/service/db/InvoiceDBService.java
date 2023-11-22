@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -141,7 +142,12 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 				invoice.setPaymentRule(entity.getPaymentRule());
 			}
 
+			// We're going to log to try and see how long things take to try and identify the cause of deadlocks
+			String randomUuid = UUID.randomUUID().toString();
+			long startTime = System.currentTimeMillis();
 			invoice.saveEx();
+			logger.info(
+					"InvoiceInternal_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
 			entity.setId(invoice.get_ID());
 
 			// list of persisted invoice line ids

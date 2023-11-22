@@ -8,7 +8,6 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
-import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
@@ -54,6 +53,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -332,14 +332,21 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			});
 		}
 
+		// We're going to log to try and see how long things take to try and identify the cause of deadlocks
+		String randomUuid = UUID.randomUUID().toString();
+		long startTime = System.currentTimeMillis();
 		visit.saveEx();
+		logger.info("Visit_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
 		int visitId = visit.get_ID();
 		entity.setId(visitId);
 
 		// save encounter
 		entity.getEncounters().forEach(encounter -> {
 			encounter.setVisitId(visitId);
+			long internalStartTime = System.currentTimeMillis();
 			encounterDBService.saveOnlyWithoutChildDataFetch(encounter);
+			logger.info(
+					"Encounter_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - internalStartTime));
 		});
 
 		// TODO: Eventually handle when orders are removed/added...
@@ -352,7 +359,10 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			order.setDateOrdered(entity.getVisitDate());
 			order.setDateAccount(entity.getVisitDate());
 
+			startTime = System.currentTimeMillis();
 			updatedOrders.add(orderDBService.saveOnlyWithoutChildDataFetch(order, false));
+			logger.info(
+					"OrderFirstRound_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
 		}
 
 		List<OrderLine> updatedOrderLines =
@@ -392,11 +402,19 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 				}
 			}
 
+			startTime = System.currentTimeMillis();
 			invoiceDBService.saveOnlyWithoutChildDataFetch(invoice);
+			logger.info("Invoice_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
 		}
 
 		// Now that we've (potentially) deleted invoice lines, we can delete any necessary order lines
-		entity.getOrders().forEach(order -> orderDBService.saveOnlyWithoutChildDataFetch(order, true));
+		entity.getOrders().forEach(order -> {
+			long internalStartTime = System.currentTimeMillis();
+			orderDBService.saveOnlyWithoutChildDataFetch(order, true);
+			logger.info(
+					"OrderSecondRound_" + randomUuid + " millisecond save time: " +
+							(System.currentTimeMillis() - internalStartTime));
+		});
 
 		// list of persisted payment line ids
 		StringBuilder lineIds = new StringBuilder();
@@ -422,7 +440,9 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 					payment.getBusinessPartner().setUuid(entity.getPatient().getUuid());
 				}
 
+				startTime = System.currentTimeMillis();
 				Payment response = paymentDBService.saveOnlyWithoutChildDataFetch(payment);
+				logger.info("Payment_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
 				lineIds.append("'").append(response.getUuid()).append("'");
 				if (++count < payments.size()) {
 					lineIds.append(",");

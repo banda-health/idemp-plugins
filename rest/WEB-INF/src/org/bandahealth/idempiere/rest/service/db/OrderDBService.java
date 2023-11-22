@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -134,7 +135,12 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 				mOrder.setBPartner(businessPartner);
 			}
 
+			// We're going to log to try and see how long things take to try and identify the cause of deadlocks
+			String randomUuid = UUID.randomUUID().toString();
+			long startTime = System.currentTimeMillis();
 			mOrder.saveEx();
+			logger.info(
+					"OrderInternal_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
 
 			// list of persisted order line ids
 			String lineIds = "";
