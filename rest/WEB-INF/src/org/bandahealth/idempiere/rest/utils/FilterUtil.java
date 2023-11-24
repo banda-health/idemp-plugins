@@ -283,10 +283,7 @@ public class FilterUtil {
 		}
 		// The keys of the comparison object are DB column names
 		for (String dbColumnName : comparisonQuerySelectors.keySet()) {
-			// We won't allow filtering of DB IDs (unless it's a column mapping specification)
-			if (dbColumnName.toLowerCase().endsWith("_id") && !dbColumnName.contains(SPECIFIC_COLUMN_MAPPING_SPECIFIER)) {
-				continue;
-			}
+			boolean isFilteringOnIdColumn = dbColumnName.toLowerCase().endsWith("_id");
 			Object comparisons = comparisonQuerySelectors.get(dbColumnName);
 
 			// If the column doesn't exist on this table as specified (or it does, but it's supposed to be mapped to another
@@ -308,8 +305,8 @@ public class FilterUtil {
 			if (dbModelInfo != null && dbModelInfo.getColumnIndex(dbColumnName) >= 0) {
 				dbColumnIsDateType = dbModelInfo.getColumnClass(dbModelInfo.getColumnIndex(dbColumnName)) == Timestamp.class;
 			}
-			// As a last precaution, check if the name has "date" in it
-			else if (dbColumnName.toLowerCase().contains("date")) {
+			// As a last precaution, check if the name has "date" in it (and it's not an ID column)
+			else if (dbColumnName.toLowerCase().contains("date") && !isFilteringOnIdColumn) {
 				dbColumnIsDateType = true;
 			}
 
@@ -318,6 +315,10 @@ public class FilterUtil {
 
 			// If this isn't a hashmap for this property, assume it's an $eq
 			if (!(comparisons instanceof HashMap)) {
+				// However, if it's an ID, we're done
+				if (isFilteringOnIdColumn) {
+					continue;
+				}
 				// If this is a date, go ahead and convert the value to be as such
 				if (dbColumnIsDateType) {
 					comparisons = DateUtil.getTimestamp(comparisons.toString());
@@ -329,6 +330,10 @@ public class FilterUtil {
 			}
 			Map<String, Object> comparisonMap = (Map<String, Object>) comparisons;
 			for (String comparison : comparisonMap.keySet()) {
+				// We're only going to allow $null if it's an ID
+				if (isFilteringOnIdColumn && !comparison.equals("$null")) {
+					continue;
+				}
 				whereClause.append(canPrependSeparator ? separator : "");
 				Object filterValue = comparisonMap.get(comparison);
 				// If this is a date, go ahead and convert the value to be as such
@@ -644,59 +649,6 @@ public class FilterUtil {
 	 */
 	private static boolean doesTableAliasExistOnColumn(String dbColumn) {
 		return dbColumn.contains(".");
-	}
-
-	/**
-	 * Get the table alias provided in the column
-	 *
-	 * @param dbColumn The dbColumn string to check
-	 * @return The table alias on the dbColumn
-	 */
-	private static String getTableAliasFromColumn(String dbColumn) {
-		return dbColumn.substring(0, dbColumn.indexOf("."));
-	}
-
-	/**
-	 * Parse through the field names and return a list of aliases.
-	 *
-	 * @param filterJson
-	 * @return
-	 */
-	public static List<String> getTablesNeedingJoins(String filterJson) {
-		if (StringUtil.isNullOrEmpty(filterJson)) {
-			return new ArrayList<>();
-		}
-		try {
-			Map<String, Object> expression = parseJsonString(filterJson);
-			// Make sure to return the distinct list without duplicates
-			return getTablesNeedingJoinsFromExpression(expression).stream().map(String::toLowerCase).distinct()
-					.collect(Collectors.toList());
-		} catch (Exception e) {
-			throw new AdempiereException(MALFORMED_FILTER_STRING_ERROR);
-		}
-	}
-
-	/**
-	 * Gets the list of tables that need to be JOINed from the expression
-	 *
-	 * @param expression The JSON object received for filtering
-	 * @return A list of table names that need JOINs
-	 */
-	private static List<String> getTablesNeedingJoinsFromExpression(Map<String, Object> expression) {
-		List<String> neededJoinTables = new ArrayList<>();
-		for (String logicalQuerySelectorOrDbColumnName : expression.keySet()) {
-			if (!LOGICAL_QUERY_SELECTORS.contains(logicalQuerySelectorOrDbColumnName)) {
-				// It is a DB column
-				if (doesTableAliasExistOnColumn(logicalQuerySelectorOrDbColumnName)) {
-					neededJoinTables.add(getTableAliasFromColumn(logicalQuerySelectorOrDbColumnName));
-				}
-				continue;
-			}
-			for (Object expressionList : (List<?>) expression.get(logicalQuerySelectorOrDbColumnName)) {
-				neededJoinTables.addAll(getTablesNeedingJoinsFromExpression((Map<String, Object>) expressionList));
-			}
-		}
-		return neededJoinTables;
 	}
 
 	/**

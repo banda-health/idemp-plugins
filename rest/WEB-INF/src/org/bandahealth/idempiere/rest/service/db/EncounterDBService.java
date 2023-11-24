@@ -38,6 +38,17 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 	@Override
 	public Encounter saveEntity(Encounter entity) {
+		return createInstanceWithAllFields(getEntityByUuidFromDB(saveOnlyWithoutChildDataFetch(entity).getUuid()));
+	}
+
+	/**
+	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
+	 * TODO: Remove this when we have GraphQL
+	 *
+	 * @param entity The encounter to save
+	 * @return A somewhat updated encounter (has the new UUID & ID on it for other use)
+	 */
+	public Encounter saveOnlyWithoutChildDataFetch(Encounter entity) {
 		MBHEncounter encounter = getEntityByUuidFromDB(entity.getUuid());
 
 		if (encounter == null) {
@@ -71,7 +82,7 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 		// delete old encounter diagnoses
 		encounterDiagnosisDBService.deleteEncounterDiagnosisNotInList(encounterId, entity.getEncounterDiagnoses());
 
-		return createInstanceWithAllFields(encounter);
+		return new Encounter(encounter);
 	}
 	
 	@Override

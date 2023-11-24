@@ -6,22 +6,36 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.rest.service.db.EntityMetadataDBService;
+import org.bandahealth.idempiere.rest.utils.DateUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 
 @JsonInclude(value = Include.NON_NULL)
 public class Visit extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	private Boolean newVisit;
+	@JsonIgnore
+	private String patientTypeValue;
 	private PatientType patientType;
+	@JsonIgnore
+	private String referralValue;
 	private Referral referral;
 	private OrderStatus status;
+	@JsonIgnore
+	private Integer patientId;
 	private BusinessPartner patient;
+	@JsonIgnore
+	private Integer clinicianId;
 	private User clinician;
 	private String documentNumber;
+	@JsonIgnore
+	private String processStageValue;
 	private ProcessStage processStage;
 	private String referredFromTo;
 	private Timestamp visitDate;
@@ -37,18 +51,15 @@ public class Visit extends BaseEntity {
 	public Visit(MBHVisit model) {
 		super(model, null, model.getDescription(), null);
 
-		this.processStage = new ProcessStage(model.getBH_Process_Stage());
-		this.visitDate = model.getBH_VisitDate();
-		this.documentNumber = model.getDocumentNo();
-	}
-
-	public Visit getVisitQueue(String created, String uuid, BusinessPartner businessPartner, OrderStatus status) {
-		setCreated(created);
-		setUuid(uuid);
-		setPatient(businessPartner);
-		setStatus(status);
-
-		return this;
+		setNewVisit(model.isBH_NewVisit());
+		setPatientTypeValue(model.getBH_PatientType());
+		setReferralValue(model.getbh_referral());
+		setPatientId(model.getPatient_ID());
+		setClinicianId(model.getBH_Clinician_User_ID());
+		setProcessStageValue(model.getBH_Process_Stage());
+		setDocumentNumber(model.getDocumentNo());
+		setVisitDate(model.getBH_VisitDate());
+		setReferredFromTo(model.getBH_ReferredFromTo());
 	}
 
 	@XmlElement
@@ -171,5 +182,55 @@ public class Visit extends BaseEntity {
 
 	public void setReferredFromTo(String referredFromTo) {
 		this.referredFromTo = referredFromTo;
+	}
+
+	@JsonIgnore
+	public Integer getPatientId() {
+		return patientId;
+	}
+
+	@JsonIgnore
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
+
+	@JsonIgnore
+	public Integer getClinicianId() {
+		return clinicianId;
+	}
+
+	@JsonIgnore
+	public void setClinicianId(Integer clinicianId) {
+		this.clinicianId = clinicianId;
+	}
+
+	@JsonIgnore
+	public String getProcessStageValue() {
+		return processStageValue;
+	}
+
+	@JsonIgnore
+	public void setProcessStageValue(String processStageValue) {
+		this.processStageValue = processStageValue;
+	}
+
+	@JsonIgnore
+	public String getReferralValue() {
+		return referralValue;
+	}
+
+	@JsonIgnore
+	public void setReferralValue(String referralValue) {
+		this.referralValue = referralValue;
+	}
+
+	@JsonIgnore
+	public String getPatientTypeValue() {
+		return patientTypeValue;
+	}
+
+	@JsonIgnore
+	public void setPatientTypeValue(String patientTypeValue) {
+		this.patientTypeValue = patientTypeValue;
 	}
 }

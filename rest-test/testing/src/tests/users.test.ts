@@ -39,6 +39,28 @@ test('save user', async () => {
 	expect(savedUser.roles.length).toBe(userToSave.roles?.length);
 });
 
+test('new user can be created directly without business partner', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create user directly';
+
+	const availableRoles = (await roleApi.get(valueObject)).results;
+	const cashierRole = availableRoles.filter((role) => role.name.toLowerCase().includes('cashier'))[0];
+
+	const userToCreate: Partial<User> = {
+		name: valueObject.getDynamicStepMessage(),
+		isActive: true,
+		roles: [cashierRole]
+	};
+	const createdUser = await userApi.save(valueObject, userToCreate as User);
+
+	expect(createdUser.name).toBe(userToCreate.name);
+	expect(createdUser.uuid).toBeTruthy();
+	expect(createdUser.isActive).toBe(userToCreate.isActive);
+	expect(createdUser.roles.length).toBe(userToCreate.roles?.length);
+});
+
 test('getting non-admin users sorting and filtering works', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
