@@ -1,0 +1,10 @@
+type Location {
+  id: ID!
+  client: Client!
+  organization: Organization!
+  address1: String
+}
+
+input LocationInput {
+  address1: String
+}

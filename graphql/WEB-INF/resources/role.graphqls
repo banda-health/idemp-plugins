@@ -1,0 +1,6 @@
+type Role {
+  id: ID!
+  name: String!
+  includedRoles: [Role!]
+  isAdmin: Boolean!
+}
