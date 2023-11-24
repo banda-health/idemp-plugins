@@ -1,0 +1,21 @@
+type AuthenticationResponse {
+  token: String
+  username: String
+  clients: [Client!]!
+  user: User
+  roleId: String!
+  needsToResetPassword: Boolean!
+  securityQuestions: [String!]
+}
+
+input AuthenticationData {
+  username: String!
+  password: String!
+  newPassword: String
+  securityQuestion: String
+  answer: String
+  clientId: String
+  roleId: String
+  organizationId: String
+  warehouseId: String
+}

@@ -1,0 +1,23 @@
+union ParameterType = String | Int
+
+type ProcessInfoParameter {
+  id: ID!
+  client: Client!
+  organization: Organization!
+  isActive: Boolean!
+  created: String @dateFormat
+  createdBy: User!
+  parameterName: String
+  parameter: ParameterType
+  parameterTo: ParameterType
+  info: String
+  infoTo: String
+}
+
+input ProcessInfoParameterInput {
+  processParameter: ProcessParameterInput!
+  parameter: Object
+  parameterTo: Object
+  info: String
+  infoTo: String
+}

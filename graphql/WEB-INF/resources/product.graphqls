@@ -1,0 +1,45 @@
+type Product {
+  id: ID!
+  client: Client!
+  organization: Organization!
+  isActive: Boolean!
+  created: String! @dateFormat
+  createdBy: User!
+  description: String
+  name: String
+  value: String
+  isStocked: Boolean
+  reorderLevel: Int
+  reorderQuantity: Int
+  buyPrice: Float
+  sellPrice: Float
+  type: String
+  hasExpiration: Boolean
+  priceMargin: Float
+  productCategory: ProductCategory
+  totalQuantity: Float
+  storageOnHand: [StorageOnHand!]
+}
+
+input ProductInput {
+  id: ID
+  isActive: Boolean
+  description: String
+  name: String
+  value: String
+  isStocked: Boolean
+  reorderLevel: Int
+  reorderQuantity: Int
+  buyPrice: Float
+  sellPrice: Float
+  type: String
+  hasExpiration: Boolean
+  priceMargin: Float
+  productCategory: ProductCategoryInput
+  totalQuantity: Float
+}
+
+type ProductConnection {
+  results: [Product!]!
+  pagingInfo: PagingInfo!
+}

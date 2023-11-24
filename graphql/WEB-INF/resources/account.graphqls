@@ -1,0 +1,20 @@
+type Account {
+  id: ID!
+  client: Client!
+  organization: Organization!
+  isActive: Boolean!
+  created: String! @dateFormat
+  createdBy: User!
+  description: String
+  name: String
+  value: String
+}
+
+type AccountConnection {
+  results: [Account!]!
+  pagingInfo: PagingInfo
+}
+
+input AccountInput {
+  id: ID
+}

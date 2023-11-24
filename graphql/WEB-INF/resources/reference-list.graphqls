@@ -1,0 +1,19 @@
+type ReferenceList {
+  id: ID!
+  client: Client!
+  organization: Organization!
+  isActive: Boolean!
+  created: String @dateFormat
+  createdBy: User!
+  description: String
+  name: String
+  value: String
+}
+
+input ReferenceListInput {
+  id: ID
+  isActive: Boolean
+  description: String
+  name: String
+  value: String
+}

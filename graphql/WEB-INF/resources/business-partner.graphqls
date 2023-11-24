@@ -1,0 +1,50 @@
+type BusinessPartner {
+  id: ID!
+  client: Client!
+  organization: Organization!
+  isActive: Boolean!
+  created: String! @dateFormat
+  createdBy: User!
+  description: String
+  name: String
+  value: String
+  totalOpenBalance: Float
+  patientNumber: String
+  dateOfBirth: String @dateFormat
+  phone: String
+  gender: String
+  email: String
+  nationalId: String
+  occupation: String
+  nextOfKinName: String
+  nextOfKinContact: String
+  localPatientNumber: String
+  totalVisits: Int
+  lastVisitDate: String @dateFormat
+  payments: [Payment!]
+}
+
+type BusinessPartnerConnection {
+  results: [BusinessPartner!]!
+  pagingInfo: PagingInfo!
+}
+
+input BusinessPartnerInput {
+  id: ID
+  isActive: Boolean
+  description: String
+  name: String
+  value: String
+  totalOpenBalance: Float
+  patientNumber: String
+  dateOfBirth: String
+  phone: String
+  location: LocationInput
+  gender: String
+  email: String
+  nationalId: String
+  occupation: String
+  nextOfKinName: String
+  nextOfKinContact: String
+  localPatientNumber: String
+}
