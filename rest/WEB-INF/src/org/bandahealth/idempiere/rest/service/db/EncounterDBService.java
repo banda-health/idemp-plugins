@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -183,8 +184,8 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 	}
 	
 	@Override
-	public Boolean batchDelete(String[] uuids) {
-		Map<String, MBHEncounter> encounters = getByUuids(Set.of(uuids));
+	public Boolean delete(List<String> uuids) {
+		Map<String, MBHEncounter> encounters = getByUuids(new HashSet<>(uuids));
 		if (encounters.isEmpty()) {
 			return true;
 		}

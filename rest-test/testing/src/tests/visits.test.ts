@@ -2458,7 +2458,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 	expect(valueObject.visit.invoices[0].invoiceLines).toHaveLength(1);
 });
 
-test('delete encounter', async () => {
+test('can delete encounters', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
@@ -2474,16 +2474,13 @@ test('delete encounter', async () => {
 	).results.find((result) => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID);
 	const fields = clinicalVitalsEncounterTypeWindow?.window.tabs[0].fields;
 
-	const heightValue = '200';
-	const weightValue = '100';
-
 	const codedDiagnosis = (await codedDiagnosisApi.get(valueObject)).results[0];
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter: Partial<Encounter> = {
 		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
 		observations: [
 			{
-				value: heightValue,
+				value: '200',
 				field: fields?.filter((field) => field.uuid == HEIGHT_FIELD_UUID)[0],
 			} as Observation,
 		],
@@ -2508,8 +2505,19 @@ test('delete encounter', async () => {
 	expect(valueObject.visit.encounters).toHaveLength(2);
 
 	valueObject.stepName = 'Delete encounter';
-	
-	expect(await encounterApi.delete(valueObject, valueObject.visit.encounters.map(encounter => encounter.uuid))).toBe(true);
+	const encounterUuidsToDelete = valueObject.visit.encounters.map((encounter) => encounter.uuid);
+	expect(await encounterApi.delete(valueObject, encounterUuidsToDelete)).toBe(true);
+	expect(
+		(
+			await encounterApi.get(
+				valueObject,
+				undefined,
+				undefined,
+				undefined,
+				JSON.stringify({ bh_encounter_uu: { $in: encounterUuidsToDelete } }),
+			)
+		).results,
+	).toHaveLength(0);
 });
 
 test('expression functions work in sorting', async () => {

@@ -34,33 +34,30 @@ VALUES
 	 ), 10, 0, 'Y', 'N', 'N', 'N', NULL, 'N', NULL, NULL, NULL, NULL, 'N', NULL, 'N', NULL, NULL, 'N', 'U', NULL, NULL,
 	 NULL, 'Y', 'N', NULL, 'e2b742ba-5998-4cdf-93b4-cda8db96f11b', NULL, 'B', 0);
 
+-- Move the chief complaint field from the Vitals Details tab to this new Chief Complaint tab
+UPDATE ad_field
+SET
+	ad_tab_id = (
+		SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = 'e2b742ba-5998-4cdf-93b4-cda8db96f11b'
+	)
+WHERE
+	ad_field_uu = 'e1d01fe4-16b6-4125-a385-34cf4531c06f';
+
+-- create encounter type
 INSERT INTO
-	ad_field (ad_field_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description,
-	          help, iscentrallymaintained, ad_tab_id, ad_column_id, ad_fieldgroup_id, isdisplayed, displaylogic,
-	          displaylength, isreadonly, seqno, sortno, issameline, isheading, isfieldonly, isencrypted, entitytype,
-	          obscuretype, ad_reference_id, ismandatory, included_tab_id, defaultvalue, ad_reference_value_id,
-	          ad_val_rule_id, infofactoryclass, ad_field_uu, isallowcopy, seqnogrid, isdisplayedgrid, xposition, numlines,
-	          columnspan, isquickentry, isupdateable, isalwaysupdateable, mandatorylogic, readonlylogic, istoolbarbutton,
-	          isadvancedfield, isdefaultfocus, vformat, ad_labelstyle_id, ad_fieldstyle_id, placeholder, isquickform)
+	ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name,
+	             description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing,
+	             bh_add_all)
 VALUES
 	((
 		 SELECT
-			 MAX(AD_Field_ID) + 1
+			 MAX(AD_Ref_List_ID) + 1
 		 FROM
-			 AD_Field
-	 ), 0, 0, 'Y', '2023-11-06 11:56:05.874000', 100, '2023-11-06 11:56:05.874000', 100, 'Client',
-	 'Client/Tenant for this installation.',
-	 'A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.',
-	 'Y', (
-		 SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = 'e2b742ba-5998-4cdf-93b4-cda8db96f11b'
-	 ), (
-		 SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '58e4d45d-bf24-4225-bf33-8f63d3a00f9b'
-	 ), NULL, 'Y', NULL, 22, 'N', 10, NULL, 'N', 'N', 'N', 'N', 'U', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-	 '42aa1bfb-7ff5-43e4-b58b-7ad157612fa5', NULL, NULL, 'N', 1, 1, 2, 'N', NULL, NULL, NULL, NULL, NULL, 'N', 'N', NULL,
-	 NULL, NULL, NULL, 'N');
-
--- create encounter type
-INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all) VALUES ((SELECT MAX(AD_Ref_List_ID) + 1 FROM AD_Ref_List), 0, 0, 'Y', '2023-11-07 14:45:40.891000', 100, '2023-11-07 14:45:40.891000', 100, 'C', 'Chief Complaint', null, 1000048, null, null, 'U', 'e822496b-fc64-4db9-9b89-39c7ee6e9986', null, null);
+			 AD_Ref_List
+	 ), 0, 0, 'Y', '2023-11-07 14:45:40.891000', 100, '2023-11-07 14:45:40.891000', 100, 'C', 'Chief Complaint', NULL,
+	 (
+		 SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'ced05cde-f4e6-4d72-9134-c16e27eb963f'
+	 ), NULL, NULL, 'U', 'e822496b-fc64-4db9-9b89-39c7ee6e9986', NULL, NULL);
 
 INSERT INTO
 	bh_encounter_type_window (ad_client_id, ad_org_id, ad_window_id, bh_encounter_type_window_uu, created, createdby,
@@ -71,7 +68,288 @@ VALUES
 	), 'cc62f9eb-2d59-48da-839e-d093a3f2c0e3', '2023-11-06 11:17:57.302000', 100, 'Y',
 	 '2023-11-06 11:17:57.302000', 100, 'C');
 
+-- For all existing chief complaints, we need to create new encounters for them, then migrate the observations from
+-- the old Vitals Details encounter
+DROP TABLE IF EXISTS tmp_bh_encounter;
+CREATE TABLE tmp_bh_encounter
+(
+	ad_client_id            numeric(10)             NOT NULL,
+	ad_org_id               numeric(10)             NOT NULL,
+	bh_encounter_id         serial                  NOT NULL,
+	bh_encounter_type       varchar(22) DEFAULT 'C' NOT NULL,
+	bh_encounter_uu         uuid        DEFAULT uuid_generate_v4(),
+	bh_visit_id             numeric(10)             NOT NULL,
+-- 	created           timestamp   DEFAULT NOW()       NOT NULL,
+	createdby               numeric(10) DEFAULT 100 NOT NULL,
+-- 	isactive          char        DEFAULT 'Y'::bpchar NOT NULL,
+-- 	updated           timestamp   DEFAULT NOW()       NOT NULL,
+	updatedby               numeric(10) DEFAULT 100 NOT NULL,
+	tmp_old_bh_encounter_id numeric(10)             NOT NULL
+);
+
+SELECT
+	SETVAL(
+		'tmp_bh_encounter_bh_encounter_id_seq',
+		(
+			SELECT
+				currentnext
+			FROM
+				ad_sequence
+			WHERE
+				name = 'BH_Encounter'
+			LIMIT 1
+		)::INT,
+		FALSE
+	);
+
+INSERT INTO
+	tmp_bh_encounter (ad_client_id, ad_org_id, bh_visit_id, tmp_old_bh_encounter_id)
+SELECT
+	ad_client_id,
+	ad_org_id,
+	bh_visit_id,
+	bh_encounter_id
+FROM
+	bh_encounter
+WHERE
+		bh_encounter_id IN (
+		SELECT
+			bh_encounter_id
+		FROM
+			bh_observation
+		WHERE
+				ad_field_id = (
+				SELECT ad_field_id FROM ad_field WHERE ad_field_uu = 'e1d01fe4-16b6-4125-a385-34cf4531c06f'
+			)
+	);
+
+-- Now insert the real values
+INSERT INTO
+	bh_encounter (ad_client_id, ad_org_id, bh_encounter_id, bh_encounter_type, bh_encounter_uu, bh_visit_id, createdby,
+	              updatedby)
+SELECT
+	ad_client_id,
+	ad_org_id,
+	bh_encounter_id,
+	bh_encounter_type,
+	bh_encounter_uu,
+	bh_visit_id,
+	createdby,
+	updatedby
+FROM
+	tmp_bh_encounter;
+
+-- Map the chief complaint observations to point to the new encounter
+UPDATE bh_observation o
+SET
+	bh_encounter_id = te.bh_encounter_id
+FROM
+	tmp_bh_encounter te
+WHERE
+	o.bh_encounter_id = te.tmp_old_bh_encounter_id;
+
+-- Delete any Vitals encounters that don't have any observations
+SELECT
+	bh_execute_statement_without_indexes($$
+DELETE
+FROM
+	bh_encounter e_d
+	USING bh_encounter e
+		LEFT JOIN (
+			SELECT DISTINCT bh_encounter_id
+			FROM bh_observation
+		) o ON e.bh_encounter_id = o.bh_encounter_id
+WHERE
+	o.bh_encounter_id IS NULL
+	AND e.bh_encounter_type = 'V'
+	AND e_d.bh_encounter_id = e.bh_encounter_id;
+	$$, 'bh_encounter_id');
+
+-- Add the new fields
+-- Add MUAC element
+INSERT INTO
+	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
+	            entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help,
+	            ad_element_uu, placeholder)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_element_id) + 1
+		 FROM
+			 ad_element
+	 ), 0, 0, 'Y', '2023-11-23 08:13:15.665000', 100, '2023-11-23 08:13:15.665000', 100, 'BH_MUAC', 'U',
+	 'Mid-Upper Arm Circumference (mm)', 'MUAC', NULL, NULL, NULL, NULL, NULL, NULL,
+	 '89db51ee-d555-4d76-b73f-85bb1cd4c483', NULL);
+-- Add BMI element
+INSERT INTO
+	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
+	            entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help,
+	            ad_element_uu, placeholder)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_element_id) + 1
+		 FROM
+			 ad_element
+	 ), 0, 0, 'Y', '2023-11-23 08:13:55.275000', 100, '2023-11-23 08:13:55.275000', 100, 'BH_BMI', 'U', 'BMI (kg/m²)',
+	 'BMI', NULL, NULL, NULL, NULL, NULL, NULL, 'd8826d20-904b-496c-88c6-850c35237365', NULL);
+-- Add LMP element
+INSERT INTO
+	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
+	            entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help,
+	            ad_element_uu, placeholder)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_element_id) + 1
+		 FROM
+			 ad_element
+	 ), 0, 0, 'Y', '2023-11-23 08:14:30.583000', 100, '2023-11-23 08:14:51.403000', 100, 'BH_LMP', 'U',
+	 'Beginning of Last Menstrual Period', 'LMP', NULL, NULL, NULL, NULL, NULL, NULL,
+	 '09060de4-6abf-49d8-a9de-8ab965687a09', NULL);
+
+-- Now add the columns from these elements
+-- Add MUAC column
+INSERT INTO
+	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
+	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
+	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
+	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
+	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
+	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
+	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_column_id) + 1
+		 FROM
+			 ad_column
+	 ), 0, 0, 'Y', '2023-11-23 08:18:25.117000', '2023-11-23 08:18:25.117000', 100, 100,
+	 'Mid-Upper Arm Circumference (mm)', NULL, NULL, 0, 'U', 'BH_MUAC', (
+		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = 'f472818e-6071-4dcf-b705-4020ad79c154'
+	 ), 11, NULL, NULL, 14, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '89db51ee-d555-4d76-b73f-85bb1cd4c483'
+	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '755a4ec9-be8a-4b99-9fca-15836402eca1', 'Y', 0, 'N', 'N', NULL,
+	 NULL, 'N', NULL, NULL, 'N');
+-- Add BMI column
+INSERT INTO
+	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
+	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
+	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
+	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
+	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
+	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
+	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_column_id) + 1
+		 FROM
+			 ad_column
+	 ), 0, 0, 'Y', '2023-11-23 08:26:24.728000', '2023-11-23 08:26:24.728000', 100, 100, 'BMI (kg/m²)', NULL, NULL, 0,
+	 'U', 'BH_BMI', (
+		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = 'f472818e-6071-4dcf-b705-4020ad79c154'
+	 ), 12, NULL, NULL, 14, '@BH_Height@*100*100/@BH_Weight@/@BH_Weight@', 'N', 'N', 'N', 'Y', '1=1', 'N', 0, 'N', 'N',
+	 NULL, NULL, NULL, NULL, 'N', (
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'd8826d20-904b-496c-88c6-850c35237365'
+	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', '0.00', '850c652d-3cdb-46fa-b40d-f30321dcc35b', 'Y', 0, 'N', 'N',
+	 NULL, NULL, 'N', NULL, NULL, 'N');
+-- Add LMP column
+INSERT INTO
+	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
+	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
+	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
+	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
+	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
+	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
+	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_column_id) + 1
+		 FROM
+			 ad_column
+	 ), 0, 0, 'Y', '2023-11-23 08:27:38.256000', '2023-11-23 08:27:38.256000', 100, 100,
+	 'Beginning of Last Menstrual Period', NULL, NULL, 0, 'U', 'BH_LMP', (
+		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = 'f472818e-6071-4dcf-b705-4020ad79c154'
+	 ), 15, NULL, NULL, 7, NULL, 'N', 'N', 'N', 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = '09060de4-6abf-49d8-a9de-8ab965687a09'
+	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '5fce9cec-8119-4aba-aa00-98618feb2369', 'Y', 0, 'N', 'N', NULL,
+	 NULL, 'N', NULL, NULL, 'N');
+
+-- Update table mapped to the Observation Field tab
+UPDATE ad_tab
+SET
+	ad_table_id = (
+		SELECT ad_table_id FROM ad_table WHERE ad_table_uu = 'f472818e-6071-4dcf-b705-4020ad79c154'
+	)
+WHERE
+	ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7';
+-- Add the three new fields
+INSERT INTO
+	ad_field (ad_field_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description,
+	          help, iscentrallymaintained, ad_tab_id, ad_column_id, ad_fieldgroup_id, isdisplayed, displaylogic,
+	          displaylength, isreadonly, seqno, sortno, issameline, isheading, isfieldonly, isencrypted, entitytype,
+	          obscuretype, ad_reference_id, ismandatory, included_tab_id, defaultvalue, ad_reference_value_id,
+	          ad_val_rule_id, infofactoryclass, ad_field_uu, isallowcopy, seqnogrid, isdisplayedgrid, xposition, numlines,
+	          columnspan, isquickentry, isupdateable, isalwaysupdateable, mandatorylogic, readonlylogic, istoolbarbutton,
+	          isadvancedfield, isdefaultfocus, vformat, ad_labelstyle_id, ad_fieldstyle_id, placeholder, isquickform)
+VALUES
+	((
+		 SELECT MAX(ad_field_id) + 1
+		 FROM ad_field
+	 ), 0, 0, 'Y', '2023-11-23 12:41:12.503000', 100, '2023-11-23 12:41:12.503000', 100,
+	 'Beginning of Last Menstrual Period', NULL, NULL, 'Y', (
+		 SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
+	 ), (
+		 SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '5fce9cec-8119-4aba-aa00-98618feb2369'
+	 ), NULL, 'Y', NULL, 0, 'N', 110, 0, 'N', 'N', 'N', 'N', 'U', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+	 'da211453-46c6-44a6-8ee2-ded8f8630b23', NULL, 110, 'Y', 1, 1, 1, 'N', NULL, NULL, NULL, NULL, NULL, 'N', 'N', NULL,
+	 NULL, NULL, NULL, 'N');
+INSERT INTO
+	ad_field (ad_field_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description,
+	          help, iscentrallymaintained, ad_tab_id, ad_column_id, ad_fieldgroup_id, isdisplayed, displaylogic,
+	          displaylength, isreadonly, seqno, sortno, issameline, isheading, isfieldonly, isencrypted, entitytype,
+	          obscuretype, ad_reference_id, ismandatory, included_tab_id, defaultvalue, ad_reference_value_id,
+	          ad_val_rule_id, infofactoryclass, ad_field_uu, isallowcopy, seqnogrid, isdisplayedgrid, xposition, numlines,
+	          columnspan, isquickentry, isupdateable, isalwaysupdateable, mandatorylogic, readonlylogic, istoolbarbutton,
+	          isadvancedfield, isdefaultfocus, vformat, ad_labelstyle_id, ad_fieldstyle_id, placeholder, isquickform)
+VALUES
+	((
+		 SELECT MAX(ad_field_id) + 1
+		 FROM ad_field
+	 ), 0, 0, 'Y', '2023-11-23 12:40:48.980000', 100, '2023-11-23 12:40:48.980000', 100, 'BMI (kg/m²)', NULL, NULL, 'Y', (
+		 SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
+	 ), (
+		 SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '850c652d-3cdb-46fa-b40d-f30321dcc35b'
+	 ), NULL, 'Y', NULL, 0, 'N', 100, 0, 'N', 'N', 'N', 'N', 'U', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+	 '70b5bfa1-9c75-4fea-bf7e-076f4f4163fb', NULL, 100, 'Y', 1, 1, 1, 'N', NULL, NULL, NULL, NULL, NULL, 'N', 'N', NULL,
+	 NULL, NULL, NULL, 'N');
+INSERT INTO
+	ad_field (ad_field_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description,
+	          help, iscentrallymaintained, ad_tab_id, ad_column_id, ad_fieldgroup_id, isdisplayed, displaylogic,
+	          displaylength, isreadonly, seqno, sortno, issameline, isheading, isfieldonly, isencrypted, entitytype,
+	          obscuretype, ad_reference_id, ismandatory, included_tab_id, defaultvalue, ad_reference_value_id,
+	          ad_val_rule_id, infofactoryclass, ad_field_uu, isallowcopy, seqnogrid, isdisplayedgrid, xposition, numlines,
+	          columnspan, isquickentry, isupdateable, isalwaysupdateable, mandatorylogic, readonlylogic, istoolbarbutton,
+	          isadvancedfield, isdefaultfocus, vformat, ad_labelstyle_id, ad_fieldstyle_id, placeholder, isquickform)
+VALUES
+	((
+		 SELECT MAX(ad_field_id) + 1
+		 FROM ad_field
+	 ), 0, 0, 'Y', '2023-11-23 12:40:22.002000', 100, '2023-11-23 12:40:22.002000', 100,
+	 'Mid-Upper Arm Circumference (mm)', NULL, NULL, 'Y', (
+		 SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
+	 ), (
+		 SELECT ad_column_id FROM ad_column WHERE ad_column_uu = '755a4ec9-be8a-4b99-9fca-15836402eca1'
+	 ), NULL, 'Y', NULL, 0, 'N', 90, 0, 'N', 'N', 'N', 'N', 'U', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+	 '5f1f6878-9012-4cc1-9581-6847b3a6896e', NULL, 90, 'Y', 1, 1, 1, 'N', NULL, NULL, NULL, NULL, NULL, 'N', 'N', NULL,
+	 NULL, NULL, NULL, 'N');
+
+SELECT
+	update_sequences();
+
 SELECT
 	register_migration_script('202311061144_GO-2357.sql')
 FROM
-	dual;	 
+	dual;

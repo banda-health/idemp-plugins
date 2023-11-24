@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -606,9 +607,9 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		return dbModels.stream().map(this::createInstanceWithDefaultFields).collect(Collectors.toList());
 	}
 	
-	public Boolean batchDelete(String[] uuids) {
+	public Boolean delete(List<String> uuids) {
 		List<Object> parameters = new ArrayList<>();
-		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(Set.of(uuids), parameters);
+		String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(new HashSet<>(uuids), parameters);
 
 		List<S> entities = new Query(Env.getCtx(), getModelInstance().get_TableName(),
 				getModelInstance().getUUIDColumnName() + " IN(" + whereClause + ")", null).setParameters(parameters).list();
@@ -616,7 +617,7 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 			return false;
 		}
 
-		entities.stream().forEach(entity -> entity.deleteEx(true));
+		entities.forEach(entity -> entity.deleteEx(true));
 
 		return true;
 	}
