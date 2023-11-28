@@ -122,6 +122,17 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 	public User saveEntity(User entity) {
 		try {
 			MUser_BH user = getEntityByUuidFromDB(entity.getUuid());
+			if (user == null) {
+				user = getModelInstance();
+				if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
+					user.setAD_User_UU(entity.getUuid());
+				}
+			}
+
+			if (!StringUtil.isNullOrEmpty(entity.getName())) {
+				user.setName(entity.getName());
+			}
+
 			user.setIsActive(entity.getIsActive());
 
 			if (StringUtil.isNotNullAndEmpty(entity.getResetPassword())) {
@@ -129,13 +140,11 @@ public class UserDBService extends BaseDBService<User, MUser_BH> {
 				user.setIsExpired(true); // Force Change On Next Login
 			}
 
-			user.setIsActive(entity.getIsActive());
+			user.saveEx(); // Save the user before saving the roles - if it is new, must be created to attach roles to it
 
 			if (entity.getRoles() != null) {
 				userRolesDBService.saveRoles(user, entity.getRoles());
 			}
-
-			user.saveEx();
 
 			return transformData(Collections.singletonList(user)).get(0);
 

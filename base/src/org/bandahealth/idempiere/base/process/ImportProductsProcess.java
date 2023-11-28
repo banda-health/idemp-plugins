@@ -99,6 +99,7 @@ public class ImportProductsProcess extends SvrProcess {
 			if (log.isLoggable(Level.FINE)) log.fine("Delete Old Impored =" + no);
 		}
 
+		boolean isError = false;
 		//	Set Client, Org, IsActive, Created/Updated
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
 				.append("SET AD_Client_ID = COALESCE (AD_Client_ID, ").append(clientId).append("),")
@@ -124,7 +125,10 @@ public class ImportProductsProcess extends SvrProcess {
 				.append("WHERE (Name IS NULL)")
 				.append(" AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.CONFIG)) log.config("Invalid Name=" + no);
+		if (no != 0) {
+			log.warning("Invalid Name=" + no);
+			isError = true;
+		}
 
 		//	Set Product
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " i ")
@@ -141,7 +145,10 @@ public class ImportProductsProcess extends SvrProcess {
 					.append("WHERE M_Product_ID IS NOT NULL")
 					.append(" AND I_IsImported<>'Y'").append(clientCheck);
 			no = DB.executeUpdate(sql.toString(), get_TrxName());
-			if (log.isLoggable(Level.CONFIG)) log.config("ProductExists=" + no);
+			if (no != 0) {
+				log.warning("ProductExists=" + no);
+				isError = true;
+			}
 		}
 
 		//	Set Lots
@@ -188,7 +195,10 @@ public class ImportProductsProcess extends SvrProcess {
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_BH_HasLot3 + "='Y'")
 				.append(") AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.FINE)) log.fine("Set Duplicate Product Names=" + no);
+		if (no != 0) {
+			log.warning("Too many lots=" + no);
+			isError = true;
+		}
 
 		// Lot 2 & Lot 3 need initial quantities
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
@@ -202,7 +212,10 @@ public class ImportProductsProcess extends SvrProcess {
 						X_BH_I_Product_Quantity.COLUMNNAME_BH_InitialQuantity_Lot3 + "=0)")
 				.append(")) AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.FINE)) log.fine("Set Duplicate Product Names=" + no);
+		if (no != 0) {
+			log.warning("Lot without quantity=" + no);
+			isError = true;
+		}
 
 		//	Duplicate product names
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
@@ -212,7 +225,10 @@ public class ImportProductsProcess extends SvrProcess {
 				.append(" WHERE I_IsImported<>'Y'" + clientCheck + " GROUP BY upper(Name)")
 				.append(") p WHERE product_count > 1) AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.FINE)) log.fine("Set Duplicate Product Names=" + no);
+		if (no != 0) {
+			log.warning("Set Duplicate Product Names=" + no);
+			isError = true;
+		}
 
 		//	Check Category Name
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
@@ -221,7 +237,10 @@ public class ImportProductsProcess extends SvrProcess {
 				.append("SELECT name FROM " + MProductCategory_BH.Table_Name + " WHERE AD_Client_ID=").append(clientId)
 				.append(") AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.CONFIG)) log.config("Invalid CategoryName=" + no);
+		if (no != 0) {
+			log.warning("Invalid CategoryName=" + no);
+			isError = true;
+		}
 
 		//	Check Expiration
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
@@ -232,7 +251,10 @@ public class ImportProductsProcess extends SvrProcess {
 				.append(X_BH_I_Product_Quantity.COLUMNNAME_GuaranteeDate + " IS NOT NULL")
 				.append(")) AND I_IsImported<>'Y'").append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.CONFIG)) log.config("Invalid Expiration Lot 1=" + no);
+		if (no != 0) {
+			log.warning("Invalid Expiration Lot 1=" + no);
+			isError = true;
+		}
 		//
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
 				.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=Invalid Expiration and dates lot 2, ' ")
@@ -243,7 +265,10 @@ public class ImportProductsProcess extends SvrProcess {
 				.append(")) AND " + X_BH_I_Product_Quantity.COLUMNNAME_BH_HasLot2 + "='Y' AND I_IsImported<>'Y'")
 				.append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.CONFIG)) log.config("Invalid Expiration Lot 2=" + no);
+		if (no != 0) {
+			log.warning("Invalid Expiration Lot 2=" + no);
+			isError = true;
+		}
 		//
 		sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
 				.append("SET I_IsImported='N', I_ErrorMsg=I_ErrorMsg||'ERR=Invalid Expiration and dates lot 3, ' ")
@@ -254,9 +279,24 @@ public class ImportProductsProcess extends SvrProcess {
 				.append(")) AND " + X_BH_I_Product_Quantity.COLUMNNAME_BH_HasLot3 + "='Y' AND I_IsImported<>'Y'")
 				.append(clientCheck);
 		no = DB.executeUpdate(sql.toString(), get_TrxName());
-		if (log.isLoggable(Level.CONFIG)) log.config("Invalid Expiration Lot 3=" + no);
+		if (no != 0) {
+			log.warning("Invalid Expiration Lot 3=" + no);
+			isError = true;
+		}
 
 		commitEx();
+
+		if (isError) {
+			//	Reset Processing Flag
+			sql = new StringBuilder("UPDATE " + X_BH_I_Product_Quantity.Table_Name + " ")
+					.append("SET Processing='N'")
+					.append("WHERE I_IsImported='N' AND Processed='N' AND Processing='Y'")
+					.append(" AND M_Product_ID IS NULL")
+					.append(clientCheck);
+			DB.executeUpdate(sql.toString(), get_TrxName());
+			addLog(0, null, BigDecimal.ONE, "@Errors@");
+			return getProcessInfo().getLogInfo();
+		}
 
 		// get default uom (unit of measure).
 		int uomId = 0;
