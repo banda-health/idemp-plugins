@@ -1,0 +1,56 @@
+# Generated Schema for M_ShippingProcessor - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_ShippingProcessorGet(page: Int, size: Int, sort: String, filter: String): M_ShippingProcessorConnection!
+}
+
+extend type Mutation {
+	M_ShippingProcessorSave(entity: M_ShippingProcessorInput!): M_ShippingProcessor!
+	M_ShippingProcessorDelete(uuids: [String!]!): Boolean!
+}
+
+type M_ShippingProcessorConnection {
+	results: [M_ShippingProcessor!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_ShippingProcessor {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ConnectionKey: String
+	ConnectionPassword: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	ID: ID!
+	M_ShippingProcessorCfg: M_ShippingProcessorCfg!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User ID or account number
+	UserID: String!
+}
+
+input M_ShippingProcessorInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	ConnectionKey: String
+	ConnectionPassword: String
+	# The record is active in the system
+	IsActive: Boolean
+	ID: ID
+	M_ShippingProcessorCfg: M_ShippingProcessorCfgInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# User ID or account number
+	UserID: String
+}

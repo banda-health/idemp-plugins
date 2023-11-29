@@ -1,0 +1,106 @@
+# Generated Schema for C_BP_Group - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_BP_GroupGet(page: Int, size: Int, sort: String, filter: String): C_BP_GroupConnection!
+}
+
+extend type Mutation {
+	C_BP_GroupSave(entity: C_BP_GroupInput!): C_BP_Group!
+	C_BP_GroupDelete(uuids: [String!]!): Boolean!
+}
+
+type C_BP_GroupConnection {
+	results: [C_BP_Group!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_BP_Group {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Color used for printing and display
+	AD_PrintColor: AD_PrintColor
+	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	BH_Locked: Boolean!
+	# Meant to be a sub-type of the charge type
+	BH_SubType: AD_Ref_List
+	ID: ID!
+	# Dunning Rules for overdue invoices
+	C_Dunning: C_Dunning
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Credit Watch - Percent of Credit Limit when OK switches to Watch
+	CreditWatchPercent: Int
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Can enter confidential information
+	IsConfidentialInfo: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Schema to calculate the trade discount percentage
+	M_DiscountSchema: M_DiscountSchema
+	# Unique identifier of a Price List
+	M_PriceList: M_PriceList
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Schema to calculate the purchase trade discount percentage
+	PO_DiscountSchema: M_DiscountSchema
+	# Price List used by this Business Partner
+	PO_PriceList: M_PriceList
+	# PO-Invoice Match Price Tolerance in percent of the purchase price
+	PriceMatchTolerance: Int
+	# Base of Priority
+	PriorityBase: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input C_BP_GroupInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Color used for printing and display
+	AD_PrintColor: AD_PrintColorInput
+	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	BH_Locked: Boolean
+	# Meant to be a sub-type of the charge type
+	BH_SubType: AD_Ref_ListInput
+	ID: ID
+	# Dunning Rules for overdue invoices
+	C_Dunning: C_DunningInput
+	# Credit Watch - Percent of Credit Limit when OK switches to Watch
+	CreditWatchPercent: Int
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Can enter confidential information
+	IsConfidentialInfo: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Schema to calculate the trade discount percentage
+	M_DiscountSchema: M_DiscountSchemaInput
+	# Unique identifier of a Price List
+	M_PriceList: M_PriceListInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Schema to calculate the purchase trade discount percentage
+	PO_DiscountSchema: M_DiscountSchemaInput
+	# Price List used by this Business Partner
+	PO_PriceList: M_PriceListInput
+	# PO-Invoice Match Price Tolerance in percent of the purchase price
+	PriceMatchTolerance: Int
+	# Base of Priority
+	PriorityBase: AD_Ref_ListInput
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

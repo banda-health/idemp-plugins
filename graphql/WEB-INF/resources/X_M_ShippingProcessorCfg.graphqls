@@ -1,0 +1,78 @@
+# Generated Schema for M_ShippingProcessorCfg - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_ShippingProcessorCfgGet(page: Int, size: Int, sort: String, filter: String): M_ShippingProcessorCfgConnection!
+}
+
+extend type Mutation {
+	M_ShippingProcessorCfgSave(entity: M_ShippingProcessorCfgInput!): M_ShippingProcessorCfg!
+	M_ShippingProcessorCfgDelete(uuids: [String!]!): Boolean!
+}
+
+type M_ShippingProcessorCfgConnection {
+	results: [M_ShippingProcessorCfg!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_ShippingProcessorCfg {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Host Address URL or DNS
+	HostAddress: String!
+	# Host Communication Port
+	HostPort: Int!
+	# The record is active in the system
+	IsActive: Boolean!
+	ID: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	#  Address of your proxy server
+	ProxyAddress: String
+	# Logon of your proxy server
+	ProxyLogon: String
+	# Password of your proxy server
+	ProxyPassword: String
+	# Port of your proxy server
+	ProxyPort: Int
+	ServicePath: String
+	ShippingProcessorClass: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_ShippingProcessorCfgInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Optional short description of the record
+	Description: String
+	# Host Address URL or DNS
+	HostAddress: String
+	# Host Communication Port
+	HostPort: Int
+	# The record is active in the system
+	IsActive: Boolean
+	ID: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+	#  Address of your proxy server
+	ProxyAddress: String
+	# Logon of your proxy server
+	ProxyLogon: String
+	# Password of your proxy server
+	ProxyPassword: String
+	# Port of your proxy server
+	ProxyPort: Int
+	ServicePath: String
+	ShippingProcessorClass: String
+}

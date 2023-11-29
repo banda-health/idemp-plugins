@@ -1,0 +1,70 @@
+# Generated Schema for BH_Visit - DO NOT CHANGE
+# @author iDempiere (generated) 
+# @version Release 8.2 - $Id$
+extend type Query {
+	BH_VisitGet(page: Int, size: Int, sort: String, filter: String): BH_VisitConnection!
+}
+
+extend type Mutation {
+	BH_VisitSave(entity: BH_VisitInput!): BH_Visit!
+	BH_VisitDelete(uuids: [String!]!): Boolean!
+}
+
+type BH_VisitConnection {
+	results: [BH_Visit!]!
+	pagingInfo: PagingInfo!
+}
+
+type BH_Visit {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	BH_NewVisit: Boolean!
+	BH_PatientType: AD_Ref_List
+	# Drop down field in visits for users to define the process stage
+	BH_Process_Stage: AD_Ref_List
+	bh_referral: AD_Ref_List
+	BH_ReferredFromTo: String
+	ID: ID!
+	BH_VisitDate: Date
+	BH_Voided_Reason: BH_Voided_Reason
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The Patient must be a valid business partner.
+	Patient: C_BPartner!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_VisitInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	BH_NewVisit: Boolean
+	BH_PatientType: AD_Ref_ListInput
+	# Drop down field in visits for users to define the process stage
+	BH_Process_Stage: AD_Ref_ListInput
+	bh_referral: AD_Ref_ListInput
+	BH_ReferredFromTo: String
+	ID: ID
+	BH_VisitDate: Date
+	BH_Voided_Reason: BH_Voided_ReasonInput
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The Patient must be a valid business partner.
+	Patient: C_BPartnerInput
+}

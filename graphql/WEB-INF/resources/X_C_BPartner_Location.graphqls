@@ -1,0 +1,94 @@
+# Generated Schema for C_BPartner_Location - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_BPartner_LocationGet(page: Int, size: Int, sort: String, filter: String): C_BPartner_LocationConnection!
+}
+
+extend type Mutation {
+	C_BPartner_LocationSave(entity: C_BPartner_LocationInput!): C_BPartner_Location!
+	C_BPartner_LocationDelete(uuids: [String!]!): Boolean!
+}
+
+type C_BPartner_LocationConnection {
+	results: [C_BPartner_Location!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_BPartner_Location {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	ID: ID!
+	# Location or Address
+	C_Location: C_Location!
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	CustomerAddressID: String
+	# Facsimile number
+	Fax: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Business Partner Invoice/Bill Address
+	IsBillTo: Boolean!
+	# ISDN or modem line
+	ISDN: String
+	# Business Partner pays from that address and we'll send dunning letters there
+	IsPayFrom: Boolean!
+	IsPreserveCustomName: Boolean!
+	# Business Partner payment address
+	IsRemitTo: Boolean!
+	# Business Partner Shipment Address
+	IsShipTo: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Identifies a telephone number
+	Phone: String
+	# Identifies an alternate telephone number.
+	Phone2: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_BPartner_LocationInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Identifies a Business Partner
+	C_BPartner: C_BPartnerInput
+	ID: ID
+	# Location or Address
+	C_Location: C_LocationInput
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegionInput
+	CustomerAddressID: String
+	# Facsimile number
+	Fax: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Business Partner Invoice/Bill Address
+	IsBillTo: Boolean
+	# ISDN or modem line
+	ISDN: String
+	# Business Partner pays from that address and we'll send dunning letters there
+	IsPayFrom: Boolean
+	IsPreserveCustomName: Boolean
+	# Business Partner payment address
+	IsRemitTo: Boolean
+	# Business Partner Shipment Address
+	IsShipTo: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Identifies a telephone number
+	Phone: String
+	# Identifies an alternate telephone number.
+	Phone2: String
+}

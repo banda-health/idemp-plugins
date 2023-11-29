@@ -1,0 +1,9 @@
+extend type Mutation {
+	C_OrderSaveAndProcess(entity: BH_VisitInput!, documentAction: String): BH_Visit
+	C_OrderProcess(uuid: String!, documentAction: String): BH_Visit
+}
+
+extend type C_Order {
+	M_InOuts: [M_InOut!]!
+	C_OrderLines: [C_OrderLine!]!
+}

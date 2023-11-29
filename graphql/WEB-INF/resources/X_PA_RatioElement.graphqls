@@ -1,0 +1,86 @@
+# Generated Schema for PA_RatioElement - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	PA_RatioElementGet(page: Int, size: Int, sort: String, filter: String): PA_RatioElementConnection!
+}
+
+extend type Mutation {
+	PA_RatioElementSave(entity: PA_RatioElementInput!): PA_RatioElement!
+	PA_RatioElementDelete(uuids: [String!]!): Boolean!
+}
+
+type PA_RatioElementConnection {
+	results: [PA_RatioElement!]!
+	pagingInfo: PagingInfo!
+}
+
+type PA_RatioElement {
+	# Account used
+	Account: C_ElementValue
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Constant value
+	ConstantValue: Int
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Calculation method for measuring performance
+	PA_MeasureCalc: PA_MeasureCalc
+	# Performance Ratio
+	PA_Ratio: PA_Ratio!
+	ID: ID!
+	# Performance Ratio Used
+	PA_RatioUsed: PA_Ratio
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List
+	# Ratio Element Type
+	RatioElementType: AD_Ref_List!
+	# Ratio Operand
+	RatioOperand: AD_Ref_List!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input PA_RatioElementInput {
+	# Account used
+	Account: C_ElementValueInput
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Constant value
+	ConstantValue: Int
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Calculation method for measuring performance
+	PA_MeasureCalc: PA_MeasureCalcInput
+	# Performance Ratio
+	PA_Ratio: PA_RatioInput
+	ID: ID
+	# Performance Ratio Used
+	PA_RatioUsed: PA_RatioInput
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_ListInput
+	# Ratio Element Type
+	RatioElementType: AD_Ref_ListInput
+	# Ratio Operand
+	RatioOperand: AD_Ref_ListInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

@@ -1,0 +1,250 @@
+# Generated Schema for PP_Order - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	PP_OrderGet(page: Int, size: Int, sort: String, filter: String): PP_OrderConnection!
+}
+
+extend type Mutation {
+	PP_OrderSave(entity: PP_OrderInput!): PP_Order!
+	PP_OrderDelete(uuids: [String!]!): Boolean!
+}
+
+type PP_OrderConnection {
+	results: [PP_Order!]!
+	pagingInfo: PagingInfo!
+}
+
+type PP_Order {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Workflow or combination of tasks
+	AD_Workflow: AD_Workflow!
+	# Indicated the Quantity Assay to use into Quality Order
+	Assay: Int
+	# Business Activity
+	C_Activity: C_Activity
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Document type or rules
+	C_DocType: C_DocType
+	# Target document type for conversing documents
+	C_DocTypeTarget: C_DocType!
+	# Sales Order Line
+	C_OrderLine: C_OrderLine
+	# Financial Project
+	C_Project: C_Project
+	# Unit of Measure
+	C_UOM: C_UOM!
+	# Copy From Record
+	CopyFrom: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date Confirm of this Order
+	DateConfirm: Date
+	# Date when the product was delivered
+	DateDelivered: Date
+	# Finish or (planned) completion date
+	DateFinish: Date
+	# Scheduled Finish date for this Order
+	DateFinishSchedule: Date
+	# Date of Order
+	DateOrdered: Date!
+	# Date Order was promised
+	DatePromised: Date!
+	# Date Start for this Order
+	DateStart: Date
+	# Scheduled start date for this Order
+	DateStartSchedule: Date!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	FloatAfter: Int
+	FloatBefored: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean!
+	# Indicate that this component is based in % Quantity
+	IsQtyPercentage: Boolean!
+	IsSelected: Boolean!
+	# This is a Sales Transaction
+	IsSOTrx: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Lot number (alphanumeric)
+	Lot: String
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Type of Order: MRP records grouped by source (Sales Order, Purchase Order, Distribution Order, Requisition)
+	OrderType: String
+	Planner: AD_User
+	# Posting status
+	Posted: Boolean!
+	ID: ID!
+	# BOM & Formula
+	PP_Product_BOM: PP_Product_BOM!
+	# Priority of a document
+	PriorityRule: AD_Ref_List!
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean!
+	QtyBatchs: Int
+	QtyBatchSize: Int
+	# Delivered Quantity
+	QtyDelivered: Int!
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: Int
+	# Ordered Quantity
+	QtyOrdered: Int!
+	QtyReject: Int!
+	# Reserved Quantity
+	QtyReserved: Int
+	# Scrap % Quantity for this componet
+	QtyScrap: Int!
+	# Resource
+	S_Resource: S_Resource!
+	# Type of schedule
+	ScheduleType: String
+	# Product Serial Number 
+	SerNo: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
+	Yield: Int!
+}
+
+input PP_OrderInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Workflow or combination of tasks
+	AD_Workflow: AD_WorkflowInput
+	# Indicated the Quantity Assay to use into Quality Order
+	Assay: Int
+	# Business Activity
+	C_Activity: C_ActivityInput
+	# Marketing Campaign
+	C_Campaign: C_CampaignInput
+	# Document type or rules
+	C_DocType: C_DocTypeInput
+	# Target document type for conversing documents
+	C_DocTypeTarget: C_DocTypeInput
+	# Sales Order Line
+	C_OrderLine: C_OrderLineInput
+	# Financial Project
+	C_Project: C_ProjectInput
+	# Unit of Measure
+	C_UOM: C_UOMInput
+	# Copy From Record
+	CopyFrom: String
+	# Date Confirm of this Order
+	DateConfirm: Date
+	# Date when the product was delivered
+	DateDelivered: Date
+	# Finish or (planned) completion date
+	DateFinish: Date
+	# Scheduled Finish date for this Order
+	DateFinishSchedule: Date
+	# Date of Order
+	DateOrdered: Date
+	# Date Order was promised
+	DatePromised: Date
+	# Date Start for this Order
+	DateStart: Date
+	# Scheduled start date for this Order
+	DateStartSchedule: Date
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	FloatAfter: Int
+	FloatBefored: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# Indicate that this component is based in % Quantity
+	IsQtyPercentage: Boolean
+	IsSelected: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# Unique line for this document
+	Line: Int
+	# Lot number (alphanumeric)
+	Lot: String
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstanceInput
+	# Product, Service, Item
+	M_Product: M_ProductInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_WarehouseInput
+	# Type of Order: MRP records grouped by source (Sales Order, Purchase Order, Distribution Order, Requisition)
+	OrderType: String
+	Planner: AD_UserInput
+	# Posting status
+	Posted: Boolean
+	ID: ID
+	# BOM & Formula
+	PP_Product_BOM: PP_Product_BOMInput
+	# Priority of a document
+	PriorityRule: AD_Ref_ListInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean
+	QtyBatchs: Int
+	QtyBatchSize: Int
+	# Delivered Quantity
+	QtyDelivered: Int
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: Int
+	# Ordered Quantity
+	QtyOrdered: Int
+	QtyReject: Int
+	# Reserved Quantity
+	QtyReserved: Int
+	# Scrap % Quantity for this componet
+	QtyScrap: Int
+	# Resource
+	S_Resource: S_ResourceInput
+	# Type of schedule
+	ScheduleType: String
+	# Product Serial Number 
+	SerNo: String
+	# User defined list element #1
+	User1: C_ElementValueInput
+	# User defined list element #2
+	User2: C_ElementValueInput
+	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
+	Yield: Int
+}

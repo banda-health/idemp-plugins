@@ -1,0 +1,114 @@
+# Generated Schema for C_CashPlanLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_CashPlanLineGet(page: Int, size: Int, sort: String, filter: String): C_CashPlanLineConnection!
+}
+
+extend type Mutation {
+	C_CashPlanLineSave(entity: C_CashPlanLineInput!): C_CashPlanLine!
+	C_CashPlanLineDelete(uuids: [String!]!): Boolean!
+}
+
+type C_CashPlanLineConnection {
+	results: [C_CashPlanLine!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_CashPlanLine {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	C_CashPlan: C_CashPlan!
+	ID: ID!
+	# Additional document charges
+	C_Charge: C_Charge
+	# Financial Project
+	C_Project: C_Project
+	# Phase of a Project
+	C_ProjectPhase: C_ProjectPhase
+	# Actual Project Task in a Phase
+	C_ProjectTask: C_ProjectTask
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Transaction Date
+	DateTrx: Date!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Total line amount incl. Tax
+	LineTotalAmt: Int
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String
+	Probability: Int
+	# The document has been processed
+	Processed: Boolean!
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+}
+
+input C_CashPlanLineInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Business Activity
+	C_Activity: C_ActivityInput
+	# Identifies a Business Partner
+	C_BPartner: C_BPartnerInput
+	# Marketing Campaign
+	C_Campaign: C_CampaignInput
+	C_CashPlan: C_CashPlanInput
+	ID: ID
+	# Additional document charges
+	C_Charge: C_ChargeInput
+	# Financial Project
+	C_Project: C_ProjectInput
+	# Phase of a Project
+	C_ProjectPhase: C_ProjectPhaseInput
+	# Actual Project Task in a Phase
+	C_ProjectTask: C_ProjectTaskInput
+	# Transaction Date
+	DateTrx: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Total line amount incl. Tax
+	LineTotalAmt: Int
+	# Product, Service, Item
+	M_Product: M_ProductInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	Probability: Int
+	# The document has been processed
+	Processed: Boolean
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: Int
+	# User defined list element #1
+	User1: C_ElementValueInput
+	# User defined list element #2
+	User2: C_ElementValueInput
+}

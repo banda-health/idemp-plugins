@@ -1,0 +1,94 @@
+# Generated Schema for PA_DocumentStatus - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	PA_DocumentStatusGet(page: Int, size: Int, sort: String, filter: String): PA_DocumentStatusConnection!
+}
+
+extend type Mutation {
+	PA_DocumentStatusSave(entity: PA_DocumentStatusInput!): PA_DocumentStatus!
+	PA_DocumentStatusDelete(uuids: [String!]!): Boolean!
+}
+
+type PA_DocumentStatusConnection {
+	results: [PA_DocumentStatus!]!
+	pagingInfo: PagingInfo!
+}
+
+type PA_DocumentStatus {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Special Form
+	AD_Form: AD_Form
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role
+	# Database Table information
+	AD_Table: AD_Table!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Data entry or display window
+	AD_Window: AD_Window
+	# Financial Project
+	C_Project: C_Project
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Name_PrintColor: AD_PrintColor
+	Name_PrintFont: AD_PrintFont
+	Number_PrintColor: AD_PrintColor
+	Number_PrintFont: AD_PrintFont
+	ID: ID!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}
+
+input PA_DocumentStatusInput {
+	# Special Form
+	AD_Form: AD_FormInput
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Responsibility Role
+	AD_Role: AD_RoleInput
+	# Database Table information
+	AD_Table: AD_TableInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_UserInput
+	# Data entry or display window
+	AD_Window: AD_WindowInput
+	# Financial Project
+	C_Project: C_ProjectInput
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityTypeInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Name_PrintColor: AD_PrintColorInput
+	Name_PrintFont: AD_PrintFontInput
+	Number_PrintColor: AD_PrintColorInput
+	Number_PrintFont: AD_PrintFontInput
+	ID: ID
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}

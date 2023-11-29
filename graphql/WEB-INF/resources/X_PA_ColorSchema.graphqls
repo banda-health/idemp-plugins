@@ -1,0 +1,86 @@
+# Generated Schema for PA_ColorSchema - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	PA_ColorSchemaGet(page: Int, size: Int, sort: String, filter: String): PA_ColorSchemaConnection!
+}
+
+extend type Mutation {
+	PA_ColorSchemaSave(entity: PA_ColorSchemaInput!): PA_ColorSchema!
+	PA_ColorSchemaDelete(uuids: [String!]!): Boolean!
+}
+
+type PA_ColorSchemaConnection {
+	results: [PA_ColorSchema!]!
+	pagingInfo: PagingInfo!
+}
+
+type PA_ColorSchema {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# First color used
+	AD_PrintColor1: AD_PrintColor!
+	# Second color used
+	AD_PrintColor2: AD_PrintColor!
+	# Third color used
+	AD_PrintColor3: AD_PrintColor
+	# Forth color used
+	AD_PrintColor4: AD_PrintColor
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Percentage up to this color is used
+	Mark1Percent: Int!
+	# Percentage up to this color is used
+	Mark2Percent: Int!
+	# Percentage up to this color is used
+	Mark3Percent: Int
+	# Percentage up to this color is used
+	Mark4Percent: Int
+	# Alphanumeric identifier of the entity
+	Name: String!
+	ID: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input PA_ColorSchemaInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# First color used
+	AD_PrintColor1: AD_PrintColorInput
+	# Second color used
+	AD_PrintColor2: AD_PrintColorInput
+	# Third color used
+	AD_PrintColor3: AD_PrintColorInput
+	# Forth color used
+	AD_PrintColor4: AD_PrintColorInput
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityTypeInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Percentage up to this color is used
+	Mark1Percent: Int
+	# Percentage up to this color is used
+	Mark2Percent: Int
+	# Percentage up to this color is used
+	Mark3Percent: Int
+	# Percentage up to this color is used
+	Mark4Percent: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	ID: ID
+}

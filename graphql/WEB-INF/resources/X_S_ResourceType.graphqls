@@ -1,0 +1,120 @@
+# Generated Schema for S_ResourceType - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	S_ResourceTypeGet(page: Int, size: Int, sort: String, filter: String): S_ResourceTypeConnection!
+}
+
+extend type Mutation {
+	S_ResourceTypeSave(entity: S_ResourceTypeInput!): S_ResourceType!
+	S_ResourceTypeDelete(uuids: [String!]!): Boolean!
+}
+
+type S_ResourceTypeConnection {
+	results: [S_ResourceType!]!
+	pagingInfo: PagingInfo!
+}
+
+type S_ResourceType {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Allow Unit of Measure Fractions
+	AllowUoMFractions: Boolean!
+	# Tax Category
+	C_TaxCategory: C_TaxCategory!
+	# Unit of Measure
+	C_UOM: C_UOM!
+	ChargeableQty: Int
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Resource has day slot availability
+	IsDateSlot: Boolean!
+	# Only one assignment at a time (no double-booking or overlapping)
+	IsSingleAssignment: Boolean!
+	# Resource has time slot availability
+	IsTimeSlot: Boolean!
+	# Category of a Product
+	M_Product_Category: M_Product_Category!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Available on Fridays
+	OnFriday: Boolean!
+	# Available on Mondays
+	OnMonday: Boolean!
+	# Available on Saturday
+	OnSaturday: Boolean!
+	# Available on Sundays
+	OnSunday: Boolean!
+	# Available on Thursdays
+	OnThursday: Boolean!
+	# Available on Tuesdays
+	OnTuesday: Boolean!
+	# Available on Wednesdays
+	OnWednesday: Boolean!
+	ID: ID!
+	# Time when timeslot ends
+	TimeSlotEnd: Date
+	# Time when timeslot starts
+	TimeSlotStart: Date
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input S_ResourceTypeInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Allow Unit of Measure Fractions
+	AllowUoMFractions: Boolean
+	# Tax Category
+	C_TaxCategory: C_TaxCategoryInput
+	# Unit of Measure
+	C_UOM: C_UOMInput
+	ChargeableQty: Int
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Resource has day slot availability
+	IsDateSlot: Boolean
+	# Only one assignment at a time (no double-booking or overlapping)
+	IsSingleAssignment: Boolean
+	# Resource has time slot availability
+	IsTimeSlot: Boolean
+	# Category of a Product
+	M_Product_Category: M_Product_CategoryInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Available on Fridays
+	OnFriday: Boolean
+	# Available on Mondays
+	OnMonday: Boolean
+	# Available on Saturday
+	OnSaturday: Boolean
+	# Available on Sundays
+	OnSunday: Boolean
+	# Available on Thursdays
+	OnThursday: Boolean
+	# Available on Tuesdays
+	OnTuesday: Boolean
+	# Available on Wednesdays
+	OnWednesday: Boolean
+	ID: ID
+	# Time when timeslot ends
+	TimeSlotEnd: Date
+	# Time when timeslot starts
+	TimeSlotStart: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

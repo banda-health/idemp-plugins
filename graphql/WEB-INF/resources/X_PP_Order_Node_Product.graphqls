@@ -1,0 +1,66 @@
+# Generated Schema for PP_Order_Node_Product - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	PP_Order_Node_ProductGet(page: Int, size: Int, sort: String, filter: String): PP_Order_Node_ProductConnection!
+}
+
+extend type Mutation {
+	PP_Order_Node_ProductSave(entity: PP_Order_Node_ProductInput!): PP_Order_Node_Product!
+	PP_Order_Node_ProductDelete(uuids: [String!]!): Boolean!
+}
+
+type PP_Order_Node_ProductConnection {
+	results: [PP_Order_Node_Product!]!
+	pagingInfo: PagingInfo!
+}
+
+type PP_Order_Node_Product {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	IsSubcontracting: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Manufacturing Order
+	PP_Order: PP_Order!
+	# Workflow Node (activity), step or process
+	PP_Order_Node: PP_Order_Node!
+	ID: ID!
+	PP_Order_Workflow: PP_Order_Workflow!
+	# Quantity
+	Qty: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input PP_Order_Node_ProductInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# The record is active in the system
+	IsActive: Boolean
+	IsSubcontracting: Boolean
+	# Product, Service, Item
+	M_Product: M_ProductInput
+	# Manufacturing Order
+	PP_Order: PP_OrderInput
+	# Workflow Node (activity), step or process
+	PP_Order_Node: PP_Order_NodeInput
+	ID: ID
+	PP_Order_Workflow: PP_Order_WorkflowInput
+	# Quantity
+	Qty: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

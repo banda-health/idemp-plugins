@@ -1,0 +1,140 @@
+# Generated Schema for A_Depreciation_Workfile - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	A_Depreciation_WorkfileGet(page: Int, size: Int, sort: String, filter: String): A_Depreciation_WorkfileConnection!
+}
+
+extend type Mutation {
+	A_Depreciation_WorkfileSave(entity: A_Depreciation_WorkfileInput!): A_Depreciation_Workfile!
+	A_Depreciation_WorkfileDelete(uuids: [String!]!): Boolean!
+}
+
+type A_Depreciation_WorkfileConnection {
+	results: [A_Depreciation_Workfile!]!
+	pagingInfo: PagingInfo!
+}
+
+type A_Depreciation_Workfile {
+	A_Accumulated_Depr: Int!
+	A_Accumulated_Depr_F: Int!
+	A_Asset_Cost: Int!
+	# Asset used internally or by customers
+	A_Asset: A_Asset!
+	A_Asset_Life_Current_Year: Int!
+	A_Asset_Life_Years: Int!
+	A_Asset_Life_Years_F: Int!
+	A_Asset_Remaining: Int
+	A_Asset_Remaining_F: Int
+	A_Base_Amount: Int
+	A_Calc_Accumulated_Depr: Int
+	A_Curr_Dep_Exp: Int!
+	A_Current_Period: Int
+	ID: ID!
+	A_Expense_SL: Int
+	A_Expense_SL_F: Int
+	A_FundingMode: A_FundingMode
+	A_Life_Period: Int!
+	A_Life_Period_F: Int!
+	A_Life_Period_Max: Int
+	A_Life_Period_Min: Int
+	A_Period_Forecast: Int
+	A_Period_Posted: Int
+	A_Prior_Year_Accumulated_Depr: Int
+	A_QTY_Current: Int!
+	A_Salvage_Value: Int!
+	# Financing Type
+	A_Tip_Finantare: AD_Ref_List!
+	A_Valoare_Cofinantare: Int
+	A_Valoare_Tert: Int
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date of last depreciation
+	AssetDepreciationDate: Date
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The asset will be depreciated
+	IsDepreciated: Boolean!
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Months of the usable life of the asset
+	UseLifeMonths: Int!
+	UseLifeMonths_F: Int!
+	# Years of the usable life of the asset
+	UseLifeYears: Int!
+	UseLifeYears_F: Int!
+}
+
+input A_Depreciation_WorkfileInput {
+	A_Accumulated_Depr: Int
+	A_Accumulated_Depr_F: Int
+	A_Asset_Cost: Int
+	# Asset used internally or by customers
+	A_Asset: A_AssetInput
+	A_Asset_Life_Current_Year: Int
+	A_Asset_Life_Years: Int
+	A_Asset_Life_Years_F: Int
+	A_Asset_Remaining: Int
+	A_Asset_Remaining_F: Int
+	A_Base_Amount: Int
+	A_Calc_Accumulated_Depr: Int
+	A_Curr_Dep_Exp: Int
+	A_Current_Period: Int
+	ID: ID
+	A_FundingMode: A_FundingModeInput
+	A_Life_Period: Int
+	A_Life_Period_F: Int
+	A_Period_Forecast: Int
+	A_Period_Posted: Int
+	A_Prior_Year_Accumulated_Depr: Int
+	A_QTY_Current: Int
+	A_Salvage_Value: Int
+	# Financing Type
+	A_Tip_Finantare: AD_Ref_ListInput
+	A_Valoare_Cofinantare: Int
+	A_Valoare_Tert: Int
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Date of last depreciation
+	AssetDepreciationDate: Date
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchemaInput
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The asset will be depreciated
+	IsDepreciated: Boolean
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_ListInput
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Months of the usable life of the asset
+	UseLifeMonths: Int
+	UseLifeMonths_F: Int
+	# Years of the usable life of the asset
+	UseLifeYears: Int
+	UseLifeYears_F: Int
+}

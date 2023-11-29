@@ -1,0 +1,108 @@
+# Generated Schema for C_POS - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_POSGet(page: Int, size: Int, sort: String, filter: String): C_POSConnection!
+}
+
+extend type Mutation {
+	C_POSSave(entity: C_POSInput!): C_POS!
+	C_POSDelete(uuids: [String!]!): Boolean!
+}
+
+type C_POSConnection {
+	results: [C_POS!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_POS {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Automatically logout if terminal inactive for this period
+	AutoLogoutDelay: Int
+	# Account at the Bank
+	C_BankAccount: C_BankAccount
+	# Business Partner used for creating new Business Partners on the fly
+	C_BPartnerCashTrx: C_BPartner
+	# Cash Book for recording petty cash transactions
+	C_CashBook: C_CashBook
+	# Document type or rules
+	C_DocType: C_DocType
+	ID: ID!
+	# POS Function Key Layout
+	C_POSKeyLayout: C_POSKeyLayout
+	CashDrawer: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Allow modifying the price
+	IsModifyPrice: Boolean!
+	# Unique identifier of a Price List
+	M_PriceList: M_PriceList!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# The key layout to use for on screen keyboard for text fields.
+	OSK_KeyLayout: C_POSKeyLayout
+	# The key layout to use for on screen number pad for numeric fields.
+	OSNP_KeyLayout: C_POSKeyLayout
+	# Name of the Printer
+	PrinterName: String
+	# Sales Representative or Company Agent
+	SalesRep: AD_User!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_POSInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Automatically logout if terminal inactive for this period
+	AutoLogoutDelay: Int
+	# Account at the Bank
+	C_BankAccount: C_BankAccountInput
+	# Business Partner used for creating new Business Partners on the fly
+	C_BPartnerCashTrx: C_BPartnerInput
+	# Cash Book for recording petty cash transactions
+	C_CashBook: C_CashBookInput
+	# Document type or rules
+	C_DocType: C_DocTypeInput
+	ID: ID
+	# POS Function Key Layout
+	C_POSKeyLayout: C_POSKeyLayoutInput
+	CashDrawer: String
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Allow modifying the price
+	IsModifyPrice: Boolean
+	# Unique identifier of a Price List
+	M_PriceList: M_PriceListInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_WarehouseInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The key layout to use for on screen keyboard for text fields.
+	OSK_KeyLayout: C_POSKeyLayoutInput
+	# The key layout to use for on screen number pad for numeric fields.
+	OSNP_KeyLayout: C_POSKeyLayoutInput
+	# Name of the Printer
+	PrinterName: String
+	# Sales Representative or Company Agent
+	SalesRep: AD_UserInput
+}

@@ -1,0 +1,162 @@
+# Generated Schema for AD_PrintTableFormat - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_PrintTableFormatGet(page: Int, size: Int, sort: String, filter: String): AD_PrintTableFormatConnection!
+}
+
+extend type Mutation {
+	AD_PrintTableFormatSave(entity: AD_PrintTableFormatInput!): AD_PrintTableFormat!
+	AD_PrintTableFormatDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_PrintTableFormatConnection {
+	results: [AD_PrintTableFormat!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_PrintTableFormat {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Image or Icon
+	AD_Image: AD_Image
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Content of the center portion of the footer.
+	FooterCenter: String
+	# Content of the left portion of the footer.
+	FooterLeft: String
+	# Content of the right portion of the footer.
+	FooterRight: String
+	# Function row Font
+	Funct_PrintFont: AD_PrintFont
+	# Function Background Color
+	FunctBG_PrintColor: AD_PrintColor
+	# Function Foreground Color
+	FunctFG_PrintColor: AD_PrintColor
+	# Header row Font
+	Hdr_PrintFont: AD_PrintFont
+	# Table header row line color
+	HdrLine_PrintColor: AD_PrintColor
+	# Width of the Header Line Stroke
+	HdrStroke: Int
+	# Type of the Header Line Stroke
+	HdrStrokeType: AD_Ref_List
+	# Background color of header row
+	HdrTextBG_PrintColor: AD_PrintColor
+	# Foreground color if the table header row
+	HdrTextFG_PrintColor: AD_PrintColor
+	# Content of the center portion of the header.
+	HeaderCenter: String
+	# Content of the left portion of the header.
+	HeaderLeft: String
+	# Content of the right portion of the header.
+	HeaderRight: String
+	# The image to be printed is attached to the record
+	ImageIsAttached: Boolean!
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Print column headers on mutliple lines if necessary.
+	IsMultiLineHeader: Boolean!
+	# Paint table boundary lines
+	IsPaintBoundaryLines: Boolean!
+	# Paint Lines over/under the Header Line 
+	IsPaintHeaderLines: Boolean!
+	# Paint horizontal lines
+	IsPaintHLines: Boolean!
+	# Paint vertical lines
+	IsPaintVLines: Boolean!
+	# Print Symbols for Functions (Sum, Average, Count)
+	IsPrintFunctionSymbols: Boolean!
+	# Table line color
+	Line_PrintColor: AD_PrintColor
+	# Width of the Line Stroke
+	LineStroke: Int
+	# Type of the Line Stroke
+	LineStrokeType: AD_Ref_List
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_PrintTableFormatInput {
+	# Image or Icon
+	AD_Image: AD_ImageInput
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Content of the center portion of the footer.
+	FooterCenter: String
+	# Content of the left portion of the footer.
+	FooterLeft: String
+	# Content of the right portion of the footer.
+	FooterRight: String
+	# Function row Font
+	Funct_PrintFont: AD_PrintFontInput
+	# Function Background Color
+	FunctBG_PrintColor: AD_PrintColorInput
+	# Function Foreground Color
+	FunctFG_PrintColor: AD_PrintColorInput
+	# Header row Font
+	Hdr_PrintFont: AD_PrintFontInput
+	# Table header row line color
+	HdrLine_PrintColor: AD_PrintColorInput
+	# Width of the Header Line Stroke
+	HdrStroke: Int
+	# Type of the Header Line Stroke
+	HdrStrokeType: AD_Ref_ListInput
+	# Background color of header row
+	HdrTextBG_PrintColor: AD_PrintColorInput
+	# Foreground color if the table header row
+	HdrTextFG_PrintColor: AD_PrintColorInput
+	# Content of the center portion of the header.
+	HeaderCenter: String
+	# Content of the left portion of the header.
+	HeaderLeft: String
+	# Content of the right portion of the header.
+	HeaderRight: String
+	# The image to be printed is attached to the record
+	ImageIsAttached: Boolean
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Print column headers on mutliple lines if necessary.
+	IsMultiLineHeader: Boolean
+	# Paint table boundary lines
+	IsPaintBoundaryLines: Boolean
+	# Paint Lines over/under the Header Line 
+	IsPaintHeaderLines: Boolean
+	# Paint horizontal lines
+	IsPaintHLines: Boolean
+	# Paint vertical lines
+	IsPaintVLines: Boolean
+	# Print Symbols for Functions (Sum, Average, Count)
+	IsPrintFunctionSymbols: Boolean
+	# Table line color
+	Line_PrintColor: AD_PrintColorInput
+	# Width of the Line Stroke
+	LineStroke: Int
+	# Type of the Line Stroke
+	LineStrokeType: AD_Ref_ListInput
+	# Alphanumeric identifier of the entity
+	Name: String
+}

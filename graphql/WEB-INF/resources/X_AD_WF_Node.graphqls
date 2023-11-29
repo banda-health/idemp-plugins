@@ -1,0 +1,246 @@
+# Generated Schema for AD_WF_Node - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_WF_NodeGet(page: Int, size: Int, sort: String, filter: String): AD_WF_NodeConnection!
+}
+
+extend type Mutation {
+	AD_WF_NodeSave(entity: AD_WF_NodeInput!): AD_WF_Node!
+	AD_WF_NodeDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_WF_NodeConnection {
+	results: [AD_WF_Node!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_WF_Node {
+	# Indicates the Action to be performed
+	Action: AD_Ref_List!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column
+	AD_CtxHelp: AD_CtxHelp
+	# Special Form
+	AD_Form: AD_Form
+	# Image or Icon
+	AD_Image: AD_Image
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindow
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Process or Report
+	AD_Process: AD_Process
+	# Operation System Task
+	AD_Task: AD_Task
+	# Workflow Transaction Execution Block
+	AD_WF_Block: AD_WF_Block
+	ID: ID!
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: AD_WF_Responsible
+	# Data entry or display window
+	AD_Window: AD_Window
+	# Workflow or combination of tasks
+	AD_Workflow: AD_Workflow!
+	# Name of the Attribute
+	AttributeName: String
+	# Value of the Attribute
+	AttributeValue: String
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Cost information
+	Cost: Int!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List
+	# Normal Duration in Duration Unit
+	Duration: Int!
+	# Change of priority when Activity is suspended waiting for user
+	DynPriorityChange: Int
+	# Change of priority when Activity is suspended waiting for user
+	DynPriorityUnit: AD_Ref_List
+	# Electronic Mail Address
+	EMail: String
+	# Recipient of the EMail
+	EMailRecipient: AD_Ref_List
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityType!
+	# Workflow Activity Finish Mode
+	FinishMode: AD_Ref_List
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean!
+	IsMilestone: Boolean!
+	IsSubcontracting: Boolean!
+	# Semantics for multiple incoming Transitions
+	JoinElement: AD_Ref_List!
+	# Maximum Duration in Duration Unit
+	Limit: Int!
+	MovingTime: Int
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Overlap Units are number of units that must be completed before they are moved the next activity
+	OverlapUnits: Int
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	# Queue time is the time a job waits at a work center before begin handled.
+	QueuingTime: Int
+	# Text templates for mailings
+	R_MailText: R_MailText
+	# Resource
+	S_Resource: S_Resource
+	# Setup time before starting Production
+	SetupTime: Int
+	# Semantics for multiple outgoing Transitions
+	SplitElement: AD_Ref_List!
+	# Workflow Activity Start Mode 
+	StartMode: AD_Ref_List
+	# Mode how the sub-workflow is executed
+	SubflowExecution: AD_Ref_List
+	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
+	UnitsCycles: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String!
+	# Workflow Simulation Waiting time
+	WaitingTime: Int!
+	# Time in minutes to wait (sleep)
+	WaitTime: Int
+	# Workflow or tasks
+	Workflow: AD_Workflow
+	# Workflow Simulation Execution Time
+	WorkingTime: Int
+	# Absolute X (horizontal) position in 1/72 of an inch
+	XPosition: Int!
+	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
+	Yield: Int
+	# Absolute Y (vertical) position in 1/72 of an inch
+	YPosition: Int!
+}
+
+input AD_WF_NodeInput {
+	# Indicates the Action to be performed
+	Action: AD_Ref_ListInput
+	# Column in the table
+	AD_Column: AD_ColumnInput
+	AD_CtxHelp: AD_CtxHelpInput
+	# Special Form
+	AD_Form: AD_FormInput
+	# Image or Icon
+	AD_Image: AD_ImageInput
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindowInput
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Process or Report
+	AD_Process: AD_ProcessInput
+	# Operation System Task
+	AD_Task: AD_TaskInput
+	# Workflow Transaction Execution Block
+	AD_WF_Block: AD_WF_BlockInput
+	ID: ID
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: AD_WF_ResponsibleInput
+	# Data entry or display window
+	AD_Window: AD_WindowInput
+	# Workflow or combination of tasks
+	AD_Workflow: AD_WorkflowInput
+	# Name of the Attribute
+	AttributeName: String
+	# Value of the Attribute
+	AttributeValue: String
+	# Identifies a Business Partner
+	C_BPartner: C_BPartnerInput
+	# Cost information
+	Cost: Int
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# Normal Duration in Duration Unit
+	Duration: Int
+	# Change of priority when Activity is suspended waiting for user
+	DynPriorityChange: Int
+	# Change of priority when Activity is suspended waiting for user
+	DynPriorityUnit: AD_Ref_ListInput
+	# Electronic Mail Address
+	EMail: String
+	# Recipient of the EMail
+	EMailRecipient: AD_Ref_ListInput
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityTypeInput
+	# Workflow Activity Finish Mode
+	FinishMode: AD_Ref_ListInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean
+	IsMilestone: Boolean
+	IsSubcontracting: Boolean
+	# Semantics for multiple incoming Transitions
+	JoinElement: AD_Ref_ListInput
+	# Maximum Duration in Duration Unit
+	Limit: Int
+	MovingTime: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Overlap Units are number of units that must be completed before they are moved the next activity
+	OverlapUnits: Int
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	# Queue time is the time a job waits at a work center before begin handled.
+	QueuingTime: Int
+	# Text templates for mailings
+	R_MailText: R_MailTextInput
+	# Resource
+	S_Resource: S_ResourceInput
+	# Setup time before starting Production
+	SetupTime: Int
+	# Semantics for multiple outgoing Transitions
+	SplitElement: AD_Ref_ListInput
+	# Workflow Activity Start Mode 
+	StartMode: AD_Ref_ListInput
+	# Mode how the sub-workflow is executed
+	SubflowExecution: AD_Ref_ListInput
+	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
+	UnitsCycles: Int
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Workflow Simulation Waiting time
+	WaitingTime: Int
+	# Time in minutes to wait (sleep)
+	WaitTime: Int
+	# Workflow or tasks
+	Workflow: AD_WorkflowInput
+	# Workflow Simulation Execution Time
+	WorkingTime: Int
+	# Absolute X (horizontal) position in 1/72 of an inch
+	XPosition: Int
+	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
+	Yield: Int
+	# Absolute Y (vertical) position in 1/72 of an inch
+	YPosition: Int
+}

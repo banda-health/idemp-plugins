@@ -1,0 +1,70 @@
+# Generated Schema for C_City - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_CityGet(page: Int, size: Int, sort: String, filter: String): C_CityConnection!
+}
+
+extend type Mutation {
+	C_CitySave(entity: C_CityInput!): C_City!
+	C_CityDelete(uuids: [String!]!): Boolean!
+}
+
+type C_CityConnection {
+	results: [C_City!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_City {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Phone Area Code
+	AreaCode: String
+	ID: ID!
+	# Country 
+	C_Country: C_Country
+	# Identifies a geographical Region
+	C_Region: C_Region
+	# Location coordinate
+	Coordinates: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Location code - UN/LOCODE 
+	Locode: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Postal code
+	Postal: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CityInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Phone Area Code
+	AreaCode: String
+	ID: ID
+	# Country 
+	C_Country: C_CountryInput
+	# Identifies a geographical Region
+	C_Region: C_RegionInput
+	# Location coordinate
+	Coordinates: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Location code - UN/LOCODE 
+	Locode: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Postal code
+	Postal: String
+}

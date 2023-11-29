@@ -1,0 +1,174 @@
+# Generated Schema for PP_Cost_Collector - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	PP_Cost_CollectorGet(page: Int, size: Int, sort: String, filter: String): PP_Cost_CollectorConnection!
+}
+
+extend type Mutation {
+	PP_Cost_CollectorSave(entity: PP_Cost_CollectorInput!): PP_Cost_Collector!
+	PP_Cost_CollectorDelete(uuids: [String!]!): Boolean!
+}
+
+type PP_Cost_CollectorConnection {
+	results: [PP_Cost_Collector!]!
+	pagingInfo: PagingInfo!
+}
+
+type PP_Cost_Collector {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Business Activity
+	C_Activity: C_Activity
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Document type or rules
+	C_DocType: C_DocType!
+	# Target document type for conversing documents
+	C_DocTypeTarget: C_DocType!
+	# Financial Project
+	C_Project: C_Project
+	# Unit of Measure
+	C_UOM: C_UOM
+	# Transaction Type for Manufacturing Management
+	CostCollectorType: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List
+	# The current status of the document
+	DocStatus: AD_Ref_List
+	# Document sequence number of the document
+	DocumentNo: String
+	DurationReal: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	IsBatchTime: Boolean!
+	IsSubcontracting: Boolean!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance
+	# Warehouse Locator
+	M_Locator: M_Locator!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Date a product was moved in or out of inventory
+	MovementDate: Date!
+	# Quantity of a product moved.
+	MovementQty: Int!
+	# Posting status
+	Posted: Boolean!
+	ID: ID!
+	PP_Order_BOMLine: PP_Order_BOMLine
+	# Manufacturing Order
+	PP_Order: PP_Order!
+	# Workflow Node (activity), step or process
+	PP_Order_Node: PP_Order_Node
+	PP_Order_Workflow: PP_Order_Workflow
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean!
+	QtyReject: Int
+	# ID of document reversal
+	Reversal: PP_Cost_Collector
+	# Resource
+	S_Resource: S_Resource!
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: Int
+	SetupTimeReal: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: AD_User
+	# User defined list element #2
+	User2: AD_User
+}
+
+input PP_Cost_CollectorInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_UserInput
+	# Business Activity
+	C_Activity: C_ActivityInput
+	# Marketing Campaign
+	C_Campaign: C_CampaignInput
+	# Document type or rules
+	C_DocType: C_DocTypeInput
+	# Target document type for conversing documents
+	C_DocTypeTarget: C_DocTypeInput
+	# Financial Project
+	C_Project: C_ProjectInput
+	# Unit of Measure
+	C_UOM: C_UOMInput
+	# Transaction Type for Manufacturing Management
+	CostCollectorType: AD_Ref_ListInput
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	DurationReal: Int
+	# The record is active in the system
+	IsActive: Boolean
+	IsBatchTime: Boolean
+	IsSubcontracting: Boolean
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstanceInput
+	# Warehouse Locator
+	M_Locator: M_LocatorInput
+	# Product, Service, Item
+	M_Product: M_ProductInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_WarehouseInput
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
+	# Quantity of a product moved.
+	MovementQty: Int
+	# Posting status
+	Posted: Boolean
+	ID: ID
+	PP_Order_BOMLine: PP_Order_BOMLineInput
+	# Manufacturing Order
+	PP_Order: PP_OrderInput
+	# Workflow Node (activity), step or process
+	PP_Order_Node: PP_Order_NodeInput
+	PP_Order_Workflow: PP_Order_WorkflowInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean
+	QtyReject: Int
+	# ID of document reversal
+	Reversal: PP_Cost_CollectorInput
+	# Resource
+	S_Resource: S_ResourceInput
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: Int
+	SetupTimeReal: Int
+	# User defined list element #1
+	User1: AD_UserInput
+	# User defined list element #2
+	User2: AD_UserInput
+}

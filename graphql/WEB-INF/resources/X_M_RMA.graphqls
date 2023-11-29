@@ -1,0 +1,122 @@
+# Generated Schema for M_RMA - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_RMAGet(page: Int, size: Int, sort: String, filter: String): M_RMAConnection!
+}
+
+extend type Mutation {
+	M_RMASave(entity: M_RMAInput!): M_RMA!
+	M_RMADelete(uuids: [String!]!): Boolean!
+}
+
+type M_RMAConnection {
+	results: [M_RMA!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_RMA {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Amount
+	Amt: Int
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Document type or rules
+	C_DocType: C_DocType!
+	# Order
+	C_Order: C_Order
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	# Generate To
+	GenerateTo: String
+	# Comment or Hint
+	Help: String
+	# MaterialShipment Document
+	InOut: M_InOut!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# This is a Sales Transaction
+	IsSOTrx: Boolean!
+	ID: ID!
+	# Return Material Authorization Type
+	M_RMAType: M_RMAType!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	Ref_RMA: M_RMA
+	# Sales Representative or Company Agent
+	SalesRep: AD_User!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_RMAInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Amount
+	Amt: Int
+	# Identifies a Business Partner
+	C_BPartner: C_BPartnerInput
+	# The Currency for this record
+	C_Currency: C_CurrencyInput
+	# Document type or rules
+	C_DocType: C_DocTypeInput
+	# Order
+	C_Order: C_OrderInput
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# Generate To
+	GenerateTo: String
+	# Comment or Hint
+	Help: String
+	# MaterialShipment Document
+	InOut: M_InOutInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	ID: ID
+	# Return Material Authorization Type
+	M_RMAType: M_RMATypeInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	Ref_RMA: M_RMAInput
+	# Sales Representative or Company Agent
+	SalesRep: AD_UserInput
+}

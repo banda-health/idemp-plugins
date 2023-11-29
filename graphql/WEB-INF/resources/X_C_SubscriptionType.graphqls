@@ -1,0 +1,58 @@
+# Generated Schema for C_SubscriptionType - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_SubscriptionTypeGet(page: Int, size: Int, sort: String, filter: String): C_SubscriptionTypeConnection!
+}
+
+extend type Mutation {
+	C_SubscriptionTypeSave(entity: C_SubscriptionTypeInput!): C_SubscriptionType!
+	C_SubscriptionTypeDelete(uuids: [String!]!): Boolean!
+}
+
+type C_SubscriptionTypeConnection {
+	results: [C_SubscriptionType!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_SubscriptionType {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Frequency of events
+	Frequency: Int!
+	# Frequency of event
+	FrequencyType: AD_Ref_List!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_SubscriptionTypeInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Frequency of events
+	Frequency: Int
+	# Frequency of event
+	FrequencyType: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

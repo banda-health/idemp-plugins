@@ -1,0 +1,122 @@
+# Generated Schema for AD_Table - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_TableGet(page: Int, size: Int, sort: String, filter: String): AD_TableConnection!
+}
+
+extend type Mutation {
+	AD_TableSave(entity: AD_TableInput!): AD_Table!
+	AD_TableDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_TableConnection {
+	results: [AD_Table!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_Table {
+	# Access Level required
+	AccessLevel: AD_Ref_List!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_Rule
+	# Data entry or display window
+	AD_Window: AD_Window
+	CopyColumnsFromTable: String
+	CopyComponentsFromView: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	CreateWindowFromTable: String
+	DatabaseViewDrop: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# Import Table Columns from Database
+	ImportTable: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean!
+	# Maintain a log of changes
+	IsChangeLog: Boolean!
+	# Indicates if records can be deleted from the database
+	IsDeleteable: Boolean!
+	# Use Search instead of Pick list
+	IsHighVolume: Boolean!
+	# If security is enabled, user access to data can be restricted via Roles
+	IsSecurityEnabled: Boolean!
+	# This is a view
+	IsView: Boolean!
+	LoadSeq: Int
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Purchase Order Window
+	PO_Window: AD_Window
+	Processing: Boolean!
+	# Type of Data Replication
+	ReplicationType: AD_Ref_List!
+	# Name of the table in the database
+	TableName: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_TableInput {
+	# Access Level required
+	AccessLevel: AD_Ref_ListInput
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	ID: ID
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_RuleInput
+	# Data entry or display window
+	AD_Window: AD_WindowInput
+	CopyColumnsFromTable: String
+	CopyComponentsFromView: String
+	CreateWindowFromTable: String
+	DatabaseViewDrop: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityTypeInput
+	# Comment or Hint
+	Help: String
+	# Import Table Columns from Database
+	ImportTable: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean
+	# Maintain a log of changes
+	IsChangeLog: Boolean
+	# Indicates if records can be deleted from the database
+	IsDeleteable: Boolean
+	# Use Search instead of Pick list
+	IsHighVolume: Boolean
+	# If security is enabled, user access to data can be restricted via Roles
+	IsSecurityEnabled: Boolean
+	# This is a view
+	IsView: Boolean
+	LoadSeq: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Purchase Order Window
+	PO_Window: AD_WindowInput
+	Processing: Boolean
+	# Type of Data Replication
+	ReplicationType: AD_Ref_ListInput
+	# Name of the table in the database
+	TableName: String
+}

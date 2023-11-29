@@ -1,0 +1,66 @@
+# Generated Schema for AD_WF_Responsible - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_WF_ResponsibleGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ResponsibleConnection!
+}
+
+extend type Mutation {
+	AD_WF_ResponsibleSave(entity: AD_WF_ResponsibleInput!): AD_WF_Responsible!
+	AD_WF_ResponsibleDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_WF_ResponsibleConnection {
+	results: [AD_WF_Responsible!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_WF_Responsible {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Type of the Responsibility for a workflow
+	ResponsibleType: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_WF_ResponsibleInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Responsibility Role
+	AD_Role: AD_RoleInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_UserInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityTypeInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Type of the Responsibility for a workflow
+	ResponsibleType: AD_Ref_ListInput
+}

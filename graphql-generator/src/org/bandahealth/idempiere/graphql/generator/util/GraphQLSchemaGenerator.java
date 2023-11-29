@@ -19,7 +19,15 @@
  *****************************************************************************/
 package org.bandahealth.idempiere.graphql.generator.util;
 
-import static org.compiere.model.SystemIDs.REFERENCE_PAYMENTRULE;
+import org.adempiere.exceptions.DBException;
+import org.adempiere.util.ModelInterfaceGenerator;
+import org.compiere.Adempiere;
+import org.compiere.model.MTable;
+import org.compiere.util.CLogger;
+import org.compiere.util.DB;
+import org.compiere.util.DisplayType;
+import org.compiere.util.Env;
+import org.compiere.util.Util;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,851 +38,418 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 import java.util.logging.Level;
 
-import org.adempiere.exceptions.DBException;
-import org.adempiere.util.ModelInterfaceGenerator;
-import org.compiere.Adempiere;
-import org.compiere.model.MTable;
-import org.compiere.util.CLogger;
-import org.compiere.util.DB;
-import org.compiere.util.DisplayType;
-import org.compiere.util.Util;
-
 /**
- *  Generate Model Classes extending PO.
- *  Base class for CMP interface - will be extended to create byte code directly
+ * Generate GraphQL Schemas.
  *
- *  @author Jorg Janke
- *  @version $Id: GenerateModel.java,v 1.42 2005/05/08 15:16:56 jjanke Exp $
- *
- * @author Teo Sarca, SC ARHIPAC SERVICE SRL
- * 				<li>BF [ 1781629 ] Don't use Env.NL in model class/interface generators
- * 				<li>FR [ 1781630 ] Generated class/interfaces have a lot of unused imports
- * 				<li>BF [ 1781632 ] Generated class/interfaces should be UTF-8
- * 				<li>FR [ xxxxxxx ] better formating of generated source
- * 				<li>FR [ 1787876 ] ModelClassGenerator: list constants should be ordered
- * 				<li>FR [ 1803309 ] Model generator: generate get method for Search cols
- * 				<li>FR [ 1990848 ] Generated Models: remove hardcoded field length
- * 				<li>FR [ 2343096 ] Model Generator: Improve Reference Class Detection
- * 				<li>BF [ 2780468 ] ModelClassGenerator: not generating methods for Created*
- * 				<li>--
- * 				<li>FR [ 2848449 ] ModelClassGenerator: Implement model getters
- *					https://sourceforge.net/tracker/?func=detail&atid=879335&aid=2848449&group_id=176962
- * @author Victor Perez, e-Evolution
- * 				<li>FR [ 1785001 ] Using ModelPackage of EntityType to Generate Model Class
+ * @author Kevin Burnett
  */
-public class GraphQLSchemaGenerator
-{
-	/**
-	 * 	Generate PO Class
-	 * 	@param AD_Table_ID table id
-	 * 	@param directory directory
-	 * 	@param packageName package name
-	 *  @param entityTypeFilter entity type filter for columns
-	 */
-	public GraphQLSchemaGenerator (int AD_Table_ID, String directory, String packageName, String entityTypeFilter)
-	{
-		this.packageName = packageName;
+public class GraphQLSchemaGenerator {
+	private static final CLogger log = CLogger.getCLogger(GraphQLSchemaGenerator.class);
 
+	/**
+	 * Generate Schema
+	 *
+	 * @param AD_Table_ID      table id
+	 * @param directory        directory
+	 * @param entityTypeFilter entity type filter for columns
+	 */
+	public GraphQLSchemaGenerator(int AD_Table_ID, String directory, String entityTypeFilter) {
 		//	create column access methods
-		StringBuilder mandatory = new StringBuilder();
-		StringBuilder sb = createColumns(AD_Table_ID, mandatory, entityTypeFilter);
+		StringBuilder stringBuilder = new StringBuilder();
+		GeneratedColumns generatedColumns = createColumns(AD_Table_ID, entityTypeFilter);
 
 		// Header
-		String className = createHeader(AD_Table_ID, sb, mandatory, packageName);
+		String fileName = createHeader(AD_Table_ID, stringBuilder, generatedColumns);
 
 		// Save
-		if ( ! directory.endsWith(File.separator) )
+		if (!directory.endsWith(File.separator)) {
 			directory += File.separator;
+		}
 
-		writeToFile (sb, directory + className + ".java");
+		writeToFile(stringBuilder, directory + fileName + ".graphqls");
 	}
 
-	public static final String NL = "\n";
-
-	/**	Logger			*/
-	private static final CLogger	log	= CLogger.getCLogger (GraphQLSchemaGenerator.class);
-
-	/** Package Name */
-	private String packageName = "";
-
-
 	/**
-	 * 	Add Header info to buffer
-	 * 	@param AD_Table_ID table
-	 * 	@param sb buffer
-	 * 	@param mandatory init call for mandatory columns
-	 * 	@param packageName package name
-	 * 	@return class name
+	 * Add Header info to buffer
+	 *
+	 * @param AD_Table_ID      table
+	 * @param stringBuilder    buffer
+	 * @param generatedColumns GeneratedColumns
+	 * @return file name
 	 */
-	private String createHeader (int AD_Table_ID, StringBuilder sb, StringBuilder mandatory, String packageName)
-	{
+	private String createHeader(int AD_Table_ID, StringBuilder stringBuilder, GeneratedColumns generatedColumns) {
 		String tableName = "";
-		int accessLevel = 0;
-		String sql = "SELECT TableName, AccessLevel FROM AD_Table WHERE AD_Table_ID=?";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try
-		{
-			pstmt = DB.prepareStatement(sql, null);
-			pstmt.setInt(1, AD_Table_ID);
-			rs = pstmt.executeQuery();
-			if (rs.next())
-			{
-				tableName = rs.getString(1);
-				accessLevel = rs.getInt(2);
+		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement = DB.prepareStatement(sql, null);
+			preparedStatement.setInt(1, AD_Table_ID);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				tableName = resultSet.getString(1);
 			}
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			throw new DBException(e, sql);
+		} finally {
+			DB.close(resultSet, preparedStatement);
+			resultSet = null;
+			preparedStatement = null;
 		}
-		finally
-		{
-			DB.close(rs, pstmt);
-			rs = null; pstmt = null;
+		if (tableName == null) {
+			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
 		}
-		if (tableName == null)
-			throw new RuntimeException ("TableName not found for ID=" + AD_Table_ID);
-		//
-		StringBuilder accessLevelInfo = new StringBuilder().append(accessLevel).append(" ");
-		if (accessLevel >= 4 )
-			accessLevelInfo.append("- System ");
-		if (accessLevel == 2 || accessLevel == 3 || accessLevel == 6 || accessLevel == 7)
-			accessLevelInfo.append("- Client ");
-		if (accessLevel == 1 || accessLevel == 3 || accessLevel == 5 || accessLevel == 7)
-			accessLevelInfo.append("- Org ");
 
-		//
-		StringBuilder keyColumn = new StringBuilder().append(tableName).append("_ID");
-		StringBuilder className = new StringBuilder("X_").append(tableName);
-		//
-		StringBuilder start = new StringBuilder()
-			.append (ModelInterfaceGenerator.COPY)
-			.append ("/** Generated Model - DO NOT CHANGE */").append(NL)
-			.append("package ").append(packageName).append(";").append(NL)
-			.append(NL)
-		;
+		stringBuilder.append("# Generated Schema for ").append(tableName).append(" - DO NOT CHANGE\n")
+				.append("#\t\t@author Banda Health (generated) ").append("\n")
+				.append("#\t\t@version ").append(Adempiere.MAIN_VERSION).append(" - $Id$").append("\n")
 
-		addImportClass(java.util.Properties.class);
-		addImportClass(ResultSet.class);
-		if (!packageName.equals("org.compiere.model"))
-			addImportClass("org.compiere.model.*");
-		createImports(start);
-		//	Class
-		start.append("/** Generated Model for ").append(tableName).append(NL)
-			 .append(" *  @author iDempiere (generated) ").append(NL)
-			 .append(" *  @version ").append(Adempiere.MAIN_VERSION).append(" - $Id$ */").append(NL)
-			 .append("public class ").append(className)
-			 	.append(" extends PO")
-			 	.append(" implements I_").append(tableName)
-			 	.append(", I_Persistent ")
-			 	.append(NL)
-			 .append("{").append(NL)
+				// Default Queries
+				.append("extend type Query {\n")
+				.append("\t").append(tableName).append("Get(page: Int, size: Int, sort: String, filter: String): ")
+				.append(tableName).append("Connection!\n")
+				.append("}\n\n")
 
-			 // serialVersionUID
-			 .append(NL)
-			 .append("\t/**").append(NL)
-			 .append("\t *").append(NL)
-			 .append("\t */").append(NL)
-			 .append("\tprivate static final long serialVersionUID = ")
-			 .append(String.format("%1$tY%1$tm%1$td", new Timestamp(System.currentTimeMillis())))
-		 	 .append("L;").append(NL)
-			 //.append("\tprivate static final long serialVersionUID = 1L;").append(NL)
+				// Default Mutations
+				.append("extend type Mutation {\n\t").append(tableName).append("Save(entity: ").append(tableName)
+				.append("Input!): ").append(tableName).append("!\n\t").append(tableName)
+				.append("Delete(uuids: [String!]!): Boolean!\n}\n\n")
 
-			//	Standard Constructor
-			 .append(NL)
-			 .append("    /** Standard Constructor */").append(NL)
-			 .append("    public ").append(className).append(" (Properties ctx, int ").append(keyColumn).append(", String trxName)").append(NL)
-			 .append("    {").append(NL)
-			 .append("      super (ctx, ").append(keyColumn).append(", trxName);").append(NL)
-			 .append("      /** if (").append(keyColumn).append(" == 0)").append(NL)
-			 .append("        {").append(NL)
-			 .append(mandatory) //.append(NL)
-			 .append("        } */").append(NL)
-			 .append("    }").append(NL)
-			//	Constructor End
+				// Connection Type
+				.append("type ").append(tableName).append("Connection {\n\tresults: [").append(tableName).append("!]!\n")
+				.append("\tpagingInfo: PagingInfo!\n}\n\n");
 
-			//	Load Constructor
-			 .append(NL)
-			 .append("    /** Load Constructor */").append(NL)
-			 .append("    public ").append(className).append(" (Properties ctx, ResultSet rs, String trxName)").append(NL)
-			 .append("    {").append(NL)
-			 .append("      super (ctx, rs, trxName);").append(NL)
-			 .append("    }").append(NL)
-			//	Load Constructor End
+		stringBuilder.append("type ").append(tableName).append(" {\n").append(generatedColumns.regularModel)
+				.append("}\n\ninput ").append(tableName).append("Input {\n").append(generatedColumns.inputModel).append(
+						"}\n");
 
-			// TableName
-//			 .append(NL)
-//			 .append("    /** TableName=").append(tableName).append(" */").append(NL)
-//			 .append("    public static final String Table_Name = \"").append(tableName).append("\";").append(NL)
-
-			// AD_Table_ID
-//			 .append(NL)
-//			 .append("    /** AD_Table_ID=").append(AD_Table_ID).append(" */").append(NL)
-//			 .append("    public static final int Table_ID = MTable.getTable_ID(Table_Name);").append(NL)
-
-			// KeyNamePair
-//			 .append(NL)
-//			 .append("    protected static KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);").append(NL)
-
-			// accessLevel
-//			 .append(NL)
-//			 .append("    protected BigDecimal accessLevel = BigDecimal.valueOf(").append(accessLevel).append(");").append(NL)
-			 .append(NL)
-			 .append("    /** AccessLevel").append(NL)
-			 .append("      * @return ").append(accessLevelInfo).append(NL)
-			 .append("      */").append(NL)
-			 .append("    protected int get_AccessLevel()").append(NL)
-			 .append("    {").append(NL)
-			 .append("      return accessLevel.intValue();").append(NL)
-			 .append("    }").append(NL)
-
-			 // initPO
-			 .append(NL)
-			 .append("    /** Load Meta Data */").append(NL)
-			 .append("    protected POInfo initPO (Properties ctx)").append(NL)
-			 .append("    {").append(NL)
-			 .append("      POInfo poi = POInfo.getPOInfo (ctx, Table_ID, get_TrxName());").append(NL)
-			 .append("      return poi;").append(NL)
-			 .append("    }").append(NL);
-			// initPO
-
-		final String sqlCol = "SELECT COUNT(*) FROM AD_Column WHERE AD_Table_ID=? AND ColumnName=? AND IsActive='Y'";
-		boolean hasName = (DB.getSQLValue(null, sqlCol, AD_Table_ID, "Name") == 1);
-			// toString()
-		start.append(NL)
-			 .append("    public String toString()").append(NL)
-			 .append("    {").append(NL)
-			 .append("      StringBuilder sb = new StringBuilder (\"").append(className).append("[\")").append(NL)
-			 .append("        .append(get_ID())");
-		if (hasName)
-			start.append(".append(\",Name=\").append(getName())");
-		start.append(".append(\"]\");").append(NL)
-			 .append("      return sb.toString();").append(NL)
-			 .append("    }").append(NL)
-		;
-
-		String end = "}";
-		//
-		sb.insert(0, start);
-		sb.append(end);
-
-		return className.toString();
+		return "X_" + tableName;
 	}
 
 	/**
-	 * 	Create Column access methods
-	 * 	@param AD_Table_ID table
-	 * 	@param mandatory init call for mandatory columns
-	 *  @param entityTypeFilter 
-	 * 	@return set/get method
+	 * Create Column access methods
+	 *
+	 * @param AD_Table_ID      table
+	 * @param entityTypeFilter
+	 * @return set/get method
 	 */
-	private StringBuilder createColumns (int AD_Table_ID, StringBuilder mandatory, String entityTypeFilter)
-	{
-		StringBuilder sb = new StringBuilder();
-		String sql = "SELECT c.ColumnName, c.IsUpdateable, c.IsMandatory,"		//	1..3
-			+ " c.AD_Reference_ID, c.AD_Reference_Value_ID, DefaultValue, SeqNo, "	//	4..7
-			+ " c.FieldLength, c.ValueMin, c.ValueMax, c.VFormat, c.Callout, "	//	8..12
-			+ " c.Name, c.Description, c.ColumnSQL, c.IsEncrypted, c.IsKey, c.IsIdentifier "  // 13..18
-			+ "FROM AD_Column c "
-			+ "WHERE c.AD_Table_ID=?"
-			+ " AND c.ColumnName NOT IN ('AD_Client_ID', 'AD_Org_ID', 'IsActive', 'Created', 'CreatedBy', 'Updated', 'UpdatedBy')"
-			+ " AND c.IsActive='Y'"
-			+ (!Util.isEmpty(entityTypeFilter) ? " AND c." + entityTypeFilter : "")
-			+ " ORDER BY c.ColumnName";
+	private GeneratedColumns createColumns(int AD_Table_ID, String entityTypeFilter) {
+		GeneratedColumns generatedColumns = new GeneratedColumns(new StringBuilder(), new StringBuilder());
+		String sql = "SELECT c.ColumnName, c.IsUpdateable, c.IsMandatory,"    //	1..3
+				+ " c.AD_Reference_ID, c.AD_Reference_Value_ID, DefaultValue, SeqNo, "  //	4..7
+				+ " c.FieldLength, c.ValueMin, c.ValueMax, c.VFormat, c.Callout, "  //	8..12
+				+ " c.Name, c.Description, c.ColumnSQL, c.IsEncrypted, c.IsKey, c.IsIdentifier "  // 13..18
+				+ "FROM AD_Column c "
+				+ "WHERE c.AD_Table_ID=?"
+				+ " AND c.IsActive='Y'"
+				+ (!Util.isEmpty(entityTypeFilter) ? " AND c." + entityTypeFilter : "")
+				+ " ORDER BY c.ColumnName";
 		boolean isKeyNamePairCreated = false; // true if the method "getKeyNamePair" is already generated
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try
-		{
-			pstmt = DB.prepareStatement(sql, null);
-			pstmt.setInt(1, AD_Table_ID);
-			rs = pstmt.executeQuery();
-			while (rs.next())
-			{
-				String columnName = rs.getString(1);
-				boolean isUpdateable = "Y".equals(rs.getString(2));
-				boolean isMandatory = "Y".equals(rs.getString(3));
-				int displayType = rs.getInt(4);
-				int AD_Reference_Value_ID = rs.getInt(5);
-				String defaultValue = rs.getString(6);
-				int seqNo = rs.getInt(7);
-				int fieldLength = rs.getInt(8);
-				String ValueMin = rs.getString(9);
-				String ValueMax = rs.getString(10);
-				String VFormat = rs.getString(11);
-				String Callout = rs.getString(12);
-				String Name = rs.getString(13);
-				String Description = rs.getString(14);
-				String ColumnSQL = rs.getString(15);
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement = DB.prepareStatement(sql, null);
+			preparedStatement.setInt(1, AD_Table_ID);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				String columnName = resultSet.getString(1);
+				boolean isUpdatable = "Y".equals(resultSet.getString(2));
+				boolean isMandatory = "Y".equals(resultSet.getString(3));
+				int displayType = resultSet.getInt(4);
+				int AD_Reference_Value_ID = resultSet.getInt(5);
+				String defaultValue = resultSet.getString(6);
+				int seqNo = resultSet.getInt(7);
+				int fieldLength = resultSet.getInt(8);
+				String ValueMin = resultSet.getString(9);
+				String ValueMax = resultSet.getString(10);
+				String VFormat = resultSet.getString(11);
+				String Callout = resultSet.getString(12);
+				String Name = resultSet.getString(13);
+				String Description = resultSet.getString(14);
+				String ColumnSQL = resultSet.getString(15);
 				boolean virtualColumn = ColumnSQL != null && ColumnSQL.length() > 0;
-				boolean IsEncrypted = "Y".equals(rs.getString(16));
-				boolean IsKey = "Y".equals(rs.getString(17));
-				boolean IsIdentifier = "Y".equals(rs.getString(18));
+				boolean IsEncrypted = "Y".equals(resultSet.getString(16));
+				boolean IsKey = "Y".equals(resultSet.getString(17));
+				boolean IsIdentifier = "Y".equals(resultSet.getString(18));
 				//
-				sb.append(
-					createColumnMethods (mandatory,
-							columnName, isUpdateable, isMandatory,
-							displayType, AD_Reference_Value_ID, fieldLength,
-							defaultValue, ValueMin, ValueMax, VFormat,
-							Callout, Name, Description, virtualColumn, IsEncrypted, IsKey,
-							AD_Table_ID)
-				);
+				createColumnMethods(generatedColumns, columnName, isUpdatable, isMandatory,
+						displayType, AD_Reference_Value_ID, fieldLength, defaultValue, ValueMin, ValueMax, VFormat, Callout, Name,
+						Description, virtualColumn, IsEncrypted, IsKey, AD_Table_ID);
 				//
 				if (seqNo == 1 && IsIdentifier) {
 					if (!isKeyNamePairCreated) {
-						sb.append(createKeyNamePair(columnName, displayType));
 						isKeyNamePairCreated = true;
-					}
-					else {
-						
+					} else {
 						StringBuilder msgException = new StringBuilder("More than one primary identifier found ")
-									.append(" (AD_Table_ID=").append(AD_Table_ID).append(", ColumnName=").append(columnName).append(")");						
+								.append(" (AD_Table_ID=").append(AD_Table_ID).append(", ColumnName=").append(columnName).append(")");
 						throw new RuntimeException(msgException.toString());
 					}
 				}
 			}
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			throw new DBException(e, sql);
+		} finally {
+			DB.close(resultSet, preparedStatement);
+			resultSet = null;
+			preparedStatement = null;
 		}
-		finally
-		{
-			DB.close(rs, pstmt);
-			rs = null; pstmt = null;
-		}
-		return sb;
-	}	//	createColumns
+		return generatedColumns;
+	}
 
 	/**
-	 *	Create set/get methods for column
-	 * 	@param mandatory init call for mandatory columns
-	 * 	@param columnName column name
-	 * 	@param isUpdateable updateable
-	 * 	@param isMandatory mandatory
-	 * 	@param displayType display type
-	 * 	@param AD_Reference_ID validation reference
-	 * 	@param fieldLength int
-	 *	@param defaultValue default value
-	 * 	@param ValueMin String
-	 *	@param ValueMax String
-	 *	@param VFormat String
-	 *	@param Callout String
-	 *	@param Name String
-	 *	@param Description String
-	 * 	@param virtualColumn virtual column
-	 * 	@param IsEncrypted stored encrypted
-	@return set/get method
+	 * Create set/get methods for column
+	 *
+	 * @param generatedColumns class to hold generated columns
+	 * @param columnName       column name
+	 * @param isUpdateable     updateable
+	 * @param isMandatory      mandatory
+	 * @param displayType      display type
+	 * @param AD_Reference_ID  validation reference
+	 * @param fieldLength      int
+	 * @param defaultValue     default value
+	 * @param ValueMin         String
+	 * @param ValueMax         String
+	 * @param VFormat          String
+	 * @param Callout          String
+	 * @param Name             String
+	 * @param Description      String
+	 * @param virtualColumn    virtual column
+	 * @param IsEncrypted      stored encrypted
+	 * @return set/get method
 	 */
-	private String createColumnMethods (StringBuilder mandatory,
-		String columnName, boolean isUpdateable, boolean isMandatory,
-		int displayType, int AD_Reference_ID, int fieldLength,
-		String defaultValue, String ValueMin, String ValueMax, String VFormat,
-		String Callout, String Name, String Description,
-		boolean virtualColumn, boolean IsEncrypted, boolean IsKey,
-		int AD_Table_ID)
-	{
+	private void createColumnMethods(GeneratedColumns generatedColumns, String columnName, boolean isUpdateable,
+			boolean isMandatory, int displayType, int AD_Reference_ID, int fieldLength, String defaultValue, String ValueMin,
+			String ValueMax, String VFormat, String Callout, String Name, String Description, boolean virtualColumn,
+			boolean IsEncrypted, boolean IsKey, int AD_Table_ID) {
 		Class<?> clazz = ModelInterfaceGenerator.getClass(columnName, displayType, AD_Reference_ID);
 		String dataType = ModelInterfaceGenerator.getDataTypeName(clazz, displayType);
-		if (defaultValue == null)
+		if (defaultValue == null) {
 			defaultValue = "";
-		if (DisplayType.isLOB(displayType))		//	No length check for LOBs
-			fieldLength = 0;
-
-		//	Set	********
-		String setValue = "\t\tset_Value";
-		if (IsEncrypted)
-			setValue = "\t\tset_ValueE";
-		// Handle isUpdateable
-		if (!isUpdateable)
-		{
-			setValue = "\t\tset_ValueNoCheck";
-			if (IsEncrypted)
-				setValue = "\t\tset_ValueNoCheckE";
 		}
-
-		StringBuilder sb = new StringBuilder();
+		if (DisplayType.isLOB(displayType)) {
+			//	No length check for LOBs
+			fieldLength = 0;
+		}
+		boolean shouldSkipInputField =
+				columnName.equals("Created") || columnName.equals("CreatedBy") || columnName.equals("Updated") ||
+						columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID") || virtualColumn;
 
 		// TODO - New functionality
 		// 1) Must understand which class to reference
-		if (DisplayType.isID(displayType) && !IsKey)
-		{
+		if (DisplayType.isID(displayType) && !IsKey) {
 			String fieldName = ModelInterfaceGenerator.getFieldName(columnName);
-			String referenceClassName = ModelInterfaceGenerator.getReferenceClassName(AD_Table_ID, columnName, displayType, AD_Reference_ID);
+			String referenceClassName =
+					ModelInterfaceGenerator.getReferenceClassName(AD_Table_ID, columnName, displayType, AD_Reference_ID);
 			//
-			if (fieldName != null && referenceClassName != null)
-			{
-				sb.append(NL)
-				.append("\tpublic ").append(referenceClassName).append(" get").append(fieldName).append("() throws RuntimeException").append(NL)
-				.append("    {").append(NL)
-				.append("\t\treturn (").append(referenceClassName).append(")MTable.get(getCtx(), ").append(referenceClassName).append(".Table_Name)").append(NL)
-				.append("\t\t\t.getPO(get").append(columnName).append("(), get_TrxName());")
-				/**/
-				.append("\t}").append(NL)
-				;
-				// Add imports:
-				addImportClass(clazz);
+			if (fieldName != null && referenceClassName != null) {
+				if (!columnName.contains("_ID")) {
+					fieldName = columnName;
+				}
+				if (Description != null && !Description.isEmpty()) {
+					generatedColumns.regularModel.append("\t# ").append(Description).append("\n");
+				}
+				String[] packagePath = referenceClassName.split("\\.");
+				referenceClassName = packagePath[packagePath.length - 1].substring(2);
+				generatedColumns.regularModel.append("\t").append(fieldName).append(": ").append(referenceClassName);
+				if (isMandatory || displayType == DisplayType.Binary) {
+					generatedColumns.regularModel.append("!");
+				}
+				generatedColumns.regularModel.append("\n");
+				// We don't generate inputs for these columns
+				if (shouldSkipInputField) {
+					return;
+				}
+				generatedColumns.inputModel.append("\t");
+				if (Description != null && !Description.isEmpty()) {
+					generatedColumns.inputModel.append("# ").append(Description).append("\n\t");
+				}
+				generatedColumns.inputModel.append(fieldName).append(": ").append(referenceClassName).append("Input");
+				generatedColumns.inputModel.append("\n");
+			} else if (columnName.equals("AD_Language")) {
+				addGraphQLFields(generatedColumns, columnName, Description, columnName, isMandatory, shouldSkipInputField);
+			} else if (columnName.equals("EntityType")) {
+				addGraphQLFields(generatedColumns, columnName, Description, "AD_EntityType", isMandatory,
+						shouldSkipInputField);
+			} else if (columnName.endsWith("_ID") &&
+					MTable.get(Env.getCtx(), columnName.substring(0, columnName.length() - 3)) != null) {
+				String entityName = columnName.substring(0, columnName.length() - 3);
+				addGraphQLFields(generatedColumns, entityName, Description, entityName, isMandatory, shouldSkipInputField);
+			} else if (columnName.equals("Logo_ID")) {
+				String entityName = columnName.substring(0, columnName.length() - 3);
+				addGraphQLFields(generatedColumns, entityName, Description, "AD_Image", isMandatory, shouldSkipInputField);
+			} else {
+				log.warning("Did not generate a field for: " + columnName);
+			}
+			return;
+		} else if (columnName.endsWith("_UU")) {
+			generatedColumns.regularModel.append("\tID: ID!\n");
+			generatedColumns.inputModel.append("\tID: ID\n");
+			return;
+		} else if (IsKey) {
+			return;
+		}
+
+		if (Description != null && !Description.isEmpty()) {
+			generatedColumns.regularModel.append("\t# ").append(Description).append("\n");
+			if (!shouldSkipInputField) {
+				generatedColumns.inputModel.append("\t# ").append(Description).append("\n");
 			}
 		}
-
-		// Create Java Comment
-		generateJavaSetComment(columnName, Name, Description, sb);
-
-		//	public void setColumn (xxx variable)
-		sb.append("\tpublic void set").append(columnName).append(" (").append(dataType).append(" ").append(columnName).append(")").append(NL)
-			.append("\t{").append(NL)
-		;
-				
-		//	List Validation
-		if (AD_Reference_ID != 0 && String.class == clazz)
-		{
-			String staticVar = addListValidation (sb, AD_Reference_ID, columnName);
-			sb.insert(0, staticVar);
-		}
-		
-		//	Payment Validation
-		if (displayType == DisplayType.Payment)
-		{
-			String staticVar = addListValidation (sb, REFERENCE_PAYMENTRULE, columnName);
-			sb.insert(0, staticVar);			
+		generatedColumns.regularModel.append("\t").append(columnName).append(": ");
+		if (!shouldSkipInputField) {
+			generatedColumns.inputModel.append("\t").append(columnName).append(": ");
 		}
 
-		//	setValue ("ColumnName", xx);
-		if (virtualColumn)
-		{
-			sb.append ("\t\tthrow new IllegalArgumentException (\"").append(columnName).append(" is virtual column\");");
-		}
-		//	Integer
-		else if (clazz.equals(Integer.class))
-		{
-			if (columnName.endsWith("_ID"))
-			{
-				int firstOK = 1;
-				//	check special column
-				if (columnName.equals("AD_Client_ID") || columnName.equals("AD_Org_ID")
-					|| columnName.equals("Record_ID") || columnName.equals("C_DocType_ID")
-					|| columnName.equals("Node_ID") || columnName.equals("AD_Role_ID")
-					|| columnName.equals("M_AttributeSet_ID") || columnName.equals("M_AttributeSetInstance_ID"))
-					firstOK = 0;
-				//	set _ID to null if < 0 for special column or < 1 for others
-				sb.append("\t\tif (").append (columnName).append (" < ").append(firstOK).append(") ").append(NL)
-					.append("\t").append(setValue).append(" (").append ("COLUMNNAME_").append(columnName).append(", null);").append(NL)
-					.append("\t\telse ").append(NL).append("\t");
+		if (clazz.equals(Integer.class) || clazz.equals(BigDecimal.class)) {
+			generatedColumns.regularModel.append("Int");
+			if (!shouldSkipInputField) {
+				generatedColumns.inputModel.append("Int");
 			}
-			sb.append(setValue).append(" (").append ("COLUMNNAME_").append(columnName).append(", Integer.valueOf(").append(columnName).append("));").append(NL);
-		}
-		//		Boolean
-		else if (clazz.equals(Boolean.class))
-			sb.append(setValue).append(" (").append ("COLUMNNAME_").append(columnName).append(", Boolean.valueOf(").append(columnName).append("));").append(NL);
-		else
-		{
-			sb.append(setValue).append(" (").append ("COLUMNNAME_").append (columnName).append (", ")
-				.append(columnName).append (");").append(NL);
-		}
-		sb.append("\t}").append(NL);
-
-		//	Mandatory call in constructor
-		if (isMandatory)
-		{
-			mandatory.append("\t\t\tset").append(columnName).append(" (");
-			if (clazz.equals(Integer.class))
-				mandatory.append("0");
-			else if (clazz.equals(Boolean.class))
-			{
-				if (defaultValue.indexOf('Y') != -1)
-					mandatory.append(true);
-				else
-					mandatory.append("false");
+		} else if (clazz.equals(Boolean.class)) {
+			generatedColumns.regularModel.append("Boolean");
+			if (!shouldSkipInputField) {
+				generatedColumns.inputModel.append("Boolean");
 			}
-			else if (clazz.equals(BigDecimal.class))
-				mandatory.append("Env.ZERO");
-			else if (clazz.equals(Timestamp.class))
-				mandatory.append("new Timestamp( System.currentTimeMillis() )");
-			else
-				mandatory.append("null");
-			mandatory.append(");").append(NL);
-			if (defaultValue.length() > 0)
-				mandatory.append("// ").append(defaultValue).append(NL);
-		}
-
-
-		//	****** Get Comment ******
-		generateJavaGetComment(Name, Description, sb);
-
-		//	Get	********
-		String getValue = "get_Value";
-		if (IsEncrypted)
-			getValue = "get_ValueE";
-
-		sb.append("\tpublic ").append(dataType);
-		if (clazz.equals(Boolean.class))
-		{
-			sb.append(" is");
-			if (columnName.toLowerCase().startsWith("is"))
-				sb.append(columnName.substring(2));
-			else
-				sb.append(columnName);
+		} else if (clazz.equals(Timestamp.class)) {
+			generatedColumns.regularModel.append("Date");
+			if (!shouldSkipInputField) {
+				generatedColumns.inputModel.append("Date");
+			}
+		}  else if (clazz.equals(byte[].class)) {
+			generatedColumns.regularModel.append("String");
+			if (!shouldSkipInputField) {
+				generatedColumns.inputModel.append("String");
+			}
+		} else if (AD_Reference_ID > 0) {
+			generatedColumns.regularModel.append("AD_Ref_List");
+			if (!shouldSkipInputField) {
+				generatedColumns.inputModel.append("AD_Ref_ListInput");
+			}
 		} else {
-			sb.append(" get").append(columnName);
+			generatedColumns.regularModel.append(dataType);
+			if (!shouldSkipInputField) {
+				generatedColumns.inputModel.append(dataType);
+			}
 		}
-		sb.append(" () ").append(NL)
-			.append("\t{").append(NL)
-			.append("\t\t");
-		if (clazz.equals(Integer.class)) {
-			sb.append("Integer ii = (Integer)").append(getValue).append("(").append ("COLUMNNAME_").append(columnName).append(");").append(NL)
-				.append("\t\tif (ii == null)").append(NL)
-				.append("\t\t\t return 0;").append(NL)
-				.append("\t\treturn ii.intValue();").append(NL);
+		if (isMandatory || clazz.equals(Boolean.class)) {
+			generatedColumns.regularModel.append("!");
 		}
-		else if (clazz.equals(BigDecimal.class)) {
-			sb.append("BigDecimal bd = (BigDecimal)").append(getValue).append("(").append ("COLUMNNAME_").append(columnName).append(");").append(NL)
-				.append("\t\tif (bd == null)").append(NL)
-				.append("\t\t\t return Env.ZERO;").append(NL)
-				.append("\t\treturn bd;").append(NL);
-			addImportClass(BigDecimal.class);
-			addImportClass(org.compiere.util.Env.class);
+		generatedColumns.regularModel.append("\n");
+		if (!shouldSkipInputField) {
+			generatedColumns.inputModel.append("\n");
 		}
-		else if (clazz.equals(Boolean.class)) {
-			sb.append("Object oo = ").append(getValue).append("(").append ("COLUMNNAME_").append(columnName).append(");").append(NL)
-				.append("\t\tif (oo != null) ").append(NL)
-				.append("\t\t{").append(NL)
-				.append("\t\t\t if (oo instanceof Boolean) ").append(NL)
-				.append("\t\t\t\t return ((Boolean)oo).booleanValue(); ").append(NL)
-				.append("\t\t\treturn \"Y\".equals(oo);").append(NL)
-				.append("\t\t}").append(NL)
-				.append("\t\treturn false;").append(NL);
-		}
-		else if (dataType.equals("Object")) {
-			sb.append("\t\treturn ").append(getValue)
-				.append("(").append ("COLUMNNAME_").append(columnName).append(");").append(NL);
-		}
-		else {
-			sb.append("return (").append(dataType).append(")").append(getValue)
-				.append("(").append ("COLUMNNAME_").append(columnName).append(");").append(NL);
-			addImportClass(clazz);
-		}
-		sb.append("\t}").append(NL);
-		//
-		return sb.toString();
-	}	//	createColumnMethods
-
-
-	//	****** Set Comment ******
-	public void generateJavaSetComment(String columnName, String propertyName, String description, StringBuilder result) {
-
-		result.append(NL)
-			.append("\t/** Set ").append(propertyName).append(".").append(NL)
-			.append("\t\t@param ").append(columnName).append(" ")
-		;
-		if (description != null && description.length() > 0) {
-			result.append(NL)
-				.append("\t\t").append(description).append(NL);
-		} else {
-			result.append(propertyName);
-		}
-		result.append("\t  */").append(NL);
 	}
 
-	//	****** Get Comment ******
-	public void generateJavaGetComment(String propertyName, String description, StringBuilder result) {
-
-		result.append(NL)
-			.append("\t/** Get ").append(propertyName);
-		if (description != null && description.length() > 0) {
-			result.append(".").append(NL)
-				.append("\t\t@return ").append(description).append(NL);
-		} else {
-			result.append(".\n\t\t@return ").append(propertyName);
-		}
-		result.append("\t  */").append(NL);
-	}
-
-
 	/**
-	 * 	Add List Validation
-	 * 	@param sb buffer - example:
-		if (NextAction.equals("N") || NextAction.equals("F"));
-		else throw new IllegalArgumentException ("NextAction Invalid value - Reference_ID=219 - N - F");
-	 * 	@param AD_Reference_ID reference
-	 * 	@param columnName column
-	 * 	@return static parameter - Example:
-		public static final int NEXTACTION_AD_Reference_ID=219;
-		public static final String NEXTACTION_None = "N";
-		public static final String NEXTACTION_FollowUp = "F";
+	 * Add the appropriate fields to the generated columns
+	 *
+	 * @param generatedColumns     The columns for the different types
+	 * @param columnName           The column name to use
+	 * @param description          A description of the column
+	 * @param fieldType            What type the field resolves to
+	 * @param isMandatory          Whether the field is mandatory
+	 * @param shouldSkipInputField Whether the input should leverage this field
 	 */
-	private String addListValidation (StringBuilder sb, int AD_Reference_ID,
-		String columnName)
-	{
-		StringBuilder retValue = new StringBuilder();
-		if (AD_Reference_ID <= MTable.MAX_OFFICIAL_ID)
-		{
-			retValue.append("\n\t/** ").append(columnName).append(" AD_Reference_ID=").append(AD_Reference_ID) .append(" */")
-				.append("\n\tpublic static final int ").append(columnName.toUpperCase())
-				.append("_AD_Reference_ID=").append(AD_Reference_ID).append(";");
-		}
-		//
-		boolean found = false;
-		StringBuilder values = new StringBuilder("Reference_ID=")
-			.append(AD_Reference_ID);
-		StringBuilder statement = new StringBuilder();
-		//
-		String sql = "SELECT Value, Name FROM AD_Ref_List WHERE AD_Reference_ID=? ORDER BY AD_Ref_List_ID";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try
-		{
-			pstmt = DB.prepareStatement(sql, null);
-			pstmt.setInt(1, AD_Reference_ID);
-			rs = pstmt.executeQuery();
-			while (rs.next())
-			{
-				String value = rs.getString(1);
-				values.append(" - ").append(value);
-				if (statement.length() == 0)
-					statement.append("\n\t\tif (").append(columnName)
-						.append(".equals(\"").append(value).append("\")");
-				else
-					statement.append(" || ").append(columnName)
-						.append(".equals(\"").append(value).append("\")");
-				//
-				if (!found)
-				{
-					found = true;
-				}
-
-
-				//	Name (SmallTalkNotation)
-				String name = rs.getString(2);
-				char[] nameArray = name.toCharArray();
-				StringBuilder nameClean = new StringBuilder();
-				boolean initCap = true;
-				for (int i = 0; i < nameArray.length; i++)
-				{
-					char c = nameArray[i];
-					if (Character.isJavaIdentifierPart(c))
-					{
-						if (initCap)
-							nameClean.append(Character.toUpperCase(c));
-						else
-							nameClean.append(c);
-						initCap = false;
-					}
-					else
-					{
-						if (c == '+')
-							nameClean.append("Plus");
-						else if (c == '-')
-							nameClean.append("_");
-						else if (c == '>')
-						{
-							if (name.indexOf('<') == -1)	//	ignore <xx>
-								nameClean.append("Gt");
-						}
-						else if (c == '<')
-						{
-							if (name.indexOf('>') == -1)	//	ignore <xx>
-								nameClean.append("Le");
-						}
-						else if (c == '!')
-							nameClean.append("Not");
-						else if (c == '=')
-							nameClean.append("Eq");
-						else if (c == '~')
-							nameClean.append("Like");
-						initCap = true;
-					}
-				}
-				retValue.append("\n\t/** ").append(name).append(" = ").append(value).append(" */");
-				retValue.append("\n\tpublic static final String ").append(columnName.toUpperCase())
-					.append("_").append(nameClean)
-					.append(" = \"").append(value).append("\";");
+	private void addGraphQLFields(GeneratedColumns generatedColumns, String columnName, String description,
+			String fieldType, boolean isMandatory, boolean shouldSkipInputField) {
+		if (description != null && !description.isEmpty()) {
+			generatedColumns.regularModel.append("\t# ").append(description).append("\n");
+			if (!shouldSkipInputField) {
+				generatedColumns.inputModel.append("\t# ").append(description).append("\n");
 			}
 		}
-		catch (SQLException e)
-		{
-			throw new DBException(e, sql);
+		String entityName = columnName.substring(0, columnName.length() - 3);
+		generatedColumns.regularModel.append("\t").append(columnName).append(": ").append(fieldType);
+		if (!shouldSkipInputField) {
+			generatedColumns.inputModel.append("\t").append(columnName).append(": ").append(fieldType).append("Input");
 		}
-		finally
-		{
-			DB.close(rs, pstmt);
-			rs = null; pstmt = null;
+		if (isMandatory) {
+			generatedColumns.regularModel.append("!");
 		}
-		statement.append(")")
-			.append("; ")
-			.append("else ")
-			.append("throw new IllegalArgumentException (\"").append(columnName)
-			.append(" Invalid value - \" + ").append(columnName)
-			.append(" + \" - ").append(values).append("\");");
-		// [1762461] - Remove hardcoded list items checking in generated models
-		// if (found && !columnName.equals("EntityType"))
-		//	sb.append (statement);
-		sb.append("\n");
-		return retValue.toString();
-	}	//	addListValidation
-
-	/**
-	 * 	Create getKeyNamePair() method with first identifier
-	 *	@param columnName name
-	 *	 * @param displayType int
-	@return method code
-	 */
-	private StringBuilder createKeyNamePair (String columnName, int displayType)
-	{
-		StringBuilder method = new StringBuilder("get").append(columnName).append("()");
-		if (displayType != DisplayType.String)
-			method = new StringBuilder("String.valueOf(").append(method).append(")");
-
-		StringBuilder sb = new StringBuilder(NL)
-			.append("    /** Get Record ID/ColumnName").append(NL)
-			.append("        @return ID/ColumnName pair").append(NL)
-			.append("      */").append(NL)
-			.append("    public KeyNamePair getKeyNamePair() ").append(NL)
-			.append("    {").append(NL)
-			.append("        return new KeyNamePair(get_ID(), ").append(method).append(");").append(NL)
-			.append("    }").append(NL)
-		;
-		addImportClass(org.compiere.util.KeyNamePair.class);
-		return sb;
-	}	//	createKeyNamePair
-
+		generatedColumns.regularModel.append("\n");
+		if (!shouldSkipInputField) {
+			generatedColumns.inputModel.append("\n");
+		}
+	}
 
 	/**************************************************************************
 	 * 	Write to file
-	 * 	@param sb string buffer
-	 * 	@param fileName file name
+	 *  @param stringBuilder string buffer
+	 *  @param fileName file name
 	 */
-	private void writeToFile (StringBuilder sb, String fileName)
-	{
-		try
-		{
-			File out = new File (fileName);
+	private void writeToFile(StringBuilder stringBuilder, String fileName) {
+		try {
+			File out = new File(fileName);
 			Writer fw = new OutputStreamWriter(new FileOutputStream(out, false), "UTF-8");
-			for (int i = 0; i < sb.length(); i++)
-			{
-				char c = sb.charAt(i);
+			for (int i = 0; i < stringBuilder.length(); i++) {
+				char c = stringBuilder.charAt(i);
 				//	after
-				if (c == ';' || c == '}')
-				{
-					fw.write (c);
-					if (sb.substring(i+1).startsWith("//")) {
-						//fw.write('\t');
-					} else {
-						//fw.write(NL);
-					}
+				if (c == ';' || c == '}') {
+					fw.write(c);
 				}
 				//	before & after
-				else if (c == '{')
-				{
-					//fw.write(NL);
-					fw.write (c);
-					//fw.write(NL);
-				}
-				else
-					fw.write (c);
+				else if (c == '{') {
+					fw.write(c);
+				} else
+					fw.write(c);
 			}
-			fw.flush ();
-			fw.close ();
+			fw.flush();
+			fw.close();
 			float size = out.length();
 			size /= 1024;
-			StringBuilder msgout = new StringBuilder().append(out.getAbsolutePath()).append(" - ").append(size).append(" kB");
+			StringBuilder msgout = new StringBuilder().append(out.getAbsolutePath()).append(" - ").append(size).append(" " +
+					"kB");
 			System.out.println(msgout.toString());
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			log.log(Level.SEVERE, fileName, ex);
 			throw new RuntimeException(ex);
 		}
 	}
 
-	/** Import classes */
-	private Collection<String> s_importClasses = new TreeSet<String>();
 	/**
-	 * Add class name to class import list
-	 * @param className
+	 * String representation
+	 *
+	 * @return string representation
 	 */
-	private void addImportClass(String className) {
-		if (className == null
-				|| (className.startsWith("java.lang.") && !className.startsWith("java.lang.reflect."))
-				|| className.startsWith(packageName+"."))
-			return;
-		for(String name : s_importClasses) {
-			if (className.equals(name))
-				return;
-		}
-		s_importClasses.add(className);
-	}
-	/**
-	 * Add class to class import list
-	 * @param cl
-	 */
-	private void addImportClass(Class<?> cl) {
-		if (cl.isArray()) {
-			cl = cl.getComponentType();
-		}
-		if (cl.isPrimitive())
-			return;
-		addImportClass(cl.getCanonicalName());
-	}
-	/**
-	 * Generate java imports
-	 * @param sb
-	 */
-	private void createImports(StringBuilder sb) {
-		for (String name : s_importClasses) {
-			sb.append("import ").append(name).append(";").append(NL);
-		}
-		sb.append(NL);
-	}
-
-	/**
-	 * 	String representation
-	 * 	@return string representation
-	 */
-	public String toString()
-	{
-		StringBuilder sb = new StringBuilder("GenerateModel[").append("]");
-		return sb.toString();
+	public String toString() {
+		return "GenerateModel[]";
 	}
 
 	/**
 	 * @param sourceFolder
-	 * @param packageName
 	 * @param entityType
-	 * @param tableLike
+	 * @param tableName
 	 * @param columnEntityType
 	 */
-	public static void generateSource(String sourceFolder, String packageName, String entityType, String tableName, String columnEntityType)
-	{
-		if (sourceFolder == null || sourceFolder.trim().length() == 0)
+	public static void generateSource(String sourceFolder, String entityType, String tableName,
+			String columnEntityType) {
+		if (sourceFolder == null || sourceFolder.trim().isEmpty()) {
 			throw new IllegalArgumentException("Must specify source folder");
+		}
 
 		File file = new File(sourceFolder);
-		if (!file.exists())
-			throw new IllegalArgumentException("Source folder doesn't exists. sourceFolder="+sourceFolder);
+		if (!file.exists()) {
+			throw new IllegalArgumentException("Source folder doesn't exists. sourceFolder=" + sourceFolder);
+		}
 
-		if (packageName == null || packageName.trim().length() == 0)
-			throw new IllegalArgumentException("Must specify package name");
-
-		if (tableName == null || tableName.trim().length() == 0)
+		if (tableName == null || tableName.trim().isEmpty()) {
 			throw new IllegalArgumentException("Must specify table name");
+		}
 
 		StringBuilder tableLike = new StringBuilder().append(tableName.trim());
-		if (!tableLike.toString().startsWith("'") || !tableLike.toString().endsWith("'"))
+		if (!tableLike.toString().startsWith("'") || !tableLike.toString().endsWith("'")) {
 			tableLike = new StringBuilder("'").append(tableLike).append("'");
+		}
 
 		StringBuilder entityTypeFilter = new StringBuilder();
-		if (entityType != null && entityType.trim().length() > 0)
-		{
+		if (entityType != null && !entityType.trim().isEmpty()) {
 			entityTypeFilter.append("EntityType IN (");
 			StringTokenizer tokenizer = new StringTokenizer(entityType, ",");
 			int i = 0;
-			while(tokenizer.hasMoreTokens()) {
+			while (tokenizer.hasMoreTokens()) {
 				StringBuilder token = new StringBuilder().append(tokenizer.nextToken().trim());
 				if (!token.toString().startsWith("'") || !token.toString().endsWith("'"))
 					token = new StringBuilder("'").append(token).append("'");
@@ -884,88 +459,92 @@ public class GraphQLSchemaGenerator
 				i++;
 			}
 			entityTypeFilter.append(")");
-		}
-		else
-		{
+		} else {
 			entityTypeFilter.append("EntityType IN ('U','A')");
 		}
 
 		StringBuilder directory = new StringBuilder().append(sourceFolder.trim());
-		String packagePath = packageName.replace(".", File.separator);
-		if (!(directory.toString().endsWith("/") || directory.toString().endsWith("\\")))
-		{
+		if (!(directory.toString().endsWith("/") || directory.toString().endsWith("\\"))) {
 			directory.append(File.separator);
 		}
-		if (File.separator.equals("/"))
+		if (File.separator.equals("/")) {
 			directory = new StringBuilder(directory.toString().replaceAll("[\\\\]", File.separator));
-		else
+		} else {
 			directory = new StringBuilder(directory.toString().replaceAll("[/]", File.separator));
-		directory.append(packagePath);
+		}
 		file = new File(directory.toString());
-		if (!file.exists())
+		if (!file.exists()) {
 			file.mkdirs();
+		}
 
 		//	complete sql
 		String filterViews = null;
 		if (tableLike.toString().contains("%")) {
-			filterViews = "AND (TableName IN ('RV_WarehousePrice','RV_BPartner') OR IsView='N')"; 	//	special views
+			filterViews = "AND (TableName IN ('RV_WarehousePrice','RV_BPartner') OR IsView='N')";  //	special views
 		}
 		if (tableLike.toString().equals("'%'")) {
-			filterViews += " AND TableName NOT LIKE 'W|_%' ESCAPE '|'"; 	//	exclude webstore from general model generator
+			filterViews += " AND TableName NOT LIKE 'W|_%' ESCAPE '|'";  //	exclude webstore from general model generator
 		}
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT AD_Table_ID ")
-			.append("FROM AD_Table ")
-			.append("WHERE IsActive = 'Y' AND TableName NOT LIKE '%_Trl' ");
+				.append("FROM AD_Table ")
+				.append("WHERE IsActive = 'Y' AND TableName NOT LIKE '%_Trl' ");
 		// Autodetect if we need to use IN or LIKE clause - teo_sarca [ 3020640 ]
-		if (tableLike.indexOf(",") == -1)
+		if (tableLike.indexOf(",") == -1) {
 			sql.append(" AND TableName LIKE ").append(tableLike);
-		else
-			sql.append(" AND TableName IN (").append(tableLike).append(")"); // only specific tables
-		sql.append(" AND ").append(entityTypeFilter.toString());
+		} else {
+			sql.append(" AND TableName IN (").append(tableLike).append(")"); // o"\n"y specific tables
+		}
+		sql.append(" AND ").append(entityTypeFilter);
 		if (filterViews != null) {
 			sql.append(filterViews);
 		}
 		sql.append(" ORDER BY TableName");
 		//
 		StringBuilder columnFilterBuilder = new StringBuilder();
-		if (!Util.isEmpty(columnEntityType, true))
-		{
+		if (!Util.isEmpty(columnEntityType, true)) {
 			columnFilterBuilder.append("EntityType IN (");
 			StringTokenizer tokenizer = new StringTokenizer(columnEntityType, ",");
 			int i = 0;
-			while(tokenizer.hasMoreTokens()) {
+			while (tokenizer.hasMoreTokens()) {
 				StringBuilder token = new StringBuilder().append(tokenizer.nextToken().trim());
-				if (!token.toString().startsWith("'") || !token.toString().endsWith("'"))
+				if (!token.toString().startsWith("'") || !token.toString().endsWith("'")) {
 					token = new StringBuilder("'").append(token).append("'");
-				if (i > 0)
+				}
+				if (i > 0) {
 					columnFilterBuilder.append(",");
+				}
 				columnFilterBuilder.append(token);
 				i++;
 			}
 			columnFilterBuilder.append(")");
 		}
 		String columnFilter = columnFilterBuilder.length() > 0 ? columnFilterBuilder.toString() : null;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try
-		{
-			pstmt = DB.prepareStatement(sql.toString(), null);
-			rs = pstmt.executeQuery();
-			while (rs.next())
-			{
-				new GraphQLSchemaGenerator(rs.getInt(1), directory.toString(), packageName, columnFilter);
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement = DB.prepareStatement(sql.toString(), null);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				new GraphQLSchemaGenerator(resultSet.getInt(1), directory.toString(), columnFilter);
 			}
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			throw new DBException(e, sql.toString());
+		} finally {
+			DB.close(resultSet, preparedStatement);
+			resultSet = null;
+			preparedStatement = null;
 		}
-		finally
-		{
-			DB.close(rs, pstmt);
-			rs = null; pstmt = null;
+	}
+
+	static class GeneratedColumns {
+		final StringBuilder regularModel;
+		final StringBuilder inputModel;
+
+		public GeneratedColumns(StringBuilder regularModel, StringBuilder inputModel) {
+			this.regularModel = regularModel;
+			this.inputModel = inputModel;
 		}
 	}
 }
