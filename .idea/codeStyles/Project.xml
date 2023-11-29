@@ -27,6 +27,13 @@
       <option name="FROM_WRAP_ON" value="true" />
       <option name="FROM_PLACE_ON" value="12" />
     </SqlCodeStyleSettings>
+    <codeStyleSettings language="GraphQL">
+      <indentOptions>
+        <option name="INDENT_SIZE" value="2" />
+        <option name="TAB_SIZE" value="2" />
+        <option name="USE_TAB_CHARACTER" value="true" />
+      </indentOptions>
+    </codeStyleSettings>
     <codeStyleSettings language="JAVA">
       <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
       <option name="CALL_PARAMETERS_WRAP" value="1" />

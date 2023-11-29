@@ -2,7 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         id="org.bandahealth.idempiere.graphql.generator.ModelGeneratorApplication"
+         id="org.bandahealth.idempiere.graphql.generator.GraphQLGeneratorApplication"
          name="Model Generator"
          point="org.eclipse.core.runtime.applications">
       <application
@@ -10,7 +10,7 @@
             thread="main"
             visible="true">
          <run
-               class="org.bandahealth.idempiere.graphql.generator.ModelGeneratorApplication">
+               class="org.bandahealth.idempiere.graphql.generator.GraphQLGeneratorApplication">
          </run>
       </application>
    </extension>
