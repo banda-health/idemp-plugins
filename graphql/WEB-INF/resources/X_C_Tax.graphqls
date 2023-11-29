@@ -1,0 +1,118 @@
+# Generated Schema for C_Tax - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_TaxGet(page: Int, size: Int, sort: String, filter: String): C_TaxConnection!
+}
+
+extend type Mutation {
+	C_TaxSave(entity: C_TaxInput!): C_Tax!
+	C_TaxDelete(uuids: [String!]!): Boolean!
+}
+
+type C_TaxConnection {
+	results: [C_Tax!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_Tax {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	AD_Rule: AD_Rule
+	# Country 
+	C_Country: C_Country
+	C_CountryGroupFrom: C_CountryGroup
+	C_CountryGroupTo: C_CountryGroup
+	# Identifies a geographical Region
+	C_Region: C_Region
+	ID: ID!
+	# Tax Category
+	C_TaxCategory: C_TaxCategory!
+	C_TaxProvider: C_TaxProvider
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Tax is calculated on document level (rather than line by line)
+	IsDocumentLevel: Boolean!
+	# This is a sales tax (i.e. not a value added tax)
+	IsSalesTax: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Business partner is exempt from tax on sales
+	IsTaxExempt: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Parent Tax indicates a tax that is made up of multiple taxes
+	Parent_Tax: C_Tax
+	# Rate or Tax or Exchange
+	Rate: Int!
+	# This tax rate requires the Business Partner to be tax exempt
+	RequiresTaxCertificate: Boolean!
+	# Sales Tax applies to sales situations, Purchase Tax to purchase situations
+	SOPOType: AD_Ref_List!
+	# Short form for Tax to be printed on documents
+	TaxIndicator: String
+	# Receiving Region
+	To_Region: C_Region
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date!
+}
+
+input C_TaxInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	AD_Rule: AD_RuleInput
+	# Country 
+	C_Country: C_CountryInput
+	C_CountryGroupFrom: C_CountryGroupInput
+	C_CountryGroupTo: C_CountryGroupInput
+	# Identifies a geographical Region
+	C_Region: C_RegionInput
+	ID: ID
+	# Tax Category
+	C_TaxCategory: C_TaxCategoryInput
+	C_TaxProvider: C_TaxProviderInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Tax is calculated on document level (rather than line by line)
+	IsDocumentLevel: Boolean
+	# This is a sales tax (i.e. not a value added tax)
+	IsSalesTax: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Business partner is exempt from tax on sales
+	IsTaxExempt: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Parent Tax indicates a tax that is made up of multiple taxes
+	Parent_Tax: C_TaxInput
+	# Rate or Tax or Exchange
+	Rate: Int
+	# This tax rate requires the Business Partner to be tax exempt
+	RequiresTaxCertificate: Boolean
+	# Sales Tax applies to sales situations, Purchase Tax to purchase situations
+	SOPOType: AD_Ref_ListInput
+	# Short form for Tax to be printed on documents
+	TaxIndicator: String
+	# Receiving Region
+	To_Region: C_RegionInput
+	# Valid from including this date (first day)
+	ValidFrom: Date
+}

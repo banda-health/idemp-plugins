@@ -86,12 +86,12 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 		chkPanel.setLayout(new GridLayout(1, 2));
 		mainPanel.add(new JLabel(""), makeGbc(0, 5));
 		mainPanel.add(chkPanel, makeGbc(1, 5));
-		fGenerateInterface = new JCheckBox("Generate Interface");
-		fGenerateInterface.setSelected(true);
-		chkPanel.add(fGenerateInterface);
-		fGenerateClass = new JCheckBox("Generate Class");
-		fGenerateClass.setSelected(true);
-		chkPanel.add(fGenerateClass);
+//		fGenerateInterface = new JCheckBox("Generate Interface");
+//		fGenerateInterface.setSelected(true);
+//		chkPanel.add(fGenerateInterface);
+//		fGenerateClass = new JCheckBox("Generate Class");
+//		fGenerateClass.setSelected(true);
+//		chkPanel.add(fGenerateClass);
 
 		bGenerate = new JButton("Generate Source");
 		confirmPanel.add(bGenerate);
@@ -134,20 +134,16 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 				return;
 			}
 			String entityType = fEntityType.getText();
-			if (entityType == null || entityType.trim().isEmpty()) {
-				JOptionPane.showMessageDialog(this, "Please enter entity type", "Error", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			if (!fGenerateClass.isSelected() && !fGenerateInterface.isSelected()) {
-				JOptionPane.showMessageDialog(this, "Must select at least one of generate interface or generate class",
-						"Error",
-						JOptionPane.ERROR_MESSAGE);
-				return;
-			}
+//			if (!fGenerateClass.isSelected() && !fGenerateInterface.isSelected()) {
+//				JOptionPane.showMessageDialog(this, "Must select at least one of generate interface or generate class",
+//						"Error",
+//						JOptionPane.ERROR_MESSAGE);
+//				return;
+//			}
 			String columnEntityType = fColumnEntityType.getText();
 			this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 //			if (fGenerateInterface.isSelected()) {
-				GraphQLSchemaGenerator.generateSource(folder, "packageName", entityType, tableName, columnEntityType);
+				GraphQLSchemaGenerator.generateSource(folder, entityType, tableName, columnEntityType);
 //			}
 //			if (fGenerateClass.isSelected()) {
 //				ModelClassGenerator.generateSource(folder, packageName, entityType, tableName, columnEntityType);

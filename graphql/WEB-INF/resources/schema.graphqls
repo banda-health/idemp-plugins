@@ -1,6 +1,8 @@
 # All directives and scalars, custom or not, should be declared here
 directive @dateFormat on FIELD_DEFINITION
+directive @fixed on INPUT_FIELD_DEFINITION
 scalar Object
+scalar Date
 
 # Per the GraphQL standard, Query types cannot be split amongst files, so all are defined here
 type Query {

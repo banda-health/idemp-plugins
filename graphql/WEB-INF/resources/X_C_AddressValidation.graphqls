@@ -1,0 +1,64 @@
+# Generated Schema for C_AddressValidation - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_AddressValidationGet(page: Int, size: Int, sort: String, filter: String): C_AddressValidationConnection!
+}
+
+extend type Mutation {
+	C_AddressValidationSave(entity: C_AddressValidationInput!): C_AddressValidation!
+	C_AddressValidationDelete(uuids: [String!]!): Boolean!
+}
+
+type C_AddressValidationConnection {
+	results: [C_AddressValidation!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_AddressValidation {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	C_AddressValidationCfg: C_AddressValidationCfg!
+	ConnectionKey: String
+	ConnectionPassword: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	ShipperAccount: String
+	ShipperMeter: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User ID or account number
+	UserID: String!
+}
+
+input C_AddressValidationInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	ID: ID
+	C_AddressValidationCfg: C_AddressValidationCfgInput
+	ConnectionKey: String
+	ConnectionPassword: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	ShipperAccount: String
+	ShipperMeter: String
+	# User ID or account number
+	UserID: String
+}

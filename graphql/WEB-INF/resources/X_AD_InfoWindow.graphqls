@@ -1,0 +1,116 @@
+# Generated Schema for AD_InfoWindow - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_InfoWindowGet(page: Int, size: Int, sort: String, filter: String): AD_InfoWindowConnection!
+}
+
+extend type Mutation {
+	AD_InfoWindowSave(entity: AD_InfoWindowInput!): AD_InfoWindow!
+	AD_InfoWindowDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_InfoWindowConnection {
+	results: [AD_InfoWindow!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_InfoWindow {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	AD_CtxHelp: AD_CtxHelp
+	ID: ID!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityType!
+	# SQL FROM clause
+	FromClause: String!
+	# Comment or Hint
+	Help: String
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Select Distinct
+	IsDistinct: Boolean!
+	# When load data for info window, also load number of paging
+	isLoadPageNum: Boolean!
+	# Show the dashlet in the dashboard
+	IsShowInDashboard: Boolean!
+	# Element is valid
+	IsValid: Boolean!
+	# If defined, you cannot query more records as defined - the query criteria needs to be changed to query less records
+	MaxQueryRecords: Int!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Fully qualified ORDER BY clause
+	OrderByClause: String
+	# Other SQL Clause
+	OtherClause: String
+	PagingSize: Int!
+	Processing: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}
+
+input AD_InfoWindowInput {
+	AD_CtxHelp: AD_CtxHelpInput
+	ID: ID
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Database Table information
+	AD_Table: AD_TableInput
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityTypeInput
+	# SQL FROM clause
+	FromClause: String
+	# Comment or Hint
+	Help: String
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Select Distinct
+	IsDistinct: Boolean
+	# When load data for info window, also load number of paging
+	isLoadPageNum: Boolean
+	# Show the dashlet in the dashboard
+	IsShowInDashboard: Boolean
+	# Element is valid
+	IsValid: Boolean
+	# If defined, you cannot query more records as defined - the query criteria needs to be changed to query less records
+	MaxQueryRecords: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Fully qualified ORDER BY clause
+	OrderByClause: String
+	# Other SQL Clause
+	OtherClause: String
+	PagingSize: Int
+	Processing: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}

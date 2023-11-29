@@ -1,0 +1,66 @@
+# Generated Schema for M_ShipperLabelsCfg - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_ShipperLabelsCfgGet(page: Int, size: Int, sort: String, filter: String): M_ShipperLabelsCfgConnection!
+}
+
+extend type Mutation {
+	M_ShipperLabelsCfgSave(entity: M_ShipperLabelsCfgInput!): M_ShipperLabelsCfg!
+	M_ShipperLabelsCfgDelete(uuids: [String!]!): Boolean!
+}
+
+type M_ShipperLabelsCfgConnection {
+	results: [M_ShipperLabelsCfg!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_ShipperLabelsCfg {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	Height: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	LabelPrintMethod: AD_Ref_List
+	M_ShipperCfg: M_ShipperCfg!
+	ID: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+	Width: Int
+}
+
+input M_ShipperLabelsCfgInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Optional short description of the record
+	Description: String
+	Height: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	LabelPrintMethod: AD_Ref_ListInput
+	M_ShipperCfg: M_ShipperCfgInput
+	ID: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+	Width: Int
+}

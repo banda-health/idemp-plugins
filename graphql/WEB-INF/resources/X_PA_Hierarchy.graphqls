@@ -1,0 +1,86 @@
+# Generated Schema for PA_Hierarchy - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	PA_HierarchyGet(page: Int, size: Int, sort: String, filter: String): PA_HierarchyConnection!
+}
+
+extend type Mutation {
+	PA_HierarchySave(entity: PA_HierarchyInput!): PA_Hierarchy!
+	PA_HierarchyDelete(uuids: [String!]!): Boolean!
+}
+
+type PA_HierarchyConnection {
+	results: [PA_Hierarchy!]!
+	pagingInfo: PagingInfo!
+}
+
+type PA_Hierarchy {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Tree for Natural Account Tree
+	AD_Tree_Account: AD_Tree!
+	# Trees are used for (financial) reporting
+	AD_Tree_Activity: AD_Tree!
+	# Trees are used for (financial) reporting
+	AD_Tree_BPartner: AD_Tree!
+	# Trees are used for (financial) reporting
+	AD_Tree_Campaign: AD_Tree!
+	# Trees are used for (financial) reporting and security access (via role)
+	AD_Tree_Org: AD_Tree!
+	# Trees are used for (financial) reporting
+	AD_Tree_Product: AD_Tree!
+	# Trees are used for (financial) reporting
+	AD_Tree_Project: AD_Tree!
+	# Trees are used for (financial) reporting
+	AD_Tree_SalesRegion: AD_Tree!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	ID: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input PA_HierarchyInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Tree for Natural Account Tree
+	AD_Tree_Account: AD_TreeInput
+	# Trees are used for (financial) reporting
+	AD_Tree_Activity: AD_TreeInput
+	# Trees are used for (financial) reporting
+	AD_Tree_BPartner: AD_TreeInput
+	# Trees are used for (financial) reporting
+	AD_Tree_Campaign: AD_TreeInput
+	# Trees are used for (financial) reporting and security access (via role)
+	AD_Tree_Org: AD_TreeInput
+	# Trees are used for (financial) reporting
+	AD_Tree_Product: AD_TreeInput
+	# Trees are used for (financial) reporting
+	AD_Tree_Project: AD_TreeInput
+	# Trees are used for (financial) reporting
+	AD_Tree_SalesRegion: AD_TreeInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	ID: ID
+}

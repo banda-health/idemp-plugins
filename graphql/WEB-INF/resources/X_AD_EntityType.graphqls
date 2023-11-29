@@ -1,0 +1,72 @@
+# Generated Schema for AD_EntityType - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_EntityTypeGet(page: Int, size: Int, sort: String, filter: String): AD_EntityTypeConnection!
+}
+
+extend type Mutation {
+	AD_EntityTypeSave(entity: AD_EntityTypeInput!): AD_EntityType!
+	AD_EntityTypeDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_EntityTypeConnection {
+	results: [AD_EntityType!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_EntityType {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	ID: ID!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Extension Classpath
+	Classpath: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: String!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Java Package of the model classes
+	ModelPackage: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Version of the table definition
+	Version: String
+}
+
+input AD_EntityTypeInput {
+	ID: ID
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Extension Classpath
+	Classpath: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Java Package of the model classes
+	ModelPackage: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	# Version of the table definition
+	Version: String
+}

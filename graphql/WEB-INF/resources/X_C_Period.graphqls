@@ -1,0 +1,68 @@
+# Generated Schema for C_Period - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_PeriodGet(page: Int, size: Int, sort: String, filter: String): C_PeriodConnection!
+}
+
+extend type Mutation {
+	C_PeriodSave(entity: C_PeriodInput!): C_Period!
+	C_PeriodDelete(uuids: [String!]!): Boolean!
+}
+
+type C_PeriodConnection {
+	results: [C_Period!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_Period {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Calendar Year
+	C_Year: C_Year!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Last effective date (inclusive)
+	EndDate: Date
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Unique Period Number
+	PeriodNo: Int!
+	# Period Type
+	PeriodType: AD_Ref_List!
+	Processing: Boolean!
+	# First effective day (inclusive)
+	StartDate: Date!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_PeriodInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	ID: ID
+	# Calendar Year
+	C_Year: C_YearInput
+	# Last effective date (inclusive)
+	EndDate: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Unique Period Number
+	PeriodNo: Int
+	# Period Type
+	PeriodType: AD_Ref_ListInput
+	Processing: Boolean
+	# First effective day (inclusive)
+	StartDate: Date
+}

@@ -1,0 +1,100 @@
+# Generated Schema for PA_ReportLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	PA_ReportLineGet(page: Int, size: Int, sort: String, filter: String): PA_ReportLineConnection!
+}
+
+extend type Mutation {
+	PA_ReportLineSave(entity: PA_ReportLineInput!): PA_ReportLine!
+	PA_ReportLineDelete(uuids: [String!]!): Boolean!
+}
+
+type PA_ReportLineConnection {
+	results: [PA_ReportLine!]!
+	pagingInfo: PagingInfo!
+}
+
+type PA_ReportLine {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	CalculationType: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# General Ledger Budget
+	GL_Budget: GL_Budget
+	# The record is active in the system
+	IsActive: Boolean!
+	# Apply inverse operation to debit or credit only column
+	IsInverseDebitCreditOnly: Boolean!
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean!
+	# Display values with the opposite sign
+	IsShowOppositeSign: Boolean!
+	LineType: AD_Ref_List!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# First operand for calculation
+	Oper_1: PA_ReportLine
+	# Second operand for calculation
+	Oper_2: PA_ReportLine
+	OverlineStrokeType: AD_Ref_List
+	ID: ID!
+	PA_ReportLineSet: PA_ReportLineSet!
+	# PA Amount Type for reporting
+	PAAmountType: AD_Ref_List
+	# PA Period Type
+	PAPeriodType: AD_Ref_List
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	UnderlineStrokeType: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input PA_ReportLineInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	CalculationType: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	# General Ledger Budget
+	GL_Budget: GL_BudgetInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Apply inverse operation to debit or credit only column
+	IsInverseDebitCreditOnly: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# Display values with the opposite sign
+	IsShowOppositeSign: Boolean
+	LineType: AD_Ref_ListInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# First operand for calculation
+	Oper_1: PA_ReportLineInput
+	# Second operand for calculation
+	Oper_2: PA_ReportLineInput
+	OverlineStrokeType: AD_Ref_ListInput
+	ID: ID
+	PA_ReportLineSet: PA_ReportLineSetInput
+	# PA Amount Type for reporting
+	PAAmountType: AD_Ref_ListInput
+	# PA Period Type
+	PAPeriodType: AD_Ref_ListInput
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_ListInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	UnderlineStrokeType: AD_Ref_ListInput
+}

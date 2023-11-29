@@ -1,0 +1,249 @@
+# Generated Schema for C_OrderLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_OrderLineGet(page: Int, size: Int, sort: String, filter: String): C_OrderLineConnection!
+}
+
+extend type Mutation {
+	C_OrderLineSave(entity: C_OrderLineInput!): C_OrderLine!
+	C_OrderLineDelete(uuids: [String!]!): Boolean!
+}
+
+type C_OrderLineConnection {
+	results: [C_OrderLine!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_OrderLine {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Expire On
+	BH_Expiration: Date
+	BH_Instructions: String
+	# Element to allow buttons to be displayed that trigger tab navigation
+	BH_NavButtons: Object
+	# The number of order lines on an order
+	BH_NumOrderLines: Int
+	# The current status of the document
+	BH_OrderDocStatus: String
+	BH_RequiresExpiration: Boolean!
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location!
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Additional document charges
+	C_Charge: C_Charge
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Order
+	C_Order: C_Order!
+	ID: ID!
+	# Financial Project
+	C_Project: C_Project
+	# Phase of a Project
+	C_ProjectPhase: C_ProjectPhase
+	# Actual Project Task in a Phase
+	C_ProjectTask: C_ProjectTask
+	# Tax identifier
+	C_Tax: C_Tax!
+	# Unit of Measure
+	C_UOM: C_UOM!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	CreateProduction: String
+	CreateShipment: String
+	# Date when the product was delivered
+	DateDelivered: Date
+	# Date printed on Invoice
+	DateInvoiced: Date
+	# Date of Order
+	DateOrdered: Date!
+	# Date Order was promised
+	DatePromised: Date
+	# Optional short description of the record
+	Description: String
+	# Discount in percent
+	Discount: Int
+	# Freight Amount 
+	FreightAmt: Int!
+	# The record is active in the system
+	IsActive: Boolean!
+	# if true, the line is just description and no transaction
+	IsDescription: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Line Extended Amount (Quantity * Actual Price) without Freight and Charges
+	LineNetAmt: Int!
+	# This field links a sales order line to the purchase order line that is generated from it.
+	Link_OrderLine: C_OrderLine
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Product, Service, Item
+	M_Product: M_Product
+	M_Promotion: M_Promotion
+	# Method or manner of product delivery
+	M_Shipper: M_Shipper
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	PP_Cost_Collector: PP_Cost_Collector
+	# Actual Price 
+	PriceActual: Int!
+	# Price per Unit of Measure including all indirect costs (Freight, etc.)
+	PriceCost: Int
+	# Price Entered - the price based on the selected/base UoM
+	PriceEntered: Int!
+	# Lowest price for a product
+	PriceLimit: Int!
+	# List Price
+	PriceList: Int!
+	# The document has been processed
+	Processed: Boolean!
+	# Available Quantity (On Hand - Reserved)
+	QtyAvailable: Int
+	# Delivered Quantity
+	QtyDelivered: Int!
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: Int!
+	# Invoiced Quantity
+	QtyInvoiced: Int!
+	# Quantity of potential sales
+	QtyLostSales: Int!
+	# Ordered Quantity
+	QtyOrdered: Int!
+	# Reserved Quantity
+	QtyReserved: Int!
+	# Reference to corresponding Sales/Purchase Order
+	Ref_OrderLine: C_OrderLine
+	# Revenue Recognition Amount
+	RRAmt: Int
+	# Revenue Recognition Start Date
+	RRStartDate: Date
+	# Resource Assignment
+	S_ResourceAssignment: S_ResourceAssignment
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+}
+
+input C_OrderLineInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Expire On
+	BH_Expiration: Date
+	BH_Instructions: String
+	# Element to allow buttons to be displayed that trigger tab navigation
+	BH_NavButtons: Object
+	# Business Activity
+	C_Activity: C_ActivityInput
+	# Identifies a Business Partner
+	C_BPartner: C_BPartnerInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_LocationInput
+	# Marketing Campaign
+	C_Campaign: C_CampaignInput
+	# Additional document charges
+	C_Charge: C_ChargeInput
+	# The Currency for this record
+	C_Currency: C_CurrencyInput
+	# Order
+	C_Order: C_OrderInput
+	ID: ID
+	# Financial Project
+	C_Project: C_ProjectInput
+	# Phase of a Project
+	C_ProjectPhase: C_ProjectPhaseInput
+	# Actual Project Task in a Phase
+	C_ProjectTask: C_ProjectTaskInput
+	# Tax identifier
+	C_Tax: C_TaxInput
+	# Unit of Measure
+	C_UOM: C_UOMInput
+	CreateProduction: String
+	CreateShipment: String
+	# Date when the product was delivered
+	DateDelivered: Date
+	# Date printed on Invoice
+	DateInvoiced: Date
+	# Date of Order
+	DateOrdered: Date
+	# Date Order was promised
+	DatePromised: Date
+	# Optional short description of the record
+	Description: String
+	# Discount in percent
+	Discount: Int
+	# Freight Amount 
+	FreightAmt: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# if true, the line is just description and no transaction
+	IsDescription: Boolean
+	# Unique line for this document
+	Line: Int
+	# Line Extended Amount (Quantity * Actual Price) without Freight and Charges
+	LineNetAmt: Int
+	# This field links a sales order line to the purchase order line that is generated from it.
+	Link_OrderLine: C_OrderLineInput
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstanceInput
+	# Product, Service, Item
+	M_Product: M_ProductInput
+	M_Promotion: M_PromotionInput
+	# Method or manner of product delivery
+	M_Shipper: M_ShipperInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_WarehouseInput
+	PP_Cost_Collector: PP_Cost_CollectorInput
+	# Actual Price 
+	PriceActual: Int
+	# Price per Unit of Measure including all indirect costs (Freight, etc.)
+	PriceCost: Int
+	# Price Entered - the price based on the selected/base UoM
+	PriceEntered: Int
+	# Lowest price for a product
+	PriceLimit: Int
+	# List Price
+	PriceList: Int
+	# The document has been processed
+	Processed: Boolean
+	# Available Quantity (On Hand - Reserved)
+	QtyAvailable: Int
+	# Delivered Quantity
+	QtyDelivered: Int
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: Int
+	# Invoiced Quantity
+	QtyInvoiced: Int
+	# Quantity of potential sales
+	QtyLostSales: Int
+	# Ordered Quantity
+	QtyOrdered: Int
+	# Reserved Quantity
+	QtyReserved: Int
+	# Reference to corresponding Sales/Purchase Order
+	Ref_OrderLine: C_OrderLineInput
+	# Revenue Recognition Amount
+	RRAmt: Int
+	# Revenue Recognition Start Date
+	RRStartDate: Date
+	# Resource Assignment
+	S_ResourceAssignment: S_ResourceAssignmentInput
+	# User defined list element #1
+	User1: C_ElementValueInput
+	# User defined list element #2
+	User2: C_ElementValueInput
+}

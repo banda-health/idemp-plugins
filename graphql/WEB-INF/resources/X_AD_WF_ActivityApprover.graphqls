@@ -1,0 +1,50 @@
+# Generated Schema for AD_WF_ActivityApprover - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_WF_ActivityApproverGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ActivityApproverConnection!
+}
+
+extend type Mutation {
+	AD_WF_ActivityApproverSave(entity: AD_WF_ActivityApproverInput!): AD_WF_ActivityApprover!
+	AD_WF_ActivityApproverDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_WF_ActivityApproverConnection {
+	results: [AD_WF_ActivityApprover!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_WF_ActivityApprover {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	# Workflow Activity
+	AD_WF_Activity: AD_WF_Activity!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_WF_ActivityApproverInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_UserInput
+	# Workflow Activity
+	AD_WF_Activity: AD_WF_ActivityInput
+	ID: ID
+	# The record is active in the system
+	IsActive: Boolean
+}

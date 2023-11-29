@@ -1,0 +1,68 @@
+# Generated Schema for AD_Task - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_TaskGet(page: Int, size: Int, sort: String, filter: String): AD_TaskConnection!
+}
+
+extend type Mutation {
+	AD_TaskSave(entity: AD_TaskInput!): AD_Task!
+	AD_TaskDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_TaskConnection {
+	results: [AD_Task!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_Task {
+	# Access Level required
+	AccessLevel: AD_Ref_List!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	AD_CtxHelp: AD_CtxHelp
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Operating System Command
+	OS_Command: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_TaskInput {
+	# Access Level required
+	AccessLevel: AD_Ref_ListInput
+	AD_CtxHelp: AD_CtxHelpInput
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	EntityType: AD_EntityTypeInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Operating System Command
+	OS_Command: String
+}
