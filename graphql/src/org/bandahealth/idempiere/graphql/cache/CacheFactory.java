@@ -1,12 +1,10 @@
 package org.bandahealth.idempiere.graphql.cache;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import org.compiere.model.MRefList;
+import org.compiere.util.CCache;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This factory helps construct caches for the specified classes. Typically, these classes will be iDempiere entities
@@ -34,13 +32,13 @@ public class CacheFactory {
 	 */
 	private BandaCache<Object, Object> createCache(Class<?> clazz) {
 		// Create a default cache
-		Cache<Object, Object> cacheToUse = Caffeine.newBuilder()
-				.expireAfterWrite(DEFAULT_CACHE_TIMEOUT_IN_MINUTES, TimeUnit.MINUTES).maximumSize(DEFAULT_CACHE_MAX_SIZE)
-				.build();
+		CCache<Object, Object> cacheToUse =
+				new CCache<>(clazz.getName(), clazz.getName(), 100, DEFAULT_CACHE_TIMEOUT_IN_MINUTES, false,
+						DEFAULT_CACHE_MAX_SIZE);
 
 		if (clazz.getName().equalsIgnoreCase(MRefList.class.getName())) {
-			cacheToUse = Caffeine.newBuilder().expireAfterWrite(Long.MAX_VALUE, TimeUnit.DAYS)
-					.maximumSize(DEFAULT_CACHE_MAX_SIZE).build();
+			cacheToUse =
+					new CCache<>(clazz.getName(), clazz.getName(), 100, Integer.MAX_VALUE, false, DEFAULT_CACHE_MAX_SIZE);
 		}
 		return new BandaCache<>(cacheToUse);
 	}

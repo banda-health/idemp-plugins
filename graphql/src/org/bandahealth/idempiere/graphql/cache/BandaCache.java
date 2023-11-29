@@ -1,37 +1,38 @@
 package org.bandahealth.idempiere.graphql.cache;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
+import org.compiere.util.CCache;
 import org.dataloader.CacheMap;
 
-import java.util.concurrent.TimeUnit;
+import java.util.Collection;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
- * This is a wrapper for the Caffeine cache (or whichever is used) that implements the GraphQL Java interface. This
- * allows us to cache whatever we'd like
+ * This is a wrapper for the iDempiere cache that implements the GraphQL Java interface. This allows us to cache
+ * whatever we'd like
  *
  * @param <U> The key type of the cache.
  * @param <V> The value type of entities stored in the cache.
  */
 public class BandaCache<U, V> implements CacheMap<U, V> {
-	private final Cache<U, V> cache;
+	private final CCache<U, V> cache;
 
-	public BandaCache(Cache<U, V> cache) {
+	public BandaCache(CCache<U, V> cache) {
 		this.cache = cache;
 	}
 
-	public Cache<U, V> getCache() {
+	public CCache<U, V> getCache() {
 		return cache;
 	}
 
 	@Override
 	public boolean containsKey(U key) {
-		return cache.getIfPresent(key) != null;
+		return cache.containsKey(key);
 	}
 
 	@Override
 	public V get(U key) {
-		return cache.getIfPresent(key);
+		return cache.get(key);
 	}
 
 	@Override
@@ -42,13 +43,13 @@ public class BandaCache<U, V> implements CacheMap<U, V> {
 
 	@Override
 	public CacheMap<U, V> delete(U key) {
-		cache.invalidate(key);
+		cache.remove(key);
 		return this;
 	}
 
 	@Override
 	public CacheMap<U, V> clear() {
-		cache.invalidateAll();
+		cache.reset();
 		return this;
 	}
 }

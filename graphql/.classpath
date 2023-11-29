@@ -21,7 +21,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/reactive-streams.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/graphql-java-kickstart.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-lang3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/caffeine.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jackson-annotations.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

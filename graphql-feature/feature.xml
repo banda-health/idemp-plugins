@@ -2,7 +2,7 @@
 <feature
       id="org.bandahealth.idempiere.graphql.feature"
       label="GraphQL Schema Generator"
-      version="8.2.0.qualifier"
+      version="7.1.0.qualifier"
       provider-name="Banda Health">
 
    <description url="http://www.example.com/description">
