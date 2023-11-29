@@ -249,7 +249,7 @@ VALUES
 	 ), 0, 0, 'Y', '2023-11-23 08:26:24.728000', '2023-11-23 08:26:24.728000', 100, 100, 'BMI (kg/m²)', NULL, NULL, 0,
 	 'U', 'BH_BMI', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = 'f472818e-6071-4dcf-b705-4020ad79c154'
-	 ), 12, NULL, NULL, 14, '@BH_Height@*100*100/@BH_Weight@/@BH_Weight@', 'N', 'N', 'N', 'Y', '1=1', 'N', 0, 'N', 'N',
+	 ), 12, NULL, NULL, 14, '@BH_Height@*100*100/@BH_Weight@/@BH_Weight@', 'N', 'N', 'N', 'Y', '1=1', 'N', 25, 'N', 'N',
 	 NULL, NULL, NULL, NULL, 'N', (
 		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'd8826d20-904b-496c-88c6-850c35237365'
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', '0.00', '850c652d-3cdb-46fa-b40d-f30321dcc35b', 'Y', 0, 'N', 'N',
