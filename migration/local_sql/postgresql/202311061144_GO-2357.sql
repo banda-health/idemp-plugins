@@ -296,8 +296,10 @@ INSERT INTO
 	          isadvancedfield, isdefaultfocus, vformat, ad_labelstyle_id, ad_fieldstyle_id, placeholder, isquickform)
 VALUES
 	((
-		 SELECT MAX(ad_field_id) + 1
-		 FROM ad_field
+		 SELECT
+			 MAX(ad_field_id) + 1
+		 FROM
+			 ad_field
 	 ), 0, 0, 'Y', '2023-11-23 12:41:12.503000', 100, '2023-11-23 12:41:12.503000', 100,
 	 'Beginning of Last Menstrual Period', NULL, NULL, 'Y', (
 		 SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
@@ -316,8 +318,10 @@ INSERT INTO
 	          isadvancedfield, isdefaultfocus, vformat, ad_labelstyle_id, ad_fieldstyle_id, placeholder, isquickform)
 VALUES
 	((
-		 SELECT MAX(ad_field_id) + 1
-		 FROM ad_field
+		 SELECT
+			 MAX(ad_field_id) + 1
+		 FROM
+			 ad_field
 	 ), 0, 0, 'Y', '2023-11-23 12:40:48.980000', 100, '2023-11-23 12:40:48.980000', 100, 'BMI (kg/m²)', NULL, NULL, 'Y', (
 		 SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
 	 ), (
@@ -335,8 +339,10 @@ INSERT INTO
 	          isadvancedfield, isdefaultfocus, vformat, ad_labelstyle_id, ad_fieldstyle_id, placeholder, isquickform)
 VALUES
 	((
-		 SELECT MAX(ad_field_id) + 1
-		 FROM ad_field
+		 SELECT
+			 MAX(ad_field_id) + 1
+		 FROM
+			 ad_field
 	 ), 0, 0, 'Y', '2023-11-23 12:40:22.002000', 100, '2023-11-23 12:40:22.002000', 100,
 	 'Mid-Upper Arm Circumference (mm)', NULL, NULL, 'Y', (
 		 SELECT ad_tab_id FROM ad_tab WHERE ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7'
@@ -345,6 +351,173 @@ VALUES
 	 ), NULL, 'Y', NULL, 0, 'N', 90, 0, 'N', 'N', 'N', 'N', 'U', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
 	 '5f1f6878-9012-4cc1-9581-6847b3a6896e', NULL, 90, 'Y', 1, 1, 1, 'N', NULL, NULL, NULL, NULL, NULL, 'N', 'N', NULL,
 	 NULL, NULL, NULL, 'N');
+
+-- Insert the abbrevation column stuff
+INSERT INTO
+	ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname,
+	            entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help,
+	            ad_element_uu, placeholder)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_element) + 1
+		 FROM
+			 ad_element
+	 ), 0, 0, 'Y', '2023-11-30 09:15:21.674000', 100, '2023-11-30 09:15:21.674000', 100, 'BH_Abbreviation', 'U',
+	 'BH_Abbreviation', 'Abbreviation', 'An abbreviation for a given name', NULL, NULL, NULL, NULL, NULL,
+	 'fcec81de-d989-45be-a06c-29a8c3d6b8a1', NULL);
+
+ALTER TABLE AD_Field
+	ADD BH_Abbreviation VARCHAR(60) DEFAULT NULL;
+ALTER TABLE ad_field_trl
+	ADD BH_Abbreviation VARCHAR(60) DEFAULT NULL;
+ALTER TABLE ad_fieldgroup
+	ADD BH_Abbreviation VARCHAR(60) DEFAULT NULL;
+ALTER TABLE ad_fieldgroup_trl
+	ADD BH_Abbreviation VARCHAR(60) DEFAULT NULL;
+
+INSERT INTO
+	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
+	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
+	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
+	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
+	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
+	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
+	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_column_id) + 1
+		 FROM
+			 ad_column
+	 ), 0, 0, 'Y', '2023-11-30 09:18:17.085000', '2023-11-30 09:18:17.085000', 100, 100, 'BH_Abbreviation',
+	 'An abbreviation for a given name', NULL, 0, 'U', 'BH_Abbreviation', 107, 10, NULL, NULL, 60, NULL, 'N', 'N', 'N',
+	 'Y', NULL, 'N', 0, 'Y', 'N', NULL, NULL, NULL, NULL, 'N', (
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'fcec81de-d989-45be-a06c-29a8c3d6b8a1'
+	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '20ecfa74-5b79-4eaa-9070-7a8280829dda', 'Y', 0, 'N', 'N', NULL,
+	 NULL, 'N', NULL, NULL, 'N');
+INSERT INTO
+	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
+	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
+	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
+	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
+	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
+	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
+	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_column_id) + 1
+		 FROM
+			 ad_column
+	 ), 0, 0, 'Y', '2023-11-30 09:21:39.535000', '2023-11-30 09:21:39.535000', 100, 100, 'BH_Abbreviation',
+	 'An abbreviation for a given name', NULL, 0, 'U', 'BH_Abbreviation', 414, 10, NULL, NULL, 60, NULL, 'N', 'N', 'N',
+	 'Y', NULL, 'N', 0, 'Y', 'N', NULL, NULL, NULL, NULL, 'N', (
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'fcec81de-d989-45be-a06c-29a8c3d6b8a1'
+	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '207239f2-1633-43d0-ab44-d5fceff9a9a9', 'Y', 0, 'N', 'N', NULL,
+	 NULL, 'N', NULL, NULL, 'N');
+INSERT INTO
+	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
+	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
+	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
+	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
+	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
+	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
+	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_column_id) + 1
+		 FROM
+			 ad_column
+	 ), 0, 0, 'Y', '2023-11-30 09:19:46.654000', '2023-11-30 09:21:22.596000', 100, 100, 'BH_Abbreviation',
+	 'An abbreviation for a given name', NULL, 0, 'U', 'BH_Abbreviation', 127, 10, NULL, NULL, 60, NULL, 'N', 'N', 'N',
+	 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'fcec81de-d989-45be-a06c-29a8c3d6b8a1'
+	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '5a9efc24-5699-4e32-b2fa-a1e23f2d73a7', 'Y', 0, 'N', 'N', NULL,
+	 NULL, 'N', NULL, NULL, 'N');
+INSERT INTO
+	ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description,
+	           help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id,
+	           fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno,
+	           istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id,
+	           ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass,
+	           isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton,
+	           issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml)
+VALUES
+	((
+		 SELECT
+			 MAX(ad_column_id) + 1
+		 FROM
+			 ad_column
+	 ), 0, 0, 'Y', '2023-11-30 09:22:32.860000', '2023-11-30 09:22:32.860000', 100, 100, 'BH_Abbreviation',
+	 'An abbreviation for a given name', NULL, 0, 'U', 'BH_Abbreviation', 415, 10, NULL, NULL, 60, NULL, 'N', 'N', 'N',
+	 'Y', NULL, 'N', 0, 'N', 'N', NULL, NULL, NULL, NULL, 'N', (
+		 SELECT ad_element_id FROM ad_element WHERE ad_element_uu = 'fcec81de-d989-45be-a06c-29a8c3d6b8a1'
+	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '2d572149-1e58-4ec3-a038-bd53565de215', 'Y', 0, 'N', 'N', NULL,
+	 NULL, 'N', NULL, NULL, 'N');
+
+-- Update the abbreviations for the fields and field groups
+-- Beginning of Last Menstrual Period
+UPDATE ad_field
+SET
+	bh_abbreviation = 'LMP'
+WHERE
+	ad_field_uu = 'da211453-46c6-44a6-8ee2-ded8f8630b23';
+-- BMI (kg/m²)
+UPDATE ad_field
+SET
+	bh_abbreviation = 'BMI'
+WHERE
+	ad_field_uu = '70b5bfa1-9c75-4fea-bf7e-076f4f4163fb';
+-- Height (cm)
+UPDATE ad_field
+SET
+	bh_abbreviation = 'Height'
+WHERE
+	ad_field_uu = '2842fb94-b841-4973-903e-89c7f24455b2';
+-- Mid-Upper Arm Circumference (mm)
+UPDATE ad_field
+SET
+	bh_abbreviation = 'MUAC'
+WHERE
+	ad_field_uu = '5f1f6878-9012-4cc1-9581-6847b3a6896e';
+-- Pulse (BPM)
+UPDATE ad_field
+SET
+	bh_abbreviation = 'Pulse'
+WHERE
+	ad_field_uu = 'c0f0f904-4977-4360-8065-a0e91d4f3a71';
+-- Respiratory Rate (RPM)
+UPDATE ad_field
+SET
+	bh_abbreviation = 'RR'
+WHERE
+	ad_field_uu = '87183dfb-1b7d-4c18-b350-593e576bb49b';
+-- SPO² (%)
+UPDATE ad_field
+SET
+	bh_abbreviation = 'SPO²'
+WHERE
+	ad_field_uu = '7bb73318-f6cc-4540-85d7-69672a18cc5f';
+-- Temperature (°C)
+UPDATE ad_field
+SET
+	bh_abbreviation = 'Temp'
+WHERE
+	ad_field_uu = 'd3dc091f-ee3d-4607-91d1-4e766cfe5528';
+-- Weight (kg)
+UPDATE ad_field
+SET
+	bh_abbreviation = 'Weight'
+WHERE
+	ad_field_uu = 'e0f68d60-0610-4caa-9dc3-b0143101ccd3';
+-- Blood Pressure (mmHg)
+UPDATE ad_fieldgroup
+SET
+	bh_abbreviation = 'BP'
+WHERE
+	ad_fieldgroup_uu = '5fa688fd-0075-494f-b880-d9c9ebca60d7';
 
 SELECT
 	update_sequences();
