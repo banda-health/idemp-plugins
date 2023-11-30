@@ -360,7 +360,7 @@ INSERT INTO
 VALUES
 	((
 		 SELECT
-			 MAX(ad_element) + 1
+			 MAX(ad_element_id) + 1
 		 FROM
 			 ad_element
 	 ), 0, 0, 'Y', '2023-11-30 09:15:21.674000', 100, '2023-11-30 09:15:21.674000', 100, 'BH_Abbreviation', 'U',
