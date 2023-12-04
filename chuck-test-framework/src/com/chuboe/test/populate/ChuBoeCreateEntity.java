@@ -961,7 +961,7 @@ public class ChuBoeCreateEntity {
 			return;
 		}
 
-		MProcess process = new Query(Env.getCtx(), X_AD_Process.Table_Name, "AD_Process_UU=?",
+		MProcess process = new Query(valueObject.getContext(), X_AD_Process.Table_Name, "AD_Process_UU=?",
 				valueObject.getTransactionName()).setParameters(valueObject.getProcessUuid()).first();
 
 		// Create an instance of the process I want to run
@@ -987,7 +987,7 @@ public class ChuBoeCreateEntity {
 		}
 
 		// Create process instance (mainly for logging/sync purpose)
-		MPInstance processInstance = new MPInstance(Env.getCtx(), process.get_ID(), valueObject.getProcessRecordId());
+		MPInstance processInstance = new MPInstance(valueObject.getContext(), process.get_ID(), valueObject.getProcessRecordId());
 		processInstance.saveEx();
 
 		// Connect the process to the process instance.
