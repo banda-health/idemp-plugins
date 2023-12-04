@@ -519,6 +519,93 @@ SET
 WHERE
 	ad_fieldgroup_uu = '5fa688fd-0075-494f-b880-d9c9ebca60d7';
 
+-- Insert the correct access for the new Chief Complaint window
+DROP TABLE IF EXISTS tmp_ad_window_access;
+CREATE TEMP TABLE tmp_ad_window_access
+(
+	ad_window_id        numeric(10)             NOT NULL,
+	ad_role_id          numeric(10)             NOT NULL,
+	ad_client_id        numeric(10)             NOT NULL,
+	ad_org_id           numeric(10)             NOT NULL,
+-- 	isactive            char        DEFAULT 'Y'::bpchar NOT NULL,
+-- 	created             timestamp   DEFAULT NOW()       NOT NULL,
+	createdby           numeric(10) DEFAULT 100 NOT NULL,
+-- 	updated             timestamp   DEFAULT NOW()       NOT NULL,
+	updatedby           numeric(10) DEFAULT 100 NOT NULL,
+	isreadwrite         char        DEFAULT 'Y' NOT NULL,
+	ad_window_access_uu uuid                    NOT NULL DEFAULT uuid_generate_v4(),
+	bh_candeactivate    CHAR        DEFAULT 'N' NOT NULL
+);
+
+-- Update all automatic roles to have access to the Track Income window
+INSERT INTO
+	tmp_ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, bh_candeactivate)
+SELECT
+	(
+		SELECT ad_window_id FROM AD_Window WHERE ad_window_uu = 'ee3189d3-9bf5-4528-b5c8-26f2cabde1ed'
+	),
+	ad_role_id,
+	ad_client_id,
+	ad_org_id,
+	'Y'
+FROM
+	ad_role
+WHERE
+	ad_client_id != 0
+	AND ismanual = 'N'
+	AND ad_role_id NOT IN (
+		SELECT
+			ad_role_id
+		FROM
+			ad_window_access
+		WHERE
+				ad_window_id = (
+				SELECT ad_window_id FROM AD_Window WHERE ad_window_uu = '44c02ddc-ef83-4020-8e4c-709d8cbeadc2'
+			)
+	);
+
+-- Add the specific role stuff
+INSERT INTO
+	tmp_ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isreadwrite, bh_candeactivate)
+SELECT
+	(
+		SELECT ad_window_id FROM AD_Window WHERE ad_window_uu = 'ee3189d3-9bf5-4528-b5c8-26f2cabde1ed'
+	),
+	r.ad_role_id,
+	0,
+	0,
+	role_values.isreadwrite,
+	role_values.bh_candeactivate
+FROM
+	ad_role r
+		JOIN (
+		VALUES
+			('ec17fee0-a53a-4dbb-b946-423ce14880eb', 'N', 'N'), -- Inventory/Pharmacy
+			('98617c31-55ff-48f9-bd44-253ef323d960', 'Y', 'N'), -- Clinician/Nurse Basic
+			('097feff0-3aa6-41fe-bf76-936b03859846', 'Y', 'N'), -- Lab/Radiology
+			('461b31c5-cae2-449d-8a0c-7385b12f4685', 'Y', 'Y'), -- Clinical Admin
+			('e1a9a87d-dc61-4d9e-a6c9-f91d5f42e33e', 'Y', 'Y'), -- Clinic User
+			('ae618e24-a47a-40cc-bb5c-8dca64d86daf', 'Y', 'N'), -- Triage
+			('c54253cf-c86b-4aaa-b472-ed8880635c62', 'Y', 'N') -- Clinician/Nurse Advanced
+	) role_values (ad_role_uu, isreadwrite, bh_candeactivate)
+		ON r.ad_role_uu = role_values.ad_role_uu;
+
+INSERT INTO
+	ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, createdby, updatedby, ad_window_access_uu,
+	                  isreadwrite, bh_candeactivate)
+SELECT
+	ad_window_id,
+	ad_role_id,
+	ad_client_id,
+	ad_org_id,
+	createdby,
+	updatedby,
+	ad_window_access_uu,
+	isreadwrite,
+	bh_candeactivate
+FROM
+	tmp_ad_window_access;
+
 SELECT
 	update_sequences();
 

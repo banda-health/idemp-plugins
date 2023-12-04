@@ -55,6 +55,7 @@ import {
 } from '../utils';
 
 const CLINICAL_VITALS_WINDOW_UUID = '53b4d743-c311-40e5-aa8e-c0880c42c1b1';
+const CHIEF_COMPLAINT_WINDOW_UUID = 'ee3189d3-9bf5-4528-b5c8-26f2cabde1ed';
 const CHIEF_COMPLAINT_FIELD_UUID = 'e1d01fe4-16b6-4125-a385-34cf4531c06f';
 const HEIGHT_FIELD_UUID = '2842fb94-b841-4973-903e-89c7f24455b2';
 const WEIGHT_FIELD_UUID = 'e0f68d60-0610-4caa-9dc3-b0143101ccd3';
@@ -1400,15 +1401,16 @@ test('visit can be saved with really long chief complaint', async () => {
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
 	const longChiefComplaint = 'this hurts '.repeat(20);
-	const clinicalVitalsEncounterTypeWindow = (
-		await encounterTypeWindowApi.get(valueObject, 0, 1, undefined, undefined)
-	).results.find((result) => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID);
-	const chiefComplaintField = clinicalVitalsEncounterTypeWindow?.window.tabs[0].fields.filter(
+	const chiefComplaintEncounterTypeWindow = (
+		await encounterTypeWindowApi.get(valueObject, undefined, undefined, undefined, undefined)
+	).results.find((result) => result.window.uuid == CHIEF_COMPLAINT_WINDOW_UUID);
+	expect(chiefComplaintEncounterTypeWindow).toBeTruthy();
+	const chiefComplaintField = chiefComplaintEncounterTypeWindow?.window.tabs[0].fields.filter(
 		(field) => field.uuid == CHIEF_COMPLAINT_FIELD_UUID,
 	)[0] as Field;
 
 	valueObject.visit!.encounters!.push({
-		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
+		encounterType: chiefComplaintEncounterTypeWindow?.encounterType,
 		observations: [
 			{
 				value: longChiefComplaint,
