@@ -277,14 +277,15 @@ VALUES
 	 ), NULL, 'N', 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '5fce9cec-8119-4aba-aa00-98618feb2369', 'Y', 0, 'N', 'N', NULL,
 	 NULL, 'N', NULL, NULL, 'N');
 
--- Update table mapped to the Observation Field tab
+-- Update the new tab and the existing observation tabs to point to the encounter table
 UPDATE ad_tab
 SET
 	ad_table_id = (
-		SELECT ad_table_id FROM ad_table WHERE ad_table_uu = 'f472818e-6071-4dcf-b705-4020ad79c154'
+		SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '755aac0f-8697-4520-ba42-08ad092299cd'
 	)
 WHERE
-	ad_tab_uu = '789a08af-2015-4469-b2ef-d4ca55e6f2e7';
+		ad_tab_uu IN ('69b0d4b6-a323-4224-924e-d9d3d2aa5e1b', '789a08af-2015-4469-b2ef-d4ca55e6f2e7',
+		              'e2b742ba-5998-4cdf-93b4-cda8db96f11b');
 -- Add the three new fields
 INSERT INTO
 	ad_field (ad_field_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description,
