@@ -607,6 +607,73 @@ SELECT
 FROM
 	tmp_ad_window_access;
 
+-- Finally, add BMI observations for all encounters that also have height & weight observations
+CREATE TEMP TABLE tmp_bh_observation
+(
+	ad_client_id      numeric(10)             NOT NULL,
+	ad_field_id       numeric(10)             NOT NULL,
+	ad_org_id         numeric(10)             NOT NULL,
+	bh_encounter_id   numeric(10)             NOT NULL,
+	bh_observation_id serial                  NOT NULL,
+	bh_observation_uu uuid        DEFAULT uuid_generate_v4(),
+-- 	created           timestamp    DEFAULT NOW()       NOT NULL,
+	createdby         numeric(10) DEFAULT 100 NOT NULL,
+-- 	isactive          char         DEFAULT 'Y'::bpchar NOT NULL,
+-- 	updated           timestamp    DEFAULT NOW()       NOT NULL,
+	updatedby         numeric(10) DEFAULT 100 NOT NULL,
+	bh_value          text                    NOT NULL
+);
+
+SELECT
+	SETVAL('tmp_bh_observation_bh_observation_id_seq', (
+		SELECT
+			currentnext
+		FROM
+			ad_sequence
+		WHERE
+			name = 'BH_Observation'
+		LIMIT 1
+	)::INT, FALSE);
+
+INSERT INTO
+	tmp_bh_observation (ad_client_id, ad_field_id, ad_org_id, bh_encounter_id, bh_value)
+SELECT
+	height.ad_client_id,
+	(
+		SELECT ad_field_id FROM ad_field WHERE ad_field_uu = '70b5bfa1-9c75-4fea-bf7e-076f4f4163fb'
+	),
+	height.ad_org_id,
+	height.bh_encounter_id,
+	ROUND(
+				weight.bh_value::numeric / height.bh_value::numeric / height.bh_value::numeric * 10000, 2)::varchar
+FROM
+	bh_observation height
+		JOIN bh_observation weight
+		ON height.bh_encounter_id = weight.bh_encounter_id AND weight.ad_field_id = (
+		SELECT ad_field_id FROM ad_field WHERE ad_field_uu = 'e0f68d60-0610-4caa-9dc3-b0143101ccd3'
+	)
+WHERE
+		height.ad_field_id = (
+		SELECT ad_field_id FROM ad_field WHERE ad_field_uu = '2842fb94-b841-4973-903e-89c7f24455b2'
+	);
+
+-- Insert the real observations
+INSERT INTO
+	bh_observation (AD_Client_ID, AD_Field_ID, AD_Org_ID, BH_Encounter_ID, BH_Observation_ID, BH_Observation_UU,
+	                CreatedBy, UpdatedBy, BH_Value)
+SELECT
+	AD_Client_ID,
+	AD_Field_ID,
+	AD_Org_ID,
+	BH_Encounter_ID,
+	BH_Observation_ID,
+	BH_Observation_UU,
+	CreatedBy,
+	UpdatedBy,
+	BH_Value
+FROM
+	tmp_bh_observation;
+
 SELECT
 	update_sequences();
 
