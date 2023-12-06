@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -63,6 +64,18 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 	}
 
 	public Order saveEntity(Order entity, boolean deleteOldOrderLines) {
+		return transformData(Collections.singletonList(
+				getEntityByUuidFromDB(saveOnlyWithoutChildDataFetch(entity, deleteOldOrderLines).getUuid()))).get(0);
+	}
+
+	/**
+	 * This method is implemented to speed up processing by avoiding an unnecessary data fetch.
+	 * TODO: Remove this when we have GraphQL
+	 *
+	 * @param entity The order to save
+	 * @return A somewhat updated order (has the new UUID & ID on it for other use)
+	 */
+	public Order saveOnlyWithoutChildDataFetch(Order entity, boolean deleteOldOrderLines) {
 		try {
 			MDocType_BH documentTypeTarget;
 			if (entity.getDocumentTypeTarget() == null ||
@@ -122,7 +135,13 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 				mOrder.setBPartner(businessPartner);
 			}
 
+			// We're going to log to try and see how long things take to try and identify the cause of deadlocks
+			String randomUuid = UUID.randomUUID().toString();
+			long startTime = System.currentTimeMillis();
+			logger.info("OrderInternal_" + randomUuid + " before save");
 			mOrder.saveEx();
+			logger.info(
+					"OrderInternal_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - startTime));
 
 			// list of persisted order line ids
 			String lineIds = "";
@@ -149,7 +168,7 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 								attributeSetInstancesByUuid.get(orderLine.getAttributeSetInstance().getUuid()).get_ID());
 					}
 
-					OrderLine response = orderLineDBService.saveEntity(orderLine);
+					OrderLine response = orderLineDBService.saveOnlyWithoutChildDataFetch(orderLine);
 					lineIds += "'" + response.getUuid() + "'";
 					if (++count < orderLines.size()) {
 						lineIds += ",";
@@ -162,10 +181,8 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 				orderLineDBService.deleteOrderLinesByOrder(mOrder.get_ID(), lineIds);
 			}
 
-			return transformData(Collections.singletonList(getEntityByUuidFromDB(mOrder.getC_Order_UU()))).get(0);
-
+			return new Order(mOrder);
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			log.severe(ex.getMessage());
 
 			throw new AdempiereException(ex.getLocalizedMessage());
