@@ -4,6 +4,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT DB"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -255,16 +256,16 @@ GROUP BY pd.Date, pd.FileNo, pd.Patient, pd.ServedBy, v.documentno;]]>
 				<textFieldExpression><![CDATA["Date:"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="60" y="67" width="141" height="17" uuid="c6cfefdc-3a09-425c-b291-835d5a75e7f3"/>
+				<reportElement positionType="FixRelativeToBottom" x="60" y="67" width="141" height="16" uuid="c6cfefdc-3a09-425c-b291-835d5a75e7f3"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-YYYY hh:mm").format($F{date})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" x="60" y="100" width="141" height="17" uuid="6bb9a355-3494-46d6-92fb-55a5dee11cc7"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fileno}]]></textFieldExpression>
 			</textField>
@@ -287,14 +288,14 @@ GROUP BY pd.Date, pd.FileNo, pd.Patient, pd.ServedBy, v.documentno;]]>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" x="60" y="117" width="141" height="17" uuid="2028b392-a23a-4ac5-8d64-f29488103c42"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{patient}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" x="60" y="134" width="141" height="16" uuid="2ecbd556-7a2d-4fda-9cbb-313c2d923e41"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{servedby}]]></textFieldExpression>
 			</textField>
@@ -309,7 +310,7 @@ GROUP BY pd.Date, pd.FileNo, pd.Patient, pd.ServedBy, v.documentno;]]>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" x="60" y="150" width="141" height="16" uuid="7ab0cba5-f3be-4315-b3a2-fac72cf57dac"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{paymenttype}]]></textFieldExpression>
 			</textField>
@@ -324,7 +325,7 @@ GROUP BY pd.Date, pd.FileNo, pd.Patient, pd.ServedBy, v.documentno;]]>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" x="60" y="83" width="141" height="17" uuid="7415e059-f1ff-4785-b11b-6bd444be3a1f"/>
 				<textElement>
-					<font fontName="Arial" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{invoice_id}]]></textFieldExpression>
 			</textField>
@@ -400,7 +401,7 @@ GROUP BY pd.Date, pd.FileNo, pd.Patient, pd.ServedBy, v.documentno;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField>
+							<textField pattern="#,##0">
 								<reportElement x="0" y="0" width="57" height="15" uuid="1b080468-3c74-4a87-ba7d-7742b28ff72e"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
@@ -425,7 +426,7 @@ GROUP BY pd.Date, pd.FileNo, pd.Patient, pd.ServedBy, v.documentno;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField>
+							<textField pattern="#,##0">
 								<reportElement x="0" y="0" width="55" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
@@ -449,7 +450,7 @@ GROUP BY pd.Date, pd.FileNo, pd.Patient, pd.ServedBy, v.documentno;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField>
+							<textField pattern="#,##0">
 								<reportElement x="0" y="0" width="68" height="15" uuid="afa3425e-0418-4a7e-90cd-eb27491a256b"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
@@ -483,7 +484,7 @@ GROUP BY pd.Date, pd.FileNo, pd.Patient, pd.ServedBy, v.documentno;]]>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Invoice Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Invoice Generated at " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Master">
 				<reportElement x="258" y="1" width="121" height="20" uuid="03c55b05-88e6-4659-8967-cf404c94249a"/>

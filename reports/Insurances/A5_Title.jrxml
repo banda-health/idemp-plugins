@@ -12,6 +12,7 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<parameter name="BH_Visit_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
@@ -70,7 +71,9 @@ WHERE
 				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
 			</textField>
 			<image scaleImage="FillFrame" onErrorType="Blank">
-				<reportElement mode="Transparent" x="9" y="5" width="100" height="56" uuid="bc227f3b-fe3c-41e4-a1cf-1d87a72499f4"/>
+				<reportElement mode="Transparent" x="9" y="5" width="100" height="56" uuid="bc227f3b-fe3c-41e4-a1cf-1d87a72499f4">
+					<printWhenExpression><![CDATA[$F{image} != null]]></printWhenExpression>
+				</reportElement>
 				<imageExpression><![CDATA[$F{image}]]></imageExpression>
 			</image>
 		</band>
