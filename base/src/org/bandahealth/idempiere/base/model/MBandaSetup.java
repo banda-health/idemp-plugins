@@ -393,7 +393,7 @@ public class MBandaSetup {
 			}
 
 			// Get the account associated with this charge
-			// PO.setCrossTenantSafe();
+			 PO.setCrossTenantSafe();
 			X_C_Charge_Acct defaultChargeChargeAccount =
 					new Query(this.context, X_C_Charge_Acct.Table_Name, X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?",
 							this.getTransactionName()).setParameters(defaultCharge.getC_Charge_ID()).first();
@@ -402,7 +402,7 @@ public class MBandaSetup {
 			MAccount chargeExpenseAccount = getOrCreateValidCombination(
 					elementValuesMap.get(defaultChargeChargeAccount.getCh_Expense_A().getAccount_ID())
 							.getValue());
-			// PO.clearCrossTenantSafe();
+			 PO.clearCrossTenantSafe();
 
 			if (chargeExpenseAccount == null) {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
@@ -1475,7 +1475,7 @@ public class MBandaSetup {
 				defaultThenClientStandardBusinessPartnerGroups.get(1));
 
 		// While the accounting is automatically created for the new BP Groups, some accounts may need to be updated
-		// PO.setCrossTenantSafe();
+		 PO.setCrossTenantSafe();
 
 		List<Object> parameters = new ArrayList<>();
 		String businessPartnerGroupIdWhereClause =
@@ -1629,7 +1629,7 @@ public class MBandaSetup {
 			clientBusinessPartnerGroupAccount.saveEx();
 		}
 
-		// PO.clearCrossTenantSafe();
+		 PO.clearCrossTenantSafe();
 
 		return clientBusinessPartnerGroupByDefaultBusinessPartnerGroupId;
 	}

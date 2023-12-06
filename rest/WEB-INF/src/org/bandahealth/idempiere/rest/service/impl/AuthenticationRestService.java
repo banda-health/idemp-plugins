@@ -137,7 +137,7 @@ public class AuthenticationRestService {
 	@Path(IRestConfigs.CHANGEACCESS_PATH)
 	public AuthResponse changeAccess(Authentication credentials) {
 		try {
-			MUser user = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
+			MUser user = MUser.get(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()));
 			if (user == null) {
 				return new AuthResponse(Status.UNAUTHORIZED);
 			}
