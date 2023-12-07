@@ -1,10 +1,9 @@
 package org.bandahealth.idempiere.rest.model;
 
-import org.compiere.model.MField;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.bandahealth.idempiere.base.model.MField_BH;
 
 @JsonInclude(value = Include.NON_NULL)
 public class Field extends BaseEntity {
@@ -20,11 +19,12 @@ public class Field extends BaseEntity {
 	private FieldGroup fieldGroup;
 	private int sequenceNumber;
 	private Column column;
+	private String abbreviation;
 
 	public Field() {
 	}
 
-	public Field(MField entity) {
+	public Field(MField_BH entity) {
 		super(entity, entity.getName(), entity.getDescription(), null);
 
 		this.defaultValue = entity.getDefaultValue();
@@ -32,6 +32,7 @@ public class Field extends BaseEntity {
 		this.placeholder = entity.getPlaceholder();
 		this.sequenceNumber = entity.getSeqNo();
 		this.tabId = entity.get_Table_ID();
+		setAbbreviation(entity.getBH_Abbreviation());
 	}
 
 	public Reference getReference() {
@@ -96,5 +97,13 @@ public class Field extends BaseEntity {
 
 	public void setColumn(Column column) {
 		this.column = column;
+	}
+
+	public String getAbbreviation() {
+		return abbreviation;
+	}
+
+	public void setAbbreviation(String abbreviation) {
+		this.abbreviation = abbreviation;
 	}
 }

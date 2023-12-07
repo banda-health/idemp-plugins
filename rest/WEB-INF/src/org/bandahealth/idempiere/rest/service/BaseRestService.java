@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 /**
  * This is the base class for a rest service to extend from. Each child class should implement a {@link Path}
@@ -82,8 +83,13 @@ public abstract class BaseRestService<RestModel extends BaseMetadata, iDempiereM
 
 	@DELETE
 	@Path("/{uuid}")
-	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
+	public Boolean deleteByUuid(@PathParam("uuid") String uuid) {
 		return getDBService().deleteEntity(uuid);
+	}
+	
+	@DELETE
+	public Boolean delete(@QueryParam("uuids") List<String> uuids) {
+		return getDBService().delete(uuids);
 	}
 
 	/**

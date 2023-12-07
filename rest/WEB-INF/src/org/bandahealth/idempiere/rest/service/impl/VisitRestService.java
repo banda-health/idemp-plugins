@@ -48,7 +48,7 @@ public class VisitRestService extends BaseRestService<Visit, MBHVisit, VisitDBSe
 
 	@DELETE
 	@Path(IRestConfigs.UUID_PATH)
-	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
+	public Boolean deleteByUuid(@PathParam("uuid") String uuid) {
 		return dbService.deleteEntity(uuid);
 	}
 
