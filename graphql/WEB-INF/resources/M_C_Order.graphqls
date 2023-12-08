@@ -1,6 +1,6 @@
 extend type Mutation {
-	C_OrderSaveAndProcess(entity: BH_VisitInput!, documentAction: String): BH_Visit
-	C_OrderProcess(uuid: String!, documentAction: String): BH_Visit
+	C_OrderSaveAndProcess(entity: C_OrderInput!, documentAction: String): C_Order
+	C_OrderProcess(uuid: String!, documentAction: String): C_Order
 }
 
 extend type C_Order {

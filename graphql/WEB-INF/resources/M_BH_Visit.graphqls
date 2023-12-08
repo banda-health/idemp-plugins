@@ -1,19 +1,20 @@
 extend type Mutation {
+	BH_VisitSaveAndProcess(uuid: String!): BH_Visit
 	BH_VisitProcess(uuid: String!): BH_Visit
 }
 
 extend type BH_Visit {
-	BH_Encounter: [BH_Encounter!]!
-	C_Invoice: [C_Invoice!]!
-	C_Order: [C_Order!]!
-	C_Payment: [C_Payment!]!
-	M_InOut: [M_InOut!]!
+	BH_Encounters: [BH_Encounter!]!
+	C_Invoices: [C_Invoice!]!
+	C_Orders: [C_Order!]!
+	C_Payments: [C_Payment!]!
+	M_InOuts: [M_InOut!]!
 }
 
 extend input BH_VisitInput {
-	BH_Encounter: [BH_EncounterInput!]
-	C_Invoice: [C_InvoiceInput!]
-	C_Order: [C_OrderInput!]
-	C_Payment: [C_PaymentInput!]
-	M_InOut: [M_InOutInput!]
+	BH_Encounters: [BH_EncounterInput!]
+	C_Invoices: [C_InvoiceInput!]
+	C_Orders: [C_OrderInput!]
+	C_Payments: [C_PaymentInput!]
+	M_InOuts: [M_InOutInput!]
 }

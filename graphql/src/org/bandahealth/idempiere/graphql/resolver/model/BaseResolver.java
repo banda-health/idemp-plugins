@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.ClientDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.OrganizationDataLoader;
@@ -26,10 +27,23 @@ public class BaseResolver<T extends PO> {
 	 * @param environment The GraphQL environment object
 	 * @return A completable future of the client
 	 */
-	public CompletableFuture<MClient> client(T entity, DataFetchingEnvironment environment) {
-		final DataLoader<Integer, MClient> clientDa =
+	public CompletableFuture<MClient_BH> client(T entity, DataFetchingEnvironment environment) {
+		final DataLoader<Integer, MClient_BH> clientDataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(ClientDataLoader.CLIENT_BY_ID_DATA_LOADER);
-		return clientDa.load(entity.getAD_Client_ID());
+		return clientDataLoader.load(entity.getAD_Client_ID());
+	}
+
+	/**
+	 * Return the client entity for this object leveraging the client data loader
+	 *
+	 * @param entity      The entity to fetch data for
+	 * @param environment The GraphQL environment object
+	 * @return A completable future of the client
+	 */
+	public CompletableFuture<MClient_BH> AD_Client(T entity, DataFetchingEnvironment environment) {
+		final DataLoader<Integer, MClient_BH> clientDataloader =
+				environment.getDataLoaderRegistry().getDataLoader(ClientDataLoader.CLIENT_BY_ID_DATA_LOADER);
+		return clientDataloader.load(entity.getAD_Client_ID());
 	}
 
 	/**
@@ -43,6 +57,26 @@ public class BaseResolver<T extends PO> {
 	}
 
 	/**
+	 * By default, map UUIDs to the ID field
+	 *
+	 * @param entity The entity to fetch data for
+	 * @return An external ID for consumers
+	 */
+	public String ID(T entity) {
+		return (String) entity.get_Value(entity.getUUIDColumnName());
+	}
+
+	/**
+	 * Return whether the entity is active or not
+	 *
+	 * @param entity The entity to fetch data for
+	 * @return Whether the entity is active
+	 */
+	public Boolean IsActive(T entity) {
+		return entity.isActive();
+	}
+
+	/**
 	 * Return the organization entity for this object leveraging the organization data loader
 	 *
 	 * @param entity      The entity to fetch data for
@@ -50,6 +84,19 @@ public class BaseResolver<T extends PO> {
 	 * @return A completable future of the organization
 	 */
 	public CompletableFuture<MOrg> organization(T entity, DataFetchingEnvironment environment) {
+		final DataLoader<Integer, MOrg> organizationDataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(OrganizationDataLoader.ORGANIZATION_BY_ID_DATA_LOADER);
+		return organizationDataLoader.load(entity.getAD_Org_ID());
+	}
+
+	/**
+	 * Return the organization entity for this object leveraging the organization data loader
+	 *
+	 * @param entity      The entity to fetch data for
+	 * @param environment The GraphQL environment object
+	 * @return A completable future of the organization
+	 */
+	public CompletableFuture<MOrg> AD_Org(T entity, DataFetchingEnvironment environment) {
 		final DataLoader<Integer, MOrg> organizationDataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(OrganizationDataLoader.ORGANIZATION_BY_ID_DATA_LOADER);
 		return organizationDataLoader.load(entity.getAD_Org_ID());
@@ -69,6 +116,19 @@ public class BaseResolver<T extends PO> {
 	}
 
 	/**
+	 * Return the user entity for this object of who created this entity, leveraging the user data loader
+	 *
+	 * @param entity      The entity to fetch data for
+	 * @param environment The GraphQL environment object
+	 * @return A completable future of the user who created the entity
+	 */
+	public CompletableFuture<MUser_BH> CreatedBy(T entity, DataFetchingEnvironment environment) {
+		final DataLoader<Integer, MUser_BH> userDataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(UserDataLoader.USER_BY_ID_DATA_LOADER);
+		return userDataLoader.load(entity.getCreatedBy());
+	}
+
+	/**
 	 * Return the user entity for this object of who last updated this entity, leveraging the user data loader
 	 *
 	 * @param entity      The entity to fetch data for
@@ -76,6 +136,19 @@ public class BaseResolver<T extends PO> {
 	 * @return A completable future of the user last updated the entity
 	 */
 	public CompletableFuture<MUser_BH> updatedBy(T entity, DataFetchingEnvironment environment) {
+		final DataLoader<Integer, MUser_BH> userDataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(UserDataLoader.USER_BY_ID_DATA_LOADER);
+		return userDataLoader.load(entity.getUpdatedBy());
+	}
+
+	/**
+	 * Return the user entity for this object of who last updated this entity, leveraging the user data loader
+	 *
+	 * @param entity      The entity to fetch data for
+	 * @param environment The GraphQL environment object
+	 * @return A completable future of the user last updated the entity
+	 */
+	public CompletableFuture<MUser_BH> UpdatedBy(T entity, DataFetchingEnvironment environment) {
 		final DataLoader<Integer, MUser_BH> userDataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(UserDataLoader.USER_BY_ID_DATA_LOADER);
 		return userDataLoader.load(entity.getUpdatedBy());

@@ -2,9 +2,13 @@ package org.bandahealth.idempiere.graphql.utils;
 
 import org.bandahealth.idempiere.graphql.function.VoidFunction;
 import org.compiere.model.PO;
+import org.compiere.util.DB;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 
 /**
  * A utility class to work with iDempiere models
@@ -78,5 +82,31 @@ public class ModelUtil {
 	 */
 	public static String getModelFromKey(String key) {
 		return key.split("\\" + keyDelimiter)[0];
+	}
+
+	public static int getEntityIDFromUuid(String tableName, String uuid) {
+		int entityId = 0;
+		if (StringUtil.isNullOrEmpty(uuid)) {
+			return entityId;
+		}
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			preparedStatement =
+					DB.prepareStatement("SELECT " + tableName + "_ID FROM " + tableName + " WHERE " + tableName + "_UU=?", null);
+			DB.setParameters(preparedStatement, Collections.singletonList(uuid));
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				entityId = resultSet.getInt(1);
+			}
+		} catch (SQLException e) {
+//			log.log(Level.SEVERE, sql, e);
+//			throw new DBException(e, sql);
+		} finally {
+			DB.close(resultSet, preparedStatement);
+			resultSet = null;
+			preparedStatement = null;
+		}
+		return entityId;
 	}
 }

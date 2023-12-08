@@ -13,6 +13,7 @@ public class BandaScalarComposer {
 	 */
 	public static void addAll(SchemaParserBuilder builder) {
 		builder.scalars(
+				DateScalar.Date,
 				ObjectScalar.Object
 		);
 	}

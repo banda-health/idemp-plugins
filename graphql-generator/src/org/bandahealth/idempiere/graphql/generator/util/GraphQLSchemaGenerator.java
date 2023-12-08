@@ -175,7 +175,7 @@ public class GraphQLSchemaGenerator {
 				boolean IsKey = "Y".equals(resultSet.getString(17));
 				boolean IsIdentifier = "Y".equals(resultSet.getString(18));
 				//
-				createColumnMethods(generatedColumns, columnName, isUpdatable, isMandatory,
+				createFields(generatedColumns, columnName, isUpdatable, isMandatory,
 						displayType, AD_Reference_Value_ID, fieldLength, defaultValue, ValueMin, ValueMax, VFormat, Callout, Name,
 						Description, virtualColumn, IsEncrypted, IsKey, AD_Table_ID);
 				//
@@ -196,11 +196,19 @@ public class GraphQLSchemaGenerator {
 			resultSet = null;
 			preparedStatement = null;
 		}
+		MTable translationTable;
+		if ((translationTable = MTable.get(Env.getCtx(), MTable.get(Env.getCtx(), AD_Table_ID).getTableName() + "_Trl")) !=
+				null && translationTable.get_ID() > 0) {
+			generatedColumns.regularModel.append("\t").append(translationTable.getTableName()).append(": [")
+					.append(translationTable.getTableName()).append("!]!\n");
+			generatedColumns.inputModel.append("\t").append(translationTable.getTableName()).append(": [")
+					.append(translationTable.getTableName()).append("Input!]\n");
+		}
 		return generatedColumns;
 	}
 
 	/**
-	 * Create set/get methods for column
+	 * Create the definitions for the schema fields
 	 *
 	 * @param generatedColumns class to hold generated columns
 	 * @param columnName       column name
@@ -220,7 +228,7 @@ public class GraphQLSchemaGenerator {
 	 * @param IsEncrypted      stored encrypted
 	 * @return set/get method
 	 */
-	private void createColumnMethods(GeneratedColumns generatedColumns, String columnName, boolean isUpdateable,
+	private void createFields(GeneratedColumns generatedColumns, String columnName, boolean isUpdateable,
 			boolean isMandatory, int displayType, int AD_Reference_ID, int fieldLength, String defaultValue, String ValueMin,
 			String ValueMax, String VFormat, String Callout, String Name, String Description, boolean virtualColumn,
 			boolean IsEncrypted, boolean IsKey, int AD_Table_ID) {
@@ -318,7 +326,7 @@ public class GraphQLSchemaGenerator {
 			if (!shouldSkipInputField) {
 				generatedColumns.inputModel.append("Date");
 			}
-		}  else if (clazz.equals(byte[].class)) {
+		} else if (clazz.equals(byte[].class)) {
 			generatedColumns.regularModel.append("String");
 			if (!shouldSkipInputField) {
 				generatedColumns.inputModel.append("String");
@@ -393,16 +401,16 @@ public class GraphQLSchemaGenerator {
 				//	before & after
 				else if (c == '{') {
 					fw.write(c);
-				} else
+				} else {
 					fw.write(c);
+				}
 			}
 			fw.flush();
 			fw.close();
 			float size = out.length();
 			size /= 1024;
-			StringBuilder msgout = new StringBuilder().append(out.getAbsolutePath()).append(" - ").append(size).append(" " +
-					"kB");
-			System.out.println(msgout.toString());
+			String msgout = out.getAbsolutePath() + " - " + size + " " + "kB";
+			System.out.println(msgout);
 		} catch (Exception ex) {
 			log.log(Level.SEVERE, fileName, ex);
 			throw new RuntimeException(ex);
@@ -424,8 +432,8 @@ public class GraphQLSchemaGenerator {
 	 * @param tableName
 	 * @param columnEntityType
 	 */
-	public static void generateSource(String sourceFolder, String entityType, String tableName,
-			String columnEntityType) {
+	public static void generateSource(String entityType, String tableName, String columnEntityType,
+			String sourceFolder) {
 		if (sourceFolder == null || sourceFolder.trim().isEmpty()) {
 			throw new IllegalArgumentException("Must specify source folder");
 		}
@@ -451,10 +459,12 @@ public class GraphQLSchemaGenerator {
 			int i = 0;
 			while (tokenizer.hasMoreTokens()) {
 				StringBuilder token = new StringBuilder().append(tokenizer.nextToken().trim());
-				if (!token.toString().startsWith("'") || !token.toString().endsWith("'"))
+				if (!token.toString().startsWith("'") || !token.toString().endsWith("'")) {
 					token = new StringBuilder("'").append(token).append("'");
-				if (i > 0)
+				}
+				if (i > 0) {
 					entityTypeFilter.append(",");
+				}
 				entityTypeFilter.append(token);
 				i++;
 			}
@@ -488,7 +498,7 @@ public class GraphQLSchemaGenerator {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT AD_Table_ID ")
 				.append("FROM AD_Table ")
-				.append("WHERE IsActive = 'Y' AND TableName NOT LIKE '%_Trl' ");
+				.append("WHERE IsActive = 'Y' ");
 		// Autodetect if we need to use IN or LIKE clause - teo_sarca [ 3020640 ]
 		if (tableLike.indexOf(",") == -1) {
 			sql.append(" AND TableName LIKE ").append(tableLike);

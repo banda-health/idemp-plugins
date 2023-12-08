@@ -1,0 +1,62 @@
+# Generated Schema for AD_Ref_List_Trl - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_Ref_List_TrlGet(page: Int, size: Int, sort: String, filter: String): AD_Ref_List_TrlConnection!
+}
+
+extend type Mutation {
+	AD_Ref_List_TrlSave(entity: AD_Ref_List_TrlInput!): AD_Ref_List_Trl!
+	AD_Ref_List_TrlDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_Ref_List_TrlConnection {
+	results: [AD_Ref_List_Trl!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_Ref_List_Trl {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Language for this entity
+	AD_Language: AD_Language!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Reference List based on Table
+	AD_Ref_List: AD_Ref_List!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# This column is translated
+	IsTranslated: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Ref_List_TrlInput {
+	# Language for this entity
+	AD_Language: AD_LanguageInput
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# Reference List based on Table
+	AD_Ref_List: AD_Ref_ListInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This column is translated
+	IsTranslated: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

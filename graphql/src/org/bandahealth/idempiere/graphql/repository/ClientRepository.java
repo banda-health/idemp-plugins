@@ -1,18 +1,19 @@
 package org.bandahealth.idempiere.graphql.repository;
 
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.compiere.model.MClient;
 
 import java.util.Properties;
 
-public class ClientRepository extends BaseRepository<MClient, MClient> {
+public class ClientRepository extends BaseRepository<MClient_BH, MClient_BH> {
 
 	@Override
-	protected MClient createModelInstance(Properties idempiereContext) {
-		return new MClient(idempiereContext, 0, null);
+	protected MClient_BH createModelInstance(Properties idempiereContext) {
+		return new MClient_BH(idempiereContext, 0, null);
 	}
 
 	@Override
-	public MClient mapInputModelToModel(MClient entity, Properties idempiereContext) {
+	public MClient_BH mapInputModelToModel(MClient_BH entity, Properties idempiereContext) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 

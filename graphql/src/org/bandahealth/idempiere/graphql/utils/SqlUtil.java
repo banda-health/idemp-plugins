@@ -1,5 +1,9 @@
 package org.bandahealth.idempiere.graphql.utils;
 
+import org.adempiere.exceptions.DBException;
+import org.compiere.util.CLogger;
+import org.compiere.util.DB;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,14 +14,11 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-import org.adempiere.exceptions.DBException;
-import org.compiere.util.CLogger;
-import org.compiere.util.DB;
-
 /**
  * Abstract common sql functionality
  */
 public class SqlUtil {
+	public static final String IDEMPIERE_POSTGRESQL_NATIVE_MARKER = "NATIVE_PostgreSQL_KEYWORK";
 	private static CLogger log = CLogger.getCLogger(SqlUtil.class);
 
 	public static Map<Integer, Integer> getGroupedCount(String tableName, String whereClause, List<Object> parameters,
