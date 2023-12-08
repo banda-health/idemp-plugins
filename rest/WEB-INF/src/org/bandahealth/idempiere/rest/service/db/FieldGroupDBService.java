@@ -1,13 +1,13 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.bandahealth.idempiere.base.model.MFieldGroup;
+import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.FieldGroup;
 import org.compiere.util.Env;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FieldGroupDBService extends BaseDBService<FieldGroup, MFieldGroup> {
+public class FieldGroupDBService extends BaseDBService<FieldGroup, MFieldGroup_BH> {
 
 	@Override
 	public FieldGroup saveEntity(FieldGroup entity) {
@@ -20,18 +20,18 @@ public class FieldGroupDBService extends BaseDBService<FieldGroup, MFieldGroup> 
 	}
 
 	@Override
-	protected FieldGroup createInstanceWithDefaultFields(MFieldGroup instance) {
+	protected FieldGroup createInstanceWithDefaultFields(MFieldGroup_BH instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected FieldGroup createInstanceWithAllFields(MFieldGroup instance) {
+	protected FieldGroup createInstanceWithAllFields(MFieldGroup_BH instance) {
 		return new FieldGroup(instance);
 	}
 
 	@Override
-	protected MFieldGroup getModelInstance() {
-		return new MFieldGroup(Env.getCtx(), 0, null);
+	protected MFieldGroup_BH getModelInstance() {
+		return new MFieldGroup_BH(Env.getCtx(), 0, null);
 	}
 
 	@Override

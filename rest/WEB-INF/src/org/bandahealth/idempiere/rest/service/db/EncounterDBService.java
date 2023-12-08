@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.rest.model.Observation;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRefList;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Component;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -83,7 +85,7 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 		return new Encounter(encounter);
 	}
-
+	
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
 		MBHEncounter entity = getEntityByUuidFromDB(entityUuid);
@@ -179,5 +181,35 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 			return result;
 		}).collect(Collectors.toList());
+	}
+	
+	@Override
+	public Boolean delete(List<String> uuids) {
+		Map<String, MBHEncounter> encounters = getByUuids(new HashSet<>(uuids));
+		if (encounters.isEmpty()) {
+			return true;
+		}
+
+		Set<Integer> encounterIds = encounters.values().stream().map(MBHEncounter::getBH_Encounter_ID)
+				.collect(Collectors.toSet());
+
+		// retrieve and delete list of observations
+		Map<Integer, List<MBHObservation>> observations = observationDBService.getGroupsByIds(
+				MBHObservation::getBH_Encounter_ID, MBHObservation.COLUMNNAME_BH_Encounter_ID, encounterIds);
+
+		observations.values().stream().flatMap(List::stream).collect(Collectors.toList()).stream()
+				.forEach(observation -> observation.deleteEx(true));
+
+		// retrieve and delete list of encounter diagnoses
+		Map<Integer, List<MBHEncounterDiagnosis>> encounterDiagnoses = encounterDiagnosisDBService.getGroupsByIds(
+				MBHEncounterDiagnosis::getBH_Encounter_ID, MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_ID,
+				encounterIds);
+
+		encounterDiagnoses.values().stream().flatMap(List::stream).collect(Collectors.toList()).stream()
+				.forEach(encounterDiagnosis -> encounterDiagnosis.deleteEx(true));
+
+		encounters.values().stream().forEach(encounter -> encounter.deleteEx(true));
+
+		return true;
 	}
 }
