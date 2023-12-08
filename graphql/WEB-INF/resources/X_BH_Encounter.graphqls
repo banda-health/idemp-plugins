@@ -1,0 +1,24 @@
+# Generated Schema for BH_Encounter - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+#extend type Query {
+#	BH_EncounterGet(page: Int, size: Int, sort: String, filter: String): BH_EncounterConnection!
+#}
+
+extend type Mutation {
+	BH_EncounterSave(entity: BH_EncounterInput!): BH_Encounter!
+	BH_EncounterDelete(uuids: [String!]!): Boolean!
+}
+
+#type BH_EncounterConnection {
+#	results: [BH_Encounter!]!
+#	pagingInfo: PagingInfo!
+#}
+
+type BH_Encounter {
+	ID: ID!
+}
+
+input BH_EncounterInput {
+	ID: ID
+}

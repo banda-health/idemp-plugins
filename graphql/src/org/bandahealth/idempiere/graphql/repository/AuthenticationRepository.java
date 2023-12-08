@@ -5,10 +5,11 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
+import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.bandahealth.idempiere.graphql.model.input.AuthenticationData;
 import org.bandahealth.idempiere.graphql.model.AuthenticationResponse;
+import org.bandahealth.idempiere.graphql.model.input.AuthenticationData;
 import org.bandahealth.idempiere.graphql.utils.LoginClaims;
 import org.bandahealth.idempiere.graphql.utils.TokenUtils;
 import org.compiere.model.MClient;
@@ -114,11 +115,13 @@ public class AuthenticationRepository {
 		 * Copied from ChangePasswordPanel > validateChangePassword
 		 */
 		if (org.compiere.util.Util.isEmpty(credentials.getPassword())) {
-			throw new IllegalArgumentException(org.compiere.util.Msg.getMsg(idempiereContext, MMessage_BH.OLD_PASSWORD_MANDATORY));
+			throw new IllegalArgumentException(
+					org.compiere.util.Msg.getMsg(idempiereContext, MMessage_BH.OLD_PASSWORD_MANDATORY));
 		}
 
 		if (Util.isEmpty(credentials.getNewPassword())) {
-			throw new IllegalArgumentException(org.compiere.util.Msg.getMsg(idempiereContext, MMessage_BH.NEW_PASSWORD_MANDATORY));
+			throw new IllegalArgumentException(
+					org.compiere.util.Msg.getMsg(idempiereContext, MMessage_BH.NEW_PASSWORD_MANDATORY));
 		}
 
 		// TODO: Add this back in if we start using these
@@ -130,7 +133,8 @@ public class AuthenticationRepository {
 //			throw new IllegalArgumentException(Msg.getMsg(context, MADMessage_BH.ANSWER_MANDATORY));
 //		}
 
-		if (org.compiere.model.MSysConfig.getBooleanValue(org.compiere.model.MSysConfig.CHANGE_PASSWORD_MUST_DIFFER, true)) {
+		if (org.compiere.model.MSysConfig.getBooleanValue(org.compiere.model.MSysConfig.CHANGE_PASSWORD_MUST_DIFFER,
+				true)) {
 			if (credentials.getPassword().equals(credentials.getNewPassword())) {
 				throw new IllegalArgumentException(Msg.getMsg(idempiereContext, MMessage_BH.NEW_PASSWORD_MUST_DIFFER));
 			}
@@ -141,12 +145,14 @@ public class AuthenticationRepository {
 	}
 
 	/**
-	 * Handle everything related to updating a user's password. Largely copied from ChangePasswordPanel > validateChangePassword
+	 * Handle everything related to updating a user's password. Largely copied from ChangePasswordPanel >
+	 * validateChangePassword
 	 *
 	 * @param credentials
 	 * @param clients
 	 */
-	private void updateUsersPassword(AuthenticationData credentials, KeyNamePair[] clients, Properties idempiereContext) {
+	private void updateUsersPassword(AuthenticationData credentials, KeyNamePair[] clients,
+			Properties idempiereContext) {
 		Trx trx = null;
 		try {
 			String trxName = Trx.createTrxName(Transaction.ChangePassword.NAME);
@@ -162,7 +168,8 @@ public class AuthenticationRepository {
 					throw new AdempiereException(ERROR_USER_NOT_FOUND);
 				}
 
-				clientUser.set_ValueOfColumn(MUser.COLUMNNAME_Password, credentials.getNewPassword()); // will be hashed and validate on saveEx
+				clientUser.set_ValueOfColumn(MUser.COLUMNNAME_Password,
+						credentials.getNewPassword()); // will be hashed and validate on saveEx
 				clientUser.setIsExpired(false);
 				// TODO: Add this back in if we start using these
 //				clientUser.setSecurityQuestion(credentials.getSecurityQuestion());
@@ -214,7 +221,7 @@ public class AuthenticationRepository {
 			AuthenticationResponse response, Properties idempiereContext) {
 		// set client id
 		if (credentials.getClientId() != null) {
-			MClient client = new Query(idempiereContext, MClient.Table_Name, MClient.COLUMNNAME_AD_Client_UU +
+			MClient_BH client = new Query(idempiereContext, MClient.Table_Name, MClient.COLUMNNAME_AD_Client_UU +
 					"=?", null).setParameters(credentials.getClientId()).first();
 			if (client != null) {
 				response.getClients().add(client);
@@ -264,7 +271,7 @@ public class AuthenticationRepository {
 			AuthenticationResponse response, Properties idempiereContext) {
 		// parse all clients that the user has access to.
 		for (KeyNamePair client : clients) {
-			MClient mClient = new MClient(idempiereContext, client.getKey(), null);
+			MClient_BH mClient = new MClient_BH(idempiereContext, client.getKey(), null);
 
 			// set default client
 			if (clients.length == 1) {

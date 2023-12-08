@@ -1,8 +1,8 @@
 type AuthenticationResponse {
   token: String
   username: String
-  clients: [Client!]!
-  user: User
+  clients: [AD_Client!]!
+  user: AD_User
   roleId: String!
   needsToResetPassword: Boolean!
   securityQuestions: [String!]

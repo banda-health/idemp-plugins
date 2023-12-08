@@ -482,13 +482,13 @@ public abstract class BaseRepository<T extends PO, S extends T> {
 				parameters = new ArrayList<>();
 			}
 
-			String filterWhereClause = FilterUtil.getWhereClauseFromFilter(getModelInstance(idempiereContext), filterJson,
-					parameters);
-			if (StringUtil.isNullOrEmpty(whereClause)) {
-				whereClause = filterWhereClause;
-			} else {
-				whereClause += " AND " + filterWhereClause;
-			}
+//			String filterWhereClause = FilterUtil.getWhereClauseFromFilter(getModelInstance(idempiereContext), filterJson,
+//					parameters);
+//			if (StringUtil.isNullOrEmpty(whereClause)) {
+//				whereClause = filterWhereClause;
+//			} else {
+//				whereClause += " AND " + filterWhereClause;
+//			}
 
 			BandaQuery<T> query = getBaseQuery(idempiereContext, whereClause, parameters);
 
@@ -505,28 +505,28 @@ public abstract class BaseRepository<T extends PO, S extends T> {
 				}
 
 				// Now figure out which tables are needed based on the filter/sort criteria
-				List<String> neededJoinTables = FilterUtil.getTablesNeedingJoins(filterJson);
-				neededJoinTables.addAll(SortUtil.getTablesNeedingJoins(sortJson));
-				neededJoinTables = neededJoinTables.stream().distinct().collect(Collectors.toList());
-				for (String tableNeedingJoin : neededJoinTables) {
-					// If this table was already specified in a JOIN, we don't need to dynamically add it
-					if (currentJoinClause.contains(tableNeedingJoin + ".")) {
-						continue;
-					}
-					// Find the needed JOIN clause
-					boolean foundMatchForTable = false;
-					for (String dynamicTableJoinName : getDynamicJoins(idempiereContext).keySet()) {
-						if (dynamicTableJoinName.equalsIgnoreCase(tableNeedingJoin)) {
-							dynamicJoinClause.append(" ").append(getDynamicJoins(idempiereContext).get(dynamicTableJoinName));
-							foundMatchForTable = true;
-						}
-					}
-					// If no JOIN clause is specified in the dynamic JOIN, we need to let the user know
-					if (!foundMatchForTable) {
-						throw new AdempiereException(tableNeedingJoin
-								+ " was specified in the filter/sort, but no dynamic JOIN clause provided");
-					}
-				}
+//				List<String> neededJoinTables = FilterUtil.getTablesNeedingJoins(filterJson);
+//				neededJoinTables.addAll(SortUtil.getTablesNeedingJoins(sortJson));
+//				neededJoinTables = neededJoinTables.stream().distinct().collect(Collectors.toList());
+//				for (String tableNeedingJoin : neededJoinTables) {
+//					// If this table was already specified in a JOIN, we don't need to dynamically add it
+//					if (currentJoinClause.contains(tableNeedingJoin + ".")) {
+//						continue;
+//					}
+//					// Find the needed JOIN clause
+//					boolean foundMatchForTable = false;
+//					for (String dynamicTableJoinName : getDynamicJoins(idempiereContext).keySet()) {
+//						if (dynamicTableJoinName.equalsIgnoreCase(tableNeedingJoin)) {
+//							dynamicJoinClause.append(" ").append(getDynamicJoins(idempiereContext).get(dynamicTableJoinName));
+//							foundMatchForTable = true;
+//						}
+//					}
+//					// If no JOIN clause is specified in the dynamic JOIN, we need to let the user know
+//					if (!foundMatchForTable) {
+//						throw new AdempiereException(tableNeedingJoin
+//								+ " was specified in the filter/sort, but no dynamic JOIN clause provided");
+//					}
+//				}
 			}
 			if (joinClause != null) {
 				dynamicJoinClause.append(" ").append(joinClause);
@@ -536,10 +536,10 @@ public abstract class BaseRepository<T extends PO, S extends T> {
 				query.addJoinClause(dynamicJoinClause.toString().trim());
 			}
 
-			String orderBy = SortUtil.getOrderByClauseFromSort(getModelInstance(idempiereContext), sortJson);
-			if (orderBy != null) {
-				query = query.setOrderBy(orderBy);
-			}
+//			String orderBy = SortUtil.getOrderByClauseFromSort(getModelInstance(idempiereContext), sortJson);
+//			if (orderBy != null) {
+//				query = query.setOrderBy(orderBy);
+//			}
 
 			// If the paging info wasn't requested in the payload, don't do an extra DB call to get it
 			if (QueryUtil.isTotalCountRequested(environment)) {

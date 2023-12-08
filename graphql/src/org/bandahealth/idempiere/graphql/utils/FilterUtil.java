@@ -1,29 +1,46 @@
 package org.bandahealth.idempiere.graphql.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.compiere.model.MTable;
+import org.compiere.model.POInfo;
+import org.compiere.util.CLogger;
+import org.compiere.util.Env;
 
+import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.compiere.model.PO;
-import org.compiere.util.CLogger;
+enum FilterArrayJoin {
+	AND,
+	OR,
+}
 
-/**
- * The utility to parse and read filter JSON coming from the server and work with it
- */
 public class FilterUtil {
 	public static final String DEFAULT_WHERE_CLAUSE = "(1=1)";
 
 	private static final List<String> LOGICAL_QUERY_SELECTORS = Arrays.asList("$and", "$not", "$or", "$nor");
+	private static final List<String> AGGREGATE_QUERY_SELECTORS = Arrays.asList("$sum", "$count", "$max", "$min");
 	private static final String MALFORMED_FILTER_STRING_ERROR = "Filter criteria doesn't meet the standard form.";
+	/**
+	 * The column names that don't follow the typical pattern of FK mappings ([TABLE_NAME]_ID)
+	 * Note: All keys should be lower-case to avoid case mismatches
+	 */
+	private static final Map<String, String> specialForeignKeyMappings = new HashMap<>() {{
+		put("createdby", "ad_user");
+		put("updatedby", "ad_user");
+		put("bh_from_warehouse", "m_warehouse");
+		put("bh_to_warehouse", "m_warehouse");
+	}};
+	private static final String SPECIFIC_COLUMN_MAPPING_SPECIFIER = "::";
 	protected static CLogger logger = CLogger.getCLogger(FilterUtil.class);
 
 	/**
@@ -32,42 +49,59 @@ public class FilterUtil {
 	 * https://docs.mongodb.com/manual/reference/operator/query/
 	 * <p>
 	 * The expected JSON, which is an expression, has the following structure (each property is optional):
+	 * <pre>
 	 * {
-	 * "$and": [array of expressions],
-	 * "$not": [array of expressions],
-	 * "$or": [array of expressions],
-	 * "$nor": [array of expressions],
-	 * ...any other comparison expression statements
+	 * 	"$and": [array of expressions],
+	 * 	"$not": [array of expressions],
+	 * 	"$or": [array of expressions],
+	 * 	"$nor": [array of expressions],
+	 * 	...any other comparison expression statements
 	 * }
+	 * </pre>
 	 * The comparison expression statements are expected to have the following structure (each property is optional):
+	 * <pre>
 	 * {
-	 * "[database column]": filter value (treated as equality comparison) -or-
-	 * "[database column]": {
-	 * "$eq": equality comparison filter value
-	 * "$neq": inequality comparison filter value
-	 * "$gt": greater than comparison filter value
-	 * "$gte": greater than or equal to comparison filter value
-	 * "$lt": less than comparison filter value
-	 * "$lte": less than or equal to comparison filter value
-	 * "$in": multiple equality comparison filter value
-	 * "$nin": multiple inequality comparison filter value
-	 * "$text": text search filter value
-	 * "$ntext": text exclusion filter value
-	 * "$null": column is null filter value
-	 * "$nnull": column is not null filter value
-	 * "$sw": text search starts with
-	 * "$nsw": text search not starts with
+	 * 	"[table mapped by foreign key]": expression -or-
+	 * 	"[database column]": filter value (treated as equality comparison) -or-
+	 * 	"[database column]": {
+	 * 		"$eq": equality comparison filter value
+	 * 		"$neq": inequality comparison filter value
+	 * 		"$gt": greater than comparison filter value
+	 * 		"$gte": greater than or equal to comparison filter value
+	 * 		"$lt": less than comparison filter value
+	 * 		"$lte": less than or equal to comparison filter value
+	 * 		"$in": multiple equality comparison filter value
+	 * 		"$nin": multiple inequality comparison filter value
+	 * 		"$text": text search filter value
+	 * 		"$ntext": text exclusion filter value
+	 * 		"$null": column is null filter value
+	 * 		"$nnull": column is not null filter value
+	 *  }
 	 * }
+	 * </pre>
+	 * Additionally, tables mapped by foreign keys can also leverage aggregate expression functions:
+	 * <pre>
+	 * {
+	 * 	"$sum([database column])": expression
+	 * 	"$count([database column])": expression
+	 * 	"$max([database column])": expression
+	 * 	"$min([database column])": expression
 	 * }
+	 * </pre>
 	 * NOTE: ID columns (i.e. ones that end in _ID) are not allowed to be filtered and will be skipped
 	 *
-	 * @param dbModel    The iDempiere DB model for determining field types
-	 * @param filterJson The JSON string received for filtering
-	 * @param parameters An array of parameters to add values to
-	 * @param <T>        An iDempiere model extending from PO
+	 * @param tableName           The name of the table to query
+	 * @param filterJson          The JSON string received for filtering
+	 * @param parameters          An array of parameters to add values to
+	 * @param entityConfiguration Entity configuration properties
+	 *                            (can boost performance)
 	 * @return A where clause based off the filter criteria to use in a DB query
 	 */
-	public static <T extends PO> String getWhereClauseFromFilter(T dbModel, String filterJson, List<Object> parameters) {
+	public static String getWhereClauseFromFilter(String tableName, String filterJson, List<Object> parameters,
+			EntityConfiguration entityConfiguration, Properties idempiereProperties) {
+		if (entityConfiguration == null) {
+			throw new AdempiereException("No entity configuration was passed");
+		}
 		if (StringUtil.isNullOrEmpty(filterJson)) {
 			return DEFAULT_WHERE_CLAUSE;
 		}
@@ -76,7 +110,8 @@ public class FilterUtil {
 			Map<String, Object> expression = parseJsonString(filterJson);
 
 			// Starting off, we don't want any negation, and the base filter JSON object is an expression
-			String whereClause = getWhereClauseFromExpression(dbModel, expression, parameters, false);
+			String whereClause = getWhereClauseFromExpression(tableName, expression, parameters, false, entityConfiguration,
+					idempiereProperties);
 			if (whereClause.isEmpty()) {
 				return DEFAULT_WHERE_CLAUSE;
 			}
@@ -95,7 +130,7 @@ public class FilterUtil {
 	 * @throws JsonMappingException
 	 */
 	private static Map<String, Object> parseJsonString(String filterJson) throws JsonMappingException,
-			JsonProcessingException {
+			JsonProcessingException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.readValue(filterJson, HashMap.class);
 	}
@@ -104,15 +139,17 @@ public class FilterUtil {
 	 * This can be called recursively. It handles an expression with logical and comparison query selectors
 	 * and calls the appropriate methods to handle these expressions.
 	 *
-	 * @param dbModel    The iDempiere DB model for determining field types
-	 * @param expression The JSON string received for filtering
-	 * @param parameters An array of parameters to add values to
-	 * @param negate     Whether the logic should be negated
-	 * @param <T>        An iDempiere model extending from PO
+	 * @param tableName           The name of the table to query
+	 * @param expression          The JSON string received for filtering
+	 * @param parameters          An array of parameters to add values to
+	 * @param negate              Whether the logic should be negated
+	 * @param entityConfiguration Entity configuration properties
+	 *                            (can boost performance)
 	 * @return A where clause based off the filter criteria to use in a DB query
 	 */
-	private static <T extends PO> String getWhereClauseFromExpression(
-			T dbModel, Map<String, Object> expression, List<Object> parameters, boolean negate) {
+	private static String getWhereClauseFromExpression(String tableName, Map<String, Object> expression,
+			List<Object> parameters, boolean negate, EntityConfiguration entityConfiguration,
+			Properties idempiereProperties) {
 		StringBuilder whereClause = new StringBuilder("(");
 
 		boolean canPrependSeparator = false;
@@ -128,21 +165,25 @@ public class FilterUtil {
 			switch (logicalQuerySelector) {
 				case "$and":
 					expressionListWhereClause = getWhereClauseFromExpressionList(
-							dbModel, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.AND, negate);
+							tableName, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.AND, negate,
+							entityConfiguration, idempiereProperties);
 					break;
 				case "$not":
 					// $not flips the sign of the negation
 					expressionListWhereClause = getWhereClauseFromExpressionList(
-							dbModel, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.AND, !negate);
+							tableName, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.AND, !negate,
+							entityConfiguration, idempiereProperties);
 					break;
 				case "$or":
 					expressionListWhereClause = getWhereClauseFromExpressionList(
-							dbModel, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.OR, negate);
+							tableName, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.OR, negate,
+							entityConfiguration, idempiereProperties);
 					break;
 				case "$nor":
 					// $nor flips the sign of the negation
 					expressionListWhereClause = getWhereClauseFromExpressionList(
-							dbModel, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.OR, !negate);
+							tableName, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.OR, !negate,
+							entityConfiguration, idempiereProperties);
 					break;
 				default:
 					logger.warning("Unknown array filter property: " + logicalQuerySelector + ", skipping...");
@@ -161,7 +202,8 @@ public class FilterUtil {
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 		if (comparisonQuerySelectors.keySet().size() > 0) {
 			String comparisonsExpressionWhereClause =
-					getWhereClauseFromComparisonQuerySelectors(dbModel, comparisonQuerySelectors, parameters, negate);
+					getWhereClauseFromComparisonQuerySelectors(tableName, comparisonQuerySelectors, parameters, negate,
+							entityConfiguration, idempiereProperties);
 			// Only add this where clause if something was returned from the db column comparisons
 			if (!comparisonsExpressionWhereClause.isEmpty()) {
 				whereClause.append(canPrependSeparator ? separator : "");
@@ -181,16 +223,16 @@ public class FilterUtil {
 	/**
 	 * This creates the appropriate subclauses for the logical query selectors
 	 *
-	 * @param dbModel        The iDempiere DB model for determining field types
+	 * @param tableName      The name of the table to query
 	 * @param expresionsList The array of comparisons to parse
 	 * @param parameters     An array of parameters to add values to
 	 * @param arrayJoin      The type of join to use (i.e. AND/OR)
 	 * @param negate         Whether the logic should be negated
-	 * @param <T>            An iDempiere model extending from PO
 	 * @return A where clause based off the array of comparisons to use in a DB query
 	 */
-	private static <T extends PO> String getWhereClauseFromExpressionList(
-			T dbModel, List<?> expresionsList, List<Object> parameters, FilterArrayJoin arrayJoin, boolean negate) {
+	private static String getWhereClauseFromExpressionList(String tableName, List<?> expresionsList,
+			List<Object> parameters, FilterArrayJoin arrayJoin, boolean negate, EntityConfiguration entityConfiguration,
+			Properties idempiereProperties) {
 		StringBuilder whereClause = new StringBuilder("(");
 		boolean canPrependSeparator = false;
 		String separator;
@@ -204,7 +246,8 @@ public class FilterUtil {
 		// For each of the comparisons, create an appropriate where subclause
 		for (Object expression : expresionsList) {
 			String expressionWhereClause =
-					getWhereClauseFromExpression(dbModel, (Map<String, Object>) expression, parameters, negate);
+					getWhereClauseFromExpression(tableName, (Map<String, Object>) expression, parameters, negate,
+							entityConfiguration, idempiereProperties);
 			if (!expressionWhereClause.isEmpty()) {
 				whereClause.append(canPrependSeparator ? separator : "").append(expressionWhereClause);
 				canPrependSeparator = true;
@@ -221,50 +264,62 @@ public class FilterUtil {
 	/**
 	 * Generate the where clauses from comparison query selectors.
 	 *
-	 * @param dbModel                  The iDempiere DB model for determining field types
+	 * @param tableName                The name of the table to query
 	 * @param comparisonQuerySelectors The comparisons to parse for the DB columns
 	 * @param parameters               An array of parameters to add values to
 	 * @param negate                   Whether the logic should be negated
-	 * @param <T>                      An iDempiere model extending from PO
 	 * @return The where clause generated from the comparisons
 	 */
-	private static <T extends PO> String getWhereClauseFromComparisonQuerySelectors(
-			T dbModel, Map<String, Object> comparisonQuerySelectors, List<Object> parameters, boolean negate) {
+	private static String getWhereClauseFromComparisonQuerySelectors(String tableName,
+			Map<String, Object> comparisonQuerySelectors, List<Object> parameters, boolean negate,
+			EntityConfiguration entityConfiguration, Properties idempiereProperties) {
 		StringBuilder whereClause = new StringBuilder("(");
 		boolean canPrependSeparator = false;
 		String separator = negate ? " OR " : " AND ";
+		// Fetch the DB model (this will be cached by iDempiere
+		POInfo dbModelInfo = null;
+		try {
+			dbModelInfo = getPOInfo(tableName, idempiereProperties);
+		} catch (Exception ignored) {
+		}
 		// The keys of the comparison object are DB column names
 		for (String dbColumnName : comparisonQuerySelectors.keySet()) {
-			// We won't allow filtering of DB IDs
-			if (dbColumnName.toLowerCase().endsWith("_id") || QueryUtil.doesDBStringHaveInvalidCharacters(dbColumnName)) {
-				continue;
-			}
+			boolean isFilteringOnIdColumn = dbColumnName.toLowerCase().endsWith("_id");
 			Object comparisons = comparisonQuerySelectors.get(dbColumnName);
 
+			// If the column doesn't exist on this table as specified (or it does, but it's supposed to be mapped to another
+			// table), we need to follow a different workflow
+			if (dbModelInfo != null && (dbModelInfo.getColumnIndex(dbColumnName) == -1 ||
+					specialForeignKeyMappings.containsKey(dbColumnName.toLowerCase()))) {
+				String subWhereClause =
+						getForeignTableSubQueryWhereClause(tableName, dbModelInfo, dbColumnName,
+								(Map<String, Object>) comparisons, parameters, negate, entityConfiguration, idempiereProperties);
+				if (!subWhereClause.isEmpty()) {
+					whereClause.append(canPrependSeparator ? separator : "").append(subWhereClause);
+					canPrependSeparator = true;
+				}
+				continue;
+			}
+
+			// Try to see if this property should be a date
 			boolean dbColumnIsDateType = false;
-			// If the column already has an alias, we won't check the property on the model (because aliases should only be
-			// supplied when filtering from a joined table)
-			if (!QueryUtil.doesTableAliasExistOnColumn(dbColumnName)) {
-				// Try to see if this property should be a date
-				try {
-					Object columnValue = dbModel.get_Value(dbColumnName);
-					dbColumnIsDateType = columnValue instanceof Timestamp;
-				} catch (Exception ignored) {
-				}
-				// Since no alias exists, scope it to the current model's table, if possible
-				if (dbModel != null) {
-					dbColumnName = dbModel.get_TableName() + "." + dbColumnName;
-				}
+			if (dbModelInfo != null && dbModelInfo.getColumnIndex(dbColumnName) >= 0) {
+				dbColumnIsDateType = dbModelInfo.getColumnClass(dbModelInfo.getColumnIndex(dbColumnName)) == Timestamp.class;
 			}
-			if (!dbColumnIsDateType) {
-				// As a last precaution, check if the name has "date" in it
-				if (dbColumnName.toLowerCase().contains("date")) {
-					dbColumnIsDateType = true;
-				}
+			// As a last precaution, check if the name has "date" in it (and it's not an ID column)
+			else if (dbColumnName.toLowerCase().contains("date") && !isFilteringOnIdColumn) {
+				dbColumnIsDateType = true;
 			}
+
+			// Alias the column name (in case there are any joins outside this clause)
+			dbColumnName = tableName + "." + dbColumnName;
 
 			// If this isn't a hashmap for this property, assume it's an $eq
 			if (!(comparisons instanceof HashMap)) {
+				// However, if it's an ID, we're done
+				if (isFilteringOnIdColumn) {
+					continue;
+				}
 				// If this is a date, go ahead and convert the value to be as such
 				if (dbColumnIsDateType) {
 					comparisons = DateUtil.getTimestamp(comparisons.toString());
@@ -276,9 +331,11 @@ public class FilterUtil {
 			}
 			Map<String, Object> comparisonMap = (Map<String, Object>) comparisons;
 			for (String comparison : comparisonMap.keySet()) {
+				// We're only going to allow $null if it's an ID
+				if (isFilteringOnIdColumn && !comparison.equals("$null")) {
+					continue;
+				}
 				whereClause.append(canPrependSeparator ? separator : "");
-				// We don't have to check this value for invalid characters because it will eventually be added by the
-				// DB.prepareStatement method, which handles SQL injection
 				Object filterValue = comparisonMap.get(comparison);
 				// If this is a date, go ahead and convert the value to be as such
 				if (dbColumnIsDateType) {
@@ -339,9 +396,8 @@ public class FilterUtil {
 					case "$nin":
 						listOperatorValues = (List<?>) filterValue;
 						parameterClause = "?,".repeat(listOperatorValues.size());
-						whereClause.append("?").append(negate ? " " : " NOT ").append("IN (")
+						whereClause.append(dbColumnName).append(negate ? " " : " NOT ").append("IN (")
 								.append(parameterClause, 0, parameterClause.length() - 1).append(")");
-						parameters.add(dbColumnName);
 						parameters.addAll(listOperatorValues);
 						break;
 					case "$text":
@@ -351,14 +407,6 @@ public class FilterUtil {
 					case "$ntext":
 						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " " : " NOT ")
 								.append("LIKE '%").append(filterValue.toString().toLowerCase()).append("%'");
-						break;
-					case "$sw":
-						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " NOT " : " ")
-								.append("LIKE '").append(filterValue.toString().toLowerCase()).append("%'");
-						break;
-					case "$nsw":
-						whereClause.append("LOWER(").append(dbColumnName).append(")").append(negate ? " " : " NOT ")
-								.append("LIKE '").append(filterValue.toString().toLowerCase()).append("%'");
 						break;
 					case "$null":
 						whereClause.append(dbColumnName).append(" IS").append(negate ? " NOT " : " ").append("NULL");
@@ -379,6 +427,189 @@ public class FilterUtil {
 			return "";
 		}
 		return whereClause.append(")").toString();
+	}
+
+	/**
+	 * Try to construct a sub query by connecting the filter criteria to a foreign table and filtering based on that
+	 *
+	 * @param tableName                The name of the current table being searched
+	 * @param dbModelInfo              The object containing information for the current table
+	 * @param dbColumnName             The column that wasn't found on the original table
+	 * @param comparisonQuerySelectors Any comparisons that are meant to apply to this column
+	 * @param parameters               An array of parameters to add values to
+	 * @param negate                   Whether the logic should be negated
+	 * @param entityConfiguration      Entity configuration properties
+	 *                                 (can boost performance)
+	 * @return The constructed where clause if values matched, or an empty string if nothing found matching
+	 */
+	private static String getForeignTableSubQueryWhereClause(String tableName, POInfo dbModelInfo, String dbColumnName,
+			Map<String, Object> comparisonQuerySelectors, List<Object> parameters, boolean negate,
+			EntityConfiguration entityConfiguration, Properties idempiereProperties) {
+		StringBuilder whereClause = new StringBuilder();
+
+		String foreignTableName = dbColumnName;
+		String remainingDBColumnName = null;
+		String specificColumnToMapOn = null;
+		boolean shouldUseContextClientId = entityConfiguration.isShouldUseContextClientId();
+		boolean shouldFetchFromSystemClient = entityConfiguration.isShouldFetchFromSystemClient();
+
+		// If this is an aliased value, get the alias
+		if (doesTableAliasExistOnColumn(dbColumnName)) {
+			foreignTableName = dbColumnName.split("\\.")[0];
+			// There may be subsequent aliases, so only remove the first one (i.e. c_orderline.m_product.m_storageonhand)
+			remainingDBColumnName = dbColumnName.replaceFirst(foreignTableName + "\\.", "");
+		}
+
+		// If a specific column was passed in, get it
+		if (foreignTableName.contains(SPECIFIC_COLUMN_MAPPING_SPECIFIER)) {
+			foreignTableName = dbColumnName.split(SPECIFIC_COLUMN_MAPPING_SPECIFIER)[0];
+			// There "should" only be one column specification, so we'll use it
+			specificColumnToMapOn = dbColumnName.split(SPECIFIC_COLUMN_MAPPING_SPECIFIER)[1];
+			// If there's still an "alias", we need to set that as the remaining DB column name
+			if (doesTableAliasExistOnColumn(specificColumnToMapOn)) {
+				String unchangedSpecificColumnToMapOn = specificColumnToMapOn;
+				specificColumnToMapOn = unchangedSpecificColumnToMapOn.split("\\.")[0];
+				// There may be subsequent aliases, so only remove the first one (i.e. c_orderline.m_product.m_storageonhand)
+				remainingDBColumnName = unchangedSpecificColumnToMapOn.replaceFirst(specificColumnToMapOn + "\\.", "");
+			}
+		}
+
+		// Ensure foreign table is lower case
+		foreignTableName = foreignTableName.toLowerCase();
+		// This should remain null unless we're doing a mapping and no specific column was given
+		String originalForeignTableName = null;
+		if (specialForeignKeyMappings.containsKey(foreignTableName) && StringUtil.isNullOrEmpty(specificColumnToMapOn)) {
+			originalForeignTableName = foreignTableName;
+			foreignTableName = specialForeignKeyMappings.get(foreignTableName);
+		}
+
+		// If the foreign table equals the current table we're on and there was no special mapping, just remove it and
+		// start restart the construction
+		if (foreignTableName.equalsIgnoreCase(tableName) && originalForeignTableName == null) {
+			// Reconstruct the comparison using the new "key"
+			String finalRemainingDBColumnName = remainingDBColumnName;
+			Map<String, Object> adjustedComparisons = new HashMap<>() {
+				{
+					put(finalRemainingDBColumnName, comparisonQuerySelectors);
+				}
+			};
+			String subWhereClause =
+					getWhereClauseFromExpression(tableName, adjustedComparisons, parameters, negate, entityConfiguration,
+							idempiereProperties);
+			if (!subWhereClause.isEmpty()) {
+				whereClause.append(subWhereClause);
+			}
+		} else {
+			TableMapping tableMapping =
+					getIdColumnNamesBetweenTables(tableName, dbModelInfo, foreignTableName, originalForeignTableName,
+							specificColumnToMapOn, idempiereProperties);
+			if (!tableMapping.wasMatchFound) {
+				// No idea what this column is, so log it as an issue and skip
+				logger.warning("Column name " + dbColumnName + " does not exist on table " + tableName);
+			} else {
+				String idColumn = tableMapping.sourceColumnName;
+				String foreignIdColumn = tableMapping.foreignColumnName;
+				// We have a match! Begin constructing the sub-query
+				whereClause.append(tableName).append(".").append(idColumn).append(negate ? " NOT" : "").append(" IN " +
+						"(SELECT ").append(foreignIdColumn).append(" FROM ");
+				// Sub-clauses should never be negated (i.e. so we don't have not in (... not in (... not in (...))) but
+				// instead of not in (... in (... in (...))))
+				negate = false;
+				// If we have an aggregate on the comparisons, this will need to be a sub-table with an alias
+				Map<String, Object> aggregateComparisons = comparisonQuerySelectors.entrySet().stream().filter(
+								comparisonQuerySelector -> AGGREGATE_QUERY_SELECTORS.stream().anyMatch(
+										aggregateQuerySelector -> comparisonQuerySelector.getKey().startsWith(aggregateQuerySelector)))
+						.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+				boolean doesTableNeedAggregation = aggregateComparisons.size() > 0;
+				if (doesTableNeedAggregation) {
+					whereClause.append("(");
+					for (String aggregateFunction : aggregateComparisons.keySet()) {
+						String aggregateColumnName = aggregateFunction.split("\\(")[1].replace(")", "");
+						whereClause.append("SELECT ").append(idColumn).append(", ").append(aggregateFunction.replace("$", ""))
+								.append(" as ").append(aggregateColumnName);
+						// Add the client id to be returned, if it's required
+						if (shouldUseContextClientId || shouldFetchFromSystemClient) {
+							whereClause.append(",ad_client_id");
+						}
+						whereClause.append(" FROM ").append(foreignTableName).append(" WHERE (");
+						if (comparisonQuerySelectors.get(aggregateFunction) == null ||
+								((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
+							whereClause.append(DEFAULT_WHERE_CLAUSE);
+						} else {
+							String subWhereClause = getWhereClauseFromExpression(foreignTableName,
+									(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, false,
+									entityConfiguration, idempiereProperties);
+							if (subWhereClause.isEmpty()) {
+								whereClause.append(DEFAULT_WHERE_CLAUSE);
+							} else {
+								whereClause.append(subWhereClause);
+							}
+						}
+						// Add the client check, if it's required
+						if (shouldUseContextClientId || shouldFetchFromSystemClient) {
+							whereClause.append(") AND (ad_client_id");
+							if (shouldUseContextClientId && shouldFetchFromSystemClient) {
+								whereClause.append(" IN (?,?)");
+								parameters.add(Env.getAD_Client_ID(idempiereProperties));
+								parameters.add(MClient_BH.CLIENTID_SYSTEM);
+							} else {
+								whereClause.append("=?");
+								if (shouldUseContextClientId) {
+									parameters.add(Env.getAD_Client_ID(idempiereProperties));
+								} else {
+									parameters.add(MClient_BH.CLIENTID_SYSTEM);
+								}
+							}
+						}
+						// Append the group by clause, since it's an aggregate
+						whereClause.append(") GROUP BY ").append(idColumn);
+						// Add the client to the group by, if it's required
+						if (shouldUseContextClientId || shouldFetchFromSystemClient) {
+							whereClause.append(",ad_client_id");
+						}
+					}
+					whereClause.append(") ");
+				}
+				whereClause.append(foreignTableName).append(" WHERE (");
+				// Adjust the comparison string, if need be
+				Map<String, Object> adjustedComparisons = comparisonQuerySelectors;
+				if (remainingDBColumnName != null) {
+					String finalRemainingDBColumnName = remainingDBColumnName;
+					adjustedComparisons = new HashMap<>() {
+						{
+							put(finalRemainingDBColumnName, comparisonQuerySelectors);
+						}
+					};
+				}
+				// Continue the operation, but use the foreign table from this point forward
+				String subWhereClause = getWhereClauseFromExpression(foreignTableName, adjustedComparisons, parameters, negate,
+						entityConfiguration, idempiereProperties);
+				if (subWhereClause.isEmpty()) {
+					whereClause.append(DEFAULT_WHERE_CLAUSE);
+				} else {
+					whereClause.append(subWhereClause);
+				}
+				// Add the client check, if it's required
+				if (shouldUseContextClientId || shouldFetchFromSystemClient) {
+					whereClause.append(") AND (ad_client_id");
+					if (shouldUseContextClientId && shouldFetchFromSystemClient) {
+						whereClause.append(" IN (?,?)");
+						parameters.add(Env.getAD_Client_ID(idempiereProperties));
+						parameters.add(MClient_BH.CLIENTID_SYSTEM);
+					} else {
+						whereClause.append("=?");
+						if (shouldUseContextClientId) {
+							parameters.add(Env.getAD_Client_ID(idempiereProperties));
+						} else {
+							parameters.add(MClient_BH.CLIENTID_SYSTEM);
+						}
+					}
+				}
+
+				whereClause.append("))");
+			}
+		}
+		return whereClause.toString();
 	}
 
 	/**
@@ -413,51 +644,143 @@ public class FilterUtil {
 	}
 
 	/**
-	 * Parse through the field names and return a list of aliases.
+	 * Check to see if the table alias already exists on the column (aka Table_Name.ColumnName vs just ColumnName)
 	 *
-	 * @param filterJson
-	 * @return
+	 * @param dbColumn The dbColumn string to check
+	 * @return Whether a table alias is present on the dbColumn
 	 */
-	public static List<String> getTablesNeedingJoins(String filterJson) {
-		if (StringUtil.isNullOrEmpty(filterJson)) {
-			return new ArrayList<>();
-		}
-		try {
-			Map<String, Object> expression = parseJsonString(filterJson);
-			// Make sure to return the distinct list without duplicates
-			return getTablesNeedingJoinsFromExpression(expression).stream().map(String::toLowerCase).distinct()
-					.collect(Collectors.toList());
-		} catch (Exception e) {
-			throw new AdempiereException(MALFORMED_FILTER_STRING_ERROR);
-		}
+	private static boolean doesTableAliasExistOnColumn(String dbColumn) {
+		return dbColumn.contains(".");
 	}
 
 	/**
-	 * Gets the list of tables that need to be JOINed from the expression
+	 * This does all the specific mapping of trying to transform the requested column into the appropriate tables and
+	 * ID mappings between those tables
 	 *
-	 * @param expression The JSON object received for filtering
-	 * @return A list of table names that need JOINs
+	 * @param tableName                The name of the source table
+	 * @param tableInfo                The POInfo for the source table
+	 * @param mappedForeignTableName   The name of the mapped table
+	 * @param unmappedForeignTableName The original string that was passed in to map to (may contain column
+	 *                                 specifications). Should be null if it wasn't mapped.
+	 * @param specifiedColumnMapping   A specific column to map on, if any. Should be null if none provided
+	 * @return An object containing the matches, if any were found
 	 */
-	private static List<String> getTablesNeedingJoinsFromExpression(Map<String, Object> expression) {
-		List<String> neededJoinTables = new ArrayList<>();
-		for (String logicalQuerySelectorOrDbColumnName : expression.keySet()) {
-			if (!LOGICAL_QUERY_SELECTORS.contains(logicalQuerySelectorOrDbColumnName)) {
-				// It is a DB column
-				if (!QueryUtil.doesDBStringHaveInvalidCharacters(logicalQuerySelectorOrDbColumnName) &&
-						QueryUtil.doesTableAliasExistOnColumn(logicalQuerySelectorOrDbColumnName)) {
-					neededJoinTables.add(QueryUtil.getTableAliasFromColumn(logicalQuerySelectorOrDbColumnName));
+	private static TableMapping getIdColumnNamesBetweenTables(String tableName, POInfo tableInfo,
+			String mappedForeignTableName, String unmappedForeignTableName, String specifiedColumnMapping,
+			Properties idempiereProperties) {
+		TableMapping tableMapping = new TableMapping();
+		// If the mapped and unmapped are the same, there's an error somewhere and we shouldn't do anything (because the
+		// unmapped should remain null unless there has been a mapping, in which case they'd be different)
+		if (unmappedForeignTableName != null && unmappedForeignTableName.equalsIgnoreCase(mappedForeignTableName)) {
+			return tableMapping;
+		}
+
+		// Try to get the foreign table's info
+		POInfo foreignTableInfo = getPOInfo(mappedForeignTableName, idempiereProperties);
+		if (foreignTableInfo == null) {
+			return tableMapping;
+		}
+
+		// Initialize the ID columns (though we have to check some other things first)
+		String tableIdColumn = tableName + "_id";
+		String foreignTableIdColumn = mappedForeignTableName + "_id";
+
+		// If we're doing a mapping, we need to check some stuff before we get to the "simplest" case
+		if (unmappedForeignTableName != null) {
+			// We'll start by seeing if original foreign table specified exists as-is on the source table
+			// (i.e. c_invoice.createdby -> createdby should be mapped to ad_user [via column ad_user_id, which would be
+			// assigned already above] and use createdby on the c_invoice table)
+			if (tableInfo.getColumnIndex(unmappedForeignTableName) > -1) {
+				tableMapping.sourceColumnName = unmappedForeignTableName;
+
+				// Now we need to confirm the foreign table column
+				if (foreignTableInfo.getColumnIndex(foreignTableIdColumn) > -1) {
+					tableMapping.wasMatchFound = true;
+					tableMapping.foreignColumnName = foreignTableIdColumn;
 				}
-				continue;
+
+				return tableMapping;
 			}
-			for (Object expressionList : (List<?>) expression.get(logicalQuerySelectorOrDbColumnName)) {
-				neededJoinTables.addAll(getTablesNeedingJoinsFromExpression((Map<String, Object>) expressionList));
+			// There could be a case where a table self-references itself, such as the reversal_id column from c_payment, so
+			// try some new checks
+			tableIdColumn = unmappedForeignTableName + "_id";
+			if (tableInfo.getColumnIndex(tableIdColumn) > -1) {
+				tableMapping.sourceColumnName = tableIdColumn;
+
+				// Now find which column exists on the foreign table
+				if (foreignTableInfo.getColumnIndex(foreignTableIdColumn) > -1) {
+					tableMapping.wasMatchFound = true;
+					tableMapping.foreignColumnName = foreignTableIdColumn;
+				}
+				// Not sure what others to check, at the moment
+
+				return tableMapping;
 			}
 		}
-		return neededJoinTables;
+
+		// If we were passed a specific column mapping, try it
+		if (specifiedColumnMapping != null) {
+			// Check if that exists on the foreign table
+			// Otherwise, see if it's on the current table and the other table has the foreign ID column
+			// TODO: Support specifying both start and end columns instead of one or the other
+			if (foreignTableInfo.getColumnIndex(specifiedColumnMapping) > -1) {
+				tableMapping.foreignColumnName = specifiedColumnMapping;
+				// We'll assume it joins off this table's ID column, if it has one
+				if (tableInfo.getColumnIndex(tableIdColumn) > -1) {
+					tableMapping.wasMatchFound = true;
+					tableMapping.sourceColumnName = tableIdColumn;
+				}
+
+				return tableMapping;
+			} else if (tableInfo.getColumnIndex(specifiedColumnMapping) > -1) {
+				tableMapping.sourceColumnName = specifiedColumnMapping;
+				// We'll assume it joins to the foreign table's ID column, if it has one
+				if (foreignTableInfo.getColumnIndex(foreignTableIdColumn) > -1) {
+					tableMapping.wasMatchFound = true;
+					tableMapping.foreignColumnName = foreignTableIdColumn;
+				}
+
+				return tableMapping;
+			}
+		}
+
+		// The simplest form is that either table name, appended with "_id", exists on both tables
+		if (tableInfo.getColumnIndex(tableIdColumn) > -1 &&
+				foreignTableInfo.getColumnIndex(tableIdColumn) > -1) {
+			tableMapping.wasMatchFound = true;
+			tableMapping.sourceColumnName = tableIdColumn;
+			tableMapping.foreignColumnName = tableIdColumn;
+			return tableMapping;
+		} else if (tableInfo.getColumnIndex(foreignTableIdColumn) > -1 &&
+				foreignTableInfo.getColumnIndex(foreignTableIdColumn) > -1) {
+			tableMapping.wasMatchFound = true;
+			tableMapping.sourceColumnName = foreignTableIdColumn;
+			tableMapping.foreignColumnName = foreignTableIdColumn;
+			return tableMapping;
+		}
+
+		// If we get here, we didn't find any matches
+		return new TableMapping();
 	}
 
-	enum FilterArrayJoin {
-		AND,
-		OR,
+	/**
+	 * Get the PO Info for determining whether columns exist or not.
+	 *
+	 * @param tableName The name of the table to fetch data for
+	 * @return The POInfo containing DB metadata
+	 */
+	private static POInfo getPOInfo(String tableName, Properties idempiereProperties) {
+		// Get the information from the DB - both of these pieces are cached by iDempiere to limit DB trips
+		MTable table = MTable.get(idempiereProperties, tableName);
+		if (table != null) {
+			return POInfo.getPOInfo(idempiereProperties, table.getAD_Table_ID());
+		}
+		return null;
+	}
+
+	static class TableMapping {
+		boolean wasMatchFound = false;
+		String sourceColumnName;
+		String foreignColumnName;
 	}
 }

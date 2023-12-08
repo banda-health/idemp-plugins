@@ -86,7 +86,7 @@ public class GraphQLEndpoint extends GraphQLHttpServlet {
 		Instrumentation dispatcherInstrumentation
 				= new DataLoaderDispatcherInstrumentation(options);
 		List<Instrumentation> instrumentationList = new ArrayList<>();
-		instrumentationList.add(new MaxQueryDepthInstrumentation(6));
+		instrumentationList.add(new MaxQueryDepthInstrumentation(13));
 		instrumentationList.add(new LoggingInstrumentation());
 		// TODO: Uncomment for localized instrumentation figures
 //		instrumentationList.add(new TracingInstrumentation());
@@ -104,49 +104,8 @@ public class GraphQLEndpoint extends GraphQLHttpServlet {
 	 * @return The schema to use in this GraphQL plugin
 	 */
 	private GraphQLSchema createSchema() {
-		SchemaParserBuilder builder = SchemaParser.newParser()
-				.files(
-						"WEB-INF/resources/schema.graphqls",
-						"WEB-INF/resources/account.graphqls",
-						"WEB-INF/resources/attribute-set.graphqls",
-						"WEB-INF/resources/attribute-set-instance.graphqls",
-						"WEB-INF/resources/authentication.graphqls",
-						"WEB-INF/resources/business-partner.graphqls",
-						"WEB-INF/resources/charge.graphqls",
-						"WEB-INF/resources/charge-type.graphqls",
-						"WEB-INF/resources/client.graphqls",
-						"WEB-INF/resources/element.graphqls",
-						"WEB-INF/resources/form.graphqls",
-						"WEB-INF/resources/invoice.graphqls",
-						"WEB-INF/resources/invoice-line.graphqls",
-						"WEB-INF/resources/location.graphqls",
-						"WEB-INF/resources/locator.graphqls",
-						"WEB-INF/resources/order.graphqls",
-						"WEB-INF/resources/order-line.graphqls",
-						"WEB-INF/resources/order-status.graphqls",
-						"WEB-INF/resources/organization.graphqls",
-						"WEB-INF/resources/paging-info.graphqls",
-						"WEB-INF/resources/payment.graphqls",
-						"WEB-INF/resources/process.graphqls",
-						"WEB-INF/resources/process-info.graphqls",
-						"WEB-INF/resources/process-info-parameter.graphqls",
-						"WEB-INF/resources/process-instance.graphqls",
-						"WEB-INF/resources/process-parameter.graphqls",
-						"WEB-INF/resources/product.graphqls",
-						"WEB-INF/resources/product-category.graphqls",
-						"WEB-INF/resources/record.graphqls",
-						"WEB-INF/resources/reference.graphqls",
-						"WEB-INF/resources/reference-list.graphqls",
-						"WEB-INF/resources/report-output.graphqls",
-						"WEB-INF/resources/report-view.graphqls",
-						"WEB-INF/resources/role.graphqls",
-						"WEB-INF/resources/storage-on-hand.graphqls",
-						"WEB-INF/resources/table.graphqls",
-						"WEB-INF/resources/user.graphqls",
-						"WEB-INF/resources/value-rule.graphqls",
-						"WEB-INF/resources/warehouse.graphqls",
-						"WEB-INF/resources/workflow.graphqls"
-				);
+		SchemaParserBuilder builder = SchemaParser.newParser();
+		BandaSchemaFileComposer.addAll(builder);
 		BandaQueryComposer.addAll(builder);
 		BandaMutationComposer.addAll(builder);
 		BandaResolverComposer.addAll(builder);

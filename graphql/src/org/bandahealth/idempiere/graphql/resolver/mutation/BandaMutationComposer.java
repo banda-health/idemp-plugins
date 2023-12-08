@@ -14,14 +14,26 @@ public class BandaMutationComposer {
 	public static void addAll(SchemaParserBuilder builder) {
 		builder.resolvers(
 				new AuthenticationMutation(),
-				new BusinessPartnerMutation(),
-				new ChargeMutation(),
-				new InvoiceMutation(),
-				new OrderMutation(),
-				new PaymentMutation(),
-				new ProductMutation(),
-				new StorageOnHandMutation(),
-				new UserMutation()
+//				new BusinessPartnerMutation(),
+//				new ChargeMutation(),
+				new M_AD_ClientMutation(),
+				new M_AD_OrgMutation(),
+				new M_AD_Ref_ListMutation(),
+				new M_AD_UserMutation(),
+				new M_BH_EncounterMutation(),
+				new M_BH_VisitMutation(),
+				new M_BH_Voided_ReasonMutation(),
+				new M_C_BPartnerMutation(),
+				new M_C_InvoiceMutation(),
+				new M_C_OrderMutation(),
+				new M_C_PaymentMutation(),
+				new M_M_InOutMutation()
+//				new InvoiceMutation(),
+//				new OrderMutation(),
+//				new PaymentMutation(),
+//				new ProductMutation(),
+//				new StorageOnHandMutation(),
+//				new UserMutation()
 		);
 	}
 }

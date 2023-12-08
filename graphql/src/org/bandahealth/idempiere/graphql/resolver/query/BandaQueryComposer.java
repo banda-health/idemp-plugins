@@ -14,18 +14,19 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 	 */
 	public static void addAll(SchemaParserBuilder builder) {
 		builder.resolvers(
-				new AccountQuery(),
-				new BusinessPartnerQuery(),
-				new ChargeQuery(),
-				new InvoiceQuery(),
-				new OrderQuery(),
-				new PaymentQuery(),
-				new ProcessQuery(),
-				new ProductCategoryQuery(),
-				new ProductQuery(),
-				new ReferenceListQuery(),
-				new StorageOnHandQuery(),
-				new UserQuery()
+//				new AccountQuery(),
+//				new BusinessPartnerQuery(),
+//				new ChargeQuery(),
+				new M_BH_VisitQuery()
+//				new InvoiceQuery(),
+//				new OrderQuery(),
+//				new PaymentQuery(),
+//				new ProcessQuery(),
+//				new ProductCategoryQuery(),
+//				new ProductQuery(),
+//				new ReferenceListQuery(),
+//				new StorageOnHandQuery(),
+//				new UserQuery()
 		);
 	}
 }

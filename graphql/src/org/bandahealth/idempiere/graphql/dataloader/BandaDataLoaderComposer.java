@@ -31,7 +31,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.WarehouseDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.WorkflowDataLoader;
 import org.dataloader.DataLoaderRegistry;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -50,37 +50,37 @@ public class BandaDataLoaderComposer {
 	 * in hot-swapping in development without having to restart iDempiere
 	 */
 	public BandaDataLoaderComposer() {
-		dataLoaders = new ArrayList<>() {{
-			add(new AccountDataLoader());
-			add(new AttributeSetDataLoader());
-			add(new AttributeSetInstanceDataLoader());
-			add(new BusinessPartnerDataLoader());
-			add(new ChargeDataLoader());
-			add(new ChargeTypeDataLoader());
-			add(new ClientDataLoader());
-			add(new FormDataLoader());
-			add(new InvoiceDataLoader());
-			add(new InvoiceLineDataLoader());
-			add(new LocationDataLoader());
-			add(new LocatorDataLoader());
-			add(new OrderDataLoader());
-			add(new OrderLineDataLoader());
-			add(new OrganizationDataLoader());
-			add(new PaymentDataLoader());
-			add(new ProcessDataLoader());
-			add(new ProcessParameterDataLoader());
-			add(new ProductCategoryDataLoader());
-			add(new ProductDataLoader());
-			add(new ReferenceDataLoader());
-			add(new ReferenceListDataLoader());
-			add(new ReportViewDataLoader());
-			add(new RoleDataLoader());
-			add(new RoleIncludedDataLoader());
-			add(new StorageOnHandDataLoader());
-			add(new UserDataLoader());
-			add(new WarehouseDataLoader());
-			add(new WorkflowDataLoader());
-		}};
+		dataLoaders = Arrays.asList(
+				new AccountDataLoader(),
+				new AttributeSetDataLoader(),
+				new AttributeSetInstanceDataLoader(),
+				new BusinessPartnerDataLoader(),
+				new ChargeDataLoader(),
+				new ChargeTypeDataLoader(),
+				new ClientDataLoader(),
+				new FormDataLoader(),
+				new InvoiceDataLoader(),
+				new InvoiceLineDataLoader(),
+				new LocationDataLoader(),
+				new LocatorDataLoader(),
+				new OrderDataLoader(),
+				new OrderLineDataLoader(),
+				new OrganizationDataLoader(),
+				new PaymentDataLoader(),
+				new ProcessDataLoader(),
+				new ProcessParameterDataLoader(),
+				new ProductCategoryDataLoader(),
+				new ProductDataLoader(),
+				new ReferenceDataLoader(),
+				new ReferenceListDataLoader(),
+				new ReportViewDataLoader(),
+				new RoleDataLoader(),
+				new RoleIncludedDataLoader(),
+				new StorageOnHandDataLoader(),
+				new UserDataLoader(),
+				new WarehouseDataLoader(),
+				new WorkflowDataLoader()
+		);
 	}
 
 	/**

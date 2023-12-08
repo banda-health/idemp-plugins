@@ -21,10 +21,10 @@ type BH_Visit {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	BH_NewVisit: Boolean!
-	BH_PatientType: AD_Ref_List
+	BH_PatientType_RL: AD_Ref_List
 	# Drop down field in visits for users to define the process stage
-	BH_Process_Stage: AD_Ref_List
-	bh_referral: AD_Ref_List
+	BH_Process_Stage_RL: AD_Ref_List
+	bh_referral_RL: AD_Ref_List
 	BH_ReferredFromTo: String
 	ID: ID!
 	BH_VisitDate: Date
@@ -51,10 +51,10 @@ input BH_VisitInput {
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	BH_NewVisit: Boolean
-	BH_PatientType: AD_Ref_ListInput
+	BH_PatientType_RL: AD_Ref_ListInput
 	# Drop down field in visits for users to define the process stage
-	BH_Process_Stage: AD_Ref_ListInput
-	bh_referral: AD_Ref_ListInput
+	BH_Process_Stage_RL: AD_Ref_ListInput
+	bh_referral_RL: AD_Ref_ListInput
 	BH_ReferredFromTo: String
 	ID: ID
 	BH_VisitDate: Date

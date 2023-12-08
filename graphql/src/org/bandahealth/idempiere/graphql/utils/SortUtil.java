@@ -1,54 +1,71 @@
 package org.bandahealth.idempiere.graphql.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MUser;
-import org.compiere.model.PO;
-import org.compiere.util.CLogger;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * The utility to parse and read sort JSON coming from the server and work with it
- */
+import static org.bandahealth.idempiere.graphql.utils.SqlUtil.IDEMPIERE_POSTGRESQL_NATIVE_MARKER;
+
 public class SortUtil {
 	private static final String MALFORMED_SORT_STRING_ERROR = "Sort criteria doesn't meet the standard form.";
-	protected static CLogger logger = CLogger.getCLogger(SortUtil.class);
+	private static final List<String> EXPRESSION_FUNCTIONS = Arrays.asList("$date", "$time");
+
+	/**
+	 * Parse the sort string into an object
+	 *
+	 * @param sortJson The JSON string received for filtering
+	 * @return The sorting expressions
+	 * @throws IOException
+	 */
+	private static List<Object> parseJsonString(String sortJson) throws IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		return objectMapper.readValue(sortJson, ArrayList.class);
+	}
 
 	/**
 	 * This takes in a sort JSON model generated and converts it into an appropriate ORDER BY clause to pass to the DB.
 	 * <p>
 	 * The expected JSON has the following structure (any of the following patterns can be combined in any order)
+	 * <pre>
 	 * [
-	 * database-column
-	 * -OR-
-	 * [database-column]
-	 * -OR-
-	 * [database-column, sort-direction]
+	 *   database-column-or-expression-function
+	 *   -OR-
+	 *   [database-column-or-expression-function]
+	 *   -OR-
+	 *   [database-column-or-expression-function, sort-direction]
 	 * ]
+	 * </pre>
+	 * The following expression functions can be leveraged on columns:
+	 * <pre>
+	 * {
+	 * 	$date([database column])
+	 * 	$time([database column])
+	 * }
+	 * </pre>
 	 * </p>
 	 *
-	 * @param dbModel  The iDempiere DB model for determining field types
-	 * @param sortJson The JSON string received for sorting
-	 * @param <T>      An iDempiere model extending from PO
+	 * @param tableName The iDempiere table name for determining field types
+	 * @param sortJson  The JSON string received for sorting
 	 * @return An ORDER BY clause based off the sort criteria to use in a DB query
 	 */
-	public static <T extends PO> String getOrderByClauseFromSort(T dbModel, String sortJson) {
-		String defaultOrderBy = checkColumnExists(dbModel, MUser.COLUMNNAME_Created) ? dbModel.get_TableName() + "." +
-				MUser.COLUMNNAME_Created + " DESC NULLS LAST" : null;
-		if (StringUtil.isNullOrEmpty(sortJson)) {
-			return defaultOrderBy;
+	public static String getOrderByClauseFromSort(String tableName, String sortJson) {
+		String DEFAULT_ORDER_BY = tableName + "." + MUser.COLUMNNAME_Created + " DESC NULLS LAST";
+		if (sortJson == null) {
+			return DEFAULT_ORDER_BY;
 		}
 		try {
 			// Parse the JSON string
 			List<Object> listOfSortCriteria = parseJsonString(sortJson);
 			if (listOfSortCriteria.isEmpty()) {
-				return defaultOrderBy;
+				return DEFAULT_ORDER_BY;
 			}
 
 			String orderBy = listOfSortCriteria.stream().map(sortCriteria -> {
@@ -71,49 +88,31 @@ public class SortUtil {
 						sortDirection = sortCriteriaColumnAndDirection.get(1);
 					}
 				}
+				// Check to see the sort column starts with any of the expression functions
+				String finalSortColumn = sortColumn;
+				String expressionFunctionToUse = "";
+				if (EXPRESSION_FUNCTIONS.stream()
+						.anyMatch(expressionFunction -> finalSortColumn.toLowerCase().startsWith(expressionFunction + "("))) {
+					String[] splitColumn = sortColumn.split("\\(");
+					expressionFunctionToUse = IDEMPIERE_POSTGRESQL_NATIVE_MARKER + splitColumn[0].replaceAll("\\$", "");
+					sortColumn = splitColumn[1].replaceAll("\\)", "");
+				}
 				if (QueryUtil.doesDBStringHaveInvalidCharacters(sortColumn) ||
 						QueryUtil.doesDBStringHaveInvalidCharacters(sortDirection)) {
 					return null;
 				}
 				if (!QueryUtil.doesTableAliasExistOnColumn(sortColumn)) {
-					sortColumn = dbModel.get_TableName() + "." + sortColumn;
+					sortColumn = tableName + "." + sortColumn;
+				}
+				if (!StringUtil.isNullOrEmpty(expressionFunctionToUse)) {
+					sortColumn = expressionFunctionToUse + "(" + sortColumn + ")";
 				}
 				return sortColumn + " " + sortDirection + " NULLS LAST";
 			}).filter(sortCriteria -> !StringUtil.isNullOrEmpty(sortCriteria)).collect(Collectors.joining(","));
-			return orderBy.isEmpty() ? defaultOrderBy : orderBy;
+			return orderBy.isEmpty() ? DEFAULT_ORDER_BY : orderBy;
 		} catch (Exception e) {
 			throw new AdempiereException(MALFORMED_SORT_STRING_ERROR);
 		}
-	}
-
-	/**
-	 * Parse the filter string into an object
-	 *
-	 * @param filterJson The JSON string received for filtering
-	 * @return The filter expressions
-	 * @throws JsonProcessingException
-	 * @throws JsonMappingException
-	 */
-	private static List<Object> parseJsonString(String filterJson) throws JsonMappingException,
-			JsonProcessingException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		return objectMapper.readValue(filterJson, ArrayList.class);
-	}
-
-	/**
-	 * Check if the column exists on the specified model
-	 *
-	 * @param dbModel    The iDempiere DB model for determining non-aliased field types
-	 * @param columnName The column to check
-	 * @param <T>        An iDempiere model extending from PO
-	 * @return Whether the column exists on the specified model
-	 */
-	private static <T extends PO> boolean checkColumnExists(T dbModel, String columnName) {
-		if (dbModel != null) {
-			return dbModel.get_ColumnIndex(columnName) > -1;
-		}
-
-		return false;
 	}
 
 	/**
@@ -122,35 +121,42 @@ public class SortUtil {
 	 * @param sortJson
 	 * @return
 	 */
-	public static List<String> getTablesNeedingJoins(String sortJson) {
-		List<String> neededJoinTables = new ArrayList<>();
+	public static Set<String> getTablesNeedingJoins(String sortJson) {
 		if (StringUtil.isNullOrEmpty(sortJson)) {
-			return neededJoinTables;
+			return new HashSet<>();
 		}
 		try {
 			List<Object> listOfSortCriteria = parseJsonString(sortJson);
-			if (listOfSortCriteria.isEmpty()) {
-				return neededJoinTables;
-			}
 			// Make sure to return the distinct list without duplicates
-			return listOfSortCriteria.stream().map(sortCriteria -> {
+			return listOfSortCriteria.stream().flatMap(sortCriteria -> {
 				// If this is null or an empty array, skip
 				if (sortCriteria == null || sortCriteria instanceof List<?> && ((List<?>) sortCriteria).isEmpty()) {
 					return null;
 				}
-				String sortColumn;
-				// If this is just a string, add
-				if (sortCriteria instanceof String) {
-					sortColumn = (String) sortCriteria;
-				} else {
-					sortColumn = ((List<String>) sortCriteria).get(0);
+				String sortColumn =
+						sortCriteria instanceof String ? (String) sortCriteria : ((List<String>) sortCriteria).get(0);
+				String finalSortColumn = sortColumn;
+				if (EXPRESSION_FUNCTIONS.stream()
+						.anyMatch(expressionFunction -> finalSortColumn.toLowerCase().startsWith(expressionFunction + "("))) {
+					String[] splitColumn = sortColumn.split("\\(");
+					sortColumn = splitColumn[1].replaceAll("\\)", "");
 				}
-				if (QueryUtil.doesDBStringHaveInvalidCharacters(sortColumn) ||
-						!QueryUtil.doesTableAliasExistOnColumn(sortColumn)) {
+				// First, split by the column delimiter
+				String[] sortColumnSplits = sortColumn.split("\\.");
+				if (sortColumnSplits.length == 0) {
 					return null;
 				}
-				return QueryUtil.getTableAliasFromColumn(sortColumn);
-			}).filter(sortCriteria -> !StringUtil.isNullOrEmpty(sortCriteria)).distinct().collect(Collectors.toList());
+				List<String> tablesNeedingJoins = new ArrayList<>();
+				// We don't care about the last value, since that could never be a table name, so length - 1
+				for (int i = 0; i < sortColumnSplits.length - 1; i++) {
+					// Remove any operators that are still there
+					String[] subSortCriteria = sortColumnSplits[i].split("[\\s\\.\\-\\+/\\*\\(\\)]+");
+					// If we've split this string, the last value would be our table alias (since it would've been before
+					// the "." from the statement after it
+					tablesNeedingJoins.add(subSortCriteria[subSortCriteria.length - 1]);
+				}
+				return tablesNeedingJoins.stream();
+			}).filter(alias -> !StringUtil.isNullOrEmpty(alias)).collect(Collectors.toSet());
 		} catch (Exception e) {
 			throw new AdempiereException(MALFORMED_SORT_STRING_ERROR);
 		}

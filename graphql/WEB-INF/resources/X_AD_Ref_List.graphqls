@@ -1,74 +1,24 @@
 # Generated Schema for AD_Ref_List - DO NOT CHANGE
 #		@author Banda Health (generated) 
 #		@version Release 8.2 - $Id$
-extend type Query {
-	AD_Ref_ListGet(page: Int, size: Int, sort: String, filter: String): AD_Ref_ListConnection!
-}
+#extend type Query {
+#	AD_Ref_ListGet(page: Int, size: Int, sort: String, filter: String): AD_Ref_ListConnection!
+#}
 
 extend type Mutation {
 	AD_Ref_ListSave(entity: AD_Ref_ListInput!): AD_Ref_List!
 	AD_Ref_ListDelete(uuids: [String!]!): Boolean!
 }
 
-type AD_Ref_ListConnection {
-	results: [AD_Ref_List!]!
-	pagingInfo: PagingInfo!
-}
+#type AD_Ref_ListConnection {
+#	results: [AD_Ref_List!]!
+#	pagingInfo: PagingInfo!
+#}
 
 type AD_Ref_List {
-	# Client/Tenant for this installation.
-	AD_Client: AD_Client!
-	# Organizational entity within client
-	AD_Org: AD_Org!
 	ID: ID!
-	# System Reference and Validation
-	AD_Reference: AD_Reference!
-	BH_Add_All: String
-	BH_Update_Existing: String
-	# Date this record was created
-	Created: Date!
-	# User who created this records
-	CreatedBy: AD_User!
-	# Optional short description of the record
-	Description: String
-	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityType!
-	# The record is active in the system
-	IsActive: Boolean!
-	# Alphanumeric identifier of the entity
-	Name: String!
-	# Date this record was updated
-	Updated: Date!
-	# User who updated this records
-	UpdatedBy: AD_User!
-	# Valid from including this date (first day)
-	ValidFrom: Date
-	# Valid to including this date (last day)
-	ValidTo: Date
-	# Search key for the record in the format required - must be unique
-	Value: String!
 }
 
 input AD_Ref_ListInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
 	ID: ID
-	# System Reference and Validation
-	AD_Reference: AD_ReferenceInput
-	BH_Add_All: String
-	BH_Update_Existing: String
-	# Optional short description of the record
-	Description: String
-	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityTypeInput
-	# The record is active in the system
-	IsActive: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Valid from including this date (first day)
-	ValidFrom: Date
-	# Valid to including this date (last day)
-	ValidTo: Date
-	# Search key for the record in the format required - must be unique
-	Value: String
 }
