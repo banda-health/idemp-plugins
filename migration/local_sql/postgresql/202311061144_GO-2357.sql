@@ -657,7 +657,8 @@ WHERE
 		SELECT ad_field_id FROM ad_field WHERE ad_field_uu = '2842fb94-b841-4973-903e-89c7f24455b2'
 	)
 	AND isnumeric(weight.bh_value)
-	AND isnumeric(height.bh_value);
+	AND isnumeric(height.bh_value)
+	AND height.bh_value::numeric != 0;
 
 -- Insert the real observations
 INSERT INTO
