@@ -635,17 +635,14 @@ SELECT
 		LIMIT 1
 	)::INT, FALSE);
 
-INSERT INTO
-	tmp_bh_observation (ad_client_id, ad_field_id, ad_org_id, bh_encounter_id, bh_value)
+-- For some reason we need a temp table with this stuff
 SELECT
 	height.ad_client_id,
-	(
-		SELECT ad_field_id FROM ad_field WHERE ad_field_uu = '70b5bfa1-9c75-4fea-bf7e-076f4f4163fb'
-	),
 	height.ad_org_id,
 	height.bh_encounter_id,
-	ROUND(
-		weight.bh_value::numeric / height.bh_value::numeric / height.bh_value::numeric * 10000, 2)::varchar
+	height.bh_value as height,
+	weight.bh_value as weight
+INTO TEMP TABLE tmp_height_weight
 FROM
 	bh_observation height
 		JOIN bh_observation weight
@@ -657,8 +654,23 @@ WHERE
 		SELECT ad_field_id FROM ad_field WHERE ad_field_uu = '2842fb94-b841-4973-903e-89c7f24455b2'
 	)
 	AND isnumeric(weight.bh_value)
-	AND isnumeric(height.bh_value)
-	AND height.bh_value::numeric != 0;
+	AND isnumeric(height.bh_value);
+
+INSERT INTO
+	tmp_bh_observation (ad_client_id, ad_field_id, ad_org_id, bh_encounter_id, bh_value)
+SELECT
+	ad_client_id,
+	(
+		SELECT ad_field_id FROM ad_field WHERE ad_field_uu = '70b5bfa1-9c75-4fea-bf7e-076f4f4163fb'
+	),
+	ad_org_id,
+	bh_encounter_id,
+	ROUND(
+		weight::numeric / height::numeric / height::numeric * 10000, 2)::varchar
+FROM
+	tmp_height_weight
+WHERE
+	height::numeric != 0;
 
 -- Insert the real observations
 INSERT INTO
