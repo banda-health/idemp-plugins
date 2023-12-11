@@ -4,6 +4,7 @@ import { RoleName } from '../types/roleName';
 
 const windowUuid = {
 	clinicalDetails: '2e37e97b-aeb5-47d7-add3-0d602233c2aa',
+	chiefComplaint: 'ee3189d3-9bf5-4528-b5c8-26f2cabde1ed',
 	dashboard: 'd91768c8-5c5b-4d7c-9a6f-15b06d45908b',
 	debtPayments: '4497b5f7-758d-4e82-8e2b-01c4364ce609',
 	diagnoses: '1f29f7ab-bc9a-427c-b35b-87589e4612b5',
@@ -50,6 +51,8 @@ test('admin role has correct access', async () => {
 	).toBe(true);
 
 	expect(windowAccess?.[windowUuid.vitals]).toMatchObject({ canWrite: true, canDeactivate: true });
+
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ canWrite: true, canDeactivate: true });
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ canWrite: true, canDeactivate: true });
 
@@ -157,6 +160,8 @@ test('clinic admin role has correct access', async () => {
 
 	expect(windowAccess?.[windowUuid.vitals]).toMatchObject({ canWrite: true, canDeactivate: true });
 
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ canWrite: true, canDeactivate: true });
+
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ canWrite: true, canDeactivate: true });
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.diagnoses)).not.toBeUndefined();
@@ -262,6 +267,8 @@ test('cashier/registration basic role has correct access', async () => {
 	).toBe(false);
 
 	expect(windowAccess?.[windowUuid.vitals]).toBeUndefined();
+
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toBeUndefined();
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
 
@@ -369,6 +376,8 @@ test('cashier/registration advanced role has correct access', async () => {
 
 	expect(windowAccess?.[windowUuid.vitals]).toBeUndefined();
 
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toBeUndefined();
+
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.diagnoses)).toBeUndefined();
@@ -474,6 +483,8 @@ test('inventory/pharmacy role has correct access', async () => {
 	).toBe(false);
 
 	expect(windowAccess?.[windowUuid.vitals]).toMatchObject({ canWrite: false, canDeactivate: false });
+
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ canWrite: false, canDeactivate: false });
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ canWrite: false, canDeactivate: false });
 
@@ -581,6 +592,8 @@ test('clinician/nurse basic role has correct access', async () => {
 
 	expect(windowAccess?.[windowUuid.vitals]).toMatchObject({ canWrite: true, canDeactivate: false });
 
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ canWrite: true, canDeactivate: false });
+
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ canWrite: true, canDeactivate: false });
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.diagnoses)).not.toBeUndefined();
@@ -686,6 +699,8 @@ test('clinician/nurse advanced role has correct access', async () => {
 	).toBe(false);
 
 	expect(windowAccess?.[windowUuid.vitals]).toMatchObject({ canWrite: true, canDeactivate: false });
+
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ canWrite: true, canDeactivate: false });
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ canWrite: true, canDeactivate: false });
 
@@ -793,6 +808,8 @@ test('triage role has correct access', async () => {
 
 	expect(windowAccess?.[windowUuid.vitals]).toMatchObject({ canWrite: true, canDeactivate: false });
 
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ canWrite: true, canDeactivate: false });
+
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.diagnoses)).toBeUndefined();
@@ -898,6 +915,8 @@ test('lab/radiology role has correct access', async () => {
 	).toBe(false);
 
 	expect(windowAccess?.[windowUuid.vitals]).toMatchObject({ canWrite: true, canDeactivate: false });
+
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ canWrite: true, canDeactivate: false });
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ canWrite: true, canDeactivate: false });
 
@@ -1005,6 +1024,8 @@ test('accounting role has correct access', async () => {
 
 	expect(windowAccess?.[windowUuid.vitals]).toBeUndefined();
 
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toBeUndefined();
+
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
 
 	expect(menus.find((menu) => menu.window?.uuid === windowUuid.diagnoses)).toBeUndefined();
@@ -1110,6 +1131,8 @@ test('clinic user role has correct access', async () => {
 	).toBe(false);
 
 	expect(windowAccess?.[windowUuid.vitals]).toMatchObject({ canWrite: true, canDeactivate: true });
+
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ canWrite: true, canDeactivate: true });
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ canWrite: true, canDeactivate: true });
 
