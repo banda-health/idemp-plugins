@@ -112,13 +112,13 @@ SELECT
 FROM
 	bh_encounter
 WHERE
-		bh_encounter_id IN (
+	bh_encounter_id IN (
 		SELECT
 			bh_encounter_id
 		FROM
 			bh_observation
 		WHERE
-				ad_field_id = (
+			ad_field_id = (
 				SELECT ad_field_id FROM ad_field WHERE ad_field_uu = 'e1d01fe4-16b6-4125-a385-34cf4531c06f'
 			)
 	);
@@ -284,8 +284,8 @@ SET
 		SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '755aac0f-8697-4520-ba42-08ad092299cd'
 	)
 WHERE
-		ad_tab_uu IN ('69b0d4b6-a323-4224-924e-d9d3d2aa5e1b', '789a08af-2015-4469-b2ef-d4ca55e6f2e7',
-		              'e2b742ba-5998-4cdf-93b4-cda8db96f11b');
+	ad_tab_uu IN ('69b0d4b6-a323-4224-924e-d9d3d2aa5e1b', '789a08af-2015-4469-b2ef-d4ca55e6f2e7',
+	              'e2b742ba-5998-4cdf-93b4-cda8db96f11b');
 -- Add the three new fields
 INSERT INTO
 	ad_field (ad_field_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description,
@@ -560,7 +560,7 @@ WHERE
 		FROM
 			ad_window_access
 		WHERE
-				ad_window_id = (
+			ad_window_id = (
 				SELECT ad_window_id FROM AD_Window WHERE ad_window_uu = '44c02ddc-ef83-4020-8e4c-709d8cbeadc2'
 			)
 	);
@@ -645,7 +645,7 @@ SELECT
 	height.ad_org_id,
 	height.bh_encounter_id,
 	ROUND(
-				weight.bh_value::numeric / height.bh_value::numeric / height.bh_value::numeric * 10000, 2)::varchar
+		weight.bh_value::numeric / height.bh_value::numeric / height.bh_value::numeric * 10000, 2)::varchar
 FROM
 	bh_observation height
 		JOIN bh_observation weight
@@ -653,9 +653,11 @@ FROM
 		SELECT ad_field_id FROM ad_field WHERE ad_field_uu = 'e0f68d60-0610-4caa-9dc3-b0143101ccd3'
 	)
 WHERE
-		height.ad_field_id = (
+	height.ad_field_id = (
 		SELECT ad_field_id FROM ad_field WHERE ad_field_uu = '2842fb94-b841-4973-903e-89c7f24455b2'
-	);
+	)
+	AND isnumeric(weight.bh_value)
+	AND isnumeric(height.bh_value);
 
 -- Insert the real observations
 INSERT INTO
