@@ -23,14 +23,14 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Encounter
  *  @author iDempiere (generated) 
- *  @version Release 8.2 - $Id$ */
+ *  @version Release 7.1 - $Id$ */
 public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230901L;
+	private static final long serialVersionUID = 20231206L;
 
     /** Standard Constructor */
     public X_BH_Encounter (Properties ctx, int BH_Encounter_ID, String trxName)

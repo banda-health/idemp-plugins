@@ -350,7 +350,6 @@ public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 			logger.info(
 					"Encounter_" + randomUuid + " millisecond save time: " + (System.currentTimeMillis() - internalStartTime));
 		});
-
 		// TODO: Eventually handle when orders are removed/added...
 		if (entity.getOrders() == null) {
 			entity.setOrders(new ArrayList<>());
