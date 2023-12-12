@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.bandahealth.idempiere.base.model.MField_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.Tab;
 import org.compiere.model.MField;
@@ -53,7 +54,7 @@ public class TabDBService extends BaseDBService<Tab, MTab> {
 		Set<Integer> tabsId = dbModels.stream().map(MTab::getAD_Tab_ID).collect(Collectors.toSet());
 
 		// get fields
-		Map<Integer, List<MField>> fieldsByTab = fieldDBService.getGroupsByIds(MField::getAD_Tab_ID,
+		Map<Integer, List<MField_BH>> fieldsByTab = fieldDBService.getGroupsByIds(MField::getAD_Tab_ID,
 				MField.COLUMNNAME_AD_Tab_ID, tabsId);
 
 		return dbModels.stream().map(tab -> {
