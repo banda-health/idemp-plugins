@@ -8,6 +8,7 @@ import {
 	businessPartnerApi,
 	businessPartnerGroupApi,
 	codedDiagnosisApi,
+	encounterApi,
 	encounterTypeWindowApi,
 	languageApi,
 	referenceListApi,
@@ -54,6 +55,7 @@ import {
 } from '../utils';
 
 const CLINICAL_VITALS_WINDOW_UUID = '53b4d743-c311-40e5-aa8e-c0880c42c1b1';
+const CHIEF_COMPLAINT_WINDOW_UUID = 'ee3189d3-9bf5-4528-b5c8-26f2cabde1ed';
 const CHIEF_COMPLAINT_FIELD_UUID = 'e1d01fe4-16b6-4125-a385-34cf4531c06f';
 const HEIGHT_FIELD_UUID = '2842fb94-b841-4973-903e-89c7f24455b2';
 const WEIGHT_FIELD_UUID = 'e0f68d60-0610-4caa-9dc3-b0143101ccd3';
@@ -1206,7 +1208,7 @@ test('can delete a drafted visit', async () => {
 	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
 
 	valueObject.stepName = 'Delete visit';
-	expect(await visitApi.delete(valueObject, valueObject.visit.uuid)).toBe(true);
+	expect(await visitApi.deleteByUuid(valueObject, valueObject.visit.uuid)).toBe(true);
 	expect(await visitApi.getByUuid(valueObject, valueObject.visit.uuid)).toBeFalsy();
 });
 
@@ -1399,15 +1401,16 @@ test('visit can be saved with really long chief complaint', async () => {
 	valueObject.stepName = 'Create visit';
 	await createVisit(valueObject);
 	const longChiefComplaint = 'this hurts '.repeat(20);
-	const clinicalVitalsEncounterTypeWindow = (
-		await encounterTypeWindowApi.get(valueObject, 0, 1, undefined, undefined)
-	).results.find((result) => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID);
-	const chiefComplaintField = clinicalVitalsEncounterTypeWindow?.window.tabs[0].fields.filter(
+	const chiefComplaintEncounterTypeWindow = (
+		await encounterTypeWindowApi.get(valueObject, undefined, undefined, undefined, undefined)
+	).results.find((result) => result.window.uuid == CHIEF_COMPLAINT_WINDOW_UUID);
+	expect(chiefComplaintEncounterTypeWindow).toBeTruthy();
+	const chiefComplaintField = chiefComplaintEncounterTypeWindow?.window.tabs[0].fields.filter(
 		(field) => field.uuid == CHIEF_COMPLAINT_FIELD_UUID,
 	)[0] as Field;
 
 	valueObject.visit!.encounters!.push({
-		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
+		encounterType: chiefComplaintEncounterTypeWindow?.encounterType,
 		observations: [
 			{
 				value: longChiefComplaint,
@@ -1782,7 +1785,7 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 	} as Visit;
 	valueObject.visit = await visitApi.save(valueObject, visitToSave);
 
-	expect(await visitApi.delete(valueObject, valueObject.visit!.uuid)).toBeTruthy();
+	expect(await visitApi.deleteByUuid(valueObject, valueObject.visit!.uuid)).toBeTruthy();
 });
 
 test(`visit invoice updates work`, async () => {
@@ -2457,6 +2460,68 @@ test(`can delete order & invoice lines at the same time`, async () => {
 	expect(valueObject.visit.invoices[0].invoiceLines).toHaveLength(1);
 });
 
+test('can delete encounters', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	await createVisit(valueObject);
+
+	const clinicalVitalsEncounterTypeWindow = (
+		await encounterTypeWindowApi.get(valueObject, 0, 10, undefined, undefined)
+	).results.find((result) => result.window.uuid == CLINICAL_VITALS_WINDOW_UUID);
+	const fields = clinicalVitalsEncounterTypeWindow?.window.tabs[0].fields;
+
+	const codedDiagnosis = (await codedDiagnosisApi.get(valueObject)).results[0];
+	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
+	const encounter: Partial<Encounter> = {
+		encounterType: clinicalVitalsEncounterTypeWindow?.encounterType,
+		observations: [
+			{
+				value: '200',
+				field: fields?.filter((field) => field.uuid == HEIGHT_FIELD_UUID)[0],
+			} as Observation,
+		],
+		encounterDiagnoses: [
+			{
+				lineNo: 1,
+				uncodedDiagnosis: uncodedDiagnosisValue,
+			} as EncounterDiagnosis,
+			{
+				lineNo: 2,
+				codedDiagnosis: { uuid: codedDiagnosis.uuid },
+			} as EncounterDiagnosis,
+		],
+	};
+
+	// add first encounter
+	valueObject.visit!.encounters!.push(encounter as Encounter);
+	// add second encounter
+	valueObject.visit!.encounters!.push(encounter as Encounter);
+
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit.encounters).toHaveLength(2);
+
+	valueObject.stepName = 'Delete encounter';
+	const encounterUuidsToDelete = valueObject.visit.encounters.map((encounter) => encounter.uuid);
+	expect(await encounterApi.delete(valueObject, encounterUuidsToDelete)).toBe(true);
+	expect(
+		(
+			await encounterApi.get(
+				valueObject,
+				undefined,
+				undefined,
+				undefined,
+				JSON.stringify({ bh_encounter_uu: { $in: encounterUuidsToDelete } }),
+			)
+		).results,
+	).toHaveLength(0);
+});
+
 test('expression functions work in sorting', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
@@ -2500,3 +2565,4 @@ test('expression functions work in sorting', async () => {
 	expect(sortedVisits[1].uuid).toBe(visit2.uuid);
 	expect(sortedVisits[2].uuid).toBe(visit1.uuid);
 });
+

@@ -1,6 +1,8 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.bandahealth.idempiere.base.model.MField_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
+import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.Column;
 import org.bandahealth.idempiere.rest.model.Field;
 import org.bandahealth.idempiere.rest.model.FieldGroup;
@@ -11,12 +13,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
-public class FieldDBService extends BaseDBService<Field, MField> {
+public class FieldDBService extends BaseDBService<Field, MField_BH> {
 
 	@Autowired
 	private ColumnDBService columnDBService;
@@ -35,22 +39,22 @@ public class FieldDBService extends BaseDBService<Field, MField> {
 	}
 
 	@Override
-	protected Field createInstanceWithDefaultFields(MField instance) {
+	protected Field createInstanceWithDefaultFields(MField_BH instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected Field createInstanceWithAllFields(MField instance) {
+	protected Field createInstanceWithAllFields(MField_BH instance) {
 		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override
-	protected MField getModelInstance() {
-		return new MField(Env.getCtx(), 0, null);
+	protected MField_BH getModelInstance() {
+		return new MField_BH(Env.getCtx(), 0, null);
 	}
 
 	@Override
-	public List<Field> transformData(List<MField> dbModels) {
+	public List<Field> transformData(List<MField_BH> dbModels) {
 		Map<Integer, Column> columnByFieldId = columnDBService.transformData(new ArrayList<>(
 						columnDBService.getByIds(dbModels.stream().map(MField::getAD_Column_ID).collect(Collectors.toSet())).values()))
 				.stream().collect(Collectors.toMap(Column::getId, column -> column));
@@ -81,5 +85,13 @@ public class FieldDBService extends BaseDBService<Field, MField> {
 				setShouldFetchFromSystemClient(true);
 			}
 		};
+	}
+
+	@Override
+	protected Map<String, Function<MField_BH, VoidFunction<String>>> getColumnsToTranslate() {
+		return new HashMap<>() {{
+			put(MField_BH.COLUMNNAME_Name, entity -> entity::setName);
+			put(MField_BH.COLUMNNAME_BH_Abbreviation, entity -> entity::setBH_Abbreviation);
+		}};
 	}
 }
