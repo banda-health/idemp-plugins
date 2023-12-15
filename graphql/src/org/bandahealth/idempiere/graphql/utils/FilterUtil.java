@@ -90,18 +90,14 @@ public class FilterUtil {
 	 * </pre>
 	 * NOTE: ID columns (i.e. ones that end in _ID) are not allowed to be filtered and will be skipped
 	 *
-	 * @param tableName           The name of the table to query
-	 * @param filterJson          The JSON string received for filtering
-	 * @param parameters          An array of parameters to add values to
-	 * @param entityConfiguration Entity configuration properties
-	 *                            (can boost performance)
+	 * @param tableName  The name of the table to query
+	 * @param filterJson The JSON string received for filtering
+	 * @param parameters An array of parameters to add values to
+	 *                   (can boost performance)
 	 * @return A where clause based off the filter criteria to use in a DB query
 	 */
 	public static String getWhereClauseFromFilter(String tableName, String filterJson, List<Object> parameters,
-			EntityConfiguration entityConfiguration, Properties idempiereProperties) {
-		if (entityConfiguration == null) {
-			throw new AdempiereException("No entity configuration was passed");
-		}
+			Properties idempiereProperties) {
 		if (StringUtil.isNullOrEmpty(filterJson)) {
 			return DEFAULT_WHERE_CLAUSE;
 		}
@@ -110,8 +106,7 @@ public class FilterUtil {
 			Map<String, Object> expression = parseJsonString(filterJson);
 
 			// Starting off, we don't want any negation, and the base filter JSON object is an expression
-			String whereClause = getWhereClauseFromExpression(tableName, expression, parameters, false, entityConfiguration,
-					idempiereProperties);
+			String whereClause = getWhereClauseFromExpression(tableName, expression, parameters, false, idempiereProperties);
 			if (whereClause.isEmpty()) {
 				return DEFAULT_WHERE_CLAUSE;
 			}
@@ -139,17 +134,14 @@ public class FilterUtil {
 	 * This can be called recursively. It handles an expression with logical and comparison query selectors
 	 * and calls the appropriate methods to handle these expressions.
 	 *
-	 * @param tableName           The name of the table to query
-	 * @param expression          The JSON string received for filtering
-	 * @param parameters          An array of parameters to add values to
-	 * @param negate              Whether the logic should be negated
-	 * @param entityConfiguration Entity configuration properties
-	 *                            (can boost performance)
+	 * @param tableName  The name of the table to query
+	 * @param expression The JSON string received for filtering
+	 * @param parameters An array of parameters to add values to
+	 * @param negate     Whether the logic should be negated
 	 * @return A where clause based off the filter criteria to use in a DB query
 	 */
 	private static String getWhereClauseFromExpression(String tableName, Map<String, Object> expression,
-			List<Object> parameters, boolean negate, EntityConfiguration entityConfiguration,
-			Properties idempiereProperties) {
+			List<Object> parameters, boolean negate, Properties idempiereProperties) {
 		StringBuilder whereClause = new StringBuilder("(");
 
 		boolean canPrependSeparator = false;
@@ -166,24 +158,24 @@ public class FilterUtil {
 				case "$and":
 					expressionListWhereClause = getWhereClauseFromExpressionList(
 							tableName, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.AND, negate,
-							entityConfiguration, idempiereProperties);
+							idempiereProperties);
 					break;
 				case "$not":
 					// $not flips the sign of the negation
 					expressionListWhereClause = getWhereClauseFromExpressionList(
 							tableName, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.AND, !negate,
-							entityConfiguration, idempiereProperties);
+							idempiereProperties);
 					break;
 				case "$or":
 					expressionListWhereClause = getWhereClauseFromExpressionList(
 							tableName, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.OR, negate,
-							entityConfiguration, idempiereProperties);
+							idempiereProperties);
 					break;
 				case "$nor":
 					// $nor flips the sign of the negation
 					expressionListWhereClause = getWhereClauseFromExpressionList(
 							tableName, (List<?>) expression.get(logicalQuerySelector), parameters, FilterArrayJoin.OR, !negate,
-							entityConfiguration, idempiereProperties);
+							idempiereProperties);
 					break;
 				default:
 					logger.warning("Unknown array filter property: " + logicalQuerySelector + ", skipping...");
@@ -203,7 +195,7 @@ public class FilterUtil {
 		if (comparisonQuerySelectors.keySet().size() > 0) {
 			String comparisonsExpressionWhereClause =
 					getWhereClauseFromComparisonQuerySelectors(tableName, comparisonQuerySelectors, parameters, negate,
-							entityConfiguration, idempiereProperties);
+							idempiereProperties);
 			// Only add this where clause if something was returned from the db column comparisons
 			if (!comparisonsExpressionWhereClause.isEmpty()) {
 				whereClause.append(canPrependSeparator ? separator : "");
@@ -231,8 +223,7 @@ public class FilterUtil {
 	 * @return A where clause based off the array of comparisons to use in a DB query
 	 */
 	private static String getWhereClauseFromExpressionList(String tableName, List<?> expresionsList,
-			List<Object> parameters, FilterArrayJoin arrayJoin, boolean negate, EntityConfiguration entityConfiguration,
-			Properties idempiereProperties) {
+			List<Object> parameters, FilterArrayJoin arrayJoin, boolean negate, Properties idempiereProperties) {
 		StringBuilder whereClause = new StringBuilder("(");
 		boolean canPrependSeparator = false;
 		String separator;
@@ -247,7 +238,7 @@ public class FilterUtil {
 		for (Object expression : expresionsList) {
 			String expressionWhereClause =
 					getWhereClauseFromExpression(tableName, (Map<String, Object>) expression, parameters, negate,
-							entityConfiguration, idempiereProperties);
+							idempiereProperties);
 			if (!expressionWhereClause.isEmpty()) {
 				whereClause.append(canPrependSeparator ? separator : "").append(expressionWhereClause);
 				canPrependSeparator = true;
@@ -272,7 +263,7 @@ public class FilterUtil {
 	 */
 	private static String getWhereClauseFromComparisonQuerySelectors(String tableName,
 			Map<String, Object> comparisonQuerySelectors, List<Object> parameters, boolean negate,
-			EntityConfiguration entityConfiguration, Properties idempiereProperties) {
+			Properties idempiereProperties) {
 		StringBuilder whereClause = new StringBuilder("(");
 		boolean canPrependSeparator = false;
 		String separator = negate ? " OR " : " AND ";
@@ -293,7 +284,7 @@ public class FilterUtil {
 					specialForeignKeyMappings.containsKey(dbColumnName.toLowerCase()))) {
 				String subWhereClause =
 						getForeignTableSubQueryWhereClause(tableName, dbModelInfo, dbColumnName,
-								(Map<String, Object>) comparisons, parameters, negate, entityConfiguration, idempiereProperties);
+								(Map<String, Object>) comparisons, parameters, negate, idempiereProperties);
 				if (!subWhereClause.isEmpty()) {
 					whereClause.append(canPrependSeparator ? separator : "").append(subWhereClause);
 					canPrependSeparator = true;
@@ -438,20 +429,16 @@ public class FilterUtil {
 	 * @param comparisonQuerySelectors Any comparisons that are meant to apply to this column
 	 * @param parameters               An array of parameters to add values to
 	 * @param negate                   Whether the logic should be negated
-	 * @param entityConfiguration      Entity configuration properties
-	 *                                 (can boost performance)
 	 * @return The constructed where clause if values matched, or an empty string if nothing found matching
 	 */
 	private static String getForeignTableSubQueryWhereClause(String tableName, POInfo dbModelInfo, String dbColumnName,
 			Map<String, Object> comparisonQuerySelectors, List<Object> parameters, boolean negate,
-			EntityConfiguration entityConfiguration, Properties idempiereProperties) {
+			Properties idempiereProperties) {
 		StringBuilder whereClause = new StringBuilder();
 
 		String foreignTableName = dbColumnName;
 		String remainingDBColumnName = null;
 		String specificColumnToMapOn = null;
-		boolean shouldUseContextClientId = entityConfiguration.isShouldUseContextClientId();
-		boolean shouldFetchFromSystemClient = entityConfiguration.isShouldFetchFromSystemClient();
 
 		// If this is an aliased value, get the alias
 		if (doesTableAliasExistOnColumn(dbColumnName)) {
@@ -494,8 +481,7 @@ public class FilterUtil {
 				}
 			};
 			String subWhereClause =
-					getWhereClauseFromExpression(tableName, adjustedComparisons, parameters, negate, entityConfiguration,
-							idempiereProperties);
+					getWhereClauseFromExpression(tableName, adjustedComparisons, parameters, negate, idempiereProperties);
 			if (!subWhereClause.isEmpty()) {
 				whereClause.append(subWhereClause);
 			}
@@ -526,11 +512,7 @@ public class FilterUtil {
 					for (String aggregateFunction : aggregateComparisons.keySet()) {
 						String aggregateColumnName = aggregateFunction.split("\\(")[1].replace(")", "");
 						whereClause.append("SELECT ").append(idColumn).append(", ").append(aggregateFunction.replace("$", ""))
-								.append(" as ").append(aggregateColumnName);
-						// Add the client id to be returned, if it's required
-						if (shouldUseContextClientId || shouldFetchFromSystemClient) {
-							whereClause.append(",ad_client_id");
-						}
+								.append(" as ").append(aggregateColumnName).append(",ad_client_id");
 						whereClause.append(" FROM ").append(foreignTableName).append(" WHERE (");
 						if (comparisonQuerySelectors.get(aggregateFunction) == null ||
 								((Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction)).isEmpty()) {
@@ -538,7 +520,7 @@ public class FilterUtil {
 						} else {
 							String subWhereClause = getWhereClauseFromExpression(foreignTableName,
 									(Map<String, Object>) comparisonQuerySelectors.get(aggregateFunction), parameters, false,
-									entityConfiguration, idempiereProperties);
+									idempiereProperties);
 							if (subWhereClause.isEmpty()) {
 								whereClause.append(DEFAULT_WHERE_CLAUSE);
 							} else {
@@ -546,27 +528,11 @@ public class FilterUtil {
 							}
 						}
 						// Add the client check, if it's required
-						if (shouldUseContextClientId || shouldFetchFromSystemClient) {
-							whereClause.append(") AND (ad_client_id");
-							if (shouldUseContextClientId && shouldFetchFromSystemClient) {
-								whereClause.append(" IN (?,?)");
-								parameters.add(Env.getAD_Client_ID(idempiereProperties));
-								parameters.add(MClient_BH.CLIENTID_SYSTEM);
-							} else {
-								whereClause.append("=?");
-								if (shouldUseContextClientId) {
-									parameters.add(Env.getAD_Client_ID(idempiereProperties));
-								} else {
-									parameters.add(MClient_BH.CLIENTID_SYSTEM);
-								}
-							}
-						}
+						whereClause.append(") AND (ad_client_id IN (?,?)");
+						parameters.add(Env.getAD_Client_ID(idempiereProperties));
+						parameters.add(MClient_BH.CLIENTID_SYSTEM);
 						// Append the group by clause, since it's an aggregate
-						whereClause.append(") GROUP BY ").append(idColumn);
-						// Add the client to the group by, if it's required
-						if (shouldUseContextClientId || shouldFetchFromSystemClient) {
-							whereClause.append(",ad_client_id");
-						}
+						whereClause.append(") GROUP BY ").append(idColumn).append(",ad_client_id");
 					}
 					whereClause.append(") ");
 				}
@@ -583,29 +549,15 @@ public class FilterUtil {
 				}
 				// Continue the operation, but use the foreign table from this point forward
 				String subWhereClause = getWhereClauseFromExpression(foreignTableName, adjustedComparisons, parameters, negate,
-						entityConfiguration, idempiereProperties);
+						idempiereProperties);
 				if (subWhereClause.isEmpty()) {
 					whereClause.append(DEFAULT_WHERE_CLAUSE);
 				} else {
 					whereClause.append(subWhereClause);
 				}
-				// Add the client check, if it's required
-				if (shouldUseContextClientId || shouldFetchFromSystemClient) {
-					whereClause.append(") AND (ad_client_id");
-					if (shouldUseContextClientId && shouldFetchFromSystemClient) {
-						whereClause.append(" IN (?,?)");
-						parameters.add(Env.getAD_Client_ID(idempiereProperties));
-						parameters.add(MClient_BH.CLIENTID_SYSTEM);
-					} else {
-						whereClause.append("=?");
-						if (shouldUseContextClientId) {
-							parameters.add(Env.getAD_Client_ID(idempiereProperties));
-						} else {
-							parameters.add(MClient_BH.CLIENTID_SYSTEM);
-						}
-					}
-				}
-
+				whereClause.append(") AND (ad_client_id IN (?,?)");
+				parameters.add(Env.getAD_Client_ID(idempiereProperties));
+				parameters.add(MClient_BH.CLIENTID_SYSTEM);
 				whereClause.append("))");
 			}
 		}

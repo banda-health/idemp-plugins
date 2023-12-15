@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.analysis.MaxQueryDepthInstrumentation;
 import graphql.execution.instrumentation.ChainedInstrumentation;
 import graphql.execution.instrumentation.Instrumentation;
@@ -14,6 +15,7 @@ import graphql.kickstart.servlet.GraphQLHttpServlet;
 import graphql.kickstart.servlet.input.GraphQLInvocationInputFactory;
 import graphql.kickstart.tools.SchemaParser;
 import graphql.kickstart.tools.SchemaParserBuilder;
+import graphql.kickstart.tools.SchemaParserOptions;
 import graphql.schema.GraphQLSchema;
 import org.bandahealth.idempiere.graphql.cache.BandaCache;
 import org.bandahealth.idempiere.graphql.cache.CacheFactory;
@@ -21,6 +23,7 @@ import org.bandahealth.idempiere.graphql.context.BandaGraphQLContextBuilder;
 import org.bandahealth.idempiere.graphql.directive.BandaDirectiveComposer;
 import org.bandahealth.idempiere.graphql.error.ErrorHandler;
 import org.bandahealth.idempiere.graphql.instrumentation.LoggingInstrumentation;
+import org.bandahealth.idempiere.graphql.model.BandaObjectMapper;
 import org.bandahealth.idempiere.graphql.resolver.model.BandaResolverComposer;
 import org.bandahealth.idempiere.graphql.resolver.mutation.BandaMutationComposer;
 import org.bandahealth.idempiere.graphql.resolver.query.BandaQueryComposer;
@@ -44,11 +47,11 @@ public class GraphQLEndpoint extends GraphQLHttpServlet {
 	/**
 	 * Get a cache specific to the class requested
 	 *
-	 * @param clazz The class to fetch a cache for
+	 * @param tableName The table name for this cache
 	 * @return The cache specific to the class
 	 */
-	public static BandaCache<Object, Object> getCache(Class<?> clazz) {
-		return cacheFactory.getCache(clazz);
+	public static BandaCache<Object, Object> getCache(String tableName) {
+		return cacheFactory.getCache(tableName);
 	}
 
 	/**
@@ -74,7 +77,7 @@ public class GraphQLEndpoint extends GraphQLHttpServlet {
 		// Set up the cache so, if a GraphQL query has been passed in before, it doesn't have to be parsed
 		// again before heading to the DB (note, this cache doesn't store DB query results)
 		PreparsedDocumentProvider preparsedCache = (executionInput, computeFunction) -> {
-			BandaCache<Object, Object> cache = GraphQLEndpoint.getCache(PreparsedDocumentEntry.class);
+			BandaCache<Object, Object> cache = GraphQLEndpoint.getCache(PreparsedDocumentEntry.class.getName());
 			PreparsedDocumentEntry preparsedDocumentEntry = (PreparsedDocumentEntry) cache.get(executionInput.getQuery());
 			if (preparsedDocumentEntry == null) {
 				preparsedDocumentEntry = computeFunction.apply(executionInput);
@@ -105,6 +108,8 @@ public class GraphQLEndpoint extends GraphQLHttpServlet {
 	 */
 	private GraphQLSchema createSchema() {
 		SchemaParserBuilder builder = SchemaParser.newParser();
+		ObjectMapper objectMapper = BandaObjectMapper.build();
+		builder.options(SchemaParserOptions.newOptions().objectMapperProvider(fieldDefinition -> objectMapper).build());
 		BandaSchemaFileComposer.addAll(builder);
 		BandaQueryComposer.addAll(builder);
 		BandaMutationComposer.addAll(builder);

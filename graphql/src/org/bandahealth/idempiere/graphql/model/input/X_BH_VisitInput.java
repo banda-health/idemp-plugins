@@ -18,7 +18,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	private I_C_BPartnerInput Patient;
 
 	public X_BH_VisitInput(String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuid(Table_Name, ID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(Table_Name, ID), null);
 		setID(ID);
 	}
 

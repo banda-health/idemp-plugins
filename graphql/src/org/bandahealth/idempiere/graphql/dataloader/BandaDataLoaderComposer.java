@@ -12,6 +12,9 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.InvoiceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.InvoiceLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.LocationDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.LocatorDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.M_AD_Ref_ListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.M_BH_VisitDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.M_C_OrderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.OrderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.OrderLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.OrganizationDataLoader;
@@ -63,6 +66,9 @@ public class BandaDataLoaderComposer {
 				new InvoiceLineDataLoader(),
 				new LocationDataLoader(),
 				new LocatorDataLoader(),
+				new M_AD_Ref_ListDataLoader(),
+				new M_BH_VisitDataLoader(),
+				new M_C_OrderDataLoader(),
 				new OrderDataLoader(),
 				new OrderLineDataLoader(),
 				new OrganizationDataLoader(),
