@@ -1,7 +1,8 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
 import org.bandahealth.idempiere.graphql.GraphQLEndpoint;
-import org.bandahealth.idempiere.graphql.repository.BaseRepository;
+import org.bandahealth.idempiere.graphql.dataloader.DataLoaderRegisterer;
+import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.PO;
 import org.dataloader.DataLoader;
@@ -9,17 +10,14 @@ import org.dataloader.DataLoaderOptions;
 import org.dataloader.DataLoaderRegistry;
 import org.dataloader.MappedBatchLoaderWithContext;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.Properties;
 
 /**
  * The base data loader that holds logic common to all data loaders.
  *
  * @param <T> The iDempiere entity this data loader loads data for
- * @param <S> The input entity, if one exists, that the repository uses for receiving data
- * @param <R> The repository used to fetch data from the DB for this entity
  */
-public abstract class BaseDataLoader<T extends PO, S extends T, R extends BaseRepository<T, S>> {
+public abstract class PODataLoader<T extends PO> implements DataLoaderRegisterer {
 	/**
 	 * A method to return the data loader name of the ID batch loader (these names must be unique)
 	 *
@@ -39,7 +37,7 @@ public abstract class BaseDataLoader<T extends PO, S extends T, R extends BaseRe
 	 *
 	 * @return The repository to use for this class
 	 */
-	protected abstract R getRepositoryInstance();
+	protected abstract String getEntityTableName();
 
 	/**
 	 * The base method to register a data loader by iDempiere model ID and UUID.
@@ -65,9 +63,8 @@ public abstract class BaseDataLoader<T extends PO, S extends T, R extends BaseRe
 	 * @return A DataLoaderOptions containing a cache specific to the iDempiere entity T
 	 */
 	protected DataLoaderOptions getOptionsWithCache(Properties idempiereContext) {
-		return DataLoaderOptions.newOptions().setCacheMap(GraphQLEndpoint.getCache(
-				((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getName()
-		)).setBatchLoaderContextProvider(() -> idempiereContext);
+		return DataLoaderOptions.newOptions().setCacheMap(GraphQLEndpoint.getCache(getEntityTableName()))
+				.setBatchLoaderContextProvider(() -> idempiereContext);
 	}
 
 	/**
@@ -86,8 +83,8 @@ public abstract class BaseDataLoader<T extends PO, S extends T, R extends BaseRe
 	 * @return A batch loader for loading entities by their DB IDs
 	 */
 	private MappedBatchLoaderWithContext<Integer, T> getByIdBatchLoader() {
-		return (keys, batchLoaderEnvironment) -> getRepositoryInstance()
-				.getByIdsCompletableFuture(keys, batchLoaderEnvironment.getContext());
+		return (keys, batchLoaderEnvironment) -> Repository.getByIdsCompletableFuture(batchLoaderEnvironment.getContext(),
+				getEntityTableName(), null, keys);
 	}
 
 	/**
@@ -96,7 +93,7 @@ public abstract class BaseDataLoader<T extends PO, S extends T, R extends BaseRe
 	 * @return A batch loader for loading entities by UUIDs
 	 */
 	private MappedBatchLoaderWithContext<String, T> getByUuidBatchLoader() {
-		return (keys, batchLoaderEnvironment) -> getRepositoryInstance()
-				.getByUuidsCompletableFuture(keys, batchLoaderEnvironment.getContext());
+		return (keys, batchLoaderEnvironment) -> Repository.getByUuidsCompletableFuture(batchLoaderEnvironment.getContext(),
+				getEntityTableName(), null, keys);
 	}
 }

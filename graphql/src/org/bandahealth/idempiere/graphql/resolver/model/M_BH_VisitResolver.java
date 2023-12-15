@@ -7,6 +7,9 @@ import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.M_C_OrderDataLoader;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.dataloader.DataLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,9 @@ public class M_BH_VisitResolver extends X_BH_VisitResolver {
 	}
 
 	public CompletableFuture<List<MOrder_BH>> C_Orders(MBHVisit entity, DataFetchingEnvironment environment) {
-		return CompletableFuture.supplyAsync(ArrayList::new);
+		final DataLoader<String, List<MOrder_BH>> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(M_C_OrderDataLoader.C_ORDER_BH_VISIT_ID_DATA_LOADER);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getBH_Visit_ID()));
 	}
 
 	public CompletableFuture<List<MPayment_BH>> C_Payments(MBHVisit entity, DataFetchingEnvironment environment) {

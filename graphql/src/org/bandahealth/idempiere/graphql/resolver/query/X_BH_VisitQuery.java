@@ -8,13 +8,14 @@ import org.bandahealth.idempiere.graphql.model.PagingInfo;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.EntityConfiguration;
 
-public class X_BH_VisitQuery implements GraphQLQueryResolver {
+public class X_BH_VisitQuery extends POQuery<MBHVisit> implements GraphQLQueryResolver {
+	@Override
+	protected String getTableName() {
+		return MBHVisit.Table_Name;
+	}
+
 	public Connection<MBHVisit> BH_VisitGet(int page, int pageSize, String sort, String filter,
 			DataFetchingEnvironment environment) {
-		return Repository.get(MBHVisit.Table_Name, new PagingInfo(page, pageSize), sort, filter, environment, null,
-				new EntityConfiguration() {{
-					setShouldUseContextClientId(true);
-					setShouldFetchFromSystemClient(false);
-				}});
+		return super.get(page, pageSize, sort, filter, environment);
 	}
 }

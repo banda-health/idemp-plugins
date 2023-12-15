@@ -46,7 +46,7 @@ public abstract class BaseRepository<T extends PO, S extends T> {
 	public BaseRepository() {
 		Class<?> childClass =
 				((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
-		cache = GraphQLEndpoint.getCache(childClass);
+		cache = GraphQLEndpoint.getCache(childClass.getName());
 		logger = CLogger.getCLogger(childClass);
 	}
 

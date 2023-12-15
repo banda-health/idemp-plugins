@@ -1,19 +1,27 @@
 package org.bandahealth.idempiere.graphql.utils;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.function.VoidFunction;
+import org.compiere.model.MRole;
+import org.compiere.model.MTable;
 import org.compiere.model.PO;
+import org.compiere.util.CLogger;
 import org.compiere.util.DB;
+import org.compiere.util.Env;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * A utility class to work with iDempiere models
  */
 public class ModelUtil {
+	private final static CLogger log = CLogger.getCLogger(ModelUtil.class);
+
 	/**
 	 * The delimiter to use when creating model keys (which are used in the cache)
 	 */
@@ -84,29 +92,96 @@ public class ModelUtil {
 		return key.split("\\" + keyDelimiter)[0];
 	}
 
-	public static int getEntityIDFromUuid(String tableName, String uuid) {
+	/**
+	 * This method is called by the input models to automatically get data from iDempiere to update/create
+	 *
+	 * @param tableName The table name we're getting data for
+	 * @param uuid      The UUID of the entity we want to return, if any
+	 * @return An ID that can be used to fetch the data from the DB
+	 * @throws AdempiereException If a user doesn't have access to this table, we'll abort this endpoint
+	 */
+	public static int getEntityIDFromUuidOrError(String tableName, String uuid) throws AdempiereException {
+		// First check that the user has access to this table
+		getTableAndCheckAccess(tableName, true);
 		int entityId = 0;
 		if (StringUtil.isNullOrEmpty(uuid)) {
 			return entityId;
 		}
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement =
-					DB.prepareStatement("SELECT " + tableName + "_ID FROM " + tableName + " WHERE " + tableName + "_UU=?", null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(
+				"SELECT " + tableName + "_ID FROM " + tableName + " WHERE " + tableName + "_UU=?", null)) {
 			DB.setParameters(preparedStatement, Collections.singletonList(uuid));
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				entityId = resultSet.getInt(1);
 			}
 		} catch (SQLException e) {
 //			log.log(Level.SEVERE, sql, e);
 //			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
-			resultSet = null;
-			preparedStatement = null;
 		}
 		return entityId;
+	}
+
+	/**
+	 * Get a table if a user has access to it, or throw an error if they don't
+	 * @param tableName The table to check
+	 * @return The table or a thrown error if no access
+	 */
+	public static MTable getTableAndCheckAccess(String tableName) {
+		return getTableAndCheckAccess(tableName, false);
+	}
+
+	/**
+	 * Get a table if a user has access to it, or throw an error if they don't
+	 * @param tableName The table to check
+	 * @param isReadWrite Whether the user is trying to write to the table
+	 * @return
+	 */
+	public static MTable getTableAndCheckAccess(String tableName, boolean isReadWrite) {
+		MTable table = MTable.get(Env.getCtx(), tableName);
+		if (table == null || table.getAD_Table_ID()==0) {
+			throw new AdempiereException("No match found for table name: " + tableName);
+		}
+
+		if (!hasAccess(table, isReadWrite)) {
+			throw new AdempiereException("Access denied for table: " + tableName);
+		}
+
+		return table;
+
+	}
+
+	/**
+	 * Determine whether the given user has access to the requested table
+	 * @param table The table to check
+	 * @param isReadWrite Whether the user want's to perform read/write on the table
+	 * @return
+	 */
+	public static boolean hasAccess(MTable table, boolean isReadWrite) {
+		MRole role = MRole.getDefault();
+		if (role == null) {
+			return false;
+		}
+
+		try (PreparedStatement stmt = DB.prepareStatement(
+				"SELECT DISTINCT a.AD_Window_ID FROM AD_Window a JOIN AD_Tab b ON a.AD_Window_ID=b.AD_Window_ID " +
+						"WHERE a.IsActive='Y' AND b.IsActive='Y' AND b.AD_Table_ID=?", null)) {
+			stmt.setInt(1, table.getAD_Table_ID());
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				int windowId = rs.getInt(1);
+				Boolean hasReadWriteAccess = role.getWindowAccess(windowId);
+				if (hasReadWriteAccess != null) {
+					if (!isReadWrite || hasReadWriteAccess) {
+						return true;
+					}
+				}
+			}
+		} catch (SQLException ex) {
+			log.log(Level.SEVERE, ex.getMessage(), ex);
+			throw new RuntimeException(ex.getMessage());
+		}
+
+		// If no window or no access to the window - check if the role has read/write access to the table
+		return role.isTableAccess(table.getAD_Table_ID(), false);
 	}
 }

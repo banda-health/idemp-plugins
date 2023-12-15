@@ -45,7 +45,7 @@ public class DateScalar {
 	 */
 	private static Timestamp parseInput(Object input) {
 		if (input instanceof Integer || input instanceof Long) {
-			return new Timestamp(Long.getLong(input.toString()));
+			return new Timestamp(Long.parseLong(input.toString()));
 		} else if (input instanceof String) {
 			try {
 				return new Timestamp(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(input.toString()).getTime());
