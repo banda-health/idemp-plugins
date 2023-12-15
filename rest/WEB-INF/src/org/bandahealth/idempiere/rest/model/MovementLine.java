@@ -27,6 +27,7 @@ public class MovementLine extends BaseEntity {
 	private Locator locatorTo;
 	@JsonIgnore
 	private int movementId;
+	private Movement movement;
 
 	public MovementLine() {
 	}
@@ -128,5 +129,13 @@ public class MovementLine extends BaseEntity {
 
 	public void setProductId(int productId) {
 		this.productId = productId;
+	}
+
+	public Movement getMovement() {
+		return movement;
+	}
+
+	public void setMovement(Movement movement) {
+		this.movement = movement;
 	}
 }
