@@ -1,30 +1,31 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.bandahealth.idempiere.base.model.MInOut_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
-import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
-import org.bandahealth.idempiere.rest.model.InOutLine;
-import org.bandahealth.idempiere.rest.model.Transaction;
-import org.compiere.model.MInOutLine;
-import org.compiere.model.MTransaction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
+import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
+import org.bandahealth.idempiere.rest.model.InOutLine;
+import org.bandahealth.idempiere.rest.model.Transaction;
+import org.bandahealth.idempiere.rest.model.User;
+import org.compiere.model.MTransaction;
+import org.compiere.util.Env;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class TransactionDBService extends BaseDBService<Transaction, MTransaction> {
 	@Autowired
-	private InOutDBService inOutDBService;
-	@Autowired
 	private InOutLineDBService inOutLineDBService;
 	@Autowired
-	private OrderDBService orderDBService;
+	private UserDBService userDBService;
+	@Autowired
+	private AttributeSetInstanceDBService attributeInstanceDBService;
 
 	@Override
 	public Transaction saveEntity(Transaction entity) {
@@ -48,33 +49,55 @@ public class TransactionDBService extends BaseDBService<Transaction, MTransactio
 
 	@Override
 	protected MTransaction getModelInstance() {
-		return null;
+		return new MTransaction(Env.getCtx(), 0, null);
 	}
 
 	@Override
 	public List<Transaction> transformData(List<MTransaction> dbModels) {
-		// At this point, we won't link to inventory records, so we'll just ignore them
-
 		// Get in-out lines
-		Set<Integer> inOutLineIds =
-				dbModels.stream().map(MTransaction::getM_InOutLine_ID).filter(inOutLineId -> inOutLineId > 0)
-						.collect(Collectors.toSet());
-		Map<Integer, MInOutLine> inOutLinesById =
-				inOutLineIds.isEmpty() ? new HashMap<>() : inOutLineDBService.getByIds(inOutLineIds);
+		Map<Integer, InOutLine> inOutLinesById = inOutLineDBService
+				.transformData(
+						new ArrayList<>(
+								inOutLineDBService
+										.getByIds(dbModels.stream().map(MTransaction::getM_InOutLine_ID)
+												.filter(inOutLineId -> inOutLineId > 0).collect(Collectors.toSet()))
+										.values()))
+				.stream().collect(Collectors.toMap(InOutLine::getId, line -> line));
 
-		// Get in-outs
-		Set<Integer> inOutIds =
-				inOutLinesById.values().stream().map(MInOutLine::getM_InOut_ID).filter(inOutId -> inOutId > 0)
-						.collect(Collectors.toSet());
-		Map<Integer, MInOut_BH> inOutsById =
-				inOutIds.isEmpty() ? new HashMap<>() : inOutDBService.getByIds(inOutIds);
+		// Get users who created the records
+		Map<Integer, MUser_BH> usersById = userDBService
+				.getByIds(dbModels.stream().map(MTransaction::getCreatedBy).collect(Collectors.toSet()));
 
-		// Get orders
-		Set<Integer> orderIds =
-				inOutsById.values().stream().map(MInOut_BH::getC_Order_ID).filter(orderId -> orderId > 0)
-						.collect(Collectors.toSet());
-		Map<Integer, MOrder_BH> ordersById =
-				inOutIds.isEmpty() ? new HashMap<>() : orderDBService.getByIds(orderIds);
+		// Get attribute set instances
+		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById = attributeInstanceDBService
+				.getByIds(dbModels.stream().map(MTransaction::getM_AttributeSetInstance_ID).filter(id -> id > 0)
+						.collect(Collectors.toSet()));
+
+		dbModels.stream().map(mTransaction -> {
+			Transaction transaction = new Transaction(mTransaction);
+
+			// set user
+			MUser_BH user = usersById.get(mTransaction.getCreatedBy());
+			if (user != null) {
+				transaction.setCreatedBy(new User(user));
+			}
+
+			// set attribute set instance
+			MAttributeSetInstance_BH attributeSetInstance = attributeSetInstancesById
+					.get(mTransaction.getM_AttributeSetInstance_ID());
+			if (attributeSetInstance != null) {
+				transaction.setAttributeSetInstance(new AttributeSetInstance(attributeSetInstance));
+			}
+
+			// set in-out lines
+			if (inOutLinesById.containsKey(mTransaction.getM_InOutLine_ID())) {
+				transaction.setInOutLine(inOutLinesById.get(mTransaction.getM_InOutLine_ID()));
+			}
+
+			return transaction;
+
+		}).collect(Collectors.toList());
+
 		return super.transformData(dbModels);
 	}
 }

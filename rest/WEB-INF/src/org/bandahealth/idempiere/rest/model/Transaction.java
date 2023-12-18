@@ -1,10 +1,11 @@
 package org.bandahealth.idempiere.rest.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.compiere.model.MTransaction;
-
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+
+import org.compiere.model.MTransaction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Transaction extends BaseMetadata {
 	private String movementType;
