@@ -290,9 +290,10 @@ LIMIT 5]]>
 	<subDataset name="PaymentType" uuid="d4575100-aca9-492c-b71f-f6d8455745ca">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Docker PostgreSQL"/>
+		<parameter name="BH_Visit_UU" class="java.lang.String"/>
 		<queryString language="SQL">
 			<![CDATA[WITH visit AS (
-	SELECT bh_visit_id, patient_id FROM bh_visit WHERE bh_visit_uu = 'ee012ec5-6cff-4975-bf71-a22a374a75b7'
+	SELECT bh_visit_id, patient_id FROM bh_visit WHERE bh_visit_uu = $P{BH_Visit_UU} 
 )
 SELECT
 	charges.symbol           AS charge_symbol,
@@ -500,8 +501,9 @@ WHERE
 				<textFieldExpression><![CDATA[$F{insurer_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="75" y="110" width="141" height="16" uuid="6333bf79-af4d-472e-968c-5560a9430e73">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="110" width="141" height="16" uuid="6333bf79-af4d-472e-968c-5560a9430e73">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
@@ -509,10 +511,9 @@ WHERE
 				<textFieldExpression><![CDATA[$F{patient_id}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="126" width="75" height="16" uuid="e3174d74-0a4e-4485-aeb1-a6540d24b83b">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="126" width="80" height="16" uuid="e3174d74-0a4e-4485-aeb1-a6540d24b83b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
@@ -532,8 +533,9 @@ WHERE
 				<text><![CDATA[Insurer:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="60" width="75" height="16" uuid="024e5e5a-a8e5-4fed-b319-af92ea4cfcf6">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="60" width="80" height="16" uuid="024e5e5a-a8e5-4fed-b319-af92ea4cfcf6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
@@ -542,9 +544,8 @@ WHERE
 				<text><![CDATA[Date of Visit:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="110" width="75" height="16" uuid="4f0c4d76-6a7e-42b7-a573-28228dda998a">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="110" width="80" height="16" uuid="4f0c4d76-6a7e-42b7-a573-28228dda998a">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
@@ -561,9 +562,10 @@ WHERE
 				<text><![CDATA[PATIENT VISIT]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="75" y="142" width="141" height="16" uuid="8aa60010-f961-484b-9394-3f78304a6118">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="142" width="141" height="16" uuid="8aa60010-f961-484b-9394-3f78304a6118">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
@@ -571,9 +573,10 @@ WHERE
 				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="75" y="158" width="141" height="16" uuid="62dba34a-3cc9-42f5-8e08-0395bf5d4a9d">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="158" width="141" height="16" uuid="62dba34a-3cc9-42f5-8e08-0395bf5d4a9d">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
@@ -581,10 +584,9 @@ WHERE
 				<textFieldExpression><![CDATA[$F{served_by}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="142" width="75" height="16" uuid="acda3e1c-59ff-4381-a236-bb52858fcad6">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="142" width="80" height="16" uuid="acda3e1c-59ff-4381-a236-bb52858fcad6">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
@@ -593,9 +595,10 @@ WHERE
 				<text><![CDATA[Gender:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="75" y="126" width="141" height="16" uuid="e2fbb537-ae71-4a18-9f5c-6608250d1bbb">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="126" width="141" height="16" uuid="e2fbb537-ae71-4a18-9f5c-6608250d1bbb">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
@@ -603,10 +606,9 @@ WHERE
 				<textFieldExpression><![CDATA[$F{patient}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="158" width="75" height="16" uuid="18c39c99-e6d8-419d-a6af-5618f9f8dcb7">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="158" width="80" height="16" uuid="18c39c99-e6d8-419d-a6af-5618f9f8dcb7">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box leftPadding="2"/>
 				<textElement>
@@ -625,7 +627,9 @@ WHERE
 				<text><![CDATA[BILL TO]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="75" y="60" width="141" height="16" uuid="666fd3bd-05ad-4cbc-ab27-105ed63c8800"/>
+				<reportElement positionType="FixRelativeToBottom" x="80" y="60" width="141" height="16" uuid="666fd3bd-05ad-4cbc-ab27-105ed63c8800">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
@@ -726,9 +730,10 @@ WHERE
 				</jr:table>
 			</componentElement>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="75" y="174" width="141" height="16" uuid="37730e7e-eb93-4d29-bbfa-61e5b8ac83b7">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="174" width="141" height="16" uuid="37730e7e-eb93-4d29-bbfa-61e5b8ac83b7">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<printWhenExpression><![CDATA[!$P{ShowInsuranceInfo}]]></printWhenExpression>
 				</reportElement>
 				<textElement>
@@ -737,10 +742,9 @@ WHERE
 				<textFieldExpression><![CDATA[$F{payment_type}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="174" width="75" height="16" uuid="39f53e59-8534-46a8-852f-2ca73111fa64">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="174" width="80" height="16" uuid="39f53e59-8534-46a8-852f-2ca73111fa64">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<printWhenExpression><![CDATA[!$P{ShowInsuranceInfo}]]></printWhenExpression>
 				</reportElement>
 				<box leftPadding="2"/>
@@ -1074,7 +1078,10 @@ WHERE
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table 3_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="PaymentType" uuid="66878ccc-2c2d-459b-a7a3-22f7543e3595">
+					<datasetRun subDataset="PaymentType" uuid="589737e9-5aa8-4279-9845-05ec4f412e83">
+						<datasetParameter name="BH_Visit_UU">
+							<datasetParameterExpression><![CDATA[$P{BH_Visit_UU}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="73" uuid="cd7f1d4c-28c0-43fe-b297-032786f1a536">
