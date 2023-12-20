@@ -281,15 +281,18 @@ public class GraphQLSchemaGenerator {
 			} else if (columnName.equals("EntityType")) {
 				addGraphQLFields(generatedColumns, columnName, Description, "AD_EntityType", isMandatory,
 						shouldSkipInputField);
-			} else if (columnName.endsWith("_ID") &&
-					MTable.get(Env.getCtx(), columnName.substring(0, columnName.length() - 3)) != null) {
-				String entityName = columnName.substring(0, columnName.length() - 3);
-				addGraphQLFields(generatedColumns, entityName, Description, entityName, isMandatory, shouldSkipInputField);
-			} else if (columnName.equals("Logo_ID")) {
-				String entityName = columnName.substring(0, columnName.length() - 3);
-				addGraphQLFields(generatedColumns, entityName, Description, "AD_Image", isMandatory, shouldSkipInputField);
 			} else {
-				log.warning("Did not generate a field for: " + columnName);
+				String columnNameWithSuffixedIdRemoved = columnName.substring(0, columnName.length() - 3);
+				if (columnName.endsWith("_ID") &&
+						MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
+					String entityName = columnNameWithSuffixedIdRemoved;
+					addGraphQLFields(generatedColumns, entityName, Description, entityName, isMandatory, shouldSkipInputField);
+				} else if (columnName.equals("Logo_ID")) {
+					String entityName = columnNameWithSuffixedIdRemoved;
+					addGraphQLFields(generatedColumns, entityName, Description, "AD_Image", isMandatory, shouldSkipInputField);
+				} else {
+					log.warning("Did not generate a field for: " + columnName);
+				}
 			}
 			return;
 		} else if (columnName.endsWith("_UU")) {
@@ -306,9 +309,13 @@ public class GraphQLSchemaGenerator {
 				generatedColumns.inputModel.append("\t# ").append(Description).append("\n");
 			}
 		}
-		generatedColumns.regularModel.append("\t").append(columnName).append(": ");
+		String neededPropertySuffix = "";
+		if (AD_Reference_ID > 0) {
+			neededPropertySuffix = "_RL";
+		}
+		generatedColumns.regularModel.append("\t").append(columnName).append(neededPropertySuffix).append(": ");
 		if (!shouldSkipInputField) {
-			generatedColumns.inputModel.append("\t").append(columnName).append(": ");
+			generatedColumns.inputModel.append("\t").append(columnName).append(neededPropertySuffix).append(": ");
 		}
 
 		if (clazz.equals(Integer.class) || clazz.equals(BigDecimal.class)) {

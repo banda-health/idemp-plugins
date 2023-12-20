@@ -74,7 +74,7 @@ public interface I_BH_Voided_Reason
 	public int getBH_Voided_Reason_ID();
 
     /** Column name bh_voided_reason_uu */
-    public static final String COLUMNNAME_bh_voided_reason_uu = "bh_voided_reason_uu";
+    public static final String COLUMNNAME_BH_Voided_Reason_UU = "BH_Voided_Reason_UU";
 
 	/** Set bh_voided_reason_uu	  */
 	public void setbh_voided_reason_uu (String bh_voided_reason_uu);

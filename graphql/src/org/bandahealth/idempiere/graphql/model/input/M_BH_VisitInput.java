@@ -74,8 +74,8 @@ public class M_BH_VisitInput extends X_BH_VisitInput {
 	}
 
 	@Override
-	public M_AD_Ref_ListInput getBh_referral_RL() {
-		return (M_AD_Ref_ListInput) super.getBh_referral_RL();
+	public M_AD_Ref_ListInput getbh_referral_RL() {
+		return (M_AD_Ref_ListInput) super.getbh_referral_RL();
 	}
 
 	@Override
