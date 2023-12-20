@@ -16,7 +16,9 @@ package org.bandahealth.idempiere.graphql.generator.util;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Map;
 
 import javax.swing.*;
 
@@ -182,6 +184,12 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 			String inputModelPackageName = "";
 			String customModelFolderName = customModelDirectoryNameField.getText();
 			String customModelPackageName = customModelPackageField.getText();
+			Map<String, ModelMap> modelsForTables;
+			try {
+				 modelsForTables = GraphQLUtil.getModelsForTables(customModelFolderName);
+			} catch (IOException ex) {
+				throw new RuntimeException(ex);
+			}
 			if (generateInputModelCheckbox.isSelected()) {
 				inputModelFolder = inputModelDirectoryNameField.getText();
 				if (inputModelFolder == null || inputModelFolder.trim().isEmpty()) {
@@ -208,10 +216,12 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 				GraphQLSchemaGenerator.generateSource(entityType, tableName, columnEntityType, schemaFolder);
 			}
 			if (generateInputModelCheckbox.isSelected()) {
-				GraphQLInputModelGenerator.generateSource(entityType, tableName, columnEntityType, inputModelFolder,
-						inputModelPackageName, customModelFolderName, customModelPackageName);
+				GraphQLInputModelInterfaceGenerator.generateSource(entityType, tableName, columnEntityType, inputModelFolder,
+						inputModelPackageName, customModelFolderName, customModelPackageName, modelsForTables);
+				GraphQLInputModelClassGenerator.generateSource(entityType, tableName, columnEntityType, inputModelFolder,
+						inputModelPackageName, customModelFolderName, customModelPackageName, modelsForTables);
 			}
-			this.dispose();
+//			this.dispose();
 		} else if (e.getSource() == cancelButton) {
 			this.dispose();
 		} else if (e.getSource() == getSchemaFolderButton) {

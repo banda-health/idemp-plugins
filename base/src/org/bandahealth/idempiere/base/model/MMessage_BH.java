@@ -1,11 +1,11 @@
 package org.bandahealth.idempiere.base.model;
 
-import org.compiere.model.X_AD_Message;
+import org.compiere.model.MMessage;
 
 import java.sql.ResultSet;
 import java.util.Properties;
 
-public class MMessage_BH extends X_AD_Message {
+public class MMessage_BH extends MMessage {
 
 	public static String OLD_PASSWORD_MANDATORY = "OldPasswordMandatory";
 	public static String NEW_PASSWORD_MANDATORY = "NewPasswordConfirmMandatory";
@@ -13,7 +13,7 @@ public class MMessage_BH extends X_AD_Message {
 	public static String ANSWER_MANDATORY = "AnswerMandatory";
 	public static String OLD_PASSWORD_DOESNT_MATCH = "OldPasswordNoMatch";
 	public static String NEW_PASSWORD_MUST_DIFFER = "NewPasswordMustDiffer";
-	public static String USERNAME_REQUIRED= "Username required";
+	public static String USERNAME_REQUIRED = "Username required";
 	public static String WRONG_CREDENTIALS = "username or password incorrect";
 
 	// These are copied from ResetPasswordPanel

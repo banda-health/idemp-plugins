@@ -96,14 +96,14 @@ public class X_BH_Voided_Reason extends PO implements I_BH_Voided_Reason, I_Pers
 		@param bh_voided_reason_uu bh_voided_reason_uu	  */
 	public void setbh_voided_reason_uu (String bh_voided_reason_uu)
 	{
-		set_Value (COLUMNNAME_bh_voided_reason_uu, bh_voided_reason_uu);
+		set_Value (COLUMNNAME_BH_Voided_Reason_UU, bh_voided_reason_uu);
 	}
 
 	/** Get bh_voided_reason_uu.
 		@return bh_voided_reason_uu	  */
 	public String getbh_voided_reason_uu () 
 	{
-		return (String)get_Value(COLUMNNAME_bh_voided_reason_uu);
+		return (String)get_Value(COLUMNNAME_BH_Voided_Reason_UU);
 	}
 
 	/** Set Window ID.

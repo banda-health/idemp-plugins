@@ -22,6 +22,7 @@ package org.bandahealth.idempiere.graphql.generator.util;
 import org.adempiere.exceptions.DBException;
 import org.adempiere.util.ModelInterfaceGenerator;
 import org.compiere.Adempiere;
+import org.compiere.model.MRefList;
 import org.compiere.model.MTable;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
@@ -30,15 +31,16 @@ import org.compiere.util.Env;
 import org.compiere.util.Util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -48,11 +50,12 @@ import java.util.logging.Level;
  *
  * @author Kevin Burnett
  */
-public class GraphQLInputModelGenerator {
-	private static final CLogger log = CLogger.getCLogger(GraphQLInputModelGenerator.class);
+public class GraphQLInputModelClassGenerator {
+	private static final CLogger log = CLogger.getCLogger(GraphQLInputModelClassGenerator.class);
 	private String packageName = "";
-	private Boolean doCustomModelsExist = false;
-	private String customModelPackageName = "";
+	private ModelMap tableStructureExtensions;
+	private Map<String, ModelMap> modelsForTables;
+	private TreeSet<String> privateProperties = new TreeSet<>();
 
 	/**
 	 * Generate Schema
@@ -61,82 +64,87 @@ public class GraphQLInputModelGenerator {
 	 * @param directory        directory
 	 * @param entityTypeFilter entity type filter for columns
 	 */
-	public GraphQLInputModelGenerator(int AD_Table_ID, String entityTypeFilter, String directory, String packageName,
-			Boolean doCustomModelsExist, String customModelDirectory, String customModelPackageName) {
+	public GraphQLInputModelClassGenerator(int AD_Table_ID, String entityTypeFilter, String directory,
+			String packageName, Map<String, ModelMap> modelsForTables) throws FileNotFoundException {
 		this.packageName = packageName;
-		this.doCustomModelsExist = doCustomModelsExist;
-		this.customModelPackageName = customModelPackageName;
+		this.modelsForTables = modelsForTables;
 
-		//	create column access methods
-		StringBuilder stringBuilder = new StringBuilder();
-		StringBuilder generatedColumns = createColumns(AD_Table_ID, entityTypeFilter, stringBuilder);
+		// Get the name of the model to extend
+		tableStructureExtensions = modelsForTables.get(MTable.get(AD_Table_ID).getTableName());
+		if (tableStructureExtensions == null) {
+			throw new FileNotFoundException("Can't find file to match for table " + MTable.get(AD_Table_ID).getTableName());
+		}
+
+		// create column access methods
+		StringBuilder generatedColumns = createColumns(AD_Table_ID, entityTypeFilter);
 
 		// Header
-//		String fileName = createHeader(AD_Table_ID, stringBuilder, generatedColumns);
-//
-//		// Save
-//		if (!directory.endsWith(File.separator)) {
-//			directory += File.separator;
-//		}
-//
-//		writeToFile(stringBuilder, directory + fileName + ".graphqls");
+		String fileName = createHeader(AD_Table_ID, generatedColumns);
+
+		// Save
+		if (!directory.endsWith(File.separator)) {
+			directory += File.separator;
+		}
+
+		writeToFile(generatedColumns, directory + fileName + ".java");
 	}
 
 	/**
 	 * Add Header info to buffer
 	 *
 	 * @param AD_Table_ID      table
-	 * @param stringBuilder    buffer
 	 * @param generatedColumns GeneratedColumns
 	 * @return file name
 	 */
-	private String createHeader(int AD_Table_ID, StringBuilder stringBuilder, GeneratedColumns generatedColumns) {
-		String tableName = "";
+	private String createHeader(int AD_Table_ID, StringBuilder generatedColumns) {
+		String tableName = null;
 		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				tableName = resultSet.getString(1);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
-			resultSet = null;
-			preparedStatement = null;
 		}
 		if (tableName == null) {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
 		}
 
-		stringBuilder.append("# Generated Schema for ").append(tableName).append(" - DO NOT CHANGE\n")
-				.append("#\t\t@author Banda Health (generated) ").append("\n")
-				.append("#\t\t@version ").append(Adempiere.MAIN_VERSION).append(" - $Id$").append("\n")
+		String className = "X_" + tableName + "Input";
+		String interfaceName = "I_" + tableName + "Input";
+		StringBuilder generatedClass = new StringBuilder()
+				.append("package ").append(packageName).append(";\n\n");
 
-				// Default Queries
-				.append("extend type Query {\n")
-				.append("\t").append(tableName).append("Get(page: Int, size: Int, sort: String, filter: String): ")
-				.append(tableName).append("Connection!\n")
-				.append("}\n\n")
+		// Insert the required iDempiere imports
+		classesToImport.add("org.compiere.model.Query");
+		classesToImport.add("org.compiere.util.Env");
+		classesToImport.add("org.bandahealth.idempiere.graphql.utils.ModelUtil");
+		classesToImport.add(tableStructureExtensions.getClassPackageName() + "." + tableStructureExtensions.getClassName());
 
-				// Default Mutations
-				.append("extend type Mutation {\n\t").append(tableName).append("Save(entity: ").append(tableName)
-				.append("Input!): ").append(tableName).append("!\n\t").append(tableName)
-				.append("Delete(uuids: [String!]!): Boolean!\n}\n\n")
+		createImports(generatedClass);
+		generatedClass
+				.append("/**\n * Generated Model for ").append(tableName).append(" - DO NOT CHANGE\n *\n")
+				.append(" * @author Banda Health (generated)").append("\n")
+				.append(" * @version ").append(Adempiere.MAIN_VERSION).append(" - $Id$").append("\n */\n")
 
-				// Connection Type
-				.append("type ").append(tableName).append("Connection {\n\tresults: [").append(tableName).append("!]!\n")
-				.append("\tpagingInfo: PagingInfo!\n}\n\n");
+				// Class definition
+				.append("public class ").append(className).append(" extends ")
+				.append(tableStructureExtensions.getClassName()).append(" implements ").append(interfaceName).append(" {\n\n");
 
-		stringBuilder.append("type ").append(tableName).append(" {\n").append(generatedColumns.regularModel)
-				.append("}\n\ninput ").append(tableName).append("Input {\n").append(generatedColumns.inputModel).append(
-						"}\n");
+		createPrivateProperties(generatedClass);
+		generatedClass
+				.append("\t/**\n\t * Standard constructor\n\t */\n")
+				.append("\tpublic ").append(className).append("(String ID) {\n")
+				.append("\t\tsuper(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(Table_Name, ID), null);\n")
+				.append("\t\tsetID(ID);\n")
+				.append("\t}");
 
-		return "X_" + tableName;
+		generatedColumns.insert(0, generatedClass);
+		generatedColumns.append("\n}\n");
+
+		return className;
 	}
 
 	/**
@@ -146,24 +154,20 @@ public class GraphQLInputModelGenerator {
 	 * @param entityTypeFilter
 	 * @return set/get method
 	 */
-	private StringBuilder createColumns(int AD_Table_ID, String entityTypeFilter, StringBuilder mandatory) {
+	private StringBuilder createColumns(int AD_Table_ID, String entityTypeFilter) {
 		StringBuilder generatedColumns = new StringBuilder();
 		String sql = "SELECT c.ColumnName, c.IsUpdateable, c.IsMandatory,"    //	1..3
 				+ " c.AD_Reference_ID, c.AD_Reference_Value_ID, DefaultValue, SeqNo, "  //	4..7
 				+ " c.FieldLength, c.ValueMin, c.ValueMax, c.VFormat, c.Callout, "  //	8..12
-				+ " c.Name, c.Description, c.ColumnSQL, c.IsEncrypted, c.IsKey, c.IsIdentifier "  // 13..18
+				+ " c.Name, c.Description, c.ColumnSQL, c.IsEncrypted, c.IsKey "  // 13..17
 				+ "FROM AD_Column c "
 				+ "WHERE c.AD_Table_ID=?"
 				+ " AND c.IsActive='Y'"
 				+ (!Util.isEmpty(entityTypeFilter) ? " AND c." + entityTypeFilter : "")
 				+ " ORDER BY c.ColumnName";
-		boolean isKeyNamePairCreated = false; // true if the method "getKeyNamePair" is already generated
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql, null);
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Table_ID);
-			resultSet = preparedStatement.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String columnName = resultSet.getString(1);
 				boolean isUpdatable = "Y".equals(resultSet.getString(2));
@@ -180,77 +184,49 @@ public class GraphQLInputModelGenerator {
 				String Name = resultSet.getString(13);
 				String Description = resultSet.getString(14);
 				String ColumnSQL = resultSet.getString(15);
-				boolean virtualColumn = ColumnSQL != null && ColumnSQL.length() > 0;
+				boolean virtualColumn = ColumnSQL != null && !ColumnSQL.isEmpty();
 				boolean IsEncrypted = "Y".equals(resultSet.getString(16));
 				boolean IsKey = "Y".equals(resultSet.getString(17));
-				boolean IsIdentifier = "Y".equals(resultSet.getString(18));
 				//
 				generatedColumns.append(
-						createFields(columnName, isUpdatable, isMandatory,
-								displayType, AD_Reference_Value_ID, fieldLength, defaultValue, ValueMin, ValueMax, VFormat, Callout,
-								Name,
-								Description, virtualColumn, IsEncrypted, IsKey, AD_Table_ID));
-				//
-				if (seqNo == 1 && IsIdentifier) {
-					if (!isKeyNamePairCreated) {
-						isKeyNamePairCreated = true;
-					} else {
-						StringBuilder msgException = new StringBuilder("More than one primary identifier found ")
-								.append(" (AD_Table_ID=").append(AD_Table_ID).append(", ColumnName=").append(columnName).append(")");
-						throw new RuntimeException(msgException.toString());
-					}
-				}
+						createColumnMethods(columnName, isUpdatable, isMandatory, displayType, AD_Reference_Value_ID, fieldLength,
+								defaultValue, ValueMin, ValueMax, VFormat, Callout, Name, Description, virtualColumn, IsEncrypted,
+								IsKey, AD_Table_ID));
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
-		} finally {
-			DB.close(resultSet, preparedStatement);
-			resultSet = null;
-			preparedStatement = null;
 		}
-//		MTable translationTable;
-//		if ((translationTable = MTable.get(Env.getCtx(), MTable.get(Env.getCtx(), AD_Table_ID).getTableName() + "_Trl")) !=
-//				null && translationTable.get_ID() > 0) {
-//			generatedColumns.regularModel.append("\t").append(translationTable.getTableName()).append(": [")
-//					.append(translationTable.getTableName()).append("!]!\n");
-//			generatedColumns.inputModel.append("\t").append(translationTable.getTableName()).append(": [")
-//					.append(translationTable.getTableName()).append("Input!]\n");
-//		}
 		return generatedColumns;
 	}
 
 	/**
 	 * Create the definitions for the schema fields
 	 *
-	 * @param columnName       column name
-	 * @param isUpdateable     updateable
-	 * @param isMandatory      mandatory
-	 * @param displayType      display type
-	 * @param AD_Reference_ID  validation reference
-	 * @param fieldLength      int
-	 * @param defaultValue     default value
-	 * @param ValueMin         String
-	 * @param ValueMax         String
-	 * @param VFormat          String
-	 * @param Callout          String
-	 * @param Name             String
-	 * @param Description      String
-	 * @param virtualColumn    virtual column
-	 * @param IsEncrypted      stored encrypted
+	 * @param columnName      column name
+	 * @param isUpdateable    updateable
+	 * @param isMandatory     mandatory
+	 * @param displayType     display type
+	 * @param AD_Reference_ID validation reference
+	 * @param fieldLength     int
+	 * @param defaultValue    default value
+	 * @param ValueMin        String
+	 * @param ValueMax        String
+	 * @param VFormat         String
+	 * @param Callout         String
+	 * @param Name            String
+	 * @param Description     String
+	 * @param virtualColumn   virtual column
+	 * @param IsEncrypted     stored encrypted
 	 * @return set/get method
 	 */
-	private String createFields(String columnName, boolean isUpdateable,
-			boolean isMandatory, int displayType, int AD_Reference_ID, int fieldLength, String defaultValue, String ValueMin,
-			String ValueMax, String VFormat, String Callout, String Name, String Description, boolean virtualColumn,
-			boolean IsEncrypted, boolean IsKey, int AD_Table_ID) {
+	private String createColumnMethods(String columnName, boolean isUpdateable, boolean isMandatory, int displayType,
+			int AD_Reference_ID, int fieldLength, String defaultValue, String ValueMin, String ValueMax, String VFormat,
+			String Callout, String Name, String Description, boolean virtualColumn, boolean IsEncrypted, boolean IsKey,
+			int AD_Table_ID) {
 		Class<?> clazz = ModelInterfaceGenerator.getClass(columnName, displayType, AD_Reference_ID);
 		String dataType = ModelInterfaceGenerator.getDataTypeName(clazz, displayType);
 		if (defaultValue == null) {
 			defaultValue = "";
-		}
-		if (DisplayType.isLOB(displayType)) {
-			//	No length check for LOBs
-			fieldLength = 0;
 		}
 
 		StringBuilder columnBuilder = new StringBuilder();
@@ -261,48 +237,162 @@ public class GraphQLInputModelGenerator {
 
 		// TODO - New functionality
 		// 1) Must understand which class to reference
-		if (shouldSkipInputField || !DisplayType.isID(displayType) || IsKey) {
+		if (shouldSkipInputField) {
+			return "";
+		}
+		if (DisplayType.isID(displayType) && !IsKey) {
+			String fieldName = ModelInterfaceGenerator.getFieldName(columnName);
+			String referenceClassName =
+					ModelInterfaceGenerator.getReferenceClassName(AD_Table_ID, columnName, displayType, AD_Reference_ID);
+
+			String foreignEntityTable = "";
+			String entityName = "";
+			String returnType = "";
+			if (fieldName != null && referenceClassName != null) {
+				// This entity is a foreign key, so let's work with it
+				// If the column doesn't end with "_ID", we want that to be the field name (and not what the iDempiere code
+				// generates)
+				if (!columnName.contains("_ID")) {
+					fieldName = columnName;
+				}
+				String[] packagePath = referenceClassName.split("\\.");
+				referenceClassName = packagePath[packagePath.length - 1].substring(2);
+				entityName = fieldName;
+				returnType = "I_" + referenceClassName + "Input";
+				foreignEntityTable = referenceClassName;
+			} else if (columnName.equals("AD_Language")) {
+				entityName = columnName;
+				returnType = "I_" + columnName + "Input";
+				foreignEntityTable = columnName;
+			} else if (columnName.equals("EntityType")) {
+				entityName = "AD_EntityType";
+				returnType = "I_" + entityName + "Input";
+				foreignEntityTable = entityName;
+			} else {
+				String columnNameWithSuffixedIdRemoved = columnName.substring(0, columnName.length() - 3);
+				if (columnName.endsWith("_ID") &&
+						MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
+					entityName = columnNameWithSuffixedIdRemoved;
+					returnType = "I_" + columnNameWithSuffixedIdRemoved + "Input";
+					foreignEntityTable = entityName;
+				} else if (columnName.equals("Logo_ID")) {
+					entityName = "AD_Image";
+					returnType = "I_" + entityName + "Input";
+					foreignEntityTable = entityName;
+				} else {
+					log.warning("Did not generate a field for: " + columnName);
+					return "";
+				}
+			}
+
+			columnBuilder.append("\n");
+
+			// Make sure that a private property is set correctly
+			privateProperties.add(returnType + " " + entityName);
+			generateJavaSetComment(entityName, Name, Description, columnBuilder);
+			ModelMap foreignEntityModelMap = modelsForTables.get(foreignEntityTable);
+			String modelForForeignEntity = foreignEntityModelMap.getClassName();
+			classesToImport.add(foreignEntityModelMap.getClassPackageName() + "." + foreignEntityModelMap.getClassName());
+			columnBuilder.append("\tpublic void set").append(entityName).append("(").append(returnType).append(" ")
+					.append(entityName).append(") {\n")
+					.append("\t\tthis.").append(entityName).append(" = ").append(entityName).append(";\n")
+					.append("\t\t").append(modelForForeignEntity).append(" foreignEntity;\n")
+					.append("\t\tif (");
+			if (!isUpdateable) {
+				columnBuilder.append("get_ID() == 0 &&");
+			}
+			columnBuilder
+					.append(entityName).append(" != null &&\n\t\t\t\t")
+					.append("(foreignEntity = new Query(getCtx(), ").append(modelForForeignEntity).append(".Table_Name, ")
+					.append(modelForForeignEntity).append(".COLUMNNAME_").append(foreignEntityTable)
+					.append("_UU + \"=?\", get_TrxName())")
+					.append("\n\t\t\t\t\t\t.setParameters(").append(entityName).append(".getID())\n")
+					.append("\t\t\t\t\t\t.first()) != null && foreignEntity.get_ID() != 0) {\n")
+					.append("\t\t\tthis.set").append(entityName).append("_ID(foreignEntity.get_ID());\n")
+					.append("\t\t}");
+			// If this is updatable, set the property to 0 to indicate it should be cleared
+			if (isUpdateable) {
+				columnBuilder.append(" else {\n\t\t\tthis.set").append(entityName).append("_ID(0);\n\t\t}");
+			}
+			columnBuilder.append("\n\t}");
+
+			generateJavaGetComment(Name, Description, columnBuilder);
+			columnBuilder
+					.append("\tpublic ").append(returnType).append(" get").append(entityName).append("() {\n")
+					.append("\t\treturn ").append(entityName).append(";\n")
+					.append("\t}");
+			return columnBuilder.toString();
+		} else if (columnName.endsWith("_UU")) {
+			// If this is the UUID column, we need to generate the ID fields
+			columnBuilder.append("\n");
+			generateJavaSetComment("ID", "ID", Description, columnBuilder);
+			columnBuilder
+					.append("\tpublic void setID(String ID) {\n")
+					.append("\t\tset").append(columnName).append("(ID);\n")
+					.append("\t}\n");
+			generateJavaGetComment("ID", Description, columnBuilder);
+			columnBuilder
+					.append("\tpublic String getID() {\n")
+					.append("\t\treturn get").append(columnName).append("();\n")
+					.append("\t}");
+			return columnBuilder.toString();
+		} else if (IsKey) {
 			return "";
 		}
 
-		String fieldName = ModelInterfaceGenerator.getFieldName(columnName);
-		String referenceClassName =
-				ModelInterfaceGenerator.getReferenceClassName(AD_Table_ID, columnName, displayType, AD_Reference_ID);
+		// If the code is updatable from this point forward, the parent class can handle it
+		if (isUpdateable && AD_Reference_ID <= 0) {
+			return "";
+		} else if (AD_Reference_ID > 0) {
+			ModelMap classToUseMap = modelsForTables.get(MRefList.Table_Name);
+			classesToImport.add(classToUseMap.getClassPackageName() + "." + classToUseMap.getClassName());
+			columnBuilder.append("\n");
+			String returnType = "I_AD_Ref_ListInput";
+			String entityName = columnName + "_RL";
 
-		// Create Java Comment
-		generateJavaSetComment(columnName, Name, Description, columnBuilder);
-
-		String entityName = "";
-		String returnType = "";
-		if (fieldName != null && referenceClassName != null) {
-			entityName = fieldName;
-			returnType = referenceClassName + "Input";
-		} else if (columnName.equals("AD_Language")) {
-			entityName = columnName;
-			returnType = columnName + "Input";
-		} else if (columnName.equals("EntityType")) {
-			entityName = columnName;
-			returnType = "AD_EntityTypeInput";
-		} else {
-			String columnNameWithSuffixedIdRemoved = columnName.substring(0, columnName.length() - 3);
-			if (columnName.endsWith("_ID") &&
-					MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
-				entityName = columnNameWithSuffixedIdRemoved;
-				returnType = entityName + "Input";
-			} else if (columnName.equals("Logo_ID")) {
-				entityName = columnNameWithSuffixedIdRemoved;
-				returnType = "AD_ImageInput";
-			} else {
-				log.warning("Did not generate a field for: " + columnName);
+			// Make sure that a private property is set correctly
+			privateProperties.add(returnType + " " + entityName);
+			generateJavaSetComment(entityName, Name, Description, columnBuilder);
+			String modelForForeignEntity = classToUseMap.getClassName();
+			columnBuilder.append("\tpublic void set").append(entityName).append("(").append(returnType).append(" ")
+					.append(entityName).append(") {\n")
+					.append("\t\tthis.").append(entityName).append(" = ").append(entityName).append(";\n")
+					.append("\t\t").append(modelForForeignEntity).append(" foreignEntity;\n")
+					.append("\t\tif (");
+			if (!isUpdateable) {
+				columnBuilder.append("get_ID() == 0 &&");
 			}
+			columnBuilder
+					.append(entityName).append(" != null &&\n\t\t\t\t")
+					.append("(foreignEntity = new Query(getCtx(), ").append(modelForForeignEntity).append(".Table_Name, ")
+					.append(modelForForeignEntity).append(".COLUMNNAME_AD_Ref_List_UU + \"=?\", get_TrxName())")
+					.append("\n\t\t\t\t\t\t.setParameters(").append(entityName).append(".getID())\n")
+					.append("\t\t\t\t\t\t.first()) != null && foreignEntity.get_ID() != 0) {\n")
+					.append("\t\t\tthis.set").append(columnName).append("(foreignEntity.getValue());\n")
+					.append("\t\t}");
+			if (isUpdateable) {
+				columnBuilder
+						.append(" else {\n\t\t\tthis.set").append(columnName).append("(null);\n\t\t}");
+			}
+			columnBuilder.append("\n\t}\n");
+
+			generateJavaGetComment(Name, Description, columnBuilder);
+			columnBuilder
+					.append("\tpublic ").append(returnType).append(" get").append(entityName).append("() {\n")
+					.append("\t\treturn ").append(entityName).append(";\n")
+					.append("\t}");
+			return columnBuilder.toString();
 		}
 
-		//	public void setColumn (xxx variable)
-//		columnBuilder.append("\tpublic void set").append(columnName).append("(").append(dataType).append(" ")
-//				.append(columnName).append(")").append(NL)
-//				.append("\t{").append(NL);
-
-		return "";
+		// Since this property isn't updatable, we need to generate a method that updates the property only if the entity
+		// is new
+		generateJavaSetComment(columnName, Name, Description, columnBuilder);
+		columnBuilder
+				.append("\tpublic void set").append(columnName).append("(").append(dataType).append(" ").append(columnName)
+				.append(") {\n\t\tif (get_ID() == 0) {\n")
+				.append("\t\t\tsuper.set").append(columnName).append("(").append(columnName).append(");\n")
+				.append("\t\t}\n\t}");
+		return columnBuilder.toString();
 	}
 
 	/**
@@ -330,38 +420,6 @@ public class GraphQLInputModelGenerator {
 	public void generateJavaGetComment(String propertyName, String description, StringBuilder generatedCode) {
 		generatedCode.append("\n").append("\t/**\n\t * Get ").append(propertyName).append(".\n\t *\n\t * @return ")
 				.append(description != null && !description.isEmpty() ? description : propertyName).append("\n\t */\n");
-	}
-
-	/**
-	 * Add the appropriate fields to the generated columns
-	 *
-	 * @param generatedColumns     The columns for the different types
-	 * @param columnName           The column name to use
-	 * @param description          A description of the column
-	 * @param fieldType            What type the field resolves to
-	 * @param isMandatory          Whether the field is mandatory
-	 * @param shouldSkipInputField Whether the input should leverage this field
-	 */
-	private void addGraphQLFields(GeneratedColumns generatedColumns, String columnName, String description,
-			String fieldType, boolean isMandatory, boolean shouldSkipInputField) {
-		if (description != null && !description.isEmpty()) {
-			generatedColumns.regularModel.append("\t# ").append(description).append("\n");
-			if (!shouldSkipInputField) {
-				generatedColumns.inputModel.append("\t# ").append(description).append("\n");
-			}
-		}
-		String entityName = columnName.substring(0, columnName.length() - 3);
-		generatedColumns.regularModel.append("\t").append(columnName).append(": ").append(fieldType);
-		if (!shouldSkipInputField) {
-			generatedColumns.inputModel.append("\t").append(columnName).append(": ").append(fieldType).append("Input");
-		}
-		if (isMandatory) {
-			generatedColumns.regularModel.append("!");
-		}
-		generatedColumns.regularModel.append("\n");
-		if (!shouldSkipInputField) {
-			generatedColumns.inputModel.append("\n");
-		}
 	}
 
 	/**************************************************************************
@@ -401,38 +459,30 @@ public class GraphQLInputModelGenerator {
 	/**
 	 * Import classes
 	 */
-	private final Collection<String> s_importClasses = new TreeSet<String>();
+	private final Collection<String> classesToImport = new TreeSet<>();
 
 	/**
-	 * Add class name to class import list
+	 * Generate java imports
 	 *
-	 * @param className
+	 * @param generatedClass
 	 */
-	private void addImportClass(String className) {
-		if (className == null || (className.startsWith("java.lang.") && !className.startsWith("java.lang.reflect.")) ||
-				className.startsWith(packageName + ".")) {
-			return;
+	private void createImports(StringBuilder generatedClass) {
+		for (String name : classesToImport) {
+			generatedClass.append("import ").append(name).append(";").append("\n");
 		}
-		for (String name : s_importClasses) {
-			if (className.equals(name)) {
-				return;
-			}
-		}
-		s_importClasses.add(className);
+		generatedClass.append("\n");
 	}
 
 	/**
-	 * Add class to class import list
+	 * Generate java imports
 	 *
-	 * @param cl
+	 * @param generatedClass
 	 */
-	private void addImportClass(Class<?> cl) {
-		if (cl.isArray()) {
-			cl = cl.getComponentType();
+	private void createPrivateProperties(StringBuilder generatedClass) {
+		for (String privateProperty : privateProperties) {
+			generatedClass.append("\t private ").append(privateProperty).append(";").append("\n");
 		}
-		if (cl.isPrimitive())
-			return;
-		addImportClass(cl.getCanonicalName());
+		generatedClass.append("\n");
 	}
 
 	/**
@@ -451,7 +501,8 @@ public class GraphQLInputModelGenerator {
 	 * @param columnEntityType
 	 */
 	public static void generateSource(String entityType, String tableName, String columnEntityType, String sourceFolder,
-			String packageName, String customModelSourceFolder, String customModelPackageName) {
+			String packageName, String customModelSourceFolder, String customModelPackageName,
+			Map<String, ModelMap> modelsForTables) {
 		if (sourceFolder == null || sourceFolder.trim().isEmpty()) {
 			throw new IllegalArgumentException("Must specify source folder");
 		}
@@ -545,7 +596,7 @@ public class GraphQLInputModelGenerator {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT AD_Table_ID ")
 				.append("FROM AD_Table ")
-				.append("WHERE IsActive = 'Y' ");
+				.append("WHERE IsActive = 'Y' AND TableName NOT LIKE '%_Trl' ");
 		// Autodetect if we need to use IN or LIKE clause - teo_sarca [ 3020640 ]
 		if (tableLike.indexOf(",") == -1) {
 			sql.append(" AND TableName LIKE ").append(tableLike);
@@ -584,25 +635,17 @@ public class GraphQLInputModelGenerator {
 			preparedStatement = DB.prepareStatement(sql.toString(), null);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				new GraphQLInputModelGenerator(resultSet.getInt(1), columnFilter, directory.toString(), packageName,
-						doCustomModelsExist, customModelDirectory.toString(), customModelPackageName);
+				new GraphQLInputModelClassGenerator(resultSet.getInt(1), columnFilter, directory.toString(), packageName,
+						modelsForTables);
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql.toString());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		} finally {
 			DB.close(resultSet, preparedStatement);
 			resultSet = null;
 			preparedStatement = null;
-		}
-	}
-
-	static class GeneratedColumns {
-		final StringBuilder regularModel;
-		final StringBuilder inputModel;
-
-		public GeneratedColumns(StringBuilder regularModel, StringBuilder inputModel) {
-			this.regularModel = regularModel;
-			this.inputModel = inputModel;
 		}
 	}
 }
