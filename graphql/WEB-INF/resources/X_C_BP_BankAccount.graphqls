@@ -43,9 +43,9 @@ type C_BP_BankAccount {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	# Bank Account Type
-	BankAccountType: AD_Ref_List
+	BankAccountType_RL: AD_Ref_List
 	# Business Partner Bank Account usage
-	BPBankAcctUse: AD_Ref_List
+	BPBankAcctUse_RL: AD_Ref_List
 	# Bank
 	C_Bank: C_Bank
 	ID: ID!
@@ -56,7 +56,7 @@ type C_BP_BankAccount {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Expiry Month
 	CreditCardExpMM: Int
 	# Expiry Year
@@ -64,7 +64,7 @@ type C_BP_BankAccount {
 	# Credit Card Number 
 	CreditCardNumber: String
 	# Credit Card (Visa, MC, AmEx)
-	CreditCardType: AD_Ref_List
+	CreditCardType_RL: AD_Ref_List
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	CustomerPaymentProfileID: String
@@ -75,15 +75,15 @@ type C_BP_BankAccount {
 	# The record is active in the system
 	IsActive: Boolean!
 	# This address has been verified
-	R_AvsAddr: AD_Ref_List
+	R_AvsAddr_RL: AD_Ref_List
 	# The Zip Code has been verified
-	R_AvsZip: AD_Ref_List
+	R_AvsZip_RL: AD_Ref_List
 	# Bank Routing Number
 	RoutingNo: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input C_BP_BankAccountInput {
@@ -112,9 +112,9 @@ input C_BP_BankAccountInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_UserInput
 	# Bank Account Type
-	BankAccountType: AD_Ref_ListInput
+	BankAccountType_RL: AD_Ref_ListInput
 	# Business Partner Bank Account usage
-	BPBankAcctUse: AD_Ref_ListInput
+	BPBankAcctUse_RL: AD_Ref_ListInput
 	# Bank
 	C_Bank: C_BankInput
 	ID: ID
@@ -129,7 +129,7 @@ input C_BP_BankAccountInput {
 	# Credit Card Number 
 	CreditCardNumber: String
 	# Credit Card (Visa, MC, AmEx)
-	CreditCardType: AD_Ref_ListInput
+	CreditCardType_RL: AD_Ref_ListInput
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	CustomerPaymentProfileID: String
@@ -140,9 +140,9 @@ input C_BP_BankAccountInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# This address has been verified
-	R_AvsAddr: AD_Ref_ListInput
+	R_AvsAddr_RL: AD_Ref_ListInput
 	# The Zip Code has been verified
-	R_AvsZip: AD_Ref_ListInput
+	R_AvsZip_RL: AD_Ref_ListInput
 	# Bank Routing Number
 	RoutingNo: String
 }

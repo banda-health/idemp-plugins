@@ -23,7 +23,7 @@ type M_ShipperLabelsCfg {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	Height: Int
@@ -31,7 +31,7 @@ type M_ShipperLabelsCfg {
 	IsActive: Boolean!
 	# Default value
 	IsDefault: Boolean!
-	LabelPrintMethod: AD_Ref_List
+	LabelPrintMethod_RL: AD_Ref_List
 	M_ShipperCfg: M_ShipperCfg!
 	ID: ID!
 	# Alphanumeric identifier of the entity
@@ -39,7 +39,7 @@ type M_ShipperLabelsCfg {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 	Width: Int
@@ -55,7 +55,7 @@ input M_ShipperLabelsCfgInput {
 	IsActive: Boolean
 	# Default value
 	IsDefault: Boolean
-	LabelPrintMethod: AD_Ref_ListInput
+	LabelPrintMethod_RL: AD_Ref_ListInput
 	M_ShipperCfg: M_ShipperCfgInput
 	ID: ID
 	# Alphanumeric identifier of the entity

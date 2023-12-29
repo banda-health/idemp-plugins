@@ -1,0 +1,82 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import org.compiere.model.I_PA_DashboardContent_Access;
+
+/**
+ * Generated Interface for PA_DashboardContent_Access - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public interface I_PA_DashboardContent_AccessInput extends I_PA_DashboardContent_Access {
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	void setAD_Org(I_AD_OrgInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within client
+	 */
+	I_AD_OrgInput getAD_Org();
+
+	/**
+	 * Set AD_Role.
+	 *
+	 * @param AD_Role Responsibility Role
+	 */
+	void setAD_Role(I_AD_RoleInput AD_Role);
+
+	/**
+	 * Get AD_Role.
+	 *
+	 * @return Responsibility Role
+	 */
+	I_AD_RoleInput getAD_Role();
+
+	/**
+	 * Set AD_User.
+	 *
+	 * @param AD_User User within the system - Internal or Business Partner Contact
+	 */
+	void setAD_User(I_AD_UserInput AD_User);
+
+	/**
+	 * Get AD_User.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	I_AD_UserInput getAD_User();
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	void setID(String ID);
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	String getID();
+
+	/**
+	 * Set PA_DashboardContent.
+	 *
+	 * @param PA_DashboardContent PA_DashboardContent
+	 */
+	void setPA_DashboardContent(I_PA_DashboardContentInput PA_DashboardContent);
+
+	/**
+	 * Get PA_DashboardContent.
+	 *
+	 * @return PA_DashboardContent
+	 */
+	I_PA_DashboardContentInput getPA_DashboardContent();
+}

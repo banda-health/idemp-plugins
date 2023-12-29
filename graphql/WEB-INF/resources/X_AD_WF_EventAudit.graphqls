@@ -36,13 +36,13 @@ type AD_WF_EventAudit {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Elapsed Time in milli seconds
 	ElapsedTimeMS: Int!
 	# Type of Event
-	EventType: AD_Ref_List!
+	EventType_RL: AD_Ref_List!
 	# The record is active in the system
 	IsActive: Boolean!
 	# New field value
@@ -56,9 +56,9 @@ type AD_WF_EventAudit {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# State of the execution of the workflow
-	WFState: AD_Ref_List!
+	WFState_RL: AD_Ref_List!
 }
 
 input AD_WF_EventAuditInput {
@@ -82,7 +82,7 @@ input AD_WF_EventAuditInput {
 	# Elapsed Time in milli seconds
 	ElapsedTimeMS: Int
 	# Type of Event
-	EventType: AD_Ref_ListInput
+	EventType_RL: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
 	# New field value
@@ -94,5 +94,5 @@ input AD_WF_EventAuditInput {
 	# Text Message
 	TextMsg: String
 	# State of the execution of the workflow
-	WFState: AD_Ref_ListInput
+	WFState_RL: AD_Ref_ListInput
 }

@@ -34,11 +34,11 @@ type PA_DashboardContent {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Type of goal display on dashboard
-	GoalDisplay: AD_Ref_List
+	GoalDisplay_RL: AD_Ref_List
 	HTML: String
 	# The record is active in the system
 	IsActive: Boolean!
@@ -63,7 +63,7 @@ type PA_DashboardContent {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# URI for Dashboard Gadget
 	ZulFilePath: String
 }
@@ -85,7 +85,7 @@ input PA_DashboardContentInput {
 	# Optional short description of the record
 	Description: String
 	# Type of goal display on dashboard
-	GoalDisplay: AD_Ref_ListInput
+	GoalDisplay_RL: AD_Ref_ListInput
 	HTML: String
 	# The record is active in the system
 	IsActive: Boolean

@@ -34,29 +34,29 @@ type M_Package {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Date a product was received
 	DateReceived: Date
 	# EMail Delivery confirmation
 	DeliveryConfirmation: Boolean!
-	DeliveryConfirmationType: AD_Ref_List
+	DeliveryConfirmationType_RL: AD_Ref_List
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document
 	DocumentNo: String!
-	DotHazardClassOrDivision: AD_Ref_List
+	DotHazardClassOrDivision_RL: AD_Ref_List
 	DryIceWeight: Int
 	DutiesShipperAccount: String
 	EstimatedWeight: Int
-	FOB: AD_Ref_List
-	FreightCharges: AD_Ref_List
+	FOB_RL: AD_Ref_List
+	FreightCharges_RL: AD_Ref_List
 	HandlingCharge: Int
 	Height: Int
 	HoldAddress: C_BPartner_Location
 	HomeDeliveryPremiumDate: Date
 	HomeDeliveryPremiumPhone: String
-	HomeDeliveryPremiumType: AD_Ref_List
-	Insurance: AD_Ref_List
+	HomeDeliveryPremiumType_RL: AD_Ref_List
+	Insurance_RL: AD_Ref_List
 	InsuredAmount: Int
 	IsAccessible: Boolean!
 	# The record is active in the system
@@ -88,11 +88,11 @@ type M_Package {
 	M_ShippingProcessor: M_ShippingProcessor
 	NotificationMessage: String
 	# Type of Notifications
-	NotificationType: AD_Ref_List
+	NotificationType_RL: AD_Ref_List
 	# This payment can be processed online
 	OProcessing: String
 	# How you pay the invoice
-	PaymentRule: AD_Ref_List
+	PaymentRule_RL: AD_Ref_List
 	# Price
 	Price: Int
 	# Actual Price 
@@ -115,7 +115,7 @@ type M_Package {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	VoidIt: String
 	# Weight of a product
 	Weight: Int
@@ -140,12 +140,12 @@ input M_PackageInput {
 	DateReceived: Date
 	# EMail Delivery confirmation
 	DeliveryConfirmation: Boolean
-	DeliveryConfirmationType: AD_Ref_ListInput
+	DeliveryConfirmationType_RL: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document
 	DocumentNo: String
-	DotHazardClassOrDivision: AD_Ref_ListInput
+	DotHazardClassOrDivision_RL: AD_Ref_ListInput
 	DryIceWeight: Int
 	DutiesShipperAccount: String
 	HandlingCharge: Int
@@ -153,7 +153,7 @@ input M_PackageInput {
 	HoldAddress: C_BPartner_LocationInput
 	HomeDeliveryPremiumDate: Date
 	HomeDeliveryPremiumPhone: String
-	HomeDeliveryPremiumType: AD_Ref_ListInput
+	HomeDeliveryPremiumType_RL: AD_Ref_ListInput
 	InsuredAmount: Int
 	IsAccessible: Boolean
 	# The record is active in the system
@@ -184,11 +184,11 @@ input M_PackageInput {
 	M_ShipperPickupTypes: M_ShipperPickupTypesInput
 	NotificationMessage: String
 	# Type of Notifications
-	NotificationType: AD_Ref_ListInput
+	NotificationType_RL: AD_Ref_ListInput
 	# This payment can be processed online
 	OProcessing: String
 	# How you pay the invoice
-	PaymentRule: AD_Ref_ListInput
+	PaymentRule_RL: AD_Ref_ListInput
 	# Price
 	Price: Int
 	# Actual Price 

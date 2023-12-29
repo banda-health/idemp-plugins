@@ -25,7 +25,7 @@ type M_MatchInv {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Accounting Date
 	DateAcct: Date!
 	# Transaction Date
@@ -44,7 +44,7 @@ type M_MatchInv {
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Posting status
-	Posted: Boolean!
+	Posted_RL: Boolean!
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
@@ -58,7 +58,7 @@ type M_MatchInv {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input M_MatchInvInput {
@@ -84,7 +84,7 @@ input M_MatchInvInput {
 	# Product, Service, Item
 	M_Product: M_ProductInput
 	# Posting status
-	Posted: Boolean
+	Posted_RL: Boolean
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

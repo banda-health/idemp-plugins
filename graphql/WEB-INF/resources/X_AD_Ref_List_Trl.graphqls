@@ -19,7 +19,7 @@ type AD_Ref_List_Trl {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Language for this entity
-	AD_Language: AD_Language!
+	AD_Language_L: AD_Language!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Reference List based on Table
@@ -28,7 +28,7 @@ type AD_Ref_List_Trl {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -40,12 +40,12 @@ type AD_Ref_List_Trl {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input AD_Ref_List_TrlInput {
 	# Language for this entity
-	AD_Language: AD_LanguageInput
+	AD_Language_L: AD_LanguageInput
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	# Reference List based on Table

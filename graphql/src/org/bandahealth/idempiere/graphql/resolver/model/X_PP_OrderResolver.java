@@ -1,0 +1,362 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WorkflowDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ActivityDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CampaignDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ElementValueDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OrderLineDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_UOMDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetInstanceDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_WarehouseDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Product_BOMDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ResourceDataLoader;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MActivity;
+import org.compiere.model.MCampaign;
+import org.compiere.model.MElementValue;
+import org.compiere.model.MProject;
+import org.compiere.model.MRefList;
+import org.compiere.model.MResource;
+import org.compiere.model.MUOM;
+import org.compiere.model.X_AD_Workflow;
+import org.dataloader.DataLoader;
+import org.eevolution.model.MPPProductBOM;
+import org.eevolution.model.X_PP_Order;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * Generated ModelResolver for PP_Order - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQLResolver<X_PP_Order> {
+
+
+
+	/**
+	 * Get Workflow.
+	 *
+	 * @return Workflow or combination of tasks
+	 */
+	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Workflow_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, X_AD_Workflow> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.AD_Workflow_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getAD_Workflow_ID());
+	}
+
+
+	/**
+	 * Get Activity.
+	 *
+	 * @return Business Activity
+	 */
+	public CompletableFuture<MActivity> C_Activity(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Activity_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MActivity> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_Activity_ID());
+	}
+
+
+	/**
+	 * Get Campaign.
+	 *
+	 * @return Marketing Campaign
+	 */
+	public CompletableFuture<MCampaign> C_Campaign(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Campaign_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MCampaign> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_Campaign_ID());
+	}
+
+
+	/**
+	 * Get Document Type.
+	 *
+	 * @return Document type or rules
+	 */
+	public CompletableFuture<MDocType_BH> C_DocType(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getC_DocType_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MDocType_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_DocType_ID());
+	}
+
+
+	/**
+	 * Get Target Document Type.
+	 *
+	 * @return Target document type for conversing documents
+	 */
+	public CompletableFuture<MDocType_BH> C_DocTypeTarget(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getC_DocTypeTarget_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MDocType_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_DocTypeTarget_ID());
+	}
+
+
+	/**
+	 * Get Sales Order Line.
+	 *
+	 * @return Sales Order Line
+	 */
+	public CompletableFuture<MOrderLine_BH> C_OrderLine(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getC_OrderLine_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MOrderLine_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.C_OrderLine_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_OrderLine_ID());
+	}
+
+
+	/**
+	 * Get Project.
+	 *
+	 * @return Financial Project
+	 */
+	public CompletableFuture<MProject> C_Project(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getC_Project_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MProject> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_Project_ID());
+	}
+
+
+	/**
+	 * Get UOM.
+	 *
+	 * @return Unit of Measure
+	 */
+	public CompletableFuture<MUOM> C_UOM(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getC_UOM_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MUOM> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_UOM_ID());
+	}
+
+	static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(X_PP_Order.DOCACTION_Complete, "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da");
+			put(X_PP_Order.DOCACTION_Approve, "f80665a4-0db1-4609-be56-5d69b762d169");
+			put(X_PP_Order.DOCACTION_Reject, "8fffbfd1-560a-4a78-9181-e5b76bbb3354");
+			put(X_PP_Order.DOCACTION_Post, "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9");
+			put(X_PP_Order.DOCACTION_Void, "930f9be7-85bc-4002-83a6-fe4e1b8cfce3");
+			put(X_PP_Order.DOCACTION_Close, "d0a6de04-9c59-4d37-998d-f8070db820b0");
+			put(X_PP_Order.DOCACTION_Reverse_Correct, "597e3e98-f1cd-4157-885a-1fae6424a3a6");
+			put(X_PP_Order.DOCACTION_Reverse_Accrual, "1a3904b9-86bc-4831-a4af-0281dcafa8f8");
+			put(X_PP_Order.DOCACTION_Invalidate, "69ff146b-fe0e-44a0-98d1-80b2f7958edf");
+			put(X_PP_Order.DOCACTION_Re_Activate, "c8f55635-67a3-42ae-b626-2064acb2e260");
+			put(X_PP_Order.DOCACTION_None, "ea523fb8-e21b-4a77-a657-6f5a7d12a591");
+			put(X_PP_Order.DOCACTION_Prepare, "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76");
+			put(X_PP_Order.DOCACTION_Unlock, "b2d93bde-a7e7-43f0-9b1c-82527992f6d5");
+			put(X_PP_Order.DOCACTION_WaitComplete, "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
+		}
+	};
+	public CompletableFuture<MRefList> DocAction_RL(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getDocAction())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
+	}
+
+	static Map<String, String> DOCSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(X_PP_Order.DOCSTATUS_Drafted, "d27f8a6b-e8b5-4fea-a6b2-3e7049c473ec");
+			put(X_PP_Order.DOCSTATUS_Completed, "50702660-bbfc-422a-8acc-5ed3a2dce204");
+			put(X_PP_Order.DOCSTATUS_Approved, "a838dad1-b7fc-4b26-9d80-d45f2d8484c5");
+			put(X_PP_Order.DOCSTATUS_NotApproved, "c8c414ee-3e4e-480b-aa0e-bc6c1d100bd2");
+			put(X_PP_Order.DOCSTATUS_Voided, "d35dfd1d-1eb2-46ef-ab2f-23973d68a570");
+			put(X_PP_Order.DOCSTATUS_Invalid, "c2d506ba-1916-4ca2-abde-da3127c11d77");
+			put(X_PP_Order.DOCSTATUS_Reversed, "029a78cf-d45c-4fb2-a6c9-fb92c2311af6");
+			put(X_PP_Order.DOCSTATUS_Closed, "ab9df095-8aa8-4338-98b6-4b09ab9d459e");
+			put(X_PP_Order.DOCSTATUS_Unknown, "0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2");
+			put(X_PP_Order.DOCSTATUS_InProgress, "9f864275-6135-452f-a5a7-9377d9ed32bc");
+			put(X_PP_Order.DOCSTATUS_WaitingPayment, "4a9871d9-ec70-489f-aca5-05adb7e61df9");
+			put(X_PP_Order.DOCSTATUS_WaitingConfirmation, "56264c44-b530-4a53-b07b-6fb203ff61a6");
+		}
+	};
+	public CompletableFuture<MRefList> DocStatus_RL(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getDocStatus())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
+	}
+
+
+	/**
+	 * Get Attribute Set Instance.
+	 *
+	 * @return Product Attribute Set Instance
+	 */
+	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
+	}
+
+
+	/**
+	 * Get Product/Service.
+	 *
+	 * @return Product, Service, Item
+	 */
+	public CompletableFuture<MProduct_BH> M_Product(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getM_Product_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MProduct_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getM_Product_ID());
+	}
+
+
+	/**
+	 * Get Warehouse.
+	 *
+	 * @return Storage Warehouse and Service Point
+	 */
+	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getM_Warehouse_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MWarehouse_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getM_Warehouse_ID());
+	}
+
+
+	/**
+	 * Get Planner.
+	 *
+	 * @return Planner
+	 */
+	public CompletableFuture<MUser_BH> Planner(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getPlanner_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MUser_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPlanner_ID());
+	}
+
+
+	/**
+	 * Get BOM & Formula.
+	 *
+	 * @return BOM & Formula
+	 */
+	public CompletableFuture<MPPProductBOM> PP_Product_BOM(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getPP_Product_BOM_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MPPProductBOM> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMDataLoader.PP_Product_BOM_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPP_Product_BOM_ID());
+	}
+
+	static Map<String, String> PRIORITYRULE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(X_PP_Order.PRIORITYRULE_High, "eb2a15e0-e10d-47df-9ddd-d12d39b32007");
+			put(X_PP_Order.PRIORITYRULE_Medium, "6ca5bed6-2fd6-4afd-b3a8-d9c91452e829");
+			put(X_PP_Order.PRIORITYRULE_Low, "74703c05-07aa-47d6-8ee3-e884ce2f505e");
+			put(X_PP_Order.PRIORITYRULE_Urgent, "6d26a706-aa9f-4111-8b5b-741aa48476d9");
+			put(X_PP_Order.PRIORITYRULE_Minor, "c349e252-ad91-483f-b53f-0e92fabbaca5");
+		}
+	};
+	public CompletableFuture<MRefList> PriorityRule_RL(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getPriorityRule())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(PRIORITYRULE_UUIDS_BY_VALUE.get(entity.getPriorityRule()));
+	}
+
+
+	/**
+	 * Get Resource.
+	 *
+	 * @return Resource
+	 */
+	public CompletableFuture<MResource> S_Resource(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getS_Resource_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MResource> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.S_Resource_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getS_Resource_ID());
+	}
+
+
+	/**
+	 * Get User Element List 1.
+	 *
+	 * @return User defined list element #1
+	 */
+	public CompletableFuture<MElementValue> User1(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getUser1_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MElementValue> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getUser1_ID());
+	}
+
+
+	/**
+	 * Get User Element List 2.
+	 *
+	 * @return User defined list element #2
+	 */
+	public CompletableFuture<MElementValue> User2(X_PP_Order entity, DataFetchingEnvironment environment) {
+		if (entity.getUser2_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MElementValue> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getUser2_ID());
+	}
+
+}

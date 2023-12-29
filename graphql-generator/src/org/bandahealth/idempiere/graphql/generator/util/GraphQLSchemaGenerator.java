@@ -196,14 +196,14 @@ public class GraphQLSchemaGenerator {
 			resultSet = null;
 			preparedStatement = null;
 		}
-		MTable translationTable;
-		if ((translationTable = MTable.get(Env.getCtx(), MTable.get(Env.getCtx(), AD_Table_ID).getTableName() + "_Trl")) !=
-				null && translationTable.get_ID() > 0) {
-			generatedColumns.regularModel.append("\t").append(translationTable.getTableName()).append(": [")
-					.append(translationTable.getTableName()).append("!]!\n");
-			generatedColumns.inputModel.append("\t").append(translationTable.getTableName()).append(": [")
-					.append(translationTable.getTableName()).append("Input!]\n");
-		}
+//		MTable translationTable;
+//		if ((translationTable = MTable.get(Env.getCtx(), MTable.get(Env.getCtx(), AD_Table_ID).getTableName() + "_Trl")) !=
+//				null && translationTable.get_ID() > 0) {
+//			generatedColumns.regularModel.append("\t").append(translationTable.getTableName()).append(": [")
+//					.append(translationTable.getTableName()).append("!]!\n");
+//			generatedColumns.inputModel.append("\t").append(translationTable.getTableName()).append(": [")
+//					.append(translationTable.getTableName()).append("Input!]\n");
+//		}
 		return generatedColumns;
 	}
 
@@ -253,8 +253,10 @@ public class GraphQLSchemaGenerator {
 					ModelInterfaceGenerator.getReferenceClassName(AD_Table_ID, columnName, displayType, AD_Reference_ID);
 			//
 			if (fieldName != null && referenceClassName != null) {
-				if (!columnName.contains("_ID")) {
-					fieldName = columnName;
+				// If this isn't an ID column or the field isn't an account field (ends with "_A"), use the column name as the
+				// field name
+				if (!columnName.contains("_ID") && !fieldName.endsWith("_A")) {
+//					fieldName = columnName;
 				}
 				if (Description != null && !Description.isEmpty()) {
 					generatedColumns.regularModel.append("\t# ").append(Description).append("\n");
@@ -277,7 +279,7 @@ public class GraphQLSchemaGenerator {
 				generatedColumns.inputModel.append(fieldName).append(": ").append(referenceClassName).append("Input");
 				generatedColumns.inputModel.append("\n");
 			} else if (columnName.equals("AD_Language")) {
-				addGraphQLFields(generatedColumns, columnName, Description, columnName, isMandatory, shouldSkipInputField);
+				addGraphQLFields(generatedColumns, columnName + "_L", Description, columnName, isMandatory, shouldSkipInputField);
 			} else if (columnName.equals("EntityType")) {
 				addGraphQLFields(generatedColumns, columnName, Description, "AD_EntityType", isMandatory,
 						shouldSkipInputField);

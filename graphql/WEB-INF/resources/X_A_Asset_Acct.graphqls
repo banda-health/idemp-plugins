@@ -16,34 +16,34 @@ type A_Asset_AcctConnection {
 }
 
 type A_Asset_Acct {
-	A_Accumdepreciation_Acct: C_ValidCombination!
-	A_Asset_Acct: C_ValidCombination!
+	A_Accumdepreciation_A: C_ValidCombination!
+	A_Asset_A: C_ValidCombination!
 	ID: ID!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	A_Depreciation_Acct: C_ValidCombination!
+	A_Depreciation_A: C_ValidCombination!
 	A_Depreciation_Conv_F: A_Depreciation_Convention
 	A_Depreciation_Conv: A_Depreciation_Convention
 	A_Depreciation_F: A_Depreciation!
 	A_Depreciation: A_Depreciation!
 	A_Depreciation_Manual_Amount: Int
-	A_Depreciation_Manual_Period: AD_Ref_List
+	A_Depreciation_Manual_Period_RL: AD_Ref_List
 	A_Depreciation_Method_F: A_Depreciation_Method
 	A_Depreciation_Method: A_Depreciation_Method
 	A_Depreciation_Table_Header: A_Depreciation_Table_Header
 	A_Depreciation_Variable_Perc: Int
 	A_Depreciation_Variable_Perc_F: Int
-	A_Disposal_Gain_Acct: C_ValidCombination
-	A_Disposal_Loss_Acct: C_ValidCombination!
-	A_Disposal_Revenue_Acct: C_ValidCombination!
+	A_Disposal_Gain_A: C_ValidCombination
+	A_Disposal_Loss_A: C_ValidCombination!
+	A_Disposal_Revenue_A: C_ValidCombination!
 	A_Period_End: Int!
 	A_Period_Start: Int!
-	A_Reval_Adep_Offset_Cur_Acct: C_ValidCombination
-	A_Reval_Adep_Offset_Prior_Acct: C_ValidCombination
-	A_Reval_Cal_Method: AD_Ref_List
-	A_Reval_Cost_Offset_Acct: C_ValidCombination
-	A_Reval_Cost_Offset_Prior_Acct: C_ValidCombination
-	A_Reval_Depexp_Offset_Acct: C_ValidCombination
+	A_Reval_Adep_Offset_Cur_A: C_ValidCombination
+	A_Reval_Adep_Offset_Prior_A: C_ValidCombination
+	A_Reval_Cal_Method_RL: AD_Ref_List
+	A_Reval_Cost_Offset_A: C_ValidCombination
+	A_Reval_Cost_Offset_Prior_A: C_ValidCombination
+	A_Reval_Depexp_Offset_A: C_ValidCombination
 	A_Salvage_Value: Int
 	A_Split_Percent: Int!
 	# Client/Tenant for this installation.
@@ -55,49 +55,49 @@ type A_Asset_Acct {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_List!
+	PostingType_RL: AD_Ref_List!
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Valid from including this date (first day)
 	ValidFrom: Date
 }
 
 input A_Asset_AcctInput {
-	A_Accumdepreciation_Acct: C_ValidCombinationInput
-	A_Asset_Acct: C_ValidCombinationInput
+	A_Accumdepreciation_A: C_ValidCombinationInput
+	A_Asset_A: C_ValidCombinationInput
 	ID: ID
 	# Asset used internally or by customers
 	A_Asset: A_AssetInput
-	A_Depreciation_Acct: C_ValidCombinationInput
+	A_Depreciation_A: C_ValidCombinationInput
 	A_Depreciation_Conv_F: A_Depreciation_ConventionInput
 	A_Depreciation_Conv: A_Depreciation_ConventionInput
 	A_Depreciation_F: A_DepreciationInput
 	A_Depreciation: A_DepreciationInput
 	A_Depreciation_Manual_Amount: Int
-	A_Depreciation_Manual_Period: AD_Ref_ListInput
+	A_Depreciation_Manual_Period_RL: AD_Ref_ListInput
 	A_Depreciation_Method_F: A_Depreciation_MethodInput
 	A_Depreciation_Method: A_Depreciation_MethodInput
 	A_Depreciation_Table_Header: A_Depreciation_Table_HeaderInput
 	A_Depreciation_Variable_Perc: Int
 	A_Depreciation_Variable_Perc_F: Int
-	A_Disposal_Gain_Acct: C_ValidCombinationInput
-	A_Disposal_Loss_Acct: C_ValidCombinationInput
-	A_Disposal_Revenue_Acct: C_ValidCombinationInput
+	A_Disposal_Gain_A: C_ValidCombinationInput
+	A_Disposal_Loss_A: C_ValidCombinationInput
+	A_Disposal_Revenue_A: C_ValidCombinationInput
 	A_Period_End: Int
 	A_Period_Start: Int
-	A_Reval_Adep_Offset_Cur_Acct: C_ValidCombinationInput
-	A_Reval_Adep_Offset_Prior_Acct: C_ValidCombinationInput
-	A_Reval_Cal_Method: AD_Ref_ListInput
-	A_Reval_Cost_Offset_Acct: C_ValidCombinationInput
-	A_Reval_Cost_Offset_Prior_Acct: C_ValidCombinationInput
-	A_Reval_Depexp_Offset_Acct: C_ValidCombinationInput
+	A_Reval_Adep_Offset_Cur_A: C_ValidCombinationInput
+	A_Reval_Adep_Offset_Prior_A: C_ValidCombinationInput
+	A_Reval_Cal_Method_RL: AD_Ref_ListInput
+	A_Reval_Cost_Offset_A: C_ValidCombinationInput
+	A_Reval_Cost_Offset_Prior_A: C_ValidCombinationInput
+	A_Reval_Depexp_Offset_A: C_ValidCombinationInput
 	A_Salvage_Value: Int
 	A_Split_Percent: Int
 	# Organizational entity within client
@@ -107,7 +107,7 @@ input A_Asset_AcctInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType_RL: AD_Ref_ListInput
 	Processing: Boolean
 	# Valid from including this date (first day)
 	ValidFrom: Date

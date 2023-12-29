@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.MProjectTypeTask;
+
+/**
+ * Data Loader for C_Task - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_TaskDataLoader extends PODataLoader<MProjectTypeTask> {
+	public static String C_Task_BY_ID_DATA_LOADER = "C_TaskByIdDataLoader";
+	public static String C_Task_BY_UUID_DATA_LOADER = "C_TaskByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return MProjectTypeTask.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return C_Task_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return C_Task_BY_UUID_DATA_LOADER;
+	}
+}

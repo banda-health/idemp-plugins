@@ -23,7 +23,7 @@ type EXP_Processor_Type {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	ID: ID!
@@ -37,7 +37,7 @@ type EXP_Processor_Type {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 }

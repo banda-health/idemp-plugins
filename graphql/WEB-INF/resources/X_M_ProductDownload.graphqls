@@ -1,0 +1,54 @@
+# Generated Schema for M_ProductDownload - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_ProductDownloadGet(page: Int, size: Int, sort: String, filter: String): M_ProductDownloadConnection!
+}
+
+extend type Mutation {
+	M_ProductDownloadSave(entity: M_ProductDownloadInput!): M_ProductDownload!
+	M_ProductDownloadDelete(uuids: [String!]!): Boolean!
+}
+
+type M_ProductDownloadConnection {
+	results: [M_ProductDownload!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_ProductDownload {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	Create: AD_User!
+	# URL of the Download files
+	DownloadURL: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product!
+	ID: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	Update: AD_User!
+}
+
+input M_ProductDownloadInput {
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	# URL of the Download files
+	DownloadURL: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product, Service, Item
+	M_Product: M_ProductInput
+	ID: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+}

@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.X_C_Job;
+
+/**
+ * Data Loader for C_Job - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_JobDataLoader extends PODataLoader<X_C_Job> {
+	public static String C_Job_BY_ID_DATA_LOADER = "C_JobByIdDataLoader";
+	public static String C_Job_BY_UUID_DATA_LOADER = "C_JobByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return X_C_Job.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return C_Job_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return C_Job_BY_UUID_DATA_LOADER;
+	}
+}

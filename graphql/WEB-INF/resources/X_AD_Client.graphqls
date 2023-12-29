@@ -1,26 +1,128 @@
-# Generated Model - DO NOT CHANGE
-
-# Generated Model for AD_Client
-# @author iDempiere (generated) 
-# @version Release 8.2 - $Id$
-#extend type Query {
-#	AD_ClientGet(page: Int, size: Int, sort: String, filter: String): AD_ClientConnection!
-#}
+# Generated Schema for AD_Client - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_ClientGet(page: Int, size: Int, sort: String, filter: String): AD_ClientConnection!
+}
 
 extend type Mutation {
 	AD_ClientSave(entity: AD_ClientInput!): AD_Client!
 	AD_ClientDelete(uuids: [String!]!): Boolean!
 }
 
-#type AD_ClientConnection {
-#	results: [AD_Client!]!
-#	pagingInfo: PagingInfo!
-#}
+type AD_ClientConnection {
+	results: [AD_Client!]!
+	pagingInfo: PagingInfo!
+}
 
 type AD_Client {
 	ID: ID!
+	# Language for this entity
+	AD_Language_L: AD_Language
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	AD_PasswordRule: AD_PasswordRule
+	# Data Replication Strategy
+	AD_ReplicationStrategy: AD_ReplicationStrategy
+	# Enable and level of automatic Archive of documents
+	AutoArchive_RL: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	Create: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Directory for documents from the application server
+	DocumentDir: String
+	# Test EMail
+	EMailTest: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Documents are Multi Lingual
+	IsMultiLingualDocument: Boolean!
+	# Post the accounting immediately for testing (Deprecated)
+	IsPostImmediate: Boolean!
+	# Use SSL/TLS for SMTP
+	IsSecureSMTP: Boolean!
+	# Your mail server requires Authentication
+	IsSmtpAuthorization: Boolean!
+	IsUseASP: Boolean!
+	# Enable the use of Beta Functionality
+	IsUseBetaFunctions: Boolean!
+	# Material Movement Policy
+	MMPolicy_RL: AD_Ref_List!
+	# List of data model validation classes separated by ;
+	ModelValidationClasses: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# EMail address to send automated mails from or receive mails for automated processing (fully qualified)
+	RequestEMail: String
+	# EMail folder to process incoming emails; if empty INBOX is used
+	RequestFolder: String
+	# User Name (ID) of the email owner
+	RequestUser: String
+	# Password of the user name (ID) for mail processing
+	RequestUserPW: String
+	# Hostname of Mail Server for SMTP and IMAP
+	SMTPHost: String
+	# SMTP Port Number
+	SMTPPort: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	Update: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
 }
 
 input AD_ClientInput {
 	ID: ID
+	# Language for this entity
+	AD_Language_L: AD_LanguageInput
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	AD_PasswordRule: AD_PasswordRuleInput
+	# Data Replication Strategy
+	AD_ReplicationStrategy: AD_ReplicationStrategyInput
+	# Enable and level of automatic Archive of documents
+	AutoArchive_RL: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	# Directory for documents from the application server
+	DocumentDir: String
+	# Test EMail
+	EMailTest: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Documents are Multi Lingual
+	IsMultiLingualDocument: Boolean
+	# Post the accounting immediately for testing (Deprecated)
+	IsPostImmediate: Boolean
+	# Use SSL/TLS for SMTP
+	IsSecureSMTP: Boolean
+	# Your mail server requires Authentication
+	IsSmtpAuthorization: Boolean
+	IsUseASP: Boolean
+	# Enable the use of Beta Functionality
+	IsUseBetaFunctions: Boolean
+	# Material Movement Policy
+	MMPolicy_RL: AD_Ref_ListInput
+	# List of data model validation classes separated by ;
+	ModelValidationClasses: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# EMail address to send automated mails from or receive mails for automated processing (fully qualified)
+	RequestEMail: String
+	# EMail folder to process incoming emails; if empty INBOX is used
+	RequestFolder: String
+	# User Name (ID) of the email owner
+	RequestUser: String
+	# Password of the user name (ID) for mail processing
+	RequestUserPW: String
+	# Hostname of Mail Server for SMTP and IMAP
+	SMTPHost: String
+	# SMTP Port Number
+	SMTPPort: Int
+	# Search key for the record in the format required - must be unique
+	Value: String
 }

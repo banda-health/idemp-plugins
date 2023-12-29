@@ -23,7 +23,7 @@ type C_Charge {
 	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
 	BH_Locked: Boolean!
 	# Meant to be a sub-type of the charge type
-	BH_SubType: AD_Ref_List
+	BH_SubType_RL: AD_Ref_List
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	ID: ID!
@@ -35,7 +35,7 @@ type C_Charge {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -50,7 +50,7 @@ type C_Charge {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input C_ChargeInput {
@@ -59,7 +59,7 @@ input C_ChargeInput {
 	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
 	BH_Locked: Boolean
 	# Meant to be a sub-type of the charge type
-	BH_SubType: AD_Ref_ListInput
+	BH_SubType_RL: AD_Ref_ListInput
 	# Identifies a Business Partner
 	C_BPartner: C_BPartnerInput
 	ID: ID

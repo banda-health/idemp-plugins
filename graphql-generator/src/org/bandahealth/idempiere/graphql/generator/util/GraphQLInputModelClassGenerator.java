@@ -22,7 +22,9 @@ package org.bandahealth.idempiere.graphql.generator.util;
 import org.adempiere.exceptions.DBException;
 import org.adempiere.util.ModelInterfaceGenerator;
 import org.compiere.Adempiere;
+import org.compiere.model.MEntityType;
 import org.compiere.model.MRefList;
+import org.compiere.model.MReference;
 import org.compiere.model.MTable;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
@@ -36,6 +38,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,6 +47,8 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 import java.util.logging.Level;
+
+import static org.compiere.model.SystemIDs.REFERENCE_PAYMENTRULE;
 
 /**
  * Generate GraphQL Schemas.
@@ -121,7 +126,8 @@ public class GraphQLInputModelClassGenerator {
 		classesToImport.add("org.compiere.model.Query");
 		classesToImport.add("org.compiere.util.Env");
 		classesToImport.add("org.bandahealth.idempiere.graphql.utils.ModelUtil");
-		classesToImport.add(tableStructureExtensions.getClassPackageName() + "." + tableStructureExtensions.getClassName());
+		classesToImport.add(tableStructureExtensions.getGeneratedClassPackageName() + "." +
+				tableStructureExtensions.getGeneratedClassName());
 
 		createImports(generatedClass);
 		generatedClass
@@ -131,13 +137,14 @@ public class GraphQLInputModelClassGenerator {
 
 				// Class definition
 				.append("public class ").append(className).append(" extends ")
-				.append(tableStructureExtensions.getClassName()).append(" implements ").append(interfaceName).append(" {\n\n");
+				.append(tableStructureExtensions.getGeneratedClassName()).append(" implements ").append(interfaceName)
+				.append(" {\n\n");
 
 		createPrivateProperties(generatedClass);
 		generatedClass
 				.append("\t/**\n\t * Standard constructor\n\t */\n")
 				.append("\tpublic ").append(className).append("(String ID) {\n")
-				.append("\t\tsuper(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(Table_Name, ID), null);\n")
+				.append("\t\tsuper(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);\n")
 				.append("\t\tsetID(ID);\n")
 				.append("\t}");
 
@@ -159,7 +166,8 @@ public class GraphQLInputModelClassGenerator {
 		String sql = "SELECT c.ColumnName, c.IsUpdateable, c.IsMandatory,"    //	1..3
 				+ " c.AD_Reference_ID, c.AD_Reference_Value_ID, DefaultValue, SeqNo, "  //	4..7
 				+ " c.FieldLength, c.ValueMin, c.ValueMax, c.VFormat, c.Callout, "  //	8..12
-				+ " c.Name, c.Description, c.ColumnSQL, c.IsEncrypted, c.IsKey "  // 13..17
+				+ " c.Name, c.Description, c.ColumnSQL, c.IsEncrypted, c.IsKey, "  // 13..17
+				+ " c.entitytype "
 				+ "FROM AD_Column c "
 				+ "WHERE c.AD_Table_ID=?"
 				+ " AND c.IsActive='Y'"
@@ -187,11 +195,12 @@ public class GraphQLInputModelClassGenerator {
 				boolean virtualColumn = ColumnSQL != null && !ColumnSQL.isEmpty();
 				boolean IsEncrypted = "Y".equals(resultSet.getString(16));
 				boolean IsKey = "Y".equals(resultSet.getString(17));
+				String entityType = resultSet.getString(18);
 				//
 				generatedColumns.append(
 						createColumnMethods(columnName, isUpdatable, isMandatory, displayType, AD_Reference_Value_ID, fieldLength,
 								defaultValue, ValueMin, ValueMax, VFormat, Callout, Name, Description, virtualColumn, IsEncrypted,
-								IsKey, AD_Table_ID));
+								IsKey, entityType, AD_Table_ID));
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -222,24 +231,35 @@ public class GraphQLInputModelClassGenerator {
 	private String createColumnMethods(String columnName, boolean isUpdateable, boolean isMandatory, int displayType,
 			int AD_Reference_ID, int fieldLength, String defaultValue, String ValueMin, String ValueMax, String VFormat,
 			String Callout, String Name, String Description, boolean virtualColumn, boolean IsEncrypted, boolean IsKey,
-			int AD_Table_ID) {
+			String entityType, int AD_Table_ID) {
 		Class<?> clazz = ModelInterfaceGenerator.getClass(columnName, displayType, AD_Reference_ID);
 		String dataType = ModelInterfaceGenerator.getDataTypeName(clazz, displayType);
 		if (defaultValue == null) {
 			defaultValue = "";
 		}
 
+		//	Set	********
+		String setValue = "set_Value";
+		if (IsEncrypted) {
+			setValue = "set_ValueE";
+		}
+		// Handle isUpdatable
+		if (!isUpdateable) {
+			setValue = "set_ValueNoCheck";
+			if (IsEncrypted) {
+				setValue = "set_ValueNoCheckE";
+			}
+		}
+
 		StringBuilder columnBuilder = new StringBuilder();
 
-		boolean shouldSkipInputField =
-				columnName.equals("Created") || columnName.equals("CreatedBy") || columnName.equals("Updated") ||
-						columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID") || virtualColumn;
+		if (columnName.equals("Created") || columnName.equals("CreatedBy") || columnName.equals("Updated") ||
+				columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID") || virtualColumn) {
+			return "";
+		}
 
 		// TODO - New functionality
 		// 1) Must understand which class to reference
-		if (shouldSkipInputField) {
-			return "";
-		}
 		if (DisplayType.isID(displayType) && !IsKey) {
 			String fieldName = ModelInterfaceGenerator.getFieldName(columnName);
 			String referenceClassName =
@@ -248,22 +268,21 @@ public class GraphQLInputModelClassGenerator {
 			String foreignEntityTable = "";
 			String entityName = "";
 			String returnType = "";
+			String defaultValueMethod = "get_ID()";
+			String defaultEmptyValue = "0";
 			if (fieldName != null && referenceClassName != null) {
 				// This entity is a foreign key, so let's work with it
-				// If the column doesn't end with "_ID", we want that to be the field name (and not what the iDempiere code
-				// generates)
-				if (!columnName.contains("_ID")) {
-					fieldName = columnName;
-				}
 				String[] packagePath = referenceClassName.split("\\.");
 				referenceClassName = packagePath[packagePath.length - 1].substring(2);
 				entityName = fieldName;
 				returnType = "I_" + referenceClassName + "Input";
 				foreignEntityTable = referenceClassName;
 			} else if (columnName.equals("AD_Language")) {
-				entityName = columnName;
+				entityName = columnName + "_L";
 				returnType = "I_" + columnName + "Input";
 				foreignEntityTable = columnName;
+				defaultValueMethod = "getAD_Language()";
+				defaultEmptyValue = "null";
 			} else if (columnName.equals("EntityType")) {
 				entityName = "AD_EntityType";
 				returnType = "I_" + entityName + "Input";
@@ -271,6 +290,7 @@ public class GraphQLInputModelClassGenerator {
 			} else {
 				String columnNameWithSuffixedIdRemoved = columnName.substring(0, columnName.length() - 3);
 				if (columnName.endsWith("_ID") &&
+						MTable.get(Env.getCtx(), AD_Table_ID).getColumn(columnNameWithSuffixedIdRemoved) == null &&
 						MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					returnType = "I_" + columnNameWithSuffixedIdRemoved + "Input";
@@ -308,20 +328,25 @@ public class GraphQLInputModelClassGenerator {
 					.append("_UU + \"=?\", get_TrxName())")
 					.append("\n\t\t\t\t\t\t.setParameters(").append(entityName).append(".getID())\n")
 					.append("\t\t\t\t\t\t.first()) != null && foreignEntity.get_ID() != 0) {\n")
-					.append("\t\t\tthis.set").append(entityName).append("_ID(foreignEntity.get_ID());\n")
+					.append("\t\t\tthis.set").append(columnName).append("(foreignEntity.").append(defaultValueMethod)
+					.append(");\n")
 					.append("\t\t}");
-			// If this is updatable, set the property to 0 to indicate it should be cleared
+			// If this is updatable, set the property to the empty value to indicate it should be cleared
 			if (isUpdateable) {
-				columnBuilder.append(" else {\n\t\t\tthis.set").append(entityName).append("_ID(0);\n\t\t}");
+				columnBuilder.append(" else {\n\t\t\tthis.set").append(columnName).append("(").append(defaultEmptyValue)
+						.append(");\n\t\t}");
 			}
-			columnBuilder.append("\n\t}");
+			columnBuilder.append("\n\t}\n");
 
 			generateJavaGetComment(Name, Description, columnBuilder);
 			columnBuilder
 					.append("\tpublic ").append(returnType).append(" get").append(entityName).append("() {\n")
 					.append("\t\treturn ").append(entityName).append(";\n")
 					.append("\t}");
-			return columnBuilder.toString();
+
+			addImportClass(clazz);
+
+			// Don't return because we may still need to add the actual column getters/setters below
 		} else if (columnName.endsWith("_UU")) {
 			// If this is the UUID column, we need to generate the ID fields
 			columnBuilder.append("\n");
@@ -335,15 +360,136 @@ public class GraphQLInputModelClassGenerator {
 					.append("\tpublic String getID() {\n")
 					.append("\t\treturn get").append(columnName).append("();\n")
 					.append("\t}");
+
+			// Since the UUID is always defined on the base, generated model, return
 			return columnBuilder.toString();
-		} else if (IsKey) {
-			return "";
 		}
 
-		// If the code is updatable from this point forward, the parent class can handle it
+		// If the column is user-maintained and the table isn't, we need to generate
+		boolean wereColumnMethodsGeneratedElsewhere = !(entityType.equals(MEntityType.ENTITYTYPE_UserMaintained) &&
+				!MTable.get(AD_Table_ID).getEntityType().equals(MEntityType.ENTITYTYPE_UserMaintained));
+		if (!wereColumnMethodsGeneratedElsewhere) {
+			// Create Java Comment
+			generateJavaSetComment(columnName, Name, Description, columnBuilder);
+
+			//	public void setColumn (xxx variable)
+			columnBuilder
+					.append("\tpublic void set").append(columnName).append("(").append(dataType).append(" ").append(columnName)
+					.append(") {\n");
+
+			//	List Validation
+			if (AD_Reference_ID != 0 && String.class == clazz) {
+				String staticVar = addListValidation(columnBuilder, AD_Reference_ID, columnName);
+				columnBuilder.insert(0, staticVar);
+			}
+
+			//	Payment Validation
+			if (displayType == DisplayType.Payment) {
+				String staticVar = addListValidation(columnBuilder, REFERENCE_PAYMENTRULE, columnName);
+				columnBuilder.insert(0, staticVar);
+			} else if (clazz.equals(Integer.class)) {
+				if (columnName.endsWith("_ID")) {
+					int firstOK = 1;
+					//	check special column
+					if (columnName.equals("AD_Org_ID") || columnName.equals("Record_ID") || columnName.equals("C_DocType_ID") ||
+							columnName.equals("Node_ID") || columnName.equals("AD_Role_ID") ||
+							columnName.equals("M_AttributeSet_ID") || columnName.equals("M_AttributeSetInstance_ID")) {
+						firstOK = 0;
+					}
+					//	set _ID to null if < 0 for special column or < 1 for others
+					columnBuilder
+							.append("\t\tif (").append(columnName).append(" < ").append(firstOK).append(") {\n")
+							.append("\t\t\t").append(setValue).append("(COLUMNNAME_").append(columnName).append(", null);\n")
+							.append("\t\t} else {\n");
+				}
+				columnBuilder
+						.append("\t\t\t").append(setValue).append("(COLUMNNAME_").append(columnName).append(", ")
+						.append(columnName).append(");\n");
+			} else if (clazz.equals(Boolean.class)) {
+				columnBuilder
+						.append("\t\t\t").append(setValue).append("(COLUMNNAME_").append(columnName).append(", ")
+						.append(columnName).append(");\n");
+			} else {
+				columnBuilder
+						.append("\t\t\t").append(setValue).append("(COLUMNNAME_").append(columnName).append(", ")
+						.append(columnName).append(");\n");
+			}
+			columnBuilder
+					.append("\t\t}\n")
+					.append("\t}\n\n");
+
+
+			//	****** Get Comment ******
+			generateJavaGetComment(Name, Description, columnBuilder);
+
+			//	Get	********
+			String getValue = "get_Value";
+			if (IsEncrypted) {
+				getValue = "get_ValueE";
+			}
+
+			columnBuilder.append("\tpublic ").append(dataType);
+			if (clazz.equals(Boolean.class)) {
+				columnBuilder.append(" is");
+				if (columnName.toLowerCase().startsWith("is")) {
+					columnBuilder.append(columnName.substring(2));
+				} else {
+					columnBuilder.append(columnName);
+				}
+			} else {
+				columnBuilder.append(" get").append(columnName);
+			}
+			columnBuilder
+					.append("() {\n ");
+			if (clazz.equals(Integer.class)) {
+				columnBuilder
+						.append("\t\tInteger columnValue = (Integer) ").append(getValue).append("(COLUMNNAME_").append(columnName)
+						.append(");\n")
+						.append("\t\tif (columnValue == null) {\n")
+						.append("\t\t\treturn 0;\n")
+						.append("\t\t}\n")
+						.append("\t\treturn columnValue;\n");
+			} else if (clazz.equals(BigDecimal.class)) {
+				columnBuilder
+						.append("\t\tBigDecimal columnValue = (BigDecimal) ").append(getValue).append("(COLUMNNAME_")
+						.append(columnName)
+						.append(");\n")
+						.append("\t\tif (columnValue == null) {\n")
+						.append("\t\t\treturn Env.ZERO;\n")
+						.append("\t\t}\n")
+						.append("\t\treturn columnValue;\n");
+				addImportClass(java.math.BigDecimal.class);
+				addImportClass(org.compiere.util.Env.class);
+			} else if (clazz.equals(Boolean.class)) {
+				columnBuilder
+						.append("\t\tObject columnValue = ").append(getValue).append("(COLUMNNAME_").append(columnName)
+						.append(");\n")
+						.append("\t\tif (columnValue != null) {\n")
+						.append("\t\t\tif (columnValue instanceof Boolean) {\n")
+						.append("\t\t\t\treturn ((Boolean) columnValue);\n")
+						.append("\t\t\t}\n")
+						.append("\t\t\treturn \"Y\".equals(columnValue);\n")
+						.append("\t\t}\n")
+						.append("\t\treturn false;\n");
+			} else if (dataType.equals("Object")) {
+				columnBuilder
+						.append("\t\treturn ").append(getValue).append("(COLUMNNAME_").append(columnName).append(");\n");
+			} else {
+				columnBuilder
+						.append("return (").append(dataType).append(") ").append(getValue)
+						.append("(COLUMNNAME_").append(columnName).append(");\n");
+				addImportClass(clazz);
+			}
+			columnBuilder
+					.append("\t}\n");
+		}
+
+		// If the code is updatable from this point forward, the parent class can (potentially) handle it
 		if (isUpdateable && AD_Reference_ID <= 0) {
-			return "";
-		} else if (AD_Reference_ID > 0) {
+			return columnBuilder.toString();
+		} else if (AD_Reference_ID > 0 &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
+				clazz.equals(String.class)) {
 			ModelMap classToUseMap = modelsForTables.get(MRefList.Table_Name);
 			classesToImport.add(classToUseMap.getClassPackageName() + "." + classToUseMap.getClassName());
 			columnBuilder.append("\n");
@@ -390,8 +536,9 @@ public class GraphQLInputModelClassGenerator {
 		columnBuilder
 				.append("\tpublic void set").append(columnName).append("(").append(dataType).append(" ").append(columnName)
 				.append(") {\n\t\tif (get_ID() == 0) {\n")
-				.append("\t\t\tsuper.set").append(columnName).append("(").append(columnName).append(");\n")
+				.append("\t\t\tthis.set").append(columnName).append("(").append(columnName).append(");\n")
 				.append("\t\t}\n\t}");
+		addImportClass(clazz);
 		return columnBuilder.toString();
 	}
 
@@ -420,6 +567,113 @@ public class GraphQLInputModelClassGenerator {
 	public void generateJavaGetComment(String propertyName, String description, StringBuilder generatedCode) {
 		generatedCode.append("\n").append("\t/**\n\t * Get ").append(propertyName).append(".\n\t *\n\t * @return ")
 				.append(description != null && !description.isEmpty() ? description : propertyName).append("\n\t */\n");
+	}
+
+
+	/**
+	 * Add List Validation
+	 *
+	 * @param generatedCode   buffer - example:
+	 *                        if (NextAction.equals("N") || NextAction.equals("F"));
+	 *                        else throw new IllegalArgumentException ("NextAction Invalid value - Reference_ID=219 - N
+	 *                        - F");
+	 * @param AD_Reference_ID reference
+	 * @param columnName      column
+	 * @return static parameter - Example:
+	 * public static final int NEXTACTION_AD_Reference_ID=219;
+	 * public static final String NEXTACTION_None = "N";
+	 * public static final String NEXTACTION_FollowUp = "F";
+	 */
+	private String addListValidation(StringBuilder generatedCode, int AD_Reference_ID, String columnName) {
+		StringBuilder returnValue = new StringBuilder();
+		if (AD_Reference_ID <= MTable.MAX_OFFICIAL_ID) {
+			returnValue
+					.append("\t/**\n")
+					.append("\t * ").append(columnName).append(" AD_Reference_ID=").append(AD_Reference_ID).append("\n")
+					.append("\t */\n")
+					.append("\tpublic static final int ").append(columnName.toUpperCase())
+					.append("_AD_Reference_ID=").append(AD_Reference_ID).append(";");
+		}
+		//
+		boolean found = false;
+		StringBuilder values = new StringBuilder("Reference_ID=").append(AD_Reference_ID);
+		StringBuilder statement = new StringBuilder();
+		//
+		String sql = "SELECT Value, Name FROM AD_Ref_List WHERE AD_Reference_ID=? ORDER BY AD_Ref_List_ID";
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
+			preparedStatement.setInt(1, AD_Reference_ID);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				String value = resultSet.getString(1);
+				values.append(" - ").append(value);
+				if (statement.length() == 0) {
+					statement.append("\n\t\tif (").append(columnName).append(".equals(\"").append(value).append("\")");
+				} else {
+					statement.append(" || ").append(columnName).append(".equals(\"").append(value).append("\")");
+				}
+				//
+				if (!found) {
+					found = true;
+				}
+
+				//	Name (SmallTalkNotation)
+				String name = resultSet.getString(2);
+				char[] nameArray = name.toCharArray();
+				StringBuilder nameClean = new StringBuilder();
+				boolean initCap = true;
+				for (char c : nameArray) {
+					if (Character.isJavaIdentifierPart(c)) {
+						if (initCap) {
+							nameClean.append(Character.toUpperCase(c));
+						} else {
+							nameClean.append(c);
+						}
+						initCap = false;
+					} else {
+						if (c == '+') {
+							nameClean.append("Plus");
+						} else if (c == '-') {
+							nameClean.append("_");
+						} else if (c == '>') {
+							if (name.indexOf('<') == -1) {  //	ignore <xx>
+								nameClean.append("Gt");
+							}
+						} else if (c == '<') {
+							if (name.indexOf('>') == -1) {  //	ignore <xx>
+								nameClean.append("Le");
+							}
+						} else if (c == '!') {
+							nameClean.append("Not");
+						} else if (c == '=') {
+							nameClean.append("Eq");
+						} else if (c == '~') {
+							nameClean.append("Like");
+						}
+						initCap = true;
+					}
+				}
+				returnValue
+						.append("\n\t/**\n")
+						.append("\t * ").append(name).append(" = ").append(value).append("\n")
+						.append("\t */\n")
+						.append("\tpublic static final String ").append(columnName.toUpperCase())
+						.append("_").append(nameClean)
+						.append(" = \"").append(value).append("\";");
+			}
+		} catch (SQLException e) {
+			throw new DBException(e, sql);
+		}
+		statement.append(")")
+				.append("; ")
+				.append("else ")
+				.append("throw new IllegalArgumentException (\"").append(columnName)
+				.append(" Invalid value - \" + ").append(columnName)
+				.append(" + \" - ").append(values).append("\");");
+		// [1762461] - Remove hardcoded list items checking in generated models
+		// if (found && !columnName.equals("EntityType"))
+		//	sb.append (statement);
+		generatedCode.append("\n");
+		return returnValue.toString();
 	}
 
 	/**************************************************************************
@@ -460,6 +714,38 @@ public class GraphQLInputModelClassGenerator {
 	 * Import classes
 	 */
 	private final Collection<String> classesToImport = new TreeSet<>();
+
+	/**
+	 * Add class name to class import list
+	 *
+	 * @param className The canonical class name to add to the import list
+	 */
+	private void addImportClass(String className) {
+		if (className == null
+				|| (className.startsWith("java.lang.") && !className.startsWith("java.lang.reflect."))
+				|| className.startsWith(packageName + ".")) {
+			return;
+		}
+		if (className.equals("byte[]")) {
+			log.warning("Invalid type - " + className);
+			return;
+		}
+		classesToImport.add(className);
+	}
+
+	/**
+	 * Add class to class import list
+	 *
+	 * @param clazz The class to add to the import list
+	 */
+	private void addImportClass(Class<?> clazz) {
+		if (clazz.isArray()) {
+			clazz = clazz.getComponentType();
+		}
+		if (clazz.isPrimitive())
+			return;
+		addImportClass(clazz.getCanonicalName());
+	}
 
 	/**
 	 * Generate java imports

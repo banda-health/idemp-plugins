@@ -32,7 +32,7 @@ type C_ProjectPhase {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Last effective date (inclusive)
@@ -56,7 +56,7 @@ type C_ProjectPhase {
 	# Actual Price 
 	PriceActual: Int
 	# Invoice Rule for the project
-	ProjInvoiceRule: AD_Ref_List!
+	ProjInvoiceRule_RL: AD_Ref_List!
 	# Quantity
 	Qty: Int
 	# Method of ordering records; lowest number comes first
@@ -66,7 +66,7 @@ type C_ProjectPhase {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input C_ProjectPhaseInput {
@@ -104,7 +104,7 @@ input C_ProjectPhaseInput {
 	# Actual Price 
 	PriceActual: Int
 	# Invoice Rule for the project
-	ProjInvoiceRule: AD_Ref_ListInput
+	ProjInvoiceRule_RL: AD_Ref_ListInput
 	# Quantity
 	Qty: Int
 	# Method of ordering records; lowest number comes first

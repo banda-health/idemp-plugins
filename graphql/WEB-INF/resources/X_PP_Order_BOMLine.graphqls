@@ -29,13 +29,13 @@ type PP_Order_BOMLine {
 	# Unit of Measure
 	C_UOM: C_UOM!
 	# Component Type for a Bill of Material or Formula
-	ComponentType: AD_Ref_List
+	ComponentType_RL: AD_Ref_List
 	# Cost allocation percent in case of a co-product.
 	CostAllocationPerc: Int
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Date when the product was delivered
 	DateDelivered: Date
 	# Optional short description of the record
@@ -53,7 +53,7 @@ type PP_Order_BOMLine {
 	# Indicate that this component is based in % Quantity
 	IsQtyPercentage: Boolean!
 	# There are two methods for issue the components to Manufacturing Order
-	IssueMethod: AD_Ref_List
+	IssueMethod_RL: AD_Ref_List
 	# Optional Lead Time offset before starting production
 	LeadTimeOffset: Int
 	# Unique line for this document
@@ -92,7 +92,7 @@ type PP_Order_BOMLine {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Valid from including this date (first day)
 	ValidFrom: Date!
 	# Valid to including this date (last day)
@@ -111,7 +111,7 @@ input PP_Order_BOMLineInput {
 	# Unit of Measure
 	C_UOM: C_UOMInput
 	# Component Type for a Bill of Material or Formula
-	ComponentType: AD_Ref_ListInput
+	ComponentType_RL: AD_Ref_ListInput
 	# Cost allocation percent in case of a co-product.
 	CostAllocationPerc: Int
 	# Date when the product was delivered
@@ -131,7 +131,7 @@ input PP_Order_BOMLineInput {
 	# Indicate that this component is based in % Quantity
 	IsQtyPercentage: Boolean
 	# There are two methods for issue the components to Manufacturing Order
-	IssueMethod: AD_Ref_ListInput
+	IssueMethod_RL: AD_Ref_ListInput
 	# Optional Lead Time offset before starting production
 	LeadTimeOffset: Int
 	# Unique line for this document

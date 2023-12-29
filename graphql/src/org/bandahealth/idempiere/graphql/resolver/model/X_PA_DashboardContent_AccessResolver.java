@@ -1,0 +1,68 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_DashboardContentDataLoader;
+import org.compiere.model.MDashboardContent;
+import org.compiere.model.MDashboardContentAccess;
+import org.compiere.model.MRole;
+import org.dataloader.DataLoader;
+
+/**
+ * Generated ModelResolver for PA_DashboardContent_Access - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_PA_DashboardContent_AccessResolver extends POResolver<MDashboardContentAccess> implements GraphQLResolver<MDashboardContentAccess> {
+
+
+
+	/**
+	 * Get Role.
+	 *
+	 * @return Responsibility Role
+	 */
+	public CompletableFuture<MRole> AD_Role(MDashboardContentAccess entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Role_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MRole> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getAD_Role_ID());
+	}
+
+
+	/**
+	 * Get User/Contact.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	public CompletableFuture<MUser_BH> AD_User(MDashboardContentAccess entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_User_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MUser_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getAD_User_ID());
+	}
+
+
+	/**
+	 * Get Dashboard Content.
+	 *
+	 * @return Dashboard Content
+	 */
+	public CompletableFuture<MDashboardContent> PA_DashboardContent(MDashboardContentAccess entity, DataFetchingEnvironment environment) {
+		if (entity.getPA_DashboardContent_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MDashboardContent> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_DashboardContentDataLoader.PA_DashboardContent_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPA_DashboardContent_ID());
+	}
+
+}

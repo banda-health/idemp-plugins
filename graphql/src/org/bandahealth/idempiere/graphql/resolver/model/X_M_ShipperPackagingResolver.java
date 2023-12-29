@@ -1,0 +1,51 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperPackagingCfgDataLoader;
+import org.compiere.model.MShipper;
+import org.compiere.model.MShipperPackaging;
+import org.compiere.model.X_M_ShipperPackagingCfg;
+import org.dataloader.DataLoader;
+
+/**
+ * Generated ModelResolver for M_ShipperPackaging - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_M_ShipperPackagingResolver extends POResolver<MShipperPackaging> implements GraphQLResolver<MShipperPackaging> {
+
+
+
+	/**
+	 * Get Shipper.
+	 *
+	 * @return Method or manner of product delivery
+	 */
+	public CompletableFuture<MShipper> M_Shipper(MShipperPackaging entity, DataFetchingEnvironment environment) {
+		if (entity.getM_Shipper_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MShipper> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperDataLoader.M_Shipper_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getM_Shipper_ID());
+	}
+
+
+	/**
+	 * Get Shipper Packaging Configuration.
+	 *
+	 * @return Shipper Packaging Configuration
+	 */
+	public CompletableFuture<X_M_ShipperPackagingCfg> M_ShipperPackagingCfg(MShipperPackaging entity, DataFetchingEnvironment environment) {
+		if (entity.getM_ShipperPackagingCfg_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, X_M_ShipperPackagingCfg> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperPackagingCfgDataLoader.M_ShipperPackagingCfg_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getM_ShipperPackagingCfg_ID());
+	}
+
+}

@@ -28,7 +28,7 @@ type C_BP_ShippingAcct {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	DutiesShipperAccount: String
 	# The record is active in the system
 	IsActive: Boolean!
@@ -38,7 +38,7 @@ type C_BP_ShippingAcct {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input C_BP_ShippingAcctInput {

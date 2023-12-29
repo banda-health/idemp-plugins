@@ -1,19 +1,30 @@
 package org.bandahealth.idempiere.graphql.resolver.mutation;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
-import org.bandahealth.idempiere.graphql.model.input.M_BH_Voided_ReasonInput;
+import org.bandahealth.idempiere.graphql.model.input.I_BH_Voided_ReasonInput;
+import org.bandahealth.idempiere.graphql.model.input.X_BH_Voided_ReasonInput;
 
 import java.util.List;
 
-public class X_BH_Voided_ReasonMutation implements GraphQLMutationResolver {
-	public MBHVoidedReason BH_Voided_ReasonSave(M_BH_Voided_ReasonInput input) {
-		input.saveEx();
-		// get by uuid for visit input
-		return input;
+/**
+ * Generated Query Resolver for BH_Voided_Reason - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_BH_Voided_ReasonMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_BH_Voided_ReasonInput.Table_Name;
 	}
 
-	public boolean BH_Voided_ReasonDelete(List<String> uuids) {
-		return true;
+	public MBHVoidedReason BH_Voided_ReasonSave(I_BH_Voided_ReasonInput input, DataFetchingEnvironment environment) {
+		return (MBHVoidedReason) super.save((X_BH_Voided_ReasonInput) input, environment);
+	}
+
+	public boolean BH_Voided_ReasonDelete(List<String> uuids, DataFetchingEnvironment environment) {
+		return super.delete(uuids, environment);
 	}
 }

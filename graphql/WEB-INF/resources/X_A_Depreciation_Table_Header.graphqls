@@ -18,8 +18,8 @@ type A_Depreciation_Table_HeaderConnection {
 type A_Depreciation_Table_Header {
 	A_Depreciation_Table_Code: String!
 	ID: ID!
-	A_Table_Rate_Type: AD_Ref_List!
-	A_Term: AD_Ref_List!
+	A_Table_Rate_Type_RL: AD_Ref_List!
+	A_Term_RL: AD_Ref_List!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -27,7 +27,7 @@ type A_Depreciation_Table_Header {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String!
 	# The record is active in the system
@@ -37,14 +37,14 @@ type A_Depreciation_Table_Header {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input A_Depreciation_Table_HeaderInput {
 	A_Depreciation_Table_Code: String
 	ID: ID
-	A_Table_Rate_Type: AD_Ref_ListInput
-	A_Term: AD_Ref_ListInput
+	A_Table_Rate_Type_RL: AD_Ref_ListInput
+	A_Term_RL: AD_Ref_ListInput
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	# Optional short description of the record

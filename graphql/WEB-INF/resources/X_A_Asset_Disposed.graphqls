@@ -18,17 +18,17 @@ type A_Asset_DisposedConnection {
 type A_Asset_Disposed {
 	A_Accumulated_Depr: Int!
 	A_Accumulated_Depr_Delta: Int!
-	A_Activation_Method: AD_Ref_List!
+	A_Activation_Method_RL: AD_Ref_List!
 	A_Asset_Cost: Int
 	ID: ID!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	A_Asset_Status: AD_Ref_List
+	A_Asset_Status_RL: AD_Ref_List
 	A_Asset_Trade: A_Asset
 	A_Disposal_Amt: Int!
 	A_Disposed_Date: Date!
-	A_Disposed_Method: AD_Ref_List!
-	A_Disposed_Reason: AD_Ref_List
+	A_Disposed_Method_RL: AD_Ref_List!
+	A_Disposed_Reason_RL: AD_Ref_List
 	A_Proceeds: Int
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
@@ -45,7 +45,7 @@ type A_Asset_Disposed {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Accounting Date
 	DateAcct: Date!
 	# Date of the Document
@@ -53,9 +53,9 @@ type A_Asset_Disposed {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_List
+	DocAction_RL: AD_Ref_List
 	# The current status of the document
-	DocStatus: AD_Ref_List
+	DocStatus_RL: AD_Ref_List
 	# Document sequence number of the document
 	DocumentNo: String!
 	Expense: Int!
@@ -66,9 +66,9 @@ type A_Asset_Disposed {
 	# The asset is disposed
 	IsDisposed: Boolean!
 	# Posting status
-	Posted: Boolean!
+	Posted_RL: Boolean!
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_List!
+	PostingType_RL: AD_Ref_List!
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
@@ -77,23 +77,23 @@ type A_Asset_Disposed {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input A_Asset_DisposedInput {
 	A_Accumulated_Depr: Int
 	A_Accumulated_Depr_Delta: Int
-	A_Activation_Method: AD_Ref_ListInput
+	A_Activation_Method_RL: AD_Ref_ListInput
 	A_Asset_Cost: Int
 	ID: ID
 	# Asset used internally or by customers
 	A_Asset: A_AssetInput
-	A_Asset_Status: AD_Ref_ListInput
+	A_Asset_Status_RL: AD_Ref_ListInput
 	A_Asset_Trade: A_AssetInput
 	A_Disposal_Amt: Int
 	A_Disposed_Date: Date
-	A_Disposed_Method: AD_Ref_ListInput
-	A_Disposed_Reason: AD_Ref_ListInput
+	A_Disposed_Method_RL: AD_Ref_ListInput
+	A_Disposed_Reason_RL: AD_Ref_ListInput
 	A_Proceeds: Int
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
@@ -112,9 +112,9 @@ input A_Asset_DisposedInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction_RL: AD_Ref_ListInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus_RL: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
 	Expense: Int
@@ -125,9 +125,9 @@ input A_Asset_DisposedInput {
 	# The asset is disposed
 	IsDisposed: Boolean
 	# Posting status
-	Posted: Boolean
+	Posted_RL: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType_RL: AD_Ref_ListInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

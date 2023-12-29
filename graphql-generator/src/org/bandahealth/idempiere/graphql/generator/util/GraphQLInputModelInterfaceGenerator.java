@@ -22,6 +22,8 @@ package org.bandahealth.idempiere.graphql.generator.util;
 import org.adempiere.exceptions.DBException;
 import org.adempiere.util.ModelInterfaceGenerator;
 import org.compiere.Adempiere;
+import org.compiere.model.MEntityType;
+import org.compiere.model.MReference;
 import org.compiere.model.MTable;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
@@ -35,9 +37,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -63,7 +67,8 @@ public class GraphQLInputModelInterfaceGenerator {
 	 * @param directory        directory
 	 * @param entityTypeFilter entity type filter for columns
 	 */
-	public GraphQLInputModelInterfaceGenerator(int AD_Table_ID, String entityTypeFilter, String directory, String packageName,
+	public GraphQLInputModelInterfaceGenerator(int AD_Table_ID, String entityTypeFilter, String directory,
+			String packageName,
 			Boolean doCustomModelsExist, String customModelDirectory, String customModelPackageName,
 			Map<String, ModelMap> modelsForTables) throws FileNotFoundException {
 		this.packageName = packageName;
@@ -145,7 +150,8 @@ public class GraphQLInputModelInterfaceGenerator {
 		String sql = "SELECT c.ColumnName, c.IsUpdateable, c.IsMandatory,"    //	1..3
 				+ " c.AD_Reference_ID, c.AD_Reference_Value_ID, DefaultValue, SeqNo, "  //	4..7
 				+ " c.FieldLength, c.ValueMin, c.ValueMax, c.VFormat, c.Callout, "  //	8..12
-				+ " c.Name, c.Description, c.ColumnSQL, c.IsEncrypted, c.IsKey "  // 13..17
+				+ " c.Name, c.Description, c.ColumnSQL, c.IsEncrypted, c.IsKey, "  // 13..17
+				+ " c.entitytype "
 				+ "FROM AD_Column c "
 				+ "WHERE c.AD_Table_ID=?"
 				+ " AND c.IsActive='Y'"
@@ -173,11 +179,12 @@ public class GraphQLInputModelInterfaceGenerator {
 				boolean virtualColumn = ColumnSQL != null && !ColumnSQL.isEmpty();
 				boolean IsEncrypted = "Y".equals(resultSet.getString(16));
 				boolean IsKey = "Y".equals(resultSet.getString(17));
+				String entityType = resultSet.getString(18);
 				//
 				generatedColumns.append(
 						createColumnMethods(columnName, isUpdatable, isMandatory, displayType, AD_Reference_Value_ID, fieldLength,
 								defaultValue, ValueMin, ValueMax, VFormat, Callout, Name, Description, virtualColumn, IsEncrypted,
-								IsKey, AD_Table_ID));
+								IsKey, entityType, AD_Table_ID));
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -208,7 +215,7 @@ public class GraphQLInputModelInterfaceGenerator {
 	private String createColumnMethods(String columnName, boolean isUpdateable, boolean isMandatory, int displayType,
 			int AD_Reference_ID, int fieldLength, String defaultValue, String ValueMin, String ValueMax, String VFormat,
 			String Callout, String Name, String Description, boolean virtualColumn, boolean IsEncrypted, boolean IsKey,
-			int AD_Table_ID) {
+			String entityType, int AD_Table_ID) {
 		Class<?> clazz = ModelInterfaceGenerator.getClass(columnName, displayType, AD_Reference_ID);
 		String dataType = ModelInterfaceGenerator.getDataTypeName(clazz, displayType);
 		if (defaultValue == null) {
@@ -217,78 +224,119 @@ public class GraphQLInputModelInterfaceGenerator {
 
 		StringBuilder columnBuilder = new StringBuilder();
 
-		boolean shouldSkipInputField =
-				columnName.equals("Created") || columnName.equals("CreatedBy") || columnName.equals("Updated") ||
-						columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID") || virtualColumn;
-
-		// TODO - New functionality
-		// 1) Must understand which class to reference
-		if (shouldSkipInputField || !DisplayType.isID(displayType) || IsKey) {
-			// If this is the UUID column, we need to generate the ID fields
-			if ((!DisplayType.isID(displayType) || IsKey) && columnName.endsWith("_UU")) {
-				columnBuilder.append("\n");
-				generateJavaSetComment("ID", "ID", Description, columnBuilder);
-				columnBuilder.append("\tvoid setID(String ID);\n");
-				generateJavaGetComment("ID", Description, columnBuilder);
-				columnBuilder.append("\tString getID();");
-				return columnBuilder.toString();
-			} else if (!shouldSkipInputField && AD_Reference_ID > 0) {
-				columnName += "_RL";
-				columnBuilder.append("\n");
-				generateJavaSetComment(columnName, columnName, Description, columnBuilder);
-				columnBuilder.append("\tvoid set").append(columnName).append("(I_AD_Ref_ListInput ").append(columnName).append(");\n");
-				generateJavaGetComment(columnName, Description, columnBuilder);
-				columnBuilder.append("\tI_AD_Ref_ListInput get").append(columnName).append("();");
-				return columnBuilder.toString();
-			}
+		if (columnName.equals("Created") || columnName.equals("CreatedBy") || columnName.equals("Updated") ||
+				columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID") || virtualColumn) {
 			return "";
 		}
 
-		String fieldName = ModelInterfaceGenerator.getFieldName(columnName);
-		String referenceClassName =
-				ModelInterfaceGenerator.getReferenceClassName(AD_Table_ID, columnName, displayType, AD_Reference_ID);
-
 		String entityName = "";
 		String returnType = "";
-		if (fieldName != null && referenceClassName != null) {
-			if (!columnName.contains("_ID")) {
-				fieldName = columnName;
-			}
-			String[] packagePath = referenceClassName.split("\\.");
-			referenceClassName = packagePath[packagePath.length - 1].substring(2);
-			entityName = fieldName;
-			returnType = "I_" + referenceClassName + "Input";
-		} else if (columnName.equals("AD_Language")) {
-			entityName = columnName;
-			returnType = "I_" + columnName + "Input";
-		} else if (columnName.equals("EntityType")) {
-			entityName = "AD_EntityType";
-			returnType = "I_" + entityName + "Input";
-		} else {
-			String columnNameWithSuffixedIdRemoved = columnName.substring(0, columnName.length() - 3);
-			if (columnName.endsWith("_ID") &&
-					MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
-				entityName = columnNameWithSuffixedIdRemoved;
-				returnType = "I_" + columnNameWithSuffixedIdRemoved + "Input";
-			} else if (columnName.equals("Logo_ID")) {
-				entityName = "AD_Image";
+
+		// TODO - New functionality
+		// 1) Must understand which class to reference
+		if (DisplayType.isID(displayType) && !IsKey) {
+			String fieldName = ModelInterfaceGenerator.getFieldName(columnName);
+			String referenceClassName =
+					ModelInterfaceGenerator.getReferenceClassName(AD_Table_ID, columnName, displayType, AD_Reference_ID);
+			//
+			if (fieldName != null && referenceClassName != null) {
+				String[] packagePath = referenceClassName.split("\\.");
+				referenceClassName = packagePath[packagePath.length - 1].substring(2);
+				entityName = fieldName;
+				returnType = "I_" + referenceClassName + "Input";
+			} else if (columnName.equals("AD_Language")) {
+				entityName = columnName + "_L";
+				returnType = "I_" + columnName + "Input";
+			} else if (columnName.equals("EntityType")) {
+				entityName = "AD_EntityType";
 				returnType = "I_" + entityName + "Input";
 			} else {
-				log.warning("Did not generate a field for: " + columnName);
-				return "";
+				String columnNameWithSuffixedIdRemoved = columnName.substring(0, columnName.length() - 3);
+				// Possibly there isn't a mapping, but a table does exist we can use
+				if (columnName.endsWith("_ID") && MTable.get(AD_Table_ID).getColumn(columnNameWithSuffixedIdRemoved) == null &&
+						MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
+					entityName = columnNameWithSuffixedIdRemoved;
+					returnType = "I_" + columnNameWithSuffixedIdRemoved + "Input";
+				} else if (columnName.equals("Logo_ID")) {
+					entityName = "AD_Image";
+					returnType = "I_" + entityName + "Input";
+				} else {
+					log.warning("Did not generate a field for: " + columnName);
+					return "";
+				}
 			}
+
+			String interfaceToExtend = tableStructureExtensions.getInterfaceName();
+			classesToImport.add(tableStructureExtensions.getInterfacePackageName() + "." + interfaceToExtend);
+			columnBuilder.append("\n");
+
+			generateJavaSetComment(entityName, entityName, Description, columnBuilder);
+			columnBuilder.append("\tvoid set").append(entityName).append("(").append(returnType).append(" ")
+					.append(entityName).append(");\n");
+
+			generateJavaGetComment(entityName, Description, columnBuilder);
+			columnBuilder.append("\t").append(returnType).append(" get").append(entityName).append("();");
+
+//			return columnBuilder.toString();
+			// Don't return because we may still need to add the actual column getters/setters below
+		} else if (columnName.endsWith("_UU")) {
+			columnBuilder.append("\n");
+			generateJavaSetComment("ID", "ID", Description, columnBuilder);
+			columnBuilder.append("\tvoid setID(String ID);\n");
+			generateJavaGetComment("ID", Description, columnBuilder);
+			columnBuilder.append("\tString getID();");
+			return columnBuilder.toString();
 		}
 
-		String interfaceToExtend = tableStructureExtensions.getInterfaceName();
-		classesToImport.add(tableStructureExtensions.getInterfacePackageName() + "." + interfaceToExtend);
-		columnBuilder.append("\n");
+		// If the column is user-maintained and the table isn't, we need to generate
+		boolean wereColumnMethodsGeneratedElsewhere = !(entityType.equals(MEntityType.ENTITYTYPE_UserMaintained) &&
+				!MTable.get(AD_Table_ID).getEntityType().equals(MEntityType.ENTITYTYPE_UserMaintained));
+		if (!wereColumnMethodsGeneratedElsewhere) {
+			columnBuilder
+					.append("\n\n")
+					.append("\t/**\n")
+					.append("\t * Column name ").append(columnName).append("\n")
+					.append("\t */\n")
+					.append("\tpublic static final String COLUMNNAME_").append(columnName)
+					.append(" = \"").append(columnName).append("\";\n");
 
-		generateJavaSetComment(entityName, entityName, Description, columnBuilder);
-		columnBuilder.append("\tvoid set").append(entityName).append("(").append(returnType).append(" ")
-				.append(entityName).append(");\n");
+			// Create Java Comment
+			generateJavaSetComment(columnName, Name, Description, columnBuilder);
+			// public void setColumn(xxx variable)
+			columnBuilder.append("\tpublic void set").append(columnName).append("(")
+					.append(dataType).append(" ").append(columnName).append(");\n");
 
-		generateJavaGetComment(entityName, Description, columnBuilder);
-		columnBuilder.append("\t").append(returnType).append(" get").append(entityName).append("();");
+			// ****** Get Comment ******
+			generateJavaGetComment(Name, Description, columnBuilder);
+
+			columnBuilder.append("\tpublic ").append(dataType);
+			if (clazz.equals(Boolean.class)) {
+				columnBuilder.append(" is");
+				if (columnName.toLowerCase().startsWith("is")) {
+					columnBuilder.append(columnName.substring(2));
+				} else {
+					columnBuilder.append(columnName);
+				}
+			} else {
+				columnBuilder.append(" get").append(columnName);
+			}
+			columnBuilder.append("();");
+			//
+			addImportClass(clazz);
+		}
+
+		if (AD_Reference_ID > 0 &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
+				clazz.equals(String.class)) {
+			columnName += "_RL";
+			columnBuilder.append("\n");
+			generateJavaSetComment(columnName, columnName, Description, columnBuilder);
+			columnBuilder.append("\tvoid set").append(columnName).append("(I_AD_Ref_ListInput ").append(columnName)
+					.append(");\n");
+			generateJavaGetComment(columnName, Description, columnBuilder);
+			columnBuilder.append("\tI_AD_Ref_ListInput get").append(columnName).append("();");
+			return columnBuilder.toString();
+		}
 
 		return columnBuilder.toString();
 	}
@@ -358,6 +406,38 @@ public class GraphQLInputModelInterfaceGenerator {
 	 * Import classes
 	 */
 	private final Collection<String> classesToImport = new TreeSet<>();
+
+	/**
+	 * Add class name to class import list
+	 *
+	 * @param className The canonical class name to add to the import list
+	 */
+	private void addImportClass(String className) {
+		if (className == null
+				|| (className.startsWith("java.lang.") && !className.startsWith("java.lang.reflect."))
+				|| className.startsWith(packageName + ".")) {
+			return;
+		}
+		if (className.equals("byte[]")) {
+			log.warning("Invalid type - " + className);
+			return;
+		}
+		classesToImport.add(className);
+	}
+
+	/**
+	 * Add class to class import list
+	 *
+	 * @param clazz The class to add to the import list
+	 */
+	private void addImportClass(Class<?> clazz) {
+		if (clazz.isArray()) {
+			clazz = clazz.getComponentType();
+		}
+		if (clazz.isPrimitive())
+			return;
+		addImportClass(clazz.getCanonicalName());
+	}
 
 	/**
 	 * Generate java imports

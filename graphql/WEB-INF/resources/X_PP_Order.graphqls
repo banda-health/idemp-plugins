@@ -43,7 +43,7 @@ type PP_Order {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Date Confirm of this Order
 	DateConfirm: Date
 	# Date when the product was delivered
@@ -63,9 +63,9 @@ type PP_Order {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_List!
+	DocAction_RL: AD_Ref_List!
 	# The current status of the document
-	DocStatus: AD_Ref_List!
+	DocStatus_RL: AD_Ref_List!
 	# Document sequence number of the document
 	DocumentNo: String!
 	FloatAfter: Int
@@ -100,7 +100,7 @@ type PP_Order {
 	# BOM & Formula
 	PP_Product_BOM: PP_Product_BOM!
 	# Priority of a document
-	PriorityRule: AD_Ref_List!
+	PriorityRule_RL: AD_Ref_List!
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
@@ -128,7 +128,7 @@ type PP_Order {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# User defined list element #1
 	User1: C_ElementValue
 	# User defined list element #2
@@ -179,9 +179,9 @@ input PP_OrderInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction_RL: AD_Ref_ListInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus_RL: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
 	FloatAfter: Int
@@ -216,7 +216,7 @@ input PP_OrderInput {
 	# BOM & Formula
 	PP_Product_BOM: PP_Product_BOMInput
 	# Priority of a document
-	PriorityRule: AD_Ref_ListInput
+	PriorityRule_RL: AD_Ref_ListInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

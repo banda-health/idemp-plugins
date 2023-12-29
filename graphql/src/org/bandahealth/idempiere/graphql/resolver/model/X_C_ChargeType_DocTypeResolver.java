@@ -1,0 +1,51 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MChargeType_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChargeTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocTypeDataLoader;
+import org.compiere.model.X_C_ChargeType_DocType;
+import org.dataloader.DataLoader;
+
+/**
+ * Generated ModelResolver for C_ChargeType_DocType - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_ChargeType_DocTypeResolver extends POResolver<X_C_ChargeType_DocType> implements GraphQLResolver<X_C_ChargeType_DocType> {
+
+
+
+	/**
+	 * Get Charge Type.
+	 *
+	 * @return Charge Type
+	 */
+	public CompletableFuture<MChargeType_BH> C_ChargeType(X_C_ChargeType_DocType entity, DataFetchingEnvironment environment) {
+		if (entity.getC_ChargeType_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MChargeType_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeTypeDataLoader.C_ChargeType_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_ChargeType_ID());
+	}
+
+
+	/**
+	 * Get Document Type.
+	 *
+	 * @return Document type or rules
+	 */
+	public CompletableFuture<MDocType_BH> C_DocType(X_C_ChargeType_DocType entity, DataFetchingEnvironment environment) {
+		if (entity.getC_DocType_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MDocType_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_DocType_ID());
+	}
+
+}

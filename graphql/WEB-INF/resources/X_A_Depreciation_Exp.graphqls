@@ -16,7 +16,7 @@ type A_Depreciation_ExpConnection {
 }
 
 type A_Depreciation_Exp {
-	A_Account_Number_Acct: C_ValidCombination
+	A_Account_Number_A: C_ValidCombination
 	A_Accumulated_Depr: Int
 	A_Accumulated_Depr_Delta: Int!
 	A_Accumulated_Depr_F: Int
@@ -31,8 +31,8 @@ type A_Depreciation_Exp {
 	A_Asset_Remaining_F: Int
 	A_Depreciation_Entry: A_Depreciation_Entry
 	ID: ID!
-	A_Entry_Type: AD_Ref_List!
-	A_Period: Int!
+	A_Entry_Type_RL: AD_Ref_List!
+	A_Period_RL: Int!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -44,7 +44,7 @@ type A_Depreciation_Exp {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record
@@ -60,21 +60,21 @@ type A_Depreciation_Exp {
 	# The asset will be depreciated
 	IsDepreciated: Boolean!
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_List
+	PostingType_RL: AD_Ref_List
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Months of the usable life of the asset
 	UseLifeMonths: Int
 	UseLifeMonths_F: Int
 }
 
 input A_Depreciation_ExpInput {
-	A_Account_Number_Acct: C_ValidCombinationInput
+	A_Account_Number_A: C_ValidCombinationInput
 	A_Accumulated_Depr: Int
 	A_Accumulated_Depr_Delta: Int
 	A_Accumulated_Depr_F: Int
@@ -89,8 +89,8 @@ input A_Depreciation_ExpInput {
 	A_Asset_Remaining_F: Int
 	A_Depreciation_Entry: A_Depreciation_EntryInput
 	ID: ID
-	A_Entry_Type: AD_Ref_ListInput
-	A_Period: Int
+	A_Entry_Type_RL: AD_Ref_ListInput
+	A_Period_RL: Int
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	# Rules for accounting
@@ -112,7 +112,7 @@ input A_Depreciation_ExpInput {
 	# The asset will be depreciated
 	IsDepreciated: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType_RL: AD_Ref_ListInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

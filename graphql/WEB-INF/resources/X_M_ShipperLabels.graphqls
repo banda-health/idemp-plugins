@@ -23,12 +23,12 @@ type M_ShipperLabels {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Default value
 	IsDefault: Boolean!
-	LabelPrintMethod: AD_Ref_List
+	LabelPrintMethod_RL: AD_Ref_List
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
 	ID: ID!
@@ -38,7 +38,7 @@ type M_ShipperLabels {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input M_ShipperLabelsInput {
@@ -48,7 +48,7 @@ input M_ShipperLabelsInput {
 	IsActive: Boolean
 	# Default value
 	IsDefault: Boolean
-	LabelPrintMethod: AD_Ref_ListInput
+	LabelPrintMethod_RL: AD_Ref_ListInput
 	# Method or manner of product delivery
 	M_Shipper: M_ShipperInput
 	ID: ID

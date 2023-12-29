@@ -1,19 +1,30 @@
 package org.bandahealth.idempiere.graphql.resolver.mutation;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
-import org.bandahealth.idempiere.graphql.model.input.M_C_PaymentInput;
+import org.bandahealth.idempiere.graphql.model.input.I_C_PaymentInput;
+import org.bandahealth.idempiere.graphql.model.input.X_C_PaymentInput;
 
 import java.util.List;
 
-public class X_C_PaymentMutation implements GraphQLMutationResolver {
-	public MPayment_BH C_PaymentSave(M_C_PaymentInput input) {
-		input.saveEx();
-		// get by uuid for visit input
-		return input;
+/**
+ * Generated Query Resolver for C_Payment - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_PaymentMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_C_PaymentInput.Table_Name;
 	}
 
-	public boolean C_PaymentDelete(List<String> uuids) {
-		return true;
+	public MPayment_BH C_PaymentSave(I_C_PaymentInput input, DataFetchingEnvironment environment) {
+		return (MPayment_BH) super.save((X_C_PaymentInput) input, environment);
+	}
+
+	public boolean C_PaymentDelete(List<String> uuids, DataFetchingEnvironment environment) {
+		return super.delete(uuids, environment);
 	}
 }

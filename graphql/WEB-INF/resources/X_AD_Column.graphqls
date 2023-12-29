@@ -45,7 +45,7 @@ type AD_Column {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Default value hierarchy, separated by ;
 	DefaultValue: String
 	# Optional short description of the record
@@ -55,7 +55,7 @@ type AD_Column {
 	# Length of the column in the database
 	FieldLength: Int
 	FKConstraintName: String
-	FKConstraintType: AD_Ref_List
+	FKConstraintType_RL: AD_Ref_List
 	# The pattern used to format a number or date.
 	FormatPattern: String
 	# Comment or Hint
@@ -71,7 +71,7 @@ type AD_Column {
 	# Automatic completion for textfields
 	IsAutocomplete: Boolean!
 	# Display or Storage is encrypted
-	IsEncrypted: AD_Ref_List!
+	IsEncrypted_RL: AD_Ref_List!
 	# Text has HTML tags
 	IsHtml: Boolean!
 	# This column is part of the record identifier
@@ -89,7 +89,7 @@ type AD_Column {
 	# Change database table definition when changing dictionary definition
 	IsSyncDatabase: String
 	# Show the button on the toolbar, the window, or both
-	IsToolbarButton: AD_Ref_List!
+	IsToolbarButton_RL: AD_Ref_List!
 	# This column is translated
 	IsTranslated: Boolean!
 	# Determines, if the field can be updated
@@ -108,7 +108,7 @@ type AD_Column {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Maximum Value for a field
 	ValueMax: String
 	# Minimum Value for a field
@@ -153,7 +153,7 @@ input AD_ColumnInput {
 	# Length of the column in the database
 	FieldLength: Int
 	FKConstraintName: String
-	FKConstraintType: AD_Ref_ListInput
+	FKConstraintType_RL: AD_Ref_ListInput
 	# The pattern used to format a number or date.
 	FormatPattern: String
 	# Comment or Hint
@@ -169,7 +169,7 @@ input AD_ColumnInput {
 	# Automatic completion for textfields
 	IsAutocomplete: Boolean
 	# Display or Storage is encrypted
-	IsEncrypted: AD_Ref_ListInput
+	IsEncrypted_RL: AD_Ref_ListInput
 	# Text has HTML tags
 	IsHtml: Boolean
 	# This column is part of the record identifier
@@ -187,7 +187,7 @@ input AD_ColumnInput {
 	# Change database table definition when changing dictionary definition
 	IsSyncDatabase: String
 	# Show the button on the toolbar, the window, or both
-	IsToolbarButton: AD_Ref_ListInput
+	IsToolbarButton_RL: AD_Ref_ListInput
 	# This column is translated
 	IsTranslated: Boolean
 	# Determines, if the field can be updated

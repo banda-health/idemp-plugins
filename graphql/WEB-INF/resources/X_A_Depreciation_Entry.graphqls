@@ -17,7 +17,7 @@ type A_Depreciation_EntryConnection {
 
 type A_Depreciation_Entry {
 	ID: ID!
-	A_Entry_Type: AD_Ref_List
+	A_Entry_Type_RL: AD_Ref_List
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -33,7 +33,7 @@ type A_Depreciation_Entry {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Accounting Date
 	DateAcct: Date!
 	# Date of the Document
@@ -41,9 +41,9 @@ type A_Depreciation_Entry {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_List!
+	DocAction_RL: AD_Ref_List!
 	# The current status of the document
-	DocStatus: AD_Ref_List!
+	DocStatus_RL: AD_Ref_List!
 	# Document sequence number of the document
 	DocumentNo: String!
 	# The record is active in the system
@@ -51,9 +51,9 @@ type A_Depreciation_Entry {
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
 	# Posting status
-	Posted: Boolean!
+	Posted_RL: Boolean!
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_List!
+	PostingType_RL: AD_Ref_List!
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
@@ -62,12 +62,12 @@ type A_Depreciation_Entry {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input A_Depreciation_EntryInput {
 	ID: ID
-	A_Entry_Type: AD_Ref_ListInput
+	A_Entry_Type_RL: AD_Ref_ListInput
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	# Rules for accounting
@@ -85,9 +85,9 @@ input A_Depreciation_EntryInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction_RL: AD_Ref_ListInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus_RL: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# The record is active in the system
@@ -95,9 +95,9 @@ input A_Depreciation_EntryInput {
 	# Indicates if this document requires approval
 	IsApproved: Boolean
 	# Posting status
-	Posted: Boolean
+	Posted_RL: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType_RL: AD_Ref_ListInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

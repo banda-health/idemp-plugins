@@ -26,11 +26,11 @@ type AD_PrintPaper {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Units of Dimension
-	DimensionUnits: AD_Ref_List
+	DimensionUnits_RL: AD_Ref_List
 	# The record is active in the system
 	IsActive: Boolean!
 	# Default value
@@ -55,7 +55,7 @@ type AD_PrintPaper {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input AD_PrintPaperInput {
@@ -67,7 +67,7 @@ input AD_PrintPaperInput {
 	# Optional short description of the record
 	Description: String
 	# Units of Dimension
-	DimensionUnits: AD_Ref_ListInput
+	DimensionUnits_RL: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Default value

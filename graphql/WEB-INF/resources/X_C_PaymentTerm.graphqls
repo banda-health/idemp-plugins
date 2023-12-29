@@ -26,7 +26,7 @@ type C_PaymentTerm {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Discount in percent
@@ -60,16 +60,16 @@ type C_PaymentTerm {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Day when payment is due net
-	NetDay: AD_Ref_List
+	NetDay_RL: AD_Ref_List
 	# Net Days in which payment is due
 	NetDays: Int!
 	# Payment term usage indicates if this payment term is used for sales, purchases or both.
-	PaymentTermUsage: AD_Ref_List!
+	PaymentTermUsage_RL: AD_Ref_List!
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 }
@@ -113,11 +113,11 @@ input C_PaymentTermInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Day when payment is due net
-	NetDay: AD_Ref_ListInput
+	NetDay_RL: AD_Ref_ListInput
 	# Net Days in which payment is due
 	NetDays: Int
 	# Payment term usage indicates if this payment term is used for sales, purchases or both.
-	PaymentTermUsage: AD_Ref_ListInput
+	PaymentTermUsage_RL: AD_Ref_ListInput
 	Processing: Boolean
 	# Search key for the record in the format required - must be unique
 	Value: String

@@ -23,7 +23,7 @@ type PA_Achievement {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Date of the Document
 	DateDoc: Date
 	# Optional short description of the record
@@ -46,7 +46,7 @@ type PA_Achievement {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input PA_AchievementInput {

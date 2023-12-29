@@ -24,7 +24,7 @@ type C_Dunning {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Create Dunning Letter by level sequentially
 	CreateLevelsSequentially: Boolean!
 	# Optional short description of the record
@@ -40,7 +40,7 @@ type C_Dunning {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input C_DunningInput {

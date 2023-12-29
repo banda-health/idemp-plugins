@@ -33,7 +33,7 @@ type GL_JournalBatch {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Accounting Date
 	DateAcct: Date
 	# Date of the Document
@@ -41,9 +41,9 @@ type GL_JournalBatch {
 	# Optional short description of the record
 	Description: String!
 	# The targeted status of the document
-	DocAction: AD_Ref_List!
+	DocAction_RL: AD_Ref_List!
 	# The current status of the document
-	DocStatus: AD_Ref_List!
+	DocStatus_RL: AD_Ref_List!
 	# Document sequence number of the document
 	DocumentNo: String!
 	# General Ledger Category
@@ -54,7 +54,7 @@ type GL_JournalBatch {
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_List!
+	PostingType_RL: AD_Ref_List!
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -67,7 +67,7 @@ type GL_JournalBatch {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input GL_JournalBatchInput {
@@ -90,9 +90,9 @@ input GL_JournalBatchInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction_RL: AD_Ref_ListInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus_RL: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# General Ledger Category
@@ -103,7 +103,7 @@ input GL_JournalBatchInput {
 	# Indicates if this document requires approval
 	IsApproved: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType_RL: AD_Ref_ListInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

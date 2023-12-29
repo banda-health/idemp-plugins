@@ -4,10 +4,13 @@ import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.graphql.model.Connection;
-import org.bandahealth.idempiere.graphql.model.PagingInfo;
-import org.bandahealth.idempiere.graphql.repository.Repository;
-import org.bandahealth.idempiere.graphql.utils.EntityConfiguration;
 
+/**
+ * Generated Query Resolver for BH_Visit - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
 public class X_BH_VisitQuery extends POQuery<MBHVisit> implements GraphQLQueryResolver {
 	@Override
 	protected String getTableName() {
