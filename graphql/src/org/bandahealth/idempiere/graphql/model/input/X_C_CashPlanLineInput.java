@@ -7,13 +7,13 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MCashPlan;
-import org.compiere.model.MCashPlanLine;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTask;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_CashPlanLine;
 import org.compiere.util.Env;
 
 /**
@@ -22,7 +22,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlanLineInput {
+public class X_C_CashPlanLineInput extends X_C_CashPlanLine implements I_C_CashPlanLineInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_ActivityInput C_Activity;
@@ -177,6 +177,28 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	public I_C_CashPlanInput getC_CashPlan() {
 		return C_CashPlan;
 	}
+	/**
+	 * Set Cash Plan.
+	 *
+	 * @param C_CashPlan_ID Cash Plan
+	 */
+
+	public void setC_CashPlan_ID(int C_CashPlan_ID) {
+		if (get_ID() == 0) {
+			super.setC_CashPlan_ID(C_CashPlan_ID);
+		}
+	}
+	/**
+	 * Set Cash Plan Line.
+	 *
+	 * @param C_CashPlanLine_ID Cash Plan Line
+	 */
+
+	public void setC_CashPlanLine_ID(int C_CashPlanLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_CashPlanLine_ID(C_CashPlanLine_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -274,6 +296,17 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	public I_C_ProjectPhaseInput getC_ProjectPhase() {
 		return C_ProjectPhase;
 	}
+	/**
+	 * Set Project Phase.
+	 *
+	 * @param C_ProjectPhase_ID Phase of a Project
+	 */
+
+	public void setC_ProjectPhase_ID(int C_ProjectPhase_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectPhase_ID(C_ProjectPhase_ID);
+		}
+	}
 
 	/**
 	 * Set Project Task.
@@ -298,6 +331,17 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 */
 	public I_C_ProjectTaskInput getC_ProjectTask() {
 		return C_ProjectTask;
+	}
+	/**
+	 * Set Project Task.
+	 *
+	 * @param C_ProjectTask_ID Actual Project Task in a Phase
+	 */
+
+	public void setC_ProjectTask_ID(int C_ProjectTask_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectTask_ID(C_ProjectTask_ID);
+		}
 	}
 
 	/**
@@ -353,6 +397,17 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	public I_C_ElementValueInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -379,5 +434,16 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 */
 	public I_C_ElementValueInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

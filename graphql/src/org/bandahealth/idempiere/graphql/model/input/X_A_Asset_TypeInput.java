@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MAssetType;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Type;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInput {
+public class X_A_Asset_TypeInput extends X_A_Asset_Type implements I_A_Asset_TypeInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput IsDepreciable_RL;
@@ -26,6 +26,17 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	public X_A_Asset_TypeInput(String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
+	}
+	/**
+	 * Set Asset Type.
+	 *
+	 * @param A_Asset_Type_ID Asset Type
+	 */
+
+	public void setA_Asset_Type_ID(int A_Asset_Type_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Type_ID(A_Asset_Type_ID);
+		}
 	}
 
 	/**

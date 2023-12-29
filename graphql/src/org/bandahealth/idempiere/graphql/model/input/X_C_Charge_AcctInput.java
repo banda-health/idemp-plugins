@@ -79,6 +79,17 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	public I_C_AcctSchemaInput getC_AcctSchema() {
 		return C_AcctSchema;
 	}
+	/**
+	 * Set Accounting Schema.
+	 *
+	 * @param C_AcctSchema_ID Rules for accounting
+	 */
+
+	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
+		if (get_ID() == 0) {
+			super.setC_AcctSchema_ID(C_AcctSchema_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -121,6 +132,17 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	 */
 	public I_C_ChargeInput getC_Charge() {
 		return C_Charge;
+	}
+	/**
+	 * Set Charge.
+	 *
+	 * @param C_Charge_ID Additional document charges
+	 */
+
+	public void setC_Charge_ID(int C_Charge_ID) {
+		if (get_ID() == 0) {
+			super.setC_Charge_ID(C_Charge_ID);
+		}
 	}
 
 	/**

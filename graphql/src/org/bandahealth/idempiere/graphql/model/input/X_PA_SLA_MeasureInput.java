@@ -3,9 +3,9 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MSLAGoal;
-import org.compiere.model.MSLAMeasure;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
+import org.compiere.model.X_PA_SLA_Measure;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_MeasureInput {
+public class X_PA_SLA_MeasureInput extends X_PA_SLA_Measure implements I_PA_SLA_MeasureInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_TableInput AD_Table;
@@ -103,6 +103,28 @@ public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_Measu
 	 */
 	public I_PA_SLA_GoalInput getPA_SLA_Goal() {
 		return PA_SLA_Goal;
+	}
+	/**
+	 * Set SLA Goal.
+	 *
+	 * @param PA_SLA_Goal_ID Service Level Agreement Goal
+	 */
+
+	public void setPA_SLA_Goal_ID(int PA_SLA_Goal_ID) {
+		if (get_ID() == 0) {
+			super.setPA_SLA_Goal_ID(PA_SLA_Goal_ID);
+		}
+	}
+	/**
+	 * Set SLA Measure.
+	 *
+	 * @param PA_SLA_Measure_ID Service Level Agreement Measure
+	 */
+
+	public void setPA_SLA_Measure_ID(int PA_SLA_Measure_ID) {
+		if (get_ID() == 0) {
+			super.setPA_SLA_Measure_ID(PA_SLA_Measure_ID);
+		}
 	}
 
 	/**

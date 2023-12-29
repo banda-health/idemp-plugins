@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MLanguage;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Language;
 import org.compiere.model.X_AD_PrintPaper;
 import org.compiere.util.Env;
 
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_LanguageInput extends MLanguage implements I_AD_LanguageInput {
+public class X_AD_LanguageInput extends X_AD_Language implements I_AD_LanguageInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_PrintPaperInput AD_PrintPaper;
@@ -30,9 +30,21 @@ public class X_AD_LanguageInput extends MLanguage implements I_AD_LanguageInput 
 	 *
 	 * @param AD_Language Language for this entity
 	 */
+
 	public void setAD_Language(String AD_Language) {
 		if (get_ID() == 0) {
 			super.setAD_Language(AD_Language);
+		}
+	}
+	/**
+	 * Set Language ID.
+	 *
+	 * @param AD_Language_ID Language ID
+	 */
+
+	public void setAD_Language_ID(int AD_Language_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Language_ID(AD_Language_ID);
 		}
 	}
 
@@ -110,6 +122,7 @@ public class X_AD_LanguageInput extends MLanguage implements I_AD_LanguageInput 
 	 *
 	 * @param IsBaseLanguage The system information is maintained in this language
 	 */
+
 	public void setIsBaseLanguage(boolean IsBaseLanguage) {
 		if (get_ID() == 0) {
 			super.setIsBaseLanguage(IsBaseLanguage);

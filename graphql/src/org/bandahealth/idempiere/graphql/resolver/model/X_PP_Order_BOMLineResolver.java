@@ -71,15 +71,15 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 
 	static Map<String, String> COMPONENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_PP_Order_BOMLine.COMPONENTTYPE_By_Product, "b0f4f7d6-5db7-441c-babb-1e64d4155c84");
-			put(X_PP_Order_BOMLine.COMPONENTTYPE_Component, "9718a56a-7da7-4a09-9438-7cf2f90c288c");
-			put(X_PP_Order_BOMLine.COMPONENTTYPE_Phantom, "40cdea02-6475-47f2-960e-f7929e84b4f1");
-			put(X_PP_Order_BOMLine.COMPONENTTYPE_Packing, "296dd50a-f475-4e0e-b67f-a079b45f5d11");
-			put(X_PP_Order_BOMLine.COMPONENTTYPE_Planning, "037a017f-9a89-4bf6-8aef-f6edaac5dcf7");
-			put(X_PP_Order_BOMLine.COMPONENTTYPE_Tools, "05d7657c-dc31-413f-b727-23eb225112e6");
-			put(X_PP_Order_BOMLine.COMPONENTTYPE_Option, "fb7cbbb9-739d-4a6a-9f59-9c2aa60e8e6e");
-			put(X_PP_Order_BOMLine.COMPONENTTYPE_Variant, "76c427e8-a725-4695-ae9e-365fc969dd8e");
-			put(X_PP_Order_BOMLine.COMPONENTTYPE_Co_Product, "64d921b3-a4fe-4b04-8519-91f39f844a8a");
+			put("BY", "b0f4f7d6-5db7-441c-babb-1e64d4155c84");
+			put("CO", "9718a56a-7da7-4a09-9438-7cf2f90c288c");
+			put("PH", "40cdea02-6475-47f2-960e-f7929e84b4f1");
+			put("PK", "296dd50a-f475-4e0e-b67f-a079b45f5d11");
+			put("PL", "037a017f-9a89-4bf6-8aef-f6edaac5dcf7");
+			put("TL", "05d7657c-dc31-413f-b727-23eb225112e6");
+			put("OP", "fb7cbbb9-739d-4a6a-9f59-9c2aa60e8e6e");
+			put("VA", "76c427e8-a725-4695-ae9e-365fc969dd8e");
+			put("CP", "64d921b3-a4fe-4b04-8519-91f39f844a8a");
 		}
 	};
 	public CompletableFuture<MRefList> ComponentType_RL(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
@@ -93,9 +93,9 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 
 	static Map<String, String> ISSUEMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_PP_Order_BOMLine.ISSUEMETHOD_Issue, "6a547c24-b9e5-4b16-98c7-2d84f9eae02b");
-			put(X_PP_Order_BOMLine.ISSUEMETHOD_Backflush, "fec1ffc7-d10b-433b-8811-ded8ed39dcad");
-			put(X_PP_Order_BOMLine.ISSUEMETHOD_FloorStock, "211b7c2f-638d-4429-b5d9-e1248a684d3b");
+			put("0", "6a547c24-b9e5-4b16-98c7-2d84f9eae02b");
+			put("1", "fec1ffc7-d10b-433b-8811-ded8ed39dcad");
+			put("2", "211b7c2f-638d-4429-b5d9-e1248a684d3b");
 		}
 	};
 	public CompletableFuture<MRefList> IssueMethod_RL(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {

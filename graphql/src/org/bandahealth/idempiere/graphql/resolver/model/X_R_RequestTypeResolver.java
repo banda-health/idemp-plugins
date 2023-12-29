@@ -25,10 +25,10 @@ public class X_R_RequestTypeResolver extends POResolver<MRequestType> implements
 
 	static Map<String, String> CONFIDENTIALTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MRequestType.CONFIDENTIALTYPE_PublicInformation, "1eb43dd1-53c0-4b5c-aae4-585c7d3fc9c2");
-			put(MRequestType.CONFIDENTIALTYPE_PartnerConfidential, "0f1983c1-e543-4a8f-9b8a-4a00d2a111f4");
-			put(MRequestType.CONFIDENTIALTYPE_Internal, "7c6def43-3d72-4c5b-93ce-dfbefd8545e4");
-			put(MRequestType.CONFIDENTIALTYPE_PrivateInformation, "467c826c-2a44-4f65-8026-8dc6b1d7edec");
+			put("A", "1eb43dd1-53c0-4b5c-aae4-585c7d3fc9c2");
+			put("C", "0f1983c1-e543-4a8f-9b8a-4a00d2a111f4");
+			put("I", "7c6def43-3d72-4c5b-93ce-dfbefd8545e4");
+			put("P", "467c826c-2a44-4f65-8026-8dc6b1d7edec");
 		}
 	};
 	public CompletableFuture<MRefList> ConfidentialType_RL(MRequestType entity, DataFetchingEnvironment environment) {

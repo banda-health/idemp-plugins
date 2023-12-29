@@ -48,6 +48,17 @@ public class X_C_TaxGroupInput extends X_C_TaxGroup implements I_C_TaxGroupInput
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Tax Group.
+	 *
+	 * @param C_TaxGroup_ID Tax Group
+	 */
+
+	public void setC_TaxGroup_ID(int C_TaxGroup_ID) {
+		if (get_ID() == 0) {
+			super.setC_TaxGroup_ID(C_TaxGroup_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

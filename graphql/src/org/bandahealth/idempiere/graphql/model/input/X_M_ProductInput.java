@@ -1,9 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
-import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MExpenseType;
@@ -19,6 +20,7 @@ import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_SubscriptionType;
 import org.compiere.model.X_M_PartType;
+import org.compiere.model.X_M_Product;
 import org.compiere.util.Env;
 
 /**
@@ -27,10 +29,9 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
+public class X_M_ProductInput extends X_M_Product implements I_M_ProductInput {
 
 	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput BH_Product_Category_Type_RL;
 	 private I_AD_Ref_ListInput ProductType_RL;
 	 private I_AD_UserInput SalesRep;
 	 private I_C_RevenueRecognitionInput C_RevenueRecognition;
@@ -81,31 +82,171 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	}
 
 	/**
-	 * Set BH Product Category Type.
+	 * Set BH_BuyPrice.
 	 *
-	 * @param BH_Product_Category_Type_RL Contains a character the is linked to a ref list to determine types of product categories
+	 * @param BH_BuyPrice Purchase price of product
 	 */
-	public void setBH_Product_Category_Type_RL(I_AD_Ref_ListInput BH_Product_Category_Type_RL) {
-		this.BH_Product_Category_Type_RL = BH_Product_Category_Type_RL;
-		MRefList foreignEntity;
-		if (BH_Product_Category_Type_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BH_Product_Category_Type_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBH_Product_Category_Type(foreignEntity.getValue());
-		} else {
-			this.setBH_Product_Category_Type(null);
-		}
+	public void setBH_BuyPrice(BigDecimal BH_BuyPrice) {
+		set_Value(COLUMNNAME_BH_BuyPrice, BH_BuyPrice);
 	}
 
+
 	/**
-	 * Get BH Product Category Type.
+	 * Get BH_BuyPrice.
 	 *
-	 * @return Contains a character the is linked to a ref list to determine types of product categories
+	 * @return Purchase price of product
 	 */
-	public I_AD_Ref_ListInput getBH_Product_Category_Type_RL() {
-		return BH_Product_Category_Type_RL;
+	public BigDecimal getBH_BuyPrice() {
+ 		BigDecimal columnValue = (BigDecimal) get_Value(COLUMNNAME_BH_BuyPrice);
+		if (columnValue == null) {
+			return Env.ZERO;
+		}
+		return columnValue;
 	}
+
+
+	/**
+	 * Set Has Expiration.
+	 *
+	 * @param BH_HasExpiration Has Expiration
+	 */
+	public void setBH_HasExpiration(boolean BH_HasExpiration) {
+		set_Value(COLUMNNAME_BH_HasExpiration, BH_HasExpiration);
+	}
+
+
+	/**
+	 * Get Has Expiration.
+	 *
+	 * @return Has Expiration
+	 */
+	public boolean isBH_HasExpiration() {
+ 		Object columnValue = get_Value(COLUMNNAME_BH_HasExpiration);
+		if (columnValue != null) {
+			if (columnValue instanceof Boolean) {
+				return ((Boolean) columnValue);
+			}
+			return "Y".equals(columnValue);
+		}
+		return false;
+	}
+
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons) {
+		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
+	}
+
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons() {
+ 		return get_Value(COLUMNNAME_BH_NavButtons);
+	}
+
+
+	/**
+	 * Set Price Margin.
+	 *
+	 * @param BH_PriceMargin Price Margin
+	 */
+	public void setBH_PriceMargin(BigDecimal BH_PriceMargin) {
+		set_Value(COLUMNNAME_BH_PriceMargin, BH_PriceMargin);
+	}
+
+
+	/**
+	 * Get Price Margin.
+	 *
+	 * @return Price Margin
+	 */
+	public BigDecimal getBH_PriceMargin() {
+ 		BigDecimal columnValue = (BigDecimal) get_Value(COLUMNNAME_BH_PriceMargin);
+		if (columnValue == null) {
+			return Env.ZERO;
+		}
+		return columnValue;
+	}
+
+
+	/**
+	 * Set Re-order Level.
+	 *
+	 * @param bh_reorder_level Re-order Level
+	 */
+	public void setbh_reorder_level(int bh_reorder_level) {
+		set_Value(COLUMNNAME_bh_reorder_level, bh_reorder_level);
+	}
+
+
+	/**
+	 * Get Re-order Level.
+	 *
+	 * @return Re-order Level
+	 */
+	public int getbh_reorder_level() {
+ 		Integer columnValue = (Integer) get_Value(COLUMNNAME_bh_reorder_level);
+		if (columnValue == null) {
+			return 0;
+		}
+		return columnValue;
+	}
+
+
+	/**
+	 * Set Re-order Quantity.
+	 *
+	 * @param bh_reorder_quantity How much quantity you want to re-order
+	 */
+	public void setbh_reorder_quantity(int bh_reorder_quantity) {
+		set_Value(COLUMNNAME_bh_reorder_quantity, bh_reorder_quantity);
+	}
+
+
+	/**
+	 * Get Re-order Quantity.
+	 *
+	 * @return How much quantity you want to re-order
+	 */
+	public int getbh_reorder_quantity() {
+ 		Integer columnValue = (Integer) get_Value(COLUMNNAME_bh_reorder_quantity);
+		if (columnValue == null) {
+			return 0;
+		}
+		return columnValue;
+	}
+
+
+	/**
+	 * Set BH_SellPrice.
+	 *
+	 * @param BH_SellPrice Selling price of BandaGo product
+	 */
+	public void setBH_SellPrice(BigDecimal BH_SellPrice) {
+		set_Value(COLUMNNAME_BH_SellPrice, BH_SellPrice);
+	}
+
+
+	/**
+	 * Get BH_SellPrice.
+	 *
+	 * @return Selling price of BandaGo product
+	 */
+	public BigDecimal getBH_SellPrice() {
+ 		BigDecimal columnValue = (BigDecimal) get_Value(COLUMNNAME_BH_SellPrice);
+		if (columnValue == null) {
+			return Env.ZERO;
+		}
+		return columnValue;
+	}
+
 
 	/**
 	 * Set Revenue Recognition.
@@ -214,11 +355,79 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	public I_C_UOMInput getC_UOM() {
 		return C_UOM;
 	}
+
+	/**
+	 * Set Discontinued by.
+	 *
+	 * @param DiscontinuedBy Discontinued By
+	 */
+	public void setDiscontinuedBy(Timestamp DiscontinuedBy) {
+		set_Value(COLUMNNAME_DiscontinuedBy, DiscontinuedBy);
+	}
+
+
+	/**
+	 * Get Discontinued by.
+	 *
+	 * @return Discontinued By
+	 */
+	public Timestamp getDiscontinuedBy() {
+ 		return (Timestamp) get_Value(COLUMNNAME_DiscontinuedBy);
+	}
+
+
+	/**
+	 * Set Download URL.
+	 *
+	 * @param DownloadURL URL of the Download files
+	 */
+	public void setDownloadURL(String DownloadURL) {
+		set_Value(COLUMNNAME_DownloadURL, DownloadURL);
+	}
+
+
+	/**
+	 * Get Download URL.
+	 *
+	 * @return URL of the Download files
+	 */
+	public String getDownloadURL() {
+ 		return (String) get_Value(COLUMNNAME_DownloadURL);
+	}
+
+
+	/**
+	 * Set istoformule.
+	 *
+	 * @param istoformule istoformule
+	 */
+	public void setistoformule(boolean istoformule) {
+		set_Value(COLUMNNAME_istoformule, istoformule);
+	}
+
+
+	/**
+	 * Get istoformule.
+	 *
+	 * @return istoformule
+	 */
+	public boolean istoformule() {
+ 		Object columnValue = get_Value(COLUMNNAME_istoformule);
+		if (columnValue != null) {
+			if (columnValue instanceof Boolean) {
+				return ((Boolean) columnValue);
+			}
+			return "Y".equals(columnValue);
+		}
+		return false;
+	}
+
 	/**
 	 * Set Verified.
 	 *
 	 * @param IsVerified The BOM configuration has been verified
 	 */
+
 	public void setIsVerified(boolean IsVerified) {
 		if (get_ID() == 0) {
 			super.setIsVerified(IsVerified);
@@ -386,6 +595,28 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	public I_M_Product_CategoryInput getM_Product_Category() {
 		return M_Product_Category;
 	}
+	/**
+	 * Set Product Category.
+	 *
+	 * @param M_Product_Category_ID Category of a Product
+	 */
+
+	public void setM_Product_Category_ID(int M_Product_Category_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_Category_ID(M_Product_Category_ID);
+		}
+	}
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product_ID Product, Service, Item
+	 */
+
+	public void setM_Product_ID(int M_Product_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_ID(M_Product_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -483,6 +714,17 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	public I_S_ExpenseTypeInput getS_ExpenseType() {
 		return S_ExpenseType;
 	}
+	/**
+	 * Set Expense Type.
+	 *
+	 * @param S_ExpenseType_ID Expense report type
+	 */
+
+	public void setS_ExpenseType_ID(int S_ExpenseType_ID) {
+		if (get_ID() == 0) {
+			super.setS_ExpenseType_ID(S_ExpenseType_ID);
+		}
+	}
 
 	/**
 	 * Set Resource.
@@ -507,6 +749,17 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 */
 	public I_S_ResourceInput getS_Resource() {
 		return S_Resource;
+	}
+	/**
+	 * Set Resource.
+	 *
+	 * @param S_Resource_ID Resource
+	 */
+
+	public void setS_Resource_ID(int S_Resource_ID) {
+		if (get_ID() == 0) {
+			super.setS_Resource_ID(S_Resource_ID);
+		}
 	}
 
 	/**
@@ -534,5 +787,16 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 */
 	public I_AD_UserInput getSalesRep() {
 		return SalesRep;
+	}
+	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep_ID Sales Representative or Company Agent
+	 */
+
+	public void setSalesRep_ID(int SalesRep_ID) {
+		if (get_ID() == 0) {
+			super.setSalesRep_ID(SalesRep_ID);
+		}
 	}
 }

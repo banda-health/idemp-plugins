@@ -5,7 +5,6 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MOrg;
-import org.compiere.model.MPackage;
 import org.compiere.model.MRefList;
 import org.compiere.model.MShipper;
 import org.compiere.model.MShipperLabels;
@@ -14,6 +13,7 @@ import org.compiere.model.MShipperPickupTypes;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_BP_ShippingAcct;
+import org.compiere.model.X_M_Package;
 import org.compiere.util.Env;
 
 /**
@@ -22,7 +22,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
+public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput DeliveryConfirmationType_RL;
@@ -182,6 +182,17 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	public I_C_UOMInput getC_UOM_Length() {
 		return C_UOM_Length;
 	}
+	/**
+	 * Set UOM for Length.
+	 *
+	 * @param C_UOM_Length_ID Standard Unit of Measure for Length
+	 */
+
+	public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_Length_ID(C_UOM_Length_ID);
+		}
+	}
 
 	/**
 	 * Set UOM for Weight.
@@ -208,6 +219,17 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 */
 	public I_C_UOMInput getC_UOM_Weight() {
 		return C_UOM_Weight;
+	}
+	/**
+	 * Set UOM for Weight.
+	 *
+	 * @param C_UOM_Weight_ID Standard Unit of Measure for Weight
+	 */
+
+	public void setC_UOM_Weight_ID(int C_UOM_Weight_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_Weight_ID(C_UOM_Weight_ID);
+		}
 	}
 
 	/**
@@ -241,6 +263,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
+
 	public void setDocumentNo(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
@@ -300,6 +323,17 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	public I_C_BPartner_LocationInput getHoldAddress() {
 		return HoldAddress;
 	}
+	/**
+	 * Set Hold Address.
+	 *
+	 * @param HoldAddress_ID Hold Address
+	 */
+
+	public void setHoldAddress_ID(int HoldAddress_ID) {
+		if (get_ID() == 0) {
+			super.setHoldAddress_ID(HoldAddress_ID);
+		}
+	}
 
 	/**
 	 * Set Home Delivery Premium Type.
@@ -352,6 +386,28 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	public I_M_InOutInput getM_InOut() {
 		return M_InOut;
 	}
+	/**
+	 * Set Shipment/Receipt.
+	 *
+	 * @param M_InOut_ID Material Shipment Document
+	 */
+
+	public void setM_InOut_ID(int M_InOut_ID) {
+		if (get_ID() == 0) {
+			super.setM_InOut_ID(M_InOut_ID);
+		}
+	}
+	/**
+	 * Set Package.
+	 *
+	 * @param M_Package_ID Shipment Package
+	 */
+
+	public void setM_Package_ID(int M_Package_ID) {
+		if (get_ID() == 0) {
+			super.setM_Package_ID(M_Package_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -397,6 +453,17 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	public I_M_ShipperInput getM_Shipper() {
 		return M_Shipper;
 	}
+	/**
+	 * Set Shipper.
+	 *
+	 * @param M_Shipper_ID Method or manner of product delivery
+	 */
+
+	public void setM_Shipper_ID(int M_Shipper_ID) {
+		if (get_ID() == 0) {
+			super.setM_Shipper_ID(M_Shipper_ID);
+		}
+	}
 
 	/**
 	 * Set Shipper Labels.
@@ -423,6 +490,17 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 */
 	public I_M_ShipperLabelsInput getM_ShipperLabels() {
 		return M_ShipperLabels;
+	}
+	/**
+	 * Set Shipper Labels.
+	 *
+	 * @param M_ShipperLabels_ID Shipper Labels
+	 */
+
+	public void setM_ShipperLabels_ID(int M_ShipperLabels_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperLabels_ID(M_ShipperLabels_ID);
+		}
 	}
 
 	/**
@@ -451,6 +529,17 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	public I_M_ShipperPackagingInput getM_ShipperPackaging() {
 		return M_ShipperPackaging;
 	}
+	/**
+	 * Set Shipper Packaging.
+	 *
+	 * @param M_ShipperPackaging_ID Shipper Packaging
+	 */
+
+	public void setM_ShipperPackaging_ID(int M_ShipperPackaging_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperPackaging_ID(M_ShipperPackaging_ID);
+		}
+	}
 
 	/**
 	 * Set Shipper Pickup Types.
@@ -477,6 +566,17 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 */
 	public I_M_ShipperPickupTypesInput getM_ShipperPickupTypes() {
 		return M_ShipperPickupTypes;
+	}
+	/**
+	 * Set Shipper Pickup Types.
+	 *
+	 * @param M_ShipperPickupTypes_ID Shipper Pickup Types
+	 */
+
+	public void setM_ShipperPickupTypes_ID(int M_ShipperPickupTypes_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperPickupTypes_ID(M_ShipperPickupTypes_ID);
+		}
 	}
 
 	/**

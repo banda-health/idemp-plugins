@@ -513,6 +513,17 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	public I_PA_ReportColumnInput getOper_1() {
 		return Oper_1;
 	}
+	/**
+	 * Set Operand 1.
+	 *
+	 * @param Oper_1_ID First operand for calculation
+	 */
+
+	public void setOper_1_ID(int Oper_1_ID) {
+		if (get_ID() == 0) {
+			super.setOper_1_ID(Oper_1_ID);
+		}
+	}
 
 	/**
 	 * Set Operand 2.
@@ -539,6 +550,28 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 */
 	public I_PA_ReportColumnInput getOper_2() {
 		return Oper_2;
+	}
+	/**
+	 * Set Operand 2.
+	 *
+	 * @param Oper_2_ID Second operand for calculation
+	 */
+
+	public void setOper_2_ID(int Oper_2_ID) {
+		if (get_ID() == 0) {
+			super.setOper_2_ID(Oper_2_ID);
+		}
+	}
+	/**
+	 * Set Report Column.
+	 *
+	 * @param PA_ReportColumn_ID Column in Report
+	 */
+
+	public void setPA_ReportColumn_ID(int PA_ReportColumn_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportColumn_ID(PA_ReportColumn_ID);
+		}
 	}
 
 	/**
@@ -582,6 +615,17 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 */
 	public I_PA_ReportColumnSetInput getPA_ReportColumnSet() {
 		return PA_ReportColumnSet;
+	}
+	/**
+	 * Set Report Column Set.
+	 *
+	 * @param PA_ReportColumnSet_ID Collection of Columns for Report
+	 */
+
+	public void setPA_ReportColumnSet_ID(int PA_ReportColumnSet_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportColumnSet_ID(PA_ReportColumnSet_ID);
+		}
 	}
 
 	/**

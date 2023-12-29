@@ -53,19 +53,19 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 
 	static Map<String, String> ACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_Node.ACTION_WaitSleep, "8ef4a18d-9f67-434b-8f83-067fade09bc8");
-			put(X_AD_WF_Node.ACTION_UserChoice, "59eede55-ead5-4a13-96c5-e0a712afff81");
-			put(X_AD_WF_Node.ACTION_SubWorkflow, "88a81162-95de-4ec6-b100-a283296be057");
-			put(X_AD_WF_Node.ACTION_SetVariable, "f8b72207-17c2-4ecf-9cd4-50a16758a17e");
-			put(X_AD_WF_Node.ACTION_UserWindow, "73a291eb-e6ec-4708-9f26-2fb95c1d417b");
-			put(X_AD_WF_Node.ACTION_UserForm, "fd67ca8e-2076-4ba0-9607-2fcafba2eded");
-			put(X_AD_WF_Node.ACTION_AppsTask, "5195d723-cadc-4c3e-95b4-32d8df931ac6");
-			put(X_AD_WF_Node.ACTION_AppsReport, "221219e5-eed5-46bb-903b-87870578ca32");
-			put(X_AD_WF_Node.ACTION_AppsProcess, "15681176-2ff7-4433-8eef-47048a97b2c1");
-			put(X_AD_WF_Node.ACTION_DocumentAction, "ca24d80e-62d2-48de-b00a-0834a7dc1317");
-			put(X_AD_WF_Node.ACTION_EMail, "0ceb65e4-9e53-4ffb-a320-5d0d52865d41");
-			put(X_AD_WF_Node.ACTION_UserWorkbench, "f95b359f-f513-4525-9e53-5772f3d60d0b");
-			put(X_AD_WF_Node.ACTION_UserInfo, "eaf4fa91-3fa3-47f9-9b7f-6ac5b475da68");
+			put("Z", "8ef4a18d-9f67-434b-8f83-067fade09bc8");
+			put("C", "59eede55-ead5-4a13-96c5-e0a712afff81");
+			put("F", "88a81162-95de-4ec6-b100-a283296be057");
+			put("V", "f8b72207-17c2-4ecf-9cd4-50a16758a17e");
+			put("W", "73a291eb-e6ec-4708-9f26-2fb95c1d417b");
+			put("X", "fd67ca8e-2076-4ba0-9607-2fcafba2eded");
+			put("T", "5195d723-cadc-4c3e-95b4-32d8df931ac6");
+			put("R", "221219e5-eed5-46bb-903b-87870578ca32");
+			put("P", "15681176-2ff7-4433-8eef-47048a97b2c1");
+			put("D", "ca24d80e-62d2-48de-b00a-0834a7dc1317");
+			put("M", "0ceb65e4-9e53-4ffb-a320-5d0d52865d41");
+			put("B", "f95b359f-f513-4525-9e53-5772f3d60d0b");
+			put("I", "eaf4fa91-3fa3-47f9-9b7f-6ac5b475da68");
 		}
 	};
 	public CompletableFuture<MRefList> Action_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
@@ -259,20 +259,20 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 
 	static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_Node.DOCACTION_Complete, "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da");
-			put(X_AD_WF_Node.DOCACTION_Approve, "f80665a4-0db1-4609-be56-5d69b762d169");
-			put(X_AD_WF_Node.DOCACTION_Reject, "8fffbfd1-560a-4a78-9181-e5b76bbb3354");
-			put(X_AD_WF_Node.DOCACTION_Post, "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9");
-			put(X_AD_WF_Node.DOCACTION_Void, "930f9be7-85bc-4002-83a6-fe4e1b8cfce3");
-			put(X_AD_WF_Node.DOCACTION_Close, "d0a6de04-9c59-4d37-998d-f8070db820b0");
-			put(X_AD_WF_Node.DOCACTION_Reverse_Correct, "597e3e98-f1cd-4157-885a-1fae6424a3a6");
-			put(X_AD_WF_Node.DOCACTION_Reverse_Accrual, "1a3904b9-86bc-4831-a4af-0281dcafa8f8");
-			put(X_AD_WF_Node.DOCACTION_Invalidate, "69ff146b-fe0e-44a0-98d1-80b2f7958edf");
-			put(X_AD_WF_Node.DOCACTION_Re_Activate, "c8f55635-67a3-42ae-b626-2064acb2e260");
-			put(X_AD_WF_Node.DOCACTION_None, "ea523fb8-e21b-4a77-a657-6f5a7d12a591");
-			put(X_AD_WF_Node.DOCACTION_Prepare, "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76");
-			put(X_AD_WF_Node.DOCACTION_Unlock, "b2d93bde-a7e7-43f0-9b1c-82527992f6d5");
-			put(X_AD_WF_Node.DOCACTION_WaitComplete, "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
+			put("CO", "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da");
+			put("AP", "f80665a4-0db1-4609-be56-5d69b762d169");
+			put("RJ", "8fffbfd1-560a-4a78-9181-e5b76bbb3354");
+			put("PO", "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9");
+			put("VO", "930f9be7-85bc-4002-83a6-fe4e1b8cfce3");
+			put("CL", "d0a6de04-9c59-4d37-998d-f8070db820b0");
+			put("RC", "597e3e98-f1cd-4157-885a-1fae6424a3a6");
+			put("RA", "1a3904b9-86bc-4831-a4af-0281dcafa8f8");
+			put("IN", "69ff146b-fe0e-44a0-98d1-80b2f7958edf");
+			put("RE", "c8f55635-67a3-42ae-b626-2064acb2e260");
+			put("--", "ea523fb8-e21b-4a77-a657-6f5a7d12a591");
+			put("PR", "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76");
+			put("XL", "b2d93bde-a7e7-43f0-9b1c-82527992f6d5");
+			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
 	public CompletableFuture<MRefList> DocAction_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
@@ -286,9 +286,9 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 
 	static Map<String, String> DYNPRIORITYUNIT_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_Node.DYNPRIORITYUNIT_Minute, "80320e2a-1a3c-462f-9af1-09c0af1aab5f");
-			put(X_AD_WF_Node.DYNPRIORITYUNIT_Hour, "817d1ba9-4dbe-4105-8ca5-61cf554ac837");
-			put(X_AD_WF_Node.DYNPRIORITYUNIT_Day, "6360c9c7-dbf3-4b2f-bd8b-3465a7fde7a7");
+			put("M", "80320e2a-1a3c-462f-9af1-09c0af1aab5f");
+			put("H", "817d1ba9-4dbe-4105-8ca5-61cf554ac837");
+			put("D", "6360c9c7-dbf3-4b2f-bd8b-3465a7fde7a7");
 		}
 	};
 	public CompletableFuture<MRefList> DynPriorityUnit_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
@@ -302,9 +302,9 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 
 	static Map<String, String> EMAILRECIPIENT_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_Node.EMAILRECIPIENT_DocumentOwner, "2cd91171-9693-4710-9b92-b1f7f6660d07");
-			put(X_AD_WF_Node.EMAILRECIPIENT_DocumentBusinessPartner, "e8012ebf-8ec4-4e0d-99c7-1fe01cfd629f");
-			put(X_AD_WF_Node.EMAILRECIPIENT_WFResponsible, "baf88c37-8379-4722-b228-b1b15858ea00");
+			put("D", "2cd91171-9693-4710-9b92-b1f7f6660d07");
+			put("B", "e8012ebf-8ec4-4e0d-99c7-1fe01cfd629f");
+			put("R", "baf88c37-8379-4722-b228-b1b15858ea00");
 		}
 	};
 	public CompletableFuture<MRefList> EMailRecipient_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
@@ -316,6 +316,22 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 		return dataLoader.load(EMAILRECIPIENT_UUIDS_BY_VALUE.get(entity.getEMailRecipient()));
 	}
 
+	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
+		{
+			put("D", 10);
+			put("C", 20);
+			put("U", 100);
+			put("CUST", 110);
+			put("A", 200);
+			put("EXT", 210);
+			put("XX", 220);
+			put("EE01", 50000);
+			put("EE04", 50001);
+			put("EE05", 50003);
+			put("EE02", 50005);
+			put("WSTORE", 200015);
+		}
+	};
 
 	/**
 	 * Get Entity Type.
@@ -323,18 +339,18 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	public CompletableFuture<MEntityType> AD_EntityType(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getEntityType() <= 0) {
+		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
-		return dataLoader.load(entity.getEntityType());
+		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
 	static Map<String, String> FINISHMODE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_Node.FINISHMODE_Automatic, "75f0266b-88f1-409c-bbab-a6e3aac2ed6a");
-			put(X_AD_WF_Node.FINISHMODE_Manual, "4c311a91-6f6e-47c0-9e48-cce7b415044f");
+			put("A", "75f0266b-88f1-409c-bbab-a6e3aac2ed6a");
+			put("M", "4c311a91-6f6e-47c0-9e48-cce7b415044f");
 		}
 	};
 	public CompletableFuture<MRefList> FinishMode_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
@@ -348,8 +364,8 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 
 	static Map<String, String> JOINELEMENT_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_Node.JOINELEMENT_AND, "7d07cf62-b385-4d2d-a596-27ce10dd3726");
-			put(X_AD_WF_Node.JOINELEMENT_XOR, "6b126336-1c5b-4970-b68b-671585e2fb95");
+			put("A", "7d07cf62-b385-4d2d-a596-27ce10dd3726");
+			put("X", "6b126336-1c5b-4970-b68b-671585e2fb95");
 		}
 	};
 	public CompletableFuture<MRefList> JoinElement_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
@@ -393,8 +409,8 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 
 	static Map<String, String> SPLITELEMENT_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_Node.SPLITELEMENT_AND, "7d07cf62-b385-4d2d-a596-27ce10dd3726");
-			put(X_AD_WF_Node.SPLITELEMENT_XOR, "6b126336-1c5b-4970-b68b-671585e2fb95");
+			put("A", "7d07cf62-b385-4d2d-a596-27ce10dd3726");
+			put("X", "6b126336-1c5b-4970-b68b-671585e2fb95");
 		}
 	};
 	public CompletableFuture<MRefList> SplitElement_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
@@ -408,8 +424,8 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 
 	static Map<String, String> STARTMODE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_Node.STARTMODE_Automatic, "75f0266b-88f1-409c-bbab-a6e3aac2ed6a");
-			put(X_AD_WF_Node.STARTMODE_Manual, "4c311a91-6f6e-47c0-9e48-cce7b415044f");
+			put("A", "75f0266b-88f1-409c-bbab-a6e3aac2ed6a");
+			put("M", "4c311a91-6f6e-47c0-9e48-cce7b415044f");
 		}
 	};
 	public CompletableFuture<MRefList> StartMode_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
@@ -423,8 +439,8 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 
 	static Map<String, String> SUBFLOWEXECUTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_Node.SUBFLOWEXECUTION_Asynchronously, "87643e66-85b7-497e-840a-ed604d269801");
-			put(X_AD_WF_Node.SUBFLOWEXECUTION_Synchronously, "1583b819-da0c-4fdf-99e6-4567b756ac56");
+			put("A", "87643e66-85b7-497e-840a-ed604d269801");
+			put("S", "1583b819-da0c-4fdf-99e6-4567b756ac56");
 		}
 	};
 	public CompletableFuture<MRefList> SubflowExecution_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {

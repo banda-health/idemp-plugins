@@ -29,9 +29,9 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 
 	static Map<String, String> ACCOUNTSIGN_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MElementValue.ACCOUNTSIGN_Natural, "546f7a30-b932-4a00-81c1-6f7cb6fdcbb6");
-			put(MElementValue.ACCOUNTSIGN_Debit, "f494267a-f7e6-49a7-913e-c51e3e093623");
-			put(MElementValue.ACCOUNTSIGN_Credit, "8c58849d-0535-4df8-85a1-508818db6386");
+			put("N", "546f7a30-b932-4a00-81c1-6f7cb6fdcbb6");
+			put("D", "f494267a-f7e6-49a7-913e-c51e3e093623");
+			put("C", "8c58849d-0535-4df8-85a1-508818db6386");
 		}
 	};
 	public CompletableFuture<MRefList> AccountSign_RL(MElementValue entity, DataFetchingEnvironment environment) {
@@ -45,12 +45,12 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 
 	static Map<String, String> ACCOUNTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MElementValue.ACCOUNTTYPE_Asset, "76e172f2-9bbe-4e84-967b-c9734a5e539b");
-			put(MElementValue.ACCOUNTTYPE_Liability, "2d05ac35-1b03-4768-9146-ff188980453d");
-			put(MElementValue.ACCOUNTTYPE_Revenue, "ffc1c6a1-0a0d-49a5-8097-7739253e4cdf");
-			put(MElementValue.ACCOUNTTYPE_Expense, "25ad94f8-6eaf-4a4a-9944-e671de2e86a3");
-			put(MElementValue.ACCOUNTTYPE_OwnerSEquity, "a2107a18-879b-4947-a45b-9e86ced65526");
-			put(MElementValue.ACCOUNTTYPE_Memo, "ddabbd2e-569b-4396-953d-9994050abc23");
+			put("A", "76e172f2-9bbe-4e84-967b-c9734a5e539b");
+			put("L", "2d05ac35-1b03-4768-9146-ff188980453d");
+			put("R", "ffc1c6a1-0a0d-49a5-8097-7739253e4cdf");
+			put("E", "25ad94f8-6eaf-4a4a-9944-e671de2e86a3");
+			put("O", "a2107a18-879b-4947-a45b-9e86ced65526");
+			put("M", "ddabbd2e-569b-4396-953d-9994050abc23");
 		}
 	};
 	public CompletableFuture<MRefList> AccountType_RL(MElementValue entity, DataFetchingEnvironment environment) {
@@ -64,9 +64,9 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 
 	static Map<String, String> BPARTNERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MElementValue.BPARTNERTYPE_Customer, "261c79ec-c7fd-458e-8823-cac29cf1ec35");
-			put(MElementValue.BPARTNERTYPE_Vendor, "b0d3a446-cb7d-4b3f-9cd0-37052c4de7f5");
-			put(MElementValue.BPARTNERTYPE_Employee, "5a2e2ea0-9902-4747-9eed-e6d1832544ba");
+			put("C", "261c79ec-c7fd-458e-8823-cac29cf1ec35");
+			put("V", "b0d3a446-cb7d-4b3f-9cd0-37052c4de7f5");
+			put("E", "5a2e2ea0-9902-4747-9eed-e6d1832544ba");
 		}
 	};
 	public CompletableFuture<MRefList> BPartnerType_RL(MElementValue entity, DataFetchingEnvironment environment) {

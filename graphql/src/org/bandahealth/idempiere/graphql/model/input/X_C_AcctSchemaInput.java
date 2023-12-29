@@ -1,13 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCostType;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_AcctSchema;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaInput {
+public class X_C_AcctSchemaInput extends X_C_AcctSchema implements I_C_AcctSchemaInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput CommitmentType_RL;
@@ -59,6 +59,17 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Accounting Schema.
+	 *
+	 * @param C_AcctSchema_ID Rules for accounting
+	 */
+
+	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
+		if (get_ID() == 0) {
+			super.setC_AcctSchema_ID(C_AcctSchema_ID);
+		}
 	}
 
 	/**
@@ -129,6 +140,17 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 */
 	public I_C_PeriodInput getC_Period() {
 		return C_Period;
+	}
+	/**
+	 * Set Period.
+	 *
+	 * @param C_Period_ID Period of the Calendar
+	 */
+
+	public void setC_Period_ID(int C_Period_ID) {
+		if (get_ID() == 0) {
+			super.setC_Period_ID(C_Period_ID);
+		}
 	}
 
 	/**

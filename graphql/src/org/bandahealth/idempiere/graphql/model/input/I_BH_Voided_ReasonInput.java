@@ -23,4 +23,18 @@ public interface I_BH_Voided_ReasonInput extends I_BH_Voided_Reason {
 	 * @return Organizational entity within client
 	 */
 	I_AD_OrgInput getAD_Org();
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	void setID(String ID);
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	String getID();
 }

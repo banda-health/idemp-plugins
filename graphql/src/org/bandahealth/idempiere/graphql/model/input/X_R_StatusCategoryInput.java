@@ -2,8 +2,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MStatusCategory;
 import org.compiere.model.Query;
+import org.compiere.model.X_R_StatusCategory;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_R_StatusCategoryInput extends MStatusCategory implements I_R_StatusCategoryInput {
+public class X_R_StatusCategoryInput extends X_R_StatusCategory implements I_R_StatusCategoryInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_R_StatusCategoryInput extends MStatusCategory implements I_R_Stat
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Status Category.
+	 *
+	 * @param R_StatusCategory_ID Request Status Category
+	 */
+
+	public void setR_StatusCategory_ID(int R_StatusCategory_ID) {
+		if (get_ID() == 0) {
+			super.setR_StatusCategory_ID(R_StatusCategory_ID);
+		}
 	}
 
 	/**

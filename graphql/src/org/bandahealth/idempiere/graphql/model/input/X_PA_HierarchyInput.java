@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MHierarchy;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTree;
 import org.compiere.model.Query;
+import org.compiere.model.X_PA_Hierarchy;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInput {
+public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_HierarchyInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_TreeInput AD_Tree_Account;
@@ -84,6 +84,17 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	public I_AD_TreeInput getAD_Tree_Account() {
 		return AD_Tree_Account;
 	}
+	/**
+	 * Set Account Tree.
+	 *
+	 * @param AD_Tree_Account_ID Tree for Natural Account Tree
+	 */
+
+	public void setAD_Tree_Account_ID(int AD_Tree_Account_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_Account_ID(AD_Tree_Account_ID);
+		}
+	}
 
 	/**
 	 * Set Activity Tree.
@@ -110,6 +121,17 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 */
 	public I_AD_TreeInput getAD_Tree_Activity() {
 		return AD_Tree_Activity;
+	}
+	/**
+	 * Set Activity Tree.
+	 *
+	 * @param AD_Tree_Activity_ID Trees are used for (financial) reporting
+	 */
+
+	public void setAD_Tree_Activity_ID(int AD_Tree_Activity_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_Activity_ID(AD_Tree_Activity_ID);
+		}
 	}
 
 	/**
@@ -138,6 +160,17 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	public I_AD_TreeInput getAD_Tree_BPartner() {
 		return AD_Tree_BPartner;
 	}
+	/**
+	 * Set BPartner Tree.
+	 *
+	 * @param AD_Tree_BPartner_ID Trees are used for (financial) reporting
+	 */
+
+	public void setAD_Tree_BPartner_ID(int AD_Tree_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_BPartner_ID(AD_Tree_BPartner_ID);
+		}
+	}
 
 	/**
 	 * Set Campaign Tree.
@@ -164,6 +197,17 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 */
 	public I_AD_TreeInput getAD_Tree_Campaign() {
 		return AD_Tree_Campaign;
+	}
+	/**
+	 * Set Campaign Tree.
+	 *
+	 * @param AD_Tree_Campaign_ID Trees are used for (financial) reporting
+	 */
+
+	public void setAD_Tree_Campaign_ID(int AD_Tree_Campaign_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_Campaign_ID(AD_Tree_Campaign_ID);
+		}
 	}
 
 	/**
@@ -192,6 +236,17 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	public I_AD_TreeInput getAD_Tree_Org() {
 		return AD_Tree_Org;
 	}
+	/**
+	 * Set Organization Tree.
+	 *
+	 * @param AD_Tree_Org_ID Trees are used for (financial) reporting and security access (via role)
+	 */
+
+	public void setAD_Tree_Org_ID(int AD_Tree_Org_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_Org_ID(AD_Tree_Org_ID);
+		}
+	}
 
 	/**
 	 * Set Product Tree.
@@ -218,6 +273,17 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 */
 	public I_AD_TreeInput getAD_Tree_Product() {
 		return AD_Tree_Product;
+	}
+	/**
+	 * Set Product Tree.
+	 *
+	 * @param AD_Tree_Product_ID Trees are used for (financial) reporting
+	 */
+
+	public void setAD_Tree_Product_ID(int AD_Tree_Product_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_Product_ID(AD_Tree_Product_ID);
+		}
 	}
 
 	/**
@@ -246,6 +312,17 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	public I_AD_TreeInput getAD_Tree_Project() {
 		return AD_Tree_Project;
 	}
+	/**
+	 * Set Project Tree.
+	 *
+	 * @param AD_Tree_Project_ID Trees are used for (financial) reporting
+	 */
+
+	public void setAD_Tree_Project_ID(int AD_Tree_Project_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_Project_ID(AD_Tree_Project_ID);
+		}
+	}
 
 	/**
 	 * Set Sales Region Tree.
@@ -272,6 +349,28 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 */
 	public I_AD_TreeInput getAD_Tree_SalesRegion() {
 		return AD_Tree_SalesRegion;
+	}
+	/**
+	 * Set Sales Region Tree.
+	 *
+	 * @param AD_Tree_SalesRegion_ID Trees are used for (financial) reporting
+	 */
+
+	public void setAD_Tree_SalesRegion_ID(int AD_Tree_SalesRegion_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_SalesRegion_ID(AD_Tree_SalesRegion_ID);
+		}
+	}
+	/**
+	 * Set Reporting Hierarchy.
+	 *
+	 * @param PA_Hierarchy_ID Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
+	 */
+
+	public void setPA_Hierarchy_ID(int PA_Hierarchy_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Hierarchy_ID(PA_Hierarchy_ID);
+		}
 	}
 
 	/**

@@ -4,13 +4,13 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAssetGroup;
-import org.compiere.model.MAssetGroupAcct;
 import org.compiere.model.MDepreciation;
 import org.compiere.model.MDepreciationConvention;
 import org.compiere.model.MDepreciationMethod;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Group_Acct;
 import org.compiere.model.X_A_Depreciation_Table_Header;
 import org.compiere.util.Env;
 
@@ -20,7 +20,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_Asset_Group_AcctInput {
+public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I_A_Asset_Group_AcctInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput A_Depreciation_Manual_Period_RL;
@@ -108,6 +108,17 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	public I_C_ValidCombinationInput getA_Asset_A() {
 		return A_Asset_A;
 	}
+	/**
+	 * Set Asset Group Accounting.
+	 *
+	 * @param A_Asset_Group_Acct_ID Asset Group Accounting
+	 */
+
+	public void setA_Asset_Group_Acct_ID(int A_Asset_Group_Acct_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Group_Acct_ID(A_Asset_Group_Acct_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -150,6 +161,17 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 */
 	public I_A_Asset_GroupInput getA_Asset_Group() {
 		return A_Asset_Group;
+	}
+	/**
+	 * Set Asset Group.
+	 *
+	 * @param A_Asset_Group_ID Group of Assets
+	 */
+
+	public void setA_Asset_Group_ID(int A_Asset_Group_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Group_ID(A_Asset_Group_ID);
+		}
 	}
 
 	/**
@@ -205,6 +227,17 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	public I_A_Depreciation_ConventionInput getA_Depreciation_Conv_F() {
 		return A_Depreciation_Conv_F;
 	}
+	/**
+	 * Set Depreciation Convention (fiscal).
+	 *
+	 * @param A_Depreciation_Conv_F_ID Depreciation Convention (fiscal)
+	 */
+
+	public void setA_Depreciation_Conv_F_ID(int A_Depreciation_Conv_F_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Conv_F_ID(A_Depreciation_Conv_F_ID);
+		}
+	}
 
 	/**
 	 * Set Convention Type.
@@ -231,6 +264,17 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 */
 	public I_A_Depreciation_ConventionInput getA_Depreciation_Conv() {
 		return A_Depreciation_Conv;
+	}
+	/**
+	 * Set Convention Type.
+	 *
+	 * @param A_Depreciation_Conv_ID Convention Type
+	 */
+
+	public void setA_Depreciation_Conv_ID(int A_Depreciation_Conv_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Conv_ID(A_Depreciation_Conv_ID);
+		}
 	}
 
 	/**
@@ -259,6 +303,17 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	public I_A_DepreciationInput getA_Depreciation_F() {
 		return A_Depreciation_F;
 	}
+	/**
+	 * Set Depreciation (fiscal).
+	 *
+	 * @param A_Depreciation_F_ID Depreciation (fiscal)
+	 */
+
+	public void setA_Depreciation_F_ID(int A_Depreciation_F_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_F_ID(A_Depreciation_F_ID);
+		}
+	}
 
 	/**
 	 * Set Depreciation.
@@ -285,6 +340,17 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 */
 	public I_A_DepreciationInput getA_Depreciation() {
 		return A_Depreciation;
+	}
+	/**
+	 * Set Depreciation.
+	 *
+	 * @param A_Depreciation_ID Depreciation
+	 */
+
+	public void setA_Depreciation_ID(int A_Depreciation_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_ID(A_Depreciation_ID);
+		}
 	}
 
 	/**
@@ -340,6 +406,17 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	public I_A_Depreciation_MethodInput getA_Depreciation_Method_F() {
 		return A_Depreciation_Method_F;
 	}
+	/**
+	 * Set Depreciation Method (fiscal).
+	 *
+	 * @param A_Depreciation_Method_F_ID Depreciation Method (fiscal)
+	 */
+
+	public void setA_Depreciation_Method_F_ID(int A_Depreciation_Method_F_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Method_F_ID(A_Depreciation_Method_F_ID);
+		}
+	}
 
 	/**
 	 * Set Depreciation Method.
@@ -367,6 +444,17 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	public I_A_Depreciation_MethodInput getA_Depreciation_Method() {
 		return A_Depreciation_Method;
 	}
+	/**
+	 * Set Depreciation Method.
+	 *
+	 * @param A_Depreciation_Method_ID Depreciation Method
+	 */
+
+	public void setA_Depreciation_Method_ID(int A_Depreciation_Method_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Method_ID(A_Depreciation_Method_ID);
+		}
+	}
 
 	/**
 	 * Set A_Depreciation_Table_Header_ID.
@@ -393,6 +481,17 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 */
 	public I_A_Depreciation_Table_HeaderInput getA_Depreciation_Table_Header() {
 		return A_Depreciation_Table_Header;
+	}
+	/**
+	 * Set A_Depreciation_Table_Header_ID.
+	 *
+	 * @param A_Depreciation_Table_Header_ID A_Depreciation_Table_Header_ID
+	 */
+
+	public void setA_Depreciation_Table_Header_ID(int A_Depreciation_Table_Header_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Table_Header_ID(A_Depreciation_Table_Header_ID);
+		}
 	}
 
 	/**

@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MCashBook;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_CashBook;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CashBookInput extends MCashBook implements I_C_CashBookInput {
+public class X_C_CashBookInput extends X_C_CashBook implements I_C_CashBookInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_CurrencyInput C_Currency;
@@ -49,6 +49,17 @@ public class X_C_CashBookInput extends MCashBook implements I_C_CashBookInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Cash Book.
+	 *
+	 * @param C_CashBook_ID Cash Book for recording petty cash transactions
+	 */
+
+	public void setC_CashBook_ID(int C_CashBook_ID) {
+		if (get_ID() == 0) {
+			super.setC_CashBook_ID(C_CashBook_ID);
+		}
 	}
 
 	/**

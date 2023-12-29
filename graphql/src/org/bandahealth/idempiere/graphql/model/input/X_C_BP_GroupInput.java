@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDunning;
@@ -9,6 +8,7 @@ import org.compiere.model.MPriceList;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
+import org.compiere.model.X_C_BP_Group;
 import org.compiere.util.Env;
 
 /**
@@ -17,7 +17,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput {
+public class X_C_BP_GroupInput extends X_C_BP_Group implements I_C_BP_GroupInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_PrintColorInput AD_PrintColor;
@@ -90,6 +90,66 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	}
 
 	/**
+	 * Set BH_Locked.
+	 *
+	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public void setBH_Locked(boolean BH_Locked) {
+		set_Value(COLUMNNAME_BH_Locked, BH_Locked);
+	}
+
+
+	/**
+	 * Get BH_Locked.
+	 *
+	 * @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public boolean isBH_Locked() {
+ 		Object columnValue = get_Value(COLUMNNAME_BH_Locked);
+		if (columnValue != null) {
+			if (columnValue instanceof Boolean) {
+				return ((Boolean) columnValue);
+			}
+			return "Y".equals(columnValue);
+		}
+		return false;
+	}
+
+	/**
+	 * Insurance = I
+	 */
+	public static final String BH_SUBTYPE_Insurance = "I";
+	/**
+	 * Waiver = W
+	 */
+	public static final String BH_SUBTYPE_Waiver = "W";
+	/**
+	 * Donation = D
+	 */
+	public static final String BH_SUBTYPE_Donation = "D";
+
+	/**
+	 * Set Sub Type.
+	 *
+	 * @param BH_SubType Meant to be a sub-type of the charge type
+	 */
+	public void setBH_SubType(String BH_SubType) {
+
+		set_Value(COLUMNNAME_BH_SubType, BH_SubType);
+	}
+
+
+	/**
+	 * Get Sub Type.
+	 *
+	 * @return Meant to be a sub-type of the charge type
+	 */
+	public String getBH_SubType() {
+ 		return (String) get_Value(COLUMNNAME_BH_SubType);
+	}
+
+
+	/**
 	 * Set Sub Type.
 	 *
 	 * @param BH_SubType_RL Meant to be a sub-type of the charge type
@@ -114,6 +174,17 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 */
 	public I_AD_Ref_ListInput getBH_SubType_RL() {
 		return BH_SubType_RL;
+	}
+	/**
+	 * Set Business Partner Group.
+	 *
+	 * @param C_BP_Group_ID Business Partner Group
+	 */
+
+	public void setC_BP_Group_ID(int C_BP_Group_ID) {
+		if (get_ID() == 0) {
+			super.setC_BP_Group_ID(C_BP_Group_ID);
+		}
 	}
 
 	/**
@@ -187,6 +258,17 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public I_M_DiscountSchemaInput getM_DiscountSchema() {
 		return M_DiscountSchema;
 	}
+	/**
+	 * Set Discount Schema.
+	 *
+	 * @param M_DiscountSchema_ID Schema to calculate the trade discount percentage
+	 */
+
+	public void setM_DiscountSchema_ID(int M_DiscountSchema_ID) {
+		if (get_ID() == 0) {
+			super.setM_DiscountSchema_ID(M_DiscountSchema_ID);
+		}
+	}
 
 	/**
 	 * Set Price List.
@@ -241,6 +323,17 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public I_M_DiscountSchemaInput getPO_DiscountSchema() {
 		return PO_DiscountSchema;
 	}
+	/**
+	 * Set PO Discount Schema.
+	 *
+	 * @param PO_DiscountSchema_ID Schema to calculate the purchase trade discount percentage
+	 */
+
+	public void setPO_DiscountSchema_ID(int PO_DiscountSchema_ID) {
+		if (get_ID() == 0) {
+			super.setPO_DiscountSchema_ID(PO_DiscountSchema_ID);
+		}
+	}
 
 	/**
 	 * Set Purchase Pricelist.
@@ -267,6 +360,17 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 */
 	public I_M_PriceListInput getPO_PriceList() {
 		return PO_PriceList;
+	}
+	/**
+	 * Set Purchase Pricelist.
+	 *
+	 * @param PO_PriceList_ID Price List used by this Business Partner
+	 */
+
+	public void setPO_PriceList_ID(int PO_PriceList_ID) {
+		if (get_ID() == 0) {
+			super.setPO_PriceList_ID(PO_PriceList_ID);
+		}
 	}
 
 	/**

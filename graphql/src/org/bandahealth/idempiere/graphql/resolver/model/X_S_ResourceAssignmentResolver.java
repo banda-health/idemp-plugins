@@ -7,6 +7,8 @@ import org.compiere.model.MResource;
 import org.compiere.model.MResourceAssignment;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for S_ResourceAssignment - DO NOT CHANGE
  *

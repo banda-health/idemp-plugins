@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MMailText;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_R_MailText;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_R_MailTextInput extends MMailText implements I_R_MailTextInput {
+public class X_R_MailTextInput extends X_R_MailText implements I_R_MailTextInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_R_MailTextInput extends MMailText implements I_R_MailTextInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Mail Template.
+	 *
+	 * @param R_MailText_ID Text templates for mailings
+	 */
+
+	public void setR_MailText_ID(int R_MailText_ID) {
+		if (get_ID() == 0) {
+			super.setR_MailText_ID(R_MailText_ID);
+		}
 	}
 
 	/**

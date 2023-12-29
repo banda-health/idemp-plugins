@@ -23,8 +23,8 @@ public class X_A_Depreciation_Table_HeaderResolver extends POResolver<X_A_Deprec
 
 	static Map<String, String> A_TABLE_RATE_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_A_Depreciation_Table_Header.A_TABLE_RATE_TYPE_Amount, "6c03c647-961b-4fb9-ab48-881b071e4077");
-			put(X_A_Depreciation_Table_Header.A_TABLE_RATE_TYPE_Rate, "6181fac0-c69e-49ea-bd8c-2a7e61acccad");
+			put("AM", "6c03c647-961b-4fb9-ab48-881b071e4077");
+			put("RT", "6181fac0-c69e-49ea-bd8c-2a7e61acccad");
 		}
 	};
 	public CompletableFuture<MRefList> A_Table_Rate_Type_RL(X_A_Depreciation_Table_Header entity, DataFetchingEnvironment environment) {
@@ -38,8 +38,8 @@ public class X_A_Depreciation_Table_HeaderResolver extends POResolver<X_A_Deprec
 
 	static Map<String, String> A_TERM_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_A_Depreciation_Table_Header.A_TERM_Period, "35e7efb6-c084-458c-89e6-bdeeb3757add");
-			put(X_A_Depreciation_Table_Header.A_TERM_Yearly, "d34572f8-bbc3-4768-9662-8ae6f48f7398");
+			put("PR", "35e7efb6-c084-458c-89e6-bdeeb3757add");
+			put("YR", "d34572f8-bbc3-4768-9662-8ae6f48f7398");
 		}
 	};
 	public CompletableFuture<MRefList> A_Term_RL(X_A_Depreciation_Table_Header entity, DataFetchingEnvironment environment) {

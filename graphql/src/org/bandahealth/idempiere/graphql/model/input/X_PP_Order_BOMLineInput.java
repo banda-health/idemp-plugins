@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
@@ -97,10 +98,22 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 		return AD_User;
 	}
 	/**
+	 * Set User/Contact.
+	 *
+	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
+	 */
+
+	public void setAD_User_ID(int AD_User_ID) {
+		if (get_ID() == 0) {
+			super.setAD_User_ID(AD_User_ID);
+		}
+	}
+	/**
 	 * Set Quantity Assay.
 	 *
 	 * @param Assay Indicated the Quantity Assay to use into Quality Order
 	 */
+
 	public void setAssay(BigDecimal Assay) {
 		if (get_ID() == 0) {
 			super.setAssay(Assay);
@@ -111,6 +124,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param BackflushGroup The Grouping Components to the Backflush
 	 */
+
 	public void setBackflushGroup(String BackflushGroup) {
 		if (get_ID() == 0) {
 			super.setBackflushGroup(BackflushGroup);
@@ -140,6 +154,17 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 */
 	public I_C_UOMInput getC_UOM() {
 		return C_UOM;
+	}
+	/**
+	 * Set UOM.
+	 *
+	 * @param C_UOM_ID Unit of Measure
+	 */
+
+	public void setC_UOM_ID(int C_UOM_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_ID(C_UOM_ID);
+		}
 	}
 
 	/**
@@ -173,6 +198,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param Forecast Indicated the % of participation this component into a of the BOM Planning
 	 */
+
 	public void setForecast(BigDecimal Forecast) {
 		if (get_ID() == 0) {
 			super.setForecast(Forecast);
@@ -183,6 +209,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param IsQtyPercentage Indicate that this component is based in % Quantity
 	 */
+
 	public void setIsQtyPercentage(boolean IsQtyPercentage) {
 		if (get_ID() == 0) {
 			super.setIsQtyPercentage(IsQtyPercentage);
@@ -239,6 +266,17 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 */
 	public I_M_AttributeSetInstanceInput getM_AttributeSetInstance() {
 		return M_AttributeSetInstance;
+	}
+	/**
+	 * Set Attribute Set Instance.
+	 *
+	 * @param M_AttributeSetInstance_ID Product Attribute Set Instance
+	 */
+
+	public void setM_AttributeSetInstance_ID(int M_AttributeSetInstance_ID) {
+		if (get_ID() == 0) {
+			super.setM_AttributeSetInstance_ID(M_AttributeSetInstance_ID);
+		}
 	}
 
 	/**
@@ -319,6 +357,17 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	public I_M_ProductInput getM_Product() {
 		return M_Product;
 	}
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product_ID Product, Service, Item
+	 */
+
+	public void setM_Product_ID(int M_Product_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_ID(M_Product_ID);
+		}
+	}
 
 	/**
 	 * Set Warehouse.
@@ -371,6 +420,28 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	public I_PP_Order_BOMInput getPP_Order_BOM() {
 		return PP_Order_BOM;
 	}
+	/**
+	 * Set Manufacturing Order BOM.
+	 *
+	 * @param PP_Order_BOM_ID Manufacturing Order BOM
+	 */
+
+	public void setPP_Order_BOM_ID(int PP_Order_BOM_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_BOM_ID(PP_Order_BOM_ID);
+		}
+	}
+	/**
+	 * Set Manufacturing Order BOM Line.
+	 *
+	 * @param PP_Order_BOMLine_ID Manufacturing Order BOM Line
+	 */
+
+	public void setPP_Order_BOMLine_ID(int PP_Order_BOMLine_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_BOMLine_ID(PP_Order_BOMLine_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -415,10 +486,22 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 		return PP_Order;
 	}
 	/**
+	 * Set Manufacturing Order.
+	 *
+	 * @param PP_Order_ID Manufacturing Order
+	 */
+
+	public void setPP_Order_ID(int PP_Order_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_ID(PP_Order_ID);
+		}
+	}
+	/**
 	 * Set Quantity in %.
 	 *
 	 * @param QtyBatch Indicate the Quantity % use in this Formula
 	 */
+
 	public void setQtyBatch(BigDecimal QtyBatch) {
 		if (get_ID() == 0) {
 			super.setQtyBatch(QtyBatch);
@@ -429,6 +512,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyBOM Indicate the Quantity  use in this BOM
 	 */
+
 	public void setQtyBOM(BigDecimal QtyBOM) {
 		if (get_ID() == 0) {
 			super.setQtyBOM(QtyBOM);
@@ -439,6 +523,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyDelivered Delivered Quantity
 	 */
+
 	public void setQtyDelivered(BigDecimal QtyDelivered) {
 		if (get_ID() == 0) {
 			super.setQtyDelivered(QtyDelivered);
@@ -449,6 +534,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyEntered The Quantity Entered is based on the selected UoM
 	 */
+
 	public void setQtyEntered(BigDecimal QtyEntered) {
 		if (get_ID() == 0) {
 			super.setQtyEntered(QtyEntered);
@@ -459,6 +545,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyPost Qty Post
 	 */
+
 	public void setQtyPost(BigDecimal QtyPost) {
 		if (get_ID() == 0) {
 			super.setQtyPost(QtyPost);
@@ -469,6 +556,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyReject Qty Reject
 	 */
+
 	public void setQtyReject(BigDecimal QtyReject) {
 		if (get_ID() == 0) {
 			super.setQtyReject(QtyReject);
@@ -479,6 +567,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyReserved Reserved Quantity
 	 */
+
 	public void setQtyReserved(BigDecimal QtyReserved) {
 		if (get_ID() == 0) {
 			super.setQtyReserved(QtyReserved);
@@ -489,6 +578,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param QtyScrap Scrap % Quantity for this componet
 	 */
+
 	public void setQtyScrap(BigDecimal QtyScrap) {
 		if (get_ID() == 0) {
 			super.setQtyScrap(QtyScrap);
@@ -499,6 +589,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 *
 	 * @param Scrap Indicate the Scrap %  for calculate the Scrap Quantity
 	 */
+
 	public void setScrap(BigDecimal Scrap) {
 		if (get_ID() == 0) {
 			super.setScrap(Scrap);

@@ -3,8 +3,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MSalesRegion;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_SalesRegion;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_SalesRegionInput extends MSalesRegion implements I_C_SalesRegionInput {
+public class X_C_SalesRegionInput extends X_C_SalesRegion implements I_C_SalesRegionInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_UserInput SalesRep;
@@ -49,6 +49,17 @@ public class X_C_SalesRegionInput extends MSalesRegion implements I_C_SalesRegio
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Sales Region.
+	 *
+	 * @param C_SalesRegion_ID Sales coverage region
+	 */
+
+	public void setC_SalesRegion_ID(int C_SalesRegion_ID) {
+		if (get_ID() == 0) {
+			super.setC_SalesRegion_ID(C_SalesRegion_ID);
+		}
 	}
 
 	/**
@@ -94,5 +105,16 @@ public class X_C_SalesRegionInput extends MSalesRegion implements I_C_SalesRegio
 	 */
 	public I_AD_UserInput getSalesRep() {
 		return SalesRep;
+	}
+	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep_ID Sales Representative or Company Agent
+	 */
+
+	public void setSalesRep_ID(int SalesRep_ID) {
+		if (get_ID() == 0) {
+			super.setSalesRep_ID(SalesRep_ID);
+		}
 	}
 }

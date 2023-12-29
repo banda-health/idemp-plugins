@@ -11,6 +11,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MRMA;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_RMA;
 import org.compiere.model.X_M_RMAType;
 import org.compiere.util.Env;
 
@@ -20,7 +21,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
+public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput DocAction_RL;
@@ -147,6 +148,17 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public I_C_DocTypeInput getC_DocType() {
 		return C_DocType;
 	}
+	/**
+	 * Set Document Type.
+	 *
+	 * @param C_DocType_ID Document type or rules
+	 */
+
+	public void setC_DocType_ID(int C_DocType_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocType_ID(C_DocType_ID);
+		}
+	}
 
 	/**
 	 * Set Order.
@@ -171,6 +183,17 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 */
 	public I_C_OrderInput getC_Order() {
 		return C_Order;
+	}
+	/**
+	 * Set Order.
+	 *
+	 * @param C_Order_ID Order
+	 */
+
+	public void setC_Order_ID(int C_Order_ID) {
+		if (get_ID() == 0) {
+			super.setC_Order_ID(C_Order_ID);
+		}
 	}
 
 	/**
@@ -251,6 +274,28 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public I_M_InOutInput getInOut() {
 		return InOut;
 	}
+	/**
+	 * Set Shipment/Receipt.
+	 *
+	 * @param InOut_ID MaterialShipment Document
+	 */
+
+	public void setInOut_ID(int InOut_ID) {
+		if (get_ID() == 0) {
+			super.setInOut_ID(InOut_ID);
+		}
+	}
+	/**
+	 * Set RMA.
+	 *
+	 * @param M_RMA_ID Return Material Authorization
+	 */
+
+	public void setM_RMA_ID(int M_RMA_ID) {
+		if (get_ID() == 0) {
+			super.setM_RMA_ID(M_RMA_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -323,6 +368,17 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public I_M_RMAInput getRef_RMA() {
 		return Ref_RMA;
 	}
+	/**
+	 * Set Referenced RMA.
+	 *
+	 * @param Ref_RMA_ID Referenced RMA
+	 */
+
+	public void setRef_RMA_ID(int Ref_RMA_ID) {
+		if (get_ID() == 0) {
+			super.setRef_RMA_ID(Ref_RMA_ID);
+		}
+	}
 
 	/**
 	 * Set Sales Representative.
@@ -349,5 +405,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 */
 	public I_AD_UserInput getSalesRep() {
 		return SalesRep;
+	}
+	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep_ID Sales Representative or Company Agent
+	 */
+
+	public void setSalesRep_ID(int SalesRep_ID) {
+		if (get_ID() == 0) {
+			super.setSalesRep_ID(SalesRep_ID);
+		}
 	}
 }

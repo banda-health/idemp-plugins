@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_WF_Node;
 import org.compiere.util.Env;
@@ -21,7 +20,6 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 
 	 private I_AD_EntityTypeInput AD_EntityType;
 	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput SeqNo_RL;
 	 private I_AD_WF_NodeInput AD_WF_Next;
 	 private I_AD_WF_NodeInput AD_WF_Node;
 	 private I_PP_OrderInput PP_Order;
@@ -89,6 +87,17 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	public I_AD_WF_NodeInput getAD_WF_Next() {
 		return AD_WF_Next;
 	}
+	/**
+	 * Set Next Node.
+	 *
+	 * @param AD_WF_Next_ID Next Node in workflow
+	 */
+
+	public void setAD_WF_Next_ID(int AD_WF_Next_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Next_ID(AD_WF_Next_ID);
+		}
+	}
 
 	/**
 	 * Set Node.
@@ -129,9 +138,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -142,6 +151,17 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 
 	/**
@@ -167,6 +187,17 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 */
 	public I_PP_OrderInput getPP_Order() {
 		return PP_Order;
+	}
+	/**
+	 * Set Manufacturing Order.
+	 *
+	 * @param PP_Order_ID Manufacturing Order
+	 */
+
+	public void setPP_Order_ID(int PP_Order_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_ID(PP_Order_ID);
+		}
 	}
 
 	/**
@@ -195,6 +226,17 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	public I_PP_Order_NodeInput getPP_Order_Next() {
 		return PP_Order_Next;
 	}
+	/**
+	 * Set Manufacturing Order Activity Next.
+	 *
+	 * @param PP_Order_Next_ID Manufacturing Order Activity Next
+	 */
+
+	public void setPP_Order_Next_ID(int PP_Order_Next_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_Next_ID(PP_Order_Next_ID);
+		}
+	}
 
 	/**
 	 * Set Manufacturing Order Activity.
@@ -220,6 +262,28 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	public I_PP_Order_NodeInput getPP_Order_Node() {
 		return PP_Order_Node;
 	}
+	/**
+	 * Set Manufacturing Order Activity.
+	 *
+	 * @param PP_Order_Node_ID Workflow Node (activity), step or process
+	 */
+
+	public void setPP_Order_Node_ID(int PP_Order_Node_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_Node_ID(PP_Order_Node_ID);
+		}
+	}
+	/**
+	 * Set Manufacturing Order Activity Next.
+	 *
+	 * @param PP_Order_NodeNext_ID Manufacturing Order Activity Next
+	 */
+
+	public void setPP_Order_NodeNext_ID(int PP_Order_NodeNext_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_NodeNext_ID(PP_Order_NodeNext_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -238,31 +302,15 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	public String getID() {
 		return getPP_Order_NodeNext_UU();
 	}
-
 	/**
 	 * Set Sequence.
 	 *
-	 * @param SeqNo_RL Method of ordering records; lowest number comes first
+	 * @param SeqNo Method of ordering records; lowest number comes first
 	 */
-	public void setSeqNo_RL(I_AD_Ref_ListInput SeqNo_RL) {
-		this.SeqNo_RL = SeqNo_RL;
-		MRefList foreignEntity;
-		if (SeqNo_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(SeqNo_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setSeqNo(foreignEntity.getValue());
-		} else {
-			this.setSeqNo(null);
-		}
-	}
 
-	/**
-	 * Get Sequence.
-	 *
-	 * @return Method of ordering records; lowest number comes first
-	 */
-	public I_AD_Ref_ListInput getSeqNo_RL() {
-		return SeqNo_RL;
+	public void setSeqNo(int SeqNo) {
+		if (get_ID() == 0) {
+			super.setSeqNo(SeqNo);
+		}
 	}
 }

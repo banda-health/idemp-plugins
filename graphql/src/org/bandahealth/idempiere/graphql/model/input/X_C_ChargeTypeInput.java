@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_ChargeType;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ChargeTypeInput extends MChargeType_BH implements I_C_ChargeTypeInput {
+public class X_C_ChargeTypeInput extends X_C_ChargeType implements I_C_ChargeTypeInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_C_ChargeTypeInput extends MChargeType_BH implements I_C_ChargeTyp
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Charge Type.
+	 *
+	 * @param C_ChargeType_ID Charge Type
+	 */
+
+	public void setC_ChargeType_ID(int C_ChargeType_ID) {
+		if (get_ID() == 0) {
+			super.setC_ChargeType_ID(C_ChargeType_ID);
+		}
 	}
 
 	/**

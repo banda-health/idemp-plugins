@@ -10,12 +10,12 @@ import org.compiere.model.MAssetGroup;
 import org.compiere.model.MAssetType;
 import org.compiere.model.MCity;
 import org.compiere.model.MCurrency;
-import org.compiere.model.MIFixedAsset;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
+import org.compiere.model.X_I_FixedAsset;
 import org.compiere.util.Env;
 
 /**
@@ -24,7 +24,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetInput {
+public class X_I_FixedAssetInput extends X_I_FixedAsset implements I_I_FixedAssetInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput DocAction_RL;
@@ -236,6 +236,17 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	public I_C_BPartnerInput getC_BPartnerSR() {
 		return C_BPartnerSR;
 	}
+	/**
+	 * Set BPartner (Agent).
+	 *
+	 * @param C_BPartnerSR_ID Business Partner (Agent or Sales Rep)
+	 */
+
+	public void setC_BPartnerSR_ID(int C_BPartnerSR_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartnerSR_ID(C_BPartnerSR_ID);
+		}
+	}
 
 	/**
 	 * Set City.
@@ -343,6 +354,17 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 */
 	public I_AD_Ref_ListInput getDocAction_RL() {
 		return DocAction_RL;
+	}
+	/**
+	 * Set Imported Fixed Asset.
+	 *
+	 * @param I_FixedAsset_ID Imported Fixed Asset
+	 */
+
+	public void setI_FixedAsset_ID(int I_FixedAsset_ID) {
+		if (get_ID() == 0) {
+			super.setI_FixedAsset_ID(I_FixedAsset_ID);
+		}
 	}
 
 	/**

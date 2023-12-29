@@ -95,6 +95,17 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	public I_C_ChargeTypeInput getC_ChargeType() {
 		return C_ChargeType;
 	}
+	/**
+	 * Set Charge Type.
+	 *
+	 * @param C_ChargeType_ID Charge Type
+	 */
+
+	public void setC_ChargeType_ID(int C_ChargeType_ID) {
+		if (get_ID() == 0) {
+			super.setC_ChargeType_ID(C_ChargeType_ID);
+		}
+	}
 
 	/**
 	 * Set Document Type.
@@ -119,5 +130,16 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 */
 	public I_C_DocTypeInput getC_DocType() {
 		return C_DocType;
+	}
+	/**
+	 * Set Document Type.
+	 *
+	 * @param C_DocType_ID Document type or rules
+	 */
+
+	public void setC_DocType_ID(int C_DocType_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocType_ID(C_DocType_ID);
+		}
 	}
 }

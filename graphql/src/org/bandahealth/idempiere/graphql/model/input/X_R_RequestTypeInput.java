@@ -3,9 +3,9 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
-import org.compiere.model.MRequestType;
 import org.compiere.model.MStatusCategory;
 import org.compiere.model.Query;
+import org.compiere.model.X_R_RequestType;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTypeInput {
+public class X_R_RequestTypeInput extends X_R_RequestType implements I_R_RequestTypeInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput ConfidentialType_RL;
@@ -78,6 +78,17 @@ public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTyp
 	 */
 	public I_AD_Ref_ListInput getConfidentialType_RL() {
 		return ConfidentialType_RL;
+	}
+	/**
+	 * Set Request Type.
+	 *
+	 * @param R_RequestType_ID Type of request (e.g. Inquiry, Complaint, ..)
+	 */
+
+	public void setR_RequestType_ID(int R_RequestType_ID) {
+		if (get_ID() == 0) {
+			super.setR_RequestType_ID(R_RequestType_ID);
+		}
 	}
 
 	/**

@@ -57,6 +57,22 @@ public class X_AD_WindowResolver extends POResolver<MWindow> implements GraphQLR
 		return dataLoader.load(entity.getAD_Image_ID());
 	}
 
+	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
+		{
+			put("D", 10);
+			put("C", 20);
+			put("U", 100);
+			put("CUST", 110);
+			put("A", 200);
+			put("EXT", 210);
+			put("XX", 220);
+			put("EE01", 50000);
+			put("EE04", 50001);
+			put("EE05", 50003);
+			put("EE02", 50005);
+			put("WSTORE", 200015);
+		}
+	};
 
 	/**
 	 * Get Entity Type.
@@ -64,20 +80,20 @@ public class X_AD_WindowResolver extends POResolver<MWindow> implements GraphQLR
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	public CompletableFuture<MEntityType> AD_EntityType(MWindow entity, DataFetchingEnvironment environment) {
-		if (entity.getEntityType() <= 0) {
+		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
-		return dataLoader.load(entity.getEntityType());
+		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
 	static Map<String, String> WINDOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MWindow.WINDOWTYPE_SingleRecord, "240e7f4f-f266-419b-872f-2dd99a1efbc4");
-			put(MWindow.WINDOWTYPE_Maintain, "156c6465-fda8-47fb-95b1-f3adb3f59a30");
-			put(MWindow.WINDOWTYPE_Transaction, "3ab9298c-b0f2-4163-8c13-f0d81111c350");
-			put(MWindow.WINDOWTYPE_QueryOnly, "3d0b1e25-fa17-4730-b347-3500ec2de112");
+			put("S", "240e7f4f-f266-419b-872f-2dd99a1efbc4");
+			put("M", "156c6465-fda8-47fb-95b1-f3adb3f59a30");
+			put("T", "3ab9298c-b0f2-4163-8c13-f0d81111c350");
+			put("Q", "3d0b1e25-fa17-4730-b347-3500ec2de112");
 		}
 	};
 	public CompletableFuture<MRefList> WindowType_RL(MWindow entity, DataFetchingEnvironment environment) {

@@ -417,12 +417,12 @@ public class X_C_OrderResolver extends POResolver<MOrder_BH> implements GraphQLR
 
 	static Map<String, String> DELIVERYRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MOrder_BH.DELIVERYRULE_AfterPayment, "20fd42a7-54c5-4a60-8e1a-4cda5c9856ee");
-			put(MOrder_BH.DELIVERYRULE_Availability, "89125067-1315-434e-a112-2593bb681a9d");
-			put(MOrder_BH.DELIVERYRULE_CompleteLine, "613c2dee-60a6-46ea-8a0a-646cd4a10c61");
-			put(MOrder_BH.DELIVERYRULE_CompleteOrder, "3f011d8d-6d3d-4d12-aa4c-c5adea40b464");
-			put(MOrder_BH.DELIVERYRULE_Force, "3db26d28-62ee-454c-b25b-5abbef460042");
-			put(MOrder_BH.DELIVERYRULE_Manual, "d9b69f78-edb1-4179-a56e-33cbca133673");
+			put("R", "20fd42a7-54c5-4a60-8e1a-4cda5c9856ee");
+			put("A", "89125067-1315-434e-a112-2593bb681a9d");
+			put("L", "613c2dee-60a6-46ea-8a0a-646cd4a10c61");
+			put("O", "3f011d8d-6d3d-4d12-aa4c-c5adea40b464");
+			put("F", "3db26d28-62ee-454c-b25b-5abbef460042");
+			put("M", "d9b69f78-edb1-4179-a56e-33cbca133673");
 		}
 	};
 	public CompletableFuture<MRefList> DeliveryRule_RL(MOrder_BH entity, DataFetchingEnvironment environment) {
@@ -436,9 +436,9 @@ public class X_C_OrderResolver extends POResolver<MOrder_BH> implements GraphQLR
 
 	static Map<String, String> DELIVERYVIARULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MOrder_BH.DELIVERYVIARULE_Pickup, "701ff061-98de-431b-b6ab-b14da4987285");
-			put(MOrder_BH.DELIVERYVIARULE_Delivery, "9d1b379c-84b1-43b1-b735-8c7467cb1b1a");
-			put(MOrder_BH.DELIVERYVIARULE_Shipper, "19951c20-3a06-4eb5-a0c2-fc8b27e408a7");
+			put("P", "701ff061-98de-431b-b6ab-b14da4987285");
+			put("D", "9d1b379c-84b1-43b1-b735-8c7467cb1b1a");
+			put("S", "19951c20-3a06-4eb5-a0c2-fc8b27e408a7");
 		}
 	};
 	public CompletableFuture<MRefList> DeliveryViaRule_RL(MOrder_BH entity, DataFetchingEnvironment environment) {
@@ -452,20 +452,20 @@ public class X_C_OrderResolver extends POResolver<MOrder_BH> implements GraphQLR
 
 	static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MOrder_BH.DOCACTION_Complete, "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da");
-			put(MOrder_BH.DOCACTION_Approve, "f80665a4-0db1-4609-be56-5d69b762d169");
-			put(MOrder_BH.DOCACTION_Reject, "8fffbfd1-560a-4a78-9181-e5b76bbb3354");
-			put(MOrder_BH.DOCACTION_Post, "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9");
-			put(MOrder_BH.DOCACTION_Void, "930f9be7-85bc-4002-83a6-fe4e1b8cfce3");
-			put(MOrder_BH.DOCACTION_Close, "d0a6de04-9c59-4d37-998d-f8070db820b0");
-			put(MOrder_BH.DOCACTION_Reverse_Correct, "597e3e98-f1cd-4157-885a-1fae6424a3a6");
-			put(MOrder_BH.DOCACTION_Reverse_Accrual, "1a3904b9-86bc-4831-a4af-0281dcafa8f8");
-			put(MOrder_BH.DOCACTION_Invalidate, "69ff146b-fe0e-44a0-98d1-80b2f7958edf");
-			put(MOrder_BH.DOCACTION_Re_Activate, "c8f55635-67a3-42ae-b626-2064acb2e260");
-			put(MOrder_BH.DOCACTION_None, "ea523fb8-e21b-4a77-a657-6f5a7d12a591");
-			put(MOrder_BH.DOCACTION_Prepare, "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76");
-			put(MOrder_BH.DOCACTION_Unlock, "b2d93bde-a7e7-43f0-9b1c-82527992f6d5");
-			put(MOrder_BH.DOCACTION_WaitComplete, "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
+			put("CO", "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da");
+			put("AP", "f80665a4-0db1-4609-be56-5d69b762d169");
+			put("RJ", "8fffbfd1-560a-4a78-9181-e5b76bbb3354");
+			put("PO", "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9");
+			put("VO", "930f9be7-85bc-4002-83a6-fe4e1b8cfce3");
+			put("CL", "d0a6de04-9c59-4d37-998d-f8070db820b0");
+			put("RC", "597e3e98-f1cd-4157-885a-1fae6424a3a6");
+			put("RA", "1a3904b9-86bc-4831-a4af-0281dcafa8f8");
+			put("IN", "69ff146b-fe0e-44a0-98d1-80b2f7958edf");
+			put("RE", "c8f55635-67a3-42ae-b626-2064acb2e260");
+			put("--", "ea523fb8-e21b-4a77-a657-6f5a7d12a591");
+			put("PR", "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76");
+			put("XL", "b2d93bde-a7e7-43f0-9b1c-82527992f6d5");
+			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
 	public CompletableFuture<MRefList> DocAction_RL(MOrder_BH entity, DataFetchingEnvironment environment) {
@@ -479,18 +479,18 @@ public class X_C_OrderResolver extends POResolver<MOrder_BH> implements GraphQLR
 
 	static Map<String, String> DOCSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MOrder_BH.DOCSTATUS_Drafted, "d27f8a6b-e8b5-4fea-a6b2-3e7049c473ec");
-			put(MOrder_BH.DOCSTATUS_Completed, "50702660-bbfc-422a-8acc-5ed3a2dce204");
-			put(MOrder_BH.DOCSTATUS_Approved, "a838dad1-b7fc-4b26-9d80-d45f2d8484c5");
-			put(MOrder_BH.DOCSTATUS_NotApproved, "c8c414ee-3e4e-480b-aa0e-bc6c1d100bd2");
-			put(MOrder_BH.DOCSTATUS_Voided, "d35dfd1d-1eb2-46ef-ab2f-23973d68a570");
-			put(MOrder_BH.DOCSTATUS_Invalid, "c2d506ba-1916-4ca2-abde-da3127c11d77");
-			put(MOrder_BH.DOCSTATUS_Reversed, "029a78cf-d45c-4fb2-a6c9-fb92c2311af6");
-			put(MOrder_BH.DOCSTATUS_Closed, "ab9df095-8aa8-4338-98b6-4b09ab9d459e");
-			put(MOrder_BH.DOCSTATUS_Unknown, "0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2");
-			put(MOrder_BH.DOCSTATUS_InProgress, "9f864275-6135-452f-a5a7-9377d9ed32bc");
-			put(MOrder_BH.DOCSTATUS_WaitingPayment, "4a9871d9-ec70-489f-aca5-05adb7e61df9");
-			put(MOrder_BH.DOCSTATUS_WaitingConfirmation, "56264c44-b530-4a53-b07b-6fb203ff61a6");
+			put("DR", "d27f8a6b-e8b5-4fea-a6b2-3e7049c473ec");
+			put("CO", "50702660-bbfc-422a-8acc-5ed3a2dce204");
+			put("AP", "a838dad1-b7fc-4b26-9d80-d45f2d8484c5");
+			put("NA", "c8c414ee-3e4e-480b-aa0e-bc6c1d100bd2");
+			put("VO", "d35dfd1d-1eb2-46ef-ab2f-23973d68a570");
+			put("IN", "c2d506ba-1916-4ca2-abde-da3127c11d77");
+			put("RE", "029a78cf-d45c-4fb2-a6c9-fb92c2311af6");
+			put("CL", "ab9df095-8aa8-4338-98b6-4b09ab9d459e");
+			put("??", "0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2");
+			put("IP", "9f864275-6135-452f-a5a7-9377d9ed32bc");
+			put("WP", "4a9871d9-ec70-489f-aca5-05adb7e61df9");
+			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
 		}
 	};
 	public CompletableFuture<MRefList> DocStatus_RL(MOrder_BH entity, DataFetchingEnvironment environment) {
@@ -549,10 +549,10 @@ public class X_C_OrderResolver extends POResolver<MOrder_BH> implements GraphQLR
 
 	static Map<String, String> FREIGHTCOSTRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MOrder_BH.FREIGHTCOSTRULE_FreightIncluded, "82df2976-c23f-43fb-91e9-b2b4ab27063f");
-			put(MOrder_BH.FREIGHTCOSTRULE_FixPrice, "3c97df02-d8ed-4bca-91b2-c4ca115533c4");
-			put(MOrder_BH.FREIGHTCOSTRULE_Calculated, "43e070a0-f583-4b5d-a11c-6e5945a99272");
-			put(MOrder_BH.FREIGHTCOSTRULE_Line, "623c0263-3294-4073-9884-e5cb78edb1bd");
+			put("I", "82df2976-c23f-43fb-91e9-b2b4ab27063f");
+			put("F", "3c97df02-d8ed-4bca-91b2-c4ca115533c4");
+			put("C", "43e070a0-f583-4b5d-a11c-6e5945a99272");
+			put("L", "623c0263-3294-4073-9884-e5cb78edb1bd");
 		}
 	};
 	public CompletableFuture<MRefList> FreightCostRule_RL(MOrder_BH entity, DataFetchingEnvironment environment) {
@@ -566,10 +566,10 @@ public class X_C_OrderResolver extends POResolver<MOrder_BH> implements GraphQLR
 
 	static Map<String, String> INVOICERULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MOrder_BH.INVOICERULE_AfterOrderDelivered, "f0b52a34-6ff9-40b0-8668-cb458e21328e");
-			put(MOrder_BH.INVOICERULE_AfterDelivery, "8d21d623-1f99-4510-aec4-6e475d587264");
-			put(MOrder_BH.INVOICERULE_CustomerScheduleAfterDelivery, "f522d449-bea8-42aa-90e7-b5190db85b68");
-			put(MOrder_BH.INVOICERULE_Immediate, "1e030a09-94f2-4bd4-8810-d739aa9f25a6");
+			put("O", "f0b52a34-6ff9-40b0-8668-cb458e21328e");
+			put("D", "8d21d623-1f99-4510-aec4-6e475d587264");
+			put("S", "f522d449-bea8-42aa-90e7-b5190db85b68");
+			put("I", "1e030a09-94f2-4bd4-8810-d739aa9f25a6");
 		}
 	};
 	public CompletableFuture<MRefList> InvoiceRule_RL(MOrder_BH entity, DataFetchingEnvironment environment) {
@@ -656,35 +656,13 @@ public class X_C_OrderResolver extends POResolver<MOrder_BH> implements GraphQLR
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
-	static Map<String, String> POSTED_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put(MOrder_BH.POSTED_NotPosted, "f8a3fa32-e816-46b0-8ffa-8f75a9a6f8ce");
-			put(MOrder_BH.POSTED_Posted, "238cfb09-41c2-43ef-81d3-785f45e69eff");
-			put(MOrder_BH.POSTED_NotBalanced, "b356ec40-2b7c-45bd-ae61-5f62875b41ac");
-			put(MOrder_BH.POSTED_NotConvertibleNoRate, "1e0390a8-f7be-4e8b-bd9a-e7c56913f39d");
-			put(MOrder_BH.POSTED_PeriodClosed, "4afac137-c9db-4bbc-ac61-b0c642f7807e");
-			put(MOrder_BH.POSTED_PostPrepared, "b2188064-c2e1-4319-8d1d-59145d49842b");
-			put(MOrder_BH.POSTED_InvalidAccount, "3bd142e3-e397-42b9-ac64-b2c98d970426");
-			put(MOrder_BH.POSTED_PostingError, "bd259a9b-d9a3-4396-ae5c-124968ae3f4d");
-			put(MOrder_BH.POSTED_Deferred, "0630b5d2-0fe4-4ef8-9d2f-a14791c02c7d");
-		}
-	};
-	public CompletableFuture<MRefList> Posted_RL(MOrder_BH entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getPosted())) {
-			return null;
-		}
-		DataLoader<String, MRefList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
-		return dataLoader.load(POSTED_UUIDS_BY_VALUE.get(entity.getPosted()));
-	}
-
 	static Map<String, String> PRIORITYRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MOrder_BH.PRIORITYRULE_High, "eb2a15e0-e10d-47df-9ddd-d12d39b32007");
-			put(MOrder_BH.PRIORITYRULE_Medium, "6ca5bed6-2fd6-4afd-b3a8-d9c91452e829");
-			put(MOrder_BH.PRIORITYRULE_Low, "74703c05-07aa-47d6-8ee3-e884ce2f505e");
-			put(MOrder_BH.PRIORITYRULE_Urgent, "6d26a706-aa9f-4111-8b5b-741aa48476d9");
-			put(MOrder_BH.PRIORITYRULE_Minor, "c349e252-ad91-483f-b53f-0e92fabbaca5");
+			put("3", "eb2a15e0-e10d-47df-9ddd-d12d39b32007");
+			put("5", "6ca5bed6-2fd6-4afd-b3a8-d9c91452e829");
+			put("7", "74703c05-07aa-47d6-8ee3-e884ce2f505e");
+			put("1", "6d26a706-aa9f-4111-8b5b-741aa48476d9");
+			put("9", "c349e252-ad91-483f-b53f-0e92fabbaca5");
 		}
 	};
 	public CompletableFuture<MRefList> PriorityRule_RL(MOrder_BH entity, DataFetchingEnvironment environment) {

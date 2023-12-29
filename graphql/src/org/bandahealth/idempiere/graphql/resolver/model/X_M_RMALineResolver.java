@@ -16,6 +16,8 @@ import org.compiere.model.MRMALine;
 import org.compiere.model.MTax;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_RMALine - DO NOT CHANGE
  *

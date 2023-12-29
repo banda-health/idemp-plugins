@@ -3,12 +3,12 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MBPBankAccount;
 import org.compiere.model.MBank;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentProcessor;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_BP_BankAccount;
 import org.compiere.util.Env;
 
 /**
@@ -17,7 +17,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_BankAccountInput {
+public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_BP_BankAccountInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput BPBankAcctUse_RL;
@@ -170,6 +170,17 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	public I_C_BankInput getC_Bank() {
 		return C_Bank;
 	}
+	/**
+	 * Set Partner Bank Account.
+	 *
+	 * @param C_BP_BankAccount_ID Bank Account of the Business Partner
+	 */
+
+	public void setC_BP_BankAccount_ID(int C_BP_BankAccount_ID) {
+		if (get_ID() == 0) {
+			super.setC_BP_BankAccount_ID(C_BP_BankAccount_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -212,6 +223,17 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 */
 	public I_C_BPartnerInput getC_BPartner() {
 		return C_BPartner;
+	}
+	/**
+	 * Set Business Partner .
+	 *
+	 * @param C_BPartner_ID Identifies a Business Partner
+	 */
+
+	public void setC_BPartner_ID(int C_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_ID(C_BPartner_ID);
+		}
 	}
 
 	/**

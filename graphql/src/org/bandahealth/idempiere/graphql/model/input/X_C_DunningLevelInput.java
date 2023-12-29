@@ -2,12 +2,12 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDunning;
-import org.compiere.model.MDunningLevel;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.model.X_C_DunningLevel;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningLevelInput {
+public class X_C_DunningLevelInput extends X_C_DunningLevel implements I_C_DunningLevelInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_PrintFormatInput Dunning_PrintFormat;
@@ -80,6 +80,28 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 */
 	public I_C_DunningInput getC_Dunning() {
 		return C_Dunning;
+	}
+	/**
+	 * Set Dunning.
+	 *
+	 * @param C_Dunning_ID Dunning Rules for overdue invoices
+	 */
+
+	public void setC_Dunning_ID(int C_Dunning_ID) {
+		if (get_ID() == 0) {
+			super.setC_Dunning_ID(C_Dunning_ID);
+		}
+	}
+	/**
+	 * Set Dunning Level.
+	 *
+	 * @param C_DunningLevel_ID Dunning Level
+	 */
+
+	public void setC_DunningLevel_ID(int C_DunningLevel_ID) {
+		if (get_ID() == 0) {
+			super.setC_DunningLevel_ID(C_DunningLevel_ID);
+		}
 	}
 
 	/**
@@ -152,6 +174,17 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 */
 	public I_AD_PrintFormatInput getDunning_PrintFormat() {
 		return Dunning_PrintFormat;
+	}
+	/**
+	 * Set Dunning Print Format.
+	 *
+	 * @param Dunning_PrintFormat_ID Print Format for printing Dunning Letters
+	 */
+
+	public void setDunning_PrintFormat_ID(int Dunning_PrintFormat_ID) {
+		if (get_ID() == 0) {
+			super.setDunning_PrintFormat_ID(Dunning_PrintFormat_ID);
+		}
 	}
 
 	/**

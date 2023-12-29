@@ -23,8 +23,8 @@ public class X_PA_BenchmarkResolver extends POResolver<X_PA_Benchmark> implement
 
 	static Map<String, String> ACCUMULATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_PA_Benchmark.ACCUMULATIONTYPE_Average, "3d552877-6635-458d-a8b7-7ef7f83be0c3");
-			put(X_PA_Benchmark.ACCUMULATIONTYPE_Sum, "bfa804a6-caca-443f-92b3-6cc9672f9f52");
+			put("A", "3d552877-6635-458d-a8b7-7ef7f83be0c3");
+			put("S", "bfa804a6-caca-443f-92b3-6cc9672f9f52");
 		}
 	};
 	public CompletableFuture<MRefList> AccumulationType_RL(X_PA_Benchmark entity, DataFetchingEnvironment environment) {

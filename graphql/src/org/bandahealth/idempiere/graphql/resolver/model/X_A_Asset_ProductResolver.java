@@ -13,6 +13,8 @@ import org.compiere.model.MAssetProduct;
 import org.compiere.model.MLocator;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for A_Asset_Product - DO NOT CHANGE
  *

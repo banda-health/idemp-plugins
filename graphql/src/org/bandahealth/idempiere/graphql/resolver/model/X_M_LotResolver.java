@@ -9,6 +9,8 @@ import org.compiere.model.MLot;
 import org.compiere.model.MLotCtl;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_Lot - DO NOT CHANGE
  *

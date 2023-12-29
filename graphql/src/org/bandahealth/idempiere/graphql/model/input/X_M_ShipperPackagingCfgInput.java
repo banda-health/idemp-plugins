@@ -75,6 +75,28 @@ public class X_M_ShipperPackagingCfgInput extends X_M_ShipperPackagingCfg implem
 	public I_M_ShipperCfgInput getM_ShipperCfg() {
 		return M_ShipperCfg;
 	}
+	/**
+	 * Set Shipper Configuration.
+	 *
+	 * @param M_ShipperCfg_ID Shipper Configuration
+	 */
+
+	public void setM_ShipperCfg_ID(int M_ShipperCfg_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperCfg_ID(M_ShipperCfg_ID);
+		}
+	}
+	/**
+	 * Set Shipper Packaging Configuration.
+	 *
+	 * @param M_ShipperPackagingCfg_ID Shipper Packaging Configuration
+	 */
+
+	public void setM_ShipperPackagingCfg_ID(int M_ShipperPackagingCfg_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperPackagingCfg_ID(M_ShipperPackagingCfg_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

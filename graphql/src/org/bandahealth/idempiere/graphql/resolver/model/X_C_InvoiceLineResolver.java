@@ -91,8 +91,8 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 
 	static Map<String, String> A_CAPVSEXP_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MInvoiceLine.A_CAPVSEXP_Capital, "f494c22f-2ce5-471d-aabb-887f528c60da");
-			put(MInvoiceLine.A_CAPVSEXP_Expense, "4a84ac91-9720-40a2-8529-6a139dabb96a");
+			put("Cap", "f494c22f-2ce5-471d-aabb-887f528c60da");
+			put("Exp", "4a84ac91-9720-40a2-8529-6a139dabb96a");
 		}
 	};
 	public CompletableFuture<MRefList> A_CapvsExp_RL(MInvoiceLine entity, DataFetchingEnvironment environment) {

@@ -47,6 +47,120 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements GraphQLResolver<MBPartner_BH> {
 
 
+	static Map<String, Integer> AD_LANGUAGE_IDS_BY_LANGUAGE = new HashMap<>() {
+		{
+			put("ar_AE", 100);
+			put("ar_BH", 101);
+			put("ar_DZ", 102);
+			put("ar_EG", 103);
+			put("ar_IQ", 104);
+			put("ar_JO", 105);
+			put("ar_KW", 106);
+			put("ar_LB", 107);
+			put("ar_LY", 108);
+			put("ar_MA", 109);
+			put("ar_OM", 110);
+			put("ar_QA", 111);
+			put("ar_SA", 112);
+			put("ar_SD", 113);
+			put("ar_SY", 114);
+			put("ar_TN", 115);
+			put("ar_YE", 116);
+			put("be_BY", 117);
+			put("bg_BG", 118);
+			put("ca_ES", 119);
+			put("cs_CZ", 120);
+			put("da_DK", 121);
+			put("de_AT", 122);
+			put("de_CH", 123);
+			put("de_DE", 191);
+			put("de_LU", 124);
+			put("el_CY", 50004);
+			put("el_GR", 125);
+			put("en_AU", 126);
+			put("en_CA", 127);
+			put("en_GB", 128);
+			put("en_IE", 129);
+			put("en_IN", 130);
+			put("en_KE", 50017);
+			put("en_MT", 50005);
+			put("en_NZ", 131);
+			put("en_PH", 50006);
+			put("en_SG", 50007);
+			put("en_US", 192);
+			put("en_ZA", 132);
+			put("es_AR", 133);
+			put("es_BO", 134);
+			put("es_CL", 135);
+			put("es_CO", 136);
+			put("es_CR", 137);
+			put("es_DO", 138);
+			put("es_EC", 139);
+			put("es_ES", 140);
+			put("es_GT", 141);
+			put("es_HN", 142);
+			put("es_MX", 143);
+			put("es_NI", 144);
+			put("es_PA", 145);
+			put("es_PE", 146);
+			put("es_PR", 147);
+			put("es_PY", 148);
+			put("es_SV", 149);
+			put("es_US", 50008);
+			put("es_UY", 150);
+			put("es_VE", 151);
+			put("et_EE", 152);
+			put("fa_IR", 193);
+			put("fi_FI", 153);
+			put("fr_BE", 154);
+			put("fr_CA", 155);
+			put("fr_CH", 156);
+			put("fr_FR", 190);
+			put("fr_LU", 157);
+			put("ga_IE", 50009);
+			put("hi_IN", 158);
+			put("hr_HR", 159);
+			put("hu_HU", 160);
+			put("in_ID", 50010);
+			put("is_IS", 161);
+			put("it_CH", 162);
+			put("it_IT", 163);
+			put("iw_IL", 164);
+			put("ja_JP", 165);
+			put("ko_KR", 166);
+			put("lt_LT", 167);
+			put("lv_LV", 168);
+			put("mk_MK", 169);
+			put("ms_MY", 50003);
+			put("mt_MT", 50011);
+			put("nl_BE", 170);
+			put("nl_NL", 171);
+			put("no_NO", 172);
+			put("pl_PL", 173);
+			put("pt_BR", 174);
+			put("pt_PT", 175);
+			put("ro_RO", 176);
+			put("ru_RU", 177);
+			put("sh_YU", 178);
+			put("sk_SK", 179);
+			put("sl_SI", 180);
+			put("sq_AL", 181);
+			put("sr_BA", 50012);
+			put("sr_CS", 50013);
+			put("sr_ME", 50014);
+			put("sr_RS", 50015);
+			put("sr_YU", 182);
+			put("sv_SE", 183);
+			put("th_TH", 184);
+			put("tr_TR", 185);
+			put("uk_UA", 186);
+			put("vi_VN", 194);
+			put("zh_CN", 187);
+			put("zh_HK", 188);
+			put("zh_SG", 50016);
+			put("zh_TW", 189);
+		}
+	};
 
 	/**
 	 * Get Language.
@@ -54,18 +168,18 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Language for this entity
 	 */
 	public CompletableFuture<MLanguage> AD_Language_L(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Language() <= 0) {
+		if (StringUtil.isNullOrEmpty(entity.getAD_Language())) {
 			return null;
 		}
 		DataLoader<Integer, MLanguage> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.AD_Language_BY_ID_DATA_LOADER);
-		return dataLoader.load(entity.getAD_Language());
+		return dataLoader.load(AD_LANGUAGE_IDS_BY_LANGUAGE.get(entity.getAD_Language()));
 	}
 
 	static Map<String, String> BH_GENDER_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPartner_BH.BH_GENDER_Female, "c6cae691-2c3f-43e2-beaa-4d80a196bf34");
-			put(MBPartner_BH.BH_GENDER_Male, "73c2b736-830b-430e-bc43-571c6372ba22");
+			put("female", "c6cae691-2c3f-43e2-beaa-4d80a196bf34");
+			put("male", "73c2b736-830b-430e-bc43-571c6372ba22");
 		}
 	};
 	public CompletableFuture<MRefList> bh_gender_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
@@ -184,12 +298,12 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 
 	static Map<String, String> DELIVERYRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPartner_BH.DELIVERYRULE_AfterPayment, "20fd42a7-54c5-4a60-8e1a-4cda5c9856ee");
-			put(MBPartner_BH.DELIVERYRULE_Availability, "89125067-1315-434e-a112-2593bb681a9d");
-			put(MBPartner_BH.DELIVERYRULE_CompleteLine, "613c2dee-60a6-46ea-8a0a-646cd4a10c61");
-			put(MBPartner_BH.DELIVERYRULE_CompleteOrder, "3f011d8d-6d3d-4d12-aa4c-c5adea40b464");
-			put(MBPartner_BH.DELIVERYRULE_Force, "3db26d28-62ee-454c-b25b-5abbef460042");
-			put(MBPartner_BH.DELIVERYRULE_Manual, "d9b69f78-edb1-4179-a56e-33cbca133673");
+			put("R", "20fd42a7-54c5-4a60-8e1a-4cda5c9856ee");
+			put("A", "89125067-1315-434e-a112-2593bb681a9d");
+			put("L", "613c2dee-60a6-46ea-8a0a-646cd4a10c61");
+			put("O", "3f011d8d-6d3d-4d12-aa4c-c5adea40b464");
+			put("F", "3db26d28-62ee-454c-b25b-5abbef460042");
+			put("M", "d9b69f78-edb1-4179-a56e-33cbca133673");
 		}
 	};
 	public CompletableFuture<MRefList> DeliveryRule_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
@@ -203,9 +317,9 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 
 	static Map<String, String> DELIVERYVIARULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPartner_BH.DELIVERYVIARULE_Pickup, "701ff061-98de-431b-b6ab-b14da4987285");
-			put(MBPartner_BH.DELIVERYVIARULE_Delivery, "9d1b379c-84b1-43b1-b735-8c7467cb1b1a");
-			put(MBPartner_BH.DELIVERYVIARULE_Shipper, "19951c20-3a06-4eb5-a0c2-fc8b27e408a7");
+			put("P", "701ff061-98de-431b-b6ab-b14da4987285");
+			put("D", "9d1b379c-84b1-43b1-b735-8c7467cb1b1a");
+			put("S", "19951c20-3a06-4eb5-a0c2-fc8b27e408a7");
 		}
 	};
 	public CompletableFuture<MRefList> DeliveryViaRule_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
@@ -219,10 +333,10 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 
 	static Map<String, String> FREIGHTCOSTRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPartner_BH.FREIGHTCOSTRULE_FreightIncluded, "82df2976-c23f-43fb-91e9-b2b4ab27063f");
-			put(MBPartner_BH.FREIGHTCOSTRULE_FixPrice, "3c97df02-d8ed-4bca-91b2-c4ca115533c4");
-			put(MBPartner_BH.FREIGHTCOSTRULE_Calculated, "43e070a0-f583-4b5d-a11c-6e5945a99272");
-			put(MBPartner_BH.FREIGHTCOSTRULE_Line, "623c0263-3294-4073-9884-e5cb78edb1bd");
+			put("I", "82df2976-c23f-43fb-91e9-b2b4ab27063f");
+			put("F", "3c97df02-d8ed-4bca-91b2-c4ca115533c4");
+			put("C", "43e070a0-f583-4b5d-a11c-6e5945a99272");
+			put("L", "623c0263-3294-4073-9884-e5cb78edb1bd");
 		}
 	};
 	public CompletableFuture<MRefList> FreightCostRule_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
@@ -251,10 +365,10 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 
 	static Map<String, String> INVOICERULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPartner_BH.INVOICERULE_AfterOrderDelivered, "f0b52a34-6ff9-40b0-8668-cb458e21328e");
-			put(MBPartner_BH.INVOICERULE_AfterDelivery, "8d21d623-1f99-4510-aec4-6e475d587264");
-			put(MBPartner_BH.INVOICERULE_CustomerScheduleAfterDelivery, "f522d449-bea8-42aa-90e7-b5190db85b68");
-			put(MBPartner_BH.INVOICERULE_Immediate, "1e030a09-94f2-4bd4-8810-d739aa9f25a6");
+			put("O", "f0b52a34-6ff9-40b0-8668-cb458e21328e");
+			put("D", "8d21d623-1f99-4510-aec4-6e475d587264");
+			put("S", "f522d449-bea8-42aa-90e7-b5190db85b68");
+			put("I", "1e030a09-94f2-4bd4-8810-d739aa9f25a6");
 		}
 	};
 	public CompletableFuture<MRefList> InvoiceRule_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
@@ -313,15 +427,15 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 
 	static Map<String, String> PAYMENTRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPartner_BH.PAYMENTRULE_Cash, "917130e3-2144-496c-9344-6cf4f7136293");
-			put(MBPartner_BH.PAYMENTRULE_CreditCard, "68dda00d-c015-498e-b91c-811bab809dab");
-			put(MBPartner_BH.PAYMENTRULE_DirectDeposit, "50bc3b86-6106-44df-88ee-1000243a9fcf");
-			put(MBPartner_BH.PAYMENTRULE_Check, "056e0d26-2ff4-41c6-bde6-b35d888e555e");
-			put(MBPartner_BH.PAYMENTRULE_OnCredit, "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
-			put(MBPartner_BH.PAYMENTRULE_DirectDebit, "2c5f0a44-1d35-4528-802f-9204e46be31e");
-			put(MBPartner_BH.PAYMENTRULE_MixedPOSPayment, "c9fff752-a38e-4679-bcec-61f330d1a6cb");
-			put(MBPartner_BH.PAYMENTRULE_MobileAccount, "c524815a-e048-4052-bab5-b7812e27cd64");
-			put(MBPartner_BH.PAYMENTRULE_CashDrawer, "72629357-494a-4cb3-aecf-807141f1968b");
+			put("B", "917130e3-2144-496c-9344-6cf4f7136293");
+			put("K", "68dda00d-c015-498e-b91c-811bab809dab");
+			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf");
+			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e");
+			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
+			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e");
+			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb");
+			put("A", "c524815a-e048-4052-bab5-b7812e27cd64");
+			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
 		}
 	};
 	public CompletableFuture<MRefList> PaymentRule_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
@@ -335,15 +449,15 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 
 	static Map<String, String> PAYMENTRULEPO_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPartner_BH.PAYMENTRULEPO_Cash, "917130e3-2144-496c-9344-6cf4f7136293");
-			put(MBPartner_BH.PAYMENTRULEPO_CreditCard, "68dda00d-c015-498e-b91c-811bab809dab");
-			put(MBPartner_BH.PAYMENTRULEPO_DirectDeposit, "50bc3b86-6106-44df-88ee-1000243a9fcf");
-			put(MBPartner_BH.PAYMENTRULEPO_Check, "056e0d26-2ff4-41c6-bde6-b35d888e555e");
-			put(MBPartner_BH.PAYMENTRULEPO_OnCredit, "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
-			put(MBPartner_BH.PAYMENTRULEPO_DirectDebit, "2c5f0a44-1d35-4528-802f-9204e46be31e");
-			put(MBPartner_BH.PAYMENTRULEPO_MixedPOSPayment, "c9fff752-a38e-4679-bcec-61f330d1a6cb");
-			put(MBPartner_BH.PAYMENTRULEPO_MobileAccount, "c524815a-e048-4052-bab5-b7812e27cd64");
-			put(MBPartner_BH.PAYMENTRULEPO_CashDrawer, "72629357-494a-4cb3-aecf-807141f1968b");
+			put("B", "917130e3-2144-496c-9344-6cf4f7136293");
+			put("K", "68dda00d-c015-498e-b91c-811bab809dab");
+			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf");
+			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e");
+			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
+			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e");
+			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb");
+			put("A", "c524815a-e048-4052-bab5-b7812e27cd64");
+			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
 		}
 	};
 	public CompletableFuture<MRefList> PaymentRulePO_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
@@ -417,11 +531,11 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 
 	static Map<String, String> SOCREDITSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPartner_BH.SOCREDITSTATUS_CreditStop, "ebd6f716-efbe-4a4f-9d3a-e3848f4a3b75");
-			put(MBPartner_BH.SOCREDITSTATUS_CreditHold, "5801b69d-7f76-4cfc-98ea-5d5f8e1a9279");
-			put(MBPartner_BH.SOCREDITSTATUS_CreditWatch, "562a254f-6346-4cc3-95a6-130edbe6dccc");
-			put(MBPartner_BH.SOCREDITSTATUS_NoCreditCheck, "ce7efb85-ccc7-403d-b42f-e276bd9f2f06");
-			put(MBPartner_BH.SOCREDITSTATUS_CreditOK, "d2130138-c9f1-4314-a0c3-e46cecaae025");
+			put("S", "ebd6f716-efbe-4a4f-9d3a-e3848f4a3b75");
+			put("H", "5801b69d-7f76-4cfc-98ea-5d5f8e1a9279");
+			put("W", "562a254f-6346-4cc3-95a6-130edbe6dccc");
+			put("X", "ce7efb85-ccc7-403d-b42f-e276bd9f2f06");
+			put("O", "d2130138-c9f1-4314-a0c3-e46cecaae025");
 		}
 	};
 	public CompletableFuture<MRefList> SOCreditStatus_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {

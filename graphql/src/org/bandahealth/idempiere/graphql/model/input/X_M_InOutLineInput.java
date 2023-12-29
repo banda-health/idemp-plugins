@@ -18,6 +18,7 @@ import org.compiere.model.MProjectTask;
 import org.compiere.model.MRMALine;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_InOutLine;
 import org.compiere.util.Env;
 
 /**
@@ -26,7 +27,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput {
+public class X_M_InOutLineInput extends X_M_InOutLine implements I_M_InOutLineInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_ActivityInput C_Activity;
@@ -184,6 +185,17 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	public I_C_OrderLineInput getC_OrderLine() {
 		return C_OrderLine;
 	}
+	/**
+	 * Set Sales Order Line.
+	 *
+	 * @param C_OrderLine_ID Sales Order Line
+	 */
+
+	public void setC_OrderLine_ID(int C_OrderLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_OrderLine_ID(C_OrderLine_ID);
+		}
+	}
 
 	/**
 	 * Set Project.
@@ -290,6 +302,17 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	public I_C_UOMInput getC_UOM() {
 		return C_UOM;
 	}
+	/**
+	 * Set UOM.
+	 *
+	 * @param C_UOM_ID Unit of Measure
+	 */
+
+	public void setC_UOM_ID(int C_UOM_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_ID(C_UOM_ID);
+		}
+	}
 
 	/**
 	 * Set Attribute Set Instance.
@@ -341,6 +364,28 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 */
 	public I_M_InOutInput getM_InOut() {
 		return M_InOut;
+	}
+	/**
+	 * Set Shipment/Receipt.
+	 *
+	 * @param M_InOut_ID Material Shipment Document
+	 */
+
+	public void setM_InOut_ID(int M_InOut_ID) {
+		if (get_ID() == 0) {
+			super.setM_InOut_ID(M_InOut_ID);
+		}
+	}
+	/**
+	 * Set Shipment/Receipt Line.
+	 *
+	 * @param M_InOutLine_ID Line on Shipment or Receipt document
+	 */
+
+	public void setM_InOutLine_ID(int M_InOutLine_ID) {
+		if (get_ID() == 0) {
+			super.setM_InOutLine_ID(M_InOutLine_ID);
+		}
 	}
 
 	/**
@@ -468,6 +513,17 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	public I_M_InOutLineInput getReversalLine() {
 		return ReversalLine;
 	}
+	/**
+	 * Set Reversal Line.
+	 *
+	 * @param ReversalLine_ID Use to keep the reversal line ID for reversing costing purpose
+	 */
+
+	public void setReversalLine_ID(int ReversalLine_ID) {
+		if (get_ID() == 0) {
+			super.setReversalLine_ID(ReversalLine_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 1.
@@ -495,6 +551,17 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	public I_C_ElementValueInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -521,5 +588,16 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 */
 	public I_C_ElementValueInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

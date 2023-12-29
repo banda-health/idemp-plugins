@@ -11,6 +11,8 @@ import org.compiere.model.MShippingProcessor;
 import org.compiere.model.X_C_BP_ShippingAcct;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_BP_ShippingAcct - DO NOT CHANGE
  *

@@ -77,6 +77,17 @@ public class X_PA_BenchmarkInput extends X_PA_Benchmark implements I_PA_Benchmar
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Benchmark.
+	 *
+	 * @param PA_Benchmark_ID Performance Benchmark
+	 */
+
+	public void setPA_Benchmark_ID(int PA_Benchmark_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Benchmark_ID(PA_Benchmark_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

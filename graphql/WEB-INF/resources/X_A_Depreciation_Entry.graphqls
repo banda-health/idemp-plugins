@@ -51,7 +51,7 @@ type A_Depreciation_Entry {
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
 	# Posting status
-	Posted_RL: Boolean!
+	Posted: Boolean!
 	# The type of posted amount for the transaction
 	PostingType_RL: AD_Ref_List!
 	# The document has been processed
@@ -95,7 +95,7 @@ input A_Depreciation_EntryInput {
 	# Indicates if this document requires approval
 	IsApproved: Boolean
 	# Posting status
-	Posted_RL: Boolean
+	Posted: Boolean
 	# The type of posted amount for the transaction
 	PostingType_RL: AD_Ref_ListInput
 	# The document has been processed

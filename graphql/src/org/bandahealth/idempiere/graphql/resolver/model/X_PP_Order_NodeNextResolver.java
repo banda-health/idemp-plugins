@@ -3,13 +3,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_NodeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_OrderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_NodeDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_AD_WF_Node;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_PP_Order;
@@ -59,6 +57,22 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 		return dataLoader.load(entity.getAD_WF_Node_ID());
 	}
 
+	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
+		{
+			put("D", 10);
+			put("C", 20);
+			put("U", 100);
+			put("CUST", 110);
+			put("A", 200);
+			put("EXT", 210);
+			put("XX", 220);
+			put("EE01", 50000);
+			put("EE04", 50001);
+			put("EE05", 50003);
+			put("EE02", 50005);
+			put("WSTORE", 200015);
+		}
+	};
 
 	/**
 	 * Get Entity Type.
@@ -66,12 +80,12 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	public CompletableFuture<MEntityType> AD_EntityType(X_PP_Order_NodeNext entity, DataFetchingEnvironment environment) {
-		if (entity.getEntityType() <= 0) {
+		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
-		return dataLoader.load(entity.getEntityType());
+		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
 
@@ -117,19 +131,6 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 		DataLoader<Integer, X_PP_Order_Node> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PP_Order_NodeDataLoader.PP_Order_Node_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getPP_Order_Node_ID());
-	}
-
-	static Map<String, String> SEQNO_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-		}
-	};
-	public CompletableFuture<MRefList> SeqNo_RL(X_PP_Order_NodeNext entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getSeqNo())) {
-			return null;
-		}
-		DataLoader<String, MRefList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
-		return dataLoader.load(SEQNO_UUIDS_BY_VALUE.get(entity.getSeqNo()));
 	}
 
 }

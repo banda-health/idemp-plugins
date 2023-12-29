@@ -110,6 +110,28 @@ public class X_PP_Order_Node_AssetInput extends X_PP_Order_Node_Asset implements
 	public I_PP_OrderInput getPP_Order() {
 		return PP_Order;
 	}
+	/**
+	 * Set Manufacturing Order.
+	 *
+	 * @param PP_Order_ID Manufacturing Order
+	 */
+
+	public void setPP_Order_ID(int PP_Order_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_ID(PP_Order_ID);
+		}
+	}
+	/**
+	 * Set Manufacturing Order Activity Asset.
+	 *
+	 * @param PP_Order_Node_Asset_ID Manufacturing Order Activity Asset
+	 */
+
+	public void setPP_Order_Node_Asset_ID(int PP_Order_Node_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_Node_Asset_ID(PP_Order_Node_Asset_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -153,6 +175,17 @@ public class X_PP_Order_Node_AssetInput extends X_PP_Order_Node_Asset implements
 	public I_PP_Order_NodeInput getPP_Order_Node() {
 		return PP_Order_Node;
 	}
+	/**
+	 * Set Manufacturing Order Activity.
+	 *
+	 * @param PP_Order_Node_ID Workflow Node (activity), step or process
+	 */
+
+	public void setPP_Order_Node_ID(int PP_Order_Node_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_Node_ID(PP_Order_Node_ID);
+		}
+	}
 
 	/**
 	 * Set Manufacturing Order Workflow.
@@ -177,5 +210,16 @@ public class X_PP_Order_Node_AssetInput extends X_PP_Order_Node_Asset implements
 	 */
 	public I_PP_Order_WorkflowInput getPP_Order_Workflow() {
 		return PP_Order_Workflow;
+	}
+	/**
+	 * Set Manufacturing Order Workflow.
+	 *
+	 * @param PP_Order_Workflow_ID Manufacturing Order Workflow
+	 */
+
+	public void setPP_Order_Workflow_ID(int PP_Order_Workflow_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_Workflow_ID(PP_Order_Workflow_ID);
+		}
 	}
 }

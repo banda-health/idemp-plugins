@@ -74,10 +74,10 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 
 	static Map<String, String> INVOICECOLLECTIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MDunningLevel.INVOICECOLLECTIONTYPE_Dunning, "451767f3-eea6-4809-9d1f-bccd5831913c");
-			put(MDunningLevel.INVOICECOLLECTIONTYPE_CollectionAgency, "d5422428-9e78-45ec-b83d-30e52302aac9");
-			put(MDunningLevel.INVOICECOLLECTIONTYPE_LegalProcedure, "18587352-5a00-4c61-9b78-91424935e13d");
-			put(MDunningLevel.INVOICECOLLECTIONTYPE_Uncollectable, "60a1b77c-d200-4adc-b845-7ec3760ce5b7");
+			put("D", "451767f3-eea6-4809-9d1f-bccd5831913c");
+			put("C", "d5422428-9e78-45ec-b83d-30e52302aac9");
+			put("L", "18587352-5a00-4c61-9b78-91424935e13d");
+			put("U", "60a1b77c-d200-4adc-b845-7ec3760ce5b7");
 		}
 	};
 	public CompletableFuture<MRefList> InvoiceCollectionType_RL(MDunningLevel entity, DataFetchingEnvironment environment) {

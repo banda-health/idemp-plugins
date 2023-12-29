@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MCostElement;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_CostElement;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_CostElementInput extends MCostElement implements I_M_CostElementInput {
+public class X_M_CostElementInput extends X_M_CostElement implements I_M_CostElementInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput CostElementType_RL;
@@ -104,6 +104,17 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	 */
 	public I_AD_Ref_ListInput getCostingMethod_RL() {
 		return CostingMethod_RL;
+	}
+	/**
+	 * Set Cost Element.
+	 *
+	 * @param M_CostElement_ID Product Cost Element
+	 */
+
+	public void setM_CostElement_ID(int M_CostElement_ID) {
+		if (get_ID() == 0) {
+			super.setM_CostElement_ID(M_CostElement_ID);
+		}
 	}
 
 	/**

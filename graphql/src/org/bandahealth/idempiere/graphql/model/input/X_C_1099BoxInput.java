@@ -48,6 +48,17 @@ public class X_C_1099BoxInput extends X_C_1099Box implements I_C_1099BoxInput {
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set 1099 Box.
+	 *
+	 * @param C_1099Box_ID 1099 Box
+	 */
+
+	public void setC_1099Box_ID(int C_1099Box_ID) {
+		if (get_ID() == 0) {
+			super.setC_1099Box_ID(C_1099Box_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

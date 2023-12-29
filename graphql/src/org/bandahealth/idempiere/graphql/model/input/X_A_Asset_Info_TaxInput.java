@@ -52,6 +52,28 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	public I_A_AssetInput getA_Asset() {
 		return A_Asset;
 	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
+	}
+	/**
+	 * Set Asset Info Tax.
+	 *
+	 * @param A_Asset_Info_Tax_ID Asset Info Tax
+	 */
+
+	public void setA_Asset_Info_Tax_ID(int A_Asset_Info_Tax_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Info_Tax_ID(A_Asset_Info_Tax_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

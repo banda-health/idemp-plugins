@@ -119,10 +119,10 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 
 	static Map<String, String> HDRSTROKETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_PrintTableFormat.HDRSTROKETYPE_SolidLine, "9ad32e3a-041c-4b8f-a55d-0690f76aad33");
-			put(X_AD_PrintTableFormat.HDRSTROKETYPE_DashedLine, "14819462-54d8-4253-aeb8-f6d21310f7ec");
-			put(X_AD_PrintTableFormat.HDRSTROKETYPE_DottedLine, "6d0afb30-9ebc-4fa6-992b-493962dc04ec");
-			put(X_AD_PrintTableFormat.HDRSTROKETYPE_Dash_DottedLine, "36c0e576-a4e4-4fb6-88ec-a5359f77c222");
+			put("S", "9ad32e3a-041c-4b8f-a55d-0690f76aad33");
+			put("D", "14819462-54d8-4253-aeb8-f6d21310f7ec");
+			put("d", "6d0afb30-9ebc-4fa6-992b-493962dc04ec");
+			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222");
 		}
 	};
 	public CompletableFuture<MRefList> HdrStrokeType_RL(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
@@ -181,10 +181,10 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 
 	static Map<String, String> LINESTROKETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_PrintTableFormat.LINESTROKETYPE_SolidLine, "9ad32e3a-041c-4b8f-a55d-0690f76aad33");
-			put(X_AD_PrintTableFormat.LINESTROKETYPE_DashedLine, "14819462-54d8-4253-aeb8-f6d21310f7ec");
-			put(X_AD_PrintTableFormat.LINESTROKETYPE_DottedLine, "6d0afb30-9ebc-4fa6-992b-493962dc04ec");
-			put(X_AD_PrintTableFormat.LINESTROKETYPE_Dash_DottedLine, "36c0e576-a4e4-4fb6-88ec-a5359f77c222");
+			put("S", "9ad32e3a-041c-4b8f-a55d-0690f76aad33");
+			put("D", "14819462-54d8-4253-aeb8-f6d21310f7ec");
+			put("d", "6d0afb30-9ebc-4fa6-992b-493962dc04ec");
+			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222");
 		}
 	};
 	public CompletableFuture<MRefList> LineStrokeType_RL(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {

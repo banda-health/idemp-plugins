@@ -207,20 +207,6 @@ public interface I_A_Asset_AdditionInput extends I_A_Asset_Addition {
 	I_AD_Ref_ListInput getDocStatus_RL();
 
 	/**
-	 * Set DocumentNo_RL.
-	 *
-	 * @param DocumentNo_RL Document sequence number of the document
-	 */
-	void setDocumentNo_RL(I_AD_Ref_ListInput DocumentNo_RL);
-
-	/**
-	 * Get DocumentNo_RL.
-	 *
-	 * @return Document sequence number of the document
-	 */
-	I_AD_Ref_ListInput getDocumentNo_RL();
-
-	/**
 	 * Set GL_JournalBatch.
 	 *
 	 * @param GL_JournalBatch General Ledger Journal Batch
@@ -317,20 +303,6 @@ public interface I_A_Asset_AdditionInput extends I_A_Asset_Addition {
 	 * @return Product, Service, Item
 	 */
 	I_M_ProductInput getM_Product();
-
-	/**
-	 * Set Posted_RL.
-	 *
-	 * @param Posted_RL Posting status
-	 */
-	void setPosted_RL(I_AD_Ref_ListInput Posted_RL);
-
-	/**
-	 * Get Posted_RL.
-	 *
-	 * @return Posting status
-	 */
-	I_AD_Ref_ListInput getPosted_RL();
 
 	/**
 	 * Set PostingType_RL.

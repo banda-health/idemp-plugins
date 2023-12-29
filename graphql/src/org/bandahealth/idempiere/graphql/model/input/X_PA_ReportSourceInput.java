@@ -176,6 +176,17 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 	public I_C_ElementValueInput getC_ElementValue() {
 		return C_ElementValue;
 	}
+	/**
+	 * Set Account Element.
+	 *
+	 * @param C_ElementValue_ID Account Element
+	 */
+
+	public void setC_ElementValue_ID(int C_ElementValue_ID) {
+		if (get_ID() == 0) {
+			super.setC_ElementValue_ID(C_ElementValue_ID);
+		}
+	}
 
 	/**
 	 * Set Address.
@@ -335,6 +346,28 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 	 */
 	public I_PA_ReportLineInput getPA_ReportLine() {
 		return PA_ReportLine;
+	}
+	/**
+	 * Set Report Line.
+	 *
+	 * @param PA_ReportLine_ID Report Line
+	 */
+
+	public void setPA_ReportLine_ID(int PA_ReportLine_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportLine_ID(PA_ReportLine_ID);
+		}
+	}
+	/**
+	 * Set Report Source.
+	 *
+	 * @param PA_ReportSource_ID Restriction of what will be shown in Report Line
+	 */
+
+	public void setPA_ReportSource_ID(int PA_ReportSource_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportSource_ID(PA_ReportSource_ID);
+		}
 	}
 
 	/**

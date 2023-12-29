@@ -171,20 +171,20 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 
 	static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_PP_Order.DOCACTION_Complete, "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da");
-			put(X_PP_Order.DOCACTION_Approve, "f80665a4-0db1-4609-be56-5d69b762d169");
-			put(X_PP_Order.DOCACTION_Reject, "8fffbfd1-560a-4a78-9181-e5b76bbb3354");
-			put(X_PP_Order.DOCACTION_Post, "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9");
-			put(X_PP_Order.DOCACTION_Void, "930f9be7-85bc-4002-83a6-fe4e1b8cfce3");
-			put(X_PP_Order.DOCACTION_Close, "d0a6de04-9c59-4d37-998d-f8070db820b0");
-			put(X_PP_Order.DOCACTION_Reverse_Correct, "597e3e98-f1cd-4157-885a-1fae6424a3a6");
-			put(X_PP_Order.DOCACTION_Reverse_Accrual, "1a3904b9-86bc-4831-a4af-0281dcafa8f8");
-			put(X_PP_Order.DOCACTION_Invalidate, "69ff146b-fe0e-44a0-98d1-80b2f7958edf");
-			put(X_PP_Order.DOCACTION_Re_Activate, "c8f55635-67a3-42ae-b626-2064acb2e260");
-			put(X_PP_Order.DOCACTION_None, "ea523fb8-e21b-4a77-a657-6f5a7d12a591");
-			put(X_PP_Order.DOCACTION_Prepare, "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76");
-			put(X_PP_Order.DOCACTION_Unlock, "b2d93bde-a7e7-43f0-9b1c-82527992f6d5");
-			put(X_PP_Order.DOCACTION_WaitComplete, "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
+			put("CO", "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da");
+			put("AP", "f80665a4-0db1-4609-be56-5d69b762d169");
+			put("RJ", "8fffbfd1-560a-4a78-9181-e5b76bbb3354");
+			put("PO", "0fe1c0e9-2ca1-48f2-837b-a4ff16c629d9");
+			put("VO", "930f9be7-85bc-4002-83a6-fe4e1b8cfce3");
+			put("CL", "d0a6de04-9c59-4d37-998d-f8070db820b0");
+			put("RC", "597e3e98-f1cd-4157-885a-1fae6424a3a6");
+			put("RA", "1a3904b9-86bc-4831-a4af-0281dcafa8f8");
+			put("IN", "69ff146b-fe0e-44a0-98d1-80b2f7958edf");
+			put("RE", "c8f55635-67a3-42ae-b626-2064acb2e260");
+			put("--", "ea523fb8-e21b-4a77-a657-6f5a7d12a591");
+			put("PR", "b6f04b4b-6034-4490-83ed-d0f4f9cb5f76");
+			put("XL", "b2d93bde-a7e7-43f0-9b1c-82527992f6d5");
+			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
 	public CompletableFuture<MRefList> DocAction_RL(X_PP_Order entity, DataFetchingEnvironment environment) {
@@ -198,18 +198,18 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 
 	static Map<String, String> DOCSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_PP_Order.DOCSTATUS_Drafted, "d27f8a6b-e8b5-4fea-a6b2-3e7049c473ec");
-			put(X_PP_Order.DOCSTATUS_Completed, "50702660-bbfc-422a-8acc-5ed3a2dce204");
-			put(X_PP_Order.DOCSTATUS_Approved, "a838dad1-b7fc-4b26-9d80-d45f2d8484c5");
-			put(X_PP_Order.DOCSTATUS_NotApproved, "c8c414ee-3e4e-480b-aa0e-bc6c1d100bd2");
-			put(X_PP_Order.DOCSTATUS_Voided, "d35dfd1d-1eb2-46ef-ab2f-23973d68a570");
-			put(X_PP_Order.DOCSTATUS_Invalid, "c2d506ba-1916-4ca2-abde-da3127c11d77");
-			put(X_PP_Order.DOCSTATUS_Reversed, "029a78cf-d45c-4fb2-a6c9-fb92c2311af6");
-			put(X_PP_Order.DOCSTATUS_Closed, "ab9df095-8aa8-4338-98b6-4b09ab9d459e");
-			put(X_PP_Order.DOCSTATUS_Unknown, "0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2");
-			put(X_PP_Order.DOCSTATUS_InProgress, "9f864275-6135-452f-a5a7-9377d9ed32bc");
-			put(X_PP_Order.DOCSTATUS_WaitingPayment, "4a9871d9-ec70-489f-aca5-05adb7e61df9");
-			put(X_PP_Order.DOCSTATUS_WaitingConfirmation, "56264c44-b530-4a53-b07b-6fb203ff61a6");
+			put("DR", "d27f8a6b-e8b5-4fea-a6b2-3e7049c473ec");
+			put("CO", "50702660-bbfc-422a-8acc-5ed3a2dce204");
+			put("AP", "a838dad1-b7fc-4b26-9d80-d45f2d8484c5");
+			put("NA", "c8c414ee-3e4e-480b-aa0e-bc6c1d100bd2");
+			put("VO", "d35dfd1d-1eb2-46ef-ab2f-23973d68a570");
+			put("IN", "c2d506ba-1916-4ca2-abde-da3127c11d77");
+			put("RE", "029a78cf-d45c-4fb2-a6c9-fb92c2311af6");
+			put("CL", "ab9df095-8aa8-4338-98b6-4b09ab9d459e");
+			put("??", "0b6ed143-fad9-4ba2-824c-b3a89b9bb2d2");
+			put("IP", "9f864275-6135-452f-a5a7-9377d9ed32bc");
+			put("WP", "4a9871d9-ec70-489f-aca5-05adb7e61df9");
+			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
 		}
 	};
 	public CompletableFuture<MRefList> DocStatus_RL(X_PP_Order entity, DataFetchingEnvironment environment) {
@@ -298,11 +298,11 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 
 	static Map<String, String> PRIORITYRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_PP_Order.PRIORITYRULE_High, "eb2a15e0-e10d-47df-9ddd-d12d39b32007");
-			put(X_PP_Order.PRIORITYRULE_Medium, "6ca5bed6-2fd6-4afd-b3a8-d9c91452e829");
-			put(X_PP_Order.PRIORITYRULE_Low, "74703c05-07aa-47d6-8ee3-e884ce2f505e");
-			put(X_PP_Order.PRIORITYRULE_Urgent, "6d26a706-aa9f-4111-8b5b-741aa48476d9");
-			put(X_PP_Order.PRIORITYRULE_Minor, "c349e252-ad91-483f-b53f-0e92fabbaca5");
+			put("3", "eb2a15e0-e10d-47df-9ddd-d12d39b32007");
+			put("5", "6ca5bed6-2fd6-4afd-b3a8-d9c91452e829");
+			put("7", "74703c05-07aa-47d6-8ee3-e884ce2f505e");
+			put("1", "6d26a706-aa9f-4111-8b5b-741aa48476d9");
+			put("9", "c349e252-ad91-483f-b53f-0e92fabbaca5");
 		}
 	};
 	public CompletableFuture<MRefList> PriorityRule_RL(X_PP_Order entity, DataFetchingEnvironment environment) {

@@ -1,11 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MColorSchema;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
+import org.compiere.model.X_PA_ColorSchema;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSchemaInput {
+public class X_PA_ColorSchemaInput extends X_PA_ColorSchema implements I_PA_ColorSchemaInput {
 
 	 private I_AD_EntityTypeInput AD_EntityType;
 	 private I_AD_OrgInput AD_Org;
@@ -82,6 +82,17 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	public I_AD_PrintColorInput getAD_PrintColor1() {
 		return AD_PrintColor1;
 	}
+	/**
+	 * Set Color 1.
+	 *
+	 * @param AD_PrintColor1_ID First color used
+	 */
+
+	public void setAD_PrintColor1_ID(int AD_PrintColor1_ID) {
+		if (get_ID() == 0) {
+			super.setAD_PrintColor1_ID(AD_PrintColor1_ID);
+		}
+	}
 
 	/**
 	 * Set Color 2.
@@ -108,6 +119,17 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 */
 	public I_AD_PrintColorInput getAD_PrintColor2() {
 		return AD_PrintColor2;
+	}
+	/**
+	 * Set Color 2.
+	 *
+	 * @param AD_PrintColor2_ID Second color used
+	 */
+
+	public void setAD_PrintColor2_ID(int AD_PrintColor2_ID) {
+		if (get_ID() == 0) {
+			super.setAD_PrintColor2_ID(AD_PrintColor2_ID);
+		}
 	}
 
 	/**
@@ -136,6 +158,17 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	public I_AD_PrintColorInput getAD_PrintColor3() {
 		return AD_PrintColor3;
 	}
+	/**
+	 * Set Color 3.
+	 *
+	 * @param AD_PrintColor3_ID Third color used
+	 */
+
+	public void setAD_PrintColor3_ID(int AD_PrintColor3_ID) {
+		if (get_ID() == 0) {
+			super.setAD_PrintColor3_ID(AD_PrintColor3_ID);
+		}
+	}
 
 	/**
 	 * Set Color 4.
@@ -163,6 +196,17 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	public I_AD_PrintColorInput getAD_PrintColor4() {
 		return AD_PrintColor4;
 	}
+	/**
+	 * Set Color 4.
+	 *
+	 * @param AD_PrintColor4_ID Forth color used
+	 */
+
+	public void setAD_PrintColor4_ID(int AD_PrintColor4_ID) {
+		if (get_ID() == 0) {
+			super.setAD_PrintColor4_ID(AD_PrintColor4_ID);
+		}
+	}
 
 	/**
 	 * Set Entity Type.
@@ -176,9 +220,9 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -189,6 +233,28 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
+	}
+	/**
+	 * Set Color Schema.
+	 *
+	 * @param PA_ColorSchema_ID Performance Color Schema
+	 */
+
+	public void setPA_ColorSchema_ID(int PA_ColorSchema_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ColorSchema_ID(PA_ColorSchema_ID);
+		}
 	}
 
 	/**

@@ -46,6 +46,8 @@ import org.compiere.model.X_M_Promotion;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_PP_Cost_Collector;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_OrderLine - DO NOT CHANGE
  *

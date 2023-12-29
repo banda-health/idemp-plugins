@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MPOSKeyLayout;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
+import org.compiere.model.X_C_POSKeyLayout;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLayoutInput {
+public class X_C_POSKeyLayoutInput extends X_C_POSKeyLayout implements I_C_POSKeyLayoutInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_PrintColorInput AD_PrintColor;
@@ -107,6 +107,17 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	 */
 	public I_AD_PrintFontInput getAD_PrintFont() {
 		return AD_PrintFont;
+	}
+	/**
+	 * Set POS Key Layout.
+	 *
+	 * @param C_POSKeyLayout_ID POS Function Key Layout
+	 */
+
+	public void setC_POSKeyLayout_ID(int C_POSKeyLayout_ID) {
+		if (get_ID() == 0) {
+			super.setC_POSKeyLayout_ID(C_POSKeyLayout_ID);
+		}
 	}
 
 	/**

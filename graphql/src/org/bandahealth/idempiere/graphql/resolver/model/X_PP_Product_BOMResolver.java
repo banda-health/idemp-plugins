@@ -31,15 +31,15 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 
 	static Map<String, String> BOMTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MPPProductBOM.BOMTYPE_CurrentActive, "f40468ef-872e-4574-b9b5-bc09de25cd73");
-			put(MPPProductBOM.BOMTYPE_Make_To_Order, "88526daf-69bd-4cb5-af6e-ea120ed2555c");
-			put(MPPProductBOM.BOMTYPE_Previous, "e422ef8f-51be-49d2-b4bc-51e5626fca87");
-			put(MPPProductBOM.BOMTYPE_PreviousSpare, "db19dec2-6c7f-4896-ae47-c1f7898ae2e0");
-			put(MPPProductBOM.BOMTYPE_Future, "c3eaeaa0-6177-4a38-880f-5c34910333f9");
-			put(MPPProductBOM.BOMTYPE_Maintenance, "bd5822f8-5b30-4cc4-99e1-998c575dab53");
-			put(MPPProductBOM.BOMTYPE_Repair, "28a5712a-519d-434c-932f-71a8e4a02d45");
-			put(MPPProductBOM.BOMTYPE_ProductConfigure, "d7036054-47a8-4af4-9045-1892c8a563ad");
-			put(MPPProductBOM.BOMTYPE_Make_To_Kit, "3af80a33-db74-4f76-84a4-455286ffdba6");
+			put("A", "f40468ef-872e-4574-b9b5-bc09de25cd73");
+			put("O", "88526daf-69bd-4cb5-af6e-ea120ed2555c");
+			put("P", "e422ef8f-51be-49d2-b4bc-51e5626fca87");
+			put("S", "db19dec2-6c7f-4896-ae47-c1f7898ae2e0");
+			put("F", "c3eaeaa0-6177-4a38-880f-5c34910333f9");
+			put("M", "bd5822f8-5b30-4cc4-99e1-998c575dab53");
+			put("R", "28a5712a-519d-434c-932f-71a8e4a02d45");
+			put("C", "d7036054-47a8-4af4-9045-1892c8a563ad");
+			put("K", "3af80a33-db74-4f76-84a4-455286ffdba6");
 		}
 	};
 	public CompletableFuture<MRefList> BOMType_RL(MPPProductBOM entity, DataFetchingEnvironment environment) {
@@ -53,11 +53,11 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 
 	static Map<String, String> BOMUSE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MPPProductBOM.BOMUSE_Master, "082b2656-8fb0-4e2a-9611-67ed7f9bdbd0");
-			put(MPPProductBOM.BOMUSE_Engineering, "c4ef1193-68f0-478c-b6bb-e1705fcd99e0");
-			put(MPPProductBOM.BOMUSE_Manufacturing, "051be6e2-b091-4e8b-989c-1cb41affbece");
-			put(MPPProductBOM.BOMUSE_Planning, "b7cf6bb8-a498-4d35-b129-6059068df61d");
-			put(MPPProductBOM.BOMUSE_Quality, "db8fbc75-98b8-4229-b487-e848f6bec73e");
+			put("A", "082b2656-8fb0-4e2a-9611-67ed7f9bdbd0");
+			put("E", "c4ef1193-68f0-478c-b6bb-e1705fcd99e0");
+			put("M", "051be6e2-b091-4e8b-989c-1cb41affbece");
+			put("P", "b7cf6bb8-a498-4d35-b129-6059068df61d");
+			put("Q", "db8fbc75-98b8-4229-b487-e848f6bec73e");
 		}
 	};
 	public CompletableFuture<MRefList> BOMUse_RL(MPPProductBOM entity, DataFetchingEnvironment environment) {

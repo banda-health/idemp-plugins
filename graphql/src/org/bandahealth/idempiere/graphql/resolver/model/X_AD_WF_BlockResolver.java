@@ -7,6 +7,8 @@ import org.compiere.model.X_AD_WF_Block;
 import org.compiere.model.X_AD_Workflow;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for AD_WF_Block - DO NOT CHANGE
  *

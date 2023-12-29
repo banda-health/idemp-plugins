@@ -27,7 +27,7 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 
 	static Map<String, String> M_ATTRIBUTESET_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MAttributeSet_BH.M_ATTRIBUTESET_TYPE_MaterialManagementSystem, "4455f892-2ea1-499d-a0b9-c01b3226f97d");
+			put("MMS", "4455f892-2ea1-499d-a0b9-c01b3226f97d");
 		}
 	};
 	public CompletableFuture<MRefList> M_AttributeSet_Type_RL(MAttributeSet_BH entity, DataFetchingEnvironment environment) {
@@ -71,9 +71,9 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 
 	static Map<String, String> MANDATORYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MAttributeSet_BH.MANDATORYTYPE_NotMandatory, "4591d5a6-31a3-4b6e-bbf3-41946a2f891e");
-			put(MAttributeSet_BH.MANDATORYTYPE_AlwaysMandatory, "8e954367-a681-4bc5-b4f6-8ce3ac3bb746");
-			put(MAttributeSet_BH.MANDATORYTYPE_WhenShipping, "7744e8d4-5f72-49bb-a1fb-ded1e5ec5055");
+			put("N", "4591d5a6-31a3-4b6e-bbf3-41946a2f891e");
+			put("Y", "8e954367-a681-4bc5-b4f6-8ce3ac3bb746");
+			put("S", "7744e8d4-5f72-49bb-a1fb-ded1e5ec5055");
 		}
 	};
 	public CompletableFuture<MRefList> MandatoryType_RL(MAttributeSet_BH entity, DataFetchingEnvironment environment) {

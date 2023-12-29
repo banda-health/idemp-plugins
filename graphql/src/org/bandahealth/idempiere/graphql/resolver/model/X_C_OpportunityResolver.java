@@ -17,6 +17,8 @@ import org.compiere.model.MOpportunity;
 import org.compiere.model.X_C_SalesStage;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_Opportunity - DO NOT CHANGE
  *

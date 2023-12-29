@@ -67,15 +67,15 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 
 	static Map<String, String> COSTINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_PP_Order_Cost.COSTINGMETHOD_StandardCosting, "d3ba6803-5479-4b30-ba20-6b40e658c5d8");
-			put(X_PP_Order_Cost.COSTINGMETHOD_AveragePO, "29b356c5-1757-4bab-a331-a01b9415f4e6");
-			put(X_PP_Order_Cost.COSTINGMETHOD_Lifo, "fb47834b-767e-4ffe-b7ea-f690279d4345");
-			put(X_PP_Order_Cost.COSTINGMETHOD_Fifo, "835a19ab-521e-406c-b0b2-f3e4c64c44b7");
-			put(X_PP_Order_Cost.COSTINGMETHOD_LastPOPrice, "01741faf-094c-46ed-9266-2d3adac2c504");
-			put(X_PP_Order_Cost.COSTINGMETHOD_AverageInvoice, "9127a623-4d9b-4a1a-8462-b31d8ddb24ed");
-			put(X_PP_Order_Cost.COSTINGMETHOD_LastInvoice, "f4296d4f-761c-4545-a2ec-ca5c86e1b741");
-			put(X_PP_Order_Cost.COSTINGMETHOD_UserDefined, "10ca122c-b77e-410e-8755-5033f17405d4");
-			put(X_PP_Order_Cost.COSTINGMETHOD__, "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b");
+			put("S", "d3ba6803-5479-4b30-ba20-6b40e658c5d8");
+			put("A", "29b356c5-1757-4bab-a331-a01b9415f4e6");
+			put("L", "fb47834b-767e-4ffe-b7ea-f690279d4345");
+			put("F", "835a19ab-521e-406c-b0b2-f3e4c64c44b7");
+			put("p", "01741faf-094c-46ed-9266-2d3adac2c504");
+			put("I", "9127a623-4d9b-4a1a-8462-b31d8ddb24ed");
+			put("i", "f4296d4f-761c-4545-a2ec-ca5c86e1b741");
+			put("U", "10ca122c-b77e-410e-8755-5033f17405d4");
+			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b");
 		}
 	};
 	public CompletableFuture<MRefList> CostingMethod_RL(X_PP_Order_Cost entity, DataFetchingEnvironment environment) {

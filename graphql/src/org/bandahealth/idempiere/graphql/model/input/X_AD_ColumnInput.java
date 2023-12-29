@@ -4,7 +4,6 @@ import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MChart;
-import org.compiere.model.MColumn;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -13,6 +12,7 @@ import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.M_Element;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Column;
 import org.compiere.util.Env;
 
 /**
@@ -21,7 +21,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
+public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 
 	 private I_AD_ChartInput AD_Chart;
 	 private I_AD_ElementInput AD_Element;
@@ -71,6 +71,17 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 */
 	public I_AD_ChartInput getAD_Chart() {
 		return AD_Chart;
+	}
+	/**
+	 * Set Column.
+	 *
+	 * @param AD_Column_ID Column in the table
+	 */
+
+	public void setAD_Column_ID(int AD_Column_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Column_ID(AD_Column_ID);
+		}
 	}
 
 	/**
@@ -196,6 +207,17 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	public I_AD_ReferenceInput getAD_Reference() {
 		return AD_Reference;
 	}
+	/**
+	 * Set Reference.
+	 *
+	 * @param AD_Reference_ID System Reference and Validation
+	 */
+
+	public void setAD_Reference_ID(int AD_Reference_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Reference_ID(AD_Reference_ID);
+		}
+	}
 
 	/**
 	 * Set Reference Key.
@@ -223,6 +245,17 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	public I_AD_ReferenceInput getAD_Reference_Value() {
 		return AD_Reference_Value;
 	}
+	/**
+	 * Set Reference Key.
+	 *
+	 * @param AD_Reference_Value_ID Required to specify, if data type is Table or List
+	 */
+
+	public void setAD_Reference_Value_ID(int AD_Reference_Value_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Reference_Value_ID(AD_Reference_Value_ID);
+		}
+	}
 
 	/**
 	 * Set Table.
@@ -247,6 +280,17 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 */
 	public I_AD_TableInput getAD_Table() {
 		return AD_Table;
+	}
+	/**
+	 * Set Table.
+	 *
+	 * @param AD_Table_ID Database Table information
+	 */
+
+	public void setAD_Table_ID(int AD_Table_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Table_ID(AD_Table_ID);
+		}
 	}
 
 	/**
@@ -302,6 +346,17 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	public I_AD_Val_RuleInput getAD_Val_Rule_Lookup() {
 		return AD_Val_Rule_Lookup;
 	}
+	/**
+	 * Set Dynamic Validation (Lookup).
+	 *
+	 * @param AD_Val_Rule_Lookup_ID Override Dynamic Validation Rule for Lookup Window
+	 */
+
+	public void setAD_Val_Rule_Lookup_ID(int AD_Val_Rule_Lookup_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Val_Rule_Lookup_ID(AD_Val_Rule_Lookup_ID);
+		}
+	}
 
 	/**
 	 * Set Entity Type.
@@ -315,9 +370,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -328,6 +383,17 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 
 	/**

@@ -174,6 +174,7 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	public I_BH_VisitInput getBH_Visit() {
 		return BH_Visit;
 	}
+
 	/**
 	 * Set Visit.
 	 *
@@ -228,6 +229,7 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	public I_BH_Voided_ReasonInput getBH_Voided_Reason() {
 		return BH_Voided_Reason;
 	}
+
 	/**
 	 * Set BH_Voided_Reason_ID.
 	 *
@@ -287,9 +289,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param Bill_BPartner_ID Business Partner to be invoiced
 	 */
+
 	public void setBill_BPartner_ID(int Bill_BPartner_ID) {
 		if (get_ID() == 0) {
-			this.setBill_BPartner_ID(Bill_BPartner_ID);
+			super.setBill_BPartner_ID(Bill_BPartner_ID);
 		}
 	}
 
@@ -324,9 +327,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param Bill_Location_ID Business Partner Location for invoicing
 	 */
+
 	public void setBill_Location_ID(int Bill_Location_ID) {
 		if (get_ID() == 0) {
-			this.setBill_Location_ID(Bill_Location_ID);
+			super.setBill_Location_ID(Bill_Location_ID);
 		}
 	}
 
@@ -361,9 +365,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param Bill_User_ID Business Partner Contact for invoicing
 	 */
+
 	public void setBill_User_ID(int Bill_User_ID) {
 		if (get_ID() == 0) {
-			this.setBill_User_ID(Bill_User_ID);
+			super.setBill_User_ID(Bill_User_ID);
 		}
 	}
 
@@ -560,9 +565,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param C_Charge_ID Additional document charges
 	 */
+
 	public void setC_Charge_ID(int C_Charge_ID) {
 		if (get_ID() == 0) {
-			this.setC_Charge_ID(C_Charge_ID);
+			super.setC_Charge_ID(C_Charge_ID);
 		}
 	}
 
@@ -622,9 +628,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param C_Currency_ID The Currency for this record
 	 */
+
 	public void setC_Currency_ID(int C_Currency_ID) {
 		if (get_ID() == 0) {
-			this.setC_Currency_ID(C_Currency_ID);
+			super.setC_Currency_ID(C_Currency_ID);
 		}
 	}
 
@@ -657,9 +664,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param C_DocType_ID Document type or rules
 	 */
+
 	public void setC_DocType_ID(int C_DocType_ID) {
 		if (get_ID() == 0) {
-			this.setC_DocType_ID(C_DocType_ID);
+			super.setC_DocType_ID(C_DocType_ID);
 		}
 	}
 
@@ -694,9 +702,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param C_DocTypeTarget_ID Target document type for conversing documents
 	 */
+
 	public void setC_DocTypeTarget_ID(int C_DocTypeTarget_ID) {
 		if (get_ID() == 0) {
-			this.setC_DocTypeTarget_ID(C_DocTypeTarget_ID);
+			super.setC_DocTypeTarget_ID(C_DocTypeTarget_ID);
 		}
 	}
 
@@ -731,9 +740,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param C_Order_ID Order
 	 */
+
 	public void setC_Order_ID(int C_Order_ID) {
 		if (get_ID() == 0) {
-			this.setC_Order_ID(C_Order_ID);
+			super.setC_Order_ID(C_Order_ID);
 		}
 	}
 
@@ -1002,9 +1012,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
+
 	public void setDocumentNo(String DocumentNo) {
 		if (get_ID() == 0) {
-			this.setDocumentNo(DocumentNo);
+			super.setDocumentNo(DocumentNo);
 		}
 	}
 
@@ -1039,9 +1050,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param DropShip_BPartner_ID Business Partner to ship to
 	 */
+
 	public void setDropShip_BPartner_ID(int DropShip_BPartner_ID) {
 		if (get_ID() == 0) {
-			this.setDropShip_BPartner_ID(DropShip_BPartner_ID);
+			super.setDropShip_BPartner_ID(DropShip_BPartner_ID);
 		}
 	}
 
@@ -1076,9 +1088,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param DropShip_Location_ID Business Partner Location for shipping to
 	 */
+
 	public void setDropShip_Location_ID(int DropShip_Location_ID) {
 		if (get_ID() == 0) {
-			this.setDropShip_Location_ID(DropShip_Location_ID);
+			super.setDropShip_Location_ID(DropShip_Location_ID);
 		}
 	}
 
@@ -1113,9 +1126,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param DropShip_User_ID Business Partner Contact for drop shipment
 	 */
+
 	public void setDropShip_User_ID(int DropShip_User_ID) {
 		if (get_ID() == 0) {
-			this.setDropShip_User_ID(DropShip_User_ID);
+			super.setDropShip_User_ID(DropShip_User_ID);
 		}
 	}
 
@@ -1150,9 +1164,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param GrandTotal Total amount of document
 	 */
+
 	public void setGrandTotal(BigDecimal GrandTotal) {
 		if (get_ID() == 0) {
-			this.setGrandTotal(GrandTotal);
+			super.setGrandTotal(GrandTotal);
 		}
 	}
 
@@ -1187,9 +1202,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param IsApproved Indicates if this document requires approval
 	 */
+
 	public void setIsApproved(boolean IsApproved) {
 		if (get_ID() == 0) {
-			this.setIsApproved(IsApproved);
+			super.setIsApproved(IsApproved);
 		}
 	}
 	/**
@@ -1197,9 +1213,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param IsCreditApproved Credit  has been approved
 	 */
+
 	public void setIsCreditApproved(boolean IsCreditApproved) {
 		if (get_ID() == 0) {
-			this.setIsCreditApproved(IsCreditApproved);
+			super.setIsCreditApproved(IsCreditApproved);
 		}
 	}
 	/**
@@ -1207,9 +1224,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param IsDelivered Delivered
 	 */
+
 	public void setIsDelivered(boolean IsDelivered) {
 		if (get_ID() == 0) {
-			this.setIsDelivered(IsDelivered);
+			super.setIsDelivered(IsDelivered);
 		}
 	}
 	/**
@@ -1217,9 +1235,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param IsInvoiced Is this invoiced?
 	 */
+
 	public void setIsInvoiced(boolean IsInvoiced) {
 		if (get_ID() == 0) {
-			this.setIsInvoiced(IsInvoiced);
+			super.setIsInvoiced(IsInvoiced);
 		}
 	}
 	/**
@@ -1227,9 +1246,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param IsPrinted Indicates if this document / line is printed
 	 */
+
 	public void setIsPrinted(boolean IsPrinted) {
 		if (get_ID() == 0) {
-			this.setIsPrinted(IsPrinted);
+			super.setIsPrinted(IsPrinted);
 		}
 	}
 	/**
@@ -1237,9 +1257,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param IsTransferred Transferred to General Ledger (i.e. accounted)
 	 */
+
 	public void setIsTransferred(boolean IsTransferred) {
 		if (get_ID() == 0) {
-			this.setIsTransferred(IsTransferred);
+			super.setIsTransferred(IsTransferred);
 		}
 	}
 
@@ -1272,9 +1293,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param Link_Order_ID This field links a sales order to the purchase order that is generated from it.
 	 */
+
 	public void setLink_Order_ID(int Link_Order_ID) {
 		if (get_ID() == 0) {
-			this.setLink_Order_ID(Link_Order_ID);
+			super.setLink_Order_ID(Link_Order_ID);
 		}
 	}
 
@@ -1363,9 +1385,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param M_Shipper_ID Method or manner of product delivery
 	 */
+
 	public void setM_Shipper_ID(int M_Shipper_ID) {
 		if (get_ID() == 0) {
-			this.setM_Shipper_ID(M_Shipper_ID);
+			super.setM_Shipper_ID(M_Shipper_ID);
 		}
 	}
 
@@ -1400,9 +1423,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param Posted Posting status
 	 */
+
 	public void setPosted(boolean Posted) {
 		if (get_ID() == 0) {
-			this.setPosted(Posted);
+			super.setPosted(Posted);
 		}
 	}
 
@@ -1437,9 +1461,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param Processed The document has been processed
 	 */
+
 	public void setProcessed(boolean Processed) {
 		if (get_ID() == 0) {
-			this.setProcessed(Processed);
+			super.setProcessed(Processed);
 		}
 	}
 
@@ -1474,9 +1499,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param QuotationOrder_ID Quotation used for generating this order
 	 */
+
 	public void setQuotationOrder_ID(int QuotationOrder_ID) {
 		if (get_ID() == 0) {
-			this.setQuotationOrder_ID(QuotationOrder_ID);
+			super.setQuotationOrder_ID(QuotationOrder_ID);
 		}
 	}
 
@@ -1511,9 +1537,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param Ref_Order_ID Reference to corresponding Sales/Purchase Order
 	 */
+
 	public void setRef_Order_ID(int Ref_Order_ID) {
 		if (get_ID() == 0) {
-			this.setRef_Order_ID(Ref_Order_ID);
+			super.setRef_Order_ID(Ref_Order_ID);
 		}
 	}
 
@@ -1548,9 +1575,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param SalesRep_ID Sales Representative or Company Agent
 	 */
+
 	public void setSalesRep_ID(int SalesRep_ID) {
 		if (get_ID() == 0) {
-			this.setSalesRep_ID(SalesRep_ID);
+			super.setSalesRep_ID(SalesRep_ID);
 		}
 	}
 	/**
@@ -1558,9 +1586,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param TotalLines Total of all document lines
 	 */
+
 	public void setTotalLines(BigDecimal TotalLines) {
 		if (get_ID() == 0) {
-			this.setTotalLines(TotalLines);
+			super.setTotalLines(TotalLines);
 		}
 	}
 
@@ -1595,9 +1624,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param User1_ID User defined list element #1
 	 */
+
 	public void setUser1_ID(int User1_ID) {
 		if (get_ID() == 0) {
-			this.setUser1_ID(User1_ID);
+			super.setUser1_ID(User1_ID);
 		}
 	}
 
@@ -1632,9 +1662,10 @@ public class X_C_OrderInput extends X_C_Order implements I_C_OrderInput {
 	 *
 	 * @param User2_ID User defined list element #2
 	 */
+
 	public void setUser2_ID(int User2_ID) {
 		if (get_ID() == 0) {
-			this.setUser2_ID(User2_ID);
+			super.setUser2_ID(User2_ID);
 		}
 	}
 }

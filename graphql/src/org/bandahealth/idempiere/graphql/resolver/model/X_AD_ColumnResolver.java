@@ -157,6 +157,22 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		return dataLoader.load(entity.getAD_Val_Rule_Lookup_ID());
 	}
 
+	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
+		{
+			put("D", 10);
+			put("C", 20);
+			put("U", 100);
+			put("CUST", 110);
+			put("A", 200);
+			put("EXT", 210);
+			put("XX", 220);
+			put("EE01", 50000);
+			put("EE04", 50001);
+			put("EE05", 50003);
+			put("EE02", 50005);
+			put("WSTORE", 200015);
+		}
+	};
 
 	/**
 	 * Get Entity Type.
@@ -164,21 +180,21 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	public CompletableFuture<MEntityType> AD_EntityType(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getEntityType() <= 0) {
+		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
-		return dataLoader.load(entity.getEntityType());
+		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
 	static Map<String, String> FKCONSTRAINTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MColumn.FKCONSTRAINTTYPE_DoNotCreate, "ad2bedf7-814f-4b7d-ae4e-dac0a8a406f6");
-			put(MColumn.FKCONSTRAINTTYPE_NoAction, "49ed557e-0170-4594-a65d-fae6e895ffde");
-			put(MColumn.FKCONSTRAINTTYPE_Cascade, "e3ef6ea1-87c4-4141-9f5a-882741a167cd");
-			put(MColumn.FKCONSTRAINTTYPE_SetNull, "324b9a18-fc1f-44ba-a1ce-c83e63c7b63b");
-			put(MColumn.FKCONSTRAINTTYPE_ModelCascade, "c0542a52-fe58-4b87-8bd4-9dc2fe3afa7a");
+			put("D", "ad2bedf7-814f-4b7d-ae4e-dac0a8a406f6");
+			put("N", "49ed557e-0170-4594-a65d-fae6e895ffde");
+			put("C", "e3ef6ea1-87c4-4141-9f5a-882741a167cd");
+			put("S", "324b9a18-fc1f-44ba-a1ce-c83e63c7b63b");
+			put("M", "c0542a52-fe58-4b87-8bd4-9dc2fe3afa7a");
 		}
 	};
 	public CompletableFuture<MRefList> FKConstraintType_RL(MColumn entity, DataFetchingEnvironment environment) {
@@ -192,8 +208,8 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 
 	static Map<String, String> ISENCRYPTED_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MColumn.ISENCRYPTED_Encrypted, "6cc61ac6-b554-4f3e-8438-c8793bb8ca0a");
-			put(MColumn.ISENCRYPTED_NotEncrypted, "3581aa8a-7a64-4485-b0f6-e6948f3d00d7");
+			put("Y", "6cc61ac6-b554-4f3e-8438-c8793bb8ca0a");
+			put("N", "3581aa8a-7a64-4485-b0f6-e6948f3d00d7");
 		}
 	};
 	public CompletableFuture<MRefList> IsEncrypted_RL(MColumn entity, DataFetchingEnvironment environment) {
@@ -207,9 +223,9 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 
 	static Map<String, String> ISTOOLBARBUTTON_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MColumn.ISTOOLBARBUTTON_Toolbar, "5803fda0-fda8-4100-85f2-a4fe8142a059");
-			put(MColumn.ISTOOLBARBUTTON_Window, "eb2f6365-a357-4655-9102-d622360aacce");
-			put(MColumn.ISTOOLBARBUTTON_Both, "5b8b7285-d4da-4513-8941-a280d501ea19");
+			put("Y", "5803fda0-fda8-4100-85f2-a4fe8142a059");
+			put("N", "eb2f6365-a357-4655-9102-d622360aacce");
+			put("B", "5b8b7285-d4da-4513-8941-a280d501ea19");
 		}
 	};
 	public CompletableFuture<MRefList> IsToolbarButton_RL(MColumn entity, DataFetchingEnvironment environment) {

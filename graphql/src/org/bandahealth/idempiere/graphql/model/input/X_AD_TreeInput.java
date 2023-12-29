@@ -5,8 +5,8 @@ import org.compiere.model.MColumn;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.MTable;
-import org.compiere.model.MTree;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Tree;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
+public class X_AD_TreeInput extends X_AD_Tree implements I_AD_TreeInput {
 
 	 private I_AD_ColumnInput Parent_Column;
 	 private I_AD_OrgInput AD_Org;
@@ -79,6 +79,28 @@ public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
 	public I_AD_TableInput getAD_Table() {
 		return AD_Table;
 	}
+	/**
+	 * Set Table.
+	 *
+	 * @param AD_Table_ID Database Table information
+	 */
+
+	public void setAD_Table_ID(int AD_Table_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Table_ID(AD_Table_ID);
+		}
+	}
+	/**
+	 * Set Tree.
+	 *
+	 * @param AD_Tree_ID Identifies a Tree
+	 */
+
+	public void setAD_Tree_ID(int AD_Tree_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_ID(AD_Tree_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -123,6 +145,17 @@ public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
 	 */
 	public I_AD_ColumnInput getParent_Column() {
 		return Parent_Column;
+	}
+	/**
+	 * Set Parent Column.
+	 *
+	 * @param Parent_Column_ID The link column on the parent tab.
+	 */
+
+	public void setParent_Column_ID(int Parent_Column_ID) {
+		if (get_ID() == 0) {
+			super.setParent_Column_ID(Parent_Column_ID);
+		}
 	}
 
 	/**

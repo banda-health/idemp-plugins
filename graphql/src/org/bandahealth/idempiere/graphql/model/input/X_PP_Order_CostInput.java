@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -93,6 +94,17 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	public I_AD_WorkflowInput getAD_Workflow() {
 		return AD_Workflow;
 	}
+	/**
+	 * Set Workflow.
+	 *
+	 * @param AD_Workflow_ID Workflow or combination of tasks
+	 */
+
+	public void setAD_Workflow_ID(int AD_Workflow_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Workflow_ID(AD_Workflow_ID);
+		}
+	}
 
 	/**
 	 * Set Accounting Schema.
@@ -150,6 +162,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CumulatedAmt Total Amount
 	 */
+
 	public void setCumulatedAmt(BigDecimal CumulatedAmt) {
 		if (get_ID() == 0) {
 			super.setCumulatedAmt(CumulatedAmt);
@@ -160,6 +173,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CumulatedAmtPost Cumulated Amt Post
 	 */
+
 	public void setCumulatedAmtPost(BigDecimal CumulatedAmtPost) {
 		if (get_ID() == 0) {
 			super.setCumulatedAmtPost(CumulatedAmtPost);
@@ -170,6 +184,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CumulatedQty Total Quantity
 	 */
+
 	public void setCumulatedQty(BigDecimal CumulatedQty) {
 		if (get_ID() == 0) {
 			super.setCumulatedQty(CumulatedQty);
@@ -180,6 +195,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CumulatedQtyPost Cumulated Qty Post
 	 */
+
 	public void setCumulatedQtyPost(BigDecimal CumulatedQtyPost) {
 		if (get_ID() == 0) {
 			super.setCumulatedQtyPost(CumulatedQtyPost);
@@ -190,6 +206,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CurrentCostPrice The currently used cost price
 	 */
+
 	public void setCurrentCostPrice(BigDecimal CurrentCostPrice) {
 		if (get_ID() == 0) {
 			super.setCurrentCostPrice(CurrentCostPrice);
@@ -200,6 +217,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 *
 	 * @param CurrentCostPriceLL Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
 	 */
+
 	public void setCurrentCostPriceLL(BigDecimal CurrentCostPriceLL) {
 		if (get_ID() == 0) {
 			super.setCurrentCostPriceLL(CurrentCostPriceLL);
@@ -257,6 +275,17 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	public I_M_CostElementInput getM_CostElement() {
 		return M_CostElement;
 	}
+	/**
+	 * Set Cost Element.
+	 *
+	 * @param M_CostElement_ID Product Cost Element
+	 */
+
+	public void setM_CostElement_ID(int M_CostElement_ID) {
+		if (get_ID() == 0) {
+			super.setM_CostElement_ID(M_CostElement_ID);
+		}
+	}
 
 	/**
 	 * Set Cost Type.
@@ -309,6 +338,28 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	public I_M_ProductInput getM_Product() {
 		return M_Product;
 	}
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product_ID Product, Service, Item
+	 */
+
+	public void setM_Product_ID(int M_Product_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_ID(M_Product_ID);
+		}
+	}
+	/**
+	 * Set Manufacturing Order Cost.
+	 *
+	 * @param PP_Order_Cost_ID Manufacturing Order Cost
+	 */
+
+	public void setPP_Order_Cost_ID(int PP_Order_Cost_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_Cost_ID(PP_Order_Cost_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -351,5 +402,16 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 */
 	public I_PP_OrderInput getPP_Order() {
 		return PP_Order;
+	}
+	/**
+	 * Set Manufacturing Order.
+	 *
+	 * @param PP_Order_ID Manufacturing Order
+	 */
+
+	public void setPP_Order_ID(int PP_Order_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_ID(PP_Order_ID);
+		}
 	}
 }

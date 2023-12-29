@@ -50,6 +50,17 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Position.
+	 *
+	 * @param C_Job_ID Job Position
+	 */
+
+	public void setC_Job_ID(int C_Job_ID) {
+		if (get_ID() == 0) {
+			super.setC_Job_ID(C_Job_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

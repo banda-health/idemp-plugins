@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAssetClass;
-import org.compiere.model.MAssetGroup;
 import org.compiere.model.MAssetType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Group;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_GroupInput {
+public class X_A_Asset_GroupInput extends X_A_Asset_Group implements I_A_Asset_GroupInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_A_Asset_ClassInput A_Asset_Class;
@@ -53,6 +53,28 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	 */
 	public I_A_Asset_ClassInput getA_Asset_Class() {
 		return A_Asset_Class;
+	}
+	/**
+	 * Set Asset class.
+	 *
+	 * @param A_Asset_Class_ID Asset class
+	 */
+
+	public void setA_Asset_Class_ID(int A_Asset_Class_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Class_ID(A_Asset_Class_ID);
+		}
+	}
+	/**
+	 * Set Asset Group.
+	 *
+	 * @param A_Asset_Group_ID Group of Assets
+	 */
+
+	public void setA_Asset_Group_ID(int A_Asset_Group_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Group_ID(A_Asset_Group_ID);
+		}
 	}
 
 	/**

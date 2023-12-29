@@ -9,6 +9,8 @@ import org.compiere.model.MSLAMeasure;
 import org.compiere.model.MTable;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for PA_SLA_Measure - DO NOT CHANGE
  *

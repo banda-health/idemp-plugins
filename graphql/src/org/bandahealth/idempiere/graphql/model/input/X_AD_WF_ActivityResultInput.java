@@ -75,6 +75,28 @@ public class X_AD_WF_ActivityResultInput extends X_AD_WF_ActivityResult implemen
 	public I_AD_WF_ActivityInput getAD_WF_Activity() {
 		return AD_WF_Activity;
 	}
+	/**
+	 * Set Workflow Activity.
+	 *
+	 * @param AD_WF_Activity_ID Workflow Activity
+	 */
+
+	public void setAD_WF_Activity_ID(int AD_WF_Activity_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Activity_ID(AD_WF_Activity_ID);
+		}
+	}
+	/**
+	 * Set Workflow Activity Result.
+	 *
+	 * @param AD_WF_ActivityResult_ID Result of the Workflow Process Activity
+	 */
+
+	public void setAD_WF_ActivityResult_ID(int AD_WF_ActivityResult_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_ActivityResult_ID(AD_WF_ActivityResult_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

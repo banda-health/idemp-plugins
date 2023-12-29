@@ -32,7 +32,7 @@ type A_Depreciation_Exp {
 	A_Depreciation_Entry: A_Depreciation_Entry
 	ID: ID!
 	A_Entry_Type_RL: AD_Ref_List!
-	A_Period_RL: Int!
+	A_Period: Int!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -90,7 +90,7 @@ input A_Depreciation_ExpInput {
 	A_Depreciation_Entry: A_Depreciation_EntryInput
 	ID: ID
 	A_Entry_Type_RL: AD_Ref_ListInput
-	A_Period_RL: Int
+	A_Period: Int
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	# Rules for accounting

@@ -9,11 +9,16 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoad
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReferenceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Val_RuleDataLoader;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MProcessPara;
 import org.compiere.model.MValRule;
 import org.compiere.model.M_Element;
 import org.dataloader.DataLoader;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated ModelResolver for AD_Process_Para - DO NOT CHANGE
@@ -99,6 +104,22 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
 	}
 
+	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
+		{
+			put("D", 10);
+			put("C", 20);
+			put("U", 100);
+			put("CUST", 110);
+			put("A", 200);
+			put("EXT", 210);
+			put("XX", 220);
+			put("EE01", 50000);
+			put("EE04", 50001);
+			put("EE05", 50003);
+			put("EE02", 50005);
+			put("WSTORE", 200015);
+		}
+	};
 
 	/**
 	 * Get Entity Type.
@@ -106,12 +127,12 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	public CompletableFuture<MEntityType> AD_EntityType(MProcessPara entity, DataFetchingEnvironment environment) {
-		if (entity.getEntityType() <= 0) {
+		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
-		return dataLoader.load(entity.getEntityType());
+		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
 }

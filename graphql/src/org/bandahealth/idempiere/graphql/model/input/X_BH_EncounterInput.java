@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHVisit;
+import org.bandahealth.idempiere.base.model.X_BH_Encounter;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterInput {
+public class X_BH_EncounterInput extends X_BH_Encounter implements I_BH_EncounterInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput BH_Encounter_Type_RL;
@@ -51,6 +51,17 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Encounter.
+	 *
+	 * @param BH_Encounter_ID Encounter
+	 */
+
+	public void setBH_Encounter_ID(int BH_Encounter_ID) {
+		if (get_ID() == 0) {
+			super.setBH_Encounter_ID(BH_Encounter_ID);
+		}
 	}
 
 	/**

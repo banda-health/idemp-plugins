@@ -11,6 +11,8 @@ import org.compiere.model.MCashBook;
 import org.compiere.model.X_C_CashBook_Acct;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_CashBook_Acct - DO NOT CHANGE
  *

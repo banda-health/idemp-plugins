@@ -106,6 +106,28 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	public I_AD_WF_NodeInput getAD_WF_Node() {
 		return AD_WF_Node;
 	}
+	/**
+	 * Set Node.
+	 *
+	 * @param AD_WF_Node_ID Workflow Node (activity), step or process
+	 */
+
+	public void setAD_WF_Node_ID(int AD_WF_Node_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Node_ID(AD_WF_Node_ID);
+		}
+	}
+	/**
+	 * Set Workflow Node Parameter.
+	 *
+	 * @param AD_WF_Node_Para_ID Workflow Node Execution Parameter
+	 */
+
+	public void setAD_WF_Node_Para_ID(int AD_WF_Node_Para_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Node_Para_ID(AD_WF_Node_Para_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -137,9 +159,9 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -150,5 +172,16 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 }

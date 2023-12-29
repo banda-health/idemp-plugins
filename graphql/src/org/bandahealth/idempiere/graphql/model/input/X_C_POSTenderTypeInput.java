@@ -50,6 +50,17 @@ public class X_C_POSTenderTypeInput extends X_C_POSTenderType implements I_C_POS
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set POS Tender Type.
+	 *
+	 * @param C_POSTenderType_ID POS Tender Type
+	 */
+
+	public void setC_POSTenderType_ID(int C_POSTenderType_ID) {
+		if (get_ID() == 0) {
+			super.setC_POSTenderType_ID(C_POSTenderType_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

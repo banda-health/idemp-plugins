@@ -4,8 +4,8 @@ import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Ref_List;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_Ref_ListInput extends MRefList implements I_AD_Ref_ListInput {
+public class X_AD_Ref_ListInput extends X_AD_Ref_List implements I_AD_Ref_ListInput {
 
 	 private I_AD_EntityTypeInput AD_EntityType;
 	 private I_AD_OrgInput AD_Org;
@@ -51,6 +51,17 @@ public class X_AD_Ref_ListInput extends MRefList implements I_AD_Ref_ListInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Reference List.
+	 *
+	 * @param AD_Ref_List_ID Reference List based on Table
+	 */
+
+	public void setAD_Ref_List_ID(int AD_Ref_List_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Ref_List_ID(AD_Ref_List_ID);
+		}
 	}
 
 	/**
@@ -95,6 +106,57 @@ public class X_AD_Ref_ListInput extends MRefList implements I_AD_Ref_ListInput {
 	public I_AD_ReferenceInput getAD_Reference() {
 		return AD_Reference;
 	}
+	/**
+	 * Set Reference.
+	 *
+	 * @param AD_Reference_ID System Reference and Validation
+	 */
+
+	public void setAD_Reference_ID(int AD_Reference_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Reference_ID(AD_Reference_ID);
+		}
+	}
+
+	/**
+	 * Set Add All Access.
+	 *
+	 * @param BH_Add_All Add All Access
+	 */
+	public void setBH_Add_All(String BH_Add_All) {
+		set_Value(COLUMNNAME_BH_Add_All, BH_Add_All);
+	}
+
+
+	/**
+	 * Get Add All Access.
+	 *
+	 * @return Add All Access
+	 */
+	public String getBH_Add_All() {
+ 		return (String) get_Value(COLUMNNAME_BH_Add_All);
+	}
+
+
+	/**
+	 * Set Update Existing.
+	 *
+	 * @param BH_Update_Existing Update Existing
+	 */
+	public void setBH_Update_Existing(String BH_Update_Existing) {
+		set_Value(COLUMNNAME_BH_Update_Existing, BH_Update_Existing);
+	}
+
+
+	/**
+	 * Get Update Existing.
+	 *
+	 * @return Update Existing
+	 */
+	public String getBH_Update_Existing() {
+ 		return (String) get_Value(COLUMNNAME_BH_Update_Existing);
+	}
+
 
 	/**
 	 * Set Entity Type.
@@ -108,9 +170,9 @@ public class X_AD_Ref_ListInput extends MRefList implements I_AD_Ref_ListInput {
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -121,5 +183,16 @@ public class X_AD_Ref_ListInput extends MRefList implements I_AD_Ref_ListInput {
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 }

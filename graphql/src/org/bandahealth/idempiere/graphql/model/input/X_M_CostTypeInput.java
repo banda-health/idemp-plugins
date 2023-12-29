@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MCostType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_CostType;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_CostTypeInput extends MCostType implements I_M_CostTypeInput {
+public class X_M_CostTypeInput extends X_M_CostType implements I_M_CostTypeInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_M_CostTypeInput extends MCostType implements I_M_CostTypeInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Cost Type.
+	 *
+	 * @param M_CostType_ID Type of Cost (e.g. Current, Plan, Future)
+	 */
+
+	public void setM_CostType_ID(int M_CostType_ID) {
+		if (get_ID() == 0) {
+			super.setM_CostType_ID(M_CostType_ID);
+		}
 	}
 
 	/**

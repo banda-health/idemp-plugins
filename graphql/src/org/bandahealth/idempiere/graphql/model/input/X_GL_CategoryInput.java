@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MGLCategory;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_GL_Category;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_GL_CategoryInput extends MGLCategory implements I_GL_CategoryInput {
+public class X_GL_CategoryInput extends X_GL_Category implements I_GL_CategoryInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput CategoryType_RL;
@@ -76,6 +76,17 @@ public class X_GL_CategoryInput extends MGLCategory implements I_GL_CategoryInpu
 	 */
 	public I_AD_Ref_ListInput getCategoryType_RL() {
 		return CategoryType_RL;
+	}
+	/**
+	 * Set GL Category.
+	 *
+	 * @param GL_Category_ID General Ledger Category
+	 */
+
+	public void setGL_Category_ID(int GL_Category_ID) {
+		if (get_ID() == 0) {
+			super.setGL_Category_ID(GL_Category_ID);
+		}
 	}
 
 	/**

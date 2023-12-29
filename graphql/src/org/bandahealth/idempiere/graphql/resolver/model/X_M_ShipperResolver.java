@@ -11,6 +11,8 @@ import org.compiere.model.MShippingProcessor;
 import org.compiere.model.X_M_ShipperCfg;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_Shipper - DO NOT CHANGE
  *

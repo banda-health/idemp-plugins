@@ -33,9 +33,9 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 
 	static Map<String, String> A_REV_CODE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_A_Asset_Reval_Entry.A_REV_CODE_RevaluationCode1, "f9d5c700-9d0a-46c7-bf06-bf22a808b37d");
-			put(X_A_Asset_Reval_Entry.A_REV_CODE_RevaluationCode2, "678f01f7-e046-4f14-a64e-f8fd86e64ff4");
-			put(X_A_Asset_Reval_Entry.A_REV_CODE_RevaluationCode3, "374da497-243b-46a1-a10d-5690d37271c5");
+			put("R01", "f9d5c700-9d0a-46c7-bf06-bf22a808b37d");
+			put("R02", "678f01f7-e046-4f14-a64e-f8fd86e64ff4");
+			put("R03", "374da497-243b-46a1-a10d-5690d37271c5");
 		}
 	};
 	public CompletableFuture<MRefList> A_Rev_Code_RL(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
@@ -49,9 +49,9 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 
 	static Map<String, String> A_REVAL_CAL_METHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_A_Asset_Reval_Entry.A_REVAL_CAL_METHOD_Default, "c11a5c1d-7b50-4462-92f3-5fd512c7c3f9");
-			put(X_A_Asset_Reval_Entry.A_REVAL_CAL_METHOD_InceptionToDate, "82c0032e-1d8f-4001-b365-39f9a8cc2b05");
-			put(X_A_Asset_Reval_Entry.A_REVAL_CAL_METHOD_YearBalances, "2e54c6d4-f45a-474c-b4ab-6c7679f913dd");
+			put("DFT", "c11a5c1d-7b50-4462-92f3-5fd512c7c3f9");
+			put("IDF", "82c0032e-1d8f-4001-b365-39f9a8cc2b05");
+			put("YBF", "2e54c6d4-f45a-474c-b4ab-6c7679f913dd");
 		}
 	};
 	public CompletableFuture<MRefList> A_Reval_Cal_Method_RL(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
@@ -65,9 +65,9 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 
 	static Map<String, String> A_REVAL_EFFECTIVE_DATE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_A_Asset_Reval_Entry.A_REVAL_EFFECTIVE_DATE_DateAquired, "f20a49c2-43db-4df5-acfe-4272a089423a");
-			put(X_A_Asset_Reval_Entry.A_REVAL_EFFECTIVE_DATE_RevaluationDate, "46a86834-cdb1-478c-bf2b-f0f82cda336c");
-			put(X_A_Asset_Reval_Entry.A_REVAL_EFFECTIVE_DATE_DateDepreciationStarted, "29a40d61-8a8c-483b-9f43-03f25c4e5209");
+			put("DA", "f20a49c2-43db-4df5-acfe-4272a089423a");
+			put("RD", "46a86834-cdb1-478c-bf2b-f0f82cda336c");
+			put("SD", "29a40d61-8a8c-483b-9f43-03f25c4e5209");
 		}
 	};
 	public CompletableFuture<MRefList> A_Reval_Effective_Date_RL(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
@@ -81,8 +81,8 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 
 	static Map<String, String> A_REVAL_MULTIPLIER_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_A_Asset_Reval_Entry.A_REVAL_MULTIPLIER_Factor, "4d179af6-49ab-4e58-907f-ba46f9b7d071");
-			put(X_A_Asset_Reval_Entry.A_REVAL_MULTIPLIER_Index, "a3202410-8fba-4439-95fb-de3a1f32c568");
+			put("FAC", "4d179af6-49ab-4e58-907f-ba46f9b7d071");
+			put("IND", "a3202410-8fba-4439-95fb-de3a1f32c568");
 		}
 	};
 	public CompletableFuture<MRefList> A_Reval_Multiplier_RL(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
@@ -171,11 +171,11 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_A_Asset_Reval_Entry.POSTINGTYPE_Actual, "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put(X_A_Asset_Reval_Entry.POSTINGTYPE_Budget, "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put(X_A_Asset_Reval_Entry.POSTINGTYPE_Commitment, "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put(X_A_Asset_Reval_Entry.POSTINGTYPE_Statistical, "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put(X_A_Asset_Reval_Entry.POSTINGTYPE_Reservation, "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
 	public CompletableFuture<MRefList> PostingType_RL(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {

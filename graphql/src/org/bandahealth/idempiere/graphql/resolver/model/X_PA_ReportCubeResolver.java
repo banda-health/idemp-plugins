@@ -7,6 +7,8 @@ import org.compiere.model.MCalendar;
 import org.compiere.model.MReportCube;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for PA_ReportCube - DO NOT CHANGE
  *

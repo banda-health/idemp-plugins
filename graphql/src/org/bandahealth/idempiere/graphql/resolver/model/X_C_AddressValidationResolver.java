@@ -7,6 +7,8 @@ import org.compiere.model.MAddressValidation;
 import org.compiere.model.X_C_AddressValidationCfg;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_AddressValidation - DO NOT CHANGE
  *

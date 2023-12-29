@@ -1,11 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MElement;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.MTree;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Element;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ElementInput extends MElement implements I_C_ElementInput {
+public class X_C_ElementInput extends X_C_Element implements I_C_ElementInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput ElementType_RL;
@@ -76,6 +76,28 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 	 */
 	public I_AD_TreeInput getAD_Tree() {
 		return AD_Tree;
+	}
+	/**
+	 * Set Tree.
+	 *
+	 * @param AD_Tree_ID Identifies a Tree
+	 */
+
+	public void setAD_Tree_ID(int AD_Tree_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_ID(AD_Tree_ID);
+		}
+	}
+	/**
+	 * Set Element.
+	 *
+	 * @param C_Element_ID Accounting Element
+	 */
+
+	public void setC_Element_ID(int C_Element_ID) {
+		if (get_ID() == 0) {
+			super.setC_Element_ID(C_Element_ID);
+		}
 	}
 
 	/**

@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MLot;
 import org.compiere.model.MLotCtl;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_Lot;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_LotInput extends MLot implements I_M_LotInput {
+public class X_M_LotInput extends X_M_Lot implements I_M_LotInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_M_LotCtlInput M_LotCtl;
@@ -51,6 +51,17 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Lot.
+	 *
+	 * @param M_Lot_ID Product Lot Definition
+	 */
+
+	public void setM_Lot_ID(int M_Lot_ID) {
+		if (get_ID() == 0) {
+			super.setM_Lot_ID(M_Lot_ID);
+		}
 	}
 
 	/**
@@ -95,6 +106,17 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	public I_M_LotCtlInput getM_LotCtl() {
 		return M_LotCtl;
 	}
+	/**
+	 * Set Lot Control.
+	 *
+	 * @param M_LotCtl_ID Product Lot Control
+	 */
+
+	public void setM_LotCtl_ID(int M_LotCtl_ID) {
+		if (get_ID() == 0) {
+			super.setM_LotCtl_ID(M_LotCtl_ID);
+		}
+	}
 
 	/**
 	 * Set Product/Service.
@@ -119,5 +141,16 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	 */
 	public I_M_ProductInput getM_Product() {
 		return M_Product;
+	}
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product_ID Product, Service, Item
+	 */
+
+	public void setM_Product_ID(int M_Product_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_ID(M_Product_ID);
+		}
 	}
 }

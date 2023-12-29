@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColorSchema;
@@ -9,6 +11,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
+import org.compiere.model.X_PA_Goal;
 import org.compiere.util.Env;
 
 /**
@@ -17,7 +20,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
+public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput ChartType_RL;
@@ -147,6 +150,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 *
 	 * @param DateLastRun Date the process was last run.
 	 */
+
 	public void setDateLastRun(Timestamp DateLastRun) {
 		if (get_ID() == 0) {
 			super.setDateLastRun(DateLastRun);
@@ -157,6 +161,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 *
 	 * @param GoalPerformance Target achievement from 0..1
 	 */
+
 	public void setGoalPerformance(BigDecimal GoalPerformance) {
 		if (get_ID() == 0) {
 			super.setGoalPerformance(GoalPerformance);
@@ -167,6 +172,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 *
 	 * @param MeasureActual Actual value that has been measured.
 	 */
+
 	public void setMeasureActual(BigDecimal MeasureActual) {
 		if (get_ID() == 0) {
 			super.setMeasureActual(MeasureActual);
@@ -253,6 +259,17 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	public I_PA_ColorSchemaInput getPA_ColorSchema() {
 		return PA_ColorSchema;
 	}
+	/**
+	 * Set Goal.
+	 *
+	 * @param PA_Goal_ID Performance Goal
+	 */
+
+	public void setPA_Goal_ID(int PA_Goal_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Goal_ID(PA_Goal_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -297,6 +314,17 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 */
 	public I_PA_GoalInput getPA_GoalParent() {
 		return PA_GoalParent;
+	}
+	/**
+	 * Set Parent Goal.
+	 *
+	 * @param PA_GoalParent_ID Parent Goal
+	 */
+
+	public void setPA_GoalParent_ID(int PA_GoalParent_ID) {
+		if (get_ID() == 0) {
+			super.setPA_GoalParent_ID(PA_GoalParent_ID);
+		}
 	}
 
 	/**

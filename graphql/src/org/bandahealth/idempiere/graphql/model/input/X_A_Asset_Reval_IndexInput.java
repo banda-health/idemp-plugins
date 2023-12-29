@@ -26,6 +26,17 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
+	/**
+	 * Set Asset Reval Index.
+	 *
+	 * @param A_Asset_Reval_Index_ID Asset Reval Index
+	 */
+
+	public void setA_Asset_Reval_Index_ID(int A_Asset_Reval_Index_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Reval_Index_ID(A_Asset_Reval_Index_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

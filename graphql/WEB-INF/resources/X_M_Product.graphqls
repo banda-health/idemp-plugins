@@ -26,8 +26,6 @@ type M_Product {
 	# Element to allow buttons to be displayed that trigger tab navigation
 	BH_NavButtons: Object
 	BH_PriceMargin: Int
-	# Contains a character the is linked to a ref list to determine types of product categories
-	BH_Product_Category_Type_RL: AD_Ref_List
 	bh_reorder_level: Int
 	# How much quantity you want to re-order
 	bh_reorder_quantity: Int
@@ -175,8 +173,6 @@ input M_ProductInput {
 	# Element to allow buttons to be displayed that trigger tab navigation
 	BH_NavButtons: Object
 	BH_PriceMargin: Int
-	# Contains a character the is linked to a ref list to determine types of product categories
-	BH_Product_Category_Type_RL: AD_Ref_ListInput
 	bh_reorder_level: Int
 	# How much quantity you want to re-order
 	bh_reorder_quantity: Int

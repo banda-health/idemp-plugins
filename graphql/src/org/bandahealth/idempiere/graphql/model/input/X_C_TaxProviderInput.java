@@ -2,8 +2,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MTaxProvider;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_TaxProvider;
 import org.compiere.model.X_C_TaxProviderCfg;
 import org.compiere.util.Env;
 
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_TaxProviderInput extends MTaxProvider implements I_C_TaxProviderInput {
+public class X_C_TaxProviderInput extends X_C_TaxProvider implements I_C_TaxProviderInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_TaxProviderCfgInput C_TaxProviderCfg;
@@ -49,6 +49,17 @@ public class X_C_TaxProviderInput extends MTaxProvider implements I_C_TaxProvide
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Tax Provider.
+	 *
+	 * @param C_TaxProvider_ID Tax Provider
+	 */
+
+	public void setC_TaxProvider_ID(int C_TaxProvider_ID) {
+		if (get_ID() == 0) {
+			super.setC_TaxProvider_ID(C_TaxProvider_ID);
+		}
 	}
 
 	/**

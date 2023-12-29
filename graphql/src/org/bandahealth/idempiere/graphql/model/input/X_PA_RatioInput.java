@@ -77,6 +77,17 @@ public class X_PA_RatioInput extends X_PA_Ratio implements I_PA_RatioInput {
 	public I_C_AcctSchemaInput getC_AcctSchema() {
 		return C_AcctSchema;
 	}
+	/**
+	 * Set Ratio.
+	 *
+	 * @param PA_Ratio_ID Performance Ratio
+	 */
+
+	public void setPA_Ratio_ID(int PA_Ratio_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Ratio_ID(PA_Ratio_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

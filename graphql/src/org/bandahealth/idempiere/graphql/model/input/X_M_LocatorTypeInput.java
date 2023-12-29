@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MLocatorType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_LocatorType;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_LocatorTypeInput extends MLocatorType implements I_M_LocatorTypeInput {
+public class X_M_LocatorTypeInput extends X_M_LocatorType implements I_M_LocatorTypeInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_M_LocatorTypeInput extends MLocatorType implements I_M_LocatorTyp
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Locator Type.
+	 *
+	 * @param M_LocatorType_ID Locator Type
+	 */
+
+	public void setM_LocatorType_ID(int M_LocatorType_ID) {
+		if (get_ID() == 0) {
+			super.setM_LocatorType_ID(M_LocatorType_ID);
+		}
 	}
 
 	/**

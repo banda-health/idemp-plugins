@@ -23,9 +23,9 @@ public class X_A_Asset_Reval_IndexResolver extends POResolver<X_A_Asset_Reval_In
 
 	static Map<String, String> A_REVAL_CODE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_A_Asset_Reval_Index.A_REVAL_CODE_RevaluationCode1, "f9d5c700-9d0a-46c7-bf06-bf22a808b37d");
-			put(X_A_Asset_Reval_Index.A_REVAL_CODE_RevaluationCode2, "678f01f7-e046-4f14-a64e-f8fd86e64ff4");
-			put(X_A_Asset_Reval_Index.A_REVAL_CODE_RevaluationCode3, "374da497-243b-46a1-a10d-5690d37271c5");
+			put("R01", "f9d5c700-9d0a-46c7-bf06-bf22a808b37d");
+			put("R02", "678f01f7-e046-4f14-a64e-f8fd86e64ff4");
+			put("R03", "374da497-243b-46a1-a10d-5690d37271c5");
 		}
 	};
 	public CompletableFuture<MRefList> A_Reval_Code_RL(X_A_Asset_Reval_Index entity, DataFetchingEnvironment environment) {
@@ -39,8 +39,8 @@ public class X_A_Asset_Reval_IndexResolver extends POResolver<X_A_Asset_Reval_In
 
 	static Map<String, String> A_REVAL_MULTIPLIER_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_A_Asset_Reval_Index.A_REVAL_MULTIPLIER_Factor, "4d179af6-49ab-4e58-907f-ba46f9b7d071");
-			put(X_A_Asset_Reval_Index.A_REVAL_MULTIPLIER_Index, "a3202410-8fba-4439-95fb-de3a1f32c568");
+			put("FAC", "4d179af6-49ab-4e58-907f-ba46f9b7d071");
+			put("IND", "a3202410-8fba-4439-95fb-de3a1f32c568");
 		}
 	};
 	public CompletableFuture<MRefList> A_Reval_Multiplier_RL(X_A_Asset_Reval_Index entity, DataFetchingEnvironment environment) {

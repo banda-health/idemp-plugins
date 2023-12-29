@@ -3,8 +3,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MOrg;
-import org.compiere.model.MYear;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Year;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_YearInput extends MYear implements I_C_YearInput {
+public class X_C_YearInput extends X_C_Year implements I_C_YearInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_CalendarInput C_Calendar;
@@ -74,6 +74,28 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 	 */
 	public I_C_CalendarInput getC_Calendar() {
 		return C_Calendar;
+	}
+	/**
+	 * Set Calendar.
+	 *
+	 * @param C_Calendar_ID Accounting Calendar Name
+	 */
+
+	public void setC_Calendar_ID(int C_Calendar_ID) {
+		if (get_ID() == 0) {
+			super.setC_Calendar_ID(C_Calendar_ID);
+		}
+	}
+	/**
+	 * Set Year.
+	 *
+	 * @param C_Year_ID Calendar Year
+	 */
+
+	public void setC_Year_ID(int C_Year_ID) {
+		if (get_ID() == 0) {
+			super.setC_Year_ID(C_Year_ID);
+		}
 	}
 
 	/**

@@ -156,9 +156,9 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 
 	static Map<String, String> SOPOTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MTax.SOPOTYPE_Both, "4d7e51ff-cf6b-401d-b70b-fa87ba05a913");
-			put(MTax.SOPOTYPE_SalesTax, "178a8145-a858-4705-9feb-d2428b7c2427");
-			put(MTax.SOPOTYPE_PurchaseTax, "5d8aad9d-36bf-4f30-bbb2-639726c133f5");
+			put("B", "4d7e51ff-cf6b-401d-b70b-fa87ba05a913");
+			put("S", "178a8145-a858-4705-9feb-d2428b7c2427");
+			put("P", "5d8aad9d-36bf-4f30-bbb2-639726c133f5");
 		}
 	};
 	public CompletableFuture<MRefList> SOPOType_RL(MTax entity, DataFetchingEnvironment environment) {

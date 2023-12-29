@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
-import org.compiere.model.MAssetReval;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Reval;
 import org.compiere.util.Env;
 
 /**
@@ -14,12 +14,11 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_RevalInput extends MAssetReval implements I_A_Asset_RevalInput {
+public class X_A_Asset_RevalInput extends X_A_Asset_Reval implements I_A_Asset_RevalInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput DocAction_RL;
 	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput Posted_RL;
 	 private I_AD_Ref_ListInput PostingType_RL;
 	 private I_A_AssetInput A_Asset;
 
@@ -54,6 +53,28 @@ public class X_A_Asset_RevalInput extends MAssetReval implements I_A_Asset_Reval
 	 */
 	public I_A_AssetInput getA_Asset() {
 		return A_Asset;
+	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
+	}
+	/**
+	 * Set Asset Revaluation.
+	 *
+	 * @param A_Asset_Reval_ID Asset Revaluation
+	 */
+
+	public void setA_Asset_Reval_ID(int A_Asset_Reval_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Reval_ID(A_Asset_Reval_ID);
+		}
 	}
 
 	/**
@@ -152,32 +173,16 @@ public class X_A_Asset_RevalInput extends MAssetReval implements I_A_Asset_Reval
 	public I_AD_Ref_ListInput getDocStatus_RL() {
 		return DocStatus_RL;
 	}
-
 	/**
 	 * Set Posted.
 	 *
-	 * @param Posted_RL Posting status
+	 * @param Posted Posting status
 	 */
-	public void setPosted_RL(I_AD_Ref_ListInput Posted_RL) {
-		this.Posted_RL = Posted_RL;
-		MRefList foreignEntity;
-		if (Posted_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Posted_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPosted(foreignEntity.getValue());
-		} else {
-			this.setPosted(null);
-		}
-	}
 
-	/**
-	 * Get Posted.
-	 *
-	 * @return Posting status
-	 */
-	public I_AD_Ref_ListInput getPosted_RL() {
-		return Posted_RL;
+	public void setPosted(boolean Posted) {
+		if (get_ID() == 0) {
+			super.setPosted(Posted);
+		}
 	}
 
 	/**

@@ -52,6 +52,28 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 	public I_A_AssetInput getA_Asset() {
 		return A_Asset;
 	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
+	}
+	/**
+	 * Set Asset Retirement.
+	 *
+	 * @param A_Asset_Retirement_ID Internally used asset is not longer used.
+	 */
+
+	public void setA_Asset_Retirement_ID(int A_Asset_Retirement_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Retirement_ID(A_Asset_Retirement_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

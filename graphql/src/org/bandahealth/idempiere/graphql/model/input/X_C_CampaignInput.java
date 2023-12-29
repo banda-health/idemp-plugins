@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MCampaign;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Campaign;
 import org.compiere.model.X_C_Channel;
 import org.compiere.util.Env;
 
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
+public class X_C_CampaignInput extends X_C_Campaign implements I_C_CampaignInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_ChannelInput C_Channel;
@@ -49,6 +49,17 @@ public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Campaign.
+	 *
+	 * @param C_Campaign_ID Marketing Campaign
+	 */
+
+	public void setC_Campaign_ID(int C_Campaign_ID) {
+		if (get_ID() == 0) {
+			super.setC_Campaign_ID(C_Campaign_ID);
+		}
 	}
 
 	/**

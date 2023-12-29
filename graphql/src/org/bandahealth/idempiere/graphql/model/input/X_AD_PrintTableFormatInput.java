@@ -90,6 +90,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Print Table Format.
+	 *
+	 * @param AD_PrintTableFormat_ID Table Format in Reports
+	 */
+
+	public void setAD_PrintTableFormat_ID(int AD_PrintTableFormat_ID) {
+		if (get_ID() == 0) {
+			super.setAD_PrintTableFormat_ID(AD_PrintTableFormat_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -135,6 +146,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	public I_AD_PrintFontInput getFunct_PrintFont() {
 		return Funct_PrintFont;
 	}
+	/**
+	 * Set Function Font.
+	 *
+	 * @param Funct_PrintFont_ID Function row Font
+	 */
+
+	public void setFunct_PrintFont_ID(int Funct_PrintFont_ID) {
+		if (get_ID() == 0) {
+			super.setFunct_PrintFont_ID(Funct_PrintFont_ID);
+		}
+	}
 
 	/**
 	 * Set Function BG Color.
@@ -161,6 +183,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 */
 	public I_AD_PrintColorInput getFunctBG_PrintColor() {
 		return FunctBG_PrintColor;
+	}
+	/**
+	 * Set Function BG Color.
+	 *
+	 * @param FunctBG_PrintColor_ID Function Background Color
+	 */
+
+	public void setFunctBG_PrintColor_ID(int FunctBG_PrintColor_ID) {
+		if (get_ID() == 0) {
+			super.setFunctBG_PrintColor_ID(FunctBG_PrintColor_ID);
+		}
 	}
 
 	/**
@@ -189,6 +222,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	public I_AD_PrintColorInput getFunctFG_PrintColor() {
 		return FunctFG_PrintColor;
 	}
+	/**
+	 * Set Function Color.
+	 *
+	 * @param FunctFG_PrintColor_ID Function Foreground Color
+	 */
+
+	public void setFunctFG_PrintColor_ID(int FunctFG_PrintColor_ID) {
+		if (get_ID() == 0) {
+			super.setFunctFG_PrintColor_ID(FunctFG_PrintColor_ID);
+		}
+	}
 
 	/**
 	 * Set Header Row Font.
@@ -216,6 +260,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	public I_AD_PrintFontInput getHdr_PrintFont() {
 		return Hdr_PrintFont;
 	}
+	/**
+	 * Set Header Row Font.
+	 *
+	 * @param Hdr_PrintFont_ID Header row Font
+	 */
+
+	public void setHdr_PrintFont_ID(int Hdr_PrintFont_ID) {
+		if (get_ID() == 0) {
+			super.setHdr_PrintFont_ID(Hdr_PrintFont_ID);
+		}
+	}
 
 	/**
 	 * Set Header Line Color.
@@ -242,6 +297,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 */
 	public I_AD_PrintColorInput getHdrLine_PrintColor() {
 		return HdrLine_PrintColor;
+	}
+	/**
+	 * Set Header Line Color.
+	 *
+	 * @param HdrLine_PrintColor_ID Table header row line color
+	 */
+
+	public void setHdrLine_PrintColor_ID(int HdrLine_PrintColor_ID) {
+		if (get_ID() == 0) {
+			super.setHdrLine_PrintColor_ID(HdrLine_PrintColor_ID);
+		}
 	}
 
 	/**
@@ -297,6 +363,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	public I_AD_PrintColorInput getHdrTextBG_PrintColor() {
 		return HdrTextBG_PrintColor;
 	}
+	/**
+	 * Set Header Row BG Color.
+	 *
+	 * @param HdrTextBG_PrintColor_ID Background color of header row
+	 */
+
+	public void setHdrTextBG_PrintColor_ID(int HdrTextBG_PrintColor_ID) {
+		if (get_ID() == 0) {
+			super.setHdrTextBG_PrintColor_ID(HdrTextBG_PrintColor_ID);
+		}
+	}
 
 	/**
 	 * Set Header Row Color.
@@ -324,6 +401,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	public I_AD_PrintColorInput getHdrTextFG_PrintColor() {
 		return HdrTextFG_PrintColor;
 	}
+	/**
+	 * Set Header Row Color.
+	 *
+	 * @param HdrTextFG_PrintColor_ID Foreground color if the table header row
+	 */
+
+	public void setHdrTextFG_PrintColor_ID(int HdrTextFG_PrintColor_ID) {
+		if (get_ID() == 0) {
+			super.setHdrTextFG_PrintColor_ID(HdrTextFG_PrintColor_ID);
+		}
+	}
 
 	/**
 	 * Set Line Color.
@@ -350,6 +438,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 */
 	public I_AD_PrintColorInput getLine_PrintColor() {
 		return Line_PrintColor;
+	}
+	/**
+	 * Set Line Color.
+	 *
+	 * @param Line_PrintColor_ID Table line color
+	 */
+
+	public void setLine_PrintColor_ID(int Line_PrintColor_ID) {
+		if (get_ID() == 0) {
+			super.setLine_PrintColor_ID(Line_PrintColor_ID);
+		}
 	}
 
 	/**

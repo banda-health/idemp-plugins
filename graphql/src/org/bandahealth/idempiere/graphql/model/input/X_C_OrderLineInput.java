@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
@@ -22,6 +24,7 @@ import org.compiere.model.MShipper;
 import org.compiere.model.MTax;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_OrderLine;
 import org.compiere.model.X_M_Promotion;
 import org.compiere.util.Env;
 import org.eevolution.model.X_PP_Cost_Collector;
@@ -32,7 +35,7 @@ import org.eevolution.model.X_PP_Cost_Collector;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineInput {
+public class X_C_OrderLineInput extends X_C_OrderLine implements I_C_OrderLineInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_ActivityInput C_Activity;
@@ -95,6 +98,66 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	}
 
 	/**
+	 * Set Expire On.
+	 *
+	 * @param BH_Expiration Expire On
+	 */
+	public void setBH_Expiration(Timestamp BH_Expiration) {
+		set_Value(COLUMNNAME_BH_Expiration, BH_Expiration);
+	}
+
+
+	/**
+	 * Get Expire On.
+	 *
+	 * @return Expire On
+	 */
+	public Timestamp getBH_Expiration() {
+ 		return (Timestamp) get_Value(COLUMNNAME_BH_Expiration);
+	}
+
+
+	/**
+	 * Set BH_Instructions.
+	 *
+	 * @param BH_Instructions BH_Instructions
+	 */
+	public void setBH_Instructions(String BH_Instructions) {
+		set_Value(COLUMNNAME_BH_Instructions, BH_Instructions);
+	}
+
+
+	/**
+	 * Get BH_Instructions.
+	 *
+	 * @return BH_Instructions
+	 */
+	public String getBH_Instructions() {
+ 		return (String) get_Value(COLUMNNAME_BH_Instructions);
+	}
+
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons) {
+		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
+	}
+
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons() {
+ 		return get_Value(COLUMNNAME_BH_NavButtons);
+	}
+
+
+	/**
 	 * Set Activity.
 	 *
 	 * @param C_Activity Business Activity
@@ -144,6 +207,17 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 */
 	public I_C_BPartnerInput getC_BPartner() {
 		return C_BPartner;
+	}
+	/**
+	 * Set Business Partner .
+	 *
+	 * @param C_BPartner_ID Identifies a Business Partner
+	 */
+
+	public void setC_BPartner_ID(int C_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_ID(C_BPartner_ID);
+		}
 	}
 
 	/**
@@ -251,6 +325,17 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public I_C_CurrencyInput getC_Currency() {
 		return C_Currency;
 	}
+	/**
+	 * Set Currency.
+	 *
+	 * @param C_Currency_ID The Currency for this record
+	 */
+
+	public void setC_Currency_ID(int C_Currency_ID) {
+		if (get_ID() == 0) {
+			super.setC_Currency_ID(C_Currency_ID);
+		}
+	}
 
 	/**
 	 * Set Order.
@@ -275,6 +360,28 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 */
 	public I_C_OrderInput getC_Order() {
 		return C_Order;
+	}
+	/**
+	 * Set Order.
+	 *
+	 * @param C_Order_ID Order
+	 */
+
+	public void setC_Order_ID(int C_Order_ID) {
+		if (get_ID() == 0) {
+			super.setC_Order_ID(C_Order_ID);
+		}
+	}
+	/**
+	 * Set Sales Order Line.
+	 *
+	 * @param C_OrderLine_ID Sales Order Line
+	 */
+
+	public void setC_OrderLine_ID(int C_OrderLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_OrderLine_ID(C_OrderLine_ID);
+		}
 	}
 
 	/**
@@ -346,6 +453,17 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public I_C_ProjectPhaseInput getC_ProjectPhase() {
 		return C_ProjectPhase;
 	}
+	/**
+	 * Set Project Phase.
+	 *
+	 * @param C_ProjectPhase_ID Phase of a Project
+	 */
+
+	public void setC_ProjectPhase_ID(int C_ProjectPhase_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectPhase_ID(C_ProjectPhase_ID);
+		}
+	}
 
 	/**
 	 * Set Project Task.
@@ -370,6 +488,17 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 */
 	public I_C_ProjectTaskInput getC_ProjectTask() {
 		return C_ProjectTask;
+	}
+	/**
+	 * Set Project Task.
+	 *
+	 * @param C_ProjectTask_ID Actual Project Task in a Phase
+	 */
+
+	public void setC_ProjectTask_ID(int C_ProjectTask_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectTask_ID(C_ProjectTask_ID);
+		}
 	}
 
 	/**
@@ -424,10 +553,22 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		return C_UOM;
 	}
 	/**
+	 * Set UOM.
+	 *
+	 * @param C_UOM_ID Unit of Measure
+	 */
+
+	public void setC_UOM_ID(int C_UOM_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_ID(C_UOM_ID);
+		}
+	}
+	/**
 	 * Set Date Delivered.
 	 *
 	 * @param DateDelivered Date when the product was delivered
 	 */
+
 	public void setDateDelivered(Timestamp DateDelivered) {
 		if (get_ID() == 0) {
 			super.setDateDelivered(DateDelivered);
@@ -438,6 +579,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param DateInvoiced Date printed on Invoice
 	 */
+
 	public void setDateInvoiced(Timestamp DateInvoiced) {
 		if (get_ID() == 0) {
 			super.setDateInvoiced(DateInvoiced);
@@ -448,6 +590,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param LineNetAmt Line Extended Amount (Quantity * Actual Price) without Freight and Charges
 	 */
+
 	public void setLineNetAmt(BigDecimal LineNetAmt) {
 		if (get_ID() == 0) {
 			super.setLineNetAmt(LineNetAmt);
@@ -477,6 +620,17 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 */
 	public I_C_OrderLineInput getLink_OrderLine() {
 		return Link_OrderLine;
+	}
+	/**
+	 * Set Linked Order Line.
+	 *
+	 * @param Link_OrderLine_ID This field links a sales order line to the purchase order line that is generated from it.
+	 */
+
+	public void setLink_OrderLine_ID(int Link_OrderLine_ID) {
+		if (get_ID() == 0) {
+			super.setLink_OrderLine_ID(Link_OrderLine_ID);
+		}
 	}
 
 	/**
@@ -586,6 +740,17 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public I_M_ShipperInput getM_Shipper() {
 		return M_Shipper;
 	}
+	/**
+	 * Set Shipper.
+	 *
+	 * @param M_Shipper_ID Method or manner of product delivery
+	 */
+
+	public void setM_Shipper_ID(int M_Shipper_ID) {
+		if (get_ID() == 0) {
+			super.setM_Shipper_ID(M_Shipper_ID);
+		}
+	}
 
 	/**
 	 * Set Warehouse.
@@ -612,6 +777,17 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 */
 	public I_M_WarehouseInput getM_Warehouse() {
 		return M_Warehouse;
+	}
+	/**
+	 * Set Warehouse.
+	 *
+	 * @param M_Warehouse_ID Storage Warehouse and Service Point
+	 */
+
+	public void setM_Warehouse_ID(int M_Warehouse_ID) {
+		if (get_ID() == 0) {
+			super.setM_Warehouse_ID(M_Warehouse_ID);
+		}
 	}
 
 	/**
@@ -645,26 +821,42 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param PriceActual Actual Price 
 	 */
+
 	public void setPriceActual(BigDecimal PriceActual) {
 		if (get_ID() == 0) {
 			super.setPriceActual(PriceActual);
 		}
 	}
+
 	/**
 	 * Set Available Quantity.
 	 *
 	 * @param QtyAvailable Available Quantity (On Hand - Reserved)
 	 */
 	public void setQtyAvailable(BigDecimal QtyAvailable) {
-		if (get_ID() == 0) {
-			super.setQtyAvailable(QtyAvailable);
-		}
+		set_ValueNoCheck(COLUMNNAME_QtyAvailable, QtyAvailable);
 	}
+
+
+	/**
+	 * Get Available Quantity.
+	 *
+	 * @return Available Quantity (On Hand - Reserved)
+	 */
+	public BigDecimal getQtyAvailable() {
+ 		BigDecimal columnValue = (BigDecimal) get_Value(COLUMNNAME_QtyAvailable);
+		if (columnValue == null) {
+			return Env.ZERO;
+		}
+		return columnValue;
+	}
+
 	/**
 	 * Set Delivered Quantity.
 	 *
 	 * @param QtyDelivered Delivered Quantity
 	 */
+
 	public void setQtyDelivered(BigDecimal QtyDelivered) {
 		if (get_ID() == 0) {
 			super.setQtyDelivered(QtyDelivered);
@@ -675,6 +867,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param QtyInvoiced Invoiced Quantity
 	 */
+
 	public void setQtyInvoiced(BigDecimal QtyInvoiced) {
 		if (get_ID() == 0) {
 			super.setQtyInvoiced(QtyInvoiced);
@@ -685,6 +878,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 *
 	 * @param QtyReserved Reserved Quantity
 	 */
+
 	public void setQtyReserved(BigDecimal QtyReserved) {
 		if (get_ID() == 0) {
 			super.setQtyReserved(QtyReserved);
@@ -716,6 +910,17 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 */
 	public I_C_OrderLineInput getRef_OrderLine() {
 		return Ref_OrderLine;
+	}
+	/**
+	 * Set Referenced Order Line.
+	 *
+	 * @param Ref_OrderLine_ID Reference to corresponding Sales/Purchase Order
+	 */
+
+	public void setRef_OrderLine_ID(int Ref_OrderLine_ID) {
+		if (get_ID() == 0) {
+			super.setRef_OrderLine_ID(Ref_OrderLine_ID);
+		}
 	}
 
 	/**
@@ -771,6 +976,17 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public I_C_ElementValueInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -797,5 +1013,16 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 */
 	public I_C_ElementValueInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

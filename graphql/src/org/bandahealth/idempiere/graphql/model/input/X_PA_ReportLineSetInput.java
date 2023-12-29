@@ -48,6 +48,17 @@ public class X_PA_ReportLineSetInput extends X_PA_ReportLineSet implements I_PA_
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Report Line Set.
+	 *
+	 * @param PA_ReportLineSet_ID Report Line Set
+	 */
+
+	public void setPA_ReportLineSet_ID(int PA_ReportLineSet_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportLineSet_ID(PA_ReportLineSet_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

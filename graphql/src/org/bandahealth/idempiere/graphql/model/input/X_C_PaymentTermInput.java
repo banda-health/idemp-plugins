@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_PaymentTerm;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTermInput {
+public class X_C_PaymentTermInput extends X_C_PaymentTerm implements I_C_PaymentTermInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput NetDay_RL;
@@ -50,6 +50,17 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Payment Term.
+	 *
+	 * @param C_PaymentTerm_ID The terms of Payment (timing, discount)
+	 */
+
+	public void setC_PaymentTerm_ID(int C_PaymentTerm_ID) {
+		if (get_ID() == 0) {
+			super.setC_PaymentTerm_ID(C_PaymentTerm_ID);
+		}
 	}
 
 	/**

@@ -8,6 +8,8 @@ import org.compiere.model.MCurrency;
 import org.compiere.model.MPriceList;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_PriceList - DO NOT CHANGE
  *

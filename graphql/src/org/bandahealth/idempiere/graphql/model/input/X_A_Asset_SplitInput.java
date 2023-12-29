@@ -85,6 +85,28 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	public I_A_AssetInput getA_Asset_To() {
 		return A_Asset_To;
 	}
+	/**
+	 * Set To Asset ID.
+	 *
+	 * @param A_Asset_ID_To To Asset ID
+	 */
+
+	public void setA_Asset_ID_To(int A_Asset_ID_To) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID_To(A_Asset_ID_To);
+		}
+	}
+	/**
+	 * Set Asset Split.
+	 *
+	 * @param A_Asset_Split_ID Asset Split
+	 */
+
+	public void setA_Asset_Split_ID(int A_Asset_Split_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Split_ID(A_Asset_Split_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -108,6 +130,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @param A_Depreciation_Workfile_ID A_Depreciation_Workfile_ID
 	 */
+
 	public void setA_Depreciation_Workfile_ID(int A_Depreciation_Workfile_ID) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Workfile_ID(A_Depreciation_Workfile_ID);
@@ -191,6 +214,17 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 */
 	public I_C_PeriodInput getC_Period() {
 		return C_Period;
+	}
+	/**
+	 * Set Period.
+	 *
+	 * @param C_Period_ID Period of the Calendar
+	 */
+
+	public void setC_Period_ID(int C_Period_ID) {
+		if (get_ID() == 0) {
+			super.setC_Period_ID(C_Period_ID);
+		}
 	}
 
 	/**

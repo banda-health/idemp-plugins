@@ -54,6 +54,17 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Business Partner Shipping Account.
+	 *
+	 * @param C_BP_ShippingAcct_ID Business Partner Shipping Account
+	 */
+
+	public void setC_BP_ShippingAcct_ID(int C_BP_ShippingAcct_ID) {
+		if (get_ID() == 0) {
+			super.setC_BP_ShippingAcct_ID(C_BP_ShippingAcct_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -96,6 +107,17 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	 */
 	public I_C_BPartnerInput getC_BPartner() {
 		return C_BPartner;
+	}
+	/**
+	 * Set Business Partner .
+	 *
+	 * @param C_BPartner_ID Identifies a Business Partner
+	 */
+
+	public void setC_BPartner_ID(int C_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_ID(C_BPartner_ID);
+		}
 	}
 
 	/**
@@ -150,5 +172,16 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	 */
 	public I_M_ShippingProcessorInput getM_ShippingProcessor() {
 		return M_ShippingProcessor;
+	}
+	/**
+	 * Set Shipping Processor.
+	 *
+	 * @param M_ShippingProcessor_ID Shipping Processor
+	 */
+
+	public void setM_ShippingProcessor_ID(int M_ShippingProcessor_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShippingProcessor_ID(M_ShippingProcessor_ID);
+		}
 	}
 }

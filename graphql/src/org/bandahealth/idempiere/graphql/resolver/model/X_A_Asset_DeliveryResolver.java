@@ -13,6 +13,8 @@ import org.compiere.model.MInOutLine;
 import org.compiere.model.MProductDownload;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for A_Asset_Delivery - DO NOT CHANGE
  *

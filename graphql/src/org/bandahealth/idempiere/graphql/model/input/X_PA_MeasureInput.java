@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MHierarchy;
-import org.compiere.model.MMeasure;
 import org.compiere.model.MMeasureCalc;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProjectType;
@@ -10,6 +9,7 @@ import org.compiere.model.MRefList;
 import org.compiere.model.MRequestType;
 import org.compiere.model.Query;
 import org.compiere.model.X_PA_Benchmark;
+import org.compiere.model.X_PA_Measure;
 import org.compiere.model.X_PA_Ratio;
 import org.compiere.util.Env;
 
@@ -19,7 +19,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
+public class X_PA_MeasureInput extends X_PA_Measure implements I_PA_MeasureInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput MeasureDataType_RL;
@@ -197,6 +197,17 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 */
 	public I_PA_HierarchyInput getPA_Hierarchy() {
 		return PA_Hierarchy;
+	}
+	/**
+	 * Set Measure.
+	 *
+	 * @param PA_Measure_ID Concrete Performance Measurement
+	 */
+
+	public void setPA_Measure_ID(int PA_Measure_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Measure_ID(PA_Measure_ID);
+		}
 	}
 
 	/**

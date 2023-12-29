@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_DiscountSchema;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_DiscountSchemaInput {
+public class X_M_DiscountSchemaInput extends X_M_DiscountSchema implements I_M_DiscountSchemaInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput CumulativeLevel_RL;
@@ -104,6 +104,17 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	 */
 	public I_AD_Ref_ListInput getDiscountType_RL() {
 		return DiscountType_RL;
+	}
+	/**
+	 * Set Discount Schema.
+	 *
+	 * @param M_DiscountSchema_ID Schema to calculate the trade discount percentage
+	 */
+
+	public void setM_DiscountSchema_ID(int M_DiscountSchema_ID) {
+		if (get_ID() == 0) {
+			super.setM_DiscountSchema_ID(M_DiscountSchema_ID);
+		}
 	}
 
 	/**

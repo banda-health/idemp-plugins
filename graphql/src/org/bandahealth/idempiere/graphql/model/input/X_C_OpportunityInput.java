@@ -6,9 +6,9 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MCurrency;
-import org.compiere.model.MOpportunity;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Opportunity;
 import org.compiere.model.X_C_SalesStage;
 import org.compiere.util.Env;
 
@@ -18,7 +18,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_OpportunityInput extends MOpportunity implements I_C_OpportunityInput {
+public class X_C_OpportunityInput extends X_C_Opportunity implements I_C_OpportunityInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_UserInput AD_User;
@@ -169,6 +169,17 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	public I_C_CurrencyInput getC_Currency() {
 		return C_Currency;
 	}
+	/**
+	 * Set Sales Opportunity.
+	 *
+	 * @param C_Opportunity_ID Sales Opportunity
+	 */
+
+	public void setC_Opportunity_ID(int C_Opportunity_ID) {
+		if (get_ID() == 0) {
+			super.setC_Opportunity_ID(C_Opportunity_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -241,6 +252,17 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	public I_C_SalesStageInput getC_SalesStage() {
 		return C_SalesStage;
 	}
+	/**
+	 * Set Sales Stage.
+	 *
+	 * @param C_SalesStage_ID Stages of the sales process
+	 */
+
+	public void setC_SalesStage_ID(int C_SalesStage_ID) {
+		if (get_ID() == 0) {
+			super.setC_SalesStage_ID(C_SalesStage_ID);
+		}
+	}
 
 	/**
 	 * Set Sales Representative.
@@ -267,5 +289,16 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 */
 	public I_AD_UserInput getSalesRep() {
 		return SalesRep;
+	}
+	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep_ID Sales Representative or Company Agent
+	 */
+
+	public void setSalesRep_ID(int SalesRep_ID) {
+		if (get_ID() == 0) {
+			super.setSalesRep_ID(SalesRep_ID);
+		}
 	}
 }

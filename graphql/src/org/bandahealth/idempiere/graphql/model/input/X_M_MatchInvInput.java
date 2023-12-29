@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -7,8 +9,8 @@ import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MMatchInv;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_MatchInv;
 import org.compiere.util.Env;
 
 /**
@@ -17,10 +19,9 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
+public class X_M_MatchInvInput extends X_M_MatchInv implements I_M_MatchInvInput {
 
 	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput Posted_RL;
 	 private I_C_InvoiceLineInput C_InvoiceLine;
 	 private I_M_AttributeSetInstanceInput M_AttributeSetInstance;
 	 private I_M_InOutLineInput M_InOutLine;
@@ -86,23 +87,25 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 		return C_InvoiceLine;
 	}
 	/**
+	 * Set Invoice Line.
+	 *
+	 * @param C_InvoiceLine_ID Invoice Detail Line
+	 */
+
+	public void setC_InvoiceLine_ID(int C_InvoiceLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_InvoiceLine_ID(C_InvoiceLine_ID);
+		}
+	}
+	/**
 	 * Set Transaction Date.
 	 *
 	 * @param DateTrx Transaction Date
 	 */
+
 	public void setDateTrx(Timestamp DateTrx) {
 		if (get_ID() == 0) {
 			super.setDateTrx(DateTrx);
-		}
-	}
-	/**
-	 * Set Active.
-	 *
-	 * @param IsActive The record is active in the system
-	 */
-	public void setIsActive(boolean IsActive) {
-		if (get_ID() == 0) {
-			super.setIsActive(IsActive);
 		}
 	}
 
@@ -130,6 +133,17 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	public I_M_AttributeSetInstanceInput getM_AttributeSetInstance() {
 		return M_AttributeSetInstance;
 	}
+	/**
+	 * Set Attribute Set Instance.
+	 *
+	 * @param M_AttributeSetInstance_ID Product Attribute Set Instance
+	 */
+
+	public void setM_AttributeSetInstance_ID(int M_AttributeSetInstance_ID) {
+		if (get_ID() == 0) {
+			super.setM_AttributeSetInstance_ID(M_AttributeSetInstance_ID);
+		}
+	}
 
 	/**
 	 * Set Shipment/Receipt Line.
@@ -154,6 +168,28 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 */
 	public I_M_InOutLineInput getM_InOutLine() {
 		return M_InOutLine;
+	}
+	/**
+	 * Set Shipment/Receipt Line.
+	 *
+	 * @param M_InOutLine_ID Line on Shipment or Receipt document
+	 */
+
+	public void setM_InOutLine_ID(int M_InOutLine_ID) {
+		if (get_ID() == 0) {
+			super.setM_InOutLine_ID(M_InOutLine_ID);
+		}
+	}
+	/**
+	 * Set Match Invoice.
+	 *
+	 * @param M_MatchInv_ID Match Shipment/Receipt to Invoice
+	 */
+
+	public void setM_MatchInv_ID(int M_MatchInv_ID) {
+		if (get_ID() == 0) {
+			super.setM_MatchInv_ID(M_MatchInv_ID);
+		}
 	}
 
 	/**
@@ -198,36 +234,34 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	public I_M_ProductInput getM_Product() {
 		return M_Product;
 	}
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product_ID Product, Service, Item
+	 */
 
+	public void setM_Product_ID(int M_Product_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_ID(M_Product_ID);
+		}
+	}
 	/**
 	 * Set Posted.
 	 *
-	 * @param Posted_RL Posting status
+	 * @param Posted Posting status
 	 */
-	public void setPosted_RL(I_AD_Ref_ListInput Posted_RL) {
-		this.Posted_RL = Posted_RL;
-		MRefList foreignEntity;
-		if (get_ID() == 0 &&Posted_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Posted_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPosted(foreignEntity.getValue());
-		}
-	}
 
-	/**
-	 * Get Posted.
-	 *
-	 * @return Posting status
-	 */
-	public I_AD_Ref_ListInput getPosted_RL() {
-		return Posted_RL;
+	public void setPosted(boolean Posted) {
+		if (get_ID() == 0) {
+			super.setPosted(Posted);
+		}
 	}
 	/**
 	 * Set Processed.
 	 *
 	 * @param Processed The document has been processed
 	 */
+
 	public void setProcessed(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
@@ -238,6 +272,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 *
 	 * @param Qty Quantity
 	 */
+
 	public void setQty(BigDecimal Qty) {
 		if (get_ID() == 0) {
 			super.setQty(Qty);
@@ -270,6 +305,17 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	public I_M_MatchInvInput getRef_MatchInv() {
 		return Ref_MatchInv;
 	}
+	/**
+	 * Set Referenced Match Invoice.
+	 *
+	 * @param Ref_MatchInv_ID Referenced Match Invoice
+	 */
+
+	public void setRef_MatchInv_ID(int Ref_MatchInv_ID) {
+		if (get_ID() == 0) {
+			super.setRef_MatchInv_ID(Ref_MatchInv_ID);
+		}
+	}
 
 	/**
 	 * Set Reversal ID.
@@ -296,5 +342,16 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 */
 	public I_M_MatchInvInput getReversal() {
 		return Reversal;
+	}
+	/**
+	 * Set Reversal ID.
+	 *
+	 * @param Reversal_ID ID of document reversal
+	 */
+
+	public void setReversal_ID(int Reversal_ID) {
+		if (get_ID() == 0) {
+			super.setReversal_ID(Reversal_ID);
+		}
 	}
 }

@@ -10,6 +10,8 @@ import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_PriceList_Version - DO NOT CHANGE
  *

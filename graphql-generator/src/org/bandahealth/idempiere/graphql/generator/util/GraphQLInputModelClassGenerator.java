@@ -42,7 +42,9 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
@@ -287,6 +289,8 @@ public class GraphQLInputModelClassGenerator {
 				entityName = "AD_EntityType";
 				returnType = "I_" + entityName + "Input";
 				foreignEntityTable = entityName;
+				defaultValueMethod = "getEntityType()";
+				defaultEmptyValue = "null";
 			} else {
 				String columnNameWithSuffixedIdRemoved = columnName.substring(0, columnName.length() - 3);
 				if (columnName.endsWith("_ID") &&
@@ -369,6 +373,7 @@ public class GraphQLInputModelClassGenerator {
 		boolean wereColumnMethodsGeneratedElsewhere = !(entityType.equals(MEntityType.ENTITYTYPE_UserMaintained) &&
 				!MTable.get(AD_Table_ID).getEntityType().equals(MEntityType.ENTITYTYPE_UserMaintained));
 		if (!wereColumnMethodsGeneratedElsewhere) {
+			columnBuilder.append("\n");
 			// Create Java Comment
 			generateJavaSetComment(columnName, Name, Description, columnBuilder);
 
@@ -388,6 +393,8 @@ public class GraphQLInputModelClassGenerator {
 				String staticVar = addListValidation(columnBuilder, REFERENCE_PAYMENTRULE, columnName);
 				columnBuilder.insert(0, staticVar);
 			} else if (clazz.equals(Integer.class)) {
+				String optionalIndent = "";
+				String optionalClose = "";
 				if (columnName.endsWith("_ID")) {
 					int firstOK = 1;
 					//	check special column
@@ -401,21 +408,23 @@ public class GraphQLInputModelClassGenerator {
 							.append("\t\tif (").append(columnName).append(" < ").append(firstOK).append(") {\n")
 							.append("\t\t\t").append(setValue).append("(COLUMNNAME_").append(columnName).append(", null);\n")
 							.append("\t\t} else {\n");
+					optionalIndent = "\t";
+					optionalClose = "\t\t}\n";
 				}
 				columnBuilder
-						.append("\t\t\t").append(setValue).append("(COLUMNNAME_").append(columnName).append(", ")
-						.append(columnName).append(");\n");
+						.append(optionalIndent).append("\t\t").append(setValue).append("(COLUMNNAME_").append(columnName)
+						.append(", ").append(columnName).append(");\n")
+						.append(optionalClose);
 			} else if (clazz.equals(Boolean.class)) {
 				columnBuilder
-						.append("\t\t\t").append(setValue).append("(COLUMNNAME_").append(columnName).append(", ")
+						.append("\t\t").append(setValue).append("(COLUMNNAME_").append(columnName).append(", ")
 						.append(columnName).append(");\n");
 			} else {
 				columnBuilder
-						.append("\t\t\t").append(setValue).append("(COLUMNNAME_").append(columnName).append(", ")
+						.append("\t\t").append(setValue).append("(COLUMNNAME_").append(columnName).append(", ")
 						.append(columnName).append(");\n");
 			}
 			columnBuilder
-					.append("\t\t}\n")
 					.append("\t}\n\n");
 
 
@@ -476,7 +485,7 @@ public class GraphQLInputModelClassGenerator {
 						.append("\t\treturn ").append(getValue).append("(COLUMNNAME_").append(columnName).append(");\n");
 			} else {
 				columnBuilder
-						.append("return (").append(dataType).append(") ").append(getValue)
+						.append("\t\treturn (").append(dataType).append(") ").append(getValue)
 						.append("(COLUMNNAME_").append(columnName).append(");\n");
 				addImportClass(clazz);
 			}
@@ -485,7 +494,9 @@ public class GraphQLInputModelClassGenerator {
 		}
 
 		// If the code is updatable from this point forward, the parent class can (potentially) handle it
-		if (isUpdateable && AD_Reference_ID <= 0) {
+		// Also, if the method is final somewhere in the iDempiere model tree, skip it
+		List<String> columnsWhosSettersAreFinalInIDempiere = Arrays.asList("AD_Org_ID", "IsActive");
+		if ((isUpdateable && AD_Reference_ID <= 0) || columnsWhosSettersAreFinalInIDempiere.contains(columnName)) {
 			return columnBuilder.toString();
 		} else if (AD_Reference_ID > 0 &&
 				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
@@ -530,15 +541,19 @@ public class GraphQLInputModelClassGenerator {
 			return columnBuilder.toString();
 		}
 
-		// Since this property isn't updatable, we need to generate a method that updates the property only if the entity
-		// is new
-		generateJavaSetComment(columnName, Name, Description, columnBuilder);
-		columnBuilder
-				.append("\tpublic void set").append(columnName).append("(").append(dataType).append(" ").append(columnName)
-				.append(") {\n\t\tif (get_ID() == 0) {\n")
-				.append("\t\t\tthis.set").append(columnName).append("(").append(columnName).append(");\n")
-				.append("\t\t}\n\t}");
-		addImportClass(clazz);
+		if (wereColumnMethodsGeneratedElsewhere) {
+			// Since this property isn't updatable, we need to generate a method that updates the property only if the entity
+			// is new
+			generateJavaSetComment(columnName, Name, Description, columnBuilder);
+			String methodLocation = wereColumnMethodsGeneratedElsewhere ? "super" : "this";
+			columnBuilder
+					.append("\n\tpublic void set").append(columnName).append("(").append(dataType).append(" ").append(columnName)
+					.append(") {\n\t\tif (get_ID() == 0) {\n")
+					.append("\t\t\t").append(methodLocation).append(".set").append(columnName).append("(").append(columnName)
+					.append(");\n")
+					.append("\t\t}\n\t}");
+			addImportClass(clazz);
+		}
 		return columnBuilder.toString();
 	}
 

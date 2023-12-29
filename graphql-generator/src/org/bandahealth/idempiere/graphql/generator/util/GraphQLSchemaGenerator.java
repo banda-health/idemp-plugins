@@ -22,6 +22,7 @@ package org.bandahealth.idempiere.graphql.generator.util;
 import org.adempiere.exceptions.DBException;
 import org.adempiere.util.ModelInterfaceGenerator;
 import org.compiere.Adempiere;
+import org.compiere.model.MReference;
 import org.compiere.model.MTable;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
@@ -197,7 +198,8 @@ public class GraphQLSchemaGenerator {
 			preparedStatement = null;
 		}
 //		MTable translationTable;
-//		if ((translationTable = MTable.get(Env.getCtx(), MTable.get(Env.getCtx(), AD_Table_ID).getTableName() + "_Trl")) !=
+//		if ((translationTable = MTable.get(Env.getCtx(), MTable.get(Env.getCtx(), AD_Table_ID).getTableName() + "_Trl")
+//		) !=
 //				null && translationTable.get_ID() > 0) {
 //			generatedColumns.regularModel.append("\t").append(translationTable.getTableName()).append(": [")
 //					.append(translationTable.getTableName()).append("!]!\n");
@@ -279,7 +281,8 @@ public class GraphQLSchemaGenerator {
 				generatedColumns.inputModel.append(fieldName).append(": ").append(referenceClassName).append("Input");
 				generatedColumns.inputModel.append("\n");
 			} else if (columnName.equals("AD_Language")) {
-				addGraphQLFields(generatedColumns, columnName + "_L", Description, columnName, isMandatory, shouldSkipInputField);
+				addGraphQLFields(generatedColumns, columnName + "_L", Description, columnName, isMandatory,
+						shouldSkipInputField);
 			} else if (columnName.equals("EntityType")) {
 				addGraphQLFields(generatedColumns, columnName, Description, "AD_EntityType", isMandatory,
 						shouldSkipInputField);
@@ -312,7 +315,9 @@ public class GraphQLSchemaGenerator {
 			}
 		}
 		String neededPropertySuffix = "";
-		if (AD_Reference_ID > 0) {
+		if (AD_Reference_ID > 0 &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
+				clazz.equals(String.class)) {
 			neededPropertySuffix = "_RL";
 		}
 		generatedColumns.regularModel.append("\t").append(columnName).append(neededPropertySuffix).append(": ");

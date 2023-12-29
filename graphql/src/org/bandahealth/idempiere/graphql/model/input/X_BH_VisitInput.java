@@ -137,6 +137,17 @@ public class X_BH_VisitInput extends X_BH_Visit implements I_BH_VisitInput {
 	public I_AD_Ref_ListInput getbh_referral_RL() {
 		return bh_referral_RL;
 	}
+	/**
+	 * Set Visit.
+	 *
+	 * @param BH_Visit_ID Visit
+	 */
+
+	public void setBH_Visit_ID(int BH_Visit_ID) {
+		if (get_ID() == 0) {
+			super.setBH_Visit_ID(BH_Visit_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -187,6 +198,7 @@ public class X_BH_VisitInput extends X_BH_Visit implements I_BH_VisitInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
+
 	public void setDocumentNo(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
@@ -218,5 +230,16 @@ public class X_BH_VisitInput extends X_BH_Visit implements I_BH_VisitInput {
 	 */
 	public I_C_BPartnerInput getPatient() {
 		return Patient;
+	}
+	/**
+	 * Set Patient.
+	 *
+	 * @param Patient_ID The Patient must be a valid business partner.
+	 */
+
+	public void setPatient_ID(int Patient_ID) {
+		if (get_ID() == 0) {
+			super.setPatient_ID(Patient_ID);
+		}
 	}
 }

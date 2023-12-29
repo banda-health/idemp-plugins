@@ -25,6 +25,44 @@ public interface I_C_ChargeInput extends I_C_Charge {
 	I_AD_OrgInput getAD_Org();
 
 	/**
+	 * Column name BH_Locked
+	 */
+	public static final String COLUMNNAME_BH_Locked = "BH_Locked";
+
+	/**
+	 * Set BH_Locked.
+	 *
+	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public void setBH_Locked(boolean BH_Locked);
+
+	/**
+	 * Get BH_Locked.
+	 *
+	 * @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public boolean isBH_Locked();
+
+	/**
+	 * Column name BH_SubType
+	 */
+	public static final String COLUMNNAME_BH_SubType = "BH_SubType";
+
+	/**
+	 * Set Sub Type.
+	 *
+	 * @param BH_SubType Meant to be a sub-type of the charge type
+	 */
+	public void setBH_SubType(String BH_SubType);
+
+	/**
+	 * Get Sub Type.
+	 *
+	 * @return Meant to be a sub-type of the charge type
+	 */
+	public String getBH_SubType();
+
+	/**
 	 * Set BH_SubType_RL.
 	 *
 	 * @param BH_SubType_RL Meant to be a sub-type of the charge type

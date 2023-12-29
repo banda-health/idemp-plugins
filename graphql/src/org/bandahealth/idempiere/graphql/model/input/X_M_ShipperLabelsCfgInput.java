@@ -104,6 +104,28 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	public I_M_ShipperCfgInput getM_ShipperCfg() {
 		return M_ShipperCfg;
 	}
+	/**
+	 * Set Shipper Configuration.
+	 *
+	 * @param M_ShipperCfg_ID Shipper Configuration
+	 */
+
+	public void setM_ShipperCfg_ID(int M_ShipperCfg_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperCfg_ID(M_ShipperCfg_ID);
+		}
+	}
+	/**
+	 * Set Shipper Labels Configuration.
+	 *
+	 * @param M_ShipperLabelsCfg_ID Shipper Labels Configuration
+	 */
+
+	public void setM_ShipperLabelsCfg_ID(int M_ShipperLabelsCfg_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperLabelsCfg_ID(M_ShipperLabelsCfg_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

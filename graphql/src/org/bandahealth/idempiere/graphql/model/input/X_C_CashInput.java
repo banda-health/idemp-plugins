@@ -3,13 +3,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
-import org.compiere.model.MCash;
 import org.compiere.model.MCashBook;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Cash;
 import org.compiere.util.Env;
 
 /**
@@ -18,12 +18,11 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CashInput extends MCash implements I_C_CashInput {
+public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput DocAction_RL;
 	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput Posted_RL;
 	 private I_C_ActivityInput C_Activity;
 	 private I_C_CampaignInput C_Campaign;
 	 private I_C_CashBookInput C_CashBook;
@@ -117,6 +116,17 @@ public class X_C_CashInput extends MCash implements I_C_CashInput {
 	public I_C_CampaignInput getC_Campaign() {
 		return C_Campaign;
 	}
+	/**
+	 * Set Cash Journal.
+	 *
+	 * @param C_Cash_ID Cash Journal
+	 */
+
+	public void setC_Cash_ID(int C_Cash_ID) {
+		if (get_ID() == 0) {
+			super.setC_Cash_ID(C_Cash_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -159,6 +169,17 @@ public class X_C_CashInput extends MCash implements I_C_CashInput {
 	 */
 	public I_C_CashBookInput getC_CashBook() {
 		return C_CashBook;
+	}
+	/**
+	 * Set Cash Book.
+	 *
+	 * @param C_CashBook_ID Cash Book for recording petty cash transactions
+	 */
+
+	public void setC_CashBook_ID(int C_CashBook_ID) {
+		if (get_ID() == 0) {
+			super.setC_CashBook_ID(C_CashBook_ID);
+		}
 	}
 
 	/**
@@ -241,32 +262,16 @@ public class X_C_CashInput extends MCash implements I_C_CashInput {
 	public I_AD_Ref_ListInput getDocStatus_RL() {
 		return DocStatus_RL;
 	}
-
 	/**
 	 * Set Posted.
 	 *
-	 * @param Posted_RL Posting status
+	 * @param Posted Posting status
 	 */
-	public void setPosted_RL(I_AD_Ref_ListInput Posted_RL) {
-		this.Posted_RL = Posted_RL;
-		MRefList foreignEntity;
-		if (Posted_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Posted_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPosted(foreignEntity.getValue());
-		} else {
-			this.setPosted(null);
-		}
-	}
 
-	/**
-	 * Get Posted.
-	 *
-	 * @return Posting status
-	 */
-	public I_AD_Ref_ListInput getPosted_RL() {
-		return Posted_RL;
+	public void setPosted(boolean Posted) {
+		if (get_ID() == 0) {
+			super.setPosted(Posted);
+		}
 	}
 
 	/**
@@ -295,6 +300,17 @@ public class X_C_CashInput extends MCash implements I_C_CashInput {
 	public I_C_ElementValueInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -321,5 +337,16 @@ public class X_C_CashInput extends MCash implements I_C_CashInput {
 	 */
 	public I_C_ElementValueInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

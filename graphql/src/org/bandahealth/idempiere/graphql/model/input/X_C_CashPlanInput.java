@@ -1,15 +1,16 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
-import org.compiere.model.MCashPlan;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_CashPlan;
 import org.compiere.util.Env;
 
 /**
@@ -18,7 +19,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
+public class X_C_CashPlanInput extends X_C_CashPlan implements I_C_CashPlanInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput CashFlowType_RL;
@@ -144,6 +145,17 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	public I_C_CampaignInput getC_Campaign() {
 		return C_Campaign;
 	}
+	/**
+	 * Set Cash Plan.
+	 *
+	 * @param C_CashPlan_ID Cash Plan
+	 */
+
+	public void setC_CashPlan_ID(int C_CashPlan_ID) {
+		if (get_ID() == 0) {
+			super.setC_CashPlan_ID(C_CashPlan_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -221,6 +233,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 *
 	 * @param GrandTotal Total amount of document
 	 */
+
 	public void setGrandTotal(BigDecimal GrandTotal) {
 		if (get_ID() == 0) {
 			super.setGrandTotal(GrandTotal);
@@ -231,6 +244,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 *
 	 * @param IsApproved Indicates if this document requires approval
 	 */
+
 	public void setIsApproved(boolean IsApproved) {
 		if (get_ID() == 0) {
 			super.setIsApproved(IsApproved);
@@ -241,6 +255,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 *
 	 * @param Processed The document has been processed
 	 */
+
 	public void setProcessed(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
@@ -273,6 +288,17 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	public I_C_ElementValueInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -299,5 +325,16 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 */
 	public I_C_ElementValueInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

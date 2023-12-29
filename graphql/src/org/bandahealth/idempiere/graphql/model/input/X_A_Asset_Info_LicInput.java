@@ -50,6 +50,28 @@ public class X_A_Asset_Info_LicInput extends X_A_Asset_Info_Lic implements I_A_A
 	public I_A_AssetInput getA_Asset() {
 		return A_Asset;
 	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
+	}
+	/**
+	 * Set A_Asset_Info_Lic_ID.
+	 *
+	 * @param A_Asset_Info_Lic_ID A_Asset_Info_Lic_ID
+	 */
+
+	public void setA_Asset_Info_Lic_ID(int A_Asset_Info_Lic_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Info_Lic_ID(A_Asset_Info_Lic_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -98,6 +120,7 @@ public class X_A_Asset_Info_LicInput extends X_A_Asset_Info_Lic implements I_A_A
 	 *
 	 * @param Processed The document has been processed
 	 */
+
 	public void setProcessed(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);

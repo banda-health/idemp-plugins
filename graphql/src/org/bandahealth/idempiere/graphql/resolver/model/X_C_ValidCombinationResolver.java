@@ -25,6 +25,8 @@ import org.compiere.model.MSalesRegion;
 import org.compiere.model.X_C_SubAcct;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_ValidCombination - DO NOT CHANGE
  *

@@ -4,10 +4,10 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
-import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Table;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_TableInput extends MTable implements I_AD_TableInput {
+public class X_AD_TableInput extends X_AD_Table implements I_AD_TableInput {
 
 	 private I_AD_EntityTypeInput AD_EntityType;
 	 private I_AD_OrgInput AD_Org;
@@ -84,6 +84,17 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Table.
+	 *
+	 * @param AD_Table_ID Database Table information
+	 */
+
+	public void setAD_Table_ID(int AD_Table_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Table_ID(AD_Table_ID);
+		}
 	}
 
 	/**
@@ -170,9 +181,9 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -185,10 +196,22 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 		return AD_EntityType;
 	}
 	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
+	}
+	/**
 	 * Set Sequence.
 	 *
 	 * @param LoadSeq Sequence
 	 */
+
 	public void setLoadSeq(int LoadSeq) {
 		if (get_ID() == 0) {
 			super.setLoadSeq(LoadSeq);
@@ -220,6 +243,17 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 */
 	public I_AD_WindowInput getPO_Window() {
 		return PO_Window;
+	}
+	/**
+	 * Set PO Window.
+	 *
+	 * @param PO_Window_ID Purchase Order Window
+	 */
+
+	public void setPO_Window_ID(int PO_Window_ID) {
+		if (get_ID() == 0) {
+			super.setPO_Window_ID(PO_Window_ID);
+		}
 	}
 
 	/**

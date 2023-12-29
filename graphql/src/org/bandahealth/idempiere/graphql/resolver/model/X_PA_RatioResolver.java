@@ -7,6 +7,8 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.X_PA_Ratio;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for PA_Ratio - DO NOT CHANGE
  *

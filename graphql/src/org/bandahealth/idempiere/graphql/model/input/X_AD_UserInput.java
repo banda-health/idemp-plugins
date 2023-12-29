@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -11,6 +12,7 @@ import org.compiere.model.MMailText;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_User;
 import org.compiere.model.X_C_Greeting;
 import org.compiere.model.X_C_Job;
 import org.compiere.util.Env;
@@ -21,7 +23,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
+public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 
 	 private I_AD_ImageInput AD_Image;
 	 private I_AD_OrgInput AD_Org;
@@ -99,6 +101,17 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set User/Contact.
+	 *
+	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
+	 */
+
+	public void setAD_User_ID(int AD_User_ID) {
+		if (get_ID() == 0) {
+			super.setAD_User_ID(AD_User_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -117,6 +130,73 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	public String getID() {
 		return getAD_User_UU();
 	}
+
+	/**
+	 * Set bandahealth_bpartners.
+	 *
+	 * @param bandahealth_bpartners bandahealth_bpartners
+	 */
+	public void setbandahealth_bpartners(String bandahealth_bpartners) {
+		set_Value(COLUMNNAME_bandahealth_bpartners, bandahealth_bpartners);
+	}
+
+
+	/**
+	 * Get bandahealth_bpartners.
+	 *
+	 * @return bandahealth_bpartners
+	 */
+	public String getbandahealth_bpartners() {
+ 		return (String) get_Value(COLUMNNAME_bandahealth_bpartners);
+	}
+
+
+	/**
+	 * Set HasAcceptedTermsOfUse.
+	 *
+	 * @param BH_HasAcceptedTermsOfUse HasAcceptedTermsOfUse
+	 */
+	public void setBH_HasAcceptedTermsOfUse(boolean BH_HasAcceptedTermsOfUse) {
+		set_Value(COLUMNNAME_BH_HasAcceptedTermsOfUse, BH_HasAcceptedTermsOfUse);
+	}
+
+
+	/**
+	 * Get HasAcceptedTermsOfUse.
+	 *
+	 * @return HasAcceptedTermsOfUse
+	 */
+	public boolean isBH_HasAcceptedTermsOfUse() {
+ 		Object columnValue = get_Value(COLUMNNAME_BH_HasAcceptedTermsOfUse);
+		if (columnValue != null) {
+			if (columnValue instanceof Boolean) {
+				return ((Boolean) columnValue);
+			}
+			return "Y".equals(columnValue);
+		}
+		return false;
+	}
+
+
+	/**
+	 * Set BH_TOS_DATE_ACCEPTED.
+	 *
+	 * @param BH_TOS_DATE_ACCEPTED BH_TOS_DATE_ACCEPTED
+	 */
+	public void setBH_TOS_DATE_ACCEPTED(Timestamp BH_TOS_DATE_ACCEPTED) {
+		set_Value(COLUMNNAME_BH_TOS_DATE_ACCEPTED, BH_TOS_DATE_ACCEPTED);
+	}
+
+
+	/**
+	 * Get BH_TOS_DATE_ACCEPTED.
+	 *
+	 * @return BH_TOS_DATE_ACCEPTED
+	 */
+	public Timestamp getBH_TOS_DATE_ACCEPTED() {
+ 		return (Timestamp) get_Value(COLUMNNAME_BH_TOS_DATE_ACCEPTED);
+	}
+
 
 	/**
 	 * Set BP Address.
@@ -311,6 +391,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 *
 	 * @param EMailVerify Verification information of EMail Address
 	 */
+
 	public void setEMailVerify(String EMailVerify) {
 		if (get_ID() == 0) {
 			super.setEMailVerify(EMailVerify);
@@ -321,11 +402,32 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 *
 	 * @param EMailVerifyDate Date Email was verified
 	 */
+
 	public void setEMailVerifyDate(Timestamp EMailVerifyDate) {
 		if (get_ID() == 0) {
 			super.setEMailVerifyDate(EMailVerifyDate);
 		}
 	}
+
+	/**
+	 * Set eve_bpartners.
+	 *
+	 * @param eve_bpartners eve_bpartners
+	 */
+	public void seteve_bpartners(String eve_bpartners) {
+		set_Value(COLUMNNAME_eve_bpartners, eve_bpartners);
+	}
+
+
+	/**
+	 * Get eve_bpartners.
+	 *
+	 * @return eve_bpartners
+	 */
+	public String geteve_bpartners() {
+ 		return (String) get_Value(COLUMNNAME_eve_bpartners);
+	}
+
 
 	/**
 	 * Set Auto expand menu.
@@ -461,6 +563,17 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	public I_R_MailTextInput getR_DefaultMailText() {
 		return R_DefaultMailText;
 	}
+	/**
+	 * Set Default mail template.
+	 *
+	 * @param R_DefaultMailText_ID Default mail template
+	 */
+
+	public void setR_DefaultMailText_ID(int R_DefaultMailText_ID) {
+		if (get_ID() == 0) {
+			super.setR_DefaultMailText_ID(R_DefaultMailText_ID);
+		}
+	}
 
 	/**
 	 * Set Sales Representative.
@@ -489,10 +602,22 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		return SalesRep;
 	}
 	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep_ID Sales Representative or Company Agent
+	 */
+
+	public void setSalesRep_ID(int SalesRep_ID) {
+		if (get_ID() == 0) {
+			super.setSalesRep_ID(SalesRep_ID);
+		}
+	}
+	/**
 	 * Set Salt.
 	 *
 	 * @param Salt Random data added to improve password hash effectiveness
 	 */
+
 	public void setSalt(String Salt) {
 		if (get_ID() == 0) {
 			super.setSalt(Salt);
@@ -524,5 +649,16 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 */
 	public I_AD_UserInput getSupervisor() {
 		return Supervisor;
+	}
+	/**
+	 * Set Supervisor.
+	 *
+	 * @param Supervisor_ID Supervisor for this user/organization - used for escalation and approval
+	 */
+
+	public void setSupervisor_ID(int Supervisor_ID) {
+		if (get_ID() == 0) {
+			super.setSupervisor_ID(Supervisor_ID);
+		}
 	}
 }

@@ -12,16 +12,21 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectDataLoader;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MDocumentStatus;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MForm;
 import org.compiere.model.MProject;
-import org.compiere.model.MRole;
 import org.compiere.model.MTable;
 import org.compiere.model.MWindow;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
+import org.compiere.model.X_AD_Role;
 import org.dataloader.DataLoader;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated ModelResolver for PA_DocumentStatus - DO NOT CHANGE
@@ -53,11 +58,11 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 *
 	 * @return Responsibility Role
 	 */
-	public CompletableFuture<MRole> AD_Role(MDocumentStatus entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_AD_Role> AD_Role(MDocumentStatus entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Role_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MRole> dataLoader =
+		DataLoader<Integer, X_AD_Role> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
@@ -122,6 +127,22 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
+	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
+		{
+			put("D", 10);
+			put("C", 20);
+			put("U", 100);
+			put("CUST", 110);
+			put("A", 200);
+			put("EXT", 210);
+			put("XX", 220);
+			put("EE01", 50000);
+			put("EE04", 50001);
+			put("EE05", 50003);
+			put("EE02", 50005);
+			put("WSTORE", 200015);
+		}
+	};
 
 	/**
 	 * Get Entity Type.
@@ -129,12 +150,12 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	public CompletableFuture<MEntityType> AD_EntityType(MDocumentStatus entity, DataFetchingEnvironment environment) {
-		if (entity.getEntityType() <= 0) {
+		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
-		return dataLoader.load(entity.getEntityType());
+		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
 

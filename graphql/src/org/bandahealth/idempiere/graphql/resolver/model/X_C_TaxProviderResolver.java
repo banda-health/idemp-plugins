@@ -7,6 +7,8 @@ import org.compiere.model.MTaxProvider;
 import org.compiere.model.X_C_TaxProviderCfg;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_TaxProvider - DO NOT CHANGE
  *

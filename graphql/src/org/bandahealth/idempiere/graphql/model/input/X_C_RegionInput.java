@@ -3,8 +3,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCountry;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRegion;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Region;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_RegionInput extends MRegion implements I_C_RegionInput {
+public class X_C_RegionInput extends X_C_Region implements I_C_RegionInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_CountryInput C_Country;
@@ -74,6 +74,28 @@ public class X_C_RegionInput extends MRegion implements I_C_RegionInput {
 	 */
 	public I_C_CountryInput getC_Country() {
 		return C_Country;
+	}
+	/**
+	 * Set Country.
+	 *
+	 * @param C_Country_ID Country 
+	 */
+
+	public void setC_Country_ID(int C_Country_ID) {
+		if (get_ID() == 0) {
+			super.setC_Country_ID(C_Country_ID);
+		}
+	}
+	/**
+	 * Set Region.
+	 *
+	 * @param C_Region_ID Identifies a geographical Region
+	 */
+
+	public void setC_Region_ID(int C_Region_ID) {
+		if (get_ID() == 0) {
+			super.setC_Region_ID(C_Region_ID);
+		}
 	}
 
 	/**

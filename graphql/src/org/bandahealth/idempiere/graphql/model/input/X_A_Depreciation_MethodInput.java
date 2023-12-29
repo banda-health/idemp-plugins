@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MDepreciationMethod;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Depreciation_Method;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Depreciation_MethodInput extends MDepreciationMethod implements I_A_Depreciation_MethodInput {
+public class X_A_Depreciation_MethodInput extends X_A_Depreciation_Method implements I_A_Depreciation_MethodInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -22,6 +22,17 @@ public class X_A_Depreciation_MethodInput extends MDepreciationMethod implements
 	public X_A_Depreciation_MethodInput(String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
+	}
+	/**
+	 * Set Depreciation Method.
+	 *
+	 * @param A_Depreciation_Method_ID Depreciation Method
+	 */
+
+	public void setA_Depreciation_Method_ID(int A_Depreciation_Method_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Method_ID(A_Depreciation_Method_ID);
+		}
 	}
 
 	/**

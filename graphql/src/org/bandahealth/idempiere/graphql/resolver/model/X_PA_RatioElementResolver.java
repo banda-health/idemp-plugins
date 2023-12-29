@@ -89,11 +89,11 @@ public class X_PA_RatioElementResolver extends POResolver<X_PA_RatioElement> imp
 
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_PA_RatioElement.POSTINGTYPE_Actual, "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put(X_PA_RatioElement.POSTINGTYPE_Budget, "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put(X_PA_RatioElement.POSTINGTYPE_Commitment, "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put(X_PA_RatioElement.POSTINGTYPE_Statistical, "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put(X_PA_RatioElement.POSTINGTYPE_Reservation, "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
 	public CompletableFuture<MRefList> PostingType_RL(X_PA_RatioElement entity, DataFetchingEnvironment environment) {
@@ -107,10 +107,10 @@ public class X_PA_RatioElementResolver extends POResolver<X_PA_RatioElement> imp
 
 	static Map<String, String> RATIOELEMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_PA_RatioElement.RATIOELEMENTTYPE_Ratio, "11ec6ed4-e9fa-4c96-924b-9a7baedc56fb");
-			put(X_PA_RatioElement.RATIOELEMENTTYPE_Constant, "e379a3fa-da0f-4bc8-a3fe-d016f937e92c");
-			put(X_PA_RatioElement.RATIOELEMENTTYPE_Calculation, "025789a9-7fd5-466a-b00e-ce28ef6bc382");
-			put(X_PA_RatioElement.RATIOELEMENTTYPE_AccountValue, "a963fe93-801d-409e-9bfd-866ba80cc05e");
+			put("R", "11ec6ed4-e9fa-4c96-924b-9a7baedc56fb");
+			put("C", "e379a3fa-da0f-4bc8-a3fe-d016f937e92c");
+			put("X", "025789a9-7fd5-466a-b00e-ce28ef6bc382");
+			put("A", "a963fe93-801d-409e-9bfd-866ba80cc05e");
 		}
 	};
 	public CompletableFuture<MRefList> RatioElementType_RL(X_PA_RatioElement entity, DataFetchingEnvironment environment) {
@@ -124,10 +124,10 @@ public class X_PA_RatioElementResolver extends POResolver<X_PA_RatioElement> imp
 
 	static Map<String, String> RATIOOPERAND_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_PA_RatioElement.RATIOOPERAND_Plus, "97e27c57-7ce2-4bf0-9c6e-ed9012ea39d1");
-			put(X_PA_RatioElement.RATIOOPERAND_Minus, "ee462114-1054-437f-828a-a71d03bfab55");
-			put(X_PA_RatioElement.RATIOOPERAND_Multiply, "466f66df-4986-4894-8554-a07998191282");
-			put(X_PA_RatioElement.RATIOOPERAND_Divide, "e137d41c-433d-4cf6-9da0-a3263d2aa5b1");
+			put("P", "97e27c57-7ce2-4bf0-9c6e-ed9012ea39d1");
+			put("N", "ee462114-1054-437f-828a-a71d03bfab55");
+			put("M", "466f66df-4986-4894-8554-a07998191282");
+			put("D", "e137d41c-433d-4cf6-9da0-a3263d2aa5b1");
 		}
 	};
 	public CompletableFuture<MRefList> RatioOperand_RL(X_PA_RatioElement entity, DataFetchingEnvironment environment) {

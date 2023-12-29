@@ -9,6 +9,8 @@ import org.compiere.model.MCountry;
 import org.compiere.model.MRegion;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_City - DO NOT CHANGE
  *

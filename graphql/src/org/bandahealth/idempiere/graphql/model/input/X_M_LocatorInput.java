@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MLocator;
 import org.compiere.model.MLocatorType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_Locator;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
+public class X_M_LocatorInput extends X_M_Locator implements I_M_LocatorInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_M_LocatorTypeInput M_LocatorType;
@@ -51,6 +51,17 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Locator.
+	 *
+	 * @param M_Locator_ID Warehouse Locator
+	 */
+
+	public void setM_Locator_ID(int M_Locator_ID) {
+		if (get_ID() == 0) {
+			super.setM_Locator_ID(M_Locator_ID);
+		}
 	}
 
 	/**
@@ -121,5 +132,16 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	 */
 	public I_M_WarehouseInput getM_Warehouse() {
 		return M_Warehouse;
+	}
+	/**
+	 * Set Warehouse.
+	 *
+	 * @param M_Warehouse_ID Storage Warehouse and Service Point
+	 */
+
+	public void setM_Warehouse_ID(int M_Warehouse_ID) {
+		if (get_ID() == 0) {
+			super.setM_Warehouse_ID(M_Warehouse_ID);
+		}
 	}
 }

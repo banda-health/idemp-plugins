@@ -9,6 +9,8 @@ import org.compiere.model.MSLACriteria;
 import org.compiere.model.MSLAGoal;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for PA_SLA_Goal - DO NOT CHANGE
  *

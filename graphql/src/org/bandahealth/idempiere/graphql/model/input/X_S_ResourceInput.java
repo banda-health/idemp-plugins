@@ -5,9 +5,9 @@ import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
-import org.compiere.model.MResource;
 import org.compiere.model.MResourceType;
 import org.compiere.model.Query;
+import org.compiere.model.X_S_Resource;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
+public class X_S_ResourceInput extends X_S_Resource implements I_S_ResourceInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput ManufacturingResourceType_RL;
@@ -136,6 +136,17 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 */
 	public I_AD_Ref_ListInput getManufacturingResourceType_RL() {
 		return ManufacturingResourceType_RL;
+	}
+	/**
+	 * Set Resource.
+	 *
+	 * @param S_Resource_ID Resource
+	 */
+
+	public void setS_Resource_ID(int S_Resource_ID) {
+		if (get_ID() == 0) {
+			super.setS_Resource_ID(S_Resource_ID);
+		}
 	}
 
 	/**

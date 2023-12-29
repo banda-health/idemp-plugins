@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MEXPProcessorType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_EXP_Processor_Type;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_EXP_Processor_TypeInput extends MEXPProcessorType implements I_EXP_Processor_TypeInput {
+public class X_EXP_Processor_TypeInput extends X_EXP_Processor_Type implements I_EXP_Processor_TypeInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_EXP_Processor_TypeInput extends MEXPProcessorType implements I_EX
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Export Processor Type.
+	 *
+	 * @param EXP_Processor_Type_ID Export Processor Type
+	 */
+
+	public void setEXP_Processor_Type_ID(int EXP_Processor_Type_ID) {
+		if (get_ID() == 0) {
+			super.setEXP_Processor_Type_ID(EXP_Processor_Type_ID);
+		}
 	}
 
 	/**

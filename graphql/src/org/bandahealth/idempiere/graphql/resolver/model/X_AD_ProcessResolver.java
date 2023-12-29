@@ -35,12 +35,12 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 
 	static Map<String, String> ACCESSLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MProcess_BH.ACCESSLEVEL_Organization, "3cc495d2-7e46-4d2d-b8b8-a38bfa97fa60");
-			put(MProcess_BH.ACCESSLEVEL_ClientPlusOrganization, "b8062c9f-fb7c-4e91-98ec-0a913a3b367f");
-			put(MProcess_BH.ACCESSLEVEL_SystemOnly, "6e8bdb2d-b494-401c-b586-7d20727b5eab");
-			put(MProcess_BH.ACCESSLEVEL_All, "04c9829a-008e-4a71-9598-224f770491dc");
-			put(MProcess_BH.ACCESSLEVEL_SystemPlusClient, "e05482a2-71be-461d-b522-9cda71a9fa5d");
-			put(MProcess_BH.ACCESSLEVEL_ClientOnly, "391e2c9a-b8e5-43b0-895b-eea914023e59");
+			put("1", "3cc495d2-7e46-4d2d-b8b8-a38bfa97fa60");
+			put("3", "b8062c9f-fb7c-4e91-98ec-0a913a3b367f");
+			put("4", "6e8bdb2d-b494-401c-b586-7d20727b5eab");
+			put("7", "04c9829a-008e-4a71-9598-224f770491dc");
+			put("6", "e05482a2-71be-461d-b522-9cda71a9fa5d");
+			put("2", "391e2c9a-b8e5-43b0-895b-eea914023e59");
 		}
 	};
 	public CompletableFuture<MRefList> AccessLevel_RL(MProcess_BH entity, DataFetchingEnvironment environment) {
@@ -129,8 +129,8 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 
 	static Map<String, String> ALLOWMULTIPLEEXECUTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MProcess_BH.ALLOWMULTIPLEEXECUTION_DisallowMultipleExecutions, "cd374cc2-e928-4e76-a376-9021ec5f31e7");
-			put(MProcess_BH.ALLOWMULTIPLEEXECUTION_DisallowMultipleExecutionsWithTheSameParameters, "1dcb3178-d9f5-449e-9592-5e6e29453cf1");
+			put("N", "cd374cc2-e928-4e76-a376-9021ec5f31e7");
+			put("P", "1dcb3178-d9f5-449e-9592-5e6e29453cf1");
 		}
 	};
 	public CompletableFuture<MRefList> AllowMultipleExecution_RL(MProcess_BH entity, DataFetchingEnvironment environment) {
@@ -142,6 +142,22 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 		return dataLoader.load(ALLOWMULTIPLEEXECUTION_UUIDS_BY_VALUE.get(entity.getAllowMultipleExecution()));
 	}
 
+	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
+		{
+			put("D", 10);
+			put("C", 20);
+			put("U", 100);
+			put("CUST", 110);
+			put("A", 200);
+			put("EXT", 210);
+			put("XX", 220);
+			put("EE01", 50000);
+			put("EE04", 50001);
+			put("EE05", 50003);
+			put("EE02", 50005);
+			put("WSTORE", 200015);
+		}
+	};
 
 	/**
 	 * Get Entity Type.
@@ -149,18 +165,18 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	public CompletableFuture<MEntityType> AD_EntityType(MProcess_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getEntityType() <= 0) {
+		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
-		return dataLoader.load(entity.getEntityType());
+		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
 	static Map<String, String> EXECUTIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MProcess_BH.EXECUTIONTYPE_ForceBackground, "24e2cb33-193c-45ca-9281-fea9752bf59f");
-			put(MProcess_BH.EXECUTIONTYPE_ForceForeground, "9a4c7179-17f7-4fc0-9ccb-bdcdf36488a4");
+			put("B", "24e2cb33-193c-45ca-9281-fea9752bf59f");
+			put("F", "9a4c7179-17f7-4fc0-9ccb-bdcdf36488a4");
 		}
 	};
 	public CompletableFuture<MRefList> ExecutionType_RL(MProcess_BH entity, DataFetchingEnvironment environment) {
@@ -174,10 +190,10 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 
 	static Map<String, String> SHOWHELP_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MProcess_BH.SHOWHELP_AskUserForFutureUse, "f59c706c-acef-44de-a237-e29816990c1d");
-			put(MProcess_BH.SHOWHELP_DonTShowHelp, "f113960a-7f8c-40c6-8f91-c7c852d66c52");
-			put(MProcess_BH.SHOWHELP_ShowHelp, "a2ed1180-6626-47b4-95c0-b7c265f8ed59");
-			put(MProcess_BH.SHOWHELP_RunSilently_TakeDefaults, "7474b66d-3658-4fc8-ac27-08c80f8ce257");
+			put("A", "f59c706c-acef-44de-a237-e29816990c1d");
+			put("N", "f113960a-7f8c-40c6-8f91-c7c852d66c52");
+			put("Y", "a2ed1180-6626-47b4-95c0-b7c265f8ed59");
+			put("S", "7474b66d-3658-4fc8-ac27-08c80f8ce257");
 		}
 	};
 	public CompletableFuture<MRefList> ShowHelp_RL(MProcess_BH entity, DataFetchingEnvironment environment) {

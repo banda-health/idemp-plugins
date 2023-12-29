@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.compiere.model.I_M_Product;
 
 /**
@@ -25,18 +27,137 @@ public interface I_M_ProductInput extends I_M_Product {
 	I_AD_OrgInput getAD_Org();
 
 	/**
-	 * Set BH_Product_Category_Type_RL.
-	 *
-	 * @param BH_Product_Category_Type_RL Contains a character the is linked to a ref list to determine types of product categories
+	 * Column name BH_BuyPrice
 	 */
-	void setBH_Product_Category_Type_RL(I_AD_Ref_ListInput BH_Product_Category_Type_RL);
+	public static final String COLUMNNAME_BH_BuyPrice = "BH_BuyPrice";
 
 	/**
-	 * Get BH_Product_Category_Type_RL.
+	 * Set BH_BuyPrice.
 	 *
-	 * @return Contains a character the is linked to a ref list to determine types of product categories
+	 * @param BH_BuyPrice Purchase price of product
 	 */
-	I_AD_Ref_ListInput getBH_Product_Category_Type_RL();
+	public void setBH_BuyPrice(BigDecimal BH_BuyPrice);
+
+	/**
+	 * Get BH_BuyPrice.
+	 *
+	 * @return Purchase price of product
+	 */
+	public BigDecimal getBH_BuyPrice();
+
+	/**
+	 * Column name BH_HasExpiration
+	 */
+	public static final String COLUMNNAME_BH_HasExpiration = "BH_HasExpiration";
+
+	/**
+	 * Set Has Expiration.
+	 *
+	 * @param BH_HasExpiration Has Expiration
+	 */
+	public void setBH_HasExpiration(boolean BH_HasExpiration);
+
+	/**
+	 * Get Has Expiration.
+	 *
+	 * @return Has Expiration
+	 */
+	public boolean isBH_HasExpiration();
+
+	/**
+	 * Column name BH_NavButtons
+	 */
+	public static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons);
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons();
+
+	/**
+	 * Column name BH_PriceMargin
+	 */
+	public static final String COLUMNNAME_BH_PriceMargin = "BH_PriceMargin";
+
+	/**
+	 * Set Price Margin.
+	 *
+	 * @param BH_PriceMargin Price Margin
+	 */
+	public void setBH_PriceMargin(BigDecimal BH_PriceMargin);
+
+	/**
+	 * Get Price Margin.
+	 *
+	 * @return Price Margin
+	 */
+	public BigDecimal getBH_PriceMargin();
+
+	/**
+	 * Column name bh_reorder_level
+	 */
+	public static final String COLUMNNAME_bh_reorder_level = "bh_reorder_level";
+
+	/**
+	 * Set Re-order Level.
+	 *
+	 * @param bh_reorder_level Re-order Level
+	 */
+	public void setbh_reorder_level(int bh_reorder_level);
+
+	/**
+	 * Get Re-order Level.
+	 *
+	 * @return Re-order Level
+	 */
+	public int getbh_reorder_level();
+
+	/**
+	 * Column name bh_reorder_quantity
+	 */
+	public static final String COLUMNNAME_bh_reorder_quantity = "bh_reorder_quantity";
+
+	/**
+	 * Set Re-order Quantity.
+	 *
+	 * @param bh_reorder_quantity How much quantity you want to re-order
+	 */
+	public void setbh_reorder_quantity(int bh_reorder_quantity);
+
+	/**
+	 * Get Re-order Quantity.
+	 *
+	 * @return How much quantity you want to re-order
+	 */
+	public int getbh_reorder_quantity();
+
+	/**
+	 * Column name BH_SellPrice
+	 */
+	public static final String COLUMNNAME_BH_SellPrice = "BH_SellPrice";
+
+	/**
+	 * Set BH_SellPrice.
+	 *
+	 * @param BH_SellPrice Selling price of BandaGo product
+	 */
+	public void setBH_SellPrice(BigDecimal BH_SellPrice);
+
+	/**
+	 * Get BH_SellPrice.
+	 *
+	 * @return Selling price of BandaGo product
+	 */
+	public BigDecimal getBH_SellPrice();
 
 	/**
 	 * Set C_RevenueRecognition.
@@ -93,6 +214,63 @@ public interface I_M_ProductInput extends I_M_Product {
 	 * @return Unit of Measure
 	 */
 	I_C_UOMInput getC_UOM();
+
+	/**
+	 * Column name DiscontinuedBy
+	 */
+	public static final String COLUMNNAME_DiscontinuedBy = "DiscontinuedBy";
+
+	/**
+	 * Set Discontinued by.
+	 *
+	 * @param DiscontinuedBy Discontinued By
+	 */
+	public void setDiscontinuedBy(Timestamp DiscontinuedBy);
+
+	/**
+	 * Get Discontinued by.
+	 *
+	 * @return Discontinued By
+	 */
+	public Timestamp getDiscontinuedBy();
+
+	/**
+	 * Column name DownloadURL
+	 */
+	public static final String COLUMNNAME_DownloadURL = "DownloadURL";
+
+	/**
+	 * Set Download URL.
+	 *
+	 * @param DownloadURL URL of the Download files
+	 */
+	public void setDownloadURL(String DownloadURL);
+
+	/**
+	 * Get Download URL.
+	 *
+	 * @return URL of the Download files
+	 */
+	public String getDownloadURL();
+
+	/**
+	 * Column name istoformule
+	 */
+	public static final String COLUMNNAME_istoformule = "istoformule";
+
+	/**
+	 * Set istoformule.
+	 *
+	 * @param istoformule istoformule
+	 */
+	public void setistoformule(boolean istoformule);
+
+	/**
+	 * Get istoformule.
+	 *
+	 * @return istoformule
+	 */
+	public boolean istoformule();
 
 	/**
 	 * Set M_AttributeSet.

@@ -50,6 +50,28 @@ public class X_A_Asset_Info_InsInput extends X_A_Asset_Info_Ins implements I_A_A
 	public I_A_AssetInput getA_Asset() {
 		return A_Asset;
 	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
+	}
+	/**
+	 * Set A_Asset_Info_Ins_ID.
+	 *
+	 * @param A_Asset_Info_Ins_ID A_Asset_Info_Ins_ID
+	 */
+
+	public void setA_Asset_Info_Ins_ID(int A_Asset_Info_Ins_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Info_Ins_ID(A_Asset_Info_Ins_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

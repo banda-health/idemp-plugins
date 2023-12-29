@@ -23,11 +23,11 @@ public class X_A_Asset_TypeResolver extends POResolver<MAssetType> implements Gr
 
 	static Map<String, String> ISDEPRECIABLE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MAssetType.ISDEPRECIABLE_No, "6939008f-29e0-49b8-a30b-206b28c0d2b1");
-			put(MAssetType.ISDEPRECIABLE__DefaultNo, "934235d6-5b13-477f-a2b9-0b194a048d91");
-			put(MAssetType.ISDEPRECIABLE__, "44c8053c-dead-4cd4-97a8-920ef2aa7919");
-			put(MAssetType.ISDEPRECIABLE__DefaultYes, "09f9094c-2674-4f58-878b-a32e5a38b4d4");
-			put(MAssetType.ISDEPRECIABLE_Yes, "3392ad55-541f-4a2e-ba62-c92a28f6421d");
+			put("NX", "6939008f-29e0-49b8-a30b-206b28c0d2b1");
+			put("XN", "934235d6-5b13-477f-a2b9-0b194a048d91");
+			put("XX", "44c8053c-dead-4cd4-97a8-920ef2aa7919");
+			put("XY", "09f9094c-2674-4f58-878b-a32e5a38b4d4");
+			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d");
 		}
 	};
 	public CompletableFuture<MRefList> IsDepreciable_RL(MAssetType entity, DataFetchingEnvironment environment) {
@@ -41,11 +41,11 @@ public class X_A_Asset_TypeResolver extends POResolver<MAssetType> implements Gr
 
 	static Map<String, String> ISINPOSESSION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MAssetType.ISINPOSESSION_No, "6939008f-29e0-49b8-a30b-206b28c0d2b1");
-			put(MAssetType.ISINPOSESSION__DefaultNo, "934235d6-5b13-477f-a2b9-0b194a048d91");
-			put(MAssetType.ISINPOSESSION__, "44c8053c-dead-4cd4-97a8-920ef2aa7919");
-			put(MAssetType.ISINPOSESSION__DefaultYes, "09f9094c-2674-4f58-878b-a32e5a38b4d4");
-			put(MAssetType.ISINPOSESSION_Yes, "3392ad55-541f-4a2e-ba62-c92a28f6421d");
+			put("NX", "6939008f-29e0-49b8-a30b-206b28c0d2b1");
+			put("XN", "934235d6-5b13-477f-a2b9-0b194a048d91");
+			put("XX", "44c8053c-dead-4cd4-97a8-920ef2aa7919");
+			put("XY", "09f9094c-2674-4f58-878b-a32e5a38b4d4");
+			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d");
 		}
 	};
 	public CompletableFuture<MRefList> IsInPosession_RL(MAssetType entity, DataFetchingEnvironment environment) {
@@ -59,11 +59,11 @@ public class X_A_Asset_TypeResolver extends POResolver<MAssetType> implements Gr
 
 	static Map<String, String> ISOWNED_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MAssetType.ISOWNED_No, "6939008f-29e0-49b8-a30b-206b28c0d2b1");
-			put(MAssetType.ISOWNED__DefaultNo, "934235d6-5b13-477f-a2b9-0b194a048d91");
-			put(MAssetType.ISOWNED__, "44c8053c-dead-4cd4-97a8-920ef2aa7919");
-			put(MAssetType.ISOWNED__DefaultYes, "09f9094c-2674-4f58-878b-a32e5a38b4d4");
-			put(MAssetType.ISOWNED_Yes, "3392ad55-541f-4a2e-ba62-c92a28f6421d");
+			put("NX", "6939008f-29e0-49b8-a30b-206b28c0d2b1");
+			put("XN", "934235d6-5b13-477f-a2b9-0b194a048d91");
+			put("XX", "44c8053c-dead-4cd4-97a8-920ef2aa7919");
+			put("XY", "09f9094c-2674-4f58-878b-a32e5a38b4d4");
+			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d");
 		}
 	};
 	public CompletableFuture<MRefList> IsOwned_RL(MAssetType entity, DataFetchingEnvironment environment) {

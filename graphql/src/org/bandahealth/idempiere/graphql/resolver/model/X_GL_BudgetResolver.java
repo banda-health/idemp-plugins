@@ -23,8 +23,8 @@ public class X_GL_BudgetResolver extends POResolver<X_GL_Budget> implements Grap
 
 	static Map<String, String> BUDGETSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_GL_Budget.BUDGETSTATUS_Draft, "4c031892-77e7-4aaa-b9ab-b94b711cd744");
-			put(X_GL_Budget.BUDGETSTATUS_Approved, "64d20b2c-6615-4ea0-a1d4-b518a7199159");
+			put("D", "4c031892-77e7-4aaa-b9ab-b94b711cd744");
+			put("A", "64d20b2c-6615-4ea0-a1d4-b518a7199159");
 		}
 	};
 	public CompletableFuture<MRefList> BudgetStatus_RL(X_GL_Budget entity, DataFetchingEnvironment environment) {

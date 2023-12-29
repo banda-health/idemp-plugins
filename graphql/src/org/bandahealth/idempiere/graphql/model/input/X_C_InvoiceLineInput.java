@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
@@ -12,7 +13,6 @@ import org.compiere.model.MAssetGroup;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MInOutLine;
-import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.MProjectPhase;
@@ -24,6 +24,7 @@ import org.compiere.model.MTax;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_1099Box;
+import org.compiere.model.X_C_InvoiceLine;
 import org.compiere.util.Env;
 
 /**
@@ -32,7 +33,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLineInput {
+public class X_C_InvoiceLineInput extends X_C_InvoiceLine implements I_C_InvoiceLineInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput A_CapvsExp_RL;
@@ -174,6 +175,26 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	}
 
 	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons) {
+		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
+	}
+
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons() {
+ 		return get_Value(COLUMNNAME_BH_NavButtons);
+	}
+
+
+	/**
 	 * Set 1099 Box.
 	 *
 	 * @param C_1099Box 1099 Box
@@ -198,6 +219,17 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	 */
 	public I_C_1099BoxInput getC_1099Box() {
 		return C_1099Box;
+	}
+	/**
+	 * Set 1099 Box.
+	 *
+	 * @param C_1099Box_ID 1099 Box
+	 */
+
+	public void setC_1099Box_ID(int C_1099Box_ID) {
+		if (get_ID() == 0) {
+			super.setC_1099Box_ID(C_1099Box_ID);
+		}
 	}
 
 	/**
@@ -305,6 +337,28 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	public I_C_InvoiceInput getC_Invoice() {
 		return C_Invoice;
 	}
+	/**
+	 * Set Invoice.
+	 *
+	 * @param C_Invoice_ID Invoice Identifier
+	 */
+
+	public void setC_Invoice_ID(int C_Invoice_ID) {
+		if (get_ID() == 0) {
+			super.setC_Invoice_ID(C_Invoice_ID);
+		}
+	}
+	/**
+	 * Set Invoice Line.
+	 *
+	 * @param C_InvoiceLine_ID Invoice Detail Line
+	 */
+
+	public void setC_InvoiceLine_ID(int C_InvoiceLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_InvoiceLine_ID(C_InvoiceLine_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -347,6 +401,17 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	 */
 	public I_C_OrderLineInput getC_OrderLine() {
 		return C_OrderLine;
+	}
+	/**
+	 * Set Sales Order Line.
+	 *
+	 * @param C_OrderLine_ID Sales Order Line
+	 */
+
+	public void setC_OrderLine_ID(int C_OrderLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_OrderLine_ID(C_OrderLine_ID);
+		}
 	}
 
 	/**
@@ -400,6 +465,17 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	public I_C_ProjectPhaseInput getC_ProjectPhase() {
 		return C_ProjectPhase;
 	}
+	/**
+	 * Set Project Phase.
+	 *
+	 * @param C_ProjectPhase_ID Phase of a Project
+	 */
+
+	public void setC_ProjectPhase_ID(int C_ProjectPhase_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectPhase_ID(C_ProjectPhase_ID);
+		}
+	}
 
 	/**
 	 * Set Project Task.
@@ -424,6 +500,17 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	 */
 	public I_C_ProjectTaskInput getC_ProjectTask() {
 		return C_ProjectTask;
+	}
+	/**
+	 * Set Project Task.
+	 *
+	 * @param C_ProjectTask_ID Actual Project Task in a Phase
+	 */
+
+	public void setC_ProjectTask_ID(int C_ProjectTask_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectTask_ID(C_ProjectTask_ID);
+		}
 	}
 
 	/**
@@ -478,10 +565,22 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 		return C_UOM;
 	}
 	/**
+	 * Set UOM.
+	 *
+	 * @param C_UOM_ID Unit of Measure
+	 */
+
+	public void setC_UOM_ID(int C_UOM_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_ID(C_UOM_ID);
+		}
+	}
+	/**
 	 * Set Line Amount.
 	 *
 	 * @param LineNetAmt Line Extended Amount (Quantity * Actual Price) without Freight and Charges
 	 */
+
 	public void setLineNetAmt(BigDecimal LineNetAmt) {
 		if (get_ID() == 0) {
 			super.setLineNetAmt(LineNetAmt);
@@ -538,6 +637,17 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	 */
 	public I_M_InOutLineInput getM_InOutLine() {
 		return M_InOutLine;
+	}
+	/**
+	 * Set Shipment/Receipt Line.
+	 *
+	 * @param M_InOutLine_ID Line on Shipment or Receipt document
+	 */
+
+	public void setM_InOutLine_ID(int M_InOutLine_ID) {
+		if (get_ID() == 0) {
+			super.setM_InOutLine_ID(M_InOutLine_ID);
+		}
 	}
 
 	/**
@@ -598,6 +708,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	 *
 	 * @param PriceActual Actual Price 
 	 */
+
 	public void setPriceActual(BigDecimal PriceActual) {
 		if (get_ID() == 0) {
 			super.setPriceActual(PriceActual);
@@ -628,6 +739,17 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	public I_S_ResourceAssignmentInput getS_ResourceAssignment() {
 		return S_ResourceAssignment;
 	}
+	/**
+	 * Set Resource Assignment.
+	 *
+	 * @param S_ResourceAssignment_ID Resource Assignment
+	 */
+
+	public void setS_ResourceAssignment_ID(int S_ResourceAssignment_ID) {
+		if (get_ID() == 0) {
+			super.setS_ResourceAssignment_ID(S_ResourceAssignment_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 1.
@@ -655,6 +777,17 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	public I_C_ElementValueInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -681,5 +814,16 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	 */
 	public I_C_ElementValueInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

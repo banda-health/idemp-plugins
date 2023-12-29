@@ -65,7 +65,7 @@ type A_Asset_Addition {
 	# The current status of the document
 	DocStatus_RL: AD_Ref_List!
 	# Document sequence number of the document
-	DocumentNo_RL: AD_Ref_List
+	DocumentNo: AD_Ref_List
 	# General Ledger Journal Batch
 	GL_JournalBatch: GL_JournalBatch
 	I_FixedAsset: I_FixedAsset
@@ -86,7 +86,7 @@ type A_Asset_Addition {
 	# Product, Service, Item
 	M_Product: M_Product
 	# Posting status
-	Posted_RL: Boolean!
+	Posted: Boolean!
 	# The type of posted amount for the transaction
 	PostingType_RL: AD_Ref_List!
 	# The document has been processed
@@ -142,7 +142,7 @@ input A_Asset_AdditionInput {
 	# The current status of the document
 	DocStatus_RL: AD_Ref_ListInput
 	# Document sequence number of the document
-	DocumentNo_RL: AD_Ref_ListInput
+	DocumentNo: AD_Ref_ListInput
 	# General Ledger Journal Batch
 	GL_JournalBatch: GL_JournalBatchInput
 	I_FixedAsset: I_FixedAssetInput
@@ -163,7 +163,7 @@ input A_Asset_AdditionInput {
 	# Product, Service, Item
 	M_Product: M_ProductInput
 	# Posting status
-	Posted_RL: Boolean
+	Posted: Boolean
 	# The type of posted amount for the transaction
 	PostingType_RL: AD_Ref_ListInput
 	# The document has been processed

@@ -7,6 +7,8 @@ import org.compiere.model.MAchievement;
 import org.compiere.model.MMeasure;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for PA_Achievement - DO NOT CHANGE
  *

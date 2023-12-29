@@ -40,8 +40,8 @@ public class X_C_PeriodResolver extends POResolver<MPeriod> implements GraphQLRe
 
 	static Map<String, String> PERIODTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MPeriod.PERIODTYPE_StandardCalendarPeriod, "108b2f61-695d-4949-b813-19c71ad24a07");
-			put(MPeriod.PERIODTYPE_AdjustmentPeriod, "99d0bc20-9668-4335-8b52-4d8a9594f76c");
+			put("S", "108b2f61-695d-4949-b813-19c71ad24a07");
+			put("A", "99d0bc20-9668-4335-8b52-4d8a9594f76c");
 		}
 	};
 	public CompletableFuture<MRefList> PeriodType_RL(MPeriod entity, DataFetchingEnvironment environment) {

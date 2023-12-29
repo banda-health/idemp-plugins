@@ -2,8 +2,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MSLACriteria;
 import org.compiere.model.Query;
+import org.compiere.model.X_PA_SLA_Criteria;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_SLA_CriteriaInput extends MSLACriteria implements I_PA_SLA_CriteriaInput {
+public class X_PA_SLA_CriteriaInput extends X_PA_SLA_Criteria implements I_PA_SLA_CriteriaInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_PA_SLA_CriteriaInput extends MSLACriteria implements I_PA_SLA_Cri
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set SLA Criteria.
+	 *
+	 * @param PA_SLA_Criteria_ID Service Level Agreement Criteria
+	 */
+
+	public void setPA_SLA_Criteria_ID(int PA_SLA_Criteria_ID) {
+		if (get_ID() == 0) {
+			super.setPA_SLA_Criteria_ID(PA_SLA_Criteria_ID);
+		}
 	}
 
 	/**

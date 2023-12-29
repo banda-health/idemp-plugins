@@ -7,6 +7,8 @@ import org.compiere.model.MHierarchy;
 import org.compiere.model.MTree;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for PA_Hierarchy - DO NOT CHANGE
  *

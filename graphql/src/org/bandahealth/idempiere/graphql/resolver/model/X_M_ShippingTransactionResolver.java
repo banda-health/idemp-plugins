@@ -55,9 +55,9 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 
 	static Map<String, String> ACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MShippingTransaction.ACTION_RateInquiry, "0279b1c5-cf5d-46fb-9e5c-a1413228f90c");
-			put(MShippingTransaction.ACTION_VoidShipment, "4fc424cc-8d7d-421a-9d17-2ed852501501");
-			put(MShippingTransaction.ACTION_ProcessShipment, "c528f5cd-d8a0-4b7d-8bdb-ac456350cb7b");
+			put("RI", "0279b1c5-cf5d-46fb-9e5c-a1413228f90c");
+			put("VS", "4fc424cc-8d7d-421a-9d17-2ed852501501");
+			put("PS", "c528f5cd-d8a0-4b7d-8bdb-ac456350cb7b");
 		}
 	};
 	public CompletableFuture<MRefList> Action_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
@@ -221,10 +221,10 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 
 	static Map<String, String> DELIVERYCONFIRMATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MShippingTransaction.DELIVERYCONFIRMATIONTYPE_Adult, "a1a27ca4-c532-43ed-b0e5-62354ac6e929");
-			put(MShippingTransaction.DELIVERYCONFIRMATIONTYPE_Direct, "1dae42a8-7890-455a-b8eb-dda7099364cd");
-			put(MShippingTransaction.DELIVERYCONFIRMATIONTYPE_Indirect, "c1bc3cc6-ecae-46b8-8536-788aaaf7357e");
-			put(MShippingTransaction.DELIVERYCONFIRMATIONTYPE_ServiceDefault, "fb3f11bc-3d34-4e1d-8cb9-eb84a39771e3");
+			put("ADULT", "a1a27ca4-c532-43ed-b0e5-62354ac6e929");
+			put("DIRECT", "1dae42a8-7890-455a-b8eb-dda7099364cd");
+			put("INDIRECT", "c1bc3cc6-ecae-46b8-8536-788aaaf7357e");
+			put("SERVICE_DEFAULT", "fb3f11bc-3d34-4e1d-8cb9-eb84a39771e3");
 		}
 	};
 	public CompletableFuture<MRefList> DeliveryConfirmationType_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
@@ -238,24 +238,24 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 
 	static Map<String, String> DOTHAZARDCLASSORDIVISION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_Class1_Explosives, "04881489-2fb4-4f4e-b67e-245510d8ab06");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_Class2_Gases, "58c7f256-84d9-416b-8031-b6a48830eb21");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_21_FlammableGas, "5574e931-91d8-4684-974c-93956c78e17d");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_22_NonflammableGas, "e52ea532-1ea9-49eb-9ab2-70e80007076c");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_Class3_FlammableLiquids, "78a27540-58a8-4cf7-b662-0837f06d6382");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_Class4, "31439946-f315-44fd-91d7-0b15e9bf9844");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_41_FlammableSolids, "5eddf289-3be4-4326-bfe8-846fa4b55463");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_42_SpontaneousCombustibles, "eba0280d-3caf-462e-9a74-5ffc9faa263e");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_43_DangerousWhenWet, "86119219-f3f5-4738-bb70-e1977f59877b");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_Class5_OxidizingSubstancesAndOrganicPeroxides, "2379190e-85d5-4e9b-abc6-374a76d977e7");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_51_Oxidizers, "23892cbd-b3c1-4629-b639-ed84cda9367a");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_52_OrganicPeroxides, "2c0d0d79-0692-4ddb-b1ae-4c39ac0f2189");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_Class6_ToxicPoisonousAndInfectiousSubstances, "825615c9-b2d4-4c8a-8e8f-b68b130aad74");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_61_ToxicSubstances, "e6379aa4-79ac-467c-8220-121e902d8b42");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_62_InfectiousSubstances, "a5a9d59a-c050-49f1-8632-0f537edab36f");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_Class7_RadioactiveMaterial, "7ae8b1dc-4a6d-4e27-a36a-d655181bd7e8");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_Class8_Corrosives, "5a8461bb-3888-4d06-8ea0-3bb161d61415");
-			put(MShippingTransaction.DOTHAZARDCLASSORDIVISION_Class9_MiscellaneousDangerousGoods, "1f69e16e-f4a1-4d3d-beb2-772951cfa99a");
+			put("1", "04881489-2fb4-4f4e-b67e-245510d8ab06");
+			put("2", "58c7f256-84d9-416b-8031-b6a48830eb21");
+			put("2.1", "5574e931-91d8-4684-974c-93956c78e17d");
+			put("2.2", "e52ea532-1ea9-49eb-9ab2-70e80007076c");
+			put("3", "78a27540-58a8-4cf7-b662-0837f06d6382");
+			put("4", "31439946-f315-44fd-91d7-0b15e9bf9844");
+			put("4.1", "5eddf289-3be4-4326-bfe8-846fa4b55463");
+			put("4.2", "eba0280d-3caf-462e-9a74-5ffc9faa263e");
+			put("4.3", "86119219-f3f5-4738-bb70-e1977f59877b");
+			put("5", "2379190e-85d5-4e9b-abc6-374a76d977e7");
+			put("5.1", "23892cbd-b3c1-4629-b639-ed84cda9367a");
+			put("5.2", "2c0d0d79-0692-4ddb-b1ae-4c39ac0f2189");
+			put("6", "825615c9-b2d4-4c8a-8e8f-b68b130aad74");
+			put("6.1", "e6379aa4-79ac-467c-8220-121e902d8b42");
+			put("6.2", "a5a9d59a-c050-49f1-8632-0f537edab36f");
+			put("7", "7ae8b1dc-4a6d-4e27-a36a-d655181bd7e8");
+			put("8", "5a8461bb-3888-4d06-8ea0-3bb161d61415");
+			put("9", "1f69e16e-f4a1-4d3d-beb2-772951cfa99a");
 		}
 	};
 	public CompletableFuture<MRefList> DotHazardClassOrDivision_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
@@ -269,22 +269,22 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 
 	static Map<String, String> FOB_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MShippingTransaction.FOB_FOBOrigin, "ab88c68f-4805-45b6-ba40-6660f9725674");
-			put(MShippingTransaction.FOB_ExWorks, "79961545-0bbb-4f57-bb8b-f86cd3286a76");
-			put(MShippingTransaction.FOB_CFR_CostAndFreight, "77fbf8dc-b281-4d56-ba20-7d2493fcbbdb");
-			put(MShippingTransaction.FOB_CIF_CostInsuranceAndFreightFedEx, "328afab3-1f0b-4c42-8156-d0d9175d48ba");
-			put(MShippingTransaction.FOB_CIP_CarriageAndInsurancePaidToFedEx, "f97dd6d1-fe36-43bf-98a0-97da3dd15ccb");
-			put(MShippingTransaction.FOB_CPT_CarriagePaidTo, "e30a9395-3a3e-4276-9dd0-2329892d633d");
-			put(MShippingTransaction.FOB_DAF_DeliveredAtFrontier, "58bb2d2a-3d5c-47ef-88e9-fc851832734c");
-			put(MShippingTransaction.FOB_DDP_DeliveredDutyPaidFedEx, "4828ecf4-b58d-4769-b77d-d2fae6e8ad59");
-			put(MShippingTransaction.FOB_DDU_DeliveredDutyUnpaidFedEx, "e483c7a9-58d1-47d9-9c8c-8daf142cf664");
-			put(MShippingTransaction.FOB_DEQ_DeliveredExQuay, "f1891d28-a462-417d-a977-aa427c5f95be");
-			put(MShippingTransaction.FOB_DES_DeliveredExShip, "7a884a23-7f14-4962-95fa-3ef56804cb3c");
-			put(MShippingTransaction.FOB_DomesticFOBDestination, "8063a230-c9ca-43f4-84fa-9199f3e18a3a");
-			put(MShippingTransaction.FOB_EXW_ExWorksFedEx, "478fb606-7928-4b79-8caf-92278775f835");
-			put(MShippingTransaction.FOB_FAS_FreeAlongsideShip, "b247c940-4974-44c4-92db-567f6a170635");
-			put(MShippingTransaction.FOB_FCA_FreeCarrierFedEx, "66c90182-879e-44a5-844d-a959c0c4a882");
-			put(MShippingTransaction.FOB_FOB_FreeOnBoardFedEx, "30141c28-d81e-45cf-b403-7b68e4ace907");
+			put("A_DFOBO", "ab88c68f-4805-45b6-ba40-6660f9725674");
+			put("B_EXW", "79961545-0bbb-4f57-bb8b-f86cd3286a76");
+			put("CFR", "77fbf8dc-b281-4d56-ba20-7d2493fcbbdb");
+			put("CIF", "328afab3-1f0b-4c42-8156-d0d9175d48ba");
+			put("CIP", "f97dd6d1-fe36-43bf-98a0-97da3dd15ccb");
+			put("CPT", "e30a9395-3a3e-4276-9dd0-2329892d633d");
+			put("DAF", "58bb2d2a-3d5c-47ef-88e9-fc851832734c");
+			put("DDP", "4828ecf4-b58d-4769-b77d-d2fae6e8ad59");
+			put("DDU", "e483c7a9-58d1-47d9-9c8c-8daf142cf664");
+			put("DEQ", "f1891d28-a462-417d-a977-aa427c5f95be");
+			put("DES", "7a884a23-7f14-4962-95fa-3ef56804cb3c");
+			put("DFOBD", "8063a230-c9ca-43f4-84fa-9199f3e18a3a");
+			put("EXW", "478fb606-7928-4b79-8caf-92278775f835");
+			put("FAS", "b247c940-4974-44c4-92db-567f6a170635");
+			put("FCA", "66c90182-879e-44a5-844d-a959c0c4a882");
+			put("FOB", "30141c28-d81e-45cf-b403-7b68e4ace907");
 		}
 	};
 	public CompletableFuture<MRefList> FOB_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
@@ -298,11 +298,11 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 
 	static Map<String, String> FREIGHTCHARGES_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MShippingTransaction.FREIGHTCHARGES_Collect, "8f1b9716-37d3-4c2b-b6c8-0d9e369d5949");
-			put(MShippingTransaction.FREIGHTCHARGES_3rdParty, "ecf5bea8-58cd-41d8-947d-7fe2da259c1f");
-			put(MShippingTransaction.FREIGHTCHARGES_Consignee, "5705e6a3-9457-4af0-b444-6cb0f86e95aa");
-			put(MShippingTransaction.FREIGHTCHARGES_Prepaid, "509eb116-2d24-4144-9d94-4e6f5980687d");
-			put(MShippingTransaction.FREIGHTCHARGES_PrepaidAndBill, "0e39eb81-f71c-4c44-a9b1-a1af86304c32");
+			put("A_Col", "8f1b9716-37d3-4c2b-b6c8-0d9e369d5949");
+			put("B_3P", "ecf5bea8-58cd-41d8-947d-7fe2da259c1f");
+			put("C_Con", "5705e6a3-9457-4af0-b444-6cb0f86e95aa");
+			put("D_PP", "509eb116-2d24-4144-9d94-4e6f5980687d");
+			put("E_PPB", "0e39eb81-f71c-4c44-a9b1-a1af86304c32");
 		}
 	};
 	public CompletableFuture<MRefList> FreightCharges_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
@@ -331,9 +331,9 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 
 	static Map<String, String> HOMEDELIVERYPREMIUMTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MShippingTransaction.HOMEDELIVERYPREMIUMTYPE_Appointment, "fba057eb-ce4d-4af4-b956-a1cf2c759a16");
-			put(MShippingTransaction.HOMEDELIVERYPREMIUMTYPE_DateCertain, "28903fcd-9f63-4fe4-9f07-2325c5eb74e9");
-			put(MShippingTransaction.HOMEDELIVERYPREMIUMTYPE_Evening, "c9af6b66-e0d9-4bf2-bb94-d0e91c15b572");
+			put("APPOINTMENT", "fba057eb-ce4d-4af4-b956-a1cf2c759a16");
+			put("DATE_CERTAIN", "28903fcd-9f63-4fe4-9f07-2325c5eb74e9");
+			put("EVENING", "c9af6b66-e0d9-4bf2-bb94-d0e91c15b572");
 		}
 	};
 	public CompletableFuture<MRefList> HomeDeliveryPremiumType_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
@@ -347,8 +347,8 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 
 	static Map<String, String> INSURANCE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MShippingTransaction.INSURANCE_Insure, "38fe063a-ebc1-43e4-8e13-ffe3e44cf678");
-			put(MShippingTransaction.INSURANCE_DoNotInsure, "19ba90f2-d281-4217-9460-be081c4cb49d");
+			put("1", "38fe063a-ebc1-43e4-8e13-ffe3e44cf678");
+			put("2", "19ba90f2-d281-4217-9460-be081c4cb49d");
 		}
 	};
 	public CompletableFuture<MRefList> Insurance_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
@@ -482,9 +482,9 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 
 	static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MShippingTransaction.NOTIFICATIONTYPE_Recipient, "87002ef2-dd55-4bed-8142-f3637e392a88");
-			put(MShippingTransaction.NOTIFICATIONTYPE_RecipientSender, "98057d6b-739c-44a1-8be6-9476830cd3bb");
-			put(MShippingTransaction.NOTIFICATIONTYPE_Sender, "b7b3d7c7-de4a-40ae-94f6-076b6258fa62");
+			put("RE", "87002ef2-dd55-4bed-8142-f3637e392a88");
+			put("RS", "98057d6b-739c-44a1-8be6-9476830cd3bb");
+			put("SE", "b7b3d7c7-de4a-40ae-94f6-076b6258fa62");
 		}
 	};
 	public CompletableFuture<MRefList> NotificationType_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
@@ -498,15 +498,15 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 
 	static Map<String, String> PAYMENTRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MShippingTransaction.PAYMENTRULE_Cash, "917130e3-2144-496c-9344-6cf4f7136293");
-			put(MShippingTransaction.PAYMENTRULE_CreditCard, "68dda00d-c015-498e-b91c-811bab809dab");
-			put(MShippingTransaction.PAYMENTRULE_DirectDeposit, "50bc3b86-6106-44df-88ee-1000243a9fcf");
-			put(MShippingTransaction.PAYMENTRULE_Check, "056e0d26-2ff4-41c6-bde6-b35d888e555e");
-			put(MShippingTransaction.PAYMENTRULE_OnCredit, "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
-			put(MShippingTransaction.PAYMENTRULE_DirectDebit, "2c5f0a44-1d35-4528-802f-9204e46be31e");
-			put(MShippingTransaction.PAYMENTRULE_MixedPOSPayment, "c9fff752-a38e-4679-bcec-61f330d1a6cb");
-			put(MShippingTransaction.PAYMENTRULE_MobileAccount, "c524815a-e048-4052-bab5-b7812e27cd64");
-			put(MShippingTransaction.PAYMENTRULE_CashDrawer, "72629357-494a-4cb3-aecf-807141f1968b");
+			put("B", "917130e3-2144-496c-9344-6cf4f7136293");
+			put("K", "68dda00d-c015-498e-b91c-811bab809dab");
+			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf");
+			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e");
+			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
+			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e");
+			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb");
+			put("A", "c524815a-e048-4052-bab5-b7812e27cd64");
+			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
 		}
 	};
 	public CompletableFuture<MRefList> PaymentRule_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {

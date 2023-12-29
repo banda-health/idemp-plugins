@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MActivity;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Activity;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ActivityInput extends MActivity implements I_C_ActivityInput {
+public class X_C_ActivityInput extends X_C_Activity implements I_C_ActivityInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_C_ActivityInput extends MActivity implements I_C_ActivityInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Activity.
+	 *
+	 * @param C_Activity_ID Business Activity
+	 */
+
+	public void setC_Activity_ID(int C_Activity_ID) {
+		if (get_ID() == 0) {
+			super.setC_Activity_ID(C_Activity_ID);
+		}
 	}
 
 	/**

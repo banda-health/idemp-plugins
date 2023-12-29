@@ -3,8 +3,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MProductDownload;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_ProductDownload;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_ProductDownloadInput extends MProductDownload implements I_M_ProductDownloadInput {
+public class X_M_ProductDownloadInput extends X_M_ProductDownload implements I_M_ProductDownloadInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_M_ProductInput M_Product;
@@ -76,6 +76,28 @@ public class X_M_ProductDownloadInput extends MProductDownload implements I_M_Pr
 	 */
 	public I_M_ProductInput getM_Product() {
 		return M_Product;
+	}
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product_ID Product, Service, Item
+	 */
+
+	public void setM_Product_ID(int M_Product_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_ID(M_Product_ID);
+		}
+	}
+	/**
+	 * Set Product Download.
+	 *
+	 * @param M_ProductDownload_ID Product downloads
+	 */
+
+	public void setM_ProductDownload_ID(int M_ProductDownload_ID) {
+		if (get_ID() == 0) {
+			super.setM_ProductDownload_ID(M_ProductDownload_ID);
+		}
 	}
 
 	/**

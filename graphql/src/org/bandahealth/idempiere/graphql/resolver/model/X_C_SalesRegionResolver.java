@@ -7,6 +7,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.compiere.model.MSalesRegion;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_SalesRegion - DO NOT CHANGE
  *

@@ -4,10 +4,10 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAddressValidation;
 import org.compiere.model.MCity;
 import org.compiere.model.MCountry;
-import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRegion;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Location;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
+public class X_C_LocationInput extends X_C_Location implements I_C_LocationInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_AddressValidationInput C_AddressValidation;
@@ -81,6 +81,17 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	public I_C_AddressValidationInput getC_AddressValidation() {
 		return C_AddressValidation;
 	}
+	/**
+	 * Set Address Validation.
+	 *
+	 * @param C_AddressValidation_ID Address Validation
+	 */
+
+	public void setC_AddressValidation_ID(int C_AddressValidation_ID) {
+		if (get_ID() == 0) {
+			super.setC_AddressValidation_ID(C_AddressValidation_ID);
+		}
+	}
 
 	/**
 	 * Set City.
@@ -135,6 +146,17 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	public I_C_CountryInput getC_Country() {
 		return C_Country;
 	}
+	/**
+	 * Set Address.
+	 *
+	 * @param C_Location_ID Location or Address
+	 */
+
+	public void setC_Location_ID(int C_Location_ID) {
+		if (get_ID() == 0) {
+			super.setC_Location_ID(C_Location_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -185,6 +207,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 *
 	 * @param IsValid Element is valid
 	 */
+
 	public void setIsValid(boolean IsValid) {
 		if (get_ID() == 0) {
 			super.setIsValid(IsValid);
@@ -195,6 +218,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 *
 	 * @param Result Result of the action taken
 	 */
+
 	public void setResult(String Result) {
 		if (get_ID() == 0) {
 			super.setResult(Result);

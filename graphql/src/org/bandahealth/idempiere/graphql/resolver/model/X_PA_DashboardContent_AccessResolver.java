@@ -8,8 +8,10 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_DashboardContentDataLoader;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MDashboardContentAccess;
-import org.compiere.model.MRole;
+import org.compiere.model.X_AD_Role;
 import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated ModelResolver for PA_DashboardContent_Access - DO NOT CHANGE
@@ -26,11 +28,11 @@ public class X_PA_DashboardContent_AccessResolver extends POResolver<MDashboardC
 	 *
 	 * @return Responsibility Role
 	 */
-	public CompletableFuture<MRole> AD_Role(MDashboardContentAccess entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_AD_Role> AD_Role(MDashboardContentAccess entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Role_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MRole> dataLoader =
+		DataLoader<Integer, X_AD_Role> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}

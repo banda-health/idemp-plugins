@@ -23,9 +23,9 @@ public class X_C_RevenueRecognitionResolver extends POResolver<MRevenueRecogniti
 
 	static Map<String, String> RECOGNITIONFREQUENCY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MRevenueRecognition.RECOGNITIONFREQUENCY_Month, "2e36cfa4-dfe7-4f3f-accd-6c8d1ef06a7d");
-			put(MRevenueRecognition.RECOGNITIONFREQUENCY_Quarter, "bfd94785-d2a8-4b42-98d4-0c9e04d49b46");
-			put(MRevenueRecognition.RECOGNITIONFREQUENCY_Year, "3fb681ad-7138-46e2-8d68-a6992bf1deb7");
+			put("M", "2e36cfa4-dfe7-4f3f-accd-6c8d1ef06a7d");
+			put("Q", "bfd94785-d2a8-4b42-98d4-0c9e04d49b46");
+			put("Y", "3fb681ad-7138-46e2-8d68-a6992bf1deb7");
 		}
 	};
 	public CompletableFuture<MRefList> RecognitionFrequency_RL(MRevenueRecognition entity, DataFetchingEnvironment environment) {

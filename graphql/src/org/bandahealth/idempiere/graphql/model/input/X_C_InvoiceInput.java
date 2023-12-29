@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -26,6 +28,7 @@ import org.compiere.model.MProject;
 import org.compiere.model.MRMA;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Invoice;
 import org.compiere.util.Env;
 
 /**
@@ -34,13 +37,12 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
+public class X_C_InvoiceInput extends X_C_Invoice implements I_C_InvoiceInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput DocAction_RL;
 	 private I_AD_Ref_ListInput DocStatus_RL;
 	 private I_AD_Ref_ListInput InvoiceCollectionType_RL;
-	 private I_AD_Ref_ListInput Posted_RL;
 	 private I_AD_UserInput AD_User;
 	 private I_AD_UserInput SalesRep;
 	 private I_BH_VisitInput BH_Visit;
@@ -131,6 +133,26 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	}
 
 	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons) {
+		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
+	}
+
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons() {
+ 		return get_Value(COLUMNNAME_BH_NavButtons);
+	}
+
+
+	/**
 	 * Set Visit.
 	 *
 	 * @param BH_Visit Visit
@@ -158,6 +180,34 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	}
 
 	/**
+	 * Set Visit.
+	 *
+	 * @param BH_Visit_ID Visit
+	 */
+	public void setBH_Visit_ID(int BH_Visit_ID) {
+		if (BH_Visit_ID < 1) {
+			set_Value(COLUMNNAME_BH_Visit_ID, null);
+		} else {
+			set_Value(COLUMNNAME_BH_Visit_ID, BH_Visit_ID);
+		}
+	}
+
+
+	/**
+	 * Get Visit.
+	 *
+	 * @return Visit
+	 */
+	public int getBH_Visit_ID() {
+ 		Integer columnValue = (Integer) get_Value(COLUMNNAME_BH_Visit_ID);
+		if (columnValue == null) {
+			return 0;
+		}
+		return columnValue;
+	}
+
+
+	/**
 	 * Set BH_Voided_Reason_ID.
 	 *
 	 * @param BH_Voided_Reason BH_Voided_Reason_ID
@@ -183,6 +233,34 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	public I_BH_Voided_ReasonInput getBH_Voided_Reason() {
 		return BH_Voided_Reason;
 	}
+
+	/**
+	 * Set BH_Voided_Reason_ID.
+	 *
+	 * @param BH_Voided_Reason_ID BH_Voided_Reason_ID
+	 */
+	public void setBH_Voided_Reason_ID(int BH_Voided_Reason_ID) {
+		if (BH_Voided_Reason_ID < 1) {
+			set_Value(COLUMNNAME_BH_Voided_Reason_ID, null);
+		} else {
+			set_Value(COLUMNNAME_BH_Voided_Reason_ID, BH_Voided_Reason_ID);
+		}
+	}
+
+
+	/**
+	 * Get BH_Voided_Reason_ID.
+	 *
+	 * @return BH_Voided_Reason_ID
+	 */
+	public int getBH_Voided_Reason_ID() {
+ 		Integer columnValue = (Integer) get_Value(COLUMNNAME_BH_Voided_Reason_ID);
+		if (columnValue == null) {
+			return 0;
+		}
+		return columnValue;
+	}
+
 
 	/**
 	 * Set Activity.
@@ -372,6 +450,17 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	public I_C_ChargeInput getC_Charge() {
 		return C_Charge;
 	}
+	/**
+	 * Set Charge.
+	 *
+	 * @param C_Charge_ID Additional document charges
+	 */
+
+	public void setC_Charge_ID(int C_Charge_ID) {
+		if (get_ID() == 0) {
+			super.setC_Charge_ID(C_Charge_ID);
+		}
+	}
 
 	/**
 	 * Set Currency Type.
@@ -451,6 +540,17 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	public I_C_DocTypeInput getC_DocType() {
 		return C_DocType;
 	}
+	/**
+	 * Set Document Type.
+	 *
+	 * @param C_DocType_ID Document type or rules
+	 */
+
+	public void setC_DocType_ID(int C_DocType_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocType_ID(C_DocType_ID);
+		}
+	}
 
 	/**
 	 * Set Target Document Type.
@@ -478,6 +578,17 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	public I_C_DocTypeInput getC_DocTypeTarget() {
 		return C_DocTypeTarget;
 	}
+	/**
+	 * Set Target Document Type.
+	 *
+	 * @param C_DocTypeTarget_ID Target document type for conversing documents
+	 */
+
+	public void setC_DocTypeTarget_ID(int C_DocTypeTarget_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocTypeTarget_ID(C_DocTypeTarget_ID);
+		}
+	}
 
 	/**
 	 * Set Dunning Level.
@@ -504,6 +615,17 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 */
 	public I_C_DunningLevelInput getC_DunningLevel() {
 		return C_DunningLevel;
+	}
+	/**
+	 * Set Invoice.
+	 *
+	 * @param C_Invoice_ID Invoice Identifier
+	 */
+
+	public void setC_Invoice_ID(int C_Invoice_ID) {
+		if (get_ID() == 0) {
+			super.setC_Invoice_ID(C_Invoice_ID);
+		}
 	}
 
 	/**
@@ -547,6 +669,17 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 */
 	public I_C_OrderInput getC_Order() {
 		return C_Order;
+	}
+	/**
+	 * Set Order.
+	 *
+	 * @param C_Order_ID Order
+	 */
+
+	public void setC_Order_ID(int C_Order_ID) {
+		if (get_ID() == 0) {
+			super.setC_Order_ID(C_Order_ID);
+		}
 	}
 
 	/**
@@ -634,6 +767,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param DateOrdered Date of Order
 	 */
+
 	public void setDateOrdered(Timestamp DateOrdered) {
 		if (get_ID() == 0) {
 			super.setDateOrdered(DateOrdered);
@@ -698,6 +832,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
+
 	public void setDocumentNo(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
@@ -708,6 +843,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param GrandTotal Total amount of document
 	 */
+
 	public void setGrandTotal(BigDecimal GrandTotal) {
 		if (get_ID() == 0) {
 			super.setGrandTotal(GrandTotal);
@@ -745,6 +881,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param IsApproved Indicates if this document requires approval
 	 */
+
 	public void setIsApproved(boolean IsApproved) {
 		if (get_ID() == 0) {
 			super.setIsApproved(IsApproved);
@@ -755,6 +892,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param IsPayScheduleValid Is the Payment Schedule is valid
 	 */
+
 	public void setIsPayScheduleValid(boolean IsPayScheduleValid) {
 		if (get_ID() == 0) {
 			super.setIsPayScheduleValid(IsPayScheduleValid);
@@ -765,6 +903,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param IsPrinted Indicates if this document / line is printed
 	 */
+
 	public void setIsPrinted(boolean IsPrinted) {
 		if (get_ID() == 0) {
 			super.setIsPrinted(IsPrinted);
@@ -775,6 +914,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param IsSOTrx This is a Sales Transaction
 	 */
+
 	public void setIsSOTrx(boolean IsSOTrx) {
 		if (get_ID() == 0) {
 			super.setIsSOTrx(IsSOTrx);
@@ -785,6 +925,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 *
 	 * @param IsTransferred Transferred to General Ledger (i.e. accounted)
 	 */
+
 	public void setIsTransferred(boolean IsTransferred) {
 		if (get_ID() == 0) {
 			super.setIsTransferred(IsTransferred);
@@ -844,38 +985,23 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	public I_M_RMAInput getM_RMA() {
 		return M_RMA;
 	}
-
 	/**
 	 * Set Posted.
 	 *
-	 * @param Posted_RL Posting status
+	 * @param Posted Posting status
 	 */
-	public void setPosted_RL(I_AD_Ref_ListInput Posted_RL) {
-		this.Posted_RL = Posted_RL;
-		MRefList foreignEntity;
-		if (Posted_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Posted_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPosted(foreignEntity.getValue());
-		} else {
-			this.setPosted(null);
-		}
-	}
 
-	/**
-	 * Get Posted.
-	 *
-	 * @return Posting status
-	 */
-	public I_AD_Ref_ListInput getPosted_RL() {
-		return Posted_RL;
+	public void setPosted(boolean Posted) {
+		if (get_ID() == 0) {
+			super.setPosted(Posted);
+		}
 	}
 	/**
 	 * Set Processed.
 	 *
 	 * @param Processed The document has been processed
 	 */
+
 	public void setProcessed(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);
@@ -908,6 +1034,17 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	public I_C_InvoiceInput getRelatedInvoice() {
 		return RelatedInvoice;
 	}
+	/**
+	 * Set Related Invoice.
+	 *
+	 * @param RelatedInvoice_ID Related Invoice
+	 */
+
+	public void setRelatedInvoice_ID(int RelatedInvoice_ID) {
+		if (get_ID() == 0) {
+			super.setRelatedInvoice_ID(RelatedInvoice_ID);
+		}
+	}
 
 	/**
 	 * Set Reversal ID.
@@ -934,6 +1071,17 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 */
 	public I_C_InvoiceInput getReversal() {
 		return Reversal;
+	}
+	/**
+	 * Set Reversal ID.
+	 *
+	 * @param Reversal_ID ID of document reversal
+	 */
+
+	public void setReversal_ID(int Reversal_ID) {
+		if (get_ID() == 0) {
+			super.setReversal_ID(Reversal_ID);
+		}
 	}
 
 	/**
@@ -963,10 +1111,22 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 		return SalesRep;
 	}
 	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep_ID Sales Representative or Company Agent
+	 */
+
+	public void setSalesRep_ID(int SalesRep_ID) {
+		if (get_ID() == 0) {
+			super.setSalesRep_ID(SalesRep_ID);
+		}
+	}
+	/**
 	 * Set Total Lines.
 	 *
 	 * @param TotalLines Total of all document lines
 	 */
+
 	public void setTotalLines(BigDecimal TotalLines) {
 		if (get_ID() == 0) {
 			super.setTotalLines(TotalLines);
@@ -999,6 +1159,17 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	public I_C_ElementValueInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -1025,5 +1196,16 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 */
 	public I_C_ElementValueInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

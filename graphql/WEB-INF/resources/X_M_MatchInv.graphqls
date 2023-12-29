@@ -44,7 +44,7 @@ type M_MatchInv {
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Posting status
-	Posted_RL: Boolean!
+	Posted: Boolean!
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
@@ -84,7 +84,7 @@ input M_MatchInvInput {
 	# Product, Service, Item
 	M_Product: M_ProductInput
 	# Posting status
-	Posted_RL: Boolean
+	Posted: Boolean
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

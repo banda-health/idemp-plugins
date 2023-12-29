@@ -49,21 +49,6 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_ProductResolver extends POResolver<MProduct_BH> implements GraphQLResolver<MProduct_BH> {
 
 
-	static Map<String, String> BH_PRODUCT_CATEGORY_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put(MProduct_BH.BH_PRODUCT_CATEGORY_TYPE_Product, "305558d1-db4a-456f-9c25-057750949060");
-			put(MProduct_BH.BH_PRODUCT_CATEGORY_TYPE_Service, "f3c40565-4bb3-4e82-b280-1ad24f6701cd");
-		}
-	};
-	public CompletableFuture<MRefList> BH_Product_Category_Type_RL(MProduct_BH entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getBH_Product_Category_Type())) {
-			return null;
-		}
-		DataLoader<String, MRefList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
-		return dataLoader.load(BH_PRODUCT_CATEGORY_TYPE_UUIDS_BY_VALUE.get(entity.getBH_Product_Category_Type()));
-	}
-
 
 	/**
 	 * Get Revenue Recognition.
@@ -216,12 +201,12 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 
 	static Map<String, String> PRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MProduct_BH.PRODUCTTYPE_Item, "59dcc5c9-ab37-4f5c-9987-6e2347f50093");
-			put(MProduct_BH.PRODUCTTYPE_Service, "265e0369-47e4-4be9-b6d5-e344230f5588");
-			put(MProduct_BH.PRODUCTTYPE_Resource, "42694712-fdf0-42ec-aa93-bf19009c3a98");
-			put(MProduct_BH.PRODUCTTYPE_ExpenseType, "6a973557-0387-4173-8b31-af735b9eeb75");
-			put(MProduct_BH.PRODUCTTYPE_Online, "8de4f3a8-057c-4540-96d8-38369776b2e7");
-			put(MProduct_BH.PRODUCTTYPE_Asset, "a45dcc33-c973-4744-955e-dd24518ef099");
+			put("I", "59dcc5c9-ab37-4f5c-9987-6e2347f50093");
+			put("S", "265e0369-47e4-4be9-b6d5-e344230f5588");
+			put("R", "42694712-fdf0-42ec-aa93-bf19009c3a98");
+			put("E", "6a973557-0387-4173-8b31-af735b9eeb75");
+			put("O", "8de4f3a8-057c-4540-96d8-38369776b2e7");
+			put("A", "a45dcc33-c973-4744-955e-dd24518ef099");
 		}
 	};
 	public CompletableFuture<MRefList> ProductType_RL(MProduct_BH entity, DataFetchingEnvironment environment) {

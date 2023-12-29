@@ -9,6 +9,8 @@ import org.compiere.model.MAssetGroup;
 import org.compiere.model.MAssetType;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for A_Asset_Group - DO NOT CHANGE
  *

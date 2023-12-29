@@ -46,11 +46,11 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 
 	static Map<String, String> BANKACCOUNTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPBankAccount.BANKACCOUNTTYPE_Checking, "c6fb4b16-162e-4ab0-a613-2a6fb63dbae4");
-			put(MBPBankAccount.BANKACCOUNTTYPE_Savings, "de51279d-e4d6-4450-8048-093e48e5dd0a");
-			put(MBPBankAccount.BANKACCOUNTTYPE_Cash, "efdadde5-1f09-4e32-9fff-ab94a7caf845");
-			put(MBPBankAccount.BANKACCOUNTTYPE_Card, "0246f122-2d14-4aee-ba91-c72b43d6e85e");
-			put(MBPBankAccount.BANKACCOUNTTYPE_Mobile, "be1ae458-a3aa-4d16-995a-8d23d34b5c08");
+			put("C", "c6fb4b16-162e-4ab0-a613-2a6fb63dbae4");
+			put("S", "de51279d-e4d6-4450-8048-093e48e5dd0a");
+			put("B", "efdadde5-1f09-4e32-9fff-ab94a7caf845");
+			put("D", "0246f122-2d14-4aee-ba91-c72b43d6e85e");
+			put("M", "be1ae458-a3aa-4d16-995a-8d23d34b5c08");
 		}
 	};
 	public CompletableFuture<MRefList> BankAccountType_RL(MBPBankAccount entity, DataFetchingEnvironment environment) {
@@ -64,10 +64,10 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 
 	static Map<String, String> BPBANKACCTUSE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPBankAccount.BPBANKACCTUSE_None, "82b4faf7-4dc5-4ca4-8d38-093aba177001");
-			put(MBPBankAccount.BPBANKACCTUSE_Both, "dab23e60-29d6-46ea-a2c9-7fb366331716");
-			put(MBPBankAccount.BPBANKACCTUSE_DirectDebit, "d6f3f6a6-c393-4443-a14f-b99bd5b9a7a5");
-			put(MBPBankAccount.BPBANKACCTUSE_DirectDeposit, "c028ea3e-3ea1-48a4-a2cf-506ffd32706c");
+			put("N", "82b4faf7-4dc5-4ca4-8d38-093aba177001");
+			put("B", "dab23e60-29d6-46ea-a2c9-7fb366331716");
+			put("D", "d6f3f6a6-c393-4443-a14f-b99bd5b9a7a5");
+			put("T", "c028ea3e-3ea1-48a4-a2cf-506ffd32706c");
 		}
 	};
 	public CompletableFuture<MRefList> BPBankAcctUse_RL(MBPBankAccount entity, DataFetchingEnvironment environment) {
@@ -126,13 +126,13 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 
 	static Map<String, String> CREDITCARDTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPBankAccount.CREDITCARDTYPE_Amex, "0923716b-9efc-42ed-b1f9-ee1c5c7ca7fa");
-			put(MBPBankAccount.CREDITCARDTYPE_MasterCard, "8b5451f8-2fd2-4745-b9de-f4459ac9265c");
-			put(MBPBankAccount.CREDITCARDTYPE_Visa, "d89e4a0c-a891-462a-961a-155e00acdd8c");
-			put(MBPBankAccount.CREDITCARDTYPE_ATM, "144e87eb-ed8e-4046-a804-bd27f0e5602d");
-			put(MBPBankAccount.CREDITCARDTYPE_Diners, "4d14ee27-f39f-4899-aaf0-9b2d1c603563");
-			put(MBPBankAccount.CREDITCARDTYPE_Discover, "404ed4d2-a97b-4626-b6ed-273f19e599be");
-			put(MBPBankAccount.CREDITCARDTYPE_PurchaseCard, "32dc3f71-74c1-4868-9c34-4db70edce0c2");
+			put("A", "0923716b-9efc-42ed-b1f9-ee1c5c7ca7fa");
+			put("M", "8b5451f8-2fd2-4745-b9de-f4459ac9265c");
+			put("V", "d89e4a0c-a891-462a-961a-155e00acdd8c");
+			put("C", "144e87eb-ed8e-4046-a804-bd27f0e5602d");
+			put("D", "4d14ee27-f39f-4899-aaf0-9b2d1c603563");
+			put("N", "404ed4d2-a97b-4626-b6ed-273f19e599be");
+			put("P", "32dc3f71-74c1-4868-9c34-4db70edce0c2");
 		}
 	};
 	public CompletableFuture<MRefList> CreditCardType_RL(MBPBankAccount entity, DataFetchingEnvironment environment) {
@@ -146,9 +146,9 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 
 	static Map<String, String> R_AVSADDR_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPBankAccount.R_AVSADDR_Match, "3f444693-7387-4215-aa79-9bbfdc6a05ab");
-			put(MBPBankAccount.R_AVSADDR_NoMatch, "204e56c0-775e-4ed8-82d3-9b7c71b98419");
-			put(MBPBankAccount.R_AVSADDR_Unavailable, "2779bac6-1d0b-42b4-ac7e-20e6a8c9b294");
+			put("Y", "3f444693-7387-4215-aa79-9bbfdc6a05ab");
+			put("N", "204e56c0-775e-4ed8-82d3-9b7c71b98419");
+			put("X", "2779bac6-1d0b-42b4-ac7e-20e6a8c9b294");
 		}
 	};
 	public CompletableFuture<MRefList> R_AvsAddr_RL(MBPBankAccount entity, DataFetchingEnvironment environment) {
@@ -162,9 +162,9 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 
 	static Map<String, String> R_AVSZIP_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPBankAccount.R_AVSZIP_Match, "3f444693-7387-4215-aa79-9bbfdc6a05ab");
-			put(MBPBankAccount.R_AVSZIP_NoMatch, "204e56c0-775e-4ed8-82d3-9b7c71b98419");
-			put(MBPBankAccount.R_AVSZIP_Unavailable, "2779bac6-1d0b-42b4-ac7e-20e6a8c9b294");
+			put("Y", "3f444693-7387-4215-aa79-9bbfdc6a05ab");
+			put("N", "204e56c0-775e-4ed8-82d3-9b7c71b98419");
+			put("X", "2779bac6-1d0b-42b4-ac7e-20e6a8c9b294");
 		}
 	};
 	public CompletableFuture<MRefList> R_AvsZip_RL(MBPBankAccount entity, DataFetchingEnvironment environment) {

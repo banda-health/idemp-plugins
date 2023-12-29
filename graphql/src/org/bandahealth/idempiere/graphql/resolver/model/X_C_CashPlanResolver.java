@@ -93,9 +93,9 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 
 	static Map<String, String> CASHFLOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MCashPlan.CASHFLOWTYPE_Financing, "ede6e6f1-d894-4cad-88d1-891d8dc2d926");
-			put(MCashPlan.CASHFLOWTYPE_Investment, "a98fda35-3822-42d3-8e4f-83880822e028");
-			put(MCashPlan.CASHFLOWTYPE_Operational, "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190");
+			put("F", "ede6e6f1-d894-4cad-88d1-891d8dc2d926");
+			put("I", "a98fda35-3822-42d3-8e4f-83880822e028");
+			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190");
 		}
 	};
 	public CompletableFuture<MRefList> CashFlowType_RL(MCashPlan entity, DataFetchingEnvironment environment) {

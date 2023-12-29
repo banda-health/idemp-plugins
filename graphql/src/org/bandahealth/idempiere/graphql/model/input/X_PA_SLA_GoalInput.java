@@ -4,8 +4,8 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MSLACriteria;
-import org.compiere.model.MSLAGoal;
 import org.compiere.model.Query;
+import org.compiere.model.X_PA_SLA_Goal;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
+public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_BPartnerInput C_BPartner;
@@ -77,6 +77,17 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 	public I_C_BPartnerInput getC_BPartner() {
 		return C_BPartner;
 	}
+	/**
+	 * Set Business Partner .
+	 *
+	 * @param C_BPartner_ID Identifies a Business Partner
+	 */
+
+	public void setC_BPartner_ID(int C_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_ID(C_BPartner_ID);
+		}
+	}
 
 	/**
 	 * Set SLA Criteria.
@@ -103,6 +114,17 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 	 */
 	public I_PA_SLA_CriteriaInput getPA_SLA_Criteria() {
 		return PA_SLA_Criteria;
+	}
+	/**
+	 * Set SLA Goal.
+	 *
+	 * @param PA_SLA_Goal_ID Service Level Agreement Goal
+	 */
+
+	public void setPA_SLA_Goal_ID(int PA_SLA_Goal_ID) {
+		if (get_ID() == 0) {
+			super.setPA_SLA_Goal_ID(PA_SLA_Goal_ID);
+		}
 	}
 
 	/**

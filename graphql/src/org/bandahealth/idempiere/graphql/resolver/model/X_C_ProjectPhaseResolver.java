@@ -91,11 +91,11 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 
 	static Map<String, String> PROJINVOICERULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MProjectPhase.PROJINVOICERULE_None, "b2c13436-dfd4-4b95-a0fe-a0429485d425");
-			put(MProjectPhase.PROJINVOICERULE_CommittedAmount, "4311a616-dbf6-4e2a-bc9b-a7726e4f075c");
-			put(MProjectPhase.PROJINVOICERULE_TimeMaterialMaxComitted, "e9bbae09-f9ce-4dfd-a9d6-487109574052");
-			put(MProjectPhase.PROJINVOICERULE_TimeMaterial, "f724e224-f0fb-4575-94ae-b4aa8e6c8c54");
-			put(MProjectPhase.PROJINVOICERULE_ProductQuantity, "c6d2fa2b-6f89-41b1-9e53-db77217d3ff1");
+			put("-", "b2c13436-dfd4-4b95-a0fe-a0429485d425");
+			put("C", "4311a616-dbf6-4e2a-bc9b-a7726e4f075c");
+			put("c", "e9bbae09-f9ce-4dfd-a9d6-487109574052");
+			put("T", "f724e224-f0fb-4575-94ae-b4aa8e6c8c54");
+			put("P", "c6d2fa2b-6f89-41b1-9e53-db77217d3ff1");
 		}
 	};
 	public CompletableFuture<MRefList> ProjInvoiceRule_RL(MProjectPhase entity, DataFetchingEnvironment environment) {

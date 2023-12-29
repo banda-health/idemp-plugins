@@ -387,6 +387,17 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public I_AD_WorkflowInput getAD_Workflow() {
 		return AD_Workflow;
 	}
+	/**
+	 * Set Workflow.
+	 *
+	 * @param AD_Workflow_ID Workflow or combination of tasks
+	 */
+
+	public void setAD_Workflow_ID(int AD_Workflow_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Workflow_ID(AD_Workflow_ID);
+		}
+	}
 
 	/**
 	 * Set Business Partner .
@@ -481,9 +492,9 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -494,6 +505,17 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 
 	/**
@@ -574,6 +596,28 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public I_PP_OrderInput getPP_Order() {
 		return PP_Order;
 	}
+	/**
+	 * Set Manufacturing Order.
+	 *
+	 * @param PP_Order_ID Manufacturing Order
+	 */
+
+	public void setPP_Order_ID(int PP_Order_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_ID(PP_Order_ID);
+		}
+	}
+	/**
+	 * Set Manufacturing Order Activity.
+	 *
+	 * @param PP_Order_Node_ID Workflow Node (activity), step or process
+	 */
+
+	public void setPP_Order_Node_ID(int PP_Order_Node_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_Node_ID(PP_Order_Node_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -617,6 +661,17 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public I_PP_Order_WorkflowInput getPP_Order_Workflow() {
 		return PP_Order_Workflow;
 	}
+	/**
+	 * Set Manufacturing Order Workflow.
+	 *
+	 * @param PP_Order_Workflow_ID Manufacturing Order Workflow
+	 */
+
+	public void setPP_Order_Workflow_ID(int PP_Order_Workflow_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_Workflow_ID(PP_Order_Workflow_ID);
+		}
+	}
 
 	/**
 	 * Set Resource.
@@ -643,6 +698,17 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 */
 	public I_S_ResourceInput getS_Resource() {
 		return S_Resource;
+	}
+	/**
+	 * Set Resource.
+	 *
+	 * @param S_Resource_ID Resource
+	 */
+
+	public void setS_Resource_ID(int S_Resource_ID) {
+		if (get_ID() == 0) {
+			super.setS_Resource_ID(S_Resource_ID);
+		}
 	}
 
 	/**
@@ -751,5 +817,16 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 */
 	public I_AD_WorkflowInput getWorkflow() {
 		return Workflow;
+	}
+	/**
+	 * Set Workflow.
+	 *
+	 * @param Workflow_ID Workflow or tasks
+	 */
+
+	public void setWorkflow_ID(int Workflow_ID) {
+		if (get_ID() == 0) {
+			super.setWorkflow_ID(Workflow_ID);
+		}
 	}
 }

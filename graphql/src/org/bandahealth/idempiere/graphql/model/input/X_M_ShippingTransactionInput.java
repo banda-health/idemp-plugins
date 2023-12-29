@@ -17,10 +17,10 @@ import org.compiere.model.MShipperLabels;
 import org.compiere.model.MShipperPackaging;
 import org.compiere.model.MShipperPickupTypes;
 import org.compiere.model.MShippingProcessor;
-import org.compiere.model.MShippingTransaction;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_BP_ShippingAcct;
+import org.compiere.model.X_M_ShippingTransaction;
 import org.compiere.util.Env;
 
 /**
@@ -29,7 +29,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_ShippingTransactionInput extends MShippingTransaction implements I_M_ShippingTransactionInput {
+public class X_M_ShippingTransactionInput extends X_M_ShippingTransaction implements I_M_ShippingTransactionInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput Action_RL;
@@ -177,6 +177,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 */
 	public I_C_BPartner_LocationInput getBill_Location() {
 		return Bill_Location;
+	}
+	/**
+	 * Set Invoice Location.
+	 *
+	 * @param Bill_Location_ID Business Partner Location for invoicing
+	 */
+
+	public void setBill_Location_ID(int Bill_Location_ID) {
+		if (get_ID() == 0) {
+			super.setBill_Location_ID(Bill_Location_ID);
+		}
 	}
 
 	/**
@@ -367,6 +378,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public I_C_UOMInput getC_UOM_Length() {
 		return C_UOM_Length;
 	}
+	/**
+	 * Set UOM for Length.
+	 *
+	 * @param C_UOM_Length_ID Standard Unit of Measure for Length
+	 */
+
+	public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_Length_ID(C_UOM_Length_ID);
+		}
+	}
 
 	/**
 	 * Set UOM for Weight.
@@ -393,6 +415,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 */
 	public I_C_UOMInput getC_UOM_Weight() {
 		return C_UOM_Weight;
+	}
+	/**
+	 * Set UOM for Weight.
+	 *
+	 * @param C_UOM_Weight_ID Standard Unit of Measure for Weight
+	 */
+
+	public void setC_UOM_Weight_ID(int C_UOM_Weight_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_Weight_ID(C_UOM_Weight_ID);
+		}
 	}
 
 	/**
@@ -525,6 +558,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public I_C_BPartner_LocationInput getHoldAddress() {
 		return HoldAddress;
 	}
+	/**
+	 * Set Hold Address.
+	 *
+	 * @param HoldAddress_ID Hold Address
+	 */
+
+	public void setHoldAddress_ID(int HoldAddress_ID) {
+		if (get_ID() == 0) {
+			super.setHoldAddress_ID(HoldAddress_ID);
+		}
+	}
 
 	/**
 	 * Set Home Delivery Premium Type.
@@ -602,6 +646,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public I_M_InOutInput getM_InOut() {
 		return M_InOut;
 	}
+	/**
+	 * Set Shipment/Receipt.
+	 *
+	 * @param M_InOut_ID Material Shipment Document
+	 */
+
+	public void setM_InOut_ID(int M_InOut_ID) {
+		if (get_ID() == 0) {
+			super.setM_InOut_ID(M_InOut_ID);
+		}
+	}
 
 	/**
 	 * Set Package.
@@ -656,6 +711,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public I_M_ShipperInput getM_Shipper() {
 		return M_Shipper;
 	}
+	/**
+	 * Set Shipper.
+	 *
+	 * @param M_Shipper_ID Method or manner of product delivery
+	 */
+
+	public void setM_Shipper_ID(int M_Shipper_ID) {
+		if (get_ID() == 0) {
+			super.setM_Shipper_ID(M_Shipper_ID);
+		}
+	}
 
 	/**
 	 * Set Shipper Labels.
@@ -682,6 +748,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 */
 	public I_M_ShipperLabelsInput getM_ShipperLabels() {
 		return M_ShipperLabels;
+	}
+	/**
+	 * Set Shipper Labels.
+	 *
+	 * @param M_ShipperLabels_ID Shipper Labels
+	 */
+
+	public void setM_ShipperLabels_ID(int M_ShipperLabels_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperLabels_ID(M_ShipperLabels_ID);
+		}
 	}
 
 	/**
@@ -710,6 +787,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public I_M_ShipperPackagingInput getM_ShipperPackaging() {
 		return M_ShipperPackaging;
 	}
+	/**
+	 * Set Shipper Packaging.
+	 *
+	 * @param M_ShipperPackaging_ID Shipper Packaging
+	 */
+
+	public void setM_ShipperPackaging_ID(int M_ShipperPackaging_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperPackaging_ID(M_ShipperPackaging_ID);
+		}
+	}
 
 	/**
 	 * Set Shipper Pickup Types.
@@ -737,6 +825,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public I_M_ShipperPickupTypesInput getM_ShipperPickupTypes() {
 		return M_ShipperPickupTypes;
 	}
+	/**
+	 * Set Shipper Pickup Types.
+	 *
+	 * @param M_ShipperPickupTypes_ID Shipper Pickup Types
+	 */
+
+	public void setM_ShipperPickupTypes_ID(int M_ShipperPickupTypes_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperPickupTypes_ID(M_ShipperPickupTypes_ID);
+		}
+	}
 
 	/**
 	 * Set Shipping Processor.
@@ -761,6 +860,28 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 */
 	public I_M_ShippingProcessorInput getM_ShippingProcessor() {
 		return M_ShippingProcessor;
+	}
+	/**
+	 * Set Shipping Processor.
+	 *
+	 * @param M_ShippingProcessor_ID Shipping Processor
+	 */
+
+	public void setM_ShippingProcessor_ID(int M_ShippingProcessor_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShippingProcessor_ID(M_ShippingProcessor_ID);
+		}
+	}
+	/**
+	 * Set Shipping Transaction.
+	 *
+	 * @param M_ShippingTransaction_ID Shipping Transaction
+	 */
+
+	public void setM_ShippingTransaction_ID(int M_ShippingTransaction_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShippingTransaction_ID(M_ShippingTransaction_ID);
+		}
 	}
 
 	/**
@@ -888,6 +1009,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public I_C_BPartnerInput getReturnBPartner() {
 		return ReturnBPartner;
 	}
+	/**
+	 * Set Return Partner.
+	 *
+	 * @param ReturnBPartner_ID Return Partner
+	 */
+
+	public void setReturnBPartner_ID(int ReturnBPartner_ID) {
+		if (get_ID() == 0) {
+			super.setReturnBPartner_ID(ReturnBPartner_ID);
+		}
+	}
 
 	/**
 	 * Set Return Location.
@@ -914,6 +1046,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 */
 	public I_C_BPartner_LocationInput getReturnLocation() {
 		return ReturnLocation;
+	}
+	/**
+	 * Set Return Location.
+	 *
+	 * @param ReturnLocation_ID Return Location
+	 */
+
+	public void setReturnLocation_ID(int ReturnLocation_ID) {
+		if (get_ID() == 0) {
+			super.setReturnLocation_ID(ReturnLocation_ID);
+		}
 	}
 
 	/**
@@ -942,6 +1085,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public I_AD_UserInput getReturnUser() {
 		return ReturnUser;
 	}
+	/**
+	 * Set Return User/Contact.
+	 *
+	 * @param ReturnUser_ID Return User/Contact
+	 */
+
+	public void setReturnUser_ID(int ReturnUser_ID) {
+		if (get_ID() == 0) {
+			super.setReturnUser_ID(ReturnUser_ID);
+		}
+	}
 
 	/**
 	 * Set Sales Representative.
@@ -968,5 +1122,16 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 */
 	public I_AD_UserInput getSalesRep() {
 		return SalesRep;
+	}
+	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep_ID Sales Representative or Company Agent
+	 */
+
+	public void setSalesRep_ID(int SalesRep_ID) {
+		if (get_ID() == 0) {
+			super.setSalesRep_ID(SalesRep_ID);
+		}
 	}
 }
