@@ -17,7 +17,7 @@ type AD_WorkflowConnection {
 
 type AD_Workflow {
 	# Access Level required
-	AccessLevel: AD_Ref_List!
+	AccessLevel_RL: AD_Ref_List!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp
@@ -39,7 +39,7 @@ type AD_Workflow {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document
@@ -49,7 +49,7 @@ type AD_Workflow {
 	# Normal Duration in Duration Unit
 	Duration: Int!
 	# Unit of Duration
-	DurationUnit: AD_Ref_List
+	DurationUnit_RL: AD_Ref_List
 	# Dictionary Entity Type; Determines ownership and synchronization
 	EntityType: AD_EntityType!
 	# Comment or Hint
@@ -71,9 +71,9 @@ type AD_Workflow {
 	OverlapUnits: Int
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: Int
-	ProcessType: AD_Ref_List
+	ProcessType_RL: AD_Ref_List
 	# Status of Publication
-	PublishStatus: AD_Ref_List!
+	PublishStatus_RL: AD_Ref_List!
 	QtyBatchSize: Int
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
@@ -86,7 +86,7 @@ type AD_Workflow {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	ValidateWorkflow: String
 	# Valid from including this date (first day)
 	ValidFrom: Date
@@ -99,7 +99,7 @@ type AD_Workflow {
 	# Workflow Simulation Waiting time
 	WaitingTime: Int!
 	# Type of Workflow
-	WorkflowType: AD_Ref_List!
+	WorkflowType_RL: AD_Ref_List!
 	# Workflow Simulation Execution Time
 	WorkingTime: Int!
 	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
@@ -108,7 +108,7 @@ type AD_Workflow {
 
 input AD_WorkflowInput {
 	# Access Level required
-	AccessLevel: AD_Ref_ListInput
+	AccessLevel_RL: AD_Ref_ListInput
 	AD_CtxHelp: AD_CtxHelpInput
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
@@ -134,7 +134,7 @@ input AD_WorkflowInput {
 	# Normal Duration in Duration Unit
 	Duration: Int
 	# Unit of Duration
-	DurationUnit: AD_Ref_ListInput
+	DurationUnit_RL: AD_Ref_ListInput
 	# Dictionary Entity Type; Determines ownership and synchronization
 	EntityType: AD_EntityTypeInput
 	# Comment or Hint
@@ -156,9 +156,9 @@ input AD_WorkflowInput {
 	OverlapUnits: Int
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: Int
-	ProcessType: AD_Ref_ListInput
+	ProcessType_RL: AD_Ref_ListInput
 	# Status of Publication
-	PublishStatus: AD_Ref_ListInput
+	PublishStatus_RL: AD_Ref_ListInput
 	QtyBatchSize: Int
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
@@ -180,7 +180,7 @@ input AD_WorkflowInput {
 	# Workflow Simulation Waiting time
 	WaitingTime: Int
 	# Type of Workflow
-	WorkflowType: AD_Ref_ListInput
+	WorkflowType_RL: AD_Ref_ListInput
 	# Workflow Simulation Execution Time
 	WorkingTime: Int
 	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent

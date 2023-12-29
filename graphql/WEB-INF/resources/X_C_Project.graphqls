@@ -50,7 +50,7 @@ type C_Project {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# The (planned) effective date of this document.
 	DateContract: Date
 	# Finish or (planned) completion date
@@ -93,17 +93,17 @@ type C_Project {
 	# Total Project Balance
 	ProjectBalanceAmt: Int!
 	# Project Category
-	ProjectCategory: AD_Ref_List
+	ProjectCategory_RL: AD_Ref_List
 	# Project Line Level
-	ProjectLineLevel: AD_Ref_List!
+	ProjectLineLevel_RL: AD_Ref_List!
 	# Invoice Rule for the project
-	ProjInvoiceRule: AD_Ref_List!
+	ProjInvoiceRule_RL: AD_Ref_List!
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 }
@@ -180,11 +180,11 @@ input C_ProjectInput {
 	# Total Project Balance
 	ProjectBalanceAmt: Int
 	# Project Category
-	ProjectCategory: AD_Ref_ListInput
+	ProjectCategory_RL: AD_Ref_ListInput
 	# Project Line Level
-	ProjectLineLevel: AD_Ref_ListInput
+	ProjectLineLevel_RL: AD_Ref_ListInput
 	# Invoice Rule for the project
-	ProjInvoiceRule: AD_Ref_ListInput
+	ProjInvoiceRule_RL: AD_Ref_ListInput
 	# Sales Representative or Company Agent
 	SalesRep: AD_UserInput
 	# Search key for the record in the format required - must be unique

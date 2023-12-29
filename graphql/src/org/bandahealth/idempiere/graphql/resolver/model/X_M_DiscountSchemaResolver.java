@@ -1,0 +1,55 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MDiscountSchema;
+import org.compiere.model.MRefList;
+import org.dataloader.DataLoader;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * Generated ModelResolver for M_DiscountSchema - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_M_DiscountSchemaResolver extends POResolver<MDiscountSchema> implements GraphQLResolver<MDiscountSchema> {
+
+
+	static Map<String, String> CUMULATIVELEVEL_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(MDiscountSchema.CUMULATIVELEVEL_Line, "e1900a88-3b1d-42d1-bdd1-73c98e8da204");
+		}
+	};
+	public CompletableFuture<MRefList> CumulativeLevel_RL(MDiscountSchema entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getCumulativeLevel())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(CUMULATIVELEVEL_UUIDS_BY_VALUE.get(entity.getCumulativeLevel()));
+	}
+
+	static Map<String, String> DISCOUNTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(MDiscountSchema.DISCOUNTTYPE_FlatPercent, "05de479b-68e1-4938-9780-32cc46552a61");
+			put(MDiscountSchema.DISCOUNTTYPE_Formula, "0e5a081a-1ff0-41fe-9416-d49900f47c01");
+			put(MDiscountSchema.DISCOUNTTYPE_Breaks, "72cb1574-a005-4e1f-bb1d-64e2eb4f8724");
+			put(MDiscountSchema.DISCOUNTTYPE_Pricelist, "fc11d767-ab3d-44c4-bdcc-6404c2c5af07");
+		}
+	};
+	public CompletableFuture<MRefList> DiscountType_RL(MDiscountSchema entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getDiscountType())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(DISCOUNTTYPE_UUIDS_BY_VALUE.get(entity.getDiscountType()));
+	}
+
+}

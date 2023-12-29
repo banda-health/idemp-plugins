@@ -17,7 +17,7 @@ type AD_TaskConnection {
 
 type AD_Task {
 	# Access Level required
-	AccessLevel: AD_Ref_List!
+	AccessLevel_RL: AD_Ref_List!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp
@@ -27,7 +27,7 @@ type AD_Task {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
@@ -43,12 +43,12 @@ type AD_Task {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input AD_TaskInput {
 	# Access Level required
-	AccessLevel: AD_Ref_ListInput
+	AccessLevel_RL: AD_Ref_ListInput
 	AD_CtxHelp: AD_CtxHelpInput
 	# Organizational entity within client
 	AD_Org: AD_OrgInput

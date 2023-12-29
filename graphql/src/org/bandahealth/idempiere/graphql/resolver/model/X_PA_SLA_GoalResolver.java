@@ -1,0 +1,51 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_SLA_CriteriaDataLoader;
+import org.compiere.model.MSLACriteria;
+import org.compiere.model.MSLAGoal;
+import org.dataloader.DataLoader;
+
+/**
+ * Generated ModelResolver for PA_SLA_Goal - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_PA_SLA_GoalResolver extends POResolver<MSLAGoal> implements GraphQLResolver<MSLAGoal> {
+
+
+
+	/**
+	 * Get Business Partner .
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	public CompletableFuture<MBPartner_BH> C_BPartner(MSLAGoal entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BPartner_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MBPartner_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_BPartner_ID());
+	}
+
+
+	/**
+	 * Get SLA Criteria.
+	 *
+	 * @return Service Level Agreement Criteria
+	 */
+	public CompletableFuture<MSLACriteria> PA_SLA_Criteria(MSLAGoal entity, DataFetchingEnvironment environment) {
+		if (entity.getPA_SLA_Criteria_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MSLACriteria> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_SLA_CriteriaDataLoader.PA_SLA_Criteria_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPA_SLA_Criteria_ID());
+	}
+
+}

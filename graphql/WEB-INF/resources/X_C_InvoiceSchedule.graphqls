@@ -26,7 +26,7 @@ type C_InvoiceSchedule {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Send invoices on even weeks
@@ -36,11 +36,11 @@ type C_InvoiceSchedule {
 	# Last day for including shipments
 	InvoiceDayCutoff: Int
 	# How often invoices will be generated
-	InvoiceFrequency: AD_Ref_List!
+	InvoiceFrequency_RL: AD_Ref_List!
 	# Day to generate invoices
-	InvoiceWeekDay: AD_Ref_List!
+	InvoiceWeekDay_RL: AD_Ref_List!
 	# Last day in the week for shipments to be included
-	InvoiceWeekDayCutoff: AD_Ref_List
+	InvoiceWeekDayCutoff_RL: AD_Ref_List
 	# The record is active in the system
 	IsActive: Boolean!
 	# Send invoices only if the amount exceeds the limit
@@ -52,7 +52,7 @@ type C_InvoiceSchedule {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input C_InvoiceScheduleInput {
@@ -70,11 +70,11 @@ input C_InvoiceScheduleInput {
 	# Last day for including shipments
 	InvoiceDayCutoff: Int
 	# How often invoices will be generated
-	InvoiceFrequency: AD_Ref_ListInput
+	InvoiceFrequency_RL: AD_Ref_ListInput
 	# Day to generate invoices
-	InvoiceWeekDay: AD_Ref_ListInput
+	InvoiceWeekDay_RL: AD_Ref_ListInput
 	# Last day in the week for shipments to be included
-	InvoiceWeekDayCutoff: AD_Ref_ListInput
+	InvoiceWeekDayCutoff_RL: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Send invoices only if the amount exceeds the limit

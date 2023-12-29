@@ -27,7 +27,7 @@ type PA_RatioElement {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -42,17 +42,17 @@ type PA_RatioElement {
 	# Performance Ratio Used
 	PA_RatioUsed: PA_Ratio
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_List
+	PostingType_RL: AD_Ref_List
 	# Ratio Element Type
-	RatioElementType: AD_Ref_List!
+	RatioElementType_RL: AD_Ref_List!
 	# Ratio Operand
-	RatioOperand: AD_Ref_List!
+	RatioOperand_RL: AD_Ref_List!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input PA_RatioElementInput {
@@ -76,11 +76,11 @@ input PA_RatioElementInput {
 	# Performance Ratio Used
 	PA_RatioUsed: PA_RatioInput
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType_RL: AD_Ref_ListInput
 	# Ratio Element Type
-	RatioElementType: AD_Ref_ListInput
+	RatioElementType_RL: AD_Ref_ListInput
 	# Ratio Operand
-	RatioOperand: AD_Ref_ListInput
+	RatioOperand_RL: AD_Ref_ListInput
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

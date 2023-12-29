@@ -26,7 +26,7 @@ type C_PaymentBatch {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Document sequence number of the document
 	DocumentNo: String
 	# The record is active in the system
@@ -40,7 +40,7 @@ type C_PaymentBatch {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input C_PaymentBatchInput {

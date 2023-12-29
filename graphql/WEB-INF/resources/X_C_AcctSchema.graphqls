@@ -28,19 +28,19 @@ type C_AcctSchema {
 	# Period of the Calendar
 	C_Period: C_Period
 	# Create Commitment and/or Reservations for Budget Control
-	CommitmentType: AD_Ref_List!
+	CommitmentType_RL: AD_Ref_List!
 	# The lowest level to accumulate Costing Information
-	CostingLevel: AD_Ref_List!
+	CostingLevel_RL: AD_Ref_List!
 	# Indicates how Costs will be calculated
-	CostingMethod: AD_Ref_List!
+	CostingMethod_RL: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Generally Accepted Accounting Principles
-	GAAP: AD_Ref_List!
+	GAAP_RL: AD_Ref_List!
 	# Ability to select (partial) account combinations by an Alias
 	HasAlias: Boolean!
 	# Combination of account elements are checked
@@ -75,11 +75,11 @@ type C_AcctSchema {
 	# Element Separator
 	Separator: String!
 	# Type of Tax Correction
-	TaxCorrectionType: AD_Ref_List!
+	TaxCorrectionType_RL: AD_Ref_List!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input C_AcctSchemaInput {
@@ -93,15 +93,15 @@ input C_AcctSchemaInput {
 	# Period of the Calendar
 	C_Period: C_PeriodInput
 	# Create Commitment and/or Reservations for Budget Control
-	CommitmentType: AD_Ref_ListInput
+	CommitmentType_RL: AD_Ref_ListInput
 	# The lowest level to accumulate Costing Information
-	CostingLevel: AD_Ref_ListInput
+	CostingLevel_RL: AD_Ref_ListInput
 	# Indicates how Costs will be calculated
-	CostingMethod: AD_Ref_ListInput
+	CostingMethod_RL: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String
 	# Generally Accepted Accounting Principles
-	GAAP: AD_Ref_ListInput
+	GAAP_RL: AD_Ref_ListInput
 	# Ability to select (partial) account combinations by an Alias
 	HasAlias: Boolean
 	# Combination of account elements are checked
@@ -136,5 +136,5 @@ input C_AcctSchemaInput {
 	# Element Separator
 	Separator: String
 	# Type of Tax Correction
-	TaxCorrectionType: AD_Ref_ListInput
+	TaxCorrectionType_RL: AD_Ref_ListInput
 }

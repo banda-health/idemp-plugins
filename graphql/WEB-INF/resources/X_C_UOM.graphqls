@@ -26,7 +26,7 @@ type C_UOM {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -39,11 +39,11 @@ type C_UOM {
 	StdPrecision: Int!
 	# Symbol for a Unit of Measure
 	UOMSymbol: String
-	UOMType: AD_Ref_List
+	UOMType_RL: AD_Ref_List
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# UOM EDI X12 Code
 	X12DE355: String!
 }
@@ -66,7 +66,7 @@ input C_UOMInput {
 	StdPrecision: Int
 	# Symbol for a Unit of Measure
 	UOMSymbol: String
-	UOMType: AD_Ref_ListInput
+	UOMType_RL: AD_Ref_ListInput
 	# UOM EDI X12 Code
 	X12DE355: String
 }

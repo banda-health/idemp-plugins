@@ -19,7 +19,7 @@ type A_Asset_Info_Tax {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	ID: ID!
-	A_Finance_Meth: AD_Ref_List
+	A_Finance_Meth_RL: AD_Ref_List
 	A_Investment_CR: Int
 	A_New_Used: Boolean!
 	# State of the Credit Card or Account holder
@@ -32,7 +32,7 @@ type A_Asset_Info_Tax {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Text Message
@@ -40,14 +40,14 @@ type A_Asset_Info_Tax {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input A_Asset_Info_TaxInput {
 	# Asset used internally or by customers
 	A_Asset: A_AssetInput
 	ID: ID
-	A_Finance_Meth: AD_Ref_ListInput
+	A_Finance_Meth_RL: AD_Ref_ListInput
 	A_Investment_CR: Int
 	A_New_Used: Boolean
 	# State of the Credit Card or Account holder

@@ -24,7 +24,7 @@ type A_Depreciation_Method {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	DepreciationType: String
 	# Optional short description of the record
 	Description: String
@@ -38,7 +38,7 @@ type A_Depreciation_Method {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input A_Depreciation_MethodInput {

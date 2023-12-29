@@ -151,7 +151,7 @@ public class Repository {
 	 */
 	public static <T extends PO> T getById(Properties idempiereContext, String tableName, String transactionName,
 			int id) {
-		ModelUtil.getTableAndCheckAccess(tableName);
+		ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
 		return getQuery(idempiereContext, tableName, transactionName, true, false, tableName + "." + tableName + "_ID=?",
 				id).first();
 	}
@@ -167,7 +167,7 @@ public class Repository {
 	 */
 	public static <T extends PO> Map<Integer, T> getByIds(Properties idempiereContext, String tableName,
 			String transactionName, Set<Integer> ids) {
-		ModelUtil.getTableAndCheckAccess(tableName);
+		ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
 		if (ids.isEmpty()) {
 			return new HashMap<>();
 		}
@@ -201,7 +201,7 @@ public class Repository {
 	 */
 	public static <T extends PO> T getByUuid(Properties idempiereContext, String tableName, String transactionName,
 			String uuid) {
-		ModelUtil.getTableAndCheckAccess(tableName);
+		ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
 		return getQuery(idempiereContext, tableName, transactionName, true, false, tableName + "." + tableName + "_UU=?",
 				uuid).first();
 	}
@@ -217,7 +217,7 @@ public class Repository {
 	 */
 	public static <T extends PO> Map<String, T> getByUuids(Properties idempiereContext, String tableName,
 			String transactionName, Set<String> uuids) {
-		ModelUtil.getTableAndCheckAccess(tableName);
+		ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
 		if (uuids.isEmpty()) {
 			return new HashMap<>();
 		}

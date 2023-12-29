@@ -36,19 +36,19 @@ type PA_ReportColumn {
 	C_Project: C_Project
 	# Sales coverage region
 	C_SalesRegion: C_SalesRegion
-	CalculationType: AD_Ref_List
-	ColumnType: AD_Ref_List!
+	CalculationType_RL: AD_Ref_List
+	ColumnType_RL: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
-	CurrencyType: AD_Ref_List
+	Create: AD_User!
+	CurrencyType_RL: AD_Ref_List
 	# Optional short description of the record
 	Description: String
 	# Element Type (account or user defined)
-	ElementType: AD_Ref_List
+	ElementType_RL: AD_Ref_List
 	# Scaling factor.
-	Factor: AD_Ref_List
+	Factor_RL: AD_Ref_List
 	# The pattern used to format a number or date.
 	FormatPattern: String
 	# General Ledger Budget
@@ -99,11 +99,11 @@ type PA_ReportColumn {
 	# Collection of Columns for Report
 	PA_ReportColumnSet: PA_ReportColumnSet!
 	# PA Amount Type for reporting
-	PAAmountType: AD_Ref_List
+	PAAmountType_RL: AD_Ref_List
 	# PA Period Type
-	PAPeriodType: AD_Ref_List
+	PAPeriodType_RL: AD_Ref_List
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_List!
+	PostingType_RL: AD_Ref_List!
 	# Period offset (0 is current)
 	RelativePeriod: Int
 	# Period offset (0 is current)
@@ -113,7 +113,7 @@ type PA_ReportColumn {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input PA_ReportColumnInput {
@@ -135,15 +135,15 @@ input PA_ReportColumnInput {
 	C_Project: C_ProjectInput
 	# Sales coverage region
 	C_SalesRegion: C_SalesRegionInput
-	CalculationType: AD_Ref_ListInput
-	ColumnType: AD_Ref_ListInput
-	CurrencyType: AD_Ref_ListInput
+	CalculationType_RL: AD_Ref_ListInput
+	ColumnType_RL: AD_Ref_ListInput
+	CurrencyType_RL: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String
 	# Element Type (account or user defined)
-	ElementType: AD_Ref_ListInput
+	ElementType_RL: AD_Ref_ListInput
 	# Scaling factor.
-	Factor: AD_Ref_ListInput
+	Factor_RL: AD_Ref_ListInput
 	# The pattern used to format a number or date.
 	FormatPattern: String
 	# General Ledger Budget
@@ -194,11 +194,11 @@ input PA_ReportColumnInput {
 	# Collection of Columns for Report
 	PA_ReportColumnSet: PA_ReportColumnSetInput
 	# PA Amount Type for reporting
-	PAAmountType: AD_Ref_ListInput
+	PAAmountType_RL: AD_Ref_ListInput
 	# PA Period Type
-	PAPeriodType: AD_Ref_ListInput
+	PAPeriodType_RL: AD_Ref_ListInput
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType_RL: AD_Ref_ListInput
 	# Period offset (0 is current)
 	RelativePeriod: Int
 	# Period offset (0 is current)

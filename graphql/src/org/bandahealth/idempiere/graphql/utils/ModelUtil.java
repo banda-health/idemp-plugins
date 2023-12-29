@@ -7,13 +7,13 @@ import org.compiere.model.MTable;
 import org.compiere.model.PO;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
-import org.compiere.util.Env;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 
 /**
@@ -95,14 +95,18 @@ public class ModelUtil {
 	/**
 	 * This method is called by the input models to automatically get data from iDempiere to update/create
 	 *
-	 * @param tableName The table name we're getting data for
-	 * @param uuid      The UUID of the entity we want to return, if any
+	 * @param idempiereContext The context since Env.getCtx() isn't thread-safe
+	 * @param tableName        The table name we're getting data for
+	 * @param uuid             The UUID of the entity we want to return, if any
 	 * @return An ID that can be used to fetch the data from the DB
 	 * @throws AdempiereException If a user doesn't have access to this table, we'll abort this endpoint
 	 */
-	public static int getEntityIDFromUuidOrError(String tableName, String uuid) throws AdempiereException {
-		// First check that the user has access to this table
-		getTableAndCheckAccess(tableName, true);
+	public static int getEntityIDFromUuidOrError(Properties idempiereContext, String tableName, String uuid)
+			throws AdempiereException {
+		// First check that the user has access to this table, if we can
+		if (idempiereContext != null) {
+			getTableAndCheckAccess(idempiereContext, tableName, true);
+		}
 		int entityId = 0;
 		if (StringUtil.isNullOrEmpty(uuid)) {
 			return entityId;
@@ -123,41 +127,46 @@ public class ModelUtil {
 
 	/**
 	 * Get a table if a user has access to it, or throw an error if they don't
-	 * @param tableName The table to check
+	 *
+	 * @param idempiereContext The context since Env.getCtx() isn't thread-safe
+	 * @param tableName        The table to check
 	 * @return The table or a thrown error if no access
 	 */
-	public static MTable getTableAndCheckAccess(String tableName) {
-		return getTableAndCheckAccess(tableName, false);
+	public static MTable getTableAndCheckAccess(Properties idempiereContext, String tableName) {
+		return getTableAndCheckAccess(idempiereContext, tableName, false);
 	}
 
 	/**
 	 * Get a table if a user has access to it, or throw an error if they don't
-	 * @param tableName The table to check
-	 * @param isReadWrite Whether the user is trying to write to the table
+	 *
+	 * @param idempiereContext The context since Env.getCtx() isn't thread-safe
+	 * @param tableName        The table to check
+	 * @param isReadWrite      Whether the user is trying to write to the table
 	 * @return
 	 */
-	public static MTable getTableAndCheckAccess(String tableName, boolean isReadWrite) {
-		MTable table = MTable.get(Env.getCtx(), tableName);
-		if (table == null || table.getAD_Table_ID()==0) {
+	public static MTable getTableAndCheckAccess(Properties idempiereContext, String tableName, boolean isReadWrite) {
+		MTable table = MTable.get(idempiereContext, tableName);
+		if (table == null || table.getAD_Table_ID() == 0) {
 			throw new AdempiereException("No match found for table name: " + tableName);
 		}
 
-		if (!hasAccess(table, isReadWrite)) {
+		if (!hasAccess(idempiereContext, table, isReadWrite)) {
 			throw new AdempiereException("Access denied for table: " + tableName);
 		}
 
 		return table;
-
 	}
 
 	/**
 	 * Determine whether the given user has access to the requested table
-	 * @param table The table to check
-	 * @param isReadWrite Whether the user want's to perform read/write on the table
-	 * @return
+	 *
+	 * @param idempiereContext The context since Env.getCtx() isn't thread-safe
+	 * @param table            The table to check
+	 * @param isReadWrite      Whether the user want's to perform read/write on the table
+	 * @return Whether the role on the context has access to the specified table
 	 */
-	public static boolean hasAccess(MTable table, boolean isReadWrite) {
-		MRole role = MRole.getDefault();
+	public static boolean hasAccess(Properties idempiereContext, MTable table, boolean isReadWrite) {
+		MRole role = MRole.getDefault(idempiereContext, false);
 		if (role == null) {
 			return false;
 		}

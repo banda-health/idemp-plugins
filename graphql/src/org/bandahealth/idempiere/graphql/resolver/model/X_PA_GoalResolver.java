@@ -1,0 +1,165 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ColorSchemaDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_GoalDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_MeasureDataLoader;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MColorSchema;
+import org.compiere.model.MGoal;
+import org.compiere.model.MMeasure;
+import org.compiere.model.MRefList;
+import org.compiere.model.MRole;
+import org.dataloader.DataLoader;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * Generated ModelResolver for PA_Goal - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResolver<MGoal> {
+
+
+
+	/**
+	 * Get Role.
+	 *
+	 * @return Responsibility Role
+	 */
+	public CompletableFuture<MRole> AD_Role(MGoal entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Role_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MRole> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getAD_Role_ID());
+	}
+
+
+	/**
+	 * Get User/Contact.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	public CompletableFuture<MUser_BH> AD_User(MGoal entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_User_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MUser_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getAD_User_ID());
+	}
+
+	static Map<String, String> CHARTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(MGoal.CHARTTYPE_BarChart, "f160cd4f-c7f9-4ba8-95a0-35bfd440f1e0");
+			put(MGoal.CHARTTYPE_PieChart, "272f2d1e-f643-4284-be03-f9f9f71b55be");
+			put(MGoal.CHARTTYPE_RingChart, "af16cc2a-33f0-4888-a407-e2fb7282f676");
+			put(MGoal.CHARTTYPE_LineChart, "76026b6b-b081-4035-ba71-c84d9818a43d");
+			put(MGoal.CHARTTYPE_AreaChart, "72cd52c5-0269-474d-a123-f3fbc09bc6de");
+			put(MGoal.CHARTTYPE_WaterfallChart, "fa5d4a5b-a6d7-4a4c-b54f-3fdf0ffcbee6");
+		}
+	};
+	public CompletableFuture<MRefList> ChartType_RL(MGoal entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getChartType())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(CHARTTYPE_UUIDS_BY_VALUE.get(entity.getChartType()));
+	}
+
+	static Map<String, String> MEASUREDISPLAY_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(MGoal.MEASUREDISPLAY_Year, "44aeab85-740e-4ed7-b3b2-6bd930bdc265");
+			put(MGoal.MEASUREDISPLAY_Quarter, "96a41a1f-6ede-409d-a946-15b5ee58f776");
+			put(MGoal.MEASUREDISPLAY_Month, "1cc158a2-c6d7-4147-806f-420005c0e556");
+			put(MGoal.MEASUREDISPLAY_Total, "8f0dc105-cdc2-4353-a518-826d53df65fb");
+			put(MGoal.MEASUREDISPLAY_Week, "7a8525b3-255c-4fb9-be46-f88e27c5821b");
+			put(MGoal.MEASUREDISPLAY_Day, "71d8bfc9-fad4-4ac7-b6a1-8ccf83588f1f");
+		}
+	};
+	public CompletableFuture<MRefList> MeasureDisplay_RL(MGoal entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getMeasureDisplay())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(MEASUREDISPLAY_UUIDS_BY_VALUE.get(entity.getMeasureDisplay()));
+	}
+
+	static Map<String, String> MEASURESCOPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(MGoal.MEASURESCOPE_Year, "44aeab85-740e-4ed7-b3b2-6bd930bdc265");
+			put(MGoal.MEASURESCOPE_Quarter, "96a41a1f-6ede-409d-a946-15b5ee58f776");
+			put(MGoal.MEASURESCOPE_Month, "1cc158a2-c6d7-4147-806f-420005c0e556");
+			put(MGoal.MEASURESCOPE_Total, "8f0dc105-cdc2-4353-a518-826d53df65fb");
+			put(MGoal.MEASURESCOPE_Week, "7a8525b3-255c-4fb9-be46-f88e27c5821b");
+			put(MGoal.MEASURESCOPE_Day, "71d8bfc9-fad4-4ac7-b6a1-8ccf83588f1f");
+		}
+	};
+	public CompletableFuture<MRefList> MeasureScope_RL(MGoal entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getMeasureScope())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(MEASURESCOPE_UUIDS_BY_VALUE.get(entity.getMeasureScope()));
+	}
+
+
+	/**
+	 * Get Color Schema.
+	 *
+	 * @return Performance Color Schema
+	 */
+	public CompletableFuture<MColorSchema> PA_ColorSchema(MGoal entity, DataFetchingEnvironment environment) {
+		if (entity.getPA_ColorSchema_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MColorSchema> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ColorSchemaDataLoader.PA_ColorSchema_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPA_ColorSchema_ID());
+	}
+
+
+	/**
+	 * Get Parent Goal.
+	 *
+	 * @return Parent Goal
+	 */
+	public CompletableFuture<MGoal> PA_GoalParent(MGoal entity, DataFetchingEnvironment environment) {
+		if (entity.getPA_GoalParent_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MGoal> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_GoalDataLoader.PA_Goal_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPA_GoalParent_ID());
+	}
+
+
+	/**
+	 * Get Measure.
+	 *
+	 * @return Concrete Performance Measurement
+	 */
+	public CompletableFuture<MMeasure> PA_Measure(MGoal entity, DataFetchingEnvironment environment) {
+		if (entity.getPA_Measure_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MMeasure> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_MeasureDataLoader.PA_Measure_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPA_Measure_ID());
+	}
+
+}

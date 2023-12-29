@@ -27,7 +27,7 @@ type M_Product {
 	BH_NavButtons: Object
 	BH_PriceMargin: Int
 	# Contains a character the is linked to a ref list to determine types of product categories
-	BH_Product_Category_Type: AD_Ref_List
+	BH_Product_Category_Type_RL: AD_Ref_List
 	bh_reorder_level: Int
 	# How much quantity you want to re-order
 	bh_reorder_quantity: Int
@@ -48,7 +48,7 @@ type M_Product {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Customs Tariff Number, usually the HS-Code
 	CustomsTariffNumber: String
 	# Optional short description of the record
@@ -127,7 +127,7 @@ type M_Product {
 	Name: String!
 	Processing: Boolean!
 	# Type of product
-	ProductType: AD_Ref_List!
+	ProductType_RL: AD_Ref_List!
 	# Quantity In Store
 	QtyInStore: Int
 	# Text templates for mailings
@@ -155,7 +155,7 @@ type M_Product {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 	# Version Number
@@ -176,7 +176,7 @@ input M_ProductInput {
 	BH_NavButtons: Object
 	BH_PriceMargin: Int
 	# Contains a character the is linked to a ref list to determine types of product categories
-	BH_Product_Category_Type: AD_Ref_ListInput
+	BH_Product_Category_Type_RL: AD_Ref_ListInput
 	bh_reorder_level: Int
 	# How much quantity you want to re-order
 	bh_reorder_quantity: Int
@@ -272,7 +272,7 @@ input M_ProductInput {
 	Name: String
 	Processing: Boolean
 	# Type of product
-	ProductType: AD_Ref_ListInput
+	ProductType_RL: AD_Ref_ListInput
 	# Text templates for mailings
 	R_MailText: R_MailTextInput
 	# Expense report type

@@ -26,25 +26,25 @@ type C_CashBook_Acct {
 	# Cash Book for recording petty cash transactions
 	C_CashBook: C_CashBook!
 	# Cash Book Asset Account
-	CB_Asset_Acct: C_ValidCombination
+	CB_Asset_A: C_ValidCombination
 	# Cash Transfer Clearing Account
-	CB_CashTransfer_Acct: C_ValidCombination
+	CB_CashTransfer_A: C_ValidCombination
 	# Cash Book Differences Account
-	CB_Differences_Acct: C_ValidCombination
+	CB_Differences_A: C_ValidCombination
 	# Cash Book Expense Account
-	CB_Expense_Acct: C_ValidCombination
+	CB_Expense_A: C_ValidCombination
 	# Cash Book Receipts Account
-	CB_Receipt_Acct: C_ValidCombination
+	CB_Receipt_A: C_ValidCombination
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input C_CashBook_AcctInput {
@@ -56,15 +56,15 @@ input C_CashBook_AcctInput {
 	# Cash Book for recording petty cash transactions
 	C_CashBook: C_CashBookInput
 	# Cash Book Asset Account
-	CB_Asset_Acct: C_ValidCombinationInput
+	CB_Asset_A: C_ValidCombinationInput
 	# Cash Transfer Clearing Account
-	CB_CashTransfer_Acct: C_ValidCombinationInput
+	CB_CashTransfer_A: C_ValidCombinationInput
 	# Cash Book Differences Account
-	CB_Differences_Acct: C_ValidCombinationInput
+	CB_Differences_A: C_ValidCombinationInput
 	# Cash Book Expense Account
-	CB_Expense_Acct: C_ValidCombinationInput
+	CB_Expense_A: C_ValidCombinationInput
 	# Cash Book Receipts Account
-	CB_Receipt_Acct: C_ValidCombinationInput
+	CB_Receipt_A: C_ValidCombinationInput
 	# The record is active in the system
 	IsActive: Boolean
 }

@@ -25,11 +25,11 @@ type PP_Order_Cost {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Indicates how Costs will be calculated
-	CostingMethod: AD_Ref_List
+	CostingMethod_RL: AD_Ref_List
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Total Amount
 	CumulatedAmt: Int
 	CumulatedAmtPost: Int
@@ -58,7 +58,7 @@ type PP_Order_Cost {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input PP_Order_CostInput {
@@ -69,7 +69,7 @@ input PP_Order_CostInput {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchemaInput
 	# Indicates how Costs will be calculated
-	CostingMethod: AD_Ref_ListInput
+	CostingMethod_RL: AD_Ref_ListInput
 	# Total Amount
 	CumulatedAmt: Int
 	CumulatedAmtPost: Int

@@ -16,13 +16,13 @@ type A_AssetConnection {
 }
 
 type A_Asset {
-	A_Asset_Action: AD_Ref_List!
+	A_Asset_Action_RL: AD_Ref_List!
 	A_Asset_Class: A_Asset_Class
 	A_Asset_CreateDate: Date
 	# Group of Assets
 	A_Asset_Group: A_Asset_Group!
 	A_Asset_RevalDate: Date
-	A_Asset_Status: AD_Ref_List!
+	A_Asset_Status_RL: AD_Ref_List!
 	A_Asset_Type: A_Asset_Type
 	ID: ID!
 	A_AssetType: String
@@ -57,7 +57,7 @@ type A_Asset {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Date when guarantee expires
@@ -120,7 +120,7 @@ type A_Asset {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Months of the usable life of the asset
 	UseLifeMonths: Int
 	# Years of the usable life of the asset
@@ -134,13 +134,13 @@ type A_Asset {
 }
 
 input A_AssetInput {
-	A_Asset_Action: AD_Ref_ListInput
+	A_Asset_Action_RL: AD_Ref_ListInput
 	A_Asset_Class: A_Asset_ClassInput
 	A_Asset_CreateDate: Date
 	# Group of Assets
 	A_Asset_Group: A_Asset_GroupInput
 	A_Asset_RevalDate: Date
-	A_Asset_Status: AD_Ref_ListInput
+	A_Asset_Status_RL: AD_Ref_ListInput
 	A_Asset_Type: A_Asset_TypeInput
 	ID: ID
 	A_AssetType: String

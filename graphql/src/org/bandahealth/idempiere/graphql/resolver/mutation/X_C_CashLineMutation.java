@@ -1,0 +1,30 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_C_CashLineInput;
+import org.bandahealth.idempiere.graphql.model.input.X_C_CashLineInput;
+import org.compiere.model.MCashLine;
+
+import java.util.List;
+
+/**
+ * Generated Query Resolver for C_CashLine - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_CashLineMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_C_CashLineInput.Table_Name;
+	}
+
+	public MCashLine C_CashLineSave(I_C_CashLineInput input, DataFetchingEnvironment environment) {
+		return (MCashLine) super.save((X_C_CashLineInput) input, environment);
+	}
+
+	public boolean C_CashLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
+		return super.delete(uuids, environment);
+	}
+}

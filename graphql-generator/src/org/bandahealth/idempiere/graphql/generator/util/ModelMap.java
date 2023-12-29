@@ -4,6 +4,8 @@ public class ModelMap {
 	private String tableName;
 	private String interfacePackageName;
 	private String interfaceName;
+	private String generatedClassPackageName;
+	private String generatedClassName;
 	private String classPackageName;
 	private String className;
 
@@ -49,5 +51,21 @@ public class ModelMap {
 
 	public void setInterfaceName(String interfaceName) {
 		this.interfaceName = interfaceName;
+	}
+
+	public String getGeneratedClassPackageName() {
+		return generatedClassPackageName;
+	}
+
+	public void setGeneratedClassPackageName(String generatedClassPackageName) {
+		this.generatedClassPackageName = generatedClassPackageName;
+	}
+
+	public String getGeneratedClassName() {
+		return generatedClassName;
+	}
+
+	public void setGeneratedClassName(String generatedClassName) {
+		this.generatedClassName = generatedClassName;
 	}
 }

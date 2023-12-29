@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.bandahealth.idempiere.base.model.MBankAccount_BH;
+
+/**
+ * Data Loader for C_BankAccount - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_BankAccountDataLoader extends PODataLoader<MBankAccount_BH> {
+	public static String C_BankAccount_BY_ID_DATA_LOADER = "C_BankAccountByIdDataLoader";
+	public static String C_BankAccount_BY_UUID_DATA_LOADER = "C_BankAccountByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return MBankAccount_BH.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return C_BankAccount_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return C_BankAccount_BY_UUID_DATA_LOADER;
+	}
+}

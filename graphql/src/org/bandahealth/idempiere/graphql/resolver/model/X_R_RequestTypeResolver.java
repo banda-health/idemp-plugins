@@ -1,0 +1,58 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_R_StatusCategoryDataLoader;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MRefList;
+import org.compiere.model.MRequestType;
+import org.compiere.model.MStatusCategory;
+import org.dataloader.DataLoader;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * Generated ModelResolver for R_RequestType - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_R_RequestTypeResolver extends POResolver<MRequestType> implements GraphQLResolver<MRequestType> {
+
+
+	static Map<String, String> CONFIDENTIALTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(MRequestType.CONFIDENTIALTYPE_PublicInformation, "1eb43dd1-53c0-4b5c-aae4-585c7d3fc9c2");
+			put(MRequestType.CONFIDENTIALTYPE_PartnerConfidential, "0f1983c1-e543-4a8f-9b8a-4a00d2a111f4");
+			put(MRequestType.CONFIDENTIALTYPE_Internal, "7c6def43-3d72-4c5b-93ce-dfbefd8545e4");
+			put(MRequestType.CONFIDENTIALTYPE_PrivateInformation, "467c826c-2a44-4f65-8026-8dc6b1d7edec");
+		}
+	};
+	public CompletableFuture<MRefList> ConfidentialType_RL(MRequestType entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getConfidentialType())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(CONFIDENTIALTYPE_UUIDS_BY_VALUE.get(entity.getConfidentialType()));
+	}
+
+
+	/**
+	 * Get Status Category.
+	 *
+	 * @return Request Status Category
+	 */
+	public CompletableFuture<MStatusCategory> R_StatusCategory(MRequestType entity, DataFetchingEnvironment environment) {
+		if (entity.getR_StatusCategory_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MStatusCategory> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_R_StatusCategoryDataLoader.R_StatusCategory_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getR_StatusCategory_ID());
+	}
+
+}

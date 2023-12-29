@@ -1,24 +1,56 @@
 # Generated Schema for BH_Voided_Reason - DO NOT CHANGE
 #		@author Banda Health (generated) 
 #		@version Release 8.2 - $Id$
-#extend type Query {
-#	BH_Voided_ReasonGet(page: Int, size: Int, sort: String, filter: String): BH_Voided_ReasonConnection!
-#}
+extend type Query {
+	BH_Voided_ReasonGet(page: Int, size: Int, sort: String, filter: String): BH_Voided_ReasonConnection!
+}
 
 extend type Mutation {
 	BH_Voided_ReasonSave(entity: BH_Voided_ReasonInput!): BH_Voided_Reason!
 	BH_Voided_ReasonDelete(uuids: [String!]!): Boolean!
 }
 
-#type BH_Voided_ReasonConnection {
-#	results: [BH_Voided_Reason!]!
-#	pagingInfo: PagingInfo!
-#}
+type BH_Voided_ReasonConnection {
+	results: [BH_Voided_Reason!]!
+	pagingInfo: PagingInfo!
+}
 
 type BH_Voided_Reason {
-	ID: ID!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within client
+	AD_Org: AD_Org
+	bh_voided_reason_uu: String
+	bh_window_id: Int
+	# Date this record was created
+	Created: Date
+	# User who created this records
+	Create: AD_User
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Line No
+	LineNo: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Date this record was updated
+	Updated: Date
+	# User who updated this records
+	Update: AD_User
 }
 
 input BH_Voided_ReasonInput {
-	ID: ID!
+	# Organizational entity within client
+	AD_Org: AD_OrgInput
+	bh_voided_reason_uu: String
+	bh_window_id: Int
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Line No
+	LineNo: Int
+	# Alphanumeric identifier of the entity
+	Name: String
 }

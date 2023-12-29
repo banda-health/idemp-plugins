@@ -22,13 +22,13 @@ type AD_Chart {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# The orientation of the chart.
-	ChartOrientation: AD_Ref_List!
+	ChartOrientation_RL: AD_Ref_List!
 	# Type of chart to render
-	ChartType: AD_Ref_List!
+	ChartType_RL: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Label for the domain axis.
@@ -48,11 +48,11 @@ type AD_Chart {
 	# The number of time units to include the chart result.
 	TimeScope: Int
 	# The unit of time for grouping chart data.
-	TimeUnit: AD_Ref_List
+	TimeUnit_RL: AD_Ref_List
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	WinHeight: Int
 }
 
@@ -61,9 +61,9 @@ input AD_ChartInput {
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	# The orientation of the chart.
-	ChartOrientation: AD_Ref_ListInput
+	ChartOrientation_RL: AD_Ref_ListInput
 	# Type of chart to render
-	ChartType: AD_Ref_ListInput
+	ChartType_RL: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String
 	# Label for the domain axis.
@@ -83,6 +83,6 @@ input AD_ChartInput {
 	# The number of time units to include the chart result.
 	TimeScope: Int
 	# The unit of time for grouping chart data.
-	TimeUnit: AD_Ref_ListInput
+	TimeUnit_RL: AD_Ref_ListInput
 	WinHeight: Int
 }

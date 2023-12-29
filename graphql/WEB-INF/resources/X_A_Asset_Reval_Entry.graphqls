@@ -18,10 +18,10 @@ type A_Asset_Reval_EntryConnection {
 type A_Asset_Reval_Entry {
 	ID: ID!
 	A_Effective_Date: Date!
-	A_Rev_Code: AD_Ref_List!
-	A_Reval_Cal_Method: AD_Ref_List!
-	A_Reval_Effective_Date: AD_Ref_List!
-	A_Reval_Multiplier: AD_Ref_List!
+	A_Rev_Code_RL: AD_Ref_List!
+	A_Reval_Cal_Method_RL: AD_Ref_List!
+	A_Reval_Effective_Date_RL: AD_Ref_List!
+	A_Reval_Multiplier_RL: AD_Ref_List!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -37,7 +37,7 @@ type A_Asset_Reval_Entry {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Accounting Date
 	DateAcct: Date
 	# Date of the Document
@@ -51,23 +51,23 @@ type A_Asset_Reval_Entry {
 	# The record is active in the system
 	IsActive: Boolean!
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_List!
+	PostingType_RL: AD_Ref_List!
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input A_Asset_Reval_EntryInput {
 	ID: ID
 	A_Effective_Date: Date
-	A_Rev_Code: AD_Ref_ListInput
-	A_Reval_Cal_Method: AD_Ref_ListInput
-	A_Reval_Effective_Date: AD_Ref_ListInput
-	A_Reval_Multiplier: AD_Ref_ListInput
+	A_Rev_Code_RL: AD_Ref_ListInput
+	A_Reval_Cal_Method_RL: AD_Ref_ListInput
+	A_Reval_Effective_Date_RL: AD_Ref_ListInput
+	A_Reval_Multiplier_RL: AD_Ref_ListInput
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	# Rules for accounting
@@ -91,7 +91,7 @@ input A_Asset_Reval_EntryInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType_RL: AD_Ref_ListInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

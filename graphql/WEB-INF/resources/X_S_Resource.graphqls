@@ -26,7 +26,7 @@ type S_Resource {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	DailyCapacity: Int
 	# Optional short description of the record
 	Description: String
@@ -37,7 +37,7 @@ type S_Resource {
 	IsManufacturingResource: Boolean!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
-	ManufacturingResourceType: AD_Ref_List
+	ManufacturingResourceType_RL: AD_Ref_List
 	# Alphanumeric identifier of the entity
 	Name: String!
 	PercentUtilization: Int!
@@ -50,7 +50,7 @@ type S_Resource {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 	# Workflow Simulation Waiting time
@@ -73,7 +73,7 @@ input S_ResourceInput {
 	IsManufacturingResource: Boolean
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_WarehouseInput
-	ManufacturingResourceType: AD_Ref_ListInput
+	ManufacturingResourceType_RL: AD_Ref_ListInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	PercentUtilization: Int

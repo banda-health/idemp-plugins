@@ -28,7 +28,7 @@ type AD_Window {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
@@ -51,9 +51,9 @@ type AD_Window {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Type or classification of a Window
-	WindowType: AD_Ref_List!
+	WindowType_RL: AD_Ref_List!
 	WinHeight: Int
 	WinWidth: Int
 }
@@ -86,7 +86,7 @@ input AD_WindowInput {
 	# The result determines the title to be displayed for this window
 	TitleLogic: String
 	# Type or classification of a Window
-	WindowType: AD_Ref_ListInput
+	WindowType_RL: AD_Ref_ListInput
 	WinHeight: Int
 	WinWidth: Int
 }

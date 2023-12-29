@@ -33,15 +33,15 @@ type M_RMA {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_List!
+	DocAction_RL: AD_Ref_List!
 	# The current status of the document
-	DocStatus: AD_Ref_List!
+	DocStatus_RL: AD_Ref_List!
 	# Document sequence number of the document
 	DocumentNo: String!
 	# Generate To
@@ -70,7 +70,7 @@ type M_RMA {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input M_RMAInput {
@@ -91,9 +91,9 @@ input M_RMAInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction_RL: AD_Ref_ListInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus_RL: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# Generate To

@@ -1,0 +1,149 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_UOMDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetInstanceDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ChangeNoticeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_OrderDataLoader;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MChangeNotice;
+import org.compiere.model.MRefList;
+import org.compiere.model.MUOM;
+import org.dataloader.DataLoader;
+import org.eevolution.model.X_PP_Order;
+import org.eevolution.model.X_PP_Order_BOM;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * Generated ModelResolver for PP_Order_BOM - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implements GraphQLResolver<X_PP_Order_BOM> {
+
+
+	static Map<String, String> BOMTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(X_PP_Order_BOM.BOMTYPE_CurrentActive, "f40468ef-872e-4574-b9b5-bc09de25cd73");
+			put(X_PP_Order_BOM.BOMTYPE_Make_To_Order, "88526daf-69bd-4cb5-af6e-ea120ed2555c");
+			put(X_PP_Order_BOM.BOMTYPE_Previous, "e422ef8f-51be-49d2-b4bc-51e5626fca87");
+			put(X_PP_Order_BOM.BOMTYPE_PreviousSpare, "db19dec2-6c7f-4896-ae47-c1f7898ae2e0");
+			put(X_PP_Order_BOM.BOMTYPE_Future, "c3eaeaa0-6177-4a38-880f-5c34910333f9");
+			put(X_PP_Order_BOM.BOMTYPE_Maintenance, "bd5822f8-5b30-4cc4-99e1-998c575dab53");
+			put(X_PP_Order_BOM.BOMTYPE_Repair, "28a5712a-519d-434c-932f-71a8e4a02d45");
+			put(X_PP_Order_BOM.BOMTYPE_ProductConfigure, "d7036054-47a8-4af4-9045-1892c8a563ad");
+			put(X_PP_Order_BOM.BOMTYPE_Make_To_Kit, "3af80a33-db74-4f76-84a4-455286ffdba6");
+		}
+	};
+	public CompletableFuture<MRefList> BOMType_RL(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getBOMType())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(BOMTYPE_UUIDS_BY_VALUE.get(entity.getBOMType()));
+	}
+
+	static Map<String, String> BOMUSE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(X_PP_Order_BOM.BOMUSE_Master, "082b2656-8fb0-4e2a-9611-67ed7f9bdbd0");
+			put(X_PP_Order_BOM.BOMUSE_Engineering, "c4ef1193-68f0-478c-b6bb-e1705fcd99e0");
+			put(X_PP_Order_BOM.BOMUSE_Manufacturing, "051be6e2-b091-4e8b-989c-1cb41affbece");
+			put(X_PP_Order_BOM.BOMUSE_Planning, "b7cf6bb8-a498-4d35-b129-6059068df61d");
+			put(X_PP_Order_BOM.BOMUSE_Quality, "db8fbc75-98b8-4229-b487-e848f6bec73e");
+		}
+	};
+	public CompletableFuture<MRefList> BOMUse_RL(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getBOMUse())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(BOMUSE_UUIDS_BY_VALUE.get(entity.getBOMUse()));
+	}
+
+
+	/**
+	 * Get UOM.
+	 *
+	 * @return Unit of Measure
+	 */
+	public CompletableFuture<MUOM> C_UOM(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
+		if (entity.getC_UOM_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MUOM> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_UOM_ID());
+	}
+
+
+	/**
+	 * Get Attribute Set Instance.
+	 *
+	 * @return Product Attribute Set Instance
+	 */
+	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
+		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
+	}
+
+
+	/**
+	 * Get Change Notice.
+	 *
+	 * @return Bill of Materials (Engineering) Change Notice (Version)
+	 */
+	public CompletableFuture<MChangeNotice> M_ChangeNotice(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
+		if (entity.getM_ChangeNotice_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MChangeNotice> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.M_ChangeNotice_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getM_ChangeNotice_ID());
+	}
+
+
+	/**
+	 * Get Product/Service.
+	 *
+	 * @return Product, Service, Item
+	 */
+	public CompletableFuture<MProduct_BH> M_Product(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
+		if (entity.getM_Product_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MProduct_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getM_Product_ID());
+	}
+
+
+	/**
+	 * Get Manufacturing Order.
+	 *
+	 * @return Manufacturing Order
+	 */
+	public CompletableFuture<X_PP_Order> PP_Order(X_PP_Order_BOM entity, DataFetchingEnvironment environment) {
+		if (entity.getPP_Order_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, X_PP_Order> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_OrderDataLoader.PP_Order_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPP_Order_ID());
+	}
+
+}

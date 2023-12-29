@@ -1,0 +1,161 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_BenchmarkDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_HierarchyDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_MeasureCalcDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_RatioDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_R_RequestTypeDataLoader;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MHierarchy;
+import org.compiere.model.MMeasure;
+import org.compiere.model.MMeasureCalc;
+import org.compiere.model.MProjectType;
+import org.compiere.model.MRefList;
+import org.compiere.model.MRequestType;
+import org.compiere.model.X_PA_Benchmark;
+import org.compiere.model.X_PA_Ratio;
+import org.dataloader.DataLoader;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * Generated ModelResolver for PA_Measure - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQLResolver<MMeasure> {
+
+
+
+	/**
+	 * Get Project Type.
+	 *
+	 * @return Type of the project
+	 */
+	public CompletableFuture<MProjectType> C_ProjectType(MMeasure entity, DataFetchingEnvironment environment) {
+		if (entity.getC_ProjectType_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MProjectType> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTypeDataLoader.C_ProjectType_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getC_ProjectType_ID());
+	}
+
+	static Map<String, String> MEASUREDATATYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(MMeasure.MEASUREDATATYPE_QtyAmountInTime, "92f9f1ed-782f-4212-bda0-c5a03109c47f");
+			put(MMeasure.MEASUREDATATYPE_StatusQtyAmount, "a727a324-22de-4213-8696-2a37aaddd164");
+		}
+	};
+	public CompletableFuture<MRefList> MeasureDataType_RL(MMeasure entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getMeasureDataType())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(MEASUREDATATYPE_UUIDS_BY_VALUE.get(entity.getMeasureDataType()));
+	}
+
+	static Map<String, String> MEASURETYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put(MMeasure.MEASURETYPE_Manual, "460a942e-8437-4195-94de-e27c752b9752");
+			put(MMeasure.MEASURETYPE_Calculated, "f0b63f0b-2b04-43a2-ba93-10aa95c73fb0");
+			put(MMeasure.MEASURETYPE_Achievements, "22adca17-dfc5-466a-a642-eee1ced9b515");
+			put(MMeasure.MEASURETYPE_UserDefined, "ff4a3f01-b575-4e64-a301-67f31f14ad27");
+			put(MMeasure.MEASURETYPE_Ratio, "75dfcc11-cf4d-4a1c-a4ff-ea31f35030ff");
+			put(MMeasure.MEASURETYPE_Request, "7b86d06c-e1ea-4a53-8c90-96a2a9e7397d");
+			put(MMeasure.MEASURETYPE_Project, "1a7a939a-0716-4f97-8883-cf913668d5e8");
+		}
+	};
+	public CompletableFuture<MRefList> MeasureType_RL(MMeasure entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getMeasureType())) {
+			return null;
+		}
+		DataLoader<String, MRefList> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(MEASURETYPE_UUIDS_BY_VALUE.get(entity.getMeasureType()));
+	}
+
+
+	/**
+	 * Get Benchmark.
+	 *
+	 * @return Performance Benchmark
+	 */
+	public CompletableFuture<X_PA_Benchmark> PA_Benchmark(MMeasure entity, DataFetchingEnvironment environment) {
+		if (entity.getPA_Benchmark_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, X_PA_Benchmark> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_BenchmarkDataLoader.PA_Benchmark_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPA_Benchmark_ID());
+	}
+
+
+	/**
+	 * Get Reporting Hierarchy.
+	 *
+	 * @return Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
+	 */
+	public CompletableFuture<MHierarchy> PA_Hierarchy(MMeasure entity, DataFetchingEnvironment environment) {
+		if (entity.getPA_Hierarchy_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MHierarchy> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_HierarchyDataLoader.PA_Hierarchy_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPA_Hierarchy_ID());
+	}
+
+
+	/**
+	 * Get Measure Calculation.
+	 *
+	 * @return Calculation method for measuring performance
+	 */
+	public CompletableFuture<MMeasureCalc> PA_MeasureCalc(MMeasure entity, DataFetchingEnvironment environment) {
+		if (entity.getPA_MeasureCalc_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MMeasureCalc> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_MeasureCalcDataLoader.PA_MeasureCalc_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPA_MeasureCalc_ID());
+	}
+
+
+	/**
+	 * Get Ratio.
+	 *
+	 * @return Performance Ratio
+	 */
+	public CompletableFuture<X_PA_Ratio> PA_Ratio(MMeasure entity, DataFetchingEnvironment environment) {
+		if (entity.getPA_Ratio_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, X_PA_Ratio> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_RatioDataLoader.PA_Ratio_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getPA_Ratio_ID());
+	}
+
+
+	/**
+	 * Get Request Type.
+	 *
+	 * @return Type of request (e.g. Inquiry, Complaint, ..)
+	 */
+	public CompletableFuture<MRequestType> R_RequestType(MMeasure entity, DataFetchingEnvironment environment) {
+		if (entity.getR_RequestType_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MRequestType> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestTypeDataLoader.R_RequestType_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getR_RequestType_ID());
+	}
+
+}

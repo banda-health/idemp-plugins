@@ -61,13 +61,13 @@ type I_FixedAsset {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_List!
+	DocAction_RL: AD_Ref_List!
 	# Messages generated from import process
 	I_ErrorMsg: String
 	ID: ID!
@@ -100,7 +100,7 @@ type I_FixedAsset {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	# Months of the usable life of the asset
 	UseLifeMonths: Int
 	UseLifeMonths_F: Int
@@ -152,7 +152,7 @@ input I_FixedAssetInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction_RL: AD_Ref_ListInput
 	# Messages generated from import process
 	I_ErrorMsg: String
 	ID: ID

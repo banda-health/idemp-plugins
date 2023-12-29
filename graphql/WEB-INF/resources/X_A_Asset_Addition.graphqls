@@ -19,13 +19,13 @@ type A_Asset_Addition {
 	ID: ID!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	A_CapvsExp: AD_Ref_List!
+	A_CapvsExp_RL: AD_Ref_List!
 	A_CreateAsset: Boolean!
 	A_Life_Period_Max: Int
 	A_Life_Period_Min: Int
 	A_QTY_Current: Int!
 	A_Salvage_Value: Int
-	A_SourceType: AD_Ref_List!
+	A_SourceType_RL: AD_Ref_List!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -51,7 +51,7 @@ type A_Asset_Addition {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Currency Conversion Rate
 	CurrencyRate: Int
 	# Accounting Date
@@ -61,11 +61,11 @@ type A_Asset_Addition {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_List
+	DocAction_RL: AD_Ref_List
 	# The current status of the document
-	DocStatus: AD_Ref_List!
+	DocStatus_RL: AD_Ref_List!
 	# Document sequence number of the document
-	DocumentNo: AD_Ref_List
+	DocumentNo_RL: AD_Ref_List
 	# General Ledger Journal Batch
 	GL_JournalBatch: GL_JournalBatch
 	I_FixedAsset: I_FixedAsset
@@ -86,9 +86,9 @@ type A_Asset_Addition {
 	# Product, Service, Item
 	M_Product: M_Product
 	# Posting status
-	Posted: Boolean!
+	Posted_RL: Boolean!
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_List!
+	PostingType_RL: AD_Ref_List!
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
@@ -97,18 +97,18 @@ type A_Asset_Addition {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input A_Asset_AdditionInput {
 	ID: ID
 	# Asset used internally or by customers
 	A_Asset: A_AssetInput
-	A_CapvsExp: AD_Ref_ListInput
+	A_CapvsExp_RL: AD_Ref_ListInput
 	A_CreateAsset: Boolean
 	A_QTY_Current: Int
 	A_Salvage_Value: Int
-	A_SourceType: AD_Ref_ListInput
+	A_SourceType_RL: AD_Ref_ListInput
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	AssetAmtEntered: Int
@@ -138,11 +138,11 @@ input A_Asset_AdditionInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction_RL: AD_Ref_ListInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus_RL: AD_Ref_ListInput
 	# Document sequence number of the document
-	DocumentNo: AD_Ref_ListInput
+	DocumentNo_RL: AD_Ref_ListInput
 	# General Ledger Journal Batch
 	GL_JournalBatch: GL_JournalBatchInput
 	I_FixedAsset: I_FixedAssetInput
@@ -163,9 +163,9 @@ input A_Asset_AdditionInput {
 	# Product, Service, Item
 	M_Product: M_ProductInput
 	# Posting status
-	Posted: Boolean
+	Posted_RL: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType_RL: AD_Ref_ListInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

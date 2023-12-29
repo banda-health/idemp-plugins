@@ -13,14 +13,13 @@
  *****************************************************************************/
 package org.bandahealth.idempiere.graphql.generator.util;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
-
-import javax.swing.*;
 
 /**
  * @author hengsin
@@ -36,11 +35,19 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 	private JButton getSchemaFolderButton;
 	private JButton getInputModelFolderButton;
 	private JButton getCustomModelFolderButton;
+	private JButton getQueryResolverFolderButton;
+	private JButton getMutationResolverFolderButton;
+	private JButton getModelResolverFolderButton;
+	private JButton getDataLoaderFolderButton;
 	private JTextField schemaFolderField;
 	private JTextField fPackageName;
 	private JTextField fTableName;
 	private JCheckBox generateSchemaCheckbox;
 	private JCheckBox generateInputModelCheckbox;
+	private JCheckBox generateQueryResolverCheckbox;
+	private JCheckBox generateMutationResolverCheckbox;
+	private JCheckBox generateModelResolverCheckbox;
+	private JCheckBox generateDataLoaderCheckbox;
 	private JCheckBox fGenerateInterface;
 	private JCheckBox fGenerateClass;
 	private JTextField fEntityType;
@@ -49,6 +56,14 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 	private JTextField inputModelPackageNameField;
 	private JTextField customModelDirectoryNameField;
 	private JTextField customModelPackageField;
+	private JTextField queryResolverDirectoryNameField;
+	private JTextField queryResolverPackageField;
+	private JTextField mutationResolverDirectoryNameField;
+	private JTextField mutationResolverPackageField;
+	private JTextField modelResolverDirectoryNameField;
+	private JTextField modelResolverPackageField;
+	private JTextField dataLoaderDirectoryNameField;
+	private JTextField dataLoaderPackageField;
 
 	public GraphQLGeneratorDialog() {
 		super();
@@ -76,7 +91,10 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 
 		Panel filePanel = new Panel();
 		filePanel.setLayout(new BorderLayout());
-		customModelDirectoryNameField = new JTextField(defaultPath);
+//		customModelDirectoryNameField = new JTextField(defaultPath);
+		customModelDirectoryNameField = new JTextField(
+				Path.of("C:/source/Banda-Health/iDempiere/idemp-banda/base/src/org/bandahealth/idempiere/base/model")
+						.toString());
 		filePanel.add(customModelDirectoryNameField, BorderLayout.CENTER);
 		getCustomModelFolderButton = new JButton("...");
 		getCustomModelFolderButton.setMargin(new Insets(0, 0, 0, 0));
@@ -99,7 +117,10 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 
 		filePanel = new Panel();
 		filePanel.setLayout(new BorderLayout());
-		schemaFolderField = new JTextField(defaultPath);
+//		schemaFolderField = new JTextField(defaultPath);
+		schemaFolderField = new JTextField(Path.of(
+						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/WEB-INF/resources")
+				.toString());
 		filePanel.add(schemaFolderField, BorderLayout.CENTER);
 		getSchemaFolderButton = new JButton("...");
 		getSchemaFolderButton.setMargin(new Insets(0, 0, 0, 0));
@@ -118,7 +139,10 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 
 		filePanel = new Panel();
 		filePanel.setLayout(new BorderLayout());
-		inputModelDirectoryNameField = new JTextField(defaultPath);
+//		inputModelDirectoryNameField = new JTextField(defaultPath);
+		inputModelDirectoryNameField = new JTextField(Path.of(
+						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/src/org/bandahealth/idempiere/graphql/model/input")
+				.toString());
 		filePanel.add(inputModelDirectoryNameField, BorderLayout.CENTER);
 		getInputModelFolderButton = new JButton("...");
 		getInputModelFolderButton.setMargin(new Insets(0, 0, 0, 0));
@@ -130,6 +154,114 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 		mainPanel.add(new JLabel("Input Model Package Name"), makeGbc(0, 9));
 		inputModelPackageNameField = new JTextField("org.bandahealth.idempiere.graphql.model.input");
 		mainPanel.add(inputModelPackageNameField, makeGbc(1, 9));
+
+		chkPanel = new Panel();
+		chkPanel.setLayout(new GridLayout(1, 2));
+		mainPanel.add(new JLabel(""), makeGbc(0, 10));
+		mainPanel.add(chkPanel, makeGbc(1, 10));
+		generateQueryResolverCheckbox = new JCheckBox("Generate Query Resolvers");
+		generateQueryResolverCheckbox.setSelected(true);
+		chkPanel.add(generateQueryResolverCheckbox);
+
+		filePanel = new Panel();
+		filePanel.setLayout(new BorderLayout());
+//		queryResolverDirectoryNameField = new JTextField(defaultPath);
+		queryResolverDirectoryNameField = new JTextField(Path.of(
+						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/src/org/bandahealth/idempiere/graphql/resolver" +
+								"/query")
+				.toString());
+		filePanel.add(queryResolverDirectoryNameField, BorderLayout.CENTER);
+		getQueryResolverFolderButton = new JButton("...");
+		getQueryResolverFolderButton.setMargin(new Insets(0, 0, 0, 0));
+		filePanel.add(getQueryResolverFolderButton, BorderLayout.EAST);
+		mainPanel.add(new JLabel("Query Resolver Folder"), makeGbc(0, 11));
+		mainPanel.add(filePanel, makeGbc(1, 11));
+		getQueryResolverFolderButton.addActionListener(this);
+
+		mainPanel.add(new JLabel("Query Resolver Package Name"), makeGbc(0, 12));
+		queryResolverPackageField = new JTextField("org.bandahealth.idempiere.graphql.resolver.query");
+		mainPanel.add(queryResolverPackageField, makeGbc(1, 12));
+
+		chkPanel = new Panel();
+		chkPanel.setLayout(new GridLayout(1, 2));
+		mainPanel.add(new JLabel(""), makeGbc(0, 13));
+		mainPanel.add(chkPanel, makeGbc(1, 13));
+		generateMutationResolverCheckbox = new JCheckBox("Generate Mutation Resolvers");
+		generateMutationResolverCheckbox.setSelected(true);
+		chkPanel.add(generateMutationResolverCheckbox);
+
+		filePanel = new Panel();
+		filePanel.setLayout(new BorderLayout());
+//		mutationResolverDirectoryNameField = new JTextField(defaultPath);
+		mutationResolverDirectoryNameField = new JTextField(Path.of(
+						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/src/org/bandahealth/idempiere/graphql/resolver" +
+								"/mutation")
+				.toString());
+		filePanel.add(mutationResolverDirectoryNameField, BorderLayout.CENTER);
+		getMutationResolverFolderButton = new JButton("...");
+		getMutationResolverFolderButton.setMargin(new Insets(0, 0, 0, 0));
+		filePanel.add(getMutationResolverFolderButton, BorderLayout.EAST);
+		mainPanel.add(new JLabel("Mutation Resolver Folder"), makeGbc(0, 14));
+		mainPanel.add(filePanel, makeGbc(1, 14));
+		getMutationResolverFolderButton.addActionListener(this);
+
+		mainPanel.add(new JLabel("Mutation Resolver Package Name"), makeGbc(0, 15));
+		mutationResolverPackageField = new JTextField("org.bandahealth.idempiere.graphql.resolver.mutation");
+		mainPanel.add(mutationResolverPackageField, makeGbc(1, 15));
+
+		chkPanel = new Panel();
+		chkPanel.setLayout(new GridLayout(1, 2));
+		mainPanel.add(new JLabel(""), makeGbc(0, 16));
+		mainPanel.add(chkPanel, makeGbc(1, 16));
+		generateModelResolverCheckbox = new JCheckBox("Generate Model Resolvers");
+		generateModelResolverCheckbox.setSelected(true);
+		chkPanel.add(generateModelResolverCheckbox);
+
+		filePanel = new Panel();
+		filePanel.setLayout(new BorderLayout());
+//		modelResolverDirectoryNameField = new JTextField(defaultPath);
+		modelResolverDirectoryNameField = new JTextField(Path.of(
+						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/src/org/bandahealth/idempiere/graphql/resolver" +
+								"/model")
+				.toString());
+		filePanel.add(modelResolverDirectoryNameField, BorderLayout.CENTER);
+		getModelResolverFolderButton = new JButton("...");
+		getModelResolverFolderButton.setMargin(new Insets(0, 0, 0, 0));
+		filePanel.add(getModelResolverFolderButton, BorderLayout.EAST);
+		mainPanel.add(new JLabel("Model Resolver Folder"), makeGbc(0, 17));
+		mainPanel.add(filePanel, makeGbc(1, 17));
+		getModelResolverFolderButton.addActionListener(this);
+
+		mainPanel.add(new JLabel("Model Resolver Package Name"), makeGbc(0, 18));
+		modelResolverPackageField = new JTextField("org.bandahealth.idempiere.graphql.resolver.model");
+		mainPanel.add(modelResolverPackageField, makeGbc(1, 18));
+
+		chkPanel = new Panel();
+		chkPanel.setLayout(new GridLayout(1, 2));
+		mainPanel.add(new JLabel(""), makeGbc(0, 19));
+		mainPanel.add(chkPanel, makeGbc(1, 19));
+		generateDataLoaderCheckbox = new JCheckBox("Generate Data Loaders");
+		generateDataLoaderCheckbox.setSelected(true);
+		chkPanel.add(generateDataLoaderCheckbox);
+
+		filePanel = new Panel();
+		filePanel.setLayout(new BorderLayout());
+//		dataLoaderDirectoryNameField = new JTextField(defaultPath);
+		dataLoaderDirectoryNameField = new JTextField(Path.of(
+						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/src/org/bandahealth/idempiere/graphql/dataloader" +
+								"/impl")
+				.toString());
+		filePanel.add(dataLoaderDirectoryNameField, BorderLayout.CENTER);
+		getDataLoaderFolderButton = new JButton("...");
+		getDataLoaderFolderButton.setMargin(new Insets(0, 0, 0, 0));
+		filePanel.add(getDataLoaderFolderButton, BorderLayout.EAST);
+		mainPanel.add(new JLabel("Data Loader Folder"), makeGbc(0, 20));
+		mainPanel.add(filePanel, makeGbc(1, 20));
+		getDataLoaderFolderButton.addActionListener(this);
+
+		mainPanel.add(new JLabel("Data Loader Package Name"), makeGbc(0, 21));
+		dataLoaderPackageField = new JTextField("org.bandahealth.idempiere.graphql.dataloader.impl");
+		mainPanel.add(dataLoaderPackageField, makeGbc(1, 21));
 
 //		chkPanel = new Panel();
 //		chkPanel.setLayout(new GridLayout(1, 2));
@@ -180,17 +312,17 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 					return;
 				}
 			}
-			String inputModelFolder = "";
-			String inputModelPackageName = "";
 			String customModelFolderName = customModelDirectoryNameField.getText();
 			String customModelPackageName = customModelPackageField.getText();
 			Map<String, ModelMap> modelsForTables;
 			try {
-				 modelsForTables = GraphQLUtil.getModelsForTables(customModelFolderName);
+				modelsForTables = GraphQLUtil.getModelsForTables(customModelFolderName);
 			} catch (IOException ex) {
 				throw new RuntimeException(ex);
 			}
-			if (generateInputModelCheckbox.isSelected()) {
+			String inputModelFolder = "";
+			String inputModelPackageName = "";
+			if (generateInputModelCheckbox.isSelected() || generateMutationResolverCheckbox.isSelected()) {
 				inputModelFolder = inputModelDirectoryNameField.getText();
 				if (inputModelFolder == null || inputModelFolder.trim().isEmpty()) {
 					JOptionPane.showMessageDialog(this, "Please enter input model folder name", "Error",
@@ -204,12 +336,80 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 					return;
 				}
 			}
+			String queryResolverFolder = "";
+			String queryResolverPackageName = "";
+			if (generateQueryResolverCheckbox.isSelected()) {
+				queryResolverFolder = queryResolverDirectoryNameField.getText();
+				if (queryResolverFolder == null || queryResolverFolder.trim().isEmpty()) {
+					JOptionPane.showMessageDialog(this, "Please enter query resolver folder name", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				queryResolverPackageName = queryResolverPackageField.getText();
+				if (queryResolverPackageName == null || queryResolverPackageName.trim().isEmpty()) {
+					JOptionPane.showMessageDialog(this, "Please enter query resolver package name", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			}
+			String mutationResolverFolder = "";
+			String mutationResolverPackageName = "";
+			if (generateMutationResolverCheckbox.isSelected()) {
+				mutationResolverFolder = mutationResolverDirectoryNameField.getText();
+				if (mutationResolverFolder == null || mutationResolverFolder.trim().isEmpty()) {
+					JOptionPane.showMessageDialog(this, "Please enter mutation resolver folder name", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				mutationResolverPackageName = mutationResolverPackageField.getText();
+				if (mutationResolverPackageName == null || mutationResolverPackageName.trim().isEmpty()) {
+					JOptionPane.showMessageDialog(this, "Please enter mutation resolver package name", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			}
+			String dataLoaderFolder = "";
+			String dataLoaderPackageName = "";
+			if (generateDataLoaderCheckbox.isSelected() || generateModelResolverCheckbox.isSelected()) {
+				dataLoaderFolder = dataLoaderDirectoryNameField.getText();
+				if (dataLoaderFolder == null || dataLoaderFolder.trim().isEmpty()) {
+					JOptionPane.showMessageDialog(this, "Please enter data loader folder name", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				dataLoaderPackageName = dataLoaderPackageField.getText();
+				if (dataLoaderPackageName == null || dataLoaderPackageName.trim().isEmpty()) {
+					JOptionPane.showMessageDialog(this, "Please enter data loader package name", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			}
+			String modelResolverFolder = "";
+			String modelResolverPackageName = "";
+			if (generateModelResolverCheckbox.isSelected()) {
+				modelResolverFolder = modelResolverDirectoryNameField.getText();
+				if (modelResolverFolder == null || modelResolverFolder.trim().isEmpty()) {
+					JOptionPane.showMessageDialog(this, "Please enter model resolver folder name", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				modelResolverPackageName = modelResolverPackageField.getText();
+				if (modelResolverPackageName == null || modelResolverPackageName.trim().isEmpty()) {
+					JOptionPane.showMessageDialog(this, "Please enter model resolver package name", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			}
 			String entityType = fEntityType.getText();
-			if (!generateSchemaCheckbox.isSelected() && !generateInputModelCheckbox.isSelected()) {
+			if (!generateSchemaCheckbox.isSelected() && !generateInputModelCheckbox.isSelected() &&
+					!generateQueryResolverCheckbox.isSelected() && !generateMutationResolverCheckbox.isSelected() &&
+					!generateModelResolverCheckbox.isSelected() && !generateDataLoaderCheckbox.isSelected()) {
 				JOptionPane.showMessageDialog(this, "Must select at least one of thing to generate",
 						"Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+
+			// Run the generators!
 			String columnEntityType = fColumnEntityType.getText();
 			this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			if (generateSchemaCheckbox.isSelected()) {
@@ -221,6 +421,23 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 				GraphQLInputModelClassGenerator.generateSource(entityType, tableName, columnEntityType, inputModelFolder,
 						inputModelPackageName, customModelFolderName, customModelPackageName, modelsForTables);
 			}
+			if (generateQueryResolverCheckbox.isSelected()) {
+				GraphQLQueryResolverGenerator.generateSource(entityType, tableName, columnEntityType, queryResolverFolder,
+						queryResolverPackageName, modelsForTables);
+			}
+			if (generateMutationResolverCheckbox.isSelected()) {
+				GraphQLMutationResolverGenerator.generateSource(entityType, tableName, columnEntityType,
+						mutationResolverFolder, mutationResolverPackageName, inputModelPackageName, modelsForTables);
+			}
+			if (generateModelResolverCheckbox.isSelected()) {
+				GraphQLModelResolverGenerator.generateSource(entityType, tableName, columnEntityType,
+						modelResolverFolder, modelResolverPackageName, dataLoaderPackageName, modelsForTables);
+			}
+			if (generateDataLoaderCheckbox.isSelected()) {
+				GraphQLDataLoaderGenerator.generateSource(entityType, tableName, columnEntityType, dataLoaderFolder,
+						dataLoaderPackageName, modelsForTables);
+			}
+			this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 //			this.dispose();
 		} else if (e.getSource() == cancelButton) {
 			this.dispose();
@@ -262,6 +479,58 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 			int state = fileChooser.showOpenDialog(this);
 			if (state == JFileChooser.APPROVE_OPTION) {
 				customModelDirectoryNameField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+			}
+		} else if (e.getSource() == getQueryResolverFolderButton) {
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(Path.of(queryResolverDirectoryNameField.getText()).toFile());
+			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int state = fileChooser.showOpenDialog(this);
+			if (state == JFileChooser.APPROVE_OPTION) {
+				queryResolverDirectoryNameField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+			}
+		} else if (e.getSource() == getMutationResolverFolderButton) {
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(Path.of(mutationResolverDirectoryNameField.getText()).toFile());
+			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int state = fileChooser.showOpenDialog(this);
+			if (state == JFileChooser.APPROVE_OPTION) {
+				mutationResolverDirectoryNameField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+			}
+		} else if (e.getSource() == getModelResolverFolderButton) {
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(Path.of(modelResolverDirectoryNameField.getText()).toFile());
+			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int state = fileChooser.showOpenDialog(this);
+			if (state == JFileChooser.APPROVE_OPTION) {
+				modelResolverDirectoryNameField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+			}
+		} else if (e.getSource() == getDataLoaderFolderButton) {
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(Path.of(dataLoaderDirectoryNameField.getText()).toFile());
+			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int state = fileChooser.showOpenDialog(this);
+			if (state == JFileChooser.APPROVE_OPTION) {
+				dataLoaderDirectoryNameField.setText(fileChooser.getSelectedFile().getAbsolutePath());
 			}
 		}
 	}

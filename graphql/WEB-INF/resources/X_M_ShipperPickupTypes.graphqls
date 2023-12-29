@@ -23,7 +23,7 @@ type M_ShipperPickupTypes {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Default value
@@ -37,7 +37,7 @@ type M_ShipperPickupTypes {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input M_ShipperPickupTypesInput {

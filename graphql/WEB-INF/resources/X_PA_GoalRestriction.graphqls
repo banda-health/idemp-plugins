@@ -27,9 +27,9 @@ type PA_GoalRestriction {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Goal Restriction Type
-	GoalRestrictionType: AD_Ref_List!
+	GoalRestrictionType_RL: AD_Ref_List!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Category of a Product
@@ -44,7 +44,7 @@ type PA_GoalRestriction {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input PA_GoalRestrictionInput {
@@ -55,7 +55,7 @@ input PA_GoalRestrictionInput {
 	# Identifies a Business Partner
 	C_BPartner: C_BPartnerInput
 	# Goal Restriction Type
-	GoalRestrictionType: AD_Ref_ListInput
+	GoalRestrictionType_RL: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Category of a Product

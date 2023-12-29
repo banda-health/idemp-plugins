@@ -46,7 +46,7 @@ type AD_Role {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# The days approval indicates the days to take into account to verify the accumulated approval amount.
 	DaysApprovalAccum: Int
 	# Optional short description of the record
@@ -87,17 +87,17 @@ type AD_Role {
 	# Overwrite Price Limit if the Price List  enforces the Price Limit
 	OverwritePriceLimit: Boolean!
 	# Determines what preferences the user can set
-	PreferenceType: AD_Ref_List!
-	RoleType: AD_Ref_List
+	PreferenceType_RL: AD_Ref_List!
+	RoleType_RL: AD_Ref_List
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: AD_User
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 	UserDiscount: Int
 	# System Client Organization
-	UserLevel: AD_Ref_List!
+	UserLevel_RL: AD_Ref_List!
 }
 
 input AD_RoleInput {
@@ -166,11 +166,11 @@ input AD_RoleInput {
 	# Overwrite Price Limit if the Price List  enforces the Price Limit
 	OverwritePriceLimit: Boolean
 	# Determines what preferences the user can set
-	PreferenceType: AD_Ref_ListInput
-	RoleType: AD_Ref_ListInput
+	PreferenceType_RL: AD_Ref_ListInput
+	RoleType_RL: AD_Ref_ListInput
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: AD_UserInput
 	UserDiscount: Int
 	# System Client Organization
-	UserLevel: AD_Ref_ListInput
+	UserLevel_RL: AD_Ref_ListInput
 }

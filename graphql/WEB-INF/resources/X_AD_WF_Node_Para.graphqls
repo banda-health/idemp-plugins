@@ -31,7 +31,7 @@ type AD_WF_Node_Para {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
@@ -41,7 +41,7 @@ type AD_WF_Node_Para {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input AD_WF_Node_ParaInput {

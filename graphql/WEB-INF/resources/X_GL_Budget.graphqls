@@ -21,11 +21,11 @@ type GL_Budget {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Indicates the current status of this budget
-	BudgetStatus: AD_Ref_List
+	BudgetStatus_RL: AD_Ref_List
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Optional short description of the record
 	Description: String
 	ID: ID!
@@ -38,14 +38,14 @@ type GL_Budget {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input GL_BudgetInput {
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	# Indicates the current status of this budget
-	BudgetStatus: AD_Ref_ListInput
+	BudgetStatus_RL: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String
 	ID: ID

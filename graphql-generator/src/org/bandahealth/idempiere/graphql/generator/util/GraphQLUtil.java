@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 public class GraphQLUtil {
 	private static final CLogger log = CLogger.getCLogger(GraphQLUtil.class);
 	private static Pattern tableNamePattern = Pattern.compile("Table_Name = \"(.*)\";");
-	private static Pattern packagePattern = Pattern.compile("package (.*);");
+	private static Pattern packagePattern = Pattern.compile("(?<!//)package (.*);");
 
 	public static Map<String, ModelMap> getModelsForTables(String customModelDirectory) throws IOException {
 		// Look through all files and find the generated class
@@ -43,10 +43,12 @@ public class GraphQLUtil {
 		Map<String, String> generatedClassByInterface = new HashMap<>();
 		Map<String, String> manualClassByExtendedClass = new HashMap<>();
 		Map<String, String> packageByClass = new HashMap<>();
+		List<String> filesToSkip =
+				Arrays.asList("PO.java", "Lookup.java", "TestCase.java", "EventObject.java", "EventListener.java");
 
 		// Cycle through the interfaces to find which tables we have
 		for (File modelFile : modelFiles) {
-			if (!modelFile.getName().endsWith(".java")) {
+			if (!modelFile.getName().endsWith(".java") || filesToSkip.contains(modelFile.getName())) {
 				continue;
 			}
 			String content = Files.readString(modelFile.toPath());
@@ -78,13 +80,15 @@ public class GraphQLUtil {
 				}
 				generatedClassByInterface.put(implementedInterfaceName, structureName);
 			} else if (content.contains(" extends ")) {
-				// This is a manual model of some sort, so put it in the appropriate place
-				String extendedClassName = content.split(" extends ")[1].trim().split("\\s")[0].split(",")[0].trim();
-				if (manualClassByExtendedClass.containsKey(extendedClassName)) {
-					log.warning(("More than one file extends class " + extendedClassName + ": " +
-							manualClassByExtendedClass.get(extendedClassName) + " and " + structureName));
+				// This is a manual model of some sort, so put it in the appropriate place if it's not final
+				if (!content.contains(" final class " + structureName)) {
+					String extendedClassName = content.split(" extends ")[1].trim().split("\\s")[0].split(",")[0].trim();
+					if (manualClassByExtendedClass.containsKey(extendedClassName)) {
+						log.warning(("More than one file extends class " + extendedClassName + ": " +
+								manualClassByExtendedClass.get(extendedClassName) + " and " + structureName));
+					}
+					manualClassByExtendedClass.put(extendedClassName, structureName);
 				}
-				manualClassByExtendedClass.put(extendedClassName, structureName);
 			}
 		}
 
@@ -96,6 +100,8 @@ public class GraphQLUtil {
 								tableAndInterface.getValue());
 			}
 			String generatedClass = generatedClassByInterface.get(tableAndInterface.getValue());
+			modelsForTables.get(tableAndInterface.getKey()).setGeneratedClassName(generatedClass);
+			modelsForTables.get(tableAndInterface.getKey()).setGeneratedClassPackageName(packageByClass.get(generatedClass));
 			// If we don't have a manual class, we just use the generated class
 			if (!manualClassByExtendedClass.containsKey(generatedClass)) {
 				modelsForTables.get(tableAndInterface.getKey()).setClassName(generatedClass);

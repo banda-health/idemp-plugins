@@ -1,19 +1,30 @@
 package org.bandahealth.idempiere.graphql.resolver.mutation;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.bandahealth.idempiere.graphql.model.input.M_AD_UserInput;
+import org.bandahealth.idempiere.graphql.model.input.I_AD_UserInput;
+import org.bandahealth.idempiere.graphql.model.input.X_AD_UserInput;
 
 import java.util.List;
 
-public class X_AD_UserMutation implements GraphQLMutationResolver {
-	public MUser_BH AD_UserSave(M_AD_UserInput input) {
-		input.saveEx();
-		// get by uuid for visit input
-		return input;
+/**
+ * Generated Query Resolver for AD_User - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_AD_UserMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_AD_UserInput.Table_Name;
 	}
 
-	public boolean AD_UserDelete(List<String> uuids) {
-		return true;
+	public MUser_BH AD_UserSave(I_AD_UserInput input, DataFetchingEnvironment environment) {
+		return (MUser_BH) super.save((X_AD_UserInput) input, environment);
+	}
+
+	public boolean AD_UserDelete(List<String> uuids, DataFetchingEnvironment environment) {
+		return super.delete(uuids, environment);
 	}
 }

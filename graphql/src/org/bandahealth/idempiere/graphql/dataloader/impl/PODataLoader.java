@@ -33,11 +33,11 @@ public abstract class PODataLoader<T extends PO> implements DataLoaderRegisterer
 	protected abstract String getByUuidDataLoaderName();
 
 	/**
-	 * A method to return the repository instance for default data loader registration
+	 * A method to return the entity's table for default data loader registration
 	 *
-	 * @return The repository to use for this class
+	 * @return The table name for the associated entity
 	 */
-	protected abstract String getEntityTableName();
+	protected abstract String getTableName();
 
 	/**
 	 * The base method to register a data loader by iDempiere model ID and UUID.
@@ -63,7 +63,7 @@ public abstract class PODataLoader<T extends PO> implements DataLoaderRegisterer
 	 * @return A DataLoaderOptions containing a cache specific to the iDempiere entity T
 	 */
 	protected DataLoaderOptions getOptionsWithCache(Properties idempiereContext) {
-		return DataLoaderOptions.newOptions().setCacheMap(GraphQLEndpoint.getCache(getEntityTableName()))
+		return DataLoaderOptions.newOptions().setCacheMap(GraphQLEndpoint.getCache(getTableName()))
 				.setBatchLoaderContextProvider(() -> idempiereContext);
 	}
 
@@ -84,7 +84,7 @@ public abstract class PODataLoader<T extends PO> implements DataLoaderRegisterer
 	 */
 	private MappedBatchLoaderWithContext<Integer, T> getByIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> Repository.getByIdsCompletableFuture(batchLoaderEnvironment.getContext(),
-				getEntityTableName(), null, keys);
+				getTableName(), null, keys);
 	}
 
 	/**
@@ -94,6 +94,6 @@ public abstract class PODataLoader<T extends PO> implements DataLoaderRegisterer
 	 */
 	private MappedBatchLoaderWithContext<String, T> getByUuidBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> Repository.getByUuidsCompletableFuture(batchLoaderEnvironment.getContext(),
-				getEntityTableName(), null, keys);
+				getTableName(), null, keys);
 	}
 }

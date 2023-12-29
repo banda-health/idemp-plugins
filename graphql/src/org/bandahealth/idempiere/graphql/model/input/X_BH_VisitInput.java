@@ -1,8 +1,8 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.X_BH_Visit;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
+public class X_BH_VisitInput extends X_BH_Visit implements I_BH_VisitInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput BH_PatientType_RL;
@@ -28,7 +28,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	 * Standard constructor
 	 */
 	public X_BH_VisitInput(String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(Table_Name, ID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
 
@@ -47,6 +47,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			this.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
+
 	/**
 	 * Get Organization.
 	 *
@@ -73,6 +74,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			this.setBH_PatientType(null);
 		}
 	}
+
 	/**
 	 * Get Patient Type.
 	 *
@@ -99,6 +101,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			this.setBH_Process_Stage(null);
 		}
 	}
+
 	/**
 	 * Get BH_Process_Stage.
 	 *
@@ -125,6 +128,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			this.setbh_referral(null);
 		}
 	}
+
 	/**
 	 * Get Referral.
 	 *
@@ -169,6 +173,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			this.setBH_Voided_Reason_ID(0);
 		}
 	}
+
 	/**
 	 * Get BH_Voided_Reason_ID.
 	 *
@@ -205,6 +210,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			this.setPatient_ID(0);
 		}
 	}
+
 	/**
 	 * Get Patient.
 	 *

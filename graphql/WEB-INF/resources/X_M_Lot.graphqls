@@ -23,7 +23,7 @@ type M_Lot {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	CreatedBy: AD_User!
+	Create: AD_User!
 	# Starting date for a range
 	DateFrom: Date
 	# End date of a date range
@@ -44,7 +44,7 @@ type M_Lot {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	UpdatedBy: AD_User!
+	Update: AD_User!
 }
 
 input M_LotInput {
