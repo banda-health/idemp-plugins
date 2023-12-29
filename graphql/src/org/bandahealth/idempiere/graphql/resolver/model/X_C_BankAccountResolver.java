@@ -27,11 +27,11 @@ public class X_C_BankAccountResolver extends POResolver<MBankAccount_BH> impleme
 
 	static Map<String, String> BANKACCOUNTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBankAccount_BH.BANKACCOUNTTYPE_Checking, "c6fb4b16-162e-4ab0-a613-2a6fb63dbae4");
-			put(MBankAccount_BH.BANKACCOUNTTYPE_Savings, "de51279d-e4d6-4450-8048-093e48e5dd0a");
-			put(MBankAccount_BH.BANKACCOUNTTYPE_Cash, "efdadde5-1f09-4e32-9fff-ab94a7caf845");
-			put(MBankAccount_BH.BANKACCOUNTTYPE_Card, "0246f122-2d14-4aee-ba91-c72b43d6e85e");
-			put(MBankAccount_BH.BANKACCOUNTTYPE_Mobile, "be1ae458-a3aa-4d16-995a-8d23d34b5c08");
+			put("C", "c6fb4b16-162e-4ab0-a613-2a6fb63dbae4");
+			put("S", "de51279d-e4d6-4450-8048-093e48e5dd0a");
+			put("B", "efdadde5-1f09-4e32-9fff-ab94a7caf845");
+			put("D", "0246f122-2d14-4aee-ba91-c72b43d6e85e");
+			put("M", "be1ae458-a3aa-4d16-995a-8d23d34b5c08");
 		}
 	};
 	public CompletableFuture<MRefList> BankAccountType_RL(MBankAccount_BH entity, DataFetchingEnvironment environment) {

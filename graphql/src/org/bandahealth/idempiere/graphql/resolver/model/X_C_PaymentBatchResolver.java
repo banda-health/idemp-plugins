@@ -7,6 +7,8 @@ import org.compiere.model.MPaymentBatch;
 import org.compiere.model.MPaymentProcessor;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_PaymentBatch - DO NOT CHANGE
  *

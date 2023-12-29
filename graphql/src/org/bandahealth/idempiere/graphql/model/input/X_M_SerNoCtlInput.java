@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_SerNoCtl;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_SerNoCtlInput extends MSerNoCtl_BH implements I_M_SerNoCtlInput {
+public class X_M_SerNoCtlInput extends X_M_SerNoCtl implements I_M_SerNoCtlInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,44 @@ public class X_M_SerNoCtlInput extends MSerNoCtl_BH implements I_M_SerNoCtlInput
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+
+	/**
+	 * Set BH_Locked.
+	 *
+	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public void setBH_Locked(boolean BH_Locked) {
+		set_Value(COLUMNNAME_BH_Locked, BH_Locked);
+	}
+
+
+	/**
+	 * Get BH_Locked.
+	 *
+	 * @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public boolean isBH_Locked() {
+ 		Object columnValue = get_Value(COLUMNNAME_BH_Locked);
+		if (columnValue != null) {
+			if (columnValue instanceof Boolean) {
+				return ((Boolean) columnValue);
+			}
+			return "Y".equals(columnValue);
+		}
+		return false;
+	}
+
+	/**
+	 * Set Serial No Control.
+	 *
+	 * @param M_SerNoCtl_ID Product Serial Number Control
+	 */
+
+	public void setM_SerNoCtl_ID(int M_SerNoCtl_ID) {
+		if (get_ID() == 0) {
+			super.setM_SerNoCtl_ID(M_SerNoCtl_ID);
+		}
 	}
 
 	/**

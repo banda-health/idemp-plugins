@@ -13,6 +13,8 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MRegion;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_Location - DO NOT CHANGE
  *

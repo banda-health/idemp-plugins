@@ -39,6 +39,17 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
+	/**
+	 * Set Asset Reval. Entry.
+	 *
+	 * @param A_Asset_Reval_Entry_ID Asset Reval. Entry
+	 */
+
+	public void setA_Asset_Reval_Entry_ID(int A_Asset_Reval_Entry_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Reval_Entry_ID(A_Asset_Reval_Entry_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -299,6 +310,17 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 */
 	public I_C_PeriodInput getC_Period() {
 		return C_Period;
+	}
+	/**
+	 * Set Period.
+	 *
+	 * @param C_Period_ID Period of the Calendar
+	 */
+
+	public void setC_Period_ID(int C_Period_ID) {
+		if (get_ID() == 0) {
+			super.setC_Period_ID(C_Period_ID);
+		}
 	}
 
 	/**

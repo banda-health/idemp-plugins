@@ -77,10 +77,10 @@ public interface I_BH_Voided_Reason
     public static final String COLUMNNAME_BH_Voided_Reason_UU = "BH_Voided_Reason_UU";
 
 	/** Set bh_voided_reason_uu	  */
-	public void setbh_voided_reason_uu (String bh_voided_reason_uu);
+	public void setBH_Voided_Reason_UU(String bh_voided_reason_uu);
 
 	/** Get bh_voided_reason_uu	  */
-	public String getbh_voided_reason_uu();
+	public String getBH_Voided_Reason_UU();
 
     /** Column name bh_window_id */
     public static final String COLUMNNAME_bh_window_id = "bh_window_id";

@@ -7,6 +7,8 @@ import org.compiere.model.MEXPProcessor;
 import org.compiere.model.MEXPProcessorType;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for EXP_Processor - DO NOT CHANGE
  *

@@ -11,6 +11,7 @@ import org.compiere.model.MTax;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MTaxProvider;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Tax;
 import org.compiere.util.Env;
 
 /**
@@ -19,7 +20,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_TaxInput extends MTax implements I_C_TaxInput {
+public class X_C_TaxInput extends X_C_Tax implements I_C_TaxInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput SOPOType_RL;
@@ -119,6 +120,17 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public I_C_CountryInput getC_Country() {
 		return C_Country;
 	}
+	/**
+	 * Set Country.
+	 *
+	 * @param C_Country_ID Country 
+	 */
+
+	public void setC_Country_ID(int C_Country_ID) {
+		if (get_ID() == 0) {
+			super.setC_Country_ID(C_Country_ID);
+		}
+	}
 
 	/**
 	 * Set Country Group From.
@@ -145,6 +157,17 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 */
 	public I_C_CountryGroupInput getC_CountryGroupFrom() {
 		return C_CountryGroupFrom;
+	}
+	/**
+	 * Set Country Group From.
+	 *
+	 * @param C_CountryGroupFrom_ID Country Group From
+	 */
+
+	public void setC_CountryGroupFrom_ID(int C_CountryGroupFrom_ID) {
+		if (get_ID() == 0) {
+			super.setC_CountryGroupFrom_ID(C_CountryGroupFrom_ID);
+		}
 	}
 
 	/**
@@ -173,6 +196,17 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public I_C_CountryGroupInput getC_CountryGroupTo() {
 		return C_CountryGroupTo;
 	}
+	/**
+	 * Set Country Group To.
+	 *
+	 * @param C_CountryGroupTo_ID Country Group To
+	 */
+
+	public void setC_CountryGroupTo_ID(int C_CountryGroupTo_ID) {
+		if (get_ID() == 0) {
+			super.setC_CountryGroupTo_ID(C_CountryGroupTo_ID);
+		}
+	}
 
 	/**
 	 * Set Region.
@@ -199,6 +233,28 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 */
 	public I_C_RegionInput getC_Region() {
 		return C_Region;
+	}
+	/**
+	 * Set Region.
+	 *
+	 * @param C_Region_ID Identifies a geographical Region
+	 */
+
+	public void setC_Region_ID(int C_Region_ID) {
+		if (get_ID() == 0) {
+			super.setC_Region_ID(C_Region_ID);
+		}
+	}
+	/**
+	 * Set Tax.
+	 *
+	 * @param C_Tax_ID Tax identifier
+	 */
+
+	public void setC_Tax_ID(int C_Tax_ID) {
+		if (get_ID() == 0) {
+			super.setC_Tax_ID(C_Tax_ID);
+		}
 	}
 
 	/**
@@ -299,6 +355,17 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public I_C_TaxInput getParent_Tax() {
 		return Parent_Tax;
 	}
+	/**
+	 * Set Parent Tax.
+	 *
+	 * @param Parent_Tax_ID Parent Tax indicates a tax that is made up of multiple taxes
+	 */
+
+	public void setParent_Tax_ID(int Parent_Tax_ID) {
+		if (get_ID() == 0) {
+			super.setParent_Tax_ID(Parent_Tax_ID);
+		}
+	}
 
 	/**
 	 * Set SO/PO Type.
@@ -352,5 +419,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 */
 	public I_C_RegionInput getTo_Region() {
 		return To_Region;
+	}
+	/**
+	 * Set To.
+	 *
+	 * @param To_Region_ID Receiving Region
+	 */
+
+	public void setTo_Region_ID(int To_Region_ID) {
+		if (get_ID() == 0) {
+			super.setTo_Region_ID(To_Region_ID);
+		}
 	}
 }

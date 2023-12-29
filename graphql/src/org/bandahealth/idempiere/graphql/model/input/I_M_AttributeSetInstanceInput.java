@@ -25,6 +25,25 @@ public interface I_M_AttributeSetInstanceInput extends I_M_AttributeSetInstance 
 	I_AD_OrgInput getAD_Org();
 
 	/**
+	 * Column name bh_update_reason
+	 */
+	public static final String COLUMNNAME_bh_update_reason = "bh_update_reason";
+
+	/**
+	 * Set bh_update_reason.
+	 *
+	 * @param bh_update_reason bh_update_reason
+	 */
+	public void setbh_update_reason(String bh_update_reason);
+
+	/**
+	 * Get bh_update_reason.
+	 *
+	 * @return bh_update_reason
+	 */
+	public String getbh_update_reason();
+
+	/**
 	 * Set bh_update_reason_RL.
 	 *
 	 * @param bh_update_reason_RL bh_update_reason_RL

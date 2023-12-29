@@ -119,7 +119,7 @@ type M_InOut {
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status
-	Posted_RL: Boolean!
+	Posted: Boolean!
 	# Priority of a document
 	PriorityRule_RL: AD_Ref_List!
 	# The document has been processed
@@ -253,7 +253,7 @@ input M_InOutInput {
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status
-	Posted_RL: Boolean
+	Posted: Boolean
 	# Priority of a document
 	PriorityRule_RL: AD_Ref_ListInput
 	# The document has been processed

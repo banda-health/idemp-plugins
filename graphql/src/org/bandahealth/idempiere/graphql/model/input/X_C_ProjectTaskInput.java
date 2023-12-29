@@ -4,10 +4,10 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProjectPhase;
-import org.compiere.model.MProjectTask;
 import org.compiere.model.MProjectTypeTask;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_ProjectTask;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTaskInput {
+public class X_C_ProjectTaskInput extends X_C_ProjectTask implements I_C_ProjectTaskInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput ProjInvoiceRule_RL;
@@ -81,6 +81,28 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	public I_C_ProjectPhaseInput getC_ProjectPhase() {
 		return C_ProjectPhase;
 	}
+	/**
+	 * Set Project Phase.
+	 *
+	 * @param C_ProjectPhase_ID Phase of a Project
+	 */
+
+	public void setC_ProjectPhase_ID(int C_ProjectPhase_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectPhase_ID(C_ProjectPhase_ID);
+		}
+	}
+	/**
+	 * Set Project Task.
+	 *
+	 * @param C_ProjectTask_ID Actual Project Task in a Phase
+	 */
+
+	public void setC_ProjectTask_ID(int C_ProjectTask_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectTask_ID(C_ProjectTask_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -123,6 +145,17 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	 */
 	public I_C_TaskInput getC_Task() {
 		return C_Task;
+	}
+	/**
+	 * Set Standard Task.
+	 *
+	 * @param C_Task_ID Standard Project Type Task
+	 */
+
+	public void setC_Task_ID(int C_Task_ID) {
+		if (get_ID() == 0) {
+			super.setC_Task_ID(C_Task_ID);
+		}
 	}
 
 	/**

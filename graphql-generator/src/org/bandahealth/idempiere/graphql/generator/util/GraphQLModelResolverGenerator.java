@@ -23,6 +23,7 @@ import org.adempiere.exceptions.DBException;
 import org.adempiere.util.ModelInterfaceGenerator;
 import org.compiere.Adempiere;
 import org.compiere.model.MRefList;
+import org.compiere.model.MReference;
 import org.compiere.model.MTable;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
@@ -244,28 +245,36 @@ public class GraphQLModelResolverGenerator {
 			String foreignEntityTable = "";
 			String entityName = "";
 			String returnType = "";
+			String defaultCheckToReturnNull = "";
+			String valueMapPrefix = "";
+			String valueMapSuffix = "";
+			columnBuilder.append("\n");
 			if (fieldName != null && referenceClassName != null) {
 				// This entity is a foreign key, so let's work with it
-				// If the column doesn't end with "_ID", we want that to be the field name (and not what the iDempiere code
-				// generates)
-				// If this isn't an ID column or the field isn't an account field (ends with "_A"), use the column name as the
-				// field name
-				if (!columnName.contains("_ID") && !fieldName.endsWith("_A")) {
-					fieldName = columnName;
-				}
 				String[] packagePath = referenceClassName.split("\\.");
 				referenceClassName = packagePath[packagePath.length - 1].substring(2);
 				entityName = fieldName;
 				returnType = "I_" + referenceClassName + "Input";
 				foreignEntityTable = referenceClassName;
+				defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 			} else if (columnName.equals("AD_Language")) {
 				entityName = columnName + "_L";
 				returnType = "I_" + columnName + "Input";
 				foreignEntityTable = columnName;
+				addImportClass("org.bandahealth.idempiere.graphql.utils.StringUtil");
+				defaultCheckToReturnNull = "StringUtil.isNullOrEmpty(entity.get" + columnName + "())";
+				valueMapPrefix =
+						addLanguageCodeAndReturnReferenceUuidsByValueProperty(columnBuilder, columnName) + ".get(";
+				valueMapSuffix = ")";
 			} else if (columnName.equals("EntityType")) {
 				entityName = "AD_EntityType";
 				returnType = "I_" + entityName + "Input";
 				foreignEntityTable = entityName;
+				addImportClass("org.bandahealth.idempiere.graphql.utils.StringUtil");
+				defaultCheckToReturnNull = "StringUtil.isNullOrEmpty(entity.get" + columnName + "())";
+				valueMapPrefix =
+						addEntityTypeCodeAndReturnReferenceUuidsByValueProperty(columnBuilder, columnName) + ".get(";
+				valueMapSuffix = ")";
 			} else {
 				String columnNameWithSuffixedIdRemoved = columnName.substring(0, columnName.length() - 3);
 				if (columnName.endsWith("_ID") &&
@@ -273,40 +282,45 @@ public class GraphQLModelResolverGenerator {
 					entityName = columnNameWithSuffixedIdRemoved;
 					returnType = "I_" + columnNameWithSuffixedIdRemoved + "Input";
 					foreignEntityTable = entityName;
+					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 				} else if (columnName.equals("Logo_ID")) {
 					entityName = "AD_Image";
 					returnType = "I_" + entityName + "Input";
 					foreignEntityTable = entityName;
+					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";
 				}
 			}
 
-			columnBuilder.append("\n");
 			ModelMap foreignModelMap = modelsForTables.get(foreignEntityTable);
 			classesToImport.add(foreignModelMap.getClassPackageName() + "." + foreignModelMap.getClassName());
 			String dataLoader = "X_" + foreignModelMap.getTableName() + "DataLoader";
 			classesToImport.add(dataLoaderPackageName + "." + dataLoader);
+			classesToImport.add("java.util.concurrent.CompletableFuture");
 
 			generateJavaGetComment(Name, Description, columnBuilder);
 			columnBuilder
 					.append("\tpublic CompletableFuture<").append(foreignModelMap.getClassName()).append("> ")
 					.append(entityName).append("(").append(tableStructureExtensions.getClassName())
 					.append(" entity, DataFetchingEnvironment environment) {\n")
-					.append("\t\tif (entity.get").append(columnName).append("() <= 0) {\n")
+					.append("\t\tif (").append(defaultCheckToReturnNull).append(") {\n")
 					.append("\t\t\treturn null;\n")
 					.append("\t\t}\n")
 					.append("\t\tDataLoader<Integer, ").append(foreignModelMap.getClassName()).append("> dataLoader =\n")
 					.append("\t\t\t\tenvironment.getDataLoaderRegistry().getDataLoader(").append(dataLoader).append(".")
 					.append(foreignModelMap.getTableName()).append("_BY_ID_DATA_LOADER);\n")
-					.append("\t\treturn dataLoader.load(entity.get").append(columnName).append("());\n")
+					.append("\t\treturn dataLoader.load(").append(valueMapPrefix).append("entity.get").append(columnName)
+					.append("()").append(valueMapSuffix).append(");\n")
 					.append("\t}\n");
 			return columnBuilder.toString();
 		}
 
 		// If the code is updatable from this point forward, the parent class can handle it
-		if (AD_Reference_ID > 0) {
+		if (AD_Reference_ID > 0 &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
+				clazz.equals(String.class)) {
 			ModelMap classToUseMap = modelsForTables.get(MRefList.Table_Name);
 			classesToImport.add(classToUseMap.getClassPackageName() + "." + classToUseMap.getClassName());
 			columnBuilder.append("\n");
@@ -369,7 +383,6 @@ public class GraphQLModelResolverGenerator {
 				.append(description != null && !description.isEmpty() ? description : propertyName).append("\n\t */\n");
 	}
 
-
 	/**
 	 * Add List Validation
 	 *
@@ -393,53 +406,95 @@ public class GraphQLModelResolverGenerator {
 				.append(" = new HashMap<>() {\n")
 				.append("\t\t{\n");
 		//
-		String sql = "SELECT Value, Name, AD_Ref_List_UU FROM AD_Ref_List WHERE AD_Reference_ID=? ORDER BY AD_Ref_List_ID";
+		String sql = "SELECT Value, AD_Ref_List_UU FROM AD_Ref_List WHERE AD_Reference_ID=? ORDER BY AD_Ref_List_ID";
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
 			preparedStatement.setInt(1, AD_Reference_ID);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String value = resultSet.getString(1);
-				String uuid = resultSet.getString(3);
+				String uuid = resultSet.getString(2);
 
-				//	Name (SmallTalkNotation)
-				String name = resultSet.getString(2);
-				char[] nameArray = name.toCharArray();
-				StringBuilder nameClean = new StringBuilder();
-				boolean initCap = true;
-				for (char characterInName : nameArray) {
-					if (Character.isJavaIdentifierPart(characterInName)) {
-						if (initCap) {
-							nameClean.append(Character.toUpperCase(characterInName));
-						} else {
-							nameClean.append(characterInName);
-						}
-						initCap = false;
-					} else {
-						if (characterInName == '+') {
-							nameClean.append("Plus");
-						} else if (characterInName == '-') {
-							nameClean.append("_");
-						} else if (characterInName == '>') {
-							if (name.indexOf('<') == -1) {  //	ignore <xx>
-								nameClean.append("Gt");
-							}
-						} else if (characterInName == '<') {
-							if (name.indexOf('>') == -1) {  //	ignore <xx>
-								nameClean.append("Le");
-							}
-						} else if (characterInName == '!') {
-							nameClean.append("Not");
-						} else if (characterInName == '=') {
-							nameClean.append("Eq");
-						} else if (characterInName == '~') {
-							nameClean.append("Like");
-						}
-						initCap = true;
-					}
-				}
-				generatedCode.append("\t\t\tput(").append(tableStructureExtensions.getClassName()).append(".")
-						.append(columnName.toUpperCase()).append("_").append(nameClean).append(", \"").append(uuid)
-						.append("\");\n");
+				generatedCode.append("\t\t\tput(\"").append(value).append("\", \"").append(uuid).append("\");\n");
+			}
+		} catch (SQLException e) {
+			throw new DBException(e, sql);
+		}
+
+		generatedCode.append("\t\t}\n")
+				.append("\t};\n");
+		return uuidsByValuePropertyName;
+	}
+
+	/**
+	 * Add List Validation
+	 *
+	 * @param generatedCode buffer - example:
+	 *                      if (NextAction.equals("N") || NextAction.equals("F"));
+	 *                      else throw new IllegalArgumentException ("NextAction Invalid value - Reference_ID=219 - N
+	 *                      - F");
+	 * @param columnName    column
+	 * @return static parameter - Example:
+	 * public static final int NEXTACTION_AD_Reference_ID=219;
+	 * public static final String NEXTACTION_None = "N";
+	 * public static final String NEXTACTION_FollowUp = "F";
+	 */
+	private String addEntityTypeCodeAndReturnReferenceUuidsByValueProperty(StringBuilder generatedCode,
+			String columnName) {
+		String uuidsByValuePropertyName = columnName.toUpperCase() + "_IDS_BY_ENTITY_TYPE";
+		classesToImport.add("java.util.HashMap");
+		classesToImport.add("java.util.Map");
+		generatedCode.append("\tstatic Map<String, Integer> ").append(uuidsByValuePropertyName)
+				.append(" = new HashMap<>() {\n")
+				.append("\t\t{\n");
+		//
+		String sql = "SELECT entitytype, ad_entitytype_id FROM AD_EntityType ORDER BY AD_EntityType_ID";
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				String value = resultSet.getString(1);
+				Integer id = resultSet.getInt(2);
+
+				generatedCode.append("\t\t\tput(\"").append(value).append("\", ").append(id).append(");\n");
+			}
+		} catch (SQLException e) {
+			throw new DBException(e, sql);
+		}
+
+		generatedCode.append("\t\t}\n")
+				.append("\t};\n");
+		return uuidsByValuePropertyName;
+	}
+
+	/**
+	 * Add List Validation
+	 *
+	 * @param generatedCode buffer - example:
+	 *                      if (NextAction.equals("N") || NextAction.equals("F"));
+	 *                      else throw new IllegalArgumentException ("NextAction Invalid value - Reference_ID=219 - N
+	 *                      - F");
+	 * @param columnName    column
+	 * @return static parameter - Example:
+	 * public static final int NEXTACTION_AD_Reference_ID=219;
+	 * public static final String NEXTACTION_None = "N";
+	 * public static final String NEXTACTION_FollowUp = "F";
+	 */
+	private String addLanguageCodeAndReturnReferenceUuidsByValueProperty(StringBuilder generatedCode,
+			String columnName) {
+		String uuidsByValuePropertyName = columnName.toUpperCase() + "_IDS_BY_LANGUAGE";
+		classesToImport.add("java.util.HashMap");
+		classesToImport.add("java.util.Map");
+		generatedCode.append("\tstatic Map<String, Integer> ").append(uuidsByValuePropertyName)
+				.append(" = new HashMap<>() {\n")
+				.append("\t\t{\n");
+		//
+		String sql = "SELECT ad_language, ad_language_id FROM ad_language ORDER BY ad_language";
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				String value = resultSet.getString(1);
+				Integer id = resultSet.getInt(2);
+
+				generatedCode.append("\t\t\tput(\"").append(value).append("\", ").append(id).append(");\n");
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -488,6 +543,38 @@ public class GraphQLModelResolverGenerator {
 	 * Import classes
 	 */
 	private final Collection<String> classesToImport = new TreeSet<>();
+
+	/**
+	 * Add class name to class import list
+	 *
+	 * @param className The canonical class name to add to the import list
+	 */
+	private void addImportClass(String className) {
+		if (className == null
+				|| (className.startsWith("java.lang.") && !className.startsWith("java.lang.reflect."))
+				|| className.startsWith(packageName + ".")) {
+			return;
+		}
+		if (className.equals("byte[]")) {
+			log.warning("Invalid type - " + className);
+			return;
+		}
+		classesToImport.add(className);
+	}
+
+	/**
+	 * Add class to class import list
+	 *
+	 * @param clazz The class to add to the import list
+	 */
+	private void addImportClass(Class<?> clazz) {
+		if (clazz.isArray()) {
+			clazz = clazz.getComponentType();
+		}
+		if (clazz.isPrimitive())
+			return;
+		addImportClass(clazz.getCanonicalName());
+	}
 
 	/**
 	 * Generate java imports

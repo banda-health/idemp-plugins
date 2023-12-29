@@ -10,6 +10,8 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_Warehouse - DO NOT CHANGE
  *

@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MFreightCategory;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_FreightCategory;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_FreightCategoryInput extends MFreightCategory implements I_M_FreightCategoryInput {
+public class X_M_FreightCategoryInput extends X_M_FreightCategory implements I_M_FreightCategoryInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_M_FreightCategoryInput extends MFreightCategory implements I_M_Fr
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Freight Category.
+	 *
+	 * @param M_FreightCategory_ID Category of the Freight
+	 */
+
+	public void setM_FreightCategory_ID(int M_FreightCategory_ID) {
+		if (get_ID() == 0) {
+			super.setM_FreightCategory_ID(M_FreightCategory_ID);
+		}
 	}
 
 	/**

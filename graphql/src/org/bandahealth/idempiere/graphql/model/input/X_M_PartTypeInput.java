@@ -48,6 +48,17 @@ public class X_M_PartTypeInput extends X_M_PartType implements I_M_PartTypeInput
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Part Type.
+	 *
+	 * @param M_PartType_ID Part Type
+	 */
+
+	public void setM_PartType_ID(int M_PartType_ID) {
+		if (get_ID() == 0) {
+			super.setM_PartType_ID(M_PartType_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

@@ -121,18 +121,4 @@ public interface I_PP_Order_NodeNextInput extends I_PP_Order_NodeNext {
 	 * @return ID
 	 */
 	String getID();
-
-	/**
-	 * Set SeqNo_RL.
-	 *
-	 * @param SeqNo_RL Method of ordering records; lowest number comes first
-	 */
-	void setSeqNo_RL(I_AD_Ref_ListInput SeqNo_RL);
-
-	/**
-	 * Get SeqNo_RL.
-	 *
-	 * @return Method of ordering records; lowest number comes first
-	 */
-	I_AD_Ref_ListInput getSeqNo_RL();
 }

@@ -5,10 +5,10 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
-import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTypePhase;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_ProjectPhase;
 import org.compiere.util.Env;
 
 /**
@@ -17,7 +17,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectPhaseInput {
+public class X_C_ProjectPhaseInput extends X_C_ProjectPhase implements I_C_ProjectPhaseInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput ProjInvoiceRule_RL;
@@ -83,6 +83,17 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	public I_C_OrderInput getC_Order() {
 		return C_Order;
 	}
+	/**
+	 * Set Order.
+	 *
+	 * @param C_Order_ID Order
+	 */
+
+	public void setC_Order_ID(int C_Order_ID) {
+		if (get_ID() == 0) {
+			super.setC_Order_ID(C_Order_ID);
+		}
+	}
 
 	/**
 	 * Set Standard Phase.
@@ -108,6 +119,17 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	public I_C_PhaseInput getC_Phase() {
 		return C_Phase;
 	}
+	/**
+	 * Set Standard Phase.
+	 *
+	 * @param C_Phase_ID Standard Phase of the Project Type
+	 */
+
+	public void setC_Phase_ID(int C_Phase_ID) {
+		if (get_ID() == 0) {
+			super.setC_Phase_ID(C_Phase_ID);
+		}
+	}
 
 	/**
 	 * Set Project.
@@ -132,6 +154,28 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	 */
 	public I_C_ProjectInput getC_Project() {
 		return C_Project;
+	}
+	/**
+	 * Set Project.
+	 *
+	 * @param C_Project_ID Financial Project
+	 */
+
+	public void setC_Project_ID(int C_Project_ID) {
+		if (get_ID() == 0) {
+			super.setC_Project_ID(C_Project_ID);
+		}
+	}
+	/**
+	 * Set Project Phase.
+	 *
+	 * @param C_ProjectPhase_ID Phase of a Project
+	 */
+
+	public void setC_ProjectPhase_ID(int C_ProjectPhase_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectPhase_ID(C_ProjectPhase_ID);
+		}
 	}
 
 	/**

@@ -6,10 +6,10 @@ import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MGoal;
-import org.compiere.model.MGoalRestriction;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_PA_GoalRestriction;
 import org.compiere.util.Env;
 
 /**
@@ -18,7 +18,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_GoalRestrictionInput {
+public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I_PA_GoalRestrictionInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput GoalRestrictionType_RL;
@@ -221,6 +221,17 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 */
 	public I_PA_GoalInput getPA_Goal() {
 		return PA_Goal;
+	}
+	/**
+	 * Set Goal Restriction.
+	 *
+	 * @param PA_GoalRestriction_ID Performance Goal Restriction
+	 */
+
+	public void setPA_GoalRestriction_ID(int PA_GoalRestriction_ID) {
+		if (get_ID() == 0) {
+			super.setPA_GoalRestriction_ID(PA_GoalRestriction_ID);
+		}
 	}
 
 	/**

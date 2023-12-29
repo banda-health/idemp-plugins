@@ -203,6 +203,17 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	public I_AD_WF_ResponsibleInput getAD_WF_Responsible() {
 		return AD_WF_Responsible;
 	}
+	/**
+	 * Set Workflow.
+	 *
+	 * @param AD_Workflow_ID Workflow or combination of tasks
+	 */
+
+	public void setAD_Workflow_ID(int AD_Workflow_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Workflow_ID(AD_Workflow_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -288,9 +299,9 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -301,6 +312,17 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 
 	/**

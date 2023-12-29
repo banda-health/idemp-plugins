@@ -145,6 +145,28 @@ public class X_AD_WF_ActivityInput extends X_AD_WF_Activity implements I_AD_WF_A
 	public I_AD_UserInput getAD_User() {
 		return AD_User;
 	}
+	/**
+	 * Set User/Contact.
+	 *
+	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
+	 */
+
+	public void setAD_User_ID(int AD_User_ID) {
+		if (get_ID() == 0) {
+			super.setAD_User_ID(AD_User_ID);
+		}
+	}
+	/**
+	 * Set Workflow Activity.
+	 *
+	 * @param AD_WF_Activity_ID Workflow Activity
+	 */
+
+	public void setAD_WF_Activity_ID(int AD_WF_Activity_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Activity_ID(AD_WF_Activity_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -214,6 +236,17 @@ public class X_AD_WF_ActivityInput extends X_AD_WF_Activity implements I_AD_WF_A
 	 */
 	public I_AD_WF_ProcessInput getAD_WF_Process() {
 		return AD_WF_Process;
+	}
+	/**
+	 * Set Workflow Process.
+	 *
+	 * @param AD_WF_Process_ID Actual Workflow Process Instance
+	 */
+
+	public void setAD_WF_Process_ID(int AD_WF_Process_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Process_ID(AD_WF_Process_ID);
+		}
 	}
 
 	/**

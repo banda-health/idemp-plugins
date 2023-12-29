@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
 import org.compiere.model.I_C_Payment;
 
 /**
@@ -25,6 +26,44 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	I_AD_OrgInput getAD_Org();
 
 	/**
+	 * Column name BH_NavButtons
+	 */
+	public static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons);
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons();
+
+	/**
+	 * Column name BH_tender_amount
+	 */
+	public static final String COLUMNNAME_BH_tender_amount = "BH_tender_amount";
+
+	/**
+	 * Set Tender Amount.
+	 *
+	 * @param BH_tender_amount Tender Amount
+	 */
+	public void setBH_tender_amount(BigDecimal BH_tender_amount);
+
+	/**
+	 * Get Tender Amount.
+	 *
+	 * @return Tender Amount
+	 */
+	public BigDecimal getBH_tender_amount();
+
+	/**
 	 * Set BH_Visit.
 	 *
 	 * @param BH_Visit BH_Visit
@@ -37,6 +76,25 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	 * @return BH_Visit
 	 */
 	I_BH_VisitInput getBH_Visit();
+
+	/**
+	 * Column name BH_Visit_ID
+	 */
+	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
+
+	/**
+	 * Set Visit.
+	 *
+	 * @param BH_Visit_ID Visit
+	 */
+	public void setBH_Visit_ID(int BH_Visit_ID);
+
+	/**
+	 * Get Visit.
+	 *
+	 * @return Visit
+	 */
+	public int getBH_Visit_ID();
 
 	/**
 	 * Set C_Activity.
@@ -331,20 +389,6 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	 * @return The current status of the document
 	 */
 	I_AD_Ref_ListInput getDocStatus_RL();
-
-	/**
-	 * Set Posted_RL.
-	 *
-	 * @param Posted_RL Posting status
-	 */
-	void setPosted_RL(I_AD_Ref_ListInput Posted_RL);
-
-	/**
-	 * Get Posted_RL.
-	 *
-	 * @return Posting status
-	 */
-	I_AD_Ref_ListInput getPosted_RL();
 
 	/**
 	 * Set R_AvsAddr_RL.

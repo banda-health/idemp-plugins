@@ -11,6 +11,8 @@ import org.compiere.model.MShippingTransactionLine;
 import org.compiere.model.MUOM;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_ShippingTransactionLine - DO NOT CHANGE
  *

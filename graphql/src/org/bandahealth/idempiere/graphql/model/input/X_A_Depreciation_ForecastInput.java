@@ -28,6 +28,17 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
+	/**
+	 * Set Depreciation Forecast.
+	 *
+	 * @param A_Depreciation_Forecast_ID Depreciation Forecast
+	 */
+
+	public void setA_Depreciation_Forecast_ID(int A_Depreciation_Forecast_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Forecast_ID(A_Depreciation_Forecast_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -73,6 +84,17 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 	public I_A_AssetInput getA_End_Asset() {
 		return A_End_Asset;
 	}
+	/**
+	 * Set To Asset.
+	 *
+	 * @param A_End_Asset_ID To Asset
+	 */
+
+	public void setA_End_Asset_ID(int A_End_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_End_Asset_ID(A_End_Asset_ID);
+		}
+	}
 
 	/**
 	 * Set From Asset.
@@ -99,6 +121,17 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 	 */
 	public I_A_AssetInput getA_Start_Asset() {
 		return A_Start_Asset;
+	}
+	/**
+	 * Set From Asset.
+	 *
+	 * @param A_Start_Asset_ID From Asset
+	 */
+
+	public void setA_Start_Asset_ID(int A_Start_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Start_Asset_ID(A_Start_Asset_ID);
+		}
 	}
 
 	/**

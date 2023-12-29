@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
@@ -11,10 +12,10 @@ import org.compiere.model.MCurrency;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MPriceListVersion;
-import org.compiere.model.MProject;
 import org.compiere.model.MProjectTypePhase;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Project;
 import org.compiere.util.Env;
 
 /**
@@ -23,7 +24,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
+public class X_C_ProjectInput extends X_C_Project implements I_C_ProjectInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput ProjInvoiceRule_RL;
@@ -209,6 +210,17 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	public I_C_BPartnerInput getC_BPartnerSR() {
 		return C_BPartnerSR;
 	}
+	/**
+	 * Set BPartner (Agent).
+	 *
+	 * @param C_BPartnerSR_ID Business Partner (Agent or Sales Rep)
+	 */
+
+	public void setC_BPartnerSR_ID(int C_BPartnerSR_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartnerSR_ID(C_BPartnerSR_ID);
+		}
+	}
 
 	/**
 	 * Set Campaign.
@@ -317,6 +329,17 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	public I_C_PhaseInput getC_Phase() {
 		return C_Phase;
 	}
+	/**
+	 * Set Project.
+	 *
+	 * @param C_Project_ID Financial Project
+	 */
+
+	public void setC_Project_ID(int C_Project_ID) {
+		if (get_ID() == 0) {
+			super.setC_Project_ID(C_Project_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -340,6 +363,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 *
 	 * @param InvoicedAmt The amount invoiced
 	 */
+
 	public void setInvoicedAmt(BigDecimal InvoicedAmt) {
 		if (get_ID() == 0) {
 			super.setInvoicedAmt(InvoicedAmt);
@@ -350,6 +374,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 *
 	 * @param InvoicedQty The quantity invoiced
 	 */
+
 	public void setInvoicedQty(BigDecimal InvoicedQty) {
 		if (get_ID() == 0) {
 			super.setInvoicedQty(InvoicedQty);
@@ -414,6 +439,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 *
 	 * @param ProjectBalanceAmt Total Project Balance
 	 */
+
 	public void setProjectBalanceAmt(BigDecimal ProjectBalanceAmt) {
 		if (get_ID() == 0) {
 			super.setProjectBalanceAmt(ProjectBalanceAmt);
@@ -526,5 +552,16 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 */
 	public I_AD_UserInput getSalesRep() {
 		return SalesRep;
+	}
+	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep_ID Sales Representative or Company Agent
+	 */
+
+	public void setSalesRep_ID(int SalesRep_ID) {
+		if (get_ID() == 0) {
+			super.setSalesRep_ID(SalesRep_ID);
+		}
 	}
 }

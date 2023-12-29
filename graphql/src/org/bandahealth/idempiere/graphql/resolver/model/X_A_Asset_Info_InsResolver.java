@@ -7,6 +7,8 @@ import org.compiere.model.MAsset;
 import org.compiere.model.X_A_Asset_Info_Ins;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for A_Asset_Info_Ins - DO NOT CHANGE
  *

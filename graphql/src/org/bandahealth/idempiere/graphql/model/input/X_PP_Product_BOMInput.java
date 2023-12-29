@@ -9,7 +9,7 @@ import org.compiere.model.MRefList;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.eevolution.model.MPPProductBOM;
+import org.eevolution.model.X_PP_Product_BOM;
 
 /**
  * Generated Model for PP_Product_BOM - DO NOT CHANGE
@@ -17,7 +17,7 @@ import org.eevolution.model.MPPProductBOM;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product_BOMInput {
+public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Product_BOMInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput BOMType_RL;
@@ -220,6 +220,17 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	 */
 	public I_M_ProductInput getM_Product() {
 		return M_Product;
+	}
+	/**
+	 * Set BOM & Formula.
+	 *
+	 * @param PP_Product_BOM_ID BOM & Formula
+	 */
+
+	public void setPP_Product_BOM_ID(int PP_Product_BOM_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Product_BOM_ID(PP_Product_BOM_ID);
+		}
 	}
 
 	/**

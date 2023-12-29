@@ -46,9 +46,9 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 
 	static Map<String, String> BH_SUBTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPGroup_BH.BH_SUBTYPE_Insurance, "d8547f6d-5ad0-4025-b8f8-0f4796cf9d0f");
-			put(MBPGroup_BH.BH_SUBTYPE_Waiver, "406d22a4-b3ee-48e4-9bba-7031f653aa06");
-			put(MBPGroup_BH.BH_SUBTYPE_Donation, "4782b135-a84e-4eb9-ae3d-88c872a030ce");
+			put("I", "d8547f6d-5ad0-4025-b8f8-0f4796cf9d0f");
+			put("W", "406d22a4-b3ee-48e4-9bba-7031f653aa06");
+			put("D", "4782b135-a84e-4eb9-ae3d-88c872a030ce");
 		}
 	};
 	public CompletableFuture<MRefList> BH_SubType_RL(MBPGroup_BH entity, DataFetchingEnvironment environment) {
@@ -137,9 +137,9 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 
 	static Map<String, String> PRIORITYBASE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MBPGroup_BH.PRIORITYBASE_Same, "b64b1ea9-0b3a-44b9-8eb0-2b2ca0ad5190");
-			put(MBPGroup_BH.PRIORITYBASE_Lower, "a64392a9-af89-4e61-99b0-eef75b411da8");
-			put(MBPGroup_BH.PRIORITYBASE_Higher, "de47e146-1de6-4ff7-870d-3faf6a85bea0");
+			put("S", "b64b1ea9-0b3a-44b9-8eb0-2b2ca0ad5190");
+			put("L", "a64392a9-af89-4e61-99b0-eef75b411da8");
+			put("H", "de47e146-1de6-4ff7-870d-3faf6a85bea0");
 		}
 	};
 	public CompletableFuture<MRefList> PriorityBase_RL(MBPGroup_BH entity, DataFetchingEnvironment environment) {

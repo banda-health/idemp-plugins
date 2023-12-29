@@ -9,6 +9,8 @@ import org.compiere.model.MShipperPickupTypes;
 import org.compiere.model.X_M_ShipperPickupTypesCfg;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_ShipperPickupTypes - DO NOT CHANGE
  *

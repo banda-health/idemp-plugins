@@ -66,7 +66,7 @@ type A_Asset_Disposed {
 	# The asset is disposed
 	IsDisposed: Boolean!
 	# Posting status
-	Posted_RL: Boolean!
+	Posted: Boolean!
 	# The type of posted amount for the transaction
 	PostingType_RL: AD_Ref_List!
 	# The document has been processed
@@ -125,7 +125,7 @@ input A_Asset_DisposedInput {
 	# The asset is disposed
 	IsDisposed: Boolean
 	# Posting status
-	Posted_RL: Boolean
+	Posted: Boolean
 	# The type of posted amount for the transaction
 	PostingType_RL: AD_Ref_ListInput
 	# The document has been processed

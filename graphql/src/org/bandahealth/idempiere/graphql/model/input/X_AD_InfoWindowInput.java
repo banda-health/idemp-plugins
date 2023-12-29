@@ -3,10 +3,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCtxHelp;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MInfoWindow;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_InfoWindow;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindowInput {
+public class X_AD_InfoWindowInput extends X_AD_InfoWindow implements I_AD_InfoWindowInput {
 
 	 private I_AD_CtxHelpInput AD_CtxHelp;
 	 private I_AD_EntityTypeInput AD_EntityType;
@@ -55,6 +55,17 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	 */
 	public I_AD_CtxHelpInput getAD_CtxHelp() {
 		return AD_CtxHelp;
+	}
+	/**
+	 * Set Info Window.
+	 *
+	 * @param AD_InfoWindow_ID Info and search/select Window
+	 */
+
+	public void setAD_InfoWindow_ID(int AD_InfoWindow_ID) {
+		if (get_ID() == 0) {
+			super.setAD_InfoWindow_ID(AD_InfoWindow_ID);
+		}
 	}
 
 	/**
@@ -139,9 +150,9 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -152,5 +163,16 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 }

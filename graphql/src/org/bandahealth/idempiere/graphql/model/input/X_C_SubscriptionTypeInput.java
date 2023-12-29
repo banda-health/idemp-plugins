@@ -50,6 +50,17 @@ public class X_C_SubscriptionTypeInput extends X_C_SubscriptionType implements I
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Subscription Type.
+	 *
+	 * @param C_SubscriptionType_ID Type of subscription
+	 */
+
+	public void setC_SubscriptionType_ID(int C_SubscriptionType_ID) {
+		if (get_ID() == 0) {
+			super.setC_SubscriptionType_ID(C_SubscriptionType_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MExpenseType;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
+import org.compiere.model.X_S_ExpenseType;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTypeInput {
+public class X_S_ExpenseTypeInput extends X_S_ExpenseType implements I_S_ExpenseTypeInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_TaxCategoryInput C_TaxCategory;
@@ -134,6 +134,17 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	 */
 	public I_M_Product_CategoryInput getM_Product_Category() {
 		return M_Product_Category;
+	}
+	/**
+	 * Set Expense Type.
+	 *
+	 * @param S_ExpenseType_ID Expense report type
+	 */
+
+	public void setS_ExpenseType_ID(int S_ExpenseType_ID) {
+		if (get_ID() == 0) {
+			super.setS_ExpenseType_ID(S_ExpenseType_ID);
+		}
 	}
 
 	/**

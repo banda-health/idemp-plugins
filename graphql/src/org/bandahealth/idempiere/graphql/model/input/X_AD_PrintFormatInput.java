@@ -118,6 +118,17 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	public I_AD_PrintFontInput getAD_PrintFont() {
 		return AD_PrintFont;
 	}
+	/**
+	 * Set Print Format.
+	 *
+	 * @param AD_PrintFormat_ID Data Print Format
+	 */
+
+	public void setAD_PrintFormat_ID(int AD_PrintFormat_ID) {
+		if (get_ID() == 0) {
+			super.setAD_PrintFormat_ID(AD_PrintFormat_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -215,6 +226,17 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	public I_AD_ReportViewInput getAD_ReportView() {
 		return AD_ReportView;
 	}
+	/**
+	 * Set Report View.
+	 *
+	 * @param AD_ReportView_ID View used to generate this report
+	 */
+
+	public void setAD_ReportView_ID(int AD_ReportView_ID) {
+		if (get_ID() == 0) {
+			super.setAD_ReportView_ID(AD_ReportView_ID);
+		}
+	}
 
 	/**
 	 * Set Table.
@@ -239,6 +261,17 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 */
 	public I_AD_TableInput getAD_Table() {
 		return AD_Table;
+	}
+	/**
+	 * Set Table.
+	 *
+	 * @param AD_Table_ID Database Table information
+	 */
+
+	public void setAD_Table_ID(int AD_Table_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Table_ID(AD_Table_ID);
+		}
 	}
 
 	/**
@@ -272,6 +305,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param IsTableBased Table based List Reporting
 	 */
+
 	public void setIsTableBased(boolean IsTableBased) {
 		if (get_ID() == 0) {
 			super.setIsTableBased(IsTableBased);
@@ -303,5 +337,16 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 */
 	public I_AD_ProcessInput getJasperProcess() {
 		return JasperProcess;
+	}
+	/**
+	 * Set Jasper Process.
+	 *
+	 * @param JasperProcess_ID The Jasper Process used by the printengine if any process defined
+	 */
+
+	public void setJasperProcess_ID(int JasperProcess_ID) {
+		if (get_ID() == 0) {
+			super.setJasperProcess_ID(JasperProcess_ID);
+		}
 	}
 }

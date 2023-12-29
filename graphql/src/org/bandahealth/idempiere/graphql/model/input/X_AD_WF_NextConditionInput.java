@@ -84,6 +84,17 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Transition Condition.
+	 *
+	 * @param AD_WF_NextCondition_ID Workflow Node Transition Condition
+	 */
+
+	public void setAD_WF_NextCondition_ID(int AD_WF_NextCondition_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_NextCondition_ID(AD_WF_NextCondition_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -127,6 +138,17 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	public I_AD_WF_NodeNextInput getAD_WF_NodeNext() {
 		return AD_WF_NodeNext;
 	}
+	/**
+	 * Set Node Transition.
+	 *
+	 * @param AD_WF_NodeNext_ID Workflow Node Transition
+	 */
+
+	public void setAD_WF_NodeNext_ID(int AD_WF_NodeNext_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_NodeNext_ID(AD_WF_NodeNext_ID);
+		}
+	}
 
 	/**
 	 * Set And/Or.
@@ -167,9 +189,9 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -180,6 +202,17 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 
 	/**

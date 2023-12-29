@@ -5,9 +5,9 @@ import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MOrg;
-import org.compiere.model.MPaymentProcessor;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_PaymentProcessor;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_PaymentProcessorInput {
+public class X_C_PaymentProcessorInput extends X_C_PaymentProcessor implements I_C_PaymentProcessorInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput TrxType_RL;
@@ -83,6 +83,17 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	public I_AD_SequenceInput getAD_Sequence() {
 		return AD_Sequence;
 	}
+	/**
+	 * Set Sequence.
+	 *
+	 * @param AD_Sequence_ID Document Sequence
+	 */
+
+	public void setAD_Sequence_ID(int AD_Sequence_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Sequence_ID(AD_Sequence_ID);
+		}
+	}
 
 	/**
 	 * Set Bank Account.
@@ -107,6 +118,17 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 */
 	public I_C_BankAccountInput getC_BankAccount() {
 		return C_BankAccount;
+	}
+	/**
+	 * Set Bank Account.
+	 *
+	 * @param C_BankAccount_ID Account at the Bank
+	 */
+
+	public void setC_BankAccount_ID(int C_BankAccount_ID) {
+		if (get_ID() == 0) {
+			super.setC_BankAccount_ID(C_BankAccount_ID);
+		}
 	}
 
 	/**
@@ -134,6 +156,17 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 */
 	public I_C_CurrencyInput getC_Currency() {
 		return C_Currency;
+	}
+	/**
+	 * Set Payment Processor.
+	 *
+	 * @param C_PaymentProcessor_ID Payment processor for electronic payments
+	 */
+
+	public void setC_PaymentProcessor_ID(int C_PaymentProcessor_ID) {
+		if (get_ID() == 0) {
+			super.setC_PaymentProcessor_ID(C_PaymentProcessor_ID);
+		}
 	}
 
 	/**

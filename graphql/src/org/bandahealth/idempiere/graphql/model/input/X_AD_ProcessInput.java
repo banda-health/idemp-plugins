@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCtxHelp;
 import org.compiere.model.MEntityType;
@@ -10,6 +9,7 @@ import org.compiere.model.MRefList;
 import org.compiere.model.MReportView;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.model.X_AD_Process;
 import org.compiere.model.X_AD_Workflow;
 import org.compiere.util.Env;
 
@@ -19,7 +19,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput {
+public class X_AD_ProcessInput extends X_AD_Process implements I_AD_ProcessInput {
 
 	 private I_AD_CtxHelpInput AD_CtxHelp;
 	 private I_AD_EntityTypeInput AD_EntityType;
@@ -173,6 +173,17 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	public I_AD_PrintFormatInput getAD_PrintFormat() {
 		return AD_PrintFormat;
 	}
+	/**
+	 * Set Process.
+	 *
+	 * @param AD_Process_ID Process or Report
+	 */
+
+	public void setAD_Process_ID(int AD_Process_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Process_ID(AD_Process_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -285,9 +296,9 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -298,6 +309,17 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 
 	/**

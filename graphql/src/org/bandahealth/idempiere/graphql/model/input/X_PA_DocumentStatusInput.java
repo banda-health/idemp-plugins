@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MDocumentStatus;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MForm;
 import org.compiere.model.MOrg;
@@ -13,6 +12,7 @@ import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
 import org.compiere.model.X_AD_Role;
+import org.compiere.model.X_PA_DocumentStatus;
 import org.compiere.util.Env;
 
 /**
@@ -21,7 +21,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_DocumentStatusInput {
+public class X_PA_DocumentStatusInput extends X_PA_DocumentStatus implements I_PA_DocumentStatusInput {
 
 	 private I_AD_EntityTypeInput AD_EntityType;
 	 private I_AD_FormInput AD_Form;
@@ -243,9 +243,9 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -256,6 +256,17 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 
 	/**
@@ -284,6 +295,17 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public I_AD_PrintColorInput getName_PrintColor() {
 		return Name_PrintColor;
 	}
+	/**
+	 * Set Print Color for Name.
+	 *
+	 * @param Name_PrintColor_ID Print Color for Name
+	 */
+
+	public void setName_PrintColor_ID(int Name_PrintColor_ID) {
+		if (get_ID() == 0) {
+			super.setName_PrintColor_ID(Name_PrintColor_ID);
+		}
+	}
 
 	/**
 	 * Set Print Font for Name.
@@ -310,6 +332,17 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 */
 	public I_AD_PrintFontInput getName_PrintFont() {
 		return Name_PrintFont;
+	}
+	/**
+	 * Set Print Font for Name.
+	 *
+	 * @param Name_PrintFont_ID Print Font for Name
+	 */
+
+	public void setName_PrintFont_ID(int Name_PrintFont_ID) {
+		if (get_ID() == 0) {
+			super.setName_PrintFont_ID(Name_PrintFont_ID);
+		}
 	}
 
 	/**
@@ -338,6 +371,17 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public I_AD_PrintColorInput getNumber_PrintColor() {
 		return Number_PrintColor;
 	}
+	/**
+	 * Set Print Color for Number.
+	 *
+	 * @param Number_PrintColor_ID Print Color for Number
+	 */
+
+	public void setNumber_PrintColor_ID(int Number_PrintColor_ID) {
+		if (get_ID() == 0) {
+			super.setNumber_PrintColor_ID(Number_PrintColor_ID);
+		}
+	}
 
 	/**
 	 * Set Print Font for Number.
@@ -364,6 +408,28 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 */
 	public I_AD_PrintFontInput getNumber_PrintFont() {
 		return Number_PrintFont;
+	}
+	/**
+	 * Set Print Font for Number.
+	 *
+	 * @param Number_PrintFont_ID Print Font for Number
+	 */
+
+	public void setNumber_PrintFont_ID(int Number_PrintFont_ID) {
+		if (get_ID() == 0) {
+			super.setNumber_PrintFont_ID(Number_PrintFont_ID);
+		}
+	}
+	/**
+	 * Set Document Status.
+	 *
+	 * @param PA_DocumentStatus_ID Document Status
+	 */
+
+	public void setPA_DocumentStatus_ID(int PA_DocumentStatus_ID) {
+		if (get_ID() == 0) {
+			super.setPA_DocumentStatus_ID(PA_DocumentStatus_ID);
+		}
 	}
 
 	/**

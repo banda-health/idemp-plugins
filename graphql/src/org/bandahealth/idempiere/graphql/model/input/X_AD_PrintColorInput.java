@@ -48,6 +48,17 @@ public class X_AD_PrintColorInput extends X_AD_PrintColor implements I_AD_PrintC
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Print Color.
+	 *
+	 * @param AD_PrintColor_ID Color used for printing and display
+	 */
+
+	public void setAD_PrintColor_ID(int AD_PrintColor_ID) {
+		if (get_ID() == 0) {
+			super.setAD_PrintColor_ID(AD_PrintColor_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

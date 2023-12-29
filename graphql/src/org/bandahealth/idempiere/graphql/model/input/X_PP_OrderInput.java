@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
@@ -107,6 +109,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	public I_AD_WorkflowInput getAD_Workflow() {
 		return AD_Workflow;
 	}
+	/**
+	 * Set Workflow.
+	 *
+	 * @param AD_Workflow_ID Workflow or combination of tasks
+	 */
+
+	public void setAD_Workflow_ID(int AD_Workflow_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Workflow_ID(AD_Workflow_ID);
+		}
+	}
 
 	/**
 	 * Set Activity.
@@ -188,6 +201,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	public I_C_DocTypeInput getC_DocType() {
 		return C_DocType;
 	}
+	/**
+	 * Set Document Type.
+	 *
+	 * @param C_DocType_ID Document type or rules
+	 */
+
+	public void setC_DocType_ID(int C_DocType_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocType_ID(C_DocType_ID);
+		}
+	}
 
 	/**
 	 * Set Target Document Type.
@@ -212,6 +236,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 */
 	public I_C_DocTypeInput getC_DocTypeTarget() {
 		return C_DocTypeTarget;
+	}
+	/**
+	 * Set Target Document Type.
+	 *
+	 * @param C_DocTypeTarget_ID Target document type for conversing documents
+	 */
+
+	public void setC_DocTypeTarget_ID(int C_DocTypeTarget_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocTypeTarget_ID(C_DocTypeTarget_ID);
+		}
 	}
 
 	/**
@@ -293,10 +328,22 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 		return C_UOM;
 	}
 	/**
+	 * Set UOM.
+	 *
+	 * @param C_UOM_ID Unit of Measure
+	 */
+
+	public void setC_UOM_ID(int C_UOM_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_ID(C_UOM_ID);
+		}
+	}
+	/**
 	 * Set Date Confirm.
 	 *
 	 * @param DateConfirm Date Confirm of this Order
 	 */
+
 	public void setDateConfirm(Timestamp DateConfirm) {
 		if (get_ID() == 0) {
 			super.setDateConfirm(DateConfirm);
@@ -307,6 +354,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param DateDelivered Date when the product was delivered
 	 */
+
 	public void setDateDelivered(Timestamp DateDelivered) {
 		if (get_ID() == 0) {
 			super.setDateDelivered(DateDelivered);
@@ -317,6 +365,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param DateFinish Finish or (planned) completion date
 	 */
+
 	public void setDateFinish(Timestamp DateFinish) {
 		if (get_ID() == 0) {
 			super.setDateFinish(DateFinish);
@@ -327,6 +376,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param DateStart Date Start for this Order
 	 */
+
 	public void setDateStart(Timestamp DateStart) {
 		if (get_ID() == 0) {
 			super.setDateStart(DateStart);
@@ -438,6 +488,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	public I_M_ProductInput getM_Product() {
 		return M_Product;
 	}
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product_ID Product, Service, Item
+	 */
+
+	public void setM_Product_ID(int M_Product_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_ID(M_Product_ID);
+		}
+	}
 
 	/**
 	 * Set Warehouse.
@@ -462,6 +523,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 */
 	public I_M_WarehouseInput getM_Warehouse() {
 		return M_Warehouse;
+	}
+	/**
+	 * Set Warehouse.
+	 *
+	 * @param M_Warehouse_ID Storage Warehouse and Service Point
+	 */
+
+	public void setM_Warehouse_ID(int M_Warehouse_ID) {
+		if (get_ID() == 0) {
+			super.setM_Warehouse_ID(M_Warehouse_ID);
+		}
 	}
 
 	/**
@@ -489,6 +561,28 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 */
 	public I_AD_UserInput getPlanner() {
 		return Planner;
+	}
+	/**
+	 * Set Planner.
+	 *
+	 * @param Planner_ID Planner
+	 */
+
+	public void setPlanner_ID(int Planner_ID) {
+		if (get_ID() == 0) {
+			super.setPlanner_ID(Planner_ID);
+		}
+	}
+	/**
+	 * Set Manufacturing Order.
+	 *
+	 * @param PP_Order_ID Manufacturing Order
+	 */
+
+	public void setPP_Order_ID(int PP_Order_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_ID(PP_Order_ID);
+		}
 	}
 
 	/**
@@ -533,6 +627,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	public I_PP_Product_BOMInput getPP_Product_BOM() {
 		return PP_Product_BOM;
 	}
+	/**
+	 * Set BOM & Formula.
+	 *
+	 * @param PP_Product_BOM_ID BOM & Formula
+	 */
+
+	public void setPP_Product_BOM_ID(int PP_Product_BOM_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Product_BOM_ID(PP_Product_BOM_ID);
+		}
+	}
 
 	/**
 	 * Set Priority.
@@ -565,6 +670,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param QtyBatchs Qty Batchs
 	 */
+
 	public void setQtyBatchs(BigDecimal QtyBatchs) {
 		if (get_ID() == 0) {
 			super.setQtyBatchs(QtyBatchs);
@@ -575,6 +681,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param QtyBatchSize Qty Batch Size
 	 */
+
 	public void setQtyBatchSize(BigDecimal QtyBatchSize) {
 		if (get_ID() == 0) {
 			super.setQtyBatchSize(QtyBatchSize);
@@ -585,6 +692,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param QtyOrdered Ordered Quantity
 	 */
+
 	public void setQtyOrdered(BigDecimal QtyOrdered) {
 		if (get_ID() == 0) {
 			super.setQtyOrdered(QtyOrdered);
@@ -615,6 +723,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	public I_S_ResourceInput getS_Resource() {
 		return S_Resource;
 	}
+	/**
+	 * Set Resource.
+	 *
+	 * @param S_Resource_ID Resource
+	 */
+
+	public void setS_Resource_ID(int S_Resource_ID) {
+		if (get_ID() == 0) {
+			super.setS_Resource_ID(S_Resource_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 1.
@@ -642,6 +761,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	public I_C_ElementValueInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -668,5 +798,16 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 */
 	public I_C_ElementValueInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

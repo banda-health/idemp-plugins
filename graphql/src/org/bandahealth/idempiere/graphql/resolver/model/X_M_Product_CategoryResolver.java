@@ -58,8 +58,8 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 
 	static Map<String, String> BH_PRODUCT_CATEGORY_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MProductCategory_BH.BH_PRODUCT_CATEGORY_TYPE_Product, "305558d1-db4a-456f-9c25-057750949060");
-			put(MProductCategory_BH.BH_PRODUCT_CATEGORY_TYPE_Service, "f3c40565-4bb3-4e82-b280-1ad24f6701cd");
+			put("P", "305558d1-db4a-456f-9c25-057750949060");
+			put("S", "f3c40565-4bb3-4e82-b280-1ad24f6701cd");
 		}
 	};
 	public CompletableFuture<MRefList> BH_Product_Category_Type_RL(MProductCategory_BH entity, DataFetchingEnvironment environment) {
@@ -88,8 +88,8 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 
 	static Map<String, String> MMPOLICY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MProductCategory_BH.MMPOLICY_LiFo, "80bfacfa-9e34-4d5c-8388-5cb45e52447a");
-			put(MProductCategory_BH.MMPOLICY_FiFo, "b1ed1550-7c2f-402b-b47a-b700929da0f6");
+			put("L", "80bfacfa-9e34-4d5c-8388-5cb45e52447a");
+			put("F", "b1ed1550-7c2f-402b-b47a-b700929da0f6");
 		}
 	};
 	public CompletableFuture<MRefList> MMPolicy_RL(MProductCategory_BH entity, DataFetchingEnvironment environment) {

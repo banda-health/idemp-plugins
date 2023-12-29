@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MBank;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Bank;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_BankInput extends MBank implements I_C_BankInput {
+public class X_C_BankInput extends X_C_Bank implements I_C_BankInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_LocationInput C_Location;
@@ -49,6 +49,17 @@ public class X_C_BankInput extends MBank implements I_C_BankInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Bank.
+	 *
+	 * @param C_Bank_ID Bank
+	 */
+
+	public void setC_Bank_ID(int C_Bank_ID) {
+		if (get_ID() == 0) {
+			super.setC_Bank_ID(C_Bank_ID);
+		}
 	}
 
 	/**

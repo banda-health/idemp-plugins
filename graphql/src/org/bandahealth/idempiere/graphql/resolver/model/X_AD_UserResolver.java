@@ -160,8 +160,8 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 
 	static Map<String, String> ISMENUAUTOEXPAND_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MUser_BH.ISMENUAUTOEXPAND_Yes, "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put(MUser_BH.ISMENUAUTOEXPAND_No, "41aaf35b-62b5-4872-b159-89257acb66db");
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
 		}
 	};
 	public CompletableFuture<MRefList> IsMenuAutoExpand_RL(MUser_BH entity, DataFetchingEnvironment environment) {
@@ -175,15 +175,15 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 
 	static Map<String, String> LEADSOURCE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MUser_BH.LEADSOURCE_ColdCall, "b5d3961b-0c9a-4f54-adda-8b5d2f99f5a5");
-			put(MUser_BH.LEADSOURCE_ExistingCustomer, "770aeea9-0580-491e-8047-ccb10d5f1551");
-			put(MUser_BH.LEADSOURCE_Employee, "096bfbc5-011d-436e-b5c3-649bc4061d78");
-			put(MUser_BH.LEADSOURCE_Partner, "1329c248-b567-41d2-a48b-290b1edf8e2f");
-			put(MUser_BH.LEADSOURCE_Conference, "80579a39-d728-4f29-b490-9212d19e2193");
-			put(MUser_BH.LEADSOURCE_TradeShow, "86e0594b-436a-4adc-99d5-3d0149975cc9");
-			put(MUser_BH.LEADSOURCE_WebSite, "24401e99-2c0d-4a5d-a7f6-cfabb92a15bf");
-			put(MUser_BH.LEADSOURCE_WordOfMouth, "21dc34d8-87af-40c5-88df-941e6c3c08dd");
-			put(MUser_BH.LEADSOURCE_Email, "ff1640ae-b5ab-4278-96b7-75ec3f5df3b9");
+			put("CC", "b5d3961b-0c9a-4f54-adda-8b5d2f99f5a5");
+			put("EC", "770aeea9-0580-491e-8047-ccb10d5f1551");
+			put("EM", "096bfbc5-011d-436e-b5c3-649bc4061d78");
+			put("PT", "1329c248-b567-41d2-a48b-290b1edf8e2f");
+			put("CN", "80579a39-d728-4f29-b490-9212d19e2193");
+			put("TS", "86e0594b-436a-4adc-99d5-3d0149975cc9");
+			put("WS", "24401e99-2c0d-4a5d-a7f6-cfabb92a15bf");
+			put("WM", "21dc34d8-87af-40c5-88df-941e6c3c08dd");
+			put("EL", "ff1640ae-b5ab-4278-96b7-75ec3f5df3b9");
 		}
 	};
 	public CompletableFuture<MRefList> LeadSource_RL(MUser_BH entity, DataFetchingEnvironment environment) {
@@ -197,11 +197,11 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 
 	static Map<String, String> LEADSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MUser_BH.LEADSTATUS_New, "8a664fb3-96ef-4b5b-879b-c32d340b4ca4");
-			put(MUser_BH.LEADSTATUS_Working, "bb1547ea-5e2f-4886-bcd3-1c2f0ffb19f0");
-			put(MUser_BH.LEADSTATUS_Expired, "844fc440-4d79-4151-92c3-f4cd457be6dd");
-			put(MUser_BH.LEADSTATUS_Recycled, "7eee557a-482b-4520-ac84-ccab00c258ed");
-			put(MUser_BH.LEADSTATUS_Converted, "bda2ba73-4d25-4964-861c-cb3c36d44ae2");
+			put("N", "8a664fb3-96ef-4b5b-879b-c32d340b4ca4");
+			put("W", "bb1547ea-5e2f-4886-bcd3-1c2f0ffb19f0");
+			put("E", "844fc440-4d79-4151-92c3-f4cd457be6dd");
+			put("R", "7eee557a-482b-4520-ac84-ccab00c258ed");
+			put("C", "bda2ba73-4d25-4964-861c-cb3c36d44ae2");
 		}
 	};
 	public CompletableFuture<MRefList> LeadStatus_RL(MUser_BH entity, DataFetchingEnvironment environment) {
@@ -215,10 +215,10 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 
 	static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MUser_BH.NOTIFICATIONTYPE_EMail, "e1ca3bcf-d8cb-451f-acd4-0a6773257650");
-			put(MUser_BH.NOTIFICATIONTYPE_Notice, "a85de9af-6e78-48e5-ae43-4f07734c2df3");
-			put(MUser_BH.NOTIFICATIONTYPE_None, "ca78475e-7191-402b-9d15-7244e87620f1");
-			put(MUser_BH.NOTIFICATIONTYPE_EMailPlusNotice, "aae5e850-38ca-4b15-9c9d-bee6402e7427");
+			put("E", "e1ca3bcf-d8cb-451f-acd4-0a6773257650");
+			put("N", "a85de9af-6e78-48e5-ae43-4f07734c2df3");
+			put("X", "ca78475e-7191-402b-9d15-7244e87620f1");
+			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427");
 		}
 	};
 	public CompletableFuture<MRefList> NotificationType_RL(MUser_BH entity, DataFetchingEnvironment environment) {

@@ -3,8 +3,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MShipper;
-import org.compiere.model.MShipperPickupTypes;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_ShipperPickupTypes;
 import org.compiere.model.X_M_ShipperPickupTypesCfg;
 import org.compiere.util.Env;
 
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements I_M_ShipperPickupTypesInput {
+public class X_M_ShipperPickupTypesInput extends X_M_ShipperPickupTypes implements I_M_ShipperPickupTypesInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_M_ShipperInput M_Shipper;
@@ -76,6 +76,28 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 	 */
 	public I_M_ShipperInput getM_Shipper() {
 		return M_Shipper;
+	}
+	/**
+	 * Set Shipper.
+	 *
+	 * @param M_Shipper_ID Method or manner of product delivery
+	 */
+
+	public void setM_Shipper_ID(int M_Shipper_ID) {
+		if (get_ID() == 0) {
+			super.setM_Shipper_ID(M_Shipper_ID);
+		}
+	}
+	/**
+	 * Set Shipper Pickup Types.
+	 *
+	 * @param M_ShipperPickupTypes_ID Shipper Pickup Types
+	 */
+
+	public void setM_ShipperPickupTypes_ID(int M_ShipperPickupTypes_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperPickupTypes_ID(M_ShipperPickupTypes_ID);
+		}
 	}
 
 	/**

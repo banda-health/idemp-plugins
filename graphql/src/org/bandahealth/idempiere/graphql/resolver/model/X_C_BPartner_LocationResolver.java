@@ -11,6 +11,8 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MSalesRegion;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_BPartner_Location - DO NOT CHANGE
  *

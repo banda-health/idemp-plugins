@@ -1,12 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAsset;
-import org.compiere.model.MDepreciationWorkfile;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Depreciation_Workfile;
 import org.compiere.model.X_A_FundingMode;
 import org.compiere.util.Env;
 
@@ -16,7 +17,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implements I_A_Depreciation_WorkfileInput {
+public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile implements I_A_Depreciation_WorkfileInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput A_Tip_Finantare_RL;
@@ -58,10 +59,22 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 		return A_Asset;
 	}
 	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
+	}
+	/**
 	 * Set Remaining Amt.
 	 *
 	 * @param A_Asset_Remaining Remaining Amt
 	 */
+
 	public void setA_Asset_Remaining(BigDecimal A_Asset_Remaining) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Remaining(A_Asset_Remaining);
@@ -72,9 +85,21 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 *
 	 * @param A_Asset_Remaining_F Remaining Amt (fiscal)
 	 */
+
 	public void setA_Asset_Remaining_F(BigDecimal A_Asset_Remaining_F) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Remaining_F(A_Asset_Remaining_F);
+		}
+	}
+	/**
+	 * Set A_Depreciation_Workfile_ID.
+	 *
+	 * @param A_Depreciation_Workfile_ID A_Depreciation_Workfile_ID
+	 */
+
+	public void setA_Depreciation_Workfile_ID(int A_Depreciation_Workfile_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Workfile_ID(A_Depreciation_Workfile_ID);
 		}
 	}
 
@@ -200,6 +225,17 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 */
 	public I_C_AcctSchemaInput getC_AcctSchema() {
 		return C_AcctSchema;
+	}
+	/**
+	 * Set Accounting Schema.
+	 *
+	 * @param C_AcctSchema_ID Rules for accounting
+	 */
+
+	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
+		if (get_ID() == 0) {
+			super.setC_AcctSchema_ID(C_AcctSchema_ID);
+		}
 	}
 
 	/**

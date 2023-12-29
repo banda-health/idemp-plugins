@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -7,12 +9,12 @@ import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAsset;
 import org.compiere.model.MAssetAddition;
-import org.compiere.model.MAssetChange;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Change;
 import org.compiere.model.X_A_Asset_Retirement;
 import org.compiere.model.X_A_Depreciation_Table_Header;
 import org.compiere.util.Env;
@@ -23,7 +25,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_ChangeInput {
+public class X_A_Asset_ChangeInput extends X_A_Asset_Change implements I_A_Asset_ChangeInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput A_Depreciation_Manual_Period_RL;
@@ -133,6 +135,28 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	public I_A_Asset_AdditionInput getA_Asset_Addition() {
 		return A_Asset_Addition;
 	}
+	/**
+	 * Set Asset Addition.
+	 *
+	 * @param A_Asset_Addition_ID Asset Addition
+	 */
+
+	public void setA_Asset_Addition_ID(int A_Asset_Addition_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Addition_ID(A_Asset_Addition_ID);
+		}
+	}
+	/**
+	 * Set A_Asset_Change_ID.
+	 *
+	 * @param A_Asset_Change_ID A_Asset_Change_ID
+	 */
+
+	public void setA_Asset_Change_ID(int A_Asset_Change_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Change_ID(A_Asset_Change_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -176,6 +200,17 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	public I_A_AssetInput getA_Asset() {
 		return A_Asset;
 	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
+	}
 
 	/**
 	 * Set Asset Retirement.
@@ -200,6 +235,17 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 */
 	public I_A_Asset_RetirementInput getA_Asset_Retirement() {
 		return A_Asset_Retirement;
+	}
+	/**
+	 * Set Asset Retirement.
+	 *
+	 * @param A_Asset_Retirement_ID Internally used asset is not longer used.
+	 */
+
+	public void setA_Asset_Retirement_ID(int A_Asset_Retirement_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Retirement_ID(A_Asset_Retirement_ID);
+		}
 	}
 
 	/**
@@ -282,6 +328,17 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	public I_A_Depreciation_Table_HeaderInput getA_Depreciation_Table_Header() {
 		return A_Depreciation_Table_Header;
 	}
+	/**
+	 * Set A_Depreciation_Table_Header_ID.
+	 *
+	 * @param A_Depreciation_Table_Header_ID A_Depreciation_Table_Header_ID
+	 */
+
+	public void setA_Depreciation_Table_Header_ID(int A_Depreciation_Table_Header_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Table_Header_ID(A_Depreciation_Table_Header_ID);
+		}
+	}
 
 	/**
 	 * Set Disposal Loss Acct.
@@ -363,6 +420,17 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	public I_A_AssetInput getA_Parent_Asset() {
 		return A_Parent_Asset;
 	}
+	/**
+	 * Set Parent Asset.
+	 *
+	 * @param A_Parent_Asset_ID Parent Asset
+	 */
+
+	public void setA_Parent_Asset_ID(int A_Parent_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Parent_Asset_ID(A_Parent_Asset_ID);
+		}
+	}
 
 	/**
 	 * Set A_Reval_Cal_Method.
@@ -443,10 +511,22 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 		return AD_User;
 	}
 	/**
+	 * Set User/Contact.
+	 *
+	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
+	 */
+
+	public void setAD_User_ID(int AD_User_ID) {
+		if (get_ID() == 0) {
+			super.setAD_User_ID(AD_User_ID);
+		}
+	}
+	/**
 	 * Set AssetAccumDepreciationAmt.
 	 *
 	 * @param AssetAccumDepreciationAmt AssetAccumDepreciationAmt
 	 */
+
 	public void setAssetAccumDepreciationAmt(BigDecimal AssetAccumDepreciationAmt) {
 		if (get_ID() == 0) {
 			super.setAssetAccumDepreciationAmt(AssetAccumDepreciationAmt);
@@ -457,6 +537,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param AssetBookValueAmt AssetBookValueAmt
 	 */
+
 	public void setAssetBookValueAmt(BigDecimal AssetBookValueAmt) {
 		if (get_ID() == 0) {
 			super.setAssetBookValueAmt(AssetBookValueAmt);
@@ -467,6 +548,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param AssetDepreciationDate Date of last depreciation
 	 */
+
 	public void setAssetDepreciationDate(Timestamp AssetDepreciationDate) {
 		if (get_ID() == 0) {
 			super.setAssetDepreciationDate(AssetDepreciationDate);
@@ -477,6 +559,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param AssetMarketValueAmt Market value of the asset
 	 */
+
 	public void setAssetMarketValueAmt(BigDecimal AssetMarketValueAmt) {
 		if (get_ID() == 0) {
 			super.setAssetMarketValueAmt(AssetMarketValueAmt);
@@ -487,6 +570,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param AssetServiceDate Date when Asset was put into service
 	 */
+
 	public void setAssetServiceDate(Timestamp AssetServiceDate) {
 		if (get_ID() == 0) {
 			super.setAssetServiceDate(AssetServiceDate);
@@ -497,6 +581,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param AssetValueAmt Book Value of the asset
 	 */
+
 	public void setAssetValueAmt(BigDecimal AssetValueAmt) {
 		if (get_ID() == 0) {
 			super.setAssetValueAmt(AssetValueAmt);
@@ -583,6 +668,17 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	public I_C_BPartner_LocationInput getC_BPartner_Location() {
 		return C_BPartner_Location;
 	}
+	/**
+	 * Set Partner Location.
+	 *
+	 * @param C_BPartner_Location_ID Identifies the (ship to) address for this Business Partner
+	 */
+
+	public void setC_BPartner_Location_ID(int C_BPartner_Location_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_Location_ID(C_BPartner_Location_ID);
+		}
+	}
 
 	/**
 	 * Set Address.
@@ -642,6 +738,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param ChangeAmt ChangeAmt
 	 */
+
 	public void setChangeAmt(BigDecimal ChangeAmt) {
 		if (get_ID() == 0) {
 			super.setChangeAmt(ChangeAmt);
@@ -652,6 +749,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param ChangeDate ChangeDate
 	 */
+
 	public void setChangeDate(Timestamp ChangeDate) {
 		if (get_ID() == 0) {
 			super.setChangeDate(ChangeDate);
@@ -683,20 +781,11 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 		return ChangeType_RL;
 	}
 	/**
-	 * Set Active.
-	 *
-	 * @param IsActive The record is active in the system
-	 */
-	public void setIsActive(boolean IsActive) {
-		if (get_ID() == 0) {
-			super.setIsActive(IsActive);
-		}
-	}
-	/**
 	 * Set Life use.
 	 *
 	 * @param LifeUseUnits Units of use until the asset is not usable anymore
 	 */
+
 	public void setLifeUseUnits(int LifeUseUnits) {
 		if (get_ID() == 0) {
 			super.setLifeUseUnits(LifeUseUnits);
@@ -707,6 +796,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param Lot Lot number (alphanumeric)
 	 */
+
 	public void setLot(String Lot) {
 		if (get_ID() == 0) {
 			super.setLot(Lot);
@@ -744,6 +834,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param SerNo Product Serial Number 
 	 */
+
 	public void setSerNo(String SerNo) {
 		if (get_ID() == 0) {
 			super.setSerNo(SerNo);
@@ -754,6 +845,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param TextDetails Details
 	 */
+
 	public void setTextDetails(String TextDetails) {
 		if (get_ID() == 0) {
 			super.setTextDetails(TextDetails);
@@ -764,6 +856,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param UseLifeMonths Months of the usable life of the asset
 	 */
+
 	public void setUseLifeMonths(int UseLifeMonths) {
 		if (get_ID() == 0) {
 			super.setUseLifeMonths(UseLifeMonths);
@@ -774,6 +867,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param UseLifeYears Years of the usable life of the asset
 	 */
+
 	public void setUseLifeYears(int UseLifeYears) {
 		if (get_ID() == 0) {
 			super.setUseLifeYears(UseLifeYears);
@@ -784,6 +878,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 *
 	 * @param VersionNo Version Number
 	 */
+
 	public void setVersionNo(String VersionNo) {
 		if (get_ID() == 0) {
 			super.setVersionNo(VersionNo);

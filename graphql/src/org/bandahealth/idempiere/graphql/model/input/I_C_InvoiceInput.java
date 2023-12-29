@@ -39,6 +39,25 @@ public interface I_C_InvoiceInput extends I_C_Invoice {
 	I_AD_UserInput getAD_User();
 
 	/**
+	 * Column name BH_NavButtons
+	 */
+	public static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons);
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons();
+
+	/**
 	 * Set BH_Visit.
 	 *
 	 * @param BH_Visit BH_Visit
@@ -53,6 +72,25 @@ public interface I_C_InvoiceInput extends I_C_Invoice {
 	I_BH_VisitInput getBH_Visit();
 
 	/**
+	 * Column name BH_Visit_ID
+	 */
+	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
+
+	/**
+	 * Set Visit.
+	 *
+	 * @param BH_Visit_ID Visit
+	 */
+	public void setBH_Visit_ID(int BH_Visit_ID);
+
+	/**
+	 * Get Visit.
+	 *
+	 * @return Visit
+	 */
+	public int getBH_Visit_ID();
+
+	/**
 	 * Set BH_Voided_Reason.
 	 *
 	 * @param BH_Voided_Reason BH_Voided_Reason
@@ -65,6 +103,25 @@ public interface I_C_InvoiceInput extends I_C_Invoice {
 	 * @return BH_Voided_Reason
 	 */
 	I_BH_Voided_ReasonInput getBH_Voided_Reason();
+
+	/**
+	 * Column name BH_Voided_Reason_ID
+	 */
+	public static final String COLUMNNAME_BH_Voided_Reason_ID = "BH_Voided_Reason_ID";
+
+	/**
+	 * Set BH_Voided_Reason_ID.
+	 *
+	 * @param BH_Voided_Reason_ID BH_Voided_Reason_ID
+	 */
+	public void setBH_Voided_Reason_ID(int BH_Voided_Reason_ID);
+
+	/**
+	 * Get BH_Voided_Reason_ID.
+	 *
+	 * @return BH_Voided_Reason_ID
+	 */
+	public int getBH_Voided_Reason_ID();
 
 	/**
 	 * Set C_Activity.
@@ -373,20 +430,6 @@ public interface I_C_InvoiceInput extends I_C_Invoice {
 	 * @return Return Material Authorization
 	 */
 	I_M_RMAInput getM_RMA();
-
-	/**
-	 * Set Posted_RL.
-	 *
-	 * @param Posted_RL Posting status
-	 */
-	void setPosted_RL(I_AD_Ref_ListInput Posted_RL);
-
-	/**
-	 * Get Posted_RL.
-	 *
-	 * @return Posting status
-	 */
-	I_AD_Ref_ListInput getPosted_RL();
 
 	/**
 	 * Set RelatedInvoice.

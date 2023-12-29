@@ -6,6 +6,7 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_Warehouse;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseInput {
+public class X_M_WarehouseInput extends X_M_Warehouse implements I_M_WarehouseInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_LocationInput C_Location;
@@ -53,6 +54,33 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+
+	/**
+	 * Set Default Warehouse.
+	 *
+	 * @param BH_DefaultWarehouse Default Warehouse
+	 */
+	public void setBH_DefaultWarehouse(boolean BH_DefaultWarehouse) {
+		set_Value(COLUMNNAME_BH_DefaultWarehouse, BH_DefaultWarehouse);
+	}
+
+
+	/**
+	 * Get Default Warehouse.
+	 *
+	 * @return Default Warehouse
+	 */
+	public boolean isBH_DefaultWarehouse() {
+ 		Object columnValue = get_Value(COLUMNNAME_BH_DefaultWarehouse);
+		if (columnValue != null) {
+			if (columnValue instanceof Boolean) {
+				return ((Boolean) columnValue);
+			}
+			return "Y".equals(columnValue);
+		}
+		return false;
+	}
+
 
 	/**
 	 * Set Address.
@@ -107,6 +135,28 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	public I_M_LocatorInput getM_ReserveLocator() {
 		return M_ReserveLocator;
 	}
+	/**
+	 * Set Reservation Locator.
+	 *
+	 * @param M_ReserveLocator_ID Reservation Locator (just for reporting purposes)
+	 */
+
+	public void setM_ReserveLocator_ID(int M_ReserveLocator_ID) {
+		if (get_ID() == 0) {
+			super.setM_ReserveLocator_ID(M_ReserveLocator_ID);
+		}
+	}
+	/**
+	 * Set Warehouse.
+	 *
+	 * @param M_Warehouse_ID Storage Warehouse and Service Point
+	 */
+
+	public void setM_Warehouse_ID(int M_Warehouse_ID) {
+		if (get_ID() == 0) {
+			super.setM_Warehouse_ID(M_Warehouse_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -151,5 +201,16 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	 */
 	public I_M_WarehouseInput getM_WarehouseSource() {
 		return M_WarehouseSource;
+	}
+	/**
+	 * Set Source Warehouse.
+	 *
+	 * @param M_WarehouseSource_ID Optional Warehouse to replenish from
+	 */
+
+	public void setM_WarehouseSource_ID(int M_WarehouseSource_ID) {
+		if (get_ID() == 0) {
+			super.setM_WarehouseSource_ID(M_WarehouseSource_ID);
+		}
 	}
 }

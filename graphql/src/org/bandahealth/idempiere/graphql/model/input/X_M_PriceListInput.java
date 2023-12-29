@@ -5,6 +5,7 @@ import org.compiere.model.MCurrency;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_PriceList;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput {
+public class X_M_PriceListInput extends X_M_PriceList implements I_M_PriceListInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_CurrencyInput C_Currency;
@@ -78,6 +79,17 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	public I_M_PriceListInput getBasePriceList() {
 		return BasePriceList;
 	}
+	/**
+	 * Set Base Pricelist.
+	 *
+	 * @param BasePriceList_ID Pricelist to be used, if product not found on this pricelist
+	 */
+
+	public void setBasePriceList_ID(int BasePriceList_ID) {
+		if (get_ID() == 0) {
+			super.setBasePriceList_ID(BasePriceList_ID);
+		}
+	}
 
 	/**
 	 * Set Currency.
@@ -104,6 +116,17 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	 */
 	public I_C_CurrencyInput getC_Currency() {
 		return C_Currency;
+	}
+	/**
+	 * Set Price List.
+	 *
+	 * @param M_PriceList_ID Unique identifier of a Price List
+	 */
+
+	public void setM_PriceList_ID(int M_PriceList_ID) {
+		if (get_ID() == 0) {
+			super.setM_PriceList_ID(M_PriceList_ID);
+		}
 	}
 
 	/**

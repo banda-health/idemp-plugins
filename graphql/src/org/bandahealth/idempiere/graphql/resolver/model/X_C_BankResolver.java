@@ -7,6 +7,8 @@ import org.compiere.model.MBank;
 import org.compiere.model.MLocation;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_Bank - DO NOT CHANGE
  *

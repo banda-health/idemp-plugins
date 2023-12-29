@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
-import org.compiere.model.MDepreciationBuild;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Depreciation_Build;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I_A_Depreciation_BuildInput {
+public class X_A_Depreciation_BuildInput extends X_A_Depreciation_Build implements I_A_Depreciation_BuildInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput PostingType_RL;
@@ -29,6 +29,17 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	public X_A_Depreciation_BuildInput(String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
+	}
+	/**
+	 * Set Build Depreciation.
+	 *
+	 * @param A_Depreciation_Build_ID Build Depreciation
+	 */
+
+	public void setA_Depreciation_Build_ID(int A_Depreciation_Build_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Build_ID(A_Depreciation_Build_ID);
+		}
 	}
 
 	/**
@@ -75,6 +86,17 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	public I_A_AssetInput getA_End_Asset() {
 		return A_End_Asset;
 	}
+	/**
+	 * Set To Asset.
+	 *
+	 * @param A_End_Asset_ID To Asset
+	 */
+
+	public void setA_End_Asset_ID(int A_End_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_End_Asset_ID(A_End_Asset_ID);
+		}
+	}
 
 	/**
 	 * Set From Asset.
@@ -101,6 +123,17 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 */
 	public I_A_AssetInput getA_Start_Asset() {
 		return A_Start_Asset;
+	}
+	/**
+	 * Set From Asset.
+	 *
+	 * @param A_Start_Asset_ID From Asset
+	 */
+
+	public void setA_Start_Asset_ID(int A_Start_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Start_Asset_ID(A_Start_Asset_ID);
+		}
 	}
 
 	/**
@@ -155,6 +188,17 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 */
 	public I_C_PeriodInput getC_Period() {
 		return C_Period;
+	}
+	/**
+	 * Set Period.
+	 *
+	 * @param C_Period_ID Period of the Calendar
+	 */
+
+	public void setC_Period_ID(int C_Period_ID) {
+		if (get_ID() == 0) {
+			super.setC_Period_ID(C_Period_ID);
+		}
 	}
 
 	/**

@@ -7,6 +7,8 @@ import org.compiere.model.MCampaign;
 import org.compiere.model.X_M_Promotion;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_Promotion - DO NOT CHANGE
  *

@@ -75,6 +75,28 @@ public class X_M_ShipperPickupTypesCfgInput extends X_M_ShipperPickupTypesCfg im
 	public I_M_ShipperCfgInput getM_ShipperCfg() {
 		return M_ShipperCfg;
 	}
+	/**
+	 * Set Shipper Configuration.
+	 *
+	 * @param M_ShipperCfg_ID Shipper Configuration
+	 */
+
+	public void setM_ShipperCfg_ID(int M_ShipperCfg_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperCfg_ID(M_ShipperCfg_ID);
+		}
+	}
+	/**
+	 * Set Shipper Pickup Types Configuration.
+	 *
+	 * @param M_ShipperPickupTypesCfg_ID Shipper Pickup Types Configuration
+	 */
+
+	public void setM_ShipperPickupTypesCfg_ID(int M_ShipperPickupTypesCfg_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperPickupTypesCfg_ID(M_ShipperPickupTypesCfg_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

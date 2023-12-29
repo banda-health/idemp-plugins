@@ -4,8 +4,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEXPProcessor;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MReplicationStrategy;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_ReplicationStrategy;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implements I_AD_ReplicationStrategyInput {
+public class X_AD_ReplicationStrategyInput extends X_AD_ReplicationStrategy implements I_AD_ReplicationStrategyInput {
 
 	 private I_AD_EntityTypeInput AD_EntityType;
 	 private I_AD_OrgInput AD_Org;
@@ -52,6 +52,17 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Replication Strategy.
+	 *
+	 * @param AD_ReplicationStrategy_ID Data Replication Strategy
+	 */
+
+	public void setAD_ReplicationStrategy_ID(int AD_ReplicationStrategy_ID) {
+		if (get_ID() == 0) {
+			super.setAD_ReplicationStrategy_ID(AD_ReplicationStrategy_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -83,9 +94,9 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -96,6 +107,17 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 
 	/**

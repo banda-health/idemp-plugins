@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
@@ -14,6 +13,7 @@ import org.compiere.model.MProject;
 import org.compiere.model.MSalesRegion;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_SubAcct;
+import org.compiere.model.X_C_ValidCombination;
 import org.compiere.util.Env;
 
 /**
@@ -22,7 +22,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidCombinationInput {
+public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I_C_ValidCombinationInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_AcctSchemaInput C_AcctSchema;
@@ -70,6 +70,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 */
 	public I_C_ElementValueInput getAccount() {
 		return Account;
+	}
+	/**
+	 * Set Account.
+	 *
+	 * @param Account_ID Account used
+	 */
+
+	public void setAccount_ID(int Account_ID) {
+		if (get_ID() == 0) {
+			super.setAccount_ID(Account_ID);
+		}
 	}
 
 	/**
@@ -121,6 +132,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public I_C_AcctSchemaInput getC_AcctSchema() {
 		return C_AcctSchema;
 	}
+	/**
+	 * Set Accounting Schema.
+	 *
+	 * @param C_AcctSchema_ID Rules for accounting
+	 */
+
+	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
+		if (get_ID() == 0) {
+			super.setC_AcctSchema_ID(C_AcctSchema_ID);
+		}
+	}
 
 	/**
 	 * Set Activity.
@@ -145,6 +167,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 */
 	public I_C_ActivityInput getC_Activity() {
 		return C_Activity;
+	}
+	/**
+	 * Set Activity.
+	 *
+	 * @param C_Activity_ID Business Activity
+	 */
+
+	public void setC_Activity_ID(int C_Activity_ID) {
+		if (get_ID() == 0) {
+			super.setC_Activity_ID(C_Activity_ID);
+		}
 	}
 
 	/**
@@ -171,6 +204,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public I_C_BPartnerInput getC_BPartner() {
 		return C_BPartner;
 	}
+	/**
+	 * Set Business Partner .
+	 *
+	 * @param C_BPartner_ID Identifies a Business Partner
+	 */
+
+	public void setC_BPartner_ID(int C_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_ID(C_BPartner_ID);
+		}
+	}
 
 	/**
 	 * Set Campaign.
@@ -195,6 +239,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 */
 	public I_C_CampaignInput getC_Campaign() {
 		return C_Campaign;
+	}
+	/**
+	 * Set Campaign.
+	 *
+	 * @param C_Campaign_ID Marketing Campaign
+	 */
+
+	public void setC_Campaign_ID(int C_Campaign_ID) {
+		if (get_ID() == 0) {
+			super.setC_Campaign_ID(C_Campaign_ID);
+		}
 	}
 
 	/**
@@ -221,6 +276,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public I_C_LocationInput getC_LocFrom() {
 		return C_LocFrom;
 	}
+	/**
+	 * Set Location From.
+	 *
+	 * @param C_LocFrom_ID Location that inventory was moved from
+	 */
+
+	public void setC_LocFrom_ID(int C_LocFrom_ID) {
+		if (get_ID() == 0) {
+			super.setC_LocFrom_ID(C_LocFrom_ID);
+		}
+	}
 
 	/**
 	 * Set Location To.
@@ -245,6 +311,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 */
 	public I_C_LocationInput getC_LocTo() {
 		return C_LocTo;
+	}
+	/**
+	 * Set Location To.
+	 *
+	 * @param C_LocTo_ID Location that inventory was moved to
+	 */
+
+	public void setC_LocTo_ID(int C_LocTo_ID) {
+		if (get_ID() == 0) {
+			super.setC_LocTo_ID(C_LocTo_ID);
+		}
 	}
 
 	/**
@@ -271,6 +348,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public I_C_ProjectInput getC_Project() {
 		return C_Project;
 	}
+	/**
+	 * Set Project.
+	 *
+	 * @param C_Project_ID Financial Project
+	 */
+
+	public void setC_Project_ID(int C_Project_ID) {
+		if (get_ID() == 0) {
+			super.setC_Project_ID(C_Project_ID);
+		}
+	}
 
 	/**
 	 * Set Sales Region.
@@ -295,6 +383,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 */
 	public I_C_SalesRegionInput getC_SalesRegion() {
 		return C_SalesRegion;
+	}
+	/**
+	 * Set Sales Region.
+	 *
+	 * @param C_SalesRegion_ID Sales coverage region
+	 */
+
+	public void setC_SalesRegion_ID(int C_SalesRegion_ID) {
+		if (get_ID() == 0) {
+			super.setC_SalesRegion_ID(C_SalesRegion_ID);
+		}
 	}
 
 	/**
@@ -321,6 +420,28 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public I_C_SubAcctInput getC_SubAcct() {
 		return C_SubAcct;
 	}
+	/**
+	 * Set Sub Account.
+	 *
+	 * @param C_SubAcct_ID Sub account for Element Value
+	 */
+
+	public void setC_SubAcct_ID(int C_SubAcct_ID) {
+		if (get_ID() == 0) {
+			super.setC_SubAcct_ID(C_SubAcct_ID);
+		}
+	}
+	/**
+	 * Set Combination.
+	 *
+	 * @param C_ValidCombination_ID Valid Account Combination
+	 */
+
+	public void setC_ValidCombination_ID(int C_ValidCombination_ID) {
+		if (get_ID() == 0) {
+			super.setC_ValidCombination_ID(C_ValidCombination_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -344,6 +465,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 *
 	 * @param Combination Unique combination of account elements
 	 */
+
 	public void setCombination(String Combination) {
 		if (get_ID() == 0) {
 			super.setCombination(Combination);
@@ -354,6 +476,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 *
 	 * @param Description Optional short description of the record
 	 */
+
 	public void setDescription(String Description) {
 		if (get_ID() == 0) {
 			super.setDescription(Description);
@@ -364,6 +487,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 *
 	 * @param IsFullyQualified This account is fully qualified
 	 */
+
 	public void setIsFullyQualified(boolean IsFullyQualified) {
 		if (get_ID() == 0) {
 			super.setIsFullyQualified(IsFullyQualified);
@@ -394,6 +518,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public I_M_ProductInput getM_Product() {
 		return M_Product;
 	}
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product_ID Product, Service, Item
+	 */
+
+	public void setM_Product_ID(int M_Product_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_ID(M_Product_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 1.
@@ -419,6 +554,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public I_C_ElementValueInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -443,5 +589,16 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 */
 	public I_C_ElementValueInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

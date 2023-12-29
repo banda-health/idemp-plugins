@@ -126,7 +126,7 @@ type C_Invoice {
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status
-	Posted_RL: Boolean!
+	Posted: Boolean!
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
@@ -256,7 +256,7 @@ input C_InvoiceInput {
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Posting status
-	Posted_RL: Boolean
+	Posted: Boolean
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

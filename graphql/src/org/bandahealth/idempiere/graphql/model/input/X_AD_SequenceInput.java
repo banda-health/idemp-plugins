@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Sequence;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_SequenceInput extends MSequence_BH implements I_AD_SequenceInput {
+public class X_AD_SequenceInput extends X_AD_Sequence implements I_AD_SequenceInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_AD_SequenceInput extends MSequence_BH implements I_AD_SequenceInp
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Sequence.
+	 *
+	 * @param AD_Sequence_ID Document Sequence
+	 */
+
+	public void setAD_Sequence_ID(int AD_Sequence_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Sequence_ID(AD_Sequence_ID);
+		}
 	}
 
 	/**

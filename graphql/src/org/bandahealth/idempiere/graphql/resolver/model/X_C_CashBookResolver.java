@@ -7,6 +7,8 @@ import org.compiere.model.MCashBook;
 import org.compiere.model.MCurrency;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_CashBook - DO NOT CHANGE
  *

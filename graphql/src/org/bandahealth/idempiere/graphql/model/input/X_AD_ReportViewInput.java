@@ -3,9 +3,9 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MReportView;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_ReportView;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_ReportViewInput extends MReportView implements I_AD_ReportViewInput {
+public class X_AD_ReportViewInput extends X_AD_ReportView implements I_AD_ReportViewInput {
 
 	 private I_AD_EntityTypeInput AD_EntityType;
 	 private I_AD_OrgInput AD_Org;
@@ -51,6 +51,17 @@ public class X_AD_ReportViewInput extends MReportView implements I_AD_ReportView
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Report View.
+	 *
+	 * @param AD_ReportView_ID View used to generate this report
+	 */
+
+	public void setAD_ReportView_ID(int AD_ReportView_ID) {
+		if (get_ID() == 0) {
+			super.setAD_ReportView_ID(AD_ReportView_ID);
+		}
 	}
 
 	/**
@@ -110,9 +121,9 @@ public class X_AD_ReportViewInput extends MReportView implements I_AD_ReportView
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -123,5 +134,16 @@ public class X_AD_ReportViewInput extends MReportView implements I_AD_ReportView
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 }

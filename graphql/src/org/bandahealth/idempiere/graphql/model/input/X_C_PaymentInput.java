@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
@@ -24,6 +25,7 @@ import org.compiere.model.MProject;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_POSTenderType;
+import org.compiere.model.X_C_Payment;
 import org.compiere.util.Env;
 
 /**
@@ -32,13 +34,12 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
+public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput CreditCardType_RL;
 	 private I_AD_Ref_ListInput DocAction_RL;
 	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput Posted_RL;
 	 private I_AD_Ref_ListInput R_AvsAddr_RL;
 	 private I_AD_Ref_ListInput R_AvsZip_RL;
 	 private I_AD_Ref_ListInput TenderType_RL;
@@ -100,6 +101,50 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	}
 
 	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons) {
+		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
+	}
+
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons() {
+ 		return get_Value(COLUMNNAME_BH_NavButtons);
+	}
+
+
+	/**
+	 * Set Tender Amount.
+	 *
+	 * @param BH_tender_amount Tender Amount
+	 */
+	public void setBH_tender_amount(BigDecimal BH_tender_amount) {
+		set_Value(COLUMNNAME_BH_tender_amount, BH_tender_amount);
+	}
+
+
+	/**
+	 * Get Tender Amount.
+	 *
+	 * @return Tender Amount
+	 */
+	public BigDecimal getBH_tender_amount() {
+ 		BigDecimal columnValue = (BigDecimal) get_Value(COLUMNNAME_BH_tender_amount);
+		if (columnValue == null) {
+			return Env.ZERO;
+		}
+		return columnValue;
+	}
+
+
+	/**
 	 * Set Visit.
 	 *
 	 * @param BH_Visit Visit
@@ -125,6 +170,34 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public I_BH_VisitInput getBH_Visit() {
 		return BH_Visit;
 	}
+
+	/**
+	 * Set Visit.
+	 *
+	 * @param BH_Visit_ID Visit
+	 */
+	public void setBH_Visit_ID(int BH_Visit_ID) {
+		if (BH_Visit_ID < 1) {
+			set_Value(COLUMNNAME_BH_Visit_ID, null);
+		} else {
+			set_Value(COLUMNNAME_BH_Visit_ID, BH_Visit_ID);
+		}
+	}
+
+
+	/**
+	 * Get Visit.
+	 *
+	 * @return Visit
+	 */
+	public int getBH_Visit_ID() {
+ 		Integer columnValue = (Integer) get_Value(COLUMNNAME_BH_Visit_ID);
+		if (columnValue == null) {
+			return 0;
+		}
+		return columnValue;
+	}
+
 
 	/**
 	 * Set Activity.
@@ -393,6 +466,17 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public I_C_DepositBatchInput getC_DepositBatch() {
 		return C_DepositBatch;
 	}
+	/**
+	 * Set Deposit Batch.
+	 *
+	 * @param C_DepositBatch_ID Deposit Batch
+	 */
+
+	public void setC_DepositBatch_ID(int C_DepositBatch_ID) {
+		if (get_ID() == 0) {
+			super.setC_DepositBatch_ID(C_DepositBatch_ID);
+		}
+	}
 
 	/**
 	 * Set Document Type.
@@ -473,6 +557,17 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 */
 	public I_C_OrderInput getC_Order() {
 		return C_Order;
+	}
+	/**
+	 * Set Payment.
+	 *
+	 * @param C_Payment_ID Payment identifier
+	 */
+
+	public void setC_Payment_ID(int C_Payment_ID) {
+		if (get_ID() == 0) {
+			super.setC_Payment_ID(C_Payment_ID);
+		}
 	}
 
 	/**
@@ -686,43 +781,29 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param IsApproved Indicates if this document requires approval
 	 */
+
 	public void setIsApproved(boolean IsApproved) {
 		if (get_ID() == 0) {
 			super.setIsApproved(IsApproved);
 		}
 	}
-
 	/**
 	 * Set Posted.
 	 *
-	 * @param Posted_RL Posting status
+	 * @param Posted Posting status
 	 */
-	public void setPosted_RL(I_AD_Ref_ListInput Posted_RL) {
-		this.Posted_RL = Posted_RL;
-		MRefList foreignEntity;
-		if (Posted_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Posted_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPosted(foreignEntity.getValue());
-		} else {
-			this.setPosted(null);
-		}
-	}
 
-	/**
-	 * Get Posted.
-	 *
-	 * @return Posting status
-	 */
-	public I_AD_Ref_ListInput getPosted_RL() {
-		return Posted_RL;
+	public void setPosted(boolean Posted) {
+		if (get_ID() == 0) {
+			super.setPosted(Posted);
+		}
 	}
 	/**
 	 * Set Authorization Code.
 	 *
 	 * @param R_AuthCode Authorization Code returned
 	 */
+
 	public void setR_AuthCode(String R_AuthCode) {
 		if (get_ID() == 0) {
 			super.setR_AuthCode(R_AuthCode);
@@ -733,6 +814,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_AuthCode_DC Authorization Code Delayed Capture returned
 	 */
+
 	public void setR_AuthCode_DC(String R_AuthCode_DC) {
 		if (get_ID() == 0) {
 			super.setR_AuthCode_DC(R_AuthCode_DC);
@@ -793,6 +875,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_CVV2Match Credit Card Verification Code Match
 	 */
+
 	public void setR_CVV2Match(boolean R_CVV2Match) {
 		if (get_ID() == 0) {
 			super.setR_CVV2Match(R_CVV2Match);
@@ -803,6 +886,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_Info Response info
 	 */
+
 	public void setR_Info(String R_Info) {
 		if (get_ID() == 0) {
 			super.setR_Info(R_Info);
@@ -813,6 +897,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_PnRef Payment reference
 	 */
+
 	public void setR_PnRef(String R_PnRef) {
 		if (get_ID() == 0) {
 			super.setR_PnRef(R_PnRef);
@@ -823,6 +908,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_PnRef_DC Payment Reference Delayed Capture
 	 */
+
 	public void setR_PnRef_DC(String R_PnRef_DC) {
 		if (get_ID() == 0) {
 			super.setR_PnRef_DC(R_PnRef_DC);
@@ -833,6 +919,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_RespMsg Response message
 	 */
+
 	public void setR_RespMsg(String R_RespMsg) {
 		if (get_ID() == 0) {
 			super.setR_RespMsg(R_RespMsg);
@@ -843,6 +930,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 *
 	 * @param R_Result Result of transmission
 	 */
+
 	public void setR_Result(String R_Result) {
 		if (get_ID() == 0) {
 			super.setR_Result(R_Result);
@@ -873,6 +961,17 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public I_C_PaymentInput getRef_Payment() {
 		return Ref_Payment;
 	}
+	/**
+	 * Set Referenced Payment.
+	 *
+	 * @param Ref_Payment_ID Referenced Payment
+	 */
+
+	public void setRef_Payment_ID(int Ref_Payment_ID) {
+		if (get_ID() == 0) {
+			super.setRef_Payment_ID(Ref_Payment_ID);
+		}
+	}
 
 	/**
 	 * Set Reversal ID.
@@ -901,10 +1000,22 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		return Reversal;
 	}
 	/**
+	 * Set Reversal ID.
+	 *
+	 * @param Reversal_ID ID of document reversal
+	 */
+
+	public void setReversal_ID(int Reversal_ID) {
+		if (get_ID() == 0) {
+			super.setReversal_ID(Reversal_ID);
+		}
+	}
+	/**
 	 * Set Swipe.
 	 *
 	 * @param Swipe Track 1 and 2 of the Credit Card
 	 */
+
 	public void setSwipe(String Swipe) {
 		if (get_ID() == 0) {
 			super.setSwipe(Swipe);
@@ -991,6 +1102,17 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public I_C_ElementValueInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -1017,5 +1139,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 */
 	public I_C_ElementValueInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

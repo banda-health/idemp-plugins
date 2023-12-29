@@ -9,6 +9,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocTypeDataLoader;
 import org.compiere.model.X_C_ChargeType_DocType;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_ChargeType_DocType - DO NOT CHANGE
  *

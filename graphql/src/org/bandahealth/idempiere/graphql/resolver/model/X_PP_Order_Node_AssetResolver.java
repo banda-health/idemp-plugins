@@ -13,6 +13,8 @@ import org.eevolution.model.X_PP_Order_Node;
 import org.eevolution.model.X_PP_Order_Node_Asset;
 import org.eevolution.model.X_PP_Order_Workflow;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for PP_Order_Node_Asset - DO NOT CHANGE
  *

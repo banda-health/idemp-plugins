@@ -3,8 +3,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
-import org.compiere.model.MRevenueRecognition;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_RevenueRecognition;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements I_C_RevenueRecognitionInput {
+public class X_C_RevenueRecognitionInput extends X_C_RevenueRecognition implements I_C_RevenueRecognitionInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput RecognitionFrequency_RL;
@@ -49,6 +49,17 @@ public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements 
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Revenue Recognition.
+	 *
+	 * @param C_RevenueRecognition_ID Method for recording revenue
+	 */
+
+	public void setC_RevenueRecognition_ID(int C_RevenueRecognition_ID) {
+		if (get_ID() == 0) {
+			super.setC_RevenueRecognition_ID(C_RevenueRecognition_ID);
+		}
 	}
 
 	/**

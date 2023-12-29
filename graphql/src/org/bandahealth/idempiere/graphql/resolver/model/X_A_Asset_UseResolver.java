@@ -7,6 +7,8 @@ import org.compiere.model.MAsset;
 import org.compiere.model.MAssetUse;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for A_Asset_Use - DO NOT CHANGE
  *

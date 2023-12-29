@@ -7,6 +7,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MReplicationStrategy;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for AD_Org - DO NOT CHANGE
  *

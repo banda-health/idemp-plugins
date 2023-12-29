@@ -7,6 +7,8 @@ import org.compiere.model.MCampaign;
 import org.compiere.model.X_C_Channel;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_Campaign - DO NOT CHANGE
  *

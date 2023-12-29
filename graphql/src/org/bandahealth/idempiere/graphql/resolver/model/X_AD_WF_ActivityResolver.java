@@ -142,12 +142,12 @@ public class X_AD_WF_ActivityResolver extends POResolver<X_AD_WF_Activity> imple
 
 	static Map<String, String> WFSTATE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_Activity.WFSTATE_NotStarted, "79c0657d-e1c1-4662-8580-1819db98c456");
-			put(X_AD_WF_Activity.WFSTATE_Running, "6f40ec26-7f2b-48af-b711-2711462d14a2");
-			put(X_AD_WF_Activity.WFSTATE_Suspended, "5fa1df1a-94c6-4a25-b845-3778646130ef");
-			put(X_AD_WF_Activity.WFSTATE_Completed, "e622243a-7242-417c-a8fb-c167a1dbecfd");
-			put(X_AD_WF_Activity.WFSTATE_Aborted, "89ddf7c1-385d-4590-85c7-728e1c33016b");
-			put(X_AD_WF_Activity.WFSTATE_Terminated, "1f8d557d-9955-4285-aa92-d098d5ed7ca9");
+			put("ON", "79c0657d-e1c1-4662-8580-1819db98c456");
+			put("OR", "6f40ec26-7f2b-48af-b711-2711462d14a2");
+			put("OS", "5fa1df1a-94c6-4a25-b845-3778646130ef");
+			put("CC", "e622243a-7242-417c-a8fb-c167a1dbecfd");
+			put("CA", "89ddf7c1-385d-4590-85c7-728e1c33016b");
+			put("CT", "1f8d557d-9955-4285-aa92-d098d5ed7ca9");
 		}
 	};
 	public CompletableFuture<MRefList> WFState_RL(X_AD_WF_Activity entity, DataFetchingEnvironment environment) {

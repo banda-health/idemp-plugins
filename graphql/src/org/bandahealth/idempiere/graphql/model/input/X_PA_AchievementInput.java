@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MAchievement;
 import org.compiere.model.MMeasure;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_PA_Achievement;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_AchievementInput extends MAchievement implements I_PA_AchievementInput {
+public class X_PA_AchievementInput extends X_PA_Achievement implements I_PA_AchievementInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_PA_MeasureInput PA_Measure;
@@ -49,6 +49,17 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Achievement.
+	 *
+	 * @param PA_Achievement_ID Performance Achievement
+	 */
+
+	public void setPA_Achievement_ID(int PA_Achievement_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Achievement_ID(PA_Achievement_ID);
+		}
 	}
 
 	/**
@@ -92,5 +103,16 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	 */
 	public I_PA_MeasureInput getPA_Measure() {
 		return PA_Measure;
+	}
+	/**
+	 * Set Measure.
+	 *
+	 * @param PA_Measure_ID Concrete Performance Measurement
+	 */
+
+	public void setPA_Measure_ID(int PA_Measure_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Measure_ID(PA_Measure_ID);
+		}
 	}
 }

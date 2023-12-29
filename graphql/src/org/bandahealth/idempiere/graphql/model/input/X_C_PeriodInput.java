@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MPeriod;
 import org.compiere.model.MRefList;
 import org.compiere.model.MYear;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Period;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
+public class X_C_PeriodInput extends X_C_Period implements I_C_PeriodInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput PeriodType_RL;
@@ -51,6 +51,17 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Period.
+	 *
+	 * @param C_Period_ID Period of the Calendar
+	 */
+
+	public void setC_Period_ID(int C_Period_ID) {
+		if (get_ID() == 0) {
+			super.setC_Period_ID(C_Period_ID);
+		}
 	}
 
 	/**
@@ -94,6 +105,17 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	 */
 	public I_C_YearInput getC_Year() {
 		return C_Year;
+	}
+	/**
+	 * Set Year.
+	 *
+	 * @param C_Year_ID Calendar Year
+	 */
+
+	public void setC_Year_ID(int C_Year_ID) {
+		if (get_ID() == 0) {
+			super.setC_Year_ID(C_Year_ID);
+		}
 	}
 
 	/**

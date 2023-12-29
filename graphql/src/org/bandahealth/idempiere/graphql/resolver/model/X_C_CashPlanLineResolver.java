@@ -25,6 +25,8 @@ import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTask;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_CashPlanLine - DO NOT CHANGE
  *

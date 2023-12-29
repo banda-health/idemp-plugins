@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MResource;
-import org.compiere.model.MResourceAssignment;
 import org.compiere.model.Query;
+import org.compiere.model.X_S_ResourceAssignment;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_S_ResourceAssignmentInput extends MResourceAssignment implements I_S_ResourceAssignmentInput {
+public class X_S_ResourceAssignmentInput extends X_S_ResourceAssignment implements I_S_ResourceAssignmentInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_S_ResourceInput S_Resource;
@@ -55,6 +57,7 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 *
 	 * @param AssignDateFrom Assign resource from
 	 */
+
 	public void setAssignDateFrom(Timestamp AssignDateFrom) {
 		if (get_ID() == 0) {
 			super.setAssignDateFrom(AssignDateFrom);
@@ -65,19 +68,10 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 *
 	 * @param AssignDateTo Assign resource until
 	 */
+
 	public void setAssignDateTo(Timestamp AssignDateTo) {
 		if (get_ID() == 0) {
 			super.setAssignDateTo(AssignDateTo);
-		}
-	}
-	/**
-	 * Set Active.
-	 *
-	 * @param IsActive The record is active in the system
-	 */
-	public void setIsActive(boolean IsActive) {
-		if (get_ID() == 0) {
-			super.setIsActive(IsActive);
 		}
 	}
 	/**
@@ -85,6 +79,7 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 *
 	 * @param IsConfirmed Assignment is confirmed
 	 */
+
 	public void setIsConfirmed(boolean IsConfirmed) {
 		if (get_ID() == 0) {
 			super.setIsConfirmed(IsConfirmed);
@@ -95,6 +90,7 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 *
 	 * @param Qty Quantity
 	 */
+
 	public void setQty(BigDecimal Qty) {
 		if (get_ID() == 0) {
 			super.setQty(Qty);
@@ -124,6 +120,28 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 */
 	public I_S_ResourceInput getS_Resource() {
 		return S_Resource;
+	}
+	/**
+	 * Set Resource.
+	 *
+	 * @param S_Resource_ID Resource
+	 */
+
+	public void setS_Resource_ID(int S_Resource_ID) {
+		if (get_ID() == 0) {
+			super.setS_Resource_ID(S_Resource_ID);
+		}
+	}
+	/**
+	 * Set Resource Assignment.
+	 *
+	 * @param S_ResourceAssignment_ID Resource Assignment
+	 */
+
+	public void setS_ResourceAssignment_ID(int S_ResourceAssignment_ID) {
+		if (get_ID() == 0) {
+			super.setS_ResourceAssignment_ID(S_ResourceAssignment_ID);
+		}
 	}
 
 	/**

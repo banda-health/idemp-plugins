@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MCalendar;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Calendar;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CalendarInput extends MCalendar implements I_C_CalendarInput {
+public class X_C_CalendarInput extends X_C_Calendar implements I_C_CalendarInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_C_CalendarInput extends MCalendar implements I_C_CalendarInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Calendar.
+	 *
+	 * @param C_Calendar_ID Accounting Calendar Name
+	 */
+
+	public void setC_Calendar_ID(int C_Calendar_ID) {
+		if (get_ID() == 0) {
+			super.setC_Calendar_ID(C_Calendar_ID);
+		}
 	}
 
 	/**

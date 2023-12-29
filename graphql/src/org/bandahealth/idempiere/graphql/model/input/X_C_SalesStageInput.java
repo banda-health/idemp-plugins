@@ -48,6 +48,17 @@ public class X_C_SalesStageInput extends X_C_SalesStage implements I_C_SalesStag
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Sales Stage.
+	 *
+	 * @param C_SalesStage_ID Stages of the sales process
+	 */
+
+	public void setC_SalesStage_ID(int C_SalesStage_ID) {
+		if (get_ID() == 0) {
+			super.setC_SalesStage_ID(C_SalesStage_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

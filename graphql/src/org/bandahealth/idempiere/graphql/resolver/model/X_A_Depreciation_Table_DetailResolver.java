@@ -23,8 +23,8 @@ public class X_A_Depreciation_Table_DetailResolver extends POResolver<X_A_Deprec
 
 	static Map<String, String> A_TABLE_RATE_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_A_Depreciation_Table_Detail.A_TABLE_RATE_TYPE_Amount, "6c03c647-961b-4fb9-ab48-881b071e4077");
-			put(X_A_Depreciation_Table_Detail.A_TABLE_RATE_TYPE_Rate, "6181fac0-c69e-49ea-bd8c-2a7e61acccad");
+			put("AM", "6c03c647-961b-4fb9-ab48-881b071e4077");
+			put("RT", "6181fac0-c69e-49ea-bd8c-2a7e61acccad");
 		}
 	};
 	public CompletableFuture<MRefList> A_Table_Rate_Type_RL(X_A_Depreciation_Table_Detail entity, DataFetchingEnvironment environment) {

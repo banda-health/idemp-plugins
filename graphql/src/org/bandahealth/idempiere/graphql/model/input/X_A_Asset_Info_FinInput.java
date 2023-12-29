@@ -55,6 +55,28 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	public I_A_AssetInput getA_Asset() {
 		return A_Asset;
 	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
+	}
+	/**
+	 * Set Asset Info Financial ID.
+	 *
+	 * @param A_Asset_Info_Fin_ID Asset Info Financial ID
+	 */
+
+	public void setA_Asset_Info_Fin_ID(int A_Asset_Info_Fin_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Info_Fin_ID(A_Asset_Info_Fin_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -184,6 +206,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 *
 	 * @param Processed The document has been processed
 	 */
+
 	public void setProcessed(boolean Processed) {
 		if (get_ID() == 0) {
 			super.setProcessed(Processed);

@@ -9,6 +9,8 @@ import org.compiere.model.MShipperPackaging;
 import org.compiere.model.X_M_ShipperPackagingCfg;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_ShipperPackaging - DO NOT CHANGE
  *

@@ -27,9 +27,9 @@ public class X_M_ShipperLabelsResolver extends POResolver<MShipperLabels> implem
 
 	static Map<String, String> LABELPRINTMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MShipperLabels.LABELPRINTMETHOD_Eltron, "30f489ba-1343-4132-8ed5-af624c38a565");
-			put(MShipperLabels.LABELPRINTMETHOD_Image, "68594d7b-e52d-4755-a921-29d3b112e8bd");
-			put(MShipperLabels.LABELPRINTMETHOD_Zebra, "0ee3f5cd-f1a0-416a-831c-687456fbc0fc");
+			put("E", "30f489ba-1343-4132-8ed5-af624c38a565");
+			put("I", "68594d7b-e52d-4755-a921-29d3b112e8bd");
+			put("Z", "0ee3f5cd-f1a0-416a-831c-687456fbc0fc");
 		}
 	};
 	public CompletableFuture<MRefList> LabelPrintMethod_RL(MShipperLabels entity, DataFetchingEnvironment environment) {

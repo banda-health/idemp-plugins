@@ -123,20 +123,6 @@ public interface I_C_CashInput extends I_C_Cash {
 	I_AD_Ref_ListInput getDocStatus_RL();
 
 	/**
-	 * Set Posted_RL.
-	 *
-	 * @param Posted_RL Posting status
-	 */
-	void setPosted_RL(I_AD_Ref_ListInput Posted_RL);
-
-	/**
-	 * Get Posted_RL.
-	 *
-	 * @return Posting status
-	 */
-	I_AD_Ref_ListInput getPosted_RL();
-
-	/**
 	 * Set User1.
 	 *
 	 * @param User1 User defined list element #1

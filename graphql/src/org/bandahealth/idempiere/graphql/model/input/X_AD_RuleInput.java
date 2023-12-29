@@ -4,8 +4,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
-import org.compiere.model.MRule;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Rule;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
+public class X_AD_RuleInput extends X_AD_Rule implements I_AD_RuleInput {
 
 	 private I_AD_EntityTypeInput AD_EntityType;
 	 private I_AD_OrgInput AD_Org;
@@ -81,6 +81,17 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Rule.
+	 *
+	 * @param AD_Rule_ID Rule
+	 */
+
+	public void setAD_Rule_ID(int AD_Rule_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Rule_ID(AD_Rule_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -112,9 +123,9 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -125,6 +136,17 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 
 	/**

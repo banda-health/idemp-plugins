@@ -48,6 +48,17 @@ public class X_C_JobCategoryInput extends X_C_JobCategory implements I_C_JobCate
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Position Category.
+	 *
+	 * @param C_JobCategory_ID Job Position Category
+	 */
+
+	public void setC_JobCategory_ID(int C_JobCategory_ID) {
+		if (get_ID() == 0) {
+			super.setC_JobCategory_ID(C_JobCategory_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

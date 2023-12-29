@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -18,6 +19,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset;
 import org.compiere.util.Env;
 
 /**
@@ -26,7 +28,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
+public class X_A_AssetInput extends X_A_Asset implements I_A_AssetInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput A_Asset_Action_RL;
@@ -110,10 +112,22 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		return A_Asset_Class;
 	}
 	/**
+	 * Set Asset class.
+	 *
+	 * @param A_Asset_Class_ID Asset class
+	 */
+
+	public void setA_Asset_Class_ID(int A_Asset_Class_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Class_ID(A_Asset_Class_ID);
+		}
+	}
+	/**
 	 * Set Create Date.
 	 *
 	 * @param A_Asset_CreateDate Create Date
 	 */
+
 	public void setA_Asset_CreateDate(Timestamp A_Asset_CreateDate) {
 		if (get_ID() == 0) {
 			super.setA_Asset_CreateDate(A_Asset_CreateDate);
@@ -145,6 +159,28 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 */
 	public I_A_Asset_GroupInput getA_Asset_Group() {
 		return A_Asset_Group;
+	}
+	/**
+	 * Set Asset Group.
+	 *
+	 * @param A_Asset_Group_ID Group of Assets
+	 */
+
+	public void setA_Asset_Group_ID(int A_Asset_Group_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Group_ID(A_Asset_Group_ID);
+		}
+	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
 	}
 
 	/**
@@ -244,6 +280,17 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 */
 	public I_A_AssetInput getA_Parent_Asset() {
 		return A_Parent_Asset;
+	}
+	/**
+	 * Set Parent Asset.
+	 *
+	 * @param A_Parent_Asset_ID Parent Asset
+	 */
+
+	public void setA_Parent_Asset_ID(int A_Parent_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Parent_Asset_ID(A_Parent_Asset_ID);
+		}
 	}
 
 	/**
@@ -405,6 +452,17 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	public I_C_BPartnerInput getC_BPartnerSR() {
 		return C_BPartnerSR;
 	}
+	/**
+	 * Set BPartner (Agent).
+	 *
+	 * @param C_BPartnerSR_ID Business Partner (Agent or Sales Rep)
+	 */
+
+	public void setC_BPartnerSR_ID(int C_BPartnerSR_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartnerSR_ID(C_BPartnerSR_ID);
+		}
+	}
 
 	/**
 	 * Set Address.
@@ -460,10 +518,22 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		return C_Project;
 	}
 	/**
+	 * Set Project.
+	 *
+	 * @param C_Project_ID Financial Project
+	 */
+
+	public void setC_Project_ID(int C_Project_ID) {
+		if (get_ID() == 0) {
+			super.setC_Project_ID(C_Project_ID);
+		}
+	}
+	/**
 	 * Set Fully depreciated.
 	 *
 	 * @param IsFullyDepreciated The asset is fully depreciated
 	 */
+
 	public void setIsFullyDepreciated(boolean IsFullyDepreciated) {
 		if (get_ID() == 0) {
 			super.setIsFullyDepreciated(IsFullyDepreciated);
@@ -496,6 +566,17 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	public I_C_BPartnerInput getLease_BPartner() {
 		return Lease_BPartner;
 	}
+	/**
+	 * Set Lessor.
+	 *
+	 * @param Lease_BPartner_ID The Business Partner who rents or leases
+	 */
+
+	public void setLease_BPartner_ID(int Lease_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setLease_BPartner_ID(Lease_BPartner_ID);
+		}
+	}
 
 	/**
 	 * Set Attribute Set Instance.
@@ -520,6 +601,17 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 */
 	public I_M_AttributeSetInstanceInput getM_AttributeSetInstance() {
 		return M_AttributeSetInstance;
+	}
+	/**
+	 * Set Attribute Set Instance.
+	 *
+	 * @param M_AttributeSetInstance_ID Product Attribute Set Instance
+	 */
+
+	public void setM_AttributeSetInstance_ID(int M_AttributeSetInstance_ID) {
+		if (get_ID() == 0) {
+			super.setM_AttributeSetInstance_ID(M_AttributeSetInstance_ID);
+		}
 	}
 
 	/**
@@ -607,6 +699,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 *
 	 * @param UseUnits Currently used units of the assets
 	 */
+
 	public void setUseUnits(int UseUnits) {
 		if (get_ID() == 0) {
 			super.setUseUnits(UseUnits);

@@ -77,6 +77,17 @@ public class X_C_ChannelInput extends X_C_Channel implements I_C_ChannelInput {
 	public I_AD_PrintColorInput getAD_PrintColor() {
 		return AD_PrintColor;
 	}
+	/**
+	 * Set Channel.
+	 *
+	 * @param C_Channel_ID Sales Channel
+	 */
+
+	public void setC_Channel_ID(int C_Channel_ID) {
+		if (get_ID() == 0) {
+			super.setC_Channel_ID(C_Channel_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

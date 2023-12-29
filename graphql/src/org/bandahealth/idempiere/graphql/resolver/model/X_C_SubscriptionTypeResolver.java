@@ -23,9 +23,9 @@ public class X_C_SubscriptionTypeResolver extends POResolver<X_C_SubscriptionTyp
 
 	static Map<String, String> FREQUENCYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_C_SubscriptionType.FREQUENCYTYPE_Minute, "80320e2a-1a3c-462f-9af1-09c0af1aab5f");
-			put(X_C_SubscriptionType.FREQUENCYTYPE_Hour, "817d1ba9-4dbe-4105-8ca5-61cf554ac837");
-			put(X_C_SubscriptionType.FREQUENCYTYPE_Day, "6360c9c7-dbf3-4b2f-bd8b-3465a7fde7a7");
+			put("M", "80320e2a-1a3c-462f-9af1-09c0af1aab5f");
+			put("H", "817d1ba9-4dbe-4105-8ca5-61cf554ac837");
+			put("D", "6360c9c7-dbf3-4b2f-bd8b-3465a7fde7a7");
 		}
 	};
 	public CompletableFuture<MRefList> FrequencyType_RL(X_C_SubscriptionType entity, DataFetchingEnvironment environment) {

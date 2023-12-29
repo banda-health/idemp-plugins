@@ -8,6 +8,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.model.X_C_DocType;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +17,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
+public class X_C_DocTypeInput extends X_C_DocType implements I_C_DocTypeInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_PrintFormatInput AD_PrintFormat;
@@ -90,6 +91,17 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public I_AD_PrintFormatInput getAD_PrintFormat() {
 		return AD_PrintFormat;
 	}
+	/**
+	 * Set Document Type.
+	 *
+	 * @param C_DocType_ID Document type or rules
+	 */
+
+	public void setC_DocType_ID(int C_DocType_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocType_ID(C_DocType_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -135,6 +147,17 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public I_C_DocTypeInput getC_DocTypeDifference() {
 		return C_DocTypeDifference;
 	}
+	/**
+	 * Set Difference Document.
+	 *
+	 * @param C_DocTypeDifference_ID Document type for generating in dispute Shipments
+	 */
+
+	public void setC_DocTypeDifference_ID(int C_DocTypeDifference_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocTypeDifference_ID(C_DocTypeDifference_ID);
+		}
+	}
 
 	/**
 	 * Set Document Type for Invoice.
@@ -161,6 +184,17 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 */
 	public I_C_DocTypeInput getC_DocTypeInvoice() {
 		return C_DocTypeInvoice;
+	}
+	/**
+	 * Set Document Type for Invoice.
+	 *
+	 * @param C_DocTypeInvoice_ID Document type used for invoices generated from this sales document
+	 */
+
+	public void setC_DocTypeInvoice_ID(int C_DocTypeInvoice_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocTypeInvoice_ID(C_DocTypeInvoice_ID);
+		}
 	}
 
 	/**
@@ -189,6 +223,17 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public I_C_DocTypeInput getC_DocTypeProforma() {
 		return C_DocTypeProforma;
 	}
+	/**
+	 * Set Document Type for ProForma.
+	 *
+	 * @param C_DocTypeProforma_ID Document type used for pro forma invoices generated from this sales document
+	 */
+
+	public void setC_DocTypeProforma_ID(int C_DocTypeProforma_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocTypeProforma_ID(C_DocTypeProforma_ID);
+		}
+	}
 
 	/**
 	 * Set Document Type for Shipment.
@@ -216,6 +261,17 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public I_C_DocTypeInput getC_DocTypeShipment() {
 		return C_DocTypeShipment;
 	}
+	/**
+	 * Set Document Type for Shipment.
+	 *
+	 * @param C_DocTypeShipment_ID Document type used for shipments generated from this sales document
+	 */
+
+	public void setC_DocTypeShipment_ID(int C_DocTypeShipment_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocTypeShipment_ID(C_DocTypeShipment_ID);
+		}
+	}
 
 	/**
 	 * Set Definite Sequence.
@@ -242,6 +298,17 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 */
 	public I_AD_SequenceInput getDefiniteSequence() {
 		return DefiniteSequence;
+	}
+	/**
+	 * Set Definite Sequence.
+	 *
+	 * @param DefiniteSequence_ID Definite Sequence
+	 */
+
+	public void setDefiniteSequence_ID(int DefiniteSequence_ID) {
+		if (get_ID() == 0) {
+			super.setDefiniteSequence_ID(DefiniteSequence_ID);
+		}
 	}
 
 	/**
@@ -296,6 +363,17 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 */
 	public I_AD_SequenceInput getDocNoSequence() {
 		return DocNoSequence;
+	}
+	/**
+	 * Set Document Sequence.
+	 *
+	 * @param DocNoSequence_ID Document sequence determines the numbering of documents
+	 */
+
+	public void setDocNoSequence_ID(int DocNoSequence_ID) {
+		if (get_ID() == 0) {
+			super.setDocNoSequence_ID(DocNoSequence_ID);
+		}
 	}
 
 	/**

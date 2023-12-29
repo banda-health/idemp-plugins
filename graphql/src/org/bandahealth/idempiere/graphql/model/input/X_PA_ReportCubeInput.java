@@ -3,8 +3,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MOrg;
-import org.compiere.model.MReportCube;
 import org.compiere.model.Query;
+import org.compiere.model.X_PA_ReportCube;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCubeInput {
+public class X_PA_ReportCubeInput extends X_PA_ReportCube implements I_PA_ReportCubeInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_CalendarInput C_Calendar;
@@ -78,6 +78,17 @@ public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCube
 	 */
 	public I_C_CalendarInput getC_Calendar() {
 		return C_Calendar;
+	}
+	/**
+	 * Set Report Cube.
+	 *
+	 * @param PA_ReportCube_ID Define reporting cube for pre-calculation of summary accounting data.
+	 */
+
+	public void setPA_ReportCube_ID(int PA_ReportCube_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportCube_ID(PA_ReportCube_ID);
+		}
 	}
 
 	/**

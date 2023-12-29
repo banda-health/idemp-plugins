@@ -4,10 +4,10 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
-import org.compiere.model.MAssetProduct;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Product;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_ProductInput {
+public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Asset_ProductInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_A_AssetInput A_Asset;
@@ -55,6 +55,28 @@ public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_P
 	 */
 	public I_A_AssetInput getA_Asset() {
 		return A_Asset;
+	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
+	}
+	/**
+	 * Set Asset Product.
+	 *
+	 * @param A_Asset_Product_ID Asset Product
+	 */
+
+	public void setA_Asset_Product_ID(int A_Asset_Product_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Product_ID(A_Asset_Product_ID);
+		}
 	}
 
 	/**
@@ -179,5 +201,16 @@ public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_P
 	 */
 	public I_M_ProductInput getM_Product() {
 		return M_Product;
+	}
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product_ID Product, Service, Item
+	 */
+
+	public void setM_Product_ID(int M_Product_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_ID(M_Product_ID);
+		}
 	}
 }

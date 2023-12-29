@@ -332,6 +332,17 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	public I_AD_WF_BlockInput getAD_WF_Block() {
 		return AD_WF_Block;
 	}
+	/**
+	 * Set Node.
+	 *
+	 * @param AD_WF_Node_ID Workflow Node (activity), step or process
+	 */
+
+	public void setAD_WF_Node_ID(int AD_WF_Node_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Node_ID(AD_WF_Node_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -428,6 +439,17 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 */
 	public I_AD_WorkflowInput getAD_Workflow() {
 		return AD_Workflow;
+	}
+	/**
+	 * Set Workflow.
+	 *
+	 * @param AD_Workflow_ID Workflow or combination of tasks
+	 */
+
+	public void setAD_Workflow_ID(int AD_Workflow_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Workflow_ID(AD_Workflow_ID);
+		}
 	}
 
 	/**
@@ -550,9 +572,9 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -563,6 +585,17 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 
 	/**
@@ -779,5 +812,16 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 */
 	public I_AD_WorkflowInput getWorkflow() {
 		return Workflow;
+	}
+	/**
+	 * Set Workflow.
+	 *
+	 * @param Workflow_ID Workflow or tasks
+	 */
+
+	public void setWorkflow_ID(int Workflow_ID) {
+		if (get_ID() == 0) {
+			super.setWorkflow_ID(Workflow_ID);
+		}
 	}
 }

@@ -4,9 +4,9 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPackageMPS;
 import org.compiere.model.MShippingTransaction;
-import org.compiere.model.MShippingTransactionLine;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_ShippingTransactionLine;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine implements I_M_ShippingTransactionLineInput {
+public class X_M_ShippingTransactionLineInput extends X_M_ShippingTransactionLine implements I_M_ShippingTransactionLineInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_UOMInput C_UOM_Length;
@@ -82,6 +82,17 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	public I_C_UOMInput getC_UOM_Length() {
 		return C_UOM_Length;
 	}
+	/**
+	 * Set UOM for Length.
+	 *
+	 * @param C_UOM_Length_ID Standard Unit of Measure for Length
+	 */
+
+	public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_Length_ID(C_UOM_Length_ID);
+		}
+	}
 
 	/**
 	 * Set UOM for Weight.
@@ -108,6 +119,17 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 */
 	public I_C_UOMInput getC_UOM_Weight() {
 		return C_UOM_Weight;
+	}
+	/**
+	 * Set UOM for Weight.
+	 *
+	 * @param C_UOM_Weight_ID Standard Unit of Measure for Weight
+	 */
+
+	public void setC_UOM_Weight_ID(int C_UOM_Weight_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_Weight_ID(C_UOM_Weight_ID);
+		}
 	}
 
 	/**
@@ -160,6 +182,28 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 */
 	public I_M_ShippingTransactionInput getM_ShippingTransaction() {
 		return M_ShippingTransaction;
+	}
+	/**
+	 * Set Shipping Transaction.
+	 *
+	 * @param M_ShippingTransaction_ID Shipping Transaction
+	 */
+
+	public void setM_ShippingTransaction_ID(int M_ShippingTransaction_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShippingTransaction_ID(M_ShippingTransaction_ID);
+		}
+	}
+	/**
+	 * Set Shipping Transaction Line.
+	 *
+	 * @param M_ShippingTransactionLine_ID Shipping Transaction Line
+	 */
+
+	public void setM_ShippingTransactionLine_ID(int M_ShippingTransactionLine_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShippingTransactionLine_ID(M_ShippingTransactionLine_ID);
+		}
 	}
 
 	/**

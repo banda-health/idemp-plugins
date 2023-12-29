@@ -9,6 +9,8 @@ import org.compiere.model.MSchedule;
 import org.compiere.model.X_AD_WorkflowProcessor;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for AD_WorkflowProcessor - DO NOT CHANGE
  *

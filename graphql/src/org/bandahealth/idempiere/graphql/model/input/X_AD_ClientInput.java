@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MOrg;
@@ -8,6 +7,7 @@ import org.compiere.model.MPasswordRule;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReplicationStrategy;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Client;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
+public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
 
 	 private I_AD_LanguageInput AD_Language_L;
 	 private I_AD_OrgInput AD_Org;
@@ -76,6 +76,17 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	 */
 	public I_AD_LanguageInput getAD_Language_L() {
 		return AD_Language_L;
+	}
+	/**
+	 * Set Language.
+	 *
+	 * @param AD_Language Language for this entity
+	 */
+
+	public void setAD_Language(String AD_Language) {
+		if (get_ID() == 0) {
+			super.setAD_Language(AD_Language);
+		}
 	}
 
 	/**

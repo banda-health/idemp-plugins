@@ -59,6 +59,17 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Role.
+	 *
+	 * @param AD_Role_ID Responsibility Role
+	 */
+
+	public void setAD_Role_ID(int AD_Role_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Role_ID(AD_Role_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -104,6 +115,17 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public I_AD_TreeInput getAD_Tree_Menu() {
 		return AD_Tree_Menu;
 	}
+	/**
+	 * Set Menu Tree.
+	 *
+	 * @param AD_Tree_Menu_ID Tree of the menu
+	 */
+
+	public void setAD_Tree_Menu_ID(int AD_Tree_Menu_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_Menu_ID(AD_Tree_Menu_ID);
+		}
+	}
 
 	/**
 	 * Set Organization Tree.
@@ -130,6 +152,17 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 */
 	public I_AD_TreeInput getAD_Tree_Org() {
 		return AD_Tree_Org;
+	}
+	/**
+	 * Set Organization Tree.
+	 *
+	 * @param AD_Tree_Org_ID Trees are used for (financial) reporting and security access (via role)
+	 */
+
+	public void setAD_Tree_Org_ID(int AD_Tree_Org_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Tree_Org_ID(AD_Tree_Org_ID);
+		}
 	}
 
 	/**
@@ -238,6 +271,17 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 */
 	public I_AD_UserInput getSupervisor() {
 		return Supervisor;
+	}
+	/**
+	 * Set Supervisor.
+	 *
+	 * @param Supervisor_ID Supervisor for this user/organization - used for escalation and approval
+	 */
+
+	public void setSupervisor_ID(int Supervisor_ID) {
+		if (get_ID() == 0) {
+			super.setSupervisor_ID(Supervisor_ID);
+		}
 	}
 
 	/**

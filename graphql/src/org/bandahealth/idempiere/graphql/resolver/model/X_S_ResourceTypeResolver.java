@@ -11,6 +11,8 @@ import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for S_ResourceType - DO NOT CHANGE
  *

@@ -4,8 +4,8 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProjectType;
-import org.compiere.model.MProjectTypePhase;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Phase;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_PhaseInput extends MProjectTypePhase implements I_C_PhaseInput {
+public class X_C_PhaseInput extends X_C_Phase implements I_C_PhaseInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_ProjectTypeInput C_ProjectType;
@@ -51,6 +51,17 @@ public class X_C_PhaseInput extends MProjectTypePhase implements I_C_PhaseInput 
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Standard Phase.
+	 *
+	 * @param C_Phase_ID Standard Phase of the Project Type
+	 */
+
+	public void setC_Phase_ID(int C_Phase_ID) {
+		if (get_ID() == 0) {
+			super.setC_Phase_ID(C_Phase_ID);
+		}
 	}
 
 	/**
@@ -94,6 +105,17 @@ public class X_C_PhaseInput extends MProjectTypePhase implements I_C_PhaseInput 
 	 */
 	public I_C_ProjectTypeInput getC_ProjectType() {
 		return C_ProjectType;
+	}
+	/**
+	 * Set Project Type.
+	 *
+	 * @param C_ProjectType_ID Type of the project
+	 */
+
+	public void setC_ProjectType_ID(int C_ProjectType_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectType_ID(C_ProjectType_ID);
+		}
 	}
 
 	/**

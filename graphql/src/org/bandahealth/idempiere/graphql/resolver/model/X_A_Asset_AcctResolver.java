@@ -157,8 +157,8 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 
 	static Map<String, String> A_DEPRECIATION_MANUAL_PERIOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MAssetAcct.A_DEPRECIATION_MANUAL_PERIOD_Period, "35e7efb6-c084-458c-89e6-bdeeb3757add");
-			put(MAssetAcct.A_DEPRECIATION_MANUAL_PERIOD_Yearly, "d34572f8-bbc3-4768-9662-8ae6f48f7398");
+			put("PR", "35e7efb6-c084-458c-89e6-bdeeb3757add");
+			put("YR", "d34572f8-bbc3-4768-9662-8ae6f48f7398");
 		}
 	};
 	public CompletableFuture<MRefList> A_Depreciation_Manual_Period_RL(MAssetAcct entity, DataFetchingEnvironment environment) {
@@ -292,9 +292,9 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 
 	static Map<String, String> A_REVAL_CAL_METHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MAssetAcct.A_REVAL_CAL_METHOD_Default, "c11a5c1d-7b50-4462-92f3-5fd512c7c3f9");
-			put(MAssetAcct.A_REVAL_CAL_METHOD_InceptionToDate, "82c0032e-1d8f-4001-b365-39f9a8cc2b05");
-			put(MAssetAcct.A_REVAL_CAL_METHOD_YearBalances, "2e54c6d4-f45a-474c-b4ab-6c7679f913dd");
+			put("DFT", "c11a5c1d-7b50-4462-92f3-5fd512c7c3f9");
+			put("IDF", "82c0032e-1d8f-4001-b365-39f9a8cc2b05");
+			put("YBF", "2e54c6d4-f45a-474c-b4ab-6c7679f913dd");
 		}
 	};
 	public CompletableFuture<MRefList> A_Reval_Cal_Method_RL(MAssetAcct entity, DataFetchingEnvironment environment) {
@@ -368,11 +368,11 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MAssetAcct.POSTINGTYPE_Actual, "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put(MAssetAcct.POSTINGTYPE_Budget, "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put(MAssetAcct.POSTINGTYPE_Commitment, "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put(MAssetAcct.POSTINGTYPE_Statistical, "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put(MAssetAcct.POSTINGTYPE_Reservation, "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
 	public CompletableFuture<MRefList> PostingType_RL(MAssetAcct entity, DataFetchingEnvironment environment) {

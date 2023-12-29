@@ -7,10 +7,10 @@ import org.compiere.model.MAsset;
 import org.compiere.model.MAssetAddition;
 import org.compiere.model.MAssetDisposed;
 import org.compiere.model.MDepreciationEntry;
-import org.compiere.model.MDepreciationExp;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Depreciation_Exp;
 import org.compiere.util.Env;
 
 /**
@@ -19,11 +19,10 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_Depreciation_ExpInput {
+public class X_A_Depreciation_ExpInput extends X_A_Depreciation_Exp implements I_A_Depreciation_ExpInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput A_Entry_Type_RL;
-	 private I_AD_Ref_ListInput A_Period_RL;
 	 private I_AD_Ref_ListInput PostingType_RL;
 	 private I_A_AssetInput A_Asset;
 	 private I_A_Asset_AdditionInput A_Asset_Addition;
@@ -176,6 +175,17 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	public I_A_Depreciation_EntryInput getA_Depreciation_Entry() {
 		return A_Depreciation_Entry;
 	}
+	/**
+	 * Set A_Depreciation_Exp_ID.
+	 *
+	 * @param A_Depreciation_Exp_ID A_Depreciation_Exp_ID
+	 */
+
+	public void setA_Depreciation_Exp_ID(int A_Depreciation_Exp_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Exp_ID(A_Depreciation_Exp_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -221,32 +231,16 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	public I_AD_Ref_ListInput getA_Entry_Type_RL() {
 		return A_Entry_Type_RL;
 	}
-
 	/**
 	 * Set Asset Period.
 	 *
-	 * @param A_Period_RL Asset Period
+	 * @param A_Period Asset Period
 	 */
-	public void setA_Period_RL(I_AD_Ref_ListInput A_Period_RL) {
-		this.A_Period_RL = A_Period_RL;
-		MRefList foreignEntity;
-		if (A_Period_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Period_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Period(foreignEntity.getValue());
-		} else {
-			this.setA_Period(null);
-		}
-	}
 
-	/**
-	 * Get Asset Period.
-	 *
-	 * @return Asset Period
-	 */
-	public I_AD_Ref_ListInput getA_Period_RL() {
-		return A_Period_RL;
+	public void setA_Period(int A_Period) {
+		if (get_ID() == 0) {
+			super.setA_Period(A_Period);
+		}
 	}
 
 	/**
@@ -300,6 +294,17 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	public I_C_AcctSchemaInput getC_AcctSchema() {
 		return C_AcctSchema;
 	}
+	/**
+	 * Set Accounting Schema.
+	 *
+	 * @param C_AcctSchema_ID Rules for accounting
+	 */
+
+	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
+		if (get_ID() == 0) {
+			super.setC_AcctSchema_ID(C_AcctSchema_ID);
+		}
+	}
 
 	/**
 	 * Set Account (credit).
@@ -327,6 +332,17 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	public I_C_ValidCombinationInput getCR_Account() {
 		return CR_Account;
 	}
+	/**
+	 * Set Account (credit).
+	 *
+	 * @param CR_Account_ID Account used
+	 */
+
+	public void setCR_Account_ID(int CR_Account_ID) {
+		if (get_ID() == 0) {
+			super.setCR_Account_ID(CR_Account_ID);
+		}
+	}
 
 	/**
 	 * Set Account (debit).
@@ -353,6 +369,17 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 */
 	public I_C_ValidCombinationInput getDR_Account() {
 		return DR_Account;
+	}
+	/**
+	 * Set Account (debit).
+	 *
+	 * @param DR_Account_ID Account used
+	 */
+
+	public void setDR_Account_ID(int DR_Account_ID) {
+		if (get_ID() == 0) {
+			super.setDR_Account_ID(DR_Account_ID);
+		}
 	}
 
 	/**

@@ -20,7 +20,7 @@ public class VoidedReason extends BaseEntity {
 
 	public VoidedReason(MBHVoidedReason entity) {
 		setName(entity.getName());
-		setUuid(entity.getbh_voided_reason_uu());
+		setUuid(entity.getBH_Voided_Reason_UU());
 		setDescription(entity.getDescription());
 		setIsActive(entity.isActive());
 		setLineNo(entity.getLineNo());

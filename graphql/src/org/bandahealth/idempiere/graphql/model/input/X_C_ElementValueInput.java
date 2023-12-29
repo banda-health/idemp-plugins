@@ -4,10 +4,10 @@ import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MElement;
-import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_ElementValue;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ElementValueInput extends MElementValue implements I_C_ElementValueInput {
+public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_ElementValueInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput AccountSign_RL;
@@ -217,6 +217,28 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 */
 	public I_C_ElementInput getC_Element() {
 		return C_Element;
+	}
+	/**
+	 * Set Element.
+	 *
+	 * @param C_Element_ID Accounting Element
+	 */
+
+	public void setC_Element_ID(int C_Element_ID) {
+		if (get_ID() == 0) {
+			super.setC_Element_ID(C_Element_ID);
+		}
+	}
+	/**
+	 * Set Account Element.
+	 *
+	 * @param C_ElementValue_ID Account Element
+	 */
+
+	public void setC_ElementValue_ID(int C_ElementValue_ID) {
+		if (get_ID() == 0) {
+			super.setC_ElementValue_ID(C_ElementValue_ID);
+		}
 	}
 
 	/**

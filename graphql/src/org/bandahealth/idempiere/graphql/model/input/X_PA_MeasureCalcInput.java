@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MMeasureCalc;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
+import org.compiere.model.X_PA_MeasureCalc;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureCalcInput {
+public class X_PA_MeasureCalcInput extends X_PA_MeasureCalc implements I_PA_MeasureCalcInput {
 
 	 private I_AD_EntityTypeInput AD_EntityType;
 	 private I_AD_OrgInput AD_Org;
@@ -92,9 +92,9 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -105,6 +105,28 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
+	}
+	/**
+	 * Set Measure Calculation.
+	 *
+	 * @param PA_MeasureCalc_ID Calculation method for measuring performance
+	 */
+
+	public void setPA_MeasureCalc_ID(int PA_MeasureCalc_ID) {
+		if (get_ID() == 0) {
+			super.setPA_MeasureCalc_ID(PA_MeasureCalc_ID);
+		}
 	}
 
 	/**

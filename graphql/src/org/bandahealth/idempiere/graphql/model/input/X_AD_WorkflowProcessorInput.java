@@ -79,6 +79,17 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 	public I_AD_ScheduleInput getAD_Schedule() {
 		return AD_Schedule;
 	}
+	/**
+	 * Set Workflow Processor.
+	 *
+	 * @param AD_WorkflowProcessor_ID Workflow Processor Server
+	 */
+
+	public void setAD_WorkflowProcessor_ID(int AD_WorkflowProcessor_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WorkflowProcessor_ID(AD_WorkflowProcessor_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -123,5 +134,16 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 	 */
 	public I_AD_UserInput getSupervisor() {
 		return Supervisor;
+	}
+	/**
+	 * Set Supervisor.
+	 *
+	 * @param Supervisor_ID Supervisor for this user/organization - used for escalation and approval
+	 */
+
+	public void setSupervisor_ID(int Supervisor_ID) {
+		if (get_ID() == 0) {
+			super.setSupervisor_ID(Supervisor_ID);
+		}
 	}
 }

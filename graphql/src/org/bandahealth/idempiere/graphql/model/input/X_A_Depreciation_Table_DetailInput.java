@@ -30,9 +30,21 @@ public class X_A_Depreciation_Table_DetailInput extends X_A_Depreciation_Table_D
 	 *
 	 * @param A_Depreciation_Table_Code Depreciation Code
 	 */
+
 	public void setA_Depreciation_Table_Code(String A_Depreciation_Table_Code) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Table_Code(A_Depreciation_Table_Code);
+		}
+	}
+	/**
+	 * Set Depreciation Table Detail.
+	 *
+	 * @param A_Depreciation_Table_Detail_ID Depreciation Table Detail
+	 */
+
+	public void setA_Depreciation_Table_Detail_ID(int A_Depreciation_Table_Detail_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Table_Detail_ID(A_Depreciation_Table_Detail_ID);
 		}
 	}
 

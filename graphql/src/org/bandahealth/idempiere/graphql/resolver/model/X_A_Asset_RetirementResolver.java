@@ -9,6 +9,8 @@ import org.compiere.model.MInvoiceLine;
 import org.compiere.model.X_A_Asset_Retirement;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for A_Asset_Retirement - DO NOT CHANGE
  *

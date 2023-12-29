@@ -50,13 +50,13 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 
 	static Map<String, String> A_ASSET_ACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MAsset.A_ASSET_ACTION_Dispose, "fee6717e-7137-4035-9a83-bb96a6d111f8");
-			put(MAsset.A_ASSET_ACTION_Inbound, "538261b3-5e19-445d-b54d-350c9b9fac92");
-			put(MAsset.A_ASSET_ACTION_Modify, "c72b48b9-f248-4e9d-9fd8-4afae918bef8");
-			put(MAsset.A_ASSET_ACTION_Outbound, "c81b8475-74d3-41d5-8ff5-6de9e2db2436");
-			put(MAsset.A_ASSET_ACTION_Reevaluate, "084daa2e-0720-47e2-8923-01793426c9a2");
-			put(MAsset.A_ASSET_ACTION_Retire, "3a74baee-45d7-4d09-84eb-37efa01e9ca0");
-			put(MAsset.A_ASSET_ACTION_Transfer, "194f5d34-a04e-48c2-8e5a-8a81c326657c");
+			put("DI", "fee6717e-7137-4035-9a83-bb96a6d111f8");
+			put("IB", "538261b3-5e19-445d-b54d-350c9b9fac92");
+			put("MD", "c72b48b9-f248-4e9d-9fd8-4afae918bef8");
+			put("OB", "c81b8475-74d3-41d5-8ff5-6de9e2db2436");
+			put("RE", "084daa2e-0720-47e2-8923-01793426c9a2");
+			put("RT", "3a74baee-45d7-4d09-84eb-37efa01e9ca0");
+			put("TR", "194f5d34-a04e-48c2-8e5a-8a81c326657c");
 		}
 	};
 	public CompletableFuture<MRefList> A_Asset_Action_RL(MAsset entity, DataFetchingEnvironment environment) {
@@ -100,13 +100,13 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 
 	static Map<String, String> A_ASSET_STATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MAsset.A_ASSET_STATUS_Activated, "d2cdd31e-4373-4f35-8d01-22946c3c6211");
-			put(MAsset.A_ASSET_STATUS_Disposed, "dd8c1848-6fb8-4829-8855-7c3b314514fd");
-			put(MAsset.A_ASSET_STATUS_Depreciated, "583c5228-ad5d-48cd-819b-97673805b1fa");
-			put(MAsset.A_ASSET_STATUS_New, "3f742175-42b0-4775-9eb3-ed5fefd0ca7a");
-			put(MAsset.A_ASSET_STATUS_Preservation, "785b94f6-fbd7-49a7-b752-45a6d0df3888");
-			put(MAsset.A_ASSET_STATUS_Retired, "9ac1f818-4159-463f-81c4-b55923e94c9e");
-			put(MAsset.A_ASSET_STATUS_Sold, "b2aa86a9-566c-4762-98d5-c4b5c243a2cd");
+			put("AC", "d2cdd31e-4373-4f35-8d01-22946c3c6211");
+			put("DI", "dd8c1848-6fb8-4829-8855-7c3b314514fd");
+			put("DP", "583c5228-ad5d-48cd-819b-97673805b1fa");
+			put("NW", "3f742175-42b0-4775-9eb3-ed5fefd0ca7a");
+			put("PR", "785b94f6-fbd7-49a7-b752-45a6d0df3888");
+			put("RE", "9ac1f818-4159-463f-81c4-b55923e94c9e");
+			put("SO", "b2aa86a9-566c-4762-98d5-c4b5c243a2cd");
 		}
 	};
 	public CompletableFuture<MRefList> A_Asset_Status_RL(MAsset entity, DataFetchingEnvironment environment) {

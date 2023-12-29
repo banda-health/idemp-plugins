@@ -59,9 +59,9 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 
 	static Map<String, String> A_TIP_FINANTARE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MDepreciationWorkfile.A_TIP_FINANTARE_Cofinantare, "1bddac4c-bcc8-4758-8630-d80555b14a62");
-			put(MDepreciationWorkfile.A_TIP_FINANTARE_Proprie, "2d7b24ae-5735-41a6-88f6-7aa5cc143493");
-			put(MDepreciationWorkfile.A_TIP_FINANTARE_Terti, "51a1b186-6af4-4373-9788-f9105aa65cfa");
+			put("C", "1bddac4c-bcc8-4758-8630-d80555b14a62");
+			put("P", "2d7b24ae-5735-41a6-88f6-7aa5cc143493");
+			put("T", "51a1b186-6af4-4373-9788-f9105aa65cfa");
 		}
 	};
 	public CompletableFuture<MRefList> A_Tip_Finantare_RL(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
@@ -90,11 +90,11 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MDepreciationWorkfile.POSTINGTYPE_Actual, "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put(MDepreciationWorkfile.POSTINGTYPE_Budget, "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put(MDepreciationWorkfile.POSTINGTYPE_Commitment, "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put(MDepreciationWorkfile.POSTINGTYPE_Statistical, "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put(MDepreciationWorkfile.POSTINGTYPE_Reservation, "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
 	public CompletableFuture<MRefList> PostingType_RL(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {

@@ -83,6 +83,17 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	public I_C_AcctSchemaInput getC_AcctSchema() {
 		return C_AcctSchema;
 	}
+	/**
+	 * Set Accounting Schema.
+	 *
+	 * @param C_AcctSchema_ID Rules for accounting
+	 */
+
+	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
+		if (get_ID() == 0) {
+			super.setC_AcctSchema_ID(C_AcctSchema_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -125,6 +136,17 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 */
 	public I_C_CashBookInput getC_CashBook() {
 		return C_CashBook;
+	}
+	/**
+	 * Set Cash Book.
+	 *
+	 * @param C_CashBook_ID Cash Book for recording petty cash transactions
+	 */
+
+	public void setC_CashBook_ID(int C_CashBook_ID) {
+		if (get_ID() == 0) {
+			super.setC_CashBook_ID(C_CashBook_ID);
+		}
 	}
 
 	/**

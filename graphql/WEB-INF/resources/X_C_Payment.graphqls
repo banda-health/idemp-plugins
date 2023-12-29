@@ -154,7 +154,7 @@ type C_Payment {
 	# Purchase Order Number
 	PONum: String
 	# Posting status
-	Posted_RL: Boolean!
+	Posted: Boolean!
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
@@ -343,7 +343,7 @@ input C_PaymentInput {
 	# Purchase Order Number
 	PONum: String
 	# Posting status
-	Posted_RL: Boolean
+	Posted: Boolean
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

@@ -49,14 +49,14 @@ public class MInvoice_BH extends MInvoice {
 		PO.copyValues(invoice, this, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
 	}
 
-	public int getBH_VoidedReasonID() {
+	public int getBH_Voided_Reason_ID() {
 		Integer ii = (Integer) get_Value(COLUMNNAME_BH_VOIDED_REASON_ID);
 		if (ii == null)
 			return 0;
 		return ii.intValue();
 	}
 
-	public void setBH_VoidedReasonID(int BH_VoidedReason_ID) {
+	public void setBH_Voided_Reason_ID(int BH_VoidedReason_ID) {
 		if (BH_VoidedReason_ID < 1) {
 			set_Value(COLUMNNAME_BH_VOIDED_REASON_ID, null);
 		} else {

@@ -3,10 +3,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MDepositBatch;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_DepositBatch;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositBatchInput {
+public class X_C_DepositBatchInput extends X_C_DepositBatch implements I_C_DepositBatchInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput DocStatus_RL;
@@ -80,6 +80,17 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	 */
 	public I_C_BankAccountInput getC_BankAccount() {
 		return C_BankAccount;
+	}
+	/**
+	 * Set Deposit Batch.
+	 *
+	 * @param C_DepositBatch_ID Deposit Batch
+	 */
+
+	public void setC_DepositBatch_ID(int C_DepositBatch_ID) {
+		if (get_ID() == 0) {
+			super.setC_DepositBatch_ID(C_DepositBatch_ID);
+		}
 	}
 
 	/**

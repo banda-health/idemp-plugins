@@ -21,6 +21,8 @@ import org.compiere.model.X_AD_PrintPaper;
 import org.compiere.model.X_AD_PrintTableFormat;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for AD_PrintFormat - DO NOT CHANGE
  *

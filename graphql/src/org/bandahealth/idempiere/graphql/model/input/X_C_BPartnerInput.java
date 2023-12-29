@@ -1,7 +1,8 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
-import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDiscountSchema;
@@ -16,6 +17,7 @@ import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_C_1099Box;
+import org.compiere.model.X_C_BPartner;
 import org.compiere.model.X_C_Greeting;
 import org.compiere.util.Env;
 import org.eevolution.model.X_C_TaxGroup;
@@ -26,7 +28,7 @@ import org.eevolution.model.X_C_TaxGroup;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput {
+public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput {
 
 	 private I_AD_ImageInput AD_Image;
 	 private I_AD_LanguageInput AD_Language_L;
@@ -88,6 +90,17 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	public I_AD_LanguageInput getAD_Language_L() {
 		return AD_Language_L;
 	}
+	/**
+	 * Set Language.
+	 *
+	 * @param AD_Language Language for this entity
+	 */
+
+	public void setAD_Language(String AD_Language) {
+		if (get_ID() == 0) {
+			super.setAD_Language(AD_Language);
+		}
+	}
 
 	/**
 	 * Set Organization.
@@ -113,6 +126,75 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+
+	/**
+	 * Set Birthday.
+	 *
+	 * @param BH_Birthday Birthday or Anniversary day
+	 */
+	public void setBH_Birthday(Timestamp BH_Birthday) {
+		set_Value(COLUMNNAME_BH_Birthday, BH_Birthday);
+	}
+
+
+	/**
+	 * Get Birthday.
+	 *
+	 * @return Birthday or Anniversary day
+	 */
+	public Timestamp getBH_Birthday() {
+ 		return (Timestamp) get_Value(COLUMNNAME_BH_Birthday);
+	}
+
+
+	/**
+	 * Set EMail Address.
+	 *
+	 * @param BH_EMail Electronic Mail Address
+	 */
+	public void setBH_EMail(String BH_EMail) {
+		set_Value(COLUMNNAME_BH_EMail, BH_EMail);
+	}
+
+
+	/**
+	 * Get EMail Address.
+	 *
+	 * @return Electronic Mail Address
+	 */
+	public String getBH_EMail() {
+ 		return (String) get_Value(COLUMNNAME_BH_EMail);
+	}
+
+	/**
+	 * Female = female
+	 */
+	public static final String BH_GENDER_Female = "female";
+	/**
+	 * Male = male
+	 */
+	public static final String BH_GENDER_Male = "male";
+
+	/**
+	 * Set Gender.
+	 *
+	 * @param bh_gender Gender
+	 */
+	public void setbh_gender(String bh_gender) {
+
+		set_Value(COLUMNNAME_bh_gender, bh_gender);
+	}
+
+
+	/**
+	 * Get Gender.
+	 *
+	 * @return Gender
+	 */
+	public String getbh_gender() {
+ 		return (String) get_Value(COLUMNNAME_bh_gender);
+	}
+
 
 	/**
 	 * Set Gender.
@@ -142,6 +224,187 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	}
 
 	/**
+	 * Set Is Approximate Date Of Birth.
+	 *
+	 * @param BH_IsApproximateDateOfBirth Is Approximate Date Of Birth
+	 */
+	public void setBH_IsApproximateDateOfBirth(boolean BH_IsApproximateDateOfBirth) {
+		set_Value(COLUMNNAME_BH_IsApproximateDateOfBirth, BH_IsApproximateDateOfBirth);
+	}
+
+
+	/**
+	 * Get Is Approximate Date Of Birth.
+	 *
+	 * @return Is Approximate Date Of Birth
+	 */
+	public boolean isBH_IsApproximateDateOfBirth() {
+ 		Object columnValue = get_Value(COLUMNNAME_BH_IsApproximateDateOfBirth);
+		if (columnValue != null) {
+			if (columnValue instanceof Boolean) {
+				return ((Boolean) columnValue);
+			}
+			return "Y".equals(columnValue);
+		}
+		return false;
+	}
+
+
+	/**
+	 * Set Local Patient ID.
+	 *
+	 * @param BH_Local_PatientID Local Patient ID
+	 */
+	public void setBH_Local_PatientID(String BH_Local_PatientID) {
+		set_Value(COLUMNNAME_BH_Local_PatientID, BH_Local_PatientID);
+	}
+
+
+	/**
+	 * Get Local Patient ID.
+	 *
+	 * @return Local Patient ID
+	 */
+	public String getBH_Local_PatientID() {
+ 		return (String) get_Value(COLUMNNAME_BH_Local_PatientID);
+	}
+
+
+	/**
+	 * Set BH_Locked.
+	 *
+	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public void setBH_Locked(boolean BH_Locked) {
+		set_Value(COLUMNNAME_BH_Locked, BH_Locked);
+	}
+
+
+	/**
+	 * Get BH_Locked.
+	 *
+	 * @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public boolean isBH_Locked() {
+ 		Object columnValue = get_Value(COLUMNNAME_BH_Locked);
+		if (columnValue != null) {
+			if (columnValue instanceof Boolean) {
+				return ((Boolean) columnValue);
+			}
+			return "Y".equals(columnValue);
+		}
+		return false;
+	}
+
+
+	/**
+	 * Set Need Additional Visit Info.
+	 *
+	 * @param BH_NeedAdditionalVisitInfo Need Additional Visit Info
+	 */
+	public void setBH_NeedAdditionalVisitInfo(boolean BH_NeedAdditionalVisitInfo) {
+		set_Value(COLUMNNAME_BH_NeedAdditionalVisitInfo, BH_NeedAdditionalVisitInfo);
+	}
+
+
+	/**
+	 * Get Need Additional Visit Info.
+	 *
+	 * @return Need Additional Visit Info
+	 */
+	public boolean isBH_NeedAdditionalVisitInfo() {
+ 		Object columnValue = get_Value(COLUMNNAME_BH_NeedAdditionalVisitInfo);
+		if (columnValue != null) {
+			if (columnValue instanceof Boolean) {
+				return ((Boolean) columnValue);
+			}
+			return "Y".equals(columnValue);
+		}
+		return false;
+	}
+
+
+	/**
+	 * Set Next Appointment Date.
+	 *
+	 * @param bh_nextappointmentdate Next Appointment Date
+	 */
+	public void setbh_nextappointmentdate(Timestamp bh_nextappointmentdate) {
+		set_Value(COLUMNNAME_bh_nextappointmentdate, bh_nextappointmentdate);
+	}
+
+
+	/**
+	 * Get Next Appointment Date.
+	 *
+	 * @return Next Appointment Date
+	 */
+	public Timestamp getbh_nextappointmentdate() {
+ 		return (Timestamp) get_Value(COLUMNNAME_bh_nextappointmentdate);
+	}
+
+
+	/**
+	 * Set Occupation.
+	 *
+	 * @param bh_occupation Occupation
+	 */
+	public void setbh_occupation(String bh_occupation) {
+		set_Value(COLUMNNAME_bh_occupation, bh_occupation);
+	}
+
+
+	/**
+	 * Get Occupation.
+	 *
+	 * @return Occupation
+	 */
+	public String getbh_occupation() {
+ 		return (String) get_Value(COLUMNNAME_bh_occupation);
+	}
+
+
+	/**
+	 * Set Patient ID.
+	 *
+	 * @param BH_PatientID A unique identifier for users to manually enter
+	 */
+	public void setBH_PatientID(String BH_PatientID) {
+		set_Value(COLUMNNAME_BH_PatientID, BH_PatientID);
+	}
+
+
+	/**
+	 * Get Patient ID.
+	 *
+	 * @return A unique identifier for users to manually enter
+	 */
+	public String getBH_PatientID() {
+ 		return (String) get_Value(COLUMNNAME_BH_PatientID);
+	}
+
+
+	/**
+	 * Set Phone.
+	 *
+	 * @param BH_Phone Identifies a telephone number
+	 */
+	public void setBH_Phone(String BH_Phone) {
+		set_Value(COLUMNNAME_BH_Phone, BH_Phone);
+	}
+
+
+	/**
+	 * Get Phone.
+	 *
+	 * @return Identifies a telephone number
+	 */
+	public String getBH_Phone() {
+ 		return (String) get_Value(COLUMNNAME_BH_Phone);
+	}
+
+
+	/**
 	 * Set Business Partner Group.
 	 *
 	 * @param C_BP_Group Business Partner Group
@@ -166,6 +429,17 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 */
 	public I_C_BP_GroupInput getC_BP_Group() {
 		return C_BP_Group;
+	}
+	/**
+	 * Set Business Partner .
+	 *
+	 * @param C_BPartner_ID Identifies a Business Partner
+	 */
+
+	public void setC_BPartner_ID(int C_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_ID(C_BPartner_ID);
+		}
 	}
 
 	/**
@@ -293,6 +567,17 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	public I_C_PaymentTermInput getC_PaymentTerm() {
 		return C_PaymentTerm;
 	}
+	/**
+	 * Set Payment Term.
+	 *
+	 * @param C_PaymentTerm_ID The terms of Payment (timing, discount)
+	 */
+
+	public void setC_PaymentTerm_ID(int C_PaymentTerm_ID) {
+		if (get_ID() == 0) {
+			super.setC_PaymentTerm_ID(C_PaymentTerm_ID);
+		}
+	}
 
 	/**
 	 * Set Tax Group.
@@ -346,6 +631,17 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 */
 	public I_C_1099BoxInput getDefault1099Box() {
 		return Default1099Box;
+	}
+	/**
+	 * Set Default 1099 Box.
+	 *
+	 * @param Default1099Box_ID Default 1099 Box
+	 */
+
+	public void setDefault1099Box_ID(int Default1099Box_ID) {
+		if (get_ID() == 0) {
+			super.setDefault1099Box_ID(Default1099Box_ID);
+		}
 	}
 
 	/**
@@ -455,6 +751,17 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	public I_AD_PrintFormatInput getInvoice_PrintFormat() {
 		return Invoice_PrintFormat;
 	}
+	/**
+	 * Set Invoice Print Format.
+	 *
+	 * @param Invoice_PrintFormat_ID Print Format for printing Invoices
+	 */
+
+	public void setInvoice_PrintFormat_ID(int Invoice_PrintFormat_ID) {
+		if (get_ID() == 0) {
+			super.setInvoice_PrintFormat_ID(Invoice_PrintFormat_ID);
+		}
+	}
 
 	/**
 	 * Set Invoice Rule.
@@ -536,6 +843,17 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	public I_M_DiscountSchemaInput getM_DiscountSchema() {
 		return M_DiscountSchema;
 	}
+	/**
+	 * Set Discount Schema.
+	 *
+	 * @param M_DiscountSchema_ID Schema to calculate the trade discount percentage
+	 */
+
+	public void setM_DiscountSchema_ID(int M_DiscountSchema_ID) {
+		if (get_ID() == 0) {
+			super.setM_DiscountSchema_ID(M_DiscountSchema_ID);
+		}
+	}
 
 	/**
 	 * Set Price List.
@@ -563,6 +881,66 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	public I_M_PriceListInput getM_PriceList() {
 		return M_PriceList;
 	}
+
+	/**
+	 * Set NationalID.
+	 *
+	 * @param NationalID Patient Identity number
+	 */
+	public void setNationalID(String NationalID) {
+		set_Value(COLUMNNAME_NationalID, NationalID);
+	}
+
+
+	/**
+	 * Get NationalID.
+	 *
+	 * @return Patient Identity number
+	 */
+	public String getNationalID() {
+ 		return (String) get_Value(COLUMNNAME_NationalID);
+	}
+
+
+	/**
+	 * Set Next of Kin Contact.
+	 *
+	 * @param NextOfKin_Contact Next of Kin Contact
+	 */
+	public void setNextOfKin_Contact(String NextOfKin_Contact) {
+		set_Value(COLUMNNAME_NextOfKin_Contact, NextOfKin_Contact);
+	}
+
+
+	/**
+	 * Get Next of Kin Contact.
+	 *
+	 * @return Next of Kin Contact
+	 */
+	public String getNextOfKin_Contact() {
+ 		return (String) get_Value(COLUMNNAME_NextOfKin_Contact);
+	}
+
+
+	/**
+	 * Set Next of Kin Name.
+	 *
+	 * @param NextOfKin_Name Next of Kin Name
+	 */
+	public void setNextOfKin_Name(String NextOfKin_Name) {
+		set_Value(COLUMNNAME_NextOfKin_Name, NextOfKin_Name);
+	}
+
+
+	/**
+	 * Get Next of Kin Name.
+	 *
+	 * @return Next of Kin Name
+	 */
+	public String getNextOfKin_Name() {
+ 		return (String) get_Value(COLUMNNAME_NextOfKin_Name);
+	}
+
 
 	/**
 	 * Set Payment Rule.
@@ -644,6 +1022,17 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	public I_M_DiscountSchemaInput getPO_DiscountSchema() {
 		return PO_DiscountSchema;
 	}
+	/**
+	 * Set PO Discount Schema.
+	 *
+	 * @param PO_DiscountSchema_ID Schema to calculate the purchase trade discount percentage
+	 */
+
+	public void setPO_DiscountSchema_ID(int PO_DiscountSchema_ID) {
+		if (get_ID() == 0) {
+			super.setPO_DiscountSchema_ID(PO_DiscountSchema_ID);
+		}
+	}
 
 	/**
 	 * Set PO Payment Term.
@@ -671,6 +1060,17 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	public I_C_PaymentTermInput getPO_PaymentTerm() {
 		return PO_PaymentTerm;
 	}
+	/**
+	 * Set PO Payment Term.
+	 *
+	 * @param PO_PaymentTerm_ID Payment rules for a purchase order
+	 */
+
+	public void setPO_PaymentTerm_ID(int PO_PaymentTerm_ID) {
+		if (get_ID() == 0) {
+			super.setPO_PaymentTerm_ID(PO_PaymentTerm_ID);
+		}
+	}
 
 	/**
 	 * Set Purchase Pricelist.
@@ -697,6 +1097,17 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 */
 	public I_M_PriceListInput getPO_PriceList() {
 		return PO_PriceList;
+	}
+	/**
+	 * Set Purchase Pricelist.
+	 *
+	 * @param PO_PriceList_ID Price List used by this Business Partner
+	 */
+
+	public void setPO_PriceList_ID(int PO_PriceList_ID) {
+		if (get_ID() == 0) {
+			super.setPO_PriceList_ID(PO_PriceList_ID);
+		}
 	}
 
 	/**
@@ -726,10 +1137,22 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		return SalesRep;
 	}
 	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep_ID Sales Representative or Company Agent
+	 */
+
+	public void setSalesRep_ID(int SalesRep_ID) {
+		if (get_ID() == 0) {
+			super.setSalesRep_ID(SalesRep_ID);
+		}
+	}
+	/**
 	 * Set Credit Used.
 	 *
 	 * @param SO_CreditUsed Current open balance
 	 */
+
 	public void setSO_CreditUsed(BigDecimal SO_CreditUsed) {
 		if (get_ID() == 0) {
 			super.setSO_CreditUsed(SO_CreditUsed);

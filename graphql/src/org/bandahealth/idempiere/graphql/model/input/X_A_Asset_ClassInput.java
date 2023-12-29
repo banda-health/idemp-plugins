@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MAssetClass;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Class;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_ClassInput extends MAssetClass implements I_A_Asset_ClassInput {
+public class X_A_Asset_ClassInput extends X_A_Asset_Class implements I_A_Asset_ClassInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -22,6 +22,17 @@ public class X_A_Asset_ClassInput extends MAssetClass implements I_A_Asset_Class
 	public X_A_Asset_ClassInput(String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
+	}
+	/**
+	 * Set Asset class.
+	 *
+	 * @param A_Asset_Class_ID Asset class
+	 */
+
+	public void setA_Asset_Class_ID(int A_Asset_Class_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Class_ID(A_Asset_Class_ID);
+		}
 	}
 
 	/**
@@ -71,6 +82,7 @@ public class X_A_Asset_ClassInput extends MAssetClass implements I_A_Asset_Class
 	 *
 	 * @param Description Optional short description of the record
 	 */
+
 	public void setDescription(String Description) {
 		if (get_ID() == 0) {
 			super.setDescription(Description);

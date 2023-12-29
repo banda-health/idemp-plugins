@@ -4,13 +4,13 @@ import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MChart;
-import org.compiere.model.MDashboardContent;
 import org.compiere.model.MGoal;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
+import org.compiere.model.X_PA_DashboardContent;
 import org.compiere.util.Env;
 
 /**
@@ -19,7 +19,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_DashboardContentInput extends MDashboardContent implements I_PA_DashboardContentInput {
+public class X_PA_DashboardContentInput extends X_PA_DashboardContent implements I_PA_DashboardContentInput {
 
 	 private I_AD_ChartInput AD_Chart;
 	 private I_AD_OrgInput AD_Org;
@@ -223,6 +223,17 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 */
 	public I_AD_Ref_ListInput getGoalDisplay_RL() {
 		return GoalDisplay_RL;
+	}
+	/**
+	 * Set Dashboard Content.
+	 *
+	 * @param PA_DashboardContent_ID Dashboard Content
+	 */
+
+	public void setPA_DashboardContent_ID(int PA_DashboardContent_ID) {
+		if (get_ID() == 0) {
+			super.setPA_DashboardContent_ID(PA_DashboardContent_ID);
+		}
 	}
 
 	/**

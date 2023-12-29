@@ -1,12 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLotCtl;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_AttributeSet;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_AttributeSetInput {
+public class X_M_AttributeSetInput extends X_M_AttributeSet implements I_M_AttributeSetInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput M_AttributeSet_Type_RL;
@@ -54,6 +54,44 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+
+	/**
+	 * Set BH_Locked.
+	 *
+	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public void setBH_Locked(boolean BH_Locked) {
+		set_Value(COLUMNNAME_BH_Locked, BH_Locked);
+	}
+
+
+	/**
+	 * Get BH_Locked.
+	 *
+	 * @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	public boolean isBH_Locked() {
+ 		Object columnValue = get_Value(COLUMNNAME_BH_Locked);
+		if (columnValue != null) {
+			if (columnValue instanceof Boolean) {
+				return ((Boolean) columnValue);
+			}
+			return "Y".equals(columnValue);
+		}
+		return false;
+	}
+
+	/**
+	 * Set Attribute Set.
+	 *
+	 * @param M_AttributeSet_ID Product Attribute Set
+	 */
+
+	public void setM_AttributeSet_ID(int M_AttributeSet_ID) {
+		if (get_ID() == 0) {
+			super.setM_AttributeSet_ID(M_AttributeSet_ID);
+		}
 	}
 
 	/**

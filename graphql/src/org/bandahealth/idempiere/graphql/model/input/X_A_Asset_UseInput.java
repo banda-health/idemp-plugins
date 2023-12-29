@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
-import org.compiere.model.MAssetUse;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Use;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_UseInput extends MAssetUse implements I_A_Asset_UseInput {
+public class X_A_Asset_UseInput extends X_A_Asset_Use implements I_A_Asset_UseInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_A_AssetInput A_Asset;
@@ -49,6 +49,28 @@ public class X_A_Asset_UseInput extends MAssetUse implements I_A_Asset_UseInput 
 	 */
 	public I_A_AssetInput getA_Asset() {
 		return A_Asset;
+	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
+	}
+	/**
+	 * Set A_Asset_Use_ID.
+	 *
+	 * @param A_Asset_Use_ID A_Asset_Use_ID
+	 */
+
+	public void setA_Asset_Use_ID(int A_Asset_Use_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Use_ID(A_Asset_Use_ID);
+		}
 	}
 
 	/**

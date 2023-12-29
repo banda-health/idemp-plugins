@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.MBHVoidedReason;
+import org.bandahealth.idempiere.base.model.X_BH_Voided_Reason;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_BH_Voided_ReasonInput extends MBHVoidedReason implements I_BH_Voided_ReasonInput {
+public class X_BH_Voided_ReasonInput extends X_BH_Voided_Reason implements I_BH_Voided_ReasonInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,5 +47,34 @@ public class X_BH_Voided_ReasonInput extends MBHVoidedReason implements I_BH_Voi
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set BH_Voided_Reason_ID.
+	 *
+	 * @param BH_Voided_Reason_ID BH_Voided_Reason_ID
+	 */
+
+	public void setBH_Voided_Reason_ID(int BH_Voided_Reason_ID) {
+		if (get_ID() == 0) {
+			super.setBH_Voided_Reason_ID(BH_Voided_Reason_ID);
+		}
+	}
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	public void setID(String ID) {
+		setBH_Voided_Reason_UU(ID);
+	}
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	public String getID() {
+		return getBH_Voided_Reason_UU();
 	}
 }

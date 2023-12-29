@@ -4,11 +4,11 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCurrency;
-import org.compiere.model.MDepreciationEntry;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Depreciation_Entry;
 import org.compiere.util.Env;
 
 /**
@@ -17,13 +17,12 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I_A_Depreciation_EntryInput {
+public class X_A_Depreciation_EntryInput extends X_A_Depreciation_Entry implements I_A_Depreciation_EntryInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput A_Entry_Type_RL;
 	 private I_AD_Ref_ListInput DocAction_RL;
 	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput Posted_RL;
 	 private I_AD_Ref_ListInput PostingType_RL;
 	 private I_C_AcctSchemaInput C_AcctSchema;
 	 private I_C_CurrencyInput C_Currency;
@@ -36,6 +35,17 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public X_A_Depreciation_EntryInput(String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
+	}
+	/**
+	 * Set Depreciation Entry.
+	 *
+	 * @param A_Depreciation_Entry_ID Depreciation Entry
+	 */
+
+	public void setA_Depreciation_Entry_ID(int A_Depreciation_Entry_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Entry_ID(A_Depreciation_Entry_ID);
+		}
 	}
 
 	/**
@@ -217,6 +227,17 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public I_C_PeriodInput getC_Period() {
 		return C_Period;
 	}
+	/**
+	 * Set Period.
+	 *
+	 * @param C_Period_ID Period of the Calendar
+	 */
+
+	public void setC_Period_ID(int C_Period_ID) {
+		if (get_ID() == 0) {
+			super.setC_Period_ID(C_Period_ID);
+		}
+	}
 
 	/**
 	 * Set Document Action.
@@ -271,32 +292,16 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public I_AD_Ref_ListInput getDocStatus_RL() {
 		return DocStatus_RL;
 	}
-
 	/**
 	 * Set Posted.
 	 *
-	 * @param Posted_RL Posting status
+	 * @param Posted Posting status
 	 */
-	public void setPosted_RL(I_AD_Ref_ListInput Posted_RL) {
-		this.Posted_RL = Posted_RL;
-		MRefList foreignEntity;
-		if (Posted_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Posted_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPosted(foreignEntity.getValue());
-		} else {
-			this.setPosted(null);
-		}
-	}
 
-	/**
-	 * Get Posted.
-	 *
-	 * @return Posting status
-	 */
-	public I_AD_Ref_ListInput getPosted_RL() {
-		return Posted_RL;
+	public void setPosted(boolean Posted) {
+		if (get_ID() == 0) {
+			super.setPosted(Posted);
+		}
 	}
 
 	/**

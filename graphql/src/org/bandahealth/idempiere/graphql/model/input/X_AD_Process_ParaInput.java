@@ -5,10 +5,10 @@ import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MProcessPara;
 import org.compiere.model.MValRule;
 import org.compiere.model.M_Element;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Process_Para;
 import org.compiere.util.Env;
 
 /**
@@ -17,7 +17,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process_ParaInput {
+public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Process_ParaInput {
 
 	 private I_AD_ElementInput AD_Element;
 	 private I_AD_EntityTypeInput AD_EntityType;
@@ -111,6 +111,28 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	public I_AD_ProcessInput getAD_Process() {
 		return AD_Process;
 	}
+	/**
+	 * Set Process.
+	 *
+	 * @param AD_Process_ID Process or Report
+	 */
+
+	public void setAD_Process_ID(int AD_Process_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Process_ID(AD_Process_ID);
+		}
+	}
+	/**
+	 * Set Process Parameter.
+	 *
+	 * @param AD_Process_Para_ID Process Parameter
+	 */
+
+	public void setAD_Process_Para_ID(int AD_Process_Para_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Process_Para_ID(AD_Process_Para_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -156,6 +178,17 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	public I_AD_ReferenceInput getAD_Reference() {
 		return AD_Reference;
 	}
+	/**
+	 * Set Reference.
+	 *
+	 * @param AD_Reference_ID System Reference and Validation
+	 */
+
+	public void setAD_Reference_ID(int AD_Reference_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Reference_ID(AD_Reference_ID);
+		}
+	}
 
 	/**
 	 * Set Reference Key.
@@ -182,6 +215,17 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 */
 	public I_AD_ReferenceInput getAD_Reference_Value() {
 		return AD_Reference_Value;
+	}
+	/**
+	 * Set Reference Key.
+	 *
+	 * @param AD_Reference_Value_ID Required to specify, if data type is Table or List
+	 */
+
+	public void setAD_Reference_Value_ID(int AD_Reference_Value_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Reference_Value_ID(AD_Reference_Value_ID);
+		}
 	}
 
 	/**
@@ -223,9 +267,9 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -236,5 +280,16 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 }

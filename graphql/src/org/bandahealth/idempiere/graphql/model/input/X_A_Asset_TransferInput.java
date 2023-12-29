@@ -1,15 +1,15 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAsset;
-import org.compiere.model.MAssetAcct;
-import org.compiere.model.MAssetTransfer;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Transfer;
 import org.compiere.util.Env;
 
 /**
@@ -18,16 +18,14 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset_TransferInput {
+public class X_A_Asset_TransferInput extends X_A_Asset_Transfer implements I_A_Asset_TransferInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput A_CapvsExp_RL;
 	 private I_AD_Ref_ListInput DocAction_RL;
 	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput Posted_RL;
 	 private I_AD_Ref_ListInput PostingType_RL;
 	 private I_A_AssetInput A_Asset;
-	 private I_A_Asset_AcctInput A_Asset_Acct;
 	 private I_C_AcctSchemaInput C_AcctSchema;
 	 private I_C_PeriodInput C_Period;
 	 private I_C_ValidCombinationInput A_Accumdepreciation_A;
@@ -74,10 +72,22 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 		return A_Accumdepreciation_A;
 	}
 	/**
+	 * Set Accumulated Depreciation Account.
+	 *
+	 * @param A_Accumdepreciation_Acct Accumulated Depreciation Account
+	 */
+
+	public void setA_Accumdepreciation_Acct(int A_Accumdepreciation_Acct) {
+		if (get_ID() == 0) {
+			super.setA_Accumdepreciation_Acct(A_Accumdepreciation_Acct);
+		}
+	}
+	/**
 	 * Set Old Asset Cost Acct.
 	 *
 	 * @param A_Accumdepreciation_Acct_Str Old Asset Cost Acct
 	 */
+
 	public void setA_Accumdepreciation_Acct_Str(String A_Accumdepreciation_Acct_Str) {
 		if (get_ID() == 0) {
 			super.setA_Accumdepreciation_Acct_Str(A_Accumdepreciation_Acct_Str);
@@ -135,38 +145,23 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public I_C_ValidCombinationInput getA_Asset_A() {
 		return A_Asset_A;
 	}
-
 	/**
-	 * Set A_Asset_Acct_ID.
+	 * Set Asset Acct.
 	 *
-	 * @param A_Asset_Acct A_Asset_Acct_ID
+	 * @param A_Asset_Acct Asset Acct
 	 */
-	public void setA_Asset_Acct(I_A_Asset_AcctInput A_Asset_Acct) {
-		this.A_Asset_Acct = A_Asset_Acct;
-		MAssetAcct foreignEntity;
-		if (A_Asset_Acct != null &&
-				(foreignEntity = new Query(getCtx(), MAssetAcct.Table_Name, MAssetAcct.COLUMNNAME_A_Asset_Acct_UU + "=?", get_TrxName())
-						.setParameters(A_Asset_Acct.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_Acct_ID(foreignEntity.get_ID());
-		} else {
-			this.setA_Asset_Acct_ID(0);
+
+	public void setA_Asset_Acct(int A_Asset_Acct) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Acct(A_Asset_Acct);
 		}
-	}
-
-	/**
-	 * Get A_Asset_Acct_ID.
-	 *
-	 * @return A_Asset_Acct_ID
-	 */
-	public I_A_Asset_AcctInput getA_Asset_Acct() {
-		return A_Asset_Acct;
 	}
 	/**
 	 * Set A_Asset_Acct_Str.
 	 *
 	 * @param A_Asset_Acct_Str A_Asset_Acct_Str
 	 */
+
 	public void setA_Asset_Acct_Str(String A_Asset_Acct_Str) {
 		if (get_ID() == 0) {
 			super.setA_Asset_Acct_Str(A_Asset_Acct_Str);
@@ -197,6 +192,17 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public I_A_AssetInput getA_Asset() {
 		return A_Asset;
 	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
+	}
 
 	/**
 	 * Set Asset Acct (new).
@@ -223,6 +229,17 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 */
 	public I_C_ValidCombinationInput getA_Asset_New_A() {
 		return A_Asset_New_A;
+	}
+	/**
+	 * Set A_Asset_Transfer_ID.
+	 *
+	 * @param A_Asset_Transfer_ID A_Asset_Transfer_ID
+	 */
+
+	public void setA_Asset_Transfer_ID(int A_Asset_Transfer_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Transfer_ID(A_Asset_Transfer_ID);
+		}
 	}
 
 	/**
@@ -295,10 +312,22 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 		return A_Depreciation_A;
 	}
 	/**
+	 * Set Depreciation Account.
+	 *
+	 * @param A_Depreciation_Acct Depreciation Account
+	 */
+
+	public void setA_Depreciation_Acct(int A_Depreciation_Acct) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Acct(A_Depreciation_Acct);
+		}
+	}
+	/**
 	 * Set A_Depreciation_Acct_Str.
 	 *
 	 * @param A_Depreciation_Acct_Str A_Depreciation_Acct_Str
 	 */
+
 	public void setA_Depreciation_Acct_Str(String A_Depreciation_Acct_Str) {
 		if (get_ID() == 0) {
 			super.setA_Depreciation_Acct_Str(A_Depreciation_Acct_Str);
@@ -356,6 +385,17 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public I_C_ValidCombinationInput getA_Disposal_Loss_A() {
 		return A_Disposal_Loss_A;
 	}
+	/**
+	 * Set Disposal Loss Acct.
+	 *
+	 * @param A_Disposal_Loss_Acct Disposal Loss Acct
+	 */
+
+	public void setA_Disposal_Loss_Acct(int A_Disposal_Loss_Acct) {
+		if (get_ID() == 0) {
+			super.setA_Disposal_Loss_Acct(A_Disposal_Loss_Acct);
+		}
+	}
 
 	/**
 	 * Set Disposal Loss Acct (new).
@@ -388,6 +428,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Disposal_Loss_Str Disposal Loss Str
 	 */
+
 	public void setA_Disposal_Loss_Str(String A_Disposal_Loss_Str) {
 		if (get_ID() == 0) {
 			super.setA_Disposal_Loss_Str(A_Disposal_Loss_Str);
@@ -417,6 +458,17 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 */
 	public I_C_ValidCombinationInput getA_Disposal_Revenue_A() {
 		return A_Disposal_Revenue_A;
+	}
+	/**
+	 * Set Disposal Revenue Acct.
+	 *
+	 * @param A_Disposal_Revenue_Acct Disposal Revenue Acct
+	 */
+
+	public void setA_Disposal_Revenue_Acct(int A_Disposal_Revenue_Acct) {
+		if (get_ID() == 0) {
+			super.setA_Disposal_Revenue_Acct(A_Disposal_Revenue_Acct);
+		}
 	}
 
 	/**
@@ -450,6 +502,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Disposal_Revenue_Str Disposal Revenue Str
 	 */
+
 	public void setA_Disposal_Revenue_Str(String A_Disposal_Revenue_Str) {
 		if (get_ID() == 0) {
 			super.setA_Disposal_Revenue_Str(A_Disposal_Revenue_Str);
@@ -460,6 +513,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Period_End A_Period_End
 	 */
+
 	public void setA_Period_End(int A_Period_End) {
 		if (get_ID() == 0) {
 			super.setA_Period_End(A_Period_End);
@@ -470,6 +524,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Period_Start A_Period_Start
 	 */
+
 	public void setA_Period_Start(int A_Period_Start) {
 		if (get_ID() == 0) {
 			super.setA_Period_Start(A_Period_Start);
@@ -480,6 +535,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 *
 	 * @param A_Split_Percent Split Percent
 	 */
+
 	public void setA_Split_Percent(BigDecimal A_Split_Percent) {
 		if (get_ID() == 0) {
 			super.setA_Split_Percent(A_Split_Percent);
@@ -535,6 +591,17 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public I_C_AcctSchemaInput getC_AcctSchema() {
 		return C_AcctSchema;
 	}
+	/**
+	 * Set Accounting Schema.
+	 *
+	 * @param C_AcctSchema_ID Rules for accounting
+	 */
+
+	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
+		if (get_ID() == 0) {
+			super.setC_AcctSchema_ID(C_AcctSchema_ID);
+		}
+	}
 
 	/**
 	 * Set Period.
@@ -561,6 +628,17 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 */
 	public I_C_PeriodInput getC_Period() {
 		return C_Period;
+	}
+	/**
+	 * Set Period.
+	 *
+	 * @param C_Period_ID Period of the Calendar
+	 */
+
+	public void setC_Period_ID(int C_Period_ID) {
+		if (get_ID() == 0) {
+			super.setC_Period_ID(C_Period_ID);
+		}
 	}
 
 	/**
@@ -616,32 +694,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public I_AD_Ref_ListInput getDocStatus_RL() {
 		return DocStatus_RL;
 	}
-
 	/**
 	 * Set Posted.
 	 *
-	 * @param Posted_RL Posting status
+	 * @param Posted Posting status
 	 */
-	public void setPosted_RL(I_AD_Ref_ListInput Posted_RL) {
-		this.Posted_RL = Posted_RL;
-		MRefList foreignEntity;
-		if (Posted_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Posted_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPosted(foreignEntity.getValue());
-		} else {
-			this.setPosted(null);
-		}
-	}
 
-	/**
-	 * Get Posted.
-	 *
-	 * @return Posting status
-	 */
-	public I_AD_Ref_ListInput getPosted_RL() {
-		return Posted_RL;
+	public void setPosted(boolean Posted) {
+		if (get_ID() == 0) {
+			super.setPosted(Posted);
+		}
 	}
 
 	/**

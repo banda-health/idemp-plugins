@@ -116,10 +116,10 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 
 	static Map<String, String> DELIVERYCONFIRMATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MPackage.DELIVERYCONFIRMATIONTYPE_Adult, "a1a27ca4-c532-43ed-b0e5-62354ac6e929");
-			put(MPackage.DELIVERYCONFIRMATIONTYPE_Direct, "1dae42a8-7890-455a-b8eb-dda7099364cd");
-			put(MPackage.DELIVERYCONFIRMATIONTYPE_Indirect, "c1bc3cc6-ecae-46b8-8536-788aaaf7357e");
-			put(MPackage.DELIVERYCONFIRMATIONTYPE_ServiceDefault, "fb3f11bc-3d34-4e1d-8cb9-eb84a39771e3");
+			put("ADULT", "a1a27ca4-c532-43ed-b0e5-62354ac6e929");
+			put("DIRECT", "1dae42a8-7890-455a-b8eb-dda7099364cd");
+			put("INDIRECT", "c1bc3cc6-ecae-46b8-8536-788aaaf7357e");
+			put("SERVICE_DEFAULT", "fb3f11bc-3d34-4e1d-8cb9-eb84a39771e3");
 		}
 	};
 	public CompletableFuture<MRefList> DeliveryConfirmationType_RL(MPackage entity, DataFetchingEnvironment environment) {
@@ -133,24 +133,24 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 
 	static Map<String, String> DOTHAZARDCLASSORDIVISION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MPackage.DOTHAZARDCLASSORDIVISION_Class1_Explosives, "04881489-2fb4-4f4e-b67e-245510d8ab06");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_Class2_Gases, "58c7f256-84d9-416b-8031-b6a48830eb21");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_21_FlammableGas, "5574e931-91d8-4684-974c-93956c78e17d");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_22_NonflammableGas, "e52ea532-1ea9-49eb-9ab2-70e80007076c");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_Class3_FlammableLiquids, "78a27540-58a8-4cf7-b662-0837f06d6382");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_Class4, "31439946-f315-44fd-91d7-0b15e9bf9844");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_41_FlammableSolids, "5eddf289-3be4-4326-bfe8-846fa4b55463");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_42_SpontaneousCombustibles, "eba0280d-3caf-462e-9a74-5ffc9faa263e");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_43_DangerousWhenWet, "86119219-f3f5-4738-bb70-e1977f59877b");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_Class5_OxidizingSubstancesAndOrganicPeroxides, "2379190e-85d5-4e9b-abc6-374a76d977e7");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_51_Oxidizers, "23892cbd-b3c1-4629-b639-ed84cda9367a");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_52_OrganicPeroxides, "2c0d0d79-0692-4ddb-b1ae-4c39ac0f2189");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_Class6_ToxicPoisonousAndInfectiousSubstances, "825615c9-b2d4-4c8a-8e8f-b68b130aad74");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_61_ToxicSubstances, "e6379aa4-79ac-467c-8220-121e902d8b42");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_62_InfectiousSubstances, "a5a9d59a-c050-49f1-8632-0f537edab36f");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_Class7_RadioactiveMaterial, "7ae8b1dc-4a6d-4e27-a36a-d655181bd7e8");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_Class8_Corrosives, "5a8461bb-3888-4d06-8ea0-3bb161d61415");
-			put(MPackage.DOTHAZARDCLASSORDIVISION_Class9_MiscellaneousDangerousGoods, "1f69e16e-f4a1-4d3d-beb2-772951cfa99a");
+			put("1", "04881489-2fb4-4f4e-b67e-245510d8ab06");
+			put("2", "58c7f256-84d9-416b-8031-b6a48830eb21");
+			put("2.1", "5574e931-91d8-4684-974c-93956c78e17d");
+			put("2.2", "e52ea532-1ea9-49eb-9ab2-70e80007076c");
+			put("3", "78a27540-58a8-4cf7-b662-0837f06d6382");
+			put("4", "31439946-f315-44fd-91d7-0b15e9bf9844");
+			put("4.1", "5eddf289-3be4-4326-bfe8-846fa4b55463");
+			put("4.2", "eba0280d-3caf-462e-9a74-5ffc9faa263e");
+			put("4.3", "86119219-f3f5-4738-bb70-e1977f59877b");
+			put("5", "2379190e-85d5-4e9b-abc6-374a76d977e7");
+			put("5.1", "23892cbd-b3c1-4629-b639-ed84cda9367a");
+			put("5.2", "2c0d0d79-0692-4ddb-b1ae-4c39ac0f2189");
+			put("6", "825615c9-b2d4-4c8a-8e8f-b68b130aad74");
+			put("6.1", "e6379aa4-79ac-467c-8220-121e902d8b42");
+			put("6.2", "a5a9d59a-c050-49f1-8632-0f537edab36f");
+			put("7", "7ae8b1dc-4a6d-4e27-a36a-d655181bd7e8");
+			put("8", "5a8461bb-3888-4d06-8ea0-3bb161d61415");
+			put("9", "1f69e16e-f4a1-4d3d-beb2-772951cfa99a");
 		}
 	};
 	public CompletableFuture<MRefList> DotHazardClassOrDivision_RL(MPackage entity, DataFetchingEnvironment environment) {
@@ -179,9 +179,9 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 
 	static Map<String, String> HOMEDELIVERYPREMIUMTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MPackage.HOMEDELIVERYPREMIUMTYPE_Appointment, "fba057eb-ce4d-4af4-b956-a1cf2c759a16");
-			put(MPackage.HOMEDELIVERYPREMIUMTYPE_DateCertain, "28903fcd-9f63-4fe4-9f07-2325c5eb74e9");
-			put(MPackage.HOMEDELIVERYPREMIUMTYPE_Evening, "c9af6b66-e0d9-4bf2-bb94-d0e91c15b572");
+			put("APPOINTMENT", "fba057eb-ce4d-4af4-b956-a1cf2c759a16");
+			put("DATE_CERTAIN", "28903fcd-9f63-4fe4-9f07-2325c5eb74e9");
+			put("EVENING", "c9af6b66-e0d9-4bf2-bb94-d0e91c15b572");
 		}
 	};
 	public CompletableFuture<MRefList> HomeDeliveryPremiumType_RL(MPackage entity, DataFetchingEnvironment environment) {
@@ -270,9 +270,9 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 
 	static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MPackage.NOTIFICATIONTYPE_Recipient, "87002ef2-dd55-4bed-8142-f3637e392a88");
-			put(MPackage.NOTIFICATIONTYPE_RecipientSender, "98057d6b-739c-44a1-8be6-9476830cd3bb");
-			put(MPackage.NOTIFICATIONTYPE_Sender, "b7b3d7c7-de4a-40ae-94f6-076b6258fa62");
+			put("RE", "87002ef2-dd55-4bed-8142-f3637e392a88");
+			put("RS", "98057d6b-739c-44a1-8be6-9476830cd3bb");
+			put("SE", "b7b3d7c7-de4a-40ae-94f6-076b6258fa62");
 		}
 	};
 	public CompletableFuture<MRefList> NotificationType_RL(MPackage entity, DataFetchingEnvironment environment) {
@@ -286,15 +286,15 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 
 	static Map<String, String> PAYMENTRULE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MPackage.PAYMENTRULE_Cash, "917130e3-2144-496c-9344-6cf4f7136293");
-			put(MPackage.PAYMENTRULE_CreditCard, "68dda00d-c015-498e-b91c-811bab809dab");
-			put(MPackage.PAYMENTRULE_DirectDeposit, "50bc3b86-6106-44df-88ee-1000243a9fcf");
-			put(MPackage.PAYMENTRULE_Check, "056e0d26-2ff4-41c6-bde6-b35d888e555e");
-			put(MPackage.PAYMENTRULE_OnCredit, "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
-			put(MPackage.PAYMENTRULE_DirectDebit, "2c5f0a44-1d35-4528-802f-9204e46be31e");
-			put(MPackage.PAYMENTRULE_MixedPOSPayment, "c9fff752-a38e-4679-bcec-61f330d1a6cb");
-			put(MPackage.PAYMENTRULE_MobileAccount, "c524815a-e048-4052-bab5-b7812e27cd64");
-			put(MPackage.PAYMENTRULE_CashDrawer, "72629357-494a-4cb3-aecf-807141f1968b");
+			put("B", "917130e3-2144-496c-9344-6cf4f7136293");
+			put("K", "68dda00d-c015-498e-b91c-811bab809dab");
+			put("T", "50bc3b86-6106-44df-88ee-1000243a9fcf");
+			put("S", "056e0d26-2ff4-41c6-bde6-b35d888e555e");
+			put("P", "fb2b6b8d-3288-4c3c-8d87-7521d4a5460a");
+			put("D", "2c5f0a44-1d35-4528-802f-9204e46be31e");
+			put("M", "c9fff752-a38e-4679-bcec-61f330d1a6cb");
+			put("A", "c524815a-e048-4052-bab5-b7812e27cd64");
+			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
 		}
 	};
 	public CompletableFuture<MRefList> PaymentRule_RL(MPackage entity, DataFetchingEnvironment environment) {

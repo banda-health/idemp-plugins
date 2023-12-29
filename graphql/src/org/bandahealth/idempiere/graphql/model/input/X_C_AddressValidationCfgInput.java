@@ -48,6 +48,17 @@ public class X_C_AddressValidationCfgInput extends X_C_AddressValidationCfg impl
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Address Validation Configuration.
+	 *
+	 * @param C_AddressValidationCfg_ID Address Validation Configuration
+	 */
+
+	public void setC_AddressValidationCfg_ID(int C_AddressValidationCfg_ID) {
+		if (get_ID() == 0) {
+			super.setC_AddressValidationCfg_ID(C_AddressValidationCfg_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

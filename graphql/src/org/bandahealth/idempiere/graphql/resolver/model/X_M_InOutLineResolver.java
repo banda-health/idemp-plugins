@@ -34,6 +34,8 @@ import org.compiere.model.MRMALine;
 import org.compiere.model.MUOM;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_InOutLine - DO NOT CHANGE
  *

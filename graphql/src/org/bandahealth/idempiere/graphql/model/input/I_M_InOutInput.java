@@ -53,6 +53,25 @@ public interface I_M_InOutInput extends I_M_InOut {
 	I_BH_VisitInput getBH_Visit();
 
 	/**
+	 * Column name BH_Visit_ID
+	 */
+	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
+
+	/**
+	 * Set Visit.
+	 *
+	 * @param BH_Visit_ID Visit
+	 */
+	public void setBH_Visit_ID(int BH_Visit_ID);
+
+	/**
+	 * Get Visit.
+	 *
+	 * @return Visit
+	 */
+	public int getBH_Visit_ID();
+
+	/**
 	 * Set C_Activity.
 	 *
 	 * @param C_Activity Business Activity
@@ -401,20 +420,6 @@ public interface I_M_InOutInput extends I_M_InOut {
 	 * @return Method of moving the inventory
 	 */
 	I_AD_Ref_ListInput getMovementType_RL();
-
-	/**
-	 * Set Posted_RL.
-	 *
-	 * @param Posted_RL Posting status
-	 */
-	void setPosted_RL(I_AD_Ref_ListInput Posted_RL);
-
-	/**
-	 * Get Posted_RL.
-	 *
-	 * @return Posting status
-	 */
-	I_AD_Ref_ListInput getPosted_RL();
 
 	/**
 	 * Set PriorityRule_RL.

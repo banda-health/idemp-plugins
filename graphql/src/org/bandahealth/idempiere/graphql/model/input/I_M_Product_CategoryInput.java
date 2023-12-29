@@ -53,6 +53,25 @@ public interface I_M_Product_CategoryInput extends I_M_Product_Category {
 	I_AD_PrintColorInput getAD_PrintColor();
 
 	/**
+	 * Column name BH_Product_Category_Type
+	 */
+	public static final String COLUMNNAME_BH_Product_Category_Type = "BH_Product_Category_Type";
+
+	/**
+	 * Set BH Product Category Type.
+	 *
+	 * @param BH_Product_Category_Type Contains a character the is linked to a ref list to determine types of product categories
+	 */
+	public void setBH_Product_Category_Type(String BH_Product_Category_Type);
+
+	/**
+	 * Get BH Product Category Type.
+	 *
+	 * @return Contains a character the is linked to a ref list to determine types of product categories
+	 */
+	public String getBH_Product_Category_Type();
+
+	/**
 	 * Set BH_Product_Category_Type_RL.
 	 *
 	 * @param BH_Product_Category_Type_RL Contains a character the is linked to a ref list to determine types of product categories

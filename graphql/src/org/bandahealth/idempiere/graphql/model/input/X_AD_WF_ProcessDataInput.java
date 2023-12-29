@@ -75,6 +75,28 @@ public class X_AD_WF_ProcessDataInput extends X_AD_WF_ProcessData implements I_A
 	public I_AD_WF_ProcessInput getAD_WF_Process() {
 		return AD_WF_Process;
 	}
+	/**
+	 * Set Workflow Process.
+	 *
+	 * @param AD_WF_Process_ID Actual Workflow Process Instance
+	 */
+
+	public void setAD_WF_Process_ID(int AD_WF_Process_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Process_ID(AD_WF_Process_ID);
+		}
+	}
+	/**
+	 * Set Workflow Process Data.
+	 *
+	 * @param AD_WF_ProcessData_ID Workflow Process Context
+	 */
+
+	public void setAD_WF_ProcessData_ID(int AD_WF_ProcessData_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_ProcessData_ID(AD_WF_ProcessData_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

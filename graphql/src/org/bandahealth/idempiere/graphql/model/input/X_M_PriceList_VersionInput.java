@@ -6,6 +6,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_PriceList_Version;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M_PriceList_VersionInput {
+public class X_M_PriceList_VersionInput extends X_M_PriceList_Version implements I_M_PriceList_VersionInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_M_DiscountSchemaInput M_DiscountSchema;
@@ -80,6 +81,17 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	public I_M_DiscountSchemaInput getM_DiscountSchema() {
 		return M_DiscountSchema;
 	}
+	/**
+	 * Set Discount Schema.
+	 *
+	 * @param M_DiscountSchema_ID Schema to calculate the trade discount percentage
+	 */
+
+	public void setM_DiscountSchema_ID(int M_DiscountSchema_ID) {
+		if (get_ID() == 0) {
+			super.setM_DiscountSchema_ID(M_DiscountSchema_ID);
+		}
+	}
 
 	/**
 	 * Set Price List.
@@ -104,6 +116,17 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 */
 	public I_M_PriceListInput getM_PriceList() {
 		return M_PriceList;
+	}
+	/**
+	 * Set Price List.
+	 *
+	 * @param M_PriceList_ID Unique identifier of a Price List
+	 */
+
+	public void setM_PriceList_ID(int M_PriceList_ID) {
+		if (get_ID() == 0) {
+			super.setM_PriceList_ID(M_PriceList_ID);
+		}
 	}
 
 	/**
@@ -131,6 +154,28 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 */
 	public I_M_PriceList_VersionInput getM_Pricelist_Version_Base() {
 		return M_Pricelist_Version_Base;
+	}
+	/**
+	 * Set Base Price List.
+	 *
+	 * @param M_Pricelist_Version_Base_ID Source for Price list calculations
+	 */
+
+	public void setM_Pricelist_Version_Base_ID(int M_Pricelist_Version_Base_ID) {
+		if (get_ID() == 0) {
+			super.setM_Pricelist_Version_Base_ID(M_Pricelist_Version_Base_ID);
+		}
+	}
+	/**
+	 * Set Price List Version.
+	 *
+	 * @param M_PriceList_Version_ID Identifies a unique instance of a Price List
+	 */
+
+	public void setM_PriceList_Version_ID(int M_PriceList_Version_ID) {
+		if (get_ID() == 0) {
+			super.setM_PriceList_Version_ID(M_PriceList_Version_ID);
+		}
 	}
 
 	/**

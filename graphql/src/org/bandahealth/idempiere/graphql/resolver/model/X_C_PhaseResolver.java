@@ -9,6 +9,8 @@ import org.compiere.model.MProjectType;
 import org.compiere.model.MProjectTypePhase;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_Phase - DO NOT CHANGE
  *

@@ -27,13 +27,13 @@ public class X_M_AttributeSetInstanceResolver extends POResolver<MAttributeSetIn
 
 	static Map<String, String> BH_UPDATE_REASON_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MAttributeSetInstance_BH.BH_UPDATE_REASON_DamagedProducts, "315319b8-c274-414c-bb87-6d2d3e9f2acf");
-			put(MAttributeSetInstance_BH.BH_UPDATE_REASON_ProductExpired, "9070547d-c818-49da-a406-edd3999f9e05");
-			put(MAttributeSetInstance_BH.BH_UPDATE_REASON_ProductsUsedButNotCharged, "3dc79710-4a2b-4b58-9c8f-d557cf180c49");
-			put(MAttributeSetInstance_BH.BH_UPDATE_REASON_LostOrStolenProducts, "044ba1a8-986a-46ec-baf6-4d6efcea1e48");
-			put(MAttributeSetInstance_BH.BH_UPDATE_REASON_SystemUnavailableAtSale, "ab87230f-f137-454c-bba2-cd3a60fab3cb");
-			put(MAttributeSetInstance_BH.BH_UPDATE_REASON_WrongQuantityReceived, "982d9571-dc08-4335-a379-041403048053");
-			put(MAttributeSetInstance_BH.BH_UPDATE_REASON_WrongExpirationReceived, "6936f0fa-bf26-4c24-a744-d398e458fd2e");
+			put("p_dmg", "315319b8-c274-414c-bb87-6d2d3e9f2acf");
+			put("p_exp", "9070547d-c818-49da-a406-edd3999f9e05");
+			put("p_unc", "3dc79710-4a2b-4b58-9c8f-d557cf180c49");
+			put("p_los", "044ba1a8-986a-46ec-baf6-4d6efcea1e48");
+			put("p_sna", "ab87230f-f137-454c-bba2-cd3a60fab3cb");
+			put("p_bqt", "982d9571-dc08-4335-a379-041403048053");
+			put("p_wer", "6936f0fa-bf26-4c24-a744-d398e458fd2e");
 		}
 	};
 	public CompletableFuture<MRefList> bh_update_reason_RL(MAttributeSetInstance_BH entity, DataFetchingEnvironment environment) {

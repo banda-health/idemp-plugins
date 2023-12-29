@@ -40,8 +40,8 @@ public class X_C_ElementResolver extends POResolver<MElement> implements GraphQL
 
 	static Map<String, String> ELEMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MElement.ELEMENTTYPE_Account, "56f0e1f5-78b1-4965-b423-5328ed649be1");
-			put(MElement.ELEMENTTYPE_UserDefined, "71e6a68d-1ec2-4d62-a5f3-81c725accd6d");
+			put("A", "56f0e1f5-78b1-4965-b423-5328ed649be1");
+			put("U", "71e6a68d-1ec2-4d62-a5f3-81c725accd6d");
 		}
 	};
 	public CompletableFuture<MRefList> ElementType_RL(MElement entity, DataFetchingEnvironment environment) {

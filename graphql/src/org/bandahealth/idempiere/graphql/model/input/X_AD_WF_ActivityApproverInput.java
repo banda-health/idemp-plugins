@@ -3,9 +3,9 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MWFActivityApprover;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_WF_Activity;
+import org.compiere.model.X_AD_WF_ActivityApprover;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implements I_AD_WF_ActivityApproverInput {
+public class X_AD_WF_ActivityApproverInput extends X_AD_WF_ActivityApprover implements I_AD_WF_ActivityApproverInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_UserInput AD_User;
@@ -103,6 +103,28 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	 */
 	public I_AD_WF_ActivityInput getAD_WF_Activity() {
 		return AD_WF_Activity;
+	}
+	/**
+	 * Set Workflow Activity.
+	 *
+	 * @param AD_WF_Activity_ID Workflow Activity
+	 */
+
+	public void setAD_WF_Activity_ID(int AD_WF_Activity_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Activity_ID(AD_WF_Activity_ID);
+		}
+	}
+	/**
+	 * Set Workflow Activity Approver.
+	 *
+	 * @param AD_WF_ActivityApprover_ID Workflow Activity Approver
+	 */
+
+	public void setAD_WF_ActivityApprover_ID(int AD_WF_ActivityApprover_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_ActivityApprover_ID(AD_WF_ActivityApprover_ID);
+		}
 	}
 
 	/**

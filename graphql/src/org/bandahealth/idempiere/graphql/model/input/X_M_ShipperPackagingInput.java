@@ -3,8 +3,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MShipper;
-import org.compiere.model.MShipperPackaging;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_ShipperPackaging;
 import org.compiere.model.X_M_ShipperPackagingCfg;
 import org.compiere.util.Env;
 
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_ShipperPackagingInput {
+public class X_M_ShipperPackagingInput extends X_M_ShipperPackaging implements I_M_ShipperPackagingInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_M_ShipperInput M_Shipper;
@@ -76,6 +76,28 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 	 */
 	public I_M_ShipperInput getM_Shipper() {
 		return M_Shipper;
+	}
+	/**
+	 * Set Shipper.
+	 *
+	 * @param M_Shipper_ID Method or manner of product delivery
+	 */
+
+	public void setM_Shipper_ID(int M_Shipper_ID) {
+		if (get_ID() == 0) {
+			super.setM_Shipper_ID(M_Shipper_ID);
+		}
+	}
+	/**
+	 * Set Shipper Packaging.
+	 *
+	 * @param M_ShipperPackaging_ID Shipper Packaging
+	 */
+
+	public void setM_ShipperPackaging_ID(int M_ShipperPackaging_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperPackaging_ID(M_ShipperPackaging_ID);
+		}
 	}
 
 	/**

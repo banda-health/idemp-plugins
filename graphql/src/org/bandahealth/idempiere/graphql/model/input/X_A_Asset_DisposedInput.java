@@ -4,12 +4,12 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
-import org.compiere.model.MAssetDisposed;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Disposed;
 import org.compiere.util.Env;
 
 /**
@@ -18,7 +18,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset_DisposedInput {
+public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_Asset_DisposedInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput A_Activation_Method_RL;
@@ -27,7 +27,6 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 private I_AD_Ref_ListInput A_Disposed_Reason_RL;
 	 private I_AD_Ref_ListInput DocAction_RL;
 	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput Posted_RL;
 	 private I_AD_Ref_ListInput PostingType_RL;
 	 private I_A_AssetInput A_Asset;
 	 private I_A_AssetInput A_Asset_Trade;
@@ -69,6 +68,17 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 */
 	public I_AD_Ref_ListInput getA_Activation_Method_RL() {
 		return A_Activation_Method_RL;
+	}
+	/**
+	 * Set Asset Disposed.
+	 *
+	 * @param A_Asset_Disposed_ID Asset Disposed
+	 */
+
+	public void setA_Asset_Disposed_ID(int A_Asset_Disposed_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Disposed_ID(A_Asset_Disposed_ID);
+		}
 	}
 
 	/**
@@ -168,6 +178,17 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 */
 	public I_A_AssetInput getA_Asset_Trade() {
 		return A_Asset_Trade;
+	}
+	/**
+	 * Set Asset Trade.
+	 *
+	 * @param A_Asset_Trade_ID Asset Trade
+	 */
+
+	public void setA_Asset_Trade_ID(int A_Asset_Trade_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Trade_ID(A_Asset_Trade_ID);
+		}
 	}
 
 	/**
@@ -358,6 +379,17 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	public I_C_PeriodInput getC_Period() {
 		return C_Period;
 	}
+	/**
+	 * Set Period.
+	 *
+	 * @param C_Period_ID Period of the Calendar
+	 */
+
+	public void setC_Period_ID(int C_Period_ID) {
+		if (get_ID() == 0) {
+			super.setC_Period_ID(C_Period_ID);
+		}
+	}
 
 	/**
 	 * Set Document Action.
@@ -417,37 +449,22 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
+
 	public void setDocumentNo(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
 		}
 	}
-
 	/**
 	 * Set Posted.
 	 *
-	 * @param Posted_RL Posting status
+	 * @param Posted Posting status
 	 */
-	public void setPosted_RL(I_AD_Ref_ListInput Posted_RL) {
-		this.Posted_RL = Posted_RL;
-		MRefList foreignEntity;
-		if (Posted_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Posted_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPosted(foreignEntity.getValue());
-		} else {
-			this.setPosted(null);
-		}
-	}
 
-	/**
-	 * Get Posted.
-	 *
-	 * @return Posting status
-	 */
-	public I_AD_Ref_ListInput getPosted_RL() {
-		return Posted_RL;
+	public void setPosted(boolean Posted) {
+		if (get_ID() == 0) {
+			super.setPosted(Posted);
+		}
 	}
 
 	/**

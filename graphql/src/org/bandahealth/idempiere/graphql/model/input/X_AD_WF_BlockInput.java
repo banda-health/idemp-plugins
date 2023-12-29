@@ -50,6 +50,17 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Workflow Block.
+	 *
+	 * @param AD_WF_Block_ID Workflow Transaction Execution Block
+	 */
+
+	public void setAD_WF_Block_ID(int AD_WF_Block_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Block_ID(AD_WF_Block_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -92,5 +103,16 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	 */
 	public I_AD_WorkflowInput getAD_Workflow() {
 		return AD_Workflow;
+	}
+	/**
+	 * Set Workflow.
+	 *
+	 * @param AD_Workflow_ID Workflow or combination of tasks
+	 */
+
+	public void setAD_Workflow_ID(int AD_Workflow_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Workflow_ID(AD_Workflow_ID);
+		}
 	}
 }

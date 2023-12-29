@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
@@ -20,6 +21,7 @@ import org.compiere.model.MRMA;
 import org.compiere.model.MRefList;
 import org.compiere.model.MShipper;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_InOut;
 import org.compiere.util.Env;
 
 /**
@@ -28,7 +30,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
+public class X_M_InOutInput extends X_M_InOut implements I_M_InOutInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput DeliveryRule_RL;
@@ -40,7 +42,6 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 private I_AD_Ref_ListInput FreightCostRule_RL;
 	 private I_AD_Ref_ListInput Insurance_RL;
 	 private I_AD_Ref_ListInput MovementType_RL;
-	 private I_AD_Ref_ListInput Posted_RL;
 	 private I_AD_Ref_ListInput PriorityRule_RL;
 	 private I_AD_UserInput AD_User;
 	 private I_AD_UserInput DropShip_User;
@@ -153,6 +154,34 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_BH_VisitInput getBH_Visit() {
 		return BH_Visit;
 	}
+
+	/**
+	 * Set Visit.
+	 *
+	 * @param BH_Visit_ID Visit
+	 */
+	public void setBH_Visit_ID(int BH_Visit_ID) {
+		if (BH_Visit_ID < 1) {
+			set_Value(COLUMNNAME_BH_Visit_ID, null);
+		} else {
+			set_Value(COLUMNNAME_BH_Visit_ID, BH_Visit_ID);
+		}
+	}
+
+
+	/**
+	 * Get Visit.
+	 *
+	 * @return Visit
+	 */
+	public int getBH_Visit_ID() {
+ 		Integer columnValue = (Integer) get_Value(COLUMNNAME_BH_Visit_ID);
+		if (columnValue == null) {
+			return 0;
+		}
+		return columnValue;
+	}
+
 
 	/**
 	 * Set Activity.
@@ -288,6 +317,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_C_ChargeInput getC_Charge() {
 		return C_Charge;
 	}
+	/**
+	 * Set Charge.
+	 *
+	 * @param C_Charge_ID Additional document charges
+	 */
+
+	public void setC_Charge_ID(int C_Charge_ID) {
+		if (get_ID() == 0) {
+			super.setC_Charge_ID(C_Charge_ID);
+		}
+	}
 
 	/**
 	 * Set Document Type.
@@ -312,6 +352,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 */
 	public I_C_DocTypeInput getC_DocType() {
 		return C_DocType;
+	}
+	/**
+	 * Set Document Type.
+	 *
+	 * @param C_DocType_ID Document type or rules
+	 */
+
+	public void setC_DocType_ID(int C_DocType_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocType_ID(C_DocType_ID);
+		}
 	}
 
 	/**
@@ -338,6 +389,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_C_InvoiceInput getC_Invoice() {
 		return C_Invoice;
 	}
+	/**
+	 * Set Invoice.
+	 *
+	 * @param C_Invoice_ID Invoice Identifier
+	 */
+
+	public void setC_Invoice_ID(int C_Invoice_ID) {
+		if (get_ID() == 0) {
+			super.setC_Invoice_ID(C_Invoice_ID);
+		}
+	}
 
 	/**
 	 * Set Order.
@@ -362,6 +424,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 */
 	public I_C_OrderInput getC_Order() {
 		return C_Order;
+	}
+	/**
+	 * Set Order.
+	 *
+	 * @param C_Order_ID Order
+	 */
+
+	public void setC_Order_ID(int C_Order_ID) {
+		if (get_ID() == 0) {
+			super.setC_Order_ID(C_Order_ID);
+		}
 	}
 
 	/**
@@ -395,6 +468,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 *
 	 * @param DateOrdered Date of Order
 	 */
+
 	public void setDateOrdered(Timestamp DateOrdered) {
 		if (get_ID() == 0) {
 			super.setDateOrdered(DateOrdered);
@@ -513,6 +587,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
+
 	public void setDocumentNo(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
@@ -545,6 +620,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_C_BPartnerInput getDropShip_BPartner() {
 		return DropShip_BPartner;
 	}
+	/**
+	 * Set Drop Ship Business Partner.
+	 *
+	 * @param DropShip_BPartner_ID Business Partner to ship to
+	 */
+
+	public void setDropShip_BPartner_ID(int DropShip_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setDropShip_BPartner_ID(DropShip_BPartner_ID);
+		}
+	}
 
 	/**
 	 * Set Drop Shipment Location.
@@ -572,6 +658,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_C_BPartner_LocationInput getDropShip_Location() {
 		return DropShip_Location;
 	}
+	/**
+	 * Set Drop Shipment Location.
+	 *
+	 * @param DropShip_Location_ID Business Partner Location for shipping to
+	 */
+
+	public void setDropShip_Location_ID(int DropShip_Location_ID) {
+		if (get_ID() == 0) {
+			super.setDropShip_Location_ID(DropShip_Location_ID);
+		}
+	}
 
 	/**
 	 * Set Drop Shipment Contact.
@@ -598,6 +695,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 */
 	public I_AD_UserInput getDropShip_User() {
 		return DropShip_User;
+	}
+	/**
+	 * Set Drop Shipment Contact.
+	 *
+	 * @param DropShip_User_ID Business Partner Contact for drop shipment
+	 */
+
+	public void setDropShip_User_ID(int DropShip_User_ID) {
+		if (get_ID() == 0) {
+			super.setDropShip_User_ID(DropShip_User_ID);
+		}
 	}
 
 	/**
@@ -707,6 +815,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_AD_Ref_ListInput getInsurance_RL() {
 		return Insurance_RL;
 	}
+	/**
+	 * Set Shipment/Receipt.
+	 *
+	 * @param M_InOut_ID Material Shipment Document
+	 */
+
+	public void setM_InOut_ID(int M_InOut_ID) {
+		if (get_ID() == 0) {
+			super.setM_InOut_ID(M_InOut_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -779,6 +898,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_M_ShipperInput getM_Shipper() {
 		return M_Shipper;
 	}
+	/**
+	 * Set Shipper.
+	 *
+	 * @param M_Shipper_ID Method or manner of product delivery
+	 */
+
+	public void setM_Shipper_ID(int M_Shipper_ID) {
+		if (get_ID() == 0) {
+			super.setM_Shipper_ID(M_Shipper_ID);
+		}
+	}
 
 	/**
 	 * Set Warehouse.
@@ -803,6 +933,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 */
 	public I_M_WarehouseInput getM_Warehouse() {
 		return M_Warehouse;
+	}
+	/**
+	 * Set Warehouse.
+	 *
+	 * @param M_Warehouse_ID Storage Warehouse and Service Point
+	 */
+
+	public void setM_Warehouse_ID(int M_Warehouse_ID) {
+		if (get_ID() == 0) {
+			super.setM_Warehouse_ID(M_Warehouse_ID);
+		}
 	}
 
 	/**
@@ -829,32 +970,16 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_AD_Ref_ListInput getMovementType_RL() {
 		return MovementType_RL;
 	}
-
 	/**
 	 * Set Posted.
 	 *
-	 * @param Posted_RL Posting status
+	 * @param Posted Posting status
 	 */
-	public void setPosted_RL(I_AD_Ref_ListInput Posted_RL) {
-		this.Posted_RL = Posted_RL;
-		MRefList foreignEntity;
-		if (Posted_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Posted_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPosted(foreignEntity.getValue());
-		} else {
-			this.setPosted(null);
-		}
-	}
 
-	/**
-	 * Get Posted.
-	 *
-	 * @return Posting status
-	 */
-	public I_AD_Ref_ListInput getPosted_RL() {
-		return Posted_RL;
+	public void setPosted(boolean Posted) {
+		if (get_ID() == 0) {
+			super.setPosted(Posted);
+		}
 	}
 
 	/**
@@ -910,6 +1035,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_C_BPartnerInput getReturnBPartner() {
 		return ReturnBPartner;
 	}
+	/**
+	 * Set Return Partner.
+	 *
+	 * @param ReturnBPartner_ID Return Partner
+	 */
+
+	public void setReturnBPartner_ID(int ReturnBPartner_ID) {
+		if (get_ID() == 0) {
+			super.setReturnBPartner_ID(ReturnBPartner_ID);
+		}
+	}
 
 	/**
 	 * Set Return Location.
@@ -936,6 +1072,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 */
 	public I_C_BPartner_LocationInput getReturnLocation() {
 		return ReturnLocation;
+	}
+	/**
+	 * Set Return Location.
+	 *
+	 * @param ReturnLocation_ID Return Location
+	 */
+
+	public void setReturnLocation_ID(int ReturnLocation_ID) {
+		if (get_ID() == 0) {
+			super.setReturnLocation_ID(ReturnLocation_ID);
+		}
 	}
 
 	/**
@@ -964,6 +1111,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_AD_UserInput getReturnUser() {
 		return ReturnUser;
 	}
+	/**
+	 * Set Return User/Contact.
+	 *
+	 * @param ReturnUser_ID Return User/Contact
+	 */
+
+	public void setReturnUser_ID(int ReturnUser_ID) {
+		if (get_ID() == 0) {
+			super.setReturnUser_ID(ReturnUser_ID);
+		}
+	}
 
 	/**
 	 * Set Reversal ID.
@@ -990,6 +1148,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 */
 	public I_M_InOutInput getReversal() {
 		return Reversal;
+	}
+	/**
+	 * Set Reversal ID.
+	 *
+	 * @param Reversal_ID ID of document reversal
+	 */
+
+	public void setReversal_ID(int Reversal_ID) {
+		if (get_ID() == 0) {
+			super.setReversal_ID(Reversal_ID);
+		}
 	}
 
 	/**
@@ -1018,6 +1187,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_AD_UserInput getSalesRep() {
 		return SalesRep;
 	}
+	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep_ID Sales Representative or Company Agent
+	 */
+
+	public void setSalesRep_ID(int SalesRep_ID) {
+		if (get_ID() == 0) {
+			super.setSalesRep_ID(SalesRep_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 1.
@@ -1045,6 +1225,17 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	public I_C_ElementValueInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -1071,5 +1262,16 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 */
 	public I_C_ElementValueInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

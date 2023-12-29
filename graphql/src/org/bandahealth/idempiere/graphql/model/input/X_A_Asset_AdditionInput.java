@@ -7,7 +7,6 @@ import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
-import org.compiere.model.MAssetAddition;
 import org.compiere.model.MConversionType;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MIFixedAsset;
@@ -20,6 +19,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Addition;
 import org.compiere.util.Env;
 
 /**
@@ -28,15 +28,13 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset_AdditionInput {
+public class X_A_Asset_AdditionInput extends X_A_Asset_Addition implements I_A_Asset_AdditionInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput A_CapvsExp_RL;
 	 private I_AD_Ref_ListInput A_SourceType_RL;
 	 private I_AD_Ref_ListInput DocAction_RL;
 	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput DocumentNo_RL;
-	 private I_AD_Ref_ListInput Posted_RL;
 	 private I_AD_Ref_ListInput PostingType_RL;
 	 private I_A_AssetInput A_Asset;
 	 private I_C_ChargeInput C_Charge;
@@ -60,6 +58,17 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	public X_A_Asset_AdditionInput(String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
+	}
+	/**
+	 * Set Asset Addition.
+	 *
+	 * @param A_Asset_Addition_ID Asset Addition
+	 */
+
+	public void setA_Asset_Addition_ID(int A_Asset_Addition_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Addition_ID(A_Asset_Addition_ID);
+		}
 	}
 
 	/**
@@ -430,32 +439,16 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	public I_AD_Ref_ListInput getDocStatus_RL() {
 		return DocStatus_RL;
 	}
-
 	/**
 	 * Set Document No.
 	 *
-	 * @param DocumentNo_RL Document sequence number of the document
+	 * @param DocumentNo Document sequence number of the document
 	 */
-	public void setDocumentNo_RL(I_AD_Ref_ListInput DocumentNo_RL) {
-		this.DocumentNo_RL = DocumentNo_RL;
-		MRefList foreignEntity;
-		if (DocumentNo_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocumentNo_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocumentNo(foreignEntity.getValue());
-		} else {
-			this.setDocumentNo(null);
-		}
-	}
 
-	/**
-	 * Get Document No.
-	 *
-	 * @return Document sequence number of the document
-	 */
-	public I_AD_Ref_ListInput getDocumentNo_RL() {
-		return DocumentNo_RL;
+	public void setDocumentNo(String DocumentNo) {
+		if (get_ID() == 0) {
+			super.setDocumentNo(DocumentNo);
+		}
 	}
 
 	/**
@@ -619,6 +612,17 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	public I_M_MatchInvInput getM_MatchInv() {
 		return M_MatchInv;
 	}
+	/**
+	 * Set Match Invoice.
+	 *
+	 * @param M_MatchInv_ID Match Shipment/Receipt to Invoice
+	 */
+
+	public void setM_MatchInv_ID(int M_MatchInv_ID) {
+		if (get_ID() == 0) {
+			super.setM_MatchInv_ID(M_MatchInv_ID);
+		}
+	}
 
 	/**
 	 * Set Product/Service.
@@ -646,32 +650,27 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	public I_M_ProductInput getM_Product() {
 		return M_Product;
 	}
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product_ID Product, Service, Item
+	 */
 
+	public void setM_Product_ID(int M_Product_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_ID(M_Product_ID);
+		}
+	}
 	/**
 	 * Set Posted.
 	 *
-	 * @param Posted_RL Posting status
+	 * @param Posted Posting status
 	 */
-	public void setPosted_RL(I_AD_Ref_ListInput Posted_RL) {
-		this.Posted_RL = Posted_RL;
-		MRefList foreignEntity;
-		if (Posted_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Posted_RL.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPosted(foreignEntity.getValue());
-		} else {
-			this.setPosted(null);
-		}
-	}
 
-	/**
-	 * Get Posted.
-	 *
-	 * @return Posting status
-	 */
-	public I_AD_Ref_ListInput getPosted_RL() {
-		return Posted_RL;
+	public void setPosted(boolean Posted) {
+		if (get_ID() == 0) {
+			super.setPosted(Posted);
+		}
 	}
 
 	/**

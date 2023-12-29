@@ -4,8 +4,8 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProjectTypePhase;
-import org.compiere.model.MProjectTypeTask;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Task;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_TaskInput extends MProjectTypeTask implements I_C_TaskInput {
+public class X_C_TaskInput extends X_C_Task implements I_C_TaskInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_PhaseInput C_Phase;
@@ -76,6 +76,28 @@ public class X_C_TaskInput extends MProjectTypeTask implements I_C_TaskInput {
 	 */
 	public I_C_PhaseInput getC_Phase() {
 		return C_Phase;
+	}
+	/**
+	 * Set Standard Phase.
+	 *
+	 * @param C_Phase_ID Standard Phase of the Project Type
+	 */
+
+	public void setC_Phase_ID(int C_Phase_ID) {
+		if (get_ID() == 0) {
+			super.setC_Phase_ID(C_Phase_ID);
+		}
+	}
+	/**
+	 * Set Standard Task.
+	 *
+	 * @param C_Task_ID Standard Project Type Task
+	 */
+
+	public void setC_Task_ID(int C_Task_ID) {
+		if (get_ID() == 0) {
+			super.setC_Task_ID(C_Task_ID);
+		}
 	}
 
 	/**

@@ -48,6 +48,17 @@ public class X_C_GreetingInput extends X_C_Greeting implements I_C_GreetingInput
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Greeting.
+	 *
+	 * @param C_Greeting_ID Greeting to print on correspondence
+	 */
+
+	public void setC_Greeting_ID(int C_Greeting_ID) {
+		if (get_ID() == 0) {
+			super.setC_Greeting_ID(C_Greeting_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

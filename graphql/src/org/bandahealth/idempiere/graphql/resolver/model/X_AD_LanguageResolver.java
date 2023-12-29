@@ -7,6 +7,8 @@ import org.compiere.model.MLanguage;
 import org.compiere.model.X_AD_PrintPaper;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for AD_Language - DO NOT CHANGE
  *

@@ -3,9 +3,9 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MShipper;
 import org.compiere.model.MShippingProcessor;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_Shipper;
 import org.compiere.model.X_M_ShipperCfg;
 import org.compiere.util.Env;
 
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
+public class X_M_ShipperInput extends X_M_Shipper implements I_M_ShipperInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_BPartnerInput C_BPartner;
@@ -80,6 +80,17 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	 */
 	public I_C_BPartnerInput getC_BPartner() {
 		return C_BPartner;
+	}
+	/**
+	 * Set Shipper.
+	 *
+	 * @param M_Shipper_ID Method or manner of product delivery
+	 */
+
+	public void setM_Shipper_ID(int M_Shipper_ID) {
+		if (get_ID() == 0) {
+			super.setM_Shipper_ID(M_Shipper_ID);
+		}
 	}
 
 	/**
@@ -152,5 +163,16 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	 */
 	public I_M_ShippingProcessorInput getM_ShippingProcessor() {
 		return M_ShippingProcessor;
+	}
+	/**
+	 * Set Shipping Processor.
+	 *
+	 * @param M_ShippingProcessor_ID Shipping Processor
+	 */
+
+	public void setM_ShippingProcessor_ID(int M_ShippingProcessor_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShippingProcessor_ID(M_ShippingProcessor_ID);
+		}
 	}
 }

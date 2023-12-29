@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
 import org.compiere.model.MSalesRegion;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_BPartner_Location;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C_BPartner_LocationInput {
+public class X_C_BPartner_LocationInput extends X_C_BPartner_Location implements I_C_BPartner_LocationInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_BPartnerInput C_BPartner;
@@ -78,6 +78,28 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 */
 	public I_C_BPartnerInput getC_BPartner() {
 		return C_BPartner;
+	}
+	/**
+	 * Set Business Partner .
+	 *
+	 * @param C_BPartner_ID Identifies a Business Partner
+	 */
+
+	public void setC_BPartner_ID(int C_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_ID(C_BPartner_ID);
+		}
+	}
+	/**
+	 * Set Partner Location.
+	 *
+	 * @param C_BPartner_Location_ID Identifies the (ship to) address for this Business Partner
+	 */
+
+	public void setC_BPartner_Location_ID(int C_BPartner_Location_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_Location_ID(C_BPartner_Location_ID);
+		}
 	}
 
 	/**
@@ -150,5 +172,16 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 */
 	public I_C_SalesRegionInput getC_SalesRegion() {
 		return C_SalesRegion;
+	}
+	/**
+	 * Set Sales Region.
+	 *
+	 * @param C_SalesRegion_ID Sales coverage region
+	 */
+
+	public void setC_SalesRegion_ID(int C_SalesRegion_ID) {
+		if (get_ID() == 0) {
+			super.setC_SalesRegion_ID(C_SalesRegion_ID);
+		}
 	}
 }

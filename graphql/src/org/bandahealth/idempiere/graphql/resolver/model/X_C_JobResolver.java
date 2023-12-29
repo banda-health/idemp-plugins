@@ -7,6 +7,8 @@ import org.compiere.model.X_C_Job;
 import org.compiere.model.X_C_JobCategory;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_Job - DO NOT CHANGE
  *

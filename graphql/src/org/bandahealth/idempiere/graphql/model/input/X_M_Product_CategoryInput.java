@@ -7,6 +7,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
+import org.compiere.model.X_M_Product_Category;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_M_Product_CategoryInput {
+public class X_M_Product_CategoryInput extends X_M_Product_Category implements I_M_Product_CategoryInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_PrintColorInput AD_PrintColor;
@@ -110,6 +111,35 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	public I_AD_PrintColorInput getAD_PrintColor() {
 		return AD_PrintColor;
 	}
+	/**
+	 * Product = P
+	 */
+	public static final String BH_PRODUCT_CATEGORY_TYPE_Product = "P";
+	/**
+	 * Service = S
+	 */
+	public static final String BH_PRODUCT_CATEGORY_TYPE_Service = "S";
+
+	/**
+	 * Set BH Product Category Type.
+	 *
+	 * @param BH_Product_Category_Type Contains a character the is linked to a ref list to determine types of product categories
+	 */
+	public void setBH_Product_Category_Type(String BH_Product_Category_Type) {
+
+		set_Value(COLUMNNAME_BH_Product_Category_Type, BH_Product_Category_Type);
+	}
+
+
+	/**
+	 * Get BH Product Category Type.
+	 *
+	 * @return Contains a character the is linked to a ref list to determine types of product categories
+	 */
+	public String getBH_Product_Category_Type() {
+ 		return (String) get_Value(COLUMNNAME_BH_Product_Category_Type);
+	}
+
 
 	/**
 	 * Set BH Product Category Type.
@@ -137,6 +167,17 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	public I_AD_Ref_ListInput getBH_Product_Category_Type_RL() {
 		return BH_Product_Category_Type_RL;
 	}
+	/**
+	 * Set Product Category.
+	 *
+	 * @param M_Product_Category_ID Category of a Product
+	 */
+
+	public void setM_Product_Category_ID(int M_Product_Category_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_Category_ID(M_Product_Category_ID);
+		}
+	}
 
 	/**
 	 * Set Parent Product Category.
@@ -163,6 +204,17 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 */
 	public I_M_Product_CategoryInput getM_Product_Category_Parent() {
 		return M_Product_Category_Parent;
+	}
+	/**
+	 * Set Parent Product Category.
+	 *
+	 * @param M_Product_Category_Parent_ID Parent Product Category
+	 */
+
+	public void setM_Product_Category_Parent_ID(int M_Product_Category_Parent_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_Category_Parent_ID(M_Product_Category_Parent_ID);
+		}
 	}
 
 	/**

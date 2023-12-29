@@ -8,10 +8,10 @@ import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCashBook;
 import org.compiere.model.MOrg;
-import org.compiere.model.MPOS;
 import org.compiere.model.MPOSKeyLayout;
 import org.compiere.model.MPriceList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_POS;
 import org.compiere.util.Env;
 
 /**
@@ -20,7 +20,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_POSInput extends MPOS implements I_C_POSInput {
+public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_UserInput SalesRep;
@@ -120,6 +120,17 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public I_C_BPartnerInput getC_BPartnerCashTrx() {
 		return C_BPartnerCashTrx;
 	}
+	/**
+	 * Set Template B.Partner.
+	 *
+	 * @param C_BPartnerCashTrx_ID Business Partner used for creating new Business Partners on the fly
+	 */
+
+	public void setC_BPartnerCashTrx_ID(int C_BPartnerCashTrx_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartnerCashTrx_ID(C_BPartnerCashTrx_ID);
+		}
+	}
 
 	/**
 	 * Set Cash Book.
@@ -173,6 +184,17 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 */
 	public I_C_DocTypeInput getC_DocType() {
 		return C_DocType;
+	}
+	/**
+	 * Set POS Terminal.
+	 *
+	 * @param C_POS_ID Point of Sales Terminal
+	 */
+
+	public void setC_POS_ID(int C_POS_ID) {
+		if (get_ID() == 0) {
+			super.setC_POS_ID(C_POS_ID);
+		}
 	}
 
 	/**
@@ -300,6 +322,17 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public I_C_POSKeyLayoutInput getOSK_KeyLayout() {
 		return OSK_KeyLayout;
 	}
+	/**
+	 * Set On Screen Keyboard layout.
+	 *
+	 * @param OSK_KeyLayout_ID The key layout to use for on screen keyboard for text fields.
+	 */
+
+	public void setOSK_KeyLayout_ID(int OSK_KeyLayout_ID) {
+		if (get_ID() == 0) {
+			super.setOSK_KeyLayout_ID(OSK_KeyLayout_ID);
+		}
+	}
 
 	/**
 	 * Set On Screen Number Pad layout.
@@ -327,6 +360,17 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public I_C_POSKeyLayoutInput getOSNP_KeyLayout() {
 		return OSNP_KeyLayout;
 	}
+	/**
+	 * Set On Screen Number Pad layout.
+	 *
+	 * @param OSNP_KeyLayout_ID The key layout to use for on screen number pad for numeric fields.
+	 */
+
+	public void setOSNP_KeyLayout_ID(int OSNP_KeyLayout_ID) {
+		if (get_ID() == 0) {
+			super.setOSNP_KeyLayout_ID(OSNP_KeyLayout_ID);
+		}
+	}
 
 	/**
 	 * Set Sales Representative.
@@ -353,5 +397,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 */
 	public I_AD_UserInput getSalesRep() {
 		return SalesRep;
+	}
+	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep_ID Sales Representative or Company Agent
+	 */
+
+	public void setSalesRep_ID(int SalesRep_ID) {
+		if (get_ID() == 0) {
+			super.setSalesRep_ID(SalesRep_ID);
+		}
 	}
 }

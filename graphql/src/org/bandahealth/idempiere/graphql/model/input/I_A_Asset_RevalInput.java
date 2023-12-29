@@ -81,20 +81,6 @@ public interface I_A_Asset_RevalInput extends I_A_Asset_Reval {
 	I_AD_Ref_ListInput getDocStatus_RL();
 
 	/**
-	 * Set Posted_RL.
-	 *
-	 * @param Posted_RL Posting status
-	 */
-	void setPosted_RL(I_AD_Ref_ListInput Posted_RL);
-
-	/**
-	 * Get Posted_RL.
-	 *
-	 * @return Posting status
-	 */
-	I_AD_Ref_ListInput getPosted_RL();
-
-	/**
 	 * Set PostingType_RL.
 	 *
 	 * @param PostingType_RL The type of posted amount for the transaction

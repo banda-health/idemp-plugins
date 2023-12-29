@@ -21,6 +21,8 @@ import org.compiere.model.MPOSKeyLayout;
 import org.compiere.model.MPriceList;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_POS - DO NOT CHANGE
  *

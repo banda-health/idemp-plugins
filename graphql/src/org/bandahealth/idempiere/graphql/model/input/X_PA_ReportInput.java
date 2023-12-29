@@ -170,6 +170,28 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	public I_AD_ProcessInput getJasperProcess() {
 		return JasperProcess;
 	}
+	/**
+	 * Set Jasper Process.
+	 *
+	 * @param JasperProcess_ID The Jasper Process used by the printengine if any process defined
+	 */
+
+	public void setJasperProcess_ID(int JasperProcess_ID) {
+		if (get_ID() == 0) {
+			super.setJasperProcess_ID(JasperProcess_ID);
+		}
+	}
+	/**
+	 * Set Financial Report.
+	 *
+	 * @param PA_Report_ID Financial Report
+	 */
+
+	public void setPA_Report_ID(int PA_Report_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Report_ID(PA_Report_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -241,6 +263,17 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 */
 	public I_PA_ReportCubeInput getPA_ReportCube() {
 		return PA_ReportCube;
+	}
+	/**
+	 * Set Report Cube.
+	 *
+	 * @param PA_ReportCube_ID Define reporting cube for pre-calculation of summary accounting data.
+	 */
+
+	public void setPA_ReportCube_ID(int PA_ReportCube_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportCube_ID(PA_ReportCube_ID);
+		}
 	}
 
 	/**

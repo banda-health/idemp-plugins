@@ -9,6 +9,7 @@ import org.compiere.model.MRMA;
 import org.compiere.model.MRMALine;
 import org.compiere.model.MTax;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_RMALine;
 import org.compiere.util.Env;
 
 /**
@@ -17,7 +18,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
+public class X_M_RMALineInput extends X_M_RMALine implements I_M_RMALineInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_ChargeInput C_Charge;
@@ -192,6 +193,28 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	public I_M_RMAInput getM_RMA() {
 		return M_RMA;
 	}
+	/**
+	 * Set RMA.
+	 *
+	 * @param M_RMA_ID Return Material Authorization
+	 */
+
+	public void setM_RMA_ID(int M_RMA_ID) {
+		if (get_ID() == 0) {
+			super.setM_RMA_ID(M_RMA_ID);
+		}
+	}
+	/**
+	 * Set RMA Line.
+	 *
+	 * @param M_RMALine_ID Return Material Authorization Line
+	 */
+
+	public void setM_RMALine_ID(int M_RMALine_ID) {
+		if (get_ID() == 0) {
+			super.setM_RMALine_ID(M_RMALine_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -236,5 +259,16 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 */
 	public I_M_RMALineInput getRef_RMALine() {
 		return Ref_RMALine;
+	}
+	/**
+	 * Set Referenced RMA Line.
+	 *
+	 * @param Ref_RMALine_ID Referenced RMA Line
+	 */
+
+	public void setRef_RMALine_ID(int Ref_RMALine_ID) {
+		if (get_ID() == 0) {
+			super.setRef_RMALine_ID(Ref_RMALine_ID);
+		}
 	}
 }

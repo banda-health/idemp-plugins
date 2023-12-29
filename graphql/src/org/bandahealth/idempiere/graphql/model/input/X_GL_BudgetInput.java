@@ -77,6 +77,17 @@ public class X_GL_BudgetInput extends X_GL_Budget implements I_GL_BudgetInput {
 	public I_AD_Ref_ListInput getBudgetStatus_RL() {
 		return BudgetStatus_RL;
 	}
+	/**
+	 * Set Budget.
+	 *
+	 * @param GL_Budget_ID General Ledger Budget
+	 */
+
+	public void setGL_Budget_ID(int GL_Budget_ID) {
+		if (get_ID() == 0) {
+			super.setGL_Budget_ID(GL_Budget_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MOrg;
 import org.compiere.model.MReplicationStrategy;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Org;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
+public class X_AD_OrgInput extends X_AD_Org implements I_AD_OrgInput {
 
 	 private I_AD_ReplicationStrategyInput AD_ReplicationStrategy;
 

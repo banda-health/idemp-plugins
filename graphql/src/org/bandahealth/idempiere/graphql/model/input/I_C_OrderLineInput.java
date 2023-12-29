@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.compiere.model.I_C_OrderLine;
 
 /**
@@ -23,6 +25,63 @@ public interface I_C_OrderLineInput extends I_C_OrderLine {
 	 * @return Organizational entity within client
 	 */
 	I_AD_OrgInput getAD_Org();
+
+	/**
+	 * Column name BH_Expiration
+	 */
+	public static final String COLUMNNAME_BH_Expiration = "BH_Expiration";
+
+	/**
+	 * Set Expire On.
+	 *
+	 * @param BH_Expiration Expire On
+	 */
+	public void setBH_Expiration(Timestamp BH_Expiration);
+
+	/**
+	 * Get Expire On.
+	 *
+	 * @return Expire On
+	 */
+	public Timestamp getBH_Expiration();
+
+	/**
+	 * Column name BH_Instructions
+	 */
+	public static final String COLUMNNAME_BH_Instructions = "BH_Instructions";
+
+	/**
+	 * Set BH_Instructions.
+	 *
+	 * @param BH_Instructions BH_Instructions
+	 */
+	public void setBH_Instructions(String BH_Instructions);
+
+	/**
+	 * Get BH_Instructions.
+	 *
+	 * @return BH_Instructions
+	 */
+	public String getBH_Instructions();
+
+	/**
+	 * Column name BH_NavButtons
+	 */
+	public static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons);
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons();
 
 	/**
 	 * Set C_Activity.
@@ -303,6 +362,25 @@ public interface I_C_OrderLineInput extends I_C_OrderLine {
 	 * @return PP_Cost_Collector
 	 */
 	I_PP_Cost_CollectorInput getPP_Cost_Collector();
+
+	/**
+	 * Column name QtyAvailable
+	 */
+	public static final String COLUMNNAME_QtyAvailable = "QtyAvailable";
+
+	/**
+	 * Set Available Quantity.
+	 *
+	 * @param QtyAvailable Available Quantity (On Hand - Reserved)
+	 */
+	public void setQtyAvailable(BigDecimal QtyAvailable);
+
+	/**
+	 * Get Available Quantity.
+	 *
+	 * @return Available Quantity (On Hand - Reserved)
+	 */
+	public BigDecimal getQtyAvailable();
 
 	/**
 	 * Set Ref_OrderLine.

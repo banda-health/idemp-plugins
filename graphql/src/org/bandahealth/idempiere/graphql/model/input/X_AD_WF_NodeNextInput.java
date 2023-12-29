@@ -80,6 +80,17 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	public I_AD_WF_NodeInput getAD_WF_Next() {
 		return AD_WF_Next;
 	}
+	/**
+	 * Set Next Node.
+	 *
+	 * @param AD_WF_Next_ID Next Node in workflow
+	 */
+
+	public void setAD_WF_Next_ID(int AD_WF_Next_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Next_ID(AD_WF_Next_ID);
+		}
+	}
 
 	/**
 	 * Set Node.
@@ -104,6 +115,28 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	 */
 	public I_AD_WF_NodeInput getAD_WF_Node() {
 		return AD_WF_Node;
+	}
+	/**
+	 * Set Node.
+	 *
+	 * @param AD_WF_Node_ID Workflow Node (activity), step or process
+	 */
+
+	public void setAD_WF_Node_ID(int AD_WF_Node_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Node_ID(AD_WF_Node_ID);
+		}
+	}
+	/**
+	 * Set Node Transition.
+	 *
+	 * @param AD_WF_NodeNext_ID Workflow Node Transition
+	 */
+
+	public void setAD_WF_NodeNext_ID(int AD_WF_NodeNext_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_NodeNext_ID(AD_WF_NodeNext_ID);
+		}
 	}
 
 	/**
@@ -136,9 +169,9 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -149,5 +182,16 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 }

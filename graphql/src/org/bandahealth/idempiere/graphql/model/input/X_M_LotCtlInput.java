@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MLotCtl;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_LotCtl;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_LotCtlInput extends MLotCtl implements I_M_LotCtlInput {
+public class X_M_LotCtlInput extends X_M_LotCtl implements I_M_LotCtlInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -47,6 +47,17 @@ public class X_M_LotCtlInput extends MLotCtl implements I_M_LotCtlInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Lot Control.
+	 *
+	 * @param M_LotCtl_ID Product Lot Control
+	 */
+
+	public void setM_LotCtl_ID(int M_LotCtl_ID) {
+		if (get_ID() == 0) {
+			super.setM_LotCtl_ID(M_LotCtl_ID);
+		}
 	}
 
 	/**

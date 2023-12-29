@@ -3,10 +3,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDashboardContent;
-import org.compiere.model.MDashboardContentAccess;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
+import org.compiere.model.X_PA_DashboardContent_Access;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess implements I_PA_DashboardContent_AccessInput {
+public class X_PA_DashboardContent_AccessInput extends X_PA_DashboardContent_Access implements I_PA_DashboardContent_AccessInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_RoleInput AD_Role;
@@ -79,6 +79,17 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	public I_AD_RoleInput getAD_Role() {
 		return AD_Role;
 	}
+	/**
+	 * Set Role.
+	 *
+	 * @param AD_Role_ID Responsibility Role
+	 */
+
+	public void setAD_Role_ID(int AD_Role_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Role_ID(AD_Role_ID);
+		}
+	}
 
 	/**
 	 * Set User/Contact.
@@ -103,6 +114,28 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	 */
 	public I_AD_UserInput getAD_User() {
 		return AD_User;
+	}
+	/**
+	 * Set User/Contact.
+	 *
+	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
+	 */
+
+	public void setAD_User_ID(int AD_User_ID) {
+		if (get_ID() == 0) {
+			super.setAD_User_ID(AD_User_ID);
+		}
+	}
+	/**
+	 * Set PA_DashboardContent_Access_ID.
+	 *
+	 * @param PA_DashboardContent_Access_ID PA_DashboardContent_Access_ID
+	 */
+
+	public void setPA_DashboardContent_Access_ID(int PA_DashboardContent_Access_ID) {
+		if (get_ID() == 0) {
+			super.setPA_DashboardContent_Access_ID(PA_DashboardContent_Access_ID);
+		}
 	}
 
 	/**
@@ -146,5 +179,16 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	 */
 	public I_PA_DashboardContentInput getPA_DashboardContent() {
 		return PA_DashboardContent;
+	}
+	/**
+	 * Set Dashboard Content.
+	 *
+	 * @param PA_DashboardContent_ID Dashboard Content
+	 */
+
+	public void setPA_DashboardContent_ID(int PA_DashboardContent_ID) {
+		if (get_ID() == 0) {
+			super.setPA_DashboardContent_ID(PA_DashboardContent_ID);
+		}
 	}
 }

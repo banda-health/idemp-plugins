@@ -20,7 +20,7 @@ type BH_Voided_Reason {
 	AD_Client: AD_Client
 	# Organizational entity within client
 	AD_Org: AD_Org
-	bh_voided_reason_uu: String
+	ID: ID!
 	bh_window_id: Int
 	# Date this record was created
 	Created: Date
@@ -43,7 +43,7 @@ type BH_Voided_Reason {
 input BH_Voided_ReasonInput {
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
-	bh_voided_reason_uu: String
+	ID: ID
 	bh_window_id: Int
 	# Optional short description of the record
 	Description: String

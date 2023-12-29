@@ -1,12 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBank;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_BankAccount;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAccountInput {
+public class X_C_BankAccountInput extends X_C_BankAccount implements I_C_BankAccountInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput BankAccountType_RL;
@@ -105,6 +105,28 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 	 */
 	public I_C_BankInput getC_Bank() {
 		return C_Bank;
+	}
+	/**
+	 * Set Bank.
+	 *
+	 * @param C_Bank_ID Bank
+	 */
+
+	public void setC_Bank_ID(int C_Bank_ID) {
+		if (get_ID() == 0) {
+			super.setC_Bank_ID(C_Bank_ID);
+		}
+	}
+	/**
+	 * Set Bank Account.
+	 *
+	 * @param C_BankAccount_ID Account at the Bank
+	 */
+
+	public void setC_BankAccount_ID(int C_BankAccount_ID) {
+		if (get_ID() == 0) {
+			super.setC_BankAccount_ID(C_BankAccount_ID);
+		}
 	}
 
 	/**

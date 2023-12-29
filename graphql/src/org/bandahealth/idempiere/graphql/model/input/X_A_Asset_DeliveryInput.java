@@ -1,13 +1,14 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
-import org.compiere.model.MAssetDelivery;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProductDownload;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Asset_Delivery;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +17,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset_DeliveryInput {
+public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_Asset_DeliveryInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_UserInput AD_User;
@@ -30,6 +31,17 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	public X_A_Asset_DeliveryInput(String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
+	}
+	/**
+	 * Set Asset Delivery.
+	 *
+	 * @param A_Asset_Delivery_ID Delivery of Asset
+	 */
+
+	public void setA_Asset_Delivery_ID(int A_Asset_Delivery_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Delivery_ID(A_Asset_Delivery_ID);
+		}
 	}
 
 	/**
@@ -73,6 +85,17 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 */
 	public I_A_AssetInput getA_Asset() {
 		return A_Asset;
+	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
 	}
 
 	/**
@@ -125,10 +148,22 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 		return AD_User;
 	}
 	/**
+	 * Set User/Contact.
+	 *
+	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
+	 */
+
+	public void setAD_User_ID(int AD_User_ID) {
+		if (get_ID() == 0) {
+			super.setAD_User_ID(AD_User_ID);
+		}
+	}
+	/**
 	 * Set EMail Address.
 	 *
 	 * @param EMail Electronic Mail Address
 	 */
+
 	public void setEMail(String EMail) {
 		if (get_ID() == 0) {
 			super.setEMail(EMail);
@@ -139,6 +174,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param Lot Lot number (alphanumeric)
 	 */
+
 	public void setLot(String Lot) {
 		if (get_ID() == 0) {
 			super.setLot(Lot);
@@ -168,6 +204,17 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 */
 	public I_M_InOutLineInput getM_InOutLine() {
 		return M_InOutLine;
+	}
+	/**
+	 * Set Shipment/Receipt Line.
+	 *
+	 * @param M_InOutLine_ID Line on Shipment or Receipt document
+	 */
+
+	public void setM_InOutLine_ID(int M_InOutLine_ID) {
+		if (get_ID() == 0) {
+			super.setM_InOutLine_ID(M_InOutLine_ID);
+		}
 	}
 
 	/**
@@ -201,6 +248,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param MessageID EMail Message ID
 	 */
+
 	public void setMessageID(String MessageID) {
 		if (get_ID() == 0) {
 			super.setMessageID(MessageID);
@@ -211,6 +259,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param MovementDate Date a product was moved in or out of inventory
 	 */
+
 	public void setMovementDate(Timestamp MovementDate) {
 		if (get_ID() == 0) {
 			super.setMovementDate(MovementDate);
@@ -221,6 +270,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param Referrer Referring web address
 	 */
+
 	public void setReferrer(String Referrer) {
 		if (get_ID() == 0) {
 			super.setReferrer(Referrer);
@@ -231,6 +281,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param Remote_Addr Remote Address
 	 */
+
 	public void setRemote_Addr(String Remote_Addr) {
 		if (get_ID() == 0) {
 			super.setRemote_Addr(Remote_Addr);
@@ -241,6 +292,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param Remote_Host Remote host Info
 	 */
+
 	public void setRemote_Host(String Remote_Host) {
 		if (get_ID() == 0) {
 			super.setRemote_Host(Remote_Host);
@@ -251,6 +303,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param SerNo Product Serial Number 
 	 */
+
 	public void setSerNo(String SerNo) {
 		if (get_ID() == 0) {
 			super.setSerNo(SerNo);
@@ -261,6 +314,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param URL Full URL address - e.g. http://www.idempiere.org
 	 */
+
 	public void setURL(String URL) {
 		if (get_ID() == 0) {
 			super.setURL(URL);
@@ -271,6 +325,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 *
 	 * @param VersionNo Version Number
 	 */
+
 	public void setVersionNo(String VersionNo) {
 		if (get_ID() == 0) {
 			super.setVersionNo(VersionNo);

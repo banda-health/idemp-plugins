@@ -59,8 +59,8 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 
 	static Map<String, String> ANDOR_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_NextCondition.ANDOR_And, "2a20f5be-1d08-4be6-9b94-9835ef8800cb");
-			put(X_AD_WF_NextCondition.ANDOR_Or, "67af34aa-ef4f-4928-8536-427c8a6551e4");
+			put("A", "2a20f5be-1d08-4be6-9b94-9835ef8800cb");
+			put("O", "67af34aa-ef4f-4928-8536-427c8a6551e4");
 		}
 	};
 	public CompletableFuture<MRefList> AndOr_RL(X_AD_WF_NextCondition entity, DataFetchingEnvironment environment) {
@@ -72,6 +72,22 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 		return dataLoader.load(ANDOR_UUIDS_BY_VALUE.get(entity.getAndOr()));
 	}
 
+	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
+		{
+			put("D", 10);
+			put("C", 20);
+			put("U", 100);
+			put("CUST", 110);
+			put("A", 200);
+			put("EXT", 210);
+			put("XX", 220);
+			put("EE01", 50000);
+			put("EE04", 50001);
+			put("EE05", 50003);
+			put("EE02", 50005);
+			put("WSTORE", 200015);
+		}
+	};
 
 	/**
 	 * Get Entity Type.
@@ -79,25 +95,25 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	public CompletableFuture<MEntityType> AD_EntityType(X_AD_WF_NextCondition entity, DataFetchingEnvironment environment) {
-		if (entity.getEntityType() <= 0) {
+		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
-		return dataLoader.load(entity.getEntityType());
+		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
 	static Map<String, String> OPERATION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_NextCondition.OPERATION_Eq, "3fefc2d0-9c5a-483c-b34f-00ca51a42bd0");
-			put(X_AD_WF_NextCondition.OPERATION_GtEq, "c03b77ec-a80e-4628-812d-8f64a493da07");
-			put(X_AD_WF_NextCondition.OPERATION_Gt, "9bb7c5a6-b291-4c2c-9524-fa7e974a1160");
-			put(X_AD_WF_NextCondition.OPERATION_Le, "b4ee4ca1-39c6-4703-911b-e107aaca4af6");
-			put(X_AD_WF_NextCondition.OPERATION_Like, "c3b65756-69b3-4f47-a1ba-9161a7dcfc73");
-			put(X_AD_WF_NextCondition.OPERATION_LeEq, "d68ddcf5-efc3-4208-a583-3b4f40a01bee");
-			put(X_AD_WF_NextCondition.OPERATION_X, "990ca97f-1278-4171-aa70-0a16770124b5");
-			put(X_AD_WF_NextCondition.OPERATION_Sql, "d07128bf-2e88-42d9-8234-4ee181d35a5b");
-			put(X_AD_WF_NextCondition.OPERATION_NotEq, "0bb893cb-cdcb-48c7-9c20-c7bb0041a51a");
+			put("==", "3fefc2d0-9c5a-483c-b34f-00ca51a42bd0");
+			put(">=", "c03b77ec-a80e-4628-812d-8f64a493da07");
+			put(">>", "9bb7c5a6-b291-4c2c-9524-fa7e974a1160");
+			put("<<", "b4ee4ca1-39c6-4703-911b-e107aaca4af6");
+			put("~~", "c3b65756-69b3-4f47-a1ba-9161a7dcfc73");
+			put("<=", "d68ddcf5-efc3-4208-a583-3b4f40a01bee");
+			put("AB", "990ca97f-1278-4171-aa70-0a16770124b5");
+			put("SQ", "d07128bf-2e88-42d9-8234-4ee181d35a5b");
+			put("!=", "0bb893cb-cdcb-48c7-9c20-c7bb0041a51a");
 		}
 	};
 	public CompletableFuture<MRefList> Operation_RL(X_AD_WF_NextCondition entity, DataFetchingEnvironment environment) {

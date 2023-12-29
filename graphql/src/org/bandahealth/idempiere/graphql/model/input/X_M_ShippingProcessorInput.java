@@ -2,8 +2,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MShippingProcessor;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_ShippingProcessor;
 import org.compiere.model.X_M_ShippingProcessorCfg;
 import org.compiere.util.Env;
 
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_ShippingProcessorInput extends MShippingProcessor implements I_M_ShippingProcessorInput {
+public class X_M_ShippingProcessorInput extends X_M_ShippingProcessor implements I_M_ShippingProcessorInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_M_ShippingProcessorCfgInput M_ShippingProcessorCfg;
@@ -49,6 +49,17 @@ public class X_M_ShippingProcessorInput extends MShippingProcessor implements I_
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Shipping Processor.
+	 *
+	 * @param M_ShippingProcessor_ID Shipping Processor
+	 */
+
+	public void setM_ShippingProcessor_ID(int M_ShippingProcessor_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShippingProcessor_ID(M_ShippingProcessor_ID);
+		}
 	}
 
 	/**

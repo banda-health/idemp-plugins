@@ -9,6 +9,8 @@ import org.compiere.model.MLocator;
 import org.compiere.model.MLocatorType;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for M_Locator - DO NOT CHANGE
  *

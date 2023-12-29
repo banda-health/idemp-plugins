@@ -7,6 +7,8 @@ import org.compiere.model.X_AD_WF_Process;
 import org.compiere.model.X_AD_WF_ProcessData;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for AD_WF_ProcessData - DO NOT CHANGE
  *

@@ -75,6 +75,28 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	public I_PA_BenchmarkInput getPA_Benchmark() {
 		return PA_Benchmark;
 	}
+	/**
+	 * Set Benchmark.
+	 *
+	 * @param PA_Benchmark_ID Performance Benchmark
+	 */
+
+	public void setPA_Benchmark_ID(int PA_Benchmark_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Benchmark_ID(PA_Benchmark_ID);
+		}
+	}
+	/**
+	 * Set Benchmark Data.
+	 *
+	 * @param PA_BenchmarkData_ID Performance Benchmark Data Point
+	 */
+
+	public void setPA_BenchmarkData_ID(int PA_BenchmarkData_ID) {
+		if (get_ID() == 0) {
+			super.setPA_BenchmarkData_ID(PA_BenchmarkData_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

@@ -16,8 +16,8 @@ import org.compiere.model.MChart;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MGoal;
 import org.compiere.model.MRefList;
-import org.compiere.model.MRole;
 import org.compiere.model.MWindow;
+import org.compiere.model.X_AD_Role;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -69,11 +69,11 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 	 *
 	 * @return Responsibility Role
 	 */
-	public CompletableFuture<MRole> AD_Role(MDashboardContent entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_AD_Role> AD_Role(MDashboardContent entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Role_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MRole> dataLoader =
+		DataLoader<Integer, X_AD_Role> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
@@ -110,8 +110,8 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 
 	static Map<String, String> GOALDISPLAY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MDashboardContent.GOALDISPLAY_HTMLTable, "2cd129ed-3973-4e05-a770-94af63a68791");
-			put(MDashboardContent.GOALDISPLAY_Chart, "4b2f72dc-2ab6-4e4a-9b9a-acf550d12290");
+			put("T", "2cd129ed-3973-4e05-a770-94af63a68791");
+			put("C", "4b2f72dc-2ab6-4e4a-9b9a-acf550d12290");
 		}
 	};
 	public CompletableFuture<MRefList> GoalDisplay_RL(MDashboardContent entity, DataFetchingEnvironment environment) {

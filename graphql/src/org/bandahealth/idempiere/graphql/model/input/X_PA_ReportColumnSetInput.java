@@ -48,6 +48,17 @@ public class X_PA_ReportColumnSetInput extends X_PA_ReportColumnSet implements I
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Report Column Set.
+	 *
+	 * @param PA_ReportColumnSet_ID Collection of Columns for Report
+	 */
+
+	public void setPA_ReportColumnSet_ID(int PA_ReportColumnSet_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportColumnSet_ID(PA_ReportColumnSet_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

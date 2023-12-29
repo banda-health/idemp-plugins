@@ -3,10 +3,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MResourceType;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
+import org.compiere.model.X_S_ResourceType;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_S_ResourceTypeInput extends MResourceType implements I_S_ResourceTypeInput {
+public class X_S_ResourceTypeInput extends X_S_ResourceType implements I_S_ResourceTypeInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_TaxCategoryInput C_TaxCategory;
@@ -134,6 +134,17 @@ public class X_S_ResourceTypeInput extends MResourceType implements I_S_Resource
 	 */
 	public I_M_Product_CategoryInput getM_Product_Category() {
 		return M_Product_Category;
+	}
+	/**
+	 * Set Resource Type.
+	 *
+	 * @param S_ResourceType_ID Resource Type
+	 */
+
+	public void setS_ResourceType_ID(int S_ResourceType_ID) {
+		if (get_ID() == 0) {
+			super.setS_ResourceType_ID(S_ResourceType_ID);
+		}
 	}
 
 	/**

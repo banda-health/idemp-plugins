@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.sql.Timestamp;
 import org.compiere.model.I_AD_User;
 
 /**
@@ -51,6 +52,63 @@ public interface I_AD_UserInput extends I_AD_User {
 	 * @return ID
 	 */
 	String getID();
+
+	/**
+	 * Column name bandahealth_bpartners
+	 */
+	public static final String COLUMNNAME_bandahealth_bpartners = "bandahealth_bpartners";
+
+	/**
+	 * Set bandahealth_bpartners.
+	 *
+	 * @param bandahealth_bpartners bandahealth_bpartners
+	 */
+	public void setbandahealth_bpartners(String bandahealth_bpartners);
+
+	/**
+	 * Get bandahealth_bpartners.
+	 *
+	 * @return bandahealth_bpartners
+	 */
+	public String getbandahealth_bpartners();
+
+	/**
+	 * Column name BH_HasAcceptedTermsOfUse
+	 */
+	public static final String COLUMNNAME_BH_HasAcceptedTermsOfUse = "BH_HasAcceptedTermsOfUse";
+
+	/**
+	 * Set HasAcceptedTermsOfUse.
+	 *
+	 * @param BH_HasAcceptedTermsOfUse HasAcceptedTermsOfUse
+	 */
+	public void setBH_HasAcceptedTermsOfUse(boolean BH_HasAcceptedTermsOfUse);
+
+	/**
+	 * Get HasAcceptedTermsOfUse.
+	 *
+	 * @return HasAcceptedTermsOfUse
+	 */
+	public boolean isBH_HasAcceptedTermsOfUse();
+
+	/**
+	 * Column name BH_TOS_DATE_ACCEPTED
+	 */
+	public static final String COLUMNNAME_BH_TOS_DATE_ACCEPTED = "BH_TOS_DATE_ACCEPTED";
+
+	/**
+	 * Set BH_TOS_DATE_ACCEPTED.
+	 *
+	 * @param BH_TOS_DATE_ACCEPTED BH_TOS_DATE_ACCEPTED
+	 */
+	public void setBH_TOS_DATE_ACCEPTED(Timestamp BH_TOS_DATE_ACCEPTED);
+
+	/**
+	 * Get BH_TOS_DATE_ACCEPTED.
+	 *
+	 * @return BH_TOS_DATE_ACCEPTED
+	 */
+	public Timestamp getBH_TOS_DATE_ACCEPTED();
 
 	/**
 	 * Set BP_Location.
@@ -149,6 +207,25 @@ public interface I_AD_UserInput extends I_AD_User {
 	 * @return Location or Address
 	 */
 	I_C_LocationInput getC_Location();
+
+	/**
+	 * Column name eve_bpartners
+	 */
+	public static final String COLUMNNAME_eve_bpartners = "eve_bpartners";
+
+	/**
+	 * Set eve_bpartners.
+	 *
+	 * @param eve_bpartners eve_bpartners
+	 */
+	public void seteve_bpartners(String eve_bpartners);
+
+	/**
+	 * Get eve_bpartners.
+	 *
+	 * @return eve_bpartners
+	 */
+	public String geteve_bpartners();
 
 	/**
 	 * Set IsMenuAutoExpand_RL.

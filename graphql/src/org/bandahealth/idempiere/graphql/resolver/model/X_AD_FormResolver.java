@@ -27,12 +27,12 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 
 	static Map<String, String> ACCESSLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MForm.ACCESSLEVEL_Organization, "3cc495d2-7e46-4d2d-b8b8-a38bfa97fa60");
-			put(MForm.ACCESSLEVEL_ClientPlusOrganization, "b8062c9f-fb7c-4e91-98ec-0a913a3b367f");
-			put(MForm.ACCESSLEVEL_SystemOnly, "6e8bdb2d-b494-401c-b586-7d20727b5eab");
-			put(MForm.ACCESSLEVEL_All, "04c9829a-008e-4a71-9598-224f770491dc");
-			put(MForm.ACCESSLEVEL_SystemPlusClient, "e05482a2-71be-461d-b522-9cda71a9fa5d");
-			put(MForm.ACCESSLEVEL_ClientOnly, "391e2c9a-b8e5-43b0-895b-eea914023e59");
+			put("1", "3cc495d2-7e46-4d2d-b8b8-a38bfa97fa60");
+			put("3", "b8062c9f-fb7c-4e91-98ec-0a913a3b367f");
+			put("4", "6e8bdb2d-b494-401c-b586-7d20727b5eab");
+			put("7", "04c9829a-008e-4a71-9598-224f770491dc");
+			put("6", "e05482a2-71be-461d-b522-9cda71a9fa5d");
+			put("2", "391e2c9a-b8e5-43b0-895b-eea914023e59");
 		}
 	};
 	public CompletableFuture<MRefList> AccessLevel_RL(MForm entity, DataFetchingEnvironment environment) {
@@ -59,6 +59,22 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 		return dataLoader.load(entity.getAD_CtxHelp_ID());
 	}
 
+	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
+		{
+			put("D", 10);
+			put("C", 20);
+			put("U", 100);
+			put("CUST", 110);
+			put("A", 200);
+			put("EXT", 210);
+			put("XX", 220);
+			put("EE01", 50000);
+			put("EE04", 50001);
+			put("EE05", 50003);
+			put("EE02", 50005);
+			put("WSTORE", 200015);
+		}
+	};
 
 	/**
 	 * Get Entity Type.
@@ -66,12 +82,12 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	public CompletableFuture<MEntityType> AD_EntityType(MForm entity, DataFetchingEnvironment environment) {
-		if (entity.getEntityType() <= 0) {
+		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
-		return dataLoader.load(entity.getEntityType());
+		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
 }

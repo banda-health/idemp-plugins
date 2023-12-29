@@ -7,6 +7,8 @@ import org.compiere.model.X_AD_WF_Activity;
 import org.compiere.model.X_AD_WF_ActivityResult;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for AD_WF_ActivityResult - DO NOT CHANGE
  *

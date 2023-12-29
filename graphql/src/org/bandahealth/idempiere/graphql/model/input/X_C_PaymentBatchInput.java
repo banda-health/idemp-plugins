@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MPaymentBatch;
 import org.compiere.model.MPaymentProcessor;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_PaymentBatch;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentBatchInput {
+public class X_C_PaymentBatchInput extends X_C_PaymentBatch implements I_C_PaymentBatchInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_PaymentProcessorInput C_PaymentProcessor;
@@ -49,6 +49,17 @@ public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentB
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Payment Batch.
+	 *
+	 * @param C_PaymentBatch_ID Payment batch for EFT
+	 */
+
+	public void setC_PaymentBatch_ID(int C_PaymentBatch_ID) {
+		if (get_ID() == 0) {
+			super.setC_PaymentBatch_ID(C_PaymentBatch_ID);
+		}
 	}
 
 	/**

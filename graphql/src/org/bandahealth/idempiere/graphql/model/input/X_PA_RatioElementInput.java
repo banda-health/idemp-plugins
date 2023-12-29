@@ -61,6 +61,17 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	public I_C_ElementValueInput getAccount() {
 		return Account;
 	}
+	/**
+	 * Set Account.
+	 *
+	 * @param Account_ID Account used
+	 */
+
+	public void setAccount_ID(int Account_ID) {
+		if (get_ID() == 0) {
+			super.setAccount_ID(Account_ID);
+		}
+	}
 
 	/**
 	 * Set Organization.
@@ -138,6 +149,28 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	public I_PA_RatioInput getPA_Ratio() {
 		return PA_Ratio;
 	}
+	/**
+	 * Set Ratio.
+	 *
+	 * @param PA_Ratio_ID Performance Ratio
+	 */
+
+	public void setPA_Ratio_ID(int PA_Ratio_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Ratio_ID(PA_Ratio_ID);
+		}
+	}
+	/**
+	 * Set Ratio Element.
+	 *
+	 * @param PA_RatioElement_ID Performance Ratio Element
+	 */
+
+	public void setPA_RatioElement_ID(int PA_RatioElement_ID) {
+		if (get_ID() == 0) {
+			super.setPA_RatioElement_ID(PA_RatioElement_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -182,6 +215,17 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 */
 	public I_PA_RatioInput getPA_RatioUsed() {
 		return PA_RatioUsed;
+	}
+	/**
+	 * Set Ratio Used.
+	 *
+	 * @param PA_RatioUsed_ID Performance Ratio Used
+	 */
+
+	public void setPA_RatioUsed_ID(int PA_RatioUsed_ID) {
+		if (get_ID() == 0) {
+			super.setPA_RatioUsed_ID(PA_RatioUsed_ID);
+		}
 	}
 
 	/**

@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MDepreciation;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Depreciation;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_DepreciationInput extends MDepreciation implements I_A_DepreciationInput {
+public class X_A_DepreciationInput extends X_A_Depreciation implements I_A_DepreciationInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -22,6 +22,17 @@ public class X_A_DepreciationInput extends MDepreciation implements I_A_Deprecia
 	public X_A_DepreciationInput(String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
+	}
+	/**
+	 * Set Depreciation.
+	 *
+	 * @param A_Depreciation_ID Depreciation
+	 */
+
+	public void setA_Depreciation_ID(int A_Depreciation_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_ID(A_Depreciation_ID);
+		}
 	}
 
 	/**

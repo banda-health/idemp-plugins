@@ -108,9 +108,9 @@ public class X_AD_WF_EventAuditResolver extends POResolver<X_AD_WF_EventAudit> i
 
 	static Map<String, String> EVENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_EventAudit.EVENTTYPE_ProcessCreated, "50f93eb9-a224-4faf-8e3d-3d751df8860e");
-			put(X_AD_WF_EventAudit.EVENTTYPE_StateChanged, "f7ade28a-ceb2-4ca8-af6a-2489f109e2b2");
-			put(X_AD_WF_EventAudit.EVENTTYPE_ProcessCompleted, "2bc42ab2-9683-4114-8a67-bf95df0794fd");
+			put("PC", "50f93eb9-a224-4faf-8e3d-3d751df8860e");
+			put("SC", "f7ade28a-ceb2-4ca8-af6a-2489f109e2b2");
+			put("PX", "2bc42ab2-9683-4114-8a67-bf95df0794fd");
 		}
 	};
 	public CompletableFuture<MRefList> EventType_RL(X_AD_WF_EventAudit entity, DataFetchingEnvironment environment) {
@@ -124,12 +124,12 @@ public class X_AD_WF_EventAuditResolver extends POResolver<X_AD_WF_EventAudit> i
 
 	static Map<String, String> WFSTATE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(X_AD_WF_EventAudit.WFSTATE_NotStarted, "79c0657d-e1c1-4662-8580-1819db98c456");
-			put(X_AD_WF_EventAudit.WFSTATE_Running, "6f40ec26-7f2b-48af-b711-2711462d14a2");
-			put(X_AD_WF_EventAudit.WFSTATE_Suspended, "5fa1df1a-94c6-4a25-b845-3778646130ef");
-			put(X_AD_WF_EventAudit.WFSTATE_Completed, "e622243a-7242-417c-a8fb-c167a1dbecfd");
-			put(X_AD_WF_EventAudit.WFSTATE_Aborted, "89ddf7c1-385d-4590-85c7-728e1c33016b");
-			put(X_AD_WF_EventAudit.WFSTATE_Terminated, "1f8d557d-9955-4285-aa92-d098d5ed7ca9");
+			put("ON", "79c0657d-e1c1-4662-8580-1819db98c456");
+			put("OR", "6f40ec26-7f2b-48af-b711-2711462d14a2");
+			put("OS", "5fa1df1a-94c6-4a25-b845-3778646130ef");
+			put("CC", "e622243a-7242-417c-a8fb-c167a1dbecfd");
+			put("CA", "89ddf7c1-385d-4590-85c7-728e1c33016b");
+			put("CT", "1f8d557d-9955-4285-aa92-d098d5ed7ca9");
 		}
 	};
 	public CompletableFuture<MRefList> WFState_RL(X_AD_WF_EventAudit entity, DataFetchingEnvironment environment) {

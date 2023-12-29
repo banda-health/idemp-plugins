@@ -170,6 +170,17 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	public I_PA_ReportLineInput getOper_1() {
 		return Oper_1;
 	}
+	/**
+	 * Set Operand 1.
+	 *
+	 * @param Oper_1_ID First operand for calculation
+	 */
+
+	public void setOper_1_ID(int Oper_1_ID) {
+		if (get_ID() == 0) {
+			super.setOper_1_ID(Oper_1_ID);
+		}
+	}
 
 	/**
 	 * Set Operand 2.
@@ -197,6 +208,17 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	public I_PA_ReportLineInput getOper_2() {
 		return Oper_2;
 	}
+	/**
+	 * Set Operand 2.
+	 *
+	 * @param Oper_2_ID Second operand for calculation
+	 */
+
+	public void setOper_2_ID(int Oper_2_ID) {
+		if (get_ID() == 0) {
+			super.setOper_2_ID(Oper_2_ID);
+		}
+	}
 
 	/**
 	 * Set Overline Stroke Type.
@@ -223,6 +245,17 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 */
 	public I_AD_Ref_ListInput getOverlineStrokeType_RL() {
 		return OverlineStrokeType_RL;
+	}
+	/**
+	 * Set Report Line.
+	 *
+	 * @param PA_ReportLine_ID Report Line
+	 */
+
+	public void setPA_ReportLine_ID(int PA_ReportLine_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportLine_ID(PA_ReportLine_ID);
+		}
 	}
 
 	/**
@@ -266,6 +299,17 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 */
 	public I_PA_ReportLineSetInput getPA_ReportLineSet() {
 		return PA_ReportLineSet;
+	}
+	/**
+	 * Set Report Line Set.
+	 *
+	 * @param PA_ReportLineSet_ID Report Line Set
+	 */
+
+	public void setPA_ReportLineSet_ID(int PA_ReportLineSet_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportLineSet_ID(PA_ReportLineSet_ID);
+		}
 	}
 
 	/**

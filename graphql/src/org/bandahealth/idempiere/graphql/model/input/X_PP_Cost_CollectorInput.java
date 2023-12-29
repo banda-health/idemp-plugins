@@ -221,6 +221,17 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	public I_C_DocTypeInput getC_DocTypeTarget() {
 		return C_DocTypeTarget;
 	}
+	/**
+	 * Set Target Document Type.
+	 *
+	 * @param C_DocTypeTarget_ID Target document type for conversing documents
+	 */
+
+	public void setC_DocTypeTarget_ID(int C_DocTypeTarget_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocTypeTarget_ID(C_DocTypeTarget_ID);
+		}
+	}
 
 	/**
 	 * Set Project.
@@ -361,6 +372,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 *
 	 * @param IsSubcontracting Is Subcontracting
 	 */
+
 	public void setIsSubcontracting(boolean IsSubcontracting) {
 		if (get_ID() == 0) {
 			super.setIsSubcontracting(IsSubcontracting);
@@ -473,6 +485,17 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 */
 	public I_M_WarehouseInput getM_Warehouse() {
 		return M_Warehouse;
+	}
+	/**
+	 * Set Manufacturing Cost Collector.
+	 *
+	 * @param PP_Cost_Collector_ID Manufacturing Cost Collector
+	 */
+
+	public void setPP_Cost_Collector_ID(int PP_Cost_Collector_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Cost_Collector_ID(PP_Cost_Collector_ID);
+		}
 	}
 
 	/**
@@ -627,6 +650,17 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	public I_PP_Cost_CollectorInput getReversal() {
 		return Reversal;
 	}
+	/**
+	 * Set Reversal ID.
+	 *
+	 * @param Reversal_ID ID of document reversal
+	 */
+
+	public void setReversal_ID(int Reversal_ID) {
+		if (get_ID() == 0) {
+			super.setReversal_ID(Reversal_ID);
+		}
+	}
 
 	/**
 	 * Set Resource.
@@ -653,6 +687,17 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 */
 	public I_S_ResourceInput getS_Resource() {
 		return S_Resource;
+	}
+	/**
+	 * Set Resource.
+	 *
+	 * @param S_Resource_ID Resource
+	 */
+
+	public void setS_Resource_ID(int S_Resource_ID) {
+		if (get_ID() == 0) {
+			super.setS_Resource_ID(S_Resource_ID);
+		}
 	}
 
 	/**
@@ -681,6 +726,17 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	public I_AD_UserInput getUser1() {
 		return User1;
 	}
+	/**
+	 * Set User Element List 1.
+	 *
+	 * @param User1_ID User defined list element #1
+	 */
+
+	public void setUser1_ID(int User1_ID) {
+		if (get_ID() == 0) {
+			super.setUser1_ID(User1_ID);
+		}
+	}
 
 	/**
 	 * Set User Element List 2.
@@ -707,5 +763,16 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 */
 	public I_AD_UserInput getUser2() {
 		return User2;
+	}
+	/**
+	 * Set User Element List 2.
+	 *
+	 * @param User2_ID User defined list element #2
+	 */
+
+	public void setUser2_ID(int User2_ID) {
+		if (get_ID() == 0) {
+			super.setUser2_ID(User2_ID);
+		}
 	}
 }

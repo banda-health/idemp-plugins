@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCurrency;
@@ -9,6 +10,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_GL_JournalBatch;
 import org.compiere.util.Env;
 
 /**
@@ -17,7 +19,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_JournalBatchInput {
+public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_JournalBatchInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput DocAction_RL;
@@ -142,6 +144,17 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	public I_C_PeriodInput getC_Period() {
 		return C_Period;
 	}
+	/**
+	 * Set Period.
+	 *
+	 * @param C_Period_ID Period of the Calendar
+	 */
+
+	public void setC_Period_ID(int C_Period_ID) {
+		if (get_ID() == 0) {
+			super.setC_Period_ID(C_Period_ID);
+		}
+	}
 
 	/**
 	 * Set Document Action.
@@ -201,6 +214,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 *
 	 * @param DocumentNo Document sequence number of the document
 	 */
+
 	public void setDocumentNo(String DocumentNo) {
 		if (get_ID() == 0) {
 			super.setDocumentNo(DocumentNo);
@@ -232,6 +246,17 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 */
 	public I_GL_CategoryInput getGL_Category() {
 		return GL_Category;
+	}
+	/**
+	 * Set Journal Batch.
+	 *
+	 * @param GL_JournalBatch_ID General Ledger Journal Batch
+	 */
+
+	public void setGL_JournalBatch_ID(int GL_JournalBatch_ID) {
+		if (get_ID() == 0) {
+			super.setGL_JournalBatch_ID(GL_JournalBatch_ID);
+		}
 	}
 
 	/**
@@ -306,10 +331,22 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 		return Reversal;
 	}
 	/**
+	 * Set Reversal ID.
+	 *
+	 * @param Reversal_ID ID of document reversal
+	 */
+
+	public void setReversal_ID(int Reversal_ID) {
+		if (get_ID() == 0) {
+			super.setReversal_ID(Reversal_ID);
+		}
+	}
+	/**
 	 * Set Total Credit.
 	 *
 	 * @param TotalCr Total Credit in document currency
 	 */
+
 	public void setTotalCr(BigDecimal TotalCr) {
 		if (get_ID() == 0) {
 			super.setTotalCr(TotalCr);
@@ -320,6 +357,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 *
 	 * @param TotalDr Total debit in document currency
 	 */
+
 	public void setTotalDr(BigDecimal TotalDr) {
 		if (get_ID() == 0) {
 			super.setTotalDr(TotalDr);

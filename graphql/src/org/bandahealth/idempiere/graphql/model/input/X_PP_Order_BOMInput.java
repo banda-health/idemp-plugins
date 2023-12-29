@@ -225,6 +225,17 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	public I_M_ProductInput getM_Product() {
 		return M_Product;
 	}
+	/**
+	 * Set Manufacturing Order BOM.
+	 *
+	 * @param PP_Order_BOM_ID Manufacturing Order BOM
+	 */
+
+	public void setPP_Order_BOM_ID(int PP_Order_BOM_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_BOM_ID(PP_Order_BOM_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -267,5 +278,16 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	 */
 	public I_PP_OrderInput getPP_Order() {
 		return PP_Order;
+	}
+	/**
+	 * Set Manufacturing Order.
+	 *
+	 * @param PP_Order_ID Manufacturing Order
+	 */
+
+	public void setPP_Order_ID(int PP_Order_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_ID(PP_Order_ID);
+		}
 	}
 }

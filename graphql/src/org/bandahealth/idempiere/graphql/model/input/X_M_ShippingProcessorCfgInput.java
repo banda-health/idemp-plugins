@@ -48,6 +48,17 @@ public class X_M_ShippingProcessorCfgInput extends X_M_ShippingProcessorCfg impl
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Shipping Processor Configuration.
+	 *
+	 * @param M_ShippingProcessorCfg_ID Shipping Processor Configuration
+	 */
+
+	public void setM_ShippingProcessorCfg_ID(int M_ShippingProcessorCfg_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShippingProcessorCfg_ID(M_ShippingProcessorCfg_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

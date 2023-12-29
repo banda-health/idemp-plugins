@@ -1,10 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MCtxHelp;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_CtxHelp;
 import org.compiere.util.Env;
 
 /**
@@ -13,7 +13,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_CtxHelpInput extends MCtxHelp implements I_AD_CtxHelpInput {
+public class X_AD_CtxHelpInput extends X_AD_CtxHelp implements I_AD_CtxHelpInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput CtxType_RL;
@@ -24,6 +24,17 @@ public class X_AD_CtxHelpInput extends MCtxHelp implements I_AD_CtxHelpInput {
 	public X_AD_CtxHelpInput(String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
+	}
+	/**
+	 * Set Context Help.
+	 *
+	 * @param AD_CtxHelp_ID Context Help
+	 */
+
+	public void setAD_CtxHelp_ID(int AD_CtxHelp_ID) {
+		if (get_ID() == 0) {
+			super.setAD_CtxHelp_ID(AD_CtxHelp_ID);
+		}
 	}
 
 	/**

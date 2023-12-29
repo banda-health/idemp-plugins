@@ -3,10 +3,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDashboardContent;
-import org.compiere.model.MDashboardPreference;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
+import org.compiere.model.X_PA_DashboardPreference;
 import org.compiere.util.Env;
 
 /**
@@ -15,7 +15,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_DashboardPreferenceInput extends MDashboardPreference implements I_PA_DashboardPreferenceInput {
+public class X_PA_DashboardPreferenceInput extends X_PA_DashboardPreference implements I_PA_DashboardPreferenceInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_RoleInput AD_Role;
@@ -134,6 +134,17 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	 */
 	public I_PA_DashboardContentInput getPA_DashboardContent() {
 		return PA_DashboardContent;
+	}
+	/**
+	 * Set Dashboard Preference.
+	 *
+	 * @param PA_DashboardPreference_ID Dashboard Preference
+	 */
+
+	public void setPA_DashboardPreference_ID(int PA_DashboardPreference_ID) {
+		if (get_ID() == 0) {
+			super.setPA_DashboardPreference_ID(PA_DashboardPreference_ID);
+		}
 	}
 
 	/**

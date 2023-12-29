@@ -19,6 +19,8 @@ import org.compiere.model.X_PA_ReportColumnSet;
 import org.compiere.model.X_PA_ReportLineSet;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for PA_Report - DO NOT CHANGE
  *

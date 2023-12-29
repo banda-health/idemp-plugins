@@ -7,6 +7,8 @@ import org.compiere.model.MElementValue;
 import org.compiere.model.X_C_SubAcct;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_SubAcct - DO NOT CHANGE
  *

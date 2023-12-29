@@ -3,9 +3,9 @@ package org.bandahealth.idempiere.graphql.model.input;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPackage;
-import org.compiere.model.MPackageMPS;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
+import org.compiere.model.X_M_PackageMPS;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSInput {
+public class X_M_PackageMPSInput extends X_M_PackageMPS implements I_M_PackageMPSInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_C_UOMInput C_UOM_Length;
@@ -80,6 +80,17 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	public I_C_UOMInput getC_UOM_Length() {
 		return C_UOM_Length;
 	}
+	/**
+	 * Set UOM for Length.
+	 *
+	 * @param C_UOM_Length_ID Standard Unit of Measure for Length
+	 */
+
+	public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_Length_ID(C_UOM_Length_ID);
+		}
+	}
 
 	/**
 	 * Set UOM for Weight.
@@ -107,6 +118,17 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	public I_C_UOMInput getC_UOM_Weight() {
 		return C_UOM_Weight;
 	}
+	/**
+	 * Set UOM for Weight.
+	 *
+	 * @param C_UOM_Weight_ID Standard Unit of Measure for Weight
+	 */
+
+	public void setC_UOM_Weight_ID(int C_UOM_Weight_ID) {
+		if (get_ID() == 0) {
+			super.setC_UOM_Weight_ID(C_UOM_Weight_ID);
+		}
+	}
 
 	/**
 	 * Set Package.
@@ -131,6 +153,28 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 */
 	public I_M_PackageInput getM_Package() {
 		return M_Package;
+	}
+	/**
+	 * Set Package.
+	 *
+	 * @param M_Package_ID Shipment Package
+	 */
+
+	public void setM_Package_ID(int M_Package_ID) {
+		if (get_ID() == 0) {
+			super.setM_Package_ID(M_Package_ID);
+		}
+	}
+	/**
+	 * Set Package MPS.
+	 *
+	 * @param M_PackageMPS_ID Package MPS
+	 */
+
+	public void setM_PackageMPS_ID(int M_PackageMPS_ID) {
+		if (get_ID() == 0) {
+			super.setM_PackageMPS_ID(M_PackageMPS_ID);
+		}
 	}
 
 	/**

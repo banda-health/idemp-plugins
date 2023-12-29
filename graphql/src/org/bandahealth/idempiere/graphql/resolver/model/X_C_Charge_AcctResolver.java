@@ -11,6 +11,8 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.X_C_Charge_Acct;
 import org.dataloader.DataLoader;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Generated ModelResolver for C_Charge_Acct - DO NOT CHANGE
  *

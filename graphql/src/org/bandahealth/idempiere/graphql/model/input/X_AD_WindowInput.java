@@ -6,8 +6,8 @@ import org.compiere.model.MEntityType;
 import org.compiere.model.MImage;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
-import org.compiere.model.MWindow;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Window;
 import org.compiere.util.Env;
 
 /**
@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
+public class X_AD_WindowInput extends X_AD_Window implements I_AD_WindowInput {
 
 	 private I_AD_ColorInput AD_Color;
 	 private I_AD_EntityTypeInput AD_EntityType;
@@ -110,6 +110,17 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
 	}
+	/**
+	 * Set Window.
+	 *
+	 * @param AD_Window_ID Data entry or display window
+	 */
+
+	public void setAD_Window_ID(int AD_Window_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Window_ID(AD_Window_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -141,9 +152,9 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.get_ID());
+			this.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(0);
+			this.setEntityType(null);
 		}
 	}
 
@@ -154,6 +165,17 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 */
 	public I_AD_EntityTypeInput getAD_EntityType() {
 		return AD_EntityType;
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+
+	public void setEntityType(String EntityType) {
+		if (get_ID() == 0) {
+			super.setEntityType(EntityType);
+		}
 	}
 
 	/**

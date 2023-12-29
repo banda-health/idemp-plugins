@@ -1,11 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MCountry;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_Country;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
+public class X_C_CountryInput extends X_C_Country implements I_C_CountryInput {
 
 	 private I_AD_LanguageInput AD_Language_L;
 	 private I_AD_OrgInput AD_Org;
@@ -54,6 +54,17 @@ public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
 	public I_AD_LanguageInput getAD_Language_L() {
 		return AD_Language_L;
 	}
+	/**
+	 * Set Language.
+	 *
+	 * @param AD_Language Language for this entity
+	 */
+
+	public void setAD_Language(String AD_Language) {
+		if (get_ID() == 0) {
+			super.setAD_Language(AD_Language);
+		}
+	}
 
 	/**
 	 * Set Organization.
@@ -78,6 +89,17 @@ public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
 	 */
 	public I_AD_OrgInput getAD_Org() {
 		return AD_Org;
+	}
+	/**
+	 * Set Country.
+	 *
+	 * @param C_Country_ID Country 
+	 */
+
+	public void setC_Country_ID(int C_Country_ID) {
+		if (get_ID() == 0) {
+			super.setC_Country_ID(C_Country_ID);
+		}
 	}
 
 	/**

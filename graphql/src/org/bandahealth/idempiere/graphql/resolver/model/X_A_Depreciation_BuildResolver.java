@@ -72,11 +72,11 @@ public class X_A_Depreciation_BuildResolver extends POResolver<MDepreciationBuil
 
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MDepreciationBuild.POSTINGTYPE_Actual, "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put(MDepreciationBuild.POSTINGTYPE_Budget, "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put(MDepreciationBuild.POSTINGTYPE_Commitment, "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put(MDepreciationBuild.POSTINGTYPE_Statistical, "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put(MDepreciationBuild.POSTINGTYPE_Reservation, "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
 	public CompletableFuture<MRefList> PostingType_RL(MDepreciationBuild entity, DataFetchingEnvironment environment) {

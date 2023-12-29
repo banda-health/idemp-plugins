@@ -109,20 +109,6 @@ public interface I_A_Depreciation_ExpInput extends I_A_Depreciation_Exp {
 	I_AD_Ref_ListInput getA_Entry_Type_RL();
 
 	/**
-	 * Set A_Period_RL.
-	 *
-	 * @param A_Period_RL A_Period_RL
-	 */
-	void setA_Period_RL(I_AD_Ref_ListInput A_Period_RL);
-
-	/**
-	 * Get A_Period_RL.
-	 *
-	 * @return A_Period_RL
-	 */
-	I_AD_Ref_ListInput getA_Period_RL();
-
-	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client

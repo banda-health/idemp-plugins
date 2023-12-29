@@ -6,11 +6,11 @@ import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCash;
-import org.compiere.model.MCashLine;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_C_CashLine;
 import org.compiere.util.Env;
 
 /**
@@ -19,7 +19,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
+public class X_C_CashLineInput extends X_C_CashLine implements I_C_CashLineInput {
 
 	 private I_AD_OrgInput AD_Org;
 	 private I_AD_Ref_ListInput CashType_RL;
@@ -114,6 +114,28 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	public I_C_CashInput getC_Cash() {
 		return C_Cash;
 	}
+	/**
+	 * Set Cash Journal.
+	 *
+	 * @param C_Cash_ID Cash Journal
+	 */
+
+	public void setC_Cash_ID(int C_Cash_ID) {
+		if (get_ID() == 0) {
+			super.setC_Cash_ID(C_Cash_ID);
+		}
+	}
+	/**
+	 * Set Cash Journal Line.
+	 *
+	 * @param C_CashLine_ID Cash Journal Line
+	 */
+
+	public void setC_CashLine_ID(int C_CashLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_CashLine_ID(C_CashLine_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -184,6 +206,17 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	public I_C_CurrencyInput getC_Currency() {
 		return C_Currency;
 	}
+	/**
+	 * Set Currency.
+	 *
+	 * @param C_Currency_ID The Currency for this record
+	 */
+
+	public void setC_Currency_ID(int C_Currency_ID) {
+		if (get_ID() == 0) {
+			super.setC_Currency_ID(C_Currency_ID);
+		}
+	}
 
 	/**
 	 * Set Invoice.
@@ -208,6 +241,17 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 */
 	public I_C_InvoiceInput getC_Invoice() {
 		return C_Invoice;
+	}
+	/**
+	 * Set Invoice.
+	 *
+	 * @param C_Invoice_ID Invoice Identifier
+	 */
+
+	public void setC_Invoice_ID(int C_Invoice_ID) {
+		if (get_ID() == 0) {
+			super.setC_Invoice_ID(C_Invoice_ID);
+		}
 	}
 
 	/**
@@ -266,6 +310,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 *
 	 * @param IsGenerated This Line is generated
 	 */
+
 	public void setIsGenerated(boolean IsGenerated) {
 		if (get_ID() == 0) {
 			super.setIsGenerated(IsGenerated);

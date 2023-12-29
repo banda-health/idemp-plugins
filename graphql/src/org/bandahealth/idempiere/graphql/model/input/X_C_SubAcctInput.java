@@ -75,6 +75,28 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	public I_C_ElementValueInput getC_ElementValue() {
 		return C_ElementValue;
 	}
+	/**
+	 * Set Account Element.
+	 *
+	 * @param C_ElementValue_ID Account Element
+	 */
+
+	public void setC_ElementValue_ID(int C_ElementValue_ID) {
+		if (get_ID() == 0) {
+			super.setC_ElementValue_ID(C_ElementValue_ID);
+		}
+	}
+	/**
+	 * Set Sub Account.
+	 *
+	 * @param C_SubAcct_ID Sub account for Element Value
+	 */
+
+	public void setC_SubAcct_ID(int C_SubAcct_ID) {
+		if (get_ID() == 0) {
+			super.setC_SubAcct_ID(C_SubAcct_ID);
+		}
+	}
 
 	/**
 	 * Set ID.

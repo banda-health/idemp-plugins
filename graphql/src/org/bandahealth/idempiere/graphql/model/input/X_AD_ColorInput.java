@@ -1,11 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MColor;
 import org.compiere.model.MImage;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_Color;
 import org.compiere.util.Env;
 
 /**
@@ -14,7 +14,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
+public class X_AD_ColorInput extends X_AD_Color implements I_AD_ColorInput {
 
 	 private I_AD_ImageInput AD_Image;
 	 private I_AD_OrgInput AD_Org;
@@ -27,6 +27,17 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	public X_AD_ColorInput(String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
+	}
+	/**
+	 * Set System Color.
+	 *
+	 * @param AD_Color_ID Color for backgrounds or indicators
+	 */
+
+	public void setAD_Color_ID(int AD_Color_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Color_ID(AD_Color_ID);
+		}
 	}
 
 	/**

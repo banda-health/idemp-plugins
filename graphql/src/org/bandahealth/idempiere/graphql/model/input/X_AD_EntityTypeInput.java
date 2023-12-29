@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_EntityType;
 import org.compiere.util.Env;
 
 /**
@@ -12,7 +12,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_EntityTypeInput extends MEntityType implements I_AD_EntityTypeInput {
+public class X_AD_EntityTypeInput extends X_AD_EntityType implements I_AD_EntityTypeInput {
 
 	 private I_AD_OrgInput AD_Org;
 
@@ -22,6 +22,17 @@ public class X_AD_EntityTypeInput extends MEntityType implements I_AD_EntityType
 	public X_AD_EntityTypeInput(String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
+	}
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param AD_EntityType_ID System Entity Type
+	 */
+
+	public void setAD_EntityType_ID(int AD_EntityType_ID) {
+		if (get_ID() == 0) {
+			super.setAD_EntityType_ID(AD_EntityType_ID);
+		}
 	}
 
 	/**
@@ -71,6 +82,7 @@ public class X_AD_EntityTypeInput extends MEntityType implements I_AD_EntityType
 	 *
 	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
+
 	public void setEntityType(String EntityType) {
 		if (get_ID() == 0) {
 			super.setEntityType(EntityType);

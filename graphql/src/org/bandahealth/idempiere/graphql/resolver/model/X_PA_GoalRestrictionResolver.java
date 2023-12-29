@@ -63,11 +63,11 @@ public class X_PA_GoalRestrictionResolver extends POResolver<MGoalRestriction> i
 
 	static Map<String, String> GOALRESTRICTIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MGoalRestriction.GOALRESTRICTIONTYPE_Organization, "cc49d971-7f08-4a31-8c12-c3d318cb81ef");
-			put(MGoalRestriction.GOALRESTRICTIONTYPE_BusinessPartner, "3c91757a-962d-42a0-b378-281fbe889243");
-			put(MGoalRestriction.GOALRESTRICTIONTYPE_Product, "d013683b-2c53-407e-a7fa-f83f1b8803d7");
-			put(MGoalRestriction.GOALRESTRICTIONTYPE_BusPartnerGroup, "8de8a1da-ba61-4fab-b387-1146ceae5191");
-			put(MGoalRestriction.GOALRESTRICTIONTYPE_ProductCategory, "6f38fb28-8838-4e46-81bc-3f2019527c87");
+			put("O", "cc49d971-7f08-4a31-8c12-c3d318cb81ef");
+			put("B", "3c91757a-962d-42a0-b378-281fbe889243");
+			put("P", "d013683b-2c53-407e-a7fa-f83f1b8803d7");
+			put("G", "8de8a1da-ba61-4fab-b387-1146ceae5191");
+			put("C", "6f38fb28-8838-4e46-81bc-3f2019527c87");
 		}
 	};
 	public CompletableFuture<MRefList> GoalRestrictionType_RL(MGoalRestriction entity, DataFetchingEnvironment environment) {

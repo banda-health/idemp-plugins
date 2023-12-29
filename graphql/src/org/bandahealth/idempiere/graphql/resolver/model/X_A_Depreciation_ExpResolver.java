@@ -110,12 +110,12 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 
 	static Map<String, String> A_ENTRY_TYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MDepreciationExp.A_ENTRY_TYPE_Depreciation, "ac52889b-ad80-4c72-8a90-35eaf234de74");
-			put(MDepreciationExp.A_ENTRY_TYPE_Disposals, "0775c222-fe4d-44bb-9ec1-6bccce458a83");
-			put(MDepreciationExp.A_ENTRY_TYPE_Forecasts, "b8f42168-eb32-4eb2-beda-8d7e1f4cc9e6");
-			put(MDepreciationExp.A_ENTRY_TYPE_New, "1320a810-50d5-4b98-922b-6f04dea06cb8");
-			put(MDepreciationExp.A_ENTRY_TYPE_Splits, "5695ac1e-1cf6-4ef7-9255-16b9c6780643");
-			put(MDepreciationExp.A_ENTRY_TYPE_Transfers, "52189c27-fea7-4c43-a88f-ca2a9b5511a0");
+			put("DEP", "ac52889b-ad80-4c72-8a90-35eaf234de74");
+			put("DIS", "0775c222-fe4d-44bb-9ec1-6bccce458a83");
+			put("FOR", "b8f42168-eb32-4eb2-beda-8d7e1f4cc9e6");
+			put("NEW", "1320a810-50d5-4b98-922b-6f04dea06cb8");
+			put("SPL", "5695ac1e-1cf6-4ef7-9255-16b9c6780643");
+			put("TRN", "52189c27-fea7-4c43-a88f-ca2a9b5511a0");
 		}
 	};
 	public CompletableFuture<MRefList> A_Entry_Type_RL(MDepreciationExp entity, DataFetchingEnvironment environment) {
@@ -125,19 +125,6 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 		DataLoader<String, MRefList> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_ENTRY_TYPE_UUIDS_BY_VALUE.get(entity.getA_Entry_Type()));
-	}
-
-	static Map<String, String> A_PERIOD_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-		}
-	};
-	public CompletableFuture<MRefList> A_Period_RL(MDepreciationExp entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getA_Period())) {
-			return null;
-		}
-		DataLoader<String, MRefList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
-		return dataLoader.load(A_PERIOD_UUIDS_BY_VALUE.get(entity.getA_Period()));
 	}
 
 
@@ -187,11 +174,11 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
-			put(MDepreciationExp.POSTINGTYPE_Actual, "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
-			put(MDepreciationExp.POSTINGTYPE_Budget, "07bbb012-66f2-4860-bd6d-dc511618bf4e");
-			put(MDepreciationExp.POSTINGTYPE_Commitment, "c40ae7b1-be06-4291-ac88-59974f74a46d");
-			put(MDepreciationExp.POSTINGTYPE_Statistical, "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
-			put(MDepreciationExp.POSTINGTYPE_Reservation, "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
+			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
+			put("B", "07bbb012-66f2-4860-bd6d-dc511618bf4e");
+			put("E", "c40ae7b1-be06-4291-ac88-59974f74a46d");
+			put("S", "6011c5d4-edcc-48f6-ba32-8d820d42dbfb");
+			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
 	public CompletableFuture<MRefList> PostingType_RL(MDepreciationExp entity, DataFetchingEnvironment environment) {

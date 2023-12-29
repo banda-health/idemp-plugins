@@ -115,6 +115,28 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	public I_AD_UserInput getAD_User() {
 		return AD_User;
 	}
+	/**
+	 * Set User/Contact.
+	 *
+	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
+	 */
+
+	public void setAD_User_ID(int AD_User_ID) {
+		if (get_ID() == 0) {
+			super.setAD_User_ID(AD_User_ID);
+		}
+	}
+	/**
+	 * Set Workflow Event Audit.
+	 *
+	 * @param AD_WF_EventAudit_ID Workflow Process Activity Event Audit Information
+	 */
+
+	public void setAD_WF_EventAudit_ID(int AD_WF_EventAudit_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_EventAudit_ID(AD_WF_EventAudit_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
