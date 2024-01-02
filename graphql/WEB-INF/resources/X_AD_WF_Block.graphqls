@@ -5,11 +5,6 @@ extend type Query {
 	AD_WF_BlockGet(page: Int, size: Int, sort: String, filter: String): AD_WF_BlockConnection!
 }
 
-extend type Mutation {
-	AD_WF_BlockSave(entity: AD_WF_BlockInput!): AD_WF_Block!
-	AD_WF_BlockDelete(uuids: [String!]!): Boolean!
-}
-
 type AD_WF_BlockConnection {
 	results: [AD_WF_Block!]!
 	pagingInfo: PagingInfo!
@@ -39,16 +34,3 @@ type AD_WF_Block {
 	UpdatedBy: AD_User!
 }
 
-input AD_WF_BlockInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	ID: ID
-	# Workflow or combination of tasks
-	AD_Workflow: AD_WorkflowInput
-	# Optional short description of the record
-	Description: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-}

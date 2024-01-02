@@ -5,11 +5,6 @@ extend type Query {
 	AD_InfoWindowGet(page: Int, size: Int, sort: String, filter: String): AD_InfoWindowConnection!
 }
 
-extend type Mutation {
-	AD_InfoWindowSave(entity: AD_InfoWindowInput!): AD_InfoWindow!
-	AD_InfoWindowDelete(uuids: [String!]!): Boolean!
-}
-
 type AD_InfoWindowConnection {
 	results: [AD_InfoWindow!]!
 	pagingInfo: PagingInfo!
@@ -70,47 +65,3 @@ type AD_InfoWindow {
 	WhereClause: String
 }
 
-input AD_InfoWindowInput {
-	AD_CtxHelp: AD_CtxHelpInput
-	ID: ID
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Database Table information
-	AD_Table: AD_TableInput
-	# Optional short description of the record
-	Description: String
-	# Dictionary Entity Type; Determines ownership and synchronization
-	AD_EntityType: AD_EntityTypeInput
-	# SQL FROM clause
-	FromClause: String
-	# Comment or Hint
-	Help: String
-	# URL of  image
-	ImageURL: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Default value
-	IsDefault: Boolean
-	# Select Distinct
-	IsDistinct: Boolean
-	# When load data for info window, also load number of paging
-	isLoadPageNum: Boolean
-	# Show the dashlet in the dashboard
-	IsShowInDashboard: Boolean
-	# Element is valid
-	IsValid: Boolean
-	# If defined, you cannot query more records as defined - the query criteria needs to be changed to query less records
-	MaxQueryRecords: Int
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Fully qualified ORDER BY clause
-	OrderByClause: String
-	# Other SQL Clause
-	OtherClause: String
-	PagingSize: Int
-	Processing: Boolean
-	# Method of ordering records; lowest number comes first
-	SeqNo: Int
-	# Fully qualified SQL WHERE clause
-	WhereClause: String
-}

@@ -5,11 +5,6 @@ extend type Query {
 	PA_HierarchyGet(page: Int, size: Int, sort: String, filter: String): PA_HierarchyConnection!
 }
 
-extend type Mutation {
-	PA_HierarchySave(entity: PA_HierarchyInput!): PA_Hierarchy!
-	PA_HierarchyDelete(uuids: [String!]!): Boolean!
-}
-
 type PA_HierarchyConnection {
 	results: [PA_Hierarchy!]!
 	pagingInfo: PagingInfo!
@@ -55,32 +50,3 @@ type PA_Hierarchy {
 	UpdatedBy: AD_User!
 }
 
-input PA_HierarchyInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Tree for Natural Account Tree
-	AD_Tree_Account: AD_TreeInput
-	# Trees are used for (financial) reporting
-	AD_Tree_Activity: AD_TreeInput
-	# Trees are used for (financial) reporting
-	AD_Tree_BPartner: AD_TreeInput
-	# Trees are used for (financial) reporting
-	AD_Tree_Campaign: AD_TreeInput
-	# Trees are used for (financial) reporting and security access (via role)
-	AD_Tree_Org: AD_TreeInput
-	# Trees are used for (financial) reporting
-	AD_Tree_Product: AD_TreeInput
-	# Trees are used for (financial) reporting
-	AD_Tree_Project: AD_TreeInput
-	# Trees are used for (financial) reporting
-	AD_Tree_SalesRegion: AD_TreeInput
-	# Optional short description of the record
-	Description: String
-	# Comment or Hint
-	Help: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	ID: ID
-}

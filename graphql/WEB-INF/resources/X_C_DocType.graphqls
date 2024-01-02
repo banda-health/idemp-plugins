@@ -5,11 +5,6 @@ extend type Query {
 	C_DocTypeGet(page: Int, size: Int, sort: String, filter: String): C_DocTypeConnection!
 }
 
-extend type Mutation {
-	C_DocTypeSave(entity: C_DocTypeInput!): C_DocType!
-	C_DocTypeDelete(uuids: [String!]!): Boolean!
-}
-
 type C_DocTypeConnection {
 	results: [C_DocType!]!
 	pagingInfo: PagingInfo!
@@ -93,70 +88,3 @@ type C_DocType {
 	UpdatedBy: AD_User!
 }
 
-input C_DocTypeInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Data Print Format
-	AD_PrintFormat: AD_PrintFormatInput
-	ID: ID
-	# Document type for generating in dispute Shipments
-	C_DocTypeDifference: C_DocTypeInput
-	# Document type used for invoices generated from this sales document
-	C_DocTypeInvoice: C_DocTypeInput
-	# Document type used for pro forma invoices generated from this sales document
-	C_DocTypeProforma: C_DocTypeInput
-	# Document type used for shipments generated from this sales document
-	C_DocTypeShipment: C_DocTypeInput
-	DefiniteSequence: AD_SequenceInput
-	# Optional short description of the record
-	Description: String
-	# Logical type of document
-	DocBaseType: AD_Ref_ListInput
-	# Document sequence determines the numbering of documents
-	DocNoSequence: AD_SequenceInput
-	# Inventory Sub Type
-	DocSubTypeInv: AD_Ref_ListInput
-	# Sales Order Sub Type
-	DocSubTypeSO: AD_Ref_ListInput
-	# Number of copies to be printed
-	DocumentCopies: Int
-	# Additional information for a Document
-	DocumentNote: String
-	# General Ledger Category
-	GL_Category: GL_CategoryInput
-	# Charges can be added to the document
-	HasCharges: Boolean
-	# Indicates if Pro Forma Invoices can be generated from this document
-	HasProforma: Boolean
-	# The record is active in the system
-	IsActive: Boolean
-	IsChargeOrProductMandatory: Boolean
-	# Create Counter Document
-	IsCreateCounter: Boolean
-	# Default value
-	IsDefault: Boolean
-	# The document type is the default counter document type
-	IsDefaultCounterDoc: Boolean
-	# The document has a document sequence
-	IsDocNoControlled: Boolean
-	# Index the document for the internal search engine
-	IsIndexed: Boolean
-	# Movement is in transit
-	IsInTransit: Boolean
-	IsOverwriteDateOnComplete: Boolean
-	IsOverwriteSeqOnComplete: Boolean
-	# Require Pick or QA Confirmation before processing
-	IsPickQAConfirm: Boolean
-	# Prepare generated split shipment/receipt document
-	IsPrepareSplitDocument: Boolean
-	# Require Ship or Receipt Confirmation before processing
-	IsShipConfirm: Boolean
-	# This is a Sales Transaction
-	IsSOTrx: Boolean
-	# Split document when there is a difference
-	IsSplitWhenDifference: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	# The label text to be printed on a document or correspondence.
-	PrintName: String
-}

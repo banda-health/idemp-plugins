@@ -5,11 +5,6 @@ extend type Query {
 	PP_Order_NodeNextGet(page: Int, size: Int, sort: String, filter: String): PP_Order_NodeNextConnection!
 }
 
-extend type Mutation {
-	PP_Order_NodeNextSave(entity: PP_Order_NodeNextInput!): PP_Order_NodeNext!
-	PP_Order_NodeNextDelete(uuids: [String!]!): Boolean!
-}
-
 type PP_Order_NodeNextConnection {
 	results: [PP_Order_NodeNext!]!
 	pagingInfo: PagingInfo!
@@ -52,29 +47,3 @@ type PP_Order_NodeNext {
 	UpdatedBy: AD_User!
 }
 
-input PP_Order_NodeNextInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Next Node in workflow
-	AD_WF_Next: AD_WF_NodeInput
-	# Workflow Node (activity), step or process
-	AD_WF_Node: AD_WF_NodeInput
-	# Optional short description of the record
-	Description: String
-	# Dictionary Entity Type; Determines ownership and synchronization
-	AD_EntityType: AD_EntityTypeInput
-	# The record is active in the system
-	IsActive: Boolean
-	# Standard Manual User Approval Workflow
-	IsStdUserWorkflow: Boolean
-	# Manufacturing Order
-	PP_Order: PP_OrderInput
-	PP_Order_Next: PP_Order_NodeInput
-	# Workflow Node (activity), step or process
-	PP_Order_Node: PP_Order_NodeInput
-	ID: ID
-	# Method of ordering records; lowest number comes first
-	SeqNo: Int
-	# Code resulting in TRUE of FALSE
-	TransitionCode: String
-}

@@ -5,11 +5,6 @@ extend type Query {
 	C_CampaignGet(page: Int, size: Int, sort: String, filter: String): C_CampaignConnection!
 }
 
-extend type Mutation {
-	C_CampaignSave(entity: C_CampaignInput!): C_Campaign!
-	C_CampaignDelete(uuids: [String!]!): Boolean!
-}
-
 type C_CampaignConnection {
 	results: [C_Campaign!]!
 	pagingInfo: PagingInfo!
@@ -49,26 +44,3 @@ type C_Campaign {
 	Value: String!
 }
 
-input C_CampaignInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	ID: ID
-	# Sales Channel
-	C_Channel: C_ChannelInput
-	# Costs in accounting currency
-	Costs: Int
-	# Optional short description of the record
-	Description: String
-	# Last effective date (inclusive)
-	EndDate: Date
-	# The record is active in the system
-	IsActive: Boolean
-	# This is a summary entity
-	IsSummary: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	# First effective day (inclusive)
-	StartDate: Date
-	# Search key for the record in the format required - must be unique
-	Value: String
-}

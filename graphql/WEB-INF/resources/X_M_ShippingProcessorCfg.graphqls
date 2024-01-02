@@ -5,11 +5,6 @@ extend type Query {
 	M_ShippingProcessorCfgGet(page: Int, size: Int, sort: String, filter: String): M_ShippingProcessorCfgConnection!
 }
 
-extend type Mutation {
-	M_ShippingProcessorCfgSave(entity: M_ShippingProcessorCfgInput!): M_ShippingProcessorCfg!
-	M_ShippingProcessorCfgDelete(uuids: [String!]!): Boolean!
-}
-
 type M_ShippingProcessorCfgConnection {
 	results: [M_ShippingProcessorCfg!]!
 	pagingInfo: PagingInfo!
@@ -51,28 +46,3 @@ type M_ShippingProcessorCfg {
 	UpdatedBy: AD_User!
 }
 
-input M_ShippingProcessorCfgInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Optional short description of the record
-	Description: String
-	# Host Address URL or DNS
-	HostAddress: String
-	# Host Communication Port
-	HostPort: Int
-	# The record is active in the system
-	IsActive: Boolean
-	ID: ID
-	# Alphanumeric identifier of the entity
-	Name: String
-	#  Address of your proxy server
-	ProxyAddress: String
-	# Logon of your proxy server
-	ProxyLogon: String
-	# Password of your proxy server
-	ProxyPassword: String
-	# Port of your proxy server
-	ProxyPort: Int
-	ServicePath: String
-	ShippingProcessorClass: String
-}

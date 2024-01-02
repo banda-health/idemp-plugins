@@ -5,11 +5,6 @@ extend type Query {
 	PA_BenchmarkDataGet(page: Int, size: Int, sort: String, filter: String): PA_BenchmarkDataConnection!
 }
 
-extend type Mutation {
-	PA_BenchmarkDataSave(entity: PA_BenchmarkDataInput!): PA_BenchmarkData!
-	PA_BenchmarkDataDelete(uuids: [String!]!): Boolean!
-}
-
 type PA_BenchmarkDataConnection {
 	results: [PA_BenchmarkData!]!
 	pagingInfo: PagingInfo!
@@ -43,20 +38,3 @@ type PA_BenchmarkData {
 	UpdatedBy: AD_User!
 }
 
-input PA_BenchmarkDataInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Benchmark Date
-	BenchmarkDate: Date
-	# Benchmark Value
-	BenchmarkValue: Int
-	# Optional short description of the record
-	Description: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Performance Benchmark
-	PA_Benchmark: PA_BenchmarkInput
-	ID: ID
-}

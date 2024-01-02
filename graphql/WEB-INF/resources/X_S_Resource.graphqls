@@ -5,11 +5,6 @@ extend type Query {
 	S_ResourceGet(page: Int, size: Int, sort: String, filter: String): S_ResourceConnection!
 }
 
-extend type Mutation {
-	S_ResourceSave(entity: S_ResourceInput!): S_Resource!
-	S_ResourceDelete(uuids: [String!]!): Boolean!
-}
-
 type S_ResourceConnection {
 	results: [S_Resource!]!
 	pagingInfo: PagingInfo!
@@ -57,34 +52,3 @@ type S_Resource {
 	WaitingTime: Int
 }
 
-input S_ResourceInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# User within the system - Internal or Business Partner Contact
-	AD_User: AD_UserInput
-	ChargeableQty: Int
-	DailyCapacity: Int
-	# Optional short description of the record
-	Description: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Resource is available
-	IsAvailable: Boolean
-	IsManufacturingResource: Boolean
-	# Storage Warehouse and Service Point
-	M_Warehouse: M_WarehouseInput
-	ManufacturingResourceType: AD_Ref_ListInput
-	# Alphanumeric identifier of the entity
-	Name: String
-	PercentUtilization: Int
-	# The planning horizon is the amount of time (Days) an organisation will look into the future when preparing a strategic plan.
-	PlanningHorizon: Int
-	# Queue time is the time a job waits at a work center before begin handled.
-	QueuingTime: Int
-	ID: ID
-	S_ResourceType: S_ResourceTypeInput
-	# Search key for the record in the format required - must be unique
-	Value: String
-	# Workflow Simulation Waiting time
-	WaitingTime: Int
-}

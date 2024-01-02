@@ -5,11 +5,6 @@ extend type Query {
 	A_FundingModeGet(page: Int, size: Int, sort: String, filter: String): A_FundingModeConnection!
 }
 
-extend type Mutation {
-	A_FundingModeSave(entity: A_FundingModeInput!): A_FundingMode!
-	A_FundingModeDelete(uuids: [String!]!): Boolean!
-}
-
 type A_FundingModeConnection {
 	results: [A_FundingMode!]!
 	pagingInfo: PagingInfo!
@@ -39,16 +34,3 @@ type A_FundingMode {
 	Value: String!
 }
 
-input A_FundingModeInput {
-	ID: ID
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Optional short description of the record
-	Description: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Search key for the record in the format required - must be unique
-	Value: String
-}

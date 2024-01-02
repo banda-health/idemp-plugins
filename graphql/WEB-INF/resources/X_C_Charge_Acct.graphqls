@@ -5,11 +5,6 @@ extend type Query {
 	C_Charge_AcctGet(page: Int, size: Int, sort: String, filter: String): C_Charge_AcctConnection!
 }
 
-extend type Mutation {
-	C_Charge_AcctSave(entity: C_Charge_AcctInput!): C_Charge_Acct!
-	C_Charge_AcctDelete(uuids: [String!]!): Boolean!
-}
-
 type C_Charge_AcctConnection {
 	results: [C_Charge_Acct!]!
 	pagingInfo: PagingInfo!
@@ -39,16 +34,3 @@ type C_Charge_Acct {
 	UpdatedBy: AD_User!
 }
 
-input C_Charge_AcctInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Rules for accounting
-	C_AcctSchema: C_AcctSchemaInput
-	ID: ID
-	# Additional document charges
-	C_Charge: C_ChargeInput
-	# Charge Account
-	Ch_Expense_A: C_ValidCombinationInput
-	# The record is active in the system
-	IsActive: Boolean
-}

@@ -5,11 +5,6 @@ extend type Query {
 	M_DiscountSchemaGet(page: Int, size: Int, sort: String, filter: String): M_DiscountSchemaConnection!
 }
 
-extend type Mutation {
-	M_DiscountSchemaSave(entity: M_DiscountSchemaInput!): M_DiscountSchema!
-	M_DiscountSchemaDelete(uuids: [String!]!): Boolean!
-}
-
 type M_DiscountSchemaConnection {
 	results: [M_DiscountSchema!]!
 	pagingInfo: PagingInfo!
@@ -52,29 +47,3 @@ type M_DiscountSchema {
 	ValidFrom: Date!
 }
 
-input M_DiscountSchemaInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Level for accumulative calculations
-	CumulativeLevel: AD_Ref_ListInput
-	# Optional short description of the record
-	Description: String
-	# Type of trade discount calculation
-	DiscountType: AD_Ref_ListInput
-	# Flat discount percentage 
-	FlatDiscount: Int
-	# The record is active in the system
-	IsActive: Boolean
-	# Use flat discount defined on Business Partner Level
-	IsBPartnerFlatDiscount: Boolean
-	# Trade discount break level based on Quantity (not value)
-	IsQuantityBased: Boolean
-	ID: ID
-	# Alphanumeric identifier of the entity
-	Name: String
-	Processing: Boolean
-	# Dynamic Java Language Script to calculate result
-	Script: String
-	# Valid from including this date (first day)
-	ValidFrom: Date
-}

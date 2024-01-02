@@ -5,11 +5,6 @@ extend type Query {
 	A_Asset_TypeGet(page: Int, size: Int, sort: String, filter: String): A_Asset_TypeConnection!
 }
 
-extend type Mutation {
-	A_Asset_TypeSave(entity: A_Asset_TypeInput!): A_Asset_Type!
-	A_Asset_TypeDelete(uuids: [String!]!): Boolean!
-}
-
 type A_Asset_TypeConnection {
 	results: [A_Asset_Type!]!
 	pagingInfo: PagingInfo!
@@ -45,22 +40,3 @@ type A_Asset_Type {
 	Value: String!
 }
 
-input A_Asset_TypeInput {
-	ID: ID
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Optional short description of the record
-	Description: String
-	# The record is active in the system
-	IsActive: Boolean
-	# This asset CAN be depreciated
-	IsDepreciable: AD_Ref_ListInput
-	# The asset is in the possession of the organization
-	IsInPosession: AD_Ref_ListInput
-	# The asset is owned by the organization
-	IsOwned: AD_Ref_ListInput
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Search key for the record in the format required - must be unique
-	Value: String
-}

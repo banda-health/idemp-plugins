@@ -5,11 +5,6 @@ extend type Query {
 	PA_ReportColumnSetGet(page: Int, size: Int, sort: String, filter: String): PA_ReportColumnSetConnection!
 }
 
-extend type Mutation {
-	PA_ReportColumnSetSave(entity: PA_ReportColumnSetInput!): PA_ReportColumnSet!
-	PA_ReportColumnSetDelete(uuids: [String!]!): Boolean!
-}
-
 type PA_ReportColumnSetConnection {
 	results: [PA_ReportColumnSet!]!
 	pagingInfo: PagingInfo!
@@ -38,15 +33,3 @@ type PA_ReportColumnSet {
 	UpdatedBy: AD_User!
 }
 
-input PA_ReportColumnSetInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Optional short description of the record
-	Description: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	ID: ID
-	Processing: Boolean
-}

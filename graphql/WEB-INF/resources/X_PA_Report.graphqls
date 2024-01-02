@@ -5,11 +5,6 @@ extend type Query {
 	PA_ReportGet(page: Int, size: Int, sort: String, filter: String): PA_ReportConnection!
 }
 
-extend type Mutation {
-	PA_ReportSave(entity: PA_ReportInput!): PA_Report!
-	PA_ReportDelete(uuids: [String!]!): Boolean!
-}
-
 type PA_ReportConnection {
 	results: [PA_Report!]!
 	pagingInfo: PagingInfo!
@@ -58,35 +53,3 @@ type PA_Report {
 	UpdatedBy: AD_User!
 }
 
-input PA_ReportInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Data Print Format
-	AD_PrintFormat: AD_PrintFormatInput
-	# Rules for accounting
-	C_AcctSchema: C_AcctSchemaInput
-	# Accounting Calendar Name
-	C_Calendar: C_CalendarInput
-	# Optional short description of the record
-	Description: String
-	# The record is active in the system
-	IsActive: Boolean
-	# The Jasper Process used by the printengine if any process defined
-	JasperProcess: AD_ProcessInput
-	JasperProcessing: String
-	# List Report Line Sources
-	ListSources: Boolean
-	# Include source accounts with no transaction for list report line sources
-	ListSourcesXTrx: Boolean
-	# List the report transactions
-	ListTrx: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	ID: ID
-	# Collection of Columns for Report
-	PA_ReportColumnSet: PA_ReportColumnSetInput
-	# Define reporting cube for pre-calculation of summary accounting data.
-	PA_ReportCube: PA_ReportCubeInput
-	PA_ReportLineSet: PA_ReportLineSetInput
-	Processing: Boolean
-}

@@ -104,7 +104,8 @@ public class GraphQLSchemaGenerator {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
 		}
 
-		stringBuilder.append("# Generated Schema for ").append(tableName).append(" - DO NOT CHANGE\n")
+		stringBuilder
+				.append("# Generated Schema for ").append(tableName).append(" - DO NOT CHANGE\n")
 				.append("#\t\t@author Banda Health (generated) ").append("\n")
 				.append("#\t\t@version ").append(Adempiere.MAIN_VERSION).append(" - $Id$").append("\n")
 
@@ -115,17 +116,21 @@ public class GraphQLSchemaGenerator {
 				.append("}\n\n")
 
 				// Default Mutations
-				.append("extend type Mutation {\n\t").append(tableName).append("Save(entity: ").append(tableName)
-				.append("Input!): ").append(tableName).append("!\n\t").append(tableName)
-				.append("Delete(uuids: [String!]!): Boolean!\n}\n\n")
+//				.append("extend type Mutation {\n")
+//				.append("\t").append(tableName).append("Save(entity: ").append(tableName)
+//				.append("Input!): ").append(tableName).append("!\n")
+//				.append("\t").append(tableName)
+//				.append("Delete(uuids: [String!]!): Boolean!\n}\n\n")
 
 				// Connection Type
 				.append("type ").append(tableName).append("Connection {\n\tresults: [").append(tableName).append("!]!\n")
 				.append("\tpagingInfo: PagingInfo!\n}\n\n");
 
-		stringBuilder.append("type ").append(tableName).append(" {\n").append(generatedColumns.regularModel)
-				.append("}\n\ninput ").append(tableName).append("Input {\n").append(generatedColumns.inputModel).append(
-						"}\n");
+		stringBuilder
+				.append("type ").append(tableName).append(" {\n")
+				.append(generatedColumns.regularModel).append("}\n\n");
+//				.append("input ").append(tableName).append("Input {\n")
+//				.append(generatedColumns.inputModel).append("}\n");
 
 		return "X_" + tableName;
 	}

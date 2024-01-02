@@ -5,11 +5,6 @@ extend type Query {
 	I_FixedAssetGet(page: Int, size: Int, sort: String, filter: String): I_FixedAssetConnection!
 }
 
-extend type Mutation {
-	I_FixedAssetSave(entity: I_FixedAssetInput!): I_FixedAsset!
-	I_FixedAssetDelete(uuids: [String!]!): Boolean!
-}
-
 type I_FixedAssetConnection {
 	results: [I_FixedAsset!]!
 	pagingInfo: PagingInfo!
@@ -106,83 +101,3 @@ type I_FixedAsset {
 	UseLifeMonths_F: Int
 }
 
-input I_FixedAssetInput {
-	A_Accumulated_Depr: Int
-	A_Accumulated_Depr_F: Int
-	A_Asset_Class: A_Asset_ClassInput
-	A_Asset_Class_Value: String
-	A_Asset_Cost: Int
-	# Group of Assets
-	A_Asset_Group: A_Asset_GroupInput
-	A_Asset_Group_Value: String
-	# Asset used internally or by customers
-	A_Asset: A_AssetInput
-	A_Asset_Type: A_Asset_TypeInput
-	A_Asset_Type_Value: String
-	A_Current_Period: Int
-	A_Remaining_Period: Int
-	A_Salvage_Value: Int
-	# Name of the Accounting Schema
-	AcctSchemaName: String
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	AssetAmtEntered: Int
-	# Date of last depreciation
-	AssetDepreciationDate: Date
-	# Applies to Straight Line depreciation
-	AssetPeriodDepreciationAmt: Int
-	# Date when Asset was put into service
-	AssetServiceDate: Date
-	AssetSourceAmt: Int
-	# The Key of the Business Partner
-	BPartner_Value: String
-	# Rules for accounting
-	C_AcctSchema: C_AcctSchemaInput
-	# Business Partner (Agent or Sales Rep)
-	C_BPartnerSR: C_BPartnerInput
-	# City
-	C_City: C_CityInput
-	C_City_Value: String
-	# The Currency for this record
-	C_Currency: C_CurrencyInput
-	# Unit of Measure
-	C_UOM: C_UOMInput
-	# Accounting Date
-	DateAcct: Date
-	# Optional short description of the record
-	Description: String
-	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
-	# Messages generated from import process
-	I_ErrorMsg: String
-	ID: ID
-	# Has this import been processed
-	I_IsImported: Boolean
-	InventoryNo: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Three letter ISO 4217 Code of the Currency
-	ISO_Code: String
-	# Key of the Warehouse Locator
-	LocatorValue: String
-	# Warehouse Locator
-	M_Locator: M_LocatorInput
-	# Product, Service, Item
-	M_Product: M_ProductInput
-	# Alphanumeric identifier of the entity
-	Name: String
-	# The document has been processed
-	Processed: Boolean
-	Processing: Boolean
-	# Key of the Product
-	ProductValue: String
-	# Quantity
-	Qty: Int
-	# Method of ordering records; lowest number comes first
-	SeqNo: Int
-	# Symbol for a Unit of Measure
-	UOMSymbol: String
-	# Months of the usable life of the asset
-	UseLifeMonths: Int
-	UseLifeMonths_F: Int
-}

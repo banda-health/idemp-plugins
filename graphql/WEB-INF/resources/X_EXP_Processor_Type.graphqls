@@ -5,11 +5,6 @@ extend type Query {
 	EXP_Processor_TypeGet(page: Int, size: Int, sort: String, filter: String): EXP_Processor_TypeConnection!
 }
 
-extend type Mutation {
-	EXP_Processor_TypeSave(entity: EXP_Processor_TypeInput!): EXP_Processor_Type!
-	EXP_Processor_TypeDelete(uuids: [String!]!): Boolean!
-}
-
 type EXP_Processor_TypeConnection {
 	results: [EXP_Processor_Type!]!
 	pagingInfo: PagingInfo!
@@ -42,19 +37,3 @@ type EXP_Processor_Type {
 	Value: String!
 }
 
-input EXP_Processor_TypeInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Optional short description of the record
-	Description: String
-	ID: ID
-	# Comment or Hint
-	Help: String
-	# The record is active in the system
-	IsActive: Boolean
-	JavaClass: String
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Search key for the record in the format required - must be unique
-	Value: String
-}

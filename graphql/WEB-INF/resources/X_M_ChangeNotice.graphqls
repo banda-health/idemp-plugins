@@ -5,11 +5,6 @@ extend type Query {
 	M_ChangeNoticeGet(page: Int, size: Int, sort: String, filter: String): M_ChangeNoticeConnection!
 }
 
-extend type Mutation {
-	M_ChangeNoticeSave(entity: M_ChangeNoticeInput!): M_ChangeNotice!
-	M_ChangeNoticeDelete(uuids: [String!]!): Boolean!
-}
-
 type M_ChangeNoticeConnection {
 	results: [M_ChangeNotice!]!
 	pagingInfo: PagingInfo!
@@ -46,23 +41,3 @@ type M_ChangeNotice {
 	UpdatedBy: AD_User!
 }
 
-input M_ChangeNoticeInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Optional short description of the record
-	Description: String
-	# Additional Detail Information
-	DetailInfo: String
-	# Comment or Hint
-	Help: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Indicates if this document requires approval
-	IsApproved: Boolean
-	ID: ID
-	# Alphanumeric identifier of the entity
-	Name: String
-	# The document has been processed
-	Processed: Boolean
-	Processing: Boolean
-}

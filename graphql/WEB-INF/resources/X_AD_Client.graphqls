@@ -5,11 +5,6 @@ extend type Query {
 	AD_ClientGet(page: Int, size: Int, sort: String, filter: String): AD_ClientConnection!
 }
 
-extend type Mutation {
-	AD_ClientSave(entity: AD_ClientInput!): AD_Client!
-	AD_ClientDelete(uuids: [String!]!): Boolean!
-}
-
 type AD_ClientConnection {
 	results: [AD_Client!]!
 	pagingInfo: PagingInfo!
@@ -75,54 +70,3 @@ type AD_Client {
 	Value: String!
 }
 
-input AD_ClientInput {
-	ID: ID
-	# Language for this entity
-	AD_Language: AD_LanguageInput
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	AD_PasswordRule: AD_PasswordRuleInput
-	# Data Replication Strategy
-	AD_ReplicationStrategy: AD_ReplicationStrategyInput
-	# Enable and level of automatic Archive of documents
-	AutoArchive: AD_Ref_ListInput
-	# Optional short description of the record
-	Description: String
-	# Directory for documents from the application server
-	DocumentDir: String
-	# Test EMail
-	EMailTest: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Documents are Multi Lingual
-	IsMultiLingualDocument: Boolean
-	# Post the accounting immediately for testing (Deprecated)
-	IsPostImmediate: Boolean
-	# Use SSL/TLS for SMTP
-	IsSecureSMTP: Boolean
-	# Your mail server requires Authentication
-	IsSmtpAuthorization: Boolean
-	IsUseASP: Boolean
-	# Enable the use of Beta Functionality
-	IsUseBetaFunctions: Boolean
-	# Material Movement Policy
-	MMPolicy: AD_Ref_ListInput
-	# List of data model validation classes separated by ;
-	ModelValidationClasses: String
-	# Alphanumeric identifier of the entity
-	Name: String
-	# EMail address to send automated mails from or receive mails for automated processing (fully qualified)
-	RequestEMail: String
-	# EMail folder to process incoming emails; if empty INBOX is used
-	RequestFolder: String
-	# User Name (ID) of the email owner
-	RequestUser: String
-	# Password of the user name (ID) for mail processing
-	RequestUserPW: String
-	# Hostname of Mail Server for SMTP and IMAP
-	SMTPHost: String
-	# SMTP Port Number
-	SMTPPort: Int
-	# Search key for the record in the format required - must be unique
-	Value: String
-}

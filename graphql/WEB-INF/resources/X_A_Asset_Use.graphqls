@@ -5,11 +5,6 @@ extend type Query {
 	A_Asset_UseGet(page: Int, size: Int, sort: String, filter: String): A_Asset_UseConnection!
 }
 
-extend type Mutation {
-	A_Asset_UseSave(entity: A_Asset_UseInput!): A_Asset_Use!
-	A_Asset_UseDelete(uuids: [String!]!): Boolean!
-}
-
 type A_Asset_UseConnection {
 	results: [A_Asset_Use!]!
 	pagingInfo: PagingInfo!
@@ -40,17 +35,3 @@ type A_Asset_Use {
 	UseUnits: Int!
 }
 
-input A_Asset_UseInput {
-	# Asset used internally or by customers
-	A_Asset: A_AssetInput
-	ID: ID
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Optional short description of the record
-	Description: String
-	# The record is active in the system
-	IsActive: Boolean
-	UseDate: Date
-	# Currently used units of the assets
-	UseUnits: Int
-}

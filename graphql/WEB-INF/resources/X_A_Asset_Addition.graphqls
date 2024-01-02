@@ -5,11 +5,6 @@ extend type Query {
 	A_Asset_AdditionGet(page: Int, size: Int, sort: String, filter: String): A_Asset_AdditionConnection!
 }
 
-extend type Mutation {
-	A_Asset_AdditionSave(entity: A_Asset_AdditionInput!): A_Asset_Addition!
-	A_Asset_AdditionDelete(uuids: [String!]!): Boolean!
-}
-
 type A_Asset_AdditionConnection {
 	results: [A_Asset_Addition!]!
 	pagingInfo: PagingInfo!
@@ -100,75 +95,3 @@ type A_Asset_Addition {
 	UpdatedBy: AD_User!
 }
 
-input A_Asset_AdditionInput {
-	ID: ID
-	# Asset used internally or by customers
-	A_Asset: A_AssetInput
-	A_CapvsExp: AD_Ref_ListInput
-	A_CreateAsset: Boolean
-	A_QTY_Current: Int
-	A_Salvage_Value: Int
-	A_SourceType: AD_Ref_ListInput
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	AssetAmtEntered: Int
-	AssetSourceAmt: Int
-	# Book Value of the asset
-	AssetValueAmt: Int
-	# Additional document charges
-	C_Charge: C_ChargeInput
-	# Currency Conversion Rate Type
-	C_ConversionType: C_ConversionTypeInput
-	# The Currency for this record
-	C_Currency: C_CurrencyInput
-	# Document type or rules
-	C_DocType: C_DocTypeInput
-	# Invoice Identifier
-	C_Invoice: C_InvoiceInput
-	# Invoice Detail Line
-	C_InvoiceLine: C_InvoiceLineInput
-	# Financial Project
-	C_Project: C_ProjectInput
-	# Currency Conversion Rate
-	CurrencyRate: Int
-	# Accounting Date
-	DateAcct: Date
-	# Date of the Document
-	DateDoc: Date
-	# Optional short description of the record
-	Description: String
-	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
-	# The current status of the document
-	DocStatus: AD_Ref_ListInput
-	# Document sequence number of the document
-	DocumentNo: String
-	# General Ledger Journal Batch
-	GL_JournalBatch: GL_JournalBatchInput
-	I_FixedAsset: I_FixedAssetInput
-	# The record is active in the system
-	IsActive: Boolean
-	# Indicates if this document requires approval
-	IsApproved: Boolean
-	# Unique line for this document
-	Line: Int
-	# Product Attribute Set Instance
-	M_AttributeSetInstance: M_AttributeSetInstanceInput
-	# Line on Shipment or Receipt document
-	M_InOutLine: M_InOutLineInput
-	# Warehouse Locator
-	M_Locator: M_LocatorInput
-	# Match Shipment/Receipt to Invoice
-	M_MatchInv: M_MatchInvInput
-	# Product, Service, Item
-	M_Product: M_ProductInput
-	# Posting status
-	Posted: Boolean
-	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
-	# The document has been processed
-	Processed: Boolean
-	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
-	Processing: Boolean
-}

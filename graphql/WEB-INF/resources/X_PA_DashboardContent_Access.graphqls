@@ -5,11 +5,6 @@ extend type Query {
 	PA_DashboardContent_AccessGet(page: Int, size: Int, sort: String, filter: String): PA_DashboardContent_AccessConnection!
 }
 
-extend type Mutation {
-	PA_DashboardContent_AccessSave(entity: PA_DashboardContent_AccessInput!): PA_DashboardContent_Access!
-	PA_DashboardContent_AccessDelete(uuids: [String!]!): Boolean!
-}
-
 type PA_DashboardContent_AccessConnection {
 	results: [PA_DashboardContent_Access!]!
 	pagingInfo: PagingInfo!
@@ -38,15 +33,3 @@ type PA_DashboardContent_Access {
 	UpdatedBy: AD_User
 }
 
-input PA_DashboardContent_AccessInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Responsibility Role
-	AD_Role: AD_RoleInput
-	# User within the system - Internal or Business Partner Contact
-	AD_User: AD_UserInput
-	# The record is active in the system
-	IsActive: Boolean
-	ID: ID
-	PA_DashboardContent: PA_DashboardContentInput
-}

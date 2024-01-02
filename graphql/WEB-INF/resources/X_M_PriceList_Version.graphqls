@@ -5,11 +5,6 @@ extend type Query {
 	M_PriceList_VersionGet(page: Int, size: Int, sort: String, filter: String): M_PriceList_VersionConnection!
 }
 
-extend type Mutation {
-	M_PriceList_VersionSave(entity: M_PriceList_VersionInput!): M_PriceList_Version!
-	M_PriceList_VersionDelete(uuids: [String!]!): Boolean!
-}
-
 type M_PriceList_VersionConnection {
 	results: [M_PriceList_Version!]!
 	pagingInfo: PagingInfo!
@@ -46,23 +41,3 @@ type M_PriceList_Version {
 	ValidFrom: Date!
 }
 
-input M_PriceList_VersionInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Optional short description of the record
-	Description: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Schema to calculate the trade discount percentage
-	M_DiscountSchema: M_DiscountSchemaInput
-	# Unique identifier of a Price List
-	M_PriceList: M_PriceListInput
-	# Source for Price list calculations
-	M_Pricelist_Version_Base: M_PriceList_VersionInput
-	ID: ID
-	# Alphanumeric identifier of the entity
-	Name: String
-	ProcCreate: String
-	# Valid from including this date (first day)
-	ValidFrom: Date
-}

@@ -5,11 +5,6 @@ extend type Query {
 	M_InOutLineGet(page: Int, size: Int, sort: String, filter: String): M_InOutLineConnection!
 }
 
-extend type Mutation {
-	M_InOutLineSave(entity: M_InOutLineInput!): M_InOutLine!
-	M_InOutLineDelete(uuids: [String!]!): Boolean!
-}
-
 type M_InOutLineConnection {
 	results: [M_InOutLine!]!
 	pagingInfo: PagingInfo!
@@ -88,65 +83,3 @@ type M_InOutLine {
 	User2: C_ElementValue
 }
 
-input M_InOutLineInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Business Activity
-	C_Activity: C_ActivityInput
-	# Marketing Campaign
-	C_Campaign: C_CampaignInput
-	# Additional document charges
-	C_Charge: C_ChargeInput
-	# Sales Order Line
-	C_OrderLine: C_OrderLineInput
-	# Financial Project
-	C_Project: C_ProjectInput
-	# Phase of a Project
-	C_ProjectPhase: C_ProjectPhaseInput
-	# Actual Project Task in a Phase
-	C_ProjectTask: C_ProjectTaskInput
-	# Unit of Measure
-	C_UOM: C_UOMInput
-	# Confirmation of a received quantity
-	ConfirmedQty: Int
-	# Optional short description of the record
-	Description: String
-	# The record is active in the system
-	IsActive: Boolean
-	# if true, the line is just description and no transaction
-	IsDescription: Boolean
-	# Is this invoiced?
-	IsInvoiced: Boolean
-	# Unique line for this document
-	Line: Int
-	# Product Attribute Set Instance
-	M_AttributeSetInstance: M_AttributeSetInstanceInput
-	# Material Shipment Document
-	M_InOut: M_InOutInput
-	ID: ID
-	# Warehouse Locator
-	M_Locator: M_LocatorInput
-	# Product, Service, Item
-	M_Product: M_ProductInput
-	# Return Material Authorization Line
-	M_RMALine: M_RMALineInput
-	# Quantity of a product moved.
-	MovementQty: Int
-	PickedQty: Int
-	# The document has been processed
-	Processed: Boolean
-	# The Quantity Entered is based on the selected UoM
-	QtyEntered: Int
-	# Over Receipt Quantity
-	QtyOverReceipt: Int
-	# Use to keep the reversal line ID for reversing costing purpose
-	ReversalLine: M_InOutLineInput
-	# The Quantity scrapped due to QA issues
-	ScrappedQty: Int
-	# Target Movement Quantity
-	TargetQty: Int
-	# User defined list element #1
-	User1: C_ElementValueInput
-	# User defined list element #2
-	User2: C_ElementValueInput
-}

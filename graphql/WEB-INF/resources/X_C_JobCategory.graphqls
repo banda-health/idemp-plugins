@@ -5,11 +5,6 @@ extend type Query {
 	C_JobCategoryGet(page: Int, size: Int, sort: String, filter: String): C_JobCategoryConnection!
 }
 
-extend type Mutation {
-	C_JobCategorySave(entity: C_JobCategoryInput!): C_JobCategory!
-	C_JobCategoryDelete(uuids: [String!]!): Boolean!
-}
-
 type C_JobCategoryConnection {
 	results: [C_JobCategory!]!
 	pagingInfo: PagingInfo!
@@ -39,16 +34,3 @@ type C_JobCategory {
 	UpdatedBy: AD_User!
 }
 
-input C_JobCategoryInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	ID: ID
-	# Optional short description of the record
-	Description: String
-	# Comment or Hint
-	Help: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-}

@@ -5,11 +5,6 @@ extend type Query {
 	C_TaskGet(page: Int, size: Int, sort: String, filter: String): C_TaskConnection!
 }
 
-extend type Mutation {
-	C_TaskSave(entity: C_TaskInput!): C_Task!
-	C_TaskDelete(uuids: [String!]!): Boolean!
-}
-
 type C_TaskConnection {
 	results: [C_Task!]!
 	pagingInfo: PagingInfo!
@@ -47,24 +42,3 @@ type C_Task {
 	UpdatedBy: AD_User!
 }
 
-input C_TaskInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Standard Phase of the Project Type
-	C_Phase: C_PhaseInput
-	ID: ID
-	# Optional short description of the record
-	Description: String
-	# Comment or Hint
-	Help: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Product, Service, Item
-	M_Product: M_ProductInput
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Method of ordering records; lowest number comes first
-	SeqNo: Int
-	# Standard Quantity
-	StandardQty: Int
-}
