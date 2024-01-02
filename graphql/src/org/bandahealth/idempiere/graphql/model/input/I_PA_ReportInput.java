@@ -15,70 +15,70 @@ public interface I_PA_ReportInput extends I_PA_Report {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_PrintFormat.
 	 *
 	 * @param AD_PrintFormat Data Print Format
 	 */
-	void setAD_PrintFormat(I_AD_PrintFormatInput AD_PrintFormat);
+	void setAD_PrintFormatInput(I_AD_PrintFormatInput AD_PrintFormat);
 
 	/**
 	 * Get AD_PrintFormat.
 	 *
 	 * @return Data Print Format
 	 */
-	I_AD_PrintFormatInput getAD_PrintFormat();
+	I_AD_PrintFormatInput AD_PrintFormat();
 
 	/**
 	 * Set C_AcctSchema.
 	 *
 	 * @param C_AcctSchema Rules for accounting
 	 */
-	void setC_AcctSchema(I_C_AcctSchemaInput C_AcctSchema);
+	void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema);
 
 	/**
 	 * Get C_AcctSchema.
 	 *
 	 * @return Rules for accounting
 	 */
-	I_C_AcctSchemaInput getC_AcctSchema();
+	I_C_AcctSchemaInput C_AcctSchema();
 
 	/**
 	 * Set C_Calendar.
 	 *
 	 * @param C_Calendar Accounting Calendar Name
 	 */
-	void setC_Calendar(I_C_CalendarInput C_Calendar);
+	void setC_CalendarInput(I_C_CalendarInput C_Calendar);
 
 	/**
 	 * Get C_Calendar.
 	 *
 	 * @return Accounting Calendar Name
 	 */
-	I_C_CalendarInput getC_Calendar();
+	I_C_CalendarInput C_Calendar();
 
 	/**
 	 * Set JasperProcess.
 	 *
 	 * @param JasperProcess The Jasper Process used by the printengine if any process defined
 	 */
-	void setJasperProcess(I_AD_ProcessInput JasperProcess);
+	void setJasperProcessInput(I_AD_ProcessInput JasperProcess);
 
 	/**
 	 * Get JasperProcess.
 	 *
 	 * @return The Jasper Process used by the printengine if any process defined
 	 */
-	I_AD_ProcessInput getJasperProcess();
+	I_AD_ProcessInput JasperProcess();
 
 	/**
 	 * Set ID.
@@ -99,40 +99,40 @@ public interface I_PA_ReportInput extends I_PA_Report {
 	 *
 	 * @param PA_ReportColumnSet Collection of Columns for Report
 	 */
-	void setPA_ReportColumnSet(I_PA_ReportColumnSetInput PA_ReportColumnSet);
+	void setPA_ReportColumnSetInput(I_PA_ReportColumnSetInput PA_ReportColumnSet);
 
 	/**
 	 * Get PA_ReportColumnSet.
 	 *
 	 * @return Collection of Columns for Report
 	 */
-	I_PA_ReportColumnSetInput getPA_ReportColumnSet();
+	I_PA_ReportColumnSetInput PA_ReportColumnSet();
 
 	/**
 	 * Set PA_ReportCube.
 	 *
 	 * @param PA_ReportCube Define reporting cube for pre-calculation of summary accounting data.
 	 */
-	void setPA_ReportCube(I_PA_ReportCubeInput PA_ReportCube);
+	void setPA_ReportCubeInput(I_PA_ReportCubeInput PA_ReportCube);
 
 	/**
 	 * Get PA_ReportCube.
 	 *
 	 * @return Define reporting cube for pre-calculation of summary accounting data.
 	 */
-	I_PA_ReportCubeInput getPA_ReportCube();
+	I_PA_ReportCubeInput PA_ReportCube();
 
 	/**
 	 * Set PA_ReportLineSet.
 	 *
 	 * @param PA_ReportLineSet PA_ReportLineSet
 	 */
-	void setPA_ReportLineSet(I_PA_ReportLineSetInput PA_ReportLineSet);
+	void setPA_ReportLineSetInput(I_PA_ReportLineSetInput PA_ReportLineSet);
 
 	/**
 	 * Get PA_ReportLineSet.
 	 *
 	 * @return PA_ReportLineSet
 	 */
-	I_PA_ReportLineSetInput getPA_ReportLineSet();
+	I_PA_ReportLineSetInput PA_ReportLineSet();
 }

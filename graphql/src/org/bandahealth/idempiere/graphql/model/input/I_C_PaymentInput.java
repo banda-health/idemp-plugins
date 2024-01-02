@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import java.math.BigDecimal;
 import org.compiere.model.I_C_Payment;
 
 /**
@@ -16,267 +15,210 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
-
-	/**
-	 * Column name BH_NavButtons
-	 */
-	public static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
-
-	/**
-	 * Set BH_NavButtons.
-	 *
-	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	public void setBH_NavButtons(Object BH_NavButtons);
-
-	/**
-	 * Get BH_NavButtons.
-	 *
-	 * @return Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	public Object getBH_NavButtons();
-
-	/**
-	 * Column name BH_tender_amount
-	 */
-	public static final String COLUMNNAME_BH_tender_amount = "BH_tender_amount";
-
-	/**
-	 * Set Tender Amount.
-	 *
-	 * @param BH_tender_amount Tender Amount
-	 */
-	public void setBH_tender_amount(BigDecimal BH_tender_amount);
-
-	/**
-	 * Get Tender Amount.
-	 *
-	 * @return Tender Amount
-	 */
-	public BigDecimal getBH_tender_amount();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set BH_Visit.
 	 *
 	 * @param BH_Visit BH_Visit
 	 */
-	void setBH_Visit(I_BH_VisitInput BH_Visit);
+	void setBH_VisitInput(I_BH_VisitInput BH_Visit);
 
 	/**
 	 * Get BH_Visit.
 	 *
 	 * @return BH_Visit
 	 */
-	I_BH_VisitInput getBH_Visit();
-
-	/**
-	 * Column name BH_Visit_ID
-	 */
-	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
-
-	/**
-	 * Set Visit.
-	 *
-	 * @param BH_Visit_ID Visit
-	 */
-	public void setBH_Visit_ID(int BH_Visit_ID);
-
-	/**
-	 * Get Visit.
-	 *
-	 * @return Visit
-	 */
-	public int getBH_Visit_ID();
+	I_BH_VisitInput BH_Visit();
 
 	/**
 	 * Set C_Activity.
 	 *
 	 * @param C_Activity Business Activity
 	 */
-	void setC_Activity(I_C_ActivityInput C_Activity);
+	void setC_ActivityInput(I_C_ActivityInput C_Activity);
 
 	/**
 	 * Get C_Activity.
 	 *
 	 * @return Business Activity
 	 */
-	I_C_ActivityInput getC_Activity();
+	I_C_ActivityInput C_Activity();
 
 	/**
 	 * Set C_BankAccount.
 	 *
 	 * @param C_BankAccount Account at the Bank
 	 */
-	void setC_BankAccount(I_C_BankAccountInput C_BankAccount);
+	void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount);
 
 	/**
 	 * Get C_BankAccount.
 	 *
 	 * @return Account at the Bank
 	 */
-	I_C_BankAccountInput getC_BankAccount();
+	I_C_BankAccountInput C_BankAccount();
 
 	/**
 	 * Set C_BP_BankAccount.
 	 *
 	 * @param C_BP_BankAccount Bank Account of the Business Partner
 	 */
-	void setC_BP_BankAccount(I_C_BP_BankAccountInput C_BP_BankAccount);
+	void setC_BP_BankAccountInput(I_C_BP_BankAccountInput C_BP_BankAccount);
 
 	/**
 	 * Get C_BP_BankAccount.
 	 *
 	 * @return Bank Account of the Business Partner
 	 */
-	I_C_BP_BankAccountInput getC_BP_BankAccount();
+	I_C_BP_BankAccountInput C_BP_BankAccount();
 
 	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	void setC_BPartner(I_C_BPartnerInput C_BPartner);
+	void setC_BPartnerInput(I_C_BPartnerInput C_BPartner);
 
 	/**
 	 * Get C_BPartner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	I_C_BPartnerInput getC_BPartner();
+	I_C_BPartnerInput C_BPartner();
 
 	/**
 	 * Set C_Campaign.
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	void setC_Campaign(I_C_CampaignInput C_Campaign);
+	void setC_CampaignInput(I_C_CampaignInput C_Campaign);
 
 	/**
 	 * Get C_Campaign.
 	 *
 	 * @return Marketing Campaign
 	 */
-	I_C_CampaignInput getC_Campaign();
+	I_C_CampaignInput C_Campaign();
 
 	/**
 	 * Set C_CashBook.
 	 *
 	 * @param C_CashBook Cash Book for recording petty cash transactions
 	 */
-	void setC_CashBook(I_C_CashBookInput C_CashBook);
+	void setC_CashBookInput(I_C_CashBookInput C_CashBook);
 
 	/**
 	 * Get C_CashBook.
 	 *
 	 * @return Cash Book for recording petty cash transactions
 	 */
-	I_C_CashBookInput getC_CashBook();
+	I_C_CashBookInput C_CashBook();
 
 	/**
 	 * Set C_Charge.
 	 *
 	 * @param C_Charge Additional document charges
 	 */
-	void setC_Charge(I_C_ChargeInput C_Charge);
+	void setC_ChargeInput(I_C_ChargeInput C_Charge);
 
 	/**
 	 * Get C_Charge.
 	 *
 	 * @return Additional document charges
 	 */
-	I_C_ChargeInput getC_Charge();
+	I_C_ChargeInput C_Charge();
 
 	/**
 	 * Set C_ConversionType.
 	 *
 	 * @param C_ConversionType Currency Conversion Rate Type
 	 */
-	void setC_ConversionType(I_C_ConversionTypeInput C_ConversionType);
+	void setC_ConversionTypeInput(I_C_ConversionTypeInput C_ConversionType);
 
 	/**
 	 * Get C_ConversionType.
 	 *
 	 * @return Currency Conversion Rate Type
 	 */
-	I_C_ConversionTypeInput getC_ConversionType();
+	I_C_ConversionTypeInput C_ConversionType();
 
 	/**
 	 * Set C_Currency.
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_Currency(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput getC_Currency();
+	I_C_CurrencyInput C_Currency();
 
 	/**
 	 * Set C_DepositBatch.
 	 *
 	 * @param C_DepositBatch C_DepositBatch
 	 */
-	void setC_DepositBatch(I_C_DepositBatchInput C_DepositBatch);
+	void setC_DepositBatchInput(I_C_DepositBatchInput C_DepositBatch);
 
 	/**
 	 * Get C_DepositBatch.
 	 *
 	 * @return C_DepositBatch
 	 */
-	I_C_DepositBatchInput getC_DepositBatch();
+	I_C_DepositBatchInput C_DepositBatch();
 
 	/**
 	 * Set C_DocType.
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocType(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput getC_DocType();
+	I_C_DocTypeInput C_DocType();
 
 	/**
 	 * Set C_Invoice.
 	 *
 	 * @param C_Invoice Invoice Identifier
 	 */
-	void setC_Invoice(I_C_InvoiceInput C_Invoice);
+	void setC_InvoiceInput(I_C_InvoiceInput C_Invoice);
 
 	/**
 	 * Get C_Invoice.
 	 *
 	 * @return Invoice Identifier
 	 */
-	I_C_InvoiceInput getC_Invoice();
+	I_C_InvoiceInput C_Invoice();
 
 	/**
 	 * Set C_Order.
 	 *
 	 * @param C_Order Order
 	 */
-	void setC_Order(I_C_OrderInput C_Order);
+	void setC_OrderInput(I_C_OrderInput C_Order);
 
 	/**
 	 * Get C_Order.
 	 *
 	 * @return Order
 	 */
-	I_C_OrderInput getC_Order();
+	I_C_OrderInput C_Order();
 
 	/**
 	 * Set ID.
@@ -297,208 +239,208 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	 *
 	 * @param C_PaymentBatch Payment batch for EFT
 	 */
-	void setC_PaymentBatch(I_C_PaymentBatchInput C_PaymentBatch);
+	void setC_PaymentBatchInput(I_C_PaymentBatchInput C_PaymentBatch);
 
 	/**
 	 * Get C_PaymentBatch.
 	 *
 	 * @return Payment batch for EFT
 	 */
-	I_C_PaymentBatchInput getC_PaymentBatch();
+	I_C_PaymentBatchInput C_PaymentBatch();
 
 	/**
 	 * Set C_PaymentProcessor.
 	 *
 	 * @param C_PaymentProcessor Payment processor for electronic payments
 	 */
-	void setC_PaymentProcessor(I_C_PaymentProcessorInput C_PaymentProcessor);
+	void setC_PaymentProcessorInput(I_C_PaymentProcessorInput C_PaymentProcessor);
 
 	/**
 	 * Get C_PaymentProcessor.
 	 *
 	 * @return Payment processor for electronic payments
 	 */
-	I_C_PaymentProcessorInput getC_PaymentProcessor();
+	I_C_PaymentProcessorInput C_PaymentProcessor();
 
 	/**
 	 * Set C_POSTenderType.
 	 *
 	 * @param C_POSTenderType C_POSTenderType
 	 */
-	void setC_POSTenderType(I_C_POSTenderTypeInput C_POSTenderType);
+	void setC_POSTenderTypeInput(I_C_POSTenderTypeInput C_POSTenderType);
 
 	/**
 	 * Get C_POSTenderType.
 	 *
 	 * @return C_POSTenderType
 	 */
-	I_C_POSTenderTypeInput getC_POSTenderType();
+	I_C_POSTenderTypeInput C_POSTenderType();
 
 	/**
 	 * Set C_Project.
 	 *
 	 * @param C_Project Financial Project
 	 */
-	void setC_Project(I_C_ProjectInput C_Project);
+	void setC_ProjectInput(I_C_ProjectInput C_Project);
 
 	/**
 	 * Get C_Project.
 	 *
 	 * @return Financial Project
 	 */
-	I_C_ProjectInput getC_Project();
+	I_C_ProjectInput C_Project();
 
 	/**
-	 * Set CreditCardType_RL.
+	 * Set CreditCardType.
 	 *
-	 * @param CreditCardType_RL Credit Card (Visa, MC, AmEx)
+	 * @param CreditCardType Credit Card (Visa, MC, AmEx)
 	 */
-	void setCreditCardType_RL(I_AD_Ref_ListInput CreditCardType_RL);
+	void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType);
 
 	/**
-	 * Get CreditCardType_RL.
+	 * Get CreditCardType.
 	 *
 	 * @return Credit Card (Visa, MC, AmEx)
 	 */
-	I_AD_Ref_ListInput getCreditCardType_RL();
+	I_AD_Ref_ListInput CreditCardType();
 
 	/**
-	 * Set DocAction_RL.
+	 * Set DocAction.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL);
+	void setDocActionInput(I_AD_Ref_ListInput DocAction);
 
 	/**
-	 * Get DocAction_RL.
+	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput getDocAction_RL();
+	I_AD_Ref_ListInput DocAction();
 
 	/**
-	 * Set DocStatus_RL.
+	 * Set DocStatus.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL);
+	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
 
 	/**
-	 * Get DocStatus_RL.
+	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput getDocStatus_RL();
+	I_AD_Ref_ListInput DocStatus();
 
 	/**
-	 * Set R_AvsAddr_RL.
+	 * Set R_AvsAddr.
 	 *
-	 * @param R_AvsAddr_RL This address has been verified
+	 * @param R_AvsAddr This address has been verified
 	 */
-	void setR_AvsAddr_RL(I_AD_Ref_ListInput R_AvsAddr_RL);
+	void setR_AvsAddrInput(I_AD_Ref_ListInput R_AvsAddr);
 
 	/**
-	 * Get R_AvsAddr_RL.
+	 * Get R_AvsAddr.
 	 *
 	 * @return This address has been verified
 	 */
-	I_AD_Ref_ListInput getR_AvsAddr_RL();
+	I_AD_Ref_ListInput R_AvsAddr();
 
 	/**
-	 * Set R_AvsZip_RL.
+	 * Set R_AvsZip.
 	 *
-	 * @param R_AvsZip_RL The Zip Code has been verified
+	 * @param R_AvsZip The Zip Code has been verified
 	 */
-	void setR_AvsZip_RL(I_AD_Ref_ListInput R_AvsZip_RL);
+	void setR_AvsZipInput(I_AD_Ref_ListInput R_AvsZip);
 
 	/**
-	 * Get R_AvsZip_RL.
+	 * Get R_AvsZip.
 	 *
 	 * @return The Zip Code has been verified
 	 */
-	I_AD_Ref_ListInput getR_AvsZip_RL();
+	I_AD_Ref_ListInput R_AvsZip();
 
 	/**
 	 * Set Ref_Payment.
 	 *
 	 * @param Ref_Payment Ref_Payment
 	 */
-	void setRef_Payment(I_C_PaymentInput Ref_Payment);
+	void setRef_PaymentInput(I_C_PaymentInput Ref_Payment);
 
 	/**
 	 * Get Ref_Payment.
 	 *
 	 * @return Ref_Payment
 	 */
-	I_C_PaymentInput getRef_Payment();
+	I_C_PaymentInput Ref_Payment();
 
 	/**
 	 * Set Reversal.
 	 *
 	 * @param Reversal ID of document reversal
 	 */
-	void setReversal(I_C_PaymentInput Reversal);
+	void setReversalInput(I_C_PaymentInput Reversal);
 
 	/**
 	 * Get Reversal.
 	 *
 	 * @return ID of document reversal
 	 */
-	I_C_PaymentInput getReversal();
+	I_C_PaymentInput Reversal();
 
 	/**
-	 * Set TenderType_RL.
+	 * Set TenderType.
 	 *
-	 * @param TenderType_RL Method of Payment
+	 * @param TenderType Method of Payment
 	 */
-	void setTenderType_RL(I_AD_Ref_ListInput TenderType_RL);
+	void setTenderTypeInput(I_AD_Ref_ListInput TenderType);
 
 	/**
-	 * Get TenderType_RL.
+	 * Get TenderType.
 	 *
 	 * @return Method of Payment
 	 */
-	I_AD_Ref_ListInput getTenderType_RL();
+	I_AD_Ref_ListInput TenderType();
 
 	/**
-	 * Set TrxType_RL.
+	 * Set TrxType.
 	 *
-	 * @param TrxType_RL Type of credit card transaction
+	 * @param TrxType Type of credit card transaction
 	 */
-	void setTrxType_RL(I_AD_Ref_ListInput TrxType_RL);
+	void setTrxTypeInput(I_AD_Ref_ListInput TrxType);
 
 	/**
-	 * Get TrxType_RL.
+	 * Get TrxType.
 	 *
 	 * @return Type of credit card transaction
 	 */
-	I_AD_Ref_ListInput getTrxType_RL();
+	I_AD_Ref_ListInput TrxType();
 
 	/**
 	 * Set User1.
 	 *
 	 * @param User1 User defined list element #1
 	 */
-	void setUser1(I_C_ElementValueInput User1);
+	void setUser1Input(I_C_ElementValueInput User1);
 
 	/**
 	 * Get User1.
 	 *
 	 * @return User defined list element #1
 	 */
-	I_C_ElementValueInput getUser1();
+	I_C_ElementValueInput User1();
 
 	/**
 	 * Set User2.
 	 *
 	 * @param User2 User defined list element #2
 	 */
-	void setUser2(I_C_ElementValueInput User2);
+	void setUser2Input(I_C_ElementValueInput User2);
 
 	/**
 	 * Get User2.
 	 *
 	 * @return User defined list element #2
 	 */
-	I_C_ElementValueInput getUser2();
+	I_C_ElementValueInput User2();
 }

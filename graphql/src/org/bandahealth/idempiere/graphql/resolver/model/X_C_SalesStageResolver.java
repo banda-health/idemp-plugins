@@ -14,4 +14,12 @@ import org.dataloader.DataLoader;
 public class X_C_SalesStageResolver extends POResolver<X_C_SalesStage> implements GraphQLResolver<X_C_SalesStage> {
 
 
+	public Boolean IsClosed(X_C_SalesStage entity, DataFetchingEnvironment environment) {
+		return entity.isClosed();
+	}
+
+	public Boolean IsWon(X_C_SalesStage entity, DataFetchingEnvironment environment) {
+		return entity.isWon();
+	}
+
 }

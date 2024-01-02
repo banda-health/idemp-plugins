@@ -22,6 +22,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_S_ResourceTypeResolver extends POResolver<MResourceType> implements GraphQLResolver<MResourceType> {
 
 
+	public Boolean AllowUoMFractions(MResourceType entity, DataFetchingEnvironment environment) {
+		return entity.isAllowUoMFractions();
+	}
+
 
 	/**
 	 * Get Tax Category.
@@ -52,6 +56,18 @@ public class X_S_ResourceTypeResolver extends POResolver<MResourceType> implemen
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
+	public Boolean IsDateSlot(MResourceType entity, DataFetchingEnvironment environment) {
+		return entity.isDateSlot();
+	}
+
+	public Boolean IsSingleAssignment(MResourceType entity, DataFetchingEnvironment environment) {
+		return entity.isSingleAssignment();
+	}
+
+	public Boolean IsTimeSlot(MResourceType entity, DataFetchingEnvironment environment) {
+		return entity.isTimeSlot();
+	}
+
 
 	/**
 	 * Get Product Category.
@@ -65,6 +81,34 @@ public class X_S_ResourceTypeResolver extends POResolver<MResourceType> implemen
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.M_Product_Category_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getM_Product_Category_ID());
+	}
+
+	public Boolean OnFriday(MResourceType entity, DataFetchingEnvironment environment) {
+		return entity.isOnFriday();
+	}
+
+	public Boolean OnMonday(MResourceType entity, DataFetchingEnvironment environment) {
+		return entity.isOnMonday();
+	}
+
+	public Boolean OnSaturday(MResourceType entity, DataFetchingEnvironment environment) {
+		return entity.isOnSaturday();
+	}
+
+	public Boolean OnSunday(MResourceType entity, DataFetchingEnvironment environment) {
+		return entity.isOnSunday();
+	}
+
+	public Boolean OnThursday(MResourceType entity, DataFetchingEnvironment environment) {
+		return entity.isOnThursday();
+	}
+
+	public Boolean OnTuesday(MResourceType entity, DataFetchingEnvironment environment) {
+		return entity.isOnTuesday();
+	}
+
+	public Boolean OnWednesday(MResourceType entity, DataFetchingEnvironment environment) {
+		return entity.isOnWednesday();
 	}
 
 }

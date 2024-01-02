@@ -29,26 +29,26 @@ public interface I_AD_LanguageInput extends I_AD_Language {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_PrintPaper.
 	 *
 	 * @param AD_PrintPaper Printer paper definition
 	 */
-	void setAD_PrintPaper(I_AD_PrintPaperInput AD_PrintPaper);
+	void setAD_PrintPaperInput(I_AD_PrintPaperInput AD_PrintPaper);
 
 	/**
 	 * Get AD_PrintPaper.
 	 *
 	 * @return Printer paper definition
 	 */
-	I_AD_PrintPaperInput getAD_PrintPaper();
+	I_AD_PrintPaperInput AD_PrintPaper();
 }

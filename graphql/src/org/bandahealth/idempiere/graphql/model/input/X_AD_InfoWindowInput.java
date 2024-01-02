@@ -1,12 +1,14 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCtxHelp;
 import org.compiere.model.MEntityType;
+import org.compiere.model.MInfoWindow;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_InfoWindow;
 import org.compiere.util.Env;
 
 /**
@@ -15,17 +17,18 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_InfoWindowInput extends X_AD_InfoWindow implements I_AD_InfoWindowInput {
+public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindowInput {
 
-	 private I_AD_CtxHelpInput AD_CtxHelp;
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_TableInput AD_Table;
+	 private I_AD_CtxHelpInput mAD_CtxHelp;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_TableInput mAD_Table;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_InfoWindowInput(String ID) {
+	@JsonCreator
+	public X_AD_InfoWindowInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -35,16 +38,17 @@ public class X_AD_InfoWindowInput extends X_AD_InfoWindow implements I_AD_InfoWi
 	 *
 	 * @param AD_CtxHelp Context Help
 	 */
-	public void setAD_CtxHelp(I_AD_CtxHelpInput AD_CtxHelp) {
-		this.AD_CtxHelp = AD_CtxHelp;
+	@JsonProperty("AD_CtxHelp")
+	public void setAD_CtxHelpInput(I_AD_CtxHelpInput AD_CtxHelp) {
+		this.mAD_CtxHelp = AD_CtxHelp;
 		MCtxHelp foreignEntity;
 		if (AD_CtxHelp != null &&
 				(foreignEntity = new Query(getCtx(), MCtxHelp.Table_Name, MCtxHelp.COLUMNNAME_AD_CtxHelp_UU + "=?", get_TrxName())
 						.setParameters(AD_CtxHelp.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_CtxHelp_ID(foreignEntity.get_ID());
+			super.setAD_CtxHelp_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_CtxHelp_ID(0);
+			super.setAD_CtxHelp_ID(0);
 		}
 	}
 
@@ -53,19 +57,9 @@ public class X_AD_InfoWindowInput extends X_AD_InfoWindow implements I_AD_InfoWi
 	 *
 	 * @return Context Help
 	 */
-	public I_AD_CtxHelpInput getAD_CtxHelp() {
-		return AD_CtxHelp;
-	}
-	/**
-	 * Set Info Window.
-	 *
-	 * @param AD_InfoWindow_ID Info and search/select Window
-	 */
-
-	public void setAD_InfoWindow_ID(int AD_InfoWindow_ID) {
-		if (get_ID() == 0) {
-			super.setAD_InfoWindow_ID(AD_InfoWindow_ID);
-		}
+	@JsonProperty("AD_CtxHelp")
+	public I_AD_CtxHelpInput AD_CtxHelp() {
+		return mAD_CtxHelp;
 	}
 
 	/**
@@ -91,14 +85,15 @@ public class X_AD_InfoWindowInput extends X_AD_InfoWindow implements I_AD_InfoWi
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -107,8 +102,9 @@ public class X_AD_InfoWindowInput extends X_AD_InfoWindow implements I_AD_InfoWi
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -116,16 +112,17 @@ public class X_AD_InfoWindowInput extends X_AD_InfoWindow implements I_AD_InfoWi
 	 *
 	 * @param AD_Table Database Table information
 	 */
-	public void setAD_Table(I_AD_TableInput AD_Table) {
-		this.AD_Table = AD_Table;
+	@JsonProperty("AD_Table")
+	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), MTable.Table_Name, MTable.COLUMNNAME_AD_Table_UU + "=?", get_TrxName())
 						.setParameters(AD_Table.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Table_ID(foreignEntity.get_ID());
+			super.setAD_Table_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Table_ID(0);
+			super.setAD_Table_ID(0);
 		}
 	}
 
@@ -134,8 +131,9 @@ public class X_AD_InfoWindowInput extends X_AD_InfoWindow implements I_AD_InfoWi
 	 *
 	 * @return Database Table information
 	 */
-	public I_AD_TableInput getAD_Table() {
-		return AD_Table;
+	@JsonProperty("AD_Table")
+	public I_AD_TableInput AD_Table() {
+		return mAD_Table;
 	}
 
 	/**
@@ -143,16 +141,17 @@ public class X_AD_InfoWindowInput extends X_AD_InfoWindow implements I_AD_InfoWi
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -161,18 +160,8 @@ public class X_AD_InfoWindowInput extends X_AD_InfoWindow implements I_AD_InfoWi
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 }

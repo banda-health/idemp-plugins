@@ -260,6 +260,9 @@ public class GraphQLSchemaGenerator {
 				if (!columnName.contains("_ID") && !fieldName.endsWith("_A")) {
 //					fieldName = columnName;
 				}
+				if (columnName.equals("CreatedBy") || columnName.equals("UpdatedBy")) {
+					fieldName = columnName;
+				}
 				if (Description != null && !Description.isEmpty()) {
 					generatedColumns.regularModel.append("\t# ").append(Description).append("\n");
 				}
@@ -281,14 +284,15 @@ public class GraphQLSchemaGenerator {
 				generatedColumns.inputModel.append(fieldName).append(": ").append(referenceClassName).append("Input");
 				generatedColumns.inputModel.append("\n");
 			} else if (columnName.equals("AD_Language")) {
-				addGraphQLFields(generatedColumns, columnName + "_L", Description, columnName, isMandatory,
+				addGraphQLFields(generatedColumns, columnName, Description, columnName, isMandatory,
 						shouldSkipInputField);
 			} else if (columnName.equals("EntityType")) {
-				addGraphQLFields(generatedColumns, columnName, Description, "AD_EntityType", isMandatory,
+				addGraphQLFields(generatedColumns, "AD_EntityType", Description, "AD_EntityType", isMandatory,
 						shouldSkipInputField);
 			} else {
 				String columnNameWithSuffixedIdRemoved = columnName.substring(0, columnName.length() - 3);
 				if (columnName.endsWith("_ID") &&
+						MTable.get(Env.getCtx(), AD_Table_ID).getColumn(columnNameWithSuffixedIdRemoved) == null &&
 						MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
 					String entityName = columnNameWithSuffixedIdRemoved;
 					addGraphQLFields(generatedColumns, entityName, Description, entityName, isMandatory, shouldSkipInputField);
@@ -315,11 +319,11 @@ public class GraphQLSchemaGenerator {
 			}
 		}
 		String neededPropertySuffix = "";
-		if (AD_Reference_ID > 0 &&
-				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
-				clazz.equals(String.class)) {
-			neededPropertySuffix = "_RL";
-		}
+//		if (AD_Reference_ID > 0 &&
+//				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
+//				clazz.equals(String.class)) {
+//			neededPropertySuffix = "_RL";
+//		}
 		generatedColumns.regularModel.append("\t").append(columnName).append(neededPropertySuffix).append(": ");
 		if (!shouldSkipInputField) {
 			generatedColumns.inputModel.append("\t").append(columnName).append(neededPropertySuffix).append(": ");
@@ -345,7 +349,9 @@ public class GraphQLSchemaGenerator {
 			if (!shouldSkipInputField) {
 				generatedColumns.inputModel.append("String");
 			}
-		} else if (AD_Reference_ID > 0) {
+		} else if (AD_Reference_ID > 0 &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
+				clazz.equals(String.class)) {
 			generatedColumns.regularModel.append("AD_Ref_List");
 			if (!shouldSkipInputField) {
 				generatedColumns.inputModel.append("AD_Ref_ListInput");

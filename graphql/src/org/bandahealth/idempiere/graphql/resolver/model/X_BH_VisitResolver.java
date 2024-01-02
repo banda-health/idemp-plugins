@@ -5,11 +5,11 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Voided_ReasonDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -24,6 +24,10 @@ import java.util.concurrent.CompletableFuture;
  */
 public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLResolver<MBHVisit> {
 
+
+	public Boolean BH_NewVisit(MBHVisit entity, DataFetchingEnvironment environment) {
+		return entity.isBH_NewVisit();
+	}
 
 	static Map<String, String> BH_PATIENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
@@ -42,11 +46,11 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			put("u", "fd6db151-fb69-40ed-a784-5d8b99b92004");
 		}
 	};
-	public CompletableFuture<MRefList> BH_PatientType_RL(MBHVisit entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BH_PatientType(MBHVisit entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBH_PatientType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BH_PATIENTTYPE_UUIDS_BY_VALUE.get(entity.getBH_PatientType()));
 	}
@@ -59,11 +63,11 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			put("topharmacy", "24c32cc4-3fdb-4448-85a5-879eea7866ea");
 		}
 	};
-	public CompletableFuture<MRefList> BH_Process_Stage_RL(MBHVisit entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BH_Process_Stage(MBHVisit entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBH_Process_Stage())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BH_PROCESS_STAGE_UUIDS_BY_VALUE.get(entity.getBH_Process_Stage()));
 	}
@@ -76,11 +80,11 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			put("tcu", "e1d9d266-cefd-4749-94de-20ad020c7d91");
 		}
 	};
-	public CompletableFuture<MRefList> bh_referral_RL(MBHVisit entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> bh_referral(MBHVisit entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getbh_referral())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BH_REFERRAL_UUIDS_BY_VALUE.get(entity.getbh_referral()));
 	}

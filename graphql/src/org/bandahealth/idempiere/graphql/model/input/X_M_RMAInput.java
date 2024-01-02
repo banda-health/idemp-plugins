@@ -1,17 +1,18 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRMA;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_M_RMA;
 import org.compiere.model.X_M_RMAType;
 import org.compiere.util.Env;
 
@@ -21,24 +22,25 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
+public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput DocAction_RL;
-	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_UserInput SalesRep;
-	 private I_C_BPartnerInput C_BPartner;
-	 private I_C_CurrencyInput C_Currency;
-	 private I_C_DocTypeInput C_DocType;
-	 private I_C_OrderInput C_Order;
-	 private I_M_InOutInput InOut;
-	 private I_M_RMAInput Ref_RMA;
-	 private I_M_RMATypeInput M_RMAType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mDocAction;
+	 private I_AD_Ref_ListInput mDocStatus;
+	 private I_AD_UserInput mSalesRep;
+	 private I_C_BPartnerInput mC_BPartner;
+	 private I_C_CurrencyInput mC_Currency;
+	 private I_C_DocTypeInput mC_DocType;
+	 private I_C_OrderInput mC_Order;
+	 private I_M_InOutInput mInOut;
+	 private I_M_RMAInput mRef_RMA;
+	 private I_M_RMATypeInput mM_RMAType;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_M_RMAInput(String ID) {
+	@JsonCreator
+	public X_M_RMAInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -48,14 +50,15 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -64,8 +67,9 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -73,16 +77,17 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	public void setC_BPartner(I_C_BPartnerInput C_BPartner) {
-		this.C_BPartner = C_BPartner;
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
 				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_ID(foreignEntity.get_ID());
+			super.setC_BPartner_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BPartner_ID(0);
+			super.setC_BPartner_ID(0);
 		}
 	}
 
@@ -91,8 +96,9 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public I_C_BPartnerInput getC_BPartner() {
-		return C_BPartner;
+	@JsonProperty("C_BPartner")
+	public I_C_BPartnerInput C_BPartner() {
+		return mC_BPartner;
 	}
 
 	/**
@@ -100,16 +106,17 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	public void setC_Currency(I_C_CurrencyInput C_Currency) {
-		this.C_Currency = C_Currency;
-		MCurrency foreignEntity;
+	@JsonProperty("C_Currency")
+	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+		this.mC_Currency = C_Currency;
+		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency.Table_Name, MCurrency.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Currency_ID(foreignEntity.get_ID());
+			super.setC_Currency_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Currency_ID(0);
+			super.setC_Currency_ID(0);
 		}
 	}
 
@@ -118,8 +125,9 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @return The Currency for this record
 	 */
-	public I_C_CurrencyInput getC_Currency() {
-		return C_Currency;
+	@JsonProperty("C_Currency")
+	public I_C_CurrencyInput C_Currency() {
+		return mC_Currency;
 	}
 
 	/**
@@ -127,16 +135,17 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	public void setC_DocType(I_C_DocTypeInput C_DocType) {
-		this.C_DocType = C_DocType;
+	@JsonProperty("C_DocType")
+	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
 				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_DocType_ID(foreignEntity.get_ID());
+			super.setC_DocType_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_DocType_ID(0);
+			super.setC_DocType_ID(0);
 		}
 	}
 
@@ -145,19 +154,9 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @return Document type or rules
 	 */
-	public I_C_DocTypeInput getC_DocType() {
-		return C_DocType;
-	}
-	/**
-	 * Set Document Type.
-	 *
-	 * @param C_DocType_ID Document type or rules
-	 */
-
-	public void setC_DocType_ID(int C_DocType_ID) {
-		if (get_ID() == 0) {
-			super.setC_DocType_ID(C_DocType_ID);
-		}
+	@JsonProperty("C_DocType")
+	public I_C_DocTypeInput C_DocType() {
+		return mC_DocType;
 	}
 
 	/**
@@ -165,14 +164,15 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @param C_Order Order
 	 */
-	public void setC_Order(I_C_OrderInput C_Order) {
-		this.C_Order = C_Order;
+	@JsonProperty("C_Order")
+	public void setC_OrderInput(I_C_OrderInput C_Order) {
+		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
 		if (get_ID() == 0 &&C_Order != null &&
 				(foreignEntity = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_UU + "=?", get_TrxName())
 						.setParameters(C_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Order_ID(foreignEntity.get_ID());
+			super.setC_Order_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -181,32 +181,23 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @return Order
 	 */
-	public I_C_OrderInput getC_Order() {
-		return C_Order;
-	}
-	/**
-	 * Set Order.
-	 *
-	 * @param C_Order_ID Order
-	 */
-
-	public void setC_Order_ID(int C_Order_ID) {
-		if (get_ID() == 0) {
-			super.setC_Order_ID(C_Order_ID);
-		}
+	@JsonProperty("C_Order")
+	public I_C_OrderInput C_Order() {
+		return mC_Order;
 	}
 
 	/**
 	 * Set Document Action.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	public void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL) {
-		this.DocAction_RL = DocAction_RL;
-		MRefList foreignEntity;
-		if (DocAction_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction_RL.getID())
+	@JsonProperty("DocAction")
+	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+		this.mDocAction = DocAction;
+		MRefList_BH foreignEntity;
+		if (DocAction != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocAction.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocAction(foreignEntity.getValue());
 		} else {
@@ -219,21 +210,23 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @return The targeted status of the document
 	 */
-	public I_AD_Ref_ListInput getDocAction_RL() {
-		return DocAction_RL;
+	@JsonProperty("DocAction")
+	public I_AD_Ref_ListInput DocAction() {
+		return mDocAction;
 	}
 
 	/**
 	 * Set Document Status.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	public void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL) {
-		this.DocStatus_RL = DocStatus_RL;
-		MRefList foreignEntity;
-		if (DocStatus_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus_RL.getID())
+	@JsonProperty("DocStatus")
+	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+		this.mDocStatus = DocStatus;
+		MRefList_BH foreignEntity;
+		if (DocStatus != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocStatus.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocStatus(foreignEntity.getValue());
 		} else {
@@ -246,8 +239,9 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @return The current status of the document
 	 */
-	public I_AD_Ref_ListInput getDocStatus_RL() {
-		return DocStatus_RL;
+	@JsonProperty("DocStatus")
+	public I_AD_Ref_ListInput DocStatus() {
+		return mDocStatus;
 	}
 
 	/**
@@ -255,14 +249,15 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @param InOut MaterialShipment Document
 	 */
-	public void setInOut(I_M_InOutInput InOut) {
-		this.InOut = InOut;
+	@JsonProperty("InOut")
+	public void setInOutInput(I_M_InOutInput InOut) {
+		this.mInOut = InOut;
 		MInOut_BH foreignEntity;
 		if (get_ID() == 0 &&InOut != null &&
 				(foreignEntity = new Query(getCtx(), MInOut_BH.Table_Name, MInOut_BH.COLUMNNAME_M_InOut_UU + "=?", get_TrxName())
 						.setParameters(InOut.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setInOut_ID(foreignEntity.get_ID());
+			super.setInOut_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -271,30 +266,9 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @return MaterialShipment Document
 	 */
-	public I_M_InOutInput getInOut() {
-		return InOut;
-	}
-	/**
-	 * Set Shipment/Receipt.
-	 *
-	 * @param InOut_ID MaterialShipment Document
-	 */
-
-	public void setInOut_ID(int InOut_ID) {
-		if (get_ID() == 0) {
-			super.setInOut_ID(InOut_ID);
-		}
-	}
-	/**
-	 * Set RMA.
-	 *
-	 * @param M_RMA_ID Return Material Authorization
-	 */
-
-	public void setM_RMA_ID(int M_RMA_ID) {
-		if (get_ID() == 0) {
-			super.setM_RMA_ID(M_RMA_ID);
-		}
+	@JsonProperty("InOut")
+	public I_M_InOutInput InOut() {
+		return mInOut;
 	}
 
 	/**
@@ -320,16 +294,17 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @param M_RMAType Return Material Authorization Type
 	 */
-	public void setM_RMAType(I_M_RMATypeInput M_RMAType) {
-		this.M_RMAType = M_RMAType;
+	@JsonProperty("M_RMAType")
+	public void setM_RMATypeInput(I_M_RMATypeInput M_RMAType) {
+		this.mM_RMAType = M_RMAType;
 		X_M_RMAType foreignEntity;
 		if (M_RMAType != null &&
 				(foreignEntity = new Query(getCtx(), X_M_RMAType.Table_Name, X_M_RMAType.COLUMNNAME_M_RMAType_UU + "=?", get_TrxName())
 						.setParameters(M_RMAType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_RMAType_ID(foreignEntity.get_ID());
+			super.setM_RMAType_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_RMAType_ID(0);
+			super.setM_RMAType_ID(0);
 		}
 	}
 
@@ -338,8 +313,9 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @return Return Material Authorization Type
 	 */
-	public I_M_RMATypeInput getM_RMAType() {
-		return M_RMAType;
+	@JsonProperty("M_RMAType")
+	public I_M_RMATypeInput M_RMAType() {
+		return mM_RMAType;
 	}
 
 	/**
@@ -347,16 +323,17 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @param Ref_RMA Referenced RMA
 	 */
-	public void setRef_RMA(I_M_RMAInput Ref_RMA) {
-		this.Ref_RMA = Ref_RMA;
+	@JsonProperty("Ref_RMA")
+	public void setRef_RMAInput(I_M_RMAInput Ref_RMA) {
+		this.mRef_RMA = Ref_RMA;
 		MRMA foreignEntity;
 		if (Ref_RMA != null &&
 				(foreignEntity = new Query(getCtx(), MRMA.Table_Name, MRMA.COLUMNNAME_M_RMA_UU + "=?", get_TrxName())
 						.setParameters(Ref_RMA.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setRef_RMA_ID(foreignEntity.get_ID());
+			super.setRef_RMA_ID(foreignEntity.get_ID());
 		} else {
-			this.setRef_RMA_ID(0);
+			super.setRef_RMA_ID(0);
 		}
 	}
 
@@ -365,19 +342,9 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @return Referenced RMA
 	 */
-	public I_M_RMAInput getRef_RMA() {
-		return Ref_RMA;
-	}
-	/**
-	 * Set Referenced RMA.
-	 *
-	 * @param Ref_RMA_ID Referenced RMA
-	 */
-
-	public void setRef_RMA_ID(int Ref_RMA_ID) {
-		if (get_ID() == 0) {
-			super.setRef_RMA_ID(Ref_RMA_ID);
-		}
+	@JsonProperty("Ref_RMA")
+	public I_M_RMAInput Ref_RMA() {
+		return mRef_RMA;
 	}
 
 	/**
@@ -385,16 +352,17 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
-	public void setSalesRep(I_AD_UserInput SalesRep) {
-		this.SalesRep = SalesRep;
+	@JsonProperty("SalesRep")
+	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
 				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setSalesRep_ID(foreignEntity.get_ID());
+			super.setSalesRep_ID(foreignEntity.get_ID());
 		} else {
-			this.setSalesRep_ID(0);
+			super.setSalesRep_ID(0);
 		}
 	}
 
@@ -403,18 +371,8 @@ public class X_M_RMAInput extends X_M_RMA implements I_M_RMAInput {
 	 *
 	 * @return Sales Representative or Company Agent
 	 */
-	public I_AD_UserInput getSalesRep() {
-		return SalesRep;
-	}
-	/**
-	 * Set Sales Representative.
-	 *
-	 * @param SalesRep_ID Sales Representative or Company Agent
-	 */
-
-	public void setSalesRep_ID(int SalesRep_ID) {
-		if (get_ID() == 0) {
-			super.setSalesRep_ID(SalesRep_ID);
-		}
+	@JsonProperty("SalesRep")
+	public I_AD_UserInput SalesRep() {
+		return mSalesRep;
 	}
 }

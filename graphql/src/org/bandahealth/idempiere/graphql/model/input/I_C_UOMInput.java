@@ -15,14 +15,14 @@ public interface I_C_UOMInput extends I_C_UOM {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -39,16 +39,16 @@ public interface I_C_UOMInput extends I_C_UOM {
 	String getID();
 
 	/**
-	 * Set UOMType_RL.
+	 * Set UOMType.
 	 *
-	 * @param UOMType_RL UOMType_RL
+	 * @param UOMType UOMType
 	 */
-	void setUOMType_RL(I_AD_Ref_ListInput UOMType_RL);
+	void setUOMTypeInput(I_AD_Ref_ListInput UOMType);
 
 	/**
-	 * Get UOMType_RL.
+	 * Get UOMType.
 	 *
-	 * @return UOMType_RL
+	 * @return UOMType
 	 */
-	I_AD_Ref_ListInput getUOMType_RL();
+	I_AD_Ref_ListInput UOMType();
 }

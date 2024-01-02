@@ -1,8 +1,255 @@
 package org.bandahealth.idempiere.graphql.dataloader;
 
-import org.bandahealth.idempiere.graphql.dataloader.impl.MRefListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHVisitDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MOrderDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MRefListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ChartDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ClientDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColorDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColumnDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_CtxHelpDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ElementDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_FormDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImageDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoWindowDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_LanguageDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_MessageDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_OrgDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PasswordRuleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintColorDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFontDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintPaperDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintTableFormatDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Process_ParaDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReferenceDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReplicationStrategyDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReportViewDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RuleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ScheduleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_SequenceDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TaskDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TreeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Val_RuleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_ActivityApproverDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_ActivityDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_ActivityResultDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_BlockDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_EventAuditDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_NextConditionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_NodeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_NodeNextDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_Node_ParaDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_ProcessDataDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_ProcessDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_ResponsibleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WorkflowDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WorkflowProcessorDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_AcctDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_AdditionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_ChangeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_ClassDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_DeliveryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_DisposedDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_GroupDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Group_AcctDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Info_FinDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Info_InsDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Info_LicDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Info_OthDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Info_TaxDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_ProductDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_RetirementDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_RevalDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Reval_EntryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Reval_IndexDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_SplitDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_TransferDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_TypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_UseDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_DepreciationDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Depreciation_BuildDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Depreciation_ConventionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Depreciation_EntryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Depreciation_ExpDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Depreciation_ForecastDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Depreciation_MethodDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Depreciation_Table_DetailDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Depreciation_Table_HeaderDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Depreciation_WorkfileDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_FundingModeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_EncounterDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Voided_ReasonDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_1099BoxDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_AcctSchemaDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ActivityDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_AddressValidationCfgDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_AddressValidationDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BP_BankAccountDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BP_GroupDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BP_ShippingAcctDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartner_LocationDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BankAccountDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BankDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CalendarDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CampaignDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CashBookDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CashBook_AcctDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CashDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CashLineDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CashPlanDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CashPlanLineDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChannelDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChargeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChargeTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChargeType_DocTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_Charge_AcctDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CityDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ConversionTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CountryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CountryGroupDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DepositBatchDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DunningDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DunningLevelDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ElementDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ElementValueDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_GreetingDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_InvoiceDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_InvoiceLineDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_InvoiceScheduleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_JobCategoryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_JobDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_LocationDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OpportunityDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OrderLineDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OrderSourceDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_POSDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_POSKeyLayoutDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_POSTenderTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PaymentBatchDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PaymentDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PaymentProcessorDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PaymentTermDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PeriodDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PhaseDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectPhaseDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectTaskDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_RegionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_RevenueRecognitionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_SalesRegionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_SalesStageDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_SubAcctDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_SubscriptionTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaskDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxCategoryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxGroupDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxProviderCfgDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxProviderDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_UOMDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ValidCombinationDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_YearDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_EXP_ProcessorDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_EXP_Processor_TypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_BudgetDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_CategoryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_JournalBatchDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_I_FixedAssetDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetInstanceDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ChangeNoticeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_CostElementDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_CostTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_DiscountSchemaDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_FreightCategoryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InOutDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InOutLineDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_LocatorDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_LocatorTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_LotCtlDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_LotDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_MatchInvDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PackageDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PackageMPSDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PartTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PriceListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PriceList_VersionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDownloadDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_Product_CategoryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PromotionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_RMADataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_RMALineDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_RMATypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_SerNoCtlDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperCfgDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperLabelsCfgDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperLabelsDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperPackagingCfgDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperPackagingDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperPickupTypesCfgDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperPickupTypesDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShippingProcessorCfgDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShippingProcessorDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShippingTransactionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShippingTransactionLineDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_WarehouseDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_AchievementDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_BenchmarkDataDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_BenchmarkDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ColorSchemaDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_DashboardContentDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_DashboardContent_AccessDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_DashboardPreferenceDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_DocumentStatusDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_GoalDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_GoalRestrictionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_HierarchyDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_MeasureCalcDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_MeasureDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_RatioDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_RatioElementDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportColumnDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportColumnSetDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportCubeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLineDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLineSetDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportSourceDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_SLA_CriteriaDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_SLA_GoalDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_SLA_MeasureDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Cost_CollectorDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_OrderDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_BOMDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_BOMLineDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_CostDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_NodeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_NodeNextDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_Node_AssetDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_Node_ProductDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_WorkflowDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Product_BOMDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_R_MailTextDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_R_RequestTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_R_StatusCategoryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ExpenseTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ResourceAssignmentDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ResourceDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ResourceTypeDataLoader;
 import org.dataloader.DataLoaderRegistry;
 
 import java.util.Arrays;
@@ -25,9 +272,256 @@ public class BandaDataLoaderComposer {
 	 */
 	public BandaDataLoaderComposer() {
 		dataLoaders = Arrays.asList(
-				new MRefListDataLoader(),
 				new MBHVisitDataLoader(),
-				new MOrderDataLoader()
+				new MOrderDataLoader(),
+				new MRefListDataLoader(),
+				new X_AD_ChartDataLoader(),
+				new X_AD_ClientDataLoader(),
+				new X_AD_ColorDataLoader(),
+				new X_AD_ColumnDataLoader(),
+				new X_AD_CtxHelpDataLoader(),
+				new X_AD_ElementDataLoader(),
+				new X_AD_EntityTypeDataLoader(),
+				new X_AD_FormDataLoader(),
+				new X_AD_ImageDataLoader(),
+				new X_AD_InfoWindowDataLoader(),
+				new X_AD_LanguageDataLoader(),
+				new X_AD_MessageDataLoader(),
+				new X_AD_OrgDataLoader(),
+				new X_AD_PasswordRuleDataLoader(),
+				new X_AD_PrintColorDataLoader(),
+				new X_AD_PrintFontDataLoader(),
+				new X_AD_PrintFormatDataLoader(),
+				new X_AD_PrintPaperDataLoader(),
+				new X_AD_PrintTableFormatDataLoader(),
+				new X_AD_ProcessDataLoader(),
+				new X_AD_Process_ParaDataLoader(),
+				new X_AD_ReferenceDataLoader(),
+				new X_AD_ReplicationStrategyDataLoader(),
+				new X_AD_ReportViewDataLoader(),
+				new X_AD_RoleDataLoader(),
+				new X_AD_RuleDataLoader(),
+				new X_AD_ScheduleDataLoader(),
+				new X_AD_SequenceDataLoader(),
+				new X_AD_TableDataLoader(),
+				new X_AD_TaskDataLoader(),
+				new X_AD_TreeDataLoader(),
+				new X_AD_UserDataLoader(),
+				new X_AD_Val_RuleDataLoader(),
+				new X_AD_WF_ActivityApproverDataLoader(),
+				new X_AD_WF_ActivityDataLoader(),
+				new X_AD_WF_ActivityResultDataLoader(),
+				new X_AD_WF_BlockDataLoader(),
+				new X_AD_WF_EventAuditDataLoader(),
+				new X_AD_WF_NextConditionDataLoader(),
+				new X_AD_WF_NodeDataLoader(),
+				new X_AD_WF_NodeNextDataLoader(),
+				new X_AD_WF_Node_ParaDataLoader(),
+				new X_AD_WF_ProcessDataDataLoader(),
+				new X_AD_WF_ProcessDataLoader(),
+				new X_AD_WF_ResponsibleDataLoader(),
+				new X_AD_WindowDataLoader(),
+				new X_AD_WorkflowDataLoader(),
+				new X_AD_WorkflowProcessorDataLoader(),
+				new X_A_AssetDataLoader(),
+				new X_A_Asset_AcctDataLoader(),
+				new X_A_Asset_AdditionDataLoader(),
+				new X_A_Asset_ChangeDataLoader(),
+				new X_A_Asset_ClassDataLoader(),
+				new X_A_Asset_DeliveryDataLoader(),
+				new X_A_Asset_DisposedDataLoader(),
+				new X_A_Asset_GroupDataLoader(),
+				new X_A_Asset_Group_AcctDataLoader(),
+				new X_A_Asset_Info_FinDataLoader(),
+				new X_A_Asset_Info_InsDataLoader(),
+				new X_A_Asset_Info_LicDataLoader(),
+				new X_A_Asset_Info_OthDataLoader(),
+				new X_A_Asset_Info_TaxDataLoader(),
+				new X_A_Asset_ProductDataLoader(),
+				new X_A_Asset_RetirementDataLoader(),
+				new X_A_Asset_RevalDataLoader(),
+				new X_A_Asset_Reval_EntryDataLoader(),
+				new X_A_Asset_Reval_IndexDataLoader(),
+				new X_A_Asset_SplitDataLoader(),
+				new X_A_Asset_TransferDataLoader(),
+				new X_A_Asset_TypeDataLoader(),
+				new X_A_Asset_UseDataLoader(),
+				new X_A_DepreciationDataLoader(),
+				new X_A_Depreciation_BuildDataLoader(),
+				new X_A_Depreciation_ConventionDataLoader(),
+				new X_A_Depreciation_EntryDataLoader(),
+				new X_A_Depreciation_ExpDataLoader(),
+				new X_A_Depreciation_ForecastDataLoader(),
+				new X_A_Depreciation_MethodDataLoader(),
+				new X_A_Depreciation_Table_DetailDataLoader(),
+				new X_A_Depreciation_Table_HeaderDataLoader(),
+				new X_A_Depreciation_WorkfileDataLoader(),
+				new X_A_FundingModeDataLoader(),
+				new X_BH_EncounterDataLoader(),
+				new X_BH_Voided_ReasonDataLoader(),
+				new X_C_1099BoxDataLoader(),
+				new X_C_AcctSchemaDataLoader(),
+				new X_C_ActivityDataLoader(),
+				new X_C_AddressValidationCfgDataLoader(),
+				new X_C_AddressValidationDataLoader(),
+				new X_C_BankAccountDataLoader(),
+				new X_C_BankDataLoader(),
+				new X_C_BPartnerDataLoader(),
+				new X_C_BPartner_LocationDataLoader(),
+				new X_C_BP_BankAccountDataLoader(),
+				new X_C_BP_GroupDataLoader(),
+				new X_C_BP_ShippingAcctDataLoader(),
+				new X_C_CalendarDataLoader(),
+				new X_C_CampaignDataLoader(),
+				new X_C_CashBookDataLoader(),
+				new X_C_CashBook_AcctDataLoader(),
+				new X_C_CashDataLoader(),
+				new X_C_CashLineDataLoader(),
+				new X_C_CashPlanDataLoader(),
+				new X_C_CashPlanLineDataLoader(),
+				new X_C_ChannelDataLoader(),
+				new X_C_ChargeDataLoader(),
+				new X_C_ChargeTypeDataLoader(),
+				new X_C_ChargeType_DocTypeDataLoader(),
+				new X_C_Charge_AcctDataLoader(),
+				new X_C_CityDataLoader(),
+				new X_C_ConversionTypeDataLoader(),
+				new X_C_CountryDataLoader(),
+				new X_C_CountryGroupDataLoader(),
+				new X_C_CurrencyDataLoader(),
+				new X_C_DepositBatchDataLoader(),
+				new X_C_DocTypeDataLoader(),
+				new X_C_DunningDataLoader(),
+				new X_C_DunningLevelDataLoader(),
+				new X_C_ElementDataLoader(),
+				new X_C_ElementValueDataLoader(),
+				new X_C_GreetingDataLoader(),
+				new X_C_InvoiceDataLoader(),
+				new X_C_InvoiceLineDataLoader(),
+				new X_C_InvoiceScheduleDataLoader(),
+				new X_C_JobCategoryDataLoader(),
+				new X_C_JobDataLoader(),
+				new X_C_LocationDataLoader(),
+				new X_C_OpportunityDataLoader(),
+				new X_C_OrderLineDataLoader(),
+				new X_C_OrderSourceDataLoader(),
+				new X_C_PaymentBatchDataLoader(),
+				new X_C_PaymentDataLoader(),
+				new X_C_PaymentProcessorDataLoader(),
+				new X_C_PaymentTermDataLoader(),
+				new X_C_PeriodDataLoader(),
+				new X_C_PhaseDataLoader(),
+				new X_C_POSDataLoader(),
+				new X_C_POSKeyLayoutDataLoader(),
+				new X_C_POSTenderTypeDataLoader(),
+				new X_C_ProjectDataLoader(),
+				new X_C_ProjectPhaseDataLoader(),
+				new X_C_ProjectTaskDataLoader(),
+				new X_C_ProjectTypeDataLoader(),
+				new X_C_RegionDataLoader(),
+				new X_C_RevenueRecognitionDataLoader(),
+				new X_C_SalesRegionDataLoader(),
+				new X_C_SalesStageDataLoader(),
+				new X_C_SubAcctDataLoader(),
+				new X_C_SubscriptionTypeDataLoader(),
+				new X_C_TaskDataLoader(),
+				new X_C_TaxCategoryDataLoader(),
+				new X_C_TaxDataLoader(),
+				new X_C_TaxGroupDataLoader(),
+				new X_C_TaxProviderCfgDataLoader(),
+				new X_C_TaxProviderDataLoader(),
+				new X_C_UOMDataLoader(),
+				new X_C_ValidCombinationDataLoader(),
+				new X_C_YearDataLoader(),
+				new X_EXP_ProcessorDataLoader(),
+				new X_EXP_Processor_TypeDataLoader(),
+				new X_GL_BudgetDataLoader(),
+				new X_GL_CategoryDataLoader(),
+				new X_GL_JournalBatchDataLoader(),
+				new X_I_FixedAssetDataLoader(),
+				new X_M_AttributeSetDataLoader(),
+				new X_M_AttributeSetInstanceDataLoader(),
+				new X_M_ChangeNoticeDataLoader(),
+				new X_M_CostElementDataLoader(),
+				new X_M_CostTypeDataLoader(),
+				new X_M_DiscountSchemaDataLoader(),
+				new X_M_FreightCategoryDataLoader(),
+				new X_M_InOutDataLoader(),
+				new X_M_InOutLineDataLoader(),
+				new X_M_LocatorDataLoader(),
+				new X_M_LocatorTypeDataLoader(),
+				new X_M_LotCtlDataLoader(),
+				new X_M_LotDataLoader(),
+				new X_M_MatchInvDataLoader(),
+				new X_M_PackageDataLoader(),
+				new X_M_PackageMPSDataLoader(),
+				new X_M_PartTypeDataLoader(),
+				new X_M_PriceListDataLoader(),
+				new X_M_PriceList_VersionDataLoader(),
+				new X_M_ProductDataLoader(),
+				new X_M_ProductDownloadDataLoader(),
+				new X_M_Product_CategoryDataLoader(),
+				new X_M_PromotionDataLoader(),
+				new X_M_RMADataLoader(),
+				new X_M_RMALineDataLoader(),
+				new X_M_RMATypeDataLoader(),
+				new X_M_SerNoCtlDataLoader(),
+				new X_M_ShipperCfgDataLoader(),
+				new X_M_ShipperDataLoader(),
+				new X_M_ShipperLabelsCfgDataLoader(),
+				new X_M_ShipperLabelsDataLoader(),
+				new X_M_ShipperPackagingCfgDataLoader(),
+				new X_M_ShipperPackagingDataLoader(),
+				new X_M_ShipperPickupTypesCfgDataLoader(),
+				new X_M_ShipperPickupTypesDataLoader(),
+				new X_M_ShippingProcessorCfgDataLoader(),
+				new X_M_ShippingProcessorDataLoader(),
+				new X_M_ShippingTransactionDataLoader(),
+				new X_M_ShippingTransactionLineDataLoader(),
+				new X_M_WarehouseDataLoader(),
+				new X_PA_AchievementDataLoader(),
+				new X_PA_BenchmarkDataDataLoader(),
+				new X_PA_BenchmarkDataLoader(),
+				new X_PA_ColorSchemaDataLoader(),
+				new X_PA_DashboardContentDataLoader(),
+				new X_PA_DashboardContent_AccessDataLoader(),
+				new X_PA_DashboardPreferenceDataLoader(),
+				new X_PA_DocumentStatusDataLoader(),
+				new X_PA_GoalDataLoader(),
+				new X_PA_GoalRestrictionDataLoader(),
+				new X_PA_HierarchyDataLoader(),
+				new X_PA_MeasureCalcDataLoader(),
+				new X_PA_MeasureDataLoader(),
+				new X_PA_RatioDataLoader(),
+				new X_PA_RatioElementDataLoader(),
+				new X_PA_ReportColumnDataLoader(),
+				new X_PA_ReportColumnSetDataLoader(),
+				new X_PA_ReportCubeDataLoader(),
+				new X_PA_ReportDataLoader(),
+				new X_PA_ReportLineDataLoader(),
+				new X_PA_ReportLineSetDataLoader(),
+				new X_PA_ReportSourceDataLoader(),
+				new X_PA_SLA_CriteriaDataLoader(),
+				new X_PA_SLA_GoalDataLoader(),
+				new X_PA_SLA_MeasureDataLoader(),
+				new X_PP_Cost_CollectorDataLoader(),
+				new X_PP_OrderDataLoader(),
+				new X_PP_Order_BOMDataLoader(),
+				new X_PP_Order_BOMLineDataLoader(),
+				new X_PP_Order_CostDataLoader(),
+				new X_PP_Order_NodeDataLoader(),
+				new X_PP_Order_NodeNextDataLoader(),
+				new X_PP_Order_Node_AssetDataLoader(),
+				new X_PP_Order_Node_ProductDataLoader(),
+				new X_PP_Order_WorkflowDataLoader(),
+				new X_PP_Product_BOMDataLoader(),
+				new X_R_MailTextDataLoader(),
+				new X_R_RequestTypeDataLoader(),
+				new X_R_StatusCategoryDataLoader(),
+				new X_S_ExpenseTypeDataLoader(),
+				new X_S_ResourceAssignmentDataLoader(),
+				new X_S_ResourceDataLoader(),
+				new X_S_ResourceTypeDataLoader()
 		);
 	}
 

@@ -15,14 +15,14 @@ public interface I_AD_ScheduleInput extends I_AD_Schedule {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -39,44 +39,44 @@ public interface I_AD_ScheduleInput extends I_AD_Schedule {
 	String getID();
 
 	/**
-	 * Set FrequencyType_RL.
+	 * Set FrequencyType.
 	 *
-	 * @param FrequencyType_RL Frequency of event
+	 * @param FrequencyType Frequency of event
 	 */
-	void setFrequencyType_RL(I_AD_Ref_ListInput FrequencyType_RL);
+	void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType);
 
 	/**
-	 * Get FrequencyType_RL.
+	 * Get FrequencyType.
 	 *
 	 * @return Frequency of event
 	 */
-	I_AD_Ref_ListInput getFrequencyType_RL();
+	I_AD_Ref_ListInput FrequencyType();
 
 	/**
-	 * Set ScheduleType_RL.
+	 * Set ScheduleType.
 	 *
-	 * @param ScheduleType_RL Type of schedule
+	 * @param ScheduleType Type of schedule
 	 */
-	void setScheduleType_RL(I_AD_Ref_ListInput ScheduleType_RL);
+	void setScheduleTypeInput(I_AD_Ref_ListInput ScheduleType);
 
 	/**
-	 * Get ScheduleType_RL.
+	 * Get ScheduleType.
 	 *
 	 * @return Type of schedule
 	 */
-	I_AD_Ref_ListInput getScheduleType_RL();
+	I_AD_Ref_ListInput ScheduleType();
 
 	/**
-	 * Set WeekDay_RL.
+	 * Set WeekDay.
 	 *
-	 * @param WeekDay_RL Day of the Week
+	 * @param WeekDay Day of the Week
 	 */
-	void setWeekDay_RL(I_AD_Ref_ListInput WeekDay_RL);
+	void setWeekDayInput(I_AD_Ref_ListInput WeekDay);
 
 	/**
-	 * Get WeekDay_RL.
+	 * Get WeekDay.
 	 *
 	 * @return Day of the Week
 	 */
-	I_AD_Ref_ListInput getWeekDay_RL();
+	I_AD_Ref_ListInput WeekDay();
 }

@@ -15,42 +15,42 @@ public interface I_M_CostElementInput extends I_M_CostElement {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set CostElementType_RL.
+	 * Set CostElementType.
 	 *
-	 * @param CostElementType_RL Type of Cost Element
+	 * @param CostElementType Type of Cost Element
 	 */
-	void setCostElementType_RL(I_AD_Ref_ListInput CostElementType_RL);
+	void setCostElementTypeInput(I_AD_Ref_ListInput CostElementType);
 
 	/**
-	 * Get CostElementType_RL.
+	 * Get CostElementType.
 	 *
 	 * @return Type of Cost Element
 	 */
-	I_AD_Ref_ListInput getCostElementType_RL();
+	I_AD_Ref_ListInput CostElementType();
 
 	/**
-	 * Set CostingMethod_RL.
+	 * Set CostingMethod.
 	 *
-	 * @param CostingMethod_RL Indicates how Costs will be calculated
+	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
-	void setCostingMethod_RL(I_AD_Ref_ListInput CostingMethod_RL);
+	void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod);
 
 	/**
-	 * Get CostingMethod_RL.
+	 * Get CostingMethod.
 	 *
 	 * @return Indicates how Costs will be calculated
 	 */
-	I_AD_Ref_ListInput getCostingMethod_RL();
+	I_AD_Ref_ListInput CostingMethod();
 
 	/**
 	 * Set ID.

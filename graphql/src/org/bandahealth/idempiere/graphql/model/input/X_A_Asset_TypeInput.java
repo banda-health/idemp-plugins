@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MAssetType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_A_Asset_Type;
 import org.compiere.util.Env;
 
 /**
@@ -13,30 +15,20 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_TypeInput extends X_A_Asset_Type implements I_A_Asset_TypeInput {
+public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput IsDepreciable_RL;
-	 private I_AD_Ref_ListInput IsInPosession_RL;
-	 private I_AD_Ref_ListInput IsOwned_RL;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mIsDepreciable;
+	 private I_AD_Ref_ListInput mIsInPosession;
+	 private I_AD_Ref_ListInput mIsOwned;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_A_Asset_TypeInput(String ID) {
+	@JsonCreator
+	public X_A_Asset_TypeInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
-	}
-	/**
-	 * Set Asset Type.
-	 *
-	 * @param A_Asset_Type_ID Asset Type
-	 */
-
-	public void setA_Asset_Type_ID(int A_Asset_Type_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_Type_ID(A_Asset_Type_ID);
-		}
 	}
 
 	/**
@@ -62,14 +54,15 @@ public class X_A_Asset_TypeInput extends X_A_Asset_Type implements I_A_Asset_Typ
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -78,21 +71,23 @@ public class X_A_Asset_TypeInput extends X_A_Asset_Type implements I_A_Asset_Typ
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
 	 * Set Is Depreciable.
 	 *
-	 * @param IsDepreciable_RL This asset CAN be depreciated
+	 * @param IsDepreciable This asset CAN be depreciated
 	 */
-	public void setIsDepreciable_RL(I_AD_Ref_ListInput IsDepreciable_RL) {
-		this.IsDepreciable_RL = IsDepreciable_RL;
-		MRefList foreignEntity;
-		if (IsDepreciable_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsDepreciable_RL.getID())
+	@JsonProperty("IsDepreciable")
+	public void setIsDepreciableInput(I_AD_Ref_ListInput IsDepreciable) {
+		this.mIsDepreciable = IsDepreciable;
+		MRefList_BH foreignEntity;
+		if (IsDepreciable != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(IsDepreciable.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setIsDepreciable(foreignEntity.getValue());
 		} else {
@@ -105,21 +100,23 @@ public class X_A_Asset_TypeInput extends X_A_Asset_Type implements I_A_Asset_Typ
 	 *
 	 * @return This asset CAN be depreciated
 	 */
-	public I_AD_Ref_ListInput getIsDepreciable_RL() {
-		return IsDepreciable_RL;
+	@JsonProperty("IsDepreciable")
+	public I_AD_Ref_ListInput IsDepreciable() {
+		return mIsDepreciable;
 	}
 
 	/**
 	 * Set In Possession.
 	 *
-	 * @param IsInPosession_RL The asset is in the possession of the organization
+	 * @param IsInPosession The asset is in the possession of the organization
 	 */
-	public void setIsInPosession_RL(I_AD_Ref_ListInput IsInPosession_RL) {
-		this.IsInPosession_RL = IsInPosession_RL;
-		MRefList foreignEntity;
-		if (IsInPosession_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsInPosession_RL.getID())
+	@JsonProperty("IsInPosession")
+	public void setIsInPosessionInput(I_AD_Ref_ListInput IsInPosession) {
+		this.mIsInPosession = IsInPosession;
+		MRefList_BH foreignEntity;
+		if (IsInPosession != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(IsInPosession.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setIsInPosession(foreignEntity.getValue());
 		} else {
@@ -132,21 +129,23 @@ public class X_A_Asset_TypeInput extends X_A_Asset_Type implements I_A_Asset_Typ
 	 *
 	 * @return The asset is in the possession of the organization
 	 */
-	public I_AD_Ref_ListInput getIsInPosession_RL() {
-		return IsInPosession_RL;
+	@JsonProperty("IsInPosession")
+	public I_AD_Ref_ListInput IsInPosession() {
+		return mIsInPosession;
 	}
 
 	/**
 	 * Set Owned.
 	 *
-	 * @param IsOwned_RL The asset is owned by the organization
+	 * @param IsOwned The asset is owned by the organization
 	 */
-	public void setIsOwned_RL(I_AD_Ref_ListInput IsOwned_RL) {
-		this.IsOwned_RL = IsOwned_RL;
-		MRefList foreignEntity;
-		if (IsOwned_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsOwned_RL.getID())
+	@JsonProperty("IsOwned")
+	public void setIsOwnedInput(I_AD_Ref_ListInput IsOwned) {
+		this.mIsOwned = IsOwned;
+		MRefList_BH foreignEntity;
+		if (IsOwned != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(IsOwned.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setIsOwned(foreignEntity.getValue());
 		} else {
@@ -159,7 +158,8 @@ public class X_A_Asset_TypeInput extends X_A_Asset_Type implements I_A_Asset_Typ
 	 *
 	 * @return The asset is owned by the organization
 	 */
-	public I_AD_Ref_ListInput getIsOwned_RL() {
-		return IsOwned_RL;
+	@JsonProperty("IsOwned")
+	public I_AD_Ref_ListInput IsOwned() {
+		return mIsOwned;
 	}
 }

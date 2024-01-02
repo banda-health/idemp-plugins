@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -15,13 +17,14 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_ActivityResultInput extends X_AD_WF_ActivityResult implements I_AD_WF_ActivityResultInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_WF_ActivityInput AD_WF_Activity;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_WF_ActivityInput mAD_WF_Activity;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_WF_ActivityResultInput(String ID) {
+	@JsonCreator
+	public X_AD_WF_ActivityResultInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_AD_WF_ActivityResultInput extends X_AD_WF_ActivityResult implemen
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,8 +51,9 @@ public class X_AD_WF_ActivityResultInput extends X_AD_WF_ActivityResult implemen
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -56,14 +61,15 @@ public class X_AD_WF_ActivityResultInput extends X_AD_WF_ActivityResult implemen
 	 *
 	 * @param AD_WF_Activity Workflow Activity
 	 */
-	public void setAD_WF_Activity(I_AD_WF_ActivityInput AD_WF_Activity) {
-		this.AD_WF_Activity = AD_WF_Activity;
+	@JsonProperty("AD_WF_Activity")
+	public void setAD_WF_ActivityInput(I_AD_WF_ActivityInput AD_WF_Activity) {
+		this.mAD_WF_Activity = AD_WF_Activity;
 		X_AD_WF_Activity foreignEntity;
 		if (get_ID() == 0 &&AD_WF_Activity != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_WF_Activity.Table_Name, X_AD_WF_Activity.COLUMNNAME_AD_WF_Activity_UU + "=?", get_TrxName())
 						.setParameters(AD_WF_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_WF_Activity_ID(foreignEntity.get_ID());
+			super.setAD_WF_Activity_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -72,30 +78,9 @@ public class X_AD_WF_ActivityResultInput extends X_AD_WF_ActivityResult implemen
 	 *
 	 * @return Workflow Activity
 	 */
-	public I_AD_WF_ActivityInput getAD_WF_Activity() {
-		return AD_WF_Activity;
-	}
-	/**
-	 * Set Workflow Activity.
-	 *
-	 * @param AD_WF_Activity_ID Workflow Activity
-	 */
-
-	public void setAD_WF_Activity_ID(int AD_WF_Activity_ID) {
-		if (get_ID() == 0) {
-			super.setAD_WF_Activity_ID(AD_WF_Activity_ID);
-		}
-	}
-	/**
-	 * Set Workflow Activity Result.
-	 *
-	 * @param AD_WF_ActivityResult_ID Result of the Workflow Process Activity
-	 */
-
-	public void setAD_WF_ActivityResult_ID(int AD_WF_ActivityResult_ID) {
-		if (get_ID() == 0) {
-			super.setAD_WF_ActivityResult_ID(AD_WF_ActivityResult_ID);
-		}
+	@JsonProperty("AD_WF_Activity")
+	public I_AD_WF_ActivityInput AD_WF_Activity() {
+		return mAD_WF_Activity;
 	}
 
 	/**

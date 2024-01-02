@@ -23,7 +23,7 @@ type C_BPartner {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Language for this entity
-	AD_Language_L: AD_Language
+	AD_Language: AD_Language
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# The Business Partner is another Organization for explicit Inter-Org transactions
@@ -32,7 +32,7 @@ type C_BPartner {
 	BH_Birthday: Date
 	# Electronic Mail Address
 	BH_EMail: String
-	bh_gender_RL: AD_Ref_List
+	bh_gender: AD_Ref_List
 	BH_IsApproximateDateOfBirth: Boolean!
 	# Local Patient ID
 	BH_Local_PatientID: String
@@ -60,13 +60,13 @@ type C_BPartner {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	CustomerProfileID: String
 	Default1099Box: C_1099Box
 	# Defines the timing of Delivery
-	DeliveryRule_RL: AD_Ref_List
+	DeliveryRule: AD_Ref_List
 	# How the order will be delivered
-	DeliveryViaRule_RL: AD_Ref_List
+	DeliveryViaRule: AD_Ref_List
 	# Optional short description of the record
 	Description: String
 	# Number of copies to be printed
@@ -79,11 +79,11 @@ type C_BPartner {
 	# Flat discount percentage 
 	FlatDiscount: Int
 	# Method for charging Freight
-	FreightCostRule_RL: AD_Ref_List
+	FreightCostRule: AD_Ref_List
 	# Print Format for printing Invoices
 	Invoice_PrintFormat: AD_PrintFormat
 	# Frequency and method of invoicing 
-	InvoiceRule_RL: AD_Ref_List
+	InvoiceRule: AD_Ref_List
 	Is1099Vendor: Boolean!
 	# The record is active in the system
 	IsActive: Boolean!
@@ -126,9 +126,9 @@ type C_BPartner {
 	# Number of employees
 	NumberEmployees: Int
 	# How you pay the invoice
-	PaymentRule_RL: AD_Ref_List
+	PaymentRule: AD_Ref_List
 	# Purchase payment option
-	PaymentRulePO_RL: AD_Ref_List
+	PaymentRulePO: AD_Ref_List
 	# Schema to calculate the purchase trade discount percentage
 	PO_DiscountSchema: M_DiscountSchema
 	# Payment rules for a purchase order
@@ -160,7 +160,7 @@ type C_BPartner {
 	# Description to be used on orders
 	SO_Description: String
 	# Business Partner Credit Status
-	SOCreditStatus_RL: AD_Ref_List
+	SOCreditStatus: AD_Ref_List
 	# Tax Identification
 	TaxID: String
 	# Total Open Balance Amount in primary Accounting Currency
@@ -168,7 +168,7 @@ type C_BPartner {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Full URL address - e.g. http://www.idempiere.org
 	URL: String
 	# Search key for the record in the format required - must be unique
@@ -181,7 +181,7 @@ input C_BPartnerInput {
 	# Actual Life Time Revenue
 	ActualLifeTimeValue: Int
 	# Language for this entity
-	AD_Language_L: AD_LanguageInput
+	AD_Language: AD_LanguageInput
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	# The Business Partner is another Organization for explicit Inter-Org transactions
@@ -190,7 +190,7 @@ input C_BPartnerInput {
 	BH_Birthday: Date
 	# Electronic Mail Address
 	BH_EMail: String
-	bh_gender_RL: AD_Ref_ListInput
+	bh_gender: AD_Ref_ListInput
 	BH_IsApproximateDateOfBirth: Boolean
 	# Local Patient ID
 	BH_Local_PatientID: String
@@ -218,9 +218,9 @@ input C_BPartnerInput {
 	CustomerProfileID: String
 	Default1099Box: C_1099BoxInput
 	# Defines the timing of Delivery
-	DeliveryRule_RL: AD_Ref_ListInput
+	DeliveryRule: AD_Ref_ListInput
 	# How the order will be delivered
-	DeliveryViaRule_RL: AD_Ref_ListInput
+	DeliveryViaRule: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String
 	# Number of copies to be printed
@@ -233,11 +233,11 @@ input C_BPartnerInput {
 	# Flat discount percentage 
 	FlatDiscount: Int
 	# Method for charging Freight
-	FreightCostRule_RL: AD_Ref_ListInput
+	FreightCostRule: AD_Ref_ListInput
 	# Print Format for printing Invoices
 	Invoice_PrintFormat: AD_PrintFormatInput
 	# Frequency and method of invoicing 
-	InvoiceRule_RL: AD_Ref_ListInput
+	InvoiceRule: AD_Ref_ListInput
 	Is1099Vendor: Boolean
 	# The record is active in the system
 	IsActive: Boolean
@@ -280,9 +280,9 @@ input C_BPartnerInput {
 	# Number of employees
 	NumberEmployees: Int
 	# How you pay the invoice
-	PaymentRule_RL: AD_Ref_ListInput
+	PaymentRule: AD_Ref_ListInput
 	# Purchase payment option
-	PaymentRulePO_RL: AD_Ref_ListInput
+	PaymentRulePO: AD_Ref_ListInput
 	# Schema to calculate the purchase trade discount percentage
 	PO_DiscountSchema: M_DiscountSchemaInput
 	# Payment rules for a purchase order
@@ -314,7 +314,7 @@ input C_BPartnerInput {
 	# Description to be used on orders
 	SO_Description: String
 	# Business Partner Credit Status
-	SOCreditStatus_RL: AD_Ref_ListInput
+	SOCreditStatus: AD_Ref_ListInput
 	# Tax Identification
 	TaxID: String
 	# Total Open Balance Amount in primary Accounting Currency

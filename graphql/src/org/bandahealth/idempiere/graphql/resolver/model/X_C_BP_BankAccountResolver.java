@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
@@ -13,7 +14,6 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MBPBankAccount;
 import org.compiere.model.MBank;
 import org.compiere.model.MPaymentProcessor;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -53,11 +53,11 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 			put("M", "be1ae458-a3aa-4d16-995a-8d23d34b5c08");
 		}
 	};
-	public CompletableFuture<MRefList> BankAccountType_RL(MBPBankAccount entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BankAccountType(MBPBankAccount entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBankAccountType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BANKACCOUNTTYPE_UUIDS_BY_VALUE.get(entity.getBankAccountType()));
 	}
@@ -70,11 +70,11 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 			put("T", "c028ea3e-3ea1-48a4-a2cf-506ffd32706c");
 		}
 	};
-	public CompletableFuture<MRefList> BPBankAcctUse_RL(MBPBankAccount entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BPBankAcctUse(MBPBankAccount entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBPBankAcctUse())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BPBANKACCTUSE_UUIDS_BY_VALUE.get(entity.getBPBankAcctUse()));
 	}
@@ -135,13 +135,17 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 			put("P", "32dc3f71-74c1-4868-9c34-4db70edce0c2");
 		}
 	};
-	public CompletableFuture<MRefList> CreditCardType_RL(MBPBankAccount entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CreditCardType(MBPBankAccount entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCreditCardType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CREDITCARDTYPE_UUIDS_BY_VALUE.get(entity.getCreditCardType()));
+	}
+
+	public Boolean IsACH(MBPBankAccount entity, DataFetchingEnvironment environment) {
+		return entity.isACH();
 	}
 
 	static Map<String, String> R_AVSADDR_UUIDS_BY_VALUE = new HashMap<>() {
@@ -151,11 +155,11 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 			put("X", "2779bac6-1d0b-42b4-ac7e-20e6a8c9b294");
 		}
 	};
-	public CompletableFuture<MRefList> R_AvsAddr_RL(MBPBankAccount entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> R_AvsAddr(MBPBankAccount entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getR_AvsAddr())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(R_AVSADDR_UUIDS_BY_VALUE.get(entity.getR_AvsAddr()));
 	}
@@ -167,11 +171,11 @@ public class X_C_BP_BankAccountResolver extends POResolver<MBPBankAccount> imple
 			put("X", "2779bac6-1d0b-42b4-ac7e-20e6a8c9b294");
 		}
 	};
-	public CompletableFuture<MRefList> R_AvsZip_RL(MBPBankAccount entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> R_AvsZip(MBPBankAccount entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getR_AvsZip())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(R_AVSZIP_UUIDS_BY_VALUE.get(entity.getR_AvsZip()));
 	}

@@ -22,7 +22,6 @@ package org.bandahealth.idempiere.graphql.generator.util;
 import org.adempiere.exceptions.DBException;
 import org.adempiere.util.ModelInterfaceGenerator;
 import org.compiere.Adempiere;
-import org.compiere.model.MEntityType;
 import org.compiere.model.MReference;
 import org.compiere.model.MTable;
 import org.compiere.util.CLogger;
@@ -37,11 +36,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -225,7 +222,7 @@ public class GraphQLInputModelInterfaceGenerator {
 		StringBuilder columnBuilder = new StringBuilder();
 
 		if (columnName.equals("Created") || columnName.equals("CreatedBy") || columnName.equals("Updated") ||
-				columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID") || virtualColumn) {
+				columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID")) {
 			return "";
 		}
 
@@ -245,7 +242,7 @@ public class GraphQLInputModelInterfaceGenerator {
 				entityName = fieldName;
 				returnType = "I_" + referenceClassName + "Input";
 			} else if (columnName.equals("AD_Language")) {
-				entityName = columnName + "_L";
+				entityName = columnName;
 				returnType = "I_" + columnName + "Input";
 			} else if (columnName.equals("EntityType")) {
 				entityName = "AD_EntityType";
@@ -271,14 +268,13 @@ public class GraphQLInputModelInterfaceGenerator {
 			columnBuilder.append("\n");
 
 			generateJavaSetComment(entityName, entityName, Description, columnBuilder);
-			columnBuilder.append("\tvoid set").append(entityName).append("(").append(returnType).append(" ")
+			columnBuilder.append("\tvoid set").append(entityName).append("Input(").append(returnType).append(" ")
 					.append(entityName).append(");\n");
 
 			generateJavaGetComment(entityName, Description, columnBuilder);
-			columnBuilder.append("\t").append(returnType).append(" get").append(entityName).append("();");
+			columnBuilder.append("\t").append(returnType).append(" ").append(entityName).append("();");
 
-//			return columnBuilder.toString();
-			// Don't return because we may still need to add the actual column getters/setters below
+			return columnBuilder.toString();
 		} else if (columnName.endsWith("_UU")) {
 			columnBuilder.append("\n");
 			generateJavaSetComment("ID", "ID", Description, columnBuilder);
@@ -288,57 +284,57 @@ public class GraphQLInputModelInterfaceGenerator {
 			return columnBuilder.toString();
 		}
 
-		// If the column is user-maintained and the table isn't, we need to generate
-		boolean wereColumnMethodsGeneratedElsewhere = !(entityType.equals(MEntityType.ENTITYTYPE_UserMaintained) &&
-				!MTable.get(AD_Table_ID).getEntityType().equals(MEntityType.ENTITYTYPE_UserMaintained));
-		if (!wereColumnMethodsGeneratedElsewhere) {
-			columnBuilder
-					.append("\n\n")
-					.append("\t/**\n")
-					.append("\t * Column name ").append(columnName).append("\n")
-					.append("\t */\n")
-					.append("\tpublic static final String COLUMNNAME_").append(columnName)
-					.append(" = \"").append(columnName).append("\";\n");
-
-			// Create Java Comment
-			generateJavaSetComment(columnName, Name, Description, columnBuilder);
-			// public void setColumn(xxx variable)
-			columnBuilder.append("\tpublic void set").append(columnName).append("(")
-					.append(dataType).append(" ").append(columnName).append(");\n");
-
-			// ****** Get Comment ******
-			generateJavaGetComment(Name, Description, columnBuilder);
-
-			columnBuilder.append("\tpublic ").append(dataType);
-			if (clazz.equals(Boolean.class)) {
-				columnBuilder.append(" is");
-				if (columnName.toLowerCase().startsWith("is")) {
-					columnBuilder.append(columnName.substring(2));
-				} else {
-					columnBuilder.append(columnName);
-				}
-			} else {
-				columnBuilder.append(" get").append(columnName);
-			}
-			columnBuilder.append("();");
-			//
-			addImportClass(clazz);
-		}
+//		// If the column is user-maintained and the table isn't, we need to generate
+//		boolean wereColumnMethodsGeneratedElsewhere = !(entityType.equals(MEntityType.ENTITYTYPE_UserMaintained) &&
+//				!MTable.get(AD_Table_ID).getEntityType().equals(MEntityType.ENTITYTYPE_UserMaintained));
+//		if (!wereColumnMethodsGeneratedElsewhere) {
+//			columnBuilder
+//					.append("\n\n")
+//					.append("\t/**\n")
+//					.append("\t * Column name ").append(columnName).append("\n")
+//					.append("\t */\n")
+//					.append("\tpublic static final String COLUMNNAME_").append(columnName)
+//					.append(" = \"").append(columnName).append("\";\n");
+//
+//			// Create Java Comment
+//			generateJavaSetComment(columnName, Name, Description, columnBuilder);
+//			// public void setColumn(xxx variable)
+//			columnBuilder.append("\tpublic void set").append(columnName).append("(")
+//					.append(dataType).append(" ").append(columnName).append(");\n");
+//
+//			// ****** Get Comment ******
+//			generateJavaGetComment(Name, Description, columnBuilder);
+//
+//			columnBuilder.append("\tpublic ").append(dataType);
+//			if (clazz.equals(Boolean.class)) {
+//				columnBuilder.append(" is");
+//				if (columnName.toLowerCase().startsWith("is")) {
+//					columnBuilder.append(columnName.substring(2));
+//				} else {
+//					columnBuilder.append(columnName);
+//				}
+//			} else {
+//				columnBuilder.append(" get").append(columnName);
+//			}
+//			columnBuilder.append("();");
+//			//
+//			addImportClass(clazz);
+//		}
 
 		if (AD_Reference_ID > 0 &&
 				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
 				clazz.equals(String.class)) {
-			columnName += "_RL";
+//			columnName += "_RL";
 			columnBuilder.append("\n");
 			generateJavaSetComment(columnName, columnName, Description, columnBuilder);
-			columnBuilder.append("\tvoid set").append(columnName).append("(I_AD_Ref_ListInput ").append(columnName)
+			columnBuilder.append("\tvoid set").append(columnName).append("Input(I_AD_Ref_ListInput ").append(columnName)
 					.append(");\n");
 			generateJavaGetComment(columnName, Description, columnBuilder);
-			columnBuilder.append("\tI_AD_Ref_ListInput get").append(columnName).append("();");
+			columnBuilder.append("\tI_AD_Ref_ListInput ").append(columnName).append("();");
 			return columnBuilder.toString();
 		}
 
-		return columnBuilder.toString();
+		return "";
 	}
 
 	/**

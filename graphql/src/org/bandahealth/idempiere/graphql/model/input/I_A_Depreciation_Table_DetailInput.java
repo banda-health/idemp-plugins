@@ -25,30 +25,30 @@ public interface I_A_Depreciation_Table_DetailInput extends I_A_Depreciation_Tab
 	String getID();
 
 	/**
-	 * Set A_Table_Rate_Type_RL.
+	 * Set A_Table_Rate_Type.
 	 *
-	 * @param A_Table_Rate_Type_RL A_Table_Rate_Type_RL
+	 * @param A_Table_Rate_Type A_Table_Rate_Type
 	 */
-	void setA_Table_Rate_Type_RL(I_AD_Ref_ListInput A_Table_Rate_Type_RL);
+	void setA_Table_Rate_TypeInput(I_AD_Ref_ListInput A_Table_Rate_Type);
 
 	/**
-	 * Get A_Table_Rate_Type_RL.
+	 * Get A_Table_Rate_Type.
 	 *
-	 * @return A_Table_Rate_Type_RL
+	 * @return A_Table_Rate_Type
 	 */
-	I_AD_Ref_ListInput getA_Table_Rate_Type_RL();
+	I_AD_Ref_ListInput A_Table_Rate_Type();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 }

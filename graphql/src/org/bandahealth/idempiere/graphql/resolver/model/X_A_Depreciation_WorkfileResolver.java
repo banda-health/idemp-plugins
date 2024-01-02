@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_FundingModeDataLoader;
@@ -10,7 +11,6 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAsset;
 import org.compiere.model.MDepreciationWorkfile;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_A_FundingMode;
 import org.dataloader.DataLoader;
 
@@ -64,11 +64,11 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 			put("T", "51a1b186-6af4-4373-9788-f9105aa65cfa");
 		}
 	};
-	public CompletableFuture<MRefList> A_Tip_Finantare_RL(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Tip_Finantare(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Tip_Finantare())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_TIP_FINANTARE_UUIDS_BY_VALUE.get(entity.getA_Tip_Finantare()));
 	}
@@ -88,6 +88,10 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
+	public Boolean IsDepreciated(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
+		return entity.isDepreciated();
+	}
+
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
@@ -97,13 +101,21 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList> PostingType_RL(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
+	}
+
+	public Boolean Processed(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MDepreciationWorkfile entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

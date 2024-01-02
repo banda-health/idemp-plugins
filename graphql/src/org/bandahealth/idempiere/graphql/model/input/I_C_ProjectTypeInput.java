@@ -15,14 +15,14 @@ public interface I_C_ProjectTypeInput extends I_C_ProjectType {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -39,16 +39,16 @@ public interface I_C_ProjectTypeInput extends I_C_ProjectType {
 	String getID();
 
 	/**
-	 * Set ProjectCategory_RL.
+	 * Set ProjectCategory.
 	 *
-	 * @param ProjectCategory_RL Project Category
+	 * @param ProjectCategory Project Category
 	 */
-	void setProjectCategory_RL(I_AD_Ref_ListInput ProjectCategory_RL);
+	void setProjectCategoryInput(I_AD_Ref_ListInput ProjectCategory);
 
 	/**
-	 * Get ProjectCategory_RL.
+	 * Get ProjectCategory.
 	 *
 	 * @return Project Category
 	 */
-	I_AD_Ref_ListInput getProjectCategory_RL();
+	I_AD_Ref_ListInput ProjectCategory();
 }

@@ -15,14 +15,14 @@ public interface I_A_Asset_RevalInput extends I_A_Asset_Reval {
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_Asset(I_A_AssetInput A_Asset);
+	void setA_AssetInput(I_A_AssetInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput getA_Asset();
+	I_A_AssetInput A_Asset();
 
 	/**
 	 * Set ID.
@@ -43,54 +43,54 @@ public interface I_A_Asset_RevalInput extends I_A_Asset_Reval {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set DocAction_RL.
+	 * Set DocAction.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL);
+	void setDocActionInput(I_AD_Ref_ListInput DocAction);
 
 	/**
-	 * Get DocAction_RL.
+	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput getDocAction_RL();
+	I_AD_Ref_ListInput DocAction();
 
 	/**
-	 * Set DocStatus_RL.
+	 * Set DocStatus.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL);
+	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
 
 	/**
-	 * Get DocStatus_RL.
+	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput getDocStatus_RL();
+	I_AD_Ref_ListInput DocStatus();
 
 	/**
-	 * Set PostingType_RL.
+	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL);
+	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
 
 	/**
-	 * Get PostingType_RL.
+	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput getPostingType_RL();
+	I_AD_Ref_ListInput PostingType();
 }

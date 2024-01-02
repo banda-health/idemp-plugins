@@ -1,8 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_GL_Budget;
 import org.compiere.util.Env;
@@ -15,13 +17,14 @@ import org.compiere.util.Env;
  */
 public class X_GL_BudgetInput extends X_GL_Budget implements I_GL_BudgetInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput BudgetStatus_RL;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mBudgetStatus;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_GL_BudgetInput(String ID) {
+	@JsonCreator
+	public X_GL_BudgetInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_GL_BudgetInput extends X_GL_Budget implements I_GL_BudgetInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,21 +51,23 @@ public class X_GL_BudgetInput extends X_GL_Budget implements I_GL_BudgetInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
 	 * Set Budget Status.
 	 *
-	 * @param BudgetStatus_RL Indicates the current status of this budget
+	 * @param BudgetStatus Indicates the current status of this budget
 	 */
-	public void setBudgetStatus_RL(I_AD_Ref_ListInput BudgetStatus_RL) {
-		this.BudgetStatus_RL = BudgetStatus_RL;
-		MRefList foreignEntity;
-		if (BudgetStatus_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BudgetStatus_RL.getID())
+	@JsonProperty("BudgetStatus")
+	public void setBudgetStatusInput(I_AD_Ref_ListInput BudgetStatus) {
+		this.mBudgetStatus = BudgetStatus;
+		MRefList_BH foreignEntity;
+		if (BudgetStatus != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(BudgetStatus.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setBudgetStatus(foreignEntity.getValue());
 		} else {
@@ -74,19 +80,9 @@ public class X_GL_BudgetInput extends X_GL_Budget implements I_GL_BudgetInput {
 	 *
 	 * @return Indicates the current status of this budget
 	 */
-	public I_AD_Ref_ListInput getBudgetStatus_RL() {
-		return BudgetStatus_RL;
-	}
-	/**
-	 * Set Budget.
-	 *
-	 * @param GL_Budget_ID General Ledger Budget
-	 */
-
-	public void setGL_Budget_ID(int GL_Budget_ID) {
-		if (get_ID() == 0) {
-			super.setGL_Budget_ID(GL_Budget_ID);
-		}
+	@JsonProperty("BudgetStatus")
+	public I_AD_Ref_ListInput BudgetStatus() {
+		return mBudgetStatus;
 	}
 
 	/**

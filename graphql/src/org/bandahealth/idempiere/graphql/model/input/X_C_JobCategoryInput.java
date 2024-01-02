@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -14,12 +16,13 @@ import org.compiere.util.Env;
  */
 public class X_C_JobCategoryInput extends X_C_JobCategory implements I_C_JobCategoryInput {
 
-	 private I_AD_OrgInput AD_Org;
+	 private I_AD_OrgInput mAD_Org;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_JobCategoryInput(String ID) {
+	@JsonCreator
+	public X_C_JobCategoryInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -29,14 +32,15 @@ public class X_C_JobCategoryInput extends X_C_JobCategory implements I_C_JobCate
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -45,19 +49,9 @@ public class X_C_JobCategoryInput extends X_C_JobCategory implements I_C_JobCate
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Position Category.
-	 *
-	 * @param C_JobCategory_ID Job Position Category
-	 */
-
-	public void setC_JobCategory_ID(int C_JobCategory_ID) {
-		if (get_ID() == 0) {
-			super.setC_JobCategory_ID(C_JobCategory_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**

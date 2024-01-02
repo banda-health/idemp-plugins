@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.MUOM;
 import org.dataloader.DataLoader;
 
@@ -20,6 +20,10 @@ import java.util.concurrent.CompletableFuture;
  */
 public class X_C_UOMResolver extends POResolver<MUOM> implements GraphQLResolver<MUOM> {
 
+
+	public Boolean IsDefault(MUOM entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
 
 	static Map<String, String> UOMTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
@@ -46,11 +50,11 @@ public class X_C_UOMResolver extends POResolver<MUOM> implements GraphQLResolver
 			put("OT", "68837114-a565-4c86-b37a-7c4d95346434");
 		}
 	};
-	public CompletableFuture<MRefList> UOMType_RL(MUOM entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> UOMType(MUOM entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getUOMType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(UOMTYPE_UUIDS_BY_VALUE.get(entity.getUOMType()));
 	}

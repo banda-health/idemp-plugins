@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_EntityType;
 import org.compiere.util.Env;
 
 /**
@@ -12,27 +14,17 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_EntityTypeInput extends X_AD_EntityType implements I_AD_EntityTypeInput {
+public class X_AD_EntityTypeInput extends MEntityType implements I_AD_EntityTypeInput {
 
-	 private I_AD_OrgInput AD_Org;
+	 private I_AD_OrgInput mAD_Org;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_EntityTypeInput(String ID) {
+	@JsonCreator
+	public X_AD_EntityTypeInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param AD_EntityType_ID System Entity Type
-	 */
-
-	public void setAD_EntityType_ID(int AD_EntityType_ID) {
-		if (get_ID() == 0) {
-			super.setAD_EntityType_ID(AD_EntityType_ID);
-		}
 	}
 
 	/**
@@ -58,14 +50,15 @@ public class X_AD_EntityTypeInput extends X_AD_EntityType implements I_AD_Entity
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -74,8 +67,9 @@ public class X_AD_EntityTypeInput extends X_AD_EntityType implements I_AD_Entity
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 	/**
 	 * Set Entity Type.

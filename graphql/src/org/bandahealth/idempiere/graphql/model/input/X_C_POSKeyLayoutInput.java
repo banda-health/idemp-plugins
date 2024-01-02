@@ -1,12 +1,14 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
+import org.compiere.model.MPOSKeyLayout;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
-import org.compiere.model.X_C_POSKeyLayout;
 import org.compiere.util.Env;
 
 /**
@@ -15,17 +17,18 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_POSKeyLayoutInput extends X_C_POSKeyLayout implements I_C_POSKeyLayoutInput {
+public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLayoutInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_PrintColorInput AD_PrintColor;
-	 private I_AD_PrintFontInput AD_PrintFont;
-	 private I_AD_Ref_ListInput POSKeyLayoutType_RL;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_PrintColorInput mAD_PrintColor;
+	 private I_AD_PrintFontInput mAD_PrintFont;
+	 private I_AD_Ref_ListInput mPOSKeyLayoutType;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_POSKeyLayoutInput(String ID) {
+	@JsonCreator
+	public X_C_POSKeyLayoutInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -35,14 +38,15 @@ public class X_C_POSKeyLayoutInput extends X_C_POSKeyLayout implements I_C_POSKe
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -51,8 +55,9 @@ public class X_C_POSKeyLayoutInput extends X_C_POSKeyLayout implements I_C_POSKe
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -60,16 +65,17 @@ public class X_C_POSKeyLayoutInput extends X_C_POSKeyLayout implements I_C_POSKe
 	 *
 	 * @param AD_PrintColor Color used for printing and display
 	 */
-	public void setAD_PrintColor(I_AD_PrintColorInput AD_PrintColor) {
-		this.AD_PrintColor = AD_PrintColor;
+	@JsonProperty("AD_PrintColor")
+	public void setAD_PrintColorInput(I_AD_PrintColorInput AD_PrintColor) {
+		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
 						.setParameters(AD_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_PrintColor_ID(foreignEntity.get_ID());
+			super.setAD_PrintColor_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_PrintColor_ID(0);
+			super.setAD_PrintColor_ID(0);
 		}
 	}
 
@@ -78,8 +84,9 @@ public class X_C_POSKeyLayoutInput extends X_C_POSKeyLayout implements I_C_POSKe
 	 *
 	 * @return Color used for printing and display
 	 */
-	public I_AD_PrintColorInput getAD_PrintColor() {
-		return AD_PrintColor;
+	@JsonProperty("AD_PrintColor")
+	public I_AD_PrintColorInput AD_PrintColor() {
+		return mAD_PrintColor;
 	}
 
 	/**
@@ -87,16 +94,17 @@ public class X_C_POSKeyLayoutInput extends X_C_POSKeyLayout implements I_C_POSKe
 	 *
 	 * @param AD_PrintFont Maintain Print Font
 	 */
-	public void setAD_PrintFont(I_AD_PrintFontInput AD_PrintFont) {
-		this.AD_PrintFont = AD_PrintFont;
+	@JsonProperty("AD_PrintFont")
+	public void setAD_PrintFontInput(I_AD_PrintFontInput AD_PrintFont) {
+		this.mAD_PrintFont = AD_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (AD_PrintFont != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintFont.Table_Name, X_AD_PrintFont.COLUMNNAME_AD_PrintFont_UU + "=?", get_TrxName())
 						.setParameters(AD_PrintFont.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_PrintFont_ID(foreignEntity.get_ID());
+			super.setAD_PrintFont_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_PrintFont_ID(0);
+			super.setAD_PrintFont_ID(0);
 		}
 	}
 
@@ -105,19 +113,9 @@ public class X_C_POSKeyLayoutInput extends X_C_POSKeyLayout implements I_C_POSKe
 	 *
 	 * @return Maintain Print Font
 	 */
-	public I_AD_PrintFontInput getAD_PrintFont() {
-		return AD_PrintFont;
-	}
-	/**
-	 * Set POS Key Layout.
-	 *
-	 * @param C_POSKeyLayout_ID POS Function Key Layout
-	 */
-
-	public void setC_POSKeyLayout_ID(int C_POSKeyLayout_ID) {
-		if (get_ID() == 0) {
-			super.setC_POSKeyLayout_ID(C_POSKeyLayout_ID);
-		}
+	@JsonProperty("AD_PrintFont")
+	public I_AD_PrintFontInput AD_PrintFont() {
+		return mAD_PrintFont;
 	}
 
 	/**
@@ -141,14 +139,15 @@ public class X_C_POSKeyLayoutInput extends X_C_POSKeyLayout implements I_C_POSKe
 	/**
 	 * Set POS Key Layout Type.
 	 *
-	 * @param POSKeyLayoutType_RL The type of Key Layout
+	 * @param POSKeyLayoutType The type of Key Layout
 	 */
-	public void setPOSKeyLayoutType_RL(I_AD_Ref_ListInput POSKeyLayoutType_RL) {
-		this.POSKeyLayoutType_RL = POSKeyLayoutType_RL;
-		MRefList foreignEntity;
-		if (POSKeyLayoutType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(POSKeyLayoutType_RL.getID())
+	@JsonProperty("POSKeyLayoutType")
+	public void setPOSKeyLayoutTypeInput(I_AD_Ref_ListInput POSKeyLayoutType) {
+		this.mPOSKeyLayoutType = POSKeyLayoutType;
+		MRefList_BH foreignEntity;
+		if (POSKeyLayoutType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(POSKeyLayoutType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPOSKeyLayoutType(foreignEntity.getValue());
 		} else {
@@ -161,7 +160,8 @@ public class X_C_POSKeyLayoutInput extends X_C_POSKeyLayout implements I_C_POSKe
 	 *
 	 * @return The type of Key Layout
 	 */
-	public I_AD_Ref_ListInput getPOSKeyLayoutType_RL() {
-		return POSKeyLayoutType_RL;
+	@JsonProperty("POSKeyLayoutType")
+	public I_AD_Ref_ListInput POSKeyLayoutType() {
+		return mPOSKeyLayoutType;
 	}
 }

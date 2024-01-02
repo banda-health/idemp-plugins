@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MRefList;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 
 /**
  * Data Loader for AD_Ref_List - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.compiere.model.MRefList;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_Ref_ListDataLoader extends PODataLoader<MRefList> {
+public class X_AD_Ref_ListDataLoader extends PODataLoader<MRefList_BH> {
 	public static String AD_Ref_List_BY_ID_DATA_LOADER = "AD_Ref_ListByIdDataLoader";
 	public static String AD_Ref_List_BY_UUID_DATA_LOADER = "AD_Ref_ListByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MRefList.Table_Name;
+		return MRefList_BH.Table_Name;
 	}
 
 	@Override

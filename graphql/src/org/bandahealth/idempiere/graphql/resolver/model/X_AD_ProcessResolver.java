@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_CtxHelpDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_FormDataLoader;
@@ -14,7 +15,6 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MCtxHelp;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MForm;
-import org.compiere.model.MRefList;
 import org.compiere.model.MReportView;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_Workflow;
@@ -43,11 +43,11 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 			put("2", "391e2c9a-b8e5-43b0-895b-eea914023e59");
 		}
 	};
-	public CompletableFuture<MRefList> AccessLevel_RL(MProcess_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> AccessLevel(MProcess_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAccessLevel())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ACCESSLEVEL_UUIDS_BY_VALUE.get(entity.getAccessLevel()));
 	}
@@ -133,11 +133,11 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 			put("P", "1dcb3178-d9f5-449e-9592-5e6e29453cf1");
 		}
 	};
-	public CompletableFuture<MRefList> AllowMultipleExecution_RL(MProcess_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> AllowMultipleExecution(MProcess_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAllowMultipleExecution())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ALLOWMULTIPLEEXECUTION_UUIDS_BY_VALUE.get(entity.getAllowMultipleExecution()));
 	}
@@ -179,13 +179,25 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 			put("F", "9a4c7179-17f7-4fc0-9ccb-bdcdf36488a4");
 		}
 	};
-	public CompletableFuture<MRefList> ExecutionType_RL(MProcess_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ExecutionType(MProcess_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getExecutionType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(EXECUTIONTYPE_UUIDS_BY_VALUE.get(entity.getExecutionType()));
+	}
+
+	public Boolean IsBetaFunctionality(MProcess_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBetaFunctionality();
+	}
+
+	public Boolean IsDirectPrint(MProcess_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDirectPrint();
+	}
+
+	public Boolean IsReport(MProcess_BH entity, DataFetchingEnvironment environment) {
+		return entity.isReport();
 	}
 
 	static Map<String, String> SHOWHELP_UUIDS_BY_VALUE = new HashMap<>() {
@@ -196,11 +208,11 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 			put("S", "7474b66d-3658-4fc8-ac27-08c80f8ce257");
 		}
 	};
-	public CompletableFuture<MRefList> ShowHelp_RL(MProcess_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ShowHelp(MProcess_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getShowHelp())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(SHOWHELP_UUIDS_BY_VALUE.get(entity.getShowHelp()));
 	}

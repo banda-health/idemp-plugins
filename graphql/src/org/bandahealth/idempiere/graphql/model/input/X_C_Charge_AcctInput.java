@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAccount;
@@ -17,15 +19,16 @@ import org.compiere.util.Env;
  */
 public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_AcctInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_AcctSchemaInput C_AcctSchema;
-	 private I_C_ChargeInput C_Charge;
-	 private I_C_ValidCombinationInput Ch_Expense_A;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_AcctSchemaInput mC_AcctSchema;
+	 private I_C_ChargeInput mC_Charge;
+	 private I_C_ValidCombinationInput mCh_Expense_A;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_Charge_AcctInput(String ID) {
+	@JsonCreator
+	public X_C_Charge_AcctInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -35,14 +38,15 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -51,8 +55,9 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -60,14 +65,15 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	 *
 	 * @param C_AcctSchema Rules for accounting
 	 */
-	public void setC_AcctSchema(I_C_AcctSchemaInput C_AcctSchema) {
-		this.C_AcctSchema = C_AcctSchema;
+	@JsonProperty("C_AcctSchema")
+	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (get_ID() == 0 &&C_AcctSchema != null &&
 				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			super.setC_AcctSchema_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -76,19 +82,9 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	 *
 	 * @return Rules for accounting
 	 */
-	public I_C_AcctSchemaInput getC_AcctSchema() {
-		return C_AcctSchema;
-	}
-	/**
-	 * Set Accounting Schema.
-	 *
-	 * @param C_AcctSchema_ID Rules for accounting
-	 */
-
-	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
-		if (get_ID() == 0) {
-			super.setC_AcctSchema_ID(C_AcctSchema_ID);
-		}
+	@JsonProperty("C_AcctSchema")
+	public I_C_AcctSchemaInput C_AcctSchema() {
+		return mC_AcctSchema;
 	}
 
 	/**
@@ -114,14 +110,15 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	 *
 	 * @param C_Charge Additional document charges
 	 */
-	public void setC_Charge(I_C_ChargeInput C_Charge) {
-		this.C_Charge = C_Charge;
+	@JsonProperty("C_Charge")
+	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (get_ID() == 0 &&C_Charge != null &&
 				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Charge_ID(foreignEntity.get_ID());
+			super.setC_Charge_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -130,19 +127,9 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	 *
 	 * @return Additional document charges
 	 */
-	public I_C_ChargeInput getC_Charge() {
-		return C_Charge;
-	}
-	/**
-	 * Set Charge.
-	 *
-	 * @param C_Charge_ID Additional document charges
-	 */
-
-	public void setC_Charge_ID(int C_Charge_ID) {
-		if (get_ID() == 0) {
-			super.setC_Charge_ID(C_Charge_ID);
-		}
+	@JsonProperty("C_Charge")
+	public I_C_ChargeInput C_Charge() {
+		return mC_Charge;
 	}
 
 	/**
@@ -150,16 +137,17 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	 *
 	 * @param Ch_Expense_A Charge Account
 	 */
-	public void setCh_Expense_A(I_C_ValidCombinationInput Ch_Expense_A) {
-		this.Ch_Expense_A = Ch_Expense_A;
+	@JsonProperty("Ch_Expense_A")
+	public void setCh_Expense_AInput(I_C_ValidCombinationInput Ch_Expense_A) {
+		this.mCh_Expense_A = Ch_Expense_A;
 		MAccount foreignEntity;
 		if (Ch_Expense_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(Ch_Expense_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setCh_Expense_Acct(foreignEntity.get_ID());
+			super.setCh_Expense_Acct(foreignEntity.get_ID());
 		} else {
-			this.setCh_Expense_Acct(0);
+			super.setCh_Expense_Acct(0);
 		}
 	}
 
@@ -168,7 +156,8 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	 *
 	 * @return Charge Account
 	 */
-	public I_C_ValidCombinationInput getCh_Expense_A() {
-		return Ch_Expense_A;
+	@JsonProperty("Ch_Expense_A")
+	public I_C_ValidCombinationInput Ch_Expense_A() {
+		return mCh_Expense_A;
 	}
 }

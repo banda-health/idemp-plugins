@@ -28,7 +28,7 @@ type A_Asset_Split {
 	A_Percent_Split: Int
 	A_QTY_Current: Int!
 	A_QTY_Split: Int
-	A_Split_Type_RL: AD_Ref_List!
+	A_Split_Type: AD_Ref_List!
 	A_Transfer_Balance_IS: Boolean!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
@@ -39,20 +39,20 @@ type A_Asset_Split {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Accounting Date
 	DateAcct: Date!
 	# The record is active in the system
 	IsActive: Boolean!
 	# The type of posted amount for the transaction
-	PostingType_RL: AD_Ref_List!
+	PostingType: AD_Ref_List!
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 }
 
 input A_Asset_SplitInput {
@@ -68,7 +68,7 @@ input A_Asset_SplitInput {
 	A_Percent_Split: Int
 	A_QTY_Current: Int
 	A_QTY_Split: Int
-	A_Split_Type_RL: AD_Ref_ListInput
+	A_Split_Type: AD_Ref_ListInput
 	A_Transfer_Balance_IS: Boolean
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
@@ -79,7 +79,7 @@ input A_Asset_SplitInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# The type of posted amount for the transaction
-	PostingType_RL: AD_Ref_ListInput
+	PostingType: AD_Ref_ListInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

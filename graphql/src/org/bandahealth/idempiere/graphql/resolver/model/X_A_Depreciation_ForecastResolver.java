@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAsset;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_A_Depreciation_Forecast;
 import org.dataloader.DataLoader;
 
@@ -62,13 +62,21 @@ public class X_A_Depreciation_ForecastResolver extends POResolver<X_A_Depreciati
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList> PostingType_RL(X_A_Depreciation_Forecast entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(X_A_Depreciation_Forecast entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
+	}
+
+	public Boolean Processed(X_A_Depreciation_Forecast entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(X_A_Depreciation_Forecast entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

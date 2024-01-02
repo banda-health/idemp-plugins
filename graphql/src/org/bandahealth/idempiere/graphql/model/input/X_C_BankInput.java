@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MBank;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_Bank;
 import org.compiere.util.Env;
 
 /**
@@ -13,15 +15,16 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_BankInput extends X_C_Bank implements I_C_BankInput {
+public class X_C_BankInput extends MBank implements I_C_BankInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_LocationInput C_Location;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_LocationInput mC_Location;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_BankInput(String ID) {
+	@JsonCreator
+	public X_C_BankInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_C_BankInput extends X_C_Bank implements I_C_BankInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,19 +51,9 @@ public class X_C_BankInput extends X_C_Bank implements I_C_BankInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Bank.
-	 *
-	 * @param C_Bank_ID Bank
-	 */
-
-	public void setC_Bank_ID(int C_Bank_ID) {
-		if (get_ID() == 0) {
-			super.setC_Bank_ID(C_Bank_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -85,16 +79,17 @@ public class X_C_BankInput extends X_C_Bank implements I_C_BankInput {
 	 *
 	 * @param C_Location Location or Address
 	 */
-	public void setC_Location(I_C_LocationInput C_Location) {
-		this.C_Location = C_Location;
+	@JsonProperty("C_Location")
+	public void setC_LocationInput(I_C_LocationInput C_Location) {
+		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
 				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
 						.setParameters(C_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Location_ID(foreignEntity.get_ID());
+			super.setC_Location_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Location_ID(0);
+			super.setC_Location_ID(0);
 		}
 	}
 
@@ -103,7 +98,8 @@ public class X_C_BankInput extends X_C_Bank implements I_C_BankInput {
 	 *
 	 * @return Location or Address
 	 */
-	public I_C_LocationInput getC_Location() {
-		return C_Location;
+	@JsonProperty("C_Location")
+	public I_C_LocationInput C_Location() {
+		return mC_Location;
 	}
 }

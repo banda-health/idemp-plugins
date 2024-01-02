@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Asset_Info_Tax;
 import org.compiere.util.Env;
@@ -16,14 +18,15 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_Asset_Info_TaxInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput A_Finance_Meth_RL;
-	 private I_A_AssetInput A_Asset;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mA_Finance_Meth;
+	 private I_A_AssetInput mA_Asset;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_A_Asset_Info_TaxInput(String ID) {
+	@JsonCreator
+	public X_A_Asset_Info_TaxInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,14 +36,15 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	public void setA_Asset(I_A_AssetInput A_Asset) {
-		this.A_Asset = A_Asset;
+	@JsonProperty("A_Asset")
+	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (get_ID() == 0 &&A_Asset != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_ID(foreignEntity.get_ID());
+			super.setA_Asset_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -49,30 +53,9 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public I_A_AssetInput getA_Asset() {
-		return A_Asset;
-	}
-	/**
-	 * Set Asset.
-	 *
-	 * @param A_Asset_ID Asset used internally or by customers
-	 */
-
-	public void setA_Asset_ID(int A_Asset_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_ID(A_Asset_ID);
-		}
-	}
-	/**
-	 * Set Asset Info Tax.
-	 *
-	 * @param A_Asset_Info_Tax_ID Asset Info Tax
-	 */
-
-	public void setA_Asset_Info_Tax_ID(int A_Asset_Info_Tax_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_Info_Tax_ID(A_Asset_Info_Tax_ID);
-		}
+	@JsonProperty("A_Asset")
+	public I_A_AssetInput A_Asset() {
+		return mA_Asset;
 	}
 
 	/**
@@ -96,14 +79,15 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	/**
 	 * Set Asset Finance Method.
 	 *
-	 * @param A_Finance_Meth_RL Asset Finance Method
+	 * @param A_Finance_Meth Asset Finance Method
 	 */
-	public void setA_Finance_Meth_RL(I_AD_Ref_ListInput A_Finance_Meth_RL) {
-		this.A_Finance_Meth_RL = A_Finance_Meth_RL;
-		MRefList foreignEntity;
-		if (A_Finance_Meth_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Finance_Meth_RL.getID())
+	@JsonProperty("A_Finance_Meth")
+	public void setA_Finance_MethInput(I_AD_Ref_ListInput A_Finance_Meth) {
+		this.mA_Finance_Meth = A_Finance_Meth;
+		MRefList_BH foreignEntity;
+		if (A_Finance_Meth != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(A_Finance_Meth.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setA_Finance_Meth(foreignEntity.getValue());
 		} else {
@@ -116,8 +100,9 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	 *
 	 * @return Asset Finance Method
 	 */
-	public I_AD_Ref_ListInput getA_Finance_Meth_RL() {
-		return A_Finance_Meth_RL;
+	@JsonProperty("A_Finance_Meth")
+	public I_AD_Ref_ListInput A_Finance_Meth() {
+		return mA_Finance_Meth;
 	}
 
 	/**
@@ -125,14 +110,15 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -141,7 +127,8 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 }

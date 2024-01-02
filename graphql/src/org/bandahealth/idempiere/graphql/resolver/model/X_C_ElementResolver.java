@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TreeDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MElement;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTree;
 import org.dataloader.DataLoader;
 
@@ -44,13 +44,21 @@ public class X_C_ElementResolver extends POResolver<MElement> implements GraphQL
 			put("U", "71e6a68d-1ec2-4d62-a5f3-81c725accd6d");
 		}
 	};
-	public CompletableFuture<MRefList> ElementType_RL(MElement entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ElementType(MElement entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getElementType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ELEMENTTYPE_UUIDS_BY_VALUE.get(entity.getElementType()));
+	}
+
+	public Boolean IsBalancing(MElement entity, DataFetchingEnvironment environment) {
+		return entity.isBalancing();
+	}
+
+	public Boolean IsNaturalAccount(MElement entity, DataFetchingEnvironment environment) {
+		return entity.isNaturalAccount();
 	}
 
 }

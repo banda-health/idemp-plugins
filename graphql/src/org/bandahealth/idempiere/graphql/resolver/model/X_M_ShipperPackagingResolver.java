@@ -20,6 +20,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_ShipperPackagingResolver extends POResolver<MShipperPackaging> implements GraphQLResolver<MShipperPackaging> {
 
 
+	public Boolean IsDefault(MShipperPackaging entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
 
 	/**
 	 * Get Shipper.

@@ -5,6 +5,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -33,7 +34,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ResourceAssignmentD
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCampaign;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MProject;
 import org.compiere.model.MProjectPhase;
@@ -56,6 +56,10 @@ import java.util.concurrent.CompletableFuture;
  */
 public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements GraphQLResolver<MOrderLine_BH> {
 
+
+	public Boolean BH_RequiresExpiration(MOrderLine_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBH_RequiresExpiration();
+	}
 
 
 	/**
@@ -138,11 +142,11 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MOrderLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MOrderLine_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
@@ -235,6 +239,10 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 		DataLoader<Integer, MUOM> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_UOM_ID());
+	}
+
+	public Boolean IsDescription(MOrderLine_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDescription();
 	}
 
 
@@ -340,6 +348,10 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 		DataLoader<Integer, X_PP_Cost_Collector> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PP_Cost_CollectorDataLoader.PP_Cost_Collector_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getPP_Cost_Collector_ID());
+	}
+
+	public Boolean Processed(MOrderLine_BH entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
 	}
 
 

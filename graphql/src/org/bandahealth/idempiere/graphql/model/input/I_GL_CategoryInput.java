@@ -15,28 +15,28 @@ public interface I_GL_CategoryInput extends I_GL_Category {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set CategoryType_RL.
+	 * Set CategoryType.
 	 *
-	 * @param CategoryType_RL Source of the Journal with this category
+	 * @param CategoryType Source of the Journal with this category
 	 */
-	void setCategoryType_RL(I_AD_Ref_ListInput CategoryType_RL);
+	void setCategoryTypeInput(I_AD_Ref_ListInput CategoryType);
 
 	/**
-	 * Get CategoryType_RL.
+	 * Get CategoryType.
 	 *
 	 * @return Source of the Journal with this category
 	 */
-	I_AD_Ref_ListInput getCategoryType_RL();
+	I_AD_Ref_ListInput CategoryType();
 
 	/**
 	 * Set ID.

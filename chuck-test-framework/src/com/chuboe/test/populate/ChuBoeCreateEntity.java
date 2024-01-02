@@ -708,7 +708,7 @@ public class ChuBoeCreateEntity {
 			}
 		}
 		payment.setPayAmt(paymentTotal);
-		payment.setBH_TenderAmount(tenderAmount);
+		payment.setBH_tender_amount(tenderAmount);
 
 		payment.saveEx();
 		valueObject.setPayment(payment);

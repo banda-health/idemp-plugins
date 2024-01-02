@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MLocator;
 import org.compiere.model.MLocatorType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_M_Locator;
 import org.compiere.util.Env;
 
 /**
@@ -14,16 +16,17 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_LocatorInput extends X_M_Locator implements I_M_LocatorInput {
+public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_M_LocatorTypeInput M_LocatorType;
-	 private I_M_WarehouseInput M_Warehouse;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_M_LocatorTypeInput mM_LocatorType;
+	 private I_M_WarehouseInput mM_Warehouse;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_M_LocatorInput(String ID) {
+	@JsonCreator
+	public X_M_LocatorInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,14 +36,15 @@ public class X_M_LocatorInput extends X_M_Locator implements I_M_LocatorInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -49,19 +53,9 @@ public class X_M_LocatorInput extends X_M_Locator implements I_M_LocatorInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Locator.
-	 *
-	 * @param M_Locator_ID Warehouse Locator
-	 */
-
-	public void setM_Locator_ID(int M_Locator_ID) {
-		if (get_ID() == 0) {
-			super.setM_Locator_ID(M_Locator_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -87,16 +81,17 @@ public class X_M_LocatorInput extends X_M_Locator implements I_M_LocatorInput {
 	 *
 	 * @param M_LocatorType Locator Type
 	 */
-	public void setM_LocatorType(I_M_LocatorTypeInput M_LocatorType) {
-		this.M_LocatorType = M_LocatorType;
+	@JsonProperty("M_LocatorType")
+	public void setM_LocatorTypeInput(I_M_LocatorTypeInput M_LocatorType) {
+		this.mM_LocatorType = M_LocatorType;
 		MLocatorType foreignEntity;
 		if (M_LocatorType != null &&
 				(foreignEntity = new Query(getCtx(), MLocatorType.Table_Name, MLocatorType.COLUMNNAME_M_LocatorType_UU + "=?", get_TrxName())
 						.setParameters(M_LocatorType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_LocatorType_ID(foreignEntity.get_ID());
+			super.setM_LocatorType_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_LocatorType_ID(0);
+			super.setM_LocatorType_ID(0);
 		}
 	}
 
@@ -105,8 +100,9 @@ public class X_M_LocatorInput extends X_M_Locator implements I_M_LocatorInput {
 	 *
 	 * @return Locator Type
 	 */
-	public I_M_LocatorTypeInput getM_LocatorType() {
-		return M_LocatorType;
+	@JsonProperty("M_LocatorType")
+	public I_M_LocatorTypeInput M_LocatorType() {
+		return mM_LocatorType;
 	}
 
 	/**
@@ -114,14 +110,15 @@ public class X_M_LocatorInput extends X_M_Locator implements I_M_LocatorInput {
 	 *
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
-	public void setM_Warehouse(I_M_WarehouseInput M_Warehouse) {
-		this.M_Warehouse = M_Warehouse;
+	@JsonProperty("M_Warehouse")
+	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (get_ID() == 0 &&M_Warehouse != null &&
 				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
 						.setParameters(M_Warehouse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Warehouse_ID(foreignEntity.get_ID());
+			super.setM_Warehouse_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -130,18 +127,8 @@ public class X_M_LocatorInput extends X_M_Locator implements I_M_LocatorInput {
 	 *
 	 * @return Storage Warehouse and Service Point
 	 */
-	public I_M_WarehouseInput getM_Warehouse() {
-		return M_Warehouse;
-	}
-	/**
-	 * Set Warehouse.
-	 *
-	 * @param M_Warehouse_ID Storage Warehouse and Service Point
-	 */
-
-	public void setM_Warehouse_ID(int M_Warehouse_ID) {
-		if (get_ID() == 0) {
-			super.setM_Warehouse_ID(M_Warehouse_ID);
-		}
+	@JsonProperty("M_Warehouse")
+	public I_M_WarehouseInput M_Warehouse() {
+		return mM_Warehouse;
 	}
 }

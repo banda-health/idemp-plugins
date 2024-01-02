@@ -15,28 +15,28 @@ public interface I_AD_WF_ProcessDataInput extends I_AD_WF_ProcessData {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_WF_Process.
 	 *
 	 * @param AD_WF_Process Actual Workflow Process Instance
 	 */
-	void setAD_WF_Process(I_AD_WF_ProcessInput AD_WF_Process);
+	void setAD_WF_ProcessInput(I_AD_WF_ProcessInput AD_WF_Process);
 
 	/**
 	 * Get AD_WF_Process.
 	 *
 	 * @return Actual Workflow Process Instance
 	 */
-	I_AD_WF_ProcessInput getAD_WF_Process();
+	I_AD_WF_ProcessInput AD_WF_Process();
 
 	/**
 	 * Set ID.

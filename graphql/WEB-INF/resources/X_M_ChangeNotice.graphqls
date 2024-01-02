@@ -23,7 +23,7 @@ type M_ChangeNotice {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Additional Detail Information
@@ -43,7 +43,7 @@ type M_ChangeNotice {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 }
 
 input M_ChangeNoticeInput {

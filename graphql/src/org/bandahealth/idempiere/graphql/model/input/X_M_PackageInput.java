@@ -1,19 +1,23 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.math.BigDecimal;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBPartnerLocation;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
+import org.compiere.model.MPackage;
 import org.compiere.model.MShipper;
 import org.compiere.model.MShipperLabels;
 import org.compiere.model.MShipperPackaging;
 import org.compiere.model.MShipperPickupTypes;
+import org.compiere.model.MShippingProcessor;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_BP_ShippingAcct;
-import org.compiere.model.X_M_Package;
 import org.compiere.util.Env;
 
 /**
@@ -22,30 +26,35 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
+public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput DeliveryConfirmationType_RL;
-	 private I_AD_Ref_ListInput DotHazardClassOrDivision_RL;
-	 private I_AD_Ref_ListInput HomeDeliveryPremiumType_RL;
-	 private I_AD_Ref_ListInput NotificationType_RL;
-	 private I_AD_Ref_ListInput PaymentRule_RL;
-	 private I_C_BP_ShippingAcctInput C_BP_ShippingAcct;
-	 private I_C_BPartner_LocationInput C_BPartner_Location;
-	 private I_C_BPartner_LocationInput HoldAddress;
-	 private I_C_CurrencyInput C_Currency;
-	 private I_C_UOMInput C_UOM_Length;
-	 private I_C_UOMInput C_UOM_Weight;
-	 private I_M_InOutInput M_InOut;
-	 private I_M_ShipperInput M_Shipper;
-	 private I_M_ShipperLabelsInput M_ShipperLabels;
-	 private I_M_ShipperPackagingInput M_ShipperPackaging;
-	 private I_M_ShipperPickupTypesInput M_ShipperPickupTypes;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mDeliveryConfirmationType;
+	 private I_AD_Ref_ListInput mDotHazardClassOrDivision;
+	 private I_AD_Ref_ListInput mFOB;
+	 private I_AD_Ref_ListInput mFreightCharges;
+	 private I_AD_Ref_ListInput mHomeDeliveryPremiumType;
+	 private I_AD_Ref_ListInput mInsurance;
+	 private I_AD_Ref_ListInput mNotificationType;
+	 private I_AD_Ref_ListInput mPaymentRule;
+	 private I_C_BP_ShippingAcctInput mC_BP_ShippingAcct;
+	 private I_C_BPartner_LocationInput mC_BPartner_Location;
+	 private I_C_BPartner_LocationInput mHoldAddress;
+	 private I_C_CurrencyInput mC_Currency;
+	 private I_C_UOMInput mC_UOM_Length;
+	 private I_C_UOMInput mC_UOM_Weight;
+	 private I_M_InOutInput mM_InOut;
+	 private I_M_ShipperInput mM_Shipper;
+	 private I_M_ShipperLabelsInput mM_ShipperLabels;
+	 private I_M_ShipperPackagingInput mM_ShipperPackaging;
+	 private I_M_ShipperPickupTypesInput mM_ShipperPickupTypes;
+	 private I_M_ShippingProcessorInput mM_ShippingProcessor;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_M_PackageInput(String ID) {
+	@JsonCreator
+	public X_M_PackageInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -55,14 +64,15 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -71,8 +81,9 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -80,16 +91,17 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param C_BP_ShippingAcct Business Partner Shipping Account
 	 */
-	public void setC_BP_ShippingAcct(I_C_BP_ShippingAcctInput C_BP_ShippingAcct) {
-		this.C_BP_ShippingAcct = C_BP_ShippingAcct;
+	@JsonProperty("C_BP_ShippingAcct")
+	public void setC_BP_ShippingAcctInput(I_C_BP_ShippingAcctInput C_BP_ShippingAcct) {
+		this.mC_BP_ShippingAcct = C_BP_ShippingAcct;
 		X_C_BP_ShippingAcct foreignEntity;
 		if (C_BP_ShippingAcct != null &&
 				(foreignEntity = new Query(getCtx(), X_C_BP_ShippingAcct.Table_Name, X_C_BP_ShippingAcct.COLUMNNAME_C_BP_ShippingAcct_UU + "=?", get_TrxName())
 						.setParameters(C_BP_ShippingAcct.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BP_ShippingAcct_ID(foreignEntity.get_ID());
+			super.setC_BP_ShippingAcct_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BP_ShippingAcct_ID(0);
+			super.setC_BP_ShippingAcct_ID(0);
 		}
 	}
 
@@ -98,8 +110,9 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Business Partner Shipping Account
 	 */
-	public I_C_BP_ShippingAcctInput getC_BP_ShippingAcct() {
-		return C_BP_ShippingAcct;
+	@JsonProperty("C_BP_ShippingAcct")
+	public I_C_BP_ShippingAcctInput C_BP_ShippingAcct() {
+		return mC_BP_ShippingAcct;
 	}
 
 	/**
@@ -107,16 +120,17 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
-	public void setC_BPartner_Location(I_C_BPartner_LocationInput C_BPartner_Location) {
-		this.C_BPartner_Location = C_BPartner_Location;
+	@JsonProperty("C_BPartner_Location")
+	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
 				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_Location_ID(foreignEntity.get_ID());
+			super.setC_BPartner_Location_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BPartner_Location_ID(0);
+			super.setC_BPartner_Location_ID(0);
 		}
 	}
 
@@ -125,8 +139,9 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
-	public I_C_BPartner_LocationInput getC_BPartner_Location() {
-		return C_BPartner_Location;
+	@JsonProperty("C_BPartner_Location")
+	public I_C_BPartner_LocationInput C_BPartner_Location() {
+		return mC_BPartner_Location;
 	}
 
 	/**
@@ -134,16 +149,17 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	public void setC_Currency(I_C_CurrencyInput C_Currency) {
-		this.C_Currency = C_Currency;
-		MCurrency foreignEntity;
+	@JsonProperty("C_Currency")
+	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+		this.mC_Currency = C_Currency;
+		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency.Table_Name, MCurrency.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Currency_ID(foreignEntity.get_ID());
+			super.setC_Currency_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Currency_ID(0);
+			super.setC_Currency_ID(0);
 		}
 	}
 
@@ -152,8 +168,9 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return The Currency for this record
 	 */
-	public I_C_CurrencyInput getC_Currency() {
-		return C_Currency;
+	@JsonProperty("C_Currency")
+	public I_C_CurrencyInput C_Currency() {
+		return mC_Currency;
 	}
 
 	/**
@@ -161,16 +178,17 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param C_UOM_Length Standard Unit of Measure for Length
 	 */
-	public void setC_UOM_Length(I_C_UOMInput C_UOM_Length) {
-		this.C_UOM_Length = C_UOM_Length;
+	@JsonProperty("C_UOM_Length")
+	public void setC_UOM_LengthInput(I_C_UOMInput C_UOM_Length) {
+		this.mC_UOM_Length = C_UOM_Length;
 		MUOM foreignEntity;
 		if (C_UOM_Length != null &&
 				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
 						.setParameters(C_UOM_Length.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_UOM_Length_ID(foreignEntity.get_ID());
+			super.setC_UOM_Length_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_UOM_Length_ID(0);
+			super.setC_UOM_Length_ID(0);
 		}
 	}
 
@@ -179,19 +197,9 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Standard Unit of Measure for Length
 	 */
-	public I_C_UOMInput getC_UOM_Length() {
-		return C_UOM_Length;
-	}
-	/**
-	 * Set UOM for Length.
-	 *
-	 * @param C_UOM_Length_ID Standard Unit of Measure for Length
-	 */
-
-	public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
-		if (get_ID() == 0) {
-			super.setC_UOM_Length_ID(C_UOM_Length_ID);
-		}
+	@JsonProperty("C_UOM_Length")
+	public I_C_UOMInput C_UOM_Length() {
+		return mC_UOM_Length;
 	}
 
 	/**
@@ -199,16 +207,17 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param C_UOM_Weight Standard Unit of Measure for Weight
 	 */
-	public void setC_UOM_Weight(I_C_UOMInput C_UOM_Weight) {
-		this.C_UOM_Weight = C_UOM_Weight;
+	@JsonProperty("C_UOM_Weight")
+	public void setC_UOM_WeightInput(I_C_UOMInput C_UOM_Weight) {
+		this.mC_UOM_Weight = C_UOM_Weight;
 		MUOM foreignEntity;
 		if (C_UOM_Weight != null &&
 				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
 						.setParameters(C_UOM_Weight.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_UOM_Weight_ID(foreignEntity.get_ID());
+			super.setC_UOM_Weight_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_UOM_Weight_ID(0);
+			super.setC_UOM_Weight_ID(0);
 		}
 	}
 
@@ -217,32 +226,23 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Standard Unit of Measure for Weight
 	 */
-	public I_C_UOMInput getC_UOM_Weight() {
-		return C_UOM_Weight;
-	}
-	/**
-	 * Set UOM for Weight.
-	 *
-	 * @param C_UOM_Weight_ID Standard Unit of Measure for Weight
-	 */
-
-	public void setC_UOM_Weight_ID(int C_UOM_Weight_ID) {
-		if (get_ID() == 0) {
-			super.setC_UOM_Weight_ID(C_UOM_Weight_ID);
-		}
+	@JsonProperty("C_UOM_Weight")
+	public I_C_UOMInput C_UOM_Weight() {
+		return mC_UOM_Weight;
 	}
 
 	/**
 	 * Set Delivery Confirmation Type.
 	 *
-	 * @param DeliveryConfirmationType_RL Delivery Confirmation Type
+	 * @param DeliveryConfirmationType Delivery Confirmation Type
 	 */
-	public void setDeliveryConfirmationType_RL(I_AD_Ref_ListInput DeliveryConfirmationType_RL) {
-		this.DeliveryConfirmationType_RL = DeliveryConfirmationType_RL;
-		MRefList foreignEntity;
-		if (DeliveryConfirmationType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DeliveryConfirmationType_RL.getID())
+	@JsonProperty("DeliveryConfirmationType")
+	public void setDeliveryConfirmationTypeInput(I_AD_Ref_ListInput DeliveryConfirmationType) {
+		this.mDeliveryConfirmationType = DeliveryConfirmationType;
+		MRefList_BH foreignEntity;
+		if (DeliveryConfirmationType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DeliveryConfirmationType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDeliveryConfirmationType(foreignEntity.getValue());
 		} else {
@@ -255,8 +255,9 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Delivery Confirmation Type
 	 */
-	public I_AD_Ref_ListInput getDeliveryConfirmationType_RL() {
-		return DeliveryConfirmationType_RL;
+	@JsonProperty("DeliveryConfirmationType")
+	public I_AD_Ref_ListInput DeliveryConfirmationType() {
+		return mDeliveryConfirmationType;
 	}
 	/**
 	 * Set Document No.
@@ -273,14 +274,15 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	/**
 	 * Set Dot Hazard Class or Division.
 	 *
-	 * @param DotHazardClassOrDivision_RL Dot Hazard Class or Division
+	 * @param DotHazardClassOrDivision Dot Hazard Class or Division
 	 */
-	public void setDotHazardClassOrDivision_RL(I_AD_Ref_ListInput DotHazardClassOrDivision_RL) {
-		this.DotHazardClassOrDivision_RL = DotHazardClassOrDivision_RL;
-		MRefList foreignEntity;
-		if (DotHazardClassOrDivision_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DotHazardClassOrDivision_RL.getID())
+	@JsonProperty("DotHazardClassOrDivision")
+	public void setDotHazardClassOrDivisionInput(I_AD_Ref_ListInput DotHazardClassOrDivision) {
+		this.mDotHazardClassOrDivision = DotHazardClassOrDivision;
+		MRefList_BH foreignEntity;
+		if (DotHazardClassOrDivision != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DotHazardClassOrDivision.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDotHazardClassOrDivision(foreignEntity.getValue());
 		} else {
@@ -293,8 +295,74 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Dot Hazard Class or Division
 	 */
-	public I_AD_Ref_ListInput getDotHazardClassOrDivision_RL() {
-		return DotHazardClassOrDivision_RL;
+	@JsonProperty("DotHazardClassOrDivision")
+	public I_AD_Ref_ListInput DotHazardClassOrDivision() {
+		return mDotHazardClassOrDivision;
+	}
+	/**
+	 * Set Estimated Weight.
+	 *
+	 * @param EstimatedWeight Estimated Weight
+	 */
+
+	public void setEstimatedWeight(BigDecimal EstimatedWeight) {
+		if (get_ID() == 0) {
+			super.setEstimatedWeight(EstimatedWeight);
+		}
+	}
+
+	/**
+	 * Set Freight Terms.
+	 *
+	 * @param FOB Freight Terms
+	 */
+	@JsonProperty("FOB")
+	public void setFOBInput(I_AD_Ref_ListInput FOB) {
+		this.mFOB = FOB;
+		MRefList_BH foreignEntity;
+		if (get_ID() == 0 &&FOB != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(FOB.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			this.setFOB(foreignEntity.getValue());
+		}
+	}
+
+	/**
+	 * Get Freight Terms.
+	 *
+	 * @return Freight Terms
+	 */
+	@JsonProperty("FOB")
+	public I_AD_Ref_ListInput FOB() {
+		return mFOB;
+	}
+
+	/**
+	 * Set Freight Charges.
+	 *
+	 * @param FreightCharges Freight Charges
+	 */
+	@JsonProperty("FreightCharges")
+	public void setFreightChargesInput(I_AD_Ref_ListInput FreightCharges) {
+		this.mFreightCharges = FreightCharges;
+		MRefList_BH foreignEntity;
+		if (get_ID() == 0 &&FreightCharges != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(FreightCharges.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			this.setFreightCharges(foreignEntity.getValue());
+		}
+	}
+
+	/**
+	 * Get Freight Charges.
+	 *
+	 * @return Freight Charges
+	 */
+	@JsonProperty("FreightCharges")
+	public I_AD_Ref_ListInput FreightCharges() {
+		return mFreightCharges;
 	}
 
 	/**
@@ -302,16 +370,17 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param HoldAddress Hold Address
 	 */
-	public void setHoldAddress(I_C_BPartner_LocationInput HoldAddress) {
-		this.HoldAddress = HoldAddress;
+	@JsonProperty("HoldAddress")
+	public void setHoldAddressInput(I_C_BPartner_LocationInput HoldAddress) {
+		this.mHoldAddress = HoldAddress;
 		MBPartnerLocation foreignEntity;
 		if (HoldAddress != null &&
 				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
 						.setParameters(HoldAddress.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setHoldAddress_ID(foreignEntity.get_ID());
+			super.setHoldAddress_ID(foreignEntity.get_ID());
 		} else {
-			this.setHoldAddress_ID(0);
+			super.setHoldAddress_ID(0);
 		}
 	}
 
@@ -320,32 +389,23 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Hold Address
 	 */
-	public I_C_BPartner_LocationInput getHoldAddress() {
-		return HoldAddress;
-	}
-	/**
-	 * Set Hold Address.
-	 *
-	 * @param HoldAddress_ID Hold Address
-	 */
-
-	public void setHoldAddress_ID(int HoldAddress_ID) {
-		if (get_ID() == 0) {
-			super.setHoldAddress_ID(HoldAddress_ID);
-		}
+	@JsonProperty("HoldAddress")
+	public I_C_BPartner_LocationInput HoldAddress() {
+		return mHoldAddress;
 	}
 
 	/**
 	 * Set Home Delivery Premium Type.
 	 *
-	 * @param HomeDeliveryPremiumType_RL Home Delivery Premium Type
+	 * @param HomeDeliveryPremiumType Home Delivery Premium Type
 	 */
-	public void setHomeDeliveryPremiumType_RL(I_AD_Ref_ListInput HomeDeliveryPremiumType_RL) {
-		this.HomeDeliveryPremiumType_RL = HomeDeliveryPremiumType_RL;
-		MRefList foreignEntity;
-		if (HomeDeliveryPremiumType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(HomeDeliveryPremiumType_RL.getID())
+	@JsonProperty("HomeDeliveryPremiumType")
+	public void setHomeDeliveryPremiumTypeInput(I_AD_Ref_ListInput HomeDeliveryPremiumType) {
+		this.mHomeDeliveryPremiumType = HomeDeliveryPremiumType;
+		MRefList_BH foreignEntity;
+		if (HomeDeliveryPremiumType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(HomeDeliveryPremiumType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setHomeDeliveryPremiumType(foreignEntity.getValue());
 		} else {
@@ -358,8 +418,36 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Home Delivery Premium Type
 	 */
-	public I_AD_Ref_ListInput getHomeDeliveryPremiumType_RL() {
-		return HomeDeliveryPremiumType_RL;
+	@JsonProperty("HomeDeliveryPremiumType")
+	public I_AD_Ref_ListInput HomeDeliveryPremiumType() {
+		return mHomeDeliveryPremiumType;
+	}
+
+	/**
+	 * Set Insurance.
+	 *
+	 * @param Insurance Insurance
+	 */
+	@JsonProperty("Insurance")
+	public void setInsuranceInput(I_AD_Ref_ListInput Insurance) {
+		this.mInsurance = Insurance;
+		MRefList_BH foreignEntity;
+		if (get_ID() == 0 &&Insurance != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(Insurance.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			this.setInsurance(foreignEntity.getValue());
+		}
+	}
+
+	/**
+	 * Get Insurance.
+	 *
+	 * @return Insurance
+	 */
+	@JsonProperty("Insurance")
+	public I_AD_Ref_ListInput Insurance() {
+		return mInsurance;
 	}
 
 	/**
@@ -367,14 +455,15 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param M_InOut Material Shipment Document
 	 */
-	public void setM_InOut(I_M_InOutInput M_InOut) {
-		this.M_InOut = M_InOut;
+	@JsonProperty("M_InOut")
+	public void setM_InOutInput(I_M_InOutInput M_InOut) {
+		this.mM_InOut = M_InOut;
 		MInOut_BH foreignEntity;
 		if (get_ID() == 0 &&M_InOut != null &&
 				(foreignEntity = new Query(getCtx(), MInOut_BH.Table_Name, MInOut_BH.COLUMNNAME_M_InOut_UU + "=?", get_TrxName())
 						.setParameters(M_InOut.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_InOut_ID(foreignEntity.get_ID());
+			super.setM_InOut_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -383,30 +472,9 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Material Shipment Document
 	 */
-	public I_M_InOutInput getM_InOut() {
-		return M_InOut;
-	}
-	/**
-	 * Set Shipment/Receipt.
-	 *
-	 * @param M_InOut_ID Material Shipment Document
-	 */
-
-	public void setM_InOut_ID(int M_InOut_ID) {
-		if (get_ID() == 0) {
-			super.setM_InOut_ID(M_InOut_ID);
-		}
-	}
-	/**
-	 * Set Package.
-	 *
-	 * @param M_Package_ID Shipment Package
-	 */
-
-	public void setM_Package_ID(int M_Package_ID) {
-		if (get_ID() == 0) {
-			super.setM_Package_ID(M_Package_ID);
-		}
+	@JsonProperty("M_InOut")
+	public I_M_InOutInput M_InOut() {
+		return mM_InOut;
 	}
 
 	/**
@@ -432,16 +500,17 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param M_Shipper Method or manner of product delivery
 	 */
-	public void setM_Shipper(I_M_ShipperInput M_Shipper) {
-		this.M_Shipper = M_Shipper;
+	@JsonProperty("M_Shipper")
+	public void setM_ShipperInput(I_M_ShipperInput M_Shipper) {
+		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (M_Shipper != null &&
 				(foreignEntity = new Query(getCtx(), MShipper.Table_Name, MShipper.COLUMNNAME_M_Shipper_UU + "=?", get_TrxName())
 						.setParameters(M_Shipper.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Shipper_ID(foreignEntity.get_ID());
+			super.setM_Shipper_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_Shipper_ID(0);
+			super.setM_Shipper_ID(0);
 		}
 	}
 
@@ -450,19 +519,9 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Method or manner of product delivery
 	 */
-	public I_M_ShipperInput getM_Shipper() {
-		return M_Shipper;
-	}
-	/**
-	 * Set Shipper.
-	 *
-	 * @param M_Shipper_ID Method or manner of product delivery
-	 */
-
-	public void setM_Shipper_ID(int M_Shipper_ID) {
-		if (get_ID() == 0) {
-			super.setM_Shipper_ID(M_Shipper_ID);
-		}
+	@JsonProperty("M_Shipper")
+	public I_M_ShipperInput M_Shipper() {
+		return mM_Shipper;
 	}
 
 	/**
@@ -470,16 +529,17 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param M_ShipperLabels Shipper Labels
 	 */
-	public void setM_ShipperLabels(I_M_ShipperLabelsInput M_ShipperLabels) {
-		this.M_ShipperLabels = M_ShipperLabels;
+	@JsonProperty("M_ShipperLabels")
+	public void setM_ShipperLabelsInput(I_M_ShipperLabelsInput M_ShipperLabels) {
+		this.mM_ShipperLabels = M_ShipperLabels;
 		MShipperLabels foreignEntity;
 		if (M_ShipperLabels != null &&
 				(foreignEntity = new Query(getCtx(), MShipperLabels.Table_Name, MShipperLabels.COLUMNNAME_M_ShipperLabels_UU + "=?", get_TrxName())
 						.setParameters(M_ShipperLabels.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_ShipperLabels_ID(foreignEntity.get_ID());
+			super.setM_ShipperLabels_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_ShipperLabels_ID(0);
+			super.setM_ShipperLabels_ID(0);
 		}
 	}
 
@@ -488,19 +548,9 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Shipper Labels
 	 */
-	public I_M_ShipperLabelsInput getM_ShipperLabels() {
-		return M_ShipperLabels;
-	}
-	/**
-	 * Set Shipper Labels.
-	 *
-	 * @param M_ShipperLabels_ID Shipper Labels
-	 */
-
-	public void setM_ShipperLabels_ID(int M_ShipperLabels_ID) {
-		if (get_ID() == 0) {
-			super.setM_ShipperLabels_ID(M_ShipperLabels_ID);
-		}
+	@JsonProperty("M_ShipperLabels")
+	public I_M_ShipperLabelsInput M_ShipperLabels() {
+		return mM_ShipperLabels;
 	}
 
 	/**
@@ -508,16 +558,17 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param M_ShipperPackaging Shipper Packaging
 	 */
-	public void setM_ShipperPackaging(I_M_ShipperPackagingInput M_ShipperPackaging) {
-		this.M_ShipperPackaging = M_ShipperPackaging;
+	@JsonProperty("M_ShipperPackaging")
+	public void setM_ShipperPackagingInput(I_M_ShipperPackagingInput M_ShipperPackaging) {
+		this.mM_ShipperPackaging = M_ShipperPackaging;
 		MShipperPackaging foreignEntity;
 		if (M_ShipperPackaging != null &&
 				(foreignEntity = new Query(getCtx(), MShipperPackaging.Table_Name, MShipperPackaging.COLUMNNAME_M_ShipperPackaging_UU + "=?", get_TrxName())
 						.setParameters(M_ShipperPackaging.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_ShipperPackaging_ID(foreignEntity.get_ID());
+			super.setM_ShipperPackaging_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_ShipperPackaging_ID(0);
+			super.setM_ShipperPackaging_ID(0);
 		}
 	}
 
@@ -526,19 +577,9 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Shipper Packaging
 	 */
-	public I_M_ShipperPackagingInput getM_ShipperPackaging() {
-		return M_ShipperPackaging;
-	}
-	/**
-	 * Set Shipper Packaging.
-	 *
-	 * @param M_ShipperPackaging_ID Shipper Packaging
-	 */
-
-	public void setM_ShipperPackaging_ID(int M_ShipperPackaging_ID) {
-		if (get_ID() == 0) {
-			super.setM_ShipperPackaging_ID(M_ShipperPackaging_ID);
-		}
+	@JsonProperty("M_ShipperPackaging")
+	public I_M_ShipperPackagingInput M_ShipperPackaging() {
+		return mM_ShipperPackaging;
 	}
 
 	/**
@@ -546,16 +587,17 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @param M_ShipperPickupTypes Shipper Pickup Types
 	 */
-	public void setM_ShipperPickupTypes(I_M_ShipperPickupTypesInput M_ShipperPickupTypes) {
-		this.M_ShipperPickupTypes = M_ShipperPickupTypes;
+	@JsonProperty("M_ShipperPickupTypes")
+	public void setM_ShipperPickupTypesInput(I_M_ShipperPickupTypesInput M_ShipperPickupTypes) {
+		this.mM_ShipperPickupTypes = M_ShipperPickupTypes;
 		MShipperPickupTypes foreignEntity;
 		if (M_ShipperPickupTypes != null &&
 				(foreignEntity = new Query(getCtx(), MShipperPickupTypes.Table_Name, MShipperPickupTypes.COLUMNNAME_M_ShipperPickupTypes_UU + "=?", get_TrxName())
 						.setParameters(M_ShipperPickupTypes.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_ShipperPickupTypes_ID(foreignEntity.get_ID());
+			super.setM_ShipperPickupTypes_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_ShipperPickupTypes_ID(0);
+			super.setM_ShipperPickupTypes_ID(0);
 		}
 	}
 
@@ -564,32 +606,50 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Shipper Pickup Types
 	 */
-	public I_M_ShipperPickupTypesInput getM_ShipperPickupTypes() {
-		return M_ShipperPickupTypes;
+	@JsonProperty("M_ShipperPickupTypes")
+	public I_M_ShipperPickupTypesInput M_ShipperPickupTypes() {
+		return mM_ShipperPickupTypes;
 	}
-	/**
-	 * Set Shipper Pickup Types.
-	 *
-	 * @param M_ShipperPickupTypes_ID Shipper Pickup Types
-	 */
 
-	public void setM_ShipperPickupTypes_ID(int M_ShipperPickupTypes_ID) {
-		if (get_ID() == 0) {
-			super.setM_ShipperPickupTypes_ID(M_ShipperPickupTypes_ID);
+	/**
+	 * Set Shipping Processor.
+	 *
+	 * @param M_ShippingProcessor Shipping Processor
+	 */
+	@JsonProperty("M_ShippingProcessor")
+	public void setM_ShippingProcessorInput(I_M_ShippingProcessorInput M_ShippingProcessor) {
+		this.mM_ShippingProcessor = M_ShippingProcessor;
+		MShippingProcessor foreignEntity;
+		if (get_ID() == 0 &&M_ShippingProcessor != null &&
+				(foreignEntity = new Query(getCtx(), MShippingProcessor.Table_Name, MShippingProcessor.COLUMNNAME_M_ShippingProcessor_UU + "=?", get_TrxName())
+						.setParameters(M_ShippingProcessor.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setM_ShippingProcessor_ID(foreignEntity.get_ID());
 		}
+	}
+
+	/**
+	 * Get Shipping Processor.
+	 *
+	 * @return Shipping Processor
+	 */
+	@JsonProperty("M_ShippingProcessor")
+	public I_M_ShippingProcessorInput M_ShippingProcessor() {
+		return mM_ShippingProcessor;
 	}
 
 	/**
 	 * Set Notification Type.
 	 *
-	 * @param NotificationType_RL Type of Notifications
+	 * @param NotificationType Type of Notifications
 	 */
-	public void setNotificationType_RL(I_AD_Ref_ListInput NotificationType_RL) {
-		this.NotificationType_RL = NotificationType_RL;
-		MRefList foreignEntity;
-		if (NotificationType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(NotificationType_RL.getID())
+	@JsonProperty("NotificationType")
+	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
+		this.mNotificationType = NotificationType;
+		MRefList_BH foreignEntity;
+		if (NotificationType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(NotificationType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setNotificationType(foreignEntity.getValue());
 		} else {
@@ -602,21 +662,23 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return Type of Notifications
 	 */
-	public I_AD_Ref_ListInput getNotificationType_RL() {
-		return NotificationType_RL;
+	@JsonProperty("NotificationType")
+	public I_AD_Ref_ListInput NotificationType() {
+		return mNotificationType;
 	}
 
 	/**
 	 * Set Payment Rule.
 	 *
-	 * @param PaymentRule_RL How you pay the invoice
+	 * @param PaymentRule How you pay the invoice
 	 */
-	public void setPaymentRule_RL(I_AD_Ref_ListInput PaymentRule_RL) {
-		this.PaymentRule_RL = PaymentRule_RL;
-		MRefList foreignEntity;
-		if (PaymentRule_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PaymentRule_RL.getID())
+	@JsonProperty("PaymentRule")
+	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
+		this.mPaymentRule = PaymentRule;
+		MRefList_BH foreignEntity;
+		if (PaymentRule != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PaymentRule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPaymentRule(foreignEntity.getValue());
 		} else {
@@ -629,7 +691,19 @@ public class X_M_PackageInput extends X_M_Package implements I_M_PackageInput {
 	 *
 	 * @return How you pay the invoice
 	 */
-	public I_AD_Ref_ListInput getPaymentRule_RL() {
-		return PaymentRule_RL;
+	@JsonProperty("PaymentRule")
+	public I_AD_Ref_ListInput PaymentRule() {
+		return mPaymentRule;
+	}
+	/**
+	 * Set Total Price.
+	 *
+	 * @param TotalPrice Total Price
+	 */
+
+	public void setTotalPrice(BigDecimal TotalPrice) {
+		if (get_ID() == 0) {
+			super.setTotalPrice(TotalPrice);
+		}
 	}
 }

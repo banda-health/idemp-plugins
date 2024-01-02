@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MAddressValidation;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_AddressValidation;
 import org.compiere.model.X_C_AddressValidationCfg;
 import org.compiere.util.Env;
 
@@ -13,15 +15,16 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_AddressValidationInput extends X_C_AddressValidation implements I_C_AddressValidationInput {
+public class X_C_AddressValidationInput extends MAddressValidation implements I_C_AddressValidationInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_AddressValidationCfgInput C_AddressValidationCfg;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_AddressValidationCfgInput mC_AddressValidationCfg;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_AddressValidationInput(String ID) {
+	@JsonCreator
+	public X_C_AddressValidationInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_C_AddressValidationInput extends X_C_AddressValidation implements
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,19 +51,9 @@ public class X_C_AddressValidationInput extends X_C_AddressValidation implements
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Address Validation.
-	 *
-	 * @param C_AddressValidation_ID Address Validation
-	 */
-
-	public void setC_AddressValidation_ID(int C_AddressValidation_ID) {
-		if (get_ID() == 0) {
-			super.setC_AddressValidation_ID(C_AddressValidation_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -85,16 +79,17 @@ public class X_C_AddressValidationInput extends X_C_AddressValidation implements
 	 *
 	 * @param C_AddressValidationCfg Address Validation Configuration
 	 */
-	public void setC_AddressValidationCfg(I_C_AddressValidationCfgInput C_AddressValidationCfg) {
-		this.C_AddressValidationCfg = C_AddressValidationCfg;
+	@JsonProperty("C_AddressValidationCfg")
+	public void setC_AddressValidationCfgInput(I_C_AddressValidationCfgInput C_AddressValidationCfg) {
+		this.mC_AddressValidationCfg = C_AddressValidationCfg;
 		X_C_AddressValidationCfg foreignEntity;
 		if (C_AddressValidationCfg != null &&
 				(foreignEntity = new Query(getCtx(), X_C_AddressValidationCfg.Table_Name, X_C_AddressValidationCfg.COLUMNNAME_C_AddressValidationCfg_UU + "=?", get_TrxName())
 						.setParameters(C_AddressValidationCfg.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_AddressValidationCfg_ID(foreignEntity.get_ID());
+			super.setC_AddressValidationCfg_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_AddressValidationCfg_ID(0);
+			super.setC_AddressValidationCfg_ID(0);
 		}
 	}
 
@@ -103,7 +98,8 @@ public class X_C_AddressValidationInput extends X_C_AddressValidation implements
 	 *
 	 * @return Address Validation Configuration
 	 */
-	public I_C_AddressValidationCfgInput getC_AddressValidationCfg() {
-		return C_AddressValidationCfg;
+	@JsonProperty("C_AddressValidationCfg")
+	public I_C_AddressValidationCfgInput C_AddressValidationCfg() {
+		return mC_AddressValidationCfg;
 	}
 }

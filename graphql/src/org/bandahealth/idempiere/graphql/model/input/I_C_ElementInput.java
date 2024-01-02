@@ -15,28 +15,28 @@ public interface I_C_ElementInput extends I_C_Element {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_Tree.
 	 *
 	 * @param AD_Tree Identifies a Tree
 	 */
-	void setAD_Tree(I_AD_TreeInput AD_Tree);
+	void setAD_TreeInput(I_AD_TreeInput AD_Tree);
 
 	/**
 	 * Get AD_Tree.
 	 *
 	 * @return Identifies a Tree
 	 */
-	I_AD_TreeInput getAD_Tree();
+	I_AD_TreeInput AD_Tree();
 
 	/**
 	 * Set ID.
@@ -53,16 +53,16 @@ public interface I_C_ElementInput extends I_C_Element {
 	String getID();
 
 	/**
-	 * Set ElementType_RL.
+	 * Set ElementType.
 	 *
-	 * @param ElementType_RL Element Type (account or user defined)
+	 * @param ElementType Element Type (account or user defined)
 	 */
-	void setElementType_RL(I_AD_Ref_ListInput ElementType_RL);
+	void setElementTypeInput(I_AD_Ref_ListInput ElementType);
 
 	/**
-	 * Get ElementType_RL.
+	 * Get ElementType.
 	 *
 	 * @return Element Type (account or user defined)
 	 */
-	I_AD_Ref_ListInput getElementType_RL();
+	I_AD_Ref_ListInput ElementType();
 }

@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_A_Depreciation_MethodResolver extends POResolver<MDepreciationMethod> implements GraphQLResolver<MDepreciationMethod> {
 
 
+	public Boolean Processed(MDepreciationMethod entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
 }

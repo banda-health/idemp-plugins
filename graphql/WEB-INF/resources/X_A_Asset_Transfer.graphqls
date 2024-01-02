@@ -21,13 +21,12 @@ type A_Asset_Transfer {
 	A_Accumdepreciation_New_A: C_ValidCombination!
 	A_Accumulated_Depr_F: Int
 	A_Asset_A: C_ValidCombination
-	A_Asset_Acct: A_Asset_Acct
 	A_Asset_Acct_Str: String
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Asset_New_A: C_ValidCombination!
 	ID: ID!
-	A_CapvsExp_RL: AD_Ref_List!
+	A_CapvsExp: AD_Ref_List!
 	A_Depreciation_A: C_ValidCombination
 	A_Depreciation_Acct_Str: String
 	A_Depreciation_New_A: C_ValidCombination!
@@ -55,15 +54,15 @@ type A_Asset_Transfer {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Accounting Date
 	DateAcct: Date!
 	# Date of the Document
 	DateDoc: Date
 	# The targeted status of the document
-	DocAction_RL: AD_Ref_List!
+	DocAction: AD_Ref_List!
 	# The current status of the document
-	DocStatus_RL: AD_Ref_List!
+	DocStatus: AD_Ref_List!
 	# Document sequence number of the document
 	DocumentNo: String
 	# The record is active in the system
@@ -71,7 +70,7 @@ type A_Asset_Transfer {
 	# Posting status
 	Posted: Boolean!
 	# The type of posted amount for the transaction
-	PostingType_RL: AD_Ref_List!
+	PostingType: AD_Ref_List!
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
@@ -80,7 +79,7 @@ type A_Asset_Transfer {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 }
 
 input A_Asset_TransferInput {
@@ -89,13 +88,12 @@ input A_Asset_TransferInput {
 	A_Accumdepreciation_New_A: C_ValidCombinationInput
 	A_Accumulated_Depr_F: Int
 	A_Asset_A: C_ValidCombinationInput
-	A_Asset_Acct: A_Asset_AcctInput
 	A_Asset_Acct_Str: String
 	# Asset used internally or by customers
 	A_Asset: A_AssetInput
 	A_Asset_New_A: C_ValidCombinationInput
 	ID: ID
-	A_CapvsExp_RL: AD_Ref_ListInput
+	A_CapvsExp: AD_Ref_ListInput
 	A_Depreciation_A: C_ValidCombinationInput
 	A_Depreciation_Acct_Str: String
 	A_Depreciation_New_A: C_ValidCombinationInput
@@ -123,9 +121,9 @@ input A_Asset_TransferInput {
 	# Date of the Document
 	DateDoc: Date
 	# The targeted status of the document
-	DocAction_RL: AD_Ref_ListInput
+	DocAction: AD_Ref_ListInput
 	# The current status of the document
-	DocStatus_RL: AD_Ref_ListInput
+	DocStatus: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# The record is active in the system
@@ -133,7 +131,7 @@ input A_Asset_TransferInput {
 	# Posting status
 	Posted: Boolean
 	# The type of posted amount for the transaction
-	PostingType_RL: AD_Ref_ListInput
+	PostingType: AD_Ref_ListInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

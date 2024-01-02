@@ -1,7 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBPartnerLocation;
@@ -10,9 +13,7 @@ import org.compiere.model.MImage;
 import org.compiere.model.MLocation;
 import org.compiere.model.MMailText;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_User;
 import org.compiere.model.X_C_Greeting;
 import org.compiere.model.X_C_Job;
 import org.compiere.util.Env;
@@ -23,29 +24,30 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
+public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 
-	 private I_AD_ImageInput AD_Image;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput IsMenuAutoExpand_RL;
-	 private I_AD_Ref_ListInput LeadSource_RL;
-	 private I_AD_Ref_ListInput LeadStatus_RL;
-	 private I_AD_Ref_ListInput NotificationType_RL;
-	 private I_AD_UserInput SalesRep;
-	 private I_AD_UserInput Supervisor;
-	 private I_C_BPartnerInput C_BPartner;
-	 private I_C_BPartner_LocationInput C_BPartner_Location;
-	 private I_C_CampaignInput C_Campaign;
-	 private I_C_GreetingInput C_Greeting;
-	 private I_C_JobInput C_Job;
-	 private I_C_LocationInput BP_Location;
-	 private I_C_LocationInput C_Location;
-	 private I_R_MailTextInput R_DefaultMailText;
+	 private I_AD_ImageInput mAD_Image;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mIsMenuAutoExpand;
+	 private I_AD_Ref_ListInput mLeadSource;
+	 private I_AD_Ref_ListInput mLeadStatus;
+	 private I_AD_Ref_ListInput mNotificationType;
+	 private I_AD_UserInput mSalesRep;
+	 private I_AD_UserInput mSupervisor;
+	 private I_C_BPartnerInput mC_BPartner;
+	 private I_C_BPartner_LocationInput mC_BPartner_Location;
+	 private I_C_CampaignInput mC_Campaign;
+	 private I_C_GreetingInput mC_Greeting;
+	 private I_C_JobInput mC_Job;
+	 private I_C_LocationInput mBP_Location;
+	 private I_C_LocationInput mC_Location;
+	 private I_R_MailTextInput mR_DefaultMailText;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_UserInput(String ID) {
+	@JsonCreator
+	public X_AD_UserInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -55,16 +57,17 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @param AD_Image Image or Icon
 	 */
-	public void setAD_Image(I_AD_ImageInput AD_Image) {
-		this.AD_Image = AD_Image;
+	@JsonProperty("AD_Image")
+	public void setAD_ImageInput(I_AD_ImageInput AD_Image) {
+		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
 				(foreignEntity = new Query(getCtx(), MImage.Table_Name, MImage.COLUMNNAME_AD_Image_UU + "=?", get_TrxName())
 						.setParameters(AD_Image.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Image_ID(foreignEntity.get_ID());
+			super.setAD_Image_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Image_ID(0);
+			super.setAD_Image_ID(0);
 		}
 	}
 
@@ -73,8 +76,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Image or Icon
 	 */
-	public I_AD_ImageInput getAD_Image() {
-		return AD_Image;
+	@JsonProperty("AD_Image")
+	public I_AD_ImageInput AD_Image() {
+		return mAD_Image;
 	}
 
 	/**
@@ -82,14 +86,15 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -98,19 +103,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set User/Contact.
-	 *
-	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
-	 */
-
-	public void setAD_User_ID(int AD_User_ID) {
-		if (get_ID() == 0) {
-			super.setAD_User_ID(AD_User_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -132,87 +127,21 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	}
 
 	/**
-	 * Set bandahealth_bpartners.
-	 *
-	 * @param bandahealth_bpartners bandahealth_bpartners
-	 */
-	public void setbandahealth_bpartners(String bandahealth_bpartners) {
-		set_Value(COLUMNNAME_bandahealth_bpartners, bandahealth_bpartners);
-	}
-
-
-	/**
-	 * Get bandahealth_bpartners.
-	 *
-	 * @return bandahealth_bpartners
-	 */
-	public String getbandahealth_bpartners() {
- 		return (String) get_Value(COLUMNNAME_bandahealth_bpartners);
-	}
-
-
-	/**
-	 * Set HasAcceptedTermsOfUse.
-	 *
-	 * @param BH_HasAcceptedTermsOfUse HasAcceptedTermsOfUse
-	 */
-	public void setBH_HasAcceptedTermsOfUse(boolean BH_HasAcceptedTermsOfUse) {
-		set_Value(COLUMNNAME_BH_HasAcceptedTermsOfUse, BH_HasAcceptedTermsOfUse);
-	}
-
-
-	/**
-	 * Get HasAcceptedTermsOfUse.
-	 *
-	 * @return HasAcceptedTermsOfUse
-	 */
-	public boolean isBH_HasAcceptedTermsOfUse() {
- 		Object columnValue = get_Value(COLUMNNAME_BH_HasAcceptedTermsOfUse);
-		if (columnValue != null) {
-			if (columnValue instanceof Boolean) {
-				return ((Boolean) columnValue);
-			}
-			return "Y".equals(columnValue);
-		}
-		return false;
-	}
-
-
-	/**
-	 * Set BH_TOS_DATE_ACCEPTED.
-	 *
-	 * @param BH_TOS_DATE_ACCEPTED BH_TOS_DATE_ACCEPTED
-	 */
-	public void setBH_TOS_DATE_ACCEPTED(Timestamp BH_TOS_DATE_ACCEPTED) {
-		set_Value(COLUMNNAME_BH_TOS_DATE_ACCEPTED, BH_TOS_DATE_ACCEPTED);
-	}
-
-
-	/**
-	 * Get BH_TOS_DATE_ACCEPTED.
-	 *
-	 * @return BH_TOS_DATE_ACCEPTED
-	 */
-	public Timestamp getBH_TOS_DATE_ACCEPTED() {
- 		return (Timestamp) get_Value(COLUMNNAME_BH_TOS_DATE_ACCEPTED);
-	}
-
-
-	/**
 	 * Set BP Address.
 	 *
 	 * @param BP_Location Address of the Business Partner
 	 */
-	public void setBP_Location(I_C_LocationInput BP_Location) {
-		this.BP_Location = BP_Location;
+	@JsonProperty("BP_Location")
+	public void setBP_LocationInput(I_C_LocationInput BP_Location) {
+		this.mBP_Location = BP_Location;
 		MLocation foreignEntity;
 		if (BP_Location != null &&
 				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
 						.setParameters(BP_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBP_Location_ID(foreignEntity.get_ID());
+			super.setBP_Location_ID(foreignEntity.get_ID());
 		} else {
-			this.setBP_Location_ID(0);
+			super.setBP_Location_ID(0);
 		}
 	}
 
@@ -221,8 +150,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Address of the Business Partner
 	 */
-	public I_C_LocationInput getBP_Location() {
-		return BP_Location;
+	@JsonProperty("BP_Location")
+	public I_C_LocationInput BP_Location() {
+		return mBP_Location;
 	}
 
 	/**
@@ -230,16 +160,17 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	public void setC_BPartner(I_C_BPartnerInput C_BPartner) {
-		this.C_BPartner = C_BPartner;
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
 				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_ID(foreignEntity.get_ID());
+			super.setC_BPartner_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BPartner_ID(0);
+			super.setC_BPartner_ID(0);
 		}
 	}
 
@@ -248,8 +179,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public I_C_BPartnerInput getC_BPartner() {
-		return C_BPartner;
+	@JsonProperty("C_BPartner")
+	public I_C_BPartnerInput C_BPartner() {
+		return mC_BPartner;
 	}
 
 	/**
@@ -257,16 +189,17 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
-	public void setC_BPartner_Location(I_C_BPartner_LocationInput C_BPartner_Location) {
-		this.C_BPartner_Location = C_BPartner_Location;
+	@JsonProperty("C_BPartner_Location")
+	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
 				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_Location_ID(foreignEntity.get_ID());
+			super.setC_BPartner_Location_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BPartner_Location_ID(0);
+			super.setC_BPartner_Location_ID(0);
 		}
 	}
 
@@ -275,8 +208,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
-	public I_C_BPartner_LocationInput getC_BPartner_Location() {
-		return C_BPartner_Location;
+	@JsonProperty("C_BPartner_Location")
+	public I_C_BPartner_LocationInput C_BPartner_Location() {
+		return mC_BPartner_Location;
 	}
 
 	/**
@@ -284,16 +218,17 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	public void setC_Campaign(I_C_CampaignInput C_Campaign) {
-		this.C_Campaign = C_Campaign;
+	@JsonProperty("C_Campaign")
+	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
 				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Campaign_ID(foreignEntity.get_ID());
+			super.setC_Campaign_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Campaign_ID(0);
+			super.setC_Campaign_ID(0);
 		}
 	}
 
@@ -302,8 +237,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Marketing Campaign
 	 */
-	public I_C_CampaignInput getC_Campaign() {
-		return C_Campaign;
+	@JsonProperty("C_Campaign")
+	public I_C_CampaignInput C_Campaign() {
+		return mC_Campaign;
 	}
 
 	/**
@@ -311,16 +247,17 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @param C_Greeting Greeting to print on correspondence
 	 */
-	public void setC_Greeting(I_C_GreetingInput C_Greeting) {
-		this.C_Greeting = C_Greeting;
+	@JsonProperty("C_Greeting")
+	public void setC_GreetingInput(I_C_GreetingInput C_Greeting) {
+		this.mC_Greeting = C_Greeting;
 		X_C_Greeting foreignEntity;
 		if (C_Greeting != null &&
 				(foreignEntity = new Query(getCtx(), X_C_Greeting.Table_Name, X_C_Greeting.COLUMNNAME_C_Greeting_UU + "=?", get_TrxName())
 						.setParameters(C_Greeting.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Greeting_ID(foreignEntity.get_ID());
+			super.setC_Greeting_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Greeting_ID(0);
+			super.setC_Greeting_ID(0);
 		}
 	}
 
@@ -329,8 +266,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Greeting to print on correspondence
 	 */
-	public I_C_GreetingInput getC_Greeting() {
-		return C_Greeting;
+	@JsonProperty("C_Greeting")
+	public I_C_GreetingInput C_Greeting() {
+		return mC_Greeting;
 	}
 
 	/**
@@ -338,16 +276,17 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @param C_Job Job Position
 	 */
-	public void setC_Job(I_C_JobInput C_Job) {
-		this.C_Job = C_Job;
+	@JsonProperty("C_Job")
+	public void setC_JobInput(I_C_JobInput C_Job) {
+		this.mC_Job = C_Job;
 		X_C_Job foreignEntity;
 		if (C_Job != null &&
 				(foreignEntity = new Query(getCtx(), X_C_Job.Table_Name, X_C_Job.COLUMNNAME_C_Job_UU + "=?", get_TrxName())
 						.setParameters(C_Job.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Job_ID(foreignEntity.get_ID());
+			super.setC_Job_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Job_ID(0);
+			super.setC_Job_ID(0);
 		}
 	}
 
@@ -356,8 +295,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Job Position
 	 */
-	public I_C_JobInput getC_Job() {
-		return C_Job;
+	@JsonProperty("C_Job")
+	public I_C_JobInput C_Job() {
+		return mC_Job;
 	}
 
 	/**
@@ -365,16 +305,17 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @param C_Location Location or Address
 	 */
-	public void setC_Location(I_C_LocationInput C_Location) {
-		this.C_Location = C_Location;
+	@JsonProperty("C_Location")
+	public void setC_LocationInput(I_C_LocationInput C_Location) {
+		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
 				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
 						.setParameters(C_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Location_ID(foreignEntity.get_ID());
+			super.setC_Location_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Location_ID(0);
+			super.setC_Location_ID(0);
 		}
 	}
 
@@ -383,8 +324,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Location or Address
 	 */
-	public I_C_LocationInput getC_Location() {
-		return C_Location;
+	@JsonProperty("C_Location")
+	public I_C_LocationInput C_Location() {
+		return mC_Location;
 	}
 	/**
 	 * Set Verification Info.
@@ -410,36 +352,17 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	}
 
 	/**
-	 * Set eve_bpartners.
-	 *
-	 * @param eve_bpartners eve_bpartners
-	 */
-	public void seteve_bpartners(String eve_bpartners) {
-		set_Value(COLUMNNAME_eve_bpartners, eve_bpartners);
-	}
-
-
-	/**
-	 * Get eve_bpartners.
-	 *
-	 * @return eve_bpartners
-	 */
-	public String geteve_bpartners() {
- 		return (String) get_Value(COLUMNNAME_eve_bpartners);
-	}
-
-
-	/**
 	 * Set Auto expand menu.
 	 *
-	 * @param IsMenuAutoExpand_RL If ticked, the menu is automatically expanded
+	 * @param IsMenuAutoExpand If ticked, the menu is automatically expanded
 	 */
-	public void setIsMenuAutoExpand_RL(I_AD_Ref_ListInput IsMenuAutoExpand_RL) {
-		this.IsMenuAutoExpand_RL = IsMenuAutoExpand_RL;
-		MRefList foreignEntity;
-		if (IsMenuAutoExpand_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsMenuAutoExpand_RL.getID())
+	@JsonProperty("IsMenuAutoExpand")
+	public void setIsMenuAutoExpandInput(I_AD_Ref_ListInput IsMenuAutoExpand) {
+		this.mIsMenuAutoExpand = IsMenuAutoExpand;
+		MRefList_BH foreignEntity;
+		if (IsMenuAutoExpand != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(IsMenuAutoExpand.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setIsMenuAutoExpand(foreignEntity.getValue());
 		} else {
@@ -452,21 +375,23 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return If ticked, the menu is automatically expanded
 	 */
-	public I_AD_Ref_ListInput getIsMenuAutoExpand_RL() {
-		return IsMenuAutoExpand_RL;
+	@JsonProperty("IsMenuAutoExpand")
+	public I_AD_Ref_ListInput IsMenuAutoExpand() {
+		return mIsMenuAutoExpand;
 	}
 
 	/**
 	 * Set Lead Source.
 	 *
-	 * @param LeadSource_RL The source of this lead/opportunity
+	 * @param LeadSource The source of this lead/opportunity
 	 */
-	public void setLeadSource_RL(I_AD_Ref_ListInput LeadSource_RL) {
-		this.LeadSource_RL = LeadSource_RL;
-		MRefList foreignEntity;
-		if (LeadSource_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(LeadSource_RL.getID())
+	@JsonProperty("LeadSource")
+	public void setLeadSourceInput(I_AD_Ref_ListInput LeadSource) {
+		this.mLeadSource = LeadSource;
+		MRefList_BH foreignEntity;
+		if (LeadSource != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(LeadSource.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setLeadSource(foreignEntity.getValue());
 		} else {
@@ -479,21 +404,23 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return The source of this lead/opportunity
 	 */
-	public I_AD_Ref_ListInput getLeadSource_RL() {
-		return LeadSource_RL;
+	@JsonProperty("LeadSource")
+	public I_AD_Ref_ListInput LeadSource() {
+		return mLeadSource;
 	}
 
 	/**
 	 * Set Lead Status.
 	 *
-	 * @param LeadStatus_RL The status of this lead/opportunity in the sales cycle
+	 * @param LeadStatus The status of this lead/opportunity in the sales cycle
 	 */
-	public void setLeadStatus_RL(I_AD_Ref_ListInput LeadStatus_RL) {
-		this.LeadStatus_RL = LeadStatus_RL;
-		MRefList foreignEntity;
-		if (LeadStatus_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(LeadStatus_RL.getID())
+	@JsonProperty("LeadStatus")
+	public void setLeadStatusInput(I_AD_Ref_ListInput LeadStatus) {
+		this.mLeadStatus = LeadStatus;
+		MRefList_BH foreignEntity;
+		if (LeadStatus != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(LeadStatus.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setLeadStatus(foreignEntity.getValue());
 		} else {
@@ -506,21 +433,23 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return The status of this lead/opportunity in the sales cycle
 	 */
-	public I_AD_Ref_ListInput getLeadStatus_RL() {
-		return LeadStatus_RL;
+	@JsonProperty("LeadStatus")
+	public I_AD_Ref_ListInput LeadStatus() {
+		return mLeadStatus;
 	}
 
 	/**
 	 * Set Notification Type.
 	 *
-	 * @param NotificationType_RL Type of Notifications
+	 * @param NotificationType Type of Notifications
 	 */
-	public void setNotificationType_RL(I_AD_Ref_ListInput NotificationType_RL) {
-		this.NotificationType_RL = NotificationType_RL;
-		MRefList foreignEntity;
-		if (NotificationType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(NotificationType_RL.getID())
+	@JsonProperty("NotificationType")
+	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
+		this.mNotificationType = NotificationType;
+		MRefList_BH foreignEntity;
+		if (NotificationType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(NotificationType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setNotificationType(foreignEntity.getValue());
 		} else {
@@ -533,8 +462,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Type of Notifications
 	 */
-	public I_AD_Ref_ListInput getNotificationType_RL() {
-		return NotificationType_RL;
+	@JsonProperty("NotificationType")
+	public I_AD_Ref_ListInput NotificationType() {
+		return mNotificationType;
 	}
 
 	/**
@@ -542,16 +472,17 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @param R_DefaultMailText Default mail template
 	 */
-	public void setR_DefaultMailText(I_R_MailTextInput R_DefaultMailText) {
-		this.R_DefaultMailText = R_DefaultMailText;
+	@JsonProperty("R_DefaultMailText")
+	public void setR_DefaultMailTextInput(I_R_MailTextInput R_DefaultMailText) {
+		this.mR_DefaultMailText = R_DefaultMailText;
 		MMailText foreignEntity;
 		if (R_DefaultMailText != null &&
 				(foreignEntity = new Query(getCtx(), MMailText.Table_Name, MMailText.COLUMNNAME_R_MailText_UU + "=?", get_TrxName())
 						.setParameters(R_DefaultMailText.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setR_DefaultMailText_ID(foreignEntity.get_ID());
+			super.setR_DefaultMailText_ID(foreignEntity.get_ID());
 		} else {
-			this.setR_DefaultMailText_ID(0);
+			super.setR_DefaultMailText_ID(0);
 		}
 	}
 
@@ -560,19 +491,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Default mail template
 	 */
-	public I_R_MailTextInput getR_DefaultMailText() {
-		return R_DefaultMailText;
-	}
-	/**
-	 * Set Default mail template.
-	 *
-	 * @param R_DefaultMailText_ID Default mail template
-	 */
-
-	public void setR_DefaultMailText_ID(int R_DefaultMailText_ID) {
-		if (get_ID() == 0) {
-			super.setR_DefaultMailText_ID(R_DefaultMailText_ID);
-		}
+	@JsonProperty("R_DefaultMailText")
+	public I_R_MailTextInput R_DefaultMailText() {
+		return mR_DefaultMailText;
 	}
 
 	/**
@@ -580,16 +501,17 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
-	public void setSalesRep(I_AD_UserInput SalesRep) {
-		this.SalesRep = SalesRep;
+	@JsonProperty("SalesRep")
+	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
 				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setSalesRep_ID(foreignEntity.get_ID());
+			super.setSalesRep_ID(foreignEntity.get_ID());
 		} else {
-			this.setSalesRep_ID(0);
+			super.setSalesRep_ID(0);
 		}
 	}
 
@@ -598,19 +520,9 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Sales Representative or Company Agent
 	 */
-	public I_AD_UserInput getSalesRep() {
-		return SalesRep;
-	}
-	/**
-	 * Set Sales Representative.
-	 *
-	 * @param SalesRep_ID Sales Representative or Company Agent
-	 */
-
-	public void setSalesRep_ID(int SalesRep_ID) {
-		if (get_ID() == 0) {
-			super.setSalesRep_ID(SalesRep_ID);
-		}
+	@JsonProperty("SalesRep")
+	public I_AD_UserInput SalesRep() {
+		return mSalesRep;
 	}
 	/**
 	 * Set Salt.
@@ -629,16 +541,17 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @param Supervisor Supervisor for this user/organization - used for escalation and approval
 	 */
-	public void setSupervisor(I_AD_UserInput Supervisor) {
-		this.Supervisor = Supervisor;
+	@JsonProperty("Supervisor")
+	public void setSupervisorInput(I_AD_UserInput Supervisor) {
+		this.mSupervisor = Supervisor;
 		MUser_BH foreignEntity;
 		if (Supervisor != null &&
 				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
 						.setParameters(Supervisor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setSupervisor_ID(foreignEntity.get_ID());
+			super.setSupervisor_ID(foreignEntity.get_ID());
 		} else {
-			this.setSupervisor_ID(0);
+			super.setSupervisor_ID(0);
 		}
 	}
 
@@ -647,18 +560,8 @@ public class X_AD_UserInput extends X_AD_User implements I_AD_UserInput {
 	 *
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
-	public I_AD_UserInput getSupervisor() {
-		return Supervisor;
-	}
-	/**
-	 * Set Supervisor.
-	 *
-	 * @param Supervisor_ID Supervisor for this user/organization - used for escalation and approval
-	 */
-
-	public void setSupervisor_ID(int Supervisor_ID) {
-		if (get_ID() == 0) {
-			super.setSupervisor_ID(Supervisor_ID);
-		}
+	@JsonProperty("Supervisor")
+	public I_AD_UserInput Supervisor() {
+		return mSupervisor;
 	}
 }

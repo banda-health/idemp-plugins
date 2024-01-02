@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_DepreciationDataLoader;
@@ -18,7 +19,6 @@ import org.compiere.model.MAssetAcct;
 import org.compiere.model.MDepreciation;
 import org.compiere.model.MDepreciationConvention;
 import org.compiere.model.MDepreciationMethod;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_A_Depreciation_Table_Header;
 import org.dataloader.DataLoader;
 
@@ -161,11 +161,11 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			put("YR", "d34572f8-bbc3-4768-9662-8ae6f48f7398");
 		}
 	};
-	public CompletableFuture<MRefList> A_Depreciation_Manual_Period_RL(MAssetAcct entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Depreciation_Manual_Period(MAssetAcct entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Depreciation_Manual_Period())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_DEPRECIATION_MANUAL_PERIOD_UUIDS_BY_VALUE.get(entity.getA_Depreciation_Manual_Period()));
 	}
@@ -297,11 +297,11 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			put("YBF", "2e54c6d4-f45a-474c-b4ab-6c7679f913dd");
 		}
 	};
-	public CompletableFuture<MRefList> A_Reval_Cal_Method_RL(MAssetAcct entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Reval_Cal_Method(MAssetAcct entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Reval_Cal_Method())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_REVAL_CAL_METHOD_UUIDS_BY_VALUE.get(entity.getA_Reval_Cal_Method()));
 	}
@@ -375,13 +375,17 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList> PostingType_RL(MAssetAcct entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(MAssetAcct entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
+	}
+
+	public Boolean Processing(MAssetAcct entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

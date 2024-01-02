@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintColorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DunningDataLoader;
@@ -12,7 +13,6 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDunning;
 import org.compiere.model.MPriceList;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_AD_PrintColor;
 import org.dataloader.DataLoader;
 
@@ -44,6 +44,10 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 		return dataLoader.load(entity.getAD_PrintColor_ID());
 	}
 
+	public Boolean BH_Locked(MBPGroup_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBH_Locked();
+	}
+
 	static Map<String, String> BH_SUBTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("I", "d8547f6d-5ad0-4025-b8f8-0f4796cf9d0f");
@@ -51,11 +55,11 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 			put("D", "4782b135-a84e-4eb9-ae3d-88c872a030ce");
 		}
 	};
-	public CompletableFuture<MRefList> BH_SubType_RL(MBPGroup_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BH_SubType(MBPGroup_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBH_SubType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BH_SUBTYPE_UUIDS_BY_VALUE.get(entity.getBH_SubType()));
 	}
@@ -73,6 +77,14 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 		DataLoader<Integer, MDunning> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningDataLoader.C_Dunning_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Dunning_ID());
+	}
+
+	public Boolean IsConfidentialInfo(MBPGroup_BH entity, DataFetchingEnvironment environment) {
+		return entity.isConfidentialInfo();
+	}
+
+	public Boolean IsDefault(MBPGroup_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
 	}
 
 
@@ -142,11 +154,11 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 			put("H", "de47e146-1de6-4ff7-870d-3faf6a85bea0");
 		}
 	};
-	public CompletableFuture<MRefList> PriorityBase_RL(MBPGroup_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PriorityBase(MBPGroup_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPriorityBase())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PRIORITYBASE_UUIDS_BY_VALUE.get(entity.getPriorityBase()));
 	}

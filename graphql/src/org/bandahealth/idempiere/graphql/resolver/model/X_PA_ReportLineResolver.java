@@ -2,12 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_BudgetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLineSetDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_GL_Budget;
 import org.compiere.model.X_PA_ReportLine;
 import org.compiere.model.X_PA_ReportLineSet;
@@ -34,11 +34,11 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			put("R", "1455fb91-3bd5-4f0f-b156-03bb03073ff9");
 		}
 	};
-	public CompletableFuture<MRefList> CalculationType_RL(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CalculationType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCalculationType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CALCULATIONTYPE_UUIDS_BY_VALUE.get(entity.getCalculationType()));
 	}
@@ -58,6 +58,18 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 		return dataLoader.load(entity.getGL_Budget_ID());
 	}
 
+	public Boolean IsInverseDebitCreditOnly(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+		return entity.isInverseDebitCreditOnly();
+	}
+
+	public Boolean IsPrinted(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+		return entity.isPrinted();
+	}
+
+	public Boolean IsShowOppositeSign(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+		return entity.isShowOppositeSign();
+	}
+
 	static Map<String, String> LINETYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("S", "3bcc58fe-4444-4f03-96fb-bde74db0e4cc");
@@ -65,11 +77,11 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			put("B", "bb000455-9057-4c8a-a656-b0f1074e3fd3");
 		}
 	};
-	public CompletableFuture<MRefList> LineType_RL(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> LineType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getLineType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(LINETYPE_UUIDS_BY_VALUE.get(entity.getLineType()));
 	}
@@ -114,11 +126,11 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			put("SD", "9e450ade-e54b-46e1-b96f-36c02b3090eb");
 		}
 	};
-	public CompletableFuture<MRefList> OverlineStrokeType_RL(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> OverlineStrokeType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getOverlineStrokeType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(OVERLINESTROKETYPE_UUIDS_BY_VALUE.get(entity.getOverlineStrokeType()));
 	}
@@ -148,11 +160,11 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			put("R", "f6d19951-ac66-4c69-8626-6252daff15ae");
 		}
 	};
-	public CompletableFuture<MRefList> PAAmountType_RL(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PAAmountType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPAAmountType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PAAMOUNTTYPE_UUIDS_BY_VALUE.get(entity.getPAAmountType()));
 	}
@@ -165,11 +177,11 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			put("N", "aec483ce-9299-4786-a0cb-a1a851362950");
 		}
 	};
-	public CompletableFuture<MRefList> PAPeriodType_RL(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PAPeriodType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPAPeriodType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PAPERIODTYPE_UUIDS_BY_VALUE.get(entity.getPAPeriodType()));
 	}
@@ -183,11 +195,11 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList> PostingType_RL(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
 	}
@@ -202,11 +214,11 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			put("SD", "9e450ade-e54b-46e1-b96f-36c02b3090eb");
 		}
 	};
-	public CompletableFuture<MRefList> UnderlineStrokeType_RL(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> UnderlineStrokeType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getUnderlineStrokeType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(UNDERLINESTROKETYPE_UUIDS_BY_VALUE.get(entity.getUnderlineStrokeType()));
 	}

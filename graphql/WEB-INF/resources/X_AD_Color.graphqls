@@ -32,11 +32,11 @@ type AD_Color {
 	# RGB value for second color
 	Blue_1: Int
 	# Color presentation for this color
-	ColorType_RL: AD_Ref_List!
+	ColorType: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# RGB value 
 	Green: Int!
 	# RGB value for second color
@@ -60,11 +60,11 @@ type AD_Color {
 	# Distance in points to repeat gradient color - or zero
 	RepeatDistance: Int
 	# Start point of the gradient colors
-	StartPoint_RL: AD_Ref_List
+	StartPoint: AD_Ref_List
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 }
 
 input AD_ColorInput {
@@ -82,7 +82,7 @@ input AD_ColorInput {
 	# RGB value for second color
 	Blue_1: Int
 	# Color presentation for this color
-	ColorType_RL: AD_Ref_ListInput
+	ColorType: AD_Ref_ListInput
 	# RGB value 
 	Green: Int
 	# RGB value for second color
@@ -106,5 +106,5 @@ input AD_ColorInput {
 	# Distance in points to repeat gradient color - or zero
 	RepeatDistance: Int
 	# Start point of the gradient colors
-	StartPoint_RL: AD_Ref_ListInput
+	StartPoint: AD_Ref_ListInput
 }

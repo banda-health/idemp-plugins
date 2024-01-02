@@ -4,9 +4,12 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChargeDataLoader;
@@ -27,15 +30,12 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MAssetAddition;
 import org.compiere.model.MConversionType;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MIFixedAsset;
 import org.compiere.model.MInOutLine;
-import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MJournalBatch;
 import org.compiere.model.MLocator;
 import org.compiere.model.MMatchInv;
 import org.compiere.model.MProject;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -72,13 +72,17 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 			put("Exp", "4a84ac91-9720-40a2-8529-6a139dabb96a");
 		}
 	};
-	public CompletableFuture<MRefList> A_CapvsExp_RL(MAssetAddition entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_CapvsExp(MAssetAddition entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_CapvsExp())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_CAPVSEXP_UUIDS_BY_VALUE.get(entity.getA_CapvsExp()));
+	}
+
+	public Boolean A_CreateAsset(MAssetAddition entity, DataFetchingEnvironment environment) {
+		return entity.isA_CreateAsset();
 	}
 
 	static Map<String, String> A_SOURCETYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -90,11 +94,11 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 			put("PRJ", "3773d29e-2de2-42bb-a4f9-8b5bfbe771ac");
 		}
 	};
-	public CompletableFuture<MRefList> A_SourceType_RL(MAssetAddition entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_SourceType(MAssetAddition entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_SourceType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_SOURCETYPE_UUIDS_BY_VALUE.get(entity.getA_SourceType()));
 	}
@@ -135,11 +139,11 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MAssetAddition entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MAssetAddition entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
@@ -180,11 +184,11 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MAssetAddition entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MAssetAddition entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine> dataLoader =
+		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.C_InvoiceLine_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}
@@ -222,11 +226,11 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
-	public CompletableFuture<MRefList> DocAction_RL(MAssetAddition entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocAction(MAssetAddition entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocAction())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
@@ -247,11 +251,11 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
 		}
 	};
-	public CompletableFuture<MRefList> DocStatus_RL(MAssetAddition entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocStatus(MAssetAddition entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
 	}
@@ -284,6 +288,10 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 		DataLoader<Integer, MIFixedAsset> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_I_FixedAssetDataLoader.I_FixedAsset_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getI_FixedAsset_ID());
+	}
+
+	public Boolean IsApproved(MAssetAddition entity, DataFetchingEnvironment environment) {
+		return entity.isApproved();
 	}
 
 
@@ -361,6 +369,10 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
+	public Boolean Posted(MAssetAddition entity, DataFetchingEnvironment environment) {
+		return entity.isPosted();
+	}
+
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
@@ -370,13 +382,21 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList> PostingType_RL(MAssetAddition entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(MAssetAddition entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
+	}
+
+	public Boolean Processed(MAssetAddition entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MAssetAddition entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

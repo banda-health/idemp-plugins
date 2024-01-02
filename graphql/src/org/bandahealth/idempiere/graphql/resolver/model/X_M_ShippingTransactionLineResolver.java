@@ -82,4 +82,8 @@ public class X_M_ShippingTransactionLineResolver extends POResolver<MShippingTra
 		return dataLoader.load(entity.getM_ShippingTransaction_ID());
 	}
 
+	public Boolean Processed(MShippingTransactionLine entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
 }

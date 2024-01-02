@@ -1,8 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_ShipperCfg;
 import org.compiere.model.X_M_ShipperLabelsCfg;
@@ -16,14 +18,15 @@ import org.compiere.util.Env;
  */
 public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I_M_ShipperLabelsCfgInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput LabelPrintMethod_RL;
-	 private I_M_ShipperCfgInput M_ShipperCfg;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mLabelPrintMethod;
+	 private I_M_ShipperCfgInput mM_ShipperCfg;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_M_ShipperLabelsCfgInput(String ID) {
+	@JsonCreator
+	public X_M_ShipperLabelsCfgInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,14 +36,15 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -49,21 +53,23 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
 	 * Set Label Print Method.
 	 *
-	 * @param LabelPrintMethod_RL Label Print Method
+	 * @param LabelPrintMethod Label Print Method
 	 */
-	public void setLabelPrintMethod_RL(I_AD_Ref_ListInput LabelPrintMethod_RL) {
-		this.LabelPrintMethod_RL = LabelPrintMethod_RL;
-		MRefList foreignEntity;
-		if (LabelPrintMethod_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(LabelPrintMethod_RL.getID())
+	@JsonProperty("LabelPrintMethod")
+	public void setLabelPrintMethodInput(I_AD_Ref_ListInput LabelPrintMethod) {
+		this.mLabelPrintMethod = LabelPrintMethod;
+		MRefList_BH foreignEntity;
+		if (LabelPrintMethod != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(LabelPrintMethod.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setLabelPrintMethod(foreignEntity.getValue());
 		} else {
@@ -76,8 +82,9 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	 *
 	 * @return Label Print Method
 	 */
-	public I_AD_Ref_ListInput getLabelPrintMethod_RL() {
-		return LabelPrintMethod_RL;
+	@JsonProperty("LabelPrintMethod")
+	public I_AD_Ref_ListInput LabelPrintMethod() {
+		return mLabelPrintMethod;
 	}
 
 	/**
@@ -85,14 +92,15 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	 *
 	 * @param M_ShipperCfg Shipper Configuration
 	 */
-	public void setM_ShipperCfg(I_M_ShipperCfgInput M_ShipperCfg) {
-		this.M_ShipperCfg = M_ShipperCfg;
+	@JsonProperty("M_ShipperCfg")
+	public void setM_ShipperCfgInput(I_M_ShipperCfgInput M_ShipperCfg) {
+		this.mM_ShipperCfg = M_ShipperCfg;
 		X_M_ShipperCfg foreignEntity;
 		if (get_ID() == 0 &&M_ShipperCfg != null &&
 				(foreignEntity = new Query(getCtx(), X_M_ShipperCfg.Table_Name, X_M_ShipperCfg.COLUMNNAME_M_ShipperCfg_UU + "=?", get_TrxName())
 						.setParameters(M_ShipperCfg.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_ShipperCfg_ID(foreignEntity.get_ID());
+			super.setM_ShipperCfg_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -101,30 +109,9 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	 *
 	 * @return Shipper Configuration
 	 */
-	public I_M_ShipperCfgInput getM_ShipperCfg() {
-		return M_ShipperCfg;
-	}
-	/**
-	 * Set Shipper Configuration.
-	 *
-	 * @param M_ShipperCfg_ID Shipper Configuration
-	 */
-
-	public void setM_ShipperCfg_ID(int M_ShipperCfg_ID) {
-		if (get_ID() == 0) {
-			super.setM_ShipperCfg_ID(M_ShipperCfg_ID);
-		}
-	}
-	/**
-	 * Set Shipper Labels Configuration.
-	 *
-	 * @param M_ShipperLabelsCfg_ID Shipper Labels Configuration
-	 */
-
-	public void setM_ShipperLabelsCfg_ID(int M_ShipperLabelsCfg_ID) {
-		if (get_ID() == 0) {
-			super.setM_ShipperLabelsCfg_ID(M_ShipperLabelsCfg_ID);
-		}
+	@JsonProperty("M_ShipperCfg")
+	public I_M_ShipperCfgInput M_ShipperCfg() {
+		return mM_ShipperCfg;
 	}
 
 	/**

@@ -15,28 +15,28 @@ public interface I_C_DunningLevelInput extends I_C_DunningLevel {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set C_Dunning.
 	 *
 	 * @param C_Dunning Dunning Rules for overdue invoices
 	 */
-	void setC_Dunning(I_C_DunningInput C_Dunning);
+	void setC_DunningInput(I_C_DunningInput C_Dunning);
 
 	/**
 	 * Get C_Dunning.
 	 *
 	 * @return Dunning Rules for overdue invoices
 	 */
-	I_C_DunningInput getC_Dunning();
+	I_C_DunningInput C_Dunning();
 
 	/**
 	 * Set ID.
@@ -57,40 +57,40 @@ public interface I_C_DunningLevelInput extends I_C_DunningLevel {
 	 *
 	 * @param C_PaymentTerm The terms of Payment (timing, discount)
 	 */
-	void setC_PaymentTerm(I_C_PaymentTermInput C_PaymentTerm);
+	void setC_PaymentTermInput(I_C_PaymentTermInput C_PaymentTerm);
 
 	/**
 	 * Get C_PaymentTerm.
 	 *
 	 * @return The terms of Payment (timing, discount)
 	 */
-	I_C_PaymentTermInput getC_PaymentTerm();
+	I_C_PaymentTermInput C_PaymentTerm();
 
 	/**
 	 * Set Dunning_PrintFormat.
 	 *
 	 * @param Dunning_PrintFormat Print Format for printing Dunning Letters
 	 */
-	void setDunning_PrintFormat(I_AD_PrintFormatInput Dunning_PrintFormat);
+	void setDunning_PrintFormatInput(I_AD_PrintFormatInput Dunning_PrintFormat);
 
 	/**
 	 * Get Dunning_PrintFormat.
 	 *
 	 * @return Print Format for printing Dunning Letters
 	 */
-	I_AD_PrintFormatInput getDunning_PrintFormat();
+	I_AD_PrintFormatInput Dunning_PrintFormat();
 
 	/**
-	 * Set InvoiceCollectionType_RL.
+	 * Set InvoiceCollectionType.
 	 *
-	 * @param InvoiceCollectionType_RL Invoice Collection Status
+	 * @param InvoiceCollectionType Invoice Collection Status
 	 */
-	void setInvoiceCollectionType_RL(I_AD_Ref_ListInput InvoiceCollectionType_RL);
+	void setInvoiceCollectionTypeInput(I_AD_Ref_ListInput InvoiceCollectionType);
 
 	/**
-	 * Get InvoiceCollectionType_RL.
+	 * Get InvoiceCollectionType.
 	 *
 	 * @return Invoice Collection Status
 	 */
-	I_AD_Ref_ListInput getInvoiceCollectionType_RL();
+	I_AD_Ref_ListInput InvoiceCollectionType();
 }

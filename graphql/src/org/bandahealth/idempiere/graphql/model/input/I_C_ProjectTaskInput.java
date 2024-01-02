@@ -15,28 +15,28 @@ public interface I_C_ProjectTaskInput extends I_C_ProjectTask {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set C_ProjectPhase.
 	 *
 	 * @param C_ProjectPhase Phase of a Project
 	 */
-	void setC_ProjectPhase(I_C_ProjectPhaseInput C_ProjectPhase);
+	void setC_ProjectPhaseInput(I_C_ProjectPhaseInput C_ProjectPhase);
 
 	/**
 	 * Get C_ProjectPhase.
 	 *
 	 * @return Phase of a Project
 	 */
-	I_C_ProjectPhaseInput getC_ProjectPhase();
+	I_C_ProjectPhaseInput C_ProjectPhase();
 
 	/**
 	 * Set ID.
@@ -57,40 +57,40 @@ public interface I_C_ProjectTaskInput extends I_C_ProjectTask {
 	 *
 	 * @param C_Task Standard Project Type Task
 	 */
-	void setC_Task(I_C_TaskInput C_Task);
+	void setC_TaskInput(I_C_TaskInput C_Task);
 
 	/**
 	 * Get C_Task.
 	 *
 	 * @return Standard Project Type Task
 	 */
-	I_C_TaskInput getC_Task();
+	I_C_TaskInput C_Task();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_Product(I_M_ProductInput M_Product);
+	void setM_ProductInput(I_M_ProductInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput getM_Product();
+	I_M_ProductInput M_Product();
 
 	/**
-	 * Set ProjInvoiceRule_RL.
+	 * Set ProjInvoiceRule.
 	 *
-	 * @param ProjInvoiceRule_RL Invoice Rule for the project
+	 * @param ProjInvoiceRule Invoice Rule for the project
 	 */
-	void setProjInvoiceRule_RL(I_AD_Ref_ListInput ProjInvoiceRule_RL);
+	void setProjInvoiceRuleInput(I_AD_Ref_ListInput ProjInvoiceRule);
 
 	/**
-	 * Get ProjInvoiceRule_RL.
+	 * Get ProjInvoiceRule.
 	 *
 	 * @return Invoice Rule for the project
 	 */
-	I_AD_Ref_ListInput getProjInvoiceRule_RL();
+	I_AD_Ref_ListInput ProjInvoiceRule();
 }

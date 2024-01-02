@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MMeasureCalc;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_PA_Ratio;
 import org.compiere.model.X_PA_RatioElement;
@@ -18,19 +20,20 @@ import org.compiere.util.Env;
  */
 public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_RatioElementInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput PostingType_RL;
-	 private I_AD_Ref_ListInput RatioElementType_RL;
-	 private I_AD_Ref_ListInput RatioOperand_RL;
-	 private I_C_ElementValueInput Account;
-	 private I_PA_MeasureCalcInput PA_MeasureCalc;
-	 private I_PA_RatioInput PA_Ratio;
-	 private I_PA_RatioInput PA_RatioUsed;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mPostingType;
+	 private I_AD_Ref_ListInput mRatioElementType;
+	 private I_AD_Ref_ListInput mRatioOperand;
+	 private I_C_ElementValueInput mAccount;
+	 private I_PA_MeasureCalcInput mPA_MeasureCalc;
+	 private I_PA_RatioInput mPA_Ratio;
+	 private I_PA_RatioInput mPA_RatioUsed;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_RatioElementInput(String ID) {
+	@JsonCreator
+	public X_PA_RatioElementInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -40,16 +43,17 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @param Account Account used
 	 */
-	public void setAccount(I_C_ElementValueInput Account) {
-		this.Account = Account;
+	@JsonProperty("Account")
+	public void setAccountInput(I_C_ElementValueInput Account) {
+		this.mAccount = Account;
 		MElementValue foreignEntity;
 		if (Account != null &&
 				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
 						.setParameters(Account.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAccount_ID(foreignEntity.get_ID());
+			super.setAccount_ID(foreignEntity.get_ID());
 		} else {
-			this.setAccount_ID(0);
+			super.setAccount_ID(0);
 		}
 	}
 
@@ -58,19 +62,9 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @return Account used
 	 */
-	public I_C_ElementValueInput getAccount() {
-		return Account;
-	}
-	/**
-	 * Set Account.
-	 *
-	 * @param Account_ID Account used
-	 */
-
-	public void setAccount_ID(int Account_ID) {
-		if (get_ID() == 0) {
-			super.setAccount_ID(Account_ID);
-		}
+	@JsonProperty("Account")
+	public I_C_ElementValueInput Account() {
+		return mAccount;
 	}
 
 	/**
@@ -78,14 +72,15 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -94,8 +89,9 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -103,16 +99,17 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @param PA_MeasureCalc Calculation method for measuring performance
 	 */
-	public void setPA_MeasureCalc(I_PA_MeasureCalcInput PA_MeasureCalc) {
-		this.PA_MeasureCalc = PA_MeasureCalc;
+	@JsonProperty("PA_MeasureCalc")
+	public void setPA_MeasureCalcInput(I_PA_MeasureCalcInput PA_MeasureCalc) {
+		this.mPA_MeasureCalc = PA_MeasureCalc;
 		MMeasureCalc foreignEntity;
 		if (PA_MeasureCalc != null &&
 				(foreignEntity = new Query(getCtx(), MMeasureCalc.Table_Name, MMeasureCalc.COLUMNNAME_PA_MeasureCalc_UU + "=?", get_TrxName())
 						.setParameters(PA_MeasureCalc.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_MeasureCalc_ID(foreignEntity.get_ID());
+			super.setPA_MeasureCalc_ID(foreignEntity.get_ID());
 		} else {
-			this.setPA_MeasureCalc_ID(0);
+			super.setPA_MeasureCalc_ID(0);
 		}
 	}
 
@@ -121,8 +118,9 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @return Calculation method for measuring performance
 	 */
-	public I_PA_MeasureCalcInput getPA_MeasureCalc() {
-		return PA_MeasureCalc;
+	@JsonProperty("PA_MeasureCalc")
+	public I_PA_MeasureCalcInput PA_MeasureCalc() {
+		return mPA_MeasureCalc;
 	}
 
 	/**
@@ -130,14 +128,15 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @param PA_Ratio Performance Ratio
 	 */
-	public void setPA_Ratio(I_PA_RatioInput PA_Ratio) {
-		this.PA_Ratio = PA_Ratio;
+	@JsonProperty("PA_Ratio")
+	public void setPA_RatioInput(I_PA_RatioInput PA_Ratio) {
+		this.mPA_Ratio = PA_Ratio;
 		X_PA_Ratio foreignEntity;
 		if (get_ID() == 0 &&PA_Ratio != null &&
 				(foreignEntity = new Query(getCtx(), X_PA_Ratio.Table_Name, X_PA_Ratio.COLUMNNAME_PA_Ratio_UU + "=?", get_TrxName())
 						.setParameters(PA_Ratio.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_Ratio_ID(foreignEntity.get_ID());
+			super.setPA_Ratio_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -146,30 +145,9 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @return Performance Ratio
 	 */
-	public I_PA_RatioInput getPA_Ratio() {
-		return PA_Ratio;
-	}
-	/**
-	 * Set Ratio.
-	 *
-	 * @param PA_Ratio_ID Performance Ratio
-	 */
-
-	public void setPA_Ratio_ID(int PA_Ratio_ID) {
-		if (get_ID() == 0) {
-			super.setPA_Ratio_ID(PA_Ratio_ID);
-		}
-	}
-	/**
-	 * Set Ratio Element.
-	 *
-	 * @param PA_RatioElement_ID Performance Ratio Element
-	 */
-
-	public void setPA_RatioElement_ID(int PA_RatioElement_ID) {
-		if (get_ID() == 0) {
-			super.setPA_RatioElement_ID(PA_RatioElement_ID);
-		}
+	@JsonProperty("PA_Ratio")
+	public I_PA_RatioInput PA_Ratio() {
+		return mPA_Ratio;
 	}
 
 	/**
@@ -195,16 +173,17 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @param PA_RatioUsed Performance Ratio Used
 	 */
-	public void setPA_RatioUsed(I_PA_RatioInput PA_RatioUsed) {
-		this.PA_RatioUsed = PA_RatioUsed;
+	@JsonProperty("PA_RatioUsed")
+	public void setPA_RatioUsedInput(I_PA_RatioInput PA_RatioUsed) {
+		this.mPA_RatioUsed = PA_RatioUsed;
 		X_PA_Ratio foreignEntity;
 		if (PA_RatioUsed != null &&
 				(foreignEntity = new Query(getCtx(), X_PA_Ratio.Table_Name, X_PA_Ratio.COLUMNNAME_PA_Ratio_UU + "=?", get_TrxName())
 						.setParameters(PA_RatioUsed.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_RatioUsed_ID(foreignEntity.get_ID());
+			super.setPA_RatioUsed_ID(foreignEntity.get_ID());
 		} else {
-			this.setPA_RatioUsed_ID(0);
+			super.setPA_RatioUsed_ID(0);
 		}
 	}
 
@@ -213,32 +192,23 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @return Performance Ratio Used
 	 */
-	public I_PA_RatioInput getPA_RatioUsed() {
-		return PA_RatioUsed;
-	}
-	/**
-	 * Set Ratio Used.
-	 *
-	 * @param PA_RatioUsed_ID Performance Ratio Used
-	 */
-
-	public void setPA_RatioUsed_ID(int PA_RatioUsed_ID) {
-		if (get_ID() == 0) {
-			super.setPA_RatioUsed_ID(PA_RatioUsed_ID);
-		}
+	@JsonProperty("PA_RatioUsed")
+	public I_PA_RatioInput PA_RatioUsed() {
+		return mPA_RatioUsed;
 	}
 
 	/**
 	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	public void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL) {
-		this.PostingType_RL = PostingType_RL;
-		MRefList foreignEntity;
-		if (PostingType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType_RL.getID())
+	@JsonProperty("PostingType")
+	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+		this.mPostingType = PostingType;
+		MRefList_BH foreignEntity;
+		if (PostingType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PostingType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPostingType(foreignEntity.getValue());
 		} else {
@@ -251,21 +221,23 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	public I_AD_Ref_ListInput getPostingType_RL() {
-		return PostingType_RL;
+	@JsonProperty("PostingType")
+	public I_AD_Ref_ListInput PostingType() {
+		return mPostingType;
 	}
 
 	/**
 	 * Set Element Type.
 	 *
-	 * @param RatioElementType_RL Ratio Element Type
+	 * @param RatioElementType Ratio Element Type
 	 */
-	public void setRatioElementType_RL(I_AD_Ref_ListInput RatioElementType_RL) {
-		this.RatioElementType_RL = RatioElementType_RL;
-		MRefList foreignEntity;
-		if (RatioElementType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(RatioElementType_RL.getID())
+	@JsonProperty("RatioElementType")
+	public void setRatioElementTypeInput(I_AD_Ref_ListInput RatioElementType) {
+		this.mRatioElementType = RatioElementType;
+		MRefList_BH foreignEntity;
+		if (RatioElementType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(RatioElementType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setRatioElementType(foreignEntity.getValue());
 		} else {
@@ -278,21 +250,23 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @return Ratio Element Type
 	 */
-	public I_AD_Ref_ListInput getRatioElementType_RL() {
-		return RatioElementType_RL;
+	@JsonProperty("RatioElementType")
+	public I_AD_Ref_ListInput RatioElementType() {
+		return mRatioElementType;
 	}
 
 	/**
 	 * Set Operand.
 	 *
-	 * @param RatioOperand_RL Ratio Operand
+	 * @param RatioOperand Ratio Operand
 	 */
-	public void setRatioOperand_RL(I_AD_Ref_ListInput RatioOperand_RL) {
-		this.RatioOperand_RL = RatioOperand_RL;
-		MRefList foreignEntity;
-		if (RatioOperand_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(RatioOperand_RL.getID())
+	@JsonProperty("RatioOperand")
+	public void setRatioOperandInput(I_AD_Ref_ListInput RatioOperand) {
+		this.mRatioOperand = RatioOperand;
+		MRefList_BH foreignEntity;
+		if (RatioOperand != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(RatioOperand.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setRatioOperand(foreignEntity.getValue());
 		} else {
@@ -305,7 +279,8 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 *
 	 * @return Ratio Operand
 	 */
-	public I_AD_Ref_ListInput getRatioOperand_RL() {
-		return RatioOperand_RL;
+	@JsonProperty("RatioOperand")
+	public I_AD_Ref_ListInput RatioOperand() {
+		return mRatioOperand;
 	}
 }

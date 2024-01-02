@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.MSchedule;
 import org.dataloader.DataLoader;
 
@@ -28,13 +28,21 @@ public class X_AD_ScheduleResolver extends POResolver<MSchedule> implements Grap
 			put("D", "6360c9c7-dbf3-4b2f-bd8b-3465a7fde7a7");
 		}
 	};
-	public CompletableFuture<MRefList> FrequencyType_RL(MSchedule entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> FrequencyType(MSchedule entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFrequencyType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(FREQUENCYTYPE_UUIDS_BY_VALUE.get(entity.getFrequencyType()));
+	}
+
+	public Boolean IsIgnoreProcessingTime(MSchedule entity, DataFetchingEnvironment environment) {
+		return entity.isIgnoreProcessingTime();
+	}
+
+	public Boolean IsSystemSchedule(MSchedule entity, DataFetchingEnvironment environment) {
+		return entity.isSystemSchedule();
 	}
 
 	static Map<String, String> SCHEDULETYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -45,11 +53,11 @@ public class X_AD_ScheduleResolver extends POResolver<MSchedule> implements Grap
 			put("C", "9602aa31-9065-49bd-b4a4-6ac96166261a");
 		}
 	};
-	public CompletableFuture<MRefList> ScheduleType_RL(MSchedule entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ScheduleType(MSchedule entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getScheduleType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(SCHEDULETYPE_UUIDS_BY_VALUE.get(entity.getScheduleType()));
 	}
@@ -65,11 +73,11 @@ public class X_AD_ScheduleResolver extends POResolver<MSchedule> implements Grap
 			put("6", "13efb0f3-7cc6-4339-85e5-bcaadf0ca31c");
 		}
 	};
-	public CompletableFuture<MRefList> WeekDay_RL(MSchedule entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> WeekDay(MSchedule entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getWeekDay())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(WEEKDAY_UUIDS_BY_VALUE.get(entity.getWeekDay()));
 	}

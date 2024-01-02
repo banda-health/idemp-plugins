@@ -15,154 +15,154 @@ public interface I_PP_Order_BOMLineInput extends I_PP_Order_BOMLine {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	void setAD_User(I_AD_UserInput AD_User);
+	void setAD_UserInput(I_AD_UserInput AD_User);
 
 	/**
 	 * Get AD_User.
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	I_AD_UserInput getAD_User();
+	I_AD_UserInput AD_User();
 
 	/**
 	 * Set C_UOM.
 	 *
 	 * @param C_UOM Unit of Measure
 	 */
-	void setC_UOM(I_C_UOMInput C_UOM);
+	void setC_UOMInput(I_C_UOMInput C_UOM);
 
 	/**
 	 * Get C_UOM.
 	 *
 	 * @return Unit of Measure
 	 */
-	I_C_UOMInput getC_UOM();
+	I_C_UOMInput C_UOM();
 
 	/**
-	 * Set ComponentType_RL.
+	 * Set ComponentType.
 	 *
-	 * @param ComponentType_RL Component Type for a Bill of Material or Formula
+	 * @param ComponentType Component Type for a Bill of Material or Formula
 	 */
-	void setComponentType_RL(I_AD_Ref_ListInput ComponentType_RL);
+	void setComponentTypeInput(I_AD_Ref_ListInput ComponentType);
 
 	/**
-	 * Get ComponentType_RL.
+	 * Get ComponentType.
 	 *
 	 * @return Component Type for a Bill of Material or Formula
 	 */
-	I_AD_Ref_ListInput getComponentType_RL();
+	I_AD_Ref_ListInput ComponentType();
 
 	/**
-	 * Set IssueMethod_RL.
+	 * Set IssueMethod.
 	 *
-	 * @param IssueMethod_RL There are two methods for issue the components to Manufacturing Order
+	 * @param IssueMethod There are two methods for issue the components to Manufacturing Order
 	 */
-	void setIssueMethod_RL(I_AD_Ref_ListInput IssueMethod_RL);
+	void setIssueMethodInput(I_AD_Ref_ListInput IssueMethod);
 
 	/**
-	 * Get IssueMethod_RL.
+	 * Get IssueMethod.
 	 *
 	 * @return There are two methods for issue the components to Manufacturing Order
 	 */
-	I_AD_Ref_ListInput getIssueMethod_RL();
+	I_AD_Ref_ListInput IssueMethod();
 
 	/**
 	 * Set M_AttributeSetInstance.
 	 *
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
-	void setM_AttributeSetInstance(I_M_AttributeSetInstanceInput M_AttributeSetInstance);
+	void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance);
 
 	/**
 	 * Get M_AttributeSetInstance.
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	I_M_AttributeSetInstanceInput getM_AttributeSetInstance();
+	I_M_AttributeSetInstanceInput M_AttributeSetInstance();
 
 	/**
 	 * Set M_ChangeNotice.
 	 *
 	 * @param M_ChangeNotice Bill of Materials (Engineering) Change Notice (Version)
 	 */
-	void setM_ChangeNotice(I_M_ChangeNoticeInput M_ChangeNotice);
+	void setM_ChangeNoticeInput(I_M_ChangeNoticeInput M_ChangeNotice);
 
 	/**
 	 * Get M_ChangeNotice.
 	 *
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
-	I_M_ChangeNoticeInput getM_ChangeNotice();
+	I_M_ChangeNoticeInput M_ChangeNotice();
 
 	/**
 	 * Set M_Locator.
 	 *
 	 * @param M_Locator Warehouse Locator
 	 */
-	void setM_Locator(I_M_LocatorInput M_Locator);
+	void setM_LocatorInput(I_M_LocatorInput M_Locator);
 
 	/**
 	 * Get M_Locator.
 	 *
 	 * @return Warehouse Locator
 	 */
-	I_M_LocatorInput getM_Locator();
+	I_M_LocatorInput M_Locator();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_Product(I_M_ProductInput M_Product);
+	void setM_ProductInput(I_M_ProductInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput getM_Product();
+	I_M_ProductInput M_Product();
 
 	/**
 	 * Set M_Warehouse.
 	 *
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
-	void setM_Warehouse(I_M_WarehouseInput M_Warehouse);
+	void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse);
 
 	/**
 	 * Get M_Warehouse.
 	 *
 	 * @return Storage Warehouse and Service Point
 	 */
-	I_M_WarehouseInput getM_Warehouse();
+	I_M_WarehouseInput M_Warehouse();
 
 	/**
 	 * Set PP_Order_BOM.
 	 *
 	 * @param PP_Order_BOM PP_Order_BOM
 	 */
-	void setPP_Order_BOM(I_PP_Order_BOMInput PP_Order_BOM);
+	void setPP_Order_BOMInput(I_PP_Order_BOMInput PP_Order_BOM);
 
 	/**
 	 * Get PP_Order_BOM.
 	 *
 	 * @return PP_Order_BOM
 	 */
-	I_PP_Order_BOMInput getPP_Order_BOM();
+	I_PP_Order_BOMInput PP_Order_BOM();
 
 	/**
 	 * Set ID.
@@ -183,12 +183,12 @@ public interface I_PP_Order_BOMLineInput extends I_PP_Order_BOMLine {
 	 *
 	 * @param PP_Order Manufacturing Order
 	 */
-	void setPP_Order(I_PP_OrderInput PP_Order);
+	void setPP_OrderInput(I_PP_OrderInput PP_Order);
 
 	/**
 	 * Get PP_Order.
 	 *
 	 * @return Manufacturing Order
 	 */
-	I_PP_OrderInput getPP_Order();
+	I_PP_OrderInput PP_Order();
 }

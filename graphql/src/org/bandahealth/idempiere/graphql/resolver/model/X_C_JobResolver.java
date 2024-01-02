@@ -33,4 +33,8 @@ public class X_C_JobResolver extends POResolver<X_C_Job> implements GraphQLResol
 		return dataLoader.load(entity.getC_JobCategory_ID());
 	}
 
+	public Boolean IsEmployee(X_C_Job entity, DataFetchingEnvironment environment) {
+		return entity.isEmployee();
+	}
+
 }

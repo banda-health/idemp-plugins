@@ -15,98 +15,98 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set CalculationType_RL.
+	 * Set CalculationType.
 	 *
-	 * @param CalculationType_RL CalculationType_RL
+	 * @param CalculationType CalculationType
 	 */
-	void setCalculationType_RL(I_AD_Ref_ListInput CalculationType_RL);
+	void setCalculationTypeInput(I_AD_Ref_ListInput CalculationType);
 
 	/**
-	 * Get CalculationType_RL.
+	 * Get CalculationType.
 	 *
-	 * @return CalculationType_RL
+	 * @return CalculationType
 	 */
-	I_AD_Ref_ListInput getCalculationType_RL();
+	I_AD_Ref_ListInput CalculationType();
 
 	/**
 	 * Set GL_Budget.
 	 *
 	 * @param GL_Budget General Ledger Budget
 	 */
-	void setGL_Budget(I_GL_BudgetInput GL_Budget);
+	void setGL_BudgetInput(I_GL_BudgetInput GL_Budget);
 
 	/**
 	 * Get GL_Budget.
 	 *
 	 * @return General Ledger Budget
 	 */
-	I_GL_BudgetInput getGL_Budget();
+	I_GL_BudgetInput GL_Budget();
 
 	/**
-	 * Set LineType_RL.
+	 * Set LineType.
 	 *
-	 * @param LineType_RL LineType_RL
+	 * @param LineType LineType
 	 */
-	void setLineType_RL(I_AD_Ref_ListInput LineType_RL);
+	void setLineTypeInput(I_AD_Ref_ListInput LineType);
 
 	/**
-	 * Get LineType_RL.
+	 * Get LineType.
 	 *
-	 * @return LineType_RL
+	 * @return LineType
 	 */
-	I_AD_Ref_ListInput getLineType_RL();
+	I_AD_Ref_ListInput LineType();
 
 	/**
 	 * Set Oper_1.
 	 *
 	 * @param Oper_1 First operand for calculation
 	 */
-	void setOper_1(I_PA_ReportLineInput Oper_1);
+	void setOper_1Input(I_PA_ReportLineInput Oper_1);
 
 	/**
 	 * Get Oper_1.
 	 *
 	 * @return First operand for calculation
 	 */
-	I_PA_ReportLineInput getOper_1();
+	I_PA_ReportLineInput Oper_1();
 
 	/**
 	 * Set Oper_2.
 	 *
 	 * @param Oper_2 Second operand for calculation
 	 */
-	void setOper_2(I_PA_ReportLineInput Oper_2);
+	void setOper_2Input(I_PA_ReportLineInput Oper_2);
 
 	/**
 	 * Get Oper_2.
 	 *
 	 * @return Second operand for calculation
 	 */
-	I_PA_ReportLineInput getOper_2();
+	I_PA_ReportLineInput Oper_2();
 
 	/**
-	 * Set OverlineStrokeType_RL.
+	 * Set OverlineStrokeType.
 	 *
-	 * @param OverlineStrokeType_RL OverlineStrokeType_RL
+	 * @param OverlineStrokeType OverlineStrokeType
 	 */
-	void setOverlineStrokeType_RL(I_AD_Ref_ListInput OverlineStrokeType_RL);
+	void setOverlineStrokeTypeInput(I_AD_Ref_ListInput OverlineStrokeType);
 
 	/**
-	 * Get OverlineStrokeType_RL.
+	 * Get OverlineStrokeType.
 	 *
-	 * @return OverlineStrokeType_RL
+	 * @return OverlineStrokeType
 	 */
-	I_AD_Ref_ListInput getOverlineStrokeType_RL();
+	I_AD_Ref_ListInput OverlineStrokeType();
 
 	/**
 	 * Set ID.
@@ -127,68 +127,68 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	 *
 	 * @param PA_ReportLineSet PA_ReportLineSet
 	 */
-	void setPA_ReportLineSet(I_PA_ReportLineSetInput PA_ReportLineSet);
+	void setPA_ReportLineSetInput(I_PA_ReportLineSetInput PA_ReportLineSet);
 
 	/**
 	 * Get PA_ReportLineSet.
 	 *
 	 * @return PA_ReportLineSet
 	 */
-	I_PA_ReportLineSetInput getPA_ReportLineSet();
+	I_PA_ReportLineSetInput PA_ReportLineSet();
 
 	/**
-	 * Set PAAmountType_RL.
+	 * Set PAAmountType.
 	 *
-	 * @param PAAmountType_RL PA Amount Type for reporting
+	 * @param PAAmountType PA Amount Type for reporting
 	 */
-	void setPAAmountType_RL(I_AD_Ref_ListInput PAAmountType_RL);
+	void setPAAmountTypeInput(I_AD_Ref_ListInput PAAmountType);
 
 	/**
-	 * Get PAAmountType_RL.
+	 * Get PAAmountType.
 	 *
 	 * @return PA Amount Type for reporting
 	 */
-	I_AD_Ref_ListInput getPAAmountType_RL();
+	I_AD_Ref_ListInput PAAmountType();
 
 	/**
-	 * Set PAPeriodType_RL.
+	 * Set PAPeriodType.
 	 *
-	 * @param PAPeriodType_RL PA Period Type
+	 * @param PAPeriodType PA Period Type
 	 */
-	void setPAPeriodType_RL(I_AD_Ref_ListInput PAPeriodType_RL);
+	void setPAPeriodTypeInput(I_AD_Ref_ListInput PAPeriodType);
 
 	/**
-	 * Get PAPeriodType_RL.
+	 * Get PAPeriodType.
 	 *
 	 * @return PA Period Type
 	 */
-	I_AD_Ref_ListInput getPAPeriodType_RL();
+	I_AD_Ref_ListInput PAPeriodType();
 
 	/**
-	 * Set PostingType_RL.
+	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL);
+	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
 
 	/**
-	 * Get PostingType_RL.
+	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput getPostingType_RL();
+	I_AD_Ref_ListInput PostingType();
 
 	/**
-	 * Set UnderlineStrokeType_RL.
+	 * Set UnderlineStrokeType.
 	 *
-	 * @param UnderlineStrokeType_RL UnderlineStrokeType_RL
+	 * @param UnderlineStrokeType UnderlineStrokeType
 	 */
-	void setUnderlineStrokeType_RL(I_AD_Ref_ListInput UnderlineStrokeType_RL);
+	void setUnderlineStrokeTypeInput(I_AD_Ref_ListInput UnderlineStrokeType);
 
 	/**
-	 * Get UnderlineStrokeType_RL.
+	 * Get UnderlineStrokeType.
 	 *
-	 * @return UnderlineStrokeType_RL
+	 * @return UnderlineStrokeType
 	 */
-	I_AD_Ref_ListInput getUnderlineStrokeType_RL();
+	I_AD_Ref_ListInput UnderlineStrokeType();
 }

@@ -35,6 +35,10 @@ public class X_AD_WorkflowProcessorResolver extends POResolver<X_AD_WorkflowProc
 		return dataLoader.load(entity.getAD_Schedule_ID());
 	}
 
+	public Boolean Processing(X_AD_WorkflowProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 
 	/**
 	 * Get Supervisor.

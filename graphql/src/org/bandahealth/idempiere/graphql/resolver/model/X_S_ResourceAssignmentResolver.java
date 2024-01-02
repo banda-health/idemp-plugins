@@ -18,6 +18,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_S_ResourceAssignmentResolver extends POResolver<MResourceAssignment> implements GraphQLResolver<MResourceAssignment> {
 
 
+	public Boolean IsConfirmed(MResourceAssignment entity, DataFetchingEnvironment environment) {
+		return entity.isConfirmed();
+	}
+
 
 	/**
 	 * Get Resource.

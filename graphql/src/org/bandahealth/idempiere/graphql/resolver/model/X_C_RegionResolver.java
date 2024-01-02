@@ -33,4 +33,8 @@ public class X_C_RegionResolver extends POResolver<MRegion> implements GraphQLRe
 		return dataLoader.load(entity.getC_Country_ID());
 	}
 
+	public Boolean IsDefault(MRegion entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
 }

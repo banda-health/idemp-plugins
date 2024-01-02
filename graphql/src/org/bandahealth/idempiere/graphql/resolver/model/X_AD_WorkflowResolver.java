@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_CtxHelpDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -13,7 +14,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ResourceDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MCtxHelp;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MRefList;
 import org.compiere.model.MResource;
 import org.compiere.model.MTable;
 import org.compiere.model.X_AD_WF_Node;
@@ -45,11 +45,11 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			put("2", "391e2c9a-b8e5-43b0-895b-eea914023e59");
 		}
 	};
-	public CompletableFuture<MRefList> AccessLevel_RL(X_AD_Workflow entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> AccessLevel(X_AD_Workflow entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAccessLevel())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ACCESSLEVEL_UUIDS_BY_VALUE.get(entity.getAccessLevel()));
 	}
@@ -139,11 +139,11 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			put("s", "5c2461a7-e999-4ca3-8edd-1704891e55a7");
 		}
 	};
-	public CompletableFuture<MRefList> DurationUnit_RL(X_AD_Workflow entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DurationUnit(X_AD_Workflow entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDurationUnit())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DURATIONUNIT_UUIDS_BY_VALUE.get(entity.getDurationUnit()));
 	}
@@ -179,6 +179,18 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
+	public Boolean IsBetaFunctionality(X_AD_Workflow entity, DataFetchingEnvironment environment) {
+		return entity.isBetaFunctionality();
+	}
+
+	public Boolean IsDefault(X_AD_Workflow entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsValid(X_AD_Workflow entity, DataFetchingEnvironment environment) {
+		return entity.isValid();
+	}
+
 	static Map<String, String> PROCESSTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("BF", "f06d6e78-1856-441a-be92-94792d2fb9ee");
@@ -189,11 +201,11 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			put("PL", "fc20d258-d35e-4197-b080-12fa85285498");
 		}
 	};
-	public CompletableFuture<MRefList> ProcessType_RL(X_AD_Workflow entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ProcessType(X_AD_Workflow entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getProcessType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PROCESSTYPE_UUIDS_BY_VALUE.get(entity.getProcessType()));
 	}
@@ -206,11 +218,11 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			put("V", "21402b39-fb9e-47a8-8aff-5c18820165ef");
 		}
 	};
-	public CompletableFuture<MRefList> PublishStatus_RL(X_AD_Workflow entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PublishStatus(X_AD_Workflow entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPublishStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PUBLISHSTATUS_UUIDS_BY_VALUE.get(entity.getPublishStatus()));
 	}
@@ -240,11 +252,11 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			put("W", "f1ffc07b-f822-4659-bdd7-e8dde31acac5");
 		}
 	};
-	public CompletableFuture<MRefList> WorkflowType_RL(X_AD_Workflow entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> WorkflowType(X_AD_Workflow entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getWorkflowType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(WORKFLOWTYPE_UUIDS_BY_VALUE.get(entity.getWorkflowType()));
 	}

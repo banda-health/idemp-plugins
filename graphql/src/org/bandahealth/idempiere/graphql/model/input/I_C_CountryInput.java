@@ -11,32 +11,32 @@ import org.compiere.model.I_C_Country;
 public interface I_C_CountryInput extends I_C_Country {
 
 	/**
-	 * Set AD_Language_L.
+	 * Set AD_Language.
 	 *
-	 * @param AD_Language_L Language for this entity
+	 * @param AD_Language Language for this entity
 	 */
-	void setAD_Language_L(I_AD_LanguageInput AD_Language_L);
+	void setAD_LanguageInput(I_AD_LanguageInput AD_Language);
 
 	/**
-	 * Get AD_Language_L.
+	 * Get AD_Language.
 	 *
 	 * @return Language for this entity
 	 */
-	I_AD_LanguageInput getAD_Language_L();
+	I_AD_LanguageInput AD_Language();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -57,12 +57,12 @@ public interface I_C_CountryInput extends I_C_Country {
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_Currency(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput getC_Currency();
+	I_C_CurrencyInput C_Currency();
 }

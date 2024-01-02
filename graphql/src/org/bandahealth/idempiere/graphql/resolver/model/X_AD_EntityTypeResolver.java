@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_AD_EntityTypeResolver extends POResolver<MEntityType> implements GraphQLResolver<MEntityType> {
 
 
+	public Boolean Processing(MEntityType entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 }

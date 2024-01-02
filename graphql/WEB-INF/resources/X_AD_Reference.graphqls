@@ -26,11 +26,11 @@ type AD_Reference {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityType!
+	AD_EntityType: AD_EntityType!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -42,9 +42,9 @@ type AD_Reference {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Different method of validating data
-	ValidationType_RL: AD_Ref_List!
+	ValidationType: AD_Ref_List!
 	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
 	VFormat: String
 }
@@ -58,7 +58,7 @@ input AD_ReferenceInput {
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityTypeInput
+	AD_EntityType: AD_EntityTypeInput
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -68,7 +68,7 @@ input AD_ReferenceInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Different method of validating data
-	ValidationType_RL: AD_Ref_ListInput
+	ValidationType: AD_Ref_ListInput
 	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
 	VFormat: String
 }

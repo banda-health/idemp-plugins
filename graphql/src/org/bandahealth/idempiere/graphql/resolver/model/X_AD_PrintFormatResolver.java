@@ -137,6 +137,26 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
+	public Boolean IsBreakPagePerRecord(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
+		return entity.isBreakPagePerRecord();
+	}
+
+	public Boolean IsDefault(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsForm(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
+		return entity.isForm();
+	}
+
+	public Boolean IsStandardHeaderFooter(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
+		return entity.isStandardHeaderFooter();
+	}
+
+	public Boolean IsTableBased(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
+		return entity.isTableBased();
+	}
+
 
 	/**
 	 * Get Jasper Process.

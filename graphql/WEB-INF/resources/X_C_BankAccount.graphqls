@@ -23,7 +23,7 @@ type C_BankAccount {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Bank Account Type
-	BankAccountType_RL: AD_Ref_List!
+	BankAccountType: AD_Ref_List!
 	# Basic Bank Account Number
 	BBAN: String
 	# Bank
@@ -34,7 +34,7 @@ type C_BankAccount {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Amount of Credit allowed
 	CreditLimit: Int!
 	# Current Balance
@@ -53,7 +53,7 @@ type C_BankAccount {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 }
@@ -64,7 +64,7 @@ input C_BankAccountInput {
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	# Bank Account Type
-	BankAccountType_RL: AD_Ref_ListInput
+	BankAccountType: AD_Ref_ListInput
 	# Basic Bank Account Number
 	BBAN: String
 	# Bank

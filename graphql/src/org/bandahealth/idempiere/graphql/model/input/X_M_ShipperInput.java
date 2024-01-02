@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
+import org.compiere.model.MShipper;
 import org.compiere.model.MShippingProcessor;
 import org.compiere.model.Query;
-import org.compiere.model.X_M_Shipper;
 import org.compiere.model.X_M_ShipperCfg;
 import org.compiere.util.Env;
 
@@ -15,17 +17,18 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_ShipperInput extends X_M_Shipper implements I_M_ShipperInput {
+public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_BPartnerInput C_BPartner;
-	 private I_M_ShipperCfgInput M_ShipperCfg;
-	 private I_M_ShippingProcessorInput M_ShippingProcessor;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_BPartnerInput mC_BPartner;
+	 private I_M_ShipperCfgInput mM_ShipperCfg;
+	 private I_M_ShippingProcessorInput mM_ShippingProcessor;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_M_ShipperInput(String ID) {
+	@JsonCreator
+	public X_M_ShipperInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -35,14 +38,15 @@ public class X_M_ShipperInput extends X_M_Shipper implements I_M_ShipperInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -51,8 +55,9 @@ public class X_M_ShipperInput extends X_M_Shipper implements I_M_ShipperInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -60,16 +65,17 @@ public class X_M_ShipperInput extends X_M_Shipper implements I_M_ShipperInput {
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	public void setC_BPartner(I_C_BPartnerInput C_BPartner) {
-		this.C_BPartner = C_BPartner;
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
 				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_ID(foreignEntity.get_ID());
+			super.setC_BPartner_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BPartner_ID(0);
+			super.setC_BPartner_ID(0);
 		}
 	}
 
@@ -78,19 +84,9 @@ public class X_M_ShipperInput extends X_M_Shipper implements I_M_ShipperInput {
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public I_C_BPartnerInput getC_BPartner() {
-		return C_BPartner;
-	}
-	/**
-	 * Set Shipper.
-	 *
-	 * @param M_Shipper_ID Method or manner of product delivery
-	 */
-
-	public void setM_Shipper_ID(int M_Shipper_ID) {
-		if (get_ID() == 0) {
-			super.setM_Shipper_ID(M_Shipper_ID);
-		}
+	@JsonProperty("C_BPartner")
+	public I_C_BPartnerInput C_BPartner() {
+		return mC_BPartner;
 	}
 
 	/**
@@ -116,16 +112,17 @@ public class X_M_ShipperInput extends X_M_Shipper implements I_M_ShipperInput {
 	 *
 	 * @param M_ShipperCfg Shipper Configuration
 	 */
-	public void setM_ShipperCfg(I_M_ShipperCfgInput M_ShipperCfg) {
-		this.M_ShipperCfg = M_ShipperCfg;
+	@JsonProperty("M_ShipperCfg")
+	public void setM_ShipperCfgInput(I_M_ShipperCfgInput M_ShipperCfg) {
+		this.mM_ShipperCfg = M_ShipperCfg;
 		X_M_ShipperCfg foreignEntity;
 		if (M_ShipperCfg != null &&
 				(foreignEntity = new Query(getCtx(), X_M_ShipperCfg.Table_Name, X_M_ShipperCfg.COLUMNNAME_M_ShipperCfg_UU + "=?", get_TrxName())
 						.setParameters(M_ShipperCfg.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_ShipperCfg_ID(foreignEntity.get_ID());
+			super.setM_ShipperCfg_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_ShipperCfg_ID(0);
+			super.setM_ShipperCfg_ID(0);
 		}
 	}
 
@@ -134,8 +131,9 @@ public class X_M_ShipperInput extends X_M_Shipper implements I_M_ShipperInput {
 	 *
 	 * @return Shipper Configuration
 	 */
-	public I_M_ShipperCfgInput getM_ShipperCfg() {
-		return M_ShipperCfg;
+	@JsonProperty("M_ShipperCfg")
+	public I_M_ShipperCfgInput M_ShipperCfg() {
+		return mM_ShipperCfg;
 	}
 
 	/**
@@ -143,16 +141,17 @@ public class X_M_ShipperInput extends X_M_Shipper implements I_M_ShipperInput {
 	 *
 	 * @param M_ShippingProcessor Shipping Processor
 	 */
-	public void setM_ShippingProcessor(I_M_ShippingProcessorInput M_ShippingProcessor) {
-		this.M_ShippingProcessor = M_ShippingProcessor;
+	@JsonProperty("M_ShippingProcessor")
+	public void setM_ShippingProcessorInput(I_M_ShippingProcessorInput M_ShippingProcessor) {
+		this.mM_ShippingProcessor = M_ShippingProcessor;
 		MShippingProcessor foreignEntity;
 		if (M_ShippingProcessor != null &&
 				(foreignEntity = new Query(getCtx(), MShippingProcessor.Table_Name, MShippingProcessor.COLUMNNAME_M_ShippingProcessor_UU + "=?", get_TrxName())
 						.setParameters(M_ShippingProcessor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_ShippingProcessor_ID(foreignEntity.get_ID());
+			super.setM_ShippingProcessor_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_ShippingProcessor_ID(0);
+			super.setM_ShippingProcessor_ID(0);
 		}
 	}
 
@@ -161,18 +160,8 @@ public class X_M_ShipperInput extends X_M_Shipper implements I_M_ShipperInput {
 	 *
 	 * @return Shipping Processor
 	 */
-	public I_M_ShippingProcessorInput getM_ShippingProcessor() {
-		return M_ShippingProcessor;
-	}
-	/**
-	 * Set Shipping Processor.
-	 *
-	 * @param M_ShippingProcessor_ID Shipping Processor
-	 */
-
-	public void setM_ShippingProcessor_ID(int M_ShippingProcessor_ID) {
-		if (get_ID() == 0) {
-			super.setM_ShippingProcessor_ID(M_ShippingProcessor_ID);
-		}
+	@JsonProperty("M_ShippingProcessor")
+	public I_M_ShippingProcessorInput M_ShippingProcessor() {
+		return mM_ShippingProcessor;
 	}
 }

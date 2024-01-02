@@ -2,8 +2,8 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.graphql.model.Connection;
-import org.compiere.model.MCurrency;
 
 /**
  * Generated Query Resolver for C_Currency - DO NOT CHANGE
@@ -11,13 +11,13 @@ import org.compiere.model.MCurrency;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CurrencyQuery extends POQuery<MCurrency> implements GraphQLQueryResolver {
+public class X_C_CurrencyQuery extends POQuery<MCurrency_BH> implements GraphQLQueryResolver {
 	@Override
 	protected String getTableName() {
-		return MCurrency.Table_Name;
+		return MCurrency_BH.Table_Name;
 	}
 
-	public Connection<MCurrency> C_CurrencyGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCurrency_BH> C_CurrencyGet(int page, int pageSize, String sort, String filter,
 			DataFetchingEnvironment environment) {
 		return super.get(page, pageSize, sort, filter, environment);
 	}

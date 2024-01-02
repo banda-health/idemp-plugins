@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MGLCategory;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -29,13 +29,17 @@ public class X_GL_CategoryResolver extends POResolver<MGLCategory> implements Gr
 			put("S", "5714a6aa-33e6-4280-9145-752da180d821");
 		}
 	};
-	public CompletableFuture<MRefList> CategoryType_RL(MGLCategory entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CategoryType(MGLCategory entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCategoryType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CATEGORYTYPE_UUIDS_BY_VALUE.get(entity.getCategoryType()));
+	}
+
+	public Boolean IsDefault(MGLCategory entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
 	}
 
 }

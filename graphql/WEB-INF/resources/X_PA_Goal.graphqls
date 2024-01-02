@@ -25,11 +25,11 @@ type PA_Goal {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	# Type of chart to render
-	ChartType_RL: AD_Ref_List!
+	ChartType: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Starting date for a range
 	DateFrom: Date
 	# Date the process was last run.
@@ -47,9 +47,9 @@ type PA_Goal {
 	# Actual value that has been measured.
 	MeasureActual: Int!
 	# Measure Scope initially displayed
-	MeasureDisplay_RL: AD_Ref_List
+	MeasureDisplay: AD_Ref_List
 	# Performance Measure Scope
-	MeasureScope_RL: AD_Ref_List!
+	MeasureScope: AD_Ref_List!
 	# Target value for measure
 	MeasureTarget: Int!
 	# Alphanumeric identifier of the entity
@@ -70,7 +70,7 @@ type PA_Goal {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 }
 
 input PA_GoalInput {
@@ -81,7 +81,7 @@ input PA_GoalInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_UserInput
 	# Type of chart to render
-	ChartType_RL: AD_Ref_ListInput
+	ChartType: AD_Ref_ListInput
 	# Starting date for a range
 	DateFrom: Date
 	# Date the process was last run.
@@ -99,9 +99,9 @@ input PA_GoalInput {
 	# Actual value that has been measured.
 	MeasureActual: Int
 	# Measure Scope initially displayed
-	MeasureDisplay_RL: AD_Ref_ListInput
+	MeasureDisplay: AD_Ref_ListInput
 	# Performance Measure Scope
-	MeasureScope_RL: AD_Ref_ListInput
+	MeasureScope: AD_Ref_ListInput
 	# Target value for measure
 	MeasureTarget: Int
 	# Alphanumeric identifier of the entity

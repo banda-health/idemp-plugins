@@ -33,4 +33,8 @@ public class X_AD_OrgResolver extends POResolver<MOrg> implements GraphQLResolve
 		return dataLoader.load(entity.getAD_ReplicationStrategy_ID());
 	}
 
+	public Boolean IsSummary(MOrg entity, DataFetchingEnvironment environment) {
+		return entity.isSummary();
+	}
+
 }

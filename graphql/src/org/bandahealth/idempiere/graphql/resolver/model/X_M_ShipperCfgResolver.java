@@ -18,6 +18,22 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_ShipperCfgResolver extends POResolver<X_M_ShipperCfg> implements GraphQLResolver<X_M_ShipperCfg> {
 
 
+	public Boolean IsInternational(X_M_ShipperCfg entity, DataFetchingEnvironment environment) {
+		return entity.isInternational();
+	}
+
+	public Boolean IsOnline(X_M_ShipperCfg entity, DataFetchingEnvironment environment) {
+		return entity.isOnline();
+	}
+
+	public Boolean IsResidential(X_M_ShipperCfg entity, DataFetchingEnvironment environment) {
+		return entity.isResidential();
+	}
+
+	public Boolean IsSaturdayDelivery(X_M_ShipperCfg entity, DataFetchingEnvironment environment) {
+		return entity.isSaturdayDelivery();
+	}
+
 
 	/**
 	 * Get Shipping Processor Configuration.

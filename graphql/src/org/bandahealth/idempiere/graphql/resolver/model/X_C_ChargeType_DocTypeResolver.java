@@ -50,4 +50,12 @@ public class X_C_ChargeType_DocTypeResolver extends POResolver<X_C_ChargeType_Do
 		return dataLoader.load(entity.getC_DocType_ID());
 	}
 
+	public Boolean IsAllowNegative(X_C_ChargeType_DocType entity, DataFetchingEnvironment environment) {
+		return entity.isAllowNegative();
+	}
+
+	public Boolean IsAllowPositive(X_C_ChargeType_DocType entity, DataFetchingEnvironment environment) {
+		return entity.isAllowPositive();
+	}
+
 }

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -9,7 +10,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_WarehouseDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ResourceTypeDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.MResource;
 import org.compiere.model.MResourceType;
 import org.dataloader.DataLoader;
@@ -42,6 +42,14 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
+	public Boolean IsAvailable(MResource entity, DataFetchingEnvironment environment) {
+		return entity.isAvailable();
+	}
+
+	public Boolean IsManufacturingResource(MResource entity, DataFetchingEnvironment environment) {
+		return entity.isManufacturingResource();
+	}
+
 
 	/**
 	 * Get Warehouse.
@@ -65,11 +73,11 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 			put("WS", "662bdb0e-3f0f-4dcf-8869-0880f7ced397");
 		}
 	};
-	public CompletableFuture<MRefList> ManufacturingResourceType_RL(MResource entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ManufacturingResourceType(MResource entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getManufacturingResourceType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(MANUFACTURINGRESOURCETYPE_UUIDS_BY_VALUE.get(entity.getManufacturingResourceType()));
 	}

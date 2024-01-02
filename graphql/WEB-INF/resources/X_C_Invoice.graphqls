@@ -64,7 +64,7 @@ type C_Invoice {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Currency Conversion Rate
@@ -80,9 +80,9 @@ type C_Invoice {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction_RL: AD_Ref_List!
+	DocAction: AD_Ref_List!
 	# The current status of the document
-	DocStatus_RL: AD_Ref_List!
+	DocStatus: AD_Ref_List!
 	# Document sequence number of the document
 	DocumentNo: String!
 	DunningGrace: Date
@@ -91,7 +91,7 @@ type C_Invoice {
 	# Total amount of document
 	GrandTotal: Int!
 	# Invoice Collection Status
-	InvoiceCollectionType_RL: AD_Ref_List
+	InvoiceCollectionType: AD_Ref_List
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this document requires approval
@@ -144,7 +144,7 @@ type C_Invoice {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# User defined list element #1
 	User1: C_ElementValue
 	# User defined list element #2
@@ -210,9 +210,9 @@ input C_InvoiceInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction_RL: AD_Ref_ListInput
+	DocAction: AD_Ref_ListInput
 	# The current status of the document
-	DocStatus_RL: AD_Ref_ListInput
+	DocStatus: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
 	DunningGrace: Date
@@ -221,7 +221,7 @@ input C_InvoiceInput {
 	# Total amount of document
 	GrandTotal: Int
 	# Invoice Collection Status
-	InvoiceCollectionType_RL: AD_Ref_ListInput
+	InvoiceCollectionType: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document requires approval

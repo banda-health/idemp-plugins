@@ -21,6 +21,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_WarehouseResolver extends POResolver<MWarehouse_BH> implements GraphQLResolver<MWarehouse_BH> {
 
 
+	public Boolean BH_DefaultWarehouse(MWarehouse_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBH_DefaultWarehouse();
+	}
+
 
 	/**
 	 * Get Address.
@@ -34,6 +38,14 @@ public class X_M_WarehouseResolver extends POResolver<MWarehouse_BH> implements 
 		DataLoader<Integer, MLocation> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Location_ID());
+	}
+
+	public Boolean IsDisallowNegativeInv(MWarehouse_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDisallowNegativeInv();
+	}
+
+	public Boolean IsInTransit(MWarehouse_BH entity, DataFetchingEnvironment environment) {
+		return entity.isInTransit();
 	}
 
 

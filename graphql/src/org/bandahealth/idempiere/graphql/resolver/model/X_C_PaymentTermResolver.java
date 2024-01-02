@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MPaymentTerm;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -21,6 +21,26 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements GraphQLResolver<MPaymentTerm> {
 
 
+	public Boolean AfterDelivery(MPaymentTerm entity, DataFetchingEnvironment environment) {
+		return entity.isAfterDelivery();
+	}
+
+	public Boolean IsDefault(MPaymentTerm entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsDueFixed(MPaymentTerm entity, DataFetchingEnvironment environment) {
+		return entity.isDueFixed();
+	}
+
+	public Boolean IsNextBusinessDay(MPaymentTerm entity, DataFetchingEnvironment environment) {
+		return entity.isNextBusinessDay();
+	}
+
+	public Boolean IsValid(MPaymentTerm entity, DataFetchingEnvironment environment) {
+		return entity.isValid();
+	}
+
 	static Map<String, String> NETDAY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("7", "ad54c61a-75e4-4257-9c70-4e6b1b772686");
@@ -32,11 +52,11 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 			put("6", "13efb0f3-7cc6-4339-85e5-bcaadf0ca31c");
 		}
 	};
-	public CompletableFuture<MRefList> NetDay_RL(MPaymentTerm entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> NetDay(MPaymentTerm entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getNetDay())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(NETDAY_UUIDS_BY_VALUE.get(entity.getNetDay()));
 	}
@@ -48,13 +68,17 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 			put("P", "9ac2a127-4566-42bc-8e58-3ec461b76822");
 		}
 	};
-	public CompletableFuture<MRefList> PaymentTermUsage_RL(MPaymentTerm entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PaymentTermUsage(MPaymentTerm entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPaymentTermUsage())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PAYMENTTERMUSAGE_UUIDS_BY_VALUE.get(entity.getPaymentTermUsage()));
+	}
+
+	public Boolean Processing(MPaymentTerm entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

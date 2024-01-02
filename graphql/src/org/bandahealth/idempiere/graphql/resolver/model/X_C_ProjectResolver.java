@@ -3,6 +3,8 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -20,12 +22,10 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCampaign;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MPriceListVersion;
 import org.compiere.model.MProject;
 import org.compiere.model.MProjectTypePhase;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -137,11 +137,11 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MProject entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MProject entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
@@ -176,6 +176,18 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 		return dataLoader.load(entity.getC_Phase_ID());
 	}
 
+	public Boolean IsCommitCeiling(MProject entity, DataFetchingEnvironment environment) {
+		return entity.isCommitCeiling();
+	}
+
+	public Boolean IsCommitment(MProject entity, DataFetchingEnvironment environment) {
+		return entity.isCommitment();
+	}
+
+	public Boolean IsSummary(MProject entity, DataFetchingEnvironment environment) {
+		return entity.isSummary();
+	}
+
 
 	/**
 	 * Get Price List Version.
@@ -206,6 +218,14 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
+	public Boolean Processed(MProject entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MProject entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 	static Map<String, String> PROJECTCATEGORY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("N", "0ee15c1f-fd85-4277-a4ba-5019cfefa415");
@@ -214,11 +234,11 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			put("S", "8a6796ad-4e16-412c-a34b-0e92bf6f5e00");
 		}
 	};
-	public CompletableFuture<MRefList> ProjectCategory_RL(MProject entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ProjectCategory(MProject entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getProjectCategory())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PROJECTCATEGORY_UUIDS_BY_VALUE.get(entity.getProjectCategory()));
 	}
@@ -230,11 +250,11 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			put("T", "5eab135d-e477-4fb0-8203-38a3c4b8f043");
 		}
 	};
-	public CompletableFuture<MRefList> ProjectLineLevel_RL(MProject entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ProjectLineLevel(MProject entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getProjectLineLevel())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PROJECTLINELEVEL_UUIDS_BY_VALUE.get(entity.getProjectLineLevel()));
 	}
@@ -248,11 +268,11 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			put("P", "c6d2fa2b-6f89-41b1-9e53-db77217d3ff1");
 		}
 	};
-	public CompletableFuture<MRefList> ProjInvoiceRule_RL(MProject entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ProjInvoiceRule(MProject entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getProjInvoiceRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PROJINVOICERULE_UUIDS_BY_VALUE.get(entity.getProjInvoiceRule()));
 	}

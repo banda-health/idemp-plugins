@@ -20,6 +20,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_LocatorResolver extends POResolver<MLocator> implements GraphQLResolver<MLocator> {
 
 
+	public Boolean IsDefault(MLocator entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
 
 	/**
 	 * Get Locator Type.

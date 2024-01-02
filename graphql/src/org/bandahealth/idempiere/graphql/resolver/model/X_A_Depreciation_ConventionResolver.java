@@ -14,4 +14,12 @@ import org.dataloader.DataLoader;
 public class X_A_Depreciation_ConventionResolver extends POResolver<MDepreciationConvention> implements GraphQLResolver<MDepreciationConvention> {
 
 
+	public Boolean Processed(MDepreciationConvention entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MDepreciationConvention entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 }

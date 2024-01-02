@@ -29,26 +29,26 @@ public interface I_AD_CtxHelpInput extends I_AD_CtxHelp {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set CtxType_RL.
+	 * Set CtxType.
 	 *
-	 * @param CtxType_RL Type of Context Help
+	 * @param CtxType Type of Context Help
 	 */
-	void setCtxType_RL(I_AD_Ref_ListInput CtxType_RL);
+	void setCtxTypeInput(I_AD_Ref_ListInput CtxType);
 
 	/**
-	 * Get CtxType_RL.
+	 * Get CtxType.
 	 *
 	 * @return Type of Context Help
 	 */
-	I_AD_Ref_ListInput getCtxType_RL();
+	I_AD_Ref_ListInput CtxType();
 }

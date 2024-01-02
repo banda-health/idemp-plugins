@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MLot;
 import org.compiere.model.MLotCtl;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_M_Lot;
 import org.compiere.util.Env;
 
 /**
@@ -14,16 +16,17 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_LotInput extends X_M_Lot implements I_M_LotInput {
+public class X_M_LotInput extends MLot implements I_M_LotInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_M_LotCtlInput M_LotCtl;
-	 private I_M_ProductInput M_Product;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_M_LotCtlInput mM_LotCtl;
+	 private I_M_ProductInput mM_Product;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_M_LotInput(String ID) {
+	@JsonCreator
+	public X_M_LotInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,14 +36,15 @@ public class X_M_LotInput extends X_M_Lot implements I_M_LotInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -49,19 +53,9 @@ public class X_M_LotInput extends X_M_Lot implements I_M_LotInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Lot.
-	 *
-	 * @param M_Lot_ID Product Lot Definition
-	 */
-
-	public void setM_Lot_ID(int M_Lot_ID) {
-		if (get_ID() == 0) {
-			super.setM_Lot_ID(M_Lot_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -87,14 +81,15 @@ public class X_M_LotInput extends X_M_Lot implements I_M_LotInput {
 	 *
 	 * @param M_LotCtl Product Lot Control
 	 */
-	public void setM_LotCtl(I_M_LotCtlInput M_LotCtl) {
-		this.M_LotCtl = M_LotCtl;
+	@JsonProperty("M_LotCtl")
+	public void setM_LotCtlInput(I_M_LotCtlInput M_LotCtl) {
+		this.mM_LotCtl = M_LotCtl;
 		MLotCtl foreignEntity;
 		if (get_ID() == 0 &&M_LotCtl != null &&
 				(foreignEntity = new Query(getCtx(), MLotCtl.Table_Name, MLotCtl.COLUMNNAME_M_LotCtl_UU + "=?", get_TrxName())
 						.setParameters(M_LotCtl.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_LotCtl_ID(foreignEntity.get_ID());
+			super.setM_LotCtl_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -103,19 +98,9 @@ public class X_M_LotInput extends X_M_Lot implements I_M_LotInput {
 	 *
 	 * @return Product Lot Control
 	 */
-	public I_M_LotCtlInput getM_LotCtl() {
-		return M_LotCtl;
-	}
-	/**
-	 * Set Lot Control.
-	 *
-	 * @param M_LotCtl_ID Product Lot Control
-	 */
-
-	public void setM_LotCtl_ID(int M_LotCtl_ID) {
-		if (get_ID() == 0) {
-			super.setM_LotCtl_ID(M_LotCtl_ID);
-		}
+	@JsonProperty("M_LotCtl")
+	public I_M_LotCtlInput M_LotCtl() {
+		return mM_LotCtl;
 	}
 
 	/**
@@ -123,14 +108,15 @@ public class X_M_LotInput extends X_M_Lot implements I_M_LotInput {
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	public void setM_Product(I_M_ProductInput M_Product) {
-		this.M_Product = M_Product;
+	@JsonProperty("M_Product")
+	public void setM_ProductInput(I_M_ProductInput M_Product) {
+		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (get_ID() == 0 &&M_Product != null &&
 				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Product_ID(foreignEntity.get_ID());
+			super.setM_Product_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -139,18 +125,8 @@ public class X_M_LotInput extends X_M_Lot implements I_M_LotInput {
 	 *
 	 * @return Product, Service, Item
 	 */
-	public I_M_ProductInput getM_Product() {
-		return M_Product;
-	}
-	/**
-	 * Set Product/Service.
-	 *
-	 * @param M_Product_ID Product, Service, Item
-	 */
-
-	public void setM_Product_ID(int M_Product_ID) {
-		if (get_ID() == 0) {
-			super.setM_Product_ID(M_Product_ID);
-		}
+	@JsonProperty("M_Product")
+	public I_M_ProductInput M_Product() {
+		return mM_Product;
 	}
 }

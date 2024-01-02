@@ -29,68 +29,68 @@ public interface I_AD_ChartInput extends I_AD_Chart {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set ChartOrientation_RL.
+	 * Set ChartOrientation.
 	 *
-	 * @param ChartOrientation_RL The orientation of the chart.
+	 * @param ChartOrientation The orientation of the chart.
 	 */
-	void setChartOrientation_RL(I_AD_Ref_ListInput ChartOrientation_RL);
+	void setChartOrientationInput(I_AD_Ref_ListInput ChartOrientation);
 
 	/**
-	 * Get ChartOrientation_RL.
+	 * Get ChartOrientation.
 	 *
 	 * @return The orientation of the chart.
 	 */
-	I_AD_Ref_ListInput getChartOrientation_RL();
+	I_AD_Ref_ListInput ChartOrientation();
 
 	/**
-	 * Set ChartType_RL.
+	 * Set ChartType.
 	 *
-	 * @param ChartType_RL Type of chart to render
+	 * @param ChartType Type of chart to render
 	 */
-	void setChartType_RL(I_AD_Ref_ListInput ChartType_RL);
+	void setChartTypeInput(I_AD_Ref_ListInput ChartType);
 
 	/**
-	 * Get ChartType_RL.
+	 * Get ChartType.
 	 *
 	 * @return Type of chart to render
 	 */
-	I_AD_Ref_ListInput getChartType_RL();
+	I_AD_Ref_ListInput ChartType();
 
 	/**
 	 * Set AD_EntityType.
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput getAD_EntityType();
+	I_AD_EntityTypeInput AD_EntityType();
 
 	/**
-	 * Set TimeUnit_RL.
+	 * Set TimeUnit.
 	 *
-	 * @param TimeUnit_RL The unit of time for grouping chart data.
+	 * @param TimeUnit The unit of time for grouping chart data.
 	 */
-	void setTimeUnit_RL(I_AD_Ref_ListInput TimeUnit_RL);
+	void setTimeUnitInput(I_AD_Ref_ListInput TimeUnit);
 
 	/**
-	 * Get TimeUnit_RL.
+	 * Get TimeUnit.
 	 *
 	 * @return The unit of time for grouping chart data.
 	 */
-	I_AD_Ref_ListInput getTimeUnit_RL();
+	I_AD_Ref_ListInput TimeUnit();
 }

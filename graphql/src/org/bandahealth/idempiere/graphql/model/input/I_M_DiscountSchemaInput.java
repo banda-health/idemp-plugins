@@ -15,42 +15,42 @@ public interface I_M_DiscountSchemaInput extends I_M_DiscountSchema {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set CumulativeLevel_RL.
+	 * Set CumulativeLevel.
 	 *
-	 * @param CumulativeLevel_RL Level for accumulative calculations
+	 * @param CumulativeLevel Level for accumulative calculations
 	 */
-	void setCumulativeLevel_RL(I_AD_Ref_ListInput CumulativeLevel_RL);
+	void setCumulativeLevelInput(I_AD_Ref_ListInput CumulativeLevel);
 
 	/**
-	 * Get CumulativeLevel_RL.
+	 * Get CumulativeLevel.
 	 *
 	 * @return Level for accumulative calculations
 	 */
-	I_AD_Ref_ListInput getCumulativeLevel_RL();
+	I_AD_Ref_ListInput CumulativeLevel();
 
 	/**
-	 * Set DiscountType_RL.
+	 * Set DiscountType.
 	 *
-	 * @param DiscountType_RL Type of trade discount calculation
+	 * @param DiscountType Type of trade discount calculation
 	 */
-	void setDiscountType_RL(I_AD_Ref_ListInput DiscountType_RL);
+	void setDiscountTypeInput(I_AD_Ref_ListInput DiscountType);
 
 	/**
-	 * Get DiscountType_RL.
+	 * Get DiscountType.
 	 *
 	 * @return Type of trade discount calculation
 	 */
-	I_AD_Ref_ListInput getDiscountType_RL();
+	I_AD_Ref_ListInput DiscountType();
 
 	/**
 	 * Set ID.

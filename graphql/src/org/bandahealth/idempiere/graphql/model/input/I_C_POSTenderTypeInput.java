@@ -15,14 +15,14 @@ public interface I_C_POSTenderTypeInput extends I_C_POSTenderType {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -39,16 +39,16 @@ public interface I_C_POSTenderTypeInput extends I_C_POSTenderType {
 	String getID();
 
 	/**
-	 * Set TenderType_RL.
+	 * Set TenderType.
 	 *
-	 * @param TenderType_RL Method of Payment
+	 * @param TenderType Method of Payment
 	 */
-	void setTenderType_RL(I_AD_Ref_ListInput TenderType_RL);
+	void setTenderTypeInput(I_AD_Ref_ListInput TenderType);
 
 	/**
-	 * Get TenderType_RL.
+	 * Get TenderType.
 	 *
 	 * @return Method of Payment
 	 */
-	I_AD_Ref_ListInput getTenderType_RL();
+	I_AD_Ref_ListInput TenderType();
 }

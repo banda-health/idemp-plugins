@@ -15,14 +15,14 @@ public interface I_C_AcctSchemaInput extends I_C_AcctSchema {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,110 +43,110 @@ public interface I_C_AcctSchemaInput extends I_C_AcctSchema {
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_Currency(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput getC_Currency();
+	I_C_CurrencyInput C_Currency();
 
 	/**
 	 * Set C_Period.
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	void setC_Period(I_C_PeriodInput C_Period);
+	void setC_PeriodInput(I_C_PeriodInput C_Period);
 
 	/**
 	 * Get C_Period.
 	 *
 	 * @return Period of the Calendar
 	 */
-	I_C_PeriodInput getC_Period();
+	I_C_PeriodInput C_Period();
 
 	/**
-	 * Set CommitmentType_RL.
+	 * Set CommitmentType.
 	 *
-	 * @param CommitmentType_RL Create Commitment and/or Reservations for Budget Control
+	 * @param CommitmentType Create Commitment and/or Reservations for Budget Control
 	 */
-	void setCommitmentType_RL(I_AD_Ref_ListInput CommitmentType_RL);
+	void setCommitmentTypeInput(I_AD_Ref_ListInput CommitmentType);
 
 	/**
-	 * Get CommitmentType_RL.
+	 * Get CommitmentType.
 	 *
 	 * @return Create Commitment and/or Reservations for Budget Control
 	 */
-	I_AD_Ref_ListInput getCommitmentType_RL();
+	I_AD_Ref_ListInput CommitmentType();
 
 	/**
-	 * Set CostingLevel_RL.
+	 * Set CostingLevel.
 	 *
-	 * @param CostingLevel_RL The lowest level to accumulate Costing Information
+	 * @param CostingLevel The lowest level to accumulate Costing Information
 	 */
-	void setCostingLevel_RL(I_AD_Ref_ListInput CostingLevel_RL);
+	void setCostingLevelInput(I_AD_Ref_ListInput CostingLevel);
 
 	/**
-	 * Get CostingLevel_RL.
+	 * Get CostingLevel.
 	 *
 	 * @return The lowest level to accumulate Costing Information
 	 */
-	I_AD_Ref_ListInput getCostingLevel_RL();
+	I_AD_Ref_ListInput CostingLevel();
 
 	/**
-	 * Set CostingMethod_RL.
+	 * Set CostingMethod.
 	 *
-	 * @param CostingMethod_RL Indicates how Costs will be calculated
+	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
-	void setCostingMethod_RL(I_AD_Ref_ListInput CostingMethod_RL);
+	void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod);
 
 	/**
-	 * Get CostingMethod_RL.
+	 * Get CostingMethod.
 	 *
 	 * @return Indicates how Costs will be calculated
 	 */
-	I_AD_Ref_ListInput getCostingMethod_RL();
+	I_AD_Ref_ListInput CostingMethod();
 
 	/**
-	 * Set GAAP_RL.
+	 * Set GAAP.
 	 *
-	 * @param GAAP_RL Generally Accepted Accounting Principles
+	 * @param GAAP Generally Accepted Accounting Principles
 	 */
-	void setGAAP_RL(I_AD_Ref_ListInput GAAP_RL);
+	void setGAAPInput(I_AD_Ref_ListInput GAAP);
 
 	/**
-	 * Get GAAP_RL.
+	 * Get GAAP.
 	 *
 	 * @return Generally Accepted Accounting Principles
 	 */
-	I_AD_Ref_ListInput getGAAP_RL();
+	I_AD_Ref_ListInput GAAP();
 
 	/**
 	 * Set M_CostType.
 	 *
 	 * @param M_CostType Type of Cost (e.g. Current, Plan, Future)
 	 */
-	void setM_CostType(I_M_CostTypeInput M_CostType);
+	void setM_CostTypeInput(I_M_CostTypeInput M_CostType);
 
 	/**
 	 * Get M_CostType.
 	 *
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
-	I_M_CostTypeInput getM_CostType();
+	I_M_CostTypeInput M_CostType();
 
 	/**
-	 * Set TaxCorrectionType_RL.
+	 * Set TaxCorrectionType.
 	 *
-	 * @param TaxCorrectionType_RL Type of Tax Correction
+	 * @param TaxCorrectionType Type of Tax Correction
 	 */
-	void setTaxCorrectionType_RL(I_AD_Ref_ListInput TaxCorrectionType_RL);
+	void setTaxCorrectionTypeInput(I_AD_Ref_ListInput TaxCorrectionType);
 
 	/**
-	 * Get TaxCorrectionType_RL.
+	 * Get TaxCorrectionType.
 	 *
 	 * @return Type of Tax Correction
 	 */
-	I_AD_Ref_ListInput getTaxCorrectionType_RL();
+	I_AD_Ref_ListInput TaxCorrectionType();
 }

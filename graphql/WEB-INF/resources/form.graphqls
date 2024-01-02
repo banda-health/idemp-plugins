@@ -1,3 +1,0 @@
-type Form {
-  id: ID!
-}

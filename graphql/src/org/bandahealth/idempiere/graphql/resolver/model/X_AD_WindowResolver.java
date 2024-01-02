@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImageDataLoader;
@@ -10,7 +11,6 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MColor;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MImage;
-import org.compiere.model.MRefList;
 import org.compiere.model.MWindow;
 import org.dataloader.DataLoader;
 
@@ -88,6 +88,22 @@ public class X_AD_WindowResolver extends POResolver<MWindow> implements GraphQLR
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
+	public Boolean IsBetaFunctionality(MWindow entity, DataFetchingEnvironment environment) {
+		return entity.isBetaFunctionality();
+	}
+
+	public Boolean IsDefault(MWindow entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsSOTrx(MWindow entity, DataFetchingEnvironment environment) {
+		return entity.isSOTrx();
+	}
+
+	public Boolean Processing(MWindow entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 	static Map<String, String> WINDOWTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("S", "240e7f4f-f266-419b-872f-2dd99a1efbc4");
@@ -96,11 +112,11 @@ public class X_AD_WindowResolver extends POResolver<MWindow> implements GraphQLR
 			put("Q", "3d0b1e25-fa17-4730-b347-3500ec2de112");
 		}
 	};
-	public CompletableFuture<MRefList> WindowType_RL(MWindow entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> WindowType(MWindow entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getWindowType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(WINDOWTYPE_UUIDS_BY_VALUE.get(entity.getWindowType()));
 	}

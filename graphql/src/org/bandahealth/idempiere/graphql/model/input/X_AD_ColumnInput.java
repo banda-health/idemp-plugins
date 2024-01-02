@@ -1,18 +1,20 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MChart;
+import org.compiere.model.MColumn;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.M_Element;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Column;
 import org.compiere.util.Env;
 
 /**
@@ -21,27 +23,28 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
+public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 
-	 private I_AD_ChartInput AD_Chart;
-	 private I_AD_ElementInput AD_Element;
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_ProcessInput AD_Process;
-	 private I_AD_Ref_ListInput FKConstraintType_RL;
-	 private I_AD_Ref_ListInput IsEncrypted_RL;
-	 private I_AD_Ref_ListInput IsToolbarButton_RL;
-	 private I_AD_ReferenceInput AD_Reference;
-	 private I_AD_ReferenceInput AD_Reference_Value;
-	 private I_AD_TableInput AD_Table;
-	 private I_AD_Val_RuleInput AD_Val_Rule;
-	 private I_AD_Val_RuleInput AD_Val_Rule_Lookup;
-	 private I_PA_DashboardContentInput PA_DashboardContent;
+	 private I_AD_ChartInput mAD_Chart;
+	 private I_AD_ElementInput mAD_Element;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_ProcessInput mAD_Process;
+	 private I_AD_Ref_ListInput mFKConstraintType;
+	 private I_AD_Ref_ListInput mIsEncrypted;
+	 private I_AD_Ref_ListInput mIsToolbarButton;
+	 private I_AD_ReferenceInput mAD_Reference;
+	 private I_AD_ReferenceInput mAD_Reference_Value;
+	 private I_AD_TableInput mAD_Table;
+	 private I_AD_Val_RuleInput mAD_Val_Rule;
+	 private I_AD_Val_RuleInput mAD_Val_Rule_Lookup;
+	 private I_PA_DashboardContentInput mPA_DashboardContent;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_ColumnInput(String ID) {
+	@JsonCreator
+	public X_AD_ColumnInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -51,16 +54,17 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @param AD_Chart Chart
 	 */
-	public void setAD_Chart(I_AD_ChartInput AD_Chart) {
-		this.AD_Chart = AD_Chart;
+	@JsonProperty("AD_Chart")
+	public void setAD_ChartInput(I_AD_ChartInput AD_Chart) {
+		this.mAD_Chart = AD_Chart;
 		MChart foreignEntity;
 		if (AD_Chart != null &&
 				(foreignEntity = new Query(getCtx(), MChart.Table_Name, MChart.COLUMNNAME_AD_Chart_UU + "=?", get_TrxName())
 						.setParameters(AD_Chart.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Chart_ID(foreignEntity.get_ID());
+			super.setAD_Chart_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Chart_ID(0);
+			super.setAD_Chart_ID(0);
 		}
 	}
 
@@ -69,19 +73,9 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Chart
 	 */
-	public I_AD_ChartInput getAD_Chart() {
-		return AD_Chart;
-	}
-	/**
-	 * Set Column.
-	 *
-	 * @param AD_Column_ID Column in the table
-	 */
-
-	public void setAD_Column_ID(int AD_Column_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Column_ID(AD_Column_ID);
-		}
+	@JsonProperty("AD_Chart")
+	public I_AD_ChartInput AD_Chart() {
+		return mAD_Chart;
 	}
 
 	/**
@@ -107,16 +101,17 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @param AD_Element System Element enables the central maintenance of column description and help.
 	 */
-	public void setAD_Element(I_AD_ElementInput AD_Element) {
-		this.AD_Element = AD_Element;
+	@JsonProperty("AD_Element")
+	public void setAD_ElementInput(I_AD_ElementInput AD_Element) {
+		this.mAD_Element = AD_Element;
 		M_Element foreignEntity;
 		if (AD_Element != null &&
 				(foreignEntity = new Query(getCtx(), M_Element.Table_Name, M_Element.COLUMNNAME_AD_Element_UU + "=?", get_TrxName())
 						.setParameters(AD_Element.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Element_ID(foreignEntity.get_ID());
+			super.setAD_Element_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Element_ID(0);
+			super.setAD_Element_ID(0);
 		}
 	}
 
@@ -125,8 +120,9 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return System Element enables the central maintenance of column description and help.
 	 */
-	public I_AD_ElementInput getAD_Element() {
-		return AD_Element;
+	@JsonProperty("AD_Element")
+	public I_AD_ElementInput AD_Element() {
+		return mAD_Element;
 	}
 
 	/**
@@ -134,14 +130,15 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -150,8 +147,9 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -159,16 +157,17 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @param AD_Process Process or Report
 	 */
-	public void setAD_Process(I_AD_ProcessInput AD_Process) {
-		this.AD_Process = AD_Process;
+	@JsonProperty("AD_Process")
+	public void setAD_ProcessInput(I_AD_ProcessInput AD_Process) {
+		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
 		if (AD_Process != null &&
 				(foreignEntity = new Query(getCtx(), MProcess_BH.Table_Name, MProcess_BH.COLUMNNAME_AD_Process_UU + "=?", get_TrxName())
 						.setParameters(AD_Process.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Process_ID(foreignEntity.get_ID());
+			super.setAD_Process_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Process_ID(0);
+			super.setAD_Process_ID(0);
 		}
 	}
 
@@ -177,8 +176,9 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Process or Report
 	 */
-	public I_AD_ProcessInput getAD_Process() {
-		return AD_Process;
+	@JsonProperty("AD_Process")
+	public I_AD_ProcessInput AD_Process() {
+		return mAD_Process;
 	}
 
 	/**
@@ -186,16 +186,17 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @param AD_Reference System Reference and Validation
 	 */
-	public void setAD_Reference(I_AD_ReferenceInput AD_Reference) {
-		this.AD_Reference = AD_Reference;
+	@JsonProperty("AD_Reference")
+	public void setAD_ReferenceInput(I_AD_ReferenceInput AD_Reference) {
+		this.mAD_Reference = AD_Reference;
 		MReference_BH foreignEntity;
 		if (AD_Reference != null &&
 				(foreignEntity = new Query(getCtx(), MReference_BH.Table_Name, MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", get_TrxName())
 						.setParameters(AD_Reference.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Reference_ID(foreignEntity.get_ID());
+			super.setAD_Reference_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Reference_ID(0);
+			super.setAD_Reference_ID(0);
 		}
 	}
 
@@ -204,19 +205,9 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return System Reference and Validation
 	 */
-	public I_AD_ReferenceInput getAD_Reference() {
-		return AD_Reference;
-	}
-	/**
-	 * Set Reference.
-	 *
-	 * @param AD_Reference_ID System Reference and Validation
-	 */
-
-	public void setAD_Reference_ID(int AD_Reference_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Reference_ID(AD_Reference_ID);
-		}
+	@JsonProperty("AD_Reference")
+	public I_AD_ReferenceInput AD_Reference() {
+		return mAD_Reference;
 	}
 
 	/**
@@ -224,16 +215,17 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @param AD_Reference_Value Required to specify, if data type is Table or List
 	 */
-	public void setAD_Reference_Value(I_AD_ReferenceInput AD_Reference_Value) {
-		this.AD_Reference_Value = AD_Reference_Value;
+	@JsonProperty("AD_Reference_Value")
+	public void setAD_Reference_ValueInput(I_AD_ReferenceInput AD_Reference_Value) {
+		this.mAD_Reference_Value = AD_Reference_Value;
 		MReference_BH foreignEntity;
 		if (AD_Reference_Value != null &&
 				(foreignEntity = new Query(getCtx(), MReference_BH.Table_Name, MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", get_TrxName())
 						.setParameters(AD_Reference_Value.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Reference_Value_ID(foreignEntity.get_ID());
+			super.setAD_Reference_Value_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Reference_Value_ID(0);
+			super.setAD_Reference_Value_ID(0);
 		}
 	}
 
@@ -242,19 +234,9 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Required to specify, if data type is Table or List
 	 */
-	public I_AD_ReferenceInput getAD_Reference_Value() {
-		return AD_Reference_Value;
-	}
-	/**
-	 * Set Reference Key.
-	 *
-	 * @param AD_Reference_Value_ID Required to specify, if data type is Table or List
-	 */
-
-	public void setAD_Reference_Value_ID(int AD_Reference_Value_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Reference_Value_ID(AD_Reference_Value_ID);
-		}
+	@JsonProperty("AD_Reference_Value")
+	public I_AD_ReferenceInput AD_Reference_Value() {
+		return mAD_Reference_Value;
 	}
 
 	/**
@@ -262,14 +244,15 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @param AD_Table Database Table information
 	 */
-	public void setAD_Table(I_AD_TableInput AD_Table) {
-		this.AD_Table = AD_Table;
+	@JsonProperty("AD_Table")
+	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (get_ID() == 0 &&AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), MTable.Table_Name, MTable.COLUMNNAME_AD_Table_UU + "=?", get_TrxName())
 						.setParameters(AD_Table.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Table_ID(foreignEntity.get_ID());
+			super.setAD_Table_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -278,19 +261,9 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Database Table information
 	 */
-	public I_AD_TableInput getAD_Table() {
-		return AD_Table;
-	}
-	/**
-	 * Set Table.
-	 *
-	 * @param AD_Table_ID Database Table information
-	 */
-
-	public void setAD_Table_ID(int AD_Table_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Table_ID(AD_Table_ID);
-		}
+	@JsonProperty("AD_Table")
+	public I_AD_TableInput AD_Table() {
+		return mAD_Table;
 	}
 
 	/**
@@ -298,16 +271,17 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @param AD_Val_Rule Dynamic Validation Rule
 	 */
-	public void setAD_Val_Rule(I_AD_Val_RuleInput AD_Val_Rule) {
-		this.AD_Val_Rule = AD_Val_Rule;
+	@JsonProperty("AD_Val_Rule")
+	public void setAD_Val_RuleInput(I_AD_Val_RuleInput AD_Val_Rule) {
+		this.mAD_Val_Rule = AD_Val_Rule;
 		MValRule foreignEntity;
 		if (AD_Val_Rule != null &&
 				(foreignEntity = new Query(getCtx(), MValRule.Table_Name, MValRule.COLUMNNAME_AD_Val_Rule_UU + "=?", get_TrxName())
 						.setParameters(AD_Val_Rule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Val_Rule_ID(foreignEntity.get_ID());
+			super.setAD_Val_Rule_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Val_Rule_ID(0);
+			super.setAD_Val_Rule_ID(0);
 		}
 	}
 
@@ -316,8 +290,9 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Dynamic Validation Rule
 	 */
-	public I_AD_Val_RuleInput getAD_Val_Rule() {
-		return AD_Val_Rule;
+	@JsonProperty("AD_Val_Rule")
+	public I_AD_Val_RuleInput AD_Val_Rule() {
+		return mAD_Val_Rule;
 	}
 
 	/**
@@ -325,16 +300,17 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @param AD_Val_Rule_Lookup Override Dynamic Validation Rule for Lookup Window
 	 */
-	public void setAD_Val_Rule_Lookup(I_AD_Val_RuleInput AD_Val_Rule_Lookup) {
-		this.AD_Val_Rule_Lookup = AD_Val_Rule_Lookup;
+	@JsonProperty("AD_Val_Rule_Lookup")
+	public void setAD_Val_Rule_LookupInput(I_AD_Val_RuleInput AD_Val_Rule_Lookup) {
+		this.mAD_Val_Rule_Lookup = AD_Val_Rule_Lookup;
 		MValRule foreignEntity;
 		if (AD_Val_Rule_Lookup != null &&
 				(foreignEntity = new Query(getCtx(), MValRule.Table_Name, MValRule.COLUMNNAME_AD_Val_Rule_UU + "=?", get_TrxName())
 						.setParameters(AD_Val_Rule_Lookup.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Val_Rule_Lookup_ID(foreignEntity.get_ID());
+			super.setAD_Val_Rule_Lookup_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Val_Rule_Lookup_ID(0);
+			super.setAD_Val_Rule_Lookup_ID(0);
 		}
 	}
 
@@ -343,19 +319,9 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Override Dynamic Validation Rule for Lookup Window
 	 */
-	public I_AD_Val_RuleInput getAD_Val_Rule_Lookup() {
-		return AD_Val_Rule_Lookup;
-	}
-	/**
-	 * Set Dynamic Validation (Lookup).
-	 *
-	 * @param AD_Val_Rule_Lookup_ID Override Dynamic Validation Rule for Lookup Window
-	 */
-
-	public void setAD_Val_Rule_Lookup_ID(int AD_Val_Rule_Lookup_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Val_Rule_Lookup_ID(AD_Val_Rule_Lookup_ID);
-		}
+	@JsonProperty("AD_Val_Rule_Lookup")
+	public I_AD_Val_RuleInput AD_Val_Rule_Lookup() {
+		return mAD_Val_Rule_Lookup;
 	}
 
 	/**
@@ -363,16 +329,17 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -381,32 +348,23 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 
 	/**
 	 * Set Constraint Type.
 	 *
-	 * @param FKConstraintType_RL Constraint Type
+	 * @param FKConstraintType Constraint Type
 	 */
-	public void setFKConstraintType_RL(I_AD_Ref_ListInput FKConstraintType_RL) {
-		this.FKConstraintType_RL = FKConstraintType_RL;
-		MRefList foreignEntity;
-		if (FKConstraintType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(FKConstraintType_RL.getID())
+	@JsonProperty("FKConstraintType")
+	public void setFKConstraintTypeInput(I_AD_Ref_ListInput FKConstraintType) {
+		this.mFKConstraintType = FKConstraintType;
+		MRefList_BH foreignEntity;
+		if (FKConstraintType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(FKConstraintType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setFKConstraintType(foreignEntity.getValue());
 		} else {
@@ -419,21 +377,23 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Constraint Type
 	 */
-	public I_AD_Ref_ListInput getFKConstraintType_RL() {
-		return FKConstraintType_RL;
+	@JsonProperty("FKConstraintType")
+	public I_AD_Ref_ListInput FKConstraintType() {
+		return mFKConstraintType;
 	}
 
 	/**
 	 * Set Encrypted.
 	 *
-	 * @param IsEncrypted_RL Display or Storage is encrypted
+	 * @param IsEncrypted Display or Storage is encrypted
 	 */
-	public void setIsEncrypted_RL(I_AD_Ref_ListInput IsEncrypted_RL) {
-		this.IsEncrypted_RL = IsEncrypted_RL;
-		MRefList foreignEntity;
-		if (IsEncrypted_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsEncrypted_RL.getID())
+	@JsonProperty("IsEncrypted")
+	public void setIsEncryptedInput(I_AD_Ref_ListInput IsEncrypted) {
+		this.mIsEncrypted = IsEncrypted;
+		MRefList_BH foreignEntity;
+		if (IsEncrypted != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(IsEncrypted.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setIsEncrypted(foreignEntity.getValue());
 		} else {
@@ -446,21 +406,23 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Display or Storage is encrypted
 	 */
-	public I_AD_Ref_ListInput getIsEncrypted_RL() {
-		return IsEncrypted_RL;
+	@JsonProperty("IsEncrypted")
+	public I_AD_Ref_ListInput IsEncrypted() {
+		return mIsEncrypted;
 	}
 
 	/**
 	 * Set Toolbar Button.
 	 *
-	 * @param IsToolbarButton_RL Show the button on the toolbar, the window, or both
+	 * @param IsToolbarButton Show the button on the toolbar, the window, or both
 	 */
-	public void setIsToolbarButton_RL(I_AD_Ref_ListInput IsToolbarButton_RL) {
-		this.IsToolbarButton_RL = IsToolbarButton_RL;
-		MRefList foreignEntity;
-		if (IsToolbarButton_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsToolbarButton_RL.getID())
+	@JsonProperty("IsToolbarButton")
+	public void setIsToolbarButtonInput(I_AD_Ref_ListInput IsToolbarButton) {
+		this.mIsToolbarButton = IsToolbarButton;
+		MRefList_BH foreignEntity;
+		if (IsToolbarButton != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(IsToolbarButton.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setIsToolbarButton(foreignEntity.getValue());
 		} else {
@@ -473,8 +435,9 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Show the button on the toolbar, the window, or both
 	 */
-	public I_AD_Ref_ListInput getIsToolbarButton_RL() {
-		return IsToolbarButton_RL;
+	@JsonProperty("IsToolbarButton")
+	public I_AD_Ref_ListInput IsToolbarButton() {
+		return mIsToolbarButton;
 	}
 
 	/**
@@ -482,16 +445,17 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @param PA_DashboardContent Dashboard Content
 	 */
-	public void setPA_DashboardContent(I_PA_DashboardContentInput PA_DashboardContent) {
-		this.PA_DashboardContent = PA_DashboardContent;
+	@JsonProperty("PA_DashboardContent")
+	public void setPA_DashboardContentInput(I_PA_DashboardContentInput PA_DashboardContent) {
+		this.mPA_DashboardContent = PA_DashboardContent;
 		MDashboardContent foreignEntity;
 		if (PA_DashboardContent != null &&
 				(foreignEntity = new Query(getCtx(), MDashboardContent.Table_Name, MDashboardContent.COLUMNNAME_PA_DashboardContent_UU + "=?", get_TrxName())
 						.setParameters(PA_DashboardContent.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_DashboardContent_ID(foreignEntity.get_ID());
+			super.setPA_DashboardContent_ID(foreignEntity.get_ID());
 		} else {
-			this.setPA_DashboardContent_ID(0);
+			super.setPA_DashboardContent_ID(0);
 		}
 	}
 
@@ -500,7 +464,8 @@ public class X_AD_ColumnInput extends X_AD_Column implements I_AD_ColumnInput {
 	 *
 	 * @return Dashboard Content
 	 */
-	public I_PA_DashboardContentInput getPA_DashboardContent() {
-		return PA_DashboardContent;
+	@JsonProperty("PA_DashboardContent")
+	public I_PA_DashboardContentInput PA_DashboardContent() {
+		return mPA_DashboardContent;
 	}
 }

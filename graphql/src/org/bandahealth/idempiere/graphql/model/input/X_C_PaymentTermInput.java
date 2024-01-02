@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
+import org.compiere.model.MPaymentTerm;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_PaymentTerm;
 import org.compiere.util.Env;
 
 /**
@@ -13,16 +15,17 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_PaymentTermInput extends X_C_PaymentTerm implements I_C_PaymentTermInput {
+public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTermInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput NetDay_RL;
-	 private I_AD_Ref_ListInput PaymentTermUsage_RL;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mNetDay;
+	 private I_AD_Ref_ListInput mPaymentTermUsage;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_PaymentTermInput(String ID) {
+	@JsonCreator
+	public X_C_PaymentTermInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -32,14 +35,15 @@ public class X_C_PaymentTermInput extends X_C_PaymentTerm implements I_C_Payment
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -48,19 +52,9 @@ public class X_C_PaymentTermInput extends X_C_PaymentTerm implements I_C_Payment
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Payment Term.
-	 *
-	 * @param C_PaymentTerm_ID The terms of Payment (timing, discount)
-	 */
-
-	public void setC_PaymentTerm_ID(int C_PaymentTerm_ID) {
-		if (get_ID() == 0) {
-			super.setC_PaymentTerm_ID(C_PaymentTerm_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -84,14 +78,15 @@ public class X_C_PaymentTermInput extends X_C_PaymentTerm implements I_C_Payment
 	/**
 	 * Set Net Day.
 	 *
-	 * @param NetDay_RL Day when payment is due net
+	 * @param NetDay Day when payment is due net
 	 */
-	public void setNetDay_RL(I_AD_Ref_ListInput NetDay_RL) {
-		this.NetDay_RL = NetDay_RL;
-		MRefList foreignEntity;
-		if (NetDay_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(NetDay_RL.getID())
+	@JsonProperty("NetDay")
+	public void setNetDayInput(I_AD_Ref_ListInput NetDay) {
+		this.mNetDay = NetDay;
+		MRefList_BH foreignEntity;
+		if (NetDay != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(NetDay.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setNetDay(foreignEntity.getValue());
 		} else {
@@ -104,21 +99,23 @@ public class X_C_PaymentTermInput extends X_C_PaymentTerm implements I_C_Payment
 	 *
 	 * @return Day when payment is due net
 	 */
-	public I_AD_Ref_ListInput getNetDay_RL() {
-		return NetDay_RL;
+	@JsonProperty("NetDay")
+	public I_AD_Ref_ListInput NetDay() {
+		return mNetDay;
 	}
 
 	/**
 	 * Set Payment Term Usage.
 	 *
-	 * @param PaymentTermUsage_RL Payment term usage indicates if this payment term is used for sales, purchases or both.
+	 * @param PaymentTermUsage Payment term usage indicates if this payment term is used for sales, purchases or both.
 	 */
-	public void setPaymentTermUsage_RL(I_AD_Ref_ListInput PaymentTermUsage_RL) {
-		this.PaymentTermUsage_RL = PaymentTermUsage_RL;
-		MRefList foreignEntity;
-		if (PaymentTermUsage_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PaymentTermUsage_RL.getID())
+	@JsonProperty("PaymentTermUsage")
+	public void setPaymentTermUsageInput(I_AD_Ref_ListInput PaymentTermUsage) {
+		this.mPaymentTermUsage = PaymentTermUsage;
+		MRefList_BH foreignEntity;
+		if (PaymentTermUsage != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PaymentTermUsage.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPaymentTermUsage(foreignEntity.getValue());
 		} else {
@@ -131,7 +128,8 @@ public class X_C_PaymentTermInput extends X_C_PaymentTerm implements I_C_Payment
 	 *
 	 * @return Payment term usage indicates if this payment term is used for sales, purchases or both.
 	 */
-	public I_AD_Ref_ListInput getPaymentTermUsage_RL() {
-		return PaymentTermUsage_RL;
+	@JsonProperty("PaymentTermUsage")
+	public I_AD_Ref_ListInput PaymentTermUsage() {
+		return mPaymentTermUsage;
 	}
 }

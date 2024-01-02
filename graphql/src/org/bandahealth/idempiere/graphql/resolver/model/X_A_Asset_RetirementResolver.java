@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_InvoiceLineDataLoader;
 import org.compiere.model.MAsset;
-import org.compiere.model.MInvoiceLine;
 import org.compiere.model.X_A_Asset_Retirement;
 import org.dataloader.DataLoader;
 
@@ -41,11 +41,11 @@ public class X_A_Asset_RetirementResolver extends POResolver<X_A_Asset_Retiremen
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine> C_InvoiceLine(X_A_Asset_Retirement entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(X_A_Asset_Retirement entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine> dataLoader =
+		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.C_InvoiceLine_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}

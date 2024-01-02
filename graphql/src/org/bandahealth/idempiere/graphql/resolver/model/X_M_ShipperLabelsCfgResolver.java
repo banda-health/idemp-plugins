@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperCfgDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_M_ShipperCfg;
 import org.compiere.model.X_M_ShipperLabelsCfg;
 import org.dataloader.DataLoader;
@@ -23,6 +23,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_ShipperLabelsCfgResolver extends POResolver<X_M_ShipperLabelsCfg> implements GraphQLResolver<X_M_ShipperLabelsCfg> {
 
 
+	public Boolean IsDefault(X_M_ShipperLabelsCfg entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
 	static Map<String, String> LABELPRINTMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("E", "30f489ba-1343-4132-8ed5-af624c38a565");
@@ -30,11 +34,11 @@ public class X_M_ShipperLabelsCfgResolver extends POResolver<X_M_ShipperLabelsCf
 			put("Z", "0ee3f5cd-f1a0-416a-831c-687456fbc0fc");
 		}
 	};
-	public CompletableFuture<MRefList> LabelPrintMethod_RL(X_M_ShipperLabelsCfg entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> LabelPrintMethod(X_M_ShipperLabelsCfg entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getLabelPrintMethod())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(LABELPRINTMETHOD_UUIDS_BY_VALUE.get(entity.getLabelPrintMethod()));
 	}

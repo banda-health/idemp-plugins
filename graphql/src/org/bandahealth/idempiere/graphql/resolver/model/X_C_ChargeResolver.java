@@ -5,12 +5,12 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChargeTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxCategoryDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTaxCategory;
 import org.dataloader.DataLoader;
 
@@ -27,6 +27,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQLResolver<MCharge_BH> {
 
 
+	public Boolean BH_Locked(MCharge_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBH_Locked();
+	}
+
 	static Map<String, String> BH_SUBTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("I", "d8547f6d-5ad0-4025-b8f8-0f4796cf9d0f");
@@ -34,11 +38,11 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 			put("D", "4782b135-a84e-4eb9-ae3d-88c872a030ce");
 		}
 	};
-	public CompletableFuture<MRefList> BH_SubType_RL(MCharge_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BH_SubType(MCharge_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBH_SubType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BH_SUBTYPE_UUIDS_BY_VALUE.get(entity.getBH_SubType()));
 	}
@@ -86,6 +90,18 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 		DataLoader<Integer, MTaxCategory> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxCategoryDataLoader.C_TaxCategory_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_TaxCategory_ID());
+	}
+
+	public Boolean IsSameCurrency(MCharge_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSameCurrency();
+	}
+
+	public Boolean IsSameTax(MCharge_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSameTax();
+	}
+
+	public Boolean IsTaxIncluded(MCharge_BH entity, DataFetchingEnvironment environment) {
+		return entity.isTaxIncluded();
 	}
 
 }

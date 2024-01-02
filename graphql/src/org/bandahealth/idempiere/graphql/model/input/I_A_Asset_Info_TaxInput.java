@@ -15,14 +15,14 @@ public interface I_A_Asset_Info_TaxInput extends I_A_Asset_Info_Tax {
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_Asset(I_A_AssetInput A_Asset);
+	void setA_AssetInput(I_A_AssetInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput getA_Asset();
+	I_A_AssetInput A_Asset();
 
 	/**
 	 * Set ID.
@@ -39,30 +39,30 @@ public interface I_A_Asset_Info_TaxInput extends I_A_Asset_Info_Tax {
 	String getID();
 
 	/**
-	 * Set A_Finance_Meth_RL.
+	 * Set A_Finance_Meth.
 	 *
-	 * @param A_Finance_Meth_RL A_Finance_Meth_RL
+	 * @param A_Finance_Meth A_Finance_Meth
 	 */
-	void setA_Finance_Meth_RL(I_AD_Ref_ListInput A_Finance_Meth_RL);
+	void setA_Finance_MethInput(I_AD_Ref_ListInput A_Finance_Meth);
 
 	/**
-	 * Get A_Finance_Meth_RL.
+	 * Get A_Finance_Meth.
 	 *
-	 * @return A_Finance_Meth_RL
+	 * @return A_Finance_Meth
 	 */
-	I_AD_Ref_ListInput getA_Finance_Meth_RL();
+	I_AD_Ref_ListInput A_Finance_Meth();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 }

@@ -135,4 +135,24 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
+	public Boolean IsAutocomplete(MProcessPara entity, DataFetchingEnvironment environment) {
+		return entity.isAutocomplete();
+	}
+
+	public Boolean IsCentrallyMaintained(MProcessPara entity, DataFetchingEnvironment environment) {
+		return entity.isCentrallyMaintained();
+	}
+
+	public Boolean IsEncrypted(MProcessPara entity, DataFetchingEnvironment environment) {
+		return entity.isEncrypted();
+	}
+
+	public Boolean IsMandatory(MProcessPara entity, DataFetchingEnvironment environment) {
+		return entity.isMandatory();
+	}
+
+	public Boolean IsRange(MProcessPara entity, DataFetchingEnvironment environment) {
+		return entity.isRange();
+	}
+
 }

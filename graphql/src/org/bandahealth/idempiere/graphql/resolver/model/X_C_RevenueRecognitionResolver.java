@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.MRevenueRecognition;
 import org.dataloader.DataLoader;
 
@@ -21,6 +21,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_RevenueRecognitionResolver extends POResolver<MRevenueRecognition> implements GraphQLResolver<MRevenueRecognition> {
 
 
+	public Boolean IsTimeBased(MRevenueRecognition entity, DataFetchingEnvironment environment) {
+		return entity.isTimeBased();
+	}
+
 	static Map<String, String> RECOGNITIONFREQUENCY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("M", "2e36cfa4-dfe7-4f3f-accd-6c8d1ef06a7d");
@@ -28,11 +32,11 @@ public class X_C_RevenueRecognitionResolver extends POResolver<MRevenueRecogniti
 			put("Y", "3fb681ad-7138-46e2-8d68-a6992bf1deb7");
 		}
 	};
-	public CompletableFuture<MRefList> RecognitionFrequency_RL(MRevenueRecognition entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> RecognitionFrequency(MRevenueRecognition entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getRecognitionFrequency())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(RECOGNITIONFREQUENCY_UUIDS_BY_VALUE.get(entity.getRecognitionFrequency()));
 	}

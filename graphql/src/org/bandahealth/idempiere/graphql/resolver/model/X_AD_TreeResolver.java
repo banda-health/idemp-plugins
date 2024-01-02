@@ -2,12 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MColumn;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTable;
 import org.compiere.model.MTree;
 import org.dataloader.DataLoader;
@@ -40,6 +40,26 @@ public class X_AD_TreeResolver extends POResolver<MTree> implements GraphQLResol
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
+	public Boolean IsAllNodes(MTree entity, DataFetchingEnvironment environment) {
+		return entity.isAllNodes();
+	}
+
+	public Boolean IsDefault(MTree entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsLoadAllNodesImmediately(MTree entity, DataFetchingEnvironment environment) {
+		return entity.isLoadAllNodesImmediately();
+	}
+
+	public Boolean IsTreeDrivenByValue(MTree entity, DataFetchingEnvironment environment) {
+		return entity.isTreeDrivenByValue();
+	}
+
+	public Boolean IsValueDisplayed(MTree entity, DataFetchingEnvironment environment) {
+		return entity.isValueDisplayed();
+	}
+
 
 	/**
 	 * Get Parent Column.
@@ -53,6 +73,10 @@ public class X_AD_TreeResolver extends POResolver<MTree> implements GraphQLResol
 		DataLoader<Integer, MColumn> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getParent_Column_ID());
+	}
+
+	public Boolean Processing(MTree entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 	static Map<String, String> TREETYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -79,11 +103,11 @@ public class X_AD_TreeResolver extends POResolver<MTree> implements GraphQLResol
 			put("TL", "e3104c45-9a71-4ea1-bd24-9125d33f07db");
 		}
 	};
-	public CompletableFuture<MRefList> TreeType_RL(MTree entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> TreeType(MTree entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getTreeType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(TREETYPE_UUIDS_BY_VALUE.get(entity.getTreeType()));
 	}

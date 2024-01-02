@@ -14,4 +14,16 @@ import org.dataloader.DataLoader;
 public class X_C_DunningResolver extends POResolver<MDunning> implements GraphQLResolver<MDunning> {
 
 
+	public Boolean CreateLevelsSequentially(MDunning entity, DataFetchingEnvironment environment) {
+		return entity.isCreateLevelsSequentially();
+	}
+
+	public Boolean IsDefault(MDunning entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean SendDunningLetter(MDunning entity, DataFetchingEnvironment environment) {
+		return entity.isSendDunningLetter();
+	}
+
 }

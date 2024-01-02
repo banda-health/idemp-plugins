@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProjectTypePhase;
+import org.compiere.model.MProjectTypeTask;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_Task;
 import org.compiere.util.Env;
 
 /**
@@ -14,16 +16,17 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_TaskInput extends X_C_Task implements I_C_TaskInput {
+public class X_C_TaskInput extends MProjectTypeTask implements I_C_TaskInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_PhaseInput C_Phase;
-	 private I_M_ProductInput M_Product;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_PhaseInput mC_Phase;
+	 private I_M_ProductInput mM_Product;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_TaskInput(String ID) {
+	@JsonCreator
+	public X_C_TaskInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,14 +36,15 @@ public class X_C_TaskInput extends X_C_Task implements I_C_TaskInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -49,8 +53,9 @@ public class X_C_TaskInput extends X_C_Task implements I_C_TaskInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -58,14 +63,15 @@ public class X_C_TaskInput extends X_C_Task implements I_C_TaskInput {
 	 *
 	 * @param C_Phase Standard Phase of the Project Type
 	 */
-	public void setC_Phase(I_C_PhaseInput C_Phase) {
-		this.C_Phase = C_Phase;
+	@JsonProperty("C_Phase")
+	public void setC_PhaseInput(I_C_PhaseInput C_Phase) {
+		this.mC_Phase = C_Phase;
 		MProjectTypePhase foreignEntity;
 		if (get_ID() == 0 &&C_Phase != null &&
 				(foreignEntity = new Query(getCtx(), MProjectTypePhase.Table_Name, MProjectTypePhase.COLUMNNAME_C_Phase_UU + "=?", get_TrxName())
 						.setParameters(C_Phase.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Phase_ID(foreignEntity.get_ID());
+			super.setC_Phase_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -74,30 +80,9 @@ public class X_C_TaskInput extends X_C_Task implements I_C_TaskInput {
 	 *
 	 * @return Standard Phase of the Project Type
 	 */
-	public I_C_PhaseInput getC_Phase() {
-		return C_Phase;
-	}
-	/**
-	 * Set Standard Phase.
-	 *
-	 * @param C_Phase_ID Standard Phase of the Project Type
-	 */
-
-	public void setC_Phase_ID(int C_Phase_ID) {
-		if (get_ID() == 0) {
-			super.setC_Phase_ID(C_Phase_ID);
-		}
-	}
-	/**
-	 * Set Standard Task.
-	 *
-	 * @param C_Task_ID Standard Project Type Task
-	 */
-
-	public void setC_Task_ID(int C_Task_ID) {
-		if (get_ID() == 0) {
-			super.setC_Task_ID(C_Task_ID);
-		}
+	@JsonProperty("C_Phase")
+	public I_C_PhaseInput C_Phase() {
+		return mC_Phase;
 	}
 
 	/**
@@ -123,16 +108,17 @@ public class X_C_TaskInput extends X_C_Task implements I_C_TaskInput {
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	public void setM_Product(I_M_ProductInput M_Product) {
-		this.M_Product = M_Product;
+	@JsonProperty("M_Product")
+	public void setM_ProductInput(I_M_ProductInput M_Product) {
+		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
 				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Product_ID(foreignEntity.get_ID());
+			super.setM_Product_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_Product_ID(0);
+			super.setM_Product_ID(0);
 		}
 	}
 
@@ -141,7 +127,8 @@ public class X_C_TaskInput extends X_C_Task implements I_C_TaskInput {
 	 *
 	 * @return Product, Service, Item
 	 */
-	public I_M_ProductInput getM_Product() {
-		return M_Product;
+	@JsonProperty("M_Product")
+	public I_M_ProductInput M_Product() {
+		return mM_Product;
 	}
 }

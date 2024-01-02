@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
@@ -10,7 +11,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_NodeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_ProcessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_ResponsibleDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTable;
 import org.compiere.model.X_AD_WF_EventAudit;
 import org.compiere.model.X_AD_WF_Node;
@@ -113,11 +113,11 @@ public class X_AD_WF_EventAuditResolver extends POResolver<X_AD_WF_EventAudit> i
 			put("PX", "2bc42ab2-9683-4114-8a67-bf95df0794fd");
 		}
 	};
-	public CompletableFuture<MRefList> EventType_RL(X_AD_WF_EventAudit entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> EventType(X_AD_WF_EventAudit entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getEventType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(EVENTTYPE_UUIDS_BY_VALUE.get(entity.getEventType()));
 	}
@@ -132,11 +132,11 @@ public class X_AD_WF_EventAuditResolver extends POResolver<X_AD_WF_EventAudit> i
 			put("CT", "1f8d557d-9955-4285-aa92-d098d5ed7ca9");
 		}
 	};
-	public CompletableFuture<MRefList> WFState_RL(X_AD_WF_EventAudit entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> WFState(X_AD_WF_EventAudit entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getWFState())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(WFSTATE_UUIDS_BY_VALUE.get(entity.getWFState()));
 	}

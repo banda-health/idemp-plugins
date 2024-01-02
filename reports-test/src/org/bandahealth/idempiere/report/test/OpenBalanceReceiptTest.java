@@ -77,7 +77,7 @@ public class OpenBalanceReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setBankAccount(ChuBoeCreateEntity.getBankAccountOfOrganization(valueObject));
 		payment.setC_BankAccount_ID(valueObject.getBankAccount().get_ID());
 		payment.setPayAmt(new BigDecimal(20));
-		payment.setBH_TenderAmount(new BigDecimal(20));
+		payment.setBH_tender_amount(new BigDecimal(20));
 		payment.setTenderType(MPayment_BH.TENDERTYPE_Cash);
 
 		MInvoice_BH invoice =

@@ -3,11 +3,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -61,11 +61,11 @@ public class X_AD_MessageResolver extends POResolver<MMessage_BH> implements Gra
 			put("M", "5ae78a5d-8df9-4938-9178-1f829489a727");
 		}
 	};
-	public CompletableFuture<MRefList> MsgType_RL(MMessage_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> MsgType(MMessage_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getMsgType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(MSGTYPE_UUIDS_BY_VALUE.get(entity.getMsgType()));
 	}

@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MRefList;
 import org.compiere.model.MValRule;
 import org.dataloader.DataLoader;
 
@@ -61,11 +61,11 @@ public class X_AD_Val_RuleResolver extends POResolver<MValRule> implements Graph
 			put("E", "7a735a63-8723-4cac-b02c-1b35fa337287");
 		}
 	};
-	public CompletableFuture<MRefList> Type_RL(MValRule entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> Type(MValRule entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(TYPE_UUIDS_BY_VALUE.get(entity.getType()));
 	}

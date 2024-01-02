@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MOrg;
@@ -15,13 +17,14 @@ import org.compiere.util.Env;
  */
 public class X_PA_RatioInput extends X_PA_Ratio implements I_PA_RatioInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_AcctSchemaInput C_AcctSchema;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_AcctSchemaInput mC_AcctSchema;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_RatioInput(String ID) {
+	@JsonCreator
+	public X_PA_RatioInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_PA_RatioInput extends X_PA_Ratio implements I_PA_RatioInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,8 +51,9 @@ public class X_PA_RatioInput extends X_PA_Ratio implements I_PA_RatioInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -56,16 +61,17 @@ public class X_PA_RatioInput extends X_PA_Ratio implements I_PA_RatioInput {
 	 *
 	 * @param C_AcctSchema Rules for accounting
 	 */
-	public void setC_AcctSchema(I_C_AcctSchemaInput C_AcctSchema) {
-		this.C_AcctSchema = C_AcctSchema;
+	@JsonProperty("C_AcctSchema")
+	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
 				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			super.setC_AcctSchema_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_AcctSchema_ID(0);
+			super.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -74,19 +80,9 @@ public class X_PA_RatioInput extends X_PA_Ratio implements I_PA_RatioInput {
 	 *
 	 * @return Rules for accounting
 	 */
-	public I_C_AcctSchemaInput getC_AcctSchema() {
-		return C_AcctSchema;
-	}
-	/**
-	 * Set Ratio.
-	 *
-	 * @param PA_Ratio_ID Performance Ratio
-	 */
-
-	public void setPA_Ratio_ID(int PA_Ratio_ID) {
-		if (get_ID() == 0) {
-			super.setPA_Ratio_ID(PA_Ratio_ID);
-		}
+	@JsonProperty("C_AcctSchema")
+	public I_C_AcctSchemaInput C_AcctSchema() {
+		return mC_AcctSchema;
 	}
 
 	/**

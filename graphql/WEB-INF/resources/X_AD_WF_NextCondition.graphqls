@@ -26,23 +26,23 @@ type AD_WF_NextCondition {
 	# Workflow Node Transition
 	AD_WF_NodeNext: AD_WF_NodeNext!
 	# Logical operation: AND or OR
-	AndOr_RL: AD_Ref_List!
+	AndOr: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityType!
+	AD_EntityType: AD_EntityType!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Compare Operation
-	Operation_RL: AD_Ref_List!
+	Operation: AD_Ref_List!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 	# Value To
@@ -58,13 +58,13 @@ input AD_WF_NextConditionInput {
 	# Workflow Node Transition
 	AD_WF_NodeNext: AD_WF_NodeNextInput
 	# Logical operation: AND or OR
-	AndOr_RL: AD_Ref_ListInput
+	AndOr: AD_Ref_ListInput
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityTypeInput
+	AD_EntityType: AD_EntityTypeInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Compare Operation
-	Operation_RL: AD_Ref_ListInput
+	Operation: AD_Ref_ListInput
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Search key for the record in the format required - must be unique

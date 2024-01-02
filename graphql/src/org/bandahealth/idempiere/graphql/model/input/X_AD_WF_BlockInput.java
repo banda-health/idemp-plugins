@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -15,13 +17,14 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_WorkflowInput AD_Workflow;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_WorkflowInput mAD_Workflow;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_WF_BlockInput(String ID) {
+	@JsonCreator
+	public X_AD_WF_BlockInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,19 +51,9 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Workflow Block.
-	 *
-	 * @param AD_WF_Block_ID Workflow Transaction Execution Block
-	 */
-
-	public void setAD_WF_Block_ID(int AD_WF_Block_ID) {
-		if (get_ID() == 0) {
-			super.setAD_WF_Block_ID(AD_WF_Block_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -85,14 +79,15 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	 *
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
-	public void setAD_Workflow(I_AD_WorkflowInput AD_Workflow) {
-		this.AD_Workflow = AD_Workflow;
+	@JsonProperty("AD_Workflow")
+	public void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow) {
+		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
 		if (get_ID() == 0 &&AD_Workflow != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_Workflow.Table_Name, X_AD_Workflow.COLUMNNAME_AD_Workflow_UU + "=?", get_TrxName())
 						.setParameters(AD_Workflow.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Workflow_ID(foreignEntity.get_ID());
+			super.setAD_Workflow_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -101,18 +96,8 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	 *
 	 * @return Workflow or combination of tasks
 	 */
-	public I_AD_WorkflowInput getAD_Workflow() {
-		return AD_Workflow;
-	}
-	/**
-	 * Set Workflow.
-	 *
-	 * @param AD_Workflow_ID Workflow or combination of tasks
-	 */
-
-	public void setAD_Workflow_ID(int AD_Workflow_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Workflow_ID(AD_Workflow_ID);
-		}
+	@JsonProperty("AD_Workflow")
+	public I_AD_WorkflowInput AD_Workflow() {
+		return mAD_Workflow;
 	}
 }

@@ -1,8 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
@@ -13,7 +16,6 @@ import org.compiere.model.MProject;
 import org.compiere.model.MSalesRegion;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_SubAcct;
-import org.compiere.model.X_C_ValidCombination;
 import org.compiere.util.Env;
 
 /**
@@ -22,27 +24,28 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I_C_ValidCombinationInput {
+public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidCombinationInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_AcctSchemaInput C_AcctSchema;
-	 private I_C_ActivityInput C_Activity;
-	 private I_C_BPartnerInput C_BPartner;
-	 private I_C_CampaignInput C_Campaign;
-	 private I_C_ElementValueInput Account;
-	 private I_C_ElementValueInput User1;
-	 private I_C_ElementValueInput User2;
-	 private I_C_LocationInput C_LocFrom;
-	 private I_C_LocationInput C_LocTo;
-	 private I_C_ProjectInput C_Project;
-	 private I_C_SalesRegionInput C_SalesRegion;
-	 private I_C_SubAcctInput C_SubAcct;
-	 private I_M_ProductInput M_Product;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_AcctSchemaInput mC_AcctSchema;
+	 private I_C_ActivityInput mC_Activity;
+	 private I_C_BPartnerInput mC_BPartner;
+	 private I_C_CampaignInput mC_Campaign;
+	 private I_C_ElementValueInput mAccount;
+	 private I_C_ElementValueInput mUser1;
+	 private I_C_ElementValueInput mUser2;
+	 private I_C_LocationInput mC_LocFrom;
+	 private I_C_LocationInput mC_LocTo;
+	 private I_C_ProjectInput mC_Project;
+	 private I_C_SalesRegionInput mC_SalesRegion;
+	 private I_C_SubAcctInput mC_SubAcct;
+	 private I_M_ProductInput mM_Product;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_ValidCombinationInput(String ID) {
+	@JsonCreator
+	public X_C_ValidCombinationInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -52,14 +55,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param Account Account used
 	 */
-	public void setAccount(I_C_ElementValueInput Account) {
-		this.Account = Account;
+	@JsonProperty("Account")
+	public void setAccountInput(I_C_ElementValueInput Account) {
+		this.mAccount = Account;
 		MElementValue foreignEntity;
 		if (get_ID() == 0 &&Account != null &&
 				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
 						.setParameters(Account.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAccount_ID(foreignEntity.get_ID());
+			super.setAccount_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -68,19 +72,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Account used
 	 */
-	public I_C_ElementValueInput getAccount() {
-		return Account;
-	}
-	/**
-	 * Set Account.
-	 *
-	 * @param Account_ID Account used
-	 */
-
-	public void setAccount_ID(int Account_ID) {
-		if (get_ID() == 0) {
-			super.setAccount_ID(Account_ID);
-		}
+	@JsonProperty("Account")
+	public I_C_ElementValueInput Account() {
+		return mAccount;
 	}
 
 	/**
@@ -88,14 +82,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -104,8 +99,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -113,14 +109,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param C_AcctSchema Rules for accounting
 	 */
-	public void setC_AcctSchema(I_C_AcctSchemaInput C_AcctSchema) {
-		this.C_AcctSchema = C_AcctSchema;
+	@JsonProperty("C_AcctSchema")
+	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (get_ID() == 0 &&C_AcctSchema != null &&
 				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			super.setC_AcctSchema_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -129,19 +126,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Rules for accounting
 	 */
-	public I_C_AcctSchemaInput getC_AcctSchema() {
-		return C_AcctSchema;
-	}
-	/**
-	 * Set Accounting Schema.
-	 *
-	 * @param C_AcctSchema_ID Rules for accounting
-	 */
-
-	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
-		if (get_ID() == 0) {
-			super.setC_AcctSchema_ID(C_AcctSchema_ID);
-		}
+	@JsonProperty("C_AcctSchema")
+	public I_C_AcctSchemaInput C_AcctSchema() {
+		return mC_AcctSchema;
 	}
 
 	/**
@@ -149,14 +136,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param C_Activity Business Activity
 	 */
-	public void setC_Activity(I_C_ActivityInput C_Activity) {
-		this.C_Activity = C_Activity;
+	@JsonProperty("C_Activity")
+	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (get_ID() == 0 &&C_Activity != null &&
 				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Activity_ID(foreignEntity.get_ID());
+			super.setC_Activity_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -165,19 +153,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Business Activity
 	 */
-	public I_C_ActivityInput getC_Activity() {
-		return C_Activity;
-	}
-	/**
-	 * Set Activity.
-	 *
-	 * @param C_Activity_ID Business Activity
-	 */
-
-	public void setC_Activity_ID(int C_Activity_ID) {
-		if (get_ID() == 0) {
-			super.setC_Activity_ID(C_Activity_ID);
-		}
+	@JsonProperty("C_Activity")
+	public I_C_ActivityInput C_Activity() {
+		return mC_Activity;
 	}
 
 	/**
@@ -185,14 +163,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	public void setC_BPartner(I_C_BPartnerInput C_BPartner) {
-		this.C_BPartner = C_BPartner;
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (get_ID() == 0 &&C_BPartner != null &&
 				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_ID(foreignEntity.get_ID());
+			super.setC_BPartner_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -201,19 +180,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public I_C_BPartnerInput getC_BPartner() {
-		return C_BPartner;
-	}
-	/**
-	 * Set Business Partner .
-	 *
-	 * @param C_BPartner_ID Identifies a Business Partner
-	 */
-
-	public void setC_BPartner_ID(int C_BPartner_ID) {
-		if (get_ID() == 0) {
-			super.setC_BPartner_ID(C_BPartner_ID);
-		}
+	@JsonProperty("C_BPartner")
+	public I_C_BPartnerInput C_BPartner() {
+		return mC_BPartner;
 	}
 
 	/**
@@ -221,14 +190,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	public void setC_Campaign(I_C_CampaignInput C_Campaign) {
-		this.C_Campaign = C_Campaign;
+	@JsonProperty("C_Campaign")
+	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (get_ID() == 0 &&C_Campaign != null &&
 				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Campaign_ID(foreignEntity.get_ID());
+			super.setC_Campaign_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -237,19 +207,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Marketing Campaign
 	 */
-	public I_C_CampaignInput getC_Campaign() {
-		return C_Campaign;
-	}
-	/**
-	 * Set Campaign.
-	 *
-	 * @param C_Campaign_ID Marketing Campaign
-	 */
-
-	public void setC_Campaign_ID(int C_Campaign_ID) {
-		if (get_ID() == 0) {
-			super.setC_Campaign_ID(C_Campaign_ID);
-		}
+	@JsonProperty("C_Campaign")
+	public I_C_CampaignInput C_Campaign() {
+		return mC_Campaign;
 	}
 
 	/**
@@ -257,14 +217,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param C_LocFrom Location that inventory was moved from
 	 */
-	public void setC_LocFrom(I_C_LocationInput C_LocFrom) {
-		this.C_LocFrom = C_LocFrom;
+	@JsonProperty("C_LocFrom")
+	public void setC_LocFromInput(I_C_LocationInput C_LocFrom) {
+		this.mC_LocFrom = C_LocFrom;
 		MLocation foreignEntity;
 		if (get_ID() == 0 &&C_LocFrom != null &&
 				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
 						.setParameters(C_LocFrom.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_LocFrom_ID(foreignEntity.get_ID());
+			super.setC_LocFrom_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -273,19 +234,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Location that inventory was moved from
 	 */
-	public I_C_LocationInput getC_LocFrom() {
-		return C_LocFrom;
-	}
-	/**
-	 * Set Location From.
-	 *
-	 * @param C_LocFrom_ID Location that inventory was moved from
-	 */
-
-	public void setC_LocFrom_ID(int C_LocFrom_ID) {
-		if (get_ID() == 0) {
-			super.setC_LocFrom_ID(C_LocFrom_ID);
-		}
+	@JsonProperty("C_LocFrom")
+	public I_C_LocationInput C_LocFrom() {
+		return mC_LocFrom;
 	}
 
 	/**
@@ -293,14 +244,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param C_LocTo Location that inventory was moved to
 	 */
-	public void setC_LocTo(I_C_LocationInput C_LocTo) {
-		this.C_LocTo = C_LocTo;
+	@JsonProperty("C_LocTo")
+	public void setC_LocToInput(I_C_LocationInput C_LocTo) {
+		this.mC_LocTo = C_LocTo;
 		MLocation foreignEntity;
 		if (get_ID() == 0 &&C_LocTo != null &&
 				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
 						.setParameters(C_LocTo.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_LocTo_ID(foreignEntity.get_ID());
+			super.setC_LocTo_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -309,19 +261,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Location that inventory was moved to
 	 */
-	public I_C_LocationInput getC_LocTo() {
-		return C_LocTo;
-	}
-	/**
-	 * Set Location To.
-	 *
-	 * @param C_LocTo_ID Location that inventory was moved to
-	 */
-
-	public void setC_LocTo_ID(int C_LocTo_ID) {
-		if (get_ID() == 0) {
-			super.setC_LocTo_ID(C_LocTo_ID);
-		}
+	@JsonProperty("C_LocTo")
+	public I_C_LocationInput C_LocTo() {
+		return mC_LocTo;
 	}
 
 	/**
@@ -329,14 +271,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param C_Project Financial Project
 	 */
-	public void setC_Project(I_C_ProjectInput C_Project) {
-		this.C_Project = C_Project;
+	@JsonProperty("C_Project")
+	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (get_ID() == 0 &&C_Project != null &&
 				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Project_ID(foreignEntity.get_ID());
+			super.setC_Project_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -345,19 +288,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Financial Project
 	 */
-	public I_C_ProjectInput getC_Project() {
-		return C_Project;
-	}
-	/**
-	 * Set Project.
-	 *
-	 * @param C_Project_ID Financial Project
-	 */
-
-	public void setC_Project_ID(int C_Project_ID) {
-		if (get_ID() == 0) {
-			super.setC_Project_ID(C_Project_ID);
-		}
+	@JsonProperty("C_Project")
+	public I_C_ProjectInput C_Project() {
+		return mC_Project;
 	}
 
 	/**
@@ -365,14 +298,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param C_SalesRegion Sales coverage region
 	 */
-	public void setC_SalesRegion(I_C_SalesRegionInput C_SalesRegion) {
-		this.C_SalesRegion = C_SalesRegion;
+	@JsonProperty("C_SalesRegion")
+	public void setC_SalesRegionInput(I_C_SalesRegionInput C_SalesRegion) {
+		this.mC_SalesRegion = C_SalesRegion;
 		MSalesRegion foreignEntity;
 		if (get_ID() == 0 &&C_SalesRegion != null &&
 				(foreignEntity = new Query(getCtx(), MSalesRegion.Table_Name, MSalesRegion.COLUMNNAME_C_SalesRegion_UU + "=?", get_TrxName())
 						.setParameters(C_SalesRegion.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_SalesRegion_ID(foreignEntity.get_ID());
+			super.setC_SalesRegion_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -381,19 +315,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Sales coverage region
 	 */
-	public I_C_SalesRegionInput getC_SalesRegion() {
-		return C_SalesRegion;
-	}
-	/**
-	 * Set Sales Region.
-	 *
-	 * @param C_SalesRegion_ID Sales coverage region
-	 */
-
-	public void setC_SalesRegion_ID(int C_SalesRegion_ID) {
-		if (get_ID() == 0) {
-			super.setC_SalesRegion_ID(C_SalesRegion_ID);
-		}
+	@JsonProperty("C_SalesRegion")
+	public I_C_SalesRegionInput C_SalesRegion() {
+		return mC_SalesRegion;
 	}
 
 	/**
@@ -401,14 +325,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param C_SubAcct Sub account for Element Value
 	 */
-	public void setC_SubAcct(I_C_SubAcctInput C_SubAcct) {
-		this.C_SubAcct = C_SubAcct;
+	@JsonProperty("C_SubAcct")
+	public void setC_SubAcctInput(I_C_SubAcctInput C_SubAcct) {
+		this.mC_SubAcct = C_SubAcct;
 		X_C_SubAcct foreignEntity;
 		if (get_ID() == 0 &&C_SubAcct != null &&
 				(foreignEntity = new Query(getCtx(), X_C_SubAcct.Table_Name, X_C_SubAcct.COLUMNNAME_C_SubAcct_UU + "=?", get_TrxName())
 						.setParameters(C_SubAcct.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_SubAcct_ID(foreignEntity.get_ID());
+			super.setC_SubAcct_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -417,30 +342,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Sub account for Element Value
 	 */
-	public I_C_SubAcctInput getC_SubAcct() {
-		return C_SubAcct;
-	}
-	/**
-	 * Set Sub Account.
-	 *
-	 * @param C_SubAcct_ID Sub account for Element Value
-	 */
-
-	public void setC_SubAcct_ID(int C_SubAcct_ID) {
-		if (get_ID() == 0) {
-			super.setC_SubAcct_ID(C_SubAcct_ID);
-		}
-	}
-	/**
-	 * Set Combination.
-	 *
-	 * @param C_ValidCombination_ID Valid Account Combination
-	 */
-
-	public void setC_ValidCombination_ID(int C_ValidCombination_ID) {
-		if (get_ID() == 0) {
-			super.setC_ValidCombination_ID(C_ValidCombination_ID);
-		}
+	@JsonProperty("C_SubAcct")
+	public I_C_SubAcctInput C_SubAcct() {
+		return mC_SubAcct;
 	}
 
 	/**
@@ -499,14 +403,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	public void setM_Product(I_M_ProductInput M_Product) {
-		this.M_Product = M_Product;
+	@JsonProperty("M_Product")
+	public void setM_ProductInput(I_M_ProductInput M_Product) {
+		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (get_ID() == 0 &&M_Product != null &&
 				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Product_ID(foreignEntity.get_ID());
+			super.setM_Product_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -515,19 +420,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return Product, Service, Item
 	 */
-	public I_M_ProductInput getM_Product() {
-		return M_Product;
-	}
-	/**
-	 * Set Product/Service.
-	 *
-	 * @param M_Product_ID Product, Service, Item
-	 */
-
-	public void setM_Product_ID(int M_Product_ID) {
-		if (get_ID() == 0) {
-			super.setM_Product_ID(M_Product_ID);
-		}
+	@JsonProperty("M_Product")
+	public I_M_ProductInput M_Product() {
+		return mM_Product;
 	}
 
 	/**
@@ -535,14 +430,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param User1 User defined list element #1
 	 */
-	public void setUser1(I_C_ElementValueInput User1) {
-		this.User1 = User1;
+	@JsonProperty("User1")
+	public void setUser1Input(I_C_ElementValueInput User1) {
+		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (get_ID() == 0 &&User1 != null &&
 				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setUser1_ID(foreignEntity.get_ID());
+			super.setUser1_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -551,19 +447,9 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return User defined list element #1
 	 */
-	public I_C_ElementValueInput getUser1() {
-		return User1;
-	}
-	/**
-	 * Set User Element List 1.
-	 *
-	 * @param User1_ID User defined list element #1
-	 */
-
-	public void setUser1_ID(int User1_ID) {
-		if (get_ID() == 0) {
-			super.setUser1_ID(User1_ID);
-		}
+	@JsonProperty("User1")
+	public I_C_ElementValueInput User1() {
+		return mUser1;
 	}
 
 	/**
@@ -571,14 +457,15 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @param User2 User defined list element #2
 	 */
-	public void setUser2(I_C_ElementValueInput User2) {
-		this.User2 = User2;
+	@JsonProperty("User2")
+	public void setUser2Input(I_C_ElementValueInput User2) {
+		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (get_ID() == 0 &&User2 != null &&
 				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setUser2_ID(foreignEntity.get_ID());
+			super.setUser2_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -587,18 +474,8 @@ public class X_C_ValidCombinationInput extends X_C_ValidCombination implements I
 	 *
 	 * @return User defined list element #2
 	 */
-	public I_C_ElementValueInput getUser2() {
-		return User2;
-	}
-	/**
-	 * Set User Element List 2.
-	 *
-	 * @param User2_ID User defined list element #2
-	 */
-
-	public void setUser2_ID(int User2_ID) {
-		if (get_ID() == 0) {
-			super.setUser2_ID(User2_ID);
-		}
+	@JsonProperty("User2")
+	public I_C_ElementValueInput User2() {
+		return mUser2;
 	}
 }

@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_R_MailTextResolver extends POResolver<MMailText> implements GraphQLResolver<MMailText> {
 
 
+	public Boolean IsHtml(MMailText entity, DataFetchingEnvironment environment) {
+		return entity.isHtml();
+	}
+
 }

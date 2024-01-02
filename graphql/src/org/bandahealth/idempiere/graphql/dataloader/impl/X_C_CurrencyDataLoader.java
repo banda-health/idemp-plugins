@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MCurrency;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 
 /**
  * Data Loader for C_Currency - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.compiere.model.MCurrency;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CurrencyDataLoader extends PODataLoader<MCurrency> {
+public class X_C_CurrencyDataLoader extends PODataLoader<MCurrency_BH> {
 	public static String C_Currency_BY_ID_DATA_LOADER = "C_CurrencyByIdDataLoader";
 	public static String C_Currency_BY_UUID_DATA_LOADER = "C_CurrencyByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MCurrency.Table_Name;
+		return MCurrency_BH.Table_Name;
 	}
 
 	@Override

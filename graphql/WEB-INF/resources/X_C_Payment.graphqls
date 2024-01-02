@@ -86,7 +86,7 @@ type C_Payment {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Expiry Month
 	CreditCardExpMM: Int
 	# Expiry Year
@@ -94,7 +94,7 @@ type C_Payment {
 	# Credit Card Number 
 	CreditCardNumber: String
 	# Credit Card (Visa, MC, AmEx)
-	CreditCardType_RL: AD_Ref_List
+	CreditCardType: AD_Ref_List
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	# Currency Conversion Rate
@@ -111,9 +111,9 @@ type C_Payment {
 	# Calculated amount of discount
 	DiscountAmt: Int
 	# The targeted status of the document
-	DocAction_RL: AD_Ref_List!
+	DocAction: AD_Ref_List!
 	# The current status of the document
-	DocStatus_RL: AD_Ref_List!
+	DocStatus: AD_Ref_List!
 	# Document sequence number of the document
 	DocumentNo: String!
 	# International Bank Account Number
@@ -165,9 +165,9 @@ type C_Payment {
 	# Authorization Code Delayed Capture returned
 	R_AuthCode_DC: String
 	# This address has been verified
-	R_AvsAddr_RL: AD_Ref_List
+	R_AvsAddr: AD_Ref_List
 	# The Zip Code has been verified
-	R_AvsZip_RL: AD_Ref_List
+	R_AvsZip: AD_Ref_List
 	# Credit Card Verification Code Match
 	R_CVV2Match: Boolean!
 	# Response info
@@ -193,13 +193,13 @@ type C_Payment {
 	# Tax Amount for a document
 	TaxAmt: Int
 	# Method of Payment
-	TenderType_RL: AD_Ref_List!
+	TenderType: AD_Ref_List!
 	# Type of credit card transaction
-	TrxType_RL: AD_Ref_List!
+	TrxType: AD_Ref_List!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# User defined list element #1
 	User1: C_ElementValue
 	# User defined list element #2
@@ -283,7 +283,7 @@ input C_PaymentInput {
 	# Credit Card Number 
 	CreditCardNumber: String
 	# Credit Card (Visa, MC, AmEx)
-	CreditCardType_RL: AD_Ref_ListInput
+	CreditCardType: AD_Ref_ListInput
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	# Currency Conversion Rate
@@ -300,9 +300,9 @@ input C_PaymentInput {
 	# Calculated amount of discount
 	DiscountAmt: Int
 	# The targeted status of the document
-	DocAction_RL: AD_Ref_ListInput
+	DocAction: AD_Ref_ListInput
 	# The current status of the document
-	DocStatus_RL: AD_Ref_ListInput
+	DocStatus: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# International Bank Account Number
@@ -354,9 +354,9 @@ input C_PaymentInput {
 	# Authorization Code Delayed Capture returned
 	R_AuthCode_DC: String
 	# This address has been verified
-	R_AvsAddr_RL: AD_Ref_ListInput
+	R_AvsAddr: AD_Ref_ListInput
 	# The Zip Code has been verified
-	R_AvsZip_RL: AD_Ref_ListInput
+	R_AvsZip: AD_Ref_ListInput
 	# Credit Card Verification Code Match
 	R_CVV2Match: Boolean
 	# Response info
@@ -382,9 +382,9 @@ input C_PaymentInput {
 	# Tax Amount for a document
 	TaxAmt: Int
 	# Method of Payment
-	TenderType_RL: AD_Ref_ListInput
+	TenderType: AD_Ref_ListInput
 	# Type of credit card transaction
-	TrxType_RL: AD_Ref_ListInput
+	TrxType: AD_Ref_ListInput
 	# User defined list element #1
 	User1: C_ElementValueInput
 	# User defined list element #2

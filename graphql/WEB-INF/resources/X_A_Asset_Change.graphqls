@@ -29,7 +29,7 @@ type A_Asset_Change {
 	A_Asset_RevalDate: Date
 	A_Depreciation_A: C_ValidCombination
 	A_Depreciation_Manual_Amount: Int
-	A_Depreciation_Manual_Period_RL: AD_Ref_List
+	A_Depreciation_Manual_Period: AD_Ref_List
 	A_Depreciation_Table_Header: A_Depreciation_Table_Header
 	A_Depreciation_Variable_Perc: Int
 	A_Disposal_Loss_A: C_ValidCombination
@@ -43,7 +43,7 @@ type A_Asset_Change {
 	A_Reval_Accumdep_Offset_Prior: Int
 	A_Reval_Adep_Offset_Cur_Acct: Int
 	A_Reval_Adep_Offset_Prior_Acct: Int
-	A_Reval_Cal_Method_RL: AD_Ref_List
+	A_Reval_Cal_Method: AD_Ref_List
 	A_Reval_Cost_Offset: Int
 	A_Reval_Cost_Offset_Acct: Int
 	A_Reval_Cost_Offset_Prior: Int
@@ -82,11 +82,11 @@ type A_Asset_Change {
 	C_ValidCombination: C_ValidCombination
 	ChangeAmt: Int
 	ChangeDate: Date
-	ChangeType_RL: AD_Ref_List!
+	ChangeType: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Accounting Date
 	DateAcct: Date
 	# The record is active in the system
@@ -106,14 +106,14 @@ type A_Asset_Change {
 	# Lot number (alphanumeric)
 	Lot: String
 	# The type of posted amount for the transaction
-	PostingType_RL: AD_Ref_List
+	PostingType: AD_Ref_List
 	# Product Serial Number 
 	SerNo: String
 	TextDetails: String!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Months of the usable life of the asset
 	UseLifeMonths: Int
 	# Years of the usable life of the asset
@@ -138,7 +138,7 @@ input A_Asset_ChangeInput {
 	A_Asset_RevalDate: Date
 	A_Depreciation_A: C_ValidCombinationInput
 	A_Depreciation_Manual_Amount: Int
-	A_Depreciation_Manual_Period_RL: AD_Ref_ListInput
+	A_Depreciation_Manual_Period: AD_Ref_ListInput
 	A_Depreciation_Table_Header: A_Depreciation_Table_HeaderInput
 	A_Depreciation_Variable_Perc: Int
 	A_Disposal_Loss_A: C_ValidCombinationInput
@@ -152,7 +152,7 @@ input A_Asset_ChangeInput {
 	A_Reval_Accumdep_Offset_Prior: Int
 	A_Reval_Adep_Offset_Cur_Acct: Int
 	A_Reval_Adep_Offset_Prior_Acct: Int
-	A_Reval_Cal_Method_RL: AD_Ref_ListInput
+	A_Reval_Cal_Method: AD_Ref_ListInput
 	A_Reval_Cost_Offset: Int
 	A_Reval_Cost_Offset_Acct: Int
 	A_Reval_Cost_Offset_Prior: Int
@@ -189,7 +189,7 @@ input A_Asset_ChangeInput {
 	C_ValidCombination: C_ValidCombinationInput
 	ChangeAmt: Int
 	ChangeDate: Date
-	ChangeType_RL: AD_Ref_ListInput
+	ChangeType: AD_Ref_ListInput
 	# Accounting Date
 	DateAcct: Date
 	# The record is active in the system
@@ -209,7 +209,7 @@ input A_Asset_ChangeInput {
 	# Lot number (alphanumeric)
 	Lot: String
 	# The type of posted amount for the transaction
-	PostingType_RL: AD_Ref_ListInput
+	PostingType: AD_Ref_ListInput
 	# Product Serial Number 
 	SerNo: String
 	TextDetails: String

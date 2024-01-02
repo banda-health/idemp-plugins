@@ -36,11 +36,11 @@ type C_CashLine {
 	# Payment identifier
 	C_Payment: C_Payment
 	# Source of Cash
-	CashType_RL: AD_Ref_List!
+	CashType: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Calculated amount of discount
@@ -56,7 +56,7 @@ type C_CashLine {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Amount to write-off
 	WriteOffAmt: Int
 }
@@ -80,7 +80,7 @@ input C_CashLineInput {
 	# Payment identifier
 	C_Payment: C_PaymentInput
 	# Source of Cash
-	CashType_RL: AD_Ref_ListInput
+	CashType: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String
 	# Calculated amount of discount

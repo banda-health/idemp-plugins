@@ -32,14 +32,14 @@ type A_Asset_Info_Ins {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
 	Text: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 }
 
 input A_Asset_Info_InsInput {

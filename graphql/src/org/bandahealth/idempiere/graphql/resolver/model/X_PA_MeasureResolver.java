@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_BenchmarkDataLoader;
@@ -14,7 +15,6 @@ import org.compiere.model.MHierarchy;
 import org.compiere.model.MMeasure;
 import org.compiere.model.MMeasureCalc;
 import org.compiere.model.MProjectType;
-import org.compiere.model.MRefList;
 import org.compiere.model.MRequestType;
 import org.compiere.model.X_PA_Benchmark;
 import org.compiere.model.X_PA_Ratio;
@@ -54,11 +54,11 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 			put("S", "a727a324-22de-4213-8696-2a37aaddd164");
 		}
 	};
-	public CompletableFuture<MRefList> MeasureDataType_RL(MMeasure entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> MeasureDataType(MMeasure entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getMeasureDataType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(MEASUREDATATYPE_UUIDS_BY_VALUE.get(entity.getMeasureDataType()));
 	}
@@ -74,11 +74,11 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 			put("P", "1a7a939a-0716-4f97-8883-cf913668d5e8");
 		}
 	};
-	public CompletableFuture<MRefList> MeasureType_RL(MMeasure entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> MeasureType(MMeasure entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getMeasureType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(MEASURETYPE_UUIDS_BY_VALUE.get(entity.getMeasureType()));
 	}

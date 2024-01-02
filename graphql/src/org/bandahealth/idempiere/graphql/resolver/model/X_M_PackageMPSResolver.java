@@ -65,4 +65,8 @@ public class X_M_PackageMPSResolver extends POResolver<MPackageMPS> implements G
 		return dataLoader.load(entity.getM_Package_ID());
 	}
 
+	public Boolean Processed(MPackageMPS entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
 }

@@ -4,12 +4,12 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_LotDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MLot;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -36,11 +36,11 @@ public class X_M_AttributeSetInstanceResolver extends POResolver<MAttributeSetIn
 			put("p_wer", "6936f0fa-bf26-4c24-a744-d398e458fd2e");
 		}
 	};
-	public CompletableFuture<MRefList> bh_update_reason_RL(MAttributeSetInstance_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> bh_update_reason(MAttributeSetInstance_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getbh_update_reason())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BH_UPDATE_REASON_UUIDS_BY_VALUE.get(entity.getbh_update_reason()));
 	}

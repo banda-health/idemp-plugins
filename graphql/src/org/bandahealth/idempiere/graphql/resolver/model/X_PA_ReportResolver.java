@@ -90,6 +90,18 @@ public class X_PA_ReportResolver extends POResolver<X_PA_Report> implements Grap
 		return dataLoader.load(entity.getJasperProcess_ID());
 	}
 
+	public Boolean ListSources(X_PA_Report entity, DataFetchingEnvironment environment) {
+		return entity.isListSources();
+	}
+
+	public Boolean ListSourcesXTrx(X_PA_Report entity, DataFetchingEnvironment environment) {
+		return entity.isListSourcesXTrx();
+	}
+
+	public Boolean ListTrx(X_PA_Report entity, DataFetchingEnvironment environment) {
+		return entity.isListTrx();
+	}
+
 
 	/**
 	 * Get Report Column Set.
@@ -133,6 +145,10 @@ public class X_PA_ReportResolver extends POResolver<X_PA_Report> implements Grap
 		DataLoader<Integer, X_PA_ReportLineSet> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineSetDataLoader.PA_ReportLineSet_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getPA_ReportLineSet_ID());
+	}
+
+	public Boolean Processing(X_PA_Report entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

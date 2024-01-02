@@ -15,14 +15,14 @@ public interface I_PA_AchievementInput extends I_PA_Achievement {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,12 +43,12 @@ public interface I_PA_AchievementInput extends I_PA_Achievement {
 	 *
 	 * @param PA_Measure Concrete Performance Measurement
 	 */
-	void setPA_Measure(I_PA_MeasureInput PA_Measure);
+	void setPA_MeasureInput(I_PA_MeasureInput PA_Measure);
 
 	/**
 	 * Get PA_Measure.
 	 *
 	 * @return Concrete Performance Measurement
 	 */
-	I_PA_MeasureInput getPA_Measure();
+	I_PA_MeasureInput PA_Measure();
 }

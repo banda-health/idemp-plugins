@@ -3,13 +3,13 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintColorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_GroupDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_Product_CategoryDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAssetGroup;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_AD_PrintColor;
 import org.dataloader.DataLoader;
 
@@ -62,13 +62,21 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 			put("S", "f3c40565-4bb3-4e82-b280-1ad24f6701cd");
 		}
 	};
-	public CompletableFuture<MRefList> BH_Product_Category_Type_RL(MProductCategory_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BH_Product_Category_Type(MProductCategory_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBH_Product_Category_Type())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BH_PRODUCT_CATEGORY_TYPE_UUIDS_BY_VALUE.get(entity.getBH_Product_Category_Type()));
+	}
+
+	public Boolean IsDefault(MProductCategory_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsSelfService(MProductCategory_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSelfService();
 	}
 
 
@@ -92,11 +100,11 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 			put("F", "b1ed1550-7c2f-402b-b47a-b700929da0f6");
 		}
 	};
-	public CompletableFuture<MRefList> MMPolicy_RL(MProductCategory_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> MMPolicy(MProductCategory_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getMMPolicy())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(MMPOLICY_UUIDS_BY_VALUE.get(entity.getMMPolicy()));
 	}

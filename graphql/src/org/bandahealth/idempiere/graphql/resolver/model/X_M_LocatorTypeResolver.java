@@ -14,4 +14,16 @@ import org.dataloader.DataLoader;
 public class X_M_LocatorTypeResolver extends POResolver<MLocatorType> implements GraphQLResolver<MLocatorType> {
 
 
+	public Boolean IsAvailableForReplenishment(MLocatorType entity, DataFetchingEnvironment environment) {
+		return entity.isAvailableForReplenishment();
+	}
+
+	public Boolean IsAvailableForReservation(MLocatorType entity, DataFetchingEnvironment environment) {
+		return entity.isAvailableForReservation();
+	}
+
+	public Boolean IsAvailableForShipping(MLocatorType entity, DataFetchingEnvironment environment) {
+		return entity.isAvailableForShipping();
+	}
+
 }

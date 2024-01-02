@@ -54,7 +54,7 @@ type C_PaymentProcessor {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Host Address URL or DNS
@@ -80,11 +80,11 @@ type C_PaymentProcessor {
 	# Require 3/4 digit Credit Verification Code
 	RequireVV: Boolean!
 	# Type of credit card transaction
-	TrxType_RL: AD_Ref_List
+	TrxType: AD_Ref_List
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 }
 
 input C_PaymentProcessorInput {
@@ -146,5 +146,5 @@ input C_PaymentProcessorInput {
 	# Require 3/4 digit Credit Verification Code
 	RequireVV: Boolean
 	# Type of credit card transaction
-	TrxType_RL: AD_Ref_ListInput
+	TrxType: AD_Ref_ListInput
 }

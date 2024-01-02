@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_R_StatusCategoryDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.MRequestType;
 import org.compiere.model.MStatusCategory;
 import org.dataloader.DataLoader;
@@ -31,13 +31,45 @@ public class X_R_RequestTypeResolver extends POResolver<MRequestType> implements
 			put("P", "467c826c-2a44-4f65-8026-8dc6b1d7edec");
 		}
 	};
-	public CompletableFuture<MRefList> ConfidentialType_RL(MRequestType entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ConfidentialType(MRequestType entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getConfidentialType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CONFIDENTIALTYPE_UUIDS_BY_VALUE.get(entity.getConfidentialType()));
+	}
+
+	public Boolean IsAutoChangeRequest(MRequestType entity, DataFetchingEnvironment environment) {
+		return entity.isAutoChangeRequest();
+	}
+
+	public Boolean IsConfidentialInfo(MRequestType entity, DataFetchingEnvironment environment) {
+		return entity.isConfidentialInfo();
+	}
+
+	public Boolean IsDefault(MRequestType entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsEMailWhenDue(MRequestType entity, DataFetchingEnvironment environment) {
+		return entity.isEMailWhenDue();
+	}
+
+	public Boolean IsEMailWhenOverdue(MRequestType entity, DataFetchingEnvironment environment) {
+		return entity.isEMailWhenOverdue();
+	}
+
+	public Boolean IsIndexed(MRequestType entity, DataFetchingEnvironment environment) {
+		return entity.isIndexed();
+	}
+
+	public Boolean IsInvoiced(MRequestType entity, DataFetchingEnvironment environment) {
+		return entity.isInvoiced();
+	}
+
+	public Boolean IsSelfService(MRequestType entity, DataFetchingEnvironment environment) {
+		return entity.isSelfService();
 	}
 
 

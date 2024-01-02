@@ -2,7 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_AcctSchemaDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
@@ -11,10 +13,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PeriodDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_CategoryDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAcctSchema;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MGLCategory;
 import org.compiere.model.MPeriod;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_A_Asset_Reval_Entry;
 import org.dataloader.DataLoader;
 
@@ -38,11 +38,11 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			put("R03", "374da497-243b-46a1-a10d-5690d37271c5");
 		}
 	};
-	public CompletableFuture<MRefList> A_Rev_Code_RL(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Rev_Code(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Rev_Code())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_REV_CODE_UUIDS_BY_VALUE.get(entity.getA_Rev_Code()));
 	}
@@ -54,11 +54,11 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			put("YBF", "2e54c6d4-f45a-474c-b4ab-6c7679f913dd");
 		}
 	};
-	public CompletableFuture<MRefList> A_Reval_Cal_Method_RL(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Reval_Cal_Method(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Reval_Cal_Method())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_REVAL_CAL_METHOD_UUIDS_BY_VALUE.get(entity.getA_Reval_Cal_Method()));
 	}
@@ -70,11 +70,11 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			put("SD", "29a40d61-8a8c-483b-9f43-03f25c4e5209");
 		}
 	};
-	public CompletableFuture<MRefList> A_Reval_Effective_Date_RL(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Reval_Effective_Date(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Reval_Effective_Date())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_REVAL_EFFECTIVE_DATE_UUIDS_BY_VALUE.get(entity.getA_Reval_Effective_Date()));
 	}
@@ -85,11 +85,11 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			put("IND", "a3202410-8fba-4439-95fb-de3a1f32c568");
 		}
 	};
-	public CompletableFuture<MRefList> A_Reval_Multiplier_RL(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Reval_Multiplier(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Reval_Multiplier())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_REVAL_MULTIPLIER_UUIDS_BY_VALUE.get(entity.getA_Reval_Multiplier()));
 	}
@@ -115,11 +115,11 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
@@ -178,13 +178,21 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList> PostingType_RL(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
+	}
+
+	public Boolean Processed(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(X_A_Asset_Reval_Entry entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

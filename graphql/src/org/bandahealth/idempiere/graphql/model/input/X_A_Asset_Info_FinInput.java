@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Asset_Info_Fin;
 import org.compiere.util.Env;
@@ -17,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_Asset_Info_FinInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput A_Due_On_RL;
-	 private I_AD_Ref_ListInput A_Finance_Meth_RL;
-	 private I_A_AssetInput A_Asset;
-	 private I_C_BPartnerInput C_BPartner;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mA_Due_On;
+	 private I_AD_Ref_ListInput mA_Finance_Meth;
+	 private I_A_AssetInput mA_Asset;
+	 private I_C_BPartnerInput mC_BPartner;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_A_Asset_Info_FinInput(String ID) {
+	@JsonCreator
+	public X_A_Asset_Info_FinInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -36,14 +39,15 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	public void setA_Asset(I_A_AssetInput A_Asset) {
-		this.A_Asset = A_Asset;
+	@JsonProperty("A_Asset")
+	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (get_ID() == 0 &&A_Asset != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_ID(foreignEntity.get_ID());
+			super.setA_Asset_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -52,30 +56,9 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public I_A_AssetInput getA_Asset() {
-		return A_Asset;
-	}
-	/**
-	 * Set Asset.
-	 *
-	 * @param A_Asset_ID Asset used internally or by customers
-	 */
-
-	public void setA_Asset_ID(int A_Asset_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_ID(A_Asset_ID);
-		}
-	}
-	/**
-	 * Set Asset Info Financial ID.
-	 *
-	 * @param A_Asset_Info_Fin_ID Asset Info Financial ID
-	 */
-
-	public void setA_Asset_Info_Fin_ID(int A_Asset_Info_Fin_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_Info_Fin_ID(A_Asset_Info_Fin_ID);
-		}
+	@JsonProperty("A_Asset")
+	public I_A_AssetInput A_Asset() {
+		return mA_Asset;
 	}
 
 	/**
@@ -99,14 +82,15 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	/**
 	 * Set Asset Due On.
 	 *
-	 * @param A_Due_On_RL Asset Due On
+	 * @param A_Due_On Asset Due On
 	 */
-	public void setA_Due_On_RL(I_AD_Ref_ListInput A_Due_On_RL) {
-		this.A_Due_On_RL = A_Due_On_RL;
-		MRefList foreignEntity;
-		if (A_Due_On_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Due_On_RL.getID())
+	@JsonProperty("A_Due_On")
+	public void setA_Due_OnInput(I_AD_Ref_ListInput A_Due_On) {
+		this.mA_Due_On = A_Due_On;
+		MRefList_BH foreignEntity;
+		if (A_Due_On != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(A_Due_On.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setA_Due_On(foreignEntity.getValue());
 		} else {
@@ -119,21 +103,23 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 *
 	 * @return Asset Due On
 	 */
-	public I_AD_Ref_ListInput getA_Due_On_RL() {
-		return A_Due_On_RL;
+	@JsonProperty("A_Due_On")
+	public I_AD_Ref_ListInput A_Due_On() {
+		return mA_Due_On;
 	}
 
 	/**
 	 * Set Asset Finance Method.
 	 *
-	 * @param A_Finance_Meth_RL Asset Finance Method
+	 * @param A_Finance_Meth Asset Finance Method
 	 */
-	public void setA_Finance_Meth_RL(I_AD_Ref_ListInput A_Finance_Meth_RL) {
-		this.A_Finance_Meth_RL = A_Finance_Meth_RL;
-		MRefList foreignEntity;
-		if (A_Finance_Meth_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Finance_Meth_RL.getID())
+	@JsonProperty("A_Finance_Meth")
+	public void setA_Finance_MethInput(I_AD_Ref_ListInput A_Finance_Meth) {
+		this.mA_Finance_Meth = A_Finance_Meth;
+		MRefList_BH foreignEntity;
+		if (A_Finance_Meth != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(A_Finance_Meth.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setA_Finance_Meth(foreignEntity.getValue());
 		} else {
@@ -146,8 +132,9 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 *
 	 * @return Asset Finance Method
 	 */
-	public I_AD_Ref_ListInput getA_Finance_Meth_RL() {
-		return A_Finance_Meth_RL;
+	@JsonProperty("A_Finance_Meth")
+	public I_AD_Ref_ListInput A_Finance_Meth() {
+		return mA_Finance_Meth;
 	}
 
 	/**
@@ -155,14 +142,15 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -171,8 +159,9 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -180,16 +169,17 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	public void setC_BPartner(I_C_BPartnerInput C_BPartner) {
-		this.C_BPartner = C_BPartner;
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
 				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_ID(foreignEntity.get_ID());
+			super.setC_BPartner_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BPartner_ID(0);
+			super.setC_BPartner_ID(0);
 		}
 	}
 
@@ -198,8 +188,9 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public I_C_BPartnerInput getC_BPartner() {
-		return C_BPartner;
+	@JsonProperty("C_BPartner")
+	public I_C_BPartnerInput C_BPartner() {
+		return mC_BPartner;
 	}
 	/**
 	 * Set Processed.

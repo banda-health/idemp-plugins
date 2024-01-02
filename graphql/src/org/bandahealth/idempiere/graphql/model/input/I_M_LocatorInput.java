@@ -15,14 +15,14 @@ public interface I_M_LocatorInput extends I_M_Locator {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,26 +43,26 @@ public interface I_M_LocatorInput extends I_M_Locator {
 	 *
 	 * @param M_LocatorType M_LocatorType
 	 */
-	void setM_LocatorType(I_M_LocatorTypeInput M_LocatorType);
+	void setM_LocatorTypeInput(I_M_LocatorTypeInput M_LocatorType);
 
 	/**
 	 * Get M_LocatorType.
 	 *
 	 * @return M_LocatorType
 	 */
-	I_M_LocatorTypeInput getM_LocatorType();
+	I_M_LocatorTypeInput M_LocatorType();
 
 	/**
 	 * Set M_Warehouse.
 	 *
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
-	void setM_Warehouse(I_M_WarehouseInput M_Warehouse);
+	void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse);
 
 	/**
 	 * Get M_Warehouse.
 	 *
 	 * @return Storage Warehouse and Service Point
 	 */
-	I_M_WarehouseInput getM_Warehouse();
+	I_M_WarehouseInput M_Warehouse();
 }

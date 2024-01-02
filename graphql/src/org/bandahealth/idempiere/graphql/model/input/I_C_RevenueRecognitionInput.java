@@ -15,14 +15,14 @@ public interface I_C_RevenueRecognitionInput extends I_C_RevenueRecognition {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -39,16 +39,16 @@ public interface I_C_RevenueRecognitionInput extends I_C_RevenueRecognition {
 	String getID();
 
 	/**
-	 * Set RecognitionFrequency_RL.
+	 * Set RecognitionFrequency.
 	 *
-	 * @param RecognitionFrequency_RL RecognitionFrequency_RL
+	 * @param RecognitionFrequency RecognitionFrequency
 	 */
-	void setRecognitionFrequency_RL(I_AD_Ref_ListInput RecognitionFrequency_RL);
+	void setRecognitionFrequencyInput(I_AD_Ref_ListInput RecognitionFrequency);
 
 	/**
-	 * Get RecognitionFrequency_RL.
+	 * Get RecognitionFrequency.
 	 *
-	 * @return RecognitionFrequency_RL
+	 * @return RecognitionFrequency
 	 */
-	I_AD_Ref_ListInput getRecognitionFrequency_RL();
+	I_AD_Ref_ListInput RecognitionFrequency();
 }

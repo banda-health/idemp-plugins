@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MEXPProcessor;
 import org.compiere.model.MEXPProcessorType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_EXP_Processor;
 import org.compiere.util.Env;
 
 /**
@@ -13,15 +15,16 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_EXP_ProcessorInput extends X_EXP_Processor implements I_EXP_ProcessorInput {
+public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_ProcessorInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_EXP_Processor_TypeInput EXP_Processor_Type;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_EXP_Processor_TypeInput mEXP_Processor_Type;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_EXP_ProcessorInput(String ID) {
+	@JsonCreator
+	public X_EXP_ProcessorInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_EXP_ProcessorInput extends X_EXP_Processor implements I_EXP_Proce
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,19 +51,9 @@ public class X_EXP_ProcessorInput extends X_EXP_Processor implements I_EXP_Proce
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Export Processor.
-	 *
-	 * @param EXP_Processor_ID Export Processor
-	 */
-
-	public void setEXP_Processor_ID(int EXP_Processor_ID) {
-		if (get_ID() == 0) {
-			super.setEXP_Processor_ID(EXP_Processor_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -67,16 +61,17 @@ public class X_EXP_ProcessorInput extends X_EXP_Processor implements I_EXP_Proce
 	 *
 	 * @param EXP_Processor_Type Export Processor Type
 	 */
-	public void setEXP_Processor_Type(I_EXP_Processor_TypeInput EXP_Processor_Type) {
-		this.EXP_Processor_Type = EXP_Processor_Type;
+	@JsonProperty("EXP_Processor_Type")
+	public void setEXP_Processor_TypeInput(I_EXP_Processor_TypeInput EXP_Processor_Type) {
+		this.mEXP_Processor_Type = EXP_Processor_Type;
 		MEXPProcessorType foreignEntity;
 		if (EXP_Processor_Type != null &&
 				(foreignEntity = new Query(getCtx(), MEXPProcessorType.Table_Name, MEXPProcessorType.COLUMNNAME_EXP_Processor_Type_UU + "=?", get_TrxName())
 						.setParameters(EXP_Processor_Type.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEXP_Processor_Type_ID(foreignEntity.get_ID());
+			super.setEXP_Processor_Type_ID(foreignEntity.get_ID());
 		} else {
-			this.setEXP_Processor_Type_ID(0);
+			super.setEXP_Processor_Type_ID(0);
 		}
 	}
 
@@ -85,8 +80,9 @@ public class X_EXP_ProcessorInput extends X_EXP_Processor implements I_EXP_Proce
 	 *
 	 * @return Export Processor Type
 	 */
-	public I_EXP_Processor_TypeInput getEXP_Processor_Type() {
-		return EXP_Processor_Type;
+	@JsonProperty("EXP_Processor_Type")
+	public I_EXP_Processor_TypeInput EXP_Processor_Type() {
+		return mEXP_Processor_Type;
 	}
 
 	/**

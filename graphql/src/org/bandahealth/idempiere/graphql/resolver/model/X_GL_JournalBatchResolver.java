@@ -2,7 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocTypeDataLoader;
@@ -10,11 +12,9 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PeriodDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_CategoryDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_JournalBatchDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MGLCategory;
 import org.compiere.model.MJournalBatch;
 import org.compiere.model.MPeriod;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -36,11 +36,11 @@ public class X_GL_JournalBatchResolver extends POResolver<MJournalBatch> impleme
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MJournalBatch entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MJournalBatch entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
@@ -93,11 +93,11 @@ public class X_GL_JournalBatchResolver extends POResolver<MJournalBatch> impleme
 			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
-	public CompletableFuture<MRefList> DocAction_RL(MJournalBatch entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocAction(MJournalBatch entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocAction())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
@@ -118,11 +118,11 @@ public class X_GL_JournalBatchResolver extends POResolver<MJournalBatch> impleme
 			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
 		}
 	};
-	public CompletableFuture<MRefList> DocStatus_RL(MJournalBatch entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocStatus(MJournalBatch entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
 	}
@@ -142,6 +142,10 @@ public class X_GL_JournalBatchResolver extends POResolver<MJournalBatch> impleme
 		return dataLoader.load(entity.getGL_Category_ID());
 	}
 
+	public Boolean IsApproved(MJournalBatch entity, DataFetchingEnvironment environment) {
+		return entity.isApproved();
+	}
+
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
@@ -151,13 +155,21 @@ public class X_GL_JournalBatchResolver extends POResolver<MJournalBatch> impleme
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList> PostingType_RL(MJournalBatch entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(MJournalBatch entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
+	}
+
+	public Boolean Processed(MJournalBatch entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MJournalBatch entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 

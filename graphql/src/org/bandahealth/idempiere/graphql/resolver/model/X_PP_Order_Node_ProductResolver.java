@@ -24,6 +24,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_PP_Order_Node_ProductResolver extends POResolver<X_PP_Order_Node_Product> implements GraphQLResolver<X_PP_Order_Node_Product> {
 
 
+	public Boolean IsSubcontracting(X_PP_Order_Node_Product entity, DataFetchingEnvironment environment) {
+		return entity.isSubcontracting();
+	}
+
 
 	/**
 	 * Get Product/Service.

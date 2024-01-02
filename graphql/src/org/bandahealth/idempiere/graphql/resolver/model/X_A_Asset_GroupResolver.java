@@ -50,4 +50,32 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 		return dataLoader.load(entity.getA_Asset_Type_ID());
 	}
 
+	public Boolean IsCreateAsActive(MAssetGroup entity, DataFetchingEnvironment environment) {
+		return entity.isCreateAsActive();
+	}
+
+	public Boolean IsDefault(MAssetGroup entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsDepreciated(MAssetGroup entity, DataFetchingEnvironment environment) {
+		return entity.isDepreciated();
+	}
+
+	public Boolean IsFixedAsset(MAssetGroup entity, DataFetchingEnvironment environment) {
+		return entity.isFixedAsset();
+	}
+
+	public Boolean IsOneAssetPerUOM(MAssetGroup entity, DataFetchingEnvironment environment) {
+		return entity.isOneAssetPerUOM();
+	}
+
+	public Boolean IsOwned(MAssetGroup entity, DataFetchingEnvironment environment) {
+		return entity.isOwned();
+	}
+
+	public Boolean IsTrackIssues(MAssetGroup entity, DataFetchingEnvironment environment) {
+		return entity.isTrackIssues();
+	}
+
 }

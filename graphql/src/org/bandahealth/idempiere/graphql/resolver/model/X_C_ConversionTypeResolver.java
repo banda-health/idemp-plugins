@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_C_ConversionTypeResolver extends POResolver<MConversionType> implements GraphQLResolver<MConversionType> {
 
 
+	public Boolean IsDefault(MConversionType entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
 }

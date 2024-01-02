@@ -1,16 +1,18 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAssetGroup;
+import org.compiere.model.MAssetGroupAcct;
 import org.compiere.model.MDepreciation;
 import org.compiere.model.MDepreciationConvention;
 import org.compiere.model.MDepreciationMethod;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_A_Asset_Group_Acct;
 import org.compiere.model.X_A_Depreciation_Table_Header;
 import org.compiere.util.Env;
 
@@ -20,37 +22,38 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I_A_Asset_Group_AcctInput {
+public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_Asset_Group_AcctInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput A_Depreciation_Manual_Period_RL;
-	 private I_AD_Ref_ListInput A_Reval_Cal_Method_RL;
-	 private I_AD_Ref_ListInput PostingType_RL;
-	 private I_A_Asset_GroupInput A_Asset_Group;
-	 private I_A_DepreciationInput A_Depreciation;
-	 private I_A_DepreciationInput A_Depreciation_F;
-	 private I_A_Depreciation_ConventionInput A_Depreciation_Conv;
-	 private I_A_Depreciation_ConventionInput A_Depreciation_Conv_F;
-	 private I_A_Depreciation_MethodInput A_Depreciation_Method;
-	 private I_A_Depreciation_MethodInput A_Depreciation_Method_F;
-	 private I_A_Depreciation_Table_HeaderInput A_Depreciation_Table_Header;
-	 private I_C_AcctSchemaInput C_AcctSchema;
-	 private I_C_ValidCombinationInput A_Accumdepreciation_A;
-	 private I_C_ValidCombinationInput A_Asset_A;
-	 private I_C_ValidCombinationInput A_Depreciation_A;
-	 private I_C_ValidCombinationInput A_Disposal_Gain_A;
-	 private I_C_ValidCombinationInput A_Disposal_Loss_A;
-	 private I_C_ValidCombinationInput A_Disposal_Revenue_A;
-	 private I_C_ValidCombinationInput A_Reval_Adep_Offset_Cur_A;
-	 private I_C_ValidCombinationInput A_Reval_Adep_Offset_Prior_A;
-	 private I_C_ValidCombinationInput A_Reval_Cost_Offset_A;
-	 private I_C_ValidCombinationInput A_Reval_Cost_Offset_Prior_A;
-	 private I_C_ValidCombinationInput A_Reval_Depexp_Offset_A;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mA_Depreciation_Manual_Period;
+	 private I_AD_Ref_ListInput mA_Reval_Cal_Method;
+	 private I_AD_Ref_ListInput mPostingType;
+	 private I_A_Asset_GroupInput mA_Asset_Group;
+	 private I_A_DepreciationInput mA_Depreciation;
+	 private I_A_DepreciationInput mA_Depreciation_F;
+	 private I_A_Depreciation_ConventionInput mA_Depreciation_Conv;
+	 private I_A_Depreciation_ConventionInput mA_Depreciation_Conv_F;
+	 private I_A_Depreciation_MethodInput mA_Depreciation_Method;
+	 private I_A_Depreciation_MethodInput mA_Depreciation_Method_F;
+	 private I_A_Depreciation_Table_HeaderInput mA_Depreciation_Table_Header;
+	 private I_C_AcctSchemaInput mC_AcctSchema;
+	 private I_C_ValidCombinationInput mA_Accumdepreciation_A;
+	 private I_C_ValidCombinationInput mA_Asset_A;
+	 private I_C_ValidCombinationInput mA_Depreciation_A;
+	 private I_C_ValidCombinationInput mA_Disposal_Gain_A;
+	 private I_C_ValidCombinationInput mA_Disposal_Loss_A;
+	 private I_C_ValidCombinationInput mA_Disposal_Revenue_A;
+	 private I_C_ValidCombinationInput mA_Reval_Adep_Offset_Cur_A;
+	 private I_C_ValidCombinationInput mA_Reval_Adep_Offset_Prior_A;
+	 private I_C_ValidCombinationInput mA_Reval_Cost_Offset_A;
+	 private I_C_ValidCombinationInput mA_Reval_Cost_Offset_Prior_A;
+	 private I_C_ValidCombinationInput mA_Reval_Depexp_Offset_A;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_A_Asset_Group_AcctInput(String ID) {
+	@JsonCreator
+	public X_A_Asset_Group_AcctInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -60,16 +63,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Accumdepreciation_A Accumulated Depreciation Account
 	 */
-	public void setA_Accumdepreciation_A(I_C_ValidCombinationInput A_Accumdepreciation_A) {
-		this.A_Accumdepreciation_A = A_Accumdepreciation_A;
+	@JsonProperty("A_Accumdepreciation_A")
+	public void setA_Accumdepreciation_AInput(I_C_ValidCombinationInput A_Accumdepreciation_A) {
+		this.mA_Accumdepreciation_A = A_Accumdepreciation_A;
 		MAccount foreignEntity;
 		if (A_Accumdepreciation_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(A_Accumdepreciation_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Accumdepreciation_Acct(foreignEntity.get_ID());
+			super.setA_Accumdepreciation_Acct(foreignEntity.get_ID());
 		} else {
-			this.setA_Accumdepreciation_Acct(0);
+			super.setA_Accumdepreciation_Acct(0);
 		}
 	}
 
@@ -78,8 +82,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Accumulated Depreciation Account
 	 */
-	public I_C_ValidCombinationInput getA_Accumdepreciation_A() {
-		return A_Accumdepreciation_A;
+	@JsonProperty("A_Accumdepreciation_A")
+	public I_C_ValidCombinationInput A_Accumdepreciation_A() {
+		return mA_Accumdepreciation_A;
 	}
 
 	/**
@@ -87,16 +92,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Asset_A Asset Acct
 	 */
-	public void setA_Asset_A(I_C_ValidCombinationInput A_Asset_A) {
-		this.A_Asset_A = A_Asset_A;
+	@JsonProperty("A_Asset_A")
+	public void setA_Asset_AInput(I_C_ValidCombinationInput A_Asset_A) {
+		this.mA_Asset_A = A_Asset_A;
 		MAccount foreignEntity;
 		if (A_Asset_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(A_Asset_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_Acct(foreignEntity.get_ID());
+			super.setA_Asset_Acct(foreignEntity.get_ID());
 		} else {
-			this.setA_Asset_Acct(0);
+			super.setA_Asset_Acct(0);
 		}
 	}
 
@@ -105,19 +111,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Asset Acct
 	 */
-	public I_C_ValidCombinationInput getA_Asset_A() {
-		return A_Asset_A;
-	}
-	/**
-	 * Set Asset Group Accounting.
-	 *
-	 * @param A_Asset_Group_Acct_ID Asset Group Accounting
-	 */
-
-	public void setA_Asset_Group_Acct_ID(int A_Asset_Group_Acct_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_Group_Acct_ID(A_Asset_Group_Acct_ID);
-		}
+	@JsonProperty("A_Asset_A")
+	public I_C_ValidCombinationInput A_Asset_A() {
+		return mA_Asset_A;
 	}
 
 	/**
@@ -143,14 +139,15 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Asset_Group Group of Assets
 	 */
-	public void setA_Asset_Group(I_A_Asset_GroupInput A_Asset_Group) {
-		this.A_Asset_Group = A_Asset_Group;
+	@JsonProperty("A_Asset_Group")
+	public void setA_Asset_GroupInput(I_A_Asset_GroupInput A_Asset_Group) {
+		this.mA_Asset_Group = A_Asset_Group;
 		MAssetGroup foreignEntity;
 		if (get_ID() == 0 &&A_Asset_Group != null &&
 				(foreignEntity = new Query(getCtx(), MAssetGroup.Table_Name, MAssetGroup.COLUMNNAME_A_Asset_Group_UU + "=?", get_TrxName())
 						.setParameters(A_Asset_Group.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_Group_ID(foreignEntity.get_ID());
+			super.setA_Asset_Group_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -159,19 +156,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Group of Assets
 	 */
-	public I_A_Asset_GroupInput getA_Asset_Group() {
-		return A_Asset_Group;
-	}
-	/**
-	 * Set Asset Group.
-	 *
-	 * @param A_Asset_Group_ID Group of Assets
-	 */
-
-	public void setA_Asset_Group_ID(int A_Asset_Group_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_Group_ID(A_Asset_Group_ID);
-		}
+	@JsonProperty("A_Asset_Group")
+	public I_A_Asset_GroupInput A_Asset_Group() {
+		return mA_Asset_Group;
 	}
 
 	/**
@@ -179,16 +166,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Depreciation_A Depreciation Account
 	 */
-	public void setA_Depreciation_A(I_C_ValidCombinationInput A_Depreciation_A) {
-		this.A_Depreciation_A = A_Depreciation_A;
+	@JsonProperty("A_Depreciation_A")
+	public void setA_Depreciation_AInput(I_C_ValidCombinationInput A_Depreciation_A) {
+		this.mA_Depreciation_A = A_Depreciation_A;
 		MAccount foreignEntity;
 		if (A_Depreciation_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(A_Depreciation_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Depreciation_Acct(foreignEntity.get_ID());
+			super.setA_Depreciation_Acct(foreignEntity.get_ID());
 		} else {
-			this.setA_Depreciation_Acct(0);
+			super.setA_Depreciation_Acct(0);
 		}
 	}
 
@@ -197,8 +185,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Depreciation Account
 	 */
-	public I_C_ValidCombinationInput getA_Depreciation_A() {
-		return A_Depreciation_A;
+	@JsonProperty("A_Depreciation_A")
+	public I_C_ValidCombinationInput A_Depreciation_A() {
+		return mA_Depreciation_A;
 	}
 
 	/**
@@ -206,16 +195,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Depreciation_Conv_F Depreciation Convention (fiscal)
 	 */
-	public void setA_Depreciation_Conv_F(I_A_Depreciation_ConventionInput A_Depreciation_Conv_F) {
-		this.A_Depreciation_Conv_F = A_Depreciation_Conv_F;
+	@JsonProperty("A_Depreciation_Conv_F")
+	public void setA_Depreciation_Conv_FInput(I_A_Depreciation_ConventionInput A_Depreciation_Conv_F) {
+		this.mA_Depreciation_Conv_F = A_Depreciation_Conv_F;
 		MDepreciationConvention foreignEntity;
 		if (A_Depreciation_Conv_F != null &&
 				(foreignEntity = new Query(getCtx(), MDepreciationConvention.Table_Name, MDepreciationConvention.COLUMNNAME_A_Depreciation_Convention_UU + "=?", get_TrxName())
 						.setParameters(A_Depreciation_Conv_F.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Depreciation_Conv_F_ID(foreignEntity.get_ID());
+			super.setA_Depreciation_Conv_F_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_Depreciation_Conv_F_ID(0);
+			super.setA_Depreciation_Conv_F_ID(0);
 		}
 	}
 
@@ -224,19 +214,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Depreciation Convention (fiscal)
 	 */
-	public I_A_Depreciation_ConventionInput getA_Depreciation_Conv_F() {
-		return A_Depreciation_Conv_F;
-	}
-	/**
-	 * Set Depreciation Convention (fiscal).
-	 *
-	 * @param A_Depreciation_Conv_F_ID Depreciation Convention (fiscal)
-	 */
-
-	public void setA_Depreciation_Conv_F_ID(int A_Depreciation_Conv_F_ID) {
-		if (get_ID() == 0) {
-			super.setA_Depreciation_Conv_F_ID(A_Depreciation_Conv_F_ID);
-		}
+	@JsonProperty("A_Depreciation_Conv_F")
+	public I_A_Depreciation_ConventionInput A_Depreciation_Conv_F() {
+		return mA_Depreciation_Conv_F;
 	}
 
 	/**
@@ -244,16 +224,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Depreciation_Conv Convention Type
 	 */
-	public void setA_Depreciation_Conv(I_A_Depreciation_ConventionInput A_Depreciation_Conv) {
-		this.A_Depreciation_Conv = A_Depreciation_Conv;
+	@JsonProperty("A_Depreciation_Conv")
+	public void setA_Depreciation_ConvInput(I_A_Depreciation_ConventionInput A_Depreciation_Conv) {
+		this.mA_Depreciation_Conv = A_Depreciation_Conv;
 		MDepreciationConvention foreignEntity;
 		if (A_Depreciation_Conv != null &&
 				(foreignEntity = new Query(getCtx(), MDepreciationConvention.Table_Name, MDepreciationConvention.COLUMNNAME_A_Depreciation_Convention_UU + "=?", get_TrxName())
 						.setParameters(A_Depreciation_Conv.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Depreciation_Conv_ID(foreignEntity.get_ID());
+			super.setA_Depreciation_Conv_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_Depreciation_Conv_ID(0);
+			super.setA_Depreciation_Conv_ID(0);
 		}
 	}
 
@@ -262,19 +243,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Convention Type
 	 */
-	public I_A_Depreciation_ConventionInput getA_Depreciation_Conv() {
-		return A_Depreciation_Conv;
-	}
-	/**
-	 * Set Convention Type.
-	 *
-	 * @param A_Depreciation_Conv_ID Convention Type
-	 */
-
-	public void setA_Depreciation_Conv_ID(int A_Depreciation_Conv_ID) {
-		if (get_ID() == 0) {
-			super.setA_Depreciation_Conv_ID(A_Depreciation_Conv_ID);
-		}
+	@JsonProperty("A_Depreciation_Conv")
+	public I_A_Depreciation_ConventionInput A_Depreciation_Conv() {
+		return mA_Depreciation_Conv;
 	}
 
 	/**
@@ -282,16 +253,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Depreciation_F Depreciation (fiscal)
 	 */
-	public void setA_Depreciation_F(I_A_DepreciationInput A_Depreciation_F) {
-		this.A_Depreciation_F = A_Depreciation_F;
+	@JsonProperty("A_Depreciation_F")
+	public void setA_Depreciation_FInput(I_A_DepreciationInput A_Depreciation_F) {
+		this.mA_Depreciation_F = A_Depreciation_F;
 		MDepreciation foreignEntity;
 		if (A_Depreciation_F != null &&
 				(foreignEntity = new Query(getCtx(), MDepreciation.Table_Name, MDepreciation.COLUMNNAME_A_Depreciation_UU + "=?", get_TrxName())
 						.setParameters(A_Depreciation_F.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Depreciation_F_ID(foreignEntity.get_ID());
+			super.setA_Depreciation_F_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_Depreciation_F_ID(0);
+			super.setA_Depreciation_F_ID(0);
 		}
 	}
 
@@ -300,19 +272,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Depreciation (fiscal)
 	 */
-	public I_A_DepreciationInput getA_Depreciation_F() {
-		return A_Depreciation_F;
-	}
-	/**
-	 * Set Depreciation (fiscal).
-	 *
-	 * @param A_Depreciation_F_ID Depreciation (fiscal)
-	 */
-
-	public void setA_Depreciation_F_ID(int A_Depreciation_F_ID) {
-		if (get_ID() == 0) {
-			super.setA_Depreciation_F_ID(A_Depreciation_F_ID);
-		}
+	@JsonProperty("A_Depreciation_F")
+	public I_A_DepreciationInput A_Depreciation_F() {
+		return mA_Depreciation_F;
 	}
 
 	/**
@@ -320,16 +282,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Depreciation Depreciation
 	 */
-	public void setA_Depreciation(I_A_DepreciationInput A_Depreciation) {
-		this.A_Depreciation = A_Depreciation;
+	@JsonProperty("A_Depreciation")
+	public void setA_DepreciationInput(I_A_DepreciationInput A_Depreciation) {
+		this.mA_Depreciation = A_Depreciation;
 		MDepreciation foreignEntity;
 		if (A_Depreciation != null &&
 				(foreignEntity = new Query(getCtx(), MDepreciation.Table_Name, MDepreciation.COLUMNNAME_A_Depreciation_UU + "=?", get_TrxName())
 						.setParameters(A_Depreciation.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Depreciation_ID(foreignEntity.get_ID());
+			super.setA_Depreciation_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_Depreciation_ID(0);
+			super.setA_Depreciation_ID(0);
 		}
 	}
 
@@ -338,32 +301,23 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Depreciation
 	 */
-	public I_A_DepreciationInput getA_Depreciation() {
-		return A_Depreciation;
-	}
-	/**
-	 * Set Depreciation.
-	 *
-	 * @param A_Depreciation_ID Depreciation
-	 */
-
-	public void setA_Depreciation_ID(int A_Depreciation_ID) {
-		if (get_ID() == 0) {
-			super.setA_Depreciation_ID(A_Depreciation_ID);
-		}
+	@JsonProperty("A_Depreciation")
+	public I_A_DepreciationInput A_Depreciation() {
+		return mA_Depreciation;
 	}
 
 	/**
 	 * Set A_Depreciation_Manual_Period.
 	 *
-	 * @param A_Depreciation_Manual_Period_RL A_Depreciation_Manual_Period
+	 * @param A_Depreciation_Manual_Period A_Depreciation_Manual_Period
 	 */
-	public void setA_Depreciation_Manual_Period_RL(I_AD_Ref_ListInput A_Depreciation_Manual_Period_RL) {
-		this.A_Depreciation_Manual_Period_RL = A_Depreciation_Manual_Period_RL;
-		MRefList foreignEntity;
-		if (A_Depreciation_Manual_Period_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Depreciation_Manual_Period_RL.getID())
+	@JsonProperty("A_Depreciation_Manual_Period")
+	public void setA_Depreciation_Manual_PeriodInput(I_AD_Ref_ListInput A_Depreciation_Manual_Period) {
+		this.mA_Depreciation_Manual_Period = A_Depreciation_Manual_Period;
+		MRefList_BH foreignEntity;
+		if (A_Depreciation_Manual_Period != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(A_Depreciation_Manual_Period.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setA_Depreciation_Manual_Period(foreignEntity.getValue());
 		} else {
@@ -376,8 +330,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return A_Depreciation_Manual_Period
 	 */
-	public I_AD_Ref_ListInput getA_Depreciation_Manual_Period_RL() {
-		return A_Depreciation_Manual_Period_RL;
+	@JsonProperty("A_Depreciation_Manual_Period")
+	public I_AD_Ref_ListInput A_Depreciation_Manual_Period() {
+		return mA_Depreciation_Manual_Period;
 	}
 
 	/**
@@ -385,16 +340,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Depreciation_Method_F Depreciation Method (fiscal)
 	 */
-	public void setA_Depreciation_Method_F(I_A_Depreciation_MethodInput A_Depreciation_Method_F) {
-		this.A_Depreciation_Method_F = A_Depreciation_Method_F;
+	@JsonProperty("A_Depreciation_Method_F")
+	public void setA_Depreciation_Method_FInput(I_A_Depreciation_MethodInput A_Depreciation_Method_F) {
+		this.mA_Depreciation_Method_F = A_Depreciation_Method_F;
 		MDepreciationMethod foreignEntity;
 		if (A_Depreciation_Method_F != null &&
 				(foreignEntity = new Query(getCtx(), MDepreciationMethod.Table_Name, MDepreciationMethod.COLUMNNAME_A_Depreciation_Method_UU + "=?", get_TrxName())
 						.setParameters(A_Depreciation_Method_F.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Depreciation_Method_F_ID(foreignEntity.get_ID());
+			super.setA_Depreciation_Method_F_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_Depreciation_Method_F_ID(0);
+			super.setA_Depreciation_Method_F_ID(0);
 		}
 	}
 
@@ -403,19 +359,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Depreciation Method (fiscal)
 	 */
-	public I_A_Depreciation_MethodInput getA_Depreciation_Method_F() {
-		return A_Depreciation_Method_F;
-	}
-	/**
-	 * Set Depreciation Method (fiscal).
-	 *
-	 * @param A_Depreciation_Method_F_ID Depreciation Method (fiscal)
-	 */
-
-	public void setA_Depreciation_Method_F_ID(int A_Depreciation_Method_F_ID) {
-		if (get_ID() == 0) {
-			super.setA_Depreciation_Method_F_ID(A_Depreciation_Method_F_ID);
-		}
+	@JsonProperty("A_Depreciation_Method_F")
+	public I_A_Depreciation_MethodInput A_Depreciation_Method_F() {
+		return mA_Depreciation_Method_F;
 	}
 
 	/**
@@ -423,16 +369,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Depreciation_Method Depreciation Method
 	 */
-	public void setA_Depreciation_Method(I_A_Depreciation_MethodInput A_Depreciation_Method) {
-		this.A_Depreciation_Method = A_Depreciation_Method;
+	@JsonProperty("A_Depreciation_Method")
+	public void setA_Depreciation_MethodInput(I_A_Depreciation_MethodInput A_Depreciation_Method) {
+		this.mA_Depreciation_Method = A_Depreciation_Method;
 		MDepreciationMethod foreignEntity;
 		if (A_Depreciation_Method != null &&
 				(foreignEntity = new Query(getCtx(), MDepreciationMethod.Table_Name, MDepreciationMethod.COLUMNNAME_A_Depreciation_Method_UU + "=?", get_TrxName())
 						.setParameters(A_Depreciation_Method.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Depreciation_Method_ID(foreignEntity.get_ID());
+			super.setA_Depreciation_Method_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_Depreciation_Method_ID(0);
+			super.setA_Depreciation_Method_ID(0);
 		}
 	}
 
@@ -441,19 +388,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Depreciation Method
 	 */
-	public I_A_Depreciation_MethodInput getA_Depreciation_Method() {
-		return A_Depreciation_Method;
-	}
-	/**
-	 * Set Depreciation Method.
-	 *
-	 * @param A_Depreciation_Method_ID Depreciation Method
-	 */
-
-	public void setA_Depreciation_Method_ID(int A_Depreciation_Method_ID) {
-		if (get_ID() == 0) {
-			super.setA_Depreciation_Method_ID(A_Depreciation_Method_ID);
-		}
+	@JsonProperty("A_Depreciation_Method")
+	public I_A_Depreciation_MethodInput A_Depreciation_Method() {
+		return mA_Depreciation_Method;
 	}
 
 	/**
@@ -461,16 +398,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Depreciation_Table_Header A_Depreciation_Table_Header_ID
 	 */
-	public void setA_Depreciation_Table_Header(I_A_Depreciation_Table_HeaderInput A_Depreciation_Table_Header) {
-		this.A_Depreciation_Table_Header = A_Depreciation_Table_Header;
+	@JsonProperty("A_Depreciation_Table_Header")
+	public void setA_Depreciation_Table_HeaderInput(I_A_Depreciation_Table_HeaderInput A_Depreciation_Table_Header) {
+		this.mA_Depreciation_Table_Header = A_Depreciation_Table_Header;
 		X_A_Depreciation_Table_Header foreignEntity;
 		if (A_Depreciation_Table_Header != null &&
 				(foreignEntity = new Query(getCtx(), X_A_Depreciation_Table_Header.Table_Name, X_A_Depreciation_Table_Header.COLUMNNAME_A_Depreciation_Table_Header_UU + "=?", get_TrxName())
 						.setParameters(A_Depreciation_Table_Header.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Depreciation_Table_Header_ID(foreignEntity.get_ID());
+			super.setA_Depreciation_Table_Header_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_Depreciation_Table_Header_ID(0);
+			super.setA_Depreciation_Table_Header_ID(0);
 		}
 	}
 
@@ -479,19 +417,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return A_Depreciation_Table_Header_ID
 	 */
-	public I_A_Depreciation_Table_HeaderInput getA_Depreciation_Table_Header() {
-		return A_Depreciation_Table_Header;
-	}
-	/**
-	 * Set A_Depreciation_Table_Header_ID.
-	 *
-	 * @param A_Depreciation_Table_Header_ID A_Depreciation_Table_Header_ID
-	 */
-
-	public void setA_Depreciation_Table_Header_ID(int A_Depreciation_Table_Header_ID) {
-		if (get_ID() == 0) {
-			super.setA_Depreciation_Table_Header_ID(A_Depreciation_Table_Header_ID);
-		}
+	@JsonProperty("A_Depreciation_Table_Header")
+	public I_A_Depreciation_Table_HeaderInput A_Depreciation_Table_Header() {
+		return mA_Depreciation_Table_Header;
 	}
 
 	/**
@@ -499,16 +427,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Disposal_Gain_A Disposal Gain Acct
 	 */
-	public void setA_Disposal_Gain_A(I_C_ValidCombinationInput A_Disposal_Gain_A) {
-		this.A_Disposal_Gain_A = A_Disposal_Gain_A;
+	@JsonProperty("A_Disposal_Gain_A")
+	public void setA_Disposal_Gain_AInput(I_C_ValidCombinationInput A_Disposal_Gain_A) {
+		this.mA_Disposal_Gain_A = A_Disposal_Gain_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Gain_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(A_Disposal_Gain_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Disposal_Gain_Acct(foreignEntity.get_ID());
+			super.setA_Disposal_Gain_Acct(foreignEntity.get_ID());
 		} else {
-			this.setA_Disposal_Gain_Acct(0);
+			super.setA_Disposal_Gain_Acct(0);
 		}
 	}
 
@@ -517,8 +446,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Disposal Gain Acct
 	 */
-	public I_C_ValidCombinationInput getA_Disposal_Gain_A() {
-		return A_Disposal_Gain_A;
+	@JsonProperty("A_Disposal_Gain_A")
+	public I_C_ValidCombinationInput A_Disposal_Gain_A() {
+		return mA_Disposal_Gain_A;
 	}
 
 	/**
@@ -526,16 +456,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Disposal_Loss_A Disposal Loss Acct
 	 */
-	public void setA_Disposal_Loss_A(I_C_ValidCombinationInput A_Disposal_Loss_A) {
-		this.A_Disposal_Loss_A = A_Disposal_Loss_A;
+	@JsonProperty("A_Disposal_Loss_A")
+	public void setA_Disposal_Loss_AInput(I_C_ValidCombinationInput A_Disposal_Loss_A) {
+		this.mA_Disposal_Loss_A = A_Disposal_Loss_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Loss_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(A_Disposal_Loss_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Disposal_Loss_Acct(foreignEntity.get_ID());
+			super.setA_Disposal_Loss_Acct(foreignEntity.get_ID());
 		} else {
-			this.setA_Disposal_Loss_Acct(0);
+			super.setA_Disposal_Loss_Acct(0);
 		}
 	}
 
@@ -544,8 +475,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Disposal Loss Acct
 	 */
-	public I_C_ValidCombinationInput getA_Disposal_Loss_A() {
-		return A_Disposal_Loss_A;
+	@JsonProperty("A_Disposal_Loss_A")
+	public I_C_ValidCombinationInput A_Disposal_Loss_A() {
+		return mA_Disposal_Loss_A;
 	}
 
 	/**
@@ -553,16 +485,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Disposal_Revenue_A Disposal Revenue Acct
 	 */
-	public void setA_Disposal_Revenue_A(I_C_ValidCombinationInput A_Disposal_Revenue_A) {
-		this.A_Disposal_Revenue_A = A_Disposal_Revenue_A;
+	@JsonProperty("A_Disposal_Revenue_A")
+	public void setA_Disposal_Revenue_AInput(I_C_ValidCombinationInput A_Disposal_Revenue_A) {
+		this.mA_Disposal_Revenue_A = A_Disposal_Revenue_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Revenue_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(A_Disposal_Revenue_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Disposal_Revenue_Acct(foreignEntity.get_ID());
+			super.setA_Disposal_Revenue_Acct(foreignEntity.get_ID());
 		} else {
-			this.setA_Disposal_Revenue_Acct(0);
+			super.setA_Disposal_Revenue_Acct(0);
 		}
 	}
 
@@ -571,8 +504,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Disposal Revenue Acct
 	 */
-	public I_C_ValidCombinationInput getA_Disposal_Revenue_A() {
-		return A_Disposal_Revenue_A;
+	@JsonProperty("A_Disposal_Revenue_A")
+	public I_C_ValidCombinationInput A_Disposal_Revenue_A() {
+		return mA_Disposal_Revenue_A;
 	}
 
 	/**
@@ -580,16 +514,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Reval_Adep_Offset_Cur_A A_Reval_Accumdep_Offset_Cur
 	 */
-	public void setA_Reval_Adep_Offset_Cur_A(I_C_ValidCombinationInput A_Reval_Adep_Offset_Cur_A) {
-		this.A_Reval_Adep_Offset_Cur_A = A_Reval_Adep_Offset_Cur_A;
+	@JsonProperty("A_Reval_Adep_Offset_Cur_A")
+	public void setA_Reval_Adep_Offset_Cur_AInput(I_C_ValidCombinationInput A_Reval_Adep_Offset_Cur_A) {
+		this.mA_Reval_Adep_Offset_Cur_A = A_Reval_Adep_Offset_Cur_A;
 		MAccount foreignEntity;
 		if (A_Reval_Adep_Offset_Cur_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(A_Reval_Adep_Offset_Cur_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Reval_Adep_Offset_Cur_Acct(foreignEntity.get_ID());
+			super.setA_Reval_Adep_Offset_Cur_Acct(foreignEntity.get_ID());
 		} else {
-			this.setA_Reval_Adep_Offset_Cur_Acct(0);
+			super.setA_Reval_Adep_Offset_Cur_Acct(0);
 		}
 	}
 
@@ -598,8 +533,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return A_Reval_Accumdep_Offset_Cur
 	 */
-	public I_C_ValidCombinationInput getA_Reval_Adep_Offset_Cur_A() {
-		return A_Reval_Adep_Offset_Cur_A;
+	@JsonProperty("A_Reval_Adep_Offset_Cur_A")
+	public I_C_ValidCombinationInput A_Reval_Adep_Offset_Cur_A() {
+		return mA_Reval_Adep_Offset_Cur_A;
 	}
 
 	/**
@@ -607,16 +543,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Reval_Adep_Offset_Prior_A A_Reval_Accumdep_Offset_Prior
 	 */
-	public void setA_Reval_Adep_Offset_Prior_A(I_C_ValidCombinationInput A_Reval_Adep_Offset_Prior_A) {
-		this.A_Reval_Adep_Offset_Prior_A = A_Reval_Adep_Offset_Prior_A;
+	@JsonProperty("A_Reval_Adep_Offset_Prior_A")
+	public void setA_Reval_Adep_Offset_Prior_AInput(I_C_ValidCombinationInput A_Reval_Adep_Offset_Prior_A) {
+		this.mA_Reval_Adep_Offset_Prior_A = A_Reval_Adep_Offset_Prior_A;
 		MAccount foreignEntity;
 		if (A_Reval_Adep_Offset_Prior_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(A_Reval_Adep_Offset_Prior_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Reval_Adep_Offset_Prior_Acct(foreignEntity.get_ID());
+			super.setA_Reval_Adep_Offset_Prior_Acct(foreignEntity.get_ID());
 		} else {
-			this.setA_Reval_Adep_Offset_Prior_Acct(0);
+			super.setA_Reval_Adep_Offset_Prior_Acct(0);
 		}
 	}
 
@@ -625,21 +562,23 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return A_Reval_Accumdep_Offset_Prior
 	 */
-	public I_C_ValidCombinationInput getA_Reval_Adep_Offset_Prior_A() {
-		return A_Reval_Adep_Offset_Prior_A;
+	@JsonProperty("A_Reval_Adep_Offset_Prior_A")
+	public I_C_ValidCombinationInput A_Reval_Adep_Offset_Prior_A() {
+		return mA_Reval_Adep_Offset_Prior_A;
 	}
 
 	/**
 	 * Set A_Reval_Cal_Method.
 	 *
-	 * @param A_Reval_Cal_Method_RL A_Reval_Cal_Method
+	 * @param A_Reval_Cal_Method A_Reval_Cal_Method
 	 */
-	public void setA_Reval_Cal_Method_RL(I_AD_Ref_ListInput A_Reval_Cal_Method_RL) {
-		this.A_Reval_Cal_Method_RL = A_Reval_Cal_Method_RL;
-		MRefList foreignEntity;
-		if (A_Reval_Cal_Method_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Reval_Cal_Method_RL.getID())
+	@JsonProperty("A_Reval_Cal_Method")
+	public void setA_Reval_Cal_MethodInput(I_AD_Ref_ListInput A_Reval_Cal_Method) {
+		this.mA_Reval_Cal_Method = A_Reval_Cal_Method;
+		MRefList_BH foreignEntity;
+		if (A_Reval_Cal_Method != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(A_Reval_Cal_Method.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setA_Reval_Cal_Method(foreignEntity.getValue());
 		} else {
@@ -652,8 +591,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return A_Reval_Cal_Method
 	 */
-	public I_AD_Ref_ListInput getA_Reval_Cal_Method_RL() {
-		return A_Reval_Cal_Method_RL;
+	@JsonProperty("A_Reval_Cal_Method")
+	public I_AD_Ref_ListInput A_Reval_Cal_Method() {
+		return mA_Reval_Cal_Method;
 	}
 
 	/**
@@ -661,16 +601,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Reval_Cost_Offset_A Reval Cost Offset Acct
 	 */
-	public void setA_Reval_Cost_Offset_A(I_C_ValidCombinationInput A_Reval_Cost_Offset_A) {
-		this.A_Reval_Cost_Offset_A = A_Reval_Cost_Offset_A;
+	@JsonProperty("A_Reval_Cost_Offset_A")
+	public void setA_Reval_Cost_Offset_AInput(I_C_ValidCombinationInput A_Reval_Cost_Offset_A) {
+		this.mA_Reval_Cost_Offset_A = A_Reval_Cost_Offset_A;
 		MAccount foreignEntity;
 		if (A_Reval_Cost_Offset_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(A_Reval_Cost_Offset_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Reval_Cost_Offset_Acct(foreignEntity.get_ID());
+			super.setA_Reval_Cost_Offset_Acct(foreignEntity.get_ID());
 		} else {
-			this.setA_Reval_Cost_Offset_Acct(0);
+			super.setA_Reval_Cost_Offset_Acct(0);
 		}
 	}
 
@@ -679,8 +620,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Reval Cost Offset Acct
 	 */
-	public I_C_ValidCombinationInput getA_Reval_Cost_Offset_A() {
-		return A_Reval_Cost_Offset_A;
+	@JsonProperty("A_Reval_Cost_Offset_A")
+	public I_C_ValidCombinationInput A_Reval_Cost_Offset_A() {
+		return mA_Reval_Cost_Offset_A;
 	}
 
 	/**
@@ -688,16 +630,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Reval_Cost_Offset_Prior_A Reval Cost Offset Prior Acct
 	 */
-	public void setA_Reval_Cost_Offset_Prior_A(I_C_ValidCombinationInput A_Reval_Cost_Offset_Prior_A) {
-		this.A_Reval_Cost_Offset_Prior_A = A_Reval_Cost_Offset_Prior_A;
+	@JsonProperty("A_Reval_Cost_Offset_Prior_A")
+	public void setA_Reval_Cost_Offset_Prior_AInput(I_C_ValidCombinationInput A_Reval_Cost_Offset_Prior_A) {
+		this.mA_Reval_Cost_Offset_Prior_A = A_Reval_Cost_Offset_Prior_A;
 		MAccount foreignEntity;
 		if (A_Reval_Cost_Offset_Prior_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(A_Reval_Cost_Offset_Prior_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Reval_Cost_Offset_Prior_Acct(foreignEntity.get_ID());
+			super.setA_Reval_Cost_Offset_Prior_Acct(foreignEntity.get_ID());
 		} else {
-			this.setA_Reval_Cost_Offset_Prior_Acct(0);
+			super.setA_Reval_Cost_Offset_Prior_Acct(0);
 		}
 	}
 
@@ -706,8 +649,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Reval Cost Offset Prior Acct
 	 */
-	public I_C_ValidCombinationInput getA_Reval_Cost_Offset_Prior_A() {
-		return A_Reval_Cost_Offset_Prior_A;
+	@JsonProperty("A_Reval_Cost_Offset_Prior_A")
+	public I_C_ValidCombinationInput A_Reval_Cost_Offset_Prior_A() {
+		return mA_Reval_Cost_Offset_Prior_A;
 	}
 
 	/**
@@ -715,16 +659,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param A_Reval_Depexp_Offset_A Reval Depexp Offset Acct
 	 */
-	public void setA_Reval_Depexp_Offset_A(I_C_ValidCombinationInput A_Reval_Depexp_Offset_A) {
-		this.A_Reval_Depexp_Offset_A = A_Reval_Depexp_Offset_A;
+	@JsonProperty("A_Reval_Depexp_Offset_A")
+	public void setA_Reval_Depexp_Offset_AInput(I_C_ValidCombinationInput A_Reval_Depexp_Offset_A) {
+		this.mA_Reval_Depexp_Offset_A = A_Reval_Depexp_Offset_A;
 		MAccount foreignEntity;
 		if (A_Reval_Depexp_Offset_A != null &&
 				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
 						.setParameters(A_Reval_Depexp_Offset_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Reval_Depexp_Offset_Acct(foreignEntity.get_ID());
+			super.setA_Reval_Depexp_Offset_Acct(foreignEntity.get_ID());
 		} else {
-			this.setA_Reval_Depexp_Offset_Acct(0);
+			super.setA_Reval_Depexp_Offset_Acct(0);
 		}
 	}
 
@@ -733,8 +678,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Reval Depexp Offset Acct
 	 */
-	public I_C_ValidCombinationInput getA_Reval_Depexp_Offset_A() {
-		return A_Reval_Depexp_Offset_A;
+	@JsonProperty("A_Reval_Depexp_Offset_A")
+	public I_C_ValidCombinationInput A_Reval_Depexp_Offset_A() {
+		return mA_Reval_Depexp_Offset_A;
 	}
 
 	/**
@@ -742,14 +688,15 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -758,8 +705,9 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -767,16 +715,17 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @param C_AcctSchema Rules for accounting
 	 */
-	public void setC_AcctSchema(I_C_AcctSchemaInput C_AcctSchema) {
-		this.C_AcctSchema = C_AcctSchema;
+	@JsonProperty("C_AcctSchema")
+	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
 				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			super.setC_AcctSchema_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_AcctSchema_ID(0);
+			super.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -785,21 +734,23 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return Rules for accounting
 	 */
-	public I_C_AcctSchemaInput getC_AcctSchema() {
-		return C_AcctSchema;
+	@JsonProperty("C_AcctSchema")
+	public I_C_AcctSchemaInput C_AcctSchema() {
+		return mC_AcctSchema;
 	}
 
 	/**
 	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	public void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL) {
-		this.PostingType_RL = PostingType_RL;
-		MRefList foreignEntity;
-		if (PostingType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType_RL.getID())
+	@JsonProperty("PostingType")
+	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+		this.mPostingType = PostingType;
+		MRefList_BH foreignEntity;
+		if (PostingType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PostingType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPostingType(foreignEntity.getValue());
 		} else {
@@ -812,7 +763,8 @@ public class X_A_Asset_Group_AcctInput extends X_A_Asset_Group_Acct implements I
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	public I_AD_Ref_ListInput getPostingType_RL() {
-		return PostingType_RL;
+	@JsonProperty("PostingType")
+	public I_AD_Ref_ListInput PostingType() {
+		return mPostingType;
 	}
 }

@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MSLACriteria;
+import org.compiere.model.MSLAGoal;
 import org.compiere.model.Query;
-import org.compiere.model.X_PA_SLA_Goal;
 import org.compiere.util.Env;
 
 /**
@@ -14,16 +16,17 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalInput {
+public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_BPartnerInput C_BPartner;
-	 private I_PA_SLA_CriteriaInput PA_SLA_Criteria;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_BPartnerInput mC_BPartner;
+	 private I_PA_SLA_CriteriaInput mPA_SLA_Criteria;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_SLA_GoalInput(String ID) {
+	@JsonCreator
+	public X_PA_SLA_GoalInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,14 +36,15 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -49,8 +53,9 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -58,14 +63,15 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	public void setC_BPartner(I_C_BPartnerInput C_BPartner) {
-		this.C_BPartner = C_BPartner;
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (get_ID() == 0 &&C_BPartner != null &&
 				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_ID(foreignEntity.get_ID());
+			super.setC_BPartner_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -74,19 +80,9 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public I_C_BPartnerInput getC_BPartner() {
-		return C_BPartner;
-	}
-	/**
-	 * Set Business Partner .
-	 *
-	 * @param C_BPartner_ID Identifies a Business Partner
-	 */
-
-	public void setC_BPartner_ID(int C_BPartner_ID) {
-		if (get_ID() == 0) {
-			super.setC_BPartner_ID(C_BPartner_ID);
-		}
+	@JsonProperty("C_BPartner")
+	public I_C_BPartnerInput C_BPartner() {
+		return mC_BPartner;
 	}
 
 	/**
@@ -94,16 +90,17 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 	 *
 	 * @param PA_SLA_Criteria Service Level Agreement Criteria
 	 */
-	public void setPA_SLA_Criteria(I_PA_SLA_CriteriaInput PA_SLA_Criteria) {
-		this.PA_SLA_Criteria = PA_SLA_Criteria;
+	@JsonProperty("PA_SLA_Criteria")
+	public void setPA_SLA_CriteriaInput(I_PA_SLA_CriteriaInput PA_SLA_Criteria) {
+		this.mPA_SLA_Criteria = PA_SLA_Criteria;
 		MSLACriteria foreignEntity;
 		if (PA_SLA_Criteria != null &&
 				(foreignEntity = new Query(getCtx(), MSLACriteria.Table_Name, MSLACriteria.COLUMNNAME_PA_SLA_Criteria_UU + "=?", get_TrxName())
 						.setParameters(PA_SLA_Criteria.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_SLA_Criteria_ID(foreignEntity.get_ID());
+			super.setPA_SLA_Criteria_ID(foreignEntity.get_ID());
 		} else {
-			this.setPA_SLA_Criteria_ID(0);
+			super.setPA_SLA_Criteria_ID(0);
 		}
 	}
 
@@ -112,19 +109,9 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 	 *
 	 * @return Service Level Agreement Criteria
 	 */
-	public I_PA_SLA_CriteriaInput getPA_SLA_Criteria() {
-		return PA_SLA_Criteria;
-	}
-	/**
-	 * Set SLA Goal.
-	 *
-	 * @param PA_SLA_Goal_ID Service Level Agreement Goal
-	 */
-
-	public void setPA_SLA_Goal_ID(int PA_SLA_Goal_ID) {
-		if (get_ID() == 0) {
-			super.setPA_SLA_Goal_ID(PA_SLA_Goal_ID);
-		}
+	@JsonProperty("PA_SLA_Criteria")
+	public I_PA_SLA_CriteriaInput PA_SLA_Criteria() {
+		return mPA_SLA_Criteria;
 	}
 
 	/**

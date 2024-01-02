@@ -33,4 +33,8 @@ public class X_C_YearResolver extends POResolver<MYear> implements GraphQLResolv
 		return dataLoader.load(entity.getC_Calendar_ID());
 	}
 
+	public Boolean Processing(MYear entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 }

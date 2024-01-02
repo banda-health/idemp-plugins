@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
+import org.compiere.model.MSchedule;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Schedule;
 import org.compiere.util.Env;
 
 /**
@@ -13,17 +15,18 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_ScheduleInput extends X_AD_Schedule implements I_AD_ScheduleInput {
+public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput FrequencyType_RL;
-	 private I_AD_Ref_ListInput ScheduleType_RL;
-	 private I_AD_Ref_ListInput WeekDay_RL;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mFrequencyType;
+	 private I_AD_Ref_ListInput mScheduleType;
+	 private I_AD_Ref_ListInput mWeekDay;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_ScheduleInput(String ID) {
+	@JsonCreator
+	public X_AD_ScheduleInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,16 +36,17 @@ public class X_AD_ScheduleInput extends X_AD_Schedule implements I_AD_ScheduleIn
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Org_ID(0);
+			super.setAD_Org_ID(0);
 		}
 	}
 
@@ -51,19 +55,9 @@ public class X_AD_ScheduleInput extends X_AD_Schedule implements I_AD_ScheduleIn
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Schedule.
-	 *
-	 * @param AD_Schedule_ID Schedule
-	 */
-
-	public void setAD_Schedule_ID(int AD_Schedule_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Schedule_ID(AD_Schedule_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -87,14 +81,15 @@ public class X_AD_ScheduleInput extends X_AD_Schedule implements I_AD_ScheduleIn
 	/**
 	 * Set Frequency Type.
 	 *
-	 * @param FrequencyType_RL Frequency of event
+	 * @param FrequencyType Frequency of event
 	 */
-	public void setFrequencyType_RL(I_AD_Ref_ListInput FrequencyType_RL) {
-		this.FrequencyType_RL = FrequencyType_RL;
-		MRefList foreignEntity;
-		if (FrequencyType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(FrequencyType_RL.getID())
+	@JsonProperty("FrequencyType")
+	public void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType) {
+		this.mFrequencyType = FrequencyType;
+		MRefList_BH foreignEntity;
+		if (FrequencyType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(FrequencyType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setFrequencyType(foreignEntity.getValue());
 		} else {
@@ -107,21 +102,23 @@ public class X_AD_ScheduleInput extends X_AD_Schedule implements I_AD_ScheduleIn
 	 *
 	 * @return Frequency of event
 	 */
-	public I_AD_Ref_ListInput getFrequencyType_RL() {
-		return FrequencyType_RL;
+	@JsonProperty("FrequencyType")
+	public I_AD_Ref_ListInput FrequencyType() {
+		return mFrequencyType;
 	}
 
 	/**
 	 * Set Schedule Type.
 	 *
-	 * @param ScheduleType_RL Type of schedule
+	 * @param ScheduleType Type of schedule
 	 */
-	public void setScheduleType_RL(I_AD_Ref_ListInput ScheduleType_RL) {
-		this.ScheduleType_RL = ScheduleType_RL;
-		MRefList foreignEntity;
-		if (ScheduleType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ScheduleType_RL.getID())
+	@JsonProperty("ScheduleType")
+	public void setScheduleTypeInput(I_AD_Ref_ListInput ScheduleType) {
+		this.mScheduleType = ScheduleType;
+		MRefList_BH foreignEntity;
+		if (ScheduleType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(ScheduleType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setScheduleType(foreignEntity.getValue());
 		} else {
@@ -134,21 +131,23 @@ public class X_AD_ScheduleInput extends X_AD_Schedule implements I_AD_ScheduleIn
 	 *
 	 * @return Type of schedule
 	 */
-	public I_AD_Ref_ListInput getScheduleType_RL() {
-		return ScheduleType_RL;
+	@JsonProperty("ScheduleType")
+	public I_AD_Ref_ListInput ScheduleType() {
+		return mScheduleType;
 	}
 
 	/**
 	 * Set Day of the Week.
 	 *
-	 * @param WeekDay_RL Day of the Week
+	 * @param WeekDay Day of the Week
 	 */
-	public void setWeekDay_RL(I_AD_Ref_ListInput WeekDay_RL) {
-		this.WeekDay_RL = WeekDay_RL;
-		MRefList foreignEntity;
-		if (WeekDay_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(WeekDay_RL.getID())
+	@JsonProperty("WeekDay")
+	public void setWeekDayInput(I_AD_Ref_ListInput WeekDay) {
+		this.mWeekDay = WeekDay;
+		MRefList_BH foreignEntity;
+		if (WeekDay != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(WeekDay.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setWeekDay(foreignEntity.getValue());
 		} else {
@@ -161,7 +160,8 @@ public class X_AD_ScheduleInput extends X_AD_Schedule implements I_AD_ScheduleIn
 	 *
 	 * @return Day of the Week
 	 */
-	public I_AD_Ref_ListInput getWeekDay_RL() {
-		return WeekDay_RL;
+	@JsonProperty("WeekDay")
+	public I_AD_Ref_ListInput WeekDay() {
+		return mWeekDay;
 	}
 }

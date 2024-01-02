@@ -33,4 +33,76 @@ public class X_PA_ReportCubeResolver extends POResolver<MReportCube> implements 
 		return dataLoader.load(entity.getC_Calendar_ID());
 	}
 
+	public Boolean IsActivityDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isActivityDim();
+	}
+
+	public Boolean IsBPartnerDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isBPartnerDim();
+	}
+
+	public Boolean IsCampaignDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isCampaignDim();
+	}
+
+	public Boolean IsGLBudgetDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isGLBudgetDim();
+	}
+
+	public Boolean IsLocFromDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isLocFromDim();
+	}
+
+	public Boolean IsLocToDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isLocToDim();
+	}
+
+	public Boolean IsOrgTrxDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isOrgTrxDim();
+	}
+
+	public Boolean IsProductDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isProductDim();
+	}
+
+	public Boolean IsProjectDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isProjectDim();
+	}
+
+	public Boolean IsProjectPhaseDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isProjectPhaseDim();
+	}
+
+	public Boolean IsProjectTaskDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isProjectTaskDim();
+	}
+
+	public Boolean IsSalesRegionDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isSalesRegionDim();
+	}
+
+	public Boolean IsSubAcctDim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isSubAcctDim();
+	}
+
+	public Boolean IsUser1Dim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isUser1Dim();
+	}
+
+	public Boolean IsUser2Dim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isUser2Dim();
+	}
+
+	public Boolean IsUserElement1Dim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isUserElement1Dim();
+	}
+
+	public Boolean IsUserElement2Dim(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isUserElement2Dim();
+	}
+
+	public Boolean Processing(MReportCube entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 }

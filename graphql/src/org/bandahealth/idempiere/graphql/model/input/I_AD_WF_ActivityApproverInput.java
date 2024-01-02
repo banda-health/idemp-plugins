@@ -15,42 +15,42 @@ public interface I_AD_WF_ActivityApproverInput extends I_AD_WF_ActivityApprover 
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	void setAD_User(I_AD_UserInput AD_User);
+	void setAD_UserInput(I_AD_UserInput AD_User);
 
 	/**
 	 * Get AD_User.
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	I_AD_UserInput getAD_User();
+	I_AD_UserInput AD_User();
 
 	/**
 	 * Set AD_WF_Activity.
 	 *
 	 * @param AD_WF_Activity Workflow Activity
 	 */
-	void setAD_WF_Activity(I_AD_WF_ActivityInput AD_WF_Activity);
+	void setAD_WF_ActivityInput(I_AD_WF_ActivityInput AD_WF_Activity);
 
 	/**
 	 * Get AD_WF_Activity.
 	 *
 	 * @return Workflow Activity
 	 */
-	I_AD_WF_ActivityInput getAD_WF_Activity();
+	I_AD_WF_ActivityInput AD_WF_Activity();
 
 	/**
 	 * Set ID.

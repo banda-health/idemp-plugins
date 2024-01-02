@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
@@ -22,20 +24,21 @@ import org.compiere.util.Env;
  */
 public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_PrintFormatInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_PrintColorInput AD_PrintColor;
-	 private I_AD_PrintFontInput AD_PrintFont;
-	 private I_AD_PrintPaperInput AD_PrintPaper;
-	 private I_AD_PrintTableFormatInput AD_PrintTableFormat;
-	 private I_AD_ProcessInput JasperProcess;
-	 private I_AD_ReportViewInput AD_ReportView;
-	 private I_AD_TableInput AD_Table;
-	 private I_AD_WindowInput AD_Window;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_PrintColorInput mAD_PrintColor;
+	 private I_AD_PrintFontInput mAD_PrintFont;
+	 private I_AD_PrintPaperInput mAD_PrintPaper;
+	 private I_AD_PrintTableFormatInput mAD_PrintTableFormat;
+	 private I_AD_ProcessInput mJasperProcess;
+	 private I_AD_ReportViewInput mAD_ReportView;
+	 private I_AD_TableInput mAD_Table;
+	 private I_AD_WindowInput mAD_Window;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_PrintFormatInput(String ID) {
+	@JsonCreator
+	public X_AD_PrintFormatInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -45,14 +48,15 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -61,8 +65,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -70,16 +75,17 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param AD_PrintColor Color used for printing and display
 	 */
-	public void setAD_PrintColor(I_AD_PrintColorInput AD_PrintColor) {
-		this.AD_PrintColor = AD_PrintColor;
+	@JsonProperty("AD_PrintColor")
+	public void setAD_PrintColorInput(I_AD_PrintColorInput AD_PrintColor) {
+		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
 						.setParameters(AD_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_PrintColor_ID(foreignEntity.get_ID());
+			super.setAD_PrintColor_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_PrintColor_ID(0);
+			super.setAD_PrintColor_ID(0);
 		}
 	}
 
@@ -88,8 +94,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @return Color used for printing and display
 	 */
-	public I_AD_PrintColorInput getAD_PrintColor() {
-		return AD_PrintColor;
+	@JsonProperty("AD_PrintColor")
+	public I_AD_PrintColorInput AD_PrintColor() {
+		return mAD_PrintColor;
 	}
 
 	/**
@@ -97,16 +104,17 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param AD_PrintFont Maintain Print Font
 	 */
-	public void setAD_PrintFont(I_AD_PrintFontInput AD_PrintFont) {
-		this.AD_PrintFont = AD_PrintFont;
+	@JsonProperty("AD_PrintFont")
+	public void setAD_PrintFontInput(I_AD_PrintFontInput AD_PrintFont) {
+		this.mAD_PrintFont = AD_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (AD_PrintFont != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintFont.Table_Name, X_AD_PrintFont.COLUMNNAME_AD_PrintFont_UU + "=?", get_TrxName())
 						.setParameters(AD_PrintFont.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_PrintFont_ID(foreignEntity.get_ID());
+			super.setAD_PrintFont_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_PrintFont_ID(0);
+			super.setAD_PrintFont_ID(0);
 		}
 	}
 
@@ -115,19 +123,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @return Maintain Print Font
 	 */
-	public I_AD_PrintFontInput getAD_PrintFont() {
-		return AD_PrintFont;
-	}
-	/**
-	 * Set Print Format.
-	 *
-	 * @param AD_PrintFormat_ID Data Print Format
-	 */
-
-	public void setAD_PrintFormat_ID(int AD_PrintFormat_ID) {
-		if (get_ID() == 0) {
-			super.setAD_PrintFormat_ID(AD_PrintFormat_ID);
-		}
+	@JsonProperty("AD_PrintFont")
+	public I_AD_PrintFontInput AD_PrintFont() {
+		return mAD_PrintFont;
 	}
 
 	/**
@@ -153,16 +151,17 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param AD_PrintPaper Printer paper definition
 	 */
-	public void setAD_PrintPaper(I_AD_PrintPaperInput AD_PrintPaper) {
-		this.AD_PrintPaper = AD_PrintPaper;
+	@JsonProperty("AD_PrintPaper")
+	public void setAD_PrintPaperInput(I_AD_PrintPaperInput AD_PrintPaper) {
+		this.mAD_PrintPaper = AD_PrintPaper;
 		X_AD_PrintPaper foreignEntity;
 		if (AD_PrintPaper != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintPaper.Table_Name, X_AD_PrintPaper.COLUMNNAME_AD_PrintPaper_UU + "=?", get_TrxName())
 						.setParameters(AD_PrintPaper.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_PrintPaper_ID(foreignEntity.get_ID());
+			super.setAD_PrintPaper_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_PrintPaper_ID(0);
+			super.setAD_PrintPaper_ID(0);
 		}
 	}
 
@@ -171,8 +170,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @return Printer paper definition
 	 */
-	public I_AD_PrintPaperInput getAD_PrintPaper() {
-		return AD_PrintPaper;
+	@JsonProperty("AD_PrintPaper")
+	public I_AD_PrintPaperInput AD_PrintPaper() {
+		return mAD_PrintPaper;
 	}
 
 	/**
@@ -180,16 +180,17 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param AD_PrintTableFormat Table Format in Reports
 	 */
-	public void setAD_PrintTableFormat(I_AD_PrintTableFormatInput AD_PrintTableFormat) {
-		this.AD_PrintTableFormat = AD_PrintTableFormat;
+	@JsonProperty("AD_PrintTableFormat")
+	public void setAD_PrintTableFormatInput(I_AD_PrintTableFormatInput AD_PrintTableFormat) {
+		this.mAD_PrintTableFormat = AD_PrintTableFormat;
 		X_AD_PrintTableFormat foreignEntity;
 		if (AD_PrintTableFormat != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintTableFormat.Table_Name, X_AD_PrintTableFormat.COLUMNNAME_AD_PrintTableFormat_UU + "=?", get_TrxName())
 						.setParameters(AD_PrintTableFormat.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_PrintTableFormat_ID(foreignEntity.get_ID());
+			super.setAD_PrintTableFormat_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_PrintTableFormat_ID(0);
+			super.setAD_PrintTableFormat_ID(0);
 		}
 	}
 
@@ -198,8 +199,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @return Table Format in Reports
 	 */
-	public I_AD_PrintTableFormatInput getAD_PrintTableFormat() {
-		return AD_PrintTableFormat;
+	@JsonProperty("AD_PrintTableFormat")
+	public I_AD_PrintTableFormatInput AD_PrintTableFormat() {
+		return mAD_PrintTableFormat;
 	}
 
 	/**
@@ -207,14 +209,15 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param AD_ReportView View used to generate this report
 	 */
-	public void setAD_ReportView(I_AD_ReportViewInput AD_ReportView) {
-		this.AD_ReportView = AD_ReportView;
+	@JsonProperty("AD_ReportView")
+	public void setAD_ReportViewInput(I_AD_ReportViewInput AD_ReportView) {
+		this.mAD_ReportView = AD_ReportView;
 		MReportView foreignEntity;
 		if (get_ID() == 0 &&AD_ReportView != null &&
 				(foreignEntity = new Query(getCtx(), MReportView.Table_Name, MReportView.COLUMNNAME_AD_ReportView_UU + "=?", get_TrxName())
 						.setParameters(AD_ReportView.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_ReportView_ID(foreignEntity.get_ID());
+			super.setAD_ReportView_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -223,19 +226,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @return View used to generate this report
 	 */
-	public I_AD_ReportViewInput getAD_ReportView() {
-		return AD_ReportView;
-	}
-	/**
-	 * Set Report View.
-	 *
-	 * @param AD_ReportView_ID View used to generate this report
-	 */
-
-	public void setAD_ReportView_ID(int AD_ReportView_ID) {
-		if (get_ID() == 0) {
-			super.setAD_ReportView_ID(AD_ReportView_ID);
-		}
+	@JsonProperty("AD_ReportView")
+	public I_AD_ReportViewInput AD_ReportView() {
+		return mAD_ReportView;
 	}
 
 	/**
@@ -243,14 +236,15 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param AD_Table Database Table information
 	 */
-	public void setAD_Table(I_AD_TableInput AD_Table) {
-		this.AD_Table = AD_Table;
+	@JsonProperty("AD_Table")
+	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (get_ID() == 0 &&AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), MTable.Table_Name, MTable.COLUMNNAME_AD_Table_UU + "=?", get_TrxName())
 						.setParameters(AD_Table.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Table_ID(foreignEntity.get_ID());
+			super.setAD_Table_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -259,19 +253,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @return Database Table information
 	 */
-	public I_AD_TableInput getAD_Table() {
-		return AD_Table;
-	}
-	/**
-	 * Set Table.
-	 *
-	 * @param AD_Table_ID Database Table information
-	 */
-
-	public void setAD_Table_ID(int AD_Table_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Table_ID(AD_Table_ID);
-		}
+	@JsonProperty("AD_Table")
+	public I_AD_TableInput AD_Table() {
+		return mAD_Table;
 	}
 
 	/**
@@ -279,16 +263,17 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param AD_Window Data entry or display window
 	 */
-	public void setAD_Window(I_AD_WindowInput AD_Window) {
-		this.AD_Window = AD_Window;
+	@JsonProperty("AD_Window")
+	public void setAD_WindowInput(I_AD_WindowInput AD_Window) {
+		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
 		if (AD_Window != null &&
 				(foreignEntity = new Query(getCtx(), MWindow.Table_Name, MWindow.COLUMNNAME_AD_Window_UU + "=?", get_TrxName())
 						.setParameters(AD_Window.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Window_ID(foreignEntity.get_ID());
+			super.setAD_Window_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Window_ID(0);
+			super.setAD_Window_ID(0);
 		}
 	}
 
@@ -297,8 +282,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @return Data entry or display window
 	 */
-	public I_AD_WindowInput getAD_Window() {
-		return AD_Window;
+	@JsonProperty("AD_Window")
+	public I_AD_WindowInput AD_Window() {
+		return mAD_Window;
 	}
 	/**
 	 * Set Table Based.
@@ -317,16 +303,17 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @param JasperProcess The Jasper Process used by the printengine if any process defined
 	 */
-	public void setJasperProcess(I_AD_ProcessInput JasperProcess) {
-		this.JasperProcess = JasperProcess;
+	@JsonProperty("JasperProcess")
+	public void setJasperProcessInput(I_AD_ProcessInput JasperProcess) {
+		this.mJasperProcess = JasperProcess;
 		MProcess_BH foreignEntity;
 		if (JasperProcess != null &&
 				(foreignEntity = new Query(getCtx(), MProcess_BH.Table_Name, MProcess_BH.COLUMNNAME_AD_Process_UU + "=?", get_TrxName())
 						.setParameters(JasperProcess.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setJasperProcess_ID(foreignEntity.get_ID());
+			super.setJasperProcess_ID(foreignEntity.get_ID());
 		} else {
-			this.setJasperProcess_ID(0);
+			super.setJasperProcess_ID(0);
 		}
 	}
 
@@ -335,18 +322,8 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 *
 	 * @return The Jasper Process used by the printengine if any process defined
 	 */
-	public I_AD_ProcessInput getJasperProcess() {
-		return JasperProcess;
-	}
-	/**
-	 * Set Jasper Process.
-	 *
-	 * @param JasperProcess_ID The Jasper Process used by the printengine if any process defined
-	 */
-
-	public void setJasperProcess_ID(int JasperProcess_ID) {
-		if (get_ID() == 0) {
-			super.setJasperProcess_ID(JasperProcess_ID);
-		}
+	@JsonProperty("JasperProcess")
+	public I_AD_ProcessInput JasperProcess() {
+		return mJasperProcess;
 	}
 }

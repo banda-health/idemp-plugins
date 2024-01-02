@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ChartDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
@@ -15,7 +16,6 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MChart;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MGoal;
-import org.compiere.model.MRefList;
 import org.compiere.model.MWindow;
 import org.compiere.model.X_AD_Role;
 import org.dataloader.DataLoader;
@@ -114,13 +114,33 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 			put("C", "4b2f72dc-2ab6-4e4a-9b9a-acf550d12290");
 		}
 	};
-	public CompletableFuture<MRefList> GoalDisplay_RL(MDashboardContent entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> GoalDisplay(MDashboardContent entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getGoalDisplay())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(GOALDISPLAY_UUIDS_BY_VALUE.get(entity.getGoalDisplay()));
+	}
+
+	public Boolean IsCollapsedByDefault(MDashboardContent entity, DataFetchingEnvironment environment) {
+		return entity.isCollapsedByDefault();
+	}
+
+	public Boolean IsCollapsible(MDashboardContent entity, DataFetchingEnvironment environment) {
+		return entity.isCollapsible();
+	}
+
+	public Boolean IsEmbedReportContent(MDashboardContent entity, DataFetchingEnvironment environment) {
+		return entity.isEmbedReportContent();
+	}
+
+	public Boolean IsShowInDashboard(MDashboardContent entity, DataFetchingEnvironment environment) {
+		return entity.isShowInDashboard();
+	}
+
+	public Boolean IsShowinLogin(MDashboardContent entity, DataFetchingEnvironment environment) {
+		return entity.isShowinLogin();
 	}
 
 

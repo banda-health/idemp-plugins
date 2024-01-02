@@ -1,31 +1,31 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPBankAccount;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MCashBook;
 import org.compiere.model.MConversionType;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MDepositBatch;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentBatch;
 import org.compiere.model.MPaymentProcessor;
 import org.compiere.model.MProject;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_POSTenderType;
-import org.compiere.model.X_C_Payment;
 import org.compiere.util.Env;
 
 /**
@@ -34,43 +34,44 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
+public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput CreditCardType_RL;
-	 private I_AD_Ref_ListInput DocAction_RL;
-	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput R_AvsAddr_RL;
-	 private I_AD_Ref_ListInput R_AvsZip_RL;
-	 private I_AD_Ref_ListInput TenderType_RL;
-	 private I_AD_Ref_ListInput TrxType_RL;
-	 private I_BH_VisitInput BH_Visit;
-	 private I_C_ActivityInput C_Activity;
-	 private I_C_BP_BankAccountInput C_BP_BankAccount;
-	 private I_C_BPartnerInput C_BPartner;
-	 private I_C_BankAccountInput C_BankAccount;
-	 private I_C_CampaignInput C_Campaign;
-	 private I_C_CashBookInput C_CashBook;
-	 private I_C_ChargeInput C_Charge;
-	 private I_C_ConversionTypeInput C_ConversionType;
-	 private I_C_CurrencyInput C_Currency;
-	 private I_C_DepositBatchInput C_DepositBatch;
-	 private I_C_DocTypeInput C_DocType;
-	 private I_C_ElementValueInput User1;
-	 private I_C_ElementValueInput User2;
-	 private I_C_InvoiceInput C_Invoice;
-	 private I_C_OrderInput C_Order;
-	 private I_C_POSTenderTypeInput C_POSTenderType;
-	 private I_C_PaymentBatchInput C_PaymentBatch;
-	 private I_C_PaymentInput Ref_Payment;
-	 private I_C_PaymentInput Reversal;
-	 private I_C_PaymentProcessorInput C_PaymentProcessor;
-	 private I_C_ProjectInput C_Project;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mCreditCardType;
+	 private I_AD_Ref_ListInput mDocAction;
+	 private I_AD_Ref_ListInput mDocStatus;
+	 private I_AD_Ref_ListInput mR_AvsAddr;
+	 private I_AD_Ref_ListInput mR_AvsZip;
+	 private I_AD_Ref_ListInput mTenderType;
+	 private I_AD_Ref_ListInput mTrxType;
+	 private I_BH_VisitInput mBH_Visit;
+	 private I_C_ActivityInput mC_Activity;
+	 private I_C_BP_BankAccountInput mC_BP_BankAccount;
+	 private I_C_BPartnerInput mC_BPartner;
+	 private I_C_BankAccountInput mC_BankAccount;
+	 private I_C_CampaignInput mC_Campaign;
+	 private I_C_CashBookInput mC_CashBook;
+	 private I_C_ChargeInput mC_Charge;
+	 private I_C_ConversionTypeInput mC_ConversionType;
+	 private I_C_CurrencyInput mC_Currency;
+	 private I_C_DepositBatchInput mC_DepositBatch;
+	 private I_C_DocTypeInput mC_DocType;
+	 private I_C_ElementValueInput mUser1;
+	 private I_C_ElementValueInput mUser2;
+	 private I_C_InvoiceInput mC_Invoice;
+	 private I_C_OrderInput mC_Order;
+	 private I_C_POSTenderTypeInput mC_POSTenderType;
+	 private I_C_PaymentBatchInput mC_PaymentBatch;
+	 private I_C_PaymentInput mRef_Payment;
+	 private I_C_PaymentInput mReversal;
+	 private I_C_PaymentProcessorInput mC_PaymentProcessor;
+	 private I_C_ProjectInput mC_Project;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_PaymentInput(String ID) {
+	@JsonCreator
+	public X_C_PaymentInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -80,14 +81,15 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -96,69 +98,27 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
-
-	/**
-	 * Set BH_NavButtons.
-	 *
-	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	public void setBH_NavButtons(Object BH_NavButtons) {
-		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
-	}
-
-
-	/**
-	 * Get BH_NavButtons.
-	 *
-	 * @return Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	public Object getBH_NavButtons() {
- 		return get_Value(COLUMNNAME_BH_NavButtons);
-	}
-
-
-	/**
-	 * Set Tender Amount.
-	 *
-	 * @param BH_tender_amount Tender Amount
-	 */
-	public void setBH_tender_amount(BigDecimal BH_tender_amount) {
-		set_Value(COLUMNNAME_BH_tender_amount, BH_tender_amount);
-	}
-
-
-	/**
-	 * Get Tender Amount.
-	 *
-	 * @return Tender Amount
-	 */
-	public BigDecimal getBH_tender_amount() {
- 		BigDecimal columnValue = (BigDecimal) get_Value(COLUMNNAME_BH_tender_amount);
-		if (columnValue == null) {
-			return Env.ZERO;
-		}
-		return columnValue;
-	}
-
 
 	/**
 	 * Set Visit.
 	 *
 	 * @param BH_Visit Visit
 	 */
-	public void setBH_Visit(I_BH_VisitInput BH_Visit) {
-		this.BH_Visit = BH_Visit;
+	@JsonProperty("BH_Visit")
+	public void setBH_VisitInput(I_BH_VisitInput BH_Visit) {
+		this.mBH_Visit = BH_Visit;
 		MBHVisit foreignEntity;
 		if (BH_Visit != null &&
 				(foreignEntity = new Query(getCtx(), MBHVisit.Table_Name, MBHVisit.COLUMNNAME_BH_Visit_UU + "=?", get_TrxName())
 						.setParameters(BH_Visit.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBH_Visit_ID(foreignEntity.get_ID());
+			super.setBH_Visit_ID(foreignEntity.get_ID());
 		} else {
-			this.setBH_Visit_ID(0);
+			super.setBH_Visit_ID(0);
 		}
 	}
 
@@ -167,53 +127,27 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Visit
 	 */
-	public I_BH_VisitInput getBH_Visit() {
-		return BH_Visit;
+	@JsonProperty("BH_Visit")
+	public I_BH_VisitInput BH_Visit() {
+		return mBH_Visit;
 	}
-
-	/**
-	 * Set Visit.
-	 *
-	 * @param BH_Visit_ID Visit
-	 */
-	public void setBH_Visit_ID(int BH_Visit_ID) {
-		if (BH_Visit_ID < 1) {
-			set_Value(COLUMNNAME_BH_Visit_ID, null);
-		} else {
-			set_Value(COLUMNNAME_BH_Visit_ID, BH_Visit_ID);
-		}
-	}
-
-
-	/**
-	 * Get Visit.
-	 *
-	 * @return Visit
-	 */
-	public int getBH_Visit_ID() {
- 		Integer columnValue = (Integer) get_Value(COLUMNNAME_BH_Visit_ID);
-		if (columnValue == null) {
-			return 0;
-		}
-		return columnValue;
-	}
-
 
 	/**
 	 * Set Activity.
 	 *
 	 * @param C_Activity Business Activity
 	 */
-	public void setC_Activity(I_C_ActivityInput C_Activity) {
-		this.C_Activity = C_Activity;
+	@JsonProperty("C_Activity")
+	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
 				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Activity_ID(foreignEntity.get_ID());
+			super.setC_Activity_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Activity_ID(0);
+			super.setC_Activity_ID(0);
 		}
 	}
 
@@ -222,8 +156,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Business Activity
 	 */
-	public I_C_ActivityInput getC_Activity() {
-		return C_Activity;
+	@JsonProperty("C_Activity")
+	public I_C_ActivityInput C_Activity() {
+		return mC_Activity;
 	}
 
 	/**
@@ -231,16 +166,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_BankAccount Account at the Bank
 	 */
-	public void setC_BankAccount(I_C_BankAccountInput C_BankAccount) {
-		this.C_BankAccount = C_BankAccount;
+	@JsonProperty("C_BankAccount")
+	public void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount) {
+		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
 				(foreignEntity = new Query(getCtx(), MBankAccount_BH.Table_Name, MBankAccount_BH.COLUMNNAME_C_BankAccount_UU + "=?", get_TrxName())
 						.setParameters(C_BankAccount.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BankAccount_ID(foreignEntity.get_ID());
+			super.setC_BankAccount_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BankAccount_ID(0);
+			super.setC_BankAccount_ID(0);
 		}
 	}
 
@@ -249,8 +185,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Account at the Bank
 	 */
-	public I_C_BankAccountInput getC_BankAccount() {
-		return C_BankAccount;
+	@JsonProperty("C_BankAccount")
+	public I_C_BankAccountInput C_BankAccount() {
+		return mC_BankAccount;
 	}
 
 	/**
@@ -258,16 +195,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_BP_BankAccount Bank Account of the Business Partner
 	 */
-	public void setC_BP_BankAccount(I_C_BP_BankAccountInput C_BP_BankAccount) {
-		this.C_BP_BankAccount = C_BP_BankAccount;
+	@JsonProperty("C_BP_BankAccount")
+	public void setC_BP_BankAccountInput(I_C_BP_BankAccountInput C_BP_BankAccount) {
+		this.mC_BP_BankAccount = C_BP_BankAccount;
 		MBPBankAccount foreignEntity;
 		if (C_BP_BankAccount != null &&
 				(foreignEntity = new Query(getCtx(), MBPBankAccount.Table_Name, MBPBankAccount.COLUMNNAME_C_BP_BankAccount_UU + "=?", get_TrxName())
 						.setParameters(C_BP_BankAccount.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BP_BankAccount_ID(foreignEntity.get_ID());
+			super.setC_BP_BankAccount_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BP_BankAccount_ID(0);
+			super.setC_BP_BankAccount_ID(0);
 		}
 	}
 
@@ -276,8 +214,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Bank Account of the Business Partner
 	 */
-	public I_C_BP_BankAccountInput getC_BP_BankAccount() {
-		return C_BP_BankAccount;
+	@JsonProperty("C_BP_BankAccount")
+	public I_C_BP_BankAccountInput C_BP_BankAccount() {
+		return mC_BP_BankAccount;
 	}
 
 	/**
@@ -285,16 +224,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	public void setC_BPartner(I_C_BPartnerInput C_BPartner) {
-		this.C_BPartner = C_BPartner;
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
 				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_ID(foreignEntity.get_ID());
+			super.setC_BPartner_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BPartner_ID(0);
+			super.setC_BPartner_ID(0);
 		}
 	}
 
@@ -303,8 +243,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public I_C_BPartnerInput getC_BPartner() {
-		return C_BPartner;
+	@JsonProperty("C_BPartner")
+	public I_C_BPartnerInput C_BPartner() {
+		return mC_BPartner;
 	}
 
 	/**
@@ -312,16 +253,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	public void setC_Campaign(I_C_CampaignInput C_Campaign) {
-		this.C_Campaign = C_Campaign;
+	@JsonProperty("C_Campaign")
+	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
 				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Campaign_ID(foreignEntity.get_ID());
+			super.setC_Campaign_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Campaign_ID(0);
+			super.setC_Campaign_ID(0);
 		}
 	}
 
@@ -330,8 +272,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Marketing Campaign
 	 */
-	public I_C_CampaignInput getC_Campaign() {
-		return C_Campaign;
+	@JsonProperty("C_Campaign")
+	public I_C_CampaignInput C_Campaign() {
+		return mC_Campaign;
 	}
 
 	/**
@@ -339,16 +282,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_CashBook Cash Book for recording petty cash transactions
 	 */
-	public void setC_CashBook(I_C_CashBookInput C_CashBook) {
-		this.C_CashBook = C_CashBook;
+	@JsonProperty("C_CashBook")
+	public void setC_CashBookInput(I_C_CashBookInput C_CashBook) {
+		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
 		if (C_CashBook != null &&
 				(foreignEntity = new Query(getCtx(), MCashBook.Table_Name, MCashBook.COLUMNNAME_C_CashBook_UU + "=?", get_TrxName())
 						.setParameters(C_CashBook.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_CashBook_ID(foreignEntity.get_ID());
+			super.setC_CashBook_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_CashBook_ID(0);
+			super.setC_CashBook_ID(0);
 		}
 	}
 
@@ -357,8 +301,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Cash Book for recording petty cash transactions
 	 */
-	public I_C_CashBookInput getC_CashBook() {
-		return C_CashBook;
+	@JsonProperty("C_CashBook")
+	public I_C_CashBookInput C_CashBook() {
+		return mC_CashBook;
 	}
 
 	/**
@@ -366,16 +311,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_Charge Additional document charges
 	 */
-	public void setC_Charge(I_C_ChargeInput C_Charge) {
-		this.C_Charge = C_Charge;
+	@JsonProperty("C_Charge")
+	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
 				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Charge_ID(foreignEntity.get_ID());
+			super.setC_Charge_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Charge_ID(0);
+			super.setC_Charge_ID(0);
 		}
 	}
 
@@ -384,8 +330,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Additional document charges
 	 */
-	public I_C_ChargeInput getC_Charge() {
-		return C_Charge;
+	@JsonProperty("C_Charge")
+	public I_C_ChargeInput C_Charge() {
+		return mC_Charge;
 	}
 
 	/**
@@ -393,16 +340,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_ConversionType Currency Conversion Rate Type
 	 */
-	public void setC_ConversionType(I_C_ConversionTypeInput C_ConversionType) {
-		this.C_ConversionType = C_ConversionType;
+	@JsonProperty("C_ConversionType")
+	public void setC_ConversionTypeInput(I_C_ConversionTypeInput C_ConversionType) {
+		this.mC_ConversionType = C_ConversionType;
 		MConversionType foreignEntity;
 		if (C_ConversionType != null &&
 				(foreignEntity = new Query(getCtx(), MConversionType.Table_Name, MConversionType.COLUMNNAME_C_ConversionType_UU + "=?", get_TrxName())
 						.setParameters(C_ConversionType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_ConversionType_ID(foreignEntity.get_ID());
+			super.setC_ConversionType_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_ConversionType_ID(0);
+			super.setC_ConversionType_ID(0);
 		}
 	}
 
@@ -411,8 +359,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Currency Conversion Rate Type
 	 */
-	public I_C_ConversionTypeInput getC_ConversionType() {
-		return C_ConversionType;
+	@JsonProperty("C_ConversionType")
+	public I_C_ConversionTypeInput C_ConversionType() {
+		return mC_ConversionType;
 	}
 
 	/**
@@ -420,16 +369,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	public void setC_Currency(I_C_CurrencyInput C_Currency) {
-		this.C_Currency = C_Currency;
-		MCurrency foreignEntity;
+	@JsonProperty("C_Currency")
+	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+		this.mC_Currency = C_Currency;
+		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency.Table_Name, MCurrency.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Currency_ID(foreignEntity.get_ID());
+			super.setC_Currency_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Currency_ID(0);
+			super.setC_Currency_ID(0);
 		}
 	}
 
@@ -438,8 +388,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return The Currency for this record
 	 */
-	public I_C_CurrencyInput getC_Currency() {
-		return C_Currency;
+	@JsonProperty("C_Currency")
+	public I_C_CurrencyInput C_Currency() {
+		return mC_Currency;
 	}
 
 	/**
@@ -447,14 +398,15 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_DepositBatch Deposit Batch
 	 */
-	public void setC_DepositBatch(I_C_DepositBatchInput C_DepositBatch) {
-		this.C_DepositBatch = C_DepositBatch;
+	@JsonProperty("C_DepositBatch")
+	public void setC_DepositBatchInput(I_C_DepositBatchInput C_DepositBatch) {
+		this.mC_DepositBatch = C_DepositBatch;
 		MDepositBatch foreignEntity;
 		if (get_ID() == 0 &&C_DepositBatch != null &&
 				(foreignEntity = new Query(getCtx(), MDepositBatch.Table_Name, MDepositBatch.COLUMNNAME_C_DepositBatch_UU + "=?", get_TrxName())
 						.setParameters(C_DepositBatch.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_DepositBatch_ID(foreignEntity.get_ID());
+			super.setC_DepositBatch_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -463,19 +415,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Deposit Batch
 	 */
-	public I_C_DepositBatchInput getC_DepositBatch() {
-		return C_DepositBatch;
-	}
-	/**
-	 * Set Deposit Batch.
-	 *
-	 * @param C_DepositBatch_ID Deposit Batch
-	 */
-
-	public void setC_DepositBatch_ID(int C_DepositBatch_ID) {
-		if (get_ID() == 0) {
-			super.setC_DepositBatch_ID(C_DepositBatch_ID);
-		}
+	@JsonProperty("C_DepositBatch")
+	public I_C_DepositBatchInput C_DepositBatch() {
+		return mC_DepositBatch;
 	}
 
 	/**
@@ -483,16 +425,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	public void setC_DocType(I_C_DocTypeInput C_DocType) {
-		this.C_DocType = C_DocType;
+	@JsonProperty("C_DocType")
+	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
 				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_DocType_ID(foreignEntity.get_ID());
+			super.setC_DocType_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_DocType_ID(0);
+			super.setC_DocType_ID(0);
 		}
 	}
 
@@ -501,8 +444,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Document type or rules
 	 */
-	public I_C_DocTypeInput getC_DocType() {
-		return C_DocType;
+	@JsonProperty("C_DocType")
+	public I_C_DocTypeInput C_DocType() {
+		return mC_DocType;
 	}
 
 	/**
@@ -510,16 +454,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_Invoice Invoice Identifier
 	 */
-	public void setC_Invoice(I_C_InvoiceInput C_Invoice) {
-		this.C_Invoice = C_Invoice;
+	@JsonProperty("C_Invoice")
+	public void setC_InvoiceInput(I_C_InvoiceInput C_Invoice) {
+		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
 		if (C_Invoice != null &&
 				(foreignEntity = new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Invoice_UU + "=?", get_TrxName())
 						.setParameters(C_Invoice.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Invoice_ID(foreignEntity.get_ID());
+			super.setC_Invoice_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Invoice_ID(0);
+			super.setC_Invoice_ID(0);
 		}
 	}
 
@@ -528,8 +473,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Invoice Identifier
 	 */
-	public I_C_InvoiceInput getC_Invoice() {
-		return C_Invoice;
+	@JsonProperty("C_Invoice")
+	public I_C_InvoiceInput C_Invoice() {
+		return mC_Invoice;
 	}
 
 	/**
@@ -537,16 +483,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_Order Order
 	 */
-	public void setC_Order(I_C_OrderInput C_Order) {
-		this.C_Order = C_Order;
+	@JsonProperty("C_Order")
+	public void setC_OrderInput(I_C_OrderInput C_Order) {
+		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
 		if (C_Order != null &&
 				(foreignEntity = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_UU + "=?", get_TrxName())
 						.setParameters(C_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Order_ID(foreignEntity.get_ID());
+			super.setC_Order_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Order_ID(0);
+			super.setC_Order_ID(0);
 		}
 	}
 
@@ -555,19 +502,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Order
 	 */
-	public I_C_OrderInput getC_Order() {
-		return C_Order;
-	}
-	/**
-	 * Set Payment.
-	 *
-	 * @param C_Payment_ID Payment identifier
-	 */
-
-	public void setC_Payment_ID(int C_Payment_ID) {
-		if (get_ID() == 0) {
-			super.setC_Payment_ID(C_Payment_ID);
-		}
+	@JsonProperty("C_Order")
+	public I_C_OrderInput C_Order() {
+		return mC_Order;
 	}
 
 	/**
@@ -593,16 +530,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_PaymentBatch Payment batch for EFT
 	 */
-	public void setC_PaymentBatch(I_C_PaymentBatchInput C_PaymentBatch) {
-		this.C_PaymentBatch = C_PaymentBatch;
+	@JsonProperty("C_PaymentBatch")
+	public void setC_PaymentBatchInput(I_C_PaymentBatchInput C_PaymentBatch) {
+		this.mC_PaymentBatch = C_PaymentBatch;
 		MPaymentBatch foreignEntity;
 		if (C_PaymentBatch != null &&
 				(foreignEntity = new Query(getCtx(), MPaymentBatch.Table_Name, MPaymentBatch.COLUMNNAME_C_PaymentBatch_UU + "=?", get_TrxName())
 						.setParameters(C_PaymentBatch.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_PaymentBatch_ID(foreignEntity.get_ID());
+			super.setC_PaymentBatch_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_PaymentBatch_ID(0);
+			super.setC_PaymentBatch_ID(0);
 		}
 	}
 
@@ -611,8 +549,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Payment batch for EFT
 	 */
-	public I_C_PaymentBatchInput getC_PaymentBatch() {
-		return C_PaymentBatch;
+	@JsonProperty("C_PaymentBatch")
+	public I_C_PaymentBatchInput C_PaymentBatch() {
+		return mC_PaymentBatch;
 	}
 
 	/**
@@ -620,16 +559,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_PaymentProcessor Payment processor for electronic payments
 	 */
-	public void setC_PaymentProcessor(I_C_PaymentProcessorInput C_PaymentProcessor) {
-		this.C_PaymentProcessor = C_PaymentProcessor;
+	@JsonProperty("C_PaymentProcessor")
+	public void setC_PaymentProcessorInput(I_C_PaymentProcessorInput C_PaymentProcessor) {
+		this.mC_PaymentProcessor = C_PaymentProcessor;
 		MPaymentProcessor foreignEntity;
 		if (C_PaymentProcessor != null &&
 				(foreignEntity = new Query(getCtx(), MPaymentProcessor.Table_Name, MPaymentProcessor.COLUMNNAME_C_PaymentProcessor_UU + "=?", get_TrxName())
 						.setParameters(C_PaymentProcessor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_PaymentProcessor_ID(foreignEntity.get_ID());
+			super.setC_PaymentProcessor_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_PaymentProcessor_ID(0);
+			super.setC_PaymentProcessor_ID(0);
 		}
 	}
 
@@ -638,8 +578,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Payment processor for electronic payments
 	 */
-	public I_C_PaymentProcessorInput getC_PaymentProcessor() {
-		return C_PaymentProcessor;
+	@JsonProperty("C_PaymentProcessor")
+	public I_C_PaymentProcessorInput C_PaymentProcessor() {
+		return mC_PaymentProcessor;
 	}
 
 	/**
@@ -647,16 +588,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_POSTenderType POS Tender Type
 	 */
-	public void setC_POSTenderType(I_C_POSTenderTypeInput C_POSTenderType) {
-		this.C_POSTenderType = C_POSTenderType;
+	@JsonProperty("C_POSTenderType")
+	public void setC_POSTenderTypeInput(I_C_POSTenderTypeInput C_POSTenderType) {
+		this.mC_POSTenderType = C_POSTenderType;
 		X_C_POSTenderType foreignEntity;
 		if (C_POSTenderType != null &&
 				(foreignEntity = new Query(getCtx(), X_C_POSTenderType.Table_Name, X_C_POSTenderType.COLUMNNAME_C_POSTenderType_UU + "=?", get_TrxName())
 						.setParameters(C_POSTenderType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_POSTenderType_ID(foreignEntity.get_ID());
+			super.setC_POSTenderType_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_POSTenderType_ID(0);
+			super.setC_POSTenderType_ID(0);
 		}
 	}
 
@@ -665,8 +607,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return POS Tender Type
 	 */
-	public I_C_POSTenderTypeInput getC_POSTenderType() {
-		return C_POSTenderType;
+	@JsonProperty("C_POSTenderType")
+	public I_C_POSTenderTypeInput C_POSTenderType() {
+		return mC_POSTenderType;
 	}
 
 	/**
@@ -674,16 +617,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param C_Project Financial Project
 	 */
-	public void setC_Project(I_C_ProjectInput C_Project) {
-		this.C_Project = C_Project;
+	@JsonProperty("C_Project")
+	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
 				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Project_ID(foreignEntity.get_ID());
+			super.setC_Project_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Project_ID(0);
+			super.setC_Project_ID(0);
 		}
 	}
 
@@ -692,21 +636,23 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Financial Project
 	 */
-	public I_C_ProjectInput getC_Project() {
-		return C_Project;
+	@JsonProperty("C_Project")
+	public I_C_ProjectInput C_Project() {
+		return mC_Project;
 	}
 
 	/**
 	 * Set Credit Card.
 	 *
-	 * @param CreditCardType_RL Credit Card (Visa, MC, AmEx)
+	 * @param CreditCardType Credit Card (Visa, MC, AmEx)
 	 */
-	public void setCreditCardType_RL(I_AD_Ref_ListInput CreditCardType_RL) {
-		this.CreditCardType_RL = CreditCardType_RL;
-		MRefList foreignEntity;
-		if (CreditCardType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(CreditCardType_RL.getID())
+	@JsonProperty("CreditCardType")
+	public void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType) {
+		this.mCreditCardType = CreditCardType;
+		MRefList_BH foreignEntity;
+		if (CreditCardType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(CreditCardType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setCreditCardType(foreignEntity.getValue());
 		} else {
@@ -719,21 +665,23 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Credit Card (Visa, MC, AmEx)
 	 */
-	public I_AD_Ref_ListInput getCreditCardType_RL() {
-		return CreditCardType_RL;
+	@JsonProperty("CreditCardType")
+	public I_AD_Ref_ListInput CreditCardType() {
+		return mCreditCardType;
 	}
 
 	/**
 	 * Set Document Action.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	public void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL) {
-		this.DocAction_RL = DocAction_RL;
-		MRefList foreignEntity;
-		if (DocAction_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction_RL.getID())
+	@JsonProperty("DocAction")
+	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+		this.mDocAction = DocAction;
+		MRefList_BH foreignEntity;
+		if (DocAction != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocAction.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocAction(foreignEntity.getValue());
 		} else {
@@ -746,21 +694,23 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return The targeted status of the document
 	 */
-	public I_AD_Ref_ListInput getDocAction_RL() {
-		return DocAction_RL;
+	@JsonProperty("DocAction")
+	public I_AD_Ref_ListInput DocAction() {
+		return mDocAction;
 	}
 
 	/**
 	 * Set Document Status.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	public void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL) {
-		this.DocStatus_RL = DocStatus_RL;
-		MRefList foreignEntity;
-		if (DocStatus_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus_RL.getID())
+	@JsonProperty("DocStatus")
+	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+		this.mDocStatus = DocStatus;
+		MRefList_BH foreignEntity;
+		if (DocStatus != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocStatus.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocStatus(foreignEntity.getValue());
 		} else {
@@ -773,8 +723,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return The current status of the document
 	 */
-	public I_AD_Ref_ListInput getDocStatus_RL() {
-		return DocStatus_RL;
+	@JsonProperty("DocStatus")
+	public I_AD_Ref_ListInput DocStatus() {
+		return mDocStatus;
 	}
 	/**
 	 * Set Approved.
@@ -824,14 +775,15 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	/**
 	 * Set Address verified.
 	 *
-	 * @param R_AvsAddr_RL This address has been verified
+	 * @param R_AvsAddr This address has been verified
 	 */
-	public void setR_AvsAddr_RL(I_AD_Ref_ListInput R_AvsAddr_RL) {
-		this.R_AvsAddr_RL = R_AvsAddr_RL;
-		MRefList foreignEntity;
-		if (get_ID() == 0 &&R_AvsAddr_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(R_AvsAddr_RL.getID())
+	@JsonProperty("R_AvsAddr")
+	public void setR_AvsAddrInput(I_AD_Ref_ListInput R_AvsAddr) {
+		this.mR_AvsAddr = R_AvsAddr;
+		MRefList_BH foreignEntity;
+		if (get_ID() == 0 &&R_AvsAddr != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(R_AvsAddr.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setR_AvsAddr(foreignEntity.getValue());
 		}
@@ -842,21 +794,23 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return This address has been verified
 	 */
-	public I_AD_Ref_ListInput getR_AvsAddr_RL() {
-		return R_AvsAddr_RL;
+	@JsonProperty("R_AvsAddr")
+	public I_AD_Ref_ListInput R_AvsAddr() {
+		return mR_AvsAddr;
 	}
 
 	/**
 	 * Set Zip verified.
 	 *
-	 * @param R_AvsZip_RL The Zip Code has been verified
+	 * @param R_AvsZip The Zip Code has been verified
 	 */
-	public void setR_AvsZip_RL(I_AD_Ref_ListInput R_AvsZip_RL) {
-		this.R_AvsZip_RL = R_AvsZip_RL;
-		MRefList foreignEntity;
-		if (get_ID() == 0 &&R_AvsZip_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(R_AvsZip_RL.getID())
+	@JsonProperty("R_AvsZip")
+	public void setR_AvsZipInput(I_AD_Ref_ListInput R_AvsZip) {
+		this.mR_AvsZip = R_AvsZip;
+		MRefList_BH foreignEntity;
+		if (get_ID() == 0 &&R_AvsZip != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(R_AvsZip.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setR_AvsZip(foreignEntity.getValue());
 		}
@@ -867,8 +821,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return The Zip Code has been verified
 	 */
-	public I_AD_Ref_ListInput getR_AvsZip_RL() {
-		return R_AvsZip_RL;
+	@JsonProperty("R_AvsZip")
+	public I_AD_Ref_ListInput R_AvsZip() {
+		return mR_AvsZip;
 	}
 	/**
 	 * Set CVV Match.
@@ -942,14 +897,15 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param Ref_Payment Referenced Payment
 	 */
-	public void setRef_Payment(I_C_PaymentInput Ref_Payment) {
-		this.Ref_Payment = Ref_Payment;
+	@JsonProperty("Ref_Payment")
+	public void setRef_PaymentInput(I_C_PaymentInput Ref_Payment) {
+		this.mRef_Payment = Ref_Payment;
 		MPayment_BH foreignEntity;
 		if (get_ID() == 0 &&Ref_Payment != null &&
 				(foreignEntity = new Query(getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", get_TrxName())
 						.setParameters(Ref_Payment.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setRef_Payment_ID(foreignEntity.get_ID());
+			super.setRef_Payment_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -958,19 +914,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Referenced Payment
 	 */
-	public I_C_PaymentInput getRef_Payment() {
-		return Ref_Payment;
-	}
-	/**
-	 * Set Referenced Payment.
-	 *
-	 * @param Ref_Payment_ID Referenced Payment
-	 */
-
-	public void setRef_Payment_ID(int Ref_Payment_ID) {
-		if (get_ID() == 0) {
-			super.setRef_Payment_ID(Ref_Payment_ID);
-		}
+	@JsonProperty("Ref_Payment")
+	public I_C_PaymentInput Ref_Payment() {
+		return mRef_Payment;
 	}
 
 	/**
@@ -978,16 +924,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param Reversal ID of document reversal
 	 */
-	public void setReversal(I_C_PaymentInput Reversal) {
-		this.Reversal = Reversal;
+	@JsonProperty("Reversal")
+	public void setReversalInput(I_C_PaymentInput Reversal) {
+		this.mReversal = Reversal;
 		MPayment_BH foreignEntity;
 		if (Reversal != null &&
 				(foreignEntity = new Query(getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", get_TrxName())
 						.setParameters(Reversal.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setReversal_ID(foreignEntity.get_ID());
+			super.setReversal_ID(foreignEntity.get_ID());
 		} else {
-			this.setReversal_ID(0);
+			super.setReversal_ID(0);
 		}
 	}
 
@@ -996,19 +943,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return ID of document reversal
 	 */
-	public I_C_PaymentInput getReversal() {
-		return Reversal;
-	}
-	/**
-	 * Set Reversal ID.
-	 *
-	 * @param Reversal_ID ID of document reversal
-	 */
-
-	public void setReversal_ID(int Reversal_ID) {
-		if (get_ID() == 0) {
-			super.setReversal_ID(Reversal_ID);
-		}
+	@JsonProperty("Reversal")
+	public I_C_PaymentInput Reversal() {
+		return mReversal;
 	}
 	/**
 	 * Set Swipe.
@@ -1025,14 +962,15 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	/**
 	 * Set Tender type.
 	 *
-	 * @param TenderType_RL Method of Payment
+	 * @param TenderType Method of Payment
 	 */
-	public void setTenderType_RL(I_AD_Ref_ListInput TenderType_RL) {
-		this.TenderType_RL = TenderType_RL;
-		MRefList foreignEntity;
-		if (TenderType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(TenderType_RL.getID())
+	@JsonProperty("TenderType")
+	public void setTenderTypeInput(I_AD_Ref_ListInput TenderType) {
+		this.mTenderType = TenderType;
+		MRefList_BH foreignEntity;
+		if (TenderType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(TenderType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setTenderType(foreignEntity.getValue());
 		} else {
@@ -1045,21 +983,23 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Method of Payment
 	 */
-	public I_AD_Ref_ListInput getTenderType_RL() {
-		return TenderType_RL;
+	@JsonProperty("TenderType")
+	public I_AD_Ref_ListInput TenderType() {
+		return mTenderType;
 	}
 
 	/**
 	 * Set Transaction Type.
 	 *
-	 * @param TrxType_RL Type of credit card transaction
+	 * @param TrxType Type of credit card transaction
 	 */
-	public void setTrxType_RL(I_AD_Ref_ListInput TrxType_RL) {
-		this.TrxType_RL = TrxType_RL;
-		MRefList foreignEntity;
-		if (TrxType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(TrxType_RL.getID())
+	@JsonProperty("TrxType")
+	public void setTrxTypeInput(I_AD_Ref_ListInput TrxType) {
+		this.mTrxType = TrxType;
+		MRefList_BH foreignEntity;
+		if (TrxType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(TrxType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setTrxType(foreignEntity.getValue());
 		} else {
@@ -1072,8 +1012,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return Type of credit card transaction
 	 */
-	public I_AD_Ref_ListInput getTrxType_RL() {
-		return TrxType_RL;
+	@JsonProperty("TrxType")
+	public I_AD_Ref_ListInput TrxType() {
+		return mTrxType;
 	}
 
 	/**
@@ -1081,16 +1022,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param User1 User defined list element #1
 	 */
-	public void setUser1(I_C_ElementValueInput User1) {
-		this.User1 = User1;
+	@JsonProperty("User1")
+	public void setUser1Input(I_C_ElementValueInput User1) {
+		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
 				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setUser1_ID(foreignEntity.get_ID());
+			super.setUser1_ID(foreignEntity.get_ID());
 		} else {
-			this.setUser1_ID(0);
+			super.setUser1_ID(0);
 		}
 	}
 
@@ -1099,19 +1041,9 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return User defined list element #1
 	 */
-	public I_C_ElementValueInput getUser1() {
-		return User1;
-	}
-	/**
-	 * Set User Element List 1.
-	 *
-	 * @param User1_ID User defined list element #1
-	 */
-
-	public void setUser1_ID(int User1_ID) {
-		if (get_ID() == 0) {
-			super.setUser1_ID(User1_ID);
-		}
+	@JsonProperty("User1")
+	public I_C_ElementValueInput User1() {
+		return mUser1;
 	}
 
 	/**
@@ -1119,16 +1051,17 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @param User2 User defined list element #2
 	 */
-	public void setUser2(I_C_ElementValueInput User2) {
-		this.User2 = User2;
+	@JsonProperty("User2")
+	public void setUser2Input(I_C_ElementValueInput User2) {
+		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
 				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setUser2_ID(foreignEntity.get_ID());
+			super.setUser2_ID(foreignEntity.get_ID());
 		} else {
-			this.setUser2_ID(0);
+			super.setUser2_ID(0);
 		}
 	}
 
@@ -1137,18 +1070,8 @@ public class X_C_PaymentInput extends X_C_Payment implements I_C_PaymentInput {
 	 *
 	 * @return User defined list element #2
 	 */
-	public I_C_ElementValueInput getUser2() {
-		return User2;
-	}
-	/**
-	 * Set User Element List 2.
-	 *
-	 * @param User2_ID User defined list element #2
-	 */
-
-	public void setUser2_ID(int User2_ID) {
-		if (get_ID() == 0) {
-			super.setUser2_ID(User2_ID);
-		}
+	@JsonProperty("User2")
+	public I_C_ElementValueInput User2() {
+		return mUser2;
 	}
 }

@@ -11,18 +11,18 @@ import org.compiere.model.I_A_Asset_Disposed;
 public interface I_A_Asset_DisposedInput extends I_A_Asset_Disposed {
 
 	/**
-	 * Set A_Activation_Method_RL.
+	 * Set A_Activation_Method.
 	 *
-	 * @param A_Activation_Method_RL A_Activation_Method_RL
+	 * @param A_Activation_Method A_Activation_Method
 	 */
-	void setA_Activation_Method_RL(I_AD_Ref_ListInput A_Activation_Method_RL);
+	void setA_Activation_MethodInput(I_AD_Ref_ListInput A_Activation_Method);
 
 	/**
-	 * Get A_Activation_Method_RL.
+	 * Get A_Activation_Method.
 	 *
-	 * @return A_Activation_Method_RL
+	 * @return A_Activation_Method
 	 */
-	I_AD_Ref_ListInput getA_Activation_Method_RL();
+	I_AD_Ref_ListInput A_Activation_Method();
 
 	/**
 	 * Set ID.
@@ -43,180 +43,180 @@ public interface I_A_Asset_DisposedInput extends I_A_Asset_Disposed {
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_Asset(I_A_AssetInput A_Asset);
+	void setA_AssetInput(I_A_AssetInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput getA_Asset();
+	I_A_AssetInput A_Asset();
 
 	/**
-	 * Set A_Asset_Status_RL.
+	 * Set A_Asset_Status.
 	 *
-	 * @param A_Asset_Status_RL A_Asset_Status_RL
+	 * @param A_Asset_Status A_Asset_Status
 	 */
-	void setA_Asset_Status_RL(I_AD_Ref_ListInput A_Asset_Status_RL);
+	void setA_Asset_StatusInput(I_AD_Ref_ListInput A_Asset_Status);
 
 	/**
-	 * Get A_Asset_Status_RL.
+	 * Get A_Asset_Status.
 	 *
-	 * @return A_Asset_Status_RL
+	 * @return A_Asset_Status
 	 */
-	I_AD_Ref_ListInput getA_Asset_Status_RL();
+	I_AD_Ref_ListInput A_Asset_Status();
 
 	/**
 	 * Set A_Asset_Trade.
 	 *
 	 * @param A_Asset_Trade A_Asset_Trade
 	 */
-	void setA_Asset_Trade(I_A_AssetInput A_Asset_Trade);
+	void setA_Asset_TradeInput(I_A_AssetInput A_Asset_Trade);
 
 	/**
 	 * Get A_Asset_Trade.
 	 *
 	 * @return A_Asset_Trade
 	 */
-	I_A_AssetInput getA_Asset_Trade();
+	I_A_AssetInput A_Asset_Trade();
 
 	/**
-	 * Set A_Disposed_Method_RL.
+	 * Set A_Disposed_Method.
 	 *
-	 * @param A_Disposed_Method_RL A_Disposed_Method_RL
+	 * @param A_Disposed_Method A_Disposed_Method
 	 */
-	void setA_Disposed_Method_RL(I_AD_Ref_ListInput A_Disposed_Method_RL);
+	void setA_Disposed_MethodInput(I_AD_Ref_ListInput A_Disposed_Method);
 
 	/**
-	 * Get A_Disposed_Method_RL.
+	 * Get A_Disposed_Method.
 	 *
-	 * @return A_Disposed_Method_RL
+	 * @return A_Disposed_Method
 	 */
-	I_AD_Ref_ListInput getA_Disposed_Method_RL();
+	I_AD_Ref_ListInput A_Disposed_Method();
 
 	/**
-	 * Set A_Disposed_Reason_RL.
+	 * Set A_Disposed_Reason.
 	 *
-	 * @param A_Disposed_Reason_RL A_Disposed_Reason_RL
+	 * @param A_Disposed_Reason A_Disposed_Reason
 	 */
-	void setA_Disposed_Reason_RL(I_AD_Ref_ListInput A_Disposed_Reason_RL);
+	void setA_Disposed_ReasonInput(I_AD_Ref_ListInput A_Disposed_Reason);
 
 	/**
-	 * Get A_Disposed_Reason_RL.
+	 * Get A_Disposed_Reason.
 	 *
-	 * @return A_Disposed_Reason_RL
+	 * @return A_Disposed_Reason
 	 */
-	I_AD_Ref_ListInput getA_Disposed_Reason_RL();
+	I_AD_Ref_ListInput A_Disposed_Reason();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set C_DocType.
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocType(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput getC_DocType();
+	I_C_DocTypeInput C_DocType();
 
 	/**
 	 * Set C_Invoice.
 	 *
 	 * @param C_Invoice Invoice Identifier
 	 */
-	void setC_Invoice(I_C_InvoiceInput C_Invoice);
+	void setC_InvoiceInput(I_C_InvoiceInput C_Invoice);
 
 	/**
 	 * Get C_Invoice.
 	 *
 	 * @return Invoice Identifier
 	 */
-	I_C_InvoiceInput getC_Invoice();
+	I_C_InvoiceInput C_Invoice();
 
 	/**
 	 * Set C_InvoiceLine.
 	 *
 	 * @param C_InvoiceLine Invoice Detail Line
 	 */
-	void setC_InvoiceLine(I_C_InvoiceLineInput C_InvoiceLine);
+	void setC_InvoiceLineInput(I_C_InvoiceLineInput C_InvoiceLine);
 
 	/**
 	 * Get C_InvoiceLine.
 	 *
 	 * @return Invoice Detail Line
 	 */
-	I_C_InvoiceLineInput getC_InvoiceLine();
+	I_C_InvoiceLineInput C_InvoiceLine();
 
 	/**
 	 * Set C_Period.
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	void setC_Period(I_C_PeriodInput C_Period);
+	void setC_PeriodInput(I_C_PeriodInput C_Period);
 
 	/**
 	 * Get C_Period.
 	 *
 	 * @return Period of the Calendar
 	 */
-	I_C_PeriodInput getC_Period();
+	I_C_PeriodInput C_Period();
 
 	/**
-	 * Set DocAction_RL.
+	 * Set DocAction.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL);
+	void setDocActionInput(I_AD_Ref_ListInput DocAction);
 
 	/**
-	 * Get DocAction_RL.
+	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput getDocAction_RL();
+	I_AD_Ref_ListInput DocAction();
 
 	/**
-	 * Set DocStatus_RL.
+	 * Set DocStatus.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL);
+	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
 
 	/**
-	 * Get DocStatus_RL.
+	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput getDocStatus_RL();
+	I_AD_Ref_ListInput DocStatus();
 
 	/**
-	 * Set PostingType_RL.
+	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL);
+	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
 
 	/**
-	 * Get PostingType_RL.
+	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput getPostingType_RL();
+	I_AD_Ref_ListInput PostingType();
 }

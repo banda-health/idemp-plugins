@@ -52,6 +52,10 @@ public class X_S_ExpenseTypeResolver extends POResolver<MExpenseType> implements
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
+	public Boolean IsInvoiced(MExpenseType entity, DataFetchingEnvironment environment) {
+		return entity.isInvoiced();
+	}
+
 
 	/**
 	 * Get Product Category.

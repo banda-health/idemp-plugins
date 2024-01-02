@@ -18,6 +18,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_M_ShipperPickupTypesCfgResolver extends POResolver<X_M_ShipperPickupTypesCfg> implements GraphQLResolver<X_M_ShipperPickupTypesCfg> {
 
 
+	public Boolean IsDefault(X_M_ShipperPickupTypesCfg entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
 
 	/**
 	 * Get Shipper Configuration.

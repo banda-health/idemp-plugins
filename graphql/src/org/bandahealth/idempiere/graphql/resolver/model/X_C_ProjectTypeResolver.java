@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MProjectType;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -29,11 +29,11 @@ public class X_C_ProjectTypeResolver extends POResolver<MProjectType> implements
 			put("S", "8a6796ad-4e16-412c-a34b-0e92bf6f5e00");
 		}
 	};
-	public CompletableFuture<MRefList> ProjectCategory_RL(MProjectType entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ProjectCategory(MProjectType entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getProjectCategory())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PROJECTCATEGORY_UUIDS_BY_VALUE.get(entity.getProjectCategory()));
 	}

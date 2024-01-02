@@ -15,14 +15,14 @@ public interface I_C_CampaignInput extends I_C_Campaign {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,12 +43,12 @@ public interface I_C_CampaignInput extends I_C_Campaign {
 	 *
 	 * @param C_Channel Sales Channel
 	 */
-	void setC_Channel(I_C_ChannelInput C_Channel);
+	void setC_ChannelInput(I_C_ChannelInput C_Channel);
 
 	/**
 	 * Get C_Channel.
 	 *
 	 * @return Sales Channel
 	 */
-	I_C_ChannelInput getC_Channel();
+	I_C_ChannelInput C_Channel();
 }

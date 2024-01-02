@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MHierarchy;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTree;
 import org.compiere.model.Query;
-import org.compiere.model.X_PA_Hierarchy;
 import org.compiere.util.Env;
 
 /**
@@ -13,22 +15,23 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_HierarchyInput {
+public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_TreeInput AD_Tree_Account;
-	 private I_AD_TreeInput AD_Tree_Activity;
-	 private I_AD_TreeInput AD_Tree_BPartner;
-	 private I_AD_TreeInput AD_Tree_Campaign;
-	 private I_AD_TreeInput AD_Tree_Org;
-	 private I_AD_TreeInput AD_Tree_Product;
-	 private I_AD_TreeInput AD_Tree_Project;
-	 private I_AD_TreeInput AD_Tree_SalesRegion;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_TreeInput mAD_Tree_Account;
+	 private I_AD_TreeInput mAD_Tree_Activity;
+	 private I_AD_TreeInput mAD_Tree_BPartner;
+	 private I_AD_TreeInput mAD_Tree_Campaign;
+	 private I_AD_TreeInput mAD_Tree_Org;
+	 private I_AD_TreeInput mAD_Tree_Product;
+	 private I_AD_TreeInput mAD_Tree_Project;
+	 private I_AD_TreeInput mAD_Tree_SalesRegion;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_HierarchyInput(String ID) {
+	@JsonCreator
+	public X_PA_HierarchyInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -38,14 +41,15 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -54,8 +58,9 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -63,16 +68,17 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @param AD_Tree_Account Tree for Natural Account Tree
 	 */
-	public void setAD_Tree_Account(I_AD_TreeInput AD_Tree_Account) {
-		this.AD_Tree_Account = AD_Tree_Account;
+	@JsonProperty("AD_Tree_Account")
+	public void setAD_Tree_AccountInput(I_AD_TreeInput AD_Tree_Account) {
+		this.mAD_Tree_Account = AD_Tree_Account;
 		MTree foreignEntity;
 		if (AD_Tree_Account != null &&
 				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
 						.setParameters(AD_Tree_Account.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Tree_Account_ID(foreignEntity.get_ID());
+			super.setAD_Tree_Account_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Tree_Account_ID(0);
+			super.setAD_Tree_Account_ID(0);
 		}
 	}
 
@@ -81,19 +87,9 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @return Tree for Natural Account Tree
 	 */
-	public I_AD_TreeInput getAD_Tree_Account() {
-		return AD_Tree_Account;
-	}
-	/**
-	 * Set Account Tree.
-	 *
-	 * @param AD_Tree_Account_ID Tree for Natural Account Tree
-	 */
-
-	public void setAD_Tree_Account_ID(int AD_Tree_Account_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Tree_Account_ID(AD_Tree_Account_ID);
-		}
+	@JsonProperty("AD_Tree_Account")
+	public I_AD_TreeInput AD_Tree_Account() {
+		return mAD_Tree_Account;
 	}
 
 	/**
@@ -101,16 +97,17 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @param AD_Tree_Activity Trees are used for (financial) reporting
 	 */
-	public void setAD_Tree_Activity(I_AD_TreeInput AD_Tree_Activity) {
-		this.AD_Tree_Activity = AD_Tree_Activity;
+	@JsonProperty("AD_Tree_Activity")
+	public void setAD_Tree_ActivityInput(I_AD_TreeInput AD_Tree_Activity) {
+		this.mAD_Tree_Activity = AD_Tree_Activity;
 		MTree foreignEntity;
 		if (AD_Tree_Activity != null &&
 				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
 						.setParameters(AD_Tree_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Tree_Activity_ID(foreignEntity.get_ID());
+			super.setAD_Tree_Activity_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Tree_Activity_ID(0);
+			super.setAD_Tree_Activity_ID(0);
 		}
 	}
 
@@ -119,19 +116,9 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public I_AD_TreeInput getAD_Tree_Activity() {
-		return AD_Tree_Activity;
-	}
-	/**
-	 * Set Activity Tree.
-	 *
-	 * @param AD_Tree_Activity_ID Trees are used for (financial) reporting
-	 */
-
-	public void setAD_Tree_Activity_ID(int AD_Tree_Activity_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Tree_Activity_ID(AD_Tree_Activity_ID);
-		}
+	@JsonProperty("AD_Tree_Activity")
+	public I_AD_TreeInput AD_Tree_Activity() {
+		return mAD_Tree_Activity;
 	}
 
 	/**
@@ -139,16 +126,17 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @param AD_Tree_BPartner Trees are used for (financial) reporting
 	 */
-	public void setAD_Tree_BPartner(I_AD_TreeInput AD_Tree_BPartner) {
-		this.AD_Tree_BPartner = AD_Tree_BPartner;
+	@JsonProperty("AD_Tree_BPartner")
+	public void setAD_Tree_BPartnerInput(I_AD_TreeInput AD_Tree_BPartner) {
+		this.mAD_Tree_BPartner = AD_Tree_BPartner;
 		MTree foreignEntity;
 		if (AD_Tree_BPartner != null &&
 				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
 						.setParameters(AD_Tree_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Tree_BPartner_ID(foreignEntity.get_ID());
+			super.setAD_Tree_BPartner_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Tree_BPartner_ID(0);
+			super.setAD_Tree_BPartner_ID(0);
 		}
 	}
 
@@ -157,19 +145,9 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public I_AD_TreeInput getAD_Tree_BPartner() {
-		return AD_Tree_BPartner;
-	}
-	/**
-	 * Set BPartner Tree.
-	 *
-	 * @param AD_Tree_BPartner_ID Trees are used for (financial) reporting
-	 */
-
-	public void setAD_Tree_BPartner_ID(int AD_Tree_BPartner_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Tree_BPartner_ID(AD_Tree_BPartner_ID);
-		}
+	@JsonProperty("AD_Tree_BPartner")
+	public I_AD_TreeInput AD_Tree_BPartner() {
+		return mAD_Tree_BPartner;
 	}
 
 	/**
@@ -177,16 +155,17 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @param AD_Tree_Campaign Trees are used for (financial) reporting
 	 */
-	public void setAD_Tree_Campaign(I_AD_TreeInput AD_Tree_Campaign) {
-		this.AD_Tree_Campaign = AD_Tree_Campaign;
+	@JsonProperty("AD_Tree_Campaign")
+	public void setAD_Tree_CampaignInput(I_AD_TreeInput AD_Tree_Campaign) {
+		this.mAD_Tree_Campaign = AD_Tree_Campaign;
 		MTree foreignEntity;
 		if (AD_Tree_Campaign != null &&
 				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
 						.setParameters(AD_Tree_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Tree_Campaign_ID(foreignEntity.get_ID());
+			super.setAD_Tree_Campaign_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Tree_Campaign_ID(0);
+			super.setAD_Tree_Campaign_ID(0);
 		}
 	}
 
@@ -195,19 +174,9 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public I_AD_TreeInput getAD_Tree_Campaign() {
-		return AD_Tree_Campaign;
-	}
-	/**
-	 * Set Campaign Tree.
-	 *
-	 * @param AD_Tree_Campaign_ID Trees are used for (financial) reporting
-	 */
-
-	public void setAD_Tree_Campaign_ID(int AD_Tree_Campaign_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Tree_Campaign_ID(AD_Tree_Campaign_ID);
-		}
+	@JsonProperty("AD_Tree_Campaign")
+	public I_AD_TreeInput AD_Tree_Campaign() {
+		return mAD_Tree_Campaign;
 	}
 
 	/**
@@ -215,16 +184,17 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @param AD_Tree_Org Trees are used for (financial) reporting and security access (via role)
 	 */
-	public void setAD_Tree_Org(I_AD_TreeInput AD_Tree_Org) {
-		this.AD_Tree_Org = AD_Tree_Org;
+	@JsonProperty("AD_Tree_Org")
+	public void setAD_Tree_OrgInput(I_AD_TreeInput AD_Tree_Org) {
+		this.mAD_Tree_Org = AD_Tree_Org;
 		MTree foreignEntity;
 		if (AD_Tree_Org != null &&
 				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
 						.setParameters(AD_Tree_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Tree_Org_ID(foreignEntity.get_ID());
+			super.setAD_Tree_Org_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Tree_Org_ID(0);
+			super.setAD_Tree_Org_ID(0);
 		}
 	}
 
@@ -233,19 +203,9 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @return Trees are used for (financial) reporting and security access (via role)
 	 */
-	public I_AD_TreeInput getAD_Tree_Org() {
-		return AD_Tree_Org;
-	}
-	/**
-	 * Set Organization Tree.
-	 *
-	 * @param AD_Tree_Org_ID Trees are used for (financial) reporting and security access (via role)
-	 */
-
-	public void setAD_Tree_Org_ID(int AD_Tree_Org_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Tree_Org_ID(AD_Tree_Org_ID);
-		}
+	@JsonProperty("AD_Tree_Org")
+	public I_AD_TreeInput AD_Tree_Org() {
+		return mAD_Tree_Org;
 	}
 
 	/**
@@ -253,16 +213,17 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @param AD_Tree_Product Trees are used for (financial) reporting
 	 */
-	public void setAD_Tree_Product(I_AD_TreeInput AD_Tree_Product) {
-		this.AD_Tree_Product = AD_Tree_Product;
+	@JsonProperty("AD_Tree_Product")
+	public void setAD_Tree_ProductInput(I_AD_TreeInput AD_Tree_Product) {
+		this.mAD_Tree_Product = AD_Tree_Product;
 		MTree foreignEntity;
 		if (AD_Tree_Product != null &&
 				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
 						.setParameters(AD_Tree_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Tree_Product_ID(foreignEntity.get_ID());
+			super.setAD_Tree_Product_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Tree_Product_ID(0);
+			super.setAD_Tree_Product_ID(0);
 		}
 	}
 
@@ -271,19 +232,9 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public I_AD_TreeInput getAD_Tree_Product() {
-		return AD_Tree_Product;
-	}
-	/**
-	 * Set Product Tree.
-	 *
-	 * @param AD_Tree_Product_ID Trees are used for (financial) reporting
-	 */
-
-	public void setAD_Tree_Product_ID(int AD_Tree_Product_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Tree_Product_ID(AD_Tree_Product_ID);
-		}
+	@JsonProperty("AD_Tree_Product")
+	public I_AD_TreeInput AD_Tree_Product() {
+		return mAD_Tree_Product;
 	}
 
 	/**
@@ -291,16 +242,17 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @param AD_Tree_Project Trees are used for (financial) reporting
 	 */
-	public void setAD_Tree_Project(I_AD_TreeInput AD_Tree_Project) {
-		this.AD_Tree_Project = AD_Tree_Project;
+	@JsonProperty("AD_Tree_Project")
+	public void setAD_Tree_ProjectInput(I_AD_TreeInput AD_Tree_Project) {
+		this.mAD_Tree_Project = AD_Tree_Project;
 		MTree foreignEntity;
 		if (AD_Tree_Project != null &&
 				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
 						.setParameters(AD_Tree_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Tree_Project_ID(foreignEntity.get_ID());
+			super.setAD_Tree_Project_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Tree_Project_ID(0);
+			super.setAD_Tree_Project_ID(0);
 		}
 	}
 
@@ -309,19 +261,9 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public I_AD_TreeInput getAD_Tree_Project() {
-		return AD_Tree_Project;
-	}
-	/**
-	 * Set Project Tree.
-	 *
-	 * @param AD_Tree_Project_ID Trees are used for (financial) reporting
-	 */
-
-	public void setAD_Tree_Project_ID(int AD_Tree_Project_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Tree_Project_ID(AD_Tree_Project_ID);
-		}
+	@JsonProperty("AD_Tree_Project")
+	public I_AD_TreeInput AD_Tree_Project() {
+		return mAD_Tree_Project;
 	}
 
 	/**
@@ -329,16 +271,17 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @param AD_Tree_SalesRegion Trees are used for (financial) reporting
 	 */
-	public void setAD_Tree_SalesRegion(I_AD_TreeInput AD_Tree_SalesRegion) {
-		this.AD_Tree_SalesRegion = AD_Tree_SalesRegion;
+	@JsonProperty("AD_Tree_SalesRegion")
+	public void setAD_Tree_SalesRegionInput(I_AD_TreeInput AD_Tree_SalesRegion) {
+		this.mAD_Tree_SalesRegion = AD_Tree_SalesRegion;
 		MTree foreignEntity;
 		if (AD_Tree_SalesRegion != null &&
 				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
 						.setParameters(AD_Tree_SalesRegion.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Tree_SalesRegion_ID(foreignEntity.get_ID());
+			super.setAD_Tree_SalesRegion_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Tree_SalesRegion_ID(0);
+			super.setAD_Tree_SalesRegion_ID(0);
 		}
 	}
 
@@ -347,30 +290,9 @@ public class X_PA_HierarchyInput extends X_PA_Hierarchy implements I_PA_Hierarch
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public I_AD_TreeInput getAD_Tree_SalesRegion() {
-		return AD_Tree_SalesRegion;
-	}
-	/**
-	 * Set Sales Region Tree.
-	 *
-	 * @param AD_Tree_SalesRegion_ID Trees are used for (financial) reporting
-	 */
-
-	public void setAD_Tree_SalesRegion_ID(int AD_Tree_SalesRegion_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Tree_SalesRegion_ID(AD_Tree_SalesRegion_ID);
-		}
-	}
-	/**
-	 * Set Reporting Hierarchy.
-	 *
-	 * @param PA_Hierarchy_ID Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
-	 */
-
-	public void setPA_Hierarchy_ID(int PA_Hierarchy_ID) {
-		if (get_ID() == 0) {
-			super.setPA_Hierarchy_ID(PA_Hierarchy_ID);
-		}
+	@JsonProperty("AD_Tree_SalesRegion")
+	public I_AD_TreeInput AD_Tree_SalesRegion() {
+		return mAD_Tree_SalesRegion;
 	}
 
 	/**

@@ -11,32 +11,32 @@ import org.compiere.model.I_PA_Benchmark;
 public interface I_PA_BenchmarkInput extends I_PA_Benchmark {
 
 	/**
-	 * Set AccumulationType_RL.
+	 * Set AccumulationType.
 	 *
-	 * @param AccumulationType_RL How to accumulate data on time axis
+	 * @param AccumulationType How to accumulate data on time axis
 	 */
-	void setAccumulationType_RL(I_AD_Ref_ListInput AccumulationType_RL);
+	void setAccumulationTypeInput(I_AD_Ref_ListInput AccumulationType);
 
 	/**
-	 * Get AccumulationType_RL.
+	 * Get AccumulationType.
 	 *
 	 * @return How to accumulate data on time axis
 	 */
-	I_AD_Ref_ListInput getAccumulationType_RL();
+	I_AD_Ref_ListInput AccumulationType();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.

@@ -15,28 +15,28 @@ public interface I_C_DepositBatchInput extends I_C_DepositBatch {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set C_BankAccount.
 	 *
 	 * @param C_BankAccount Account at the Bank
 	 */
-	void setC_BankAccount(I_C_BankAccountInput C_BankAccount);
+	void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount);
 
 	/**
 	 * Get C_BankAccount.
 	 *
 	 * @return Account at the Bank
 	 */
-	I_C_BankAccountInput getC_BankAccount();
+	I_C_BankAccountInput C_BankAccount();
 
 	/**
 	 * Set ID.
@@ -57,26 +57,26 @@ public interface I_C_DepositBatchInput extends I_C_DepositBatch {
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocType(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput getC_DocType();
+	I_C_DocTypeInput C_DocType();
 
 	/**
-	 * Set DocStatus_RL.
+	 * Set DocStatus.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL);
+	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
 
 	/**
-	 * Get DocStatus_RL.
+	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput getDocStatus_RL();
+	I_AD_Ref_ListInput DocStatus();
 }

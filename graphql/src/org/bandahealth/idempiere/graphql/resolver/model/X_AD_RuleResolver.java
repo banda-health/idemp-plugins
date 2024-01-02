@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MRefList;
 import org.compiere.model.MRule;
 import org.dataloader.DataLoader;
 
@@ -33,11 +33,11 @@ public class X_AD_RuleResolver extends POResolver<MRule> implements GraphQLResol
 			put("2", "391e2c9a-b8e5-43b0-895b-eea914023e59");
 		}
 	};
-	public CompletableFuture<MRefList> AccessLevel_RL(MRule entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> AccessLevel(MRule entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAccessLevel())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ACCESSLEVEL_UUIDS_BY_VALUE.get(entity.getAccessLevel()));
 	}
@@ -85,11 +85,11 @@ public class X_AD_RuleResolver extends POResolver<MRule> implements GraphQLResol
 			put("R", "0efdf85b-b260-461e-991f-e1cada7fe522");
 		}
 	};
-	public CompletableFuture<MRefList> EventType_RL(MRule entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> EventType(MRule entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getEventType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(EVENTTYPE_UUIDS_BY_VALUE.get(entity.getEventType()));
 	}
@@ -102,11 +102,11 @@ public class X_AD_RuleResolver extends POResolver<MRule> implements GraphQLResol
 			put("Q", "8ee669bb-c5e7-41dc-a4e1-16cb86ca1c29");
 		}
 	};
-	public CompletableFuture<MRefList> RuleType_RL(MRule entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> RuleType(MRule entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getRuleType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(RULETYPE_UUIDS_BY_VALUE.get(entity.getRuleType()));
 	}

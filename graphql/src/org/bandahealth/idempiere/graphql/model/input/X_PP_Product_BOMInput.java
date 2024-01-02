@@ -1,15 +1,17 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MChangeNotice;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.eevolution.model.X_PP_Product_BOM;
+import org.eevolution.model.MPPProductBOM;
 
 /**
  * Generated Model for PP_Product_BOM - DO NOT CHANGE
@@ -17,20 +19,21 @@ import org.eevolution.model.X_PP_Product_BOM;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Product_BOMInput {
+public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product_BOMInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput BOMType_RL;
-	 private I_AD_Ref_ListInput BOMUse_RL;
-	 private I_C_UOMInput C_UOM;
-	 private I_M_AttributeSetInstanceInput M_AttributeSetInstance;
-	 private I_M_ChangeNoticeInput M_ChangeNotice;
-	 private I_M_ProductInput M_Product;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mBOMType;
+	 private I_AD_Ref_ListInput mBOMUse;
+	 private I_C_UOMInput mC_UOM;
+	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
+	 private I_M_ChangeNoticeInput mM_ChangeNotice;
+	 private I_M_ProductInput mM_Product;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PP_Product_BOMInput(String ID) {
+	@JsonCreator
+	public X_PP_Product_BOMInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -40,14 +43,15 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -56,21 +60,23 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
 	 * Set BOM Type.
 	 *
-	 * @param BOMType_RL Type of BOM
+	 * @param BOMType Type of BOM
 	 */
-	public void setBOMType_RL(I_AD_Ref_ListInput BOMType_RL) {
-		this.BOMType_RL = BOMType_RL;
-		MRefList foreignEntity;
-		if (BOMType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BOMType_RL.getID())
+	@JsonProperty("BOMType")
+	public void setBOMTypeInput(I_AD_Ref_ListInput BOMType) {
+		this.mBOMType = BOMType;
+		MRefList_BH foreignEntity;
+		if (BOMType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(BOMType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setBOMType(foreignEntity.getValue());
 		} else {
@@ -83,21 +89,23 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @return Type of BOM
 	 */
-	public I_AD_Ref_ListInput getBOMType_RL() {
-		return BOMType_RL;
+	@JsonProperty("BOMType")
+	public I_AD_Ref_ListInput BOMType() {
+		return mBOMType;
 	}
 
 	/**
 	 * Set BOM Use.
 	 *
-	 * @param BOMUse_RL The use of the Bill of Material
+	 * @param BOMUse The use of the Bill of Material
 	 */
-	public void setBOMUse_RL(I_AD_Ref_ListInput BOMUse_RL) {
-		this.BOMUse_RL = BOMUse_RL;
-		MRefList foreignEntity;
-		if (BOMUse_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BOMUse_RL.getID())
+	@JsonProperty("BOMUse")
+	public void setBOMUseInput(I_AD_Ref_ListInput BOMUse) {
+		this.mBOMUse = BOMUse;
+		MRefList_BH foreignEntity;
+		if (BOMUse != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(BOMUse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setBOMUse(foreignEntity.getValue());
 		} else {
@@ -110,8 +118,9 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @return The use of the Bill of Material
 	 */
-	public I_AD_Ref_ListInput getBOMUse_RL() {
-		return BOMUse_RL;
+	@JsonProperty("BOMUse")
+	public I_AD_Ref_ListInput BOMUse() {
+		return mBOMUse;
 	}
 
 	/**
@@ -119,16 +128,17 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @param C_UOM Unit of Measure
 	 */
-	public void setC_UOM(I_C_UOMInput C_UOM) {
-		this.C_UOM = C_UOM;
+	@JsonProperty("C_UOM")
+	public void setC_UOMInput(I_C_UOMInput C_UOM) {
+		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (C_UOM != null &&
 				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
 						.setParameters(C_UOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_UOM_ID(foreignEntity.get_ID());
+			super.setC_UOM_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_UOM_ID(0);
+			super.setC_UOM_ID(0);
 		}
 	}
 
@@ -137,8 +147,9 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @return Unit of Measure
 	 */
-	public I_C_UOMInput getC_UOM() {
-		return C_UOM;
+	@JsonProperty("C_UOM")
+	public I_C_UOMInput C_UOM() {
+		return mC_UOM;
 	}
 
 	/**
@@ -146,16 +157,17 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
-	public void setM_AttributeSetInstance(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
-		this.M_AttributeSetInstance = M_AttributeSetInstance;
+	@JsonProperty("M_AttributeSetInstance")
+	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
 				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			super.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -164,8 +176,9 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	public I_M_AttributeSetInstanceInput getM_AttributeSetInstance() {
-		return M_AttributeSetInstance;
+	@JsonProperty("M_AttributeSetInstance")
+	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+		return mM_AttributeSetInstance;
 	}
 
 	/**
@@ -173,16 +186,17 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @param M_ChangeNotice Bill of Materials (Engineering) Change Notice (Version)
 	 */
-	public void setM_ChangeNotice(I_M_ChangeNoticeInput M_ChangeNotice) {
-		this.M_ChangeNotice = M_ChangeNotice;
+	@JsonProperty("M_ChangeNotice")
+	public void setM_ChangeNoticeInput(I_M_ChangeNoticeInput M_ChangeNotice) {
+		this.mM_ChangeNotice = M_ChangeNotice;
 		MChangeNotice foreignEntity;
 		if (M_ChangeNotice != null &&
 				(foreignEntity = new Query(getCtx(), MChangeNotice.Table_Name, MChangeNotice.COLUMNNAME_M_ChangeNotice_UU + "=?", get_TrxName())
 						.setParameters(M_ChangeNotice.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_ChangeNotice_ID(foreignEntity.get_ID());
+			super.setM_ChangeNotice_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_ChangeNotice_ID(0);
+			super.setM_ChangeNotice_ID(0);
 		}
 	}
 
@@ -191,8 +205,9 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
-	public I_M_ChangeNoticeInput getM_ChangeNotice() {
-		return M_ChangeNotice;
+	@JsonProperty("M_ChangeNotice")
+	public I_M_ChangeNoticeInput M_ChangeNotice() {
+		return mM_ChangeNotice;
 	}
 
 	/**
@@ -200,16 +215,17 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	public void setM_Product(I_M_ProductInput M_Product) {
-		this.M_Product = M_Product;
+	@JsonProperty("M_Product")
+	public void setM_ProductInput(I_M_ProductInput M_Product) {
+		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
 				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Product_ID(foreignEntity.get_ID());
+			super.setM_Product_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_Product_ID(0);
+			super.setM_Product_ID(0);
 		}
 	}
 
@@ -218,19 +234,9 @@ public class X_PP_Product_BOMInput extends X_PP_Product_BOM implements I_PP_Prod
 	 *
 	 * @return Product, Service, Item
 	 */
-	public I_M_ProductInput getM_Product() {
-		return M_Product;
-	}
-	/**
-	 * Set BOM & Formula.
-	 *
-	 * @param PP_Product_BOM_ID BOM & Formula
-	 */
-
-	public void setPP_Product_BOM_ID(int PP_Product_BOM_ID) {
-		if (get_ID() == 0) {
-			super.setPP_Product_BOM_ID(PP_Product_BOM_ID);
-		}
+	@JsonProperty("M_Product")
+	public I_M_ProductInput M_Product() {
+		return mM_Product;
 	}
 
 	/**

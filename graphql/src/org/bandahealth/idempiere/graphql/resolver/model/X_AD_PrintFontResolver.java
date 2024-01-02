@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_AD_PrintFontResolver extends POResolver<X_AD_PrintFont> implements GraphQLResolver<X_AD_PrintFont> {
 
 
+	public Boolean IsDefault(X_AD_PrintFont entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
 }

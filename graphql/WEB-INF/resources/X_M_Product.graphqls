@@ -46,7 +46,7 @@ type M_Product {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Customs Tariff Number, usually the HS-Code
 	CustomsTariffNumber: String
 	# Optional short description of the record
@@ -125,7 +125,7 @@ type M_Product {
 	Name: String!
 	Processing: Boolean!
 	# Type of product
-	ProductType_RL: AD_Ref_List!
+	ProductType: AD_Ref_List!
 	# Quantity In Store
 	QtyInStore: Int
 	# Text templates for mailings
@@ -153,7 +153,7 @@ type M_Product {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 	# Version Number
@@ -268,7 +268,7 @@ input M_ProductInput {
 	Name: String
 	Processing: Boolean
 	# Type of product
-	ProductType_RL: AD_Ref_ListInput
+	ProductType: AD_Ref_ListInput
 	# Text templates for mailings
 	R_MailText: R_MailTextInput
 	# Expense report type

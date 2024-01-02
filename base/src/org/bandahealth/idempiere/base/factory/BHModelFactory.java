@@ -29,6 +29,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MFieldGroup;
 import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
@@ -36,6 +37,7 @@ import org.bandahealth.idempiere.base.model.MField_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
+import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MMenu_BH;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
@@ -47,6 +49,7 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
@@ -168,6 +171,12 @@ public class BHModelFactory implements IModelFactory {
 			return MBHEncounter.class;
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return MBHObservation.class;
+		} else if (tableName.equalsIgnoreCase(MRefList_BH.Table_Name)) {
+			return MRefList_BH.class;
+		} else if (tableName.equalsIgnoreCase(MInvoiceLine_BH.Table_Name)) {
+			return MInvoiceLine_BH.class;
+		} else if (tableName.equalsIgnoreCase(MCurrency_BH.Table_Name)) {
+			return MCurrency_BH.class;
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnosis.Table_Name)) {
 			return MBHEncounterDiagnosis.class;
 		} else if (tableName.equalsIgnoreCase(MBHEncounterTypeWindow.Table_Name)) {
@@ -283,6 +292,12 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHEncounter(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return new MBHObservation(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MRefList_BH.Table_Name)) {
+			return new MRefList_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MInvoiceLine_BH.Table_Name)) {
+			return new MInvoiceLine_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MCurrency_BH.Table_Name)) {
+			return new MCurrency_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnosis.Table_Name)) {
 			return new MBHEncounterDiagnosis(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHEncounterTypeWindow.Table_Name)) {
@@ -400,6 +415,12 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHEncounter(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return new MBHObservation(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MRefList_BH.Table_Name)) {
+			return new MRefList_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MInvoiceLine_BH.Table_Name)) {
+			return new MInvoiceLine_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MCurrency_BH.Table_Name)) {
+			return new MCurrency_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnosis.Table_Name)) {
 			return new MBHEncounterDiagnosis(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHEncounterTypeWindow.Table_Name)) {

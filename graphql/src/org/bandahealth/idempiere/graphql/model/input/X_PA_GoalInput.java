@@ -1,17 +1,18 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColorSchema;
 import org.compiere.model.MGoal;
 import org.compiere.model.MMeasure;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
-import org.compiere.model.X_PA_Goal;
 import org.compiere.util.Env;
 
 /**
@@ -20,22 +21,23 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
+public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput ChartType_RL;
-	 private I_AD_Ref_ListInput MeasureDisplay_RL;
-	 private I_AD_Ref_ListInput MeasureScope_RL;
-	 private I_AD_RoleInput AD_Role;
-	 private I_AD_UserInput AD_User;
-	 private I_PA_ColorSchemaInput PA_ColorSchema;
-	 private I_PA_GoalInput PA_GoalParent;
-	 private I_PA_MeasureInput PA_Measure;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mChartType;
+	 private I_AD_Ref_ListInput mMeasureDisplay;
+	 private I_AD_Ref_ListInput mMeasureScope;
+	 private I_AD_RoleInput mAD_Role;
+	 private I_AD_UserInput mAD_User;
+	 private I_PA_ColorSchemaInput mPA_ColorSchema;
+	 private I_PA_GoalInput mPA_GoalParent;
+	 private I_PA_MeasureInput mPA_Measure;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_GoalInput(String ID) {
+	@JsonCreator
+	public X_PA_GoalInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -45,14 +47,15 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -61,8 +64,9 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -70,16 +74,17 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @param AD_Role Responsibility Role
 	 */
-	public void setAD_Role(I_AD_RoleInput AD_Role) {
-		this.AD_Role = AD_Role;
+	@JsonProperty("AD_Role")
+	public void setAD_RoleInput(I_AD_RoleInput AD_Role) {
+		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_Role.Table_Name, X_AD_Role.COLUMNNAME_AD_Role_UU + "=?", get_TrxName())
 						.setParameters(AD_Role.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Role_ID(foreignEntity.get_ID());
+			super.setAD_Role_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Role_ID(0);
+			super.setAD_Role_ID(0);
 		}
 	}
 
@@ -88,8 +93,9 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @return Responsibility Role
 	 */
-	public I_AD_RoleInput getAD_Role() {
-		return AD_Role;
+	@JsonProperty("AD_Role")
+	public I_AD_RoleInput AD_Role() {
+		return mAD_Role;
 	}
 
 	/**
@@ -97,16 +103,17 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	public void setAD_User(I_AD_UserInput AD_User) {
-		this.AD_User = AD_User;
+	@JsonProperty("AD_User")
+	public void setAD_UserInput(I_AD_UserInput AD_User) {
+		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
 				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_User_ID(foreignEntity.get_ID());
+			super.setAD_User_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_User_ID(0);
+			super.setAD_User_ID(0);
 		}
 	}
 
@@ -115,21 +122,23 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	public I_AD_UserInput getAD_User() {
-		return AD_User;
+	@JsonProperty("AD_User")
+	public I_AD_UserInput AD_User() {
+		return mAD_User;
 	}
 
 	/**
 	 * Set Chart Type.
 	 *
-	 * @param ChartType_RL Type of chart to render
+	 * @param ChartType Type of chart to render
 	 */
-	public void setChartType_RL(I_AD_Ref_ListInput ChartType_RL) {
-		this.ChartType_RL = ChartType_RL;
-		MRefList foreignEntity;
-		if (ChartType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ChartType_RL.getID())
+	@JsonProperty("ChartType")
+	public void setChartTypeInput(I_AD_Ref_ListInput ChartType) {
+		this.mChartType = ChartType;
+		MRefList_BH foreignEntity;
+		if (ChartType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(ChartType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setChartType(foreignEntity.getValue());
 		} else {
@@ -142,8 +151,9 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @return Type of chart to render
 	 */
-	public I_AD_Ref_ListInput getChartType_RL() {
-		return ChartType_RL;
+	@JsonProperty("ChartType")
+	public I_AD_Ref_ListInput ChartType() {
+		return mChartType;
 	}
 	/**
 	 * Set Date last run.
@@ -182,14 +192,15 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	/**
 	 * Set Measure Display.
 	 *
-	 * @param MeasureDisplay_RL Measure Scope initially displayed
+	 * @param MeasureDisplay Measure Scope initially displayed
 	 */
-	public void setMeasureDisplay_RL(I_AD_Ref_ListInput MeasureDisplay_RL) {
-		this.MeasureDisplay_RL = MeasureDisplay_RL;
-		MRefList foreignEntity;
-		if (MeasureDisplay_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(MeasureDisplay_RL.getID())
+	@JsonProperty("MeasureDisplay")
+	public void setMeasureDisplayInput(I_AD_Ref_ListInput MeasureDisplay) {
+		this.mMeasureDisplay = MeasureDisplay;
+		MRefList_BH foreignEntity;
+		if (MeasureDisplay != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(MeasureDisplay.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setMeasureDisplay(foreignEntity.getValue());
 		} else {
@@ -202,21 +213,23 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @return Measure Scope initially displayed
 	 */
-	public I_AD_Ref_ListInput getMeasureDisplay_RL() {
-		return MeasureDisplay_RL;
+	@JsonProperty("MeasureDisplay")
+	public I_AD_Ref_ListInput MeasureDisplay() {
+		return mMeasureDisplay;
 	}
 
 	/**
 	 * Set Measure Scope.
 	 *
-	 * @param MeasureScope_RL Performance Measure Scope
+	 * @param MeasureScope Performance Measure Scope
 	 */
-	public void setMeasureScope_RL(I_AD_Ref_ListInput MeasureScope_RL) {
-		this.MeasureScope_RL = MeasureScope_RL;
-		MRefList foreignEntity;
-		if (MeasureScope_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(MeasureScope_RL.getID())
+	@JsonProperty("MeasureScope")
+	public void setMeasureScopeInput(I_AD_Ref_ListInput MeasureScope) {
+		this.mMeasureScope = MeasureScope;
+		MRefList_BH foreignEntity;
+		if (MeasureScope != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(MeasureScope.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setMeasureScope(foreignEntity.getValue());
 		} else {
@@ -229,8 +242,9 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @return Performance Measure Scope
 	 */
-	public I_AD_Ref_ListInput getMeasureScope_RL() {
-		return MeasureScope_RL;
+	@JsonProperty("MeasureScope")
+	public I_AD_Ref_ListInput MeasureScope() {
+		return mMeasureScope;
 	}
 
 	/**
@@ -238,16 +252,17 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @param PA_ColorSchema Performance Color Schema
 	 */
-	public void setPA_ColorSchema(I_PA_ColorSchemaInput PA_ColorSchema) {
-		this.PA_ColorSchema = PA_ColorSchema;
+	@JsonProperty("PA_ColorSchema")
+	public void setPA_ColorSchemaInput(I_PA_ColorSchemaInput PA_ColorSchema) {
+		this.mPA_ColorSchema = PA_ColorSchema;
 		MColorSchema foreignEntity;
 		if (PA_ColorSchema != null &&
 				(foreignEntity = new Query(getCtx(), MColorSchema.Table_Name, MColorSchema.COLUMNNAME_PA_ColorSchema_UU + "=?", get_TrxName())
 						.setParameters(PA_ColorSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_ColorSchema_ID(foreignEntity.get_ID());
+			super.setPA_ColorSchema_ID(foreignEntity.get_ID());
 		} else {
-			this.setPA_ColorSchema_ID(0);
+			super.setPA_ColorSchema_ID(0);
 		}
 	}
 
@@ -256,19 +271,9 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @return Performance Color Schema
 	 */
-	public I_PA_ColorSchemaInput getPA_ColorSchema() {
-		return PA_ColorSchema;
-	}
-	/**
-	 * Set Goal.
-	 *
-	 * @param PA_Goal_ID Performance Goal
-	 */
-
-	public void setPA_Goal_ID(int PA_Goal_ID) {
-		if (get_ID() == 0) {
-			super.setPA_Goal_ID(PA_Goal_ID);
-		}
+	@JsonProperty("PA_ColorSchema")
+	public I_PA_ColorSchemaInput PA_ColorSchema() {
+		return mPA_ColorSchema;
 	}
 
 	/**
@@ -294,16 +299,17 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @param PA_GoalParent Parent Goal
 	 */
-	public void setPA_GoalParent(I_PA_GoalInput PA_GoalParent) {
-		this.PA_GoalParent = PA_GoalParent;
+	@JsonProperty("PA_GoalParent")
+	public void setPA_GoalParentInput(I_PA_GoalInput PA_GoalParent) {
+		this.mPA_GoalParent = PA_GoalParent;
 		MGoal foreignEntity;
 		if (PA_GoalParent != null &&
 				(foreignEntity = new Query(getCtx(), MGoal.Table_Name, MGoal.COLUMNNAME_PA_Goal_UU + "=?", get_TrxName())
 						.setParameters(PA_GoalParent.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_GoalParent_ID(foreignEntity.get_ID());
+			super.setPA_GoalParent_ID(foreignEntity.get_ID());
 		} else {
-			this.setPA_GoalParent_ID(0);
+			super.setPA_GoalParent_ID(0);
 		}
 	}
 
@@ -312,19 +318,9 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @return Parent Goal
 	 */
-	public I_PA_GoalInput getPA_GoalParent() {
-		return PA_GoalParent;
-	}
-	/**
-	 * Set Parent Goal.
-	 *
-	 * @param PA_GoalParent_ID Parent Goal
-	 */
-
-	public void setPA_GoalParent_ID(int PA_GoalParent_ID) {
-		if (get_ID() == 0) {
-			super.setPA_GoalParent_ID(PA_GoalParent_ID);
-		}
+	@JsonProperty("PA_GoalParent")
+	public I_PA_GoalInput PA_GoalParent() {
+		return mPA_GoalParent;
 	}
 
 	/**
@@ -332,16 +328,17 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @param PA_Measure Concrete Performance Measurement
 	 */
-	public void setPA_Measure(I_PA_MeasureInput PA_Measure) {
-		this.PA_Measure = PA_Measure;
+	@JsonProperty("PA_Measure")
+	public void setPA_MeasureInput(I_PA_MeasureInput PA_Measure) {
+		this.mPA_Measure = PA_Measure;
 		MMeasure foreignEntity;
 		if (PA_Measure != null &&
 				(foreignEntity = new Query(getCtx(), MMeasure.Table_Name, MMeasure.COLUMNNAME_PA_Measure_UU + "=?", get_TrxName())
 						.setParameters(PA_Measure.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_Measure_ID(foreignEntity.get_ID());
+			super.setPA_Measure_ID(foreignEntity.get_ID());
 		} else {
-			this.setPA_Measure_ID(0);
+			super.setPA_Measure_ID(0);
 		}
 	}
 
@@ -350,7 +347,8 @@ public class X_PA_GoalInput extends X_PA_Goal implements I_PA_GoalInput {
 	 *
 	 * @return Concrete Performance Measurement
 	 */
-	public I_PA_MeasureInput getPA_Measure() {
-		return PA_Measure;
+	@JsonProperty("PA_Measure")
+	public I_PA_MeasureInput PA_Measure() {
+		return mPA_Measure;
 	}
 }

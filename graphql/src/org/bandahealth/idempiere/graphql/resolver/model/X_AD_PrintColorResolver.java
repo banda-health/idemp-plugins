@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_AD_PrintColorResolver extends POResolver<X_AD_PrintColor> implements GraphQLResolver<X_AD_PrintColor> {
 
 
+	public Boolean IsDefault(X_AD_PrintColor entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
 }

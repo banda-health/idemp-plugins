@@ -32,7 +32,7 @@ type C_DunningLevel {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Days after due date to dun (if negative days until due)
 	DaysAfterDue: Int!
 	# Days between sending dunning notices
@@ -46,7 +46,7 @@ type C_DunningLevel {
 	# Percentage interest to charge on overdue invoices
 	InterestPercent: Int
 	# Invoice Collection Status
-	InvoiceCollectionType_RL: AD_Ref_List
+	InvoiceCollectionType: AD_Ref_List
 	# The record is active in the system
 	IsActive: Boolean!
 	# Set the business partner to credit stop
@@ -68,7 +68,7 @@ type C_DunningLevel {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 }
 
 input C_DunningLevelInput {
@@ -96,7 +96,7 @@ input C_DunningLevelInput {
 	# Percentage interest to charge on overdue invoices
 	InterestPercent: Int
 	# Invoice Collection Status
-	InvoiceCollectionType_RL: AD_Ref_ListInput
+	InvoiceCollectionType: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Set the business partner to credit stop

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_AdditionDataLoader;
@@ -17,7 +18,6 @@ import org.compiere.model.MAssetAddition;
 import org.compiere.model.MAssetDisposed;
 import org.compiere.model.MDepreciationEntry;
 import org.compiere.model.MDepreciationExp;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -118,11 +118,11 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			put("TRN", "52189c27-fea7-4c43-a88f-ca2a9b5511a0");
 		}
 	};
-	public CompletableFuture<MRefList> A_Entry_Type_RL(MDepreciationExp entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Entry_Type(MDepreciationExp entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Entry_Type())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_ENTRY_TYPE_UUIDS_BY_VALUE.get(entity.getA_Entry_Type()));
 	}
@@ -172,6 +172,10 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 		return dataLoader.load(entity.getDR_Account_ID());
 	}
 
+	public Boolean IsDepreciated(MDepreciationExp entity, DataFetchingEnvironment environment) {
+		return entity.isDepreciated();
+	}
+
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("A", "3c9d051c-7b7b-459d-90c5-0925e26c1bcc");
@@ -181,13 +185,21 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList> PostingType_RL(MDepreciationExp entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(MDepreciationExp entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
+	}
+
+	public Boolean Processed(MDepreciationExp entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MDepreciationExp entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

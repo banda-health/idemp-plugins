@@ -15,56 +15,56 @@ public interface I_S_ExpenseTypeInput extends I_S_ExpenseType {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set C_TaxCategory.
 	 *
 	 * @param C_TaxCategory Tax Category
 	 */
-	void setC_TaxCategory(I_C_TaxCategoryInput C_TaxCategory);
+	void setC_TaxCategoryInput(I_C_TaxCategoryInput C_TaxCategory);
 
 	/**
 	 * Get C_TaxCategory.
 	 *
 	 * @return Tax Category
 	 */
-	I_C_TaxCategoryInput getC_TaxCategory();
+	I_C_TaxCategoryInput C_TaxCategory();
 
 	/**
 	 * Set C_UOM.
 	 *
 	 * @param C_UOM Unit of Measure
 	 */
-	void setC_UOM(I_C_UOMInput C_UOM);
+	void setC_UOMInput(I_C_UOMInput C_UOM);
 
 	/**
 	 * Get C_UOM.
 	 *
 	 * @return Unit of Measure
 	 */
-	I_C_UOMInput getC_UOM();
+	I_C_UOMInput C_UOM();
 
 	/**
 	 * Set M_Product_Category.
 	 *
 	 * @param M_Product_Category Category of a Product
 	 */
-	void setM_Product_Category(I_M_Product_CategoryInput M_Product_Category);
+	void setM_Product_CategoryInput(I_M_Product_CategoryInput M_Product_Category);
 
 	/**
 	 * Get M_Product_Category.
 	 *
 	 * @return Category of a Product
 	 */
-	I_M_Product_CategoryInput getM_Product_Category();
+	I_M_Product_CategoryInput M_Product_Category();
 
 	/**
 	 * Set ID.

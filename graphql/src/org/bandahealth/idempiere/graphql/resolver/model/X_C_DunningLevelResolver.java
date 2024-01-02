@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DunningDataLoader;
@@ -10,7 +11,6 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MDunning;
 import org.compiere.model.MDunningLevel;
 import org.compiere.model.MPaymentTerm;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_AD_PrintFormat;
 import org.dataloader.DataLoader;
 
@@ -57,6 +57,14 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 		return dataLoader.load(entity.getC_PaymentTerm_ID());
 	}
 
+	public Boolean ChargeFee(MDunningLevel entity, DataFetchingEnvironment environment) {
+		return entity.isChargeFee();
+	}
+
+	public Boolean ChargeInterest(MDunningLevel entity, DataFetchingEnvironment environment) {
+		return entity.isChargeInterest();
+	}
+
 
 	/**
 	 * Get Dunning Print Format.
@@ -80,13 +88,33 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 			put("U", "60a1b77c-d200-4adc-b845-7ec3760ce5b7");
 		}
 	};
-	public CompletableFuture<MRefList> InvoiceCollectionType_RL(MDunningLevel entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> InvoiceCollectionType(MDunningLevel entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getInvoiceCollectionType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(INVOICECOLLECTIONTYPE_UUIDS_BY_VALUE.get(entity.getInvoiceCollectionType()));
+	}
+
+	public Boolean IsSetCreditStop(MDunningLevel entity, DataFetchingEnvironment environment) {
+		return entity.isSetCreditStop();
+	}
+
+	public Boolean IsSetPaymentTerm(MDunningLevel entity, DataFetchingEnvironment environment) {
+		return entity.isSetPaymentTerm();
+	}
+
+	public Boolean IsShowAllDue(MDunningLevel entity, DataFetchingEnvironment environment) {
+		return entity.isShowAllDue();
+	}
+
+	public Boolean IsShowNotDue(MDunningLevel entity, DataFetchingEnvironment environment) {
+		return entity.isShowNotDue();
+	}
+
+	public Boolean IsStatement(MDunningLevel entity, DataFetchingEnvironment environment) {
+		return entity.isStatement();
 	}
 
 }

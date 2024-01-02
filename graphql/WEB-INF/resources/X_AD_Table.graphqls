@@ -17,7 +17,7 @@ type AD_TableConnection {
 
 type AD_Table {
 	# Access Level required
-	AccessLevel_RL: AD_Ref_List!
+	AccessLevel: AD_Ref_List!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -32,13 +32,13 @@ type AD_Table {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	CreateWindowFromTable: String
 	DatabaseViewDrop: String
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityType!
+	AD_EntityType: AD_EntityType!
 	# Comment or Hint
 	Help: String
 	# Import Table Columns from Database
@@ -64,18 +64,18 @@ type AD_Table {
 	PO_Window: AD_Window
 	Processing: Boolean!
 	# Type of Data Replication
-	ReplicationType_RL: AD_Ref_List!
+	ReplicationType: AD_Ref_List!
 	# Name of the table in the database
 	TableName: String!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 }
 
 input AD_TableInput {
 	# Access Level required
-	AccessLevel_RL: AD_Ref_ListInput
+	AccessLevel: AD_Ref_ListInput
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	ID: ID
@@ -90,7 +90,7 @@ input AD_TableInput {
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityTypeInput
+	AD_EntityType: AD_EntityTypeInput
 	# Comment or Hint
 	Help: String
 	# Import Table Columns from Database
@@ -116,7 +116,7 @@ input AD_TableInput {
 	PO_Window: AD_WindowInput
 	Processing: Boolean
 	# Type of Data Replication
-	ReplicationType_RL: AD_Ref_ListInput
+	ReplicationType: AD_Ref_ListInput
 	# Name of the table in the database
 	TableName: String
 }

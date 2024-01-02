@@ -11,74 +11,74 @@ import org.compiere.model.I_AD_Process;
 public interface I_AD_ProcessInput extends I_AD_Process {
 
 	/**
-	 * Set AccessLevel_RL.
+	 * Set AccessLevel.
 	 *
-	 * @param AccessLevel_RL Access Level required
+	 * @param AccessLevel Access Level required
 	 */
-	void setAccessLevel_RL(I_AD_Ref_ListInput AccessLevel_RL);
+	void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel);
 
 	/**
-	 * Get AccessLevel_RL.
+	 * Get AccessLevel.
 	 *
 	 * @return Access Level required
 	 */
-	I_AD_Ref_ListInput getAccessLevel_RL();
+	I_AD_Ref_ListInput AccessLevel();
 
 	/**
 	 * Set AD_CtxHelp.
 	 *
 	 * @param AD_CtxHelp AD_CtxHelp
 	 */
-	void setAD_CtxHelp(I_AD_CtxHelpInput AD_CtxHelp);
+	void setAD_CtxHelpInput(I_AD_CtxHelpInput AD_CtxHelp);
 
 	/**
 	 * Get AD_CtxHelp.
 	 *
 	 * @return AD_CtxHelp
 	 */
-	I_AD_CtxHelpInput getAD_CtxHelp();
+	I_AD_CtxHelpInput AD_CtxHelp();
 
 	/**
 	 * Set AD_Form.
 	 *
 	 * @param AD_Form Special Form
 	 */
-	void setAD_Form(I_AD_FormInput AD_Form);
+	void setAD_FormInput(I_AD_FormInput AD_Form);
 
 	/**
 	 * Get AD_Form.
 	 *
 	 * @return Special Form
 	 */
-	I_AD_FormInput getAD_Form();
+	I_AD_FormInput AD_Form();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_PrintFormat.
 	 *
 	 * @param AD_PrintFormat Data Print Format
 	 */
-	void setAD_PrintFormat(I_AD_PrintFormatInput AD_PrintFormat);
+	void setAD_PrintFormatInput(I_AD_PrintFormatInput AD_PrintFormat);
 
 	/**
 	 * Get AD_PrintFormat.
 	 *
 	 * @return Data Print Format
 	 */
-	I_AD_PrintFormatInput getAD_PrintFormat();
+	I_AD_PrintFormatInput AD_PrintFormat();
 
 	/**
 	 * Set ID.
@@ -99,82 +99,82 @@ public interface I_AD_ProcessInput extends I_AD_Process {
 	 *
 	 * @param AD_ReportView View used to generate this report
 	 */
-	void setAD_ReportView(I_AD_ReportViewInput AD_ReportView);
+	void setAD_ReportViewInput(I_AD_ReportViewInput AD_ReportView);
 
 	/**
 	 * Get AD_ReportView.
 	 *
 	 * @return View used to generate this report
 	 */
-	I_AD_ReportViewInput getAD_ReportView();
+	I_AD_ReportViewInput AD_ReportView();
 
 	/**
 	 * Set AD_Workflow.
 	 *
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
-	void setAD_Workflow(I_AD_WorkflowInput AD_Workflow);
+	void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow);
 
 	/**
 	 * Get AD_Workflow.
 	 *
 	 * @return Workflow or combination of tasks
 	 */
-	I_AD_WorkflowInput getAD_Workflow();
+	I_AD_WorkflowInput AD_Workflow();
 
 	/**
-	 * Set AllowMultipleExecution_RL.
+	 * Set AllowMultipleExecution.
 	 *
-	 * @param AllowMultipleExecution_RL Allow or disallow executing a process/report multiple times.
+	 * @param AllowMultipleExecution Allow or disallow executing a process/report multiple times.
 	 */
-	void setAllowMultipleExecution_RL(I_AD_Ref_ListInput AllowMultipleExecution_RL);
+	void setAllowMultipleExecutionInput(I_AD_Ref_ListInput AllowMultipleExecution);
 
 	/**
-	 * Get AllowMultipleExecution_RL.
+	 * Get AllowMultipleExecution.
 	 *
 	 * @return Allow or disallow executing a process/report multiple times.
 	 */
-	I_AD_Ref_ListInput getAllowMultipleExecution_RL();
+	I_AD_Ref_ListInput AllowMultipleExecution();
 
 	/**
 	 * Set AD_EntityType.
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput getAD_EntityType();
+	I_AD_EntityTypeInput AD_EntityType();
 
 	/**
-	 * Set ExecutionType_RL.
+	 * Set ExecutionType.
 	 *
-	 * @param ExecutionType_RL Execution Type defines whether the report/process will always run in background or foreground. 
+	 * @param ExecutionType Execution Type defines whether the report/process will always run in background or foreground. 
 	 */
-	void setExecutionType_RL(I_AD_Ref_ListInput ExecutionType_RL);
+	void setExecutionTypeInput(I_AD_Ref_ListInput ExecutionType);
 
 	/**
-	 * Get ExecutionType_RL.
+	 * Get ExecutionType.
 	 *
 	 * @return Execution Type defines whether the report/process will always run in background or foreground. 
 	 */
-	I_AD_Ref_ListInput getExecutionType_RL();
+	I_AD_Ref_ListInput ExecutionType();
 
 	/**
-	 * Set ShowHelp_RL.
+	 * Set ShowHelp.
 	 *
-	 * @param ShowHelp_RL ShowHelp_RL
+	 * @param ShowHelp ShowHelp
 	 */
-	void setShowHelp_RL(I_AD_Ref_ListInput ShowHelp_RL);
+	void setShowHelpInput(I_AD_Ref_ListInput ShowHelp);
 
 	/**
-	 * Get ShowHelp_RL.
+	 * Get ShowHelp.
 	 *
-	 * @return ShowHelp_RL
+	 * @return ShowHelp
 	 */
-	I_AD_Ref_ListInput getShowHelp_RL();
+	I_AD_Ref_ListInput ShowHelp();
 }
