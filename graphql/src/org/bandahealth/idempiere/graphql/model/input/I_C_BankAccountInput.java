@@ -15,42 +15,42 @@ public interface I_C_BankAccountInput extends I_C_BankAccount {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set BankAccountType_RL.
+	 * Set BankAccountType.
 	 *
-	 * @param BankAccountType_RL Bank Account Type
+	 * @param BankAccountType Bank Account Type
 	 */
-	void setBankAccountType_RL(I_AD_Ref_ListInput BankAccountType_RL);
+	void setBankAccountTypeInput(I_AD_Ref_ListInput BankAccountType);
 
 	/**
-	 * Get BankAccountType_RL.
+	 * Get BankAccountType.
 	 *
 	 * @return Bank Account Type
 	 */
-	I_AD_Ref_ListInput getBankAccountType_RL();
+	I_AD_Ref_ListInput BankAccountType();
 
 	/**
 	 * Set C_Bank.
 	 *
 	 * @param C_Bank Bank
 	 */
-	void setC_Bank(I_C_BankInput C_Bank);
+	void setC_BankInput(I_C_BankInput C_Bank);
 
 	/**
 	 * Get C_Bank.
 	 *
 	 * @return Bank
 	 */
-	I_C_BankInput getC_Bank();
+	I_C_BankInput C_Bank();
 
 	/**
 	 * Set ID.
@@ -71,12 +71,12 @@ public interface I_C_BankAccountInput extends I_C_BankAccount {
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_Currency(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput getC_Currency();
+	I_C_CurrencyInput C_Currency();
 }

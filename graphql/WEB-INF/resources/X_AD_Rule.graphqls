@@ -17,7 +17,7 @@ type AD_RuleConnection {
 
 type AD_Rule {
 	# Access Level required
-	AccessLevel_RL: AD_Ref_List
+	AccessLevel: AD_Ref_List
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -26,49 +26,49 @@ type AD_Rule {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityType!
+	AD_EntityType: AD_EntityType!
 	# Type of Event
-	EventType_RL: AD_Ref_List!
+	EventType: AD_Ref_List!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	RuleType_RL: AD_Ref_List!
+	RuleType: AD_Ref_List!
 	# Dynamic Java Language Script to calculate result
 	Script: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 }
 
 input AD_RuleInput {
 	# Access Level required
-	AccessLevel_RL: AD_Ref_ListInput
+	AccessLevel: AD_Ref_ListInput
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	ID: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityTypeInput
+	AD_EntityType: AD_EntityTypeInput
 	# Type of Event
-	EventType_RL: AD_Ref_ListInput
+	EventType: AD_Ref_ListInput
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	RuleType_RL: AD_Ref_ListInput
+	RuleType: AD_Ref_ListInput
 	# Dynamic Java Language Script to calculate result
 	Script: String
 	# Search key for the record in the format required - must be unique

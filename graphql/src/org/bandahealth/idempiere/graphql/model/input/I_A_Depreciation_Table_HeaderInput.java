@@ -25,44 +25,44 @@ public interface I_A_Depreciation_Table_HeaderInput extends I_A_Depreciation_Tab
 	String getID();
 
 	/**
-	 * Set A_Table_Rate_Type_RL.
+	 * Set A_Table_Rate_Type.
 	 *
-	 * @param A_Table_Rate_Type_RL A_Table_Rate_Type_RL
+	 * @param A_Table_Rate_Type A_Table_Rate_Type
 	 */
-	void setA_Table_Rate_Type_RL(I_AD_Ref_ListInput A_Table_Rate_Type_RL);
+	void setA_Table_Rate_TypeInput(I_AD_Ref_ListInput A_Table_Rate_Type);
 
 	/**
-	 * Get A_Table_Rate_Type_RL.
+	 * Get A_Table_Rate_Type.
 	 *
-	 * @return A_Table_Rate_Type_RL
+	 * @return A_Table_Rate_Type
 	 */
-	I_AD_Ref_ListInput getA_Table_Rate_Type_RL();
+	I_AD_Ref_ListInput A_Table_Rate_Type();
 
 	/**
-	 * Set A_Term_RL.
+	 * Set A_Term.
 	 *
-	 * @param A_Term_RL A_Term_RL
+	 * @param A_Term A_Term
 	 */
-	void setA_Term_RL(I_AD_Ref_ListInput A_Term_RL);
+	void setA_TermInput(I_AD_Ref_ListInput A_Term);
 
 	/**
-	 * Get A_Term_RL.
+	 * Get A_Term.
 	 *
-	 * @return A_Term_RL
+	 * @return A_Term
 	 */
-	I_AD_Ref_ListInput getA_Term_RL();
+	I_AD_Ref_ListInput A_Term();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 }

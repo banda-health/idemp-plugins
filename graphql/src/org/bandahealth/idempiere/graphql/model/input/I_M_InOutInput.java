@@ -15,341 +15,322 @@ public interface I_M_InOutInput extends I_M_InOut {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	void setAD_User(I_AD_UserInput AD_User);
+	void setAD_UserInput(I_AD_UserInput AD_User);
 
 	/**
 	 * Get AD_User.
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	I_AD_UserInput getAD_User();
+	I_AD_UserInput AD_User();
 
 	/**
 	 * Set BH_Visit.
 	 *
 	 * @param BH_Visit BH_Visit
 	 */
-	void setBH_Visit(I_BH_VisitInput BH_Visit);
+	void setBH_VisitInput(I_BH_VisitInput BH_Visit);
 
 	/**
 	 * Get BH_Visit.
 	 *
 	 * @return BH_Visit
 	 */
-	I_BH_VisitInput getBH_Visit();
-
-	/**
-	 * Column name BH_Visit_ID
-	 */
-	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
-
-	/**
-	 * Set Visit.
-	 *
-	 * @param BH_Visit_ID Visit
-	 */
-	public void setBH_Visit_ID(int BH_Visit_ID);
-
-	/**
-	 * Get Visit.
-	 *
-	 * @return Visit
-	 */
-	public int getBH_Visit_ID();
+	I_BH_VisitInput BH_Visit();
 
 	/**
 	 * Set C_Activity.
 	 *
 	 * @param C_Activity Business Activity
 	 */
-	void setC_Activity(I_C_ActivityInput C_Activity);
+	void setC_ActivityInput(I_C_ActivityInput C_Activity);
 
 	/**
 	 * Get C_Activity.
 	 *
 	 * @return Business Activity
 	 */
-	I_C_ActivityInput getC_Activity();
+	I_C_ActivityInput C_Activity();
 
 	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	void setC_BPartner(I_C_BPartnerInput C_BPartner);
+	void setC_BPartnerInput(I_C_BPartnerInput C_BPartner);
 
 	/**
 	 * Get C_BPartner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	I_C_BPartnerInput getC_BPartner();
+	I_C_BPartnerInput C_BPartner();
 
 	/**
 	 * Set C_BPartner_Location.
 	 *
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
-	void setC_BPartner_Location(I_C_BPartner_LocationInput C_BPartner_Location);
+	void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location);
 
 	/**
 	 * Get C_BPartner_Location.
 	 *
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
-	I_C_BPartner_LocationInput getC_BPartner_Location();
+	I_C_BPartner_LocationInput C_BPartner_Location();
 
 	/**
 	 * Set C_Campaign.
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	void setC_Campaign(I_C_CampaignInput C_Campaign);
+	void setC_CampaignInput(I_C_CampaignInput C_Campaign);
 
 	/**
 	 * Get C_Campaign.
 	 *
 	 * @return Marketing Campaign
 	 */
-	I_C_CampaignInput getC_Campaign();
+	I_C_CampaignInput C_Campaign();
 
 	/**
 	 * Set C_Charge.
 	 *
 	 * @param C_Charge Additional document charges
 	 */
-	void setC_Charge(I_C_ChargeInput C_Charge);
+	void setC_ChargeInput(I_C_ChargeInput C_Charge);
 
 	/**
 	 * Get C_Charge.
 	 *
 	 * @return Additional document charges
 	 */
-	I_C_ChargeInput getC_Charge();
+	I_C_ChargeInput C_Charge();
 
 	/**
 	 * Set C_DocType.
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocType(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput getC_DocType();
+	I_C_DocTypeInput C_DocType();
 
 	/**
 	 * Set C_Invoice.
 	 *
 	 * @param C_Invoice Invoice Identifier
 	 */
-	void setC_Invoice(I_C_InvoiceInput C_Invoice);
+	void setC_InvoiceInput(I_C_InvoiceInput C_Invoice);
 
 	/**
 	 * Get C_Invoice.
 	 *
 	 * @return Invoice Identifier
 	 */
-	I_C_InvoiceInput getC_Invoice();
+	I_C_InvoiceInput C_Invoice();
 
 	/**
 	 * Set C_Order.
 	 *
 	 * @param C_Order Order
 	 */
-	void setC_Order(I_C_OrderInput C_Order);
+	void setC_OrderInput(I_C_OrderInput C_Order);
 
 	/**
 	 * Get C_Order.
 	 *
 	 * @return Order
 	 */
-	I_C_OrderInput getC_Order();
+	I_C_OrderInput C_Order();
 
 	/**
 	 * Set C_Project.
 	 *
 	 * @param C_Project Financial Project
 	 */
-	void setC_Project(I_C_ProjectInput C_Project);
+	void setC_ProjectInput(I_C_ProjectInput C_Project);
 
 	/**
 	 * Get C_Project.
 	 *
 	 * @return Financial Project
 	 */
-	I_C_ProjectInput getC_Project();
+	I_C_ProjectInput C_Project();
 
 	/**
-	 * Set DeliveryRule_RL.
+	 * Set DeliveryRule.
 	 *
-	 * @param DeliveryRule_RL Defines the timing of Delivery
+	 * @param DeliveryRule Defines the timing of Delivery
 	 */
-	void setDeliveryRule_RL(I_AD_Ref_ListInput DeliveryRule_RL);
+	void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule);
 
 	/**
-	 * Get DeliveryRule_RL.
+	 * Get DeliveryRule.
 	 *
 	 * @return Defines the timing of Delivery
 	 */
-	I_AD_Ref_ListInput getDeliveryRule_RL();
+	I_AD_Ref_ListInput DeliveryRule();
 
 	/**
-	 * Set DeliveryViaRule_RL.
+	 * Set DeliveryViaRule.
 	 *
-	 * @param DeliveryViaRule_RL How the order will be delivered
+	 * @param DeliveryViaRule How the order will be delivered
 	 */
-	void setDeliveryViaRule_RL(I_AD_Ref_ListInput DeliveryViaRule_RL);
+	void setDeliveryViaRuleInput(I_AD_Ref_ListInput DeliveryViaRule);
 
 	/**
-	 * Get DeliveryViaRule_RL.
+	 * Get DeliveryViaRule.
 	 *
 	 * @return How the order will be delivered
 	 */
-	I_AD_Ref_ListInput getDeliveryViaRule_RL();
+	I_AD_Ref_ListInput DeliveryViaRule();
 
 	/**
-	 * Set DocAction_RL.
+	 * Set DocAction.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL);
+	void setDocActionInput(I_AD_Ref_ListInput DocAction);
 
 	/**
-	 * Get DocAction_RL.
+	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput getDocAction_RL();
+	I_AD_Ref_ListInput DocAction();
 
 	/**
-	 * Set DocStatus_RL.
+	 * Set DocStatus.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL);
+	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
 
 	/**
-	 * Get DocStatus_RL.
+	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput getDocStatus_RL();
+	I_AD_Ref_ListInput DocStatus();
 
 	/**
 	 * Set DropShip_BPartner.
 	 *
 	 * @param DropShip_BPartner Business Partner to ship to
 	 */
-	void setDropShip_BPartner(I_C_BPartnerInput DropShip_BPartner);
+	void setDropShip_BPartnerInput(I_C_BPartnerInput DropShip_BPartner);
 
 	/**
 	 * Get DropShip_BPartner.
 	 *
 	 * @return Business Partner to ship to
 	 */
-	I_C_BPartnerInput getDropShip_BPartner();
+	I_C_BPartnerInput DropShip_BPartner();
 
 	/**
 	 * Set DropShip_Location.
 	 *
 	 * @param DropShip_Location Business Partner Location for shipping to
 	 */
-	void setDropShip_Location(I_C_BPartner_LocationInput DropShip_Location);
+	void setDropShip_LocationInput(I_C_BPartner_LocationInput DropShip_Location);
 
 	/**
 	 * Get DropShip_Location.
 	 *
 	 * @return Business Partner Location for shipping to
 	 */
-	I_C_BPartner_LocationInput getDropShip_Location();
+	I_C_BPartner_LocationInput DropShip_Location();
 
 	/**
 	 * Set DropShip_User.
 	 *
 	 * @param DropShip_User Business Partner Contact for drop shipment
 	 */
-	void setDropShip_User(I_AD_UserInput DropShip_User);
+	void setDropShip_UserInput(I_AD_UserInput DropShip_User);
 
 	/**
 	 * Get DropShip_User.
 	 *
 	 * @return Business Partner Contact for drop shipment
 	 */
-	I_AD_UserInput getDropShip_User();
+	I_AD_UserInput DropShip_User();
 
 	/**
-	 * Set FOB_RL.
+	 * Set FOB.
 	 *
-	 * @param FOB_RL FOB_RL
+	 * @param FOB FOB
 	 */
-	void setFOB_RL(I_AD_Ref_ListInput FOB_RL);
+	void setFOBInput(I_AD_Ref_ListInput FOB);
 
 	/**
-	 * Get FOB_RL.
+	 * Get FOB.
 	 *
-	 * @return FOB_RL
+	 * @return FOB
 	 */
-	I_AD_Ref_ListInput getFOB_RL();
+	I_AD_Ref_ListInput FOB();
 
 	/**
-	 * Set FreightCharges_RL.
+	 * Set FreightCharges.
 	 *
-	 * @param FreightCharges_RL FreightCharges_RL
+	 * @param FreightCharges FreightCharges
 	 */
-	void setFreightCharges_RL(I_AD_Ref_ListInput FreightCharges_RL);
+	void setFreightChargesInput(I_AD_Ref_ListInput FreightCharges);
 
 	/**
-	 * Get FreightCharges_RL.
+	 * Get FreightCharges.
 	 *
-	 * @return FreightCharges_RL
+	 * @return FreightCharges
 	 */
-	I_AD_Ref_ListInput getFreightCharges_RL();
+	I_AD_Ref_ListInput FreightCharges();
 
 	/**
-	 * Set FreightCostRule_RL.
+	 * Set FreightCostRule.
 	 *
-	 * @param FreightCostRule_RL Method for charging Freight
+	 * @param FreightCostRule Method for charging Freight
 	 */
-	void setFreightCostRule_RL(I_AD_Ref_ListInput FreightCostRule_RL);
+	void setFreightCostRuleInput(I_AD_Ref_ListInput FreightCostRule);
 
 	/**
-	 * Get FreightCostRule_RL.
+	 * Get FreightCostRule.
 	 *
 	 * @return Method for charging Freight
 	 */
-	I_AD_Ref_ListInput getFreightCostRule_RL();
+	I_AD_Ref_ListInput FreightCostRule();
 
 	/**
-	 * Set Insurance_RL.
+	 * Set Insurance.
 	 *
-	 * @param Insurance_RL Insurance_RL
+	 * @param Insurance Insurance
 	 */
-	void setInsurance_RL(I_AD_Ref_ListInput Insurance_RL);
+	void setInsuranceInput(I_AD_Ref_ListInput Insurance);
 
 	/**
-	 * Get Insurance_RL.
+	 * Get Insurance.
 	 *
-	 * @return Insurance_RL
+	 * @return Insurance
 	 */
-	I_AD_Ref_ListInput getInsurance_RL();
+	I_AD_Ref_ListInput Insurance();
 
 	/**
 	 * Set ID.
@@ -370,166 +351,166 @@ public interface I_M_InOutInput extends I_M_InOut {
 	 *
 	 * @param M_RMA Return Material Authorization
 	 */
-	void setM_RMA(I_M_RMAInput M_RMA);
+	void setM_RMAInput(I_M_RMAInput M_RMA);
 
 	/**
 	 * Get M_RMA.
 	 *
 	 * @return Return Material Authorization
 	 */
-	I_M_RMAInput getM_RMA();
+	I_M_RMAInput M_RMA();
 
 	/**
 	 * Set M_Shipper.
 	 *
 	 * @param M_Shipper Method or manner of product delivery
 	 */
-	void setM_Shipper(I_M_ShipperInput M_Shipper);
+	void setM_ShipperInput(I_M_ShipperInput M_Shipper);
 
 	/**
 	 * Get M_Shipper.
 	 *
 	 * @return Method or manner of product delivery
 	 */
-	I_M_ShipperInput getM_Shipper();
+	I_M_ShipperInput M_Shipper();
 
 	/**
 	 * Set M_Warehouse.
 	 *
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
-	void setM_Warehouse(I_M_WarehouseInput M_Warehouse);
+	void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse);
 
 	/**
 	 * Get M_Warehouse.
 	 *
 	 * @return Storage Warehouse and Service Point
 	 */
-	I_M_WarehouseInput getM_Warehouse();
+	I_M_WarehouseInput M_Warehouse();
 
 	/**
-	 * Set MovementType_RL.
+	 * Set MovementType.
 	 *
-	 * @param MovementType_RL Method of moving the inventory
+	 * @param MovementType Method of moving the inventory
 	 */
-	void setMovementType_RL(I_AD_Ref_ListInput MovementType_RL);
+	void setMovementTypeInput(I_AD_Ref_ListInput MovementType);
 
 	/**
-	 * Get MovementType_RL.
+	 * Get MovementType.
 	 *
 	 * @return Method of moving the inventory
 	 */
-	I_AD_Ref_ListInput getMovementType_RL();
+	I_AD_Ref_ListInput MovementType();
 
 	/**
-	 * Set PriorityRule_RL.
+	 * Set PriorityRule.
 	 *
-	 * @param PriorityRule_RL Priority of a document
+	 * @param PriorityRule Priority of a document
 	 */
-	void setPriorityRule_RL(I_AD_Ref_ListInput PriorityRule_RL);
+	void setPriorityRuleInput(I_AD_Ref_ListInput PriorityRule);
 
 	/**
-	 * Get PriorityRule_RL.
+	 * Get PriorityRule.
 	 *
 	 * @return Priority of a document
 	 */
-	I_AD_Ref_ListInput getPriorityRule_RL();
+	I_AD_Ref_ListInput PriorityRule();
 
 	/**
 	 * Set ReturnBPartner.
 	 *
 	 * @param ReturnBPartner ReturnBPartner
 	 */
-	void setReturnBPartner(I_C_BPartnerInput ReturnBPartner);
+	void setReturnBPartnerInput(I_C_BPartnerInput ReturnBPartner);
 
 	/**
 	 * Get ReturnBPartner.
 	 *
 	 * @return ReturnBPartner
 	 */
-	I_C_BPartnerInput getReturnBPartner();
+	I_C_BPartnerInput ReturnBPartner();
 
 	/**
 	 * Set ReturnLocation.
 	 *
 	 * @param ReturnLocation ReturnLocation
 	 */
-	void setReturnLocation(I_C_BPartner_LocationInput ReturnLocation);
+	void setReturnLocationInput(I_C_BPartner_LocationInput ReturnLocation);
 
 	/**
 	 * Get ReturnLocation.
 	 *
 	 * @return ReturnLocation
 	 */
-	I_C_BPartner_LocationInput getReturnLocation();
+	I_C_BPartner_LocationInput ReturnLocation();
 
 	/**
 	 * Set ReturnUser.
 	 *
 	 * @param ReturnUser ReturnUser
 	 */
-	void setReturnUser(I_AD_UserInput ReturnUser);
+	void setReturnUserInput(I_AD_UserInput ReturnUser);
 
 	/**
 	 * Get ReturnUser.
 	 *
 	 * @return ReturnUser
 	 */
-	I_AD_UserInput getReturnUser();
+	I_AD_UserInput ReturnUser();
 
 	/**
 	 * Set Reversal.
 	 *
 	 * @param Reversal ID of document reversal
 	 */
-	void setReversal(I_M_InOutInput Reversal);
+	void setReversalInput(I_M_InOutInput Reversal);
 
 	/**
 	 * Get Reversal.
 	 *
 	 * @return ID of document reversal
 	 */
-	I_M_InOutInput getReversal();
+	I_M_InOutInput Reversal();
 
 	/**
 	 * Set SalesRep.
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
-	void setSalesRep(I_AD_UserInput SalesRep);
+	void setSalesRepInput(I_AD_UserInput SalesRep);
 
 	/**
 	 * Get SalesRep.
 	 *
 	 * @return Sales Representative or Company Agent
 	 */
-	I_AD_UserInput getSalesRep();
+	I_AD_UserInput SalesRep();
 
 	/**
 	 * Set User1.
 	 *
 	 * @param User1 User defined list element #1
 	 */
-	void setUser1(I_C_ElementValueInput User1);
+	void setUser1Input(I_C_ElementValueInput User1);
 
 	/**
 	 * Get User1.
 	 *
 	 * @return User defined list element #1
 	 */
-	I_C_ElementValueInput getUser1();
+	I_C_ElementValueInput User1();
 
 	/**
 	 * Set User2.
 	 *
 	 * @param User2 User defined list element #2
 	 */
-	void setUser2(I_C_ElementValueInput User2);
+	void setUser2Input(I_C_ElementValueInput User2);
 
 	/**
 	 * Get User2.
 	 *
 	 * @return User defined list element #2
 	 */
-	I_C_ElementValueInput getUser2();
+	I_C_ElementValueInput User2();
 }

@@ -10,6 +10,11 @@ public class MAttributeSetInstance_BH extends MAttributeSetInstance {
 	public static final int ATTRIBUTESETINSTANCEID_JUNK_LOT = 0;
 
 	/**
+	 * Column name BH_GuaranteeDateString
+	 */
+	public static final String COLUMNNAME_BH_GuaranteeDateString = "BH_GuaranteeDateString";
+
+	/**
 	 * Column name bh_update_reason
 	 */
 	public static final String COLUMNNAME_bh_update_reason = "bh_update_reason";
@@ -25,6 +30,24 @@ public class MAttributeSetInstance_BH extends MAttributeSetInstance {
 	public MAttributeSetInstance_BH(Properties ctx, int M_AttributeSetInstance_ID, int M_AttributeSet_ID,
 			String trxName) {
 		super(ctx, M_AttributeSetInstance_ID, M_AttributeSet_ID, trxName);
+	}
+
+	/**
+	 * Set Guarantee Date String.
+	 *
+	 * @param BH_GuaranteeDateString String date when guarantee expires
+	 */
+	public void setBH_GuaranteeDateString(String BH_GuaranteeDateString) {
+		throw new IllegalArgumentException("BH_GuaranteeDateString is virtual column");
+	}
+
+	/**
+	 * Get Guarantee Date String.
+	 *
+	 * @return String date when guarantee expires
+	 */
+	public String getBH_GuaranteeDateString() {
+		return (String) get_Value(COLUMNNAME_BH_GuaranteeDateString);
 	}
 
 	/**

@@ -15,28 +15,28 @@ public interface I_M_ShipperPickupTypesCfgInput extends I_M_ShipperPickupTypesCf
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set M_ShipperCfg.
 	 *
 	 * @param M_ShipperCfg M_ShipperCfg
 	 */
-	void setM_ShipperCfg(I_M_ShipperCfgInput M_ShipperCfg);
+	void setM_ShipperCfgInput(I_M_ShipperCfgInput M_ShipperCfg);
 
 	/**
 	 * Get M_ShipperCfg.
 	 *
 	 * @return M_ShipperCfg
 	 */
-	I_M_ShipperCfgInput getM_ShipperCfg();
+	I_M_ShipperCfgInput M_ShipperCfg();
 
 	/**
 	 * Set ID.

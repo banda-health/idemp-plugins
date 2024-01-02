@@ -29,54 +29,54 @@ public interface I_AD_ColorInput extends I_AD_Color {
 	 *
 	 * @param AD_Image Image or Icon
 	 */
-	void setAD_Image(I_AD_ImageInput AD_Image);
+	void setAD_ImageInput(I_AD_ImageInput AD_Image);
 
 	/**
 	 * Get AD_Image.
 	 *
 	 * @return Image or Icon
 	 */
-	I_AD_ImageInput getAD_Image();
+	I_AD_ImageInput AD_Image();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set ColorType_RL.
+	 * Set ColorType.
 	 *
-	 * @param ColorType_RL Color presentation for this color
+	 * @param ColorType Color presentation for this color
 	 */
-	void setColorType_RL(I_AD_Ref_ListInput ColorType_RL);
+	void setColorTypeInput(I_AD_Ref_ListInput ColorType);
 
 	/**
-	 * Get ColorType_RL.
+	 * Get ColorType.
 	 *
 	 * @return Color presentation for this color
 	 */
-	I_AD_Ref_ListInput getColorType_RL();
+	I_AD_Ref_ListInput ColorType();
 
 	/**
-	 * Set StartPoint_RL.
+	 * Set StartPoint.
 	 *
-	 * @param StartPoint_RL Start point of the gradient colors
+	 * @param StartPoint Start point of the gradient colors
 	 */
-	void setStartPoint_RL(I_AD_Ref_ListInput StartPoint_RL);
+	void setStartPointInput(I_AD_Ref_ListInput StartPoint);
 
 	/**
-	 * Get StartPoint_RL.
+	 * Get StartPoint.
 	 *
 	 * @return Start point of the gradient colors
 	 */
-	I_AD_Ref_ListInput getStartPoint_RL();
+	I_AD_Ref_ListInput StartPoint();
 }

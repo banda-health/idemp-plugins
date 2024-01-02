@@ -33,4 +33,8 @@ public class X_C_BankResolver extends POResolver<MBank> implements GraphQLResolv
 		return dataLoader.load(entity.getC_Location_ID());
 	}
 
+	public Boolean IsOwnBank(MBank entity, DataFetchingEnvironment environment) {
+		return entity.isOwnBank();
+	}
+
 }

@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.mutation;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.graphql.model.input.I_C_InvoiceLineInput;
 import org.bandahealth.idempiere.graphql.model.input.X_C_InvoiceLineInput;
-import org.compiere.model.MInvoiceLine;
 
 import java.util.List;
 
@@ -20,8 +20,8 @@ public class X_C_InvoiceLineMutation extends POMutation implements GraphQLMutati
 		return X_C_InvoiceLineInput.Table_Name;
 	}
 
-	public MInvoiceLine C_InvoiceLineSave(I_C_InvoiceLineInput input, DataFetchingEnvironment environment) {
-		return (MInvoiceLine) super.save((X_C_InvoiceLineInput) input, environment);
+	public MInvoiceLine_BH C_InvoiceLineSave(I_C_InvoiceLineInput input, DataFetchingEnvironment environment) {
+		return (MInvoiceLine_BH) super.save((X_C_InvoiceLineInput) input, environment);
 	}
 
 	public boolean C_InvoiceLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

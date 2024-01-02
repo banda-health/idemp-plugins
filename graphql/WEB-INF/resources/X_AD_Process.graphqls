@@ -17,7 +17,7 @@ type AD_ProcessConnection {
 
 type AD_Process {
 	# Access Level required
-	AccessLevel_RL: AD_Ref_List!
+	AccessLevel: AD_Ref_List!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp
@@ -33,7 +33,7 @@ type AD_Process {
 	# Workflow or combination of tasks
 	AD_Workflow: AD_Workflow
 	# Allow or disallow executing a process/report multiple times.
-	AllowMultipleExecution_RL: AD_Ref_List
+	AllowMultipleExecution: AD_Ref_List
 	# Java Classname
 	Classname: String
 	# Copy settings from one report and process to another.
@@ -41,13 +41,13 @@ type AD_Process {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityType!
+	AD_EntityType: AD_EntityType!
 	# Execution Type defines whether the report/process will always run in background or foreground. 
-	ExecutionType_RL: AD_Ref_List
+	ExecutionType: AD_Ref_List
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -63,7 +63,7 @@ type AD_Process {
 	Name: String!
 	# Name of the Database Procedure
 	ProcedureName: String
-	ShowHelp_RL: AD_Ref_List
+	ShowHelp: AD_Ref_List
 	# Internal statistics how often the entity was used
 	Statistic_Count: Int
 	# Internal statistics how many seconds a process took
@@ -71,7 +71,7 @@ type AD_Process {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 	# Key of the Workflow to start
@@ -80,7 +80,7 @@ type AD_Process {
 
 input AD_ProcessInput {
 	# Access Level required
-	AccessLevel_RL: AD_Ref_ListInput
+	AccessLevel: AD_Ref_ListInput
 	AD_CtxHelp: AD_CtxHelpInput
 	# Special Form
 	AD_Form: AD_FormInput
@@ -94,7 +94,7 @@ input AD_ProcessInput {
 	# Workflow or combination of tasks
 	AD_Workflow: AD_WorkflowInput
 	# Allow or disallow executing a process/report multiple times.
-	AllowMultipleExecution_RL: AD_Ref_ListInput
+	AllowMultipleExecution: AD_Ref_ListInput
 	# Java Classname
 	Classname: String
 	# Copy settings from one report and process to another.
@@ -102,9 +102,9 @@ input AD_ProcessInput {
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityTypeInput
+	AD_EntityType: AD_EntityTypeInput
 	# Execution Type defines whether the report/process will always run in background or foreground. 
-	ExecutionType_RL: AD_Ref_ListInput
+	ExecutionType: AD_Ref_ListInput
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -120,7 +120,7 @@ input AD_ProcessInput {
 	Name: String
 	# Name of the Database Procedure
 	ProcedureName: String
-	ShowHelp_RL: AD_Ref_ListInput
+	ShowHelp: AD_Ref_ListInput
 	# Internal statistics how often the entity was used
 	Statistic_Count: Int
 	# Internal statistics how many seconds a process took

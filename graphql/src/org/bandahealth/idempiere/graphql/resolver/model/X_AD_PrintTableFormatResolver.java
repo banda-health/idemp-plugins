@@ -2,13 +2,13 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintColorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFontDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MImage;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
 import org.compiere.model.X_AD_PrintTableFormat;
@@ -125,11 +125,11 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222");
 		}
 	};
-	public CompletableFuture<MRefList> HdrStrokeType_RL(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> HdrStrokeType(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getHdrStrokeType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(HDRSTROKETYPE_UUIDS_BY_VALUE.get(entity.getHdrStrokeType()));
 	}
@@ -164,6 +164,38 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 		return dataLoader.load(entity.getHdrTextFG_PrintColor_ID());
 	}
 
+	public Boolean ImageIsAttached(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+		return entity.isImageIsAttached();
+	}
+
+	public Boolean IsDefault(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsMultiLineHeader(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+		return entity.isMultiLineHeader();
+	}
+
+	public Boolean IsPaintBoundaryLines(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+		return entity.isPaintBoundaryLines();
+	}
+
+	public Boolean IsPaintHeaderLines(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+		return entity.isPaintHeaderLines();
+	}
+
+	public Boolean IsPaintHLines(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+		return entity.isPaintHLines();
+	}
+
+	public Boolean IsPaintVLines(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+		return entity.isPaintVLines();
+	}
+
+	public Boolean IsPrintFunctionSymbols(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+		return entity.isPrintFunctionSymbols();
+	}
+
 
 	/**
 	 * Get Line Color.
@@ -187,11 +219,11 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			put("2", "36c0e576-a4e4-4fb6-88ec-a5359f77c222");
 		}
 	};
-	public CompletableFuture<MRefList> LineStrokeType_RL(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> LineStrokeType(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getLineStrokeType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(LINESTROKETYPE_UUIDS_BY_VALUE.get(entity.getLineStrokeType()));
 	}

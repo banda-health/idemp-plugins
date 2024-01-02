@@ -3,13 +3,13 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BankDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MBank;
-import org.compiere.model.MCurrency;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -34,11 +34,11 @@ public class X_C_BankAccountResolver extends POResolver<MBankAccount_BH> impleme
 			put("M", "be1ae458-a3aa-4d16-995a-8d23d34b5c08");
 		}
 	};
-	public CompletableFuture<MRefList> BankAccountType_RL(MBankAccount_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BankAccountType(MBankAccount_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBankAccountType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BANKACCOUNTTYPE_UUIDS_BY_VALUE.get(entity.getBankAccountType()));
 	}
@@ -64,13 +64,17 @@ public class X_C_BankAccountResolver extends POResolver<MBankAccount_BH> impleme
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MBankAccount_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MBankAccount_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
+	}
+
+	public Boolean IsDefault(MBankAccount_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
 	}
 
 }

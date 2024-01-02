@@ -1,13 +1,15 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MElement;
+import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_ElementValue;
 import org.compiere.util.Env;
 
 /**
@@ -16,20 +18,21 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_ElementValueInput {
+public class X_C_ElementValueInput extends MElementValue implements I_C_ElementValueInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput AccountSign_RL;
-	 private I_AD_Ref_ListInput AccountType_RL;
-	 private I_AD_Ref_ListInput BPartnerType_RL;
-	 private I_C_BankAccountInput C_BankAccount;
-	 private I_C_CurrencyInput C_Currency;
-	 private I_C_ElementInput C_Element;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mAccountSign;
+	 private I_AD_Ref_ListInput mAccountType;
+	 private I_AD_Ref_ListInput mBPartnerType;
+	 private I_C_BankAccountInput mC_BankAccount;
+	 private I_C_CurrencyInput mC_Currency;
+	 private I_C_ElementInput mC_Element;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_ElementValueInput(String ID) {
+	@JsonCreator
+	public X_C_ElementValueInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -37,14 +40,15 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	/**
 	 * Set Account Sign.
 	 *
-	 * @param AccountSign_RL Indicates the Natural Sign of the Account as a Debit or Credit
+	 * @param AccountSign Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
-	public void setAccountSign_RL(I_AD_Ref_ListInput AccountSign_RL) {
-		this.AccountSign_RL = AccountSign_RL;
-		MRefList foreignEntity;
-		if (AccountSign_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(AccountSign_RL.getID())
+	@JsonProperty("AccountSign")
+	public void setAccountSignInput(I_AD_Ref_ListInput AccountSign) {
+		this.mAccountSign = AccountSign;
+		MRefList_BH foreignEntity;
+		if (AccountSign != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(AccountSign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setAccountSign(foreignEntity.getValue());
 		} else {
@@ -57,21 +61,23 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	 *
 	 * @return Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
-	public I_AD_Ref_ListInput getAccountSign_RL() {
-		return AccountSign_RL;
+	@JsonProperty("AccountSign")
+	public I_AD_Ref_ListInput AccountSign() {
+		return mAccountSign;
 	}
 
 	/**
 	 * Set Account Type.
 	 *
-	 * @param AccountType_RL Indicates the type of account
+	 * @param AccountType Indicates the type of account
 	 */
-	public void setAccountType_RL(I_AD_Ref_ListInput AccountType_RL) {
-		this.AccountType_RL = AccountType_RL;
-		MRefList foreignEntity;
-		if (AccountType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(AccountType_RL.getID())
+	@JsonProperty("AccountType")
+	public void setAccountTypeInput(I_AD_Ref_ListInput AccountType) {
+		this.mAccountType = AccountType;
+		MRefList_BH foreignEntity;
+		if (AccountType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(AccountType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setAccountType(foreignEntity.getValue());
 		} else {
@@ -84,8 +90,9 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	 *
 	 * @return Indicates the type of account
 	 */
-	public I_AD_Ref_ListInput getAccountType_RL() {
-		return AccountType_RL;
+	@JsonProperty("AccountType")
+	public I_AD_Ref_ListInput AccountType() {
+		return mAccountType;
 	}
 
 	/**
@@ -93,14 +100,15 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -109,21 +117,23 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
 	 * Set Business Partner Type.
 	 *
-	 * @param BPartnerType_RL Business Partner Type
+	 * @param BPartnerType Business Partner Type
 	 */
-	public void setBPartnerType_RL(I_AD_Ref_ListInput BPartnerType_RL) {
-		this.BPartnerType_RL = BPartnerType_RL;
-		MRefList foreignEntity;
-		if (BPartnerType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BPartnerType_RL.getID())
+	@JsonProperty("BPartnerType")
+	public void setBPartnerTypeInput(I_AD_Ref_ListInput BPartnerType) {
+		this.mBPartnerType = BPartnerType;
+		MRefList_BH foreignEntity;
+		if (BPartnerType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(BPartnerType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setBPartnerType(foreignEntity.getValue());
 		} else {
@@ -136,8 +146,9 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	 *
 	 * @return Business Partner Type
 	 */
-	public I_AD_Ref_ListInput getBPartnerType_RL() {
-		return BPartnerType_RL;
+	@JsonProperty("BPartnerType")
+	public I_AD_Ref_ListInput BPartnerType() {
+		return mBPartnerType;
 	}
 
 	/**
@@ -145,16 +156,17 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	 *
 	 * @param C_BankAccount Account at the Bank
 	 */
-	public void setC_BankAccount(I_C_BankAccountInput C_BankAccount) {
-		this.C_BankAccount = C_BankAccount;
+	@JsonProperty("C_BankAccount")
+	public void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount) {
+		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
 				(foreignEntity = new Query(getCtx(), MBankAccount_BH.Table_Name, MBankAccount_BH.COLUMNNAME_C_BankAccount_UU + "=?", get_TrxName())
 						.setParameters(C_BankAccount.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BankAccount_ID(foreignEntity.get_ID());
+			super.setC_BankAccount_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BankAccount_ID(0);
+			super.setC_BankAccount_ID(0);
 		}
 	}
 
@@ -163,8 +175,9 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	 *
 	 * @return Account at the Bank
 	 */
-	public I_C_BankAccountInput getC_BankAccount() {
-		return C_BankAccount;
+	@JsonProperty("C_BankAccount")
+	public I_C_BankAccountInput C_BankAccount() {
+		return mC_BankAccount;
 	}
 
 	/**
@@ -172,16 +185,17 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	public void setC_Currency(I_C_CurrencyInput C_Currency) {
-		this.C_Currency = C_Currency;
-		MCurrency foreignEntity;
+	@JsonProperty("C_Currency")
+	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+		this.mC_Currency = C_Currency;
+		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency.Table_Name, MCurrency.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Currency_ID(foreignEntity.get_ID());
+			super.setC_Currency_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Currency_ID(0);
+			super.setC_Currency_ID(0);
 		}
 	}
 
@@ -190,8 +204,9 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	 *
 	 * @return The Currency for this record
 	 */
-	public I_C_CurrencyInput getC_Currency() {
-		return C_Currency;
+	@JsonProperty("C_Currency")
+	public I_C_CurrencyInput C_Currency() {
+		return mC_Currency;
 	}
 
 	/**
@@ -199,14 +214,15 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	 *
 	 * @param C_Element Accounting Element
 	 */
-	public void setC_Element(I_C_ElementInput C_Element) {
-		this.C_Element = C_Element;
+	@JsonProperty("C_Element")
+	public void setC_ElementInput(I_C_ElementInput C_Element) {
+		this.mC_Element = C_Element;
 		MElement foreignEntity;
 		if (get_ID() == 0 &&C_Element != null &&
 				(foreignEntity = new Query(getCtx(), MElement.Table_Name, MElement.COLUMNNAME_C_Element_UU + "=?", get_TrxName())
 						.setParameters(C_Element.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Element_ID(foreignEntity.get_ID());
+			super.setC_Element_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -215,30 +231,9 @@ public class X_C_ElementValueInput extends X_C_ElementValue implements I_C_Eleme
 	 *
 	 * @return Accounting Element
 	 */
-	public I_C_ElementInput getC_Element() {
-		return C_Element;
-	}
-	/**
-	 * Set Element.
-	 *
-	 * @param C_Element_ID Accounting Element
-	 */
-
-	public void setC_Element_ID(int C_Element_ID) {
-		if (get_ID() == 0) {
-			super.setC_Element_ID(C_Element_ID);
-		}
-	}
-	/**
-	 * Set Account Element.
-	 *
-	 * @param C_ElementValue_ID Account Element
-	 */
-
-	public void setC_ElementValue_ID(int C_ElementValue_ID) {
-		if (get_ID() == 0) {
-			super.setC_ElementValue_ID(C_ElementValue_ID);
-		}
+	@JsonProperty("C_Element")
+	public I_C_ElementInput C_Element() {
+		return mC_Element;
 	}
 
 	/**

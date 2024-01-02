@@ -58,7 +58,7 @@ type C_OrderLine {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	CreateProduction: String
 	CreateShipment: String
 	# Date when the product was delivered
@@ -132,7 +132,7 @@ type C_OrderLine {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# User defined list element #1
 	User1: C_ElementValue
 	# User defined list element #2

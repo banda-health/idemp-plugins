@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCtxHelp;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.MResource;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
@@ -22,24 +24,25 @@ import org.compiere.util.Env;
  */
 public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowInput {
 
-	 private I_AD_CtxHelpInput AD_CtxHelp;
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput AccessLevel_RL;
-	 private I_AD_Ref_ListInput DurationUnit_RL;
-	 private I_AD_Ref_ListInput ProcessType_RL;
-	 private I_AD_Ref_ListInput PublishStatus_RL;
-	 private I_AD_Ref_ListInput WorkflowType_RL;
-	 private I_AD_TableInput AD_Table;
-	 private I_AD_WF_NodeInput AD_WF_Node;
-	 private I_AD_WF_ResponsibleInput AD_WF_Responsible;
-	 private I_AD_WorkflowProcessorInput AD_WorkflowProcessor;
-	 private I_S_ResourceInput S_Resource;
+	 private I_AD_CtxHelpInput mAD_CtxHelp;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mAccessLevel;
+	 private I_AD_Ref_ListInput mDurationUnit;
+	 private I_AD_Ref_ListInput mProcessType;
+	 private I_AD_Ref_ListInput mPublishStatus;
+	 private I_AD_Ref_ListInput mWorkflowType;
+	 private I_AD_TableInput mAD_Table;
+	 private I_AD_WF_NodeInput mAD_WF_Node;
+	 private I_AD_WF_ResponsibleInput mAD_WF_Responsible;
+	 private I_AD_WorkflowProcessorInput mAD_WorkflowProcessor;
+	 private I_S_ResourceInput mS_Resource;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_WorkflowInput(String ID) {
+	@JsonCreator
+	public X_AD_WorkflowInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -47,14 +50,15 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	/**
 	 * Set Data Access Level.
 	 *
-	 * @param AccessLevel_RL Access Level required
+	 * @param AccessLevel Access Level required
 	 */
-	public void setAccessLevel_RL(I_AD_Ref_ListInput AccessLevel_RL) {
-		this.AccessLevel_RL = AccessLevel_RL;
-		MRefList foreignEntity;
-		if (AccessLevel_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(AccessLevel_RL.getID())
+	@JsonProperty("AccessLevel")
+	public void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel) {
+		this.mAccessLevel = AccessLevel;
+		MRefList_BH foreignEntity;
+		if (AccessLevel != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(AccessLevel.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setAccessLevel(foreignEntity.getValue());
 		} else {
@@ -67,8 +71,9 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Access Level required
 	 */
-	public I_AD_Ref_ListInput getAccessLevel_RL() {
-		return AccessLevel_RL;
+	@JsonProperty("AccessLevel")
+	public I_AD_Ref_ListInput AccessLevel() {
+		return mAccessLevel;
 	}
 
 	/**
@@ -76,16 +81,17 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @param AD_CtxHelp Context Help
 	 */
-	public void setAD_CtxHelp(I_AD_CtxHelpInput AD_CtxHelp) {
-		this.AD_CtxHelp = AD_CtxHelp;
+	@JsonProperty("AD_CtxHelp")
+	public void setAD_CtxHelpInput(I_AD_CtxHelpInput AD_CtxHelp) {
+		this.mAD_CtxHelp = AD_CtxHelp;
 		MCtxHelp foreignEntity;
 		if (AD_CtxHelp != null &&
 				(foreignEntity = new Query(getCtx(), MCtxHelp.Table_Name, MCtxHelp.COLUMNNAME_AD_CtxHelp_UU + "=?", get_TrxName())
 						.setParameters(AD_CtxHelp.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_CtxHelp_ID(foreignEntity.get_ID());
+			super.setAD_CtxHelp_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_CtxHelp_ID(0);
+			super.setAD_CtxHelp_ID(0);
 		}
 	}
 
@@ -94,8 +100,9 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Context Help
 	 */
-	public I_AD_CtxHelpInput getAD_CtxHelp() {
-		return AD_CtxHelp;
+	@JsonProperty("AD_CtxHelp")
+	public I_AD_CtxHelpInput AD_CtxHelp() {
+		return mAD_CtxHelp;
 	}
 
 	/**
@@ -103,14 +110,15 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -119,8 +127,9 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -128,16 +137,17 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @param AD_Table Database Table information
 	 */
-	public void setAD_Table(I_AD_TableInput AD_Table) {
-		this.AD_Table = AD_Table;
+	@JsonProperty("AD_Table")
+	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), MTable.Table_Name, MTable.COLUMNNAME_AD_Table_UU + "=?", get_TrxName())
 						.setParameters(AD_Table.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Table_ID(foreignEntity.get_ID());
+			super.setAD_Table_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Table_ID(0);
+			super.setAD_Table_ID(0);
 		}
 	}
 
@@ -146,8 +156,9 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Database Table information
 	 */
-	public I_AD_TableInput getAD_Table() {
-		return AD_Table;
+	@JsonProperty("AD_Table")
+	public I_AD_TableInput AD_Table() {
+		return mAD_Table;
 	}
 
 	/**
@@ -155,16 +166,17 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @param AD_WF_Node Workflow Node (activity), step or process
 	 */
-	public void setAD_WF_Node(I_AD_WF_NodeInput AD_WF_Node) {
-		this.AD_WF_Node = AD_WF_Node;
+	@JsonProperty("AD_WF_Node")
+	public void setAD_WF_NodeInput(I_AD_WF_NodeInput AD_WF_Node) {
+		this.mAD_WF_Node = AD_WF_Node;
 		X_AD_WF_Node foreignEntity;
 		if (AD_WF_Node != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_WF_Node.Table_Name, X_AD_WF_Node.COLUMNNAME_AD_WF_Node_UU + "=?", get_TrxName())
 						.setParameters(AD_WF_Node.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_WF_Node_ID(foreignEntity.get_ID());
+			super.setAD_WF_Node_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_WF_Node_ID(0);
+			super.setAD_WF_Node_ID(0);
 		}
 	}
 
@@ -173,8 +185,9 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Workflow Node (activity), step or process
 	 */
-	public I_AD_WF_NodeInput getAD_WF_Node() {
-		return AD_WF_Node;
+	@JsonProperty("AD_WF_Node")
+	public I_AD_WF_NodeInput AD_WF_Node() {
+		return mAD_WF_Node;
 	}
 
 	/**
@@ -182,16 +195,17 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @param AD_WF_Responsible Responsible for Workflow Execution
 	 */
-	public void setAD_WF_Responsible(I_AD_WF_ResponsibleInput AD_WF_Responsible) {
-		this.AD_WF_Responsible = AD_WF_Responsible;
+	@JsonProperty("AD_WF_Responsible")
+	public void setAD_WF_ResponsibleInput(I_AD_WF_ResponsibleInput AD_WF_Responsible) {
+		this.mAD_WF_Responsible = AD_WF_Responsible;
 		X_AD_WF_Responsible foreignEntity;
 		if (AD_WF_Responsible != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_WF_Responsible.Table_Name, X_AD_WF_Responsible.COLUMNNAME_AD_WF_Responsible_UU + "=?", get_TrxName())
 						.setParameters(AD_WF_Responsible.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_WF_Responsible_ID(foreignEntity.get_ID());
+			super.setAD_WF_Responsible_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_WF_Responsible_ID(0);
+			super.setAD_WF_Responsible_ID(0);
 		}
 	}
 
@@ -200,19 +214,9 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Responsible for Workflow Execution
 	 */
-	public I_AD_WF_ResponsibleInput getAD_WF_Responsible() {
-		return AD_WF_Responsible;
-	}
-	/**
-	 * Set Workflow.
-	 *
-	 * @param AD_Workflow_ID Workflow or combination of tasks
-	 */
-
-	public void setAD_Workflow_ID(int AD_Workflow_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Workflow_ID(AD_Workflow_ID);
-		}
+	@JsonProperty("AD_WF_Responsible")
+	public I_AD_WF_ResponsibleInput AD_WF_Responsible() {
+		return mAD_WF_Responsible;
 	}
 
 	/**
@@ -238,16 +242,17 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @param AD_WorkflowProcessor Workflow Processor Server
 	 */
-	public void setAD_WorkflowProcessor(I_AD_WorkflowProcessorInput AD_WorkflowProcessor) {
-		this.AD_WorkflowProcessor = AD_WorkflowProcessor;
+	@JsonProperty("AD_WorkflowProcessor")
+	public void setAD_WorkflowProcessorInput(I_AD_WorkflowProcessorInput AD_WorkflowProcessor) {
+		this.mAD_WorkflowProcessor = AD_WorkflowProcessor;
 		X_AD_WorkflowProcessor foreignEntity;
 		if (AD_WorkflowProcessor != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_WorkflowProcessor.Table_Name, X_AD_WorkflowProcessor.COLUMNNAME_AD_WorkflowProcessor_UU + "=?", get_TrxName())
 						.setParameters(AD_WorkflowProcessor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_WorkflowProcessor_ID(foreignEntity.get_ID());
+			super.setAD_WorkflowProcessor_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_WorkflowProcessor_ID(0);
+			super.setAD_WorkflowProcessor_ID(0);
 		}
 	}
 
@@ -256,21 +261,23 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Workflow Processor Server
 	 */
-	public I_AD_WorkflowProcessorInput getAD_WorkflowProcessor() {
-		return AD_WorkflowProcessor;
+	@JsonProperty("AD_WorkflowProcessor")
+	public I_AD_WorkflowProcessorInput AD_WorkflowProcessor() {
+		return mAD_WorkflowProcessor;
 	}
 
 	/**
 	 * Set Duration Unit.
 	 *
-	 * @param DurationUnit_RL Unit of Duration
+	 * @param DurationUnit Unit of Duration
 	 */
-	public void setDurationUnit_RL(I_AD_Ref_ListInput DurationUnit_RL) {
-		this.DurationUnit_RL = DurationUnit_RL;
-		MRefList foreignEntity;
-		if (DurationUnit_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DurationUnit_RL.getID())
+	@JsonProperty("DurationUnit")
+	public void setDurationUnitInput(I_AD_Ref_ListInput DurationUnit) {
+		this.mDurationUnit = DurationUnit;
+		MRefList_BH foreignEntity;
+		if (DurationUnit != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DurationUnit.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDurationUnit(foreignEntity.getValue());
 		} else {
@@ -283,8 +290,9 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Unit of Duration
 	 */
-	public I_AD_Ref_ListInput getDurationUnit_RL() {
-		return DurationUnit_RL;
+	@JsonProperty("DurationUnit")
+	public I_AD_Ref_ListInput DurationUnit() {
+		return mDurationUnit;
 	}
 
 	/**
@@ -292,16 +300,17 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -310,32 +319,23 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 
 	/**
 	 * Set Process Type.
 	 *
-	 * @param ProcessType_RL Process Type
+	 * @param ProcessType Process Type
 	 */
-	public void setProcessType_RL(I_AD_Ref_ListInput ProcessType_RL) {
-		this.ProcessType_RL = ProcessType_RL;
-		MRefList foreignEntity;
-		if (ProcessType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ProcessType_RL.getID())
+	@JsonProperty("ProcessType")
+	public void setProcessTypeInput(I_AD_Ref_ListInput ProcessType) {
+		this.mProcessType = ProcessType;
+		MRefList_BH foreignEntity;
+		if (ProcessType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(ProcessType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setProcessType(foreignEntity.getValue());
 		} else {
@@ -348,21 +348,23 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Process Type
 	 */
-	public I_AD_Ref_ListInput getProcessType_RL() {
-		return ProcessType_RL;
+	@JsonProperty("ProcessType")
+	public I_AD_Ref_ListInput ProcessType() {
+		return mProcessType;
 	}
 
 	/**
 	 * Set Publication Status.
 	 *
-	 * @param PublishStatus_RL Status of Publication
+	 * @param PublishStatus Status of Publication
 	 */
-	public void setPublishStatus_RL(I_AD_Ref_ListInput PublishStatus_RL) {
-		this.PublishStatus_RL = PublishStatus_RL;
-		MRefList foreignEntity;
-		if (PublishStatus_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PublishStatus_RL.getID())
+	@JsonProperty("PublishStatus")
+	public void setPublishStatusInput(I_AD_Ref_ListInput PublishStatus) {
+		this.mPublishStatus = PublishStatus;
+		MRefList_BH foreignEntity;
+		if (PublishStatus != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PublishStatus.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPublishStatus(foreignEntity.getValue());
 		} else {
@@ -375,8 +377,9 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Status of Publication
 	 */
-	public I_AD_Ref_ListInput getPublishStatus_RL() {
-		return PublishStatus_RL;
+	@JsonProperty("PublishStatus")
+	public I_AD_Ref_ListInput PublishStatus() {
+		return mPublishStatus;
 	}
 
 	/**
@@ -384,16 +387,17 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @param S_Resource Resource
 	 */
-	public void setS_Resource(I_S_ResourceInput S_Resource) {
-		this.S_Resource = S_Resource;
+	@JsonProperty("S_Resource")
+	public void setS_ResourceInput(I_S_ResourceInput S_Resource) {
+		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
 		if (S_Resource != null &&
 				(foreignEntity = new Query(getCtx(), MResource.Table_Name, MResource.COLUMNNAME_S_Resource_UU + "=?", get_TrxName())
 						.setParameters(S_Resource.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setS_Resource_ID(foreignEntity.get_ID());
+			super.setS_Resource_ID(foreignEntity.get_ID());
 		} else {
-			this.setS_Resource_ID(0);
+			super.setS_Resource_ID(0);
 		}
 	}
 
@@ -402,21 +406,23 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Resource
 	 */
-	public I_S_ResourceInput getS_Resource() {
-		return S_Resource;
+	@JsonProperty("S_Resource")
+	public I_S_ResourceInput S_Resource() {
+		return mS_Resource;
 	}
 
 	/**
 	 * Set Workflow Type.
 	 *
-	 * @param WorkflowType_RL Type of Workflow
+	 * @param WorkflowType Type of Workflow
 	 */
-	public void setWorkflowType_RL(I_AD_Ref_ListInput WorkflowType_RL) {
-		this.WorkflowType_RL = WorkflowType_RL;
-		MRefList foreignEntity;
-		if (WorkflowType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(WorkflowType_RL.getID())
+	@JsonProperty("WorkflowType")
+	public void setWorkflowTypeInput(I_AD_Ref_ListInput WorkflowType) {
+		this.mWorkflowType = WorkflowType;
+		MRefList_BH foreignEntity;
+		if (WorkflowType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(WorkflowType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setWorkflowType(foreignEntity.getValue());
 		} else {
@@ -429,7 +435,8 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 *
 	 * @return Type of Workflow
 	 */
-	public I_AD_Ref_ListInput getWorkflowType_RL() {
-		return WorkflowType_RL;
+	@JsonProperty("WorkflowType")
+	public I_AD_Ref_ListInput WorkflowType() {
+		return mWorkflowType;
 	}
 }

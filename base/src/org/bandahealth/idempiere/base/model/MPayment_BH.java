@@ -44,6 +44,13 @@ public class MPayment_BH extends MPayment {
 	 * NHIF = N
 	 */
 	public static final String TENDERTYPE_NHIF = "N";
+
+	/** Load Meta Data */
+
+	/**
+	 * Column name BH_NavButtons
+	 */
+	public static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
 	public static final String COLUMNNAME_BH_TENDER_AMOUNT = "BH_tender_amount";
 	/**
 	 * Column name BH_Visit_ID
@@ -234,11 +241,11 @@ public class MPayment_BH extends MPayment {
 		return newPayment;
 	}
 
-	public BigDecimal getBH_TenderAmount() {
+	public BigDecimal getBH_tender_amount() {
 		return (BigDecimal) get_Value(COLUMNNAME_BH_TENDER_AMOUNT);
 	}
 
-	public void setBH_TenderAmount(BigDecimal amount) {
+	public void setBH_tender_amount(BigDecimal amount) {
 		set_Value(COLUMNNAME_BH_TENDER_AMOUNT, amount);
 	}
 
@@ -269,5 +276,23 @@ public class MPayment_BH extends MPayment {
 		if (ii == null)
 			return 0;
 		return ii.intValue();
+	}
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons) {
+		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
+	}
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons() {
+		return get_Value(COLUMNNAME_BH_NavButtons);
 	}
 }

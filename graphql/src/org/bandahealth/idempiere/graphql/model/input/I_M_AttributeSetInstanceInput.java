@@ -15,61 +15,42 @@ public interface I_M_AttributeSetInstanceInput extends I_M_AttributeSetInstance 
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
-
-	/**
-	 * Column name bh_update_reason
-	 */
-	public static final String COLUMNNAME_bh_update_reason = "bh_update_reason";
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set bh_update_reason.
 	 *
 	 * @param bh_update_reason bh_update_reason
 	 */
-	public void setbh_update_reason(String bh_update_reason);
+	void setbh_update_reasonInput(I_AD_Ref_ListInput bh_update_reason);
 
 	/**
 	 * Get bh_update_reason.
 	 *
 	 * @return bh_update_reason
 	 */
-	public String getbh_update_reason();
-
-	/**
-	 * Set bh_update_reason_RL.
-	 *
-	 * @param bh_update_reason_RL bh_update_reason_RL
-	 */
-	void setbh_update_reason_RL(I_AD_Ref_ListInput bh_update_reason_RL);
-
-	/**
-	 * Get bh_update_reason_RL.
-	 *
-	 * @return bh_update_reason_RL
-	 */
-	I_AD_Ref_ListInput getbh_update_reason_RL();
+	I_AD_Ref_ListInput bh_update_reason();
 
 	/**
 	 * Set M_AttributeSet.
 	 *
 	 * @param M_AttributeSet Product Attribute Set
 	 */
-	void setM_AttributeSet(I_M_AttributeSetInput M_AttributeSet);
+	void setM_AttributeSetInput(I_M_AttributeSetInput M_AttributeSet);
 
 	/**
 	 * Get M_AttributeSet.
 	 *
 	 * @return Product Attribute Set
 	 */
-	I_M_AttributeSetInput getM_AttributeSet();
+	I_M_AttributeSetInput M_AttributeSet();
 
 	/**
 	 * Set ID.
@@ -90,12 +71,12 @@ public interface I_M_AttributeSetInstanceInput extends I_M_AttributeSetInstance 
 	 *
 	 * @param M_Lot Product Lot Definition
 	 */
-	void setM_Lot(I_M_LotInput M_Lot);
+	void setM_LotInput(I_M_LotInput M_Lot);
 
 	/**
 	 * Get M_Lot.
 	 *
 	 * @return Product Lot Definition
 	 */
-	I_M_LotInput getM_Lot();
+	I_M_LotInput M_Lot();
 }

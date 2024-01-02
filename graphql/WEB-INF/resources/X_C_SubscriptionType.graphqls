@@ -24,13 +24,13 @@ type C_SubscriptionType {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Frequency of events
 	Frequency: Int!
 	# Frequency of event
-	FrequencyType_RL: AD_Ref_List!
+	FrequencyType: AD_Ref_List!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -38,7 +38,7 @@ type C_SubscriptionType {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 }
 
 input C_SubscriptionTypeInput {
@@ -50,7 +50,7 @@ input C_SubscriptionTypeInput {
 	# Frequency of events
 	Frequency: Int
 	# Frequency of event
-	FrequencyType_RL: AD_Ref_ListInput
+	FrequencyType: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

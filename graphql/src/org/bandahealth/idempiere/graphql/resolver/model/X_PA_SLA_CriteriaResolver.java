@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_PA_SLA_CriteriaResolver extends POResolver<MSLACriteria> implements GraphQLResolver<MSLACriteria> {
 
 
+	public Boolean IsManual(MSLACriteria entity, DataFetchingEnvironment environment) {
+		return entity.isManual();
+	}
+
 }

@@ -15,28 +15,28 @@ public interface I_S_ResourceAssignmentInput extends I_S_ResourceAssignment {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set S_Resource.
 	 *
 	 * @param S_Resource Resource
 	 */
-	void setS_Resource(I_S_ResourceInput S_Resource);
+	void setS_ResourceInput(I_S_ResourceInput S_Resource);
 
 	/**
 	 * Get S_Resource.
 	 *
 	 * @return Resource
 	 */
-	I_S_ResourceInput getS_Resource();
+	I_S_ResourceInput S_Resource();
 
 	/**
 	 * Set ID.

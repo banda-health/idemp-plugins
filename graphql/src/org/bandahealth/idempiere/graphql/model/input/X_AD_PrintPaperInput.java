@@ -1,8 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintPaper;
 import org.compiere.util.Env;
@@ -15,13 +17,14 @@ import org.compiere.util.Env;
  */
 public class X_AD_PrintPaperInput extends X_AD_PrintPaper implements I_AD_PrintPaperInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput DimensionUnits_RL;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mDimensionUnits;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_PrintPaperInput(String ID) {
+	@JsonCreator
+	public X_AD_PrintPaperInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_AD_PrintPaperInput extends X_AD_PrintPaper implements I_AD_PrintP
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,19 +51,9 @@ public class X_AD_PrintPaperInput extends X_AD_PrintPaper implements I_AD_PrintP
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Print Paper.
-	 *
-	 * @param AD_PrintPaper_ID Printer paper definition
-	 */
-
-	public void setAD_PrintPaper_ID(int AD_PrintPaper_ID) {
-		if (get_ID() == 0) {
-			super.setAD_PrintPaper_ID(AD_PrintPaper_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -83,14 +77,15 @@ public class X_AD_PrintPaperInput extends X_AD_PrintPaper implements I_AD_PrintP
 	/**
 	 * Set Dimension Units.
 	 *
-	 * @param DimensionUnits_RL Units of Dimension
+	 * @param DimensionUnits Units of Dimension
 	 */
-	public void setDimensionUnits_RL(I_AD_Ref_ListInput DimensionUnits_RL) {
-		this.DimensionUnits_RL = DimensionUnits_RL;
-		MRefList foreignEntity;
-		if (DimensionUnits_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DimensionUnits_RL.getID())
+	@JsonProperty("DimensionUnits")
+	public void setDimensionUnitsInput(I_AD_Ref_ListInput DimensionUnits) {
+		this.mDimensionUnits = DimensionUnits;
+		MRefList_BH foreignEntity;
+		if (DimensionUnits != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DimensionUnits.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDimensionUnits(foreignEntity.getValue());
 		} else {
@@ -103,7 +98,8 @@ public class X_AD_PrintPaperInput extends X_AD_PrintPaper implements I_AD_PrintP
 	 *
 	 * @return Units of Dimension
 	 */
-	public I_AD_Ref_ListInput getDimensionUnits_RL() {
-		return DimensionUnits_RL;
+	@JsonProperty("DimensionUnits")
+	public I_AD_Ref_ListInput DimensionUnits() {
+		return mDimensionUnits;
 	}
 }

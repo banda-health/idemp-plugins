@@ -15,70 +15,70 @@ public interface I_A_Asset_TransferInput extends I_A_Asset_Transfer {
 	 *
 	 * @param A_Accumdepreciation_A A_Accumdepreciation_A
 	 */
-	void setA_Accumdepreciation_A(I_C_ValidCombinationInput A_Accumdepreciation_A);
+	void setA_Accumdepreciation_AInput(I_C_ValidCombinationInput A_Accumdepreciation_A);
 
 	/**
 	 * Get A_Accumdepreciation_A.
 	 *
 	 * @return A_Accumdepreciation_A
 	 */
-	I_C_ValidCombinationInput getA_Accumdepreciation_A();
+	I_C_ValidCombinationInput A_Accumdepreciation_A();
 
 	/**
 	 * Set A_Accumdepreciation_New_A.
 	 *
 	 * @param A_Accumdepreciation_New_A A_Accumdepreciation_New_A
 	 */
-	void setA_Accumdepreciation_New_A(I_C_ValidCombinationInput A_Accumdepreciation_New_A);
+	void setA_Accumdepreciation_New_AInput(I_C_ValidCombinationInput A_Accumdepreciation_New_A);
 
 	/**
 	 * Get A_Accumdepreciation_New_A.
 	 *
 	 * @return A_Accumdepreciation_New_A
 	 */
-	I_C_ValidCombinationInput getA_Accumdepreciation_New_A();
+	I_C_ValidCombinationInput A_Accumdepreciation_New_A();
 
 	/**
 	 * Set A_Asset_A.
 	 *
 	 * @param A_Asset_A A_Asset_A
 	 */
-	void setA_Asset_A(I_C_ValidCombinationInput A_Asset_A);
+	void setA_Asset_AInput(I_C_ValidCombinationInput A_Asset_A);
 
 	/**
 	 * Get A_Asset_A.
 	 *
 	 * @return A_Asset_A
 	 */
-	I_C_ValidCombinationInput getA_Asset_A();
+	I_C_ValidCombinationInput A_Asset_A();
 
 	/**
 	 * Set A_Asset.
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_Asset(I_A_AssetInput A_Asset);
+	void setA_AssetInput(I_A_AssetInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput getA_Asset();
+	I_A_AssetInput A_Asset();
 
 	/**
 	 * Set A_Asset_New_A.
 	 *
 	 * @param A_Asset_New_A A_Asset_New_A
 	 */
-	void setA_Asset_New_A(I_C_ValidCombinationInput A_Asset_New_A);
+	void setA_Asset_New_AInput(I_C_ValidCombinationInput A_Asset_New_A);
 
 	/**
 	 * Get A_Asset_New_A.
 	 *
 	 * @return A_Asset_New_A
 	 */
-	I_C_ValidCombinationInput getA_Asset_New_A();
+	I_C_ValidCombinationInput A_Asset_New_A();
 
 	/**
 	 * Set ID.
@@ -95,184 +95,184 @@ public interface I_A_Asset_TransferInput extends I_A_Asset_Transfer {
 	String getID();
 
 	/**
-	 * Set A_CapvsExp_RL.
+	 * Set A_CapvsExp.
 	 *
-	 * @param A_CapvsExp_RL A_CapvsExp_RL
+	 * @param A_CapvsExp A_CapvsExp
 	 */
-	void setA_CapvsExp_RL(I_AD_Ref_ListInput A_CapvsExp_RL);
+	void setA_CapvsExpInput(I_AD_Ref_ListInput A_CapvsExp);
 
 	/**
-	 * Get A_CapvsExp_RL.
+	 * Get A_CapvsExp.
 	 *
-	 * @return A_CapvsExp_RL
+	 * @return A_CapvsExp
 	 */
-	I_AD_Ref_ListInput getA_CapvsExp_RL();
+	I_AD_Ref_ListInput A_CapvsExp();
 
 	/**
 	 * Set A_Depreciation_A.
 	 *
 	 * @param A_Depreciation_A A_Depreciation_A
 	 */
-	void setA_Depreciation_A(I_C_ValidCombinationInput A_Depreciation_A);
+	void setA_Depreciation_AInput(I_C_ValidCombinationInput A_Depreciation_A);
 
 	/**
 	 * Get A_Depreciation_A.
 	 *
 	 * @return A_Depreciation_A
 	 */
-	I_C_ValidCombinationInput getA_Depreciation_A();
+	I_C_ValidCombinationInput A_Depreciation_A();
 
 	/**
 	 * Set A_Depreciation_New_A.
 	 *
 	 * @param A_Depreciation_New_A A_Depreciation_New_A
 	 */
-	void setA_Depreciation_New_A(I_C_ValidCombinationInput A_Depreciation_New_A);
+	void setA_Depreciation_New_AInput(I_C_ValidCombinationInput A_Depreciation_New_A);
 
 	/**
 	 * Get A_Depreciation_New_A.
 	 *
 	 * @return A_Depreciation_New_A
 	 */
-	I_C_ValidCombinationInput getA_Depreciation_New_A();
+	I_C_ValidCombinationInput A_Depreciation_New_A();
 
 	/**
 	 * Set A_Disposal_Loss_A.
 	 *
 	 * @param A_Disposal_Loss_A A_Disposal_Loss_A
 	 */
-	void setA_Disposal_Loss_A(I_C_ValidCombinationInput A_Disposal_Loss_A);
+	void setA_Disposal_Loss_AInput(I_C_ValidCombinationInput A_Disposal_Loss_A);
 
 	/**
 	 * Get A_Disposal_Loss_A.
 	 *
 	 * @return A_Disposal_Loss_A
 	 */
-	I_C_ValidCombinationInput getA_Disposal_Loss_A();
+	I_C_ValidCombinationInput A_Disposal_Loss_A();
 
 	/**
 	 * Set A_Disposal_Loss_New_A.
 	 *
 	 * @param A_Disposal_Loss_New_A A_Disposal_Loss_New_A
 	 */
-	void setA_Disposal_Loss_New_A(I_C_ValidCombinationInput A_Disposal_Loss_New_A);
+	void setA_Disposal_Loss_New_AInput(I_C_ValidCombinationInput A_Disposal_Loss_New_A);
 
 	/**
 	 * Get A_Disposal_Loss_New_A.
 	 *
 	 * @return A_Disposal_Loss_New_A
 	 */
-	I_C_ValidCombinationInput getA_Disposal_Loss_New_A();
+	I_C_ValidCombinationInput A_Disposal_Loss_New_A();
 
 	/**
 	 * Set A_Disposal_Revenue_A.
 	 *
 	 * @param A_Disposal_Revenue_A A_Disposal_Revenue_A
 	 */
-	void setA_Disposal_Revenue_A(I_C_ValidCombinationInput A_Disposal_Revenue_A);
+	void setA_Disposal_Revenue_AInput(I_C_ValidCombinationInput A_Disposal_Revenue_A);
 
 	/**
 	 * Get A_Disposal_Revenue_A.
 	 *
 	 * @return A_Disposal_Revenue_A
 	 */
-	I_C_ValidCombinationInput getA_Disposal_Revenue_A();
+	I_C_ValidCombinationInput A_Disposal_Revenue_A();
 
 	/**
 	 * Set A_Disposal_Revenue_New_A.
 	 *
 	 * @param A_Disposal_Revenue_New_A A_Disposal_Revenue_New_A
 	 */
-	void setA_Disposal_Revenue_New_A(I_C_ValidCombinationInput A_Disposal_Revenue_New_A);
+	void setA_Disposal_Revenue_New_AInput(I_C_ValidCombinationInput A_Disposal_Revenue_New_A);
 
 	/**
 	 * Get A_Disposal_Revenue_New_A.
 	 *
 	 * @return A_Disposal_Revenue_New_A
 	 */
-	I_C_ValidCombinationInput getA_Disposal_Revenue_New_A();
+	I_C_ValidCombinationInput A_Disposal_Revenue_New_A();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set C_AcctSchema.
 	 *
 	 * @param C_AcctSchema Rules for accounting
 	 */
-	void setC_AcctSchema(I_C_AcctSchemaInput C_AcctSchema);
+	void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema);
 
 	/**
 	 * Get C_AcctSchema.
 	 *
 	 * @return Rules for accounting
 	 */
-	I_C_AcctSchemaInput getC_AcctSchema();
+	I_C_AcctSchemaInput C_AcctSchema();
 
 	/**
 	 * Set C_Period.
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	void setC_Period(I_C_PeriodInput C_Period);
+	void setC_PeriodInput(I_C_PeriodInput C_Period);
 
 	/**
 	 * Get C_Period.
 	 *
 	 * @return Period of the Calendar
 	 */
-	I_C_PeriodInput getC_Period();
+	I_C_PeriodInput C_Period();
 
 	/**
-	 * Set DocAction_RL.
+	 * Set DocAction.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL);
+	void setDocActionInput(I_AD_Ref_ListInput DocAction);
 
 	/**
-	 * Get DocAction_RL.
+	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput getDocAction_RL();
+	I_AD_Ref_ListInput DocAction();
 
 	/**
-	 * Set DocStatus_RL.
+	 * Set DocStatus.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL);
+	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
 
 	/**
-	 * Get DocStatus_RL.
+	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput getDocStatus_RL();
+	I_AD_Ref_ListInput DocStatus();
 
 	/**
-	 * Set PostingType_RL.
+	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL);
+	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
 
 	/**
-	 * Get PostingType_RL.
+	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput getPostingType_RL();
+	I_AD_Ref_ListInput PostingType();
 }

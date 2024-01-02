@@ -1,12 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
 import org.compiere.model.Query;
-import org.compiere.model.X_M_PriceList_Version;
 import org.compiere.util.Env;
 
 /**
@@ -15,17 +16,18 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_PriceList_VersionInput extends X_M_PriceList_Version implements I_M_PriceList_VersionInput {
+public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M_PriceList_VersionInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_M_DiscountSchemaInput M_DiscountSchema;
-	 private I_M_PriceListInput M_PriceList;
-	 private I_M_PriceList_VersionInput M_Pricelist_Version_Base;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_M_DiscountSchemaInput mM_DiscountSchema;
+	 private I_M_PriceListInput mM_PriceList;
+	 private I_M_PriceList_VersionInput mM_Pricelist_Version_Base;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_M_PriceList_VersionInput(String ID) {
+	@JsonCreator
+	public X_M_PriceList_VersionInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -35,14 +37,15 @@ public class X_M_PriceList_VersionInput extends X_M_PriceList_Version implements
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -51,8 +54,9 @@ public class X_M_PriceList_VersionInput extends X_M_PriceList_Version implements
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -60,16 +64,17 @@ public class X_M_PriceList_VersionInput extends X_M_PriceList_Version implements
 	 *
 	 * @param M_DiscountSchema Schema to calculate the trade discount percentage
 	 */
-	public void setM_DiscountSchema(I_M_DiscountSchemaInput M_DiscountSchema) {
-		this.M_DiscountSchema = M_DiscountSchema;
+	@JsonProperty("M_DiscountSchema")
+	public void setM_DiscountSchemaInput(I_M_DiscountSchemaInput M_DiscountSchema) {
+		this.mM_DiscountSchema = M_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (M_DiscountSchema != null &&
 				(foreignEntity = new Query(getCtx(), MDiscountSchema.Table_Name, MDiscountSchema.COLUMNNAME_M_DiscountSchema_UU + "=?", get_TrxName())
 						.setParameters(M_DiscountSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_DiscountSchema_ID(foreignEntity.get_ID());
+			super.setM_DiscountSchema_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_DiscountSchema_ID(0);
+			super.setM_DiscountSchema_ID(0);
 		}
 	}
 
@@ -78,19 +83,9 @@ public class X_M_PriceList_VersionInput extends X_M_PriceList_Version implements
 	 *
 	 * @return Schema to calculate the trade discount percentage
 	 */
-	public I_M_DiscountSchemaInput getM_DiscountSchema() {
-		return M_DiscountSchema;
-	}
-	/**
-	 * Set Discount Schema.
-	 *
-	 * @param M_DiscountSchema_ID Schema to calculate the trade discount percentage
-	 */
-
-	public void setM_DiscountSchema_ID(int M_DiscountSchema_ID) {
-		if (get_ID() == 0) {
-			super.setM_DiscountSchema_ID(M_DiscountSchema_ID);
-		}
+	@JsonProperty("M_DiscountSchema")
+	public I_M_DiscountSchemaInput M_DiscountSchema() {
+		return mM_DiscountSchema;
 	}
 
 	/**
@@ -98,14 +93,15 @@ public class X_M_PriceList_VersionInput extends X_M_PriceList_Version implements
 	 *
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
-	public void setM_PriceList(I_M_PriceListInput M_PriceList) {
-		this.M_PriceList = M_PriceList;
+	@JsonProperty("M_PriceList")
+	public void setM_PriceListInput(I_M_PriceListInput M_PriceList) {
+		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (get_ID() == 0 &&M_PriceList != null &&
 				(foreignEntity = new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_M_PriceList_UU + "=?", get_TrxName())
 						.setParameters(M_PriceList.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_PriceList_ID(foreignEntity.get_ID());
+			super.setM_PriceList_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -114,19 +110,9 @@ public class X_M_PriceList_VersionInput extends X_M_PriceList_Version implements
 	 *
 	 * @return Unique identifier of a Price List
 	 */
-	public I_M_PriceListInput getM_PriceList() {
-		return M_PriceList;
-	}
-	/**
-	 * Set Price List.
-	 *
-	 * @param M_PriceList_ID Unique identifier of a Price List
-	 */
-
-	public void setM_PriceList_ID(int M_PriceList_ID) {
-		if (get_ID() == 0) {
-			super.setM_PriceList_ID(M_PriceList_ID);
-		}
+	@JsonProperty("M_PriceList")
+	public I_M_PriceListInput M_PriceList() {
+		return mM_PriceList;
 	}
 
 	/**
@@ -134,16 +120,17 @@ public class X_M_PriceList_VersionInput extends X_M_PriceList_Version implements
 	 *
 	 * @param M_Pricelist_Version_Base Source for Price list calculations
 	 */
-	public void setM_Pricelist_Version_Base(I_M_PriceList_VersionInput M_Pricelist_Version_Base) {
-		this.M_Pricelist_Version_Base = M_Pricelist_Version_Base;
+	@JsonProperty("M_Pricelist_Version_Base")
+	public void setM_Pricelist_Version_BaseInput(I_M_PriceList_VersionInput M_Pricelist_Version_Base) {
+		this.mM_Pricelist_Version_Base = M_Pricelist_Version_Base;
 		MPriceListVersion foreignEntity;
 		if (M_Pricelist_Version_Base != null &&
 				(foreignEntity = new Query(getCtx(), MPriceListVersion.Table_Name, MPriceListVersion.COLUMNNAME_M_PriceList_Version_UU + "=?", get_TrxName())
 						.setParameters(M_Pricelist_Version_Base.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Pricelist_Version_Base_ID(foreignEntity.get_ID());
+			super.setM_Pricelist_Version_Base_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_Pricelist_Version_Base_ID(0);
+			super.setM_Pricelist_Version_Base_ID(0);
 		}
 	}
 
@@ -152,30 +139,9 @@ public class X_M_PriceList_VersionInput extends X_M_PriceList_Version implements
 	 *
 	 * @return Source for Price list calculations
 	 */
-	public I_M_PriceList_VersionInput getM_Pricelist_Version_Base() {
-		return M_Pricelist_Version_Base;
-	}
-	/**
-	 * Set Base Price List.
-	 *
-	 * @param M_Pricelist_Version_Base_ID Source for Price list calculations
-	 */
-
-	public void setM_Pricelist_Version_Base_ID(int M_Pricelist_Version_Base_ID) {
-		if (get_ID() == 0) {
-			super.setM_Pricelist_Version_Base_ID(M_Pricelist_Version_Base_ID);
-		}
-	}
-	/**
-	 * Set Price List Version.
-	 *
-	 * @param M_PriceList_Version_ID Identifies a unique instance of a Price List
-	 */
-
-	public void setM_PriceList_Version_ID(int M_PriceList_Version_ID) {
-		if (get_ID() == 0) {
-			super.setM_PriceList_Version_ID(M_PriceList_Version_ID);
-		}
+	@JsonProperty("M_Pricelist_Version_Base")
+	public I_M_PriceList_VersionInput M_Pricelist_Version_Base() {
+		return mM_Pricelist_Version_Base;
 	}
 
 	/**

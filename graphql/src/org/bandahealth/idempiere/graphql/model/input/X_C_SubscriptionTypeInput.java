@@ -1,8 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_SubscriptionType;
 import org.compiere.util.Env;
@@ -15,13 +17,14 @@ import org.compiere.util.Env;
  */
 public class X_C_SubscriptionTypeInput extends X_C_SubscriptionType implements I_C_SubscriptionTypeInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput FrequencyType_RL;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mFrequencyType;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_SubscriptionTypeInput(String ID) {
+	@JsonCreator
+	public X_C_SubscriptionTypeInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_C_SubscriptionTypeInput extends X_C_SubscriptionType implements I
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,19 +51,9 @@ public class X_C_SubscriptionTypeInput extends X_C_SubscriptionType implements I
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Subscription Type.
-	 *
-	 * @param C_SubscriptionType_ID Type of subscription
-	 */
-
-	public void setC_SubscriptionType_ID(int C_SubscriptionType_ID) {
-		if (get_ID() == 0) {
-			super.setC_SubscriptionType_ID(C_SubscriptionType_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -83,14 +77,15 @@ public class X_C_SubscriptionTypeInput extends X_C_SubscriptionType implements I
 	/**
 	 * Set Frequency Type.
 	 *
-	 * @param FrequencyType_RL Frequency of event
+	 * @param FrequencyType Frequency of event
 	 */
-	public void setFrequencyType_RL(I_AD_Ref_ListInput FrequencyType_RL) {
-		this.FrequencyType_RL = FrequencyType_RL;
-		MRefList foreignEntity;
-		if (FrequencyType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(FrequencyType_RL.getID())
+	@JsonProperty("FrequencyType")
+	public void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType) {
+		this.mFrequencyType = FrequencyType;
+		MRefList_BH foreignEntity;
+		if (FrequencyType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(FrequencyType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setFrequencyType(foreignEntity.getValue());
 		} else {
@@ -103,7 +98,8 @@ public class X_C_SubscriptionTypeInput extends X_C_SubscriptionType implements I
 	 *
 	 * @return Frequency of event
 	 */
-	public I_AD_Ref_ListInput getFrequencyType_RL() {
-		return FrequencyType_RL;
+	@JsonProperty("FrequencyType")
+	public I_AD_Ref_ListInput FrequencyType() {
+		return mFrequencyType;
 	}
 }

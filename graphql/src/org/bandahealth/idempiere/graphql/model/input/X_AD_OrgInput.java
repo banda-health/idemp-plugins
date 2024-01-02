@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MOrg;
 import org.compiere.model.MReplicationStrategy;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Org;
 import org.compiere.util.Env;
 
 /**
@@ -12,14 +14,15 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_OrgInput extends X_AD_Org implements I_AD_OrgInput {
+public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 
-	 private I_AD_ReplicationStrategyInput AD_ReplicationStrategy;
+	 private I_AD_ReplicationStrategyInput mAD_ReplicationStrategy;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_OrgInput(String ID) {
+	@JsonCreator
+	public X_AD_OrgInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -47,16 +50,17 @@ public class X_AD_OrgInput extends X_AD_Org implements I_AD_OrgInput {
 	 *
 	 * @param AD_ReplicationStrategy Data Replication Strategy
 	 */
-	public void setAD_ReplicationStrategy(I_AD_ReplicationStrategyInput AD_ReplicationStrategy) {
-		this.AD_ReplicationStrategy = AD_ReplicationStrategy;
+	@JsonProperty("AD_ReplicationStrategy")
+	public void setAD_ReplicationStrategyInput(I_AD_ReplicationStrategyInput AD_ReplicationStrategy) {
+		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
 		MReplicationStrategy foreignEntity;
 		if (AD_ReplicationStrategy != null &&
 				(foreignEntity = new Query(getCtx(), MReplicationStrategy.Table_Name, MReplicationStrategy.COLUMNNAME_AD_ReplicationStrategy_UU + "=?", get_TrxName())
 						.setParameters(AD_ReplicationStrategy.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
+			super.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_ReplicationStrategy_ID(0);
+			super.setAD_ReplicationStrategy_ID(0);
 		}
 	}
 
@@ -65,7 +69,8 @@ public class X_AD_OrgInput extends X_AD_Org implements I_AD_OrgInput {
 	 *
 	 * @return Data Replication Strategy
 	 */
-	public I_AD_ReplicationStrategyInput getAD_ReplicationStrategy() {
-		return AD_ReplicationStrategy;
+	@JsonProperty("AD_ReplicationStrategy")
+	public I_AD_ReplicationStrategyInput AD_ReplicationStrategy() {
+		return mAD_ReplicationStrategy;
 	}
 }

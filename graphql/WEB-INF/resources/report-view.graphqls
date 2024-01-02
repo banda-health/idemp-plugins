@@ -1,3 +1,0 @@
-type ReportView {
-  id: ID!
-}

@@ -35,11 +35,11 @@ type PA_DocumentStatus {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityType!
+	AD_EntityType: AD_EntityType!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -54,7 +54,7 @@ type PA_DocumentStatus {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Fully qualified SQL WHERE clause
 	WhereClause: String
 }
@@ -77,7 +77,7 @@ input PA_DocumentStatusInput {
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
-	EntityType: AD_EntityTypeInput
+	AD_EntityType: AD_EntityTypeInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

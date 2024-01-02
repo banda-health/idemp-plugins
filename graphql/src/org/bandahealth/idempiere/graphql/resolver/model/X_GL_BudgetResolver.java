@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_GL_Budget;
 import org.dataloader.DataLoader;
 
@@ -27,13 +27,17 @@ public class X_GL_BudgetResolver extends POResolver<X_GL_Budget> implements Grap
 			put("A", "64d20b2c-6615-4ea0-a1d4-b518a7199159");
 		}
 	};
-	public CompletableFuture<MRefList> BudgetStatus_RL(X_GL_Budget entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BudgetStatus(X_GL_Budget entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBudgetStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BUDGETSTATUS_UUIDS_BY_VALUE.get(entity.getBudgetStatus()));
+	}
+
+	public Boolean IsPrimary(X_GL_Budget entity, DataFetchingEnvironment environment) {
+		return entity.isPrimary();
 	}
 
 }

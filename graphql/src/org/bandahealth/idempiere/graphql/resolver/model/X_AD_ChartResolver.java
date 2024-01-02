@@ -2,12 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MChart;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -29,11 +29,11 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 			put("V", "f158efbb-ddb9-4dd4-b630-adefad4ab103");
 		}
 	};
-	public CompletableFuture<MRefList> ChartOrientation_RL(MChart entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ChartOrientation(MChart entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getChartOrientation())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CHARTORIENTATION_UUIDS_BY_VALUE.get(entity.getChartOrientation()));
 	}
@@ -54,11 +54,11 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 			put("RC", "2afdaa43-fd01-441c-9ff6-2a9fbcd88ff8");
 		}
 	};
-	public CompletableFuture<MRefList> ChartType_RL(MChart entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ChartType(MChart entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getChartType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CHARTTYPE_UUIDS_BY_VALUE.get(entity.getChartType()));
 	}
@@ -94,6 +94,14 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
+	public Boolean IsDisplayLegend(MChart entity, DataFetchingEnvironment environment) {
+		return entity.isDisplayLegend();
+	}
+
+	public Boolean IsTimeSeries(MChart entity, DataFetchingEnvironment environment) {
+		return entity.isTimeSeries();
+	}
+
 	static Map<String, String> TIMEUNIT_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("D", "e1da3032-8970-4e61-8c6c-1732ff2cdf0f");
@@ -103,11 +111,11 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 			put("Y", "d3384136-4384-42a6-9e14-473d05c608bc");
 		}
 	};
-	public CompletableFuture<MRefList> TimeUnit_RL(MChart entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> TimeUnit(MChart entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getTimeUnit())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(TIMEUNIT_UUIDS_BY_VALUE.get(entity.getTimeUnit()));
 	}

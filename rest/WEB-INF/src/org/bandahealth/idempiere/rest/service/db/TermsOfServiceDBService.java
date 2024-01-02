@@ -34,7 +34,7 @@ public class TermsOfServiceDBService {
 		MUser_BH user = new MUser_BH(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()), null);
 		if (user != null) {
 			user.setBH_HasAcceptedTermsOfUse(accept);
-			user.setBH_TOSDateAccepted(new Timestamp(System.currentTimeMillis()));
+			user.setBH_TOS_DATE_ACCEPTED(new Timestamp(System.currentTimeMillis()));
 			user.save();
 		}
 

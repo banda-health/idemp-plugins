@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
@@ -23,7 +24,6 @@ import org.compiere.model.MAssetAddition;
 import org.compiere.model.MAssetChange;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MLocation;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_A_Asset_Retirement;
 import org.compiere.model.X_A_Depreciation_Table_Header;
 import org.dataloader.DataLoader;
@@ -137,11 +137,11 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 			put("YR", "d34572f8-bbc3-4768-9662-8ae6f48f7398");
 		}
 	};
-	public CompletableFuture<MRefList> A_Depreciation_Manual_Period_RL(MAssetChange entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Depreciation_Manual_Period(MAssetChange entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Depreciation_Manual_Period())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_DEPRECIATION_MANUAL_PERIOD_UUIDS_BY_VALUE.get(entity.getA_Depreciation_Manual_Period()));
 	}
@@ -213,11 +213,11 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 			put("YBF", "2e54c6d4-f45a-474c-b4ab-6c7679f913dd");
 		}
 	};
-	public CompletableFuture<MRefList> A_Reval_Cal_Method_RL(MAssetChange entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Reval_Cal_Method(MAssetChange entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Reval_Cal_Method())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_REVAL_CAL_METHOD_UUIDS_BY_VALUE.get(entity.getA_Reval_Cal_Method()));
 	}
@@ -330,13 +330,33 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 			put("USE", "a50cdeeb-65f2-4d05-b43c-efd5a39d0cdb");
 		}
 	};
-	public CompletableFuture<MRefList> ChangeType_RL(MAssetChange entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ChangeType(MAssetChange entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getChangeType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CHANGETYPE_UUIDS_BY_VALUE.get(entity.getChangeType()));
+	}
+
+	public Boolean IsDepreciated(MAssetChange entity, DataFetchingEnvironment environment) {
+		return entity.isDepreciated();
+	}
+
+	public Boolean IsDisposed(MAssetChange entity, DataFetchingEnvironment environment) {
+		return entity.isDisposed();
+	}
+
+	public Boolean IsFullyDepreciated(MAssetChange entity, DataFetchingEnvironment environment) {
+		return entity.isFullyDepreciated();
+	}
+
+	public Boolean IsInPosession(MAssetChange entity, DataFetchingEnvironment environment) {
+		return entity.isInPosession();
+	}
+
+	public Boolean IsOwned(MAssetChange entity, DataFetchingEnvironment environment) {
+		return entity.isOwned();
 	}
 
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -348,11 +368,11 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList> PostingType_RL(MAssetChange entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(MAssetChange entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
 	}

@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
@@ -8,10 +10,10 @@ import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCashBook;
 import org.compiere.model.MOrg;
+import org.compiere.model.MPOS;
 import org.compiere.model.MPOSKeyLayout;
 import org.compiere.model.MPriceList;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_POS;
 import org.compiere.util.Env;
 
 /**
@@ -20,24 +22,25 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
+public class X_C_POSInput extends MPOS implements I_C_POSInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_UserInput SalesRep;
-	 private I_C_BPartnerInput C_BPartnerCashTrx;
-	 private I_C_BankAccountInput C_BankAccount;
-	 private I_C_CashBookInput C_CashBook;
-	 private I_C_DocTypeInput C_DocType;
-	 private I_C_POSKeyLayoutInput C_POSKeyLayout;
-	 private I_C_POSKeyLayoutInput OSK_KeyLayout;
-	 private I_C_POSKeyLayoutInput OSNP_KeyLayout;
-	 private I_M_PriceListInput M_PriceList;
-	 private I_M_WarehouseInput M_Warehouse;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_UserInput mSalesRep;
+	 private I_C_BPartnerInput mC_BPartnerCashTrx;
+	 private I_C_BankAccountInput mC_BankAccount;
+	 private I_C_CashBookInput mC_CashBook;
+	 private I_C_DocTypeInput mC_DocType;
+	 private I_C_POSKeyLayoutInput mC_POSKeyLayout;
+	 private I_C_POSKeyLayoutInput mOSK_KeyLayout;
+	 private I_C_POSKeyLayoutInput mOSNP_KeyLayout;
+	 private I_M_PriceListInput mM_PriceList;
+	 private I_M_WarehouseInput mM_Warehouse;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_POSInput(String ID) {
+	@JsonCreator
+	public X_C_POSInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -47,14 +50,15 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -63,8 +67,9 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -72,16 +77,17 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @param C_BankAccount Account at the Bank
 	 */
-	public void setC_BankAccount(I_C_BankAccountInput C_BankAccount) {
-		this.C_BankAccount = C_BankAccount;
+	@JsonProperty("C_BankAccount")
+	public void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount) {
+		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
 				(foreignEntity = new Query(getCtx(), MBankAccount_BH.Table_Name, MBankAccount_BH.COLUMNNAME_C_BankAccount_UU + "=?", get_TrxName())
 						.setParameters(C_BankAccount.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BankAccount_ID(foreignEntity.get_ID());
+			super.setC_BankAccount_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BankAccount_ID(0);
+			super.setC_BankAccount_ID(0);
 		}
 	}
 
@@ -90,8 +96,9 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @return Account at the Bank
 	 */
-	public I_C_BankAccountInput getC_BankAccount() {
-		return C_BankAccount;
+	@JsonProperty("C_BankAccount")
+	public I_C_BankAccountInput C_BankAccount() {
+		return mC_BankAccount;
 	}
 
 	/**
@@ -99,16 +106,17 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @param C_BPartnerCashTrx Business Partner used for creating new Business Partners on the fly
 	 */
-	public void setC_BPartnerCashTrx(I_C_BPartnerInput C_BPartnerCashTrx) {
-		this.C_BPartnerCashTrx = C_BPartnerCashTrx;
+	@JsonProperty("C_BPartnerCashTrx")
+	public void setC_BPartnerCashTrxInput(I_C_BPartnerInput C_BPartnerCashTrx) {
+		this.mC_BPartnerCashTrx = C_BPartnerCashTrx;
 		MBPartner_BH foreignEntity;
 		if (C_BPartnerCashTrx != null &&
 				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
 						.setParameters(C_BPartnerCashTrx.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartnerCashTrx_ID(foreignEntity.get_ID());
+			super.setC_BPartnerCashTrx_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BPartnerCashTrx_ID(0);
+			super.setC_BPartnerCashTrx_ID(0);
 		}
 	}
 
@@ -117,19 +125,9 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @return Business Partner used for creating new Business Partners on the fly
 	 */
-	public I_C_BPartnerInput getC_BPartnerCashTrx() {
-		return C_BPartnerCashTrx;
-	}
-	/**
-	 * Set Template B.Partner.
-	 *
-	 * @param C_BPartnerCashTrx_ID Business Partner used for creating new Business Partners on the fly
-	 */
-
-	public void setC_BPartnerCashTrx_ID(int C_BPartnerCashTrx_ID) {
-		if (get_ID() == 0) {
-			super.setC_BPartnerCashTrx_ID(C_BPartnerCashTrx_ID);
-		}
+	@JsonProperty("C_BPartnerCashTrx")
+	public I_C_BPartnerInput C_BPartnerCashTrx() {
+		return mC_BPartnerCashTrx;
 	}
 
 	/**
@@ -137,16 +135,17 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @param C_CashBook Cash Book for recording petty cash transactions
 	 */
-	public void setC_CashBook(I_C_CashBookInput C_CashBook) {
-		this.C_CashBook = C_CashBook;
+	@JsonProperty("C_CashBook")
+	public void setC_CashBookInput(I_C_CashBookInput C_CashBook) {
+		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
 		if (C_CashBook != null &&
 				(foreignEntity = new Query(getCtx(), MCashBook.Table_Name, MCashBook.COLUMNNAME_C_CashBook_UU + "=?", get_TrxName())
 						.setParameters(C_CashBook.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_CashBook_ID(foreignEntity.get_ID());
+			super.setC_CashBook_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_CashBook_ID(0);
+			super.setC_CashBook_ID(0);
 		}
 	}
 
@@ -155,8 +154,9 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @return Cash Book for recording petty cash transactions
 	 */
-	public I_C_CashBookInput getC_CashBook() {
-		return C_CashBook;
+	@JsonProperty("C_CashBook")
+	public I_C_CashBookInput C_CashBook() {
+		return mC_CashBook;
 	}
 
 	/**
@@ -164,16 +164,17 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	public void setC_DocType(I_C_DocTypeInput C_DocType) {
-		this.C_DocType = C_DocType;
+	@JsonProperty("C_DocType")
+	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
 				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_DocType_ID(foreignEntity.get_ID());
+			super.setC_DocType_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_DocType_ID(0);
+			super.setC_DocType_ID(0);
 		}
 	}
 
@@ -182,19 +183,9 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @return Document type or rules
 	 */
-	public I_C_DocTypeInput getC_DocType() {
-		return C_DocType;
-	}
-	/**
-	 * Set POS Terminal.
-	 *
-	 * @param C_POS_ID Point of Sales Terminal
-	 */
-
-	public void setC_POS_ID(int C_POS_ID) {
-		if (get_ID() == 0) {
-			super.setC_POS_ID(C_POS_ID);
-		}
+	@JsonProperty("C_DocType")
+	public I_C_DocTypeInput C_DocType() {
+		return mC_DocType;
 	}
 
 	/**
@@ -220,16 +211,17 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @param C_POSKeyLayout POS Function Key Layout
 	 */
-	public void setC_POSKeyLayout(I_C_POSKeyLayoutInput C_POSKeyLayout) {
-		this.C_POSKeyLayout = C_POSKeyLayout;
+	@JsonProperty("C_POSKeyLayout")
+	public void setC_POSKeyLayoutInput(I_C_POSKeyLayoutInput C_POSKeyLayout) {
+		this.mC_POSKeyLayout = C_POSKeyLayout;
 		MPOSKeyLayout foreignEntity;
 		if (C_POSKeyLayout != null &&
 				(foreignEntity = new Query(getCtx(), MPOSKeyLayout.Table_Name, MPOSKeyLayout.COLUMNNAME_C_POSKeyLayout_UU + "=?", get_TrxName())
 						.setParameters(C_POSKeyLayout.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_POSKeyLayout_ID(foreignEntity.get_ID());
+			super.setC_POSKeyLayout_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_POSKeyLayout_ID(0);
+			super.setC_POSKeyLayout_ID(0);
 		}
 	}
 
@@ -238,8 +230,9 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @return POS Function Key Layout
 	 */
-	public I_C_POSKeyLayoutInput getC_POSKeyLayout() {
-		return C_POSKeyLayout;
+	@JsonProperty("C_POSKeyLayout")
+	public I_C_POSKeyLayoutInput C_POSKeyLayout() {
+		return mC_POSKeyLayout;
 	}
 
 	/**
@@ -247,16 +240,17 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
-	public void setM_PriceList(I_M_PriceListInput M_PriceList) {
-		this.M_PriceList = M_PriceList;
+	@JsonProperty("M_PriceList")
+	public void setM_PriceListInput(I_M_PriceListInput M_PriceList) {
+		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (M_PriceList != null &&
 				(foreignEntity = new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_M_PriceList_UU + "=?", get_TrxName())
 						.setParameters(M_PriceList.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_PriceList_ID(foreignEntity.get_ID());
+			super.setM_PriceList_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_PriceList_ID(0);
+			super.setM_PriceList_ID(0);
 		}
 	}
 
@@ -265,8 +259,9 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @return Unique identifier of a Price List
 	 */
-	public I_M_PriceListInput getM_PriceList() {
-		return M_PriceList;
+	@JsonProperty("M_PriceList")
+	public I_M_PriceListInput M_PriceList() {
+		return mM_PriceList;
 	}
 
 	/**
@@ -274,16 +269,17 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
-	public void setM_Warehouse(I_M_WarehouseInput M_Warehouse) {
-		this.M_Warehouse = M_Warehouse;
+	@JsonProperty("M_Warehouse")
+	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
 				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
 						.setParameters(M_Warehouse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Warehouse_ID(foreignEntity.get_ID());
+			super.setM_Warehouse_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_Warehouse_ID(0);
+			super.setM_Warehouse_ID(0);
 		}
 	}
 
@@ -292,8 +288,9 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @return Storage Warehouse and Service Point
 	 */
-	public I_M_WarehouseInput getM_Warehouse() {
-		return M_Warehouse;
+	@JsonProperty("M_Warehouse")
+	public I_M_WarehouseInput M_Warehouse() {
+		return mM_Warehouse;
 	}
 
 	/**
@@ -301,16 +298,17 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @param OSK_KeyLayout The key layout to use for on screen keyboard for text fields.
 	 */
-	public void setOSK_KeyLayout(I_C_POSKeyLayoutInput OSK_KeyLayout) {
-		this.OSK_KeyLayout = OSK_KeyLayout;
+	@JsonProperty("OSK_KeyLayout")
+	public void setOSK_KeyLayoutInput(I_C_POSKeyLayoutInput OSK_KeyLayout) {
+		this.mOSK_KeyLayout = OSK_KeyLayout;
 		MPOSKeyLayout foreignEntity;
 		if (OSK_KeyLayout != null &&
 				(foreignEntity = new Query(getCtx(), MPOSKeyLayout.Table_Name, MPOSKeyLayout.COLUMNNAME_C_POSKeyLayout_UU + "=?", get_TrxName())
 						.setParameters(OSK_KeyLayout.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setOSK_KeyLayout_ID(foreignEntity.get_ID());
+			super.setOSK_KeyLayout_ID(foreignEntity.get_ID());
 		} else {
-			this.setOSK_KeyLayout_ID(0);
+			super.setOSK_KeyLayout_ID(0);
 		}
 	}
 
@@ -319,19 +317,9 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @return The key layout to use for on screen keyboard for text fields.
 	 */
-	public I_C_POSKeyLayoutInput getOSK_KeyLayout() {
-		return OSK_KeyLayout;
-	}
-	/**
-	 * Set On Screen Keyboard layout.
-	 *
-	 * @param OSK_KeyLayout_ID The key layout to use for on screen keyboard for text fields.
-	 */
-
-	public void setOSK_KeyLayout_ID(int OSK_KeyLayout_ID) {
-		if (get_ID() == 0) {
-			super.setOSK_KeyLayout_ID(OSK_KeyLayout_ID);
-		}
+	@JsonProperty("OSK_KeyLayout")
+	public I_C_POSKeyLayoutInput OSK_KeyLayout() {
+		return mOSK_KeyLayout;
 	}
 
 	/**
@@ -339,16 +327,17 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @param OSNP_KeyLayout The key layout to use for on screen number pad for numeric fields.
 	 */
-	public void setOSNP_KeyLayout(I_C_POSKeyLayoutInput OSNP_KeyLayout) {
-		this.OSNP_KeyLayout = OSNP_KeyLayout;
+	@JsonProperty("OSNP_KeyLayout")
+	public void setOSNP_KeyLayoutInput(I_C_POSKeyLayoutInput OSNP_KeyLayout) {
+		this.mOSNP_KeyLayout = OSNP_KeyLayout;
 		MPOSKeyLayout foreignEntity;
 		if (OSNP_KeyLayout != null &&
 				(foreignEntity = new Query(getCtx(), MPOSKeyLayout.Table_Name, MPOSKeyLayout.COLUMNNAME_C_POSKeyLayout_UU + "=?", get_TrxName())
 						.setParameters(OSNP_KeyLayout.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setOSNP_KeyLayout_ID(foreignEntity.get_ID());
+			super.setOSNP_KeyLayout_ID(foreignEntity.get_ID());
 		} else {
-			this.setOSNP_KeyLayout_ID(0);
+			super.setOSNP_KeyLayout_ID(0);
 		}
 	}
 
@@ -357,19 +346,9 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @return The key layout to use for on screen number pad for numeric fields.
 	 */
-	public I_C_POSKeyLayoutInput getOSNP_KeyLayout() {
-		return OSNP_KeyLayout;
-	}
-	/**
-	 * Set On Screen Number Pad layout.
-	 *
-	 * @param OSNP_KeyLayout_ID The key layout to use for on screen number pad for numeric fields.
-	 */
-
-	public void setOSNP_KeyLayout_ID(int OSNP_KeyLayout_ID) {
-		if (get_ID() == 0) {
-			super.setOSNP_KeyLayout_ID(OSNP_KeyLayout_ID);
-		}
+	@JsonProperty("OSNP_KeyLayout")
+	public I_C_POSKeyLayoutInput OSNP_KeyLayout() {
+		return mOSNP_KeyLayout;
 	}
 
 	/**
@@ -377,16 +356,17 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
-	public void setSalesRep(I_AD_UserInput SalesRep) {
-		this.SalesRep = SalesRep;
+	@JsonProperty("SalesRep")
+	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
 				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setSalesRep_ID(foreignEntity.get_ID());
+			super.setSalesRep_ID(foreignEntity.get_ID());
 		} else {
-			this.setSalesRep_ID(0);
+			super.setSalesRep_ID(0);
 		}
 	}
 
@@ -395,18 +375,8 @@ public class X_C_POSInput extends X_C_POS implements I_C_POSInput {
 	 *
 	 * @return Sales Representative or Company Agent
 	 */
-	public I_AD_UserInput getSalesRep() {
-		return SalesRep;
-	}
-	/**
-	 * Set Sales Representative.
-	 *
-	 * @param SalesRep_ID Sales Representative or Company Agent
-	 */
-
-	public void setSalesRep_ID(int SalesRep_ID) {
-		if (get_ID() == 0) {
-			super.setSalesRep_ID(SalesRep_ID);
-		}
+	@JsonProperty("SalesRep")
+	public I_AD_UserInput SalesRep() {
+		return mSalesRep;
 	}
 }

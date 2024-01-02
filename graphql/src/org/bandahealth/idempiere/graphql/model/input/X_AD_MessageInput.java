@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MMessage_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Message;
 import org.compiere.util.Env;
 
 /**
@@ -14,29 +16,19 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_MessageInput extends X_AD_Message implements I_AD_MessageInput {
+public class X_AD_MessageInput extends MMessage_BH implements I_AD_MessageInput {
 
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput MsgType_RL;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mMsgType;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_MessageInput(String ID) {
+	@JsonCreator
+	public X_AD_MessageInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
-	}
-	/**
-	 * Set Message.
-	 *
-	 * @param AD_Message_ID System Message
-	 */
-
-	public void setAD_Message_ID(int AD_Message_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Message_ID(AD_Message_ID);
-		}
 	}
 
 	/**
@@ -62,14 +54,15 @@ public class X_AD_MessageInput extends X_AD_Message implements I_AD_MessageInput
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -78,8 +71,9 @@ public class X_AD_MessageInput extends X_AD_Message implements I_AD_MessageInput
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -87,16 +81,17 @@ public class X_AD_MessageInput extends X_AD_Message implements I_AD_MessageInput
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -105,32 +100,23 @@ public class X_AD_MessageInput extends X_AD_Message implements I_AD_MessageInput
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 
 	/**
 	 * Set Message Type.
 	 *
-	 * @param MsgType_RL Type of message (Informational, Menu or Error)
+	 * @param MsgType Type of message (Informational, Menu or Error)
 	 */
-	public void setMsgType_RL(I_AD_Ref_ListInput MsgType_RL) {
-		this.MsgType_RL = MsgType_RL;
-		MRefList foreignEntity;
-		if (MsgType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(MsgType_RL.getID())
+	@JsonProperty("MsgType")
+	public void setMsgTypeInput(I_AD_Ref_ListInput MsgType) {
+		this.mMsgType = MsgType;
+		MRefList_BH foreignEntity;
+		if (MsgType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(MsgType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setMsgType(foreignEntity.getValue());
 		} else {
@@ -143,7 +129,8 @@ public class X_AD_MessageInput extends X_AD_Message implements I_AD_MessageInput
 	 *
 	 * @return Type of message (Informational, Menu or Error)
 	 */
-	public I_AD_Ref_ListInput getMsgType_RL() {
-		return MsgType_RL;
+	@JsonProperty("MsgType")
+	public I_AD_Ref_ListInput MsgType() {
+		return mMsgType;
 	}
 }

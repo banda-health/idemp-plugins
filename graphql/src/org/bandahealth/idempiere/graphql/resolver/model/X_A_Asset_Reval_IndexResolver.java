@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_A_Asset_Reval_Index;
 import org.dataloader.DataLoader;
 
@@ -28,11 +28,11 @@ public class X_A_Asset_Reval_IndexResolver extends POResolver<X_A_Asset_Reval_In
 			put("R03", "374da497-243b-46a1-a10d-5690d37271c5");
 		}
 	};
-	public CompletableFuture<MRefList> A_Reval_Code_RL(X_A_Asset_Reval_Index entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Reval_Code(X_A_Asset_Reval_Index entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Reval_Code())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_REVAL_CODE_UUIDS_BY_VALUE.get(entity.getA_Reval_Code()));
 	}
@@ -43,11 +43,11 @@ public class X_A_Asset_Reval_IndexResolver extends POResolver<X_A_Asset_Reval_In
 			put("IND", "a3202410-8fba-4439-95fb-de3a1f32c568");
 		}
 	};
-	public CompletableFuture<MRefList> A_Reval_Multiplier_RL(X_A_Asset_Reval_Index entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Reval_Multiplier(X_A_Asset_Reval_Index entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Reval_Multiplier())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_REVAL_MULTIPLIER_UUIDS_BY_VALUE.get(entity.getA_Reval_Multiplier()));
 	}

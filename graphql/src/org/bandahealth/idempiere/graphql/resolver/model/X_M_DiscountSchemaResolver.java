@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MDiscountSchema;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -26,11 +26,11 @@ public class X_M_DiscountSchemaResolver extends POResolver<MDiscountSchema> impl
 			put("L", "e1900a88-3b1d-42d1-bdd1-73c98e8da204");
 		}
 	};
-	public CompletableFuture<MRefList> CumulativeLevel_RL(MDiscountSchema entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CumulativeLevel(MDiscountSchema entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCumulativeLevel())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CUMULATIVELEVEL_UUIDS_BY_VALUE.get(entity.getCumulativeLevel()));
 	}
@@ -43,13 +43,25 @@ public class X_M_DiscountSchemaResolver extends POResolver<MDiscountSchema> impl
 			put("P", "fc11d767-ab3d-44c4-bdcc-6404c2c5af07");
 		}
 	};
-	public CompletableFuture<MRefList> DiscountType_RL(MDiscountSchema entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DiscountType(MDiscountSchema entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDiscountType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DISCOUNTTYPE_UUIDS_BY_VALUE.get(entity.getDiscountType()));
+	}
+
+	public Boolean IsBPartnerFlatDiscount(MDiscountSchema entity, DataFetchingEnvironment environment) {
+		return entity.isBPartnerFlatDiscount();
+	}
+
+	public Boolean IsQuantityBased(MDiscountSchema entity, DataFetchingEnvironment environment) {
+		return entity.isQuantityBased();
+	}
+
+	public Boolean Processing(MDiscountSchema entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

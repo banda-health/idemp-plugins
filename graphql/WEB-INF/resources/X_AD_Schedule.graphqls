@@ -24,7 +24,7 @@ type AD_Schedule {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Cron pattern to define when the process should be invoked.
 	CronPattern: String
 	# Optional short description of the record
@@ -32,7 +32,7 @@ type AD_Schedule {
 	# Frequency of events
 	Frequency: Int
 	# Frequency of event
-	FrequencyType_RL: AD_Ref_List
+	FrequencyType: AD_Ref_List
 	# The record is active in the system
 	IsActive: Boolean!
 	# Do not include processing time for the DateNextRun calculation
@@ -45,13 +45,13 @@ type AD_Schedule {
 	Name: String!
 	RunOnlyOnIP: String
 	# Type of schedule
-	ScheduleType_RL: AD_Ref_List
+	ScheduleType: AD_Ref_List
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Day of the Week
-	WeekDay_RL: AD_Ref_List
+	WeekDay: AD_Ref_List
 }
 
 input AD_ScheduleInput {
@@ -65,7 +65,7 @@ input AD_ScheduleInput {
 	# Frequency of events
 	Frequency: Int
 	# Frequency of event
-	FrequencyType_RL: AD_Ref_ListInput
+	FrequencyType: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Do not include processing time for the DateNextRun calculation
@@ -78,7 +78,7 @@ input AD_ScheduleInput {
 	Name: String
 	RunOnlyOnIP: String
 	# Type of schedule
-	ScheduleType_RL: AD_Ref_ListInput
+	ScheduleType: AD_Ref_ListInput
 	# Day of the Week
-	WeekDay_RL: AD_Ref_ListInput
+	WeekDay: AD_Ref_ListInput
 }

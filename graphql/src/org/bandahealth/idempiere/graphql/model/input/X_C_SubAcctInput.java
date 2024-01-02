@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
@@ -15,13 +17,14 @@ import org.compiere.util.Env;
  */
 public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_ElementValueInput C_ElementValue;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_ElementValueInput mC_ElementValue;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_SubAcctInput(String ID) {
+	@JsonCreator
+	public X_C_SubAcctInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,8 +51,9 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -56,14 +61,15 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	 *
 	 * @param C_ElementValue Account Element
 	 */
-	public void setC_ElementValue(I_C_ElementValueInput C_ElementValue) {
-		this.C_ElementValue = C_ElementValue;
+	@JsonProperty("C_ElementValue")
+	public void setC_ElementValueInput(I_C_ElementValueInput C_ElementValue) {
+		this.mC_ElementValue = C_ElementValue;
 		MElementValue foreignEntity;
 		if (get_ID() == 0 &&C_ElementValue != null &&
 				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
 						.setParameters(C_ElementValue.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_ElementValue_ID(foreignEntity.get_ID());
+			super.setC_ElementValue_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -72,30 +78,9 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	 *
 	 * @return Account Element
 	 */
-	public I_C_ElementValueInput getC_ElementValue() {
-		return C_ElementValue;
-	}
-	/**
-	 * Set Account Element.
-	 *
-	 * @param C_ElementValue_ID Account Element
-	 */
-
-	public void setC_ElementValue_ID(int C_ElementValue_ID) {
-		if (get_ID() == 0) {
-			super.setC_ElementValue_ID(C_ElementValue_ID);
-		}
-	}
-	/**
-	 * Set Sub Account.
-	 *
-	 * @param C_SubAcct_ID Sub account for Element Value
-	 */
-
-	public void setC_SubAcct_ID(int C_SubAcct_ID) {
-		if (get_ID() == 0) {
-			super.setC_SubAcct_ID(C_SubAcct_ID);
-		}
+	@JsonProperty("C_ElementValue")
+	public I_C_ElementValueInput C_ElementValue() {
+		return mC_ElementValue;
 	}
 
 	/**

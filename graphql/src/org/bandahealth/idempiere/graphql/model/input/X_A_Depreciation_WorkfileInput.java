@@ -1,13 +1,15 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAsset;
+import org.compiere.model.MDepreciationWorkfile;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_A_Depreciation_Workfile;
 import org.compiere.model.X_A_FundingMode;
 import org.compiere.util.Env;
 
@@ -17,19 +19,20 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile implements I_A_Depreciation_WorkfileInput {
+public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implements I_A_Depreciation_WorkfileInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput A_Tip_Finantare_RL;
-	 private I_AD_Ref_ListInput PostingType_RL;
-	 private I_A_AssetInput A_Asset;
-	 private I_A_FundingModeInput A_FundingMode;
-	 private I_C_AcctSchemaInput C_AcctSchema;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mA_Tip_Finantare;
+	 private I_AD_Ref_ListInput mPostingType;
+	 private I_A_AssetInput mA_Asset;
+	 private I_A_FundingModeInput mA_FundingMode;
+	 private I_C_AcctSchemaInput mC_AcctSchema;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_A_Depreciation_WorkfileInput(String ID) {
+	@JsonCreator
+	public X_A_Depreciation_WorkfileInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -39,14 +42,15 @@ public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile im
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	public void setA_Asset(I_A_AssetInput A_Asset) {
-		this.A_Asset = A_Asset;
+	@JsonProperty("A_Asset")
+	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (get_ID() == 0 &&A_Asset != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_ID(foreignEntity.get_ID());
+			super.setA_Asset_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -55,19 +59,9 @@ public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile im
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public I_A_AssetInput getA_Asset() {
-		return A_Asset;
-	}
-	/**
-	 * Set Asset.
-	 *
-	 * @param A_Asset_ID Asset used internally or by customers
-	 */
-
-	public void setA_Asset_ID(int A_Asset_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_ID(A_Asset_ID);
-		}
+	@JsonProperty("A_Asset")
+	public I_A_AssetInput A_Asset() {
+		return mA_Asset;
 	}
 	/**
 	 * Set Remaining Amt.
@@ -91,17 +85,6 @@ public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile im
 			super.setA_Asset_Remaining_F(A_Asset_Remaining_F);
 		}
 	}
-	/**
-	 * Set A_Depreciation_Workfile_ID.
-	 *
-	 * @param A_Depreciation_Workfile_ID A_Depreciation_Workfile_ID
-	 */
-
-	public void setA_Depreciation_Workfile_ID(int A_Depreciation_Workfile_ID) {
-		if (get_ID() == 0) {
-			super.setA_Depreciation_Workfile_ID(A_Depreciation_Workfile_ID);
-		}
-	}
 
 	/**
 	 * Set ID.
@@ -120,22 +103,45 @@ public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile im
 	public String getID() {
 		return getA_Depreciation_Workfile_UU();
 	}
+	/**
+	 * Set SL Expense/Period.
+	 *
+	 * @param A_Expense_SL SL Expense/Period
+	 */
+
+	public void setA_Expense_SL(BigDecimal A_Expense_SL) {
+		if (get_ID() == 0) {
+			super.setA_Expense_SL(A_Expense_SL);
+		}
+	}
+	/**
+	 * Set SL Expense/Period (fiscal).
+	 *
+	 * @param A_Expense_SL_F SL Expense/Period (fiscal)
+	 */
+
+	public void setA_Expense_SL_F(BigDecimal A_Expense_SL_F) {
+		if (get_ID() == 0) {
+			super.setA_Expense_SL_F(A_Expense_SL_F);
+		}
+	}
 
 	/**
 	 * Set Asset Funding Mode.
 	 *
 	 * @param A_FundingMode Asset Funding Mode
 	 */
-	public void setA_FundingMode(I_A_FundingModeInput A_FundingMode) {
-		this.A_FundingMode = A_FundingMode;
+	@JsonProperty("A_FundingMode")
+	public void setA_FundingModeInput(I_A_FundingModeInput A_FundingMode) {
+		this.mA_FundingMode = A_FundingMode;
 		X_A_FundingMode foreignEntity;
 		if (A_FundingMode != null &&
 				(foreignEntity = new Query(getCtx(), X_A_FundingMode.Table_Name, X_A_FundingMode.COLUMNNAME_A_FundingMode_UU + "=?", get_TrxName())
 						.setParameters(A_FundingMode.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_FundingMode_ID(foreignEntity.get_ID());
+			super.setA_FundingMode_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_FundingMode_ID(0);
+			super.setA_FundingMode_ID(0);
 		}
 	}
 
@@ -144,21 +150,45 @@ public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile im
 	 *
 	 * @return Asset Funding Mode
 	 */
-	public I_A_FundingModeInput getA_FundingMode() {
-		return A_FundingMode;
+	@JsonProperty("A_FundingMode")
+	public I_A_FundingModeInput A_FundingMode() {
+		return mA_FundingMode;
+	}
+	/**
+	 * Set Life periods (max).
+	 *
+	 * @param A_Life_Period_Max Life periods (max)
+	 */
+
+	public void setA_Life_Period_Max(int A_Life_Period_Max) {
+		if (get_ID() == 0) {
+			super.setA_Life_Period_Max(A_Life_Period_Max);
+		}
+	}
+	/**
+	 * Set Life periods (min).
+	 *
+	 * @param A_Life_Period_Min Life periods (min)
+	 */
+
+	public void setA_Life_Period_Min(int A_Life_Period_Min) {
+		if (get_ID() == 0) {
+			super.setA_Life_Period_Min(A_Life_Period_Min);
+		}
 	}
 
 	/**
 	 * Set Financing Type.
 	 *
-	 * @param A_Tip_Finantare_RL Financing Type
+	 * @param A_Tip_Finantare Financing Type
 	 */
-	public void setA_Tip_Finantare_RL(I_AD_Ref_ListInput A_Tip_Finantare_RL) {
-		this.A_Tip_Finantare_RL = A_Tip_Finantare_RL;
-		MRefList foreignEntity;
-		if (A_Tip_Finantare_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Tip_Finantare_RL.getID())
+	@JsonProperty("A_Tip_Finantare")
+	public void setA_Tip_FinantareInput(I_AD_Ref_ListInput A_Tip_Finantare) {
+		this.mA_Tip_Finantare = A_Tip_Finantare;
+		MRefList_BH foreignEntity;
+		if (A_Tip_Finantare != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(A_Tip_Finantare.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setA_Tip_Finantare(foreignEntity.getValue());
 		} else {
@@ -171,8 +201,9 @@ public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile im
 	 *
 	 * @return Financing Type
 	 */
-	public I_AD_Ref_ListInput getA_Tip_Finantare_RL() {
-		return A_Tip_Finantare_RL;
+	@JsonProperty("A_Tip_Finantare")
+	public I_AD_Ref_ListInput A_Tip_Finantare() {
+		return mA_Tip_Finantare;
 	}
 
 	/**
@@ -180,16 +211,17 @@ public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile im
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Org_ID(0);
+			super.setAD_Org_ID(0);
 		}
 	}
 
@@ -198,8 +230,9 @@ public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile im
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -207,14 +240,15 @@ public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile im
 	 *
 	 * @param C_AcctSchema Rules for accounting
 	 */
-	public void setC_AcctSchema(I_C_AcctSchemaInput C_AcctSchema) {
-		this.C_AcctSchema = C_AcctSchema;
+	@JsonProperty("C_AcctSchema")
+	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (get_ID() == 0 &&C_AcctSchema != null &&
 				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			super.setC_AcctSchema_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -223,32 +257,23 @@ public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile im
 	 *
 	 * @return Rules for accounting
 	 */
-	public I_C_AcctSchemaInput getC_AcctSchema() {
-		return C_AcctSchema;
-	}
-	/**
-	 * Set Accounting Schema.
-	 *
-	 * @param C_AcctSchema_ID Rules for accounting
-	 */
-
-	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
-		if (get_ID() == 0) {
-			super.setC_AcctSchema_ID(C_AcctSchema_ID);
-		}
+	@JsonProperty("C_AcctSchema")
+	public I_C_AcctSchemaInput C_AcctSchema() {
+		return mC_AcctSchema;
 	}
 
 	/**
 	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	public void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL) {
-		this.PostingType_RL = PostingType_RL;
-		MRefList foreignEntity;
-		if (PostingType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType_RL.getID())
+	@JsonProperty("PostingType")
+	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+		this.mPostingType = PostingType;
+		MRefList_BH foreignEntity;
+		if (PostingType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PostingType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPostingType(foreignEntity.getValue());
 		} else {
@@ -261,7 +286,8 @@ public class X_A_Depreciation_WorkfileInput extends X_A_Depreciation_Workfile im
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	public I_AD_Ref_ListInput getPostingType_RL() {
-		return PostingType_RL;
+	@JsonProperty("PostingType")
+	public I_AD_Ref_ListInput PostingType() {
+		return mPostingType;
 	}
 }

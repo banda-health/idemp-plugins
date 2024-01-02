@@ -43,14 +43,14 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		// Make sure a warehouse is defaulted
-		if (!valueObject.getWarehouse().isBH_IsDefaultWarehouse()) {
+		if (!valueObject.getWarehouse().isBH_DefaultWarehouse()) {
 			// See if any warehouse in the DB is default for this client
 			List<MWarehouse_BH> clientWarehouses = new Query(valueObject.getContext(), MWarehouse_BH.Table_Name,
-					MWarehouse_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MWarehouse_BH.COLUMNNAME_BH_DEFAULTWAREHOUSE + "=?",
+					MWarehouse_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MWarehouse_BH.COLUMNNAME_BH_DefaultWarehouse + "=?",
 					get_TrxName()).setParameters(valueObject.getClient().getAD_Client_ID(), "Y").setOnlyActiveRecords(true)
 					.list();
 			if (clientWarehouses.isEmpty()) {
-				valueObject.getWarehouse().setBH_IsDefaultWarehouse(true);
+				valueObject.getWarehouse().setBH_DefaultWarehouse(true);
 				valueObject.getWarehouse().saveEx();
 			} else {
 				Env.setContext(getCtx(), Env.M_WAREHOUSE_ID, clientWarehouses.get(0).getM_Warehouse_ID());

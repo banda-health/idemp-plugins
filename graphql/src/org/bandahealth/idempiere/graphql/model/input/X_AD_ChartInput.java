@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MChart;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Chart;
 import org.compiere.util.Env;
 
 /**
@@ -14,31 +16,21 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_ChartInput extends X_AD_Chart implements I_AD_ChartInput {
+public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput ChartOrientation_RL;
-	 private I_AD_Ref_ListInput ChartType_RL;
-	 private I_AD_Ref_ListInput TimeUnit_RL;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mChartOrientation;
+	 private I_AD_Ref_ListInput mChartType;
+	 private I_AD_Ref_ListInput mTimeUnit;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_ChartInput(String ID) {
+	@JsonCreator
+	public X_AD_ChartInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
-	}
-	/**
-	 * Set Chart.
-	 *
-	 * @param AD_Chart_ID Chart
-	 */
-
-	public void setAD_Chart_ID(int AD_Chart_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Chart_ID(AD_Chart_ID);
-		}
 	}
 
 	/**
@@ -64,16 +56,17 @@ public class X_AD_ChartInput extends X_AD_Chart implements I_AD_ChartInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Org_ID(0);
+			super.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,21 +75,23 @@ public class X_AD_ChartInput extends X_AD_Chart implements I_AD_ChartInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
 	 * Set Orientation.
 	 *
-	 * @param ChartOrientation_RL The orientation of the chart.
+	 * @param ChartOrientation The orientation of the chart.
 	 */
-	public void setChartOrientation_RL(I_AD_Ref_ListInput ChartOrientation_RL) {
-		this.ChartOrientation_RL = ChartOrientation_RL;
-		MRefList foreignEntity;
-		if (ChartOrientation_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ChartOrientation_RL.getID())
+	@JsonProperty("ChartOrientation")
+	public void setChartOrientationInput(I_AD_Ref_ListInput ChartOrientation) {
+		this.mChartOrientation = ChartOrientation;
+		MRefList_BH foreignEntity;
+		if (ChartOrientation != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(ChartOrientation.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setChartOrientation(foreignEntity.getValue());
 		} else {
@@ -109,21 +104,23 @@ public class X_AD_ChartInput extends X_AD_Chart implements I_AD_ChartInput {
 	 *
 	 * @return The orientation of the chart.
 	 */
-	public I_AD_Ref_ListInput getChartOrientation_RL() {
-		return ChartOrientation_RL;
+	@JsonProperty("ChartOrientation")
+	public I_AD_Ref_ListInput ChartOrientation() {
+		return mChartOrientation;
 	}
 
 	/**
 	 * Set Chart Type.
 	 *
-	 * @param ChartType_RL Type of chart to render
+	 * @param ChartType Type of chart to render
 	 */
-	public void setChartType_RL(I_AD_Ref_ListInput ChartType_RL) {
-		this.ChartType_RL = ChartType_RL;
-		MRefList foreignEntity;
-		if (ChartType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ChartType_RL.getID())
+	@JsonProperty("ChartType")
+	public void setChartTypeInput(I_AD_Ref_ListInput ChartType) {
+		this.mChartType = ChartType;
+		MRefList_BH foreignEntity;
+		if (ChartType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(ChartType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setChartType(foreignEntity.getValue());
 		} else {
@@ -136,8 +133,9 @@ public class X_AD_ChartInput extends X_AD_Chart implements I_AD_ChartInput {
 	 *
 	 * @return Type of chart to render
 	 */
-	public I_AD_Ref_ListInput getChartType_RL() {
-		return ChartType_RL;
+	@JsonProperty("ChartType")
+	public I_AD_Ref_ListInput ChartType() {
+		return mChartType;
 	}
 
 	/**
@@ -145,16 +143,17 @@ public class X_AD_ChartInput extends X_AD_Chart implements I_AD_ChartInput {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -163,32 +162,23 @@ public class X_AD_ChartInput extends X_AD_Chart implements I_AD_ChartInput {
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 
 	/**
 	 * Set Time Unit.
 	 *
-	 * @param TimeUnit_RL The unit of time for grouping chart data.
+	 * @param TimeUnit The unit of time for grouping chart data.
 	 */
-	public void setTimeUnit_RL(I_AD_Ref_ListInput TimeUnit_RL) {
-		this.TimeUnit_RL = TimeUnit_RL;
-		MRefList foreignEntity;
-		if (TimeUnit_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(TimeUnit_RL.getID())
+	@JsonProperty("TimeUnit")
+	public void setTimeUnitInput(I_AD_Ref_ListInput TimeUnit) {
+		this.mTimeUnit = TimeUnit;
+		MRefList_BH foreignEntity;
+		if (TimeUnit != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(TimeUnit.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setTimeUnit(foreignEntity.getValue());
 		} else {
@@ -201,7 +191,8 @@ public class X_AD_ChartInput extends X_AD_Chart implements I_AD_ChartInput {
 	 *
 	 * @return The unit of time for grouping chart data.
 	 */
-	public I_AD_Ref_ListInput getTimeUnit_RL() {
-		return TimeUnit_RL;
+	@JsonProperty("TimeUnit")
+	public I_AD_Ref_ListInput TimeUnit() {
+		return mTimeUnit;
 	}
 }

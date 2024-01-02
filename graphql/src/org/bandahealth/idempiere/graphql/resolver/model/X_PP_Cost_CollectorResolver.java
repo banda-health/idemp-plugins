@@ -5,6 +5,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -29,7 +30,6 @@ import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MLocator;
 import org.compiere.model.MProject;
-import org.compiere.model.MRefList;
 import org.compiere.model.MResource;
 import org.compiere.model.MUOM;
 import org.dataloader.DataLoader;
@@ -168,11 +168,11 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 			put("160", "bf04263f-d2d6-4403-aa5f-3a7266f4ca11");
 		}
 	};
-	public CompletableFuture<MRefList> CostCollectorType_RL(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CostCollectorType(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCostCollectorType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(COSTCOLLECTORTYPE_UUIDS_BY_VALUE.get(entity.getCostCollectorType()));
 	}
@@ -195,11 +195,11 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
-	public CompletableFuture<MRefList> DocAction_RL(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocAction(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocAction())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
@@ -220,13 +220,21 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
 		}
 	};
-	public CompletableFuture<MRefList> DocStatus_RL(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocStatus(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
+	}
+
+	public Boolean IsBatchTime(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
+		return entity.isBatchTime();
+	}
+
+	public Boolean IsSubcontracting(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
+		return entity.isSubcontracting();
 	}
 
 
@@ -289,6 +297,10 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
+	public Boolean Posted(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
+		return entity.isPosted();
+	}
+
 
 	/**
 	 * Get Manufacturing Order BOM Line.
@@ -347,6 +359,14 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 		DataLoader<Integer, X_PP_Order_Workflow> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PP_Order_WorkflowDataLoader.PP_Order_Workflow_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getPP_Order_Workflow_ID());
+	}
+
+	public Boolean Processed(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 

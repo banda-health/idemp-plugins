@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MInvoiceSchedule;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -21,6 +21,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_InvoiceScheduleResolver extends POResolver<MInvoiceSchedule> implements GraphQLResolver<MInvoiceSchedule> {
 
 
+	public Boolean EvenInvoiceWeek(MInvoiceSchedule entity, DataFetchingEnvironment environment) {
+		return entity.isEvenInvoiceWeek();
+	}
+
 	static Map<String, String> INVOICEFREQUENCY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("D", "bf4cbb08-95aa-49e8-8e3b-08cefb38f567");
@@ -29,11 +33,11 @@ public class X_C_InvoiceScheduleResolver extends POResolver<MInvoiceSchedule> im
 			put("T", "51e4ee52-319d-4bfd-be0b-c6a86c6d69df");
 		}
 	};
-	public CompletableFuture<MRefList> InvoiceFrequency_RL(MInvoiceSchedule entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> InvoiceFrequency(MInvoiceSchedule entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getInvoiceFrequency())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(INVOICEFREQUENCY_UUIDS_BY_VALUE.get(entity.getInvoiceFrequency()));
 	}
@@ -49,11 +53,11 @@ public class X_C_InvoiceScheduleResolver extends POResolver<MInvoiceSchedule> im
 			put("6", "13efb0f3-7cc6-4339-85e5-bcaadf0ca31c");
 		}
 	};
-	public CompletableFuture<MRefList> InvoiceWeekDay_RL(MInvoiceSchedule entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> InvoiceWeekDay(MInvoiceSchedule entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getInvoiceWeekDay())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(INVOICEWEEKDAY_UUIDS_BY_VALUE.get(entity.getInvoiceWeekDay()));
 	}
@@ -69,13 +73,21 @@ public class X_C_InvoiceScheduleResolver extends POResolver<MInvoiceSchedule> im
 			put("6", "13efb0f3-7cc6-4339-85e5-bcaadf0ca31c");
 		}
 	};
-	public CompletableFuture<MRefList> InvoiceWeekDayCutoff_RL(MInvoiceSchedule entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> InvoiceWeekDayCutoff(MInvoiceSchedule entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getInvoiceWeekDayCutoff())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(INVOICEWEEKDAYCUTOFF_UUIDS_BY_VALUE.get(entity.getInvoiceWeekDayCutoff()));
+	}
+
+	public Boolean IsAmount(MInvoiceSchedule entity, DataFetchingEnvironment environment) {
+		return entity.isAmount();
+	}
+
+	public Boolean IsDefault(MInvoiceSchedule entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
 	}
 
 }

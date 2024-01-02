@@ -29,26 +29,26 @@ public interface I_AD_ImageInput extends I_AD_Image {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_EntityType.
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput getAD_EntityType();
+	I_AD_EntityTypeInput AD_EntityType();
 }

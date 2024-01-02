@@ -4,10 +4,10 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHVisit;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_VisitDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -32,11 +32,11 @@ public class X_BH_EncounterResolver extends POResolver<MBHEncounter> implements 
 			put("C", "e822496b-fc64-4db9-9b89-39c7ee6e9986");
 		}
 	};
-	public CompletableFuture<MRefList> BH_Encounter_Type_RL(MBHEncounter entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BH_Encounter_Type(MBHEncounter entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBH_Encounter_Type())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BH_ENCOUNTER_TYPE_UUIDS_BY_VALUE.get(entity.getBH_Encounter_Type()));
 	}

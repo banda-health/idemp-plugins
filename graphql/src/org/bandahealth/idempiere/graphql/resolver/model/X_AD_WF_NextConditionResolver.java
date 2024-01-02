@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -9,7 +10,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_NodeNextDataLoa
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_AD_WF_NextCondition;
 import org.compiere.model.X_AD_WF_NodeNext;
 import org.dataloader.DataLoader;
@@ -63,11 +63,11 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 			put("O", "67af34aa-ef4f-4928-8536-427c8a6551e4");
 		}
 	};
-	public CompletableFuture<MRefList> AndOr_RL(X_AD_WF_NextCondition entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> AndOr(X_AD_WF_NextCondition entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAndOr())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ANDOR_UUIDS_BY_VALUE.get(entity.getAndOr()));
 	}
@@ -116,11 +116,11 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 			put("!=", "0bb893cb-cdcb-48c7-9c20-c7bb0041a51a");
 		}
 	};
-	public CompletableFuture<MRefList> Operation_RL(X_AD_WF_NextCondition entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> Operation(X_AD_WF_NextCondition entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getOperation())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(OPERATION_UUIDS_BY_VALUE.get(entity.getOperation()));
 	}

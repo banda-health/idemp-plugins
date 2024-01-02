@@ -1,12 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_M_Warehouse;
 import org.compiere.util.Env;
 
 /**
@@ -15,17 +16,18 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_WarehouseInput extends X_M_Warehouse implements I_M_WarehouseInput {
+public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_LocationInput C_Location;
-	 private I_M_LocatorInput M_ReserveLocator;
-	 private I_M_WarehouseInput M_WarehouseSource;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_LocationInput mC_Location;
+	 private I_M_LocatorInput mM_ReserveLocator;
+	 private I_M_WarehouseInput mM_WarehouseSource;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_M_WarehouseInput(String ID) {
+	@JsonCreator
+	public X_M_WarehouseInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -35,14 +37,15 @@ public class X_M_WarehouseInput extends X_M_Warehouse implements I_M_WarehouseIn
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -51,52 +54,27 @@ public class X_M_WarehouseInput extends X_M_Warehouse implements I_M_WarehouseIn
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
-
-	/**
-	 * Set Default Warehouse.
-	 *
-	 * @param BH_DefaultWarehouse Default Warehouse
-	 */
-	public void setBH_DefaultWarehouse(boolean BH_DefaultWarehouse) {
-		set_Value(COLUMNNAME_BH_DefaultWarehouse, BH_DefaultWarehouse);
-	}
-
-
-	/**
-	 * Get Default Warehouse.
-	 *
-	 * @return Default Warehouse
-	 */
-	public boolean isBH_DefaultWarehouse() {
- 		Object columnValue = get_Value(COLUMNNAME_BH_DefaultWarehouse);
-		if (columnValue != null) {
-			if (columnValue instanceof Boolean) {
-				return ((Boolean) columnValue);
-			}
-			return "Y".equals(columnValue);
-		}
-		return false;
-	}
-
 
 	/**
 	 * Set Address.
 	 *
 	 * @param C_Location Location or Address
 	 */
-	public void setC_Location(I_C_LocationInput C_Location) {
-		this.C_Location = C_Location;
+	@JsonProperty("C_Location")
+	public void setC_LocationInput(I_C_LocationInput C_Location) {
+		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
 				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
 						.setParameters(C_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Location_ID(foreignEntity.get_ID());
+			super.setC_Location_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Location_ID(0);
+			super.setC_Location_ID(0);
 		}
 	}
 
@@ -105,8 +83,9 @@ public class X_M_WarehouseInput extends X_M_Warehouse implements I_M_WarehouseIn
 	 *
 	 * @return Location or Address
 	 */
-	public I_C_LocationInput getC_Location() {
-		return C_Location;
+	@JsonProperty("C_Location")
+	public I_C_LocationInput C_Location() {
+		return mC_Location;
 	}
 
 	/**
@@ -114,16 +93,17 @@ public class X_M_WarehouseInput extends X_M_Warehouse implements I_M_WarehouseIn
 	 *
 	 * @param M_ReserveLocator Reservation Locator (just for reporting purposes)
 	 */
-	public void setM_ReserveLocator(I_M_LocatorInput M_ReserveLocator) {
-		this.M_ReserveLocator = M_ReserveLocator;
+	@JsonProperty("M_ReserveLocator")
+	public void setM_ReserveLocatorInput(I_M_LocatorInput M_ReserveLocator) {
+		this.mM_ReserveLocator = M_ReserveLocator;
 		MLocator foreignEntity;
 		if (M_ReserveLocator != null &&
 				(foreignEntity = new Query(getCtx(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Locator_UU + "=?", get_TrxName())
 						.setParameters(M_ReserveLocator.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_ReserveLocator_ID(foreignEntity.get_ID());
+			super.setM_ReserveLocator_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_ReserveLocator_ID(0);
+			super.setM_ReserveLocator_ID(0);
 		}
 	}
 
@@ -132,30 +112,9 @@ public class X_M_WarehouseInput extends X_M_Warehouse implements I_M_WarehouseIn
 	 *
 	 * @return Reservation Locator (just for reporting purposes)
 	 */
-	public I_M_LocatorInput getM_ReserveLocator() {
-		return M_ReserveLocator;
-	}
-	/**
-	 * Set Reservation Locator.
-	 *
-	 * @param M_ReserveLocator_ID Reservation Locator (just for reporting purposes)
-	 */
-
-	public void setM_ReserveLocator_ID(int M_ReserveLocator_ID) {
-		if (get_ID() == 0) {
-			super.setM_ReserveLocator_ID(M_ReserveLocator_ID);
-		}
-	}
-	/**
-	 * Set Warehouse.
-	 *
-	 * @param M_Warehouse_ID Storage Warehouse and Service Point
-	 */
-
-	public void setM_Warehouse_ID(int M_Warehouse_ID) {
-		if (get_ID() == 0) {
-			super.setM_Warehouse_ID(M_Warehouse_ID);
-		}
+	@JsonProperty("M_ReserveLocator")
+	public I_M_LocatorInput M_ReserveLocator() {
+		return mM_ReserveLocator;
 	}
 
 	/**
@@ -181,16 +140,17 @@ public class X_M_WarehouseInput extends X_M_Warehouse implements I_M_WarehouseIn
 	 *
 	 * @param M_WarehouseSource Optional Warehouse to replenish from
 	 */
-	public void setM_WarehouseSource(I_M_WarehouseInput M_WarehouseSource) {
-		this.M_WarehouseSource = M_WarehouseSource;
+	@JsonProperty("M_WarehouseSource")
+	public void setM_WarehouseSourceInput(I_M_WarehouseInput M_WarehouseSource) {
+		this.mM_WarehouseSource = M_WarehouseSource;
 		MWarehouse_BH foreignEntity;
 		if (M_WarehouseSource != null &&
 				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
 						.setParameters(M_WarehouseSource.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_WarehouseSource_ID(foreignEntity.get_ID());
+			super.setM_WarehouseSource_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_WarehouseSource_ID(0);
+			super.setM_WarehouseSource_ID(0);
 		}
 	}
 
@@ -199,18 +159,8 @@ public class X_M_WarehouseInput extends X_M_Warehouse implements I_M_WarehouseIn
 	 *
 	 * @return Optional Warehouse to replenish from
 	 */
-	public I_M_WarehouseInput getM_WarehouseSource() {
-		return M_WarehouseSource;
-	}
-	/**
-	 * Set Source Warehouse.
-	 *
-	 * @param M_WarehouseSource_ID Optional Warehouse to replenish from
-	 */
-
-	public void setM_WarehouseSource_ID(int M_WarehouseSource_ID) {
-		if (get_ID() == 0) {
-			super.setM_WarehouseSource_ID(M_WarehouseSource_ID);
-		}
+	@JsonProperty("M_WarehouseSource")
+	public I_M_WarehouseInput M_WarehouseSource() {
+		return mM_WarehouseSource;
 	}
 }

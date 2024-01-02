@@ -230,7 +230,7 @@ public class GraphQLModelResolverGenerator {
 		boolean shouldSkipInputField =
 				columnName.equals("Created") || columnName.equals("CreatedBy") || columnName.equals("Updated") ||
 						columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID") || columnName.equals("AD_Org_ID") ||
-						columnName.endsWith("_UU") || virtualColumn;
+						columnName.endsWith("_UU") || columnName.equals("IsActive");
 
 		// TODO - New functionality
 		// 1) Must understand which class to reference
@@ -258,7 +258,7 @@ public class GraphQLModelResolverGenerator {
 				foreignEntityTable = referenceClassName;
 				defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 			} else if (columnName.equals("AD_Language")) {
-				entityName = columnName + "_L";
+				entityName = columnName;
 				returnType = "I_" + columnName + "Input";
 				foreignEntityTable = columnName;
 				addImportClass("org.bandahealth.idempiere.graphql.utils.StringUtil");
@@ -284,9 +284,9 @@ public class GraphQLModelResolverGenerator {
 					foreignEntityTable = entityName;
 					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 				} else if (columnName.equals("Logo_ID")) {
-					entityName = "AD_Image";
-					returnType = "I_" + entityName + "Input";
-					foreignEntityTable = entityName;
+					entityName = columnNameWithSuffixedIdRemoved;
+					returnType = "I_AD_ImageInput";
+					foreignEntityTable = "AD_Image";
 					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
@@ -324,7 +324,6 @@ public class GraphQLModelResolverGenerator {
 			ModelMap classToUseMap = modelsForTables.get(MRefList.Table_Name);
 			classesToImport.add(classToUseMap.getClassPackageName() + "." + classToUseMap.getClassName());
 			columnBuilder.append("\n");
-			String entityName = columnName + "_RL";
 			ModelMap foreignModelMap = modelsForTables.get("AD_Ref_List");
 			classesToImport.add(foreignModelMap.getClassPackageName() + "." + foreignModelMap.getClassName());
 			classesToImport.add("java.util.concurrent.CompletableFuture");
@@ -338,7 +337,7 @@ public class GraphQLModelResolverGenerator {
 			classesToImport.add("org.bandahealth.idempiere.graphql.utils.StringUtil");
 			columnBuilder
 					.append("\tpublic CompletableFuture<").append(foreignModelMap.getClassName()).append("> ")
-					.append(entityName).append("(").append(tableStructureExtensions.getClassName())
+					.append(columnName).append("(").append(tableStructureExtensions.getClassName())
 					.append(" entity, DataFetchingEnvironment environment) {\n")
 					.append("\t\tif (StringUtil.isNullOrEmpty(entity.get").append(columnName).append("())) {\n")
 					.append("\t\t\treturn null;\n")
@@ -350,6 +349,32 @@ public class GraphQLModelResolverGenerator {
 					.append("\t\treturn dataLoader.load(").append(referenceListUuidByValuePropertyName).append(".get(entity.get")
 					.append(columnName).append("()));\n")
 					.append("\t}\n");
+			return columnBuilder.toString();
+		} else if (clazz.equals(Boolean.class)) {
+			// If Boolean, we need to add a method to handle the capitalization of this property
+			String methodName = "is" + columnName.substring(2);
+			if (columnName.startsWith("is")) {
+				methodName = columnName;
+			} else if (!columnName.startsWith("Is")) {
+				methodName = "is" + columnName;
+			}
+			columnBuilder
+					.append("\n")
+					.append("\tpublic Boolean ").append(columnName).append("(").append(tableStructureExtensions.getClassName())
+					.append(" entity, DataFetchingEnvironment environment) {\n")
+					.append("\t\treturn entity.").append(methodName).append("();\n")
+					.append("\t}\n");
+			return columnBuilder.toString();
+		} else if (columnName.substring(0, 1).equals(columnName.substring(0, 1).toLowerCase())) {
+			// Since the column name is lower case, we need to make sure the resolver generates the correct methods
+			columnBuilder
+					.append("\n")
+					.append("\tpublic ").append(dataType).append(" ").append(columnName).append("(")
+					.append(tableStructureExtensions.getClassName())
+					.append(" entity, DataFetchingEnvironment environment) {\n")
+					.append("\t\treturn entity.get").append(columnName).append("();\n")
+					.append("\t}\n");
+			addImportClass(clazz);
 			return columnBuilder.toString();
 		}
 

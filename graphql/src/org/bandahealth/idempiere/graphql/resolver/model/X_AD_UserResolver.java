@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -20,7 +21,6 @@ import org.compiere.model.MCampaign;
 import org.compiere.model.MImage;
 import org.compiere.model.MLocation;
 import org.compiere.model.MMailText;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_C_Greeting;
 import org.compiere.model.X_C_Job;
 import org.dataloader.DataLoader;
@@ -51,6 +51,10 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 		DataLoader<Integer, MImage> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.AD_Image_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Image_ID());
+	}
+
+	public Boolean BH_HasAcceptedTermsOfUse(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBH_HasAcceptedTermsOfUse();
 	}
 
 
@@ -158,19 +162,67 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 		return dataLoader.load(entity.getC_Location_ID());
 	}
 
+	public Boolean IsAddMailTextAutomatically(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isAddMailTextAutomatically();
+	}
+
+	public Boolean IsBillTo(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBillTo();
+	}
+
+	public Boolean IsExpired(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isExpired();
+	}
+
+	public Boolean IsFullBPAccess(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isFullBPAccess();
+	}
+
+	public Boolean IsInPayroll(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isInPayroll();
+	}
+
+	public Boolean IsLocked(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isLocked();
+	}
+
 	static Map<String, String> ISMENUAUTOEXPAND_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
 			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
 		}
 	};
-	public CompletableFuture<MRefList> IsMenuAutoExpand_RL(MUser_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> IsMenuAutoExpand(MUser_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getIsMenuAutoExpand())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ISMENUAUTOEXPAND_UUIDS_BY_VALUE.get(entity.getIsMenuAutoExpand()));
+	}
+
+	public Boolean IsNoExpire(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isNoExpire();
+	}
+
+	public Boolean IsNoPasswordReset(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isNoPasswordReset();
+	}
+
+	public Boolean IsSalesLead(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSalesLead();
+	}
+
+	public Boolean IsShipTo(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isShipTo();
+	}
+
+	public Boolean IsSupportUser(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSupportUser();
+	}
+
+	public Boolean IsVendorLead(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isVendorLead();
 	}
 
 	static Map<String, String> LEADSOURCE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -186,11 +238,11 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 			put("EL", "ff1640ae-b5ab-4278-96b7-75ec3f5df3b9");
 		}
 	};
-	public CompletableFuture<MRefList> LeadSource_RL(MUser_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> LeadSource(MUser_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getLeadSource())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(LEADSOURCE_UUIDS_BY_VALUE.get(entity.getLeadSource()));
 	}
@@ -204,11 +256,11 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 			put("C", "bda2ba73-4d25-4964-861c-cb3c36d44ae2");
 		}
 	};
-	public CompletableFuture<MRefList> LeadStatus_RL(MUser_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> LeadStatus(MUser_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getLeadStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(LEADSTATUS_UUIDS_BY_VALUE.get(entity.getLeadStatus()));
 	}
@@ -221,13 +273,17 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 			put("B", "aae5e850-38ca-4b15-9c9d-bee6402e7427");
 		}
 	};
-	public CompletableFuture<MRefList> NotificationType_RL(MUser_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> NotificationType(MUser_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getNotificationType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(NOTIFICATIONTYPE_UUIDS_BY_VALUE.get(entity.getNotificationType()));
+	}
+
+	public Boolean Processing(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 

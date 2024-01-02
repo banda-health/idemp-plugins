@@ -24,7 +24,7 @@ type C_POSTenderType {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint
@@ -37,11 +37,11 @@ type C_POSTenderType {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Method of Payment
-	TenderType_RL: AD_Ref_List
+	TenderType: AD_Ref_List
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 }
@@ -62,7 +62,7 @@ input C_POSTenderTypeInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Method of Payment
-	TenderType_RL: AD_Ref_ListInput
+	TenderType: AD_Ref_ListInput
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

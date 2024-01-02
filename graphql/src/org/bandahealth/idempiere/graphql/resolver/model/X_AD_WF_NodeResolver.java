@@ -4,6 +4,7 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_CtxHelpDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
@@ -28,7 +29,6 @@ import org.compiere.model.MForm;
 import org.compiere.model.MImage;
 import org.compiere.model.MInfoWindow;
 import org.compiere.model.MMailText;
-import org.compiere.model.MRefList;
 import org.compiere.model.MResource;
 import org.compiere.model.MTask;
 import org.compiere.model.MWindow;
@@ -68,11 +68,11 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 			put("I", "eaf4fa91-3fa3-47f9-9b7f-6ac5b475da68");
 		}
 	};
-	public CompletableFuture<MRefList> Action_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> Action(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAction())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ACTION_UUIDS_BY_VALUE.get(entity.getAction()));
 	}
@@ -275,11 +275,11 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
-	public CompletableFuture<MRefList> DocAction_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocAction(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocAction())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
@@ -291,11 +291,11 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 			put("D", "6360c9c7-dbf3-4b2f-bd8b-3465a7fde7a7");
 		}
 	};
-	public CompletableFuture<MRefList> DynPriorityUnit_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DynPriorityUnit(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDynPriorityUnit())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DYNPRIORITYUNIT_UUIDS_BY_VALUE.get(entity.getDynPriorityUnit()));
 	}
@@ -307,11 +307,11 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 			put("R", "baf88c37-8379-4722-b228-b1b15858ea00");
 		}
 	};
-	public CompletableFuture<MRefList> EMailRecipient_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> EMailRecipient(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getEMailRecipient())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(EMAILRECIPIENT_UUIDS_BY_VALUE.get(entity.getEMailRecipient()));
 	}
@@ -353,13 +353,25 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 			put("M", "4c311a91-6f6e-47c0-9e48-cce7b415044f");
 		}
 	};
-	public CompletableFuture<MRefList> FinishMode_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> FinishMode(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFinishMode())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(FINISHMODE_UUIDS_BY_VALUE.get(entity.getFinishMode()));
+	}
+
+	public Boolean IsCentrallyMaintained(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+		return entity.isCentrallyMaintained();
+	}
+
+	public Boolean IsMilestone(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+		return entity.isMilestone();
+	}
+
+	public Boolean IsSubcontracting(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+		return entity.isSubcontracting();
 	}
 
 	static Map<String, String> JOINELEMENT_UUIDS_BY_VALUE = new HashMap<>() {
@@ -368,11 +380,11 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 			put("X", "6b126336-1c5b-4970-b68b-671585e2fb95");
 		}
 	};
-	public CompletableFuture<MRefList> JoinElement_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> JoinElement(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getJoinElement())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(JOINELEMENT_UUIDS_BY_VALUE.get(entity.getJoinElement()));
 	}
@@ -413,11 +425,11 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 			put("X", "6b126336-1c5b-4970-b68b-671585e2fb95");
 		}
 	};
-	public CompletableFuture<MRefList> SplitElement_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> SplitElement(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getSplitElement())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(SPLITELEMENT_UUIDS_BY_VALUE.get(entity.getSplitElement()));
 	}
@@ -428,11 +440,11 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 			put("M", "4c311a91-6f6e-47c0-9e48-cce7b415044f");
 		}
 	};
-	public CompletableFuture<MRefList> StartMode_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> StartMode(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getStartMode())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(STARTMODE_UUIDS_BY_VALUE.get(entity.getStartMode()));
 	}
@@ -443,11 +455,11 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 			put("S", "1583b819-da0c-4fdf-99e6-4567b756ac56");
 		}
 	};
-	public CompletableFuture<MRefList> SubflowExecution_RL(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> SubflowExecution(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getSubflowExecution())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(SUBFLOWEXECUTION_UUIDS_BY_VALUE.get(entity.getSubflowExecution()));
 	}

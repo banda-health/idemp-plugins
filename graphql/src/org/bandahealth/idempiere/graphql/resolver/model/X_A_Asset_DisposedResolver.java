@@ -3,7 +3,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocTypeDataLoader;
@@ -13,9 +15,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PeriodDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MAssetDisposed;
-import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MPeriod;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -36,11 +36,11 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 			put("AA", "31cd23ed-e20c-43e6-a12a-635f675e23d9");
 		}
 	};
-	public CompletableFuture<MRefList> A_Activation_Method_RL(MAssetDisposed entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Activation_Method(MAssetDisposed entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Activation_Method())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_ACTIVATION_METHOD_UUIDS_BY_VALUE.get(entity.getA_Activation_Method()));
 	}
@@ -71,11 +71,11 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 			put("SO", "b2aa86a9-566c-4762-98d5-c4b5c243a2cd");
 		}
 	};
-	public CompletableFuture<MRefList> A_Asset_Status_RL(MAssetDisposed entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Asset_Status(MAssetDisposed entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Asset_Status())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_ASSET_STATUS_UUIDS_BY_VALUE.get(entity.getA_Asset_Status()));
 	}
@@ -107,11 +107,11 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 			put("S_", "90cce63c-ef32-4917-97cc-e98bf04c7378");
 		}
 	};
-	public CompletableFuture<MRefList> A_Disposed_Method_RL(MAssetDisposed entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Disposed_Method(MAssetDisposed entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Disposed_Method())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_DISPOSED_METHOD_UUIDS_BY_VALUE.get(entity.getA_Disposed_Method()));
 	}
@@ -126,11 +126,11 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 			put("T", "d8463ca2-d125-46bb-aadb-20eab7873458");
 		}
 	};
-	public CompletableFuture<MRefList> A_Disposed_Reason_RL(MAssetDisposed entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Disposed_Reason(MAssetDisposed entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Disposed_Reason())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_DISPOSED_REASON_UUIDS_BY_VALUE.get(entity.getA_Disposed_Reason()));
 	}
@@ -171,11 +171,11 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MAssetDisposed entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MAssetDisposed entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine> dataLoader =
+		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.C_InvoiceLine_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}
@@ -213,11 +213,11 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
-	public CompletableFuture<MRefList> DocAction_RL(MAssetDisposed entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocAction(MAssetDisposed entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocAction())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
@@ -238,13 +238,25 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
 		}
 	};
-	public CompletableFuture<MRefList> DocStatus_RL(MAssetDisposed entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocStatus(MAssetDisposed entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
+	}
+
+	public Boolean IsApproved(MAssetDisposed entity, DataFetchingEnvironment environment) {
+		return entity.isApproved();
+	}
+
+	public Boolean IsDisposed(MAssetDisposed entity, DataFetchingEnvironment environment) {
+		return entity.isDisposed();
+	}
+
+	public Boolean Posted(MAssetDisposed entity, DataFetchingEnvironment environment) {
+		return entity.isPosted();
 	}
 
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -256,13 +268,21 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList> PostingType_RL(MAssetDisposed entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(MAssetDisposed entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
+	}
+
+	public Boolean Processed(MAssetDisposed entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MAssetDisposed entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

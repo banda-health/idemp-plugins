@@ -186,6 +186,10 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 		return dataLoader.load(entity.getC_SubAcct_ID());
 	}
 
+	public Boolean IsFullyQualified(MAccount entity, DataFetchingEnvironment environment) {
+		return entity.isFullyQualified();
+	}
+
 
 	/**
 	 * Get Product/Service.

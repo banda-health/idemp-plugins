@@ -84,4 +84,8 @@ public class X_AD_WF_NodeNextResolver extends POResolver<X_AD_WF_NodeNext> imple
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
+	public Boolean IsStdUserWorkflow(X_AD_WF_NodeNext entity, DataFetchingEnvironment environment) {
+		return entity.isStdUserWorkflow();
+	}
+
 }

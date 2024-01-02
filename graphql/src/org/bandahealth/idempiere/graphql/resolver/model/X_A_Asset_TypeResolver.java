@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAssetType;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -30,11 +30,11 @@ public class X_A_Asset_TypeResolver extends POResolver<MAssetType> implements Gr
 			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d");
 		}
 	};
-	public CompletableFuture<MRefList> IsDepreciable_RL(MAssetType entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> IsDepreciable(MAssetType entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getIsDepreciable())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ISDEPRECIABLE_UUIDS_BY_VALUE.get(entity.getIsDepreciable()));
 	}
@@ -48,11 +48,11 @@ public class X_A_Asset_TypeResolver extends POResolver<MAssetType> implements Gr
 			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d");
 		}
 	};
-	public CompletableFuture<MRefList> IsInPosession_RL(MAssetType entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> IsInPosession(MAssetType entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getIsInPosession())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ISINPOSESSION_UUIDS_BY_VALUE.get(entity.getIsInPosession()));
 	}
@@ -66,11 +66,11 @@ public class X_A_Asset_TypeResolver extends POResolver<MAssetType> implements Gr
 			put("YX", "3392ad55-541f-4a2e-ba62-c92a28f6421d");
 		}
 	};
-	public CompletableFuture<MRefList> IsOwned_RL(MAssetType entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> IsOwned(MAssetType entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getIsOwned())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ISOWNED_UUIDS_BY_VALUE.get(entity.getIsOwned()));
 	}

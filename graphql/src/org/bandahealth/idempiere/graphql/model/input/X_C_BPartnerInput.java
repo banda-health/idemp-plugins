@@ -1,8 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDiscountSchema;
@@ -13,11 +16,9 @@ import org.compiere.model.MLanguage;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MPriceList;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_C_1099Box;
-import org.compiere.model.X_C_BPartner;
 import org.compiere.model.X_C_Greeting;
 import org.compiere.util.Env;
 import org.eevolution.model.X_C_TaxGroup;
@@ -28,38 +29,39 @@ import org.eevolution.model.X_C_TaxGroup;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput {
+public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput {
 
-	 private I_AD_ImageInput AD_Image;
-	 private I_AD_LanguageInput AD_Language_L;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_PrintFormatInput Invoice_PrintFormat;
-	 private I_AD_Ref_ListInput DeliveryRule_RL;
-	 private I_AD_Ref_ListInput DeliveryViaRule_RL;
-	 private I_AD_Ref_ListInput FreightCostRule_RL;
-	 private I_AD_Ref_ListInput InvoiceRule_RL;
-	 private I_AD_Ref_ListInput PaymentRulePO_RL;
-	 private I_AD_Ref_ListInput PaymentRule_RL;
-	 private I_AD_Ref_ListInput SOCreditStatus_RL;
-	 private I_AD_Ref_ListInput bh_gender_RL;
-	 private I_AD_UserInput SalesRep;
-	 private I_C_1099BoxInput Default1099Box;
-	 private I_C_BP_GroupInput C_BP_Group;
-	 private I_C_DunningInput C_Dunning;
-	 private I_C_GreetingInput C_Greeting;
-	 private I_C_InvoiceScheduleInput C_InvoiceSchedule;
-	 private I_C_PaymentTermInput C_PaymentTerm;
-	 private I_C_PaymentTermInput PO_PaymentTerm;
-	 private I_C_TaxGroupInput C_TaxGroup;
-	 private I_M_DiscountSchemaInput M_DiscountSchema;
-	 private I_M_DiscountSchemaInput PO_DiscountSchema;
-	 private I_M_PriceListInput M_PriceList;
-	 private I_M_PriceListInput PO_PriceList;
+	 private I_AD_ImageInput mAD_Image;
+	 private I_AD_LanguageInput mAD_Language;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_PrintFormatInput mInvoice_PrintFormat;
+	 private I_AD_Ref_ListInput mDeliveryRule;
+	 private I_AD_Ref_ListInput mDeliveryViaRule;
+	 private I_AD_Ref_ListInput mFreightCostRule;
+	 private I_AD_Ref_ListInput mInvoiceRule;
+	 private I_AD_Ref_ListInput mPaymentRule;
+	 private I_AD_Ref_ListInput mPaymentRulePO;
+	 private I_AD_Ref_ListInput mSOCreditStatus;
+	 private I_AD_Ref_ListInput mbh_gender;
+	 private I_AD_UserInput mSalesRep;
+	 private I_C_1099BoxInput mDefault1099Box;
+	 private I_C_BP_GroupInput mC_BP_Group;
+	 private I_C_DunningInput mC_Dunning;
+	 private I_C_GreetingInput mC_Greeting;
+	 private I_C_InvoiceScheduleInput mC_InvoiceSchedule;
+	 private I_C_PaymentTermInput mC_PaymentTerm;
+	 private I_C_PaymentTermInput mPO_PaymentTerm;
+	 private I_C_TaxGroupInput mC_TaxGroup;
+	 private I_M_DiscountSchemaInput mM_DiscountSchema;
+	 private I_M_DiscountSchemaInput mPO_DiscountSchema;
+	 private I_M_PriceListInput mM_PriceList;
+	 private I_M_PriceListInput mPO_PriceList;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_BPartnerInput(String ID) {
+	@JsonCreator
+	public X_C_BPartnerInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -67,18 +69,19 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	/**
 	 * Set Language.
 	 *
-	 * @param AD_Language_L Language for this entity
+	 * @param AD_Language Language for this entity
 	 */
-	public void setAD_Language_L(I_AD_LanguageInput AD_Language_L) {
-		this.AD_Language_L = AD_Language_L;
+	@JsonProperty("AD_Language")
+	public void setAD_LanguageInput(I_AD_LanguageInput AD_Language) {
+		this.mAD_Language = AD_Language;
 		MLanguage foreignEntity;
-		if (AD_Language_L != null &&
+		if (AD_Language != null &&
 				(foreignEntity = new Query(getCtx(), MLanguage.Table_Name, MLanguage.COLUMNNAME_AD_Language_UU + "=?", get_TrxName())
-						.setParameters(AD_Language_L.getID())
+						.setParameters(AD_Language.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Language(foreignEntity.getAD_Language());
+			super.setAD_Language(foreignEntity.getAD_Language());
 		} else {
-			this.setAD_Language(null);
+			super.setAD_Language(null);
 		}
 	}
 
@@ -87,19 +90,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Language for this entity
 	 */
-	public I_AD_LanguageInput getAD_Language_L() {
-		return AD_Language_L;
-	}
-	/**
-	 * Set Language.
-	 *
-	 * @param AD_Language Language for this entity
-	 */
-
-	public void setAD_Language(String AD_Language) {
-		if (get_ID() == 0) {
-			super.setAD_Language(AD_Language);
-		}
+	@JsonProperty("AD_Language")
+	public I_AD_LanguageInput AD_Language() {
+		return mAD_Language;
 	}
 
 	/**
@@ -107,14 +100,15 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -123,90 +117,23 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
-
-	/**
-	 * Set Birthday.
-	 *
-	 * @param BH_Birthday Birthday or Anniversary day
-	 */
-	public void setBH_Birthday(Timestamp BH_Birthday) {
-		set_Value(COLUMNNAME_BH_Birthday, BH_Birthday);
-	}
-
-
-	/**
-	 * Get Birthday.
-	 *
-	 * @return Birthday or Anniversary day
-	 */
-	public Timestamp getBH_Birthday() {
- 		return (Timestamp) get_Value(COLUMNNAME_BH_Birthday);
-	}
-
-
-	/**
-	 * Set EMail Address.
-	 *
-	 * @param BH_EMail Electronic Mail Address
-	 */
-	public void setBH_EMail(String BH_EMail) {
-		set_Value(COLUMNNAME_BH_EMail, BH_EMail);
-	}
-
-
-	/**
-	 * Get EMail Address.
-	 *
-	 * @return Electronic Mail Address
-	 */
-	public String getBH_EMail() {
- 		return (String) get_Value(COLUMNNAME_BH_EMail);
-	}
-
-	/**
-	 * Female = female
-	 */
-	public static final String BH_GENDER_Female = "female";
-	/**
-	 * Male = male
-	 */
-	public static final String BH_GENDER_Male = "male";
 
 	/**
 	 * Set Gender.
 	 *
 	 * @param bh_gender Gender
 	 */
-	public void setbh_gender(String bh_gender) {
-
-		set_Value(COLUMNNAME_bh_gender, bh_gender);
-	}
-
-
-	/**
-	 * Get Gender.
-	 *
-	 * @return Gender
-	 */
-	public String getbh_gender() {
- 		return (String) get_Value(COLUMNNAME_bh_gender);
-	}
-
-
-	/**
-	 * Set Gender.
-	 *
-	 * @param bh_gender_RL Gender
-	 */
-	public void setbh_gender_RL(I_AD_Ref_ListInput bh_gender_RL) {
-		this.bh_gender_RL = bh_gender_RL;
-		MRefList foreignEntity;
-		if (bh_gender_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(bh_gender_RL.getID())
+	@JsonProperty("bh_gender")
+	public void setbh_genderInput(I_AD_Ref_ListInput bh_gender) {
+		this.mbh_gender = bh_gender;
+		MRefList_BH foreignEntity;
+		if (bh_gender != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(bh_gender.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setbh_gender(foreignEntity.getValue());
 		} else {
@@ -219,206 +146,27 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Gender
 	 */
-	public I_AD_Ref_ListInput getbh_gender_RL() {
-		return bh_gender_RL;
+	@JsonProperty("bh_gender")
+	public I_AD_Ref_ListInput bh_gender() {
+		return mbh_gender;
 	}
-
-	/**
-	 * Set Is Approximate Date Of Birth.
-	 *
-	 * @param BH_IsApproximateDateOfBirth Is Approximate Date Of Birth
-	 */
-	public void setBH_IsApproximateDateOfBirth(boolean BH_IsApproximateDateOfBirth) {
-		set_Value(COLUMNNAME_BH_IsApproximateDateOfBirth, BH_IsApproximateDateOfBirth);
-	}
-
-
-	/**
-	 * Get Is Approximate Date Of Birth.
-	 *
-	 * @return Is Approximate Date Of Birth
-	 */
-	public boolean isBH_IsApproximateDateOfBirth() {
- 		Object columnValue = get_Value(COLUMNNAME_BH_IsApproximateDateOfBirth);
-		if (columnValue != null) {
-			if (columnValue instanceof Boolean) {
-				return ((Boolean) columnValue);
-			}
-			return "Y".equals(columnValue);
-		}
-		return false;
-	}
-
-
-	/**
-	 * Set Local Patient ID.
-	 *
-	 * @param BH_Local_PatientID Local Patient ID
-	 */
-	public void setBH_Local_PatientID(String BH_Local_PatientID) {
-		set_Value(COLUMNNAME_BH_Local_PatientID, BH_Local_PatientID);
-	}
-
-
-	/**
-	 * Get Local Patient ID.
-	 *
-	 * @return Local Patient ID
-	 */
-	public String getBH_Local_PatientID() {
- 		return (String) get_Value(COLUMNNAME_BH_Local_PatientID);
-	}
-
-
-	/**
-	 * Set BH_Locked.
-	 *
-	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
-	 */
-	public void setBH_Locked(boolean BH_Locked) {
-		set_Value(COLUMNNAME_BH_Locked, BH_Locked);
-	}
-
-
-	/**
-	 * Get BH_Locked.
-	 *
-	 * @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
-	 */
-	public boolean isBH_Locked() {
- 		Object columnValue = get_Value(COLUMNNAME_BH_Locked);
-		if (columnValue != null) {
-			if (columnValue instanceof Boolean) {
-				return ((Boolean) columnValue);
-			}
-			return "Y".equals(columnValue);
-		}
-		return false;
-	}
-
-
-	/**
-	 * Set Need Additional Visit Info.
-	 *
-	 * @param BH_NeedAdditionalVisitInfo Need Additional Visit Info
-	 */
-	public void setBH_NeedAdditionalVisitInfo(boolean BH_NeedAdditionalVisitInfo) {
-		set_Value(COLUMNNAME_BH_NeedAdditionalVisitInfo, BH_NeedAdditionalVisitInfo);
-	}
-
-
-	/**
-	 * Get Need Additional Visit Info.
-	 *
-	 * @return Need Additional Visit Info
-	 */
-	public boolean isBH_NeedAdditionalVisitInfo() {
- 		Object columnValue = get_Value(COLUMNNAME_BH_NeedAdditionalVisitInfo);
-		if (columnValue != null) {
-			if (columnValue instanceof Boolean) {
-				return ((Boolean) columnValue);
-			}
-			return "Y".equals(columnValue);
-		}
-		return false;
-	}
-
-
-	/**
-	 * Set Next Appointment Date.
-	 *
-	 * @param bh_nextappointmentdate Next Appointment Date
-	 */
-	public void setbh_nextappointmentdate(Timestamp bh_nextappointmentdate) {
-		set_Value(COLUMNNAME_bh_nextappointmentdate, bh_nextappointmentdate);
-	}
-
-
-	/**
-	 * Get Next Appointment Date.
-	 *
-	 * @return Next Appointment Date
-	 */
-	public Timestamp getbh_nextappointmentdate() {
- 		return (Timestamp) get_Value(COLUMNNAME_bh_nextappointmentdate);
-	}
-
-
-	/**
-	 * Set Occupation.
-	 *
-	 * @param bh_occupation Occupation
-	 */
-	public void setbh_occupation(String bh_occupation) {
-		set_Value(COLUMNNAME_bh_occupation, bh_occupation);
-	}
-
-
-	/**
-	 * Get Occupation.
-	 *
-	 * @return Occupation
-	 */
-	public String getbh_occupation() {
- 		return (String) get_Value(COLUMNNAME_bh_occupation);
-	}
-
-
-	/**
-	 * Set Patient ID.
-	 *
-	 * @param BH_PatientID A unique identifier for users to manually enter
-	 */
-	public void setBH_PatientID(String BH_PatientID) {
-		set_Value(COLUMNNAME_BH_PatientID, BH_PatientID);
-	}
-
-
-	/**
-	 * Get Patient ID.
-	 *
-	 * @return A unique identifier for users to manually enter
-	 */
-	public String getBH_PatientID() {
- 		return (String) get_Value(COLUMNNAME_BH_PatientID);
-	}
-
-
-	/**
-	 * Set Phone.
-	 *
-	 * @param BH_Phone Identifies a telephone number
-	 */
-	public void setBH_Phone(String BH_Phone) {
-		set_Value(COLUMNNAME_BH_Phone, BH_Phone);
-	}
-
-
-	/**
-	 * Get Phone.
-	 *
-	 * @return Identifies a telephone number
-	 */
-	public String getBH_Phone() {
- 		return (String) get_Value(COLUMNNAME_BH_Phone);
-	}
-
 
 	/**
 	 * Set Business Partner Group.
 	 *
 	 * @param C_BP_Group Business Partner Group
 	 */
-	public void setC_BP_Group(I_C_BP_GroupInput C_BP_Group) {
-		this.C_BP_Group = C_BP_Group;
+	@JsonProperty("C_BP_Group")
+	public void setC_BP_GroupInput(I_C_BP_GroupInput C_BP_Group) {
+		this.mC_BP_Group = C_BP_Group;
 		MBPGroup_BH foreignEntity;
 		if (C_BP_Group != null &&
 				(foreignEntity = new Query(getCtx(), MBPGroup_BH.Table_Name, MBPGroup_BH.COLUMNNAME_C_BP_Group_UU + "=?", get_TrxName())
 						.setParameters(C_BP_Group.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BP_Group_ID(foreignEntity.get_ID());
+			super.setC_BP_Group_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BP_Group_ID(0);
+			super.setC_BP_Group_ID(0);
 		}
 	}
 
@@ -427,19 +175,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Business Partner Group
 	 */
-	public I_C_BP_GroupInput getC_BP_Group() {
-		return C_BP_Group;
-	}
-	/**
-	 * Set Business Partner .
-	 *
-	 * @param C_BPartner_ID Identifies a Business Partner
-	 */
-
-	public void setC_BPartner_ID(int C_BPartner_ID) {
-		if (get_ID() == 0) {
-			super.setC_BPartner_ID(C_BPartner_ID);
-		}
+	@JsonProperty("C_BP_Group")
+	public I_C_BP_GroupInput C_BP_Group() {
+		return mC_BP_Group;
 	}
 
 	/**
@@ -465,16 +203,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param C_Dunning Dunning Rules for overdue invoices
 	 */
-	public void setC_Dunning(I_C_DunningInput C_Dunning) {
-		this.C_Dunning = C_Dunning;
+	@JsonProperty("C_Dunning")
+	public void setC_DunningInput(I_C_DunningInput C_Dunning) {
+		this.mC_Dunning = C_Dunning;
 		MDunning foreignEntity;
 		if (C_Dunning != null &&
 				(foreignEntity = new Query(getCtx(), MDunning.Table_Name, MDunning.COLUMNNAME_C_Dunning_UU + "=?", get_TrxName())
 						.setParameters(C_Dunning.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Dunning_ID(foreignEntity.get_ID());
+			super.setC_Dunning_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Dunning_ID(0);
+			super.setC_Dunning_ID(0);
 		}
 	}
 
@@ -483,8 +222,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Dunning Rules for overdue invoices
 	 */
-	public I_C_DunningInput getC_Dunning() {
-		return C_Dunning;
+	@JsonProperty("C_Dunning")
+	public I_C_DunningInput C_Dunning() {
+		return mC_Dunning;
 	}
 
 	/**
@@ -492,16 +232,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param C_Greeting Greeting to print on correspondence
 	 */
-	public void setC_Greeting(I_C_GreetingInput C_Greeting) {
-		this.C_Greeting = C_Greeting;
+	@JsonProperty("C_Greeting")
+	public void setC_GreetingInput(I_C_GreetingInput C_Greeting) {
+		this.mC_Greeting = C_Greeting;
 		X_C_Greeting foreignEntity;
 		if (C_Greeting != null &&
 				(foreignEntity = new Query(getCtx(), X_C_Greeting.Table_Name, X_C_Greeting.COLUMNNAME_C_Greeting_UU + "=?", get_TrxName())
 						.setParameters(C_Greeting.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Greeting_ID(foreignEntity.get_ID());
+			super.setC_Greeting_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Greeting_ID(0);
+			super.setC_Greeting_ID(0);
 		}
 	}
 
@@ -510,8 +251,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Greeting to print on correspondence
 	 */
-	public I_C_GreetingInput getC_Greeting() {
-		return C_Greeting;
+	@JsonProperty("C_Greeting")
+	public I_C_GreetingInput C_Greeting() {
+		return mC_Greeting;
 	}
 
 	/**
@@ -519,16 +261,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param C_InvoiceSchedule Schedule for generating Invoices
 	 */
-	public void setC_InvoiceSchedule(I_C_InvoiceScheduleInput C_InvoiceSchedule) {
-		this.C_InvoiceSchedule = C_InvoiceSchedule;
+	@JsonProperty("C_InvoiceSchedule")
+	public void setC_InvoiceScheduleInput(I_C_InvoiceScheduleInput C_InvoiceSchedule) {
+		this.mC_InvoiceSchedule = C_InvoiceSchedule;
 		MInvoiceSchedule foreignEntity;
 		if (C_InvoiceSchedule != null &&
 				(foreignEntity = new Query(getCtx(), MInvoiceSchedule.Table_Name, MInvoiceSchedule.COLUMNNAME_C_InvoiceSchedule_UU + "=?", get_TrxName())
 						.setParameters(C_InvoiceSchedule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_InvoiceSchedule_ID(foreignEntity.get_ID());
+			super.setC_InvoiceSchedule_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_InvoiceSchedule_ID(0);
+			super.setC_InvoiceSchedule_ID(0);
 		}
 	}
 
@@ -537,8 +280,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Schedule for generating Invoices
 	 */
-	public I_C_InvoiceScheduleInput getC_InvoiceSchedule() {
-		return C_InvoiceSchedule;
+	@JsonProperty("C_InvoiceSchedule")
+	public I_C_InvoiceScheduleInput C_InvoiceSchedule() {
+		return mC_InvoiceSchedule;
 	}
 
 	/**
@@ -546,16 +290,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param C_PaymentTerm The terms of Payment (timing, discount)
 	 */
-	public void setC_PaymentTerm(I_C_PaymentTermInput C_PaymentTerm) {
-		this.C_PaymentTerm = C_PaymentTerm;
+	@JsonProperty("C_PaymentTerm")
+	public void setC_PaymentTermInput(I_C_PaymentTermInput C_PaymentTerm) {
+		this.mC_PaymentTerm = C_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null &&
 				(foreignEntity = new Query(getCtx(), MPaymentTerm.Table_Name, MPaymentTerm.COLUMNNAME_C_PaymentTerm_UU + "=?", get_TrxName())
 						.setParameters(C_PaymentTerm.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_PaymentTerm_ID(foreignEntity.get_ID());
+			super.setC_PaymentTerm_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_PaymentTerm_ID(0);
+			super.setC_PaymentTerm_ID(0);
 		}
 	}
 
@@ -564,19 +309,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return The terms of Payment (timing, discount)
 	 */
-	public I_C_PaymentTermInput getC_PaymentTerm() {
-		return C_PaymentTerm;
-	}
-	/**
-	 * Set Payment Term.
-	 *
-	 * @param C_PaymentTerm_ID The terms of Payment (timing, discount)
-	 */
-
-	public void setC_PaymentTerm_ID(int C_PaymentTerm_ID) {
-		if (get_ID() == 0) {
-			super.setC_PaymentTerm_ID(C_PaymentTerm_ID);
-		}
+	@JsonProperty("C_PaymentTerm")
+	public I_C_PaymentTermInput C_PaymentTerm() {
+		return mC_PaymentTerm;
 	}
 
 	/**
@@ -584,16 +319,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param C_TaxGroup Tax Group
 	 */
-	public void setC_TaxGroup(I_C_TaxGroupInput C_TaxGroup) {
-		this.C_TaxGroup = C_TaxGroup;
+	@JsonProperty("C_TaxGroup")
+	public void setC_TaxGroupInput(I_C_TaxGroupInput C_TaxGroup) {
+		this.mC_TaxGroup = C_TaxGroup;
 		X_C_TaxGroup foreignEntity;
 		if (C_TaxGroup != null &&
 				(foreignEntity = new Query(getCtx(), X_C_TaxGroup.Table_Name, X_C_TaxGroup.COLUMNNAME_C_TaxGroup_UU + "=?", get_TrxName())
 						.setParameters(C_TaxGroup.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_TaxGroup_ID(foreignEntity.get_ID());
+			super.setC_TaxGroup_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_TaxGroup_ID(0);
+			super.setC_TaxGroup_ID(0);
 		}
 	}
 
@@ -602,8 +338,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Tax Group
 	 */
-	public I_C_TaxGroupInput getC_TaxGroup() {
-		return C_TaxGroup;
+	@JsonProperty("C_TaxGroup")
+	public I_C_TaxGroupInput C_TaxGroup() {
+		return mC_TaxGroup;
 	}
 
 	/**
@@ -611,16 +348,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param Default1099Box Default 1099 Box
 	 */
-	public void setDefault1099Box(I_C_1099BoxInput Default1099Box) {
-		this.Default1099Box = Default1099Box;
+	@JsonProperty("Default1099Box")
+	public void setDefault1099BoxInput(I_C_1099BoxInput Default1099Box) {
+		this.mDefault1099Box = Default1099Box;
 		X_C_1099Box foreignEntity;
 		if (Default1099Box != null &&
 				(foreignEntity = new Query(getCtx(), X_C_1099Box.Table_Name, X_C_1099Box.COLUMNNAME_C_1099Box_UU + "=?", get_TrxName())
 						.setParameters(Default1099Box.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDefault1099Box_ID(foreignEntity.get_ID());
+			super.setDefault1099Box_ID(foreignEntity.get_ID());
 		} else {
-			this.setDefault1099Box_ID(0);
+			super.setDefault1099Box_ID(0);
 		}
 	}
 
@@ -629,32 +367,23 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Default 1099 Box
 	 */
-	public I_C_1099BoxInput getDefault1099Box() {
-		return Default1099Box;
-	}
-	/**
-	 * Set Default 1099 Box.
-	 *
-	 * @param Default1099Box_ID Default 1099 Box
-	 */
-
-	public void setDefault1099Box_ID(int Default1099Box_ID) {
-		if (get_ID() == 0) {
-			super.setDefault1099Box_ID(Default1099Box_ID);
-		}
+	@JsonProperty("Default1099Box")
+	public I_C_1099BoxInput Default1099Box() {
+		return mDefault1099Box;
 	}
 
 	/**
 	 * Set Delivery Rule.
 	 *
-	 * @param DeliveryRule_RL Defines the timing of Delivery
+	 * @param DeliveryRule Defines the timing of Delivery
 	 */
-	public void setDeliveryRule_RL(I_AD_Ref_ListInput DeliveryRule_RL) {
-		this.DeliveryRule_RL = DeliveryRule_RL;
-		MRefList foreignEntity;
-		if (DeliveryRule_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DeliveryRule_RL.getID())
+	@JsonProperty("DeliveryRule")
+	public void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule) {
+		this.mDeliveryRule = DeliveryRule;
+		MRefList_BH foreignEntity;
+		if (DeliveryRule != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DeliveryRule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDeliveryRule(foreignEntity.getValue());
 		} else {
@@ -667,21 +396,23 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Defines the timing of Delivery
 	 */
-	public I_AD_Ref_ListInput getDeliveryRule_RL() {
-		return DeliveryRule_RL;
+	@JsonProperty("DeliveryRule")
+	public I_AD_Ref_ListInput DeliveryRule() {
+		return mDeliveryRule;
 	}
 
 	/**
 	 * Set Delivery Via.
 	 *
-	 * @param DeliveryViaRule_RL How the order will be delivered
+	 * @param DeliveryViaRule How the order will be delivered
 	 */
-	public void setDeliveryViaRule_RL(I_AD_Ref_ListInput DeliveryViaRule_RL) {
-		this.DeliveryViaRule_RL = DeliveryViaRule_RL;
-		MRefList foreignEntity;
-		if (DeliveryViaRule_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DeliveryViaRule_RL.getID())
+	@JsonProperty("DeliveryViaRule")
+	public void setDeliveryViaRuleInput(I_AD_Ref_ListInput DeliveryViaRule) {
+		this.mDeliveryViaRule = DeliveryViaRule;
+		MRefList_BH foreignEntity;
+		if (DeliveryViaRule != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DeliveryViaRule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDeliveryViaRule(foreignEntity.getValue());
 		} else {
@@ -694,21 +425,23 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return How the order will be delivered
 	 */
-	public I_AD_Ref_ListInput getDeliveryViaRule_RL() {
-		return DeliveryViaRule_RL;
+	@JsonProperty("DeliveryViaRule")
+	public I_AD_Ref_ListInput DeliveryViaRule() {
+		return mDeliveryViaRule;
 	}
 
 	/**
 	 * Set Freight Cost Rule.
 	 *
-	 * @param FreightCostRule_RL Method for charging Freight
+	 * @param FreightCostRule Method for charging Freight
 	 */
-	public void setFreightCostRule_RL(I_AD_Ref_ListInput FreightCostRule_RL) {
-		this.FreightCostRule_RL = FreightCostRule_RL;
-		MRefList foreignEntity;
-		if (FreightCostRule_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(FreightCostRule_RL.getID())
+	@JsonProperty("FreightCostRule")
+	public void setFreightCostRuleInput(I_AD_Ref_ListInput FreightCostRule) {
+		this.mFreightCostRule = FreightCostRule;
+		MRefList_BH foreignEntity;
+		if (FreightCostRule != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(FreightCostRule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setFreightCostRule(foreignEntity.getValue());
 		} else {
@@ -721,8 +454,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Method for charging Freight
 	 */
-	public I_AD_Ref_ListInput getFreightCostRule_RL() {
-		return FreightCostRule_RL;
+	@JsonProperty("FreightCostRule")
+	public I_AD_Ref_ListInput FreightCostRule() {
+		return mFreightCostRule;
 	}
 
 	/**
@@ -730,16 +464,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param Invoice_PrintFormat Print Format for printing Invoices
 	 */
-	public void setInvoice_PrintFormat(I_AD_PrintFormatInput Invoice_PrintFormat) {
-		this.Invoice_PrintFormat = Invoice_PrintFormat;
+	@JsonProperty("Invoice_PrintFormat")
+	public void setInvoice_PrintFormatInput(I_AD_PrintFormatInput Invoice_PrintFormat) {
+		this.mInvoice_PrintFormat = Invoice_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
 		if (Invoice_PrintFormat != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintFormat.Table_Name, X_AD_PrintFormat.COLUMNNAME_AD_PrintFormat_UU + "=?", get_TrxName())
 						.setParameters(Invoice_PrintFormat.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setInvoice_PrintFormat_ID(foreignEntity.get_ID());
+			super.setInvoice_PrintFormat_ID(foreignEntity.get_ID());
 		} else {
-			this.setInvoice_PrintFormat_ID(0);
+			super.setInvoice_PrintFormat_ID(0);
 		}
 	}
 
@@ -748,32 +483,23 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Print Format for printing Invoices
 	 */
-	public I_AD_PrintFormatInput getInvoice_PrintFormat() {
-		return Invoice_PrintFormat;
-	}
-	/**
-	 * Set Invoice Print Format.
-	 *
-	 * @param Invoice_PrintFormat_ID Print Format for printing Invoices
-	 */
-
-	public void setInvoice_PrintFormat_ID(int Invoice_PrintFormat_ID) {
-		if (get_ID() == 0) {
-			super.setInvoice_PrintFormat_ID(Invoice_PrintFormat_ID);
-		}
+	@JsonProperty("Invoice_PrintFormat")
+	public I_AD_PrintFormatInput Invoice_PrintFormat() {
+		return mInvoice_PrintFormat;
 	}
 
 	/**
 	 * Set Invoice Rule.
 	 *
-	 * @param InvoiceRule_RL Frequency and method of invoicing 
+	 * @param InvoiceRule Frequency and method of invoicing 
 	 */
-	public void setInvoiceRule_RL(I_AD_Ref_ListInput InvoiceRule_RL) {
-		this.InvoiceRule_RL = InvoiceRule_RL;
-		MRefList foreignEntity;
-		if (InvoiceRule_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(InvoiceRule_RL.getID())
+	@JsonProperty("InvoiceRule")
+	public void setInvoiceRuleInput(I_AD_Ref_ListInput InvoiceRule) {
+		this.mInvoiceRule = InvoiceRule;
+		MRefList_BH foreignEntity;
+		if (InvoiceRule != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(InvoiceRule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setInvoiceRule(foreignEntity.getValue());
 		} else {
@@ -786,8 +512,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Frequency and method of invoicing 
 	 */
-	public I_AD_Ref_ListInput getInvoiceRule_RL() {
-		return InvoiceRule_RL;
+	@JsonProperty("InvoiceRule")
+	public I_AD_Ref_ListInput InvoiceRule() {
+		return mInvoiceRule;
 	}
 
 	/**
@@ -795,16 +522,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param AD_Image Logo
 	 */
-	public void setAD_Image(I_AD_ImageInput AD_Image) {
-		this.AD_Image = AD_Image;
+	@JsonProperty("AD_Image")
+	public void setAD_ImageInput(I_AD_ImageInput AD_Image) {
+		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
 				(foreignEntity = new Query(getCtx(), MImage.Table_Name, MImage.COLUMNNAME_AD_Image_UU + "=?", get_TrxName())
 						.setParameters(AD_Image.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setLogo_ID(foreignEntity.get_ID());
+			super.setLogo_ID(foreignEntity.get_ID());
 		} else {
-			this.setLogo_ID(0);
+			super.setLogo_ID(0);
 		}
 	}
 
@@ -813,8 +541,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Logo
 	 */
-	public I_AD_ImageInput getAD_Image() {
-		return AD_Image;
+	@JsonProperty("AD_Image")
+	public I_AD_ImageInput AD_Image() {
+		return mAD_Image;
 	}
 
 	/**
@@ -822,16 +551,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param M_DiscountSchema Schema to calculate the trade discount percentage
 	 */
-	public void setM_DiscountSchema(I_M_DiscountSchemaInput M_DiscountSchema) {
-		this.M_DiscountSchema = M_DiscountSchema;
+	@JsonProperty("M_DiscountSchema")
+	public void setM_DiscountSchemaInput(I_M_DiscountSchemaInput M_DiscountSchema) {
+		this.mM_DiscountSchema = M_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (M_DiscountSchema != null &&
 				(foreignEntity = new Query(getCtx(), MDiscountSchema.Table_Name, MDiscountSchema.COLUMNNAME_M_DiscountSchema_UU + "=?", get_TrxName())
 						.setParameters(M_DiscountSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_DiscountSchema_ID(foreignEntity.get_ID());
+			super.setM_DiscountSchema_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_DiscountSchema_ID(0);
+			super.setM_DiscountSchema_ID(0);
 		}
 	}
 
@@ -840,19 +570,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Schema to calculate the trade discount percentage
 	 */
-	public I_M_DiscountSchemaInput getM_DiscountSchema() {
-		return M_DiscountSchema;
-	}
-	/**
-	 * Set Discount Schema.
-	 *
-	 * @param M_DiscountSchema_ID Schema to calculate the trade discount percentage
-	 */
-
-	public void setM_DiscountSchema_ID(int M_DiscountSchema_ID) {
-		if (get_ID() == 0) {
-			super.setM_DiscountSchema_ID(M_DiscountSchema_ID);
-		}
+	@JsonProperty("M_DiscountSchema")
+	public I_M_DiscountSchemaInput M_DiscountSchema() {
+		return mM_DiscountSchema;
 	}
 
 	/**
@@ -860,16 +580,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
-	public void setM_PriceList(I_M_PriceListInput M_PriceList) {
-		this.M_PriceList = M_PriceList;
+	@JsonProperty("M_PriceList")
+	public void setM_PriceListInput(I_M_PriceListInput M_PriceList) {
+		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (M_PriceList != null &&
 				(foreignEntity = new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_M_PriceList_UU + "=?", get_TrxName())
 						.setParameters(M_PriceList.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_PriceList_ID(foreignEntity.get_ID());
+			super.setM_PriceList_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_PriceList_ID(0);
+			super.setM_PriceList_ID(0);
 		}
 	}
 
@@ -878,81 +599,23 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Unique identifier of a Price List
 	 */
-	public I_M_PriceListInput getM_PriceList() {
-		return M_PriceList;
+	@JsonProperty("M_PriceList")
+	public I_M_PriceListInput M_PriceList() {
+		return mM_PriceList;
 	}
-
-	/**
-	 * Set NationalID.
-	 *
-	 * @param NationalID Patient Identity number
-	 */
-	public void setNationalID(String NationalID) {
-		set_Value(COLUMNNAME_NationalID, NationalID);
-	}
-
-
-	/**
-	 * Get NationalID.
-	 *
-	 * @return Patient Identity number
-	 */
-	public String getNationalID() {
- 		return (String) get_Value(COLUMNNAME_NationalID);
-	}
-
-
-	/**
-	 * Set Next of Kin Contact.
-	 *
-	 * @param NextOfKin_Contact Next of Kin Contact
-	 */
-	public void setNextOfKin_Contact(String NextOfKin_Contact) {
-		set_Value(COLUMNNAME_NextOfKin_Contact, NextOfKin_Contact);
-	}
-
-
-	/**
-	 * Get Next of Kin Contact.
-	 *
-	 * @return Next of Kin Contact
-	 */
-	public String getNextOfKin_Contact() {
- 		return (String) get_Value(COLUMNNAME_NextOfKin_Contact);
-	}
-
-
-	/**
-	 * Set Next of Kin Name.
-	 *
-	 * @param NextOfKin_Name Next of Kin Name
-	 */
-	public void setNextOfKin_Name(String NextOfKin_Name) {
-		set_Value(COLUMNNAME_NextOfKin_Name, NextOfKin_Name);
-	}
-
-
-	/**
-	 * Get Next of Kin Name.
-	 *
-	 * @return Next of Kin Name
-	 */
-	public String getNextOfKin_Name() {
- 		return (String) get_Value(COLUMNNAME_NextOfKin_Name);
-	}
-
 
 	/**
 	 * Set Payment Rule.
 	 *
-	 * @param PaymentRule_RL How you pay the invoice
+	 * @param PaymentRule How you pay the invoice
 	 */
-	public void setPaymentRule_RL(I_AD_Ref_ListInput PaymentRule_RL) {
-		this.PaymentRule_RL = PaymentRule_RL;
-		MRefList foreignEntity;
-		if (PaymentRule_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PaymentRule_RL.getID())
+	@JsonProperty("PaymentRule")
+	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
+		this.mPaymentRule = PaymentRule;
+		MRefList_BH foreignEntity;
+		if (PaymentRule != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PaymentRule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPaymentRule(foreignEntity.getValue());
 		} else {
@@ -965,21 +628,23 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return How you pay the invoice
 	 */
-	public I_AD_Ref_ListInput getPaymentRule_RL() {
-		return PaymentRule_RL;
+	@JsonProperty("PaymentRule")
+	public I_AD_Ref_ListInput PaymentRule() {
+		return mPaymentRule;
 	}
 
 	/**
 	 * Set Payment Rule.
 	 *
-	 * @param PaymentRulePO_RL Purchase payment option
+	 * @param PaymentRulePO Purchase payment option
 	 */
-	public void setPaymentRulePO_RL(I_AD_Ref_ListInput PaymentRulePO_RL) {
-		this.PaymentRulePO_RL = PaymentRulePO_RL;
-		MRefList foreignEntity;
-		if (PaymentRulePO_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PaymentRulePO_RL.getID())
+	@JsonProperty("PaymentRulePO")
+	public void setPaymentRulePOInput(I_AD_Ref_ListInput PaymentRulePO) {
+		this.mPaymentRulePO = PaymentRulePO;
+		MRefList_BH foreignEntity;
+		if (PaymentRulePO != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PaymentRulePO.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPaymentRulePO(foreignEntity.getValue());
 		} else {
@@ -992,8 +657,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Purchase payment option
 	 */
-	public I_AD_Ref_ListInput getPaymentRulePO_RL() {
-		return PaymentRulePO_RL;
+	@JsonProperty("PaymentRulePO")
+	public I_AD_Ref_ListInput PaymentRulePO() {
+		return mPaymentRulePO;
 	}
 
 	/**
@@ -1001,16 +667,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param PO_DiscountSchema Schema to calculate the purchase trade discount percentage
 	 */
-	public void setPO_DiscountSchema(I_M_DiscountSchemaInput PO_DiscountSchema) {
-		this.PO_DiscountSchema = PO_DiscountSchema;
+	@JsonProperty("PO_DiscountSchema")
+	public void setPO_DiscountSchemaInput(I_M_DiscountSchemaInput PO_DiscountSchema) {
+		this.mPO_DiscountSchema = PO_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (PO_DiscountSchema != null &&
 				(foreignEntity = new Query(getCtx(), MDiscountSchema.Table_Name, MDiscountSchema.COLUMNNAME_M_DiscountSchema_UU + "=?", get_TrxName())
 						.setParameters(PO_DiscountSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPO_DiscountSchema_ID(foreignEntity.get_ID());
+			super.setPO_DiscountSchema_ID(foreignEntity.get_ID());
 		} else {
-			this.setPO_DiscountSchema_ID(0);
+			super.setPO_DiscountSchema_ID(0);
 		}
 	}
 
@@ -1019,19 +686,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Schema to calculate the purchase trade discount percentage
 	 */
-	public I_M_DiscountSchemaInput getPO_DiscountSchema() {
-		return PO_DiscountSchema;
-	}
-	/**
-	 * Set PO Discount Schema.
-	 *
-	 * @param PO_DiscountSchema_ID Schema to calculate the purchase trade discount percentage
-	 */
-
-	public void setPO_DiscountSchema_ID(int PO_DiscountSchema_ID) {
-		if (get_ID() == 0) {
-			super.setPO_DiscountSchema_ID(PO_DiscountSchema_ID);
-		}
+	@JsonProperty("PO_DiscountSchema")
+	public I_M_DiscountSchemaInput PO_DiscountSchema() {
+		return mPO_DiscountSchema;
 	}
 
 	/**
@@ -1039,16 +696,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param PO_PaymentTerm Payment rules for a purchase order
 	 */
-	public void setPO_PaymentTerm(I_C_PaymentTermInput PO_PaymentTerm) {
-		this.PO_PaymentTerm = PO_PaymentTerm;
+	@JsonProperty("PO_PaymentTerm")
+	public void setPO_PaymentTermInput(I_C_PaymentTermInput PO_PaymentTerm) {
+		this.mPO_PaymentTerm = PO_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (PO_PaymentTerm != null &&
 				(foreignEntity = new Query(getCtx(), MPaymentTerm.Table_Name, MPaymentTerm.COLUMNNAME_C_PaymentTerm_UU + "=?", get_TrxName())
 						.setParameters(PO_PaymentTerm.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPO_PaymentTerm_ID(foreignEntity.get_ID());
+			super.setPO_PaymentTerm_ID(foreignEntity.get_ID());
 		} else {
-			this.setPO_PaymentTerm_ID(0);
+			super.setPO_PaymentTerm_ID(0);
 		}
 	}
 
@@ -1057,19 +715,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Payment rules for a purchase order
 	 */
-	public I_C_PaymentTermInput getPO_PaymentTerm() {
-		return PO_PaymentTerm;
-	}
-	/**
-	 * Set PO Payment Term.
-	 *
-	 * @param PO_PaymentTerm_ID Payment rules for a purchase order
-	 */
-
-	public void setPO_PaymentTerm_ID(int PO_PaymentTerm_ID) {
-		if (get_ID() == 0) {
-			super.setPO_PaymentTerm_ID(PO_PaymentTerm_ID);
-		}
+	@JsonProperty("PO_PaymentTerm")
+	public I_C_PaymentTermInput PO_PaymentTerm() {
+		return mPO_PaymentTerm;
 	}
 
 	/**
@@ -1077,16 +725,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param PO_PriceList Price List used by this Business Partner
 	 */
-	public void setPO_PriceList(I_M_PriceListInput PO_PriceList) {
-		this.PO_PriceList = PO_PriceList;
+	@JsonProperty("PO_PriceList")
+	public void setPO_PriceListInput(I_M_PriceListInput PO_PriceList) {
+		this.mPO_PriceList = PO_PriceList;
 		MPriceList foreignEntity;
 		if (PO_PriceList != null &&
 				(foreignEntity = new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_M_PriceList_UU + "=?", get_TrxName())
 						.setParameters(PO_PriceList.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPO_PriceList_ID(foreignEntity.get_ID());
+			super.setPO_PriceList_ID(foreignEntity.get_ID());
 		} else {
-			this.setPO_PriceList_ID(0);
+			super.setPO_PriceList_ID(0);
 		}
 	}
 
@@ -1095,19 +744,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Price List used by this Business Partner
 	 */
-	public I_M_PriceListInput getPO_PriceList() {
-		return PO_PriceList;
-	}
-	/**
-	 * Set Purchase Pricelist.
-	 *
-	 * @param PO_PriceList_ID Price List used by this Business Partner
-	 */
-
-	public void setPO_PriceList_ID(int PO_PriceList_ID) {
-		if (get_ID() == 0) {
-			super.setPO_PriceList_ID(PO_PriceList_ID);
-		}
+	@JsonProperty("PO_PriceList")
+	public I_M_PriceListInput PO_PriceList() {
+		return mPO_PriceList;
 	}
 
 	/**
@@ -1115,16 +754,17 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
-	public void setSalesRep(I_AD_UserInput SalesRep) {
-		this.SalesRep = SalesRep;
+	@JsonProperty("SalesRep")
+	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
 				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setSalesRep_ID(foreignEntity.get_ID());
+			super.setSalesRep_ID(foreignEntity.get_ID());
 		} else {
-			this.setSalesRep_ID(0);
+			super.setSalesRep_ID(0);
 		}
 	}
 
@@ -1133,19 +773,9 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Sales Representative or Company Agent
 	 */
-	public I_AD_UserInput getSalesRep() {
-		return SalesRep;
-	}
-	/**
-	 * Set Sales Representative.
-	 *
-	 * @param SalesRep_ID Sales Representative or Company Agent
-	 */
-
-	public void setSalesRep_ID(int SalesRep_ID) {
-		if (get_ID() == 0) {
-			super.setSalesRep_ID(SalesRep_ID);
-		}
+	@JsonProperty("SalesRep")
+	public I_AD_UserInput SalesRep() {
+		return mSalesRep;
 	}
 	/**
 	 * Set Credit Used.
@@ -1162,14 +792,15 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	/**
 	 * Set Credit Status.
 	 *
-	 * @param SOCreditStatus_RL Business Partner Credit Status
+	 * @param SOCreditStatus Business Partner Credit Status
 	 */
-	public void setSOCreditStatus_RL(I_AD_Ref_ListInput SOCreditStatus_RL) {
-		this.SOCreditStatus_RL = SOCreditStatus_RL;
-		MRefList foreignEntity;
-		if (SOCreditStatus_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(SOCreditStatus_RL.getID())
+	@JsonProperty("SOCreditStatus")
+	public void setSOCreditStatusInput(I_AD_Ref_ListInput SOCreditStatus) {
+		this.mSOCreditStatus = SOCreditStatus;
+		MRefList_BH foreignEntity;
+		if (SOCreditStatus != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(SOCreditStatus.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setSOCreditStatus(foreignEntity.getValue());
 		} else {
@@ -1182,7 +813,8 @@ public class X_C_BPartnerInput extends X_C_BPartner implements I_C_BPartnerInput
 	 *
 	 * @return Business Partner Credit Status
 	 */
-	public I_AD_Ref_ListInput getSOCreditStatus_RL() {
-		return SOCreditStatus_RL;
+	@JsonProperty("SOCreditStatus")
+	public I_AD_Ref_ListInput SOCreditStatus() {
+		return mSOCreditStatus;
 	}
 }

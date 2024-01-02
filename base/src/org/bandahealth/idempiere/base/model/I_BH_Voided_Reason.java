@@ -32,7 +32,7 @@ public interface I_BH_Voided_Reason
     /** TableName=BH_Voided_Reason */
     public static final String Table_Name = "BH_Voided_Reason";
 
-    /** AD_Table_ID=1000036 */
+    /** AD_Table_ID=1000035 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -73,11 +73,11 @@ public interface I_BH_Voided_Reason
 	/** Get BH_Voided_Reason_ID	  */
 	public int getBH_Voided_Reason_ID();
 
-    /** Column name bh_voided_reason_uu */
+    /** Column name BH_Voided_Reason_UU */
     public static final String COLUMNNAME_BH_Voided_Reason_UU = "BH_Voided_Reason_UU";
 
 	/** Set bh_voided_reason_uu	  */
-	public void setBH_Voided_Reason_UU(String bh_voided_reason_uu);
+	public void setBH_Voided_Reason_UU (String BH_Voided_Reason_UU);
 
 	/** Get bh_voided_reason_uu	  */
 	public String getBH_Voided_Reason_UU();

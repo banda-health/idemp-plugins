@@ -165,6 +165,14 @@ public class X_M_InOutLineResolver extends POResolver<MInOutLine> implements Gra
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
+	public Boolean IsDescription(MInOutLine entity, DataFetchingEnvironment environment) {
+		return entity.isDescription();
+	}
+
+	public Boolean IsInvoiced(MInOutLine entity, DataFetchingEnvironment environment) {
+		return entity.isInvoiced();
+	}
+
 
 	/**
 	 * Get Attribute Set Instance.
@@ -238,6 +246,10 @@ public class X_M_InOutLineResolver extends POResolver<MInOutLine> implements Gra
 		DataLoader<Integer, MRMALine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_RMALineDataLoader.M_RMALine_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getM_RMALine_ID());
+	}
+
+	public Boolean Processed(MInOutLine entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
 	}
 
 

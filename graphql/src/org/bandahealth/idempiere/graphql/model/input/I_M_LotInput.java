@@ -15,14 +15,14 @@ public interface I_M_LotInput extends I_M_Lot {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,26 +43,26 @@ public interface I_M_LotInput extends I_M_Lot {
 	 *
 	 * @param M_LotCtl Product Lot Control
 	 */
-	void setM_LotCtl(I_M_LotCtlInput M_LotCtl);
+	void setM_LotCtlInput(I_M_LotCtlInput M_LotCtl);
 
 	/**
 	 * Get M_LotCtl.
 	 *
 	 * @return Product Lot Control
 	 */
-	I_M_LotCtlInput getM_LotCtl();
+	I_M_LotCtlInput M_LotCtl();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_Product(I_M_ProductInput M_Product);
+	void setM_ProductInput(I_M_ProductInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput getM_Product();
+	I_M_ProductInput M_Product();
 }

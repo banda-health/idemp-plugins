@@ -1,14 +1,16 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MBPBankAccount;
 import org.compiere.model.MBank;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentProcessor;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_BP_BankAccount;
 import org.compiere.util.Env;
 
 /**
@@ -17,23 +19,24 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_BP_BankAccountInput {
+public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_BankAccountInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput BPBankAcctUse_RL;
-	 private I_AD_Ref_ListInput BankAccountType_RL;
-	 private I_AD_Ref_ListInput CreditCardType_RL;
-	 private I_AD_Ref_ListInput R_AvsAddr_RL;
-	 private I_AD_Ref_ListInput R_AvsZip_RL;
-	 private I_AD_UserInput AD_User;
-	 private I_C_BPartnerInput C_BPartner;
-	 private I_C_BankInput C_Bank;
-	 private I_C_PaymentProcessorInput C_PaymentProcessor;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mBPBankAcctUse;
+	 private I_AD_Ref_ListInput mBankAccountType;
+	 private I_AD_Ref_ListInput mCreditCardType;
+	 private I_AD_Ref_ListInput mR_AvsAddr;
+	 private I_AD_Ref_ListInput mR_AvsZip;
+	 private I_AD_UserInput mAD_User;
+	 private I_C_BPartnerInput mC_BPartner;
+	 private I_C_BankInput mC_Bank;
+	 private I_C_PaymentProcessorInput mC_PaymentProcessor;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_BP_BankAccountInput(String ID) {
+	@JsonCreator
+	public X_C_BP_BankAccountInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -43,14 +46,15 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -59,8 +63,9 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -68,16 +73,17 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	public void setAD_User(I_AD_UserInput AD_User) {
-		this.AD_User = AD_User;
+	@JsonProperty("AD_User")
+	public void setAD_UserInput(I_AD_UserInput AD_User) {
+		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
 				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_User_ID(foreignEntity.get_ID());
+			super.setAD_User_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_User_ID(0);
+			super.setAD_User_ID(0);
 		}
 	}
 
@@ -86,21 +92,23 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	public I_AD_UserInput getAD_User() {
-		return AD_User;
+	@JsonProperty("AD_User")
+	public I_AD_UserInput AD_User() {
+		return mAD_User;
 	}
 
 	/**
 	 * Set Bank Account Type.
 	 *
-	 * @param BankAccountType_RL Bank Account Type
+	 * @param BankAccountType Bank Account Type
 	 */
-	public void setBankAccountType_RL(I_AD_Ref_ListInput BankAccountType_RL) {
-		this.BankAccountType_RL = BankAccountType_RL;
-		MRefList foreignEntity;
-		if (BankAccountType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BankAccountType_RL.getID())
+	@JsonProperty("BankAccountType")
+	public void setBankAccountTypeInput(I_AD_Ref_ListInput BankAccountType) {
+		this.mBankAccountType = BankAccountType;
+		MRefList_BH foreignEntity;
+		if (BankAccountType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(BankAccountType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setBankAccountType(foreignEntity.getValue());
 		} else {
@@ -113,21 +121,23 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @return Bank Account Type
 	 */
-	public I_AD_Ref_ListInput getBankAccountType_RL() {
-		return BankAccountType_RL;
+	@JsonProperty("BankAccountType")
+	public I_AD_Ref_ListInput BankAccountType() {
+		return mBankAccountType;
 	}
 
 	/**
 	 * Set Account Usage.
 	 *
-	 * @param BPBankAcctUse_RL Business Partner Bank Account usage
+	 * @param BPBankAcctUse Business Partner Bank Account usage
 	 */
-	public void setBPBankAcctUse_RL(I_AD_Ref_ListInput BPBankAcctUse_RL) {
-		this.BPBankAcctUse_RL = BPBankAcctUse_RL;
-		MRefList foreignEntity;
-		if (BPBankAcctUse_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BPBankAcctUse_RL.getID())
+	@JsonProperty("BPBankAcctUse")
+	public void setBPBankAcctUseInput(I_AD_Ref_ListInput BPBankAcctUse) {
+		this.mBPBankAcctUse = BPBankAcctUse;
+		MRefList_BH foreignEntity;
+		if (BPBankAcctUse != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(BPBankAcctUse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setBPBankAcctUse(foreignEntity.getValue());
 		} else {
@@ -140,8 +150,9 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @return Business Partner Bank Account usage
 	 */
-	public I_AD_Ref_ListInput getBPBankAcctUse_RL() {
-		return BPBankAcctUse_RL;
+	@JsonProperty("BPBankAcctUse")
+	public I_AD_Ref_ListInput BPBankAcctUse() {
+		return mBPBankAcctUse;
 	}
 
 	/**
@@ -149,16 +160,17 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @param C_Bank Bank
 	 */
-	public void setC_Bank(I_C_BankInput C_Bank) {
-		this.C_Bank = C_Bank;
+	@JsonProperty("C_Bank")
+	public void setC_BankInput(I_C_BankInput C_Bank) {
+		this.mC_Bank = C_Bank;
 		MBank foreignEntity;
 		if (C_Bank != null &&
 				(foreignEntity = new Query(getCtx(), MBank.Table_Name, MBank.COLUMNNAME_C_Bank_UU + "=?", get_TrxName())
 						.setParameters(C_Bank.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Bank_ID(foreignEntity.get_ID());
+			super.setC_Bank_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Bank_ID(0);
+			super.setC_Bank_ID(0);
 		}
 	}
 
@@ -167,19 +179,9 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @return Bank
 	 */
-	public I_C_BankInput getC_Bank() {
-		return C_Bank;
-	}
-	/**
-	 * Set Partner Bank Account.
-	 *
-	 * @param C_BP_BankAccount_ID Bank Account of the Business Partner
-	 */
-
-	public void setC_BP_BankAccount_ID(int C_BP_BankAccount_ID) {
-		if (get_ID() == 0) {
-			super.setC_BP_BankAccount_ID(C_BP_BankAccount_ID);
-		}
+	@JsonProperty("C_Bank")
+	public I_C_BankInput C_Bank() {
+		return mC_Bank;
 	}
 
 	/**
@@ -205,14 +207,15 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	public void setC_BPartner(I_C_BPartnerInput C_BPartner) {
-		this.C_BPartner = C_BPartner;
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (get_ID() == 0 &&C_BPartner != null &&
 				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_ID(foreignEntity.get_ID());
+			super.setC_BPartner_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -221,19 +224,9 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public I_C_BPartnerInput getC_BPartner() {
-		return C_BPartner;
-	}
-	/**
-	 * Set Business Partner .
-	 *
-	 * @param C_BPartner_ID Identifies a Business Partner
-	 */
-
-	public void setC_BPartner_ID(int C_BPartner_ID) {
-		if (get_ID() == 0) {
-			super.setC_BPartner_ID(C_BPartner_ID);
-		}
+	@JsonProperty("C_BPartner")
+	public I_C_BPartnerInput C_BPartner() {
+		return mC_BPartner;
 	}
 
 	/**
@@ -241,16 +234,17 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @param C_PaymentProcessor Payment processor for electronic payments
 	 */
-	public void setC_PaymentProcessor(I_C_PaymentProcessorInput C_PaymentProcessor) {
-		this.C_PaymentProcessor = C_PaymentProcessor;
+	@JsonProperty("C_PaymentProcessor")
+	public void setC_PaymentProcessorInput(I_C_PaymentProcessorInput C_PaymentProcessor) {
+		this.mC_PaymentProcessor = C_PaymentProcessor;
 		MPaymentProcessor foreignEntity;
 		if (C_PaymentProcessor != null &&
 				(foreignEntity = new Query(getCtx(), MPaymentProcessor.Table_Name, MPaymentProcessor.COLUMNNAME_C_PaymentProcessor_UU + "=?", get_TrxName())
 						.setParameters(C_PaymentProcessor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_PaymentProcessor_ID(foreignEntity.get_ID());
+			super.setC_PaymentProcessor_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_PaymentProcessor_ID(0);
+			super.setC_PaymentProcessor_ID(0);
 		}
 	}
 
@@ -259,21 +253,23 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @return Payment processor for electronic payments
 	 */
-	public I_C_PaymentProcessorInput getC_PaymentProcessor() {
-		return C_PaymentProcessor;
+	@JsonProperty("C_PaymentProcessor")
+	public I_C_PaymentProcessorInput C_PaymentProcessor() {
+		return mC_PaymentProcessor;
 	}
 
 	/**
 	 * Set Credit Card.
 	 *
-	 * @param CreditCardType_RL Credit Card (Visa, MC, AmEx)
+	 * @param CreditCardType Credit Card (Visa, MC, AmEx)
 	 */
-	public void setCreditCardType_RL(I_AD_Ref_ListInput CreditCardType_RL) {
-		this.CreditCardType_RL = CreditCardType_RL;
-		MRefList foreignEntity;
-		if (CreditCardType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(CreditCardType_RL.getID())
+	@JsonProperty("CreditCardType")
+	public void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType) {
+		this.mCreditCardType = CreditCardType;
+		MRefList_BH foreignEntity;
+		if (CreditCardType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(CreditCardType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setCreditCardType(foreignEntity.getValue());
 		} else {
@@ -286,21 +282,23 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @return Credit Card (Visa, MC, AmEx)
 	 */
-	public I_AD_Ref_ListInput getCreditCardType_RL() {
-		return CreditCardType_RL;
+	@JsonProperty("CreditCardType")
+	public I_AD_Ref_ListInput CreditCardType() {
+		return mCreditCardType;
 	}
 
 	/**
 	 * Set Address verified.
 	 *
-	 * @param R_AvsAddr_RL This address has been verified
+	 * @param R_AvsAddr This address has been verified
 	 */
-	public void setR_AvsAddr_RL(I_AD_Ref_ListInput R_AvsAddr_RL) {
-		this.R_AvsAddr_RL = R_AvsAddr_RL;
-		MRefList foreignEntity;
-		if (get_ID() == 0 &&R_AvsAddr_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(R_AvsAddr_RL.getID())
+	@JsonProperty("R_AvsAddr")
+	public void setR_AvsAddrInput(I_AD_Ref_ListInput R_AvsAddr) {
+		this.mR_AvsAddr = R_AvsAddr;
+		MRefList_BH foreignEntity;
+		if (get_ID() == 0 &&R_AvsAddr != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(R_AvsAddr.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setR_AvsAddr(foreignEntity.getValue());
 		}
@@ -311,21 +309,23 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @return This address has been verified
 	 */
-	public I_AD_Ref_ListInput getR_AvsAddr_RL() {
-		return R_AvsAddr_RL;
+	@JsonProperty("R_AvsAddr")
+	public I_AD_Ref_ListInput R_AvsAddr() {
+		return mR_AvsAddr;
 	}
 
 	/**
 	 * Set Zip verified.
 	 *
-	 * @param R_AvsZip_RL The Zip Code has been verified
+	 * @param R_AvsZip The Zip Code has been verified
 	 */
-	public void setR_AvsZip_RL(I_AD_Ref_ListInput R_AvsZip_RL) {
-		this.R_AvsZip_RL = R_AvsZip_RL;
-		MRefList foreignEntity;
-		if (get_ID() == 0 &&R_AvsZip_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(R_AvsZip_RL.getID())
+	@JsonProperty("R_AvsZip")
+	public void setR_AvsZipInput(I_AD_Ref_ListInput R_AvsZip) {
+		this.mR_AvsZip = R_AvsZip;
+		MRefList_BH foreignEntity;
+		if (get_ID() == 0 &&R_AvsZip != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(R_AvsZip.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setR_AvsZip(foreignEntity.getValue());
 		}
@@ -336,7 +336,8 @@ public class X_C_BP_BankAccountInput extends X_C_BP_BankAccount implements I_C_B
 	 *
 	 * @return The Zip Code has been verified
 	 */
-	public I_AD_Ref_ListInput getR_AvsZip_RL() {
-		return R_AvsZip_RL;
+	@JsonProperty("R_AvsZip")
+	public I_AD_Ref_ListInput R_AvsZip() {
+		return mR_AvsZip;
 	}
 }

@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Asset_Split;
 import org.compiere.util.Env;
@@ -17,17 +19,18 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_SplitInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput A_Split_Type_RL;
-	 private I_AD_Ref_ListInput PostingType_RL;
-	 private I_A_AssetInput A_Asset;
-	 private I_A_AssetInput A_Asset_To;
-	 private I_C_PeriodInput C_Period;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mA_Split_Type;
+	 private I_AD_Ref_ListInput mPostingType;
+	 private I_A_AssetInput mA_Asset;
+	 private I_A_AssetInput mA_Asset_To;
+	 private I_C_PeriodInput mC_Period;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_A_Asset_SplitInput(String ID) {
+	@JsonCreator
+	public X_A_Asset_SplitInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -37,16 +40,17 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	public void setA_Asset(I_A_AssetInput A_Asset) {
-		this.A_Asset = A_Asset;
+	@JsonProperty("A_Asset")
+	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_ID(foreignEntity.get_ID());
+			super.setA_Asset_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_Asset_ID(0);
+			super.setA_Asset_ID(0);
 		}
 	}
 
@@ -55,8 +59,9 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public I_A_AssetInput getA_Asset() {
-		return A_Asset;
+	@JsonProperty("A_Asset")
+	public I_A_AssetInput A_Asset() {
+		return mA_Asset;
 	}
 
 	/**
@@ -64,16 +69,17 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @param A_Asset_To To Asset ID
 	 */
-	public void setA_Asset_To(I_A_AssetInput A_Asset_To) {
-		this.A_Asset_To = A_Asset_To;
+	@JsonProperty("A_Asset_To")
+	public void setA_Asset_ToInput(I_A_AssetInput A_Asset_To) {
+		this.mA_Asset_To = A_Asset_To;
 		MAsset foreignEntity;
 		if (A_Asset_To != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_Asset_To.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_ID_To(foreignEntity.get_ID());
+			super.setA_Asset_ID_To(foreignEntity.get_ID());
 		} else {
-			this.setA_Asset_ID_To(0);
+			super.setA_Asset_ID_To(0);
 		}
 	}
 
@@ -82,30 +88,9 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @return To Asset ID
 	 */
-	public I_A_AssetInput getA_Asset_To() {
-		return A_Asset_To;
-	}
-	/**
-	 * Set To Asset ID.
-	 *
-	 * @param A_Asset_ID_To To Asset ID
-	 */
-
-	public void setA_Asset_ID_To(int A_Asset_ID_To) {
-		if (get_ID() == 0) {
-			super.setA_Asset_ID_To(A_Asset_ID_To);
-		}
-	}
-	/**
-	 * Set Asset Split.
-	 *
-	 * @param A_Asset_Split_ID Asset Split
-	 */
-
-	public void setA_Asset_Split_ID(int A_Asset_Split_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_Split_ID(A_Asset_Split_ID);
-		}
+	@JsonProperty("A_Asset_To")
+	public I_A_AssetInput A_Asset_To() {
+		return mA_Asset_To;
 	}
 
 	/**
@@ -140,14 +125,15 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	/**
 	 * Set Split Type.
 	 *
-	 * @param A_Split_Type_RL Split Type
+	 * @param A_Split_Type Split Type
 	 */
-	public void setA_Split_Type_RL(I_AD_Ref_ListInput A_Split_Type_RL) {
-		this.A_Split_Type_RL = A_Split_Type_RL;
-		MRefList foreignEntity;
-		if (A_Split_Type_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Split_Type_RL.getID())
+	@JsonProperty("A_Split_Type")
+	public void setA_Split_TypeInput(I_AD_Ref_ListInput A_Split_Type) {
+		this.mA_Split_Type = A_Split_Type;
+		MRefList_BH foreignEntity;
+		if (A_Split_Type != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(A_Split_Type.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setA_Split_Type(foreignEntity.getValue());
 		} else {
@@ -160,8 +146,9 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @return Split Type
 	 */
-	public I_AD_Ref_ListInput getA_Split_Type_RL() {
-		return A_Split_Type_RL;
+	@JsonProperty("A_Split_Type")
+	public I_AD_Ref_ListInput A_Split_Type() {
+		return mA_Split_Type;
 	}
 
 	/**
@@ -169,14 +156,15 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -185,8 +173,9 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -194,16 +183,17 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	public void setC_Period(I_C_PeriodInput C_Period) {
-		this.C_Period = C_Period;
+	@JsonProperty("C_Period")
+	public void setC_PeriodInput(I_C_PeriodInput C_Period) {
+		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
 				(foreignEntity = new Query(getCtx(), MPeriod.Table_Name, MPeriod.COLUMNNAME_C_Period_UU + "=?", get_TrxName())
 						.setParameters(C_Period.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Period_ID(foreignEntity.get_ID());
+			super.setC_Period_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Period_ID(0);
+			super.setC_Period_ID(0);
 		}
 	}
 
@@ -212,32 +202,23 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @return Period of the Calendar
 	 */
-	public I_C_PeriodInput getC_Period() {
-		return C_Period;
-	}
-	/**
-	 * Set Period.
-	 *
-	 * @param C_Period_ID Period of the Calendar
-	 */
-
-	public void setC_Period_ID(int C_Period_ID) {
-		if (get_ID() == 0) {
-			super.setC_Period_ID(C_Period_ID);
-		}
+	@JsonProperty("C_Period")
+	public I_C_PeriodInput C_Period() {
+		return mC_Period;
 	}
 
 	/**
 	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	public void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL) {
-		this.PostingType_RL = PostingType_RL;
-		MRefList foreignEntity;
-		if (get_ID() == 0 &&PostingType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType_RL.getID())
+	@JsonProperty("PostingType")
+	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+		this.mPostingType = PostingType;
+		MRefList_BH foreignEntity;
+		if (get_ID() == 0 &&PostingType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PostingType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPostingType(foreignEntity.getValue());
 		}
@@ -248,7 +229,8 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	public I_AD_Ref_ListInput getPostingType_RL() {
-		return PostingType_RL;
+	@JsonProperty("PostingType")
+	public I_AD_Ref_ListInput PostingType() {
+		return mPostingType;
 	}
 }

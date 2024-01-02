@@ -1,13 +1,15 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
+import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_Charge;
 import org.compiere.util.Env;
 
 /**
@@ -16,18 +18,19 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ChargeInput extends X_C_Charge implements I_C_ChargeInput {
+public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput BH_SubType_RL;
-	 private I_C_BPartnerInput C_BPartner;
-	 private I_C_ChargeTypeInput C_ChargeType;
-	 private I_C_TaxCategoryInput C_TaxCategory;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mBH_SubType;
+	 private I_C_BPartnerInput mC_BPartner;
+	 private I_C_ChargeTypeInput mC_ChargeType;
+	 private I_C_TaxCategoryInput mC_TaxCategory;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_ChargeInput(String ID) {
+	@JsonCreator
+	public X_C_ChargeInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -37,14 +40,15 @@ public class X_C_ChargeInput extends X_C_Charge implements I_C_ChargeInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -53,81 +57,23 @@ public class X_C_ChargeInput extends X_C_Charge implements I_C_ChargeInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
-
-	/**
-	 * Set BH_Locked.
-	 *
-	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
-	 */
-	public void setBH_Locked(boolean BH_Locked) {
-		set_Value(COLUMNNAME_BH_Locked, BH_Locked);
-	}
-
-
-	/**
-	 * Get BH_Locked.
-	 *
-	 * @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
-	 */
-	public boolean isBH_Locked() {
- 		Object columnValue = get_Value(COLUMNNAME_BH_Locked);
-		if (columnValue != null) {
-			if (columnValue instanceof Boolean) {
-				return ((Boolean) columnValue);
-			}
-			return "Y".equals(columnValue);
-		}
-		return false;
-	}
-
-	/**
-	 * Insurance = I
-	 */
-	public static final String BH_SUBTYPE_Insurance = "I";
-	/**
-	 * Waiver = W
-	 */
-	public static final String BH_SUBTYPE_Waiver = "W";
-	/**
-	 * Donation = D
-	 */
-	public static final String BH_SUBTYPE_Donation = "D";
 
 	/**
 	 * Set Sub Type.
 	 *
 	 * @param BH_SubType Meant to be a sub-type of the charge type
 	 */
-	public void setBH_SubType(String BH_SubType) {
-
-		set_Value(COLUMNNAME_BH_SubType, BH_SubType);
-	}
-
-
-	/**
-	 * Get Sub Type.
-	 *
-	 * @return Meant to be a sub-type of the charge type
-	 */
-	public String getBH_SubType() {
- 		return (String) get_Value(COLUMNNAME_BH_SubType);
-	}
-
-
-	/**
-	 * Set Sub Type.
-	 *
-	 * @param BH_SubType_RL Meant to be a sub-type of the charge type
-	 */
-	public void setBH_SubType_RL(I_AD_Ref_ListInput BH_SubType_RL) {
-		this.BH_SubType_RL = BH_SubType_RL;
-		MRefList foreignEntity;
-		if (BH_SubType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BH_SubType_RL.getID())
+	@JsonProperty("BH_SubType")
+	public void setBH_SubTypeInput(I_AD_Ref_ListInput BH_SubType) {
+		this.mBH_SubType = BH_SubType;
+		MRefList_BH foreignEntity;
+		if (BH_SubType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(BH_SubType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setBH_SubType(foreignEntity.getValue());
 		} else {
@@ -140,8 +86,9 @@ public class X_C_ChargeInput extends X_C_Charge implements I_C_ChargeInput {
 	 *
 	 * @return Meant to be a sub-type of the charge type
 	 */
-	public I_AD_Ref_ListInput getBH_SubType_RL() {
-		return BH_SubType_RL;
+	@JsonProperty("BH_SubType")
+	public I_AD_Ref_ListInput BH_SubType() {
+		return mBH_SubType;
 	}
 
 	/**
@@ -149,16 +96,17 @@ public class X_C_ChargeInput extends X_C_Charge implements I_C_ChargeInput {
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	public void setC_BPartner(I_C_BPartnerInput C_BPartner) {
-		this.C_BPartner = C_BPartner;
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
 				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_ID(foreignEntity.get_ID());
+			super.setC_BPartner_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BPartner_ID(0);
+			super.setC_BPartner_ID(0);
 		}
 	}
 
@@ -167,19 +115,9 @@ public class X_C_ChargeInput extends X_C_Charge implements I_C_ChargeInput {
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public I_C_BPartnerInput getC_BPartner() {
-		return C_BPartner;
-	}
-	/**
-	 * Set Charge.
-	 *
-	 * @param C_Charge_ID Additional document charges
-	 */
-
-	public void setC_Charge_ID(int C_Charge_ID) {
-		if (get_ID() == 0) {
-			super.setC_Charge_ID(C_Charge_ID);
-		}
+	@JsonProperty("C_BPartner")
+	public I_C_BPartnerInput C_BPartner() {
+		return mC_BPartner;
 	}
 
 	/**
@@ -205,16 +143,17 @@ public class X_C_ChargeInput extends X_C_Charge implements I_C_ChargeInput {
 	 *
 	 * @param C_ChargeType Charge Type
 	 */
-	public void setC_ChargeType(I_C_ChargeTypeInput C_ChargeType) {
-		this.C_ChargeType = C_ChargeType;
+	@JsonProperty("C_ChargeType")
+	public void setC_ChargeTypeInput(I_C_ChargeTypeInput C_ChargeType) {
+		this.mC_ChargeType = C_ChargeType;
 		MChargeType_BH foreignEntity;
 		if (C_ChargeType != null &&
 				(foreignEntity = new Query(getCtx(), MChargeType_BH.Table_Name, MChargeType_BH.COLUMNNAME_C_ChargeType_UU + "=?", get_TrxName())
 						.setParameters(C_ChargeType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_ChargeType_ID(foreignEntity.get_ID());
+			super.setC_ChargeType_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_ChargeType_ID(0);
+			super.setC_ChargeType_ID(0);
 		}
 	}
 
@@ -223,8 +162,9 @@ public class X_C_ChargeInput extends X_C_Charge implements I_C_ChargeInput {
 	 *
 	 * @return Charge Type
 	 */
-	public I_C_ChargeTypeInput getC_ChargeType() {
-		return C_ChargeType;
+	@JsonProperty("C_ChargeType")
+	public I_C_ChargeTypeInput C_ChargeType() {
+		return mC_ChargeType;
 	}
 
 	/**
@@ -232,16 +172,17 @@ public class X_C_ChargeInput extends X_C_Charge implements I_C_ChargeInput {
 	 *
 	 * @param C_TaxCategory Tax Category
 	 */
-	public void setC_TaxCategory(I_C_TaxCategoryInput C_TaxCategory) {
-		this.C_TaxCategory = C_TaxCategory;
+	@JsonProperty("C_TaxCategory")
+	public void setC_TaxCategoryInput(I_C_TaxCategoryInput C_TaxCategory) {
+		this.mC_TaxCategory = C_TaxCategory;
 		MTaxCategory foreignEntity;
 		if (C_TaxCategory != null &&
 				(foreignEntity = new Query(getCtx(), MTaxCategory.Table_Name, MTaxCategory.COLUMNNAME_C_TaxCategory_UU + "=?", get_TrxName())
 						.setParameters(C_TaxCategory.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_TaxCategory_ID(foreignEntity.get_ID());
+			super.setC_TaxCategory_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_TaxCategory_ID(0);
+			super.setC_TaxCategory_ID(0);
 		}
 	}
 
@@ -250,7 +191,8 @@ public class X_C_ChargeInput extends X_C_Charge implements I_C_ChargeInput {
 	 *
 	 * @return Tax Category
 	 */
-	public I_C_TaxCategoryInput getC_TaxCategory() {
-		return C_TaxCategory;
+	@JsonProperty("C_TaxCategory")
+	public I_C_TaxCategoryInput C_TaxCategory() {
+		return mC_TaxCategory;
 	}
 }

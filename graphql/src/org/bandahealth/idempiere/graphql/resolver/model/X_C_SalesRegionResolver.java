@@ -18,6 +18,14 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_SalesRegionResolver extends POResolver<MSalesRegion> implements GraphQLResolver<MSalesRegion> {
 
 
+	public Boolean IsDefault(MSalesRegion entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsSummary(MSalesRegion entity, DataFetchingEnvironment environment) {
+		return entity.isSummary();
+	}
+
 
 	/**
 	 * Get Sales Representative.

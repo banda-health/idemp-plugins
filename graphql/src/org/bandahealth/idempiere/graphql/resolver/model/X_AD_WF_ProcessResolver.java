@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_MessageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -11,7 +12,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_ResponsibleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WorkflowDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTable;
 import org.compiere.model.X_AD_WF_Process;
 import org.compiere.model.X_AD_WF_Responsible;
@@ -106,6 +106,14 @@ public class X_AD_WF_ProcessResolver extends POResolver<X_AD_WF_Process> impleme
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 
+	public Boolean Processed(X_AD_WF_Process entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(X_AD_WF_Process entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 	static Map<String, String> WFSTATE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("ON", "79c0657d-e1c1-4662-8580-1819db98c456");
@@ -116,11 +124,11 @@ public class X_AD_WF_ProcessResolver extends POResolver<X_AD_WF_Process> impleme
 			put("CT", "1f8d557d-9955-4285-aa92-d098d5ed7ca9");
 		}
 	};
-	public CompletableFuture<MRefList> WFState_RL(X_AD_WF_Process entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> WFState(X_AD_WF_Process entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getWFState())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(WFSTATE_UUIDS_BY_VALUE.get(entity.getWFState()));
 	}

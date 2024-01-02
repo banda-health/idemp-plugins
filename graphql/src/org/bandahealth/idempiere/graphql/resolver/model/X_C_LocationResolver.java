@@ -84,4 +84,8 @@ public class X_C_LocationResolver extends POResolver<MLocation> implements Graph
 		return dataLoader.load(entity.getC_Region_ID());
 	}
 
+	public Boolean IsValid(MLocation entity, DataFetchingEnvironment environment) {
+		return entity.isValid();
+	}
+
 }

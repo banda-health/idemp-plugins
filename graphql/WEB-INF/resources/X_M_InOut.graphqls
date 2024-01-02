@@ -47,7 +47,7 @@ type M_InOut {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	CreatePackage: String
@@ -60,15 +60,15 @@ type M_InOut {
 	# Date a product was received
 	DateReceived: Date
 	# Defines the timing of Delivery
-	DeliveryRule_RL: AD_Ref_List!
+	DeliveryRule: AD_Ref_List!
 	# How the order will be delivered
-	DeliveryViaRule_RL: AD_Ref_List!
+	DeliveryViaRule: AD_Ref_List!
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction_RL: AD_Ref_List!
+	DocAction: AD_Ref_List!
 	# The current status of the document
-	DocStatus_RL: AD_Ref_List!
+	DocStatus: AD_Ref_List!
 	# Document sequence number of the document
 	DocumentNo: String!
 	# Business Partner to ship to
@@ -77,15 +77,15 @@ type M_InOut {
 	DropShip_Location: C_BPartner_Location
 	# Business Partner Contact for drop shipment
 	DropShip_User: AD_User
-	FOB_RL: AD_Ref_List
+	FOB: AD_Ref_List
 	# Freight Amount 
 	FreightAmt: Int
-	FreightCharges_RL: AD_Ref_List
+	FreightCharges: AD_Ref_List
 	# Method for charging Freight
-	FreightCostRule_RL: AD_Ref_List!
+	FreightCostRule: AD_Ref_List!
 	# Generate To
 	GenerateTo: String
-	Insurance_RL: AD_Ref_List
+	Insurance: AD_Ref_List
 	# The record is active in the system
 	IsActive: Boolean!
 	IsAlternateReturnAddress: Boolean!
@@ -111,7 +111,7 @@ type M_InOut {
 	# Date a product was moved in or out of inventory
 	MovementDate: Date!
 	# Method of moving the inventory
-	MovementType_RL: AD_Ref_List!
+	MovementType: AD_Ref_List!
 	# Number of packages shipped
 	NoPackages: Int
 	# Date/Time when picked for Shipment
@@ -121,7 +121,7 @@ type M_InOut {
 	# Posting status
 	Posted: Boolean!
 	# Priority of a document
-	PriorityRule_RL: AD_Ref_List!
+	PriorityRule: AD_Ref_List!
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
@@ -144,7 +144,7 @@ type M_InOut {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# User defined list element #1
 	User1: C_ElementValue
 	# User defined list element #2
@@ -194,15 +194,15 @@ input M_InOutInput {
 	# Date a product was received
 	DateReceived: Date
 	# Defines the timing of Delivery
-	DeliveryRule_RL: AD_Ref_ListInput
+	DeliveryRule: AD_Ref_ListInput
 	# How the order will be delivered
-	DeliveryViaRule_RL: AD_Ref_ListInput
+	DeliveryViaRule: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction_RL: AD_Ref_ListInput
+	DocAction: AD_Ref_ListInput
 	# The current status of the document
-	DocStatus_RL: AD_Ref_ListInput
+	DocStatus: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# Business Partner to ship to
@@ -211,15 +211,15 @@ input M_InOutInput {
 	DropShip_Location: C_BPartner_LocationInput
 	# Business Partner Contact for drop shipment
 	DropShip_User: AD_UserInput
-	FOB_RL: AD_Ref_ListInput
+	FOB: AD_Ref_ListInput
 	# Freight Amount 
 	FreightAmt: Int
-	FreightCharges_RL: AD_Ref_ListInput
+	FreightCharges: AD_Ref_ListInput
 	# Method for charging Freight
-	FreightCostRule_RL: AD_Ref_ListInput
+	FreightCostRule: AD_Ref_ListInput
 	# Generate To
 	GenerateTo: String
-	Insurance_RL: AD_Ref_ListInput
+	Insurance: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
 	IsAlternateReturnAddress: Boolean
@@ -245,7 +245,7 @@ input M_InOutInput {
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Method of moving the inventory
-	MovementType_RL: AD_Ref_ListInput
+	MovementType: AD_Ref_ListInput
 	# Number of packages shipped
 	NoPackages: Int
 	# Date/Time when picked for Shipment
@@ -255,7 +255,7 @@ input M_InOutInput {
 	# Posting status
 	Posted: Boolean
 	# Priority of a document
-	PriorityRule_RL: AD_Ref_ListInput
+	PriorityRule: AD_Ref_ListInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

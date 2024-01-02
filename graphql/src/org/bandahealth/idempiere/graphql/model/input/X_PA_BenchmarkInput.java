@@ -1,8 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_PA_Benchmark;
 import org.compiere.util.Env;
@@ -15,13 +17,14 @@ import org.compiere.util.Env;
  */
 public class X_PA_BenchmarkInput extends X_PA_Benchmark implements I_PA_BenchmarkInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput AccumulationType_RL;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mAccumulationType;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_BenchmarkInput(String ID) {
+	@JsonCreator
+	public X_PA_BenchmarkInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -29,14 +32,15 @@ public class X_PA_BenchmarkInput extends X_PA_Benchmark implements I_PA_Benchmar
 	/**
 	 * Set Accumulation Type.
 	 *
-	 * @param AccumulationType_RL How to accumulate data on time axis
+	 * @param AccumulationType How to accumulate data on time axis
 	 */
-	public void setAccumulationType_RL(I_AD_Ref_ListInput AccumulationType_RL) {
-		this.AccumulationType_RL = AccumulationType_RL;
-		MRefList foreignEntity;
-		if (AccumulationType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(AccumulationType_RL.getID())
+	@JsonProperty("AccumulationType")
+	public void setAccumulationTypeInput(I_AD_Ref_ListInput AccumulationType) {
+		this.mAccumulationType = AccumulationType;
+		MRefList_BH foreignEntity;
+		if (AccumulationType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(AccumulationType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setAccumulationType(foreignEntity.getValue());
 		} else {
@@ -49,8 +53,9 @@ public class X_PA_BenchmarkInput extends X_PA_Benchmark implements I_PA_Benchmar
 	 *
 	 * @return How to accumulate data on time axis
 	 */
-	public I_AD_Ref_ListInput getAccumulationType_RL() {
-		return AccumulationType_RL;
+	@JsonProperty("AccumulationType")
+	public I_AD_Ref_ListInput AccumulationType() {
+		return mAccumulationType;
 	}
 
 	/**
@@ -58,14 +63,15 @@ public class X_PA_BenchmarkInput extends X_PA_Benchmark implements I_PA_Benchmar
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -74,19 +80,9 @@ public class X_PA_BenchmarkInput extends X_PA_Benchmark implements I_PA_Benchmar
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Benchmark.
-	 *
-	 * @param PA_Benchmark_ID Performance Benchmark
-	 */
-
-	public void setPA_Benchmark_ID(int PA_Benchmark_ID) {
-		if (get_ID() == 0) {
-			super.setPA_Benchmark_ID(PA_Benchmark_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**

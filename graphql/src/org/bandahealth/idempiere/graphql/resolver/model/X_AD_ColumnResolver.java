@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ChartDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ElementDataLoader;
@@ -18,7 +19,6 @@ import org.compiere.model.MChart;
 import org.compiere.model.MColumn;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.M_Element;
@@ -197,13 +197,29 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 			put("M", "c0542a52-fe58-4b87-8bd4-9dc2fe3afa7a");
 		}
 	};
-	public CompletableFuture<MRefList> FKConstraintType_RL(MColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> FKConstraintType(MColumn entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFKConstraintType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(FKCONSTRAINTTYPE_UUIDS_BY_VALUE.get(entity.getFKConstraintType()));
+	}
+
+	public Boolean IsAllowCopy(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isAllowCopy();
+	}
+
+	public Boolean IsAllowLogging(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isAllowLogging();
+	}
+
+	public Boolean IsAlwaysUpdateable(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isAlwaysUpdateable();
+	}
+
+	public Boolean IsAutocomplete(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isAutocomplete();
 	}
 
 	static Map<String, String> ISENCRYPTED_UUIDS_BY_VALUE = new HashMap<>() {
@@ -212,13 +228,41 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 			put("N", "3581aa8a-7a64-4485-b0f6-e6948f3d00d7");
 		}
 	};
-	public CompletableFuture<MRefList> IsEncrypted_RL(MColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> IsEncrypted(MColumn entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getIsEncrypted())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ISENCRYPTED_UUIDS_BY_VALUE.get(entity.getIsEncrypted()));
+	}
+
+	public Boolean IsHtml(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isHtml();
+	}
+
+	public Boolean IsIdentifier(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isIdentifier();
+	}
+
+	public Boolean IsKey(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isKey();
+	}
+
+	public Boolean IsMandatory(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isMandatory();
+	}
+
+	public Boolean IsParent(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isParent();
+	}
+
+	public Boolean IsSecure(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isSecure();
+	}
+
+	public Boolean IsSelectionColumn(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isSelectionColumn();
 	}
 
 	static Map<String, String> ISTOOLBARBUTTON_UUIDS_BY_VALUE = new HashMap<>() {
@@ -228,13 +272,21 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 			put("B", "5b8b7285-d4da-4513-8941-a280d501ea19");
 		}
 	};
-	public CompletableFuture<MRefList> IsToolbarButton_RL(MColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> IsToolbarButton(MColumn entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getIsToolbarButton())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ISTOOLBARBUTTON_UUIDS_BY_VALUE.get(entity.getIsToolbarButton()));
+	}
+
+	public Boolean IsTranslated(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isTranslated();
+	}
+
+	public Boolean IsUpdateable(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isUpdateable();
 	}
 
 

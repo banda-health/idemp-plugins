@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_C_SubscriptionType;
 import org.dataloader.DataLoader;
 
@@ -28,11 +28,11 @@ public class X_C_SubscriptionTypeResolver extends POResolver<X_C_SubscriptionTyp
 			put("D", "6360c9c7-dbf3-4b2f-bd8b-3465a7fde7a7");
 		}
 	};
-	public CompletableFuture<MRefList> FrequencyType_RL(X_C_SubscriptionType entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> FrequencyType(X_C_SubscriptionType entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFrequencyType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(FREQUENCYTYPE_UUIDS_BY_VALUE.get(entity.getFrequencyType()));
 	}

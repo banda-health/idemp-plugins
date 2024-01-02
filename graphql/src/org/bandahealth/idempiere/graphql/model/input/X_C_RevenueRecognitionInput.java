@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
+import org.compiere.model.MRevenueRecognition;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_RevenueRecognition;
 import org.compiere.util.Env;
 
 /**
@@ -13,15 +15,16 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_RevenueRecognitionInput extends X_C_RevenueRecognition implements I_C_RevenueRecognitionInput {
+public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements I_C_RevenueRecognitionInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput RecognitionFrequency_RL;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mRecognitionFrequency;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_RevenueRecognitionInput(String ID) {
+	@JsonCreator
+	public X_C_RevenueRecognitionInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_C_RevenueRecognitionInput extends X_C_RevenueRecognition implemen
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,19 +51,9 @@ public class X_C_RevenueRecognitionInput extends X_C_RevenueRecognition implemen
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Revenue Recognition.
-	 *
-	 * @param C_RevenueRecognition_ID Method for recording revenue
-	 */
-
-	public void setC_RevenueRecognition_ID(int C_RevenueRecognition_ID) {
-		if (get_ID() == 0) {
-			super.setC_RevenueRecognition_ID(C_RevenueRecognition_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -83,14 +77,15 @@ public class X_C_RevenueRecognitionInput extends X_C_RevenueRecognition implemen
 	/**
 	 * Set Recognition frequency.
 	 *
-	 * @param RecognitionFrequency_RL Recognition frequency
+	 * @param RecognitionFrequency Recognition frequency
 	 */
-	public void setRecognitionFrequency_RL(I_AD_Ref_ListInput RecognitionFrequency_RL) {
-		this.RecognitionFrequency_RL = RecognitionFrequency_RL;
-		MRefList foreignEntity;
-		if (RecognitionFrequency_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(RecognitionFrequency_RL.getID())
+	@JsonProperty("RecognitionFrequency")
+	public void setRecognitionFrequencyInput(I_AD_Ref_ListInput RecognitionFrequency) {
+		this.mRecognitionFrequency = RecognitionFrequency;
+		MRefList_BH foreignEntity;
+		if (RecognitionFrequency != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(RecognitionFrequency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setRecognitionFrequency(foreignEntity.getValue());
 		} else {
@@ -103,7 +98,8 @@ public class X_C_RevenueRecognitionInput extends X_C_RevenueRecognition implemen
 	 *
 	 * @return Recognition frequency
 	 */
-	public I_AD_Ref_ListInput getRecognitionFrequency_RL() {
-		return RecognitionFrequency_RL;
+	@JsonProperty("RecognitionFrequency")
+	public I_AD_Ref_ListInput RecognitionFrequency() {
+		return mRecognitionFrequency;
 	}
 }

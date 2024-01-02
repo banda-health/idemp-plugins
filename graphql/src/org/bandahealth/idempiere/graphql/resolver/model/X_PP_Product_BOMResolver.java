@@ -4,6 +4,7 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_UOMDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetInstanceDataLoader;
@@ -11,7 +12,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ChangeNoticeDataLoa
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MChangeNotice;
-import org.compiere.model.MRefList;
 import org.compiere.model.MUOM;
 import org.dataloader.DataLoader;
 import org.eevolution.model.MPPProductBOM;
@@ -42,11 +42,11 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 			put("K", "3af80a33-db74-4f76-84a4-455286ffdba6");
 		}
 	};
-	public CompletableFuture<MRefList> BOMType_RL(MPPProductBOM entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BOMType(MPPProductBOM entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBOMType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BOMTYPE_UUIDS_BY_VALUE.get(entity.getBOMType()));
 	}
@@ -60,11 +60,11 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 			put("Q", "db8fbc75-98b8-4229-b487-e848f6bec73e");
 		}
 	};
-	public CompletableFuture<MRefList> BOMUse_RL(MPPProductBOM entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BOMUse(MPPProductBOM entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBOMUse())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BOMUSE_UUIDS_BY_VALUE.get(entity.getBOMUse()));
 	}
@@ -127,6 +127,10 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 		DataLoader<Integer, MProduct_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getM_Product_ID());
+	}
+
+	public Boolean Processing(MPPProductBOM entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

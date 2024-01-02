@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectPhaseDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaskDataLoader;
@@ -11,7 +12,6 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTask;
 import org.compiere.model.MProjectTypeTask;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -81,11 +81,11 @@ public class X_C_ProjectTaskResolver extends POResolver<MProjectTask> implements
 			put("P", "c6d2fa2b-6f89-41b1-9e53-db77217d3ff1");
 		}
 	};
-	public CompletableFuture<MRefList> ProjInvoiceRule_RL(MProjectTask entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ProjInvoiceRule(MProjectTask entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getProjInvoiceRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PROJINVOICERULE_UUIDS_BY_VALUE.get(entity.getProjInvoiceRule()));
 	}

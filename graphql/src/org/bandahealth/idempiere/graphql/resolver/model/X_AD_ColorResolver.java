@@ -2,12 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MColor;
 import org.compiere.model.MImage;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -46,13 +46,17 @@ public class X_AD_ColorResolver extends POResolver<MColor> implements GraphQLRes
 			put("T", "5fb3957b-a5bc-4b9d-93a1-a61da4d990e4");
 		}
 	};
-	public CompletableFuture<MRefList> ColorType_RL(MColor entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ColorType(MColor entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getColorType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(COLORTYPE_UUIDS_BY_VALUE.get(entity.getColorType()));
+	}
+
+	public Boolean IsDefault(MColor entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
 	}
 
 	static Map<String, String> STARTPOINT_UUIDS_BY_VALUE = new HashMap<>() {
@@ -67,11 +71,11 @@ public class X_AD_ColorResolver extends POResolver<MColor> implements GraphQLRes
 			put("8", "b37ca5ca-7313-4f43-9f00-12c2b8a77f2c");
 		}
 	};
-	public CompletableFuture<MRefList> StartPoint_RL(MColor entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> StartPoint(MColor entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getStartPoint())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(STARTPOINT_UUIDS_BY_VALUE.get(entity.getStartPoint()));
 	}

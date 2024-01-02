@@ -1,8 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_GL_Budget;
 import org.compiere.model.X_PA_ReportLine;
@@ -17,23 +19,24 @@ import org.compiere.util.Env;
  */
 public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_ReportLineInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput CalculationType_RL;
-	 private I_AD_Ref_ListInput LineType_RL;
-	 private I_AD_Ref_ListInput OverlineStrokeType_RL;
-	 private I_AD_Ref_ListInput PAAmountType_RL;
-	 private I_AD_Ref_ListInput PAPeriodType_RL;
-	 private I_AD_Ref_ListInput PostingType_RL;
-	 private I_AD_Ref_ListInput UnderlineStrokeType_RL;
-	 private I_GL_BudgetInput GL_Budget;
-	 private I_PA_ReportLineInput Oper_1;
-	 private I_PA_ReportLineInput Oper_2;
-	 private I_PA_ReportLineSetInput PA_ReportLineSet;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mCalculationType;
+	 private I_AD_Ref_ListInput mLineType;
+	 private I_AD_Ref_ListInput mOverlineStrokeType;
+	 private I_AD_Ref_ListInput mPAAmountType;
+	 private I_AD_Ref_ListInput mPAPeriodType;
+	 private I_AD_Ref_ListInput mPostingType;
+	 private I_AD_Ref_ListInput mUnderlineStrokeType;
+	 private I_GL_BudgetInput mGL_Budget;
+	 private I_PA_ReportLineInput mOper_1;
+	 private I_PA_ReportLineInput mOper_2;
+	 private I_PA_ReportLineSetInput mPA_ReportLineSet;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_ReportLineInput(String ID) {
+	@JsonCreator
+	public X_PA_ReportLineInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -43,14 +46,15 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -59,21 +63,23 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
 	 * Set Calculation.
 	 *
-	 * @param CalculationType_RL Calculation
+	 * @param CalculationType Calculation
 	 */
-	public void setCalculationType_RL(I_AD_Ref_ListInput CalculationType_RL) {
-		this.CalculationType_RL = CalculationType_RL;
-		MRefList foreignEntity;
-		if (CalculationType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(CalculationType_RL.getID())
+	@JsonProperty("CalculationType")
+	public void setCalculationTypeInput(I_AD_Ref_ListInput CalculationType) {
+		this.mCalculationType = CalculationType;
+		MRefList_BH foreignEntity;
+		if (CalculationType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(CalculationType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setCalculationType(foreignEntity.getValue());
 		} else {
@@ -86,8 +92,9 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return Calculation
 	 */
-	public I_AD_Ref_ListInput getCalculationType_RL() {
-		return CalculationType_RL;
+	@JsonProperty("CalculationType")
+	public I_AD_Ref_ListInput CalculationType() {
+		return mCalculationType;
 	}
 
 	/**
@@ -95,16 +102,17 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @param GL_Budget General Ledger Budget
 	 */
-	public void setGL_Budget(I_GL_BudgetInput GL_Budget) {
-		this.GL_Budget = GL_Budget;
+	@JsonProperty("GL_Budget")
+	public void setGL_BudgetInput(I_GL_BudgetInput GL_Budget) {
+		this.mGL_Budget = GL_Budget;
 		X_GL_Budget foreignEntity;
 		if (GL_Budget != null &&
 				(foreignEntity = new Query(getCtx(), X_GL_Budget.Table_Name, X_GL_Budget.COLUMNNAME_GL_Budget_UU + "=?", get_TrxName())
 						.setParameters(GL_Budget.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setGL_Budget_ID(foreignEntity.get_ID());
+			super.setGL_Budget_ID(foreignEntity.get_ID());
 		} else {
-			this.setGL_Budget_ID(0);
+			super.setGL_Budget_ID(0);
 		}
 	}
 
@@ -113,21 +121,23 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return General Ledger Budget
 	 */
-	public I_GL_BudgetInput getGL_Budget() {
-		return GL_Budget;
+	@JsonProperty("GL_Budget")
+	public I_GL_BudgetInput GL_Budget() {
+		return mGL_Budget;
 	}
 
 	/**
 	 * Set Line Type.
 	 *
-	 * @param LineType_RL Line Type
+	 * @param LineType Line Type
 	 */
-	public void setLineType_RL(I_AD_Ref_ListInput LineType_RL) {
-		this.LineType_RL = LineType_RL;
-		MRefList foreignEntity;
-		if (LineType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(LineType_RL.getID())
+	@JsonProperty("LineType")
+	public void setLineTypeInput(I_AD_Ref_ListInput LineType) {
+		this.mLineType = LineType;
+		MRefList_BH foreignEntity;
+		if (LineType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(LineType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setLineType(foreignEntity.getValue());
 		} else {
@@ -140,8 +150,9 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return Line Type
 	 */
-	public I_AD_Ref_ListInput getLineType_RL() {
-		return LineType_RL;
+	@JsonProperty("LineType")
+	public I_AD_Ref_ListInput LineType() {
+		return mLineType;
 	}
 
 	/**
@@ -149,16 +160,17 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @param Oper_1 First operand for calculation
 	 */
-	public void setOper_1(I_PA_ReportLineInput Oper_1) {
-		this.Oper_1 = Oper_1;
+	@JsonProperty("Oper_1")
+	public void setOper_1Input(I_PA_ReportLineInput Oper_1) {
+		this.mOper_1 = Oper_1;
 		X_PA_ReportLine foreignEntity;
 		if (Oper_1 != null &&
 				(foreignEntity = new Query(getCtx(), X_PA_ReportLine.Table_Name, X_PA_ReportLine.COLUMNNAME_PA_ReportLine_UU + "=?", get_TrxName())
 						.setParameters(Oper_1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setOper_1_ID(foreignEntity.get_ID());
+			super.setOper_1_ID(foreignEntity.get_ID());
 		} else {
-			this.setOper_1_ID(0);
+			super.setOper_1_ID(0);
 		}
 	}
 
@@ -167,19 +179,9 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return First operand for calculation
 	 */
-	public I_PA_ReportLineInput getOper_1() {
-		return Oper_1;
-	}
-	/**
-	 * Set Operand 1.
-	 *
-	 * @param Oper_1_ID First operand for calculation
-	 */
-
-	public void setOper_1_ID(int Oper_1_ID) {
-		if (get_ID() == 0) {
-			super.setOper_1_ID(Oper_1_ID);
-		}
+	@JsonProperty("Oper_1")
+	public I_PA_ReportLineInput Oper_1() {
+		return mOper_1;
 	}
 
 	/**
@@ -187,16 +189,17 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @param Oper_2 Second operand for calculation
 	 */
-	public void setOper_2(I_PA_ReportLineInput Oper_2) {
-		this.Oper_2 = Oper_2;
+	@JsonProperty("Oper_2")
+	public void setOper_2Input(I_PA_ReportLineInput Oper_2) {
+		this.mOper_2 = Oper_2;
 		X_PA_ReportLine foreignEntity;
 		if (Oper_2 != null &&
 				(foreignEntity = new Query(getCtx(), X_PA_ReportLine.Table_Name, X_PA_ReportLine.COLUMNNAME_PA_ReportLine_UU + "=?", get_TrxName())
 						.setParameters(Oper_2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setOper_2_ID(foreignEntity.get_ID());
+			super.setOper_2_ID(foreignEntity.get_ID());
 		} else {
-			this.setOper_2_ID(0);
+			super.setOper_2_ID(0);
 		}
 	}
 
@@ -205,32 +208,23 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return Second operand for calculation
 	 */
-	public I_PA_ReportLineInput getOper_2() {
-		return Oper_2;
-	}
-	/**
-	 * Set Operand 2.
-	 *
-	 * @param Oper_2_ID Second operand for calculation
-	 */
-
-	public void setOper_2_ID(int Oper_2_ID) {
-		if (get_ID() == 0) {
-			super.setOper_2_ID(Oper_2_ID);
-		}
+	@JsonProperty("Oper_2")
+	public I_PA_ReportLineInput Oper_2() {
+		return mOper_2;
 	}
 
 	/**
 	 * Set Overline Stroke Type.
 	 *
-	 * @param OverlineStrokeType_RL Overline Stroke Type
+	 * @param OverlineStrokeType Overline Stroke Type
 	 */
-	public void setOverlineStrokeType_RL(I_AD_Ref_ListInput OverlineStrokeType_RL) {
-		this.OverlineStrokeType_RL = OverlineStrokeType_RL;
-		MRefList foreignEntity;
-		if (OverlineStrokeType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(OverlineStrokeType_RL.getID())
+	@JsonProperty("OverlineStrokeType")
+	public void setOverlineStrokeTypeInput(I_AD_Ref_ListInput OverlineStrokeType) {
+		this.mOverlineStrokeType = OverlineStrokeType;
+		MRefList_BH foreignEntity;
+		if (OverlineStrokeType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(OverlineStrokeType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setOverlineStrokeType(foreignEntity.getValue());
 		} else {
@@ -243,19 +237,9 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return Overline Stroke Type
 	 */
-	public I_AD_Ref_ListInput getOverlineStrokeType_RL() {
-		return OverlineStrokeType_RL;
-	}
-	/**
-	 * Set Report Line.
-	 *
-	 * @param PA_ReportLine_ID Report Line
-	 */
-
-	public void setPA_ReportLine_ID(int PA_ReportLine_ID) {
-		if (get_ID() == 0) {
-			super.setPA_ReportLine_ID(PA_ReportLine_ID);
-		}
+	@JsonProperty("OverlineStrokeType")
+	public I_AD_Ref_ListInput OverlineStrokeType() {
+		return mOverlineStrokeType;
 	}
 
 	/**
@@ -281,14 +265,15 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @param PA_ReportLineSet Report Line Set
 	 */
-	public void setPA_ReportLineSet(I_PA_ReportLineSetInput PA_ReportLineSet) {
-		this.PA_ReportLineSet = PA_ReportLineSet;
+	@JsonProperty("PA_ReportLineSet")
+	public void setPA_ReportLineSetInput(I_PA_ReportLineSetInput PA_ReportLineSet) {
+		this.mPA_ReportLineSet = PA_ReportLineSet;
 		X_PA_ReportLineSet foreignEntity;
 		if (get_ID() == 0 &&PA_ReportLineSet != null &&
 				(foreignEntity = new Query(getCtx(), X_PA_ReportLineSet.Table_Name, X_PA_ReportLineSet.COLUMNNAME_PA_ReportLineSet_UU + "=?", get_TrxName())
 						.setParameters(PA_ReportLineSet.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_ReportLineSet_ID(foreignEntity.get_ID());
+			super.setPA_ReportLineSet_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -297,32 +282,23 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return Report Line Set
 	 */
-	public I_PA_ReportLineSetInput getPA_ReportLineSet() {
-		return PA_ReportLineSet;
-	}
-	/**
-	 * Set Report Line Set.
-	 *
-	 * @param PA_ReportLineSet_ID Report Line Set
-	 */
-
-	public void setPA_ReportLineSet_ID(int PA_ReportLineSet_ID) {
-		if (get_ID() == 0) {
-			super.setPA_ReportLineSet_ID(PA_ReportLineSet_ID);
-		}
+	@JsonProperty("PA_ReportLineSet")
+	public I_PA_ReportLineSetInput PA_ReportLineSet() {
+		return mPA_ReportLineSet;
 	}
 
 	/**
 	 * Set Amount Type.
 	 *
-	 * @param PAAmountType_RL PA Amount Type for reporting
+	 * @param PAAmountType PA Amount Type for reporting
 	 */
-	public void setPAAmountType_RL(I_AD_Ref_ListInput PAAmountType_RL) {
-		this.PAAmountType_RL = PAAmountType_RL;
-		MRefList foreignEntity;
-		if (PAAmountType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PAAmountType_RL.getID())
+	@JsonProperty("PAAmountType")
+	public void setPAAmountTypeInput(I_AD_Ref_ListInput PAAmountType) {
+		this.mPAAmountType = PAAmountType;
+		MRefList_BH foreignEntity;
+		if (PAAmountType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PAAmountType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPAAmountType(foreignEntity.getValue());
 		} else {
@@ -335,21 +311,23 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return PA Amount Type for reporting
 	 */
-	public I_AD_Ref_ListInput getPAAmountType_RL() {
-		return PAAmountType_RL;
+	@JsonProperty("PAAmountType")
+	public I_AD_Ref_ListInput PAAmountType() {
+		return mPAAmountType;
 	}
 
 	/**
 	 * Set Period Type.
 	 *
-	 * @param PAPeriodType_RL PA Period Type
+	 * @param PAPeriodType PA Period Type
 	 */
-	public void setPAPeriodType_RL(I_AD_Ref_ListInput PAPeriodType_RL) {
-		this.PAPeriodType_RL = PAPeriodType_RL;
-		MRefList foreignEntity;
-		if (PAPeriodType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PAPeriodType_RL.getID())
+	@JsonProperty("PAPeriodType")
+	public void setPAPeriodTypeInput(I_AD_Ref_ListInput PAPeriodType) {
+		this.mPAPeriodType = PAPeriodType;
+		MRefList_BH foreignEntity;
+		if (PAPeriodType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PAPeriodType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPAPeriodType(foreignEntity.getValue());
 		} else {
@@ -362,21 +340,23 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return PA Period Type
 	 */
-	public I_AD_Ref_ListInput getPAPeriodType_RL() {
-		return PAPeriodType_RL;
+	@JsonProperty("PAPeriodType")
+	public I_AD_Ref_ListInput PAPeriodType() {
+		return mPAPeriodType;
 	}
 
 	/**
 	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	public void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL) {
-		this.PostingType_RL = PostingType_RL;
-		MRefList foreignEntity;
-		if (PostingType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType_RL.getID())
+	@JsonProperty("PostingType")
+	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+		this.mPostingType = PostingType;
+		MRefList_BH foreignEntity;
+		if (PostingType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PostingType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPostingType(foreignEntity.getValue());
 		} else {
@@ -389,21 +369,23 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	public I_AD_Ref_ListInput getPostingType_RL() {
-		return PostingType_RL;
+	@JsonProperty("PostingType")
+	public I_AD_Ref_ListInput PostingType() {
+		return mPostingType;
 	}
 
 	/**
 	 * Set Underline Stroke Type.
 	 *
-	 * @param UnderlineStrokeType_RL Underline Stroke Type
+	 * @param UnderlineStrokeType Underline Stroke Type
 	 */
-	public void setUnderlineStrokeType_RL(I_AD_Ref_ListInput UnderlineStrokeType_RL) {
-		this.UnderlineStrokeType_RL = UnderlineStrokeType_RL;
-		MRefList foreignEntity;
-		if (UnderlineStrokeType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(UnderlineStrokeType_RL.getID())
+	@JsonProperty("UnderlineStrokeType")
+	public void setUnderlineStrokeTypeInput(I_AD_Ref_ListInput UnderlineStrokeType) {
+		this.mUnderlineStrokeType = UnderlineStrokeType;
+		MRefList_BH foreignEntity;
+		if (UnderlineStrokeType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(UnderlineStrokeType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setUnderlineStrokeType(foreignEntity.getValue());
 		} else {
@@ -416,7 +398,8 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 *
 	 * @return Underline Stroke Type
 	 */
-	public I_AD_Ref_ListInput getUnderlineStrokeType_RL() {
-		return UnderlineStrokeType_RL;
+	@JsonProperty("UnderlineStrokeType")
+	public I_AD_Ref_ListInput UnderlineStrokeType() {
+		return mUnderlineStrokeType;
 	}
 }

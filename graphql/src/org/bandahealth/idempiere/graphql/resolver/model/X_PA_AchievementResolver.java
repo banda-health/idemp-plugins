@@ -18,6 +18,10 @@ import java.util.concurrent.CompletableFuture;
 public class X_PA_AchievementResolver extends POResolver<MAchievement> implements GraphQLResolver<MAchievement> {
 
 
+	public Boolean IsAchieved(MAchievement entity, DataFetchingEnvironment environment) {
+		return entity.isAchieved();
+	}
+
 
 	/**
 	 * Get Measure.

@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MAchievement;
 import org.compiere.model.MMeasure;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_PA_Achievement;
 import org.compiere.util.Env;
 
 /**
@@ -13,15 +15,16 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_AchievementInput extends X_PA_Achievement implements I_PA_AchievementInput {
+public class X_PA_AchievementInput extends MAchievement implements I_PA_AchievementInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_PA_MeasureInput PA_Measure;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_PA_MeasureInput mPA_Measure;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_AchievementInput(String ID) {
+	@JsonCreator
+	public X_PA_AchievementInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_PA_AchievementInput extends X_PA_Achievement implements I_PA_Achi
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,19 +51,9 @@ public class X_PA_AchievementInput extends X_PA_Achievement implements I_PA_Achi
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Achievement.
-	 *
-	 * @param PA_Achievement_ID Performance Achievement
-	 */
-
-	public void setPA_Achievement_ID(int PA_Achievement_ID) {
-		if (get_ID() == 0) {
-			super.setPA_Achievement_ID(PA_Achievement_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -85,14 +79,15 @@ public class X_PA_AchievementInput extends X_PA_Achievement implements I_PA_Achi
 	 *
 	 * @param PA_Measure Concrete Performance Measurement
 	 */
-	public void setPA_Measure(I_PA_MeasureInput PA_Measure) {
-		this.PA_Measure = PA_Measure;
+	@JsonProperty("PA_Measure")
+	public void setPA_MeasureInput(I_PA_MeasureInput PA_Measure) {
+		this.mPA_Measure = PA_Measure;
 		MMeasure foreignEntity;
 		if (get_ID() == 0 &&PA_Measure != null &&
 				(foreignEntity = new Query(getCtx(), MMeasure.Table_Name, MMeasure.COLUMNNAME_PA_Measure_UU + "=?", get_TrxName())
 						.setParameters(PA_Measure.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_Measure_ID(foreignEntity.get_ID());
+			super.setPA_Measure_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -101,18 +96,8 @@ public class X_PA_AchievementInput extends X_PA_Achievement implements I_PA_Achi
 	 *
 	 * @return Concrete Performance Measurement
 	 */
-	public I_PA_MeasureInput getPA_Measure() {
-		return PA_Measure;
-	}
-	/**
-	 * Set Measure.
-	 *
-	 * @param PA_Measure_ID Concrete Performance Measurement
-	 */
-
-	public void setPA_Measure_ID(int PA_Measure_ID) {
-		if (get_ID() == 0) {
-			super.setPA_Measure_ID(PA_Measure_ID);
-		}
+	@JsonProperty("PA_Measure")
+	public I_PA_MeasureInput PA_Measure() {
+		return mPA_Measure;
 	}
 }

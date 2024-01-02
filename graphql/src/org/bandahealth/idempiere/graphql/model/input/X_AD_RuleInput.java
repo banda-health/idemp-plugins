@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
+import org.compiere.model.MRule;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Rule;
 import org.compiere.util.Env;
 
 /**
@@ -14,18 +16,19 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_RuleInput extends X_AD_Rule implements I_AD_RuleInput {
+public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput AccessLevel_RL;
-	 private I_AD_Ref_ListInput EventType_RL;
-	 private I_AD_Ref_ListInput RuleType_RL;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mAccessLevel;
+	 private I_AD_Ref_ListInput mEventType;
+	 private I_AD_Ref_ListInput mRuleType;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_RuleInput(String ID) {
+	@JsonCreator
+	public X_AD_RuleInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,14 +36,15 @@ public class X_AD_RuleInput extends X_AD_Rule implements I_AD_RuleInput {
 	/**
 	 * Set Data Access Level.
 	 *
-	 * @param AccessLevel_RL Access Level required
+	 * @param AccessLevel Access Level required
 	 */
-	public void setAccessLevel_RL(I_AD_Ref_ListInput AccessLevel_RL) {
-		this.AccessLevel_RL = AccessLevel_RL;
-		MRefList foreignEntity;
-		if (AccessLevel_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(AccessLevel_RL.getID())
+	@JsonProperty("AccessLevel")
+	public void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel) {
+		this.mAccessLevel = AccessLevel;
+		MRefList_BH foreignEntity;
+		if (AccessLevel != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(AccessLevel.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setAccessLevel(foreignEntity.getValue());
 		} else {
@@ -53,8 +57,9 @@ public class X_AD_RuleInput extends X_AD_Rule implements I_AD_RuleInput {
 	 *
 	 * @return Access Level required
 	 */
-	public I_AD_Ref_ListInput getAccessLevel_RL() {
-		return AccessLevel_RL;
+	@JsonProperty("AccessLevel")
+	public I_AD_Ref_ListInput AccessLevel() {
+		return mAccessLevel;
 	}
 
 	/**
@@ -62,14 +67,15 @@ public class X_AD_RuleInput extends X_AD_Rule implements I_AD_RuleInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -78,19 +84,9 @@ public class X_AD_RuleInput extends X_AD_Rule implements I_AD_RuleInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Rule.
-	 *
-	 * @param AD_Rule_ID Rule
-	 */
-
-	public void setAD_Rule_ID(int AD_Rule_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Rule_ID(AD_Rule_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -116,16 +112,17 @@ public class X_AD_RuleInput extends X_AD_Rule implements I_AD_RuleInput {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -134,32 +131,23 @@ public class X_AD_RuleInput extends X_AD_Rule implements I_AD_RuleInput {
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 
 	/**
 	 * Set Event Type.
 	 *
-	 * @param EventType_RL Type of Event
+	 * @param EventType Type of Event
 	 */
-	public void setEventType_RL(I_AD_Ref_ListInput EventType_RL) {
-		this.EventType_RL = EventType_RL;
-		MRefList foreignEntity;
-		if (EventType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(EventType_RL.getID())
+	@JsonProperty("EventType")
+	public void setEventTypeInput(I_AD_Ref_ListInput EventType) {
+		this.mEventType = EventType;
+		MRefList_BH foreignEntity;
+		if (EventType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(EventType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setEventType(foreignEntity.getValue());
 		} else {
@@ -172,21 +160,23 @@ public class X_AD_RuleInput extends X_AD_Rule implements I_AD_RuleInput {
 	 *
 	 * @return Type of Event
 	 */
-	public I_AD_Ref_ListInput getEventType_RL() {
-		return EventType_RL;
+	@JsonProperty("EventType")
+	public I_AD_Ref_ListInput EventType() {
+		return mEventType;
 	}
 
 	/**
 	 * Set Rule Type.
 	 *
-	 * @param RuleType_RL Rule Type
+	 * @param RuleType Rule Type
 	 */
-	public void setRuleType_RL(I_AD_Ref_ListInput RuleType_RL) {
-		this.RuleType_RL = RuleType_RL;
-		MRefList foreignEntity;
-		if (RuleType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(RuleType_RL.getID())
+	@JsonProperty("RuleType")
+	public void setRuleTypeInput(I_AD_Ref_ListInput RuleType) {
+		this.mRuleType = RuleType;
+		MRefList_BH foreignEntity;
+		if (RuleType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(RuleType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setRuleType(foreignEntity.getValue());
 		} else {
@@ -199,7 +189,8 @@ public class X_AD_RuleInput extends X_AD_Rule implements I_AD_RuleInput {
 	 *
 	 * @return Rule Type
 	 */
-	public I_AD_Ref_ListInput getRuleType_RL() {
-		return RuleType_RL;
+	@JsonProperty("RuleType")
+	public I_AD_Ref_ListInput RuleType() {
+		return mRuleType;
 	}
 }

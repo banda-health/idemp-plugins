@@ -2,13 +2,13 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_CtxHelpDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MCtxHelp;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTask;
 import org.dataloader.DataLoader;
 
@@ -35,11 +35,11 @@ public class X_AD_TaskResolver extends POResolver<MTask> implements GraphQLResol
 			put("2", "391e2c9a-b8e5-43b0-895b-eea914023e59");
 		}
 	};
-	public CompletableFuture<MRefList> AccessLevel_RL(MTask entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> AccessLevel(MTask entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAccessLevel())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ACCESSLEVEL_UUIDS_BY_VALUE.get(entity.getAccessLevel()));
 	}

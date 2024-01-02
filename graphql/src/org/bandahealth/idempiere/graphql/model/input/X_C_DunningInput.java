@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MDunning;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_Dunning;
 import org.compiere.util.Env;
 
 /**
@@ -12,14 +14,15 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_DunningInput extends X_C_Dunning implements I_C_DunningInput {
+public class X_C_DunningInput extends MDunning implements I_C_DunningInput {
 
-	 private I_AD_OrgInput AD_Org;
+	 private I_AD_OrgInput mAD_Org;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_DunningInput(String ID) {
+	@JsonCreator
+	public X_C_DunningInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -29,14 +32,15 @@ public class X_C_DunningInput extends X_C_Dunning implements I_C_DunningInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -45,19 +49,9 @@ public class X_C_DunningInput extends X_C_Dunning implements I_C_DunningInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Dunning.
-	 *
-	 * @param C_Dunning_ID Dunning Rules for overdue invoices
-	 */
-
-	public void setC_Dunning_ID(int C_Dunning_ID) {
-		if (get_ID() == 0) {
-			super.setC_Dunning_ID(C_Dunning_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**

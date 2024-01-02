@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MInvoiceLine;
+import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 
 /**
  * Data Loader for C_InvoiceLine - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.compiere.model.MInvoiceLine;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_InvoiceLineDataLoader extends PODataLoader<MInvoiceLine> {
+public class X_C_InvoiceLineDataLoader extends PODataLoader<MInvoiceLine_BH> {
 	public static String C_InvoiceLine_BY_ID_DATA_LOADER = "C_InvoiceLineByIdDataLoader";
 	public static String C_InvoiceLine_BY_UUID_DATA_LOADER = "C_InvoiceLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MInvoiceLine.Table_Name;
+		return MInvoiceLine_BH.Table_Name;
 	}
 
 	@Override

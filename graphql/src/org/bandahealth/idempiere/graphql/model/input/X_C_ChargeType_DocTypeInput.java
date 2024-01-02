@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -16,14 +18,15 @@ import org.compiere.util.Env;
  */
 public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implements I_C_ChargeType_DocTypeInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_ChargeTypeInput C_ChargeType;
-	 private I_C_DocTypeInput C_DocType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_ChargeTypeInput mC_ChargeType;
+	 private I_C_DocTypeInput mC_DocType;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_ChargeType_DocTypeInput(String ID) {
+	@JsonCreator
+	public X_C_ChargeType_DocTypeInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,14 +36,15 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -49,8 +53,9 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -76,14 +81,15 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 *
 	 * @param C_ChargeType Charge Type
 	 */
-	public void setC_ChargeType(I_C_ChargeTypeInput C_ChargeType) {
-		this.C_ChargeType = C_ChargeType;
+	@JsonProperty("C_ChargeType")
+	public void setC_ChargeTypeInput(I_C_ChargeTypeInput C_ChargeType) {
+		this.mC_ChargeType = C_ChargeType;
 		MChargeType_BH foreignEntity;
 		if (get_ID() == 0 &&C_ChargeType != null &&
 				(foreignEntity = new Query(getCtx(), MChargeType_BH.Table_Name, MChargeType_BH.COLUMNNAME_C_ChargeType_UU + "=?", get_TrxName())
 						.setParameters(C_ChargeType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_ChargeType_ID(foreignEntity.get_ID());
+			super.setC_ChargeType_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -92,19 +98,9 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 *
 	 * @return Charge Type
 	 */
-	public I_C_ChargeTypeInput getC_ChargeType() {
-		return C_ChargeType;
-	}
-	/**
-	 * Set Charge Type.
-	 *
-	 * @param C_ChargeType_ID Charge Type
-	 */
-
-	public void setC_ChargeType_ID(int C_ChargeType_ID) {
-		if (get_ID() == 0) {
-			super.setC_ChargeType_ID(C_ChargeType_ID);
-		}
+	@JsonProperty("C_ChargeType")
+	public I_C_ChargeTypeInput C_ChargeType() {
+		return mC_ChargeType;
 	}
 
 	/**
@@ -112,14 +108,15 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	public void setC_DocType(I_C_DocTypeInput C_DocType) {
-		this.C_DocType = C_DocType;
+	@JsonProperty("C_DocType")
+	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (get_ID() == 0 &&C_DocType != null &&
 				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_DocType_ID(foreignEntity.get_ID());
+			super.setC_DocType_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -128,18 +125,8 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 *
 	 * @return Document type or rules
 	 */
-	public I_C_DocTypeInput getC_DocType() {
-		return C_DocType;
-	}
-	/**
-	 * Set Document Type.
-	 *
-	 * @param C_DocType_ID Document type or rules
-	 */
-
-	public void setC_DocType_ID(int C_DocType_ID) {
-		if (get_ID() == 0) {
-			super.setC_DocType_ID(C_DocType_ID);
-		}
+	@JsonProperty("C_DocType")
+	public I_C_DocTypeInput C_DocType() {
+		return mC_DocType;
 	}
 }

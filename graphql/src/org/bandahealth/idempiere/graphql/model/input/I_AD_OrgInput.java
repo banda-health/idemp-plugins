@@ -29,12 +29,12 @@ public interface I_AD_OrgInput extends I_AD_Org {
 	 *
 	 * @param AD_ReplicationStrategy Data Replication Strategy
 	 */
-	void setAD_ReplicationStrategy(I_AD_ReplicationStrategyInput AD_ReplicationStrategy);
+	void setAD_ReplicationStrategyInput(I_AD_ReplicationStrategyInput AD_ReplicationStrategy);
 
 	/**
 	 * Get AD_ReplicationStrategy.
 	 *
 	 * @return Data Replication Strategy
 	 */
-	I_AD_ReplicationStrategyInput getAD_ReplicationStrategy();
+	I_AD_ReplicationStrategyInput AD_ReplicationStrategy();
 }

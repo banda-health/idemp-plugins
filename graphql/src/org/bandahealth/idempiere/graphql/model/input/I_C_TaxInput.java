@@ -15,84 +15,84 @@ public interface I_C_TaxInput extends I_C_Tax {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_Rule.
 	 *
 	 * @param AD_Rule AD_Rule
 	 */
-	void setAD_Rule(I_AD_RuleInput AD_Rule);
+	void setAD_RuleInput(I_AD_RuleInput AD_Rule);
 
 	/**
 	 * Get AD_Rule.
 	 *
 	 * @return AD_Rule
 	 */
-	I_AD_RuleInput getAD_Rule();
+	I_AD_RuleInput AD_Rule();
 
 	/**
 	 * Set C_Country.
 	 *
 	 * @param C_Country Country 
 	 */
-	void setC_Country(I_C_CountryInput C_Country);
+	void setC_CountryInput(I_C_CountryInput C_Country);
 
 	/**
 	 * Get C_Country.
 	 *
 	 * @return Country 
 	 */
-	I_C_CountryInput getC_Country();
+	I_C_CountryInput C_Country();
 
 	/**
 	 * Set C_CountryGroupFrom.
 	 *
 	 * @param C_CountryGroupFrom C_CountryGroupFrom
 	 */
-	void setC_CountryGroupFrom(I_C_CountryGroupInput C_CountryGroupFrom);
+	void setC_CountryGroupFromInput(I_C_CountryGroupInput C_CountryGroupFrom);
 
 	/**
 	 * Get C_CountryGroupFrom.
 	 *
 	 * @return C_CountryGroupFrom
 	 */
-	I_C_CountryGroupInput getC_CountryGroupFrom();
+	I_C_CountryGroupInput C_CountryGroupFrom();
 
 	/**
 	 * Set C_CountryGroupTo.
 	 *
 	 * @param C_CountryGroupTo C_CountryGroupTo
 	 */
-	void setC_CountryGroupTo(I_C_CountryGroupInput C_CountryGroupTo);
+	void setC_CountryGroupToInput(I_C_CountryGroupInput C_CountryGroupTo);
 
 	/**
 	 * Get C_CountryGroupTo.
 	 *
 	 * @return C_CountryGroupTo
 	 */
-	I_C_CountryGroupInput getC_CountryGroupTo();
+	I_C_CountryGroupInput C_CountryGroupTo();
 
 	/**
 	 * Set C_Region.
 	 *
 	 * @param C_Region Identifies a geographical Region
 	 */
-	void setC_Region(I_C_RegionInput C_Region);
+	void setC_RegionInput(I_C_RegionInput C_Region);
 
 	/**
 	 * Get C_Region.
 	 *
 	 * @return Identifies a geographical Region
 	 */
-	I_C_RegionInput getC_Region();
+	I_C_RegionInput C_Region();
 
 	/**
 	 * Set ID.
@@ -113,68 +113,68 @@ public interface I_C_TaxInput extends I_C_Tax {
 	 *
 	 * @param C_TaxCategory Tax Category
 	 */
-	void setC_TaxCategory(I_C_TaxCategoryInput C_TaxCategory);
+	void setC_TaxCategoryInput(I_C_TaxCategoryInput C_TaxCategory);
 
 	/**
 	 * Get C_TaxCategory.
 	 *
 	 * @return Tax Category
 	 */
-	I_C_TaxCategoryInput getC_TaxCategory();
+	I_C_TaxCategoryInput C_TaxCategory();
 
 	/**
 	 * Set C_TaxProvider.
 	 *
 	 * @param C_TaxProvider C_TaxProvider
 	 */
-	void setC_TaxProvider(I_C_TaxProviderInput C_TaxProvider);
+	void setC_TaxProviderInput(I_C_TaxProviderInput C_TaxProvider);
 
 	/**
 	 * Get C_TaxProvider.
 	 *
 	 * @return C_TaxProvider
 	 */
-	I_C_TaxProviderInput getC_TaxProvider();
+	I_C_TaxProviderInput C_TaxProvider();
 
 	/**
 	 * Set Parent_Tax.
 	 *
 	 * @param Parent_Tax Parent Tax indicates a tax that is made up of multiple taxes
 	 */
-	void setParent_Tax(I_C_TaxInput Parent_Tax);
+	void setParent_TaxInput(I_C_TaxInput Parent_Tax);
 
 	/**
 	 * Get Parent_Tax.
 	 *
 	 * @return Parent Tax indicates a tax that is made up of multiple taxes
 	 */
-	I_C_TaxInput getParent_Tax();
+	I_C_TaxInput Parent_Tax();
 
 	/**
-	 * Set SOPOType_RL.
+	 * Set SOPOType.
 	 *
-	 * @param SOPOType_RL Sales Tax applies to sales situations, Purchase Tax to purchase situations
+	 * @param SOPOType Sales Tax applies to sales situations, Purchase Tax to purchase situations
 	 */
-	void setSOPOType_RL(I_AD_Ref_ListInput SOPOType_RL);
+	void setSOPOTypeInput(I_AD_Ref_ListInput SOPOType);
 
 	/**
-	 * Get SOPOType_RL.
+	 * Get SOPOType.
 	 *
 	 * @return Sales Tax applies to sales situations, Purchase Tax to purchase situations
 	 */
-	I_AD_Ref_ListInput getSOPOType_RL();
+	I_AD_Ref_ListInput SOPOType();
 
 	/**
 	 * Set To_Region.
 	 *
 	 * @param To_Region Receiving Region
 	 */
-	void setTo_Region(I_C_RegionInput To_Region);
+	void setTo_RegionInput(I_C_RegionInput To_Region);
 
 	/**
 	 * Get To_Region.
 	 *
 	 * @return Receiving Region
 	 */
-	I_C_RegionInput getTo_Region();
+	I_C_RegionInput To_Region();
 }

@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MCostElement;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -30,11 +30,11 @@ public class X_M_CostElementResolver extends POResolver<MCostElement> implements
 			put("R", "c03ac230-49bc-4dde-a4fd-bf76647f173c");
 		}
 	};
-	public CompletableFuture<MRefList> CostElementType_RL(MCostElement entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CostElementType(MCostElement entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCostElementType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(COSTELEMENTTYPE_UUIDS_BY_VALUE.get(entity.getCostElementType()));
 	}
@@ -52,13 +52,17 @@ public class X_M_CostElementResolver extends POResolver<MCostElement> implements
 			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b");
 		}
 	};
-	public CompletableFuture<MRefList> CostingMethod_RL(MCostElement entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CostingMethod(MCostElement entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCostingMethod())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(COSTINGMETHOD_UUIDS_BY_VALUE.get(entity.getCostingMethod()));
+	}
+
+	public Boolean IsCalculated(MCostElement entity, DataFetchingEnvironment environment) {
+		return entity.isCalculated();
 	}
 
 }

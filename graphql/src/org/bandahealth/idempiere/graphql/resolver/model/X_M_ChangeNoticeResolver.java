@@ -14,4 +14,16 @@ import org.dataloader.DataLoader;
 public class X_M_ChangeNoticeResolver extends POResolver<MChangeNotice> implements GraphQLResolver<MChangeNotice> {
 
 
+	public Boolean IsApproved(MChangeNotice entity, DataFetchingEnvironment environment) {
+		return entity.isApproved();
+	}
+
+	public Boolean Processed(MChangeNotice entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MChangeNotice entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 }

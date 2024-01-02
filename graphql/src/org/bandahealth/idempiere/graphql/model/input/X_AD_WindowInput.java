@@ -1,13 +1,15 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColor;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MImage;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
+import org.compiere.model.MWindow;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Window;
 import org.compiere.util.Env;
 
 /**
@@ -16,18 +18,19 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_WindowInput extends X_AD_Window implements I_AD_WindowInput {
+public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 
-	 private I_AD_ColorInput AD_Color;
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_ImageInput AD_Image;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput WindowType_RL;
+	 private I_AD_ColorInput mAD_Color;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_ImageInput mAD_Image;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mWindowType;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_WindowInput(String ID) {
+	@JsonCreator
+	public X_AD_WindowInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -37,16 +40,17 @@ public class X_AD_WindowInput extends X_AD_Window implements I_AD_WindowInput {
 	 *
 	 * @param AD_Color Color for backgrounds or indicators
 	 */
-	public void setAD_Color(I_AD_ColorInput AD_Color) {
-		this.AD_Color = AD_Color;
+	@JsonProperty("AD_Color")
+	public void setAD_ColorInput(I_AD_ColorInput AD_Color) {
+		this.mAD_Color = AD_Color;
 		MColor foreignEntity;
 		if (AD_Color != null &&
 				(foreignEntity = new Query(getCtx(), MColor.Table_Name, MColor.COLUMNNAME_AD_Color_UU + "=?", get_TrxName())
 						.setParameters(AD_Color.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Color_ID(foreignEntity.get_ID());
+			super.setAD_Color_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Color_ID(0);
+			super.setAD_Color_ID(0);
 		}
 	}
 
@@ -55,8 +59,9 @@ public class X_AD_WindowInput extends X_AD_Window implements I_AD_WindowInput {
 	 *
 	 * @return Color for backgrounds or indicators
 	 */
-	public I_AD_ColorInput getAD_Color() {
-		return AD_Color;
+	@JsonProperty("AD_Color")
+	public I_AD_ColorInput AD_Color() {
+		return mAD_Color;
 	}
 
 	/**
@@ -64,16 +69,17 @@ public class X_AD_WindowInput extends X_AD_Window implements I_AD_WindowInput {
 	 *
 	 * @param AD_Image Image or Icon
 	 */
-	public void setAD_Image(I_AD_ImageInput AD_Image) {
-		this.AD_Image = AD_Image;
+	@JsonProperty("AD_Image")
+	public void setAD_ImageInput(I_AD_ImageInput AD_Image) {
+		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
 				(foreignEntity = new Query(getCtx(), MImage.Table_Name, MImage.COLUMNNAME_AD_Image_UU + "=?", get_TrxName())
 						.setParameters(AD_Image.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Image_ID(foreignEntity.get_ID());
+			super.setAD_Image_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Image_ID(0);
+			super.setAD_Image_ID(0);
 		}
 	}
 
@@ -82,8 +88,9 @@ public class X_AD_WindowInput extends X_AD_Window implements I_AD_WindowInput {
 	 *
 	 * @return Image or Icon
 	 */
-	public I_AD_ImageInput getAD_Image() {
-		return AD_Image;
+	@JsonProperty("AD_Image")
+	public I_AD_ImageInput AD_Image() {
+		return mAD_Image;
 	}
 
 	/**
@@ -91,14 +98,15 @@ public class X_AD_WindowInput extends X_AD_Window implements I_AD_WindowInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -107,19 +115,9 @@ public class X_AD_WindowInput extends X_AD_Window implements I_AD_WindowInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Window.
-	 *
-	 * @param AD_Window_ID Data entry or display window
-	 */
-
-	public void setAD_Window_ID(int AD_Window_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Window_ID(AD_Window_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -145,16 +143,17 @@ public class X_AD_WindowInput extends X_AD_Window implements I_AD_WindowInput {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -163,32 +162,23 @@ public class X_AD_WindowInput extends X_AD_Window implements I_AD_WindowInput {
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 
 	/**
 	 * Set WindowType.
 	 *
-	 * @param WindowType_RL Type or classification of a Window
+	 * @param WindowType Type or classification of a Window
 	 */
-	public void setWindowType_RL(I_AD_Ref_ListInput WindowType_RL) {
-		this.WindowType_RL = WindowType_RL;
-		MRefList foreignEntity;
-		if (WindowType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(WindowType_RL.getID())
+	@JsonProperty("WindowType")
+	public void setWindowTypeInput(I_AD_Ref_ListInput WindowType) {
+		this.mWindowType = WindowType;
+		MRefList_BH foreignEntity;
+		if (WindowType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(WindowType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setWindowType(foreignEntity.getValue());
 		} else {
@@ -201,7 +191,8 @@ public class X_AD_WindowInput extends X_AD_Window implements I_AD_WindowInput {
 	 *
 	 * @return Type or classification of a Window
 	 */
-	public I_AD_Ref_ListInput getWindowType_RL() {
-		return WindowType_RL;
+	@JsonProperty("WindowType")
+	public I_AD_Ref_ListInput WindowType() {
+		return mWindowType;
 	}
 }

@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_C_TaxCategoryResolver extends POResolver<MTaxCategory> implements GraphQLResolver<MTaxCategory> {
 
 
+	public Boolean IsDefault(MTaxCategory entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
 }

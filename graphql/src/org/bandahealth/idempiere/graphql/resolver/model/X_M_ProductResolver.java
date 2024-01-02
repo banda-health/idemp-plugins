@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
@@ -27,7 +28,6 @@ import org.compiere.model.MExpenseType;
 import org.compiere.model.MFreightCategory;
 import org.compiere.model.MLocator;
 import org.compiere.model.MMailText;
-import org.compiere.model.MRefList;
 import org.compiere.model.MResource;
 import org.compiere.model.MRevenueRecognition;
 import org.compiere.model.MTaxCategory;
@@ -48,6 +48,18 @@ import java.util.concurrent.CompletableFuture;
  */
 public class X_M_ProductResolver extends POResolver<MProduct_BH> implements GraphQLResolver<MProduct_BH> {
 
+
+	public Boolean BH_HasExpiration(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBH_HasExpiration();
+	}
+
+	public int bh_reorder_level(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.getbh_reorder_level();
+	}
+
+	public int bh_reorder_quantity(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.getbh_reorder_quantity();
+	}
 
 
 	/**
@@ -107,6 +119,78 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 		DataLoader<Integer, MUOM> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_UOM_ID());
+	}
+
+	public Boolean Discontinued(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDiscontinued();
+	}
+
+	public Boolean IsBOM(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBOM();
+	}
+
+	public Boolean IsDropShip(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDropShip();
+	}
+
+	public Boolean IsExcludeAutoDelivery(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isExcludeAutoDelivery();
+	}
+
+	public Boolean IsInvoicePrintDetails(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isInvoicePrintDetails();
+	}
+
+	public Boolean IsKanban(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isKanban();
+	}
+
+	public Boolean IsManufactured(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isManufactured();
+	}
+
+	public Boolean IsOwnBox(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isOwnBox();
+	}
+
+	public Boolean IsPhantom(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isPhantom();
+	}
+
+	public Boolean IsPickListPrintDetails(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isPickListPrintDetails();
+	}
+
+	public Boolean IsPurchased(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isPurchased();
+	}
+
+	public Boolean IsSelfService(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSelfService();
+	}
+
+	public Boolean IsSold(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSold();
+	}
+
+	public Boolean IsStocked(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isStocked();
+	}
+
+	public Boolean IsSummary(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSummary();
+	}
+
+	public Boolean istoformule(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.istoformule();
+	}
+
+	public Boolean IsVerified(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isVerified();
+	}
+
+	public Boolean IsWebStoreFeatured(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isWebStoreFeatured();
 	}
 
 
@@ -199,6 +283,10 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 		return dataLoader.load(entity.getM_Product_Category_ID());
 	}
 
+	public Boolean Processing(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 	static Map<String, String> PRODUCTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("I", "59dcc5c9-ab37-4f5c-9987-6e2347f50093");
@@ -209,11 +297,11 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			put("A", "a45dcc33-c973-4744-955e-dd24518ef099");
 		}
 	};
-	public CompletableFuture<MRefList> ProductType_RL(MProduct_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ProductType(MProduct_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getProductType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PRODUCTTYPE_UUIDS_BY_VALUE.get(entity.getProductType()));
 	}

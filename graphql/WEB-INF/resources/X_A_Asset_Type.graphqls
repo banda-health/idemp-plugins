@@ -24,23 +24,23 @@ type A_Asset_Type {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# This asset CAN be depreciated
-	IsDepreciable_RL: AD_Ref_List!
+	IsDepreciable: AD_Ref_List!
 	# The asset is in the possession of the organization
-	IsInPosession_RL: AD_Ref_List!
+	IsInPosession: AD_Ref_List!
 	# The asset is owned by the organization
-	IsOwned_RL: AD_Ref_List!
+	IsOwned: AD_Ref_List!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
 }
@@ -54,11 +54,11 @@ input A_Asset_TypeInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# This asset CAN be depreciated
-	IsDepreciable_RL: AD_Ref_ListInput
+	IsDepreciable: AD_Ref_ListInput
 	# The asset is in the possession of the organization
-	IsInPosession_RL: AD_Ref_ListInput
+	IsInPosession: AD_Ref_ListInput
 	# The asset is owned by the organization
-	IsOwned_RL: AD_Ref_ListInput
+	IsOwned: AD_Ref_ListInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Search key for the record in the format required - must be unique

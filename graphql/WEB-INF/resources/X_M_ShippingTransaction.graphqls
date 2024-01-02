@@ -17,7 +17,7 @@ type M_ShippingTransactionConnection {
 
 type M_ShippingTransaction {
 	# Indicates the Action to be performed
-	Action_RL: AD_Ref_List!
+	Action: AD_Ref_List!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -47,29 +47,29 @@ type M_ShippingTransaction {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	CustomsValue: Int
 	# Date a product was received
 	DateReceived: Date
 	# EMail Delivery confirmation
 	DeliveryConfirmation: Boolean!
-	DeliveryConfirmationType_RL: AD_Ref_List
+	DeliveryConfirmationType: AD_Ref_List
 	# Optional short description of the record
 	Description: String
-	DotHazardClassOrDivision_RL: AD_Ref_List
+	DotHazardClassOrDivision: AD_Ref_List
 	DryIceWeight: Int
 	DutiesShipperAccount: String
-	FOB_RL: AD_Ref_List
+	FOB: AD_Ref_List
 	# Freight Amount 
 	FreightAmt: Int
-	FreightCharges_RL: AD_Ref_List
+	FreightCharges: AD_Ref_List
 	HandlingCharge: Int
 	Height: Int
 	HoldAddress: C_BPartner_Location
 	HomeDeliveryPremiumDate: Date
 	HomeDeliveryPremiumPhone: String
-	HomeDeliveryPremiumType_RL: AD_Ref_List
-	Insurance_RL: AD_Ref_List
+	HomeDeliveryPremiumType: AD_Ref_List
+	Insurance: AD_Ref_List
 	InsuredAmount: Int
 	IsAccessible: Boolean!
 	# The record is active in the system
@@ -106,9 +106,9 @@ type M_ShippingTransaction {
 	M_Warehouse: M_Warehouse
 	NotificationMessage: String
 	# Type of Notifications
-	NotificationType_RL: AD_Ref_List
+	NotificationType: AD_Ref_List
 	# How you pay the invoice
-	PaymentRule_RL: AD_Ref_List
+	PaymentRule: AD_Ref_List
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Price
@@ -135,7 +135,7 @@ type M_ShippingTransaction {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# Weight of a product
 	Weight: Int
 	Width: Int
@@ -143,7 +143,7 @@ type M_ShippingTransaction {
 
 input M_ShippingTransactionInput {
 	# Indicates the Action to be performed
-	Action_RL: AD_Ref_ListInput
+	Action: AD_Ref_ListInput
 	# Organizational entity within client
 	AD_Org: AD_OrgInput
 	# User within the system - Internal or Business Partner Contact
@@ -173,23 +173,23 @@ input M_ShippingTransactionInput {
 	DateReceived: Date
 	# EMail Delivery confirmation
 	DeliveryConfirmation: Boolean
-	DeliveryConfirmationType_RL: AD_Ref_ListInput
+	DeliveryConfirmationType: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String
-	DotHazardClassOrDivision_RL: AD_Ref_ListInput
+	DotHazardClassOrDivision: AD_Ref_ListInput
 	DryIceWeight: Int
 	DutiesShipperAccount: String
-	FOB_RL: AD_Ref_ListInput
+	FOB: AD_Ref_ListInput
 	# Freight Amount 
 	FreightAmt: Int
-	FreightCharges_RL: AD_Ref_ListInput
+	FreightCharges: AD_Ref_ListInput
 	HandlingCharge: Int
 	Height: Int
 	HoldAddress: C_BPartner_LocationInput
 	HomeDeliveryPremiumDate: Date
 	HomeDeliveryPremiumPhone: String
-	HomeDeliveryPremiumType_RL: AD_Ref_ListInput
-	Insurance_RL: AD_Ref_ListInput
+	HomeDeliveryPremiumType: AD_Ref_ListInput
+	Insurance: AD_Ref_ListInput
 	InsuredAmount: Int
 	IsAccessible: Boolean
 	# The record is active in the system
@@ -226,9 +226,9 @@ input M_ShippingTransactionInput {
 	M_Warehouse: M_WarehouseInput
 	NotificationMessage: String
 	# Type of Notifications
-	NotificationType_RL: AD_Ref_ListInput
+	NotificationType: AD_Ref_ListInput
 	# How you pay the invoice
-	PaymentRule_RL: AD_Ref_ListInput
+	PaymentRule: AD_Ref_ListInput
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Price

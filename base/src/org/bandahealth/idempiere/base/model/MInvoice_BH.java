@@ -25,6 +25,11 @@ public class MInvoice_BH extends MInvoice {
 	 */
 	public static final String PAYMENTRULE_BHCashAccount = "b";
 	public static final String COLUMNNAME_BH_VOIDED_REASON_ID = "BH_Voided_Reason_ID";
+
+	/**
+	 * Column name BH_NavButtons
+	 */
+	public static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
 	/**
 	 * Column name BH_Visit_ID
 	 */
@@ -159,5 +164,23 @@ public class MInvoice_BH extends MInvoice {
 		});
 
 		return newInvoice;
+	}
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons) {
+		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
+	}
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons() {
+		return get_Value(COLUMNNAME_BH_NavButtons);
 	}
 }

@@ -107,6 +107,10 @@ public class X_C_POSResolver extends POResolver<MPOS> implements GraphQLResolver
 		return dataLoader.load(entity.getC_POSKeyLayout_ID());
 	}
 
+	public Boolean IsModifyPrice(MPOS entity, DataFetchingEnvironment environment) {
+		return entity.isModifyPrice();
+	}
+
 
 	/**
 	 * Get Price List.

@@ -1,12 +1,14 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
+import org.compiere.model.MDepreciationBuild;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_A_Depreciation_Build;
 import org.compiere.util.Env;
 
 /**
@@ -15,31 +17,21 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Depreciation_BuildInput extends X_A_Depreciation_Build implements I_A_Depreciation_BuildInput {
+public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I_A_Depreciation_BuildInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput PostingType_RL;
-	 private I_A_AssetInput A_End_Asset;
-	 private I_A_AssetInput A_Start_Asset;
-	 private I_C_PeriodInput C_Period;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mPostingType;
+	 private I_A_AssetInput mA_End_Asset;
+	 private I_A_AssetInput mA_Start_Asset;
+	 private I_C_PeriodInput mC_Period;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_A_Depreciation_BuildInput(String ID) {
+	@JsonCreator
+	public X_A_Depreciation_BuildInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
-	}
-	/**
-	 * Set Build Depreciation.
-	 *
-	 * @param A_Depreciation_Build_ID Build Depreciation
-	 */
-
-	public void setA_Depreciation_Build_ID(int A_Depreciation_Build_ID) {
-		if (get_ID() == 0) {
-			super.setA_Depreciation_Build_ID(A_Depreciation_Build_ID);
-		}
 	}
 
 	/**
@@ -65,16 +57,17 @@ public class X_A_Depreciation_BuildInput extends X_A_Depreciation_Build implemen
 	 *
 	 * @param A_End_Asset To Asset
 	 */
-	public void setA_End_Asset(I_A_AssetInput A_End_Asset) {
-		this.A_End_Asset = A_End_Asset;
+	@JsonProperty("A_End_Asset")
+	public void setA_End_AssetInput(I_A_AssetInput A_End_Asset) {
+		this.mA_End_Asset = A_End_Asset;
 		MAsset foreignEntity;
 		if (A_End_Asset != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_End_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_End_Asset_ID(foreignEntity.get_ID());
+			super.setA_End_Asset_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_End_Asset_ID(0);
+			super.setA_End_Asset_ID(0);
 		}
 	}
 
@@ -83,19 +76,9 @@ public class X_A_Depreciation_BuildInput extends X_A_Depreciation_Build implemen
 	 *
 	 * @return To Asset
 	 */
-	public I_A_AssetInput getA_End_Asset() {
-		return A_End_Asset;
-	}
-	/**
-	 * Set To Asset.
-	 *
-	 * @param A_End_Asset_ID To Asset
-	 */
-
-	public void setA_End_Asset_ID(int A_End_Asset_ID) {
-		if (get_ID() == 0) {
-			super.setA_End_Asset_ID(A_End_Asset_ID);
-		}
+	@JsonProperty("A_End_Asset")
+	public I_A_AssetInput A_End_Asset() {
+		return mA_End_Asset;
 	}
 
 	/**
@@ -103,16 +86,17 @@ public class X_A_Depreciation_BuildInput extends X_A_Depreciation_Build implemen
 	 *
 	 * @param A_Start_Asset From Asset
 	 */
-	public void setA_Start_Asset(I_A_AssetInput A_Start_Asset) {
-		this.A_Start_Asset = A_Start_Asset;
+	@JsonProperty("A_Start_Asset")
+	public void setA_Start_AssetInput(I_A_AssetInput A_Start_Asset) {
+		this.mA_Start_Asset = A_Start_Asset;
 		MAsset foreignEntity;
 		if (A_Start_Asset != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_Start_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Start_Asset_ID(foreignEntity.get_ID());
+			super.setA_Start_Asset_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_Start_Asset_ID(0);
+			super.setA_Start_Asset_ID(0);
 		}
 	}
 
@@ -121,19 +105,9 @@ public class X_A_Depreciation_BuildInput extends X_A_Depreciation_Build implemen
 	 *
 	 * @return From Asset
 	 */
-	public I_A_AssetInput getA_Start_Asset() {
-		return A_Start_Asset;
-	}
-	/**
-	 * Set From Asset.
-	 *
-	 * @param A_Start_Asset_ID From Asset
-	 */
-
-	public void setA_Start_Asset_ID(int A_Start_Asset_ID) {
-		if (get_ID() == 0) {
-			super.setA_Start_Asset_ID(A_Start_Asset_ID);
-		}
+	@JsonProperty("A_Start_Asset")
+	public I_A_AssetInput A_Start_Asset() {
+		return mA_Start_Asset;
 	}
 
 	/**
@@ -141,16 +115,17 @@ public class X_A_Depreciation_BuildInput extends X_A_Depreciation_Build implemen
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Org_ID(0);
+			super.setAD_Org_ID(0);
 		}
 	}
 
@@ -159,8 +134,9 @@ public class X_A_Depreciation_BuildInput extends X_A_Depreciation_Build implemen
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -168,16 +144,17 @@ public class X_A_Depreciation_BuildInput extends X_A_Depreciation_Build implemen
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	public void setC_Period(I_C_PeriodInput C_Period) {
-		this.C_Period = C_Period;
+	@JsonProperty("C_Period")
+	public void setC_PeriodInput(I_C_PeriodInput C_Period) {
+		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
 				(foreignEntity = new Query(getCtx(), MPeriod.Table_Name, MPeriod.COLUMNNAME_C_Period_UU + "=?", get_TrxName())
 						.setParameters(C_Period.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Period_ID(foreignEntity.get_ID());
+			super.setC_Period_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Period_ID(0);
+			super.setC_Period_ID(0);
 		}
 	}
 
@@ -186,32 +163,23 @@ public class X_A_Depreciation_BuildInput extends X_A_Depreciation_Build implemen
 	 *
 	 * @return Period of the Calendar
 	 */
-	public I_C_PeriodInput getC_Period() {
-		return C_Period;
-	}
-	/**
-	 * Set Period.
-	 *
-	 * @param C_Period_ID Period of the Calendar
-	 */
-
-	public void setC_Period_ID(int C_Period_ID) {
-		if (get_ID() == 0) {
-			super.setC_Period_ID(C_Period_ID);
-		}
+	@JsonProperty("C_Period")
+	public I_C_PeriodInput C_Period() {
+		return mC_Period;
 	}
 
 	/**
 	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	public void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL) {
-		this.PostingType_RL = PostingType_RL;
-		MRefList foreignEntity;
-		if (PostingType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType_RL.getID())
+	@JsonProperty("PostingType")
+	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+		this.mPostingType = PostingType;
+		MRefList_BH foreignEntity;
+		if (PostingType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PostingType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPostingType(foreignEntity.getValue());
 		} else {
@@ -224,7 +192,8 @@ public class X_A_Depreciation_BuildInput extends X_A_Depreciation_Build implemen
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	public I_AD_Ref_ListInput getPostingType_RL() {
-		return PostingType_RL;
+	@JsonProperty("PostingType")
+	public I_AD_Ref_ListInput PostingType() {
+		return mPostingType;
 	}
 }

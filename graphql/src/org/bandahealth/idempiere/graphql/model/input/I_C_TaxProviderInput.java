@@ -15,14 +15,14 @@ public interface I_C_TaxProviderInput extends I_C_TaxProvider {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,12 +43,12 @@ public interface I_C_TaxProviderInput extends I_C_TaxProvider {
 	 *
 	 * @param C_TaxProviderCfg C_TaxProviderCfg
 	 */
-	void setC_TaxProviderCfg(I_C_TaxProviderCfgInput C_TaxProviderCfg);
+	void setC_TaxProviderCfgInput(I_C_TaxProviderCfgInput C_TaxProviderCfg);
 
 	/**
 	 * Get C_TaxProviderCfg.
 	 *
 	 * @return C_TaxProviderCfg
 	 */
-	I_C_TaxProviderCfgInput getC_TaxProviderCfg();
+	I_C_TaxProviderCfgInput C_TaxProviderCfg();
 }

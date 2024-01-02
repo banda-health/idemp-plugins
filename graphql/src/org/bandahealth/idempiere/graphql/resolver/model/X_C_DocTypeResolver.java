@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -11,7 +12,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_CategoryDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MGLCategory;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_AD_PrintFormat;
 import org.dataloader.DataLoader;
 
@@ -154,11 +154,11 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			put("FDP", "68763ab2-7781-4d0a-88d4-1d70e3f885e7");
 		}
 	};
-	public CompletableFuture<MRefList> DocBaseType_RL(MDocType_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocBaseType(MDocType_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocBaseType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCBASETYPE_UUIDS_BY_VALUE.get(entity.getDocBaseType()));
 	}
@@ -185,11 +185,11 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			put("CA", "9b6ed272-4f67-4ffa-b2b1-971541d27730");
 		}
 	};
-	public CompletableFuture<MRefList> DocSubTypeInv_RL(MDocType_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocSubTypeInv(MDocType_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocSubTypeInv())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCSUBTYPEINV_UUIDS_BY_VALUE.get(entity.getDocSubTypeInv()));
 	}
@@ -206,11 +206,11 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			put("PR", "7076b162-00e8-4a8f-8391-21afa5698476");
 		}
 	};
-	public CompletableFuture<MRefList> DocSubTypeSO_RL(MDocType_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocSubTypeSO(MDocType_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocSubTypeSO())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCSUBTYPESO_UUIDS_BY_VALUE.get(entity.getDocSubTypeSO()));
 	}
@@ -228,6 +228,70 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 		DataLoader<Integer, MGLCategory> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_GL_CategoryDataLoader.GL_Category_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getGL_Category_ID());
+	}
+
+	public Boolean HasCharges(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isHasCharges();
+	}
+
+	public Boolean HasProforma(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isHasProforma();
+	}
+
+	public Boolean IsChargeOrProductMandatory(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isChargeOrProductMandatory();
+	}
+
+	public Boolean IsCreateCounter(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isCreateCounter();
+	}
+
+	public Boolean IsDefault(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsDefaultCounterDoc(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDefaultCounterDoc();
+	}
+
+	public Boolean IsDocNoControlled(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDocNoControlled();
+	}
+
+	public Boolean IsIndexed(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isIndexed();
+	}
+
+	public Boolean IsInTransit(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isInTransit();
+	}
+
+	public Boolean IsOverwriteDateOnComplete(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isOverwriteDateOnComplete();
+	}
+
+	public Boolean IsOverwriteSeqOnComplete(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isOverwriteSeqOnComplete();
+	}
+
+	public Boolean IsPickQAConfirm(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isPickQAConfirm();
+	}
+
+	public Boolean IsPrepareSplitDocument(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isPrepareSplitDocument();
+	}
+
+	public Boolean IsShipConfirm(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isShipConfirm();
+	}
+
+	public Boolean IsSOTrx(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSOTrx();
+	}
+
+	public Boolean IsSplitWhenDifference(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSplitWhenDifference();
 	}
 
 }

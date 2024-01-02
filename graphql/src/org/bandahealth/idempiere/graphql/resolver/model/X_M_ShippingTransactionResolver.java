@@ -3,9 +3,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -27,9 +29,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShippingProcessorDa
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_WarehouseDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MBPartnerLocation;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MPackage;
-import org.compiere.model.MRefList;
 import org.compiere.model.MShipper;
 import org.compiere.model.MShipperLabels;
 import org.compiere.model.MShipperPackaging;
@@ -60,11 +60,11 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 			put("PS", "c528f5cd-d8a0-4b7d-8bdb-ac456350cb7b");
 		}
 	};
-	public CompletableFuture<MRefList> Action_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> Action(MShippingTransaction entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAction())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ACTION_UUIDS_BY_VALUE.get(entity.getAction()));
 	}
@@ -150,11 +150,11 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MShippingTransaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MShippingTransaction entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
@@ -219,6 +219,14 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 		return dataLoader.load(entity.getC_UOM_Weight_ID());
 	}
 
+	public Boolean CashOnDelivery(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isCashOnDelivery();
+	}
+
+	public Boolean DeliveryConfirmation(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isDeliveryConfirmation();
+	}
+
 	static Map<String, String> DELIVERYCONFIRMATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("ADULT", "a1a27ca4-c532-43ed-b0e5-62354ac6e929");
@@ -227,11 +235,11 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 			put("SERVICE_DEFAULT", "fb3f11bc-3d34-4e1d-8cb9-eb84a39771e3");
 		}
 	};
-	public CompletableFuture<MRefList> DeliveryConfirmationType_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DeliveryConfirmationType(MShippingTransaction entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDeliveryConfirmationType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DELIVERYCONFIRMATIONTYPE_UUIDS_BY_VALUE.get(entity.getDeliveryConfirmationType()));
 	}
@@ -258,11 +266,11 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 			put("9", "1f69e16e-f4a1-4d3d-beb2-772951cfa99a");
 		}
 	};
-	public CompletableFuture<MRefList> DotHazardClassOrDivision_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DotHazardClassOrDivision(MShippingTransaction entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDotHazardClassOrDivision())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOTHAZARDCLASSORDIVISION_UUIDS_BY_VALUE.get(entity.getDotHazardClassOrDivision()));
 	}
@@ -287,11 +295,11 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 			put("FOB", "30141c28-d81e-45cf-b403-7b68e4ace907");
 		}
 	};
-	public CompletableFuture<MRefList> FOB_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> FOB(MShippingTransaction entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFOB())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(FOB_UUIDS_BY_VALUE.get(entity.getFOB()));
 	}
@@ -305,11 +313,11 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 			put("E_PPB", "0e39eb81-f71c-4c44-a9b1-a1af86304c32");
 		}
 	};
-	public CompletableFuture<MRefList> FreightCharges_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> FreightCharges(MShippingTransaction entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFreightCharges())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(FREIGHTCHARGES_UUIDS_BY_VALUE.get(entity.getFreightCharges()));
 	}
@@ -336,11 +344,11 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 			put("EVENING", "c9af6b66-e0d9-4bf2-bb94-d0e91c15b572");
 		}
 	};
-	public CompletableFuture<MRefList> HomeDeliveryPremiumType_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> HomeDeliveryPremiumType(MShippingTransaction entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getHomeDeliveryPremiumType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(HOMEDELIVERYPREMIUMTYPE_UUIDS_BY_VALUE.get(entity.getHomeDeliveryPremiumType()));
 	}
@@ -351,13 +359,77 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 			put("2", "19ba90f2-d281-4217-9460-be081c4cb49d");
 		}
 	};
-	public CompletableFuture<MRefList> Insurance_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> Insurance(MShippingTransaction entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getInsurance())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(INSURANCE_UUIDS_BY_VALUE.get(entity.getInsurance()));
+	}
+
+	public Boolean IsAccessible(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isAccessible();
+	}
+
+	public Boolean IsAddedHandling(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isAddedHandling();
+	}
+
+	public Boolean IsAlternateReturnAddress(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isAlternateReturnAddress();
+	}
+
+	public Boolean IsCargoAircraftOnly(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isCargoAircraftOnly();
+	}
+
+	public Boolean IsDryIce(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isDryIce();
+	}
+
+	public Boolean IsDutiable(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isDutiable();
+	}
+
+	public Boolean IsFutureDayShipment(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isFutureDayShipment();
+	}
+
+	public Boolean IsHazMat(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isHazMat();
+	}
+
+	public Boolean IsHoldAtLocation(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isHoldAtLocation();
+	}
+
+	public Boolean IsIgnoreZipNotFound(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isIgnoreZipNotFound();
+	}
+
+	public Boolean IsIgnoreZipStateNotMatch(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isIgnoreZipStateNotMatch();
+	}
+
+	public Boolean IsPriviledgedRate(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isPriviledgedRate();
+	}
+
+	public Boolean IsResidential(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isResidential();
+	}
+
+	public Boolean IsSaturdayDelivery(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isSaturdayDelivery();
+	}
+
+	public Boolean IsSaturdayPickup(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isSaturdayPickup();
+	}
+
+	public Boolean IsVerbalConfirmation(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isVerbalConfirmation();
 	}
 
 
@@ -487,11 +559,11 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 			put("SE", "b7b3d7c7-de4a-40ae-94f6-076b6258fa62");
 		}
 	};
-	public CompletableFuture<MRefList> NotificationType_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> NotificationType(MShippingTransaction entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getNotificationType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(NOTIFICATIONTYPE_UUIDS_BY_VALUE.get(entity.getNotificationType()));
 	}
@@ -509,13 +581,17 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
 		}
 	};
-	public CompletableFuture<MRefList> PaymentRule_RL(MShippingTransaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PaymentRule(MShippingTransaction entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPaymentRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PAYMENTRULE_UUIDS_BY_VALUE.get(entity.getPaymentRule()));
+	}
+
+	public Boolean Processed(MShippingTransaction entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
 	}
 
 

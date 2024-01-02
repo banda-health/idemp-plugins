@@ -4,6 +4,7 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OrderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PhaseDataLoader;
@@ -13,7 +14,6 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MProject;
 import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTypePhase;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -74,6 +74,14 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
+	public Boolean IsCommitCeiling(MProjectPhase entity, DataFetchingEnvironment environment) {
+		return entity.isCommitCeiling();
+	}
+
+	public Boolean IsComplete(MProjectPhase entity, DataFetchingEnvironment environment) {
+		return entity.isComplete();
+	}
+
 
 	/**
 	 * Get Product/Service.
@@ -98,11 +106,11 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 			put("P", "c6d2fa2b-6f89-41b1-9e53-db77217d3ff1");
 		}
 	};
-	public CompletableFuture<MRefList> ProjInvoiceRule_RL(MProjectPhase entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ProjInvoiceRule(MProjectPhase entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getProjInvoiceRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PROJINVOICERULE_UUIDS_BY_VALUE.get(entity.getProjInvoiceRule()));
 	}

@@ -15,14 +15,14 @@ public interface I_AD_PrintPaperInput extends I_AD_PrintPaper {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -39,16 +39,16 @@ public interface I_AD_PrintPaperInput extends I_AD_PrintPaper {
 	String getID();
 
 	/**
-	 * Set DimensionUnits_RL.
+	 * Set DimensionUnits.
 	 *
-	 * @param DimensionUnits_RL Units of Dimension
+	 * @param DimensionUnits Units of Dimension
 	 */
-	void setDimensionUnits_RL(I_AD_Ref_ListInput DimensionUnits_RL);
+	void setDimensionUnitsInput(I_AD_Ref_ListInput DimensionUnits);
 
 	/**
-	 * Get DimensionUnits_RL.
+	 * Get DimensionUnits.
 	 *
 	 * @return Units of Dimension
 	 */
-	I_AD_Ref_ListInput getDimensionUnits_RL();
+	I_AD_Ref_ListInput DimensionUnits();
 }

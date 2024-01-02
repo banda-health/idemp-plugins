@@ -2,6 +2,8 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PeriodDataLoader;
@@ -9,9 +11,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_CostTypeDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCostType;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MPeriod;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -27,17 +27,21 @@ import java.util.concurrent.CompletableFuture;
 public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements GraphQLResolver<MAcctSchema> {
 
 
+	public Boolean AutoPeriodControl(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isAutoPeriodControl();
+	}
+
 
 	/**
 	 * Get Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MAcctSchema entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MAcctSchema entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
@@ -67,11 +71,11 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 			put("O", "fcc2f5f5-6882-440b-8ce8-46050cf2e9d3");
 		}
 	};
-	public CompletableFuture<MRefList> CommitmentType_RL(MAcctSchema entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CommitmentType(MAcctSchema entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCommitmentType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(COMMITMENTTYPE_UUIDS_BY_VALUE.get(entity.getCommitmentType()));
 	}
@@ -83,11 +87,11 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 			put("B", "582aa0b8-f288-4ad0-a1a0-eaf48e93e00d");
 		}
 	};
-	public CompletableFuture<MRefList> CostingLevel_RL(MAcctSchema entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CostingLevel(MAcctSchema entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCostingLevel())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(COSTINGLEVEL_UUIDS_BY_VALUE.get(entity.getCostingLevel()));
 	}
@@ -105,11 +109,11 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b");
 		}
 	};
-	public CompletableFuture<MRefList> CostingMethod_RL(MAcctSchema entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CostingMethod(MAcctSchema entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCostingMethod())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(COSTINGMETHOD_UUIDS_BY_VALUE.get(entity.getCostingMethod()));
 	}
@@ -123,13 +127,53 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 			put("XX", "1d43bbff-e3f6-4c95-8dc8-b12af94558c2");
 		}
 	};
-	public CompletableFuture<MRefList> GAAP_RL(MAcctSchema entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> GAAP(MAcctSchema entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getGAAP())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(GAAP_UUIDS_BY_VALUE.get(entity.getGAAP()));
+	}
+
+	public Boolean HasAlias(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isHasAlias();
+	}
+
+	public Boolean HasCombination(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isHasCombination();
+	}
+
+	public Boolean IsAccrual(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isAccrual();
+	}
+
+	public Boolean IsAdjustCOGS(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isAdjustCOGS();
+	}
+
+	public Boolean IsAllowNegativePosting(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isAllowNegativePosting();
+	}
+
+	public Boolean IsDiscountCorrectsTax(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isDiscountCorrectsTax();
+	}
+
+	public Boolean IsExplicitCostAdjustment(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isExplicitCostAdjustment();
+	}
+
+	public Boolean IsPostIfClearingEqual(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isPostIfClearingEqual();
+	}
+
+	public Boolean IsPostServices(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isPostServices();
+	}
+
+	public Boolean IsTradeDiscountPosted(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isTradeDiscountPosted();
 	}
 
 
@@ -147,6 +191,10 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 		return dataLoader.load(entity.getM_CostType_ID());
 	}
 
+	public Boolean Processing(MAcctSchema entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 	static Map<String, String> TAXCORRECTIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("N", "cfca959d-5054-4516-9b12-8b6c9ca6ab6c");
@@ -155,11 +203,11 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 			put("B", "0b419d8a-34cc-4dbb-8378-529df0598282");
 		}
 	};
-	public CompletableFuture<MRefList> TaxCorrectionType_RL(MAcctSchema entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> TaxCorrectionType(MAcctSchema entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getTaxCorrectionType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(TAXCORRECTIONTYPE_UUIDS_BY_VALUE.get(entity.getTaxCorrectionType()));
 	}

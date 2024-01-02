@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -9,7 +10,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_AD_Role;
 import org.compiere.model.X_AD_WF_Responsible;
 import org.dataloader.DataLoader;
@@ -97,11 +97,11 @@ public class X_AD_WF_ResponsibleResolver extends POResolver<X_AD_WF_Responsible>
 			put("M", "a9c99476-070e-4377-960d-19dbe7dff024");
 		}
 	};
-	public CompletableFuture<MRefList> ResponsibleType_RL(X_AD_WF_Responsible entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ResponsibleType(X_AD_WF_Responsible entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getResponsibleType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(RESPONSIBLETYPE_UUIDS_BY_VALUE.get(entity.getResponsibleType()));
 	}

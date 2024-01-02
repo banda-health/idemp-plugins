@@ -15,14 +15,14 @@ public interface I_C_InvoiceScheduleInput extends I_C_InvoiceSchedule {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -39,44 +39,44 @@ public interface I_C_InvoiceScheduleInput extends I_C_InvoiceSchedule {
 	String getID();
 
 	/**
-	 * Set InvoiceFrequency_RL.
+	 * Set InvoiceFrequency.
 	 *
-	 * @param InvoiceFrequency_RL How often invoices will be generated
+	 * @param InvoiceFrequency How often invoices will be generated
 	 */
-	void setInvoiceFrequency_RL(I_AD_Ref_ListInput InvoiceFrequency_RL);
+	void setInvoiceFrequencyInput(I_AD_Ref_ListInput InvoiceFrequency);
 
 	/**
-	 * Get InvoiceFrequency_RL.
+	 * Get InvoiceFrequency.
 	 *
 	 * @return How often invoices will be generated
 	 */
-	I_AD_Ref_ListInput getInvoiceFrequency_RL();
+	I_AD_Ref_ListInput InvoiceFrequency();
 
 	/**
-	 * Set InvoiceWeekDay_RL.
+	 * Set InvoiceWeekDay.
 	 *
-	 * @param InvoiceWeekDay_RL Day to generate invoices
+	 * @param InvoiceWeekDay Day to generate invoices
 	 */
-	void setInvoiceWeekDay_RL(I_AD_Ref_ListInput InvoiceWeekDay_RL);
+	void setInvoiceWeekDayInput(I_AD_Ref_ListInput InvoiceWeekDay);
 
 	/**
-	 * Get InvoiceWeekDay_RL.
+	 * Get InvoiceWeekDay.
 	 *
 	 * @return Day to generate invoices
 	 */
-	I_AD_Ref_ListInput getInvoiceWeekDay_RL();
+	I_AD_Ref_ListInput InvoiceWeekDay();
 
 	/**
-	 * Set InvoiceWeekDayCutoff_RL.
+	 * Set InvoiceWeekDayCutoff.
 	 *
-	 * @param InvoiceWeekDayCutoff_RL Last day in the week for shipments to be included
+	 * @param InvoiceWeekDayCutoff Last day in the week for shipments to be included
 	 */
-	void setInvoiceWeekDayCutoff_RL(I_AD_Ref_ListInput InvoiceWeekDayCutoff_RL);
+	void setInvoiceWeekDayCutoffInput(I_AD_Ref_ListInput InvoiceWeekDayCutoff);
 
 	/**
-	 * Get InvoiceWeekDayCutoff_RL.
+	 * Get InvoiceWeekDayCutoff.
 	 *
 	 * @return Last day in the week for shipments to be included
 	 */
-	I_AD_Ref_ListInput getInvoiceWeekDayCutoff_RL();
+	I_AD_Ref_ListInput InvoiceWeekDayCutoff();
 }

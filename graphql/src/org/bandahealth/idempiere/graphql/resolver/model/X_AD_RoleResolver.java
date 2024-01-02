@@ -2,14 +2,14 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TreeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MCurrency;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTree;
 import org.compiere.model.X_AD_Role;
 import org.dataloader.DataLoader;
@@ -57,19 +57,123 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 		return dataLoader.load(entity.getAD_Tree_Org_ID());
 	}
 
+	public Boolean Allow_Info_Account(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAllow_Info_Account();
+	}
+
+	public Boolean Allow_Info_Asset(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAllow_Info_Asset();
+	}
+
+	public Boolean Allow_Info_BPartner(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAllow_Info_BPartner();
+	}
+
+	public Boolean Allow_Info_InOut(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAllow_Info_InOut();
+	}
+
+	public Boolean Allow_Info_Invoice(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAllow_Info_Invoice();
+	}
+
+	public Boolean Allow_Info_Order(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAllow_Info_Order();
+	}
+
+	public Boolean Allow_Info_Payment(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAllow_Info_Payment();
+	}
+
+	public Boolean Allow_Info_Product(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAllow_Info_Product();
+	}
+
+	public Boolean Allow_Info_Resource(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAllow_Info_Resource();
+	}
+
+	public Boolean Allow_Info_Schedule(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAllow_Info_Schedule();
+	}
+
 
 	/**
 	 * Get Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(X_AD_Role entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(X_AD_Role entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
+	}
+
+	public Boolean IsAccessAdvanced(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAccessAdvanced();
+	}
+
+	public Boolean IsAccessAllOrgs(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isAccessAllOrgs();
+	}
+
+	public Boolean IsCanApproveOwnDoc(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isCanApproveOwnDoc();
+	}
+
+	public Boolean IsCanExport(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isCanExport();
+	}
+
+	public Boolean IsCanReport(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isCanReport();
+	}
+
+	public Boolean IsChangeLog(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isChangeLog();
+	}
+
+	public Boolean IsDiscountAllowedOnTotal(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isDiscountAllowedOnTotal();
+	}
+
+	public Boolean IsDiscountUptoLimitPrice(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isDiscountUptoLimitPrice();
+	}
+
+	public Boolean IsManual(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isManual();
+	}
+
+	public Boolean IsMasterRole(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isMasterRole();
+	}
+
+	public Boolean IsMenuAutoExpand(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isMenuAutoExpand();
+	}
+
+	public Boolean IsPersonalAccess(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isPersonalAccess();
+	}
+
+	public Boolean IsPersonalLock(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isPersonalLock();
+	}
+
+	public Boolean IsShowAcct(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isShowAcct();
+	}
+
+	public Boolean IsUseUserOrgAccess(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isUseUserOrgAccess();
+	}
+
+	public Boolean OverwritePriceLimit(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isOverwritePriceLimit();
 	}
 
 	static Map<String, String> PREFERENCETYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -80,11 +184,11 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 			put("N", "7b6855b5-554c-4350-a4c1-605523bc56e1");
 		}
 	};
-	public CompletableFuture<MRefList> PreferenceType_RL(X_AD_Role entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PreferenceType(X_AD_Role entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPreferenceType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PREFERENCETYPE_UUIDS_BY_VALUE.get(entity.getPreferenceType()));
 	}
@@ -103,11 +207,11 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 			put("E5", "b06729fb-ce8e-4bff-b6da-0f38bdefa55e");
 		}
 	};
-	public CompletableFuture<MRefList> RoleType_RL(X_AD_Role entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> RoleType(X_AD_Role entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getRoleType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ROLETYPE_UUIDS_BY_VALUE.get(entity.getRoleType()));
 	}
@@ -135,11 +239,11 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 			put(" CO", "ac273750-1ebd-4bf1-9637-b693fa7a5794");
 		}
 	};
-	public CompletableFuture<MRefList> UserLevel_RL(X_AD_Role entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> UserLevel(X_AD_Role entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getUserLevel())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(USERLEVEL_UUIDS_BY_VALUE.get(entity.getUserLevel()));
 	}

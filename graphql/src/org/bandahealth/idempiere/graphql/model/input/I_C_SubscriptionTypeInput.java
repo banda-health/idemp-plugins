@@ -15,14 +15,14 @@ public interface I_C_SubscriptionTypeInput extends I_C_SubscriptionType {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -39,16 +39,16 @@ public interface I_C_SubscriptionTypeInput extends I_C_SubscriptionType {
 	String getID();
 
 	/**
-	 * Set FrequencyType_RL.
+	 * Set FrequencyType.
 	 *
-	 * @param FrequencyType_RL Frequency of event
+	 * @param FrequencyType Frequency of event
 	 */
-	void setFrequencyType_RL(I_AD_Ref_ListInput FrequencyType_RL);
+	void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType);
 
 	/**
-	 * Get FrequencyType_RL.
+	 * Get FrequencyType.
 	 *
 	 * @return Frequency of event
 	 */
-	I_AD_Ref_ListInput getFrequencyType_RL();
+	I_AD_Ref_ListInput FrequencyType();
 }

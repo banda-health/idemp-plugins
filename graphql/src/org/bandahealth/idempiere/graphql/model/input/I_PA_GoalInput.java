@@ -15,98 +15,98 @@ public interface I_PA_GoalInput extends I_PA_Goal {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_Role.
 	 *
 	 * @param AD_Role Responsibility Role
 	 */
-	void setAD_Role(I_AD_RoleInput AD_Role);
+	void setAD_RoleInput(I_AD_RoleInput AD_Role);
 
 	/**
 	 * Get AD_Role.
 	 *
 	 * @return Responsibility Role
 	 */
-	I_AD_RoleInput getAD_Role();
+	I_AD_RoleInput AD_Role();
 
 	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	void setAD_User(I_AD_UserInput AD_User);
+	void setAD_UserInput(I_AD_UserInput AD_User);
 
 	/**
 	 * Get AD_User.
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	I_AD_UserInput getAD_User();
+	I_AD_UserInput AD_User();
 
 	/**
-	 * Set ChartType_RL.
+	 * Set ChartType.
 	 *
-	 * @param ChartType_RL Type of chart to render
+	 * @param ChartType Type of chart to render
 	 */
-	void setChartType_RL(I_AD_Ref_ListInput ChartType_RL);
+	void setChartTypeInput(I_AD_Ref_ListInput ChartType);
 
 	/**
-	 * Get ChartType_RL.
+	 * Get ChartType.
 	 *
 	 * @return Type of chart to render
 	 */
-	I_AD_Ref_ListInput getChartType_RL();
+	I_AD_Ref_ListInput ChartType();
 
 	/**
-	 * Set MeasureDisplay_RL.
+	 * Set MeasureDisplay.
 	 *
-	 * @param MeasureDisplay_RL Measure Scope initially displayed
+	 * @param MeasureDisplay Measure Scope initially displayed
 	 */
-	void setMeasureDisplay_RL(I_AD_Ref_ListInput MeasureDisplay_RL);
+	void setMeasureDisplayInput(I_AD_Ref_ListInput MeasureDisplay);
 
 	/**
-	 * Get MeasureDisplay_RL.
+	 * Get MeasureDisplay.
 	 *
 	 * @return Measure Scope initially displayed
 	 */
-	I_AD_Ref_ListInput getMeasureDisplay_RL();
+	I_AD_Ref_ListInput MeasureDisplay();
 
 	/**
-	 * Set MeasureScope_RL.
+	 * Set MeasureScope.
 	 *
-	 * @param MeasureScope_RL Performance Measure Scope
+	 * @param MeasureScope Performance Measure Scope
 	 */
-	void setMeasureScope_RL(I_AD_Ref_ListInput MeasureScope_RL);
+	void setMeasureScopeInput(I_AD_Ref_ListInput MeasureScope);
 
 	/**
-	 * Get MeasureScope_RL.
+	 * Get MeasureScope.
 	 *
 	 * @return Performance Measure Scope
 	 */
-	I_AD_Ref_ListInput getMeasureScope_RL();
+	I_AD_Ref_ListInput MeasureScope();
 
 	/**
 	 * Set PA_ColorSchema.
 	 *
 	 * @param PA_ColorSchema Performance Color Schema
 	 */
-	void setPA_ColorSchema(I_PA_ColorSchemaInput PA_ColorSchema);
+	void setPA_ColorSchemaInput(I_PA_ColorSchemaInput PA_ColorSchema);
 
 	/**
 	 * Get PA_ColorSchema.
 	 *
 	 * @return Performance Color Schema
 	 */
-	I_PA_ColorSchemaInput getPA_ColorSchema();
+	I_PA_ColorSchemaInput PA_ColorSchema();
 
 	/**
 	 * Set ID.
@@ -127,26 +127,26 @@ public interface I_PA_GoalInput extends I_PA_Goal {
 	 *
 	 * @param PA_GoalParent Parent Goal
 	 */
-	void setPA_GoalParent(I_PA_GoalInput PA_GoalParent);
+	void setPA_GoalParentInput(I_PA_GoalInput PA_GoalParent);
 
 	/**
 	 * Get PA_GoalParent.
 	 *
 	 * @return Parent Goal
 	 */
-	I_PA_GoalInput getPA_GoalParent();
+	I_PA_GoalInput PA_GoalParent();
 
 	/**
 	 * Set PA_Measure.
 	 *
 	 * @param PA_Measure Concrete Performance Measurement
 	 */
-	void setPA_Measure(I_PA_MeasureInput PA_Measure);
+	void setPA_MeasureInput(I_PA_MeasureInput PA_Measure);
 
 	/**
 	 * Get PA_Measure.
 	 *
 	 * @return Concrete Performance Measurement
 	 */
-	I_PA_MeasureInput getPA_Measure();
+	I_PA_MeasureInput PA_Measure();
 }

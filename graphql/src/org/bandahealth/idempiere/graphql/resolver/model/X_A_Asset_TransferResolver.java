@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_AcctDataLoader;
@@ -15,7 +16,6 @@ import org.compiere.model.MAsset;
 import org.compiere.model.MAssetAcct;
 import org.compiere.model.MAssetTransfer;
 import org.compiere.model.MPeriod;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -127,11 +127,11 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 			put("Exp", "4a84ac91-9720-40a2-8529-6a139dabb96a");
 		}
 	};
-	public CompletableFuture<MRefList> A_CapvsExp_RL(MAssetTransfer entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_CapvsExp(MAssetTransfer entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_CapvsExp())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_CAPVSEXP_UUIDS_BY_VALUE.get(entity.getA_CapvsExp()));
 	}
@@ -226,6 +226,14 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 		return dataLoader.load(entity.getA_Disposal_Revenue_New_Acct());
 	}
 
+	public Boolean A_Transfer_Balance(MAssetTransfer entity, DataFetchingEnvironment environment) {
+		return entity.isA_Transfer_Balance();
+	}
+
+	public Boolean A_Transfer_Balance_IS(MAssetTransfer entity, DataFetchingEnvironment environment) {
+		return entity.isA_Transfer_Balance_IS();
+	}
+
 
 	/**
 	 * Get Accounting Schema.
@@ -274,11 +282,11 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
-	public CompletableFuture<MRefList> DocAction_RL(MAssetTransfer entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocAction(MAssetTransfer entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocAction())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
@@ -299,13 +307,17 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
 		}
 	};
-	public CompletableFuture<MRefList> DocStatus_RL(MAssetTransfer entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocStatus(MAssetTransfer entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
+	}
+
+	public Boolean Posted(MAssetTransfer entity, DataFetchingEnvironment environment) {
+		return entity.isPosted();
 	}
 
 	static Map<String, String> POSTINGTYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -317,13 +329,21 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList> PostingType_RL(MAssetTransfer entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(MAssetTransfer entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
+	}
+
+	public Boolean Processed(MAssetTransfer entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MAssetTransfer entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

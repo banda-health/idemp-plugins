@@ -1,15 +1,17 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MGoal;
+import org.compiere.model.MGoalRestriction;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_PA_GoalRestriction;
 import org.compiere.util.Env;
 
 /**
@@ -18,20 +20,21 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I_PA_GoalRestrictionInput {
+public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_GoalRestrictionInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput GoalRestrictionType_RL;
-	 private I_C_BP_GroupInput C_BP_Group;
-	 private I_C_BPartnerInput C_BPartner;
-	 private I_M_ProductInput M_Product;
-	 private I_M_Product_CategoryInput M_Product_Category;
-	 private I_PA_GoalInput PA_Goal;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mGoalRestrictionType;
+	 private I_C_BP_GroupInput mC_BP_Group;
+	 private I_C_BPartnerInput mC_BPartner;
+	 private I_M_ProductInput mM_Product;
+	 private I_M_Product_CategoryInput mM_Product_Category;
+	 private I_PA_GoalInput mPA_Goal;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_GoalRestrictionInput(String ID) {
+	@JsonCreator
+	public X_PA_GoalRestrictionInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -41,14 +44,15 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -57,8 +61,9 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -66,16 +71,17 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @param C_BP_Group Business Partner Group
 	 */
-	public void setC_BP_Group(I_C_BP_GroupInput C_BP_Group) {
-		this.C_BP_Group = C_BP_Group;
+	@JsonProperty("C_BP_Group")
+	public void setC_BP_GroupInput(I_C_BP_GroupInput C_BP_Group) {
+		this.mC_BP_Group = C_BP_Group;
 		MBPGroup_BH foreignEntity;
 		if (C_BP_Group != null &&
 				(foreignEntity = new Query(getCtx(), MBPGroup_BH.Table_Name, MBPGroup_BH.COLUMNNAME_C_BP_Group_UU + "=?", get_TrxName())
 						.setParameters(C_BP_Group.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BP_Group_ID(foreignEntity.get_ID());
+			super.setC_BP_Group_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BP_Group_ID(0);
+			super.setC_BP_Group_ID(0);
 		}
 	}
 
@@ -84,8 +90,9 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @return Business Partner Group
 	 */
-	public I_C_BP_GroupInput getC_BP_Group() {
-		return C_BP_Group;
+	@JsonProperty("C_BP_Group")
+	public I_C_BP_GroupInput C_BP_Group() {
+		return mC_BP_Group;
 	}
 
 	/**
@@ -93,16 +100,17 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	public void setC_BPartner(I_C_BPartnerInput C_BPartner) {
-		this.C_BPartner = C_BPartner;
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
 				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_BPartner_ID(foreignEntity.get_ID());
+			super.setC_BPartner_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_BPartner_ID(0);
+			super.setC_BPartner_ID(0);
 		}
 	}
 
@@ -111,21 +119,23 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public I_C_BPartnerInput getC_BPartner() {
-		return C_BPartner;
+	@JsonProperty("C_BPartner")
+	public I_C_BPartnerInput C_BPartner() {
+		return mC_BPartner;
 	}
 
 	/**
 	 * Set Restriction Type.
 	 *
-	 * @param GoalRestrictionType_RL Goal Restriction Type
+	 * @param GoalRestrictionType Goal Restriction Type
 	 */
-	public void setGoalRestrictionType_RL(I_AD_Ref_ListInput GoalRestrictionType_RL) {
-		this.GoalRestrictionType_RL = GoalRestrictionType_RL;
-		MRefList foreignEntity;
-		if (GoalRestrictionType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(GoalRestrictionType_RL.getID())
+	@JsonProperty("GoalRestrictionType")
+	public void setGoalRestrictionTypeInput(I_AD_Ref_ListInput GoalRestrictionType) {
+		this.mGoalRestrictionType = GoalRestrictionType;
+		MRefList_BH foreignEntity;
+		if (GoalRestrictionType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(GoalRestrictionType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setGoalRestrictionType(foreignEntity.getValue());
 		} else {
@@ -138,8 +148,9 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @return Goal Restriction Type
 	 */
-	public I_AD_Ref_ListInput getGoalRestrictionType_RL() {
-		return GoalRestrictionType_RL;
+	@JsonProperty("GoalRestrictionType")
+	public I_AD_Ref_ListInput GoalRestrictionType() {
+		return mGoalRestrictionType;
 	}
 
 	/**
@@ -147,16 +158,17 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @param M_Product_Category Category of a Product
 	 */
-	public void setM_Product_Category(I_M_Product_CategoryInput M_Product_Category) {
-		this.M_Product_Category = M_Product_Category;
+	@JsonProperty("M_Product_Category")
+	public void setM_Product_CategoryInput(I_M_Product_CategoryInput M_Product_Category) {
+		this.mM_Product_Category = M_Product_Category;
 		MProductCategory_BH foreignEntity;
 		if (M_Product_Category != null &&
 				(foreignEntity = new Query(getCtx(), MProductCategory_BH.Table_Name, MProductCategory_BH.COLUMNNAME_M_Product_Category_UU + "=?", get_TrxName())
 						.setParameters(M_Product_Category.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Product_Category_ID(foreignEntity.get_ID());
+			super.setM_Product_Category_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_Product_Category_ID(0);
+			super.setM_Product_Category_ID(0);
 		}
 	}
 
@@ -165,8 +177,9 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @return Category of a Product
 	 */
-	public I_M_Product_CategoryInput getM_Product_Category() {
-		return M_Product_Category;
+	@JsonProperty("M_Product_Category")
+	public I_M_Product_CategoryInput M_Product_Category() {
+		return mM_Product_Category;
 	}
 
 	/**
@@ -174,16 +187,17 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	public void setM_Product(I_M_ProductInput M_Product) {
-		this.M_Product = M_Product;
+	@JsonProperty("M_Product")
+	public void setM_ProductInput(I_M_ProductInput M_Product) {
+		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
 				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Product_ID(foreignEntity.get_ID());
+			super.setM_Product_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_Product_ID(0);
+			super.setM_Product_ID(0);
 		}
 	}
 
@@ -192,8 +206,9 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @return Product, Service, Item
 	 */
-	public I_M_ProductInput getM_Product() {
-		return M_Product;
+	@JsonProperty("M_Product")
+	public I_M_ProductInput M_Product() {
+		return mM_Product;
 	}
 
 	/**
@@ -201,16 +216,17 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @param PA_Goal Performance Goal
 	 */
-	public void setPA_Goal(I_PA_GoalInput PA_Goal) {
-		this.PA_Goal = PA_Goal;
+	@JsonProperty("PA_Goal")
+	public void setPA_GoalInput(I_PA_GoalInput PA_Goal) {
+		this.mPA_Goal = PA_Goal;
 		MGoal foreignEntity;
 		if (PA_Goal != null &&
 				(foreignEntity = new Query(getCtx(), MGoal.Table_Name, MGoal.COLUMNNAME_PA_Goal_UU + "=?", get_TrxName())
 						.setParameters(PA_Goal.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_Goal_ID(foreignEntity.get_ID());
+			super.setPA_Goal_ID(foreignEntity.get_ID());
 		} else {
-			this.setPA_Goal_ID(0);
+			super.setPA_Goal_ID(0);
 		}
 	}
 
@@ -219,19 +235,9 @@ public class X_PA_GoalRestrictionInput extends X_PA_GoalRestriction implements I
 	 *
 	 * @return Performance Goal
 	 */
-	public I_PA_GoalInput getPA_Goal() {
-		return PA_Goal;
-	}
-	/**
-	 * Set Goal Restriction.
-	 *
-	 * @param PA_GoalRestriction_ID Performance Goal Restriction
-	 */
-
-	public void setPA_GoalRestriction_ID(int PA_GoalRestriction_ID) {
-		if (get_ID() == 0) {
-			super.setPA_GoalRestriction_ID(PA_GoalRestriction_ID);
-		}
+	@JsonProperty("PA_Goal")
+	public I_PA_GoalInput PA_Goal() {
+		return mPA_Goal;
 	}
 
 	/**

@@ -3,15 +3,15 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_SequenceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BankAccountDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MPaymentProcessor;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -26,6 +26,46 @@ import java.util.concurrent.CompletableFuture;
  */
 public class X_C_PaymentProcessorResolver extends POResolver<MPaymentProcessor> implements GraphQLResolver<MPaymentProcessor> {
 
+
+	public Boolean AcceptAMEX(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isAcceptAMEX();
+	}
+
+	public Boolean AcceptATM(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isAcceptATM();
+	}
+
+	public Boolean AcceptCheck(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isAcceptCheck();
+	}
+
+	public Boolean AcceptCorporate(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isAcceptCorporate();
+	}
+
+	public Boolean AcceptDiners(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isAcceptDiners();
+	}
+
+	public Boolean AcceptDirectDebit(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isAcceptDirectDebit();
+	}
+
+	public Boolean AcceptDirectDeposit(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isAcceptDirectDeposit();
+	}
+
+	public Boolean AcceptDiscover(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isAcceptDiscover();
+	}
+
+	public Boolean AcceptMC(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isAcceptMC();
+	}
+
+	public Boolean AcceptVisa(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isAcceptVisa();
+	}
 
 
 	/**
@@ -63,13 +103,17 @@ public class X_C_PaymentProcessorResolver extends POResolver<MPaymentProcessor> 
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MPaymentProcessor entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
+	}
+
+	public Boolean RequireVV(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+		return entity.isRequireVV();
 	}
 
 	static Map<String, String> TRXTYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -82,11 +126,11 @@ public class X_C_PaymentProcessorResolver extends POResolver<MPaymentProcessor> 
 			put("V", "0778d779-1c5a-47eb-b68e-c94771517f0f");
 		}
 	};
-	public CompletableFuture<MRefList> TrxType_RL(MPaymentProcessor entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> TrxType(MPaymentProcessor entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getTrxType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(TRXTYPE_UUIDS_BY_VALUE.get(entity.getTrxType()));
 	}

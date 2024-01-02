@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -14,12 +16,13 @@ import org.compiere.util.Env;
  */
 public class X_PA_ReportColumnSetInput extends X_PA_ReportColumnSet implements I_PA_ReportColumnSetInput {
 
-	 private I_AD_OrgInput AD_Org;
+	 private I_AD_OrgInput mAD_Org;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_ReportColumnSetInput(String ID) {
+	@JsonCreator
+	public X_PA_ReportColumnSetInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -29,14 +32,15 @@ public class X_PA_ReportColumnSetInput extends X_PA_ReportColumnSet implements I
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -45,19 +49,9 @@ public class X_PA_ReportColumnSetInput extends X_PA_ReportColumnSet implements I
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Report Column Set.
-	 *
-	 * @param PA_ReportColumnSet_ID Collection of Columns for Report
-	 */
-
-	public void setPA_ReportColumnSet_ID(int PA_ReportColumnSet_ID) {
-		if (get_ID() == 0) {
-			super.setPA_ReportColumnSet_ID(PA_ReportColumnSet_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**

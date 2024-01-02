@@ -1,13 +1,15 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
+import org.compiere.model.MAssetProduct;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_A_Asset_Product;
 import org.compiere.util.Env;
 
 /**
@@ -16,18 +18,19 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Asset_ProductInput {
+public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_ProductInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_A_AssetInput A_Asset;
-	 private I_M_AttributeSetInstanceInput M_AttributeSetInstance;
-	 private I_M_LocatorInput M_Locator;
-	 private I_M_ProductInput M_Product;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_A_AssetInput mA_Asset;
+	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
+	 private I_M_LocatorInput mM_Locator;
+	 private I_M_ProductInput mM_Product;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_A_Asset_ProductInput(String ID) {
+	@JsonCreator
+	public X_A_Asset_ProductInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -37,14 +40,15 @@ public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Ass
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	public void setA_Asset(I_A_AssetInput A_Asset) {
-		this.A_Asset = A_Asset;
+	@JsonProperty("A_Asset")
+	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (get_ID() == 0 &&A_Asset != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_ID(foreignEntity.get_ID());
+			super.setA_Asset_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -53,30 +57,9 @@ public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Ass
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public I_A_AssetInput getA_Asset() {
-		return A_Asset;
-	}
-	/**
-	 * Set Asset.
-	 *
-	 * @param A_Asset_ID Asset used internally or by customers
-	 */
-
-	public void setA_Asset_ID(int A_Asset_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_ID(A_Asset_ID);
-		}
-	}
-	/**
-	 * Set Asset Product.
-	 *
-	 * @param A_Asset_Product_ID Asset Product
-	 */
-
-	public void setA_Asset_Product_ID(int A_Asset_Product_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_Product_ID(A_Asset_Product_ID);
-		}
+	@JsonProperty("A_Asset")
+	public I_A_AssetInput A_Asset() {
+		return mA_Asset;
 	}
 
 	/**
@@ -102,14 +85,15 @@ public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Ass
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -118,8 +102,9 @@ public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Ass
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -127,16 +112,17 @@ public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Ass
 	 *
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
-	public void setM_AttributeSetInstance(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
-		this.M_AttributeSetInstance = M_AttributeSetInstance;
+	@JsonProperty("M_AttributeSetInstance")
+	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
 				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			super.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -145,8 +131,9 @@ public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Ass
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	public I_M_AttributeSetInstanceInput getM_AttributeSetInstance() {
-		return M_AttributeSetInstance;
+	@JsonProperty("M_AttributeSetInstance")
+	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+		return mM_AttributeSetInstance;
 	}
 
 	/**
@@ -154,16 +141,17 @@ public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Ass
 	 *
 	 * @param M_Locator Warehouse Locator
 	 */
-	public void setM_Locator(I_M_LocatorInput M_Locator) {
-		this.M_Locator = M_Locator;
+	@JsonProperty("M_Locator")
+	public void setM_LocatorInput(I_M_LocatorInput M_Locator) {
+		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
 				(foreignEntity = new Query(getCtx(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Locator_UU + "=?", get_TrxName())
 						.setParameters(M_Locator.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Locator_ID(foreignEntity.get_ID());
+			super.setM_Locator_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_Locator_ID(0);
+			super.setM_Locator_ID(0);
 		}
 	}
 
@@ -172,8 +160,9 @@ public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Ass
 	 *
 	 * @return Warehouse Locator
 	 */
-	public I_M_LocatorInput getM_Locator() {
-		return M_Locator;
+	@JsonProperty("M_Locator")
+	public I_M_LocatorInput M_Locator() {
+		return mM_Locator;
 	}
 
 	/**
@@ -181,16 +170,17 @@ public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Ass
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	public void setM_Product(I_M_ProductInput M_Product) {
-		this.M_Product = M_Product;
+	@JsonProperty("M_Product")
+	public void setM_ProductInput(I_M_ProductInput M_Product) {
+		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
 				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Product_ID(foreignEntity.get_ID());
+			super.setM_Product_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_Product_ID(0);
+			super.setM_Product_ID(0);
 		}
 	}
 
@@ -199,18 +189,8 @@ public class X_A_Asset_ProductInput extends X_A_Asset_Product implements I_A_Ass
 	 *
 	 * @return Product, Service, Item
 	 */
-	public I_M_ProductInput getM_Product() {
-		return M_Product;
-	}
-	/**
-	 * Set Product/Service.
-	 *
-	 * @param M_Product_ID Product, Service, Item
-	 */
-
-	public void setM_Product_ID(int M_Product_ID) {
-		if (get_ID() == 0) {
-			super.setM_Product_ID(M_Product_ID);
-		}
+	@JsonProperty("M_Product")
+	public I_M_ProductInput M_Product() {
+		return mM_Product;
 	}
 }

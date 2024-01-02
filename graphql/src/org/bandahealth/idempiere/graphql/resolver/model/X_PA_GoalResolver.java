@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
@@ -13,7 +14,6 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MColorSchema;
 import org.compiere.model.MGoal;
 import org.compiere.model.MMeasure;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_AD_Role;
 import org.dataloader.DataLoader;
 
@@ -70,13 +70,17 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 			put("WC", "fa5d4a5b-a6d7-4a4c-b54f-3fdf0ffcbee6");
 		}
 	};
-	public CompletableFuture<MRefList> ChartType_RL(MGoal entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ChartType(MGoal entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getChartType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CHARTTYPE_UUIDS_BY_VALUE.get(entity.getChartType()));
+	}
+
+	public Boolean IsSummary(MGoal entity, DataFetchingEnvironment environment) {
+		return entity.isSummary();
 	}
 
 	static Map<String, String> MEASUREDISPLAY_UUIDS_BY_VALUE = new HashMap<>() {
@@ -89,11 +93,11 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 			put("8", "71d8bfc9-fad4-4ac7-b6a1-8ccf83588f1f");
 		}
 	};
-	public CompletableFuture<MRefList> MeasureDisplay_RL(MGoal entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> MeasureDisplay(MGoal entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getMeasureDisplay())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(MEASUREDISPLAY_UUIDS_BY_VALUE.get(entity.getMeasureDisplay()));
 	}
@@ -108,11 +112,11 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 			put("8", "71d8bfc9-fad4-4ac7-b6a1-8ccf83588f1f");
 		}
 	};
-	public CompletableFuture<MRefList> MeasureScope_RL(MGoal entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> MeasureScope(MGoal entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getMeasureScope())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(MEASURESCOPE_UUIDS_BY_VALUE.get(entity.getMeasureScope()));
 	}

@@ -88,6 +88,10 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
+	public Boolean IsStdUserWorkflow(X_PP_Order_NodeNext entity, DataFetchingEnvironment environment) {
+		return entity.isStdUserWorkflow();
+	}
+
 
 	/**
 	 * Get Manufacturing Order.

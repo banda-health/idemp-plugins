@@ -15,28 +15,28 @@ public interface I_BH_EncounterInput extends I_BH_Encounter {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set BH_Encounter_Type_RL.
+	 * Set BH_Encounter_Type.
 	 *
-	 * @param BH_Encounter_Type_RL BH_Encounter_Type_RL
+	 * @param BH_Encounter_Type BH_Encounter_Type
 	 */
-	void setBH_Encounter_Type_RL(I_AD_Ref_ListInput BH_Encounter_Type_RL);
+	void setBH_Encounter_TypeInput(I_AD_Ref_ListInput BH_Encounter_Type);
 
 	/**
-	 * Get BH_Encounter_Type_RL.
+	 * Get BH_Encounter_Type.
 	 *
-	 * @return BH_Encounter_Type_RL
+	 * @return BH_Encounter_Type
 	 */
-	I_AD_Ref_ListInput getBH_Encounter_Type_RL();
+	I_AD_Ref_ListInput BH_Encounter_Type();
 
 	/**
 	 * Set ID.
@@ -57,12 +57,12 @@ public interface I_BH_EncounterInput extends I_BH_Encounter {
 	 *
 	 * @param BH_Visit BH_Visit
 	 */
-	void setBH_Visit(I_BH_VisitInput BH_Visit);
+	void setBH_VisitInput(I_BH_VisitInput BH_Visit);
 
 	/**
 	 * Get BH_Visit.
 	 *
 	 * @return BH_Visit
 	 */
-	I_BH_VisitInput getBH_Visit();
+	I_BH_VisitInput BH_Visit();
 }

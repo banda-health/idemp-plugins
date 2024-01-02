@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ActivityDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
@@ -15,7 +16,6 @@ import org.compiere.model.MCampaign;
 import org.compiere.model.MCashPlan;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MProject;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -98,13 +98,25 @@ public class X_C_CashPlanResolver extends POResolver<MCashPlan> implements Graph
 			put("O", "6f8d40cb-e2d8-4a37-9d5d-61c1710e2190");
 		}
 	};
-	public CompletableFuture<MRefList> CashFlowType_RL(MCashPlan entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CashFlowType(MCashPlan entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCashFlowType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CASHFLOWTYPE_UUIDS_BY_VALUE.get(entity.getCashFlowType()));
+	}
+
+	public Boolean IsApproved(MCashPlan entity, DataFetchingEnvironment environment) {
+		return entity.isApproved();
+	}
+
+	public Boolean IsSOTrx(MCashPlan entity, DataFetchingEnvironment environment) {
+		return entity.isSOTrx();
+	}
+
+	public Boolean Processed(MCashPlan entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
 	}
 
 

@@ -171,6 +171,10 @@ public class X_C_CashPlanLineResolver extends POResolver<MCashPlanLine> implemen
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
+	public Boolean Processed(MCashPlanLine entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
 
 	/**
 	 * Get User Element List 1.

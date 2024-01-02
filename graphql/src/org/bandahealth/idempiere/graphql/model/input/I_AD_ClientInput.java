@@ -25,86 +25,86 @@ public interface I_AD_ClientInput extends I_AD_Client {
 	String getID();
 
 	/**
-	 * Set AD_Language_L.
+	 * Set AD_Language.
 	 *
-	 * @param AD_Language_L Language for this entity
+	 * @param AD_Language Language for this entity
 	 */
-	void setAD_Language_L(I_AD_LanguageInput AD_Language_L);
+	void setAD_LanguageInput(I_AD_LanguageInput AD_Language);
 
 	/**
-	 * Get AD_Language_L.
+	 * Get AD_Language.
 	 *
 	 * @return Language for this entity
 	 */
-	I_AD_LanguageInput getAD_Language_L();
+	I_AD_LanguageInput AD_Language();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_PasswordRule.
 	 *
 	 * @param AD_PasswordRule AD_PasswordRule
 	 */
-	void setAD_PasswordRule(I_AD_PasswordRuleInput AD_PasswordRule);
+	void setAD_PasswordRuleInput(I_AD_PasswordRuleInput AD_PasswordRule);
 
 	/**
 	 * Get AD_PasswordRule.
 	 *
 	 * @return AD_PasswordRule
 	 */
-	I_AD_PasswordRuleInput getAD_PasswordRule();
+	I_AD_PasswordRuleInput AD_PasswordRule();
 
 	/**
 	 * Set AD_ReplicationStrategy.
 	 *
 	 * @param AD_ReplicationStrategy Data Replication Strategy
 	 */
-	void setAD_ReplicationStrategy(I_AD_ReplicationStrategyInput AD_ReplicationStrategy);
+	void setAD_ReplicationStrategyInput(I_AD_ReplicationStrategyInput AD_ReplicationStrategy);
 
 	/**
 	 * Get AD_ReplicationStrategy.
 	 *
 	 * @return Data Replication Strategy
 	 */
-	I_AD_ReplicationStrategyInput getAD_ReplicationStrategy();
+	I_AD_ReplicationStrategyInput AD_ReplicationStrategy();
 
 	/**
-	 * Set AutoArchive_RL.
+	 * Set AutoArchive.
 	 *
-	 * @param AutoArchive_RL Enable and level of automatic Archive of documents
+	 * @param AutoArchive Enable and level of automatic Archive of documents
 	 */
-	void setAutoArchive_RL(I_AD_Ref_ListInput AutoArchive_RL);
+	void setAutoArchiveInput(I_AD_Ref_ListInput AutoArchive);
 
 	/**
-	 * Get AutoArchive_RL.
+	 * Get AutoArchive.
 	 *
 	 * @return Enable and level of automatic Archive of documents
 	 */
-	I_AD_Ref_ListInput getAutoArchive_RL();
+	I_AD_Ref_ListInput AutoArchive();
 
 	/**
-	 * Set MMPolicy_RL.
+	 * Set MMPolicy.
 	 *
-	 * @param MMPolicy_RL Material Movement Policy
+	 * @param MMPolicy Material Movement Policy
 	 */
-	void setMMPolicy_RL(I_AD_Ref_ListInput MMPolicy_RL);
+	void setMMPolicyInput(I_AD_Ref_ListInput MMPolicy);
 
 	/**
-	 * Get MMPolicy_RL.
+	 * Get MMPolicy.
 	 *
 	 * @return Material Movement Policy
 	 */
-	I_AD_Ref_ListInput getMMPolicy_RL();
+	I_AD_Ref_ListInput MMPolicy();
 }

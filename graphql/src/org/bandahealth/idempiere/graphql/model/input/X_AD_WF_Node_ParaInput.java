@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -17,15 +19,16 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF_Node_ParaInput {
 
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Process_ParaInput AD_Process_Para;
-	 private I_AD_WF_NodeInput AD_WF_Node;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Process_ParaInput mAD_Process_Para;
+	 private I_AD_WF_NodeInput mAD_WF_Node;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_WF_Node_ParaInput(String ID) {
+	@JsonCreator
+	public X_AD_WF_Node_ParaInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -35,14 +38,15 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -51,8 +55,9 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -60,16 +65,17 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 *
 	 * @param AD_Process_Para Process Parameter
 	 */
-	public void setAD_Process_Para(I_AD_Process_ParaInput AD_Process_Para) {
-		this.AD_Process_Para = AD_Process_Para;
+	@JsonProperty("AD_Process_Para")
+	public void setAD_Process_ParaInput(I_AD_Process_ParaInput AD_Process_Para) {
+		this.mAD_Process_Para = AD_Process_Para;
 		MProcessPara foreignEntity;
 		if (AD_Process_Para != null &&
 				(foreignEntity = new Query(getCtx(), MProcessPara.Table_Name, MProcessPara.COLUMNNAME_AD_Process_Para_UU + "=?", get_TrxName())
 						.setParameters(AD_Process_Para.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Process_Para_ID(foreignEntity.get_ID());
+			super.setAD_Process_Para_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Process_Para_ID(0);
+			super.setAD_Process_Para_ID(0);
 		}
 	}
 
@@ -78,8 +84,9 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 *
 	 * @return Process Parameter
 	 */
-	public I_AD_Process_ParaInput getAD_Process_Para() {
-		return AD_Process_Para;
+	@JsonProperty("AD_Process_Para")
+	public I_AD_Process_ParaInput AD_Process_Para() {
+		return mAD_Process_Para;
 	}
 
 	/**
@@ -87,14 +94,15 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 *
 	 * @param AD_WF_Node Workflow Node (activity), step or process
 	 */
-	public void setAD_WF_Node(I_AD_WF_NodeInput AD_WF_Node) {
-		this.AD_WF_Node = AD_WF_Node;
+	@JsonProperty("AD_WF_Node")
+	public void setAD_WF_NodeInput(I_AD_WF_NodeInput AD_WF_Node) {
+		this.mAD_WF_Node = AD_WF_Node;
 		X_AD_WF_Node foreignEntity;
 		if (get_ID() == 0 &&AD_WF_Node != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_WF_Node.Table_Name, X_AD_WF_Node.COLUMNNAME_AD_WF_Node_UU + "=?", get_TrxName())
 						.setParameters(AD_WF_Node.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_WF_Node_ID(foreignEntity.get_ID());
+			super.setAD_WF_Node_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -103,30 +111,9 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 *
 	 * @return Workflow Node (activity), step or process
 	 */
-	public I_AD_WF_NodeInput getAD_WF_Node() {
-		return AD_WF_Node;
-	}
-	/**
-	 * Set Node.
-	 *
-	 * @param AD_WF_Node_ID Workflow Node (activity), step or process
-	 */
-
-	public void setAD_WF_Node_ID(int AD_WF_Node_ID) {
-		if (get_ID() == 0) {
-			super.setAD_WF_Node_ID(AD_WF_Node_ID);
-		}
-	}
-	/**
-	 * Set Workflow Node Parameter.
-	 *
-	 * @param AD_WF_Node_Para_ID Workflow Node Execution Parameter
-	 */
-
-	public void setAD_WF_Node_Para_ID(int AD_WF_Node_Para_ID) {
-		if (get_ID() == 0) {
-			super.setAD_WF_Node_Para_ID(AD_WF_Node_Para_ID);
-		}
+	@JsonProperty("AD_WF_Node")
+	public I_AD_WF_NodeInput AD_WF_Node() {
+		return mAD_WF_Node;
 	}
 
 	/**
@@ -152,16 +139,17 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -170,18 +158,8 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 }

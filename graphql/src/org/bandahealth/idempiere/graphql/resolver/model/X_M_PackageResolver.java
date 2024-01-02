@@ -2,7 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BP_ShippingAcctDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartner_LocationDataLoader;
@@ -13,15 +15,15 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperLabelsDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperPackagingDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperPickupTypesDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShippingProcessorDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MBPartnerLocation;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MPackage;
-import org.compiere.model.MRefList;
 import org.compiere.model.MShipper;
 import org.compiere.model.MShipperLabels;
 import org.compiere.model.MShipperPackaging;
 import org.compiere.model.MShipperPickupTypes;
+import org.compiere.model.MShippingProcessor;
 import org.compiere.model.MUOM;
 import org.compiere.model.X_C_BP_ShippingAcct;
 import org.dataloader.DataLoader;
@@ -75,11 +77,11 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MPackage entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MPackage entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
@@ -114,6 +116,14 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 		return dataLoader.load(entity.getC_UOM_Weight_ID());
 	}
 
+	public Boolean CashOnDelivery(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isCashOnDelivery();
+	}
+
+	public Boolean DeliveryConfirmation(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isDeliveryConfirmation();
+	}
+
 	static Map<String, String> DELIVERYCONFIRMATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("ADULT", "a1a27ca4-c532-43ed-b0e5-62354ac6e929");
@@ -122,11 +132,11 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			put("SERVICE_DEFAULT", "fb3f11bc-3d34-4e1d-8cb9-eb84a39771e3");
 		}
 	};
-	public CompletableFuture<MRefList> DeliveryConfirmationType_RL(MPackage entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DeliveryConfirmationType(MPackage entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDeliveryConfirmationType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DELIVERYCONFIRMATIONTYPE_UUIDS_BY_VALUE.get(entity.getDeliveryConfirmationType()));
 	}
@@ -153,13 +163,60 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			put("9", "1f69e16e-f4a1-4d3d-beb2-772951cfa99a");
 		}
 	};
-	public CompletableFuture<MRefList> DotHazardClassOrDivision_RL(MPackage entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DotHazardClassOrDivision(MPackage entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDotHazardClassOrDivision())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOTHAZARDCLASSORDIVISION_UUIDS_BY_VALUE.get(entity.getDotHazardClassOrDivision()));
+	}
+
+	static Map<String, String> FOB_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("A_DFOBO", "ab88c68f-4805-45b6-ba40-6660f9725674");
+			put("B_EXW", "79961545-0bbb-4f57-bb8b-f86cd3286a76");
+			put("CFR", "77fbf8dc-b281-4d56-ba20-7d2493fcbbdb");
+			put("CIF", "328afab3-1f0b-4c42-8156-d0d9175d48ba");
+			put("CIP", "f97dd6d1-fe36-43bf-98a0-97da3dd15ccb");
+			put("CPT", "e30a9395-3a3e-4276-9dd0-2329892d633d");
+			put("DAF", "58bb2d2a-3d5c-47ef-88e9-fc851832734c");
+			put("DDP", "4828ecf4-b58d-4769-b77d-d2fae6e8ad59");
+			put("DDU", "e483c7a9-58d1-47d9-9c8c-8daf142cf664");
+			put("DEQ", "f1891d28-a462-417d-a977-aa427c5f95be");
+			put("DES", "7a884a23-7f14-4962-95fa-3ef56804cb3c");
+			put("DFOBD", "8063a230-c9ca-43f4-84fa-9199f3e18a3a");
+			put("EXW", "478fb606-7928-4b79-8caf-92278775f835");
+			put("FAS", "b247c940-4974-44c4-92db-567f6a170635");
+			put("FCA", "66c90182-879e-44a5-844d-a959c0c4a882");
+			put("FOB", "30141c28-d81e-45cf-b403-7b68e4ace907");
+		}
+	};
+	public CompletableFuture<MRefList_BH> FOB(MPackage entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getFOB())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(FOB_UUIDS_BY_VALUE.get(entity.getFOB()));
+	}
+
+	static Map<String, String> FREIGHTCHARGES_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("A_Col", "8f1b9716-37d3-4c2b-b6c8-0d9e369d5949");
+			put("B_3P", "ecf5bea8-58cd-41d8-947d-7fe2da259c1f");
+			put("C_Con", "5705e6a3-9457-4af0-b444-6cb0f86e95aa");
+			put("D_PP", "509eb116-2d24-4144-9d94-4e6f5980687d");
+			put("E_PPB", "0e39eb81-f71c-4c44-a9b1-a1af86304c32");
+		}
+	};
+	public CompletableFuture<MRefList_BH> FreightCharges(MPackage entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getFreightCharges())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(FREIGHTCHARGES_UUIDS_BY_VALUE.get(entity.getFreightCharges()));
 	}
 
 
@@ -184,13 +241,84 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			put("EVENING", "c9af6b66-e0d9-4bf2-bb94-d0e91c15b572");
 		}
 	};
-	public CompletableFuture<MRefList> HomeDeliveryPremiumType_RL(MPackage entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> HomeDeliveryPremiumType(MPackage entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getHomeDeliveryPremiumType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(HOMEDELIVERYPREMIUMTYPE_UUIDS_BY_VALUE.get(entity.getHomeDeliveryPremiumType()));
+	}
+
+	static Map<String, String> INSURANCE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("1", "38fe063a-ebc1-43e4-8e13-ffe3e44cf678");
+			put("2", "19ba90f2-d281-4217-9460-be081c4cb49d");
+		}
+	};
+	public CompletableFuture<MRefList_BH> Insurance(MPackage entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getInsurance())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+		return dataLoader.load(INSURANCE_UUIDS_BY_VALUE.get(entity.getInsurance()));
+	}
+
+	public Boolean IsAccessible(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isAccessible();
+	}
+
+	public Boolean IsAddedHandling(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isAddedHandling();
+	}
+
+	public Boolean IsCargoAircraftOnly(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isCargoAircraftOnly();
+	}
+
+	public Boolean IsDryIce(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isDryIce();
+	}
+
+	public Boolean IsDutiable(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isDutiable();
+	}
+
+	public Boolean IsFutureDayShipment(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isFutureDayShipment();
+	}
+
+	public Boolean IsHazMat(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isHazMat();
+	}
+
+	public Boolean IsHoldAtLocation(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isHoldAtLocation();
+	}
+
+	public Boolean IsIgnoreZipNotFound(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isIgnoreZipNotFound();
+	}
+
+	public Boolean IsIgnoreZipStateNotMatch(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isIgnoreZipStateNotMatch();
+	}
+
+	public Boolean IsResidential(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isResidential();
+	}
+
+	public Boolean IsSaturdayDelivery(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isSaturdayDelivery();
+	}
+
+	public Boolean IsSaturdayPickup(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isSaturdayPickup();
+	}
+
+	public Boolean IsVerbalConfirmation(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isVerbalConfirmation();
 	}
 
 
@@ -268,6 +396,21 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 		return dataLoader.load(entity.getM_ShipperPickupTypes_ID());
 	}
 
+
+	/**
+	 * Get Shipping Processor.
+	 *
+	 * @return Shipping Processor
+	 */
+	public CompletableFuture<MShippingProcessor> M_ShippingProcessor(MPackage entity, DataFetchingEnvironment environment) {
+		if (entity.getM_ShippingProcessor_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MShippingProcessor> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShippingProcessorDataLoader.M_ShippingProcessor_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getM_ShippingProcessor_ID());
+	}
+
 	static Map<String, String> NOTIFICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("RE", "87002ef2-dd55-4bed-8142-f3637e392a88");
@@ -275,11 +418,11 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			put("SE", "b7b3d7c7-de4a-40ae-94f6-076b6258fa62");
 		}
 	};
-	public CompletableFuture<MRefList> NotificationType_RL(MPackage entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> NotificationType(MPackage entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getNotificationType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(NOTIFICATIONTYPE_UUIDS_BY_VALUE.get(entity.getNotificationType()));
 	}
@@ -297,13 +440,17 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
 		}
 	};
-	public CompletableFuture<MRefList> PaymentRule_RL(MPackage entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PaymentRule(MPackage entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPaymentRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PAYMENTRULE_UUIDS_BY_VALUE.get(entity.getPaymentRule()));
+	}
+
+	public Boolean Processed(MPackage entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
 	}
 
 }

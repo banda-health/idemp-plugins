@@ -33,4 +33,12 @@ public class X_C_PaymentBatchResolver extends POResolver<MPaymentBatch> implemen
 		return dataLoader.load(entity.getC_PaymentProcessor_ID());
 	}
 
+	public Boolean Processed(MPaymentBatch entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MPaymentBatch entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 }

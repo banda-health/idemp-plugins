@@ -1,16 +1,17 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MGLCategory;
 import org.compiere.model.MJournalBatch;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_GL_JournalBatch;
 import org.compiere.util.Env;
 
 /**
@@ -19,22 +20,23 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_JournalBatchInput {
+public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_JournalBatchInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput DocAction_RL;
-	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput PostingType_RL;
-	 private I_C_CurrencyInput C_Currency;
-	 private I_C_DocTypeInput C_DocType;
-	 private I_C_PeriodInput C_Period;
-	 private I_GL_CategoryInput GL_Category;
-	 private I_GL_JournalBatchInput Reversal;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mDocAction;
+	 private I_AD_Ref_ListInput mDocStatus;
+	 private I_AD_Ref_ListInput mPostingType;
+	 private I_C_CurrencyInput mC_Currency;
+	 private I_C_DocTypeInput mC_DocType;
+	 private I_C_PeriodInput mC_Period;
+	 private I_GL_CategoryInput mGL_Category;
+	 private I_GL_JournalBatchInput mReversal;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_GL_JournalBatchInput(String ID) {
+	@JsonCreator
+	public X_GL_JournalBatchInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -44,14 +46,15 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -60,8 +63,9 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -69,16 +73,17 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	public void setC_Currency(I_C_CurrencyInput C_Currency) {
-		this.C_Currency = C_Currency;
-		MCurrency foreignEntity;
+	@JsonProperty("C_Currency")
+	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+		this.mC_Currency = C_Currency;
+		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency.Table_Name, MCurrency.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Currency_ID(foreignEntity.get_ID());
+			super.setC_Currency_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Currency_ID(0);
+			super.setC_Currency_ID(0);
 		}
 	}
 
@@ -87,8 +92,9 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @return The Currency for this record
 	 */
-	public I_C_CurrencyInput getC_Currency() {
-		return C_Currency;
+	@JsonProperty("C_Currency")
+	public I_C_CurrencyInput C_Currency() {
+		return mC_Currency;
 	}
 
 	/**
@@ -96,16 +102,17 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	public void setC_DocType(I_C_DocTypeInput C_DocType) {
-		this.C_DocType = C_DocType;
+	@JsonProperty("C_DocType")
+	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
 				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_DocType_ID(foreignEntity.get_ID());
+			super.setC_DocType_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_DocType_ID(0);
+			super.setC_DocType_ID(0);
 		}
 	}
 
@@ -114,8 +121,9 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @return Document type or rules
 	 */
-	public I_C_DocTypeInput getC_DocType() {
-		return C_DocType;
+	@JsonProperty("C_DocType")
+	public I_C_DocTypeInput C_DocType() {
+		return mC_DocType;
 	}
 
 	/**
@@ -123,16 +131,17 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	public void setC_Period(I_C_PeriodInput C_Period) {
-		this.C_Period = C_Period;
+	@JsonProperty("C_Period")
+	public void setC_PeriodInput(I_C_PeriodInput C_Period) {
+		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
 				(foreignEntity = new Query(getCtx(), MPeriod.Table_Name, MPeriod.COLUMNNAME_C_Period_UU + "=?", get_TrxName())
 						.setParameters(C_Period.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Period_ID(foreignEntity.get_ID());
+			super.setC_Period_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Period_ID(0);
+			super.setC_Period_ID(0);
 		}
 	}
 
@@ -141,32 +150,23 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @return Period of the Calendar
 	 */
-	public I_C_PeriodInput getC_Period() {
-		return C_Period;
-	}
-	/**
-	 * Set Period.
-	 *
-	 * @param C_Period_ID Period of the Calendar
-	 */
-
-	public void setC_Period_ID(int C_Period_ID) {
-		if (get_ID() == 0) {
-			super.setC_Period_ID(C_Period_ID);
-		}
+	@JsonProperty("C_Period")
+	public I_C_PeriodInput C_Period() {
+		return mC_Period;
 	}
 
 	/**
 	 * Set Document Action.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	public void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL) {
-		this.DocAction_RL = DocAction_RL;
-		MRefList foreignEntity;
-		if (DocAction_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction_RL.getID())
+	@JsonProperty("DocAction")
+	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+		this.mDocAction = DocAction;
+		MRefList_BH foreignEntity;
+		if (DocAction != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocAction.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocAction(foreignEntity.getValue());
 		} else {
@@ -179,21 +179,23 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @return The targeted status of the document
 	 */
-	public I_AD_Ref_ListInput getDocAction_RL() {
-		return DocAction_RL;
+	@JsonProperty("DocAction")
+	public I_AD_Ref_ListInput DocAction() {
+		return mDocAction;
 	}
 
 	/**
 	 * Set Document Status.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	public void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL) {
-		this.DocStatus_RL = DocStatus_RL;
-		MRefList foreignEntity;
-		if (DocStatus_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus_RL.getID())
+	@JsonProperty("DocStatus")
+	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+		this.mDocStatus = DocStatus;
+		MRefList_BH foreignEntity;
+		if (DocStatus != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocStatus.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocStatus(foreignEntity.getValue());
 		} else {
@@ -206,8 +208,9 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @return The current status of the document
 	 */
-	public I_AD_Ref_ListInput getDocStatus_RL() {
-		return DocStatus_RL;
+	@JsonProperty("DocStatus")
+	public I_AD_Ref_ListInput DocStatus() {
+		return mDocStatus;
 	}
 	/**
 	 * Set Document No.
@@ -226,16 +229,17 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @param GL_Category General Ledger Category
 	 */
-	public void setGL_Category(I_GL_CategoryInput GL_Category) {
-		this.GL_Category = GL_Category;
+	@JsonProperty("GL_Category")
+	public void setGL_CategoryInput(I_GL_CategoryInput GL_Category) {
+		this.mGL_Category = GL_Category;
 		MGLCategory foreignEntity;
 		if (GL_Category != null &&
 				(foreignEntity = new Query(getCtx(), MGLCategory.Table_Name, MGLCategory.COLUMNNAME_GL_Category_UU + "=?", get_TrxName())
 						.setParameters(GL_Category.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setGL_Category_ID(foreignEntity.get_ID());
+			super.setGL_Category_ID(foreignEntity.get_ID());
 		} else {
-			this.setGL_Category_ID(0);
+			super.setGL_Category_ID(0);
 		}
 	}
 
@@ -244,19 +248,9 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @return General Ledger Category
 	 */
-	public I_GL_CategoryInput getGL_Category() {
-		return GL_Category;
-	}
-	/**
-	 * Set Journal Batch.
-	 *
-	 * @param GL_JournalBatch_ID General Ledger Journal Batch
-	 */
-
-	public void setGL_JournalBatch_ID(int GL_JournalBatch_ID) {
-		if (get_ID() == 0) {
-			super.setGL_JournalBatch_ID(GL_JournalBatch_ID);
-		}
+	@JsonProperty("GL_Category")
+	public I_GL_CategoryInput GL_Category() {
+		return mGL_Category;
 	}
 
 	/**
@@ -280,14 +274,15 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	/**
 	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	public void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL) {
-		this.PostingType_RL = PostingType_RL;
-		MRefList foreignEntity;
-		if (PostingType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType_RL.getID())
+	@JsonProperty("PostingType")
+	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+		this.mPostingType = PostingType;
+		MRefList_BH foreignEntity;
+		if (PostingType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PostingType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPostingType(foreignEntity.getValue());
 		} else {
@@ -300,8 +295,9 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	public I_AD_Ref_ListInput getPostingType_RL() {
-		return PostingType_RL;
+	@JsonProperty("PostingType")
+	public I_AD_Ref_ListInput PostingType() {
+		return mPostingType;
 	}
 
 	/**
@@ -309,16 +305,17 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @param Reversal ID of document reversal
 	 */
-	public void setReversal(I_GL_JournalBatchInput Reversal) {
-		this.Reversal = Reversal;
+	@JsonProperty("Reversal")
+	public void setReversalInput(I_GL_JournalBatchInput Reversal) {
+		this.mReversal = Reversal;
 		MJournalBatch foreignEntity;
 		if (Reversal != null &&
 				(foreignEntity = new Query(getCtx(), MJournalBatch.Table_Name, MJournalBatch.COLUMNNAME_GL_JournalBatch_UU + "=?", get_TrxName())
 						.setParameters(Reversal.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setReversal_ID(foreignEntity.get_ID());
+			super.setReversal_ID(foreignEntity.get_ID());
 		} else {
-			this.setReversal_ID(0);
+			super.setReversal_ID(0);
 		}
 	}
 
@@ -327,19 +324,9 @@ public class X_GL_JournalBatchInput extends X_GL_JournalBatch implements I_GL_Jo
 	 *
 	 * @return ID of document reversal
 	 */
-	public I_GL_JournalBatchInput getReversal() {
-		return Reversal;
-	}
-	/**
-	 * Set Reversal ID.
-	 *
-	 * @param Reversal_ID ID of document reversal
-	 */
-
-	public void setReversal_ID(int Reversal_ID) {
-		if (get_ID() == 0) {
-			super.setReversal_ID(Reversal_ID);
-		}
+	@JsonProperty("Reversal")
+	public I_GL_JournalBatchInput Reversal() {
+		return mReversal;
 	}
 	/**
 	 * Set Total Credit.

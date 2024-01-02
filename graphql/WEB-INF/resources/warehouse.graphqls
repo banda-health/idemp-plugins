@@ -1,5 +1,0 @@
-type Warehouse {
-	id: ID!
-	name: String!
-	locators: [Locator!]
-}

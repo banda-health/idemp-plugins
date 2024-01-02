@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -28,7 +29,6 @@ import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MProject;
-import org.compiere.model.MRefList;
 import org.compiere.model.MResource;
 import org.compiere.model.MUOM;
 import org.compiere.model.X_AD_Workflow;
@@ -187,11 +187,11 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
-	public CompletableFuture<MRefList> DocAction_RL(X_PP_Order entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocAction(X_PP_Order entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocAction())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
@@ -212,13 +212,33 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
 		}
 	};
-	public CompletableFuture<MRefList> DocStatus_RL(X_PP_Order entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocStatus(X_PP_Order entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
+	}
+
+	public Boolean IsApproved(X_PP_Order entity, DataFetchingEnvironment environment) {
+		return entity.isApproved();
+	}
+
+	public Boolean IsPrinted(X_PP_Order entity, DataFetchingEnvironment environment) {
+		return entity.isPrinted();
+	}
+
+	public Boolean IsQtyPercentage(X_PP_Order entity, DataFetchingEnvironment environment) {
+		return entity.isQtyPercentage();
+	}
+
+	public Boolean IsSelected(X_PP_Order entity, DataFetchingEnvironment environment) {
+		return entity.isSelected();
+	}
+
+	public Boolean IsSOTrx(X_PP_Order entity, DataFetchingEnvironment environment) {
+		return entity.isSOTrx();
 	}
 
 
@@ -281,6 +301,10 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 		return dataLoader.load(entity.getPlanner_ID());
 	}
 
+	public Boolean Posted(X_PP_Order entity, DataFetchingEnvironment environment) {
+		return entity.isPosted();
+	}
+
 
 	/**
 	 * Get BOM & Formula.
@@ -305,13 +329,21 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 			put("9", "c349e252-ad91-483f-b53f-0e92fabbaca5");
 		}
 	};
-	public CompletableFuture<MRefList> PriorityRule_RL(X_PP_Order entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PriorityRule(X_PP_Order entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPriorityRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PRIORITYRULE_UUIDS_BY_VALUE.get(entity.getPriorityRule()));
+	}
+
+	public Boolean Processed(X_PP_Order entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(X_PP_Order entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 

@@ -1,12 +1,14 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCtxHelp;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
+import org.compiere.model.MTask;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Task;
 import org.compiere.util.Env;
 
 /**
@@ -15,17 +17,18 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_TaskInput extends X_AD_Task implements I_AD_TaskInput {
+public class X_AD_TaskInput extends MTask implements I_AD_TaskInput {
 
-	 private I_AD_CtxHelpInput AD_CtxHelp;
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput AccessLevel_RL;
+	 private I_AD_CtxHelpInput mAD_CtxHelp;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mAccessLevel;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_TaskInput(String ID) {
+	@JsonCreator
+	public X_AD_TaskInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,14 +36,15 @@ public class X_AD_TaskInput extends X_AD_Task implements I_AD_TaskInput {
 	/**
 	 * Set Data Access Level.
 	 *
-	 * @param AccessLevel_RL Access Level required
+	 * @param AccessLevel Access Level required
 	 */
-	public void setAccessLevel_RL(I_AD_Ref_ListInput AccessLevel_RL) {
-		this.AccessLevel_RL = AccessLevel_RL;
-		MRefList foreignEntity;
-		if (AccessLevel_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(AccessLevel_RL.getID())
+	@JsonProperty("AccessLevel")
+	public void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel) {
+		this.mAccessLevel = AccessLevel;
+		MRefList_BH foreignEntity;
+		if (AccessLevel != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(AccessLevel.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setAccessLevel(foreignEntity.getValue());
 		} else {
@@ -53,8 +57,9 @@ public class X_AD_TaskInput extends X_AD_Task implements I_AD_TaskInput {
 	 *
 	 * @return Access Level required
 	 */
-	public I_AD_Ref_ListInput getAccessLevel_RL() {
-		return AccessLevel_RL;
+	@JsonProperty("AccessLevel")
+	public I_AD_Ref_ListInput AccessLevel() {
+		return mAccessLevel;
 	}
 
 	/**
@@ -62,16 +67,17 @@ public class X_AD_TaskInput extends X_AD_Task implements I_AD_TaskInput {
 	 *
 	 * @param AD_CtxHelp Context Help
 	 */
-	public void setAD_CtxHelp(I_AD_CtxHelpInput AD_CtxHelp) {
-		this.AD_CtxHelp = AD_CtxHelp;
+	@JsonProperty("AD_CtxHelp")
+	public void setAD_CtxHelpInput(I_AD_CtxHelpInput AD_CtxHelp) {
+		this.mAD_CtxHelp = AD_CtxHelp;
 		MCtxHelp foreignEntity;
 		if (AD_CtxHelp != null &&
 				(foreignEntity = new Query(getCtx(), MCtxHelp.Table_Name, MCtxHelp.COLUMNNAME_AD_CtxHelp_UU + "=?", get_TrxName())
 						.setParameters(AD_CtxHelp.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_CtxHelp_ID(foreignEntity.get_ID());
+			super.setAD_CtxHelp_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_CtxHelp_ID(0);
+			super.setAD_CtxHelp_ID(0);
 		}
 	}
 
@@ -80,8 +86,9 @@ public class X_AD_TaskInput extends X_AD_Task implements I_AD_TaskInput {
 	 *
 	 * @return Context Help
 	 */
-	public I_AD_CtxHelpInput getAD_CtxHelp() {
-		return AD_CtxHelp;
+	@JsonProperty("AD_CtxHelp")
+	public I_AD_CtxHelpInput AD_CtxHelp() {
+		return mAD_CtxHelp;
 	}
 
 	/**
@@ -89,14 +96,15 @@ public class X_AD_TaskInput extends X_AD_Task implements I_AD_TaskInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -105,19 +113,9 @@ public class X_AD_TaskInput extends X_AD_Task implements I_AD_TaskInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set OS Task.
-	 *
-	 * @param AD_Task_ID Operation System Task
-	 */
-
-	public void setAD_Task_ID(int AD_Task_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Task_ID(AD_Task_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -143,16 +141,17 @@ public class X_AD_TaskInput extends X_AD_Task implements I_AD_TaskInput {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -161,18 +160,8 @@ public class X_AD_TaskInput extends X_AD_Task implements I_AD_TaskInput {
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 }

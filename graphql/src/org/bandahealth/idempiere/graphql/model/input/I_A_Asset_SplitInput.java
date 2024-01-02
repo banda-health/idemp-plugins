@@ -15,28 +15,28 @@ public interface I_A_Asset_SplitInput extends I_A_Asset_Split {
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_Asset(I_A_AssetInput A_Asset);
+	void setA_AssetInput(I_A_AssetInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput getA_Asset();
+	I_A_AssetInput A_Asset();
 
 	/**
 	 * Set A_Asset_To.
 	 *
 	 * @param A_Asset_To A_Asset_To
 	 */
-	void setA_Asset_To(I_A_AssetInput A_Asset_To);
+	void setA_Asset_ToInput(I_A_AssetInput A_Asset_To);
 
 	/**
 	 * Get A_Asset_To.
 	 *
 	 * @return A_Asset_To
 	 */
-	I_A_AssetInput getA_Asset_To();
+	I_A_AssetInput A_Asset_To();
 
 	/**
 	 * Set ID.
@@ -53,58 +53,58 @@ public interface I_A_Asset_SplitInput extends I_A_Asset_Split {
 	String getID();
 
 	/**
-	 * Set A_Split_Type_RL.
+	 * Set A_Split_Type.
 	 *
-	 * @param A_Split_Type_RL A_Split_Type_RL
+	 * @param A_Split_Type A_Split_Type
 	 */
-	void setA_Split_Type_RL(I_AD_Ref_ListInput A_Split_Type_RL);
+	void setA_Split_TypeInput(I_AD_Ref_ListInput A_Split_Type);
 
 	/**
-	 * Get A_Split_Type_RL.
+	 * Get A_Split_Type.
 	 *
-	 * @return A_Split_Type_RL
+	 * @return A_Split_Type
 	 */
-	I_AD_Ref_ListInput getA_Split_Type_RL();
+	I_AD_Ref_ListInput A_Split_Type();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set C_Period.
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	void setC_Period(I_C_PeriodInput C_Period);
+	void setC_PeriodInput(I_C_PeriodInput C_Period);
 
 	/**
 	 * Get C_Period.
 	 *
 	 * @return Period of the Calendar
 	 */
-	I_C_PeriodInput getC_Period();
+	I_C_PeriodInput C_Period();
 
 	/**
-	 * Set PostingType_RL.
+	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL);
+	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
 
 	/**
-	 * Get PostingType_RL.
+	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput getPostingType_RL();
+	I_AD_Ref_ListInput PostingType();
 }

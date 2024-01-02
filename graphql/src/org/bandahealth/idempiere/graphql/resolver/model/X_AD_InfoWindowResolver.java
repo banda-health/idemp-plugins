@@ -86,4 +86,28 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
+	public Boolean IsDefault(MInfoWindow entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsDistinct(MInfoWindow entity, DataFetchingEnvironment environment) {
+		return entity.isDistinct();
+	}
+
+	public Boolean isLoadPageNum(MInfoWindow entity, DataFetchingEnvironment environment) {
+		return entity.isLoadPageNum();
+	}
+
+	public Boolean IsShowInDashboard(MInfoWindow entity, DataFetchingEnvironment environment) {
+		return entity.isShowInDashboard();
+	}
+
+	public Boolean IsValid(MInfoWindow entity, DataFetchingEnvironment environment) {
+		return entity.isValid();
+	}
+
+	public Boolean Processing(MInfoWindow entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 }

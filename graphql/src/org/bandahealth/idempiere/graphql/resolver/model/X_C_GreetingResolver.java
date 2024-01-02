@@ -14,4 +14,12 @@ import org.dataloader.DataLoader;
 public class X_C_GreetingResolver extends POResolver<X_C_Greeting> implements GraphQLResolver<X_C_Greeting> {
 
 
+	public Boolean IsDefault(X_C_Greeting entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsFirstNameOnly(X_C_Greeting entity, DataFetchingEnvironment environment) {
+		return entity.isFirstNameOnly();
+	}
+
 }

@@ -15,14 +15,14 @@ public interface I_AD_Val_RuleInput extends I_AD_Val_Rule {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,26 +43,26 @@ public interface I_AD_Val_RuleInput extends I_AD_Val_Rule {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput getAD_EntityType();
+	I_AD_EntityTypeInput AD_EntityType();
 
 	/**
-	 * Set Type_RL.
+	 * Set Type.
 	 *
-	 * @param Type_RL Type of Validation (SQL, Java Script, Java Language)
+	 * @param Type Type of Validation (SQL, Java Script, Java Language)
 	 */
-	void setType_RL(I_AD_Ref_ListInput Type_RL);
+	void setTypeInput(I_AD_Ref_ListInput Type);
 
 	/**
-	 * Get Type_RL.
+	 * Get Type.
 	 *
 	 * @return Type of Validation (SQL, Java Script, Java Language)
 	 */
-	I_AD_Ref_ListInput getType_RL();
+	I_AD_Ref_ListInput Type();
 }

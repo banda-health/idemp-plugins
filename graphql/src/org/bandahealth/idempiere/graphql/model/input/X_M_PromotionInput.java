@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MOrg;
@@ -15,13 +17,14 @@ import org.compiere.util.Env;
  */
 public class X_M_PromotionInput extends X_M_Promotion implements I_M_PromotionInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_CampaignInput C_Campaign;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_CampaignInput mC_Campaign;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_M_PromotionInput(String ID) {
+	@JsonCreator
+	public X_M_PromotionInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_M_PromotionInput extends X_M_Promotion implements I_M_PromotionIn
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,8 +51,9 @@ public class X_M_PromotionInput extends X_M_Promotion implements I_M_PromotionIn
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -56,16 +61,17 @@ public class X_M_PromotionInput extends X_M_Promotion implements I_M_PromotionIn
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	public void setC_Campaign(I_C_CampaignInput C_Campaign) {
-		this.C_Campaign = C_Campaign;
+	@JsonProperty("C_Campaign")
+	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
 				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Campaign_ID(foreignEntity.get_ID());
+			super.setC_Campaign_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Campaign_ID(0);
+			super.setC_Campaign_ID(0);
 		}
 	}
 
@@ -74,19 +80,9 @@ public class X_M_PromotionInput extends X_M_Promotion implements I_M_PromotionIn
 	 *
 	 * @return Marketing Campaign
 	 */
-	public I_C_CampaignInput getC_Campaign() {
-		return C_Campaign;
-	}
-	/**
-	 * Set Promotion.
-	 *
-	 * @param M_Promotion_ID Promotion
-	 */
-
-	public void setM_Promotion_ID(int M_Promotion_ID) {
-		if (get_ID() == 0) {
-			super.setM_Promotion_ID(M_Promotion_ID);
-		}
+	@JsonProperty("C_Campaign")
+	public I_C_CampaignInput C_Campaign() {
+		return mC_Campaign;
 	}
 
 	/**

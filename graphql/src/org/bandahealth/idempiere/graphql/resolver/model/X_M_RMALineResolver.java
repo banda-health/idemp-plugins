@@ -102,6 +102,10 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 		return dataLoader.load(entity.getM_RMA_ID());
 	}
 
+	public Boolean Processed(MRMALine entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
 
 	/**
 	 * Get Referenced RMA Line.

@@ -5,6 +5,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
@@ -32,7 +33,6 @@ import org.compiere.model.MInOutLine;
 import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
 import org.compiere.model.MProject;
-import org.compiere.model.MRefList;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -59,11 +59,11 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 			put("TR", "194f5d34-a04e-48c2-8e5a-8a81c326657c");
 		}
 	};
-	public CompletableFuture<MRefList> A_Asset_Action_RL(MAsset entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Asset_Action(MAsset entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Asset_Action())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_ASSET_ACTION_UUIDS_BY_VALUE.get(entity.getA_Asset_Action()));
 	}
@@ -109,11 +109,11 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 			put("SO", "b2aa86a9-566c-4762-98d5-c4b5c243a2cd");
 		}
 	};
-	public CompletableFuture<MRefList> A_Asset_Status_RL(MAsset entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_Asset_Status(MAsset entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_Asset_Status())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(A_ASSET_STATUS_UUIDS_BY_VALUE.get(entity.getA_Asset_Status()));
 	}
@@ -253,6 +253,26 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
+	public Boolean IsDepreciated(MAsset entity, DataFetchingEnvironment environment) {
+		return entity.isDepreciated();
+	}
+
+	public Boolean IsDisposed(MAsset entity, DataFetchingEnvironment environment) {
+		return entity.isDisposed();
+	}
+
+	public Boolean IsFullyDepreciated(MAsset entity, DataFetchingEnvironment environment) {
+		return entity.isFullyDepreciated();
+	}
+
+	public Boolean IsInPosession(MAsset entity, DataFetchingEnvironment environment) {
+		return entity.isInPosession();
+	}
+
+	public Boolean IsOwned(MAsset entity, DataFetchingEnvironment environment) {
+		return entity.isOwned();
+	}
+
 
 	/**
 	 * Get Lessor.
@@ -326,6 +346,14 @@ public class X_A_AssetResolver extends POResolver<MAsset> implements GraphQLReso
 		DataLoader<Integer, MProduct_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getM_Product_ID());
+	}
+
+	public Boolean Processed(MAsset entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MAsset entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 }

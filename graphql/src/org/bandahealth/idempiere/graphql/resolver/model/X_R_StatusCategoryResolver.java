@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_R_StatusCategoryResolver extends POResolver<MStatusCategory> implements GraphQLResolver<MStatusCategory> {
 
 
+	public Boolean IsDefault(MStatusCategory entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
 }

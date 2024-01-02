@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MOrg;
+import org.compiere.model.MReportCube;
 import org.compiere.model.Query;
-import org.compiere.model.X_PA_ReportCube;
 import org.compiere.util.Env;
 
 /**
@@ -13,15 +15,16 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_ReportCubeInput extends X_PA_ReportCube implements I_PA_ReportCubeInput {
+public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCubeInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_CalendarInput C_Calendar;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_CalendarInput mC_Calendar;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_ReportCubeInput(String ID) {
+	@JsonCreator
+	public X_PA_ReportCubeInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,16 +34,17 @@ public class X_PA_ReportCubeInput extends X_PA_ReportCube implements I_PA_Report
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Org_ID(0);
+			super.setAD_Org_ID(0);
 		}
 	}
 
@@ -49,8 +53,9 @@ public class X_PA_ReportCubeInput extends X_PA_ReportCube implements I_PA_Report
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -58,16 +63,17 @@ public class X_PA_ReportCubeInput extends X_PA_ReportCube implements I_PA_Report
 	 *
 	 * @param C_Calendar Accounting Calendar Name
 	 */
-	public void setC_Calendar(I_C_CalendarInput C_Calendar) {
-		this.C_Calendar = C_Calendar;
+	@JsonProperty("C_Calendar")
+	public void setC_CalendarInput(I_C_CalendarInput C_Calendar) {
+		this.mC_Calendar = C_Calendar;
 		MCalendar foreignEntity;
 		if (C_Calendar != null &&
 				(foreignEntity = new Query(getCtx(), MCalendar.Table_Name, MCalendar.COLUMNNAME_C_Calendar_UU + "=?", get_TrxName())
 						.setParameters(C_Calendar.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Calendar_ID(foreignEntity.get_ID());
+			super.setC_Calendar_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Calendar_ID(0);
+			super.setC_Calendar_ID(0);
 		}
 	}
 
@@ -76,19 +82,9 @@ public class X_PA_ReportCubeInput extends X_PA_ReportCube implements I_PA_Report
 	 *
 	 * @return Accounting Calendar Name
 	 */
-	public I_C_CalendarInput getC_Calendar() {
-		return C_Calendar;
-	}
-	/**
-	 * Set Report Cube.
-	 *
-	 * @param PA_ReportCube_ID Define reporting cube for pre-calculation of summary accounting data.
-	 */
-
-	public void setPA_ReportCube_ID(int PA_ReportCube_ID) {
-		if (get_ID() == 0) {
-			super.setPA_ReportCube_ID(PA_ReportCube_ID);
-		}
+	@JsonProperty("C_Calendar")
+	public I_C_CalendarInput C_Calendar() {
+		return mC_Calendar;
 	}
 
 	/**

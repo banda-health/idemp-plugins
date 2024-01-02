@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
+import org.compiere.model.MRequestType;
 import org.compiere.model.MStatusCategory;
 import org.compiere.model.Query;
-import org.compiere.model.X_R_RequestType;
 import org.compiere.util.Env;
 
 /**
@@ -14,16 +16,17 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_R_RequestTypeInput extends X_R_RequestType implements I_R_RequestTypeInput {
+public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTypeInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput ConfidentialType_RL;
-	 private I_R_StatusCategoryInput R_StatusCategory;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mConfidentialType;
+	 private I_R_StatusCategoryInput mR_StatusCategory;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_R_RequestTypeInput(String ID) {
+	@JsonCreator
+	public X_R_RequestTypeInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,14 +36,15 @@ public class X_R_RequestTypeInput extends X_R_RequestType implements I_R_Request
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -49,21 +53,23 @@ public class X_R_RequestTypeInput extends X_R_RequestType implements I_R_Request
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
 	 * Set Confidentiality.
 	 *
-	 * @param ConfidentialType_RL Type of Confidentiality
+	 * @param ConfidentialType Type of Confidentiality
 	 */
-	public void setConfidentialType_RL(I_AD_Ref_ListInput ConfidentialType_RL) {
-		this.ConfidentialType_RL = ConfidentialType_RL;
-		MRefList foreignEntity;
-		if (ConfidentialType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ConfidentialType_RL.getID())
+	@JsonProperty("ConfidentialType")
+	public void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType) {
+		this.mConfidentialType = ConfidentialType;
+		MRefList_BH foreignEntity;
+		if (ConfidentialType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(ConfidentialType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setConfidentialType(foreignEntity.getValue());
 		} else {
@@ -76,19 +82,9 @@ public class X_R_RequestTypeInput extends X_R_RequestType implements I_R_Request
 	 *
 	 * @return Type of Confidentiality
 	 */
-	public I_AD_Ref_ListInput getConfidentialType_RL() {
-		return ConfidentialType_RL;
-	}
-	/**
-	 * Set Request Type.
-	 *
-	 * @param R_RequestType_ID Type of request (e.g. Inquiry, Complaint, ..)
-	 */
-
-	public void setR_RequestType_ID(int R_RequestType_ID) {
-		if (get_ID() == 0) {
-			super.setR_RequestType_ID(R_RequestType_ID);
-		}
+	@JsonProperty("ConfidentialType")
+	public I_AD_Ref_ListInput ConfidentialType() {
+		return mConfidentialType;
 	}
 
 	/**
@@ -114,16 +110,17 @@ public class X_R_RequestTypeInput extends X_R_RequestType implements I_R_Request
 	 *
 	 * @param R_StatusCategory Request Status Category
 	 */
-	public void setR_StatusCategory(I_R_StatusCategoryInput R_StatusCategory) {
-		this.R_StatusCategory = R_StatusCategory;
+	@JsonProperty("R_StatusCategory")
+	public void setR_StatusCategoryInput(I_R_StatusCategoryInput R_StatusCategory) {
+		this.mR_StatusCategory = R_StatusCategory;
 		MStatusCategory foreignEntity;
 		if (R_StatusCategory != null &&
 				(foreignEntity = new Query(getCtx(), MStatusCategory.Table_Name, MStatusCategory.COLUMNNAME_R_StatusCategory_UU + "=?", get_TrxName())
 						.setParameters(R_StatusCategory.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setR_StatusCategory_ID(foreignEntity.get_ID());
+			super.setR_StatusCategory_ID(foreignEntity.get_ID());
 		} else {
-			this.setR_StatusCategory_ID(0);
+			super.setR_StatusCategory_ID(0);
 		}
 	}
 
@@ -132,7 +129,8 @@ public class X_R_RequestTypeInput extends X_R_RequestType implements I_R_Request
 	 *
 	 * @return Request Status Category
 	 */
-	public I_R_StatusCategoryInput getR_StatusCategory() {
-		return R_StatusCategory;
+	@JsonProperty("R_StatusCategory")
+	public I_R_StatusCategoryInput R_StatusCategory() {
+		return mR_StatusCategory;
 	}
 }

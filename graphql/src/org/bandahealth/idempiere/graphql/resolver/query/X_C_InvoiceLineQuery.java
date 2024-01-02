@@ -2,8 +2,8 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.graphql.model.Connection;
-import org.compiere.model.MInvoiceLine;
 
 /**
  * Generated Query Resolver for C_InvoiceLine - DO NOT CHANGE
@@ -11,13 +11,13 @@ import org.compiere.model.MInvoiceLine;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_InvoiceLineQuery extends POQuery<MInvoiceLine> implements GraphQLQueryResolver {
+public class X_C_InvoiceLineQuery extends POQuery<MInvoiceLine_BH> implements GraphQLQueryResolver {
 	@Override
 	protected String getTableName() {
-		return MInvoiceLine.Table_Name;
+		return MInvoiceLine_BH.Table_Name;
 	}
 
-	public Connection<MInvoiceLine> C_InvoiceLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MInvoiceLine_BH> C_InvoiceLineGet(int page, int pageSize, String sort, String filter,
 			DataFetchingEnvironment environment) {
 		return super.get(page, pageSize, sort, filter, environment);
 	}

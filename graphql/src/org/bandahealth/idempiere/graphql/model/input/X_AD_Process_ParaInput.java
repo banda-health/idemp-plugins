@@ -1,14 +1,16 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
+import org.compiere.model.MProcessPara;
 import org.compiere.model.MValRule;
 import org.compiere.model.M_Element;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Process_Para;
 import org.compiere.util.Env;
 
 /**
@@ -17,20 +19,21 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Process_ParaInput {
+public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process_ParaInput {
 
-	 private I_AD_ElementInput AD_Element;
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_ProcessInput AD_Process;
-	 private I_AD_ReferenceInput AD_Reference;
-	 private I_AD_ReferenceInput AD_Reference_Value;
-	 private I_AD_Val_RuleInput AD_Val_Rule;
+	 private I_AD_ElementInput mAD_Element;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_ProcessInput mAD_Process;
+	 private I_AD_ReferenceInput mAD_Reference;
+	 private I_AD_ReferenceInput mAD_Reference_Value;
+	 private I_AD_Val_RuleInput mAD_Val_Rule;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_Process_ParaInput(String ID) {
+	@JsonCreator
+	public X_AD_Process_ParaInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -40,16 +43,17 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @param AD_Element System Element enables the central maintenance of column description and help.
 	 */
-	public void setAD_Element(I_AD_ElementInput AD_Element) {
-		this.AD_Element = AD_Element;
+	@JsonProperty("AD_Element")
+	public void setAD_ElementInput(I_AD_ElementInput AD_Element) {
+		this.mAD_Element = AD_Element;
 		M_Element foreignEntity;
 		if (AD_Element != null &&
 				(foreignEntity = new Query(getCtx(), M_Element.Table_Name, M_Element.COLUMNNAME_AD_Element_UU + "=?", get_TrxName())
 						.setParameters(AD_Element.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Element_ID(foreignEntity.get_ID());
+			super.setAD_Element_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Element_ID(0);
+			super.setAD_Element_ID(0);
 		}
 	}
 
@@ -58,8 +62,9 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @return System Element enables the central maintenance of column description and help.
 	 */
-	public I_AD_ElementInput getAD_Element() {
-		return AD_Element;
+	@JsonProperty("AD_Element")
+	public I_AD_ElementInput AD_Element() {
+		return mAD_Element;
 	}
 
 	/**
@@ -67,14 +72,15 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -83,8 +89,9 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -92,14 +99,15 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @param AD_Process Process or Report
 	 */
-	public void setAD_Process(I_AD_ProcessInput AD_Process) {
-		this.AD_Process = AD_Process;
+	@JsonProperty("AD_Process")
+	public void setAD_ProcessInput(I_AD_ProcessInput AD_Process) {
+		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
 		if (get_ID() == 0 &&AD_Process != null &&
 				(foreignEntity = new Query(getCtx(), MProcess_BH.Table_Name, MProcess_BH.COLUMNNAME_AD_Process_UU + "=?", get_TrxName())
 						.setParameters(AD_Process.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Process_ID(foreignEntity.get_ID());
+			super.setAD_Process_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -108,30 +116,9 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @return Process or Report
 	 */
-	public I_AD_ProcessInput getAD_Process() {
-		return AD_Process;
-	}
-	/**
-	 * Set Process.
-	 *
-	 * @param AD_Process_ID Process or Report
-	 */
-
-	public void setAD_Process_ID(int AD_Process_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Process_ID(AD_Process_ID);
-		}
-	}
-	/**
-	 * Set Process Parameter.
-	 *
-	 * @param AD_Process_Para_ID Process Parameter
-	 */
-
-	public void setAD_Process_Para_ID(int AD_Process_Para_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Process_Para_ID(AD_Process_Para_ID);
-		}
+	@JsonProperty("AD_Process")
+	public I_AD_ProcessInput AD_Process() {
+		return mAD_Process;
 	}
 
 	/**
@@ -157,16 +144,17 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @param AD_Reference System Reference and Validation
 	 */
-	public void setAD_Reference(I_AD_ReferenceInput AD_Reference) {
-		this.AD_Reference = AD_Reference;
+	@JsonProperty("AD_Reference")
+	public void setAD_ReferenceInput(I_AD_ReferenceInput AD_Reference) {
+		this.mAD_Reference = AD_Reference;
 		MReference_BH foreignEntity;
 		if (AD_Reference != null &&
 				(foreignEntity = new Query(getCtx(), MReference_BH.Table_Name, MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", get_TrxName())
 						.setParameters(AD_Reference.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Reference_ID(foreignEntity.get_ID());
+			super.setAD_Reference_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Reference_ID(0);
+			super.setAD_Reference_ID(0);
 		}
 	}
 
@@ -175,19 +163,9 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @return System Reference and Validation
 	 */
-	public I_AD_ReferenceInput getAD_Reference() {
-		return AD_Reference;
-	}
-	/**
-	 * Set Reference.
-	 *
-	 * @param AD_Reference_ID System Reference and Validation
-	 */
-
-	public void setAD_Reference_ID(int AD_Reference_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Reference_ID(AD_Reference_ID);
-		}
+	@JsonProperty("AD_Reference")
+	public I_AD_ReferenceInput AD_Reference() {
+		return mAD_Reference;
 	}
 
 	/**
@@ -195,16 +173,17 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @param AD_Reference_Value Required to specify, if data type is Table or List
 	 */
-	public void setAD_Reference_Value(I_AD_ReferenceInput AD_Reference_Value) {
-		this.AD_Reference_Value = AD_Reference_Value;
+	@JsonProperty("AD_Reference_Value")
+	public void setAD_Reference_ValueInput(I_AD_ReferenceInput AD_Reference_Value) {
+		this.mAD_Reference_Value = AD_Reference_Value;
 		MReference_BH foreignEntity;
 		if (AD_Reference_Value != null &&
 				(foreignEntity = new Query(getCtx(), MReference_BH.Table_Name, MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", get_TrxName())
 						.setParameters(AD_Reference_Value.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Reference_Value_ID(foreignEntity.get_ID());
+			super.setAD_Reference_Value_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Reference_Value_ID(0);
+			super.setAD_Reference_Value_ID(0);
 		}
 	}
 
@@ -213,19 +192,9 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @return Required to specify, if data type is Table or List
 	 */
-	public I_AD_ReferenceInput getAD_Reference_Value() {
-		return AD_Reference_Value;
-	}
-	/**
-	 * Set Reference Key.
-	 *
-	 * @param AD_Reference_Value_ID Required to specify, if data type is Table or List
-	 */
-
-	public void setAD_Reference_Value_ID(int AD_Reference_Value_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Reference_Value_ID(AD_Reference_Value_ID);
-		}
+	@JsonProperty("AD_Reference_Value")
+	public I_AD_ReferenceInput AD_Reference_Value() {
+		return mAD_Reference_Value;
 	}
 
 	/**
@@ -233,16 +202,17 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @param AD_Val_Rule Dynamic Validation Rule
 	 */
-	public void setAD_Val_Rule(I_AD_Val_RuleInput AD_Val_Rule) {
-		this.AD_Val_Rule = AD_Val_Rule;
+	@JsonProperty("AD_Val_Rule")
+	public void setAD_Val_RuleInput(I_AD_Val_RuleInput AD_Val_Rule) {
+		this.mAD_Val_Rule = AD_Val_Rule;
 		MValRule foreignEntity;
 		if (AD_Val_Rule != null &&
 				(foreignEntity = new Query(getCtx(), MValRule.Table_Name, MValRule.COLUMNNAME_AD_Val_Rule_UU + "=?", get_TrxName())
 						.setParameters(AD_Val_Rule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Val_Rule_ID(foreignEntity.get_ID());
+			super.setAD_Val_Rule_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Val_Rule_ID(0);
+			super.setAD_Val_Rule_ID(0);
 		}
 	}
 
@@ -251,8 +221,9 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @return Dynamic Validation Rule
 	 */
-	public I_AD_Val_RuleInput getAD_Val_Rule() {
-		return AD_Val_Rule;
+	@JsonProperty("AD_Val_Rule")
+	public I_AD_Val_RuleInput AD_Val_Rule() {
+		return mAD_Val_Rule;
 	}
 
 	/**
@@ -260,16 +231,17 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -278,18 +250,8 @@ public class X_AD_Process_ParaInput extends X_AD_Process_Para implements I_AD_Pr
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 }

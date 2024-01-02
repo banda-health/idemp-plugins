@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_PA_ReportLineSetResolver extends POResolver<X_PA_ReportLineSet> implements GraphQLResolver<X_PA_ReportLineSet> {
 
 
+	public Boolean Processing(X_PA_ReportLineSet entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 }

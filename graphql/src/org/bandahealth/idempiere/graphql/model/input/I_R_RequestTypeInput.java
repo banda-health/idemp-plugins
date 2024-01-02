@@ -15,28 +15,28 @@ public interface I_R_RequestTypeInput extends I_R_RequestType {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set ConfidentialType_RL.
+	 * Set ConfidentialType.
 	 *
-	 * @param ConfidentialType_RL Type of Confidentiality
+	 * @param ConfidentialType Type of Confidentiality
 	 */
-	void setConfidentialType_RL(I_AD_Ref_ListInput ConfidentialType_RL);
+	void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType);
 
 	/**
-	 * Get ConfidentialType_RL.
+	 * Get ConfidentialType.
 	 *
 	 * @return Type of Confidentiality
 	 */
-	I_AD_Ref_ListInput getConfidentialType_RL();
+	I_AD_Ref_ListInput ConfidentialType();
 
 	/**
 	 * Set ID.
@@ -57,12 +57,12 @@ public interface I_R_RequestTypeInput extends I_R_RequestType {
 	 *
 	 * @param R_StatusCategory Request Status Category
 	 */
-	void setR_StatusCategory(I_R_StatusCategoryInput R_StatusCategory);
+	void setR_StatusCategoryInput(I_R_StatusCategoryInput R_StatusCategory);
 
 	/**
 	 * Get R_StatusCategory.
 	 *
 	 * @return Request Status Category
 	 */
-	I_R_StatusCategoryInput getR_StatusCategory();
+	I_R_StatusCategoryInput R_StatusCategory();
 }

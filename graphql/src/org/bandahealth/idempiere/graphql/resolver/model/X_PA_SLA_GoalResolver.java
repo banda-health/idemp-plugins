@@ -50,4 +50,12 @@ public class X_PA_SLA_GoalResolver extends POResolver<MSLAGoal> implements Graph
 		return dataLoader.load(entity.getPA_SLA_Criteria_ID());
 	}
 
+	public Boolean Processed(MSLAGoal entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MSLAGoal entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 }

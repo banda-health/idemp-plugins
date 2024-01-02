@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
+import org.compiere.model.MAssetReval;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_A_Asset_Reval;
 import org.compiere.util.Env;
 
 /**
@@ -14,18 +16,19 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_RevalInput extends X_A_Asset_Reval implements I_A_Asset_RevalInput {
+public class X_A_Asset_RevalInput extends MAssetReval implements I_A_Asset_RevalInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput DocAction_RL;
-	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput PostingType_RL;
-	 private I_A_AssetInput A_Asset;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mDocAction;
+	 private I_AD_Ref_ListInput mDocStatus;
+	 private I_AD_Ref_ListInput mPostingType;
+	 private I_A_AssetInput mA_Asset;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_A_Asset_RevalInput(String ID) {
+	@JsonCreator
+	public X_A_Asset_RevalInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -35,14 +38,15 @@ public class X_A_Asset_RevalInput extends X_A_Asset_Reval implements I_A_Asset_R
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	public void setA_Asset(I_A_AssetInput A_Asset) {
-		this.A_Asset = A_Asset;
+	@JsonProperty("A_Asset")
+	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (get_ID() == 0 &&A_Asset != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_ID(foreignEntity.get_ID());
+			super.setA_Asset_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -51,30 +55,9 @@ public class X_A_Asset_RevalInput extends X_A_Asset_Reval implements I_A_Asset_R
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public I_A_AssetInput getA_Asset() {
-		return A_Asset;
-	}
-	/**
-	 * Set Asset.
-	 *
-	 * @param A_Asset_ID Asset used internally or by customers
-	 */
-
-	public void setA_Asset_ID(int A_Asset_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_ID(A_Asset_ID);
-		}
-	}
-	/**
-	 * Set Asset Revaluation.
-	 *
-	 * @param A_Asset_Reval_ID Asset Revaluation
-	 */
-
-	public void setA_Asset_Reval_ID(int A_Asset_Reval_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_Reval_ID(A_Asset_Reval_ID);
-		}
+	@JsonProperty("A_Asset")
+	public I_A_AssetInput A_Asset() {
+		return mA_Asset;
 	}
 
 	/**
@@ -100,14 +83,15 @@ public class X_A_Asset_RevalInput extends X_A_Asset_Reval implements I_A_Asset_R
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -116,21 +100,23 @@ public class X_A_Asset_RevalInput extends X_A_Asset_Reval implements I_A_Asset_R
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
 	 * Set Document Action.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	public void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL) {
-		this.DocAction_RL = DocAction_RL;
-		MRefList foreignEntity;
-		if (DocAction_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction_RL.getID())
+	@JsonProperty("DocAction")
+	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+		this.mDocAction = DocAction;
+		MRefList_BH foreignEntity;
+		if (DocAction != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocAction.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocAction(foreignEntity.getValue());
 		} else {
@@ -143,21 +129,23 @@ public class X_A_Asset_RevalInput extends X_A_Asset_Reval implements I_A_Asset_R
 	 *
 	 * @return The targeted status of the document
 	 */
-	public I_AD_Ref_ListInput getDocAction_RL() {
-		return DocAction_RL;
+	@JsonProperty("DocAction")
+	public I_AD_Ref_ListInput DocAction() {
+		return mDocAction;
 	}
 
 	/**
 	 * Set Document Status.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	public void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL) {
-		this.DocStatus_RL = DocStatus_RL;
-		MRefList foreignEntity;
-		if (DocStatus_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus_RL.getID())
+	@JsonProperty("DocStatus")
+	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+		this.mDocStatus = DocStatus;
+		MRefList_BH foreignEntity;
+		if (DocStatus != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocStatus.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocStatus(foreignEntity.getValue());
 		} else {
@@ -170,8 +158,9 @@ public class X_A_Asset_RevalInput extends X_A_Asset_Reval implements I_A_Asset_R
 	 *
 	 * @return The current status of the document
 	 */
-	public I_AD_Ref_ListInput getDocStatus_RL() {
-		return DocStatus_RL;
+	@JsonProperty("DocStatus")
+	public I_AD_Ref_ListInput DocStatus() {
+		return mDocStatus;
 	}
 	/**
 	 * Set Posted.
@@ -188,14 +177,15 @@ public class X_A_Asset_RevalInput extends X_A_Asset_Reval implements I_A_Asset_R
 	/**
 	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	public void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL) {
-		this.PostingType_RL = PostingType_RL;
-		MRefList foreignEntity;
-		if (PostingType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType_RL.getID())
+	@JsonProperty("PostingType")
+	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+		this.mPostingType = PostingType;
+		MRefList_BH foreignEntity;
+		if (PostingType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PostingType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPostingType(foreignEntity.getValue());
 		} else {
@@ -208,7 +198,8 @@ public class X_A_Asset_RevalInput extends X_A_Asset_Reval implements I_A_Asset_R
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	public I_AD_Ref_ListInput getPostingType_RL() {
-		return PostingType_RL;
+	@JsonProperty("PostingType")
+	public I_AD_Ref_ListInput PostingType() {
+		return mPostingType;
 	}
 }

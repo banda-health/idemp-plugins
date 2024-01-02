@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
 import org.compiere.model.X_AD_WF_Responsible;
@@ -18,16 +20,17 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_AD_WF_ResponsibleInput {
 
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput ResponsibleType_RL;
-	 private I_AD_RoleInput AD_Role;
-	 private I_AD_UserInput AD_User;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mResponsibleType;
+	 private I_AD_RoleInput mAD_Role;
+	 private I_AD_UserInput mAD_User;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_WF_ResponsibleInput(String ID) {
+	@JsonCreator
+	public X_AD_WF_ResponsibleInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -37,14 +40,15 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -53,8 +57,9 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -62,16 +67,17 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 *
 	 * @param AD_Role Responsibility Role
 	 */
-	public void setAD_Role(I_AD_RoleInput AD_Role) {
-		this.AD_Role = AD_Role;
+	@JsonProperty("AD_Role")
+	public void setAD_RoleInput(I_AD_RoleInput AD_Role) {
+		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_Role.Table_Name, X_AD_Role.COLUMNNAME_AD_Role_UU + "=?", get_TrxName())
 						.setParameters(AD_Role.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Role_ID(foreignEntity.get_ID());
+			super.setAD_Role_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Role_ID(0);
+			super.setAD_Role_ID(0);
 		}
 	}
 
@@ -80,8 +86,9 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 *
 	 * @return Responsibility Role
 	 */
-	public I_AD_RoleInput getAD_Role() {
-		return AD_Role;
+	@JsonProperty("AD_Role")
+	public I_AD_RoleInput AD_Role() {
+		return mAD_Role;
 	}
 
 	/**
@@ -89,16 +96,17 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	public void setAD_User(I_AD_UserInput AD_User) {
-		this.AD_User = AD_User;
+	@JsonProperty("AD_User")
+	public void setAD_UserInput(I_AD_UserInput AD_User) {
+		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
 				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_User_ID(foreignEntity.get_ID());
+			super.setAD_User_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_User_ID(0);
+			super.setAD_User_ID(0);
 		}
 	}
 
@@ -107,30 +115,9 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	public I_AD_UserInput getAD_User() {
-		return AD_User;
-	}
-	/**
-	 * Set User/Contact.
-	 *
-	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
-	 */
-
-	public void setAD_User_ID(int AD_User_ID) {
-		if (get_ID() == 0) {
-			super.setAD_User_ID(AD_User_ID);
-		}
-	}
-	/**
-	 * Set Workflow Responsible.
-	 *
-	 * @param AD_WF_Responsible_ID Responsible for Workflow Execution
-	 */
-
-	public void setAD_WF_Responsible_ID(int AD_WF_Responsible_ID) {
-		if (get_ID() == 0) {
-			super.setAD_WF_Responsible_ID(AD_WF_Responsible_ID);
-		}
+	@JsonProperty("AD_User")
+	public I_AD_UserInput AD_User() {
+		return mAD_User;
 	}
 
 	/**
@@ -156,16 +143,17 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -174,32 +162,23 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 
 	/**
 	 * Set Responsible Type.
 	 *
-	 * @param ResponsibleType_RL Type of the Responsibility for a workflow
+	 * @param ResponsibleType Type of the Responsibility for a workflow
 	 */
-	public void setResponsibleType_RL(I_AD_Ref_ListInput ResponsibleType_RL) {
-		this.ResponsibleType_RL = ResponsibleType_RL;
-		MRefList foreignEntity;
-		if (ResponsibleType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ResponsibleType_RL.getID())
+	@JsonProperty("ResponsibleType")
+	public void setResponsibleTypeInput(I_AD_Ref_ListInput ResponsibleType) {
+		this.mResponsibleType = ResponsibleType;
+		MRefList_BH foreignEntity;
+		if (ResponsibleType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(ResponsibleType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setResponsibleType(foreignEntity.getValue());
 		} else {
@@ -212,7 +191,8 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 *
 	 * @return Type of the Responsibility for a workflow
 	 */
-	public I_AD_Ref_ListInput getResponsibleType_RL() {
-		return ResponsibleType_RL;
+	@JsonProperty("ResponsibleType")
+	public I_AD_Ref_ListInput ResponsibleType() {
+		return mResponsibleType;
 	}
 }

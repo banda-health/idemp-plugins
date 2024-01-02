@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
+import org.compiere.model.MUOM;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_UOM;
 import org.compiere.util.Env;
 
 /**
@@ -13,15 +15,16 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_UOMInput extends X_C_UOM implements I_C_UOMInput {
+public class X_C_UOMInput extends MUOM implements I_C_UOMInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput UOMType_RL;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mUOMType;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_UOMInput(String ID) {
+	@JsonCreator
+	public X_C_UOMInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_C_UOMInput extends X_C_UOM implements I_C_UOMInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,19 +51,9 @@ public class X_C_UOMInput extends X_C_UOM implements I_C_UOMInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set UOM.
-	 *
-	 * @param C_UOM_ID Unit of Measure
-	 */
-
-	public void setC_UOM_ID(int C_UOM_ID) {
-		if (get_ID() == 0) {
-			super.setC_UOM_ID(C_UOM_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -83,14 +77,15 @@ public class X_C_UOMInput extends X_C_UOM implements I_C_UOMInput {
 	/**
 	 * Set UOM Type.
 	 *
-	 * @param UOMType_RL UOM Type
+	 * @param UOMType UOM Type
 	 */
-	public void setUOMType_RL(I_AD_Ref_ListInput UOMType_RL) {
-		this.UOMType_RL = UOMType_RL;
-		MRefList foreignEntity;
-		if (UOMType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(UOMType_RL.getID())
+	@JsonProperty("UOMType")
+	public void setUOMTypeInput(I_AD_Ref_ListInput UOMType) {
+		this.mUOMType = UOMType;
+		MRefList_BH foreignEntity;
+		if (UOMType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(UOMType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setUOMType(foreignEntity.getValue());
 		} else {
@@ -103,7 +98,8 @@ public class X_C_UOMInput extends X_C_UOM implements I_C_UOMInput {
 	 *
 	 * @return UOM Type
 	 */
-	public I_AD_Ref_ListInput getUOMType_RL() {
-		return UOMType_RL;
+	@JsonProperty("UOMType")
+	public I_AD_Ref_ListInput UOMType() {
+		return mUOMType;
 	}
 }

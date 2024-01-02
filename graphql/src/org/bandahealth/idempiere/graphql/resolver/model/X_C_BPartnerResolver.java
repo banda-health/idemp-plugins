@@ -4,6 +4,7 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_LanguageDataLoader;
@@ -27,13 +28,13 @@ import org.compiere.model.MInvoiceSchedule;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MPriceList;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_C_1099Box;
 import org.compiere.model.X_C_Greeting;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_C_TaxGroup;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -167,7 +168,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 *
 	 * @return Language for this entity
 	 */
-	public CompletableFuture<MLanguage> AD_Language_L(MBPartner_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MLanguage> AD_Language(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAD_Language())) {
 			return null;
 		}
@@ -182,13 +183,33 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			put("male", "73c2b736-830b-430e-bc43-571c6372ba22");
 		}
 	};
-	public CompletableFuture<MRefList> bh_gender_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> bh_gender(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getbh_gender())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(BH_GENDER_UUIDS_BY_VALUE.get(entity.getbh_gender()));
+	}
+
+	public Boolean BH_IsApproximateDateOfBirth(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBH_IsApproximateDateOfBirth();
+	}
+
+	public Boolean BH_Locked(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBH_Locked();
+	}
+
+	public Boolean BH_NeedAdditionalVisitInfo(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBH_NeedAdditionalVisitInfo();
+	}
+
+	public Timestamp bh_nextappointmentdate(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.getbh_nextappointmentdate();
+	}
+
+	public String bh_occupation(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.getbh_occupation();
 	}
 
 
@@ -306,11 +327,11 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			put("M", "d9b69f78-edb1-4179-a56e-33cbca133673");
 		}
 	};
-	public CompletableFuture<MRefList> DeliveryRule_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DeliveryRule(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDeliveryRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DELIVERYRULE_UUIDS_BY_VALUE.get(entity.getDeliveryRule()));
 	}
@@ -322,11 +343,11 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			put("S", "19951c20-3a06-4eb5-a0c2-fc8b27e408a7");
 		}
 	};
-	public CompletableFuture<MRefList> DeliveryViaRule_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DeliveryViaRule(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDeliveryViaRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DELIVERYVIARULE_UUIDS_BY_VALUE.get(entity.getDeliveryViaRule()));
 	}
@@ -339,11 +360,11 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			put("L", "623c0263-3294-4073-9884-e5cb78edb1bd");
 		}
 	};
-	public CompletableFuture<MRefList> FreightCostRule_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> FreightCostRule(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFreightCostRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(FREIGHTCOSTRULE_UUIDS_BY_VALUE.get(entity.getFreightCostRule()));
 	}
@@ -371,13 +392,61 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			put("I", "1e030a09-94f2-4bd4-8810-d739aa9f25a6");
 		}
 	};
-	public CompletableFuture<MRefList> InvoiceRule_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> InvoiceRule(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getInvoiceRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(INVOICERULE_UUIDS_BY_VALUE.get(entity.getInvoiceRule()));
+	}
+
+	public Boolean Is1099Vendor(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.is1099Vendor();
+	}
+
+	public Boolean IsCustomer(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isCustomer();
+	}
+
+	public Boolean IsDiscountPrinted(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDiscountPrinted();
+	}
+
+	public Boolean IsEmployee(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isEmployee();
+	}
+
+	public Boolean IsManufacturer(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isManufacturer();
+	}
+
+	public Boolean IsOneTime(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isOneTime();
+	}
+
+	public Boolean IsPOTaxExempt(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isPOTaxExempt();
+	}
+
+	public Boolean IsProspect(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isProspect();
+	}
+
+	public Boolean IsSalesRep(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSalesRep();
+	}
+
+	public Boolean IsSummary(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSummary();
+	}
+
+	public Boolean IsTaxExempt(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isTaxExempt();
+	}
+
+	public Boolean IsVendor(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isVendor();
 	}
 
 
@@ -386,7 +455,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 *
 	 * @return Logo
 	 */
-	public CompletableFuture<MImage> AD_Image(MBPartner_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MImage> Logo(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getLogo_ID() <= 0) {
 			return null;
 		}
@@ -438,11 +507,11 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
 		}
 	};
-	public CompletableFuture<MRefList> PaymentRule_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PaymentRule(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPaymentRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PAYMENTRULE_UUIDS_BY_VALUE.get(entity.getPaymentRule()));
 	}
@@ -460,11 +529,11 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			put("b", "72629357-494a-4cb3-aecf-807141f1968b");
 		}
 	};
-	public CompletableFuture<MRefList> PaymentRulePO_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PaymentRulePO(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPaymentRulePO())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PAYMENTRULEPO_UUIDS_BY_VALUE.get(entity.getPaymentRulePO()));
 	}
@@ -529,6 +598,10 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 
+	public Boolean SendEMail(MBPartner_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSendEMail();
+	}
+
 	static Map<String, String> SOCREDITSTATUS_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("S", "ebd6f716-efbe-4a4f-9d3a-e3848f4a3b75");
@@ -538,11 +611,11 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			put("O", "d2130138-c9f1-4314-a0c3-e46cecaae025");
 		}
 	};
-	public CompletableFuture<MRefList> SOCreditStatus_RL(MBPartner_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> SOCreditStatus(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getSOCreditStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(SOCREDITSTATUS_UUIDS_BY_VALUE.get(entity.getSOCreditStatus()));
 	}

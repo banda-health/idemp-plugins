@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_M_SerNoCtlResolver extends POResolver<MSerNoCtl_BH> implements GraphQLResolver<MSerNoCtl_BH> {
 
 
+	public Boolean BH_Locked(MSerNoCtl_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBH_Locked();
+	}
+
 }

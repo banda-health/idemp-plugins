@@ -67,4 +67,24 @@ public class X_C_BPartner_LocationResolver extends POResolver<MBPartnerLocation>
 		return dataLoader.load(entity.getC_SalesRegion_ID());
 	}
 
+	public Boolean IsBillTo(MBPartnerLocation entity, DataFetchingEnvironment environment) {
+		return entity.isBillTo();
+	}
+
+	public Boolean IsPayFrom(MBPartnerLocation entity, DataFetchingEnvironment environment) {
+		return entity.isPayFrom();
+	}
+
+	public Boolean IsPreserveCustomName(MBPartnerLocation entity, DataFetchingEnvironment environment) {
+		return entity.isPreserveCustomName();
+	}
+
+	public Boolean IsRemitTo(MBPartnerLocation entity, DataFetchingEnvironment environment) {
+		return entity.isRemitTo();
+	}
+
+	public Boolean IsShipTo(MBPartnerLocation entity, DataFetchingEnvironment environment) {
+		return entity.isShipTo();
+	}
+
 }

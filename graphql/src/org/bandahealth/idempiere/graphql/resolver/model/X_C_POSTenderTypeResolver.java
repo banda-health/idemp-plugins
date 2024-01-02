@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_C_POSTenderType;
 import org.dataloader.DataLoader;
 
@@ -20,6 +20,14 @@ import java.util.concurrent.CompletableFuture;
  */
 public class X_C_POSTenderTypeResolver extends POResolver<X_C_POSTenderType> implements GraphQLResolver<X_C_POSTenderType> {
 
+
+	public Boolean IsGuarantee(X_C_POSTenderType entity, DataFetchingEnvironment environment) {
+		return entity.isGuarantee();
+	}
+
+	public Boolean IsPostDated(X_C_POSTenderType entity, DataFetchingEnvironment environment) {
+		return entity.isPostDated();
+	}
 
 	static Map<String, String> TENDERTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
@@ -43,11 +51,11 @@ public class X_C_POSTenderTypeResolver extends POResolver<X_C_POSTenderType> imp
 			put("U", "97e54f17-fbae-40de-8dbd-e8ad7f884732");
 		}
 	};
-	public CompletableFuture<MRefList> TenderType_RL(X_C_POSTenderType entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> TenderType(X_C_POSTenderType entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getTenderType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(TENDERTYPE_UUIDS_BY_VALUE.get(entity.getTenderType()));
 	}

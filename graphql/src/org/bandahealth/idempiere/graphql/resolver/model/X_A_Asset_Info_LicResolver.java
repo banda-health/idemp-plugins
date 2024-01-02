@@ -33,4 +33,8 @@ public class X_A_Asset_Info_LicResolver extends POResolver<X_A_Asset_Info_Lic> i
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
+	public Boolean Processed(X_A_Asset_Info_Lic entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
 }

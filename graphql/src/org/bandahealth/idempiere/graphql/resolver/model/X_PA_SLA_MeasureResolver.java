@@ -50,4 +50,12 @@ public class X_PA_SLA_MeasureResolver extends POResolver<MSLAMeasure> implements
 		return dataLoader.load(entity.getPA_SLA_Goal_ID());
 	}
 
+	public Boolean Processed(MSLAMeasure entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MSLAMeasure entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 }

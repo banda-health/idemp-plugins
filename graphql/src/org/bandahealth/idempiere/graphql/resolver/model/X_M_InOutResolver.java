@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -35,7 +36,6 @@ import org.compiere.model.MCampaign;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MProject;
 import org.compiere.model.MRMA;
-import org.compiere.model.MRefList;
 import org.compiere.model.MShipper;
 import org.dataloader.DataLoader;
 
@@ -227,11 +227,11 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 			put("M", "d9b69f78-edb1-4179-a56e-33cbca133673");
 		}
 	};
-	public CompletableFuture<MRefList> DeliveryRule_RL(MInOut_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DeliveryRule(MInOut_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDeliveryRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DELIVERYRULE_UUIDS_BY_VALUE.get(entity.getDeliveryRule()));
 	}
@@ -243,11 +243,11 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 			put("S", "19951c20-3a06-4eb5-a0c2-fc8b27e408a7");
 		}
 	};
-	public CompletableFuture<MRefList> DeliveryViaRule_RL(MInOut_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DeliveryViaRule(MInOut_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDeliveryViaRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DELIVERYVIARULE_UUIDS_BY_VALUE.get(entity.getDeliveryViaRule()));
 	}
@@ -270,11 +270,11 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
-	public CompletableFuture<MRefList> DocAction_RL(MInOut_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocAction(MInOut_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocAction())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
@@ -295,11 +295,11 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
 		}
 	};
-	public CompletableFuture<MRefList> DocStatus_RL(MInOut_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocStatus(MInOut_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
 	}
@@ -369,11 +369,11 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 			put("FOB", "30141c28-d81e-45cf-b403-7b68e4ace907");
 		}
 	};
-	public CompletableFuture<MRefList> FOB_RL(MInOut_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> FOB(MInOut_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFOB())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(FOB_UUIDS_BY_VALUE.get(entity.getFOB()));
 	}
@@ -387,11 +387,11 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 			put("E_PPB", "0e39eb81-f71c-4c44-a9b1-a1af86304c32");
 		}
 	};
-	public CompletableFuture<MRefList> FreightCharges_RL(MInOut_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> FreightCharges(MInOut_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFreightCharges())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(FREIGHTCHARGES_UUIDS_BY_VALUE.get(entity.getFreightCharges()));
 	}
@@ -404,11 +404,11 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 			put("L", "623c0263-3294-4073-9884-e5cb78edb1bd");
 		}
 	};
-	public CompletableFuture<MRefList> FreightCostRule_RL(MInOut_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> FreightCostRule(MInOut_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFreightCostRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(FREIGHTCOSTRULE_UUIDS_BY_VALUE.get(entity.getFreightCostRule()));
 	}
@@ -419,13 +419,41 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 			put("2", "19ba90f2-d281-4217-9460-be081c4cb49d");
 		}
 	};
-	public CompletableFuture<MRefList> Insurance_RL(MInOut_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> Insurance(MInOut_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getInsurance())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(INSURANCE_UUIDS_BY_VALUE.get(entity.getInsurance()));
+	}
+
+	public Boolean IsAlternateReturnAddress(MInOut_BH entity, DataFetchingEnvironment environment) {
+		return entity.isAlternateReturnAddress();
+	}
+
+	public Boolean IsApproved(MInOut_BH entity, DataFetchingEnvironment environment) {
+		return entity.isApproved();
+	}
+
+	public Boolean IsDropShip(MInOut_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDropShip();
+	}
+
+	public Boolean IsInDispute(MInOut_BH entity, DataFetchingEnvironment environment) {
+		return entity.isInDispute();
+	}
+
+	public Boolean IsInTransit(MInOut_BH entity, DataFetchingEnvironment environment) {
+		return entity.isInTransit();
+	}
+
+	public Boolean IsPrinted(MInOut_BH entity, DataFetchingEnvironment environment) {
+		return entity.isPrinted();
+	}
+
+	public Boolean IsSOTrx(MInOut_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSOTrx();
 	}
 
 
@@ -489,13 +517,17 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 			put("W-", "aca9152b-34cb-44fa-8a5b-d519dd804637");
 		}
 	};
-	public CompletableFuture<MRefList> MovementType_RL(MInOut_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> MovementType(MInOut_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getMovementType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(MOVEMENTTYPE_UUIDS_BY_VALUE.get(entity.getMovementType()));
+	}
+
+	public Boolean Posted(MInOut_BH entity, DataFetchingEnvironment environment) {
+		return entity.isPosted();
 	}
 
 	static Map<String, String> PRIORITYRULE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -507,13 +539,21 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 			put("9", "c349e252-ad91-483f-b53f-0e92fabbaca5");
 		}
 	};
-	public CompletableFuture<MRefList> PriorityRule_RL(MInOut_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PriorityRule(MInOut_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPriorityRule())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(PRIORITYRULE_UUIDS_BY_VALUE.get(entity.getPriorityRule()));
+	}
+
+	public Boolean Processed(MInOut_BH entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MInOut_BH entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 
@@ -589,6 +629,10 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 		DataLoader<Integer, MUser_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getSalesRep_ID());
+	}
+
+	public Boolean SendEMail(MInOut_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSendEMail();
 	}
 
 

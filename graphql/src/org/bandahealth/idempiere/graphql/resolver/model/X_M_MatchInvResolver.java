@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_InvoiceLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetInstanceDataLoader;
@@ -10,7 +11,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InOutLineDataLoader
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_MatchInvDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.compiere.model.MInOutLine;
-import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MMatchInv;
 import org.dataloader.DataLoader;
 
@@ -31,11 +31,11 @@ public class X_M_MatchInvResolver extends POResolver<MMatchInv> implements Graph
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MMatchInv entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MMatchInv entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine> dataLoader =
+		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.C_InvoiceLine_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}
@@ -83,6 +83,18 @@ public class X_M_MatchInvResolver extends POResolver<MMatchInv> implements Graph
 		DataLoader<Integer, MProduct_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getM_Product_ID());
+	}
+
+	public Boolean Posted(MMatchInv entity, DataFetchingEnvironment environment) {
+		return entity.isPosted();
+	}
+
+	public Boolean Processed(MMatchInv entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MMatchInv entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 

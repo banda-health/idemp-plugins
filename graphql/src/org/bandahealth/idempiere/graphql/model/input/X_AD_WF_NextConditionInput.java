@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_WF_NextCondition;
 import org.compiere.model.X_AD_WF_NodeNext;
@@ -18,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements I_AD_WF_NextConditionInput {
 
-	 private I_AD_ColumnInput AD_Column;
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput AndOr_RL;
-	 private I_AD_Ref_ListInput Operation_RL;
-	 private I_AD_WF_NodeNextInput AD_WF_NodeNext;
+	 private I_AD_ColumnInput mAD_Column;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mAndOr;
+	 private I_AD_Ref_ListInput mOperation;
+	 private I_AD_WF_NodeNextInput mAD_WF_NodeNext;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_WF_NextConditionInput(String ID) {
+	@JsonCreator
+	public X_AD_WF_NextConditionInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -38,16 +41,17 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 *
 	 * @param AD_Column Column in the table
 	 */
-	public void setAD_Column(I_AD_ColumnInput AD_Column) {
-		this.AD_Column = AD_Column;
+	@JsonProperty("AD_Column")
+	public void setAD_ColumnInput(I_AD_ColumnInput AD_Column) {
+		this.mAD_Column = AD_Column;
 		MColumn foreignEntity;
 		if (AD_Column != null &&
 				(foreignEntity = new Query(getCtx(), MColumn.Table_Name, MColumn.COLUMNNAME_AD_Column_UU + "=?", get_TrxName())
 						.setParameters(AD_Column.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Column_ID(foreignEntity.get_ID());
+			super.setAD_Column_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Column_ID(0);
+			super.setAD_Column_ID(0);
 		}
 	}
 
@@ -56,8 +60,9 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 *
 	 * @return Column in the table
 	 */
-	public I_AD_ColumnInput getAD_Column() {
-		return AD_Column;
+	@JsonProperty("AD_Column")
+	public I_AD_ColumnInput AD_Column() {
+		return mAD_Column;
 	}
 
 	/**
@@ -65,14 +70,15 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -81,19 +87,9 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Transition Condition.
-	 *
-	 * @param AD_WF_NextCondition_ID Workflow Node Transition Condition
-	 */
-
-	public void setAD_WF_NextCondition_ID(int AD_WF_NextCondition_ID) {
-		if (get_ID() == 0) {
-			super.setAD_WF_NextCondition_ID(AD_WF_NextCondition_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -119,14 +115,15 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 *
 	 * @param AD_WF_NodeNext Workflow Node Transition
 	 */
-	public void setAD_WF_NodeNext(I_AD_WF_NodeNextInput AD_WF_NodeNext) {
-		this.AD_WF_NodeNext = AD_WF_NodeNext;
+	@JsonProperty("AD_WF_NodeNext")
+	public void setAD_WF_NodeNextInput(I_AD_WF_NodeNextInput AD_WF_NodeNext) {
+		this.mAD_WF_NodeNext = AD_WF_NodeNext;
 		X_AD_WF_NodeNext foreignEntity;
 		if (get_ID() == 0 &&AD_WF_NodeNext != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_WF_NodeNext.Table_Name, X_AD_WF_NodeNext.COLUMNNAME_AD_WF_NodeNext_UU + "=?", get_TrxName())
 						.setParameters(AD_WF_NodeNext.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_WF_NodeNext_ID(foreignEntity.get_ID());
+			super.setAD_WF_NodeNext_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -135,32 +132,23 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 *
 	 * @return Workflow Node Transition
 	 */
-	public I_AD_WF_NodeNextInput getAD_WF_NodeNext() {
-		return AD_WF_NodeNext;
-	}
-	/**
-	 * Set Node Transition.
-	 *
-	 * @param AD_WF_NodeNext_ID Workflow Node Transition
-	 */
-
-	public void setAD_WF_NodeNext_ID(int AD_WF_NodeNext_ID) {
-		if (get_ID() == 0) {
-			super.setAD_WF_NodeNext_ID(AD_WF_NodeNext_ID);
-		}
+	@JsonProperty("AD_WF_NodeNext")
+	public I_AD_WF_NodeNextInput AD_WF_NodeNext() {
+		return mAD_WF_NodeNext;
 	}
 
 	/**
 	 * Set And/Or.
 	 *
-	 * @param AndOr_RL Logical operation: AND or OR
+	 * @param AndOr Logical operation: AND or OR
 	 */
-	public void setAndOr_RL(I_AD_Ref_ListInput AndOr_RL) {
-		this.AndOr_RL = AndOr_RL;
-		MRefList foreignEntity;
-		if (AndOr_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(AndOr_RL.getID())
+	@JsonProperty("AndOr")
+	public void setAndOrInput(I_AD_Ref_ListInput AndOr) {
+		this.mAndOr = AndOr;
+		MRefList_BH foreignEntity;
+		if (AndOr != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(AndOr.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setAndOr(foreignEntity.getValue());
 		} else {
@@ -173,8 +161,9 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 *
 	 * @return Logical operation: AND or OR
 	 */
-	public I_AD_Ref_ListInput getAndOr_RL() {
-		return AndOr_RL;
+	@JsonProperty("AndOr")
+	public I_AD_Ref_ListInput AndOr() {
+		return mAndOr;
 	}
 
 	/**
@@ -182,16 +171,17 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -200,32 +190,23 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 
 	/**
 	 * Set Operation.
 	 *
-	 * @param Operation_RL Compare Operation
+	 * @param Operation Compare Operation
 	 */
-	public void setOperation_RL(I_AD_Ref_ListInput Operation_RL) {
-		this.Operation_RL = Operation_RL;
-		MRefList foreignEntity;
-		if (Operation_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Operation_RL.getID())
+	@JsonProperty("Operation")
+	public void setOperationInput(I_AD_Ref_ListInput Operation) {
+		this.mOperation = Operation;
+		MRefList_BH foreignEntity;
+		if (Operation != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(Operation.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setOperation(foreignEntity.getValue());
 		} else {
@@ -238,7 +219,8 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 *
 	 * @return Compare Operation
 	 */
-	public I_AD_Ref_ListInput getOperation_RL() {
-		return Operation_RL;
+	@JsonProperty("Operation")
+	public I_AD_Ref_ListInput Operation() {
+		return mOperation;
 	}
 }

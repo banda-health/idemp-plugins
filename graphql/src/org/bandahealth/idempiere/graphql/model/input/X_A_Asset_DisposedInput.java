@@ -1,15 +1,17 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
-import org.compiere.model.MInvoiceLine;
+import org.compiere.model.MAssetDisposed;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_A_Asset_Disposed;
 import org.compiere.util.Env;
 
 /**
@@ -18,27 +20,28 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_Asset_DisposedInput {
+public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset_DisposedInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput A_Activation_Method_RL;
-	 private I_AD_Ref_ListInput A_Asset_Status_RL;
-	 private I_AD_Ref_ListInput A_Disposed_Method_RL;
-	 private I_AD_Ref_ListInput A_Disposed_Reason_RL;
-	 private I_AD_Ref_ListInput DocAction_RL;
-	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput PostingType_RL;
-	 private I_A_AssetInput A_Asset;
-	 private I_A_AssetInput A_Asset_Trade;
-	 private I_C_DocTypeInput C_DocType;
-	 private I_C_InvoiceInput C_Invoice;
-	 private I_C_InvoiceLineInput C_InvoiceLine;
-	 private I_C_PeriodInput C_Period;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mA_Activation_Method;
+	 private I_AD_Ref_ListInput mA_Asset_Status;
+	 private I_AD_Ref_ListInput mA_Disposed_Method;
+	 private I_AD_Ref_ListInput mA_Disposed_Reason;
+	 private I_AD_Ref_ListInput mDocAction;
+	 private I_AD_Ref_ListInput mDocStatus;
+	 private I_AD_Ref_ListInput mPostingType;
+	 private I_A_AssetInput mA_Asset;
+	 private I_A_AssetInput mA_Asset_Trade;
+	 private I_C_DocTypeInput mC_DocType;
+	 private I_C_InvoiceInput mC_Invoice;
+	 private I_C_InvoiceLineInput mC_InvoiceLine;
+	 private I_C_PeriodInput mC_Period;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_A_Asset_DisposedInput(String ID) {
+	@JsonCreator
+	public X_A_Asset_DisposedInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -46,14 +49,15 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	/**
 	 * Set Activation Method.
 	 *
-	 * @param A_Activation_Method_RL Activation Method
+	 * @param A_Activation_Method Activation Method
 	 */
-	public void setA_Activation_Method_RL(I_AD_Ref_ListInput A_Activation_Method_RL) {
-		this.A_Activation_Method_RL = A_Activation_Method_RL;
-		MRefList foreignEntity;
-		if (A_Activation_Method_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Activation_Method_RL.getID())
+	@JsonProperty("A_Activation_Method")
+	public void setA_Activation_MethodInput(I_AD_Ref_ListInput A_Activation_Method) {
+		this.mA_Activation_Method = A_Activation_Method;
+		MRefList_BH foreignEntity;
+		if (A_Activation_Method != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(A_Activation_Method.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setA_Activation_Method(foreignEntity.getValue());
 		} else {
@@ -66,19 +70,9 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return Activation Method
 	 */
-	public I_AD_Ref_ListInput getA_Activation_Method_RL() {
-		return A_Activation_Method_RL;
-	}
-	/**
-	 * Set Asset Disposed.
-	 *
-	 * @param A_Asset_Disposed_ID Asset Disposed
-	 */
-
-	public void setA_Asset_Disposed_ID(int A_Asset_Disposed_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_Disposed_ID(A_Asset_Disposed_ID);
-		}
+	@JsonProperty("A_Activation_Method")
+	public I_AD_Ref_ListInput A_Activation_Method() {
+		return mA_Activation_Method;
 	}
 
 	/**
@@ -104,16 +98,17 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	public void setA_Asset(I_A_AssetInput A_Asset) {
-		this.A_Asset = A_Asset;
+	@JsonProperty("A_Asset")
+	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_ID(foreignEntity.get_ID());
+			super.setA_Asset_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_Asset_ID(0);
+			super.setA_Asset_ID(0);
 		}
 	}
 
@@ -122,21 +117,23 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public I_A_AssetInput getA_Asset() {
-		return A_Asset;
+	@JsonProperty("A_Asset")
+	public I_A_AssetInput A_Asset() {
+		return mA_Asset;
 	}
 
 	/**
 	 * Set Asset Status.
 	 *
-	 * @param A_Asset_Status_RL Asset Status
+	 * @param A_Asset_Status Asset Status
 	 */
-	public void setA_Asset_Status_RL(I_AD_Ref_ListInput A_Asset_Status_RL) {
-		this.A_Asset_Status_RL = A_Asset_Status_RL;
-		MRefList foreignEntity;
-		if (A_Asset_Status_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Asset_Status_RL.getID())
+	@JsonProperty("A_Asset_Status")
+	public void setA_Asset_StatusInput(I_AD_Ref_ListInput A_Asset_Status) {
+		this.mA_Asset_Status = A_Asset_Status;
+		MRefList_BH foreignEntity;
+		if (A_Asset_Status != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(A_Asset_Status.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setA_Asset_Status(foreignEntity.getValue());
 		} else {
@@ -149,8 +146,9 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return Asset Status
 	 */
-	public I_AD_Ref_ListInput getA_Asset_Status_RL() {
-		return A_Asset_Status_RL;
+	@JsonProperty("A_Asset_Status")
+	public I_AD_Ref_ListInput A_Asset_Status() {
+		return mA_Asset_Status;
 	}
 
 	/**
@@ -158,16 +156,17 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @param A_Asset_Trade Asset Trade
 	 */
-	public void setA_Asset_Trade(I_A_AssetInput A_Asset_Trade) {
-		this.A_Asset_Trade = A_Asset_Trade;
+	@JsonProperty("A_Asset_Trade")
+	public void setA_Asset_TradeInput(I_A_AssetInput A_Asset_Trade) {
+		this.mA_Asset_Trade = A_Asset_Trade;
 		MAsset foreignEntity;
 		if (A_Asset_Trade != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_Asset_Trade.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_Trade_ID(foreignEntity.get_ID());
+			super.setA_Asset_Trade_ID(foreignEntity.get_ID());
 		} else {
-			this.setA_Asset_Trade_ID(0);
+			super.setA_Asset_Trade_ID(0);
 		}
 	}
 
@@ -176,32 +175,23 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return Asset Trade
 	 */
-	public I_A_AssetInput getA_Asset_Trade() {
-		return A_Asset_Trade;
-	}
-	/**
-	 * Set Asset Trade.
-	 *
-	 * @param A_Asset_Trade_ID Asset Trade
-	 */
-
-	public void setA_Asset_Trade_ID(int A_Asset_Trade_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_Trade_ID(A_Asset_Trade_ID);
-		}
+	@JsonProperty("A_Asset_Trade")
+	public I_A_AssetInput A_Asset_Trade() {
+		return mA_Asset_Trade;
 	}
 
 	/**
 	 * Set Disposed Method.
 	 *
-	 * @param A_Disposed_Method_RL Disposed Method
+	 * @param A_Disposed_Method Disposed Method
 	 */
-	public void setA_Disposed_Method_RL(I_AD_Ref_ListInput A_Disposed_Method_RL) {
-		this.A_Disposed_Method_RL = A_Disposed_Method_RL;
-		MRefList foreignEntity;
-		if (A_Disposed_Method_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Disposed_Method_RL.getID())
+	@JsonProperty("A_Disposed_Method")
+	public void setA_Disposed_MethodInput(I_AD_Ref_ListInput A_Disposed_Method) {
+		this.mA_Disposed_Method = A_Disposed_Method;
+		MRefList_BH foreignEntity;
+		if (A_Disposed_Method != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(A_Disposed_Method.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setA_Disposed_Method(foreignEntity.getValue());
 		} else {
@@ -214,21 +204,23 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return Disposed Method
 	 */
-	public I_AD_Ref_ListInput getA_Disposed_Method_RL() {
-		return A_Disposed_Method_RL;
+	@JsonProperty("A_Disposed_Method")
+	public I_AD_Ref_ListInput A_Disposed_Method() {
+		return mA_Disposed_Method;
 	}
 
 	/**
 	 * Set Disposed Reason.
 	 *
-	 * @param A_Disposed_Reason_RL Disposed Reason
+	 * @param A_Disposed_Reason Disposed Reason
 	 */
-	public void setA_Disposed_Reason_RL(I_AD_Ref_ListInput A_Disposed_Reason_RL) {
-		this.A_Disposed_Reason_RL = A_Disposed_Reason_RL;
-		MRefList foreignEntity;
-		if (A_Disposed_Reason_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Disposed_Reason_RL.getID())
+	@JsonProperty("A_Disposed_Reason")
+	public void setA_Disposed_ReasonInput(I_AD_Ref_ListInput A_Disposed_Reason) {
+		this.mA_Disposed_Reason = A_Disposed_Reason;
+		MRefList_BH foreignEntity;
+		if (A_Disposed_Reason != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(A_Disposed_Reason.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setA_Disposed_Reason(foreignEntity.getValue());
 		} else {
@@ -241,8 +233,9 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return Disposed Reason
 	 */
-	public I_AD_Ref_ListInput getA_Disposed_Reason_RL() {
-		return A_Disposed_Reason_RL;
+	@JsonProperty("A_Disposed_Reason")
+	public I_AD_Ref_ListInput A_Disposed_Reason() {
+		return mA_Disposed_Reason;
 	}
 
 	/**
@@ -250,16 +243,17 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Org_ID(0);
+			super.setAD_Org_ID(0);
 		}
 	}
 
@@ -268,8 +262,9 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -277,16 +272,17 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	public void setC_DocType(I_C_DocTypeInput C_DocType) {
-		this.C_DocType = C_DocType;
+	@JsonProperty("C_DocType")
+	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
 				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_DocType_ID(foreignEntity.get_ID());
+			super.setC_DocType_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_DocType_ID(0);
+			super.setC_DocType_ID(0);
 		}
 	}
 
@@ -295,8 +291,9 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return Document type or rules
 	 */
-	public I_C_DocTypeInput getC_DocType() {
-		return C_DocType;
+	@JsonProperty("C_DocType")
+	public I_C_DocTypeInput C_DocType() {
+		return mC_DocType;
 	}
 
 	/**
@@ -304,16 +301,17 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @param C_Invoice Invoice Identifier
 	 */
-	public void setC_Invoice(I_C_InvoiceInput C_Invoice) {
-		this.C_Invoice = C_Invoice;
+	@JsonProperty("C_Invoice")
+	public void setC_InvoiceInput(I_C_InvoiceInput C_Invoice) {
+		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
 		if (C_Invoice != null &&
 				(foreignEntity = new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Invoice_UU + "=?", get_TrxName())
 						.setParameters(C_Invoice.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Invoice_ID(foreignEntity.get_ID());
+			super.setC_Invoice_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Invoice_ID(0);
+			super.setC_Invoice_ID(0);
 		}
 	}
 
@@ -322,8 +320,9 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return Invoice Identifier
 	 */
-	public I_C_InvoiceInput getC_Invoice() {
-		return C_Invoice;
+	@JsonProperty("C_Invoice")
+	public I_C_InvoiceInput C_Invoice() {
+		return mC_Invoice;
 	}
 
 	/**
@@ -331,16 +330,17 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @param C_InvoiceLine Invoice Detail Line
 	 */
-	public void setC_InvoiceLine(I_C_InvoiceLineInput C_InvoiceLine) {
-		this.C_InvoiceLine = C_InvoiceLine;
-		MInvoiceLine foreignEntity;
+	@JsonProperty("C_InvoiceLine")
+	public void setC_InvoiceLineInput(I_C_InvoiceLineInput C_InvoiceLine) {
+		this.mC_InvoiceLine = C_InvoiceLine;
+		MInvoiceLine_BH foreignEntity;
 		if (C_InvoiceLine != null &&
-				(foreignEntity = new Query(getCtx(), MInvoiceLine.Table_Name, MInvoiceLine.COLUMNNAME_C_InvoiceLine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), MInvoiceLine_BH.Table_Name, MInvoiceLine_BH.COLUMNNAME_C_InvoiceLine_UU + "=?", get_TrxName())
 						.setParameters(C_InvoiceLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_InvoiceLine_ID(foreignEntity.get_ID());
+			super.setC_InvoiceLine_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_InvoiceLine_ID(0);
+			super.setC_InvoiceLine_ID(0);
 		}
 	}
 
@@ -349,8 +349,9 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public I_C_InvoiceLineInput getC_InvoiceLine() {
-		return C_InvoiceLine;
+	@JsonProperty("C_InvoiceLine")
+	public I_C_InvoiceLineInput C_InvoiceLine() {
+		return mC_InvoiceLine;
 	}
 
 	/**
@@ -358,16 +359,17 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	public void setC_Period(I_C_PeriodInput C_Period) {
-		this.C_Period = C_Period;
+	@JsonProperty("C_Period")
+	public void setC_PeriodInput(I_C_PeriodInput C_Period) {
+		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
 				(foreignEntity = new Query(getCtx(), MPeriod.Table_Name, MPeriod.COLUMNNAME_C_Period_UU + "=?", get_TrxName())
 						.setParameters(C_Period.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Period_ID(foreignEntity.get_ID());
+			super.setC_Period_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Period_ID(0);
+			super.setC_Period_ID(0);
 		}
 	}
 
@@ -376,32 +378,23 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return Period of the Calendar
 	 */
-	public I_C_PeriodInput getC_Period() {
-		return C_Period;
-	}
-	/**
-	 * Set Period.
-	 *
-	 * @param C_Period_ID Period of the Calendar
-	 */
-
-	public void setC_Period_ID(int C_Period_ID) {
-		if (get_ID() == 0) {
-			super.setC_Period_ID(C_Period_ID);
-		}
+	@JsonProperty("C_Period")
+	public I_C_PeriodInput C_Period() {
+		return mC_Period;
 	}
 
 	/**
 	 * Set Document Action.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	public void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL) {
-		this.DocAction_RL = DocAction_RL;
-		MRefList foreignEntity;
-		if (DocAction_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction_RL.getID())
+	@JsonProperty("DocAction")
+	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+		this.mDocAction = DocAction;
+		MRefList_BH foreignEntity;
+		if (DocAction != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocAction.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocAction(foreignEntity.getValue());
 		} else {
@@ -414,21 +407,23 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return The targeted status of the document
 	 */
-	public I_AD_Ref_ListInput getDocAction_RL() {
-		return DocAction_RL;
+	@JsonProperty("DocAction")
+	public I_AD_Ref_ListInput DocAction() {
+		return mDocAction;
 	}
 
 	/**
 	 * Set Document Status.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	public void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL) {
-		this.DocStatus_RL = DocStatus_RL;
-		MRefList foreignEntity;
-		if (DocStatus_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus_RL.getID())
+	@JsonProperty("DocStatus")
+	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+		this.mDocStatus = DocStatus;
+		MRefList_BH foreignEntity;
+		if (DocStatus != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocStatus.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocStatus(foreignEntity.getValue());
 		} else {
@@ -441,8 +436,9 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return The current status of the document
 	 */
-	public I_AD_Ref_ListInput getDocStatus_RL() {
-		return DocStatus_RL;
+	@JsonProperty("DocStatus")
+	public I_AD_Ref_ListInput DocStatus() {
+		return mDocStatus;
 	}
 	/**
 	 * Set Document No.
@@ -470,14 +466,15 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	/**
 	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	public void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL) {
-		this.PostingType_RL = PostingType_RL;
-		MRefList foreignEntity;
-		if (PostingType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType_RL.getID())
+	@JsonProperty("PostingType")
+	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+		this.mPostingType = PostingType;
+		MRefList_BH foreignEntity;
+		if (PostingType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PostingType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPostingType(foreignEntity.getValue());
 		} else {
@@ -490,7 +487,8 @@ public class X_A_Asset_DisposedInput extends X_A_Asset_Disposed implements I_A_A
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	public I_AD_Ref_ListInput getPostingType_RL() {
-		return PostingType_RL;
+	@JsonProperty("PostingType")
+	public I_AD_Ref_ListInput PostingType() {
+		return mPostingType;
 	}
 }

@@ -15,47 +15,28 @@ public interface I_M_AttributeSetInput extends I_M_AttributeSet {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Column name BH_Locked
-	 */
-	public static final String COLUMNNAME_BH_Locked = "BH_Locked";
-
-	/**
-	 * Set BH_Locked.
+	 * Set M_AttributeSet_Type.
 	 *
-	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 * @param M_AttributeSet_Type M_AttributeSet_Type
 	 */
-	public void setBH_Locked(boolean BH_Locked);
+	void setM_AttributeSet_TypeInput(I_AD_Ref_ListInput M_AttributeSet_Type);
 
 	/**
-	 * Get BH_Locked.
+	 * Get M_AttributeSet_Type.
 	 *
-	 * @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 * @return M_AttributeSet_Type
 	 */
-	public boolean isBH_Locked();
-
-	/**
-	 * Set M_AttributeSet_Type_RL.
-	 *
-	 * @param M_AttributeSet_Type_RL M_AttributeSet_Type_RL
-	 */
-	void setM_AttributeSet_Type_RL(I_AD_Ref_ListInput M_AttributeSet_Type_RL);
-
-	/**
-	 * Get M_AttributeSet_Type_RL.
-	 *
-	 * @return M_AttributeSet_Type_RL
-	 */
-	I_AD_Ref_ListInput getM_AttributeSet_Type_RL();
+	I_AD_Ref_ListInput M_AttributeSet_Type();
 
 	/**
 	 * Set ID.
@@ -76,40 +57,40 @@ public interface I_M_AttributeSetInput extends I_M_AttributeSet {
 	 *
 	 * @param M_LotCtl Product Lot Control
 	 */
-	void setM_LotCtl(I_M_LotCtlInput M_LotCtl);
+	void setM_LotCtlInput(I_M_LotCtlInput M_LotCtl);
 
 	/**
 	 * Get M_LotCtl.
 	 *
 	 * @return Product Lot Control
 	 */
-	I_M_LotCtlInput getM_LotCtl();
+	I_M_LotCtlInput M_LotCtl();
 
 	/**
 	 * Set M_SerNoCtl.
 	 *
 	 * @param M_SerNoCtl Product Serial Number Control
 	 */
-	void setM_SerNoCtl(I_M_SerNoCtlInput M_SerNoCtl);
+	void setM_SerNoCtlInput(I_M_SerNoCtlInput M_SerNoCtl);
 
 	/**
 	 * Get M_SerNoCtl.
 	 *
 	 * @return Product Serial Number Control
 	 */
-	I_M_SerNoCtlInput getM_SerNoCtl();
+	I_M_SerNoCtlInput M_SerNoCtl();
 
 	/**
-	 * Set MandatoryType_RL.
+	 * Set MandatoryType.
 	 *
-	 * @param MandatoryType_RL The specification of a Product Attribute Instance is mandatory
+	 * @param MandatoryType The specification of a Product Attribute Instance is mandatory
 	 */
-	void setMandatoryType_RL(I_AD_Ref_ListInput MandatoryType_RL);
+	void setMandatoryTypeInput(I_AD_Ref_ListInput MandatoryType);
 
 	/**
-	 * Get MandatoryType_RL.
+	 * Get MandatoryType.
 	 *
 	 * @return The specification of a Product Attribute Instance is mandatory
 	 */
-	I_AD_Ref_ListInput getMandatoryType_RL();
+	I_AD_Ref_ListInput MandatoryType();
 }

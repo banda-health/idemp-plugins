@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MElement;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.MTree;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_Element;
 import org.compiere.util.Env;
 
 /**
@@ -14,16 +16,17 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_ElementInput extends X_C_Element implements I_C_ElementInput {
+public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput ElementType_RL;
-	 private I_AD_TreeInput AD_Tree;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mElementType;
+	 private I_AD_TreeInput mAD_Tree;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_ElementInput(String ID) {
+	@JsonCreator
+	public X_C_ElementInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -33,14 +36,15 @@ public class X_C_ElementInput extends X_C_Element implements I_C_ElementInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -49,8 +53,9 @@ public class X_C_ElementInput extends X_C_Element implements I_C_ElementInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -58,14 +63,15 @@ public class X_C_ElementInput extends X_C_Element implements I_C_ElementInput {
 	 *
 	 * @param AD_Tree Identifies a Tree
 	 */
-	public void setAD_Tree(I_AD_TreeInput AD_Tree) {
-		this.AD_Tree = AD_Tree;
+	@JsonProperty("AD_Tree")
+	public void setAD_TreeInput(I_AD_TreeInput AD_Tree) {
+		this.mAD_Tree = AD_Tree;
 		MTree foreignEntity;
 		if (get_ID() == 0 &&AD_Tree != null &&
 				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
 						.setParameters(AD_Tree.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Tree_ID(foreignEntity.get_ID());
+			super.setAD_Tree_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -74,30 +80,9 @@ public class X_C_ElementInput extends X_C_Element implements I_C_ElementInput {
 	 *
 	 * @return Identifies a Tree
 	 */
-	public I_AD_TreeInput getAD_Tree() {
-		return AD_Tree;
-	}
-	/**
-	 * Set Tree.
-	 *
-	 * @param AD_Tree_ID Identifies a Tree
-	 */
-
-	public void setAD_Tree_ID(int AD_Tree_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Tree_ID(AD_Tree_ID);
-		}
-	}
-	/**
-	 * Set Element.
-	 *
-	 * @param C_Element_ID Accounting Element
-	 */
-
-	public void setC_Element_ID(int C_Element_ID) {
-		if (get_ID() == 0) {
-			super.setC_Element_ID(C_Element_ID);
-		}
+	@JsonProperty("AD_Tree")
+	public I_AD_TreeInput AD_Tree() {
+		return mAD_Tree;
 	}
 
 	/**
@@ -121,14 +106,15 @@ public class X_C_ElementInput extends X_C_Element implements I_C_ElementInput {
 	/**
 	 * Set Type.
 	 *
-	 * @param ElementType_RL Element Type (account or user defined)
+	 * @param ElementType Element Type (account or user defined)
 	 */
-	public void setElementType_RL(I_AD_Ref_ListInput ElementType_RL) {
-		this.ElementType_RL = ElementType_RL;
-		MRefList foreignEntity;
-		if (get_ID() == 0 &&ElementType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ElementType_RL.getID())
+	@JsonProperty("ElementType")
+	public void setElementTypeInput(I_AD_Ref_ListInput ElementType) {
+		this.mElementType = ElementType;
+		MRefList_BH foreignEntity;
+		if (get_ID() == 0 &&ElementType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(ElementType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setElementType(foreignEntity.getValue());
 		}
@@ -139,7 +125,8 @@ public class X_C_ElementInput extends X_C_Element implements I_C_ElementInput {
 	 *
 	 * @return Element Type (account or user defined)
 	 */
-	public I_AD_Ref_ListInput getElementType_RL() {
-		return ElementType_RL;
+	@JsonProperty("ElementType")
+	public I_AD_Ref_ListInput ElementType() {
+		return mElementType;
 	}
 }

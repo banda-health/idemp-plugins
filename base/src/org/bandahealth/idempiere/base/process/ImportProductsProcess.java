@@ -82,7 +82,7 @@ public class ImportProductsProcess extends SvrProcess {
 
 		// Before doing anything, check if there is a warehouse set for quantities
 		List<MWarehouse_BH> clientWarehouses = new Query(getCtx(), MWarehouse_BH.Table_Name,
-				MWarehouse_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MWarehouse_BH.COLUMNNAME_BH_DEFAULTWAREHOUSE + "=?",
+				MWarehouse_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MWarehouse_BH.COLUMNNAME_BH_DefaultWarehouse + "=?",
 				get_TrxName()).setParameters(clientId, "Y").setOnlyActiveRecords(true).list();
 
 		if (clientWarehouses.isEmpty()) {

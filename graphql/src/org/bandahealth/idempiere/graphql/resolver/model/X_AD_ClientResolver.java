@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_LanguageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PasswordRuleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -10,7 +11,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReplicationStrateg
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MPasswordRule;
-import org.compiere.model.MRefList;
 import org.compiere.model.MReplicationStrategy;
 import org.dataloader.DataLoader;
 
@@ -147,7 +147,7 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 	 *
 	 * @return Language for this entity
 	 */
-	public CompletableFuture<MLanguage> AD_Language_L(MClient_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MLanguage> AD_Language(MClient_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAD_Language())) {
 			return null;
 		}
@@ -194,13 +194,37 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 			put("3", "c647f6d8-6c62-4f1d-95b7-9512e4e0af07");
 		}
 	};
-	public CompletableFuture<MRefList> AutoArchive_RL(MClient_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> AutoArchive(MClient_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAutoArchive())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(AUTOARCHIVE_UUIDS_BY_VALUE.get(entity.getAutoArchive()));
+	}
+
+	public Boolean IsMultiLingualDocument(MClient_BH entity, DataFetchingEnvironment environment) {
+		return entity.isMultiLingualDocument();
+	}
+
+	public Boolean IsPostImmediate(MClient_BH entity, DataFetchingEnvironment environment) {
+		return entity.isPostImmediate();
+	}
+
+	public Boolean IsSecureSMTP(MClient_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSecureSMTP();
+	}
+
+	public Boolean IsSmtpAuthorization(MClient_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSmtpAuthorization();
+	}
+
+	public Boolean IsUseASP(MClient_BH entity, DataFetchingEnvironment environment) {
+		return entity.isUseASP();
+	}
+
+	public Boolean IsUseBetaFunctions(MClient_BH entity, DataFetchingEnvironment environment) {
+		return entity.isUseBetaFunctions();
 	}
 
 	static Map<String, String> MMPOLICY_UUIDS_BY_VALUE = new HashMap<>() {
@@ -209,11 +233,11 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 			put("F", "b1ed1550-7c2f-402b-b47a-b700929da0f6");
 		}
 	};
-	public CompletableFuture<MRefList> MMPolicy_RL(MClient_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> MMPolicy(MClient_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getMMPolicy())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(MMPOLICY_UUIDS_BY_VALUE.get(entity.getMMPolicy()));
 	}

@@ -15,14 +15,14 @@ public interface I_C_PaymentTermInput extends I_C_PaymentTerm {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -39,30 +39,30 @@ public interface I_C_PaymentTermInput extends I_C_PaymentTerm {
 	String getID();
 
 	/**
-	 * Set NetDay_RL.
+	 * Set NetDay.
 	 *
-	 * @param NetDay_RL Day when payment is due net
+	 * @param NetDay Day when payment is due net
 	 */
-	void setNetDay_RL(I_AD_Ref_ListInput NetDay_RL);
+	void setNetDayInput(I_AD_Ref_ListInput NetDay);
 
 	/**
-	 * Get NetDay_RL.
+	 * Get NetDay.
 	 *
 	 * @return Day when payment is due net
 	 */
-	I_AD_Ref_ListInput getNetDay_RL();
+	I_AD_Ref_ListInput NetDay();
 
 	/**
-	 * Set PaymentTermUsage_RL.
+	 * Set PaymentTermUsage.
 	 *
-	 * @param PaymentTermUsage_RL Payment term usage indicates if this payment term is used for sales, purchases or both.
+	 * @param PaymentTermUsage Payment term usage indicates if this payment term is used for sales, purchases or both.
 	 */
-	void setPaymentTermUsage_RL(I_AD_Ref_ListInput PaymentTermUsage_RL);
+	void setPaymentTermUsageInput(I_AD_Ref_ListInput PaymentTermUsage);
 
 	/**
-	 * Get PaymentTermUsage_RL.
+	 * Get PaymentTermUsage.
 	 *
 	 * @return Payment term usage indicates if this payment term is used for sales, purchases or both.
 	 */
-	I_AD_Ref_ListInput getPaymentTermUsage_RL();
+	I_AD_Ref_ListInput PaymentTermUsage();
 }

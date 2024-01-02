@@ -11,32 +11,32 @@ import org.compiere.model.I_AD_Rule;
 public interface I_AD_RuleInput extends I_AD_Rule {
 
 	/**
-	 * Set AccessLevel_RL.
+	 * Set AccessLevel.
 	 *
-	 * @param AccessLevel_RL Access Level required
+	 * @param AccessLevel Access Level required
 	 */
-	void setAccessLevel_RL(I_AD_Ref_ListInput AccessLevel_RL);
+	void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel);
 
 	/**
-	 * Get AccessLevel_RL.
+	 * Get AccessLevel.
 	 *
 	 * @return Access Level required
 	 */
-	I_AD_Ref_ListInput getAccessLevel_RL();
+	I_AD_Ref_ListInput AccessLevel();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -57,40 +57,40 @@ public interface I_AD_RuleInput extends I_AD_Rule {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput getAD_EntityType();
+	I_AD_EntityTypeInput AD_EntityType();
 
 	/**
-	 * Set EventType_RL.
+	 * Set EventType.
 	 *
-	 * @param EventType_RL Type of Event
+	 * @param EventType Type of Event
 	 */
-	void setEventType_RL(I_AD_Ref_ListInput EventType_RL);
+	void setEventTypeInput(I_AD_Ref_ListInput EventType);
 
 	/**
-	 * Get EventType_RL.
+	 * Get EventType.
 	 *
 	 * @return Type of Event
 	 */
-	I_AD_Ref_ListInput getEventType_RL();
+	I_AD_Ref_ListInput EventType();
 
 	/**
-	 * Set RuleType_RL.
+	 * Set RuleType.
 	 *
-	 * @param RuleType_RL RuleType_RL
+	 * @param RuleType RuleType
 	 */
-	void setRuleType_RL(I_AD_Ref_ListInput RuleType_RL);
+	void setRuleTypeInput(I_AD_Ref_ListInput RuleType);
 
 	/**
-	 * Get RuleType_RL.
+	 * Get RuleType.
 	 *
-	 * @return RuleType_RL
+	 * @return RuleType
 	 */
-	I_AD_Ref_ListInput getRuleType_RL();
+	I_AD_Ref_ListInput RuleType();
 }

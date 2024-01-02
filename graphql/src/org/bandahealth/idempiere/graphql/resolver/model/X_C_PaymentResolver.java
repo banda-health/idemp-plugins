@@ -6,10 +6,12 @@ import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_VisitDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ActivityDataLoader;
@@ -37,13 +39,11 @@ import org.compiere.model.MBPBankAccount;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MCashBook;
 import org.compiere.model.MConversionType;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MDepositBatch;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MPaymentBatch;
 import org.compiere.model.MPaymentProcessor;
 import org.compiere.model.MProject;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_C_POSTenderType;
 import org.dataloader.DataLoader;
 
@@ -201,11 +201,11 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MPayment_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MPayment_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
@@ -341,11 +341,11 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 			put("P", "32dc3f71-74c1-4868-9c34-4db70edce0c2");
 		}
 	};
-	public CompletableFuture<MRefList> CreditCardType_RL(MPayment_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CreditCardType(MPayment_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCreditCardType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CREDITCARDTYPE_UUIDS_BY_VALUE.get(entity.getCreditCardType()));
 	}
@@ -368,11 +368,11 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 			put("WC", "2143c53d-f6a6-4da6-8fe6-4ce4b6dacac0");
 		}
 	};
-	public CompletableFuture<MRefList> DocAction_RL(MPayment_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocAction(MPayment_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocAction())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
@@ -393,13 +393,69 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 			put("WC", "56264c44-b530-4a53-b07b-6fb203ff61a6");
 		}
 	};
-	public CompletableFuture<MRefList> DocStatus_RL(MPayment_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocStatus(MPayment_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocStatus())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
+	}
+
+	public Boolean IsAllocated(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isAllocated();
+	}
+
+	public Boolean IsApproved(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isApproved();
+	}
+
+	public Boolean IsDelayedCapture(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isDelayedCapture();
+	}
+
+	public Boolean IsOnline(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isOnline();
+	}
+
+	public Boolean IsOverrideCurrencyRate(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isOverrideCurrencyRate();
+	}
+
+	public Boolean IsOverUnderPayment(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isOverUnderPayment();
+	}
+
+	public Boolean IsPrepayment(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isPrepayment();
+	}
+
+	public Boolean IsReceipt(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isReceipt();
+	}
+
+	public Boolean IsReconciled(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isReconciled();
+	}
+
+	public Boolean IsSelfService(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isSelfService();
+	}
+
+	public Boolean IsVoided(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isVoided();
+	}
+
+	public Boolean Posted(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isPosted();
+	}
+
+	public Boolean Processed(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isProcessed();
+	}
+
+	public Boolean Processing(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
 	}
 
 	static Map<String, String> R_AVSADDR_UUIDS_BY_VALUE = new HashMap<>() {
@@ -409,11 +465,11 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 			put("X", "2779bac6-1d0b-42b4-ac7e-20e6a8c9b294");
 		}
 	};
-	public CompletableFuture<MRefList> R_AvsAddr_RL(MPayment_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> R_AvsAddr(MPayment_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getR_AvsAddr())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(R_AVSADDR_UUIDS_BY_VALUE.get(entity.getR_AvsAddr()));
 	}
@@ -425,13 +481,17 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 			put("X", "2779bac6-1d0b-42b4-ac7e-20e6a8c9b294");
 		}
 	};
-	public CompletableFuture<MRefList> R_AvsZip_RL(MPayment_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> R_AvsZip(MPayment_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getR_AvsZip())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(R_AVSZIP_UUIDS_BY_VALUE.get(entity.getR_AvsZip()));
+	}
+
+	public Boolean R_CVV2Match(MPayment_BH entity, DataFetchingEnvironment environment) {
+		return entity.isR_CVV2Match();
 	}
 
 
@@ -486,11 +546,11 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 			put("U", "97e54f17-fbae-40de-8dbd-e8ad7f884732");
 		}
 	};
-	public CompletableFuture<MRefList> TenderType_RL(MPayment_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> TenderType(MPayment_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getTenderType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(TENDERTYPE_UUIDS_BY_VALUE.get(entity.getTenderType()));
 	}
@@ -505,11 +565,11 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 			put("V", "0778d779-1c5a-47eb-b68e-c94771517f0f");
 		}
 	};
-	public CompletableFuture<MRefList> TrxType_RL(MPayment_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> TrxType(MPayment_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getTrxType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(TRXTYPE_UUIDS_BY_VALUE.get(entity.getTrxType()));
 	}

@@ -4,6 +4,7 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WorkflowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_AcctSchemaDataLoader;
@@ -16,7 +17,6 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCostElement;
 import org.compiere.model.MCostType;
-import org.compiere.model.MRefList;
 import org.compiere.model.X_AD_Workflow;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_PP_Order;
@@ -78,11 +78,11 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 			put("x", "c788f7ef-7cf6-479e-85fc-7212ae0a9f9b");
 		}
 	};
-	public CompletableFuture<MRefList> CostingMethod_RL(X_PP_Order_Cost entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CostingMethod(X_PP_Order_Cost entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCostingMethod())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(COSTINGMETHOD_UUIDS_BY_VALUE.get(entity.getCostingMethod()));
 	}

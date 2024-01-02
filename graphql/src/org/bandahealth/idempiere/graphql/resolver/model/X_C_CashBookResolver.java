@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.compiere.model.MCashBook;
-import org.compiere.model.MCurrency;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -24,13 +24,17 @@ public class X_C_CashBookResolver extends POResolver<MCashBook> implements Graph
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MCashBook entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MCashBook entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
+	}
+
+	public Boolean IsDefault(MCashBook entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
 	}
 
 }

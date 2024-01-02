@@ -24,7 +24,6 @@ type AD_User {
 	AD_Org: AD_Org!
 	ID: ID!
 	Answer: String
-	bandahealth_bpartners: String
 	BH_HasAcceptedTermsOfUse: Boolean!
 	BH_TOS_DATE_ACCEPTED: Date
 	# Birthday or Anniversary day
@@ -49,7 +48,7 @@ type AD_User {
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	DateAccountLocked: Date
 	DateLastLogin: Date
 	DatePasswordChanged: Date
@@ -65,7 +64,6 @@ type AD_User {
 	EMailVerify: String
 	# Date Email was verified
 	EMailVerifyDate: Date
-	eve_bpartners: String
 	FailedLoginCount: Int!
 	# Facsimile number
 	Fax: String
@@ -82,7 +80,7 @@ type AD_User {
 	IsInPayroll: Boolean!
 	IsLocked: Boolean!
 	# If ticked, the menu is automatically expanded
-	IsMenuAutoExpand_RL: AD_Ref_List
+	IsMenuAutoExpand: AD_Ref_List
 	IsNoExpire: Boolean!
 	IsNoPasswordReset: Boolean!
 	# This contact is a sales lead
@@ -99,17 +97,17 @@ type AD_User {
 	# User Name used for authorization via LDAP (directory) services
 	LDAPUser: String
 	# The source of this lead/opportunity
-	LeadSource_RL: AD_Ref_List
+	LeadSource: AD_Ref_List
 	# Additional information on the source of this lead/opportunity
 	LeadSourceDescription: String
 	# The status of this lead/opportunity in the sales cycle
-	LeadStatus_RL: AD_Ref_List
+	LeadStatus: AD_Ref_List
 	# Additional information on the status of this lead/opportunity
 	LeadStatusDescription: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Type of Notifications
-	NotificationType_RL: AD_Ref_List!
+	NotificationType: AD_Ref_List!
 	# Password of any length (case sensitive)
 	Password: String
 	# Identifies a telephone number
@@ -130,7 +128,7 @@ type AD_User {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	UserPIN: String
 	# Search key for the record in the format required - must be unique
 	Value: String
@@ -143,7 +141,6 @@ input AD_UserInput {
 	AD_Org: AD_OrgInput
 	ID: ID
 	Answer: String
-	bandahealth_bpartners: String
 	BH_HasAcceptedTermsOfUse: Boolean
 	BH_TOS_DATE_ACCEPTED: Date
 	# Birthday or Anniversary day
@@ -180,7 +177,6 @@ input AD_UserInput {
 	EMailVerify: String
 	# Date Email was verified
 	EMailVerifyDate: Date
-	eve_bpartners: String
 	FailedLoginCount: Int
 	# Facsimile number
 	Fax: String
@@ -197,7 +193,7 @@ input AD_UserInput {
 	IsInPayroll: Boolean
 	IsLocked: Boolean
 	# If ticked, the menu is automatically expanded
-	IsMenuAutoExpand_RL: AD_Ref_ListInput
+	IsMenuAutoExpand: AD_Ref_ListInput
 	IsNoExpire: Boolean
 	IsNoPasswordReset: Boolean
 	# This contact is a sales lead
@@ -214,17 +210,17 @@ input AD_UserInput {
 	# User Name used for authorization via LDAP (directory) services
 	LDAPUser: String
 	# The source of this lead/opportunity
-	LeadSource_RL: AD_Ref_ListInput
+	LeadSource: AD_Ref_ListInput
 	# Additional information on the source of this lead/opportunity
 	LeadSourceDescription: String
 	# The status of this lead/opportunity in the sales cycle
-	LeadStatus_RL: AD_Ref_ListInput
+	LeadStatus: AD_Ref_ListInput
 	# Additional information on the status of this lead/opportunity
 	LeadStatusDescription: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Type of Notifications
-	NotificationType_RL: AD_Ref_ListInput
+	NotificationType: AD_Ref_ListInput
 	# Password of any length (case sensitive)
 	Password: String
 	# Identifies a telephone number

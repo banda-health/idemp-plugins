@@ -1,9 +1,11 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MImage;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
@@ -18,23 +20,24 @@ import org.compiere.util.Env;
  */
 public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements I_AD_PrintTableFormatInput {
 
-	 private I_AD_ImageInput AD_Image;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_PrintColorInput FunctBG_PrintColor;
-	 private I_AD_PrintColorInput FunctFG_PrintColor;
-	 private I_AD_PrintColorInput HdrLine_PrintColor;
-	 private I_AD_PrintColorInput HdrTextBG_PrintColor;
-	 private I_AD_PrintColorInput HdrTextFG_PrintColor;
-	 private I_AD_PrintColorInput Line_PrintColor;
-	 private I_AD_PrintFontInput Funct_PrintFont;
-	 private I_AD_PrintFontInput Hdr_PrintFont;
-	 private I_AD_Ref_ListInput HdrStrokeType_RL;
-	 private I_AD_Ref_ListInput LineStrokeType_RL;
+	 private I_AD_ImageInput mAD_Image;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_PrintColorInput mFunctBG_PrintColor;
+	 private I_AD_PrintColorInput mFunctFG_PrintColor;
+	 private I_AD_PrintColorInput mHdrLine_PrintColor;
+	 private I_AD_PrintColorInput mHdrTextBG_PrintColor;
+	 private I_AD_PrintColorInput mHdrTextFG_PrintColor;
+	 private I_AD_PrintColorInput mLine_PrintColor;
+	 private I_AD_PrintFontInput mFunct_PrintFont;
+	 private I_AD_PrintFontInput mHdr_PrintFont;
+	 private I_AD_Ref_ListInput mHdrStrokeType;
+	 private I_AD_Ref_ListInput mLineStrokeType;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_PrintTableFormatInput(String ID) {
+	@JsonCreator
+	public X_AD_PrintTableFormatInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -44,16 +47,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @param AD_Image Image or Icon
 	 */
-	public void setAD_Image(I_AD_ImageInput AD_Image) {
-		this.AD_Image = AD_Image;
+	@JsonProperty("AD_Image")
+	public void setAD_ImageInput(I_AD_ImageInput AD_Image) {
+		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
 				(foreignEntity = new Query(getCtx(), MImage.Table_Name, MImage.COLUMNNAME_AD_Image_UU + "=?", get_TrxName())
 						.setParameters(AD_Image.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Image_ID(foreignEntity.get_ID());
+			super.setAD_Image_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Image_ID(0);
+			super.setAD_Image_ID(0);
 		}
 	}
 
@@ -62,8 +66,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Image or Icon
 	 */
-	public I_AD_ImageInput getAD_Image() {
-		return AD_Image;
+	@JsonProperty("AD_Image")
+	public I_AD_ImageInput AD_Image() {
+		return mAD_Image;
 	}
 
 	/**
@@ -71,14 +76,15 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -87,19 +93,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Print Table Format.
-	 *
-	 * @param AD_PrintTableFormat_ID Table Format in Reports
-	 */
-
-	public void setAD_PrintTableFormat_ID(int AD_PrintTableFormat_ID) {
-		if (get_ID() == 0) {
-			super.setAD_PrintTableFormat_ID(AD_PrintTableFormat_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -125,16 +121,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @param Funct_PrintFont Function row Font
 	 */
-	public void setFunct_PrintFont(I_AD_PrintFontInput Funct_PrintFont) {
-		this.Funct_PrintFont = Funct_PrintFont;
+	@JsonProperty("Funct_PrintFont")
+	public void setFunct_PrintFontInput(I_AD_PrintFontInput Funct_PrintFont) {
+		this.mFunct_PrintFont = Funct_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (Funct_PrintFont != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintFont.Table_Name, X_AD_PrintFont.COLUMNNAME_AD_PrintFont_UU + "=?", get_TrxName())
 						.setParameters(Funct_PrintFont.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setFunct_PrintFont_ID(foreignEntity.get_ID());
+			super.setFunct_PrintFont_ID(foreignEntity.get_ID());
 		} else {
-			this.setFunct_PrintFont_ID(0);
+			super.setFunct_PrintFont_ID(0);
 		}
 	}
 
@@ -143,19 +140,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Function row Font
 	 */
-	public I_AD_PrintFontInput getFunct_PrintFont() {
-		return Funct_PrintFont;
-	}
-	/**
-	 * Set Function Font.
-	 *
-	 * @param Funct_PrintFont_ID Function row Font
-	 */
-
-	public void setFunct_PrintFont_ID(int Funct_PrintFont_ID) {
-		if (get_ID() == 0) {
-			super.setFunct_PrintFont_ID(Funct_PrintFont_ID);
-		}
+	@JsonProperty("Funct_PrintFont")
+	public I_AD_PrintFontInput Funct_PrintFont() {
+		return mFunct_PrintFont;
 	}
 
 	/**
@@ -163,16 +150,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @param FunctBG_PrintColor Function Background Color
 	 */
-	public void setFunctBG_PrintColor(I_AD_PrintColorInput FunctBG_PrintColor) {
-		this.FunctBG_PrintColor = FunctBG_PrintColor;
+	@JsonProperty("FunctBG_PrintColor")
+	public void setFunctBG_PrintColorInput(I_AD_PrintColorInput FunctBG_PrintColor) {
+		this.mFunctBG_PrintColor = FunctBG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (FunctBG_PrintColor != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
 						.setParameters(FunctBG_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setFunctBG_PrintColor_ID(foreignEntity.get_ID());
+			super.setFunctBG_PrintColor_ID(foreignEntity.get_ID());
 		} else {
-			this.setFunctBG_PrintColor_ID(0);
+			super.setFunctBG_PrintColor_ID(0);
 		}
 	}
 
@@ -181,19 +169,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Function Background Color
 	 */
-	public I_AD_PrintColorInput getFunctBG_PrintColor() {
-		return FunctBG_PrintColor;
-	}
-	/**
-	 * Set Function BG Color.
-	 *
-	 * @param FunctBG_PrintColor_ID Function Background Color
-	 */
-
-	public void setFunctBG_PrintColor_ID(int FunctBG_PrintColor_ID) {
-		if (get_ID() == 0) {
-			super.setFunctBG_PrintColor_ID(FunctBG_PrintColor_ID);
-		}
+	@JsonProperty("FunctBG_PrintColor")
+	public I_AD_PrintColorInput FunctBG_PrintColor() {
+		return mFunctBG_PrintColor;
 	}
 
 	/**
@@ -201,16 +179,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @param FunctFG_PrintColor Function Foreground Color
 	 */
-	public void setFunctFG_PrintColor(I_AD_PrintColorInput FunctFG_PrintColor) {
-		this.FunctFG_PrintColor = FunctFG_PrintColor;
+	@JsonProperty("FunctFG_PrintColor")
+	public void setFunctFG_PrintColorInput(I_AD_PrintColorInput FunctFG_PrintColor) {
+		this.mFunctFG_PrintColor = FunctFG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (FunctFG_PrintColor != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
 						.setParameters(FunctFG_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setFunctFG_PrintColor_ID(foreignEntity.get_ID());
+			super.setFunctFG_PrintColor_ID(foreignEntity.get_ID());
 		} else {
-			this.setFunctFG_PrintColor_ID(0);
+			super.setFunctFG_PrintColor_ID(0);
 		}
 	}
 
@@ -219,19 +198,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Function Foreground Color
 	 */
-	public I_AD_PrintColorInput getFunctFG_PrintColor() {
-		return FunctFG_PrintColor;
-	}
-	/**
-	 * Set Function Color.
-	 *
-	 * @param FunctFG_PrintColor_ID Function Foreground Color
-	 */
-
-	public void setFunctFG_PrintColor_ID(int FunctFG_PrintColor_ID) {
-		if (get_ID() == 0) {
-			super.setFunctFG_PrintColor_ID(FunctFG_PrintColor_ID);
-		}
+	@JsonProperty("FunctFG_PrintColor")
+	public I_AD_PrintColorInput FunctFG_PrintColor() {
+		return mFunctFG_PrintColor;
 	}
 
 	/**
@@ -239,16 +208,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @param Hdr_PrintFont Header row Font
 	 */
-	public void setHdr_PrintFont(I_AD_PrintFontInput Hdr_PrintFont) {
-		this.Hdr_PrintFont = Hdr_PrintFont;
+	@JsonProperty("Hdr_PrintFont")
+	public void setHdr_PrintFontInput(I_AD_PrintFontInput Hdr_PrintFont) {
+		this.mHdr_PrintFont = Hdr_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (Hdr_PrintFont != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintFont.Table_Name, X_AD_PrintFont.COLUMNNAME_AD_PrintFont_UU + "=?", get_TrxName())
 						.setParameters(Hdr_PrintFont.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setHdr_PrintFont_ID(foreignEntity.get_ID());
+			super.setHdr_PrintFont_ID(foreignEntity.get_ID());
 		} else {
-			this.setHdr_PrintFont_ID(0);
+			super.setHdr_PrintFont_ID(0);
 		}
 	}
 
@@ -257,19 +227,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Header row Font
 	 */
-	public I_AD_PrintFontInput getHdr_PrintFont() {
-		return Hdr_PrintFont;
-	}
-	/**
-	 * Set Header Row Font.
-	 *
-	 * @param Hdr_PrintFont_ID Header row Font
-	 */
-
-	public void setHdr_PrintFont_ID(int Hdr_PrintFont_ID) {
-		if (get_ID() == 0) {
-			super.setHdr_PrintFont_ID(Hdr_PrintFont_ID);
-		}
+	@JsonProperty("Hdr_PrintFont")
+	public I_AD_PrintFontInput Hdr_PrintFont() {
+		return mHdr_PrintFont;
 	}
 
 	/**
@@ -277,16 +237,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @param HdrLine_PrintColor Table header row line color
 	 */
-	public void setHdrLine_PrintColor(I_AD_PrintColorInput HdrLine_PrintColor) {
-		this.HdrLine_PrintColor = HdrLine_PrintColor;
+	@JsonProperty("HdrLine_PrintColor")
+	public void setHdrLine_PrintColorInput(I_AD_PrintColorInput HdrLine_PrintColor) {
+		this.mHdrLine_PrintColor = HdrLine_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (HdrLine_PrintColor != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
 						.setParameters(HdrLine_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setHdrLine_PrintColor_ID(foreignEntity.get_ID());
+			super.setHdrLine_PrintColor_ID(foreignEntity.get_ID());
 		} else {
-			this.setHdrLine_PrintColor_ID(0);
+			super.setHdrLine_PrintColor_ID(0);
 		}
 	}
 
@@ -295,32 +256,23 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Table header row line color
 	 */
-	public I_AD_PrintColorInput getHdrLine_PrintColor() {
-		return HdrLine_PrintColor;
-	}
-	/**
-	 * Set Header Line Color.
-	 *
-	 * @param HdrLine_PrintColor_ID Table header row line color
-	 */
-
-	public void setHdrLine_PrintColor_ID(int HdrLine_PrintColor_ID) {
-		if (get_ID() == 0) {
-			super.setHdrLine_PrintColor_ID(HdrLine_PrintColor_ID);
-		}
+	@JsonProperty("HdrLine_PrintColor")
+	public I_AD_PrintColorInput HdrLine_PrintColor() {
+		return mHdrLine_PrintColor;
 	}
 
 	/**
 	 * Set Header Stroke Type.
 	 *
-	 * @param HdrStrokeType_RL Type of the Header Line Stroke
+	 * @param HdrStrokeType Type of the Header Line Stroke
 	 */
-	public void setHdrStrokeType_RL(I_AD_Ref_ListInput HdrStrokeType_RL) {
-		this.HdrStrokeType_RL = HdrStrokeType_RL;
-		MRefList foreignEntity;
-		if (HdrStrokeType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(HdrStrokeType_RL.getID())
+	@JsonProperty("HdrStrokeType")
+	public void setHdrStrokeTypeInput(I_AD_Ref_ListInput HdrStrokeType) {
+		this.mHdrStrokeType = HdrStrokeType;
+		MRefList_BH foreignEntity;
+		if (HdrStrokeType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(HdrStrokeType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setHdrStrokeType(foreignEntity.getValue());
 		} else {
@@ -333,8 +285,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Type of the Header Line Stroke
 	 */
-	public I_AD_Ref_ListInput getHdrStrokeType_RL() {
-		return HdrStrokeType_RL;
+	@JsonProperty("HdrStrokeType")
+	public I_AD_Ref_ListInput HdrStrokeType() {
+		return mHdrStrokeType;
 	}
 
 	/**
@@ -342,16 +295,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @param HdrTextBG_PrintColor Background color of header row
 	 */
-	public void setHdrTextBG_PrintColor(I_AD_PrintColorInput HdrTextBG_PrintColor) {
-		this.HdrTextBG_PrintColor = HdrTextBG_PrintColor;
+	@JsonProperty("HdrTextBG_PrintColor")
+	public void setHdrTextBG_PrintColorInput(I_AD_PrintColorInput HdrTextBG_PrintColor) {
+		this.mHdrTextBG_PrintColor = HdrTextBG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (HdrTextBG_PrintColor != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
 						.setParameters(HdrTextBG_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setHdrTextBG_PrintColor_ID(foreignEntity.get_ID());
+			super.setHdrTextBG_PrintColor_ID(foreignEntity.get_ID());
 		} else {
-			this.setHdrTextBG_PrintColor_ID(0);
+			super.setHdrTextBG_PrintColor_ID(0);
 		}
 	}
 
@@ -360,19 +314,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Background color of header row
 	 */
-	public I_AD_PrintColorInput getHdrTextBG_PrintColor() {
-		return HdrTextBG_PrintColor;
-	}
-	/**
-	 * Set Header Row BG Color.
-	 *
-	 * @param HdrTextBG_PrintColor_ID Background color of header row
-	 */
-
-	public void setHdrTextBG_PrintColor_ID(int HdrTextBG_PrintColor_ID) {
-		if (get_ID() == 0) {
-			super.setHdrTextBG_PrintColor_ID(HdrTextBG_PrintColor_ID);
-		}
+	@JsonProperty("HdrTextBG_PrintColor")
+	public I_AD_PrintColorInput HdrTextBG_PrintColor() {
+		return mHdrTextBG_PrintColor;
 	}
 
 	/**
@@ -380,16 +324,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @param HdrTextFG_PrintColor Foreground color if the table header row
 	 */
-	public void setHdrTextFG_PrintColor(I_AD_PrintColorInput HdrTextFG_PrintColor) {
-		this.HdrTextFG_PrintColor = HdrTextFG_PrintColor;
+	@JsonProperty("HdrTextFG_PrintColor")
+	public void setHdrTextFG_PrintColorInput(I_AD_PrintColorInput HdrTextFG_PrintColor) {
+		this.mHdrTextFG_PrintColor = HdrTextFG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (HdrTextFG_PrintColor != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
 						.setParameters(HdrTextFG_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setHdrTextFG_PrintColor_ID(foreignEntity.get_ID());
+			super.setHdrTextFG_PrintColor_ID(foreignEntity.get_ID());
 		} else {
-			this.setHdrTextFG_PrintColor_ID(0);
+			super.setHdrTextFG_PrintColor_ID(0);
 		}
 	}
 
@@ -398,19 +343,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Foreground color if the table header row
 	 */
-	public I_AD_PrintColorInput getHdrTextFG_PrintColor() {
-		return HdrTextFG_PrintColor;
-	}
-	/**
-	 * Set Header Row Color.
-	 *
-	 * @param HdrTextFG_PrintColor_ID Foreground color if the table header row
-	 */
-
-	public void setHdrTextFG_PrintColor_ID(int HdrTextFG_PrintColor_ID) {
-		if (get_ID() == 0) {
-			super.setHdrTextFG_PrintColor_ID(HdrTextFG_PrintColor_ID);
-		}
+	@JsonProperty("HdrTextFG_PrintColor")
+	public I_AD_PrintColorInput HdrTextFG_PrintColor() {
+		return mHdrTextFG_PrintColor;
 	}
 
 	/**
@@ -418,16 +353,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @param Line_PrintColor Table line color
 	 */
-	public void setLine_PrintColor(I_AD_PrintColorInput Line_PrintColor) {
-		this.Line_PrintColor = Line_PrintColor;
+	@JsonProperty("Line_PrintColor")
+	public void setLine_PrintColorInput(I_AD_PrintColorInput Line_PrintColor) {
+		this.mLine_PrintColor = Line_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (Line_PrintColor != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
 						.setParameters(Line_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setLine_PrintColor_ID(foreignEntity.get_ID());
+			super.setLine_PrintColor_ID(foreignEntity.get_ID());
 		} else {
-			this.setLine_PrintColor_ID(0);
+			super.setLine_PrintColor_ID(0);
 		}
 	}
 
@@ -436,32 +372,23 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Table line color
 	 */
-	public I_AD_PrintColorInput getLine_PrintColor() {
-		return Line_PrintColor;
-	}
-	/**
-	 * Set Line Color.
-	 *
-	 * @param Line_PrintColor_ID Table line color
-	 */
-
-	public void setLine_PrintColor_ID(int Line_PrintColor_ID) {
-		if (get_ID() == 0) {
-			super.setLine_PrintColor_ID(Line_PrintColor_ID);
-		}
+	@JsonProperty("Line_PrintColor")
+	public I_AD_PrintColorInput Line_PrintColor() {
+		return mLine_PrintColor;
 	}
 
 	/**
 	 * Set Line Stroke Type.
 	 *
-	 * @param LineStrokeType_RL Type of the Line Stroke
+	 * @param LineStrokeType Type of the Line Stroke
 	 */
-	public void setLineStrokeType_RL(I_AD_Ref_ListInput LineStrokeType_RL) {
-		this.LineStrokeType_RL = LineStrokeType_RL;
-		MRefList foreignEntity;
-		if (LineStrokeType_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(LineStrokeType_RL.getID())
+	@JsonProperty("LineStrokeType")
+	public void setLineStrokeTypeInput(I_AD_Ref_ListInput LineStrokeType) {
+		this.mLineStrokeType = LineStrokeType;
+		MRefList_BH foreignEntity;
+		if (LineStrokeType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(LineStrokeType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setLineStrokeType(foreignEntity.getValue());
 		} else {
@@ -474,7 +401,8 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 *
 	 * @return Type of the Line Stroke
 	 */
-	public I_AD_Ref_ListInput getLineStrokeType_RL() {
-		return LineStrokeType_RL;
+	@JsonProperty("LineStrokeType")
+	public I_AD_Ref_ListInput LineStrokeType() {
+		return mLineStrokeType;
 	}
 }

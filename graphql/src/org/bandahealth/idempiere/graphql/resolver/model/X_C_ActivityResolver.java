@@ -14,4 +14,8 @@ import org.dataloader.DataLoader;
 public class X_C_ActivityResolver extends POResolver<MActivity> implements GraphQLResolver<MActivity> {
 
 
+	public Boolean IsSummary(MActivity entity, DataFetchingEnvironment environment) {
+		return entity.isSummary();
+	}
+
 }

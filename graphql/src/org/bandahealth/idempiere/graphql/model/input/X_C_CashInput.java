@@ -1,15 +1,17 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
+import org.compiere.model.MCash;
 import org.compiere.model.MCashBook;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
-import org.compiere.model.MRefList;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_Cash;
 import org.compiere.util.Env;
 
 /**
@@ -18,22 +20,23 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
+public class X_C_CashInput extends MCash implements I_C_CashInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput DocAction_RL;
-	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_C_ActivityInput C_Activity;
-	 private I_C_CampaignInput C_Campaign;
-	 private I_C_CashBookInput C_CashBook;
-	 private I_C_ElementValueInput User1;
-	 private I_C_ElementValueInput User2;
-	 private I_C_ProjectInput C_Project;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mDocAction;
+	 private I_AD_Ref_ListInput mDocStatus;
+	 private I_C_ActivityInput mC_Activity;
+	 private I_C_CampaignInput mC_Campaign;
+	 private I_C_CashBookInput mC_CashBook;
+	 private I_C_ElementValueInput mUser1;
+	 private I_C_ElementValueInput mUser2;
+	 private I_C_ProjectInput mC_Project;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_CashInput(String ID) {
+	@JsonCreator
+	public X_C_CashInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -43,14 +46,15 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -59,8 +63,9 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -68,16 +73,17 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @param C_Activity Business Activity
 	 */
-	public void setC_Activity(I_C_ActivityInput C_Activity) {
-		this.C_Activity = C_Activity;
+	@JsonProperty("C_Activity")
+	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
 				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Activity_ID(foreignEntity.get_ID());
+			super.setC_Activity_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Activity_ID(0);
+			super.setC_Activity_ID(0);
 		}
 	}
 
@@ -86,8 +92,9 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @return Business Activity
 	 */
-	public I_C_ActivityInput getC_Activity() {
-		return C_Activity;
+	@JsonProperty("C_Activity")
+	public I_C_ActivityInput C_Activity() {
+		return mC_Activity;
 	}
 
 	/**
@@ -95,16 +102,17 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	public void setC_Campaign(I_C_CampaignInput C_Campaign) {
-		this.C_Campaign = C_Campaign;
+	@JsonProperty("C_Campaign")
+	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
 				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Campaign_ID(foreignEntity.get_ID());
+			super.setC_Campaign_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Campaign_ID(0);
+			super.setC_Campaign_ID(0);
 		}
 	}
 
@@ -113,19 +121,9 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @return Marketing Campaign
 	 */
-	public I_C_CampaignInput getC_Campaign() {
-		return C_Campaign;
-	}
-	/**
-	 * Set Cash Journal.
-	 *
-	 * @param C_Cash_ID Cash Journal
-	 */
-
-	public void setC_Cash_ID(int C_Cash_ID) {
-		if (get_ID() == 0) {
-			super.setC_Cash_ID(C_Cash_ID);
-		}
+	@JsonProperty("C_Campaign")
+	public I_C_CampaignInput C_Campaign() {
+		return mC_Campaign;
 	}
 
 	/**
@@ -151,14 +149,15 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @param C_CashBook Cash Book for recording petty cash transactions
 	 */
-	public void setC_CashBook(I_C_CashBookInput C_CashBook) {
-		this.C_CashBook = C_CashBook;
+	@JsonProperty("C_CashBook")
+	public void setC_CashBookInput(I_C_CashBookInput C_CashBook) {
+		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
 		if (get_ID() == 0 &&C_CashBook != null &&
 				(foreignEntity = new Query(getCtx(), MCashBook.Table_Name, MCashBook.COLUMNNAME_C_CashBook_UU + "=?", get_TrxName())
 						.setParameters(C_CashBook.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_CashBook_ID(foreignEntity.get_ID());
+			super.setC_CashBook_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -167,19 +166,9 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @return Cash Book for recording petty cash transactions
 	 */
-	public I_C_CashBookInput getC_CashBook() {
-		return C_CashBook;
-	}
-	/**
-	 * Set Cash Book.
-	 *
-	 * @param C_CashBook_ID Cash Book for recording petty cash transactions
-	 */
-
-	public void setC_CashBook_ID(int C_CashBook_ID) {
-		if (get_ID() == 0) {
-			super.setC_CashBook_ID(C_CashBook_ID);
-		}
+	@JsonProperty("C_CashBook")
+	public I_C_CashBookInput C_CashBook() {
+		return mC_CashBook;
 	}
 
 	/**
@@ -187,16 +176,17 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @param C_Project Financial Project
 	 */
-	public void setC_Project(I_C_ProjectInput C_Project) {
-		this.C_Project = C_Project;
+	@JsonProperty("C_Project")
+	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
 				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Project_ID(foreignEntity.get_ID());
+			super.setC_Project_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Project_ID(0);
+			super.setC_Project_ID(0);
 		}
 	}
 
@@ -205,21 +195,23 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @return Financial Project
 	 */
-	public I_C_ProjectInput getC_Project() {
-		return C_Project;
+	@JsonProperty("C_Project")
+	public I_C_ProjectInput C_Project() {
+		return mC_Project;
 	}
 
 	/**
 	 * Set Document Action.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	public void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL) {
-		this.DocAction_RL = DocAction_RL;
-		MRefList foreignEntity;
-		if (DocAction_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction_RL.getID())
+	@JsonProperty("DocAction")
+	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+		this.mDocAction = DocAction;
+		MRefList_BH foreignEntity;
+		if (DocAction != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocAction.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocAction(foreignEntity.getValue());
 		} else {
@@ -232,21 +224,23 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @return The targeted status of the document
 	 */
-	public I_AD_Ref_ListInput getDocAction_RL() {
-		return DocAction_RL;
+	@JsonProperty("DocAction")
+	public I_AD_Ref_ListInput DocAction() {
+		return mDocAction;
 	}
 
 	/**
 	 * Set Document Status.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	public void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL) {
-		this.DocStatus_RL = DocStatus_RL;
-		MRefList foreignEntity;
-		if (DocStatus_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus_RL.getID())
+	@JsonProperty("DocStatus")
+	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+		this.mDocStatus = DocStatus;
+		MRefList_BH foreignEntity;
+		if (DocStatus != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocStatus.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocStatus(foreignEntity.getValue());
 		} else {
@@ -259,8 +253,9 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @return The current status of the document
 	 */
-	public I_AD_Ref_ListInput getDocStatus_RL() {
-		return DocStatus_RL;
+	@JsonProperty("DocStatus")
+	public I_AD_Ref_ListInput DocStatus() {
+		return mDocStatus;
 	}
 	/**
 	 * Set Posted.
@@ -279,16 +274,17 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @param User1 User defined list element #1
 	 */
-	public void setUser1(I_C_ElementValueInput User1) {
-		this.User1 = User1;
+	@JsonProperty("User1")
+	public void setUser1Input(I_C_ElementValueInput User1) {
+		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
 				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setUser1_ID(foreignEntity.get_ID());
+			super.setUser1_ID(foreignEntity.get_ID());
 		} else {
-			this.setUser1_ID(0);
+			super.setUser1_ID(0);
 		}
 	}
 
@@ -297,19 +293,9 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @return User defined list element #1
 	 */
-	public I_C_ElementValueInput getUser1() {
-		return User1;
-	}
-	/**
-	 * Set User Element List 1.
-	 *
-	 * @param User1_ID User defined list element #1
-	 */
-
-	public void setUser1_ID(int User1_ID) {
-		if (get_ID() == 0) {
-			super.setUser1_ID(User1_ID);
-		}
+	@JsonProperty("User1")
+	public I_C_ElementValueInput User1() {
+		return mUser1;
 	}
 
 	/**
@@ -317,16 +303,17 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @param User2 User defined list element #2
 	 */
-	public void setUser2(I_C_ElementValueInput User2) {
-		this.User2 = User2;
+	@JsonProperty("User2")
+	public void setUser2Input(I_C_ElementValueInput User2) {
+		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
 				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setUser2_ID(foreignEntity.get_ID());
+			super.setUser2_ID(foreignEntity.get_ID());
 		} else {
-			this.setUser2_ID(0);
+			super.setUser2_ID(0);
 		}
 	}
 
@@ -335,18 +322,8 @@ public class X_C_CashInput extends X_C_Cash implements I_C_CashInput {
 	 *
 	 * @return User defined list element #2
 	 */
-	public I_C_ElementValueInput getUser2() {
-		return User2;
-	}
-	/**
-	 * Set User Element List 2.
-	 *
-	 * @param User2_ID User defined list element #2
-	 */
-
-	public void setUser2_ID(int User2_ID) {
-		if (get_ID() == 0) {
-			super.setUser2_ID(User2_ID);
-		}
+	@JsonProperty("User2")
+	public I_C_ElementValueInput User2() {
+		return mUser2;
 	}
 }

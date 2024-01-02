@@ -1,11 +1,13 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MCurrency;
+import org.compiere.model.MCountry;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_Country;
 import org.compiere.util.Env;
 
 /**
@@ -14,16 +16,17 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_C_CountryInput extends X_C_Country implements I_C_CountryInput {
+public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
 
-	 private I_AD_LanguageInput AD_Language_L;
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_CurrencyInput C_Currency;
+	 private I_AD_LanguageInput mAD_Language;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_CurrencyInput mC_Currency;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_CountryInput(String ID) {
+	@JsonCreator
+	public X_C_CountryInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,18 +34,19 @@ public class X_C_CountryInput extends X_C_Country implements I_C_CountryInput {
 	/**
 	 * Set Language.
 	 *
-	 * @param AD_Language_L Language for this entity
+	 * @param AD_Language Language for this entity
 	 */
-	public void setAD_Language_L(I_AD_LanguageInput AD_Language_L) {
-		this.AD_Language_L = AD_Language_L;
+	@JsonProperty("AD_Language")
+	public void setAD_LanguageInput(I_AD_LanguageInput AD_Language) {
+		this.mAD_Language = AD_Language;
 		MLanguage foreignEntity;
-		if (AD_Language_L != null &&
+		if (AD_Language != null &&
 				(foreignEntity = new Query(getCtx(), MLanguage.Table_Name, MLanguage.COLUMNNAME_AD_Language_UU + "=?", get_TrxName())
-						.setParameters(AD_Language_L.getID())
+						.setParameters(AD_Language.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Language(foreignEntity.getAD_Language());
+			super.setAD_Language(foreignEntity.getAD_Language());
 		} else {
-			this.setAD_Language(null);
+			super.setAD_Language(null);
 		}
 	}
 
@@ -51,19 +55,9 @@ public class X_C_CountryInput extends X_C_Country implements I_C_CountryInput {
 	 *
 	 * @return Language for this entity
 	 */
-	public I_AD_LanguageInput getAD_Language_L() {
-		return AD_Language_L;
-	}
-	/**
-	 * Set Language.
-	 *
-	 * @param AD_Language Language for this entity
-	 */
-
-	public void setAD_Language(String AD_Language) {
-		if (get_ID() == 0) {
-			super.setAD_Language(AD_Language);
-		}
+	@JsonProperty("AD_Language")
+	public I_AD_LanguageInput AD_Language() {
+		return mAD_Language;
 	}
 
 	/**
@@ -71,14 +65,15 @@ public class X_C_CountryInput extends X_C_Country implements I_C_CountryInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -87,19 +82,9 @@ public class X_C_CountryInput extends X_C_Country implements I_C_CountryInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Country.
-	 *
-	 * @param C_Country_ID Country 
-	 */
-
-	public void setC_Country_ID(int C_Country_ID) {
-		if (get_ID() == 0) {
-			super.setC_Country_ID(C_Country_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -125,16 +110,17 @@ public class X_C_CountryInput extends X_C_Country implements I_C_CountryInput {
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	public void setC_Currency(I_C_CurrencyInput C_Currency) {
-		this.C_Currency = C_Currency;
-		MCurrency foreignEntity;
+	@JsonProperty("C_Currency")
+	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+		this.mC_Currency = C_Currency;
+		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency.Table_Name, MCurrency.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Currency_ID(foreignEntity.get_ID());
+			super.setC_Currency_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Currency_ID(0);
+			super.setC_Currency_ID(0);
 		}
 	}
 
@@ -143,7 +129,8 @@ public class X_C_CountryInput extends X_C_Country implements I_C_CountryInput {
 	 *
 	 * @return The Currency for this record
 	 */
-	public I_C_CurrencyInput getC_Currency() {
-		return C_Currency;
+	@JsonProperty("C_Currency")
+	public I_C_CurrencyInput C_Currency() {
+		return mC_Currency;
 	}
 }

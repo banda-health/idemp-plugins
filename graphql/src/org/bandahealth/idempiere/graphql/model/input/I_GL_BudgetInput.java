@@ -15,28 +15,28 @@ public interface I_GL_BudgetInput extends I_GL_Budget {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
-	 * Set BudgetStatus_RL.
+	 * Set BudgetStatus.
 	 *
-	 * @param BudgetStatus_RL Indicates the current status of this budget
+	 * @param BudgetStatus Indicates the current status of this budget
 	 */
-	void setBudgetStatus_RL(I_AD_Ref_ListInput BudgetStatus_RL);
+	void setBudgetStatusInput(I_AD_Ref_ListInput BudgetStatus);
 
 	/**
-	 * Get BudgetStatus_RL.
+	 * Get BudgetStatus.
 	 *
 	 * @return Indicates the current status of this budget
 	 */
-	I_AD_Ref_ListInput getBudgetStatus_RL();
+	I_AD_Ref_ListInput BudgetStatus();
 
 	/**
 	 * Set ID.

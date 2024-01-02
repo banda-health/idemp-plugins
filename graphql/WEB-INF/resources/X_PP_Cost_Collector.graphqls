@@ -35,19 +35,19 @@ type PP_Cost_Collector {
 	# Unit of Measure
 	C_UOM: C_UOM
 	# Transaction Type for Manufacturing Management
-	CostCollectorType_RL: AD_Ref_List!
+	CostCollectorType: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
-	Create: AD_User!
+	CreatedBy: AD_User!
 	# Accounting Date
 	DateAcct: Date!
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction_RL: AD_Ref_List
+	DocAction: AD_Ref_List
 	# The current status of the document
-	DocStatus_RL: AD_Ref_List
+	DocStatus: AD_Ref_List
 	# Document sequence number of the document
 	DocumentNo: String
 	DurationReal: Int
@@ -92,7 +92,7 @@ type PP_Cost_Collector {
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
-	Update: AD_User!
+	UpdatedBy: AD_User!
 	# User defined list element #1
 	User1: AD_User
 	# User defined list element #2
@@ -117,15 +117,15 @@ input PP_Cost_CollectorInput {
 	# Unit of Measure
 	C_UOM: C_UOMInput
 	# Transaction Type for Manufacturing Management
-	CostCollectorType_RL: AD_Ref_ListInput
+	CostCollectorType: AD_Ref_ListInput
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction_RL: AD_Ref_ListInput
+	DocAction: AD_Ref_ListInput
 	# The current status of the document
-	DocStatus_RL: AD_Ref_ListInput
+	DocStatus: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
 	DurationReal: Int

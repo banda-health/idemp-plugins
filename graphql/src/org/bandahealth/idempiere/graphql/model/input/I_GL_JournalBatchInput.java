@@ -15,98 +15,98 @@ public interface I_GL_JournalBatchInput extends I_GL_JournalBatch {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set C_Currency.
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_Currency(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput getC_Currency();
+	I_C_CurrencyInput C_Currency();
 
 	/**
 	 * Set C_DocType.
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocType(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput getC_DocType();
+	I_C_DocTypeInput C_DocType();
 
 	/**
 	 * Set C_Period.
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	void setC_Period(I_C_PeriodInput C_Period);
+	void setC_PeriodInput(I_C_PeriodInput C_Period);
 
 	/**
 	 * Get C_Period.
 	 *
 	 * @return Period of the Calendar
 	 */
-	I_C_PeriodInput getC_Period();
+	I_C_PeriodInput C_Period();
 
 	/**
-	 * Set DocAction_RL.
+	 * Set DocAction.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL);
+	void setDocActionInput(I_AD_Ref_ListInput DocAction);
 
 	/**
-	 * Get DocAction_RL.
+	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput getDocAction_RL();
+	I_AD_Ref_ListInput DocAction();
 
 	/**
-	 * Set DocStatus_RL.
+	 * Set DocStatus.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL);
+	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
 
 	/**
-	 * Get DocStatus_RL.
+	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput getDocStatus_RL();
+	I_AD_Ref_ListInput DocStatus();
 
 	/**
 	 * Set GL_Category.
 	 *
 	 * @param GL_Category General Ledger Category
 	 */
-	void setGL_Category(I_GL_CategoryInput GL_Category);
+	void setGL_CategoryInput(I_GL_CategoryInput GL_Category);
 
 	/**
 	 * Get GL_Category.
 	 *
 	 * @return General Ledger Category
 	 */
-	I_GL_CategoryInput getGL_Category();
+	I_GL_CategoryInput GL_Category();
 
 	/**
 	 * Set ID.
@@ -123,30 +123,30 @@ public interface I_GL_JournalBatchInput extends I_GL_JournalBatch {
 	String getID();
 
 	/**
-	 * Set PostingType_RL.
+	 * Set PostingType.
 	 *
-	 * @param PostingType_RL The type of posted amount for the transaction
+	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingType_RL(I_AD_Ref_ListInput PostingType_RL);
+	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
 
 	/**
-	 * Get PostingType_RL.
+	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput getPostingType_RL();
+	I_AD_Ref_ListInput PostingType();
 
 	/**
 	 * Set Reversal.
 	 *
 	 * @param Reversal ID of document reversal
 	 */
-	void setReversal(I_GL_JournalBatchInput Reversal);
+	void setReversalInput(I_GL_JournalBatchInput Reversal);
 
 	/**
 	 * Get Reversal.
 	 *
 	 * @return ID of document reversal
 	 */
-	I_GL_JournalBatchInput getReversal();
+	I_GL_JournalBatchInput Reversal();
 }

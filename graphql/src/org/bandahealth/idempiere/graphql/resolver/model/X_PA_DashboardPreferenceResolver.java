@@ -52,6 +52,14 @@ public class X_PA_DashboardPreferenceResolver extends POResolver<MDashboardPrefe
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
+	public Boolean IsCollapsedByDefault(MDashboardPreference entity, DataFetchingEnvironment environment) {
+		return entity.isCollapsedByDefault();
+	}
+
+	public Boolean IsShowInDashboard(MDashboardPreference entity, DataFetchingEnvironment environment) {
+		return entity.isShowInDashboard();
+	}
+
 
 	/**
 	 * Get Dashboard Content.

@@ -1,13 +1,15 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPasswordRule;
-import org.compiere.model.MRefList;
 import org.compiere.model.MReplicationStrategy;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Client;
 import org.compiere.util.Env;
 
 /**
@@ -16,19 +18,20 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
+public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 
-	 private I_AD_LanguageInput AD_Language_L;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_PasswordRuleInput AD_PasswordRule;
-	 private I_AD_Ref_ListInput AutoArchive_RL;
-	 private I_AD_Ref_ListInput MMPolicy_RL;
-	 private I_AD_ReplicationStrategyInput AD_ReplicationStrategy;
+	 private I_AD_LanguageInput mAD_Language;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_PasswordRuleInput mAD_PasswordRule;
+	 private I_AD_Ref_ListInput mAutoArchive;
+	 private I_AD_Ref_ListInput mMMPolicy;
+	 private I_AD_ReplicationStrategyInput mAD_ReplicationStrategy;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_AD_ClientInput(String ID) {
+	@JsonCreator
+	public X_AD_ClientInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -54,18 +57,19 @@ public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
 	/**
 	 * Set Language.
 	 *
-	 * @param AD_Language_L Language for this entity
+	 * @param AD_Language Language for this entity
 	 */
-	public void setAD_Language_L(I_AD_LanguageInput AD_Language_L) {
-		this.AD_Language_L = AD_Language_L;
+	@JsonProperty("AD_Language")
+	public void setAD_LanguageInput(I_AD_LanguageInput AD_Language) {
+		this.mAD_Language = AD_Language;
 		MLanguage foreignEntity;
-		if (AD_Language_L != null &&
+		if (AD_Language != null &&
 				(foreignEntity = new Query(getCtx(), MLanguage.Table_Name, MLanguage.COLUMNNAME_AD_Language_UU + "=?", get_TrxName())
-						.setParameters(AD_Language_L.getID())
+						.setParameters(AD_Language.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Language(foreignEntity.getAD_Language());
+			super.setAD_Language(foreignEntity.getAD_Language());
 		} else {
-			this.setAD_Language(null);
+			super.setAD_Language(null);
 		}
 	}
 
@@ -74,19 +78,9 @@ public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
 	 *
 	 * @return Language for this entity
 	 */
-	public I_AD_LanguageInput getAD_Language_L() {
-		return AD_Language_L;
-	}
-	/**
-	 * Set Language.
-	 *
-	 * @param AD_Language Language for this entity
-	 */
-
-	public void setAD_Language(String AD_Language) {
-		if (get_ID() == 0) {
-			super.setAD_Language(AD_Language);
-		}
+	@JsonProperty("AD_Language")
+	public I_AD_LanguageInput AD_Language() {
+		return mAD_Language;
 	}
 
 	/**
@@ -94,14 +88,15 @@ public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -110,8 +105,9 @@ public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -119,16 +115,17 @@ public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
 	 *
 	 * @param AD_PasswordRule Password Policies
 	 */
-	public void setAD_PasswordRule(I_AD_PasswordRuleInput AD_PasswordRule) {
-		this.AD_PasswordRule = AD_PasswordRule;
+	@JsonProperty("AD_PasswordRule")
+	public void setAD_PasswordRuleInput(I_AD_PasswordRuleInput AD_PasswordRule) {
+		this.mAD_PasswordRule = AD_PasswordRule;
 		MPasswordRule foreignEntity;
 		if (AD_PasswordRule != null &&
 				(foreignEntity = new Query(getCtx(), MPasswordRule.Table_Name, MPasswordRule.COLUMNNAME_AD_PasswordRule_UU + "=?", get_TrxName())
 						.setParameters(AD_PasswordRule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_PasswordRule_ID(foreignEntity.get_ID());
+			super.setAD_PasswordRule_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_PasswordRule_ID(0);
+			super.setAD_PasswordRule_ID(0);
 		}
 	}
 
@@ -137,8 +134,9 @@ public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
 	 *
 	 * @return Password Policies
 	 */
-	public I_AD_PasswordRuleInput getAD_PasswordRule() {
-		return AD_PasswordRule;
+	@JsonProperty("AD_PasswordRule")
+	public I_AD_PasswordRuleInput AD_PasswordRule() {
+		return mAD_PasswordRule;
 	}
 
 	/**
@@ -146,16 +144,17 @@ public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
 	 *
 	 * @param AD_ReplicationStrategy Data Replication Strategy
 	 */
-	public void setAD_ReplicationStrategy(I_AD_ReplicationStrategyInput AD_ReplicationStrategy) {
-		this.AD_ReplicationStrategy = AD_ReplicationStrategy;
+	@JsonProperty("AD_ReplicationStrategy")
+	public void setAD_ReplicationStrategyInput(I_AD_ReplicationStrategyInput AD_ReplicationStrategy) {
+		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
 		MReplicationStrategy foreignEntity;
 		if (AD_ReplicationStrategy != null &&
 				(foreignEntity = new Query(getCtx(), MReplicationStrategy.Table_Name, MReplicationStrategy.COLUMNNAME_AD_ReplicationStrategy_UU + "=?", get_TrxName())
 						.setParameters(AD_ReplicationStrategy.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
+			super.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_ReplicationStrategy_ID(0);
+			super.setAD_ReplicationStrategy_ID(0);
 		}
 	}
 
@@ -164,21 +163,23 @@ public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
 	 *
 	 * @return Data Replication Strategy
 	 */
-	public I_AD_ReplicationStrategyInput getAD_ReplicationStrategy() {
-		return AD_ReplicationStrategy;
+	@JsonProperty("AD_ReplicationStrategy")
+	public I_AD_ReplicationStrategyInput AD_ReplicationStrategy() {
+		return mAD_ReplicationStrategy;
 	}
 
 	/**
 	 * Set Auto Archive.
 	 *
-	 * @param AutoArchive_RL Enable and level of automatic Archive of documents
+	 * @param AutoArchive Enable and level of automatic Archive of documents
 	 */
-	public void setAutoArchive_RL(I_AD_Ref_ListInput AutoArchive_RL) {
-		this.AutoArchive_RL = AutoArchive_RL;
-		MRefList foreignEntity;
-		if (AutoArchive_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(AutoArchive_RL.getID())
+	@JsonProperty("AutoArchive")
+	public void setAutoArchiveInput(I_AD_Ref_ListInput AutoArchive) {
+		this.mAutoArchive = AutoArchive;
+		MRefList_BH foreignEntity;
+		if (AutoArchive != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(AutoArchive.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setAutoArchive(foreignEntity.getValue());
 		} else {
@@ -191,21 +192,23 @@ public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
 	 *
 	 * @return Enable and level of automatic Archive of documents
 	 */
-	public I_AD_Ref_ListInput getAutoArchive_RL() {
-		return AutoArchive_RL;
+	@JsonProperty("AutoArchive")
+	public I_AD_Ref_ListInput AutoArchive() {
+		return mAutoArchive;
 	}
 
 	/**
 	 * Set Material Policy.
 	 *
-	 * @param MMPolicy_RL Material Movement Policy
+	 * @param MMPolicy Material Movement Policy
 	 */
-	public void setMMPolicy_RL(I_AD_Ref_ListInput MMPolicy_RL) {
-		this.MMPolicy_RL = MMPolicy_RL;
-		MRefList foreignEntity;
-		if (MMPolicy_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(MMPolicy_RL.getID())
+	@JsonProperty("MMPolicy")
+	public void setMMPolicyInput(I_AD_Ref_ListInput MMPolicy) {
+		this.mMMPolicy = MMPolicy;
+		MRefList_BH foreignEntity;
+		if (MMPolicy != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(MMPolicy.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setMMPolicy(foreignEntity.getValue());
 		} else {
@@ -218,7 +221,8 @@ public class X_AD_ClientInput extends X_AD_Client implements I_AD_ClientInput {
 	 *
 	 * @return Material Movement Policy
 	 */
-	public I_AD_Ref_ListInput getMMPolicy_RL() {
-		return MMPolicy_RL;
+	@JsonProperty("MMPolicy")
+	public I_AD_Ref_ListInput MMPolicy() {
+		return mMMPolicy;
 	}
 }

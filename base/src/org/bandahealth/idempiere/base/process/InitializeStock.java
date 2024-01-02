@@ -47,7 +47,7 @@ public class InitializeStock {
 							.setOrderBy(MWarehouse_BH.COLUMNNAME_M_Warehouse_ID).list();
 			if (!warehouses.isEmpty()) {
 				warehouse =
-						warehouses.stream().filter(MWarehouse_BH::isBH_IsDefaultWarehouse).findFirst().orElse(warehouses.get(0));
+						warehouses.stream().filter(MWarehouse_BH::isBH_DefaultWarehouse).findFirst().orElse(warehouses.get(0));
 			} else {
 				log.severe("No warehouses defined for organization.");
 				throw new AdempiereException("No warehouses defined for organization.");

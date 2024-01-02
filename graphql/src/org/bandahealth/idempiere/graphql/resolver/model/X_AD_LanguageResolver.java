@@ -33,4 +33,24 @@ public class X_AD_LanguageResolver extends POResolver<MLanguage> implements Grap
 		return dataLoader.load(entity.getAD_PrintPaper_ID());
 	}
 
+	public Boolean IsBaseLanguage(MLanguage entity, DataFetchingEnvironment environment) {
+		return entity.isBaseLanguage();
+	}
+
+	public Boolean IsDecimalPoint(MLanguage entity, DataFetchingEnvironment environment) {
+		return entity.isDecimalPoint();
+	}
+
+	public Boolean IsLoginLocale(MLanguage entity, DataFetchingEnvironment environment) {
+		return entity.isLoginLocale();
+	}
+
+	public Boolean IsSystemLanguage(MLanguage entity, DataFetchingEnvironment environment) {
+		return entity.isSystemLanguage();
+	}
+
+	public Boolean Processing(MLanguage entity, DataFetchingEnvironment environment) {
+		return entity.isProcessing();
+	}
+
 }

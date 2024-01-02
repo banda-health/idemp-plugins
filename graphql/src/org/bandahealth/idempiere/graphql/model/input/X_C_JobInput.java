@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -15,13 +17,14 @@ import org.compiere.util.Env;
  */
 public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_C_JobCategoryInput C_JobCategory;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_C_JobCategoryInput mC_JobCategory;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_C_JobInput(String ID) {
+	@JsonCreator
+	public X_C_JobInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -31,14 +34,15 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -47,19 +51,9 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
-	}
-	/**
-	 * Set Position.
-	 *
-	 * @param C_Job_ID Job Position
-	 */
-
-	public void setC_Job_ID(int C_Job_ID) {
-		if (get_ID() == 0) {
-			super.setC_Job_ID(C_Job_ID);
-		}
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -85,16 +79,17 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	 *
 	 * @param C_JobCategory Job Position Category
 	 */
-	public void setC_JobCategory(I_C_JobCategoryInput C_JobCategory) {
-		this.C_JobCategory = C_JobCategory;
+	@JsonProperty("C_JobCategory")
+	public void setC_JobCategoryInput(I_C_JobCategoryInput C_JobCategory) {
+		this.mC_JobCategory = C_JobCategory;
 		X_C_JobCategory foreignEntity;
 		if (C_JobCategory != null &&
 				(foreignEntity = new Query(getCtx(), X_C_JobCategory.Table_Name, X_C_JobCategory.COLUMNNAME_C_JobCategory_UU + "=?", get_TrxName())
 						.setParameters(C_JobCategory.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_JobCategory_ID(foreignEntity.get_ID());
+			super.setC_JobCategory_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_JobCategory_ID(0);
+			super.setC_JobCategory_ID(0);
 		}
 	}
 
@@ -103,7 +98,8 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	 *
 	 * @return Job Position Category
 	 */
-	public I_C_JobCategoryInput getC_JobCategory() {
-		return C_JobCategory;
+	@JsonProperty("C_JobCategory")
+	public I_C_JobCategoryInput C_JobCategory() {
+		return mC_JobCategory;
 	}
 }

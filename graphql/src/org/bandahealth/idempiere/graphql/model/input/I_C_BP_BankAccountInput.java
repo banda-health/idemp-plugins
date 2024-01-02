@@ -15,70 +15,70 @@ public interface I_C_BP_BankAccountInput extends I_C_BP_BankAccount {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	void setAD_User(I_AD_UserInput AD_User);
+	void setAD_UserInput(I_AD_UserInput AD_User);
 
 	/**
 	 * Get AD_User.
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	I_AD_UserInput getAD_User();
+	I_AD_UserInput AD_User();
 
 	/**
-	 * Set BankAccountType_RL.
+	 * Set BankAccountType.
 	 *
-	 * @param BankAccountType_RL Bank Account Type
+	 * @param BankAccountType Bank Account Type
 	 */
-	void setBankAccountType_RL(I_AD_Ref_ListInput BankAccountType_RL);
+	void setBankAccountTypeInput(I_AD_Ref_ListInput BankAccountType);
 
 	/**
-	 * Get BankAccountType_RL.
+	 * Get BankAccountType.
 	 *
 	 * @return Bank Account Type
 	 */
-	I_AD_Ref_ListInput getBankAccountType_RL();
+	I_AD_Ref_ListInput BankAccountType();
 
 	/**
-	 * Set BPBankAcctUse_RL.
+	 * Set BPBankAcctUse.
 	 *
-	 * @param BPBankAcctUse_RL Business Partner Bank Account usage
+	 * @param BPBankAcctUse Business Partner Bank Account usage
 	 */
-	void setBPBankAcctUse_RL(I_AD_Ref_ListInput BPBankAcctUse_RL);
+	void setBPBankAcctUseInput(I_AD_Ref_ListInput BPBankAcctUse);
 
 	/**
-	 * Get BPBankAcctUse_RL.
+	 * Get BPBankAcctUse.
 	 *
 	 * @return Business Partner Bank Account usage
 	 */
-	I_AD_Ref_ListInput getBPBankAcctUse_RL();
+	I_AD_Ref_ListInput BPBankAcctUse();
 
 	/**
 	 * Set C_Bank.
 	 *
 	 * @param C_Bank Bank
 	 */
-	void setC_Bank(I_C_BankInput C_Bank);
+	void setC_BankInput(I_C_BankInput C_Bank);
 
 	/**
 	 * Get C_Bank.
 	 *
 	 * @return Bank
 	 */
-	I_C_BankInput getC_Bank();
+	I_C_BankInput C_Bank();
 
 	/**
 	 * Set ID.
@@ -99,68 +99,68 @@ public interface I_C_BP_BankAccountInput extends I_C_BP_BankAccount {
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	void setC_BPartner(I_C_BPartnerInput C_BPartner);
+	void setC_BPartnerInput(I_C_BPartnerInput C_BPartner);
 
 	/**
 	 * Get C_BPartner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	I_C_BPartnerInput getC_BPartner();
+	I_C_BPartnerInput C_BPartner();
 
 	/**
 	 * Set C_PaymentProcessor.
 	 *
 	 * @param C_PaymentProcessor Payment processor for electronic payments
 	 */
-	void setC_PaymentProcessor(I_C_PaymentProcessorInput C_PaymentProcessor);
+	void setC_PaymentProcessorInput(I_C_PaymentProcessorInput C_PaymentProcessor);
 
 	/**
 	 * Get C_PaymentProcessor.
 	 *
 	 * @return Payment processor for electronic payments
 	 */
-	I_C_PaymentProcessorInput getC_PaymentProcessor();
+	I_C_PaymentProcessorInput C_PaymentProcessor();
 
 	/**
-	 * Set CreditCardType_RL.
+	 * Set CreditCardType.
 	 *
-	 * @param CreditCardType_RL Credit Card (Visa, MC, AmEx)
+	 * @param CreditCardType Credit Card (Visa, MC, AmEx)
 	 */
-	void setCreditCardType_RL(I_AD_Ref_ListInput CreditCardType_RL);
+	void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType);
 
 	/**
-	 * Get CreditCardType_RL.
+	 * Get CreditCardType.
 	 *
 	 * @return Credit Card (Visa, MC, AmEx)
 	 */
-	I_AD_Ref_ListInput getCreditCardType_RL();
+	I_AD_Ref_ListInput CreditCardType();
 
 	/**
-	 * Set R_AvsAddr_RL.
+	 * Set R_AvsAddr.
 	 *
-	 * @param R_AvsAddr_RL This address has been verified
+	 * @param R_AvsAddr This address has been verified
 	 */
-	void setR_AvsAddr_RL(I_AD_Ref_ListInput R_AvsAddr_RL);
+	void setR_AvsAddrInput(I_AD_Ref_ListInput R_AvsAddr);
 
 	/**
-	 * Get R_AvsAddr_RL.
+	 * Get R_AvsAddr.
 	 *
 	 * @return This address has been verified
 	 */
-	I_AD_Ref_ListInput getR_AvsAddr_RL();
+	I_AD_Ref_ListInput R_AvsAddr();
 
 	/**
-	 * Set R_AvsZip_RL.
+	 * Set R_AvsZip.
 	 *
-	 * @param R_AvsZip_RL The Zip Code has been verified
+	 * @param R_AvsZip The Zip Code has been verified
 	 */
-	void setR_AvsZip_RL(I_AD_Ref_ListInput R_AvsZip_RL);
+	void setR_AvsZipInput(I_AD_Ref_ListInput R_AvsZip);
 
 	/**
-	 * Get R_AvsZip_RL.
+	 * Get R_AvsZip.
 	 *
 	 * @return The Zip Code has been verified
 	 */
-	I_AD_Ref_ListInput getR_AvsZip_RL();
+	I_AD_Ref_ListInput R_AvsZip();
 }

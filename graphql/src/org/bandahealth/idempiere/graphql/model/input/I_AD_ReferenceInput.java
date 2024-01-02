@@ -15,28 +15,28 @@ public interface I_AD_ReferenceInput extends I_AD_Reference {
 	 *
 	 * @param AD_Element System Element enables the central maintenance of column description and help.
 	 */
-	void setAD_Element(I_AD_ElementInput AD_Element);
+	void setAD_ElementInput(I_AD_ElementInput AD_Element);
 
 	/**
 	 * Get AD_Element.
 	 *
 	 * @return System Element enables the central maintenance of column description and help.
 	 */
-	I_AD_ElementInput getAD_Element();
+	I_AD_ElementInput AD_Element();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -57,26 +57,26 @@ public interface I_AD_ReferenceInput extends I_AD_Reference {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput getAD_EntityType();
+	I_AD_EntityTypeInput AD_EntityType();
 
 	/**
-	 * Set ValidationType_RL.
+	 * Set ValidationType.
 	 *
-	 * @param ValidationType_RL Different method of validating data
+	 * @param ValidationType Different method of validating data
 	 */
-	void setValidationType_RL(I_AD_Ref_ListInput ValidationType_RL);
+	void setValidationTypeInput(I_AD_Ref_ListInput ValidationType);
 
 	/**
-	 * Get ValidationType_RL.
+	 * Get ValidationType.
 	 *
 	 * @return Different method of validating data
 	 */
-	I_AD_Ref_ListInput getValidationType_RL();
+	I_AD_Ref_ListInput ValidationType();
 }

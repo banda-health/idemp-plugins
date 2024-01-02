@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RuleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CountryDataLoader;
@@ -13,7 +14,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxProviderDataLoad
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MCountry;
 import org.compiere.model.MCountryGroup;
-import org.compiere.model.MRefList;
 import org.compiere.model.MRegion;
 import org.compiere.model.MRule;
 import org.compiere.model.MTax;
@@ -139,6 +139,26 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 		return dataLoader.load(entity.getC_TaxProvider_ID());
 	}
 
+	public Boolean IsDefault(MTax entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
+
+	public Boolean IsDocumentLevel(MTax entity, DataFetchingEnvironment environment) {
+		return entity.isDocumentLevel();
+	}
+
+	public Boolean IsSalesTax(MTax entity, DataFetchingEnvironment environment) {
+		return entity.isSalesTax();
+	}
+
+	public Boolean IsSummary(MTax entity, DataFetchingEnvironment environment) {
+		return entity.isSummary();
+	}
+
+	public Boolean IsTaxExempt(MTax entity, DataFetchingEnvironment environment) {
+		return entity.isTaxExempt();
+	}
+
 
 	/**
 	 * Get Parent Tax.
@@ -154,6 +174,10 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 		return dataLoader.load(entity.getParent_Tax_ID());
 	}
 
+	public Boolean RequiresTaxCertificate(MTax entity, DataFetchingEnvironment environment) {
+		return entity.isRequiresTaxCertificate();
+	}
+
 	static Map<String, String> SOPOTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("B", "4d7e51ff-cf6b-401d-b70b-fa87ba05a913");
@@ -161,11 +185,11 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			put("P", "5d8aad9d-36bf-4f30-bbb2-639726c133f5");
 		}
 	};
-	public CompletableFuture<MRefList> SOPOType_RL(MTax entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> SOPOType(MTax entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getSOPOType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(SOPOTYPE_UUIDS_BY_VALUE.get(entity.getSOPOType()));
 	}

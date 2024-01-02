@@ -1,11 +1,14 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -14,7 +17,6 @@ import org.compiere.model.MCampaign;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
-import org.compiere.model.MRefList;
 import org.compiere.model.MResource;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
@@ -31,31 +33,32 @@ import org.eevolution.model.X_PP_Order;
  */
 public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_Ref_ListInput DocAction_RL;
-	 private I_AD_Ref_ListInput DocStatus_RL;
-	 private I_AD_Ref_ListInput PriorityRule_RL;
-	 private I_AD_UserInput Planner;
-	 private I_AD_WorkflowInput AD_Workflow;
-	 private I_C_ActivityInput C_Activity;
-	 private I_C_CampaignInput C_Campaign;
-	 private I_C_DocTypeInput C_DocType;
-	 private I_C_DocTypeInput C_DocTypeTarget;
-	 private I_C_ElementValueInput User1;
-	 private I_C_ElementValueInput User2;
-	 private I_C_OrderLineInput C_OrderLine;
-	 private I_C_ProjectInput C_Project;
-	 private I_C_UOMInput C_UOM;
-	 private I_M_AttributeSetInstanceInput M_AttributeSetInstance;
-	 private I_M_ProductInput M_Product;
-	 private I_M_WarehouseInput M_Warehouse;
-	 private I_PP_Product_BOMInput PP_Product_BOM;
-	 private I_S_ResourceInput S_Resource;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_Ref_ListInput mDocAction;
+	 private I_AD_Ref_ListInput mDocStatus;
+	 private I_AD_Ref_ListInput mPriorityRule;
+	 private I_AD_UserInput mPlanner;
+	 private I_AD_WorkflowInput mAD_Workflow;
+	 private I_C_ActivityInput mC_Activity;
+	 private I_C_CampaignInput mC_Campaign;
+	 private I_C_DocTypeInput mC_DocType;
+	 private I_C_DocTypeInput mC_DocTypeTarget;
+	 private I_C_ElementValueInput mUser1;
+	 private I_C_ElementValueInput mUser2;
+	 private I_C_OrderLineInput mC_OrderLine;
+	 private I_C_ProjectInput mC_Project;
+	 private I_C_UOMInput mC_UOM;
+	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
+	 private I_M_ProductInput mM_Product;
+	 private I_M_WarehouseInput mM_Warehouse;
+	 private I_PP_Product_BOMInput mPP_Product_BOM;
+	 private I_S_ResourceInput mS_Resource;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PP_OrderInput(String ID) {
+	@JsonCreator
+	public X_PP_OrderInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -65,14 +68,15 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -81,8 +85,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -90,14 +95,15 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
-	public void setAD_Workflow(I_AD_WorkflowInput AD_Workflow) {
-		this.AD_Workflow = AD_Workflow;
+	@JsonProperty("AD_Workflow")
+	public void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow) {
+		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
 		if (get_ID() == 0 &&AD_Workflow != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_Workflow.Table_Name, X_AD_Workflow.COLUMNNAME_AD_Workflow_UU + "=?", get_TrxName())
 						.setParameters(AD_Workflow.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Workflow_ID(foreignEntity.get_ID());
+			super.setAD_Workflow_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -106,19 +112,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Workflow or combination of tasks
 	 */
-	public I_AD_WorkflowInput getAD_Workflow() {
-		return AD_Workflow;
-	}
-	/**
-	 * Set Workflow.
-	 *
-	 * @param AD_Workflow_ID Workflow or combination of tasks
-	 */
-
-	public void setAD_Workflow_ID(int AD_Workflow_ID) {
-		if (get_ID() == 0) {
-			super.setAD_Workflow_ID(AD_Workflow_ID);
-		}
+	@JsonProperty("AD_Workflow")
+	public I_AD_WorkflowInput AD_Workflow() {
+		return mAD_Workflow;
 	}
 
 	/**
@@ -126,16 +122,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param C_Activity Business Activity
 	 */
-	public void setC_Activity(I_C_ActivityInput C_Activity) {
-		this.C_Activity = C_Activity;
+	@JsonProperty("C_Activity")
+	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
 				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Activity_ID(foreignEntity.get_ID());
+			super.setC_Activity_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Activity_ID(0);
+			super.setC_Activity_ID(0);
 		}
 	}
 
@@ -144,8 +141,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Business Activity
 	 */
-	public I_C_ActivityInput getC_Activity() {
-		return C_Activity;
+	@JsonProperty("C_Activity")
+	public I_C_ActivityInput C_Activity() {
+		return mC_Activity;
 	}
 
 	/**
@@ -153,16 +151,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	public void setC_Campaign(I_C_CampaignInput C_Campaign) {
-		this.C_Campaign = C_Campaign;
+	@JsonProperty("C_Campaign")
+	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
 				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Campaign_ID(foreignEntity.get_ID());
+			super.setC_Campaign_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Campaign_ID(0);
+			super.setC_Campaign_ID(0);
 		}
 	}
 
@@ -171,8 +170,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Marketing Campaign
 	 */
-	public I_C_CampaignInput getC_Campaign() {
-		return C_Campaign;
+	@JsonProperty("C_Campaign")
+	public I_C_CampaignInput C_Campaign() {
+		return mC_Campaign;
 	}
 
 	/**
@@ -180,16 +180,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	public void setC_DocType(I_C_DocTypeInput C_DocType) {
-		this.C_DocType = C_DocType;
+	@JsonProperty("C_DocType")
+	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
 				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_DocType_ID(foreignEntity.get_ID());
+			super.setC_DocType_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_DocType_ID(0);
+			super.setC_DocType_ID(0);
 		}
 	}
 
@@ -198,19 +199,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Document type or rules
 	 */
-	public I_C_DocTypeInput getC_DocType() {
-		return C_DocType;
-	}
-	/**
-	 * Set Document Type.
-	 *
-	 * @param C_DocType_ID Document type or rules
-	 */
-
-	public void setC_DocType_ID(int C_DocType_ID) {
-		if (get_ID() == 0) {
-			super.setC_DocType_ID(C_DocType_ID);
-		}
+	@JsonProperty("C_DocType")
+	public I_C_DocTypeInput C_DocType() {
+		return mC_DocType;
 	}
 
 	/**
@@ -218,14 +209,15 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param C_DocTypeTarget Target document type for conversing documents
 	 */
-	public void setC_DocTypeTarget(I_C_DocTypeInput C_DocTypeTarget) {
-		this.C_DocTypeTarget = C_DocTypeTarget;
+	@JsonProperty("C_DocTypeTarget")
+	public void setC_DocTypeTargetInput(I_C_DocTypeInput C_DocTypeTarget) {
+		this.mC_DocTypeTarget = C_DocTypeTarget;
 		MDocType_BH foreignEntity;
 		if (get_ID() == 0 &&C_DocTypeTarget != null &&
 				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
 						.setParameters(C_DocTypeTarget.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_DocTypeTarget_ID(foreignEntity.get_ID());
+			super.setC_DocTypeTarget_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -234,19 +226,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Target document type for conversing documents
 	 */
-	public I_C_DocTypeInput getC_DocTypeTarget() {
-		return C_DocTypeTarget;
-	}
-	/**
-	 * Set Target Document Type.
-	 *
-	 * @param C_DocTypeTarget_ID Target document type for conversing documents
-	 */
-
-	public void setC_DocTypeTarget_ID(int C_DocTypeTarget_ID) {
-		if (get_ID() == 0) {
-			super.setC_DocTypeTarget_ID(C_DocTypeTarget_ID);
-		}
+	@JsonProperty("C_DocTypeTarget")
+	public I_C_DocTypeInput C_DocTypeTarget() {
+		return mC_DocTypeTarget;
 	}
 
 	/**
@@ -254,16 +236,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param C_OrderLine Sales Order Line
 	 */
-	public void setC_OrderLine(I_C_OrderLineInput C_OrderLine) {
-		this.C_OrderLine = C_OrderLine;
+	@JsonProperty("C_OrderLine")
+	public void setC_OrderLineInput(I_C_OrderLineInput C_OrderLine) {
+		this.mC_OrderLine = C_OrderLine;
 		MOrderLine_BH foreignEntity;
 		if (C_OrderLine != null &&
 				(foreignEntity = new Query(getCtx(), MOrderLine_BH.Table_Name, MOrderLine_BH.COLUMNNAME_C_OrderLine_UU + "=?", get_TrxName())
 						.setParameters(C_OrderLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_OrderLine_ID(foreignEntity.get_ID());
+			super.setC_OrderLine_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_OrderLine_ID(0);
+			super.setC_OrderLine_ID(0);
 		}
 	}
 
@@ -272,8 +255,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Sales Order Line
 	 */
-	public I_C_OrderLineInput getC_OrderLine() {
-		return C_OrderLine;
+	@JsonProperty("C_OrderLine")
+	public I_C_OrderLineInput C_OrderLine() {
+		return mC_OrderLine;
 	}
 
 	/**
@@ -281,16 +265,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param C_Project Financial Project
 	 */
-	public void setC_Project(I_C_ProjectInput C_Project) {
-		this.C_Project = C_Project;
+	@JsonProperty("C_Project")
+	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
 				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_Project_ID(foreignEntity.get_ID());
+			super.setC_Project_ID(foreignEntity.get_ID());
 		} else {
-			this.setC_Project_ID(0);
+			super.setC_Project_ID(0);
 		}
 	}
 
@@ -299,8 +284,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Financial Project
 	 */
-	public I_C_ProjectInput getC_Project() {
-		return C_Project;
+	@JsonProperty("C_Project")
+	public I_C_ProjectInput C_Project() {
+		return mC_Project;
 	}
 
 	/**
@@ -308,14 +294,15 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param C_UOM Unit of Measure
 	 */
-	public void setC_UOM(I_C_UOMInput C_UOM) {
-		this.C_UOM = C_UOM;
+	@JsonProperty("C_UOM")
+	public void setC_UOMInput(I_C_UOMInput C_UOM) {
+		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (get_ID() == 0 &&C_UOM != null &&
 				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
 						.setParameters(C_UOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setC_UOM_ID(foreignEntity.get_ID());
+			super.setC_UOM_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -324,19 +311,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Unit of Measure
 	 */
-	public I_C_UOMInput getC_UOM() {
-		return C_UOM;
-	}
-	/**
-	 * Set UOM.
-	 *
-	 * @param C_UOM_ID Unit of Measure
-	 */
-
-	public void setC_UOM_ID(int C_UOM_ID) {
-		if (get_ID() == 0) {
-			super.setC_UOM_ID(C_UOM_ID);
-		}
+	@JsonProperty("C_UOM")
+	public I_C_UOMInput C_UOM() {
+		return mC_UOM;
 	}
 	/**
 	 * Set Date Confirm.
@@ -386,14 +363,15 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	/**
 	 * Set Document Action.
 	 *
-	 * @param DocAction_RL The targeted status of the document
+	 * @param DocAction The targeted status of the document
 	 */
-	public void setDocAction_RL(I_AD_Ref_ListInput DocAction_RL) {
-		this.DocAction_RL = DocAction_RL;
-		MRefList foreignEntity;
-		if (DocAction_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction_RL.getID())
+	@JsonProperty("DocAction")
+	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+		this.mDocAction = DocAction;
+		MRefList_BH foreignEntity;
+		if (DocAction != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocAction.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocAction(foreignEntity.getValue());
 		} else {
@@ -406,21 +384,23 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return The targeted status of the document
 	 */
-	public I_AD_Ref_ListInput getDocAction_RL() {
-		return DocAction_RL;
+	@JsonProperty("DocAction")
+	public I_AD_Ref_ListInput DocAction() {
+		return mDocAction;
 	}
 
 	/**
 	 * Set Document Status.
 	 *
-	 * @param DocStatus_RL The current status of the document
+	 * @param DocStatus The current status of the document
 	 */
-	public void setDocStatus_RL(I_AD_Ref_ListInput DocStatus_RL) {
-		this.DocStatus_RL = DocStatus_RL;
-		MRefList foreignEntity;
-		if (DocStatus_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus_RL.getID())
+	@JsonProperty("DocStatus")
+	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+		this.mDocStatus = DocStatus;
+		MRefList_BH foreignEntity;
+		if (DocStatus != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(DocStatus.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setDocStatus(foreignEntity.getValue());
 		} else {
@@ -433,8 +413,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return The current status of the document
 	 */
-	public I_AD_Ref_ListInput getDocStatus_RL() {
-		return DocStatus_RL;
+	@JsonProperty("DocStatus")
+	public I_AD_Ref_ListInput DocStatus() {
+		return mDocStatus;
 	}
 
 	/**
@@ -442,16 +423,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
-	public void setM_AttributeSetInstance(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
-		this.M_AttributeSetInstance = M_AttributeSetInstance;
+	@JsonProperty("M_AttributeSetInstance")
+	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
 				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_AttributeSetInstance_ID(0);
+			super.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -460,8 +442,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	public I_M_AttributeSetInstanceInput getM_AttributeSetInstance() {
-		return M_AttributeSetInstance;
+	@JsonProperty("M_AttributeSetInstance")
+	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+		return mM_AttributeSetInstance;
 	}
 
 	/**
@@ -469,14 +452,15 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	public void setM_Product(I_M_ProductInput M_Product) {
-		this.M_Product = M_Product;
+	@JsonProperty("M_Product")
+	public void setM_ProductInput(I_M_ProductInput M_Product) {
+		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (get_ID() == 0 &&M_Product != null &&
 				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Product_ID(foreignEntity.get_ID());
+			super.setM_Product_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -485,19 +469,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Product, Service, Item
 	 */
-	public I_M_ProductInput getM_Product() {
-		return M_Product;
-	}
-	/**
-	 * Set Product/Service.
-	 *
-	 * @param M_Product_ID Product, Service, Item
-	 */
-
-	public void setM_Product_ID(int M_Product_ID) {
-		if (get_ID() == 0) {
-			super.setM_Product_ID(M_Product_ID);
-		}
+	@JsonProperty("M_Product")
+	public I_M_ProductInput M_Product() {
+		return mM_Product;
 	}
 
 	/**
@@ -505,14 +479,15 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
-	public void setM_Warehouse(I_M_WarehouseInput M_Warehouse) {
-		this.M_Warehouse = M_Warehouse;
+	@JsonProperty("M_Warehouse")
+	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (get_ID() == 0 &&M_Warehouse != null &&
 				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
 						.setParameters(M_Warehouse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_Warehouse_ID(foreignEntity.get_ID());
+			super.setM_Warehouse_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -521,19 +496,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Storage Warehouse and Service Point
 	 */
-	public I_M_WarehouseInput getM_Warehouse() {
-		return M_Warehouse;
-	}
-	/**
-	 * Set Warehouse.
-	 *
-	 * @param M_Warehouse_ID Storage Warehouse and Service Point
-	 */
-
-	public void setM_Warehouse_ID(int M_Warehouse_ID) {
-		if (get_ID() == 0) {
-			super.setM_Warehouse_ID(M_Warehouse_ID);
-		}
+	@JsonProperty("M_Warehouse")
+	public I_M_WarehouseInput M_Warehouse() {
+		return mM_Warehouse;
 	}
 
 	/**
@@ -541,16 +506,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param Planner Planner
 	 */
-	public void setPlanner(I_AD_UserInput Planner) {
-		this.Planner = Planner;
+	@JsonProperty("Planner")
+	public void setPlannerInput(I_AD_UserInput Planner) {
+		this.mPlanner = Planner;
 		MUser_BH foreignEntity;
 		if (Planner != null &&
 				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
 						.setParameters(Planner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPlanner_ID(foreignEntity.get_ID());
+			super.setPlanner_ID(foreignEntity.get_ID());
 		} else {
-			this.setPlanner_ID(0);
+			super.setPlanner_ID(0);
 		}
 	}
 
@@ -559,30 +525,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Planner
 	 */
-	public I_AD_UserInput getPlanner() {
-		return Planner;
-	}
-	/**
-	 * Set Planner.
-	 *
-	 * @param Planner_ID Planner
-	 */
-
-	public void setPlanner_ID(int Planner_ID) {
-		if (get_ID() == 0) {
-			super.setPlanner_ID(Planner_ID);
-		}
-	}
-	/**
-	 * Set Manufacturing Order.
-	 *
-	 * @param PP_Order_ID Manufacturing Order
-	 */
-
-	public void setPP_Order_ID(int PP_Order_ID) {
-		if (get_ID() == 0) {
-			super.setPP_Order_ID(PP_Order_ID);
-		}
+	@JsonProperty("Planner")
+	public I_AD_UserInput Planner() {
+		return mPlanner;
 	}
 
 	/**
@@ -608,14 +553,15 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param PP_Product_BOM BOM & Formula
 	 */
-	public void setPP_Product_BOM(I_PP_Product_BOMInput PP_Product_BOM) {
-		this.PP_Product_BOM = PP_Product_BOM;
+	@JsonProperty("PP_Product_BOM")
+	public void setPP_Product_BOMInput(I_PP_Product_BOMInput PP_Product_BOM) {
+		this.mPP_Product_BOM = PP_Product_BOM;
 		MPPProductBOM foreignEntity;
 		if (get_ID() == 0 &&PP_Product_BOM != null &&
 				(foreignEntity = new Query(getCtx(), MPPProductBOM.Table_Name, MPPProductBOM.COLUMNNAME_PP_Product_BOM_UU + "=?", get_TrxName())
 						.setParameters(PP_Product_BOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPP_Product_BOM_ID(foreignEntity.get_ID());
+			super.setPP_Product_BOM_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -624,32 +570,23 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return BOM & Formula
 	 */
-	public I_PP_Product_BOMInput getPP_Product_BOM() {
-		return PP_Product_BOM;
-	}
-	/**
-	 * Set BOM & Formula.
-	 *
-	 * @param PP_Product_BOM_ID BOM & Formula
-	 */
-
-	public void setPP_Product_BOM_ID(int PP_Product_BOM_ID) {
-		if (get_ID() == 0) {
-			super.setPP_Product_BOM_ID(PP_Product_BOM_ID);
-		}
+	@JsonProperty("PP_Product_BOM")
+	public I_PP_Product_BOMInput PP_Product_BOM() {
+		return mPP_Product_BOM;
 	}
 
 	/**
 	 * Set Priority.
 	 *
-	 * @param PriorityRule_RL Priority of a document
+	 * @param PriorityRule Priority of a document
 	 */
-	public void setPriorityRule_RL(I_AD_Ref_ListInput PriorityRule_RL) {
-		this.PriorityRule_RL = PriorityRule_RL;
-		MRefList foreignEntity;
-		if (PriorityRule_RL != null &&
-				(foreignEntity = new Query(getCtx(), MRefList.Table_Name, MRefList.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PriorityRule_RL.getID())
+	@JsonProperty("PriorityRule")
+	public void setPriorityRuleInput(I_AD_Ref_ListInput PriorityRule) {
+		this.mPriorityRule = PriorityRule;
+		MRefList_BH foreignEntity;
+		if (PriorityRule != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(PriorityRule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			this.setPriorityRule(foreignEntity.getValue());
 		} else {
@@ -662,8 +599,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Priority of a document
 	 */
-	public I_AD_Ref_ListInput getPriorityRule_RL() {
-		return PriorityRule_RL;
+	@JsonProperty("PriorityRule")
+	public I_AD_Ref_ListInput PriorityRule() {
+		return mPriorityRule;
 	}
 	/**
 	 * Set Qty Batchs.
@@ -704,14 +642,15 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param S_Resource Resource
 	 */
-	public void setS_Resource(I_S_ResourceInput S_Resource) {
-		this.S_Resource = S_Resource;
+	@JsonProperty("S_Resource")
+	public void setS_ResourceInput(I_S_ResourceInput S_Resource) {
+		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
 		if (get_ID() == 0 &&S_Resource != null &&
 				(foreignEntity = new Query(getCtx(), MResource.Table_Name, MResource.COLUMNNAME_S_Resource_UU + "=?", get_TrxName())
 						.setParameters(S_Resource.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setS_Resource_ID(foreignEntity.get_ID());
+			super.setS_Resource_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -720,19 +659,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return Resource
 	 */
-	public I_S_ResourceInput getS_Resource() {
-		return S_Resource;
-	}
-	/**
-	 * Set Resource.
-	 *
-	 * @param S_Resource_ID Resource
-	 */
-
-	public void setS_Resource_ID(int S_Resource_ID) {
-		if (get_ID() == 0) {
-			super.setS_Resource_ID(S_Resource_ID);
-		}
+	@JsonProperty("S_Resource")
+	public I_S_ResourceInput S_Resource() {
+		return mS_Resource;
 	}
 
 	/**
@@ -740,16 +669,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param User1 User defined list element #1
 	 */
-	public void setUser1(I_C_ElementValueInput User1) {
-		this.User1 = User1;
+	@JsonProperty("User1")
+	public void setUser1Input(I_C_ElementValueInput User1) {
+		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
 				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setUser1_ID(foreignEntity.get_ID());
+			super.setUser1_ID(foreignEntity.get_ID());
 		} else {
-			this.setUser1_ID(0);
+			super.setUser1_ID(0);
 		}
 	}
 
@@ -758,19 +688,9 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return User defined list element #1
 	 */
-	public I_C_ElementValueInput getUser1() {
-		return User1;
-	}
-	/**
-	 * Set User Element List 1.
-	 *
-	 * @param User1_ID User defined list element #1
-	 */
-
-	public void setUser1_ID(int User1_ID) {
-		if (get_ID() == 0) {
-			super.setUser1_ID(User1_ID);
-		}
+	@JsonProperty("User1")
+	public I_C_ElementValueInput User1() {
+		return mUser1;
 	}
 
 	/**
@@ -778,16 +698,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @param User2 User defined list element #2
 	 */
-	public void setUser2(I_C_ElementValueInput User2) {
-		this.User2 = User2;
+	@JsonProperty("User2")
+	public void setUser2Input(I_C_ElementValueInput User2) {
+		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
 				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setUser2_ID(foreignEntity.get_ID());
+			super.setUser2_ID(foreignEntity.get_ID());
 		} else {
-			this.setUser2_ID(0);
+			super.setUser2_ID(0);
 		}
 	}
 
@@ -796,18 +717,8 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 *
 	 * @return User defined list element #2
 	 */
-	public I_C_ElementValueInput getUser2() {
-		return User2;
-	}
-	/**
-	 * Set User Element List 2.
-	 *
-	 * @param User2_ID User defined list element #2
-	 */
-
-	public void setUser2_ID(int User2_ID) {
-		if (get_ID() == 0) {
-			super.setUser2_ID(User2_ID);
-		}
+	@JsonProperty("User2")
+	public I_C_ElementValueInput User2() {
+		return mUser2;
 	}
 }

@@ -14,4 +14,28 @@ import org.dataloader.DataLoader;
 public class X_AD_SequenceResolver extends POResolver<MSequence_BH> implements GraphQLResolver<MSequence_BH> {
 
 
+	public Boolean IsAudited(MSequence_BH entity, DataFetchingEnvironment environment) {
+		return entity.isAudited();
+	}
+
+	public Boolean IsAutoSequence(MSequence_BH entity, DataFetchingEnvironment environment) {
+		return entity.isAutoSequence();
+	}
+
+	public Boolean IsOrgLevelSequence(MSequence_BH entity, DataFetchingEnvironment environment) {
+		return entity.isOrgLevelSequence();
+	}
+
+	public Boolean IsTableID(MSequence_BH entity, DataFetchingEnvironment environment) {
+		return entity.isTableID();
+	}
+
+	public Boolean StartNewMonth(MSequence_BH entity, DataFetchingEnvironment environment) {
+		return entity.isStartNewMonth();
+	}
+
+	public Boolean StartNewYear(MSequence_BH entity, DataFetchingEnvironment environment) {
+		return entity.isStartNewYear();
+	}
+
 }

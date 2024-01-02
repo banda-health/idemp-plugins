@@ -33,4 +33,8 @@ public class X_C_CampaignResolver extends POResolver<MCampaign> implements Graph
 		return dataLoader.load(entity.getC_Channel_ID());
 	}
 
+	public Boolean IsSummary(MCampaign entity, DataFetchingEnvironment environment) {
+		return entity.isSummary();
+	}
+
 }

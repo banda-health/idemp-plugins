@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -18,18 +20,19 @@ import org.eevolution.model.X_PP_Order_NodeNext;
  */
 public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_PP_Order_NodeNextInput {
 
-	 private I_AD_EntityTypeInput AD_EntityType;
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_WF_NodeInput AD_WF_Next;
-	 private I_AD_WF_NodeInput AD_WF_Node;
-	 private I_PP_OrderInput PP_Order;
-	 private I_PP_Order_NodeInput PP_Order_Next;
-	 private I_PP_Order_NodeInput PP_Order_Node;
+	 private I_AD_EntityTypeInput mAD_EntityType;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_WF_NodeInput mAD_WF_Next;
+	 private I_AD_WF_NodeInput mAD_WF_Node;
+	 private I_PP_OrderInput mPP_Order;
+	 private I_PP_Order_NodeInput mPP_Order_Next;
+	 private I_PP_Order_NodeInput mPP_Order_Node;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PP_Order_NodeNextInput(String ID) {
+	@JsonCreator
+	public X_PP_Order_NodeNextInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -39,16 +42,17 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Org_ID(0);
+			super.setAD_Org_ID(0);
 		}
 	}
 
@@ -57,8 +61,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -66,16 +71,17 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @param AD_WF_Next Next Node in workflow
 	 */
-	public void setAD_WF_Next(I_AD_WF_NodeInput AD_WF_Next) {
-		this.AD_WF_Next = AD_WF_Next;
+	@JsonProperty("AD_WF_Next")
+	public void setAD_WF_NextInput(I_AD_WF_NodeInput AD_WF_Next) {
+		this.mAD_WF_Next = AD_WF_Next;
 		X_AD_WF_Node foreignEntity;
 		if (AD_WF_Next != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_WF_Node.Table_Name, X_AD_WF_Node.COLUMNNAME_AD_WF_Node_UU + "=?", get_TrxName())
 						.setParameters(AD_WF_Next.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_WF_Next_ID(foreignEntity.get_ID());
+			super.setAD_WF_Next_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_WF_Next_ID(0);
+			super.setAD_WF_Next_ID(0);
 		}
 	}
 
@@ -84,19 +90,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @return Next Node in workflow
 	 */
-	public I_AD_WF_NodeInput getAD_WF_Next() {
-		return AD_WF_Next;
-	}
-	/**
-	 * Set Next Node.
-	 *
-	 * @param AD_WF_Next_ID Next Node in workflow
-	 */
-
-	public void setAD_WF_Next_ID(int AD_WF_Next_ID) {
-		if (get_ID() == 0) {
-			super.setAD_WF_Next_ID(AD_WF_Next_ID);
-		}
+	@JsonProperty("AD_WF_Next")
+	public I_AD_WF_NodeInput AD_WF_Next() {
+		return mAD_WF_Next;
 	}
 
 	/**
@@ -104,16 +100,17 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @param AD_WF_Node Workflow Node (activity), step or process
 	 */
-	public void setAD_WF_Node(I_AD_WF_NodeInput AD_WF_Node) {
-		this.AD_WF_Node = AD_WF_Node;
+	@JsonProperty("AD_WF_Node")
+	public void setAD_WF_NodeInput(I_AD_WF_NodeInput AD_WF_Node) {
+		this.mAD_WF_Node = AD_WF_Node;
 		X_AD_WF_Node foreignEntity;
 		if (AD_WF_Node != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_WF_Node.Table_Name, X_AD_WF_Node.COLUMNNAME_AD_WF_Node_UU + "=?", get_TrxName())
 						.setParameters(AD_WF_Node.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_WF_Node_ID(foreignEntity.get_ID());
+			super.setAD_WF_Node_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_WF_Node_ID(0);
+			super.setAD_WF_Node_ID(0);
 		}
 	}
 
@@ -122,8 +119,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @return Workflow Node (activity), step or process
 	 */
-	public I_AD_WF_NodeInput getAD_WF_Node() {
-		return AD_WF_Node;
+	@JsonProperty("AD_WF_Node")
+	public I_AD_WF_NodeInput AD_WF_Node() {
+		return mAD_WF_Node;
 	}
 
 	/**
@@ -131,16 +129,17 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public void setAD_EntityType(I_AD_EntityTypeInput AD_EntityType) {
-		this.AD_EntityType = AD_EntityType;
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
 				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEntityType(foreignEntity.getEntityType());
+			super.setEntityType(foreignEntity.getEntityType());
 		} else {
-			this.setEntityType(null);
+			super.setEntityType(null);
 		}
 	}
 
@@ -149,19 +148,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public I_AD_EntityTypeInput getAD_EntityType() {
-		return AD_EntityType;
-	}
-	/**
-	 * Set Entity Type.
-	 *
-	 * @param EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-
-	public void setEntityType(String EntityType) {
-		if (get_ID() == 0) {
-			super.setEntityType(EntityType);
-		}
+	@JsonProperty("AD_EntityType")
+	public I_AD_EntityTypeInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 
 	/**
@@ -169,14 +158,15 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @param PP_Order Manufacturing Order
 	 */
-	public void setPP_Order(I_PP_OrderInput PP_Order) {
-		this.PP_Order = PP_Order;
+	@JsonProperty("PP_Order")
+	public void setPP_OrderInput(I_PP_OrderInput PP_Order) {
+		this.mPP_Order = PP_Order;
 		X_PP_Order foreignEntity;
 		if (get_ID() == 0 &&PP_Order != null &&
 				(foreignEntity = new Query(getCtx(), X_PP_Order.Table_Name, X_PP_Order.COLUMNNAME_PP_Order_UU + "=?", get_TrxName())
 						.setParameters(PP_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPP_Order_ID(foreignEntity.get_ID());
+			super.setPP_Order_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -185,19 +175,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @return Manufacturing Order
 	 */
-	public I_PP_OrderInput getPP_Order() {
-		return PP_Order;
-	}
-	/**
-	 * Set Manufacturing Order.
-	 *
-	 * @param PP_Order_ID Manufacturing Order
-	 */
-
-	public void setPP_Order_ID(int PP_Order_ID) {
-		if (get_ID() == 0) {
-			super.setPP_Order_ID(PP_Order_ID);
-		}
+	@JsonProperty("PP_Order")
+	public I_PP_OrderInput PP_Order() {
+		return mPP_Order;
 	}
 
 	/**
@@ -205,16 +185,17 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @param PP_Order_Next Manufacturing Order Activity Next
 	 */
-	public void setPP_Order_Next(I_PP_Order_NodeInput PP_Order_Next) {
-		this.PP_Order_Next = PP_Order_Next;
+	@JsonProperty("PP_Order_Next")
+	public void setPP_Order_NextInput(I_PP_Order_NodeInput PP_Order_Next) {
+		this.mPP_Order_Next = PP_Order_Next;
 		X_PP_Order_Node foreignEntity;
 		if (PP_Order_Next != null &&
 				(foreignEntity = new Query(getCtx(), X_PP_Order_Node.Table_Name, X_PP_Order_Node.COLUMNNAME_PP_Order_Node_UU + "=?", get_TrxName())
 						.setParameters(PP_Order_Next.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPP_Order_Next_ID(foreignEntity.get_ID());
+			super.setPP_Order_Next_ID(foreignEntity.get_ID());
 		} else {
-			this.setPP_Order_Next_ID(0);
+			super.setPP_Order_Next_ID(0);
 		}
 	}
 
@@ -223,19 +204,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @return Manufacturing Order Activity Next
 	 */
-	public I_PP_Order_NodeInput getPP_Order_Next() {
-		return PP_Order_Next;
-	}
-	/**
-	 * Set Manufacturing Order Activity Next.
-	 *
-	 * @param PP_Order_Next_ID Manufacturing Order Activity Next
-	 */
-
-	public void setPP_Order_Next_ID(int PP_Order_Next_ID) {
-		if (get_ID() == 0) {
-			super.setPP_Order_Next_ID(PP_Order_Next_ID);
-		}
+	@JsonProperty("PP_Order_Next")
+	public I_PP_Order_NodeInput PP_Order_Next() {
+		return mPP_Order_Next;
 	}
 
 	/**
@@ -243,14 +214,15 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @param PP_Order_Node Workflow Node (activity), step or process
 	 */
-	public void setPP_Order_Node(I_PP_Order_NodeInput PP_Order_Node) {
-		this.PP_Order_Node = PP_Order_Node;
+	@JsonProperty("PP_Order_Node")
+	public void setPP_Order_NodeInput(I_PP_Order_NodeInput PP_Order_Node) {
+		this.mPP_Order_Node = PP_Order_Node;
 		X_PP_Order_Node foreignEntity;
 		if (get_ID() == 0 &&PP_Order_Node != null &&
 				(foreignEntity = new Query(getCtx(), X_PP_Order_Node.Table_Name, X_PP_Order_Node.COLUMNNAME_PP_Order_Node_UU + "=?", get_TrxName())
 						.setParameters(PP_Order_Node.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPP_Order_Node_ID(foreignEntity.get_ID());
+			super.setPP_Order_Node_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -259,30 +231,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 *
 	 * @return Workflow Node (activity), step or process
 	 */
-	public I_PP_Order_NodeInput getPP_Order_Node() {
-		return PP_Order_Node;
-	}
-	/**
-	 * Set Manufacturing Order Activity.
-	 *
-	 * @param PP_Order_Node_ID Workflow Node (activity), step or process
-	 */
-
-	public void setPP_Order_Node_ID(int PP_Order_Node_ID) {
-		if (get_ID() == 0) {
-			super.setPP_Order_Node_ID(PP_Order_Node_ID);
-		}
-	}
-	/**
-	 * Set Manufacturing Order Activity Next.
-	 *
-	 * @param PP_Order_NodeNext_ID Manufacturing Order Activity Next
-	 */
-
-	public void setPP_Order_NodeNext_ID(int PP_Order_NodeNext_ID) {
-		if (get_ID() == 0) {
-			super.setPP_Order_NodeNext_ID(PP_Order_NodeNext_ID);
-		}
+	@JsonProperty("PP_Order_Node")
+	public I_PP_Order_NodeInput PP_Order_Node() {
+		return mPP_Order_Node;
 	}
 
 	/**

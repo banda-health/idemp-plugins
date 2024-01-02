@@ -15,28 +15,28 @@ public interface I_M_ShipperPackagingInput extends I_M_ShipperPackaging {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set M_Shipper.
 	 *
 	 * @param M_Shipper Method or manner of product delivery
 	 */
-	void setM_Shipper(I_M_ShipperInput M_Shipper);
+	void setM_ShipperInput(I_M_ShipperInput M_Shipper);
 
 	/**
 	 * Get M_Shipper.
 	 *
 	 * @return Method or manner of product delivery
 	 */
-	I_M_ShipperInput getM_Shipper();
+	I_M_ShipperInput M_Shipper();
 
 	/**
 	 * Set ID.
@@ -57,12 +57,12 @@ public interface I_M_ShipperPackagingInput extends I_M_ShipperPackaging {
 	 *
 	 * @param M_ShipperPackagingCfg M_ShipperPackagingCfg
 	 */
-	void setM_ShipperPackagingCfg(I_M_ShipperPackagingCfgInput M_ShipperPackagingCfg);
+	void setM_ShipperPackagingCfgInput(I_M_ShipperPackagingCfgInput M_ShipperPackagingCfg);
 
 	/**
 	 * Get M_ShipperPackagingCfg.
 	 *
 	 * @return M_ShipperPackagingCfg
 	 */
-	I_M_ShipperPackagingCfgInput getM_ShipperPackagingCfg();
+	I_M_ShipperPackagingCfgInput M_ShipperPackagingCfg();
 }

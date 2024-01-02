@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_LanguageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MCountry;
-import org.compiere.model.MCurrency;
 import org.compiere.model.MLanguage;
 import org.dataloader.DataLoader;
 
@@ -143,7 +143,7 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 	 *
 	 * @return Language for this entity
 	 */
-	public CompletableFuture<MLanguage> AD_Language_L(MCountry entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MLanguage> AD_Language(MCountry entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAD_Language())) {
 			return null;
 		}
@@ -152,19 +152,43 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		return dataLoader.load(AD_LANGUAGE_IDS_BY_LANGUAGE.get(entity.getAD_Language()));
 	}
 
+	public Boolean AllowCitiesOutOfList(MCountry entity, DataFetchingEnvironment environment) {
+		return entity.isAllowCitiesOutOfList();
+	}
+
 
 	/**
 	 * Get Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency> C_Currency(MCountry entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MCountry entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MCurrency> dataLoader =
+		DataLoader<Integer, MCurrency_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getC_Currency_ID());
+	}
+
+	public Boolean HasPostal_Add(MCountry entity, DataFetchingEnvironment environment) {
+		return entity.isHasPostal_Add();
+	}
+
+	public Boolean HasRegion(MCountry entity, DataFetchingEnvironment environment) {
+		return entity.isHasRegion();
+	}
+
+	public Boolean IsAddressLinesLocalReverse(MCountry entity, DataFetchingEnvironment environment) {
+		return entity.isAddressLinesLocalReverse();
+	}
+
+	public Boolean IsAddressLinesReverse(MCountry entity, DataFetchingEnvironment environment) {
+		return entity.isAddressLinesReverse();
+	}
+
+	public Boolean IsPostcodeLookup(MCountry entity, DataFetchingEnvironment environment) {
+		return entity.isPostcodeLookup();
 	}
 
 }

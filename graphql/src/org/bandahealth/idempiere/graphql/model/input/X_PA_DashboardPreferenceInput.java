@@ -1,12 +1,14 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDashboardContent;
+import org.compiere.model.MDashboardPreference;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
-import org.compiere.model.X_PA_DashboardPreference;
 import org.compiere.util.Env;
 
 /**
@@ -15,17 +17,18 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_DashboardPreferenceInput extends X_PA_DashboardPreference implements I_PA_DashboardPreferenceInput {
+public class X_PA_DashboardPreferenceInput extends MDashboardPreference implements I_PA_DashboardPreferenceInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_RoleInput AD_Role;
-	 private I_AD_UserInput AD_User;
-	 private I_PA_DashboardContentInput PA_DashboardContent;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_RoleInput mAD_Role;
+	 private I_AD_UserInput mAD_User;
+	 private I_PA_DashboardContentInput mPA_DashboardContent;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_PA_DashboardPreferenceInput(String ID) {
+	@JsonCreator
+	public X_PA_DashboardPreferenceInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
 	}
@@ -35,14 +38,15 @@ public class X_PA_DashboardPreferenceInput extends X_PA_DashboardPreference impl
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -51,8 +55,9 @@ public class X_PA_DashboardPreferenceInput extends X_PA_DashboardPreference impl
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -60,16 +65,17 @@ public class X_PA_DashboardPreferenceInput extends X_PA_DashboardPreference impl
 	 *
 	 * @param AD_Role Responsibility Role
 	 */
-	public void setAD_Role(I_AD_RoleInput AD_Role) {
-		this.AD_Role = AD_Role;
+	@JsonProperty("AD_Role")
+	public void setAD_RoleInput(I_AD_RoleInput AD_Role) {
+		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
 				(foreignEntity = new Query(getCtx(), X_AD_Role.Table_Name, X_AD_Role.COLUMNNAME_AD_Role_UU + "=?", get_TrxName())
 						.setParameters(AD_Role.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Role_ID(foreignEntity.get_ID());
+			super.setAD_Role_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_Role_ID(0);
+			super.setAD_Role_ID(0);
 		}
 	}
 
@@ -78,8 +84,9 @@ public class X_PA_DashboardPreferenceInput extends X_PA_DashboardPreference impl
 	 *
 	 * @return Responsibility Role
 	 */
-	public I_AD_RoleInput getAD_Role() {
-		return AD_Role;
+	@JsonProperty("AD_Role")
+	public I_AD_RoleInput AD_Role() {
+		return mAD_Role;
 	}
 
 	/**
@@ -87,16 +94,17 @@ public class X_PA_DashboardPreferenceInput extends X_PA_DashboardPreference impl
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	public void setAD_User(I_AD_UserInput AD_User) {
-		this.AD_User = AD_User;
+	@JsonProperty("AD_User")
+	public void setAD_UserInput(I_AD_UserInput AD_User) {
+		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
 				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_User_ID(foreignEntity.get_ID());
+			super.setAD_User_ID(foreignEntity.get_ID());
 		} else {
-			this.setAD_User_ID(0);
+			super.setAD_User_ID(0);
 		}
 	}
 
@@ -105,8 +113,9 @@ public class X_PA_DashboardPreferenceInput extends X_PA_DashboardPreference impl
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	public I_AD_UserInput getAD_User() {
-		return AD_User;
+	@JsonProperty("AD_User")
+	public I_AD_UserInput AD_User() {
+		return mAD_User;
 	}
 
 	/**
@@ -114,16 +123,17 @@ public class X_PA_DashboardPreferenceInput extends X_PA_DashboardPreference impl
 	 *
 	 * @param PA_DashboardContent Dashboard Content
 	 */
-	public void setPA_DashboardContent(I_PA_DashboardContentInput PA_DashboardContent) {
-		this.PA_DashboardContent = PA_DashboardContent;
+	@JsonProperty("PA_DashboardContent")
+	public void setPA_DashboardContentInput(I_PA_DashboardContentInput PA_DashboardContent) {
+		this.mPA_DashboardContent = PA_DashboardContent;
 		MDashboardContent foreignEntity;
 		if (PA_DashboardContent != null &&
 				(foreignEntity = new Query(getCtx(), MDashboardContent.Table_Name, MDashboardContent.COLUMNNAME_PA_DashboardContent_UU + "=?", get_TrxName())
 						.setParameters(PA_DashboardContent.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPA_DashboardContent_ID(foreignEntity.get_ID());
+			super.setPA_DashboardContent_ID(foreignEntity.get_ID());
 		} else {
-			this.setPA_DashboardContent_ID(0);
+			super.setPA_DashboardContent_ID(0);
 		}
 	}
 
@@ -132,19 +142,9 @@ public class X_PA_DashboardPreferenceInput extends X_PA_DashboardPreference impl
 	 *
 	 * @return Dashboard Content
 	 */
-	public I_PA_DashboardContentInput getPA_DashboardContent() {
-		return PA_DashboardContent;
-	}
-	/**
-	 * Set Dashboard Preference.
-	 *
-	 * @param PA_DashboardPreference_ID Dashboard Preference
-	 */
-
-	public void setPA_DashboardPreference_ID(int PA_DashboardPreference_ID) {
-		if (get_ID() == 0) {
-			super.setPA_DashboardPreference_ID(PA_DashboardPreference_ID);
-		}
+	@JsonProperty("PA_DashboardContent")
+	public I_PA_DashboardContentInput PA_DashboardContent() {
+		return mPA_DashboardContent;
 	}
 
 	/**

@@ -15,14 +15,14 @@ public interface I_C_CurrencyInput extends I_C_Currency {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_Org(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(I_AD_OrgInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput getAD_Org();
+	I_AD_OrgInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -37,23 +37,4 @@ public interface I_C_CurrencyInput extends I_C_Currency {
 	 * @return ID
 	 */
 	String getID();
-
-	/**
-	 * Column name CurrencyName
-	 */
-	public static final String COLUMNNAME_CurrencyName = "CurrencyName";
-
-	/**
-	 * Set Currency Name.
-	 *
-	 * @param CurrencyName The name of the currency
-	 */
-	public void setCurrencyName(String CurrencyName);
-
-	/**
-	 * Get Currency Name.
-	 *
-	 * @return The name of the currency
-	 */
-	public String getCurrencyName();
 }

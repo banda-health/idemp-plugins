@@ -4,6 +4,7 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -19,7 +20,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_BOMDataLoade
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MChangeNotice;
 import org.compiere.model.MLocator;
-import org.compiere.model.MRefList;
 import org.compiere.model.MUOM;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_PP_Order;
@@ -82,13 +82,21 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			put("CP", "64d921b3-a4fe-4b04-8519-91f39f844a8a");
 		}
 	};
-	public CompletableFuture<MRefList> ComponentType_RL(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ComponentType(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getComponentType())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(COMPONENTTYPE_UUIDS_BY_VALUE.get(entity.getComponentType()));
+	}
+
+	public Boolean IsCritical(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
+		return entity.isCritical();
+	}
+
+	public Boolean IsQtyPercentage(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
+		return entity.isQtyPercentage();
 	}
 
 	static Map<String, String> ISSUEMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
@@ -98,11 +106,11 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			put("2", "211b7c2f-638d-4429-b5d9-e1248a684d3b");
 		}
 	};
-	public CompletableFuture<MRefList> IssueMethod_RL(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> IssueMethod(X_PP_Order_BOMLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getIssueMethod())) {
 			return null;
 		}
-		DataLoader<String, MRefList> dataLoader =
+		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(ISSUEMETHOD_UUIDS_BY_VALUE.get(entity.getIssueMethod()));
 	}

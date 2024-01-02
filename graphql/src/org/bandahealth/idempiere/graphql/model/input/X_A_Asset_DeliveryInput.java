@@ -1,14 +1,16 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
+import org.compiere.model.MAssetDelivery;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProductDownload;
 import org.compiere.model.Query;
-import org.compiere.model.X_A_Asset_Delivery;
 import org.compiere.util.Env;
 
 /**
@@ -17,31 +19,21 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_Asset_DeliveryInput {
+public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset_DeliveryInput {
 
-	 private I_AD_OrgInput AD_Org;
-	 private I_AD_UserInput AD_User;
-	 private I_A_AssetInput A_Asset;
-	 private I_M_InOutLineInput M_InOutLine;
-	 private I_M_ProductDownloadInput M_ProductDownload;
+	 private I_AD_OrgInput mAD_Org;
+	 private I_AD_UserInput mAD_User;
+	 private I_A_AssetInput mA_Asset;
+	 private I_M_InOutLineInput mM_InOutLine;
+	 private I_M_ProductDownloadInput mM_ProductDownload;
 
 	/**
 	 * Standard constructor
 	 */
-	public X_A_Asset_DeliveryInput(String ID) {
+	@JsonCreator
+	public X_A_Asset_DeliveryInput(@JsonProperty("ID") String ID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
 		setID(ID);
-	}
-	/**
-	 * Set Asset Delivery.
-	 *
-	 * @param A_Asset_Delivery_ID Delivery of Asset
-	 */
-
-	public void setA_Asset_Delivery_ID(int A_Asset_Delivery_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_Delivery_ID(A_Asset_Delivery_ID);
-		}
 	}
 
 	/**
@@ -67,14 +59,15 @@ public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_A
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	public void setA_Asset(I_A_AssetInput A_Asset) {
-		this.A_Asset = A_Asset;
+	@JsonProperty("A_Asset")
+	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (get_ID() == 0 &&A_Asset != null &&
 				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Asset_ID(foreignEntity.get_ID());
+			super.setA_Asset_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -83,19 +76,9 @@ public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_A
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public I_A_AssetInput getA_Asset() {
-		return A_Asset;
-	}
-	/**
-	 * Set Asset.
-	 *
-	 * @param A_Asset_ID Asset used internally or by customers
-	 */
-
-	public void setA_Asset_ID(int A_Asset_ID) {
-		if (get_ID() == 0) {
-			super.setA_Asset_ID(A_Asset_ID);
-		}
+	@JsonProperty("A_Asset")
+	public I_A_AssetInput A_Asset() {
+		return mA_Asset;
 	}
 
 	/**
@@ -103,14 +86,15 @@ public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_A
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	public void setAD_Org(I_AD_OrgInput AD_Org) {
-		this.AD_Org = AD_Org;
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
 				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Org_ID(foreignEntity.get_ID());
+			super.setAD_Org_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -119,8 +103,9 @@ public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_A
 	 *
 	 * @return Organizational entity within client
 	 */
-	public I_AD_OrgInput getAD_Org() {
-		return AD_Org;
+	@JsonProperty("AD_Org")
+	public I_AD_OrgInput AD_Org() {
+		return mAD_Org;
 	}
 
 	/**
@@ -128,14 +113,15 @@ public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_A
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	public void setAD_User(I_AD_UserInput AD_User) {
-		this.AD_User = AD_User;
+	@JsonProperty("AD_User")
+	public void setAD_UserInput(I_AD_UserInput AD_User) {
+		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (get_ID() == 0 &&AD_User != null &&
 				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_User_ID(foreignEntity.get_ID());
+			super.setAD_User_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -144,19 +130,9 @@ public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_A
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	public I_AD_UserInput getAD_User() {
-		return AD_User;
-	}
-	/**
-	 * Set User/Contact.
-	 *
-	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
-	 */
-
-	public void setAD_User_ID(int AD_User_ID) {
-		if (get_ID() == 0) {
-			super.setAD_User_ID(AD_User_ID);
-		}
+	@JsonProperty("AD_User")
+	public I_AD_UserInput AD_User() {
+		return mAD_User;
 	}
 	/**
 	 * Set EMail Address.
@@ -186,14 +162,15 @@ public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_A
 	 *
 	 * @param M_InOutLine Line on Shipment or Receipt document
 	 */
-	public void setM_InOutLine(I_M_InOutLineInput M_InOutLine) {
-		this.M_InOutLine = M_InOutLine;
+	@JsonProperty("M_InOutLine")
+	public void setM_InOutLineInput(I_M_InOutLineInput M_InOutLine) {
+		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
 		if (get_ID() == 0 &&M_InOutLine != null &&
 				(foreignEntity = new Query(getCtx(), MInOutLine.Table_Name, MInOutLine.COLUMNNAME_M_InOutLine_UU + "=?", get_TrxName())
 						.setParameters(M_InOutLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_InOutLine_ID(foreignEntity.get_ID());
+			super.setM_InOutLine_ID(foreignEntity.get_ID());
 		}
 	}
 
@@ -202,19 +179,9 @@ public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_A
 	 *
 	 * @return Line on Shipment or Receipt document
 	 */
-	public I_M_InOutLineInput getM_InOutLine() {
-		return M_InOutLine;
-	}
-	/**
-	 * Set Shipment/Receipt Line.
-	 *
-	 * @param M_InOutLine_ID Line on Shipment or Receipt document
-	 */
-
-	public void setM_InOutLine_ID(int M_InOutLine_ID) {
-		if (get_ID() == 0) {
-			super.setM_InOutLine_ID(M_InOutLine_ID);
-		}
+	@JsonProperty("M_InOutLine")
+	public I_M_InOutLineInput M_InOutLine() {
+		return mM_InOutLine;
 	}
 
 	/**
@@ -222,16 +189,17 @@ public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_A
 	 *
 	 * @param M_ProductDownload Product downloads
 	 */
-	public void setM_ProductDownload(I_M_ProductDownloadInput M_ProductDownload) {
-		this.M_ProductDownload = M_ProductDownload;
+	@JsonProperty("M_ProductDownload")
+	public void setM_ProductDownloadInput(I_M_ProductDownloadInput M_ProductDownload) {
+		this.mM_ProductDownload = M_ProductDownload;
 		MProductDownload foreignEntity;
 		if (M_ProductDownload != null &&
 				(foreignEntity = new Query(getCtx(), MProductDownload.Table_Name, MProductDownload.COLUMNNAME_M_ProductDownload_UU + "=?", get_TrxName())
 						.setParameters(M_ProductDownload.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_ProductDownload_ID(foreignEntity.get_ID());
+			super.setM_ProductDownload_ID(foreignEntity.get_ID());
 		} else {
-			this.setM_ProductDownload_ID(0);
+			super.setM_ProductDownload_ID(0);
 		}
 	}
 
@@ -240,8 +208,9 @@ public class X_A_Asset_DeliveryInput extends X_A_Asset_Delivery implements I_A_A
 	 *
 	 * @return Product downloads
 	 */
-	public I_M_ProductDownloadInput getM_ProductDownload() {
-		return M_ProductDownload;
+	@JsonProperty("M_ProductDownload")
+	public I_M_ProductDownloadInput M_ProductDownload() {
+		return mM_ProductDownload;
 	}
 	/**
 	 * Set Message ID.
