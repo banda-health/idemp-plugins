@@ -5,11 +5,6 @@ extend type Query {
 	PA_AchievementGet(page: Int, size: Int, sort: String, filter: String): PA_AchievementConnection!
 }
 
-extend type Mutation {
-	PA_AchievementSave(entity: PA_AchievementInput!): PA_Achievement!
-	PA_AchievementDelete(uuids: [String!]!): Boolean!
-}
-
 type PA_AchievementConnection {
 	results: [PA_Achievement!]!
 	pagingInfo: PagingInfo!
@@ -49,26 +44,3 @@ type PA_Achievement {
 	UpdatedBy: AD_User!
 }
 
-input PA_AchievementInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Date of the Document
-	DateDoc: Date
-	# Optional short description of the record
-	Description: String
-	# The goal is achieved
-	IsAchieved: Boolean
-	# The record is active in the system
-	IsActive: Boolean
-	# Manually entered actual value
-	ManualActual: Int
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Optional additional user defined information
-	Note: String
-	ID: ID
-	# Concrete Performance Measurement
-	PA_Measure: PA_MeasureInput
-	# Method of ordering records; lowest number comes first
-	SeqNo: Int
-}

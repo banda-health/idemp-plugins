@@ -5,11 +5,6 @@ extend type Query {
 	A_Asset_RetirementGet(page: Int, size: Int, sort: String, filter: String): A_Asset_RetirementConnection!
 }
 
-extend type Mutation {
-	A_Asset_RetirementSave(entity: A_Asset_RetirementInput!): A_Asset_Retirement!
-	A_Asset_RetirementDelete(uuids: [String!]!): Boolean!
-}
-
 type A_Asset_RetirementConnection {
 	results: [A_Asset_Retirement!]!
 	pagingInfo: PagingInfo!
@@ -41,18 +36,3 @@ type A_Asset_Retirement {
 	UpdatedBy: AD_User!
 }
 
-input A_Asset_RetirementInput {
-	# Asset used internally or by customers
-	A_Asset: A_AssetInput
-	ID: ID
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Market value of the asset
-	AssetMarketValueAmt: Int
-	# Book Value of the asset
-	AssetValueAmt: Int
-	# Invoice Detail Line
-	C_InvoiceLine: C_InvoiceLineInput
-	# The record is active in the system
-	IsActive: Boolean
-}

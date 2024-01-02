@@ -5,11 +5,6 @@ extend type Query {
 	PA_SLA_GoalGet(page: Int, size: Int, sort: String, filter: String): PA_SLA_GoalConnection!
 }
 
-extend type Mutation {
-	PA_SLA_GoalSave(entity: PA_SLA_GoalInput!): PA_SLA_Goal!
-	PA_SLA_GoalDelete(uuids: [String!]!): Boolean!
-}
-
 type PA_SLA_GoalConnection {
 	results: [PA_SLA_Goal!]!
 	pagingInfo: PagingInfo!
@@ -56,33 +51,3 @@ type PA_SLA_Goal {
 	ValidTo: Date
 }
 
-input PA_SLA_GoalInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Identifies a Business Partner
-	C_BPartner: C_BPartnerInput
-	# Date the process was last run.
-	DateLastRun: Date
-	# Optional short description of the record
-	Description: String
-	# Comment or Hint
-	Help: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Actual value that has been measured.
-	MeasureActual: Int
-	# Target value for measure
-	MeasureTarget: Int
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Service Level Agreement Criteria
-	PA_SLA_Criteria: PA_SLA_CriteriaInput
-	ID: ID
-	# The document has been processed
-	Processed: Boolean
-	Processing: Boolean
-	# Valid from including this date (first day)
-	ValidFrom: Date
-	# Valid to including this date (last day)
-	ValidTo: Date
-}

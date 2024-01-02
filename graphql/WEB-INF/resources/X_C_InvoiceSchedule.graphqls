@@ -5,11 +5,6 @@ extend type Query {
 	C_InvoiceScheduleGet(page: Int, size: Int, sort: String, filter: String): C_InvoiceScheduleConnection!
 }
 
-extend type Mutation {
-	C_InvoiceScheduleSave(entity: C_InvoiceScheduleInput!): C_InvoiceSchedule!
-	C_InvoiceScheduleDelete(uuids: [String!]!): Boolean!
-}
-
 type C_InvoiceScheduleConnection {
 	results: [C_InvoiceSchedule!]!
 	pagingInfo: PagingInfo!
@@ -55,32 +50,3 @@ type C_InvoiceSchedule {
 	UpdatedBy: AD_User!
 }
 
-input C_InvoiceScheduleInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Amount
-	Amt: Int
-	ID: ID
-	# Optional short description of the record
-	Description: String
-	# Send invoices on even weeks
-	EvenInvoiceWeek: Boolean
-	# Day of Invoice Generation
-	InvoiceDay: Int
-	# Last day for including shipments
-	InvoiceDayCutoff: Int
-	# How often invoices will be generated
-	InvoiceFrequency: AD_Ref_ListInput
-	# Day to generate invoices
-	InvoiceWeekDay: AD_Ref_ListInput
-	# Last day in the week for shipments to be included
-	InvoiceWeekDayCutoff: AD_Ref_ListInput
-	# The record is active in the system
-	IsActive: Boolean
-	# Send invoices only if the amount exceeds the limit
-	IsAmount: Boolean
-	# Default value
-	IsDefault: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-}

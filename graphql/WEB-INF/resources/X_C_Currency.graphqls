@@ -5,11 +5,6 @@ extend type Query {
 	C_CurrencyGet(page: Int, size: Int, sort: String, filter: String): C_CurrencyConnection!
 }
 
-extend type Mutation {
-	C_CurrencySave(entity: C_CurrencyInput!): C_Currency!
-	C_CurrencyDelete(uuids: [String!]!): Boolean!
-}
-
 type C_CurrencyConnection {
 	results: [C_Currency!]!
 	pagingInfo: PagingInfo!
@@ -55,32 +50,3 @@ type C_Currency {
 	UpdatedBy: AD_User!
 }
 
-input C_CurrencyInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	ID: ID
-	# Rounding used costing calculations
-	CostingPrecision: Int
-	# The name of the currency
-	CurrencyName: String
-	# Symbol of the currency (opt used for printing only)
-	CurSymbol: String
-	# Optional short description of the record
-	Description: String
-	# Date when the currency joined / will join the EMU
-	EMUEntryDate: Date
-	# Official rate to the Euro
-	EMURate: Int
-	# The record is active in the system
-	IsActive: Boolean
-	# This currency is member if the European Monetary Union
-	IsEMUMember: Boolean
-	# This currency is the Euro
-	IsEuro: Boolean
-	# Three letter ISO 4217 Code of the Currency
-	ISO_Code: String
-	# Used to Round Off Payment Amount
-	RoundOffFactor: Int
-	# Rule for rounding  calculated amounts
-	StdPrecision: Int
-}

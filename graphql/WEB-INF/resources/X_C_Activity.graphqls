@@ -5,11 +5,6 @@ extend type Query {
 	C_ActivityGet(page: Int, size: Int, sort: String, filter: String): C_ActivityConnection!
 }
 
-extend type Mutation {
-	C_ActivitySave(entity: C_ActivityInput!): C_Activity!
-	C_ActivityDelete(uuids: [String!]!): Boolean!
-}
-
 type C_ActivityConnection {
 	results: [C_Activity!]!
 	pagingInfo: PagingInfo!
@@ -43,20 +38,3 @@ type C_Activity {
 	Value: String!
 }
 
-input C_ActivityInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	ID: ID
-	# Optional short description of the record
-	Description: String
-	# Comment or Hint
-	Help: String
-	# The record is active in the system
-	IsActive: Boolean
-	# This is a summary entity
-	IsSummary: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Search key for the record in the format required - must be unique
-	Value: String
-}

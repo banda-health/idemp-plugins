@@ -5,11 +5,6 @@ extend type Query {
 	C_SubAcctGet(page: Int, size: Int, sort: String, filter: String): C_SubAcctConnection!
 }
 
-extend type Mutation {
-	C_SubAcctSave(entity: C_SubAcctInput!): C_SubAcct!
-	C_SubAcctDelete(uuids: [String!]!): Boolean!
-}
-
 type C_SubAcctConnection {
 	results: [C_SubAcct!]!
 	pagingInfo: PagingInfo!
@@ -43,20 +38,3 @@ type C_SubAcct {
 	Value: String!
 }
 
-input C_SubAcctInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Account Element
-	C_ElementValue: C_ElementValueInput
-	ID: ID
-	# Optional short description of the record
-	Description: String
-	# Comment or Hint
-	Help: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Search key for the record in the format required - must be unique
-	Value: String
-}

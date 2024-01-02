@@ -5,11 +5,6 @@ extend type Query {
 	A_Asset_Group_AcctGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Group_AcctConnection!
 }
 
-extend type Mutation {
-	A_Asset_Group_AcctSave(entity: A_Asset_Group_AcctInput!): A_Asset_Group_Acct!
-	A_Asset_Group_AcctDelete(uuids: [String!]!): Boolean!
-}
-
 type A_Asset_Group_AcctConnection {
 	results: [A_Asset_Group_Acct!]!
 	pagingInfo: PagingInfo!
@@ -70,47 +65,3 @@ type A_Asset_Group_Acct {
 	UseLifeYears_F: Int!
 }
 
-input A_Asset_Group_AcctInput {
-	A_Accumdepreciation_A: C_ValidCombinationInput
-	A_Asset_A: C_ValidCombinationInput
-	ID: ID
-	# Group of Assets
-	A_Asset_Group: A_Asset_GroupInput
-	A_Depreciation_A: C_ValidCombinationInput
-	A_Depreciation_Conv_F: A_Depreciation_ConventionInput
-	A_Depreciation_Conv: A_Depreciation_ConventionInput
-	A_Depreciation_F: A_DepreciationInput
-	A_Depreciation: A_DepreciationInput
-	A_Depreciation_Manual_Amount: Int
-	A_Depreciation_Manual_Period: AD_Ref_ListInput
-	A_Depreciation_Method_F: A_Depreciation_MethodInput
-	A_Depreciation_Method: A_Depreciation_MethodInput
-	A_Depreciation_Table_Header: A_Depreciation_Table_HeaderInput
-	A_Depreciation_Variable_Perc: Int
-	A_Depreciation_Variable_Perc_F: Int
-	A_Disposal_Gain_A: C_ValidCombinationInput
-	A_Disposal_Loss_A: C_ValidCombinationInput
-	A_Disposal_Revenue_A: C_ValidCombinationInput
-	A_Reval_Adep_Offset_Cur_A: C_ValidCombinationInput
-	A_Reval_Adep_Offset_Prior_A: C_ValidCombinationInput
-	A_Reval_Cal_Method: AD_Ref_ListInput
-	A_Reval_Cost_Offset_A: C_ValidCombinationInput
-	A_Reval_Cost_Offset_Prior_A: C_ValidCombinationInput
-	A_Reval_Depexp_Offset_A: C_ValidCombinationInput
-	A_Split_Percent: Int
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Rules for accounting
-	C_AcctSchema: C_AcctSchemaInput
-	# The record is active in the system
-	IsActive: Boolean
-	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
-	Processing: Boolean
-	# Months of the usable life of the asset
-	UseLifeMonths: Int
-	UseLifeMonths_F: Int
-	# Years of the usable life of the asset
-	UseLifeYears: Int
-	UseLifeYears_F: Int
-}

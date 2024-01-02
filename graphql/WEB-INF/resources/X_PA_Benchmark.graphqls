@@ -5,11 +5,6 @@ extend type Query {
 	PA_BenchmarkGet(page: Int, size: Int, sort: String, filter: String): PA_BenchmarkConnection!
 }
 
-extend type Mutation {
-	PA_BenchmarkSave(entity: PA_BenchmarkInput!): PA_Benchmark!
-	PA_BenchmarkDelete(uuids: [String!]!): Boolean!
-}
-
 type PA_BenchmarkConnection {
 	results: [PA_Benchmark!]!
 	pagingInfo: PagingInfo!
@@ -41,18 +36,3 @@ type PA_Benchmark {
 	UpdatedBy: AD_User!
 }
 
-input PA_BenchmarkInput {
-	# How to accumulate data on time axis
-	AccumulationType: AD_Ref_ListInput
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Optional short description of the record
-	Description: String
-	# Comment or Hint
-	Help: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	ID: ID
-}

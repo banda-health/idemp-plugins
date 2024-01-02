@@ -5,11 +5,6 @@ extend type Query {
 	A_Asset_Reval_IndexGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Reval_IndexConnection!
 }
 
-extend type Mutation {
-	A_Asset_Reval_IndexSave(entity: A_Asset_Reval_IndexInput!): A_Asset_Reval_Index!
-	A_Asset_Reval_IndexDelete(uuids: [String!]!): Boolean!
-}
-
 type A_Asset_Reval_IndexConnection {
 	results: [A_Asset_Reval_Index!]!
 	pagingInfo: PagingInfo!
@@ -37,14 +32,3 @@ type A_Asset_Reval_Index {
 	UpdatedBy: AD_User!
 }
 
-input A_Asset_Reval_IndexInput {
-	ID: ID
-	A_Effective_Date: Date
-	A_Reval_Code: AD_Ref_ListInput
-	A_Reval_Multiplier: AD_Ref_ListInput
-	A_Reval_Rate: Int
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# The record is active in the system
-	IsActive: Boolean
-}

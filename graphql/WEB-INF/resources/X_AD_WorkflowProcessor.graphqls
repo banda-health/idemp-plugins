@@ -5,11 +5,6 @@ extend type Query {
 	AD_WorkflowProcessorGet(page: Int, size: Int, sort: String, filter: String): AD_WorkflowProcessorConnection!
 }
 
-extend type Mutation {
-	AD_WorkflowProcessorSave(entity: AD_WorkflowProcessorInput!): AD_WorkflowProcessor!
-	AD_WorkflowProcessorDelete(uuids: [String!]!): Boolean!
-}
-
 type AD_WorkflowProcessorConnection {
 	results: [AD_WorkflowProcessor!]!
 	pagingInfo: PagingInfo!
@@ -53,30 +48,3 @@ type AD_WorkflowProcessor {
 	UpdatedBy: AD_User!
 }
 
-input AD_WorkflowProcessorInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	AD_Schedule: AD_ScheduleInput
-	ID: ID
-	# Send alert email when over priority
-	AlertOverPriority: Int
-	# Date the process was last run.
-	DateLastRun: Date
-	# Date the process will run next
-	DateNextRun: Date
-	# Optional short description of the record
-	Description: String
-	# Send Alert when there is no activity after days (0= no alert)
-	InactivityAlertDays: Int
-	# The record is active in the system
-	IsActive: Boolean
-	# Number of days to keep the log entries
-	KeepLogDays: Int
-	# Alphanumeric identifier of the entity
-	Name: String
-	Processing: Boolean
-	# Days between sending Reminder Emails for a due or inactive Document
-	RemindDays: Int
-	# Supervisor for this user/organization - used for escalation and approval
-	Supervisor: AD_UserInput
-}

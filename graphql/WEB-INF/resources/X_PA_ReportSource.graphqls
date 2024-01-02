@@ -5,11 +5,6 @@ extend type Query {
 	PA_ReportSourceGet(page: Int, size: Int, sort: String, filter: String): PA_ReportSourceConnection!
 }
 
-extend type Mutation {
-	PA_ReportSourceSave(entity: PA_ReportSourceInput!): PA_ReportSource!
-	PA_ReportSourceDelete(uuids: [String!]!): Boolean!
-}
-
 type PA_ReportSourceConnection {
 	results: [PA_ReportSource!]!
 	pagingInfo: PagingInfo!
@@ -78,55 +73,3 @@ type PA_ReportSource {
 	UpdatedBy: AD_User!
 }
 
-input PA_ReportSourceInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Business Activity
-	C_Activity: C_ActivityInput
-	# Identifies a Business Partner
-	C_BPartner: C_BPartnerInput
-	# Marketing Campaign
-	C_Campaign: C_CampaignInput
-	# Account Element
-	C_ElementValue: C_ElementValueInput
-	# Location or Address
-	C_Location: C_LocationInput
-	# Financial Project
-	C_Project: C_ProjectInput
-	# Sales coverage region
-	C_SalesRegion: C_SalesRegionInput
-	# Optional short description of the record
-	Description: String
-	# Element Type (account or user defined)
-	ElementType: AD_Ref_ListInput
-	# The record is active in the system
-	IsActive: Boolean
-	# Include nulls in the selection of the activity
-	IsIncludeNullsActivity: Boolean
-	# Include nulls in the selection of the business partner
-	IsIncludeNullsBPartner: Boolean
-	# Include nulls in the selection of the campaign
-	IsIncludeNullsCampaign: Boolean
-	# Include nulls in the selection of the account
-	IsIncludeNullsElementValue: Boolean
-	# Include nulls in the selection of the location
-	IsIncludeNullsLocation: Boolean
-	# Include nulls in the selection of the organization
-	IsIncludeNullsOrg: Boolean
-	# Include nulls in the selection of the organization transaction
-	IsIncludeNullsOrgTrx: Boolean
-	# Include nulls in the selection of the product
-	IsIncludeNullsProduct: Boolean
-	# Include nulls in the selection of the project
-	IsIncludeNullsProject: Boolean
-	# Include nulls in the selection of the sales region
-	IsIncludeNullsSalesRegion: Boolean
-	# Include nulls in the selection of the user element 1
-	IsIncludeNullsUserElement1: Boolean
-	# Include nulls in the selection of the user element 2
-	IsIncludeNullsUserElement2: Boolean
-	# Product, Service, Item
-	M_Product: M_ProductInput
-	PA_ReportLine: PA_ReportLineInput
-	ID: ID
-}

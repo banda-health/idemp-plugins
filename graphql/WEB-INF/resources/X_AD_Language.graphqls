@@ -5,11 +5,6 @@ extend type Query {
 	AD_LanguageGet(page: Int, size: Int, sort: String, filter: String): AD_LanguageConnection!
 }
 
-extend type Mutation {
-	AD_LanguageSave(entity: AD_LanguageInput!): AD_Language!
-	AD_LanguageDelete(uuids: [String!]!): Boolean!
-}
-
 type AD_LanguageConnection {
 	results: [AD_Language!]!
 	pagingInfo: PagingInfo!
@@ -57,34 +52,3 @@ type AD_Language {
 	UpdatedBy: AD_User!
 }
 
-input AD_LanguageInput {
-	# Language for this entity
-	AD_Language: String
-	ID: ID
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Printer paper definition
-	AD_PrintPaper: AD_PrintPaperInput
-	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
-	CountryCode: String
-	# Java Date Pattern
-	DatePattern: String
-	# The record is active in the system
-	IsActive: Boolean
-	# The system information is maintained in this language
-	IsBaseLanguage: Boolean
-	# The number notation has a decimal point (no decimal comma)
-	IsDecimalPoint: Boolean
-	IsLoginLocale: Boolean
-	# The screens, etc. are maintained in this Language
-	IsSystemLanguage: Boolean
-	# Lower-case two-letter ISO-3166 code - http://www.ics.uci.edu/pub/ietf/http/related/iso639.txt 
-	LanguageISO: String
-	# Alphanumeric identifier of the entity
-	Name: String
-	# The label text to be printed on a document or correspondence.
-	PrintName: String
-	Processing: Boolean
-	# Java Time Pattern
-	TimePattern: String
-}

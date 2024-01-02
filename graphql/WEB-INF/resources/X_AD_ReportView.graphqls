@@ -5,11 +5,6 @@ extend type Query {
 	AD_ReportViewGet(page: Int, size: Int, sort: String, filter: String): AD_ReportViewConnection!
 }
 
-extend type Mutation {
-	AD_ReportViewSave(entity: AD_ReportViewInput!): AD_ReportView!
-	AD_ReportViewDelete(uuids: [String!]!): Boolean!
-}
-
 type AD_ReportViewConnection {
 	results: [AD_ReportView!]!
 	pagingInfo: PagingInfo!
@@ -45,22 +40,3 @@ type AD_ReportView {
 	WhereClause: String
 }
 
-input AD_ReportViewInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	ID: ID
-	# Database Table information
-	AD_Table: AD_TableInput
-	# Optional short description of the record
-	Description: String
-	# Dictionary Entity Type; Determines ownership and synchronization
-	AD_EntityType: AD_EntityTypeInput
-	# The record is active in the system
-	IsActive: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Fully qualified ORDER BY clause
-	OrderByClause: String
-	# Fully qualified SQL WHERE clause
-	WhereClause: String
-}

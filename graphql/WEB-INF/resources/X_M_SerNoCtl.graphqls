@@ -5,11 +5,6 @@ extend type Query {
 	M_SerNoCtlGet(page: Int, size: Int, sort: String, filter: String): M_SerNoCtlConnection!
 }
 
-extend type Mutation {
-	M_SerNoCtlSave(entity: M_SerNoCtlInput!): M_SerNoCtl!
-	M_SerNoCtlDelete(uuids: [String!]!): Boolean!
-}
-
 type M_SerNoCtlConnection {
 	results: [M_SerNoCtl!]!
 	pagingInfo: PagingInfo!
@@ -49,26 +44,3 @@ type M_SerNoCtl {
 	UpdatedBy: AD_User!
 }
 
-input M_SerNoCtlInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
-	BH_Locked: Boolean
-	# The next number to be used
-	CurrentNext: Int
-	# Optional short description of the record
-	Description: String
-	# The number to increment the last document number by
-	IncrementNo: Int
-	# The record is active in the system
-	IsActive: Boolean
-	ID: ID
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Prefix before the sequence number
-	Prefix: String
-	# Starting number/position
-	StartNo: Int
-	# Suffix after the number
-	Suffix: String
-}

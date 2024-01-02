@@ -5,6 +5,7 @@ import org.bandahealth.idempiere.graphql.function.VoidFunction;
 import org.compiere.model.MRole;
 import org.compiere.model.MTable;
 import org.compiere.model.PO;
+import org.compiere.model.X_AD_Table;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 
@@ -151,6 +152,10 @@ public class ModelUtil {
 		}
 
 		if (!hasAccess(idempiereContext, table, isReadWrite)) {
+			// If this is a system table and the user just wants to read, allow it
+			if (!isReadWrite && table.getAccessLevel().equals(X_AD_Table.ACCESSLEVEL_SystemOnly)) {
+				return table;
+			}
 			throw new AdempiereException("Access denied for table: " + tableName);
 		}
 

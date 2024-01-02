@@ -5,11 +5,6 @@ extend type Query {
 	C_BankAccountGet(page: Int, size: Int, sort: String, filter: String): C_BankAccountConnection!
 }
 
-extend type Mutation {
-	C_BankAccountSave(entity: C_BankAccountInput!): C_BankAccount!
-	C_BankAccountDelete(uuids: [String!]!): Boolean!
-}
-
 type C_BankAccountConnection {
 	results: [C_BankAccount!]!
 	pagingInfo: PagingInfo!
@@ -58,35 +53,3 @@ type C_BankAccount {
 	Value: String!
 }
 
-input C_BankAccountInput {
-	# Account Number
-	AccountNo: String
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Bank Account Type
-	BankAccountType: AD_Ref_ListInput
-	# Basic Bank Account Number
-	BBAN: String
-	# Bank
-	C_Bank: C_BankInput
-	ID: ID
-	# The Currency for this record
-	C_Currency: C_CurrencyInput
-	# Amount of Credit allowed
-	CreditLimit: Int
-	# Current Balance
-	CurrentBalance: Int
-	# Optional short description of the record
-	Description: String
-	# International Bank Account Number
-	IBAN: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Default value
-	IsDefault: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	PaymentExportClass: String
-	# Search key for the record in the format required - must be unique
-	Value: String
-}

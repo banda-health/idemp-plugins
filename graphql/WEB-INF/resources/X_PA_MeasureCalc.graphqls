@@ -5,11 +5,6 @@ extend type Query {
 	PA_MeasureCalcGet(page: Int, size: Int, sort: String, filter: String): PA_MeasureCalcConnection!
 }
 
-extend type Mutation {
-	PA_MeasureCalcSave(entity: PA_MeasureCalcInput!): PA_MeasureCalc!
-	PA_MeasureCalcDelete(uuids: [String!]!): Boolean!
-}
-
 type PA_MeasureCalcConnection {
 	results: [PA_MeasureCalc!]!
 	pagingInfo: PagingInfo!
@@ -55,32 +50,3 @@ type PA_MeasureCalc {
 	WhereClause: String!
 }
 
-input PA_MeasureCalcInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Database Table information
-	AD_Table: AD_TableInput
-	# Fully qualified Business Partner key column (C_BPartner_ID)
-	BPartnerColumn: String
-	# Fully qualified date column
-	DateColumn: String
-	# Optional short description of the record
-	Description: String
-	# Dictionary Entity Type; Determines ownership and synchronization
-	AD_EntityType: AD_EntityTypeInput
-	# The record is active in the system
-	IsActive: Boolean
-	# Key Column for Table
-	KeyColumn: String
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Fully qualified Organization column (AD_Org_ID)
-	OrgColumn: String
-	ID: ID
-	# Fully qualified Product column (M_Product_ID)
-	ProductColumn: String
-	# SQL SELECT clause
-	SelectClause: String
-	# Fully qualified SQL WHERE clause
-	WhereClause: String
-}

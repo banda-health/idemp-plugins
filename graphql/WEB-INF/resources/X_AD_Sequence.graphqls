@@ -5,11 +5,6 @@ extend type Query {
 	AD_SequenceGet(page: Int, size: Int, sort: String, filter: String): AD_SequenceConnection!
 }
 
-extend type Mutation {
-	AD_SequenceSave(entity: AD_SequenceInput!): AD_Sequence!
-	AD_SequenceDelete(uuids: [String!]!): Boolean!
-}
-
 type AD_SequenceConnection {
 	results: [AD_Sequence!]!
 	pagingInfo: PagingInfo!
@@ -68,45 +63,3 @@ type AD_Sequence {
 	VFormat: String
 }
 
-input AD_SequenceInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	ID: ID
-	# The next number to be used
-	CurrentNext: Int
-	# Next sequence for system use
-	CurrentNextSys: Int
-	# Fully qualified date column
-	DateColumn: String
-	# Java Decimal Pattern
-	DecimalPattern: String
-	# Optional short description of the record
-	Description: String
-	# The number to increment the last document number by
-	IncrementNo: Int
-	# The record is active in the system
-	IsActive: Boolean
-	# Activate Audit Trail of what numbers are generated
-	IsAudited: Boolean
-	# Automatically assign the next number
-	IsAutoSequence: Boolean
-	# This sequence can be defined for each organization
-	IsOrgLevelSequence: Boolean
-	# The document number  will be used as the record key
-	IsTableID: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Fully qualified Organization column (AD_Org_ID)
-	OrgColumn: String
-	# Prefix before the sequence number
-	Prefix: String
-	StartNewMonth: Boolean
-	# Restart the sequence with Start on every 1/1
-	StartNewYear: Boolean
-	# Starting number/position
-	StartNo: Int
-	# Suffix after the number
-	Suffix: String
-	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
-	VFormat: String
-}

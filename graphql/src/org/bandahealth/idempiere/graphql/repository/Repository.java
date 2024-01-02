@@ -174,7 +174,7 @@ public class Repository {
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		List<T> models = getQuery(idempiereContext, tableName, transactionName, true, false,
-				tableName + "." + tableName + "_ID IN (" + whereCondition + ")").list();
+				tableName + "." + tableName + "_ID IN (" + whereCondition + ")", parameters).list();
 		return models.stream().collect(Collectors.toMap(T::get_ID, m -> m));
 	}
 

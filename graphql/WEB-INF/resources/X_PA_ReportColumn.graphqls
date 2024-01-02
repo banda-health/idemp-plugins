@@ -5,11 +5,6 @@ extend type Query {
 	PA_ReportColumnGet(page: Int, size: Int, sort: String, filter: String): PA_ReportColumnConnection!
 }
 
-extend type Mutation {
-	PA_ReportColumnSave(entity: PA_ReportColumnInput!): PA_ReportColumn!
-	PA_ReportColumnDelete(uuids: [String!]!): Boolean!
-}
-
 type PA_ReportColumnConnection {
 	results: [PA_ReportColumn!]!
 	pagingInfo: PagingInfo!
@@ -116,93 +111,3 @@ type PA_ReportColumn {
 	UpdatedBy: AD_User!
 }
 
-input PA_ReportColumnInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Business Activity
-	C_Activity: C_ActivityInput
-	# Identifies a Business Partner
-	C_BPartner: C_BPartnerInput
-	# Marketing Campaign
-	C_Campaign: C_CampaignInput
-	# The Currency for this record
-	C_Currency: C_CurrencyInput
-	# Account Element
-	C_ElementValue: C_ElementValueInput
-	# Location or Address
-	C_Location: C_LocationInput
-	# Financial Project
-	C_Project: C_ProjectInput
-	# Sales coverage region
-	C_SalesRegion: C_SalesRegionInput
-	CalculationType: AD_Ref_ListInput
-	ColumnType: AD_Ref_ListInput
-	CurrencyType: AD_Ref_ListInput
-	# Optional short description of the record
-	Description: String
-	# Element Type (account or user defined)
-	ElementType: AD_Ref_ListInput
-	# Scaling factor.
-	Factor: AD_Ref_ListInput
-	# The pattern used to format a number or date.
-	FormatPattern: String
-	# General Ledger Budget
-	GL_Budget: GL_BudgetInput
-	# The record is active in the system
-	IsActive: Boolean
-	# Perform conversion for all amounts to currency
-	IsAdhocConversion: Boolean
-	# Allow column values to be displayed with the opposite sign
-	IsAllowOppositeSign: Boolean
-	# Include nulls in the selection of the activity
-	IsIncludeNullsActivity: Boolean
-	# Include nulls in the selection of the business partner
-	IsIncludeNullsBPartner: Boolean
-	# Include nulls in the selection of the campaign
-	IsIncludeNullsCampaign: Boolean
-	# Include nulls in the selection of the account
-	IsIncludeNullsElementValue: Boolean
-	# Include nulls in the selection of the location
-	IsIncludeNullsLocation: Boolean
-	# Include nulls in the selection of the organization
-	IsIncludeNullsOrg: Boolean
-	# Include nulls in the selection of the organization transaction
-	IsIncludeNullsOrgTrx: Boolean
-	# Include nulls in the selection of the product
-	IsIncludeNullsProduct: Boolean
-	# Include nulls in the selection of the project
-	IsIncludeNullsProject: Boolean
-	# Include nulls in the selection of the sales region
-	IsIncludeNullsSalesRegion: Boolean
-	# Include nulls in the selection of the user element 1
-	IsIncludeNullsUserElement1: Boolean
-	# Include nulls in the selection of the user element 2
-	IsIncludeNullsUserElement2: Boolean
-	# Indicates if this document / line is printed
-	IsPrinted: Boolean
-	# Product, Service, Item
-	M_Product: M_ProductInput
-	# Alphanumeric identifier of the entity
-	Name: String
-	# First operand for calculation
-	Oper_1: PA_ReportColumnInput
-	# Second operand for calculation
-	Oper_2: PA_ReportColumnInput
-	# Name of the financial report line to take values from
-	Oper_2_LineName: String
-	ID: ID
-	# Collection of Columns for Report
-	PA_ReportColumnSet: PA_ReportColumnSetInput
-	# PA Amount Type for reporting
-	PAAmountType: AD_Ref_ListInput
-	# PA Period Type
-	PAPeriodType: AD_Ref_ListInput
-	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
-	# Period offset (0 is current)
-	RelativePeriod: Int
-	# Period offset (0 is current)
-	RelativePeriodTo: Int
-	# Method of ordering records; lowest number comes first
-	SeqNo: Int
-}

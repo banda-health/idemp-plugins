@@ -5,11 +5,6 @@ extend type Query {
 	A_Asset_TransferGet(page: Int, size: Int, sort: String, filter: String): A_Asset_TransferConnection!
 }
 
-extend type Mutation {
-	A_Asset_TransferSave(entity: A_Asset_TransferInput!): A_Asset_Transfer!
-	A_Asset_TransferDelete(uuids: [String!]!): Boolean!
-}
-
 type A_Asset_TransferConnection {
 	results: [A_Asset_Transfer!]!
 	pagingInfo: PagingInfo!
@@ -82,59 +77,3 @@ type A_Asset_Transfer {
 	UpdatedBy: AD_User!
 }
 
-input A_Asset_TransferInput {
-	A_Accumdepreciation_A: C_ValidCombinationInput
-	A_Accumdepreciation_Acct_Str: String
-	A_Accumdepreciation_New_A: C_ValidCombinationInput
-	A_Accumulated_Depr_F: Int
-	A_Asset_A: C_ValidCombinationInput
-	A_Asset_Acct_Str: String
-	# Asset used internally or by customers
-	A_Asset: A_AssetInput
-	A_Asset_New_A: C_ValidCombinationInput
-	ID: ID
-	A_CapvsExp: AD_Ref_ListInput
-	A_Depreciation_A: C_ValidCombinationInput
-	A_Depreciation_Acct_Str: String
-	A_Depreciation_New_A: C_ValidCombinationInput
-	A_Disposal_Loss: Int
-	A_Disposal_Loss_A: C_ValidCombinationInput
-	A_Disposal_Loss_New_A: C_ValidCombinationInput
-	A_Disposal_Loss_Str: String
-	A_Disposal_Revenue: Int
-	A_Disposal_Revenue_A: C_ValidCombinationInput
-	A_Disposal_Revenue_New_A: C_ValidCombinationInput
-	A_Disposal_Revenue_Str: String
-	A_Period_End: Int
-	A_Period_Start: Int
-	A_Split_Percent: Int
-	A_Transfer_Balance: Boolean
-	A_Transfer_Balance_IS: Boolean
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Rules for accounting
-	C_AcctSchema: C_AcctSchemaInput
-	# Period of the Calendar
-	C_Period: C_PeriodInput
-	# Accounting Date
-	DateAcct: Date
-	# Date of the Document
-	DateDoc: Date
-	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
-	# The current status of the document
-	DocStatus: AD_Ref_ListInput
-	# Document sequence number of the document
-	DocumentNo: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Posting status
-	Posted: Boolean
-	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
-	# The document has been processed
-	Processed: Boolean
-	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
-	Processing: Boolean
-}

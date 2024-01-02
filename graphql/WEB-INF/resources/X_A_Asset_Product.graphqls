@@ -5,11 +5,6 @@ extend type Query {
 	A_Asset_ProductGet(page: Int, size: Int, sort: String, filter: String): A_Asset_ProductConnection!
 }
 
-extend type Mutation {
-	A_Asset_ProductSave(entity: A_Asset_ProductInput!): A_Asset_Product!
-	A_Asset_ProductDelete(uuids: [String!]!): Boolean!
-}
-
 type A_Asset_ProductConnection {
 	results: [A_Asset_Product!]!
 	pagingInfo: PagingInfo!
@@ -44,21 +39,3 @@ type A_Asset_Product {
 	UpdatedBy: AD_User!
 }
 
-input A_Asset_ProductInput {
-	# Asset used internally or by customers
-	A_Asset: A_AssetInput
-	ID: ID
-	A_QTY_Current: Int
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Optional short description of the record
-	Description: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Product Attribute Set Instance
-	M_AttributeSetInstance: M_AttributeSetInstanceInput
-	# Warehouse Locator
-	M_Locator: M_LocatorInput
-	# Product, Service, Item
-	M_Product: M_ProductInput
-}

@@ -5,11 +5,6 @@ extend type Query {
 	AD_WF_ResponsibleGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ResponsibleConnection!
 }
 
-extend type Mutation {
-	AD_WF_ResponsibleSave(entity: AD_WF_ResponsibleInput!): AD_WF_Responsible!
-	AD_WF_ResponsibleDelete(uuids: [String!]!): Boolean!
-}
-
 type AD_WF_ResponsibleConnection {
 	results: [AD_WF_Responsible!]!
 	pagingInfo: PagingInfo!
@@ -45,22 +40,3 @@ type AD_WF_Responsible {
 	UpdatedBy: AD_User!
 }
 
-input AD_WF_ResponsibleInput {
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Responsibility Role
-	AD_Role: AD_RoleInput
-	# User within the system - Internal or Business Partner Contact
-	AD_User: AD_UserInput
-	ID: ID
-	# Optional short description of the record
-	Description: String
-	# Dictionary Entity Type; Determines ownership and synchronization
-	AD_EntityType: AD_EntityTypeInput
-	# The record is active in the system
-	IsActive: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-	# Type of the Responsibility for a workflow
-	ResponsibleType: AD_Ref_ListInput
-}

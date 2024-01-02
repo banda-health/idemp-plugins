@@ -5,11 +5,6 @@ extend type Query {
 	A_Asset_GroupGet(page: Int, size: Int, sort: String, filter: String): A_Asset_GroupConnection!
 }
 
-extend type Mutation {
-	A_Asset_GroupSave(entity: A_Asset_GroupInput!): A_Asset_Group!
-	A_Asset_GroupDelete(uuids: [String!]!): Boolean!
-}
-
 type A_Asset_GroupConnection {
 	results: [A_Asset_Group!]!
 	pagingInfo: PagingInfo!
@@ -54,31 +49,3 @@ type A_Asset_Group {
 	UpdatedBy: AD_User!
 }
 
-input A_Asset_GroupInput {
-	A_Asset_Class: A_Asset_ClassInput
-	ID: ID
-	A_Asset_Type: A_Asset_TypeInput
-	# Organizational entity within client
-	AD_Org: AD_OrgInput
-	# Optional short description of the record
-	Description: String
-	# Comment or Hint
-	Help: String
-	# The record is active in the system
-	IsActive: Boolean
-	# Create Asset and activate it
-	IsCreateAsActive: Boolean
-	# Default value
-	IsDefault: Boolean
-	# The asset will be depreciated
-	IsDepreciated: Boolean
-	IsFixedAsset: Boolean
-	# Create one asset per UOM
-	IsOneAssetPerUOM: Boolean
-	# The asset is owned by the organization
-	IsOwned: Boolean
-	# Enable tracking issues for this asset
-	IsTrackIssues: Boolean
-	# Alphanumeric identifier of the entity
-	Name: String
-}
