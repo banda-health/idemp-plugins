@@ -5,6 +5,11 @@ extend type Query {
 	C_PaymentTermGet(page: Int, size: Int, sort: String, filter: String): C_PaymentTermConnection!
 }
 
+extend type Mutation {
+	C_PaymentTermSave(entity: C_PaymentTermInput!): C_PaymentTerm!
+	C_PaymentTermDelete(uuids: [String!]!): Boolean!
+}
+
 type C_PaymentTermConnection {
 	results: [C_PaymentTerm!]!
 	pagingInfo: PagingInfo!
@@ -69,3 +74,51 @@ type C_PaymentTerm {
 	Value: String!
 }
 
+input C_PaymentTermInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Due after delivery rather than after invoicing
+	AfterDelivery: Boolean
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Discount in percent
+	Discount: Int
+	# Discount in percent
+	Discount2: Int
+	# Number of days from invoice date to be eligible for discount
+	DiscountDays: Int
+	# Number of days from invoice date to be eligible for discount
+	DiscountDays2: Int
+	# Additional information for a Document
+	DocumentNote: String
+	# Last day to include for next due date
+	FixMonthCutoff: Int
+	# Day of the month of the due date
+	FixMonthDay: Int
+	# Number of months (0=same, 1=following)
+	FixMonthOffset: Int
+	# Days after due date to send first dunning letter
+	GraceDays: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Payment is due on a fixed date
+	IsDueFixed: Boolean
+	# Payment due on the next business day
+	IsNextBusinessDay: Boolean
+	# Element is valid
+	IsValid: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Day when payment is due net
+	NetDay: AD_Ref_ListInput
+	# Net Days in which payment is due
+	NetDays: Int
+	# Payment term usage indicates if this payment term is used for sales, purchases or both.
+	PaymentTermUsage: AD_Ref_ListInput
+	Processing: Boolean
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

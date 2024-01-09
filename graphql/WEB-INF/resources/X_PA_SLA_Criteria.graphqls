@@ -5,6 +5,11 @@ extend type Query {
 	PA_SLA_CriteriaGet(page: Int, size: Int, sort: String, filter: String): PA_SLA_CriteriaConnection!
 }
 
+extend type Mutation {
+	PA_SLA_CriteriaSave(entity: PA_SLA_CriteriaInput!): PA_SLA_Criteria!
+	PA_SLA_CriteriaDelete(uuids: [String!]!): Boolean!
+}
+
 type PA_SLA_CriteriaConnection {
 	results: [PA_SLA_Criteria!]!
 	pagingInfo: PagingInfo!
@@ -38,3 +43,20 @@ type PA_SLA_Criteria {
 	UpdatedBy: AD_User!
 }
 
+input PA_SLA_CriteriaInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Java Classname
+	Classname: String
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a manual process
+	IsManual: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	ID: ID
+}

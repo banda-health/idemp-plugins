@@ -5,6 +5,11 @@ extend type Query {
 	C_LocationGet(page: Int, size: Int, sort: String, filter: String): C_LocationConnection!
 }
 
+extend type Mutation {
+	C_LocationSave(entity: C_LocationInput!): C_Location!
+	C_LocationDelete(uuids: [String!]!): Boolean!
+}
+
 type C_LocationConnection {
 	results: [C_Location!]!
 	pagingInfo: PagingInfo!
@@ -60,3 +65,42 @@ type C_Location {
 	ValidateAddress: String
 }
 
+input C_LocationInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Address line 1 for this location
+	Address1: String
+	# Address line 2 for this location
+	Address2: String
+	# Address Line 3 for the location
+	Address3: String
+	# Address Line 4 for the location
+	Address4: String
+	# Address Line 5 for the location
+	Address5: String
+	C_AddressValidation: ForeignEntityInput
+	# City
+	C_City: ForeignEntityInput
+	# Country 
+	C_Country: ForeignEntityInput
+	ID: ID
+	# Identifies a geographical Region
+	C_Region: ForeignEntityInput
+	# Identifies a City
+	City: String
+	# Comments or additional information
+	Comments: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Element is valid
+	IsValid: Boolean
+	# Postal code
+	Postal: String
+	# Additional ZIP or Postal code
+	Postal_Add: String
+	# Name of the Region
+	RegionName: String
+	# Result of the action taken
+	Result: String
+	ValidateAddress: String
+}

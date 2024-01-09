@@ -42,7 +42,43 @@ import org.compiere.util.Env;
  */
 public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mBH_Visit;
+	 private ForeignEntityInput mBH_Voided_Reason;
+	 private ForeignEntityInput mBill_BPartner;
+	 private ForeignEntityInput mBill_Location;
+	 private ForeignEntityInput mBill_User;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_BPartner_Location;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_CashLine;
+	 private ForeignEntityInput mC_CashPlanLine;
+	 private ForeignEntityInput mC_Charge;
+	 private ForeignEntityInput mC_ConversionType;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_DocTypeTarget;
+	 private ForeignEntityInput mC_Opportunity;
+	 private ForeignEntityInput mC_OrderSource;
+	 private ForeignEntityInput mC_POS;
+	 private ForeignEntityInput mC_Payment;
+	 private ForeignEntityInput mC_PaymentTerm;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mDropShip_BPartner;
+	 private ForeignEntityInput mDropShip_Location;
+	 private ForeignEntityInput mDropShip_User;
+	 private ForeignEntityInput mLink_Order;
+	 private ForeignEntityInput mM_FreightCategory;
+	 private ForeignEntityInput mM_PriceList;
+	 private ForeignEntityInput mM_Shipper;
+	 private ForeignEntityInput mM_Warehouse;
+	 private ForeignEntityInput mQuotationOrder;
+	 private ForeignEntityInput mRef_Order;
+	 private ForeignEntityInput mSalesRep;
+	 private ForeignEntityInput mUser1;
+	 private ForeignEntityInput mUser2;
 	 private I_AD_Ref_ListInput mDeliveryRule;
 	 private I_AD_Ref_ListInput mDeliveryViaRule;
 	 private I_AD_Ref_ListInput mDocAction;
@@ -50,42 +86,6 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 private I_AD_Ref_ListInput mFreightCostRule;
 	 private I_AD_Ref_ListInput mInvoiceRule;
 	 private I_AD_Ref_ListInput mPriorityRule;
-	 private I_AD_UserInput mAD_User;
-	 private I_AD_UserInput mBill_User;
-	 private I_AD_UserInput mDropShip_User;
-	 private I_AD_UserInput mSalesRep;
-	 private I_BH_VisitInput mBH_Visit;
-	 private I_BH_Voided_ReasonInput mBH_Voided_Reason;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_BPartnerInput mBill_BPartner;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BPartnerInput mDropShip_BPartner;
-	 private I_C_BPartner_LocationInput mBill_Location;
-	 private I_C_BPartner_LocationInput mC_BPartner_Location;
-	 private I_C_BPartner_LocationInput mDropShip_Location;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_CashLineInput mC_CashLine;
-	 private I_C_CashPlanLineInput mC_CashPlanLine;
-	 private I_C_ChargeInput mC_Charge;
-	 private I_C_ConversionTypeInput mC_ConversionType;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_DocTypeInput mC_DocTypeTarget;
-	 private I_C_ElementValueInput mUser1;
-	 private I_C_ElementValueInput mUser2;
-	 private I_C_OpportunityInput mC_Opportunity;
-	 private I_C_OrderInput mLink_Order;
-	 private I_C_OrderInput mQuotationOrder;
-	 private I_C_OrderInput mRef_Order;
-	 private I_C_OrderSourceInput mC_OrderSource;
-	 private I_C_POSInput mC_POS;
-	 private I_C_PaymentInput mC_Payment;
-	 private I_C_PaymentTermInput mC_PaymentTerm;
-	 private I_C_ProjectInput mC_Project;
-	 private I_M_FreightCategoryInput mM_FreightCategory;
-	 private I_M_PriceListInput mM_PriceList;
-	 private I_M_ShipperInput mM_Shipper;
-	 private I_M_WarehouseInput mM_Warehouse;
 
 	/**
 	 * Standard constructor
@@ -102,7 +102,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -121,7 +121,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -131,7 +131,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -150,7 +150,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -160,7 +160,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param BH_Visit Visit
 	 */
 	@JsonProperty("BH_Visit")
-	public void setBH_VisitInput(I_BH_VisitInput BH_Visit) {
+	public void setBH_VisitInput(ForeignEntityInput BH_Visit) {
 		this.mBH_Visit = BH_Visit;
 		MBHVisit foreignEntity;
 		if (BH_Visit != null &&
@@ -179,7 +179,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Visit
 	 */
 	@JsonProperty("BH_Visit")
-	public I_BH_VisitInput BH_Visit() {
+	public ForeignEntityInput BH_Visit() {
 		return mBH_Visit;
 	}
 
@@ -189,7 +189,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param BH_Voided_Reason BH_Voided_Reason_ID
 	 */
 	@JsonProperty("BH_Voided_Reason")
-	public void setBH_Voided_ReasonInput(I_BH_Voided_ReasonInput BH_Voided_Reason) {
+	public void setBH_Voided_ReasonInput(ForeignEntityInput BH_Voided_Reason) {
 		this.mBH_Voided_Reason = BH_Voided_Reason;
 		MBHVoidedReason foreignEntity;
 		if (BH_Voided_Reason != null &&
@@ -208,7 +208,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return BH_Voided_Reason_ID
 	 */
 	@JsonProperty("BH_Voided_Reason")
-	public I_BH_Voided_ReasonInput BH_Voided_Reason() {
+	public ForeignEntityInput BH_Voided_Reason() {
 		return mBH_Voided_Reason;
 	}
 
@@ -218,7 +218,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param Bill_BPartner Business Partner to be invoiced
 	 */
 	@JsonProperty("Bill_BPartner")
-	public void setBill_BPartnerInput(I_C_BPartnerInput Bill_BPartner) {
+	public void setBill_BPartnerInput(ForeignEntityInput Bill_BPartner) {
 		this.mBill_BPartner = Bill_BPartner;
 		MBPartner_BH foreignEntity;
 		if (Bill_BPartner != null &&
@@ -237,7 +237,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Business Partner to be invoiced
 	 */
 	@JsonProperty("Bill_BPartner")
-	public I_C_BPartnerInput Bill_BPartner() {
+	public ForeignEntityInput Bill_BPartner() {
 		return mBill_BPartner;
 	}
 
@@ -247,7 +247,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param Bill_Location Business Partner Location for invoicing
 	 */
 	@JsonProperty("Bill_Location")
-	public void setBill_LocationInput(I_C_BPartner_LocationInput Bill_Location) {
+	public void setBill_LocationInput(ForeignEntityInput Bill_Location) {
 		this.mBill_Location = Bill_Location;
 		MBPartnerLocation foreignEntity;
 		if (Bill_Location != null &&
@@ -266,7 +266,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Business Partner Location for invoicing
 	 */
 	@JsonProperty("Bill_Location")
-	public I_C_BPartner_LocationInput Bill_Location() {
+	public ForeignEntityInput Bill_Location() {
 		return mBill_Location;
 	}
 
@@ -276,7 +276,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param Bill_User Business Partner Contact for invoicing
 	 */
 	@JsonProperty("Bill_User")
-	public void setBill_UserInput(I_AD_UserInput Bill_User) {
+	public void setBill_UserInput(ForeignEntityInput Bill_User) {
 		this.mBill_User = Bill_User;
 		MUser_BH foreignEntity;
 		if (Bill_User != null &&
@@ -295,7 +295,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Business Partner Contact for invoicing
 	 */
 	@JsonProperty("Bill_User")
-	public I_AD_UserInput Bill_User() {
+	public ForeignEntityInput Bill_User() {
 		return mBill_User;
 	}
 
@@ -305,7 +305,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -324,7 +324,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -334,7 +334,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -353,7 +353,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -363,7 +363,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
@@ -382,7 +382,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public I_C_BPartner_LocationInput C_BPartner_Location() {
+	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
 
@@ -392,7 +392,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -411,7 +411,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -421,7 +421,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_CashLine Cash Journal Line
 	 */
 	@JsonProperty("C_CashLine")
-	public void setC_CashLineInput(I_C_CashLineInput C_CashLine) {
+	public void setC_CashLineInput(ForeignEntityInput C_CashLine) {
 		this.mC_CashLine = C_CashLine;
 		MCashLine foreignEntity;
 		if (C_CashLine != null &&
@@ -440,7 +440,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Cash Journal Line
 	 */
 	@JsonProperty("C_CashLine")
-	public I_C_CashLineInput C_CashLine() {
+	public ForeignEntityInput C_CashLine() {
 		return mC_CashLine;
 	}
 
@@ -450,7 +450,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_CashPlanLine Cash Plan Line
 	 */
 	@JsonProperty("C_CashPlanLine")
-	public void setC_CashPlanLineInput(I_C_CashPlanLineInput C_CashPlanLine) {
+	public void setC_CashPlanLineInput(ForeignEntityInput C_CashPlanLine) {
 		this.mC_CashPlanLine = C_CashPlanLine;
 		MCashPlanLine foreignEntity;
 		if (C_CashPlanLine != null &&
@@ -469,7 +469,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Cash Plan Line
 	 */
 	@JsonProperty("C_CashPlanLine")
-	public I_C_CashPlanLineInput C_CashPlanLine() {
+	public ForeignEntityInput C_CashPlanLine() {
 		return mC_CashPlanLine;
 	}
 
@@ -479,7 +479,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_Charge Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
@@ -498,7 +498,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public I_C_ChargeInput C_Charge() {
+	public ForeignEntityInput C_Charge() {
 		return mC_Charge;
 	}
 
@@ -508,7 +508,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_ConversionType Currency Conversion Rate Type
 	 */
 	@JsonProperty("C_ConversionType")
-	public void setC_ConversionTypeInput(I_C_ConversionTypeInput C_ConversionType) {
+	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
 		MConversionType foreignEntity;
 		if (C_ConversionType != null &&
@@ -527,7 +527,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Currency Conversion Rate Type
 	 */
 	@JsonProperty("C_ConversionType")
-	public I_C_ConversionTypeInput C_ConversionType() {
+	public ForeignEntityInput C_ConversionType() {
 		return mC_ConversionType;
 	}
 
@@ -537,7 +537,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (get_ID() == 0 &&C_Currency != null &&
@@ -554,7 +554,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -564,7 +564,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (get_ID() == 0 &&C_DocType != null &&
@@ -581,7 +581,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -591,7 +591,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_DocTypeTarget Target document type for conversing documents
 	 */
 	@JsonProperty("C_DocTypeTarget")
-	public void setC_DocTypeTargetInput(I_C_DocTypeInput C_DocTypeTarget) {
+	public void setC_DocTypeTargetInput(ForeignEntityInput C_DocTypeTarget) {
 		this.mC_DocTypeTarget = C_DocTypeTarget;
 		MDocType_BH foreignEntity;
 		if (C_DocTypeTarget != null &&
@@ -610,7 +610,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Target document type for conversing documents
 	 */
 	@JsonProperty("C_DocTypeTarget")
-	public I_C_DocTypeInput C_DocTypeTarget() {
+	public ForeignEntityInput C_DocTypeTarget() {
 		return mC_DocTypeTarget;
 	}
 
@@ -620,7 +620,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_Opportunity Sales Opportunity
 	 */
 	@JsonProperty("C_Opportunity")
-	public void setC_OpportunityInput(I_C_OpportunityInput C_Opportunity) {
+	public void setC_OpportunityInput(ForeignEntityInput C_Opportunity) {
 		this.mC_Opportunity = C_Opportunity;
 		MOpportunity foreignEntity;
 		if (C_Opportunity != null &&
@@ -639,7 +639,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Sales Opportunity
 	 */
 	@JsonProperty("C_Opportunity")
-	public I_C_OpportunityInput C_Opportunity() {
+	public ForeignEntityInput C_Opportunity() {
 		return mC_Opportunity;
 	}
 
@@ -667,7 +667,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_OrderSource Order Source
 	 */
 	@JsonProperty("C_OrderSource")
-	public void setC_OrderSourceInput(I_C_OrderSourceInput C_OrderSource) {
+	public void setC_OrderSourceInput(ForeignEntityInput C_OrderSource) {
 		this.mC_OrderSource = C_OrderSource;
 		X_C_OrderSource foreignEntity;
 		if (C_OrderSource != null &&
@@ -686,7 +686,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Order Source
 	 */
 	@JsonProperty("C_OrderSource")
-	public I_C_OrderSourceInput C_OrderSource() {
+	public ForeignEntityInput C_OrderSource() {
 		return mC_OrderSource;
 	}
 
@@ -696,7 +696,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_Payment Payment identifier
 	 */
 	@JsonProperty("C_Payment")
-	public void setC_PaymentInput(I_C_PaymentInput C_Payment) {
+	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
 		MPayment_BH foreignEntity;
 		if (C_Payment != null &&
@@ -715,7 +715,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Payment identifier
 	 */
 	@JsonProperty("C_Payment")
-	public I_C_PaymentInput C_Payment() {
+	public ForeignEntityInput C_Payment() {
 		return mC_Payment;
 	}
 
@@ -725,7 +725,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_PaymentTerm The terms of Payment (timing, discount)
 	 */
 	@JsonProperty("C_PaymentTerm")
-	public void setC_PaymentTermInput(I_C_PaymentTermInput C_PaymentTerm) {
+	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null &&
@@ -744,7 +744,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return The terms of Payment (timing, discount)
 	 */
 	@JsonProperty("C_PaymentTerm")
-	public I_C_PaymentTermInput C_PaymentTerm() {
+	public ForeignEntityInput C_PaymentTerm() {
 		return mC_PaymentTerm;
 	}
 
@@ -754,7 +754,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_POS Point of Sales Terminal
 	 */
 	@JsonProperty("C_POS")
-	public void setC_POSInput(I_C_POSInput C_POS) {
+	public void setC_POSInput(ForeignEntityInput C_POS) {
 		this.mC_POS = C_POS;
 		MPOS foreignEntity;
 		if (C_POS != null &&
@@ -773,7 +773,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Point of Sales Terminal
 	 */
 	@JsonProperty("C_POS")
-	public I_C_POSInput C_POS() {
+	public ForeignEntityInput C_POS() {
 		return mC_POS;
 	}
 
@@ -783,7 +783,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -802,7 +802,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -939,7 +939,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param DropShip_BPartner Business Partner to ship to
 	 */
 	@JsonProperty("DropShip_BPartner")
-	public void setDropShip_BPartnerInput(I_C_BPartnerInput DropShip_BPartner) {
+	public void setDropShip_BPartnerInput(ForeignEntityInput DropShip_BPartner) {
 		this.mDropShip_BPartner = DropShip_BPartner;
 		MBPartner_BH foreignEntity;
 		if (DropShip_BPartner != null &&
@@ -958,7 +958,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Business Partner to ship to
 	 */
 	@JsonProperty("DropShip_BPartner")
-	public I_C_BPartnerInput DropShip_BPartner() {
+	public ForeignEntityInput DropShip_BPartner() {
 		return mDropShip_BPartner;
 	}
 
@@ -968,7 +968,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param DropShip_Location Business Partner Location for shipping to
 	 */
 	@JsonProperty("DropShip_Location")
-	public void setDropShip_LocationInput(I_C_BPartner_LocationInput DropShip_Location) {
+	public void setDropShip_LocationInput(ForeignEntityInput DropShip_Location) {
 		this.mDropShip_Location = DropShip_Location;
 		MBPartnerLocation foreignEntity;
 		if (DropShip_Location != null &&
@@ -987,7 +987,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Business Partner Location for shipping to
 	 */
 	@JsonProperty("DropShip_Location")
-	public I_C_BPartner_LocationInput DropShip_Location() {
+	public ForeignEntityInput DropShip_Location() {
 		return mDropShip_Location;
 	}
 
@@ -997,7 +997,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param DropShip_User Business Partner Contact for drop shipment
 	 */
 	@JsonProperty("DropShip_User")
-	public void setDropShip_UserInput(I_AD_UserInput DropShip_User) {
+	public void setDropShip_UserInput(ForeignEntityInput DropShip_User) {
 		this.mDropShip_User = DropShip_User;
 		MUser_BH foreignEntity;
 		if (DropShip_User != null &&
@@ -1016,7 +1016,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Business Partner Contact for drop shipment
 	 */
 	@JsonProperty("DropShip_User")
-	public I_AD_UserInput DropShip_User() {
+	public ForeignEntityInput DropShip_User() {
 		return mDropShip_User;
 	}
 
@@ -1161,7 +1161,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param Link_Order This field links a sales order to the purchase order that is generated from it.
 	 */
 	@JsonProperty("Link_Order")
-	public void setLink_OrderInput(I_C_OrderInput Link_Order) {
+	public void setLink_OrderInput(ForeignEntityInput Link_Order) {
 		this.mLink_Order = Link_Order;
 		MOrder_BH foreignEntity;
 		if (get_ID() == 0 &&Link_Order != null &&
@@ -1178,7 +1178,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return This field links a sales order to the purchase order that is generated from it.
 	 */
 	@JsonProperty("Link_Order")
-	public I_C_OrderInput Link_Order() {
+	public ForeignEntityInput Link_Order() {
 		return mLink_Order;
 	}
 
@@ -1188,7 +1188,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param M_FreightCategory Category of the Freight
 	 */
 	@JsonProperty("M_FreightCategory")
-	public void setM_FreightCategoryInput(I_M_FreightCategoryInput M_FreightCategory) {
+	public void setM_FreightCategoryInput(ForeignEntityInput M_FreightCategory) {
 		this.mM_FreightCategory = M_FreightCategory;
 		MFreightCategory foreignEntity;
 		if (M_FreightCategory != null &&
@@ -1207,7 +1207,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Category of the Freight
 	 */
 	@JsonProperty("M_FreightCategory")
-	public I_M_FreightCategoryInput M_FreightCategory() {
+	public ForeignEntityInput M_FreightCategory() {
 		return mM_FreightCategory;
 	}
 
@@ -1217,7 +1217,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public void setM_PriceListInput(I_M_PriceListInput M_PriceList) {
+	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (M_PriceList != null &&
@@ -1236,7 +1236,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public I_M_PriceListInput M_PriceList() {
+	public ForeignEntityInput M_PriceList() {
 		return mM_PriceList;
 	}
 
@@ -1246,7 +1246,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param M_Shipper Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public void setM_ShipperInput(I_M_ShipperInput M_Shipper) {
+	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (M_Shipper != null &&
@@ -1265,7 +1265,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public I_M_ShipperInput M_Shipper() {
+	public ForeignEntityInput M_Shipper() {
 		return mM_Shipper;
 	}
 
@@ -1275,7 +1275,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
@@ -1294,7 +1294,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public I_M_WarehouseInput M_Warehouse() {
+	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
 	/**
@@ -1355,7 +1355,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param QuotationOrder Quotation used for generating this order
 	 */
 	@JsonProperty("QuotationOrder")
-	public void setQuotationOrderInput(I_C_OrderInput QuotationOrder) {
+	public void setQuotationOrderInput(ForeignEntityInput QuotationOrder) {
 		this.mQuotationOrder = QuotationOrder;
 		MOrder_BH foreignEntity;
 		if (QuotationOrder != null &&
@@ -1374,7 +1374,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Quotation used for generating this order
 	 */
 	@JsonProperty("QuotationOrder")
-	public I_C_OrderInput QuotationOrder() {
+	public ForeignEntityInput QuotationOrder() {
 		return mQuotationOrder;
 	}
 
@@ -1384,7 +1384,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param Ref_Order Reference to corresponding Sales/Purchase Order
 	 */
 	@JsonProperty("Ref_Order")
-	public void setRef_OrderInput(I_C_OrderInput Ref_Order) {
+	public void setRef_OrderInput(ForeignEntityInput Ref_Order) {
 		this.mRef_Order = Ref_Order;
 		MOrder_BH foreignEntity;
 		if (Ref_Order != null &&
@@ -1403,7 +1403,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Reference to corresponding Sales/Purchase Order
 	 */
 	@JsonProperty("Ref_Order")
-	public I_C_OrderInput Ref_Order() {
+	public ForeignEntityInput Ref_Order() {
 		return mRef_Order;
 	}
 
@@ -1413,7 +1413,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
@@ -1432,7 +1432,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public I_AD_UserInput SalesRep() {
+	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
 	/**
@@ -1453,7 +1453,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param User1 User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public void setUser1Input(I_C_ElementValueInput User1) {
+	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
@@ -1472,7 +1472,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public I_C_ElementValueInput User1() {
+	public ForeignEntityInput User1() {
 		return mUser1;
 	}
 
@@ -1482,7 +1482,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param User2 User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public void setUser2Input(I_C_ElementValueInput User2) {
+	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
@@ -1501,7 +1501,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public I_C_ElementValueInput User2() {
+	public ForeignEntityInput User2() {
 		return mUser2;
 	}
 }

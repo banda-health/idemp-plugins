@@ -15,14 +15,14 @@ public interface I_C_PaymentBatchInput extends I_C_PaymentBatch {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,12 +43,12 @@ public interface I_C_PaymentBatchInput extends I_C_PaymentBatch {
 	 *
 	 * @param C_PaymentProcessor Payment processor for electronic payments
 	 */
-	void setC_PaymentProcessorInput(I_C_PaymentProcessorInput C_PaymentProcessor);
+	void setC_PaymentProcessorInput(ForeignEntityInput C_PaymentProcessor);
 
 	/**
 	 * Get C_PaymentProcessor.
 	 *
 	 * @return Payment processor for electronic payments
 	 */
-	I_C_PaymentProcessorInput C_PaymentProcessor();
+	ForeignEntityInput C_PaymentProcessor();
 }

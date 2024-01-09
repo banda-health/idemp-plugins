@@ -5,6 +5,11 @@ extend type Query {
 	AD_ProcessGet(page: Int, size: Int, sort: String, filter: String): AD_ProcessConnection!
 }
 
+extend type Mutation {
+	AD_ProcessSave(entity: AD_ProcessInput!): AD_Process!
+	AD_ProcessDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_ProcessConnection {
 	results: [AD_Process!]!
 	pagingInfo: PagingInfo!
@@ -73,3 +78,55 @@ type AD_Process {
 	WorkflowValue: String
 }
 
+input AD_ProcessInput {
+	# Access Level required
+	AccessLevel: AD_Ref_ListInput
+	AD_CtxHelp: ForeignEntityInput
+	# Special Form
+	AD_Form: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Data Print Format
+	AD_PrintFormat: ForeignEntityInput
+	ID: ID
+	# View used to generate this report
+	AD_ReportView: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# Allow or disallow executing a process/report multiple times.
+	AllowMultipleExecution: AD_Ref_ListInput
+	# Java Classname
+	Classname: String
+	# Copy settings from one report and process to another.
+	CopyFromProcess: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Execution Type defines whether the report/process will always run in background or foreground. 
+	ExecutionType: AD_Ref_ListInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This functionality is considered Beta
+	IsBetaFunctionality: Boolean
+	# Print without dialog
+	IsDirectPrint: Boolean
+	# Indicates a Report record
+	IsReport: Boolean
+	JasperReport: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Name of the Database Procedure
+	ProcedureName: String
+	ShowHelp: AD_Ref_ListInput
+	# Internal statistics how often the entity was used
+	Statistic_Count: Int
+	# Internal statistics how many seconds a process took
+	Statistic_Seconds: Int
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Key of the Workflow to start
+	WorkflowValue: String
+}

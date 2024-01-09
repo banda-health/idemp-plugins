@@ -5,6 +5,11 @@ extend type Query {
 	C_GreetingGet(page: Int, size: Int, sort: String, filter: String): C_GreetingConnection!
 }
 
+extend type Mutation {
+	C_GreetingSave(entity: C_GreetingInput!): C_Greeting!
+	C_GreetingDelete(uuids: [String!]!): Boolean!
+}
+
 type C_GreetingConnection {
 	results: [C_Greeting!]!
 	pagingInfo: PagingInfo!
@@ -36,3 +41,18 @@ type C_Greeting {
 	UpdatedBy: AD_User!
 }
 
+input C_GreetingInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# For letters, e.g. "Dear {0}" or "Dear Mr. {0}" - At runtime, "{0}" is replaced by the name
+	Greeting: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Print only the first name in greetings
+	IsFirstNameOnly: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

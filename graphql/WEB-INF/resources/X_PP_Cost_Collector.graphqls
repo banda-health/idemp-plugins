@@ -5,6 +5,11 @@ extend type Query {
 	PP_Cost_CollectorGet(page: Int, size: Int, sort: String, filter: String): PP_Cost_CollectorConnection!
 }
 
+extend type Mutation {
+	PP_Cost_CollectorSave(entity: PP_Cost_CollectorInput!): PP_Cost_Collector!
+	PP_Cost_CollectorDelete(uuids: [String!]!): Boolean!
+}
+
 type PP_Cost_CollectorConnection {
 	results: [PP_Cost_Collector!]!
 	pagingInfo: PagingInfo!
@@ -94,3 +99,76 @@ type PP_Cost_Collector {
 	User2: AD_User
 }
 
+input PP_Cost_CollectorInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Target document type for conversing documents
+	C_DocTypeTarget: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# Transaction Type for Manufacturing Management
+	CostCollectorType: AD_Ref_ListInput
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	DurationReal: Int
+	# The record is active in the system
+	IsActive: Boolean
+	IsBatchTime: Boolean
+	IsSubcontracting: Boolean
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Warehouse Locator
+	M_Locator: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
+	# Quantity of a product moved.
+	MovementQty: Int
+	# Posting status
+	Posted: Boolean
+	ID: ID
+	PP_Order_BOMLine: ForeignEntityInput
+	# Manufacturing Order
+	PP_Order: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	PP_Order_Node: ForeignEntityInput
+	PP_Order_Workflow: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean
+	QtyReject: Int
+	# ID of document reversal
+	Reversal: ForeignEntityInput
+	# Resource
+	S_Resource: ForeignEntityInput
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: Int
+	SetupTimeReal: Int
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

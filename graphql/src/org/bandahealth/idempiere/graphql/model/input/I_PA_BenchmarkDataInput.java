@@ -15,28 +15,28 @@ public interface I_PA_BenchmarkDataInput extends I_PA_BenchmarkData {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set PA_Benchmark.
 	 *
 	 * @param PA_Benchmark Performance Benchmark
 	 */
-	void setPA_BenchmarkInput(I_PA_BenchmarkInput PA_Benchmark);
+	void setPA_BenchmarkInput(ForeignEntityInput PA_Benchmark);
 
 	/**
 	 * Get PA_Benchmark.
 	 *
 	 * @return Performance Benchmark
 	 */
-	I_PA_BenchmarkInput PA_Benchmark();
+	ForeignEntityInput PA_Benchmark();
 
 	/**
 	 * Set ID.

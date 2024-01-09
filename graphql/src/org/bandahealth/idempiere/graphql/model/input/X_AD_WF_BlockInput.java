@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_WorkflowInput mAD_Workflow;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Workflow;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -80,7 +80,7 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow) {
+	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
 		if (get_ID() == 0 &&AD_Workflow != null &&
@@ -97,7 +97,7 @@ public class X_AD_WF_BlockInput extends X_AD_WF_Block implements I_AD_WF_BlockIn
 	 * @return Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public I_AD_WorkflowInput AD_Workflow() {
+	public ForeignEntityInput AD_Workflow() {
 		return mAD_Workflow;
 	}
 }

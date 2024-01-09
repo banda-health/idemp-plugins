@@ -5,6 +5,11 @@ extend type Query {
 	C_DepositBatchGet(page: Int, size: Int, sort: String, filter: String): C_DepositBatchConnection!
 }
 
+extend type Mutation {
+	C_DepositBatchSave(entity: C_DepositBatchInput!): C_DepositBatch!
+	C_DepositBatchDelete(uuids: [String!]!): Boolean!
+}
+
 type C_DepositBatchConnection {
 	results: [C_DepositBatch!]!
 	pagingInfo: PagingInfo!
@@ -47,3 +52,29 @@ type C_DepositBatch {
 	UpdatedBy: AD_User!
 }
 
+input C_DepositBatchInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	ID: ID
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	DateDeposit: Date
+	# Date of the Document
+	DateDoc: Date
+	DepositAmt: Int
+	# Optional short description of the record
+	Description: String
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+}

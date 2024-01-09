@@ -29,28 +29,28 @@ public interface I_AD_ColorInput extends I_AD_Color {
 	 *
 	 * @param AD_Image Image or Icon
 	 */
-	void setAD_ImageInput(I_AD_ImageInput AD_Image);
+	void setAD_ImageInput(ForeignEntityInput AD_Image);
 
 	/**
 	 * Get AD_Image.
 	 *
 	 * @return Image or Icon
 	 */
-	I_AD_ImageInput AD_Image();
+	ForeignEntityInput AD_Image();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ColorType.

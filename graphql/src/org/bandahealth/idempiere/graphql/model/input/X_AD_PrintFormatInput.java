@@ -24,15 +24,15 @@ import org.compiere.util.Env;
  */
 public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_PrintFormatInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintColorInput mAD_PrintColor;
-	 private I_AD_PrintFontInput mAD_PrintFont;
-	 private I_AD_PrintPaperInput mAD_PrintPaper;
-	 private I_AD_PrintTableFormatInput mAD_PrintTableFormat;
-	 private I_AD_ProcessInput mJasperProcess;
-	 private I_AD_ReportViewInput mAD_ReportView;
-	 private I_AD_TableInput mAD_Table;
-	 private I_AD_WindowInput mAD_Window;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_PrintColor;
+	 private ForeignEntityInput mAD_PrintFont;
+	 private ForeignEntityInput mAD_PrintPaper;
+	 private ForeignEntityInput mAD_PrintTableFormat;
+	 private ForeignEntityInput mAD_ReportView;
+	 private ForeignEntityInput mAD_Table;
+	 private ForeignEntityInput mAD_Window;
+	 private ForeignEntityInput mJasperProcess;
 
 	/**
 	 * Standard constructor
@@ -49,7 +49,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -66,7 +66,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -76,7 +76,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @param AD_PrintColor Color used for printing and display
 	 */
 	@JsonProperty("AD_PrintColor")
-	public void setAD_PrintColorInput(I_AD_PrintColorInput AD_PrintColor) {
+	public void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor) {
 		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null &&
@@ -95,7 +95,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @return Color used for printing and display
 	 */
 	@JsonProperty("AD_PrintColor")
-	public I_AD_PrintColorInput AD_PrintColor() {
+	public ForeignEntityInput AD_PrintColor() {
 		return mAD_PrintColor;
 	}
 
@@ -105,7 +105,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @param AD_PrintFont Maintain Print Font
 	 */
 	@JsonProperty("AD_PrintFont")
-	public void setAD_PrintFontInput(I_AD_PrintFontInput AD_PrintFont) {
+	public void setAD_PrintFontInput(ForeignEntityInput AD_PrintFont) {
 		this.mAD_PrintFont = AD_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (AD_PrintFont != null &&
@@ -124,7 +124,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @return Maintain Print Font
 	 */
 	@JsonProperty("AD_PrintFont")
-	public I_AD_PrintFontInput AD_PrintFont() {
+	public ForeignEntityInput AD_PrintFont() {
 		return mAD_PrintFont;
 	}
 
@@ -152,7 +152,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @param AD_PrintPaper Printer paper definition
 	 */
 	@JsonProperty("AD_PrintPaper")
-	public void setAD_PrintPaperInput(I_AD_PrintPaperInput AD_PrintPaper) {
+	public void setAD_PrintPaperInput(ForeignEntityInput AD_PrintPaper) {
 		this.mAD_PrintPaper = AD_PrintPaper;
 		X_AD_PrintPaper foreignEntity;
 		if (AD_PrintPaper != null &&
@@ -171,7 +171,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @return Printer paper definition
 	 */
 	@JsonProperty("AD_PrintPaper")
-	public I_AD_PrintPaperInput AD_PrintPaper() {
+	public ForeignEntityInput AD_PrintPaper() {
 		return mAD_PrintPaper;
 	}
 
@@ -181,7 +181,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @param AD_PrintTableFormat Table Format in Reports
 	 */
 	@JsonProperty("AD_PrintTableFormat")
-	public void setAD_PrintTableFormatInput(I_AD_PrintTableFormatInput AD_PrintTableFormat) {
+	public void setAD_PrintTableFormatInput(ForeignEntityInput AD_PrintTableFormat) {
 		this.mAD_PrintTableFormat = AD_PrintTableFormat;
 		X_AD_PrintTableFormat foreignEntity;
 		if (AD_PrintTableFormat != null &&
@@ -200,7 +200,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @return Table Format in Reports
 	 */
 	@JsonProperty("AD_PrintTableFormat")
-	public I_AD_PrintTableFormatInput AD_PrintTableFormat() {
+	public ForeignEntityInput AD_PrintTableFormat() {
 		return mAD_PrintTableFormat;
 	}
 
@@ -210,7 +210,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @param AD_ReportView View used to generate this report
 	 */
 	@JsonProperty("AD_ReportView")
-	public void setAD_ReportViewInput(I_AD_ReportViewInput AD_ReportView) {
+	public void setAD_ReportViewInput(ForeignEntityInput AD_ReportView) {
 		this.mAD_ReportView = AD_ReportView;
 		MReportView foreignEntity;
 		if (get_ID() == 0 &&AD_ReportView != null &&
@@ -227,7 +227,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @return View used to generate this report
 	 */
 	@JsonProperty("AD_ReportView")
-	public I_AD_ReportViewInput AD_ReportView() {
+	public ForeignEntityInput AD_ReportView() {
 		return mAD_ReportView;
 	}
 
@@ -237,7 +237,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @param AD_Table Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (get_ID() == 0 &&AD_Table != null &&
@@ -254,7 +254,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @return Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public I_AD_TableInput AD_Table() {
+	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
 	}
 
@@ -264,7 +264,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @param AD_Window Data entry or display window
 	 */
 	@JsonProperty("AD_Window")
-	public void setAD_WindowInput(I_AD_WindowInput AD_Window) {
+	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
 		if (AD_Window != null &&
@@ -283,7 +283,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @return Data entry or display window
 	 */
 	@JsonProperty("AD_Window")
-	public I_AD_WindowInput AD_Window() {
+	public ForeignEntityInput AD_Window() {
 		return mAD_Window;
 	}
 	/**
@@ -304,7 +304,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @param JasperProcess The Jasper Process used by the printengine if any process defined
 	 */
 	@JsonProperty("JasperProcess")
-	public void setJasperProcessInput(I_AD_ProcessInput JasperProcess) {
+	public void setJasperProcessInput(ForeignEntityInput JasperProcess) {
 		this.mJasperProcess = JasperProcess;
 		MProcess_BH foreignEntity;
 		if (JasperProcess != null &&
@@ -323,7 +323,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	 * @return The Jasper Process used by the printengine if any process defined
 	 */
 	@JsonProperty("JasperProcess")
-	public I_AD_ProcessInput JasperProcess() {
+	public ForeignEntityInput JasperProcess() {
 		return mJasperProcess;
 	}
 }

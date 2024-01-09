@@ -15,70 +15,70 @@ public interface I_M_RMAInput extends I_M_RMA {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	void setC_BPartnerInput(I_C_BPartnerInput C_BPartner);
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
 
 	/**
 	 * Get C_BPartner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	I_C_BPartnerInput C_BPartner();
+	ForeignEntityInput C_BPartner();
 
 	/**
 	 * Set C_Currency.
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(ForeignEntityInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput C_Currency();
+	ForeignEntityInput C_Currency();
 
 	/**
 	 * Set C_DocType.
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(ForeignEntityInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput C_DocType();
+	ForeignEntityInput C_DocType();
 
 	/**
 	 * Set C_Order.
 	 *
 	 * @param C_Order Order
 	 */
-	void setC_OrderInput(I_C_OrderInput C_Order);
+	void setC_OrderInput(ForeignEntityInput C_Order);
 
 	/**
 	 * Get C_Order.
 	 *
 	 * @return Order
 	 */
-	I_C_OrderInput C_Order();
+	ForeignEntityInput C_Order();
 
 	/**
 	 * Set DocAction.
@@ -113,14 +113,14 @@ public interface I_M_RMAInput extends I_M_RMA {
 	 *
 	 * @param InOut MaterialShipment Document
 	 */
-	void setInOutInput(I_M_InOutInput InOut);
+	void setInOutInput(ForeignEntityInput InOut);
 
 	/**
 	 * Get InOut.
 	 *
 	 * @return MaterialShipment Document
 	 */
-	I_M_InOutInput InOut();
+	ForeignEntityInput InOut();
 
 	/**
 	 * Set ID.
@@ -141,40 +141,40 @@ public interface I_M_RMAInput extends I_M_RMA {
 	 *
 	 * @param M_RMAType Return Material Authorization Type
 	 */
-	void setM_RMATypeInput(I_M_RMATypeInput M_RMAType);
+	void setM_RMATypeInput(ForeignEntityInput M_RMAType);
 
 	/**
 	 * Get M_RMAType.
 	 *
 	 * @return Return Material Authorization Type
 	 */
-	I_M_RMATypeInput M_RMAType();
+	ForeignEntityInput M_RMAType();
 
 	/**
 	 * Set Ref_RMA.
 	 *
 	 * @param Ref_RMA Ref_RMA
 	 */
-	void setRef_RMAInput(I_M_RMAInput Ref_RMA);
+	void setRef_RMAInput(ForeignEntityInput Ref_RMA);
 
 	/**
 	 * Get Ref_RMA.
 	 *
 	 * @return Ref_RMA
 	 */
-	I_M_RMAInput Ref_RMA();
+	ForeignEntityInput Ref_RMA();
 
 	/**
 	 * Set SalesRep.
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
-	void setSalesRepInput(I_AD_UserInput SalesRep);
+	void setSalesRepInput(ForeignEntityInput SalesRep);
 
 	/**
 	 * Get SalesRep.
 	 *
 	 * @return Sales Representative or Company Agent
 	 */
-	I_AD_UserInput SalesRep();
+	ForeignEntityInput SalesRep();
 }

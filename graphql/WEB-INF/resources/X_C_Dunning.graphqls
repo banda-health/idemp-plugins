@@ -5,6 +5,11 @@ extend type Query {
 	C_DunningGet(page: Int, size: Int, sort: String, filter: String): C_DunningConnection!
 }
 
+extend type Mutation {
+	C_DunningSave(entity: C_DunningInput!): C_Dunning!
+	C_DunningDelete(uuids: [String!]!): Boolean!
+}
+
 type C_DunningConnection {
 	results: [C_Dunning!]!
 	pagingInfo: PagingInfo!
@@ -38,3 +43,20 @@ type C_Dunning {
 	UpdatedBy: AD_User!
 }
 
+input C_DunningInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Create Dunning Letter by level sequentially
+	CreateLevelsSequentially: Boolean
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Indicates if dunning letters will be sent
+	SendDunningLetter: Boolean
+}

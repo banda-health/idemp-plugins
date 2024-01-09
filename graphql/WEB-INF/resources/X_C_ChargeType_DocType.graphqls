@@ -5,6 +5,11 @@ extend type Query {
 	C_ChargeType_DocTypeGet(page: Int, size: Int, sort: String, filter: String): C_ChargeType_DocTypeConnection!
 }
 
+extend type Mutation {
+	C_ChargeType_DocTypeSave(entity: C_ChargeType_DocTypeInput!): C_ChargeType_DocType!
+	C_ChargeType_DocTypeDelete(uuids: [String!]!): Boolean!
+}
+
 type C_ChargeType_DocTypeConnection {
 	results: [C_ChargeType_DocType!]!
 	pagingInfo: PagingInfo!
@@ -33,3 +38,15 @@ type C_ChargeType_DocType {
 	UpdatedBy: AD_User!
 }
 
+input C_ChargeType_DocTypeInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	C_ChargeType: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	IsAllowNegative: Boolean
+	IsAllowPositive: Boolean
+}

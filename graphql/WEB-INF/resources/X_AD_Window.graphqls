@@ -5,6 +5,11 @@ extend type Query {
 	AD_WindowGet(page: Int, size: Int, sort: String, filter: String): AD_WindowConnection!
 }
 
+extend type Mutation {
+	AD_WindowSave(entity: AD_WindowInput!): AD_Window!
+	AD_WindowDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_WindowConnection {
 	results: [AD_Window!]!
 	pagingInfo: PagingInfo!
@@ -53,3 +58,35 @@ type AD_Window {
 	WinWidth: Int
 }
 
+input AD_WindowInput {
+	# Color for backgrounds or indicators
+	AD_Color: ForeignEntityInput
+	# Image or Icon
+	AD_Image: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This functionality is considered Beta
+	IsBetaFunctionality: Boolean
+	# Default value
+	IsDefault: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	# The result determines the title to be displayed for this window
+	TitleLogic: String
+	# Type or classification of a Window
+	WindowType: AD_Ref_ListInput
+	WinHeight: Int
+	WinWidth: Int
+}

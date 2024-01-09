@@ -21,15 +21,15 @@ import org.compiere.util.Env;
  */
 public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I_A_Depreciation_EntryInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_AcctSchema;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_Period;
 	 private I_AD_Ref_ListInput mA_Entry_Type;
 	 private I_AD_Ref_ListInput mDocAction;
 	 private I_AD_Ref_ListInput mDocStatus;
 	 private I_AD_Ref_ListInput mPostingType;
-	 private I_C_AcctSchemaInput mC_AcctSchema;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_PeriodInput mC_Period;
 
 	/**
 	 * Standard constructor
@@ -93,7 +93,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -112,7 +112,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -122,7 +122,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @param C_AcctSchema Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
@@ -141,7 +141,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @return Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public I_C_AcctSchemaInput C_AcctSchema() {
+	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
 	}
 
@@ -151,7 +151,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -170,7 +170,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -180,7 +180,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
@@ -199,7 +199,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -209,7 +209,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @param C_Period Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public void setC_PeriodInput(I_C_PeriodInput C_Period) {
+	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
@@ -228,7 +228,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @return Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public I_C_PeriodInput C_Period() {
+	public ForeignEntityInput C_Period() {
 		return mC_Period;
 	}
 

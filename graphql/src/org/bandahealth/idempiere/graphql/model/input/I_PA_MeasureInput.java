@@ -15,28 +15,28 @@ public interface I_PA_MeasureInput extends I_PA_Measure {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_ProjectType.
 	 *
 	 * @param C_ProjectType Type of the project
 	 */
-	void setC_ProjectTypeInput(I_C_ProjectTypeInput C_ProjectType);
+	void setC_ProjectTypeInput(ForeignEntityInput C_ProjectType);
 
 	/**
 	 * Get C_ProjectType.
 	 *
 	 * @return Type of the project
 	 */
-	I_C_ProjectTypeInput C_ProjectType();
+	ForeignEntityInput C_ProjectType();
 
 	/**
 	 * Set MeasureDataType.
@@ -71,28 +71,28 @@ public interface I_PA_MeasureInput extends I_PA_Measure {
 	 *
 	 * @param PA_Benchmark Performance Benchmark
 	 */
-	void setPA_BenchmarkInput(I_PA_BenchmarkInput PA_Benchmark);
+	void setPA_BenchmarkInput(ForeignEntityInput PA_Benchmark);
 
 	/**
 	 * Get PA_Benchmark.
 	 *
 	 * @return Performance Benchmark
 	 */
-	I_PA_BenchmarkInput PA_Benchmark();
+	ForeignEntityInput PA_Benchmark();
 
 	/**
 	 * Set PA_Hierarchy.
 	 *
 	 * @param PA_Hierarchy Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	 */
-	void setPA_HierarchyInput(I_PA_HierarchyInput PA_Hierarchy);
+	void setPA_HierarchyInput(ForeignEntityInput PA_Hierarchy);
 
 	/**
 	 * Get PA_Hierarchy.
 	 *
 	 * @return Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	 */
-	I_PA_HierarchyInput PA_Hierarchy();
+	ForeignEntityInput PA_Hierarchy();
 
 	/**
 	 * Set ID.
@@ -113,40 +113,40 @@ public interface I_PA_MeasureInput extends I_PA_Measure {
 	 *
 	 * @param PA_MeasureCalc Calculation method for measuring performance
 	 */
-	void setPA_MeasureCalcInput(I_PA_MeasureCalcInput PA_MeasureCalc);
+	void setPA_MeasureCalcInput(ForeignEntityInput PA_MeasureCalc);
 
 	/**
 	 * Get PA_MeasureCalc.
 	 *
 	 * @return Calculation method for measuring performance
 	 */
-	I_PA_MeasureCalcInput PA_MeasureCalc();
+	ForeignEntityInput PA_MeasureCalc();
 
 	/**
 	 * Set PA_Ratio.
 	 *
 	 * @param PA_Ratio Performance Ratio
 	 */
-	void setPA_RatioInput(I_PA_RatioInput PA_Ratio);
+	void setPA_RatioInput(ForeignEntityInput PA_Ratio);
 
 	/**
 	 * Get PA_Ratio.
 	 *
 	 * @return Performance Ratio
 	 */
-	I_PA_RatioInput PA_Ratio();
+	ForeignEntityInput PA_Ratio();
 
 	/**
 	 * Set R_RequestType.
 	 *
 	 * @param R_RequestType Type of request (e.g. Inquiry, Complaint, ..)
 	 */
-	void setR_RequestTypeInput(I_R_RequestTypeInput R_RequestType);
+	void setR_RequestTypeInput(ForeignEntityInput R_RequestType);
 
 	/**
 	 * Get R_RequestType.
 	 *
 	 * @return Type of request (e.g. Inquiry, Complaint, ..)
 	 */
-	I_R_RequestTypeInput R_RequestType();
+	ForeignEntityInput R_RequestType();
 }

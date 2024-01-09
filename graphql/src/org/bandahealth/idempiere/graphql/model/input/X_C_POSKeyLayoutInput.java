@@ -19,9 +19,9 @@ import org.compiere.util.Env;
  */
 public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLayoutInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintColorInput mAD_PrintColor;
-	 private I_AD_PrintFontInput mAD_PrintFont;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_PrintColor;
+	 private ForeignEntityInput mAD_PrintFont;
 	 private I_AD_Ref_ListInput mPOSKeyLayoutType;
 
 	/**
@@ -39,7 +39,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -56,7 +56,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -66,7 +66,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	 * @param AD_PrintColor Color used for printing and display
 	 */
 	@JsonProperty("AD_PrintColor")
-	public void setAD_PrintColorInput(I_AD_PrintColorInput AD_PrintColor) {
+	public void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor) {
 		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null &&
@@ -85,7 +85,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	 * @return Color used for printing and display
 	 */
 	@JsonProperty("AD_PrintColor")
-	public I_AD_PrintColorInput AD_PrintColor() {
+	public ForeignEntityInput AD_PrintColor() {
 		return mAD_PrintColor;
 	}
 
@@ -95,7 +95,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	 * @param AD_PrintFont Maintain Print Font
 	 */
 	@JsonProperty("AD_PrintFont")
-	public void setAD_PrintFontInput(I_AD_PrintFontInput AD_PrintFont) {
+	public void setAD_PrintFontInput(ForeignEntityInput AD_PrintFont) {
 		this.mAD_PrintFont = AD_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (AD_PrintFont != null &&
@@ -114,7 +114,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	 * @return Maintain Print Font
 	 */
 	@JsonProperty("AD_PrintFont")
-	public I_AD_PrintFontInput AD_PrintFont() {
+	public ForeignEntityInput AD_PrintFont() {
 		return mAD_PrintFont;
 	}
 

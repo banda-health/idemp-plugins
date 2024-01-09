@@ -29,28 +29,28 @@ public interface I_AD_TaskInput extends I_AD_Task {
 	 *
 	 * @param AD_CtxHelp AD_CtxHelp
 	 */
-	void setAD_CtxHelpInput(I_AD_CtxHelpInput AD_CtxHelp);
+	void setAD_CtxHelpInput(ForeignEntityInput AD_CtxHelp);
 
 	/**
 	 * Get AD_CtxHelp.
 	 *
 	 * @return AD_CtxHelp
 	 */
-	I_AD_CtxHelpInput AD_CtxHelp();
+	ForeignEntityInput AD_CtxHelp();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -71,12 +71,12 @@ public interface I_AD_TaskInput extends I_AD_Task {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput AD_EntityType();
+	ForeignEntityInput AD_EntityType();
 }

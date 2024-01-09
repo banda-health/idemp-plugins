@@ -23,15 +23,15 @@ import org.compiere.util.Env;
  */
 public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Role;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mPA_ColorSchema;
+	 private ForeignEntityInput mPA_GoalParent;
+	 private ForeignEntityInput mPA_Measure;
 	 private I_AD_Ref_ListInput mChartType;
 	 private I_AD_Ref_ListInput mMeasureDisplay;
 	 private I_AD_Ref_ListInput mMeasureScope;
-	 private I_AD_RoleInput mAD_Role;
-	 private I_AD_UserInput mAD_User;
-	 private I_PA_ColorSchemaInput mPA_ColorSchema;
-	 private I_PA_GoalInput mPA_GoalParent;
-	 private I_PA_MeasureInput mPA_Measure;
 
 	/**
 	 * Standard constructor
@@ -48,7 +48,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -65,7 +65,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -75,7 +75,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @param AD_Role Responsibility Role
 	 */
 	@JsonProperty("AD_Role")
-	public void setAD_RoleInput(I_AD_RoleInput AD_Role) {
+	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
@@ -94,7 +94,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @return Responsibility Role
 	 */
 	@JsonProperty("AD_Role")
-	public I_AD_RoleInput AD_Role() {
+	public ForeignEntityInput AD_Role() {
 		return mAD_Role;
 	}
 
@@ -104,7 +104,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -123,7 +123,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -253,7 +253,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @param PA_ColorSchema Performance Color Schema
 	 */
 	@JsonProperty("PA_ColorSchema")
-	public void setPA_ColorSchemaInput(I_PA_ColorSchemaInput PA_ColorSchema) {
+	public void setPA_ColorSchemaInput(ForeignEntityInput PA_ColorSchema) {
 		this.mPA_ColorSchema = PA_ColorSchema;
 		MColorSchema foreignEntity;
 		if (PA_ColorSchema != null &&
@@ -272,7 +272,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @return Performance Color Schema
 	 */
 	@JsonProperty("PA_ColorSchema")
-	public I_PA_ColorSchemaInput PA_ColorSchema() {
+	public ForeignEntityInput PA_ColorSchema() {
 		return mPA_ColorSchema;
 	}
 
@@ -300,7 +300,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @param PA_GoalParent Parent Goal
 	 */
 	@JsonProperty("PA_GoalParent")
-	public void setPA_GoalParentInput(I_PA_GoalInput PA_GoalParent) {
+	public void setPA_GoalParentInput(ForeignEntityInput PA_GoalParent) {
 		this.mPA_GoalParent = PA_GoalParent;
 		MGoal foreignEntity;
 		if (PA_GoalParent != null &&
@@ -319,7 +319,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @return Parent Goal
 	 */
 	@JsonProperty("PA_GoalParent")
-	public I_PA_GoalInput PA_GoalParent() {
+	public ForeignEntityInput PA_GoalParent() {
 		return mPA_GoalParent;
 	}
 
@@ -329,7 +329,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @param PA_Measure Concrete Performance Measurement
 	 */
 	@JsonProperty("PA_Measure")
-	public void setPA_MeasureInput(I_PA_MeasureInput PA_Measure) {
+	public void setPA_MeasureInput(ForeignEntityInput PA_Measure) {
 		this.mPA_Measure = PA_Measure;
 		MMeasure foreignEntity;
 		if (PA_Measure != null &&
@@ -348,7 +348,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @return Concrete Performance Measurement
 	 */
 	@JsonProperty("PA_Measure")
-	public I_PA_MeasureInput PA_Measure() {
+	public ForeignEntityInput PA_Measure() {
 		return mPA_Measure;
 	}
 }

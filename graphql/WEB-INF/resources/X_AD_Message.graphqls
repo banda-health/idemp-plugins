@@ -5,6 +5,11 @@ extend type Query {
 	AD_MessageGet(page: Int, size: Int, sort: String, filter: String): AD_MessageConnection!
 }
 
+extend type Mutation {
+	AD_MessageSave(entity: AD_MessageInput!): AD_Message!
+	AD_MessageDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_MessageConnection {
 	results: [AD_Message!]!
 	pagingInfo: PagingInfo!
@@ -38,3 +43,20 @@ type AD_Message {
 	Value: String!
 }
 
+input AD_MessageInput {
+	ID: ID
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Textual Informational, Menu or Error Message
+	MsgText: String
+	# Additional tip or help for this message
+	MsgTip: String
+	# Type of message (Informational, Menu or Error)
+	MsgType: AD_Ref_ListInput
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

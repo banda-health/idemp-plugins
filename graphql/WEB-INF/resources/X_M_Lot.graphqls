@@ -5,6 +5,11 @@ extend type Query {
 	M_LotGet(page: Int, size: Int, sort: String, filter: String): M_LotConnection!
 }
 
+extend type Mutation {
+	M_LotSave(entity: M_LotInput!): M_Lot!
+	M_LotDelete(uuids: [String!]!): Boolean!
+}
+
 type M_LotConnection {
 	results: [M_Lot!]!
 	pagingInfo: PagingInfo!
@@ -42,3 +47,24 @@ type M_Lot {
 	UpdatedBy: AD_User!
 }
 
+input M_LotInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Starting date for a range
+	DateFrom: Date
+	# End date of a date range
+	DateTo: Date
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	ID: ID
+	# Product Lot Control
+	M_LotCtl: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+}

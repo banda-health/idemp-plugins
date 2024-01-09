@@ -20,11 +20,11 @@ import org.compiere.util.Env;
  */
 public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTaskInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_ProjectPhase;
+	 private ForeignEntityInput mC_Task;
+	 private ForeignEntityInput mM_Product;
 	 private I_AD_Ref_ListInput mProjInvoiceRule;
-	 private I_C_ProjectPhaseInput mC_ProjectPhase;
-	 private I_C_TaskInput mC_Task;
-	 private I_M_ProductInput mM_Product;
 
 	/**
 	 * Standard constructor
@@ -41,7 +41,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -58,7 +58,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -68,7 +68,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	 * @param C_ProjectPhase Phase of a Project
 	 */
 	@JsonProperty("C_ProjectPhase")
-	public void setC_ProjectPhaseInput(I_C_ProjectPhaseInput C_ProjectPhase) {
+	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
 		MProjectPhase foreignEntity;
 		if (get_ID() == 0 &&C_ProjectPhase != null &&
@@ -85,7 +85,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	 * @return Phase of a Project
 	 */
 	@JsonProperty("C_ProjectPhase")
-	public I_C_ProjectPhaseInput C_ProjectPhase() {
+	public ForeignEntityInput C_ProjectPhase() {
 		return mC_ProjectPhase;
 	}
 
@@ -113,7 +113,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	 * @param C_Task Standard Project Type Task
 	 */
 	@JsonProperty("C_Task")
-	public void setC_TaskInput(I_C_TaskInput C_Task) {
+	public void setC_TaskInput(ForeignEntityInput C_Task) {
 		this.mC_Task = C_Task;
 		MProjectTypeTask foreignEntity;
 		if (get_ID() == 0 &&C_Task != null &&
@@ -130,7 +130,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	 * @return Standard Project Type Task
 	 */
 	@JsonProperty("C_Task")
-	public I_C_TaskInput C_Task() {
+	public ForeignEntityInput C_Task() {
 		return mC_Task;
 	}
 
@@ -140,7 +140,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -159,7 +159,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 

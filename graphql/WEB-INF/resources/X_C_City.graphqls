@@ -5,6 +5,11 @@ extend type Query {
 	C_CityGet(page: Int, size: Int, sort: String, filter: String): C_CityConnection!
 }
 
+extend type Mutation {
+	C_CitySave(entity: C_CityInput!): C_City!
+	C_CityDelete(uuids: [String!]!): Boolean!
+}
+
 type C_CityConnection {
 	results: [C_City!]!
 	pagingInfo: PagingInfo!
@@ -42,3 +47,24 @@ type C_City {
 	UpdatedBy: AD_User!
 }
 
+input C_CityInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Phone Area Code
+	AreaCode: String
+	ID: ID
+	# Country 
+	C_Country: ForeignEntityInput
+	# Identifies a geographical Region
+	C_Region: ForeignEntityInput
+	# Location coordinate
+	Coordinates: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Location code - UN/LOCODE 
+	Locode: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Postal code
+	Postal: String
+}

@@ -5,6 +5,11 @@ extend type Query {
 	M_Product_CategoryGet(page: Int, size: Int, sort: String, filter: String): M_Product_CategoryConnection!
 }
 
+extend type Mutation {
+	M_Product_CategorySave(entity: M_Product_CategoryInput!): M_Product_Category!
+	M_Product_CategoryDelete(uuids: [String!]!): Boolean!
+}
+
 type M_Product_CategoryConnection {
 	results: [M_Product_Category!]!
 	pagingInfo: PagingInfo!
@@ -49,3 +54,31 @@ type M_Product_Category {
 	Value: String!
 }
 
+input M_Product_CategoryInput {
+	# Group of Assets
+	A_Asset_Group: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Color used for printing and display
+	AD_PrintColor: ForeignEntityInput
+	# Contains a character the is linked to a ref list to determine types of product categories
+	BH_Product_Category_Type: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean
+	M_Product_Category_Parent: ForeignEntityInput
+	ID: ID
+	# Material Movement Policy
+	MMPolicy: AD_Ref_ListInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Project's planned margin as a percentage
+	PlannedMargin: Int
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

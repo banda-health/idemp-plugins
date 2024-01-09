@@ -20,11 +20,11 @@ import org.eevolution.model.X_PP_Order_Workflow;
  */
 public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implements I_PP_Order_Node_ProductInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_M_ProductInput mM_Product;
-	 private I_PP_OrderInput mPP_Order;
-	 private I_PP_Order_NodeInput mPP_Order_Node;
-	 private I_PP_Order_WorkflowInput mPP_Order_Workflow;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mPP_Order;
+	 private ForeignEntityInput mPP_Order_Node;
+	 private ForeignEntityInput mPP_Order_Workflow;
 
 	/**
 	 * Standard constructor
@@ -41,7 +41,7 @@ public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implem
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -60,7 +60,7 @@ public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implem
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -70,7 +70,7 @@ public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implem
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -89,7 +89,7 @@ public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implem
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -99,7 +99,7 @@ public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implem
 	 * @param PP_Order Manufacturing Order
 	 */
 	@JsonProperty("PP_Order")
-	public void setPP_OrderInput(I_PP_OrderInput PP_Order) {
+	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
 		X_PP_Order foreignEntity;
 		if (get_ID() == 0 &&PP_Order != null &&
@@ -116,7 +116,7 @@ public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implem
 	 * @return Manufacturing Order
 	 */
 	@JsonProperty("PP_Order")
-	public I_PP_OrderInput PP_Order() {
+	public ForeignEntityInput PP_Order() {
 		return mPP_Order;
 	}
 
@@ -126,7 +126,7 @@ public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implem
 	 * @param PP_Order_Node Workflow Node (activity), step or process
 	 */
 	@JsonProperty("PP_Order_Node")
-	public void setPP_Order_NodeInput(I_PP_Order_NodeInput PP_Order_Node) {
+	public void setPP_Order_NodeInput(ForeignEntityInput PP_Order_Node) {
 		this.mPP_Order_Node = PP_Order_Node;
 		X_PP_Order_Node foreignEntity;
 		if (get_ID() == 0 &&PP_Order_Node != null &&
@@ -143,7 +143,7 @@ public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implem
 	 * @return Workflow Node (activity), step or process
 	 */
 	@JsonProperty("PP_Order_Node")
-	public I_PP_Order_NodeInput PP_Order_Node() {
+	public ForeignEntityInput PP_Order_Node() {
 		return mPP_Order_Node;
 	}
 
@@ -171,7 +171,7 @@ public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implem
 	 * @param PP_Order_Workflow Manufacturing Order Workflow
 	 */
 	@JsonProperty("PP_Order_Workflow")
-	public void setPP_Order_WorkflowInput(I_PP_Order_WorkflowInput PP_Order_Workflow) {
+	public void setPP_Order_WorkflowInput(ForeignEntityInput PP_Order_Workflow) {
 		this.mPP_Order_Workflow = PP_Order_Workflow;
 		X_PP_Order_Workflow foreignEntity;
 		if (get_ID() == 0 &&PP_Order_Workflow != null &&
@@ -188,7 +188,7 @@ public class X_PP_Order_Node_ProductInput extends X_PP_Order_Node_Product implem
 	 * @return Manufacturing Order Workflow
 	 */
 	@JsonProperty("PP_Order_Workflow")
-	public I_PP_Order_WorkflowInput PP_Order_Workflow() {
+	public ForeignEntityInput PP_Order_Workflow() {
 		return mPP_Order_Workflow;
 	}
 }

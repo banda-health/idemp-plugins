@@ -15,14 +15,14 @@ public interface I_M_ShipperLabelsInput extends I_M_ShipperLabels {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set LabelPrintMethod.
@@ -43,14 +43,14 @@ public interface I_M_ShipperLabelsInput extends I_M_ShipperLabels {
 	 *
 	 * @param M_Shipper Method or manner of product delivery
 	 */
-	void setM_ShipperInput(I_M_ShipperInput M_Shipper);
+	void setM_ShipperInput(ForeignEntityInput M_Shipper);
 
 	/**
 	 * Get M_Shipper.
 	 *
 	 * @return Method or manner of product delivery
 	 */
-	I_M_ShipperInput M_Shipper();
+	ForeignEntityInput M_Shipper();
 
 	/**
 	 * Set ID.
@@ -71,12 +71,12 @@ public interface I_M_ShipperLabelsInput extends I_M_ShipperLabels {
 	 *
 	 * @param M_ShipperLabelsCfg M_ShipperLabelsCfg
 	 */
-	void setM_ShipperLabelsCfgInput(I_M_ShipperLabelsCfgInput M_ShipperLabelsCfg);
+	void setM_ShipperLabelsCfgInput(ForeignEntityInput M_ShipperLabelsCfg);
 
 	/**
 	 * Get M_ShipperLabelsCfg.
 	 *
 	 * @return M_ShipperLabelsCfg
 	 */
-	I_M_ShipperLabelsCfgInput M_ShipperLabelsCfg();
+	ForeignEntityInput M_ShipperLabelsCfg();
 }

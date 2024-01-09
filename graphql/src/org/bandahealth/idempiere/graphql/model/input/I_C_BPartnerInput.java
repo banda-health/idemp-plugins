@@ -15,28 +15,28 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 *
 	 * @param AD_Language Language for this entity
 	 */
-	void setAD_LanguageInput(I_AD_LanguageInput AD_Language);
+	void setAD_LanguageInput(ForeignEntityInput AD_Language);
 
 	/**
 	 * Get AD_Language.
 	 *
 	 * @return Language for this entity
 	 */
-	I_AD_LanguageInput AD_Language();
+	ForeignEntityInput AD_Language();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set bh_gender.
@@ -57,14 +57,14 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 *
 	 * @param C_BP_Group Business Partner Group
 	 */
-	void setC_BP_GroupInput(I_C_BP_GroupInput C_BP_Group);
+	void setC_BP_GroupInput(ForeignEntityInput C_BP_Group);
 
 	/**
 	 * Get C_BP_Group.
 	 *
 	 * @return Business Partner Group
 	 */
-	I_C_BP_GroupInput C_BP_Group();
+	ForeignEntityInput C_BP_Group();
 
 	/**
 	 * Set ID.
@@ -85,84 +85,84 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 *
 	 * @param C_Dunning Dunning Rules for overdue invoices
 	 */
-	void setC_DunningInput(I_C_DunningInput C_Dunning);
+	void setC_DunningInput(ForeignEntityInput C_Dunning);
 
 	/**
 	 * Get C_Dunning.
 	 *
 	 * @return Dunning Rules for overdue invoices
 	 */
-	I_C_DunningInput C_Dunning();
+	ForeignEntityInput C_Dunning();
 
 	/**
 	 * Set C_Greeting.
 	 *
 	 * @param C_Greeting Greeting to print on correspondence
 	 */
-	void setC_GreetingInput(I_C_GreetingInput C_Greeting);
+	void setC_GreetingInput(ForeignEntityInput C_Greeting);
 
 	/**
 	 * Get C_Greeting.
 	 *
 	 * @return Greeting to print on correspondence
 	 */
-	I_C_GreetingInput C_Greeting();
+	ForeignEntityInput C_Greeting();
 
 	/**
 	 * Set C_InvoiceSchedule.
 	 *
 	 * @param C_InvoiceSchedule Schedule for generating Invoices
 	 */
-	void setC_InvoiceScheduleInput(I_C_InvoiceScheduleInput C_InvoiceSchedule);
+	void setC_InvoiceScheduleInput(ForeignEntityInput C_InvoiceSchedule);
 
 	/**
 	 * Get C_InvoiceSchedule.
 	 *
 	 * @return Schedule for generating Invoices
 	 */
-	I_C_InvoiceScheduleInput C_InvoiceSchedule();
+	ForeignEntityInput C_InvoiceSchedule();
 
 	/**
 	 * Set C_PaymentTerm.
 	 *
 	 * @param C_PaymentTerm The terms of Payment (timing, discount)
 	 */
-	void setC_PaymentTermInput(I_C_PaymentTermInput C_PaymentTerm);
+	void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm);
 
 	/**
 	 * Get C_PaymentTerm.
 	 *
 	 * @return The terms of Payment (timing, discount)
 	 */
-	I_C_PaymentTermInput C_PaymentTerm();
+	ForeignEntityInput C_PaymentTerm();
 
 	/**
 	 * Set C_TaxGroup.
 	 *
 	 * @param C_TaxGroup C_TaxGroup
 	 */
-	void setC_TaxGroupInput(I_C_TaxGroupInput C_TaxGroup);
+	void setC_TaxGroupInput(ForeignEntityInput C_TaxGroup);
 
 	/**
 	 * Get C_TaxGroup.
 	 *
 	 * @return C_TaxGroup
 	 */
-	I_C_TaxGroupInput C_TaxGroup();
+	ForeignEntityInput C_TaxGroup();
 
 	/**
 	 * Set Default1099Box.
 	 *
 	 * @param Default1099Box Default1099Box
 	 */
-	void setDefault1099BoxInput(I_C_1099BoxInput Default1099Box);
+	void setDefault1099BoxInput(ForeignEntityInput Default1099Box);
 
 	/**
 	 * Get Default1099Box.
 	 *
 	 * @return Default1099Box
 	 */
-	I_C_1099BoxInput Default1099Box();
+	ForeignEntityInput Default1099Box();
 
 	/**
 	 * Set DeliveryRule.
@@ -211,14 +211,14 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 *
 	 * @param Invoice_PrintFormat Print Format for printing Invoices
 	 */
-	void setInvoice_PrintFormatInput(I_AD_PrintFormatInput Invoice_PrintFormat);
+	void setInvoice_PrintFormatInput(ForeignEntityInput Invoice_PrintFormat);
 
 	/**
 	 * Get Invoice_PrintFormat.
 	 *
 	 * @return Print Format for printing Invoices
 	 */
-	I_AD_PrintFormatInput Invoice_PrintFormat();
+	ForeignEntityInput Invoice_PrintFormat();
 
 	/**
 	 * Set InvoiceRule.
@@ -239,42 +239,42 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 *
 	 * @param AD_Image AD_Image
 	 */
-	void setAD_ImageInput(I_AD_ImageInput AD_Image);
+	void setAD_ImageInput(ForeignEntityInput AD_Image);
 
 	/**
 	 * Get AD_Image.
 	 *
 	 * @return AD_Image
 	 */
-	I_AD_ImageInput AD_Image();
+	ForeignEntityInput AD_Image();
 
 	/**
 	 * Set M_DiscountSchema.
 	 *
 	 * @param M_DiscountSchema Schema to calculate the trade discount percentage
 	 */
-	void setM_DiscountSchemaInput(I_M_DiscountSchemaInput M_DiscountSchema);
+	void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema);
 
 	/**
 	 * Get M_DiscountSchema.
 	 *
 	 * @return Schema to calculate the trade discount percentage
 	 */
-	I_M_DiscountSchemaInput M_DiscountSchema();
+	ForeignEntityInput M_DiscountSchema();
 
 	/**
 	 * Set M_PriceList.
 	 *
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
-	void setM_PriceListInput(I_M_PriceListInput M_PriceList);
+	void setM_PriceListInput(ForeignEntityInput M_PriceList);
 
 	/**
 	 * Get M_PriceList.
 	 *
 	 * @return Unique identifier of a Price List
 	 */
-	I_M_PriceListInput M_PriceList();
+	ForeignEntityInput M_PriceList();
 
 	/**
 	 * Set PaymentRule.
@@ -309,56 +309,56 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 *
 	 * @param PO_DiscountSchema Schema to calculate the purchase trade discount percentage
 	 */
-	void setPO_DiscountSchemaInput(I_M_DiscountSchemaInput PO_DiscountSchema);
+	void setPO_DiscountSchemaInput(ForeignEntityInput PO_DiscountSchema);
 
 	/**
 	 * Get PO_DiscountSchema.
 	 *
 	 * @return Schema to calculate the purchase trade discount percentage
 	 */
-	I_M_DiscountSchemaInput PO_DiscountSchema();
+	ForeignEntityInput PO_DiscountSchema();
 
 	/**
 	 * Set PO_PaymentTerm.
 	 *
 	 * @param PO_PaymentTerm Payment rules for a purchase order
 	 */
-	void setPO_PaymentTermInput(I_C_PaymentTermInput PO_PaymentTerm);
+	void setPO_PaymentTermInput(ForeignEntityInput PO_PaymentTerm);
 
 	/**
 	 * Get PO_PaymentTerm.
 	 *
 	 * @return Payment rules for a purchase order
 	 */
-	I_C_PaymentTermInput PO_PaymentTerm();
+	ForeignEntityInput PO_PaymentTerm();
 
 	/**
 	 * Set PO_PriceList.
 	 *
 	 * @param PO_PriceList Price List used by this Business Partner
 	 */
-	void setPO_PriceListInput(I_M_PriceListInput PO_PriceList);
+	void setPO_PriceListInput(ForeignEntityInput PO_PriceList);
 
 	/**
 	 * Get PO_PriceList.
 	 *
 	 * @return Price List used by this Business Partner
 	 */
-	I_M_PriceListInput PO_PriceList();
+	ForeignEntityInput PO_PriceList();
 
 	/**
 	 * Set SalesRep.
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
-	void setSalesRepInput(I_AD_UserInput SalesRep);
+	void setSalesRepInput(ForeignEntityInput SalesRep);
 
 	/**
 	 * Get SalesRep.
 	 *
 	 * @return Sales Representative or Company Agent
 	 */
-	I_AD_UserInput SalesRep();
+	ForeignEntityInput SalesRep();
 
 	/**
 	 * Set SOCreditStatus.

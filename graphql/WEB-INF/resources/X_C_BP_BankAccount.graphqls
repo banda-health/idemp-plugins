@@ -5,6 +5,11 @@ extend type Query {
 	C_BP_BankAccountGet(page: Int, size: Int, sort: String, filter: String): C_BP_BankAccountConnection!
 }
 
+extend type Mutation {
+	C_BP_BankAccountSave(entity: C_BP_BankAccountInput!): C_BP_BankAccount!
+	C_BP_BankAccountDelete(uuids: [String!]!): Boolean!
+}
+
 type C_BP_BankAccountConnection {
 	results: [C_BP_BankAccount!]!
 	pagingInfo: PagingInfo!
@@ -81,3 +86,63 @@ type C_BP_BankAccount {
 	UpdatedBy: AD_User!
 }
 
+input C_BP_BankAccountInput {
+	# City or the Credit Card or Account Holder
+	A_City: String
+	# Country
+	A_Country: String
+	# Email Address
+	A_EMail: String
+	# Payment Identification - Driver License
+	A_Ident_DL: String
+	# Payment Identification - Social Security No
+	A_Ident_SSN: String
+	# Name on Credit Card or Account holder
+	A_Name: String
+	# State of the Credit Card or Account holder
+	A_State: String
+	# Street address of the Credit Card or Account holder
+	A_Street: String
+	# Zip Code of the Credit Card or Account Holder
+	A_Zip: String
+	# Account Number
+	AccountNo: String
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Bank Account Type
+	BankAccountType: AD_Ref_ListInput
+	# Business Partner Bank Account usage
+	BPBankAcctUse: AD_Ref_ListInput
+	# Bank
+	C_Bank: ForeignEntityInput
+	ID: ID
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Payment processor for electronic payments
+	C_PaymentProcessor: ForeignEntityInput
+	# Expiry Month
+	CreditCardExpMM: Int
+	# Expiry Year
+	CreditCardExpYY: Int
+	# Credit Card Number 
+	CreditCardNumber: String
+	# Credit Card (Visa, MC, AmEx)
+	CreditCardType: AD_Ref_ListInput
+	# Credit Card Verification code on credit card
+	CreditCardVV: String
+	CustomerPaymentProfileID: String
+	# International Bank Account Number
+	IBAN: String
+	# Automatic Clearing House
+	IsACH: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# This address has been verified
+	R_AvsAddr: AD_Ref_ListInput
+	# The Zip Code has been verified
+	R_AvsZip: AD_Ref_ListInput
+	# Bank Routing Number
+	RoutingNo: String
+}

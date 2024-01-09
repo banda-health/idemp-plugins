@@ -31,25 +31,25 @@ import org.compiere.util.Env;
  */
 public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mA_Asset_Class;
+	 private ForeignEntityInput mA_Asset_Group;
+	 private ForeignEntityInput mA_Asset_Type;
+	 private ForeignEntityInput mA_Parent_Asset;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_BPartnerSR;
+	 private ForeignEntityInput mC_BPartner_Location;
+	 private ForeignEntityInput mC_Location;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mLease_BPartner;
+	 private ForeignEntityInput mM_AttributeSetInstance;
+	 private ForeignEntityInput mM_InOutLine;
+	 private ForeignEntityInput mM_Locator;
+	 private ForeignEntityInput mM_Product;
 	 private I_AD_Ref_ListInput mA_Asset_Action;
 	 private I_AD_Ref_ListInput mA_Asset_Status;
-	 private I_AD_UserInput mAD_User;
-	 private I_A_AssetInput mA_Parent_Asset;
-	 private I_A_Asset_ClassInput mA_Asset_Class;
-	 private I_A_Asset_GroupInput mA_Asset_Group;
-	 private I_A_Asset_TypeInput mA_Asset_Type;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BPartnerInput mC_BPartnerSR;
-	 private I_C_BPartnerInput mLease_BPartner;
-	 private I_C_BPartner_LocationInput mC_BPartner_Location;
-	 private I_C_LocationInput mC_Location;
-	 private I_C_ProjectInput mC_Project;
-	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
-	 private I_M_InOutLineInput mM_InOutLine;
-	 private I_M_LocatorInput mM_Locator;
-	 private I_M_ProductInput mM_Product;
 
 	/**
 	 * Standard constructor
@@ -95,7 +95,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param A_Asset_Class Asset class
 	 */
 	@JsonProperty("A_Asset_Class")
-	public void setA_Asset_ClassInput(I_A_Asset_ClassInput A_Asset_Class) {
+	public void setA_Asset_ClassInput(ForeignEntityInput A_Asset_Class) {
 		this.mA_Asset_Class = A_Asset_Class;
 		MAssetClass foreignEntity;
 		if (A_Asset_Class != null &&
@@ -114,7 +114,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Asset class
 	 */
 	@JsonProperty("A_Asset_Class")
-	public I_A_Asset_ClassInput A_Asset_Class() {
+	public ForeignEntityInput A_Asset_Class() {
 		return mA_Asset_Class;
 	}
 	/**
@@ -135,7 +135,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param A_Asset_Group Group of Assets
 	 */
 	@JsonProperty("A_Asset_Group")
-	public void setA_Asset_GroupInput(I_A_Asset_GroupInput A_Asset_Group) {
+	public void setA_Asset_GroupInput(ForeignEntityInput A_Asset_Group) {
 		this.mA_Asset_Group = A_Asset_Group;
 		MAssetGroup foreignEntity;
 		if (A_Asset_Group != null &&
@@ -154,7 +154,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Group of Assets
 	 */
 	@JsonProperty("A_Asset_Group")
-	public I_A_Asset_GroupInput A_Asset_Group() {
+	public ForeignEntityInput A_Asset_Group() {
 		return mA_Asset_Group;
 	}
 
@@ -193,7 +193,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param A_Asset_Type Asset Type
 	 */
 	@JsonProperty("A_Asset_Type")
-	public void setA_Asset_TypeInput(I_A_Asset_TypeInput A_Asset_Type) {
+	public void setA_Asset_TypeInput(ForeignEntityInput A_Asset_Type) {
 		this.mA_Asset_Type = A_Asset_Type;
 		MAssetType foreignEntity;
 		if (A_Asset_Type != null &&
@@ -212,7 +212,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Asset Type
 	 */
 	@JsonProperty("A_Asset_Type")
-	public I_A_Asset_TypeInput A_Asset_Type() {
+	public ForeignEntityInput A_Asset_Type() {
 		return mA_Asset_Type;
 	}
 
@@ -240,7 +240,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param A_Parent_Asset Parent Asset
 	 */
 	@JsonProperty("A_Parent_Asset")
-	public void setA_Parent_AssetInput(I_A_AssetInput A_Parent_Asset) {
+	public void setA_Parent_AssetInput(ForeignEntityInput A_Parent_Asset) {
 		this.mA_Parent_Asset = A_Parent_Asset;
 		MAsset foreignEntity;
 		if (A_Parent_Asset != null &&
@@ -259,7 +259,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Parent Asset
 	 */
 	@JsonProperty("A_Parent_Asset")
-	public I_A_AssetInput A_Parent_Asset() {
+	public ForeignEntityInput A_Parent_Asset() {
 		return mA_Parent_Asset;
 	}
 
@@ -269,7 +269,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -286,7 +286,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -296,7 +296,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -315,7 +315,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -325,7 +325,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -344,7 +344,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -354,7 +354,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -373,7 +373,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -383,7 +383,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
@@ -402,7 +402,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public I_C_BPartner_LocationInput C_BPartner_Location() {
+	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
 
@@ -412,7 +412,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param C_BPartnerSR Business Partner (Agent or Sales Rep)
 	 */
 	@JsonProperty("C_BPartnerSR")
-	public void setC_BPartnerSRInput(I_C_BPartnerInput C_BPartnerSR) {
+	public void setC_BPartnerSRInput(ForeignEntityInput C_BPartnerSR) {
 		this.mC_BPartnerSR = C_BPartnerSR;
 		MBPartner_BH foreignEntity;
 		if (C_BPartnerSR != null &&
@@ -431,7 +431,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Business Partner (Agent or Sales Rep)
 	 */
 	@JsonProperty("C_BPartnerSR")
-	public I_C_BPartnerInput C_BPartnerSR() {
+	public ForeignEntityInput C_BPartnerSR() {
 		return mC_BPartnerSR;
 	}
 
@@ -441,7 +441,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param C_Location Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public void setC_LocationInput(I_C_LocationInput C_Location) {
+	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
@@ -460,7 +460,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public I_C_LocationInput C_Location() {
+	public ForeignEntityInput C_Location() {
 		return mC_Location;
 	}
 
@@ -470,7 +470,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -489,7 +489,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 	/**
@@ -510,7 +510,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param Lease_BPartner The Business Partner who rents or leases
 	 */
 	@JsonProperty("Lease_BPartner")
-	public void setLease_BPartnerInput(I_C_BPartnerInput Lease_BPartner) {
+	public void setLease_BPartnerInput(ForeignEntityInput Lease_BPartner) {
 		this.mLease_BPartner = Lease_BPartner;
 		MBPartner_BH foreignEntity;
 		if (Lease_BPartner != null &&
@@ -529,7 +529,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return The Business Partner who rents or leases
 	 */
 	@JsonProperty("Lease_BPartner")
-	public I_C_BPartnerInput Lease_BPartner() {
+	public ForeignEntityInput Lease_BPartner() {
 		return mLease_BPartner;
 	}
 
@@ -539,7 +539,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (get_ID() == 0 &&M_AttributeSetInstance != null &&
@@ -556,7 +556,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+	public ForeignEntityInput M_AttributeSetInstance() {
 		return mM_AttributeSetInstance;
 	}
 
@@ -566,7 +566,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param M_InOutLine Line on Shipment or Receipt document
 	 */
 	@JsonProperty("M_InOutLine")
-	public void setM_InOutLineInput(I_M_InOutLineInput M_InOutLine) {
+	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
 		if (M_InOutLine != null &&
@@ -585,7 +585,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Line on Shipment or Receipt document
 	 */
 	@JsonProperty("M_InOutLine")
-	public I_M_InOutLineInput M_InOutLine() {
+	public ForeignEntityInput M_InOutLine() {
 		return mM_InOutLine;
 	}
 
@@ -595,7 +595,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param M_Locator Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public void setM_LocatorInput(I_M_LocatorInput M_Locator) {
+	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
@@ -614,7 +614,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public I_M_LocatorInput M_Locator() {
+	public ForeignEntityInput M_Locator() {
 		return mM_Locator;
 	}
 
@@ -624,7 +624,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -643,7 +643,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 	/**

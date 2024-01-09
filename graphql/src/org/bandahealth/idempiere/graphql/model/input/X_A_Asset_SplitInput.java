@@ -19,12 +19,12 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_SplitInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mA_Asset;
+	 private ForeignEntityInput mA_Asset_To;
+	 private ForeignEntityInput mC_Period;
 	 private I_AD_Ref_ListInput mA_Split_Type;
 	 private I_AD_Ref_ListInput mPostingType;
-	 private I_A_AssetInput mA_Asset;
-	 private I_A_AssetInput mA_Asset_To;
-	 private I_C_PeriodInput mC_Period;
 
 	/**
 	 * Standard constructor
@@ -41,7 +41,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @param A_Asset Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
@@ -60,7 +60,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @return Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public I_A_AssetInput A_Asset() {
+	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
 	}
 
@@ -70,7 +70,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @param A_Asset_To To Asset ID
 	 */
 	@JsonProperty("A_Asset_To")
-	public void setA_Asset_ToInput(I_A_AssetInput A_Asset_To) {
+	public void setA_Asset_ToInput(ForeignEntityInput A_Asset_To) {
 		this.mA_Asset_To = A_Asset_To;
 		MAsset foreignEntity;
 		if (A_Asset_To != null &&
@@ -89,7 +89,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @return To Asset ID
 	 */
 	@JsonProperty("A_Asset_To")
-	public I_A_AssetInput A_Asset_To() {
+	public ForeignEntityInput A_Asset_To() {
 		return mA_Asset_To;
 	}
 
@@ -157,7 +157,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -174,7 +174,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -184,7 +184,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @param C_Period Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public void setC_PeriodInput(I_C_PeriodInput C_Period) {
+	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
@@ -203,7 +203,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @return Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public I_C_PeriodInput C_Period() {
+	public ForeignEntityInput C_Period() {
 		return mC_Period;
 	}
 

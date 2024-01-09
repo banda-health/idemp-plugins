@@ -19,11 +19,11 @@ import org.compiere.util.Env;
  */
 public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine implements I_M_ShippingTransactionLineInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_UOMInput mC_UOM_Length;
-	 private I_C_UOMInput mC_UOM_Weight;
-	 private I_M_PackageMPSInput mM_PackageMPS;
-	 private I_M_ShippingTransactionInput mM_ShippingTransaction;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_UOM_Length;
+	 private ForeignEntityInput mC_UOM_Weight;
+	 private ForeignEntityInput mM_PackageMPS;
+	 private ForeignEntityInput mM_ShippingTransaction;
 
 	/**
 	 * Standard constructor
@@ -40,7 +40,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -57,7 +57,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -67,7 +67,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 * @param C_UOM_Length Standard Unit of Measure for Length
 	 */
 	@JsonProperty("C_UOM_Length")
-	public void setC_UOM_LengthInput(I_C_UOMInput C_UOM_Length) {
+	public void setC_UOM_LengthInput(ForeignEntityInput C_UOM_Length) {
 		this.mC_UOM_Length = C_UOM_Length;
 		MUOM foreignEntity;
 		if (C_UOM_Length != null &&
@@ -86,7 +86,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 * @return Standard Unit of Measure for Length
 	 */
 	@JsonProperty("C_UOM_Length")
-	public I_C_UOMInput C_UOM_Length() {
+	public ForeignEntityInput C_UOM_Length() {
 		return mC_UOM_Length;
 	}
 
@@ -96,7 +96,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 * @param C_UOM_Weight Standard Unit of Measure for Weight
 	 */
 	@JsonProperty("C_UOM_Weight")
-	public void setC_UOM_WeightInput(I_C_UOMInput C_UOM_Weight) {
+	public void setC_UOM_WeightInput(ForeignEntityInput C_UOM_Weight) {
 		this.mC_UOM_Weight = C_UOM_Weight;
 		MUOM foreignEntity;
 		if (C_UOM_Weight != null &&
@@ -115,7 +115,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 * @return Standard Unit of Measure for Weight
 	 */
 	@JsonProperty("C_UOM_Weight")
-	public I_C_UOMInput C_UOM_Weight() {
+	public ForeignEntityInput C_UOM_Weight() {
 		return mC_UOM_Weight;
 	}
 
@@ -125,7 +125,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 * @param M_PackageMPS Package MPS
 	 */
 	@JsonProperty("M_PackageMPS")
-	public void setM_PackageMPSInput(I_M_PackageMPSInput M_PackageMPS) {
+	public void setM_PackageMPSInput(ForeignEntityInput M_PackageMPS) {
 		this.mM_PackageMPS = M_PackageMPS;
 		MPackageMPS foreignEntity;
 		if (M_PackageMPS != null &&
@@ -144,7 +144,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 * @return Package MPS
 	 */
 	@JsonProperty("M_PackageMPS")
-	public I_M_PackageMPSInput M_PackageMPS() {
+	public ForeignEntityInput M_PackageMPS() {
 		return mM_PackageMPS;
 	}
 
@@ -154,7 +154,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 * @param M_ShippingTransaction Shipping Transaction
 	 */
 	@JsonProperty("M_ShippingTransaction")
-	public void setM_ShippingTransactionInput(I_M_ShippingTransactionInput M_ShippingTransaction) {
+	public void setM_ShippingTransactionInput(ForeignEntityInput M_ShippingTransaction) {
 		this.mM_ShippingTransaction = M_ShippingTransaction;
 		MShippingTransaction foreignEntity;
 		if (get_ID() == 0 &&M_ShippingTransaction != null &&
@@ -171,7 +171,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	 * @return Shipping Transaction
 	 */
 	@JsonProperty("M_ShippingTransaction")
-	public I_M_ShippingTransactionInput M_ShippingTransaction() {
+	public ForeignEntityInput M_ShippingTransaction() {
 		return mM_ShippingTransaction;
 	}
 

@@ -21,12 +21,12 @@ import org.compiere.util.Env;
  */
 public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implements I_A_Depreciation_WorkfileInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mA_Asset;
+	 private ForeignEntityInput mA_FundingMode;
+	 private ForeignEntityInput mC_AcctSchema;
 	 private I_AD_Ref_ListInput mA_Tip_Finantare;
 	 private I_AD_Ref_ListInput mPostingType;
-	 private I_A_AssetInput mA_Asset;
-	 private I_A_FundingModeInput mA_FundingMode;
-	 private I_C_AcctSchemaInput mC_AcctSchema;
 
 	/**
 	 * Standard constructor
@@ -43,7 +43,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @param A_Asset Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (get_ID() == 0 &&A_Asset != null &&
@@ -60,7 +60,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @return Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public I_A_AssetInput A_Asset() {
+	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
 	}
 	/**
@@ -132,7 +132,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @param A_FundingMode Asset Funding Mode
 	 */
 	@JsonProperty("A_FundingMode")
-	public void setA_FundingModeInput(I_A_FundingModeInput A_FundingMode) {
+	public void setA_FundingModeInput(ForeignEntityInput A_FundingMode) {
 		this.mA_FundingMode = A_FundingMode;
 		X_A_FundingMode foreignEntity;
 		if (A_FundingMode != null &&
@@ -151,7 +151,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @return Asset Funding Mode
 	 */
 	@JsonProperty("A_FundingMode")
-	public I_A_FundingModeInput A_FundingMode() {
+	public ForeignEntityInput A_FundingMode() {
 		return mA_FundingMode;
 	}
 	/**
@@ -212,7 +212,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -231,7 +231,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -241,7 +241,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @param C_AcctSchema Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (get_ID() == 0 &&C_AcctSchema != null &&
@@ -258,7 +258,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @return Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public I_C_AcctSchemaInput C_AcctSchema() {
+	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
 	}
 

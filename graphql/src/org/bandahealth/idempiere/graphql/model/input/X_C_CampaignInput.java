@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_ChannelInput mC_Channel;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Channel;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -80,7 +80,7 @@ public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 	 * @param C_Channel Sales Channel
 	 */
 	@JsonProperty("C_Channel")
-	public void setC_ChannelInput(I_C_ChannelInput C_Channel) {
+	public void setC_ChannelInput(ForeignEntityInput C_Channel) {
 		this.mC_Channel = C_Channel;
 		X_C_Channel foreignEntity;
 		if (C_Channel != null &&
@@ -99,7 +99,7 @@ public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 	 * @return Sales Channel
 	 */
 	@JsonProperty("C_Channel")
-	public I_C_ChannelInput C_Channel() {
+	public ForeignEntityInput C_Channel() {
 		return mC_Channel;
 	}
 }

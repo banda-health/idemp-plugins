@@ -5,6 +5,11 @@ extend type Query {
 	C_OrderSourceGet(page: Int, size: Int, sort: String, filter: String): C_OrderSourceConnection!
 }
 
+extend type Mutation {
+	C_OrderSourceSave(entity: C_OrderSourceInput!): C_OrderSource!
+	C_OrderSourceDelete(uuids: [String!]!): Boolean!
+}
+
 type C_OrderSourceConnection {
 	results: [C_OrderSource!]!
 	pagingInfo: PagingInfo!
@@ -36,3 +41,18 @@ type C_OrderSource {
 	Value: String!
 }
 
+input C_OrderSourceInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

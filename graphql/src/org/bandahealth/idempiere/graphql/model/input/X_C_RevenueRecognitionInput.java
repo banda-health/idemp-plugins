@@ -17,7 +17,7 @@ import org.compiere.util.Env;
  */
 public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements I_C_RevenueRecognitionInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
 	 private I_AD_Ref_ListInput mRecognitionFrequency;
 
 	/**
@@ -35,7 +35,7 @@ public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements 
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements 
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 

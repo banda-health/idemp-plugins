@@ -5,6 +5,11 @@ extend type Query {
 	M_MatchInvGet(page: Int, size: Int, sort: String, filter: String): M_MatchInvConnection!
 }
 
+extend type Mutation {
+	M_MatchInvSave(entity: M_MatchInvInput!): M_MatchInv!
+	M_MatchInvDelete(uuids: [String!]!): Boolean!
+}
+
 type M_MatchInvConnection {
 	results: [M_MatchInv!]!
 	pagingInfo: PagingInfo!
@@ -56,3 +61,38 @@ type M_MatchInv {
 	UpdatedBy: AD_User!
 }
 
+input M_MatchInvInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Invoice Detail Line
+	C_InvoiceLine: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# Transaction Date
+	DateTrx: Date
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Line on Shipment or Receipt document
+	M_InOutLine: ForeignEntityInput
+	ID: ID
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Posting status
+	Posted: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean
+	# Quantity
+	Qty: Int
+	Ref_MatchInv: ForeignEntityInput
+	# ID of document reversal
+	Reversal: ForeignEntityInput
+}

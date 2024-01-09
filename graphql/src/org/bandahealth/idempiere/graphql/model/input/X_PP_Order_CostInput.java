@@ -25,15 +25,15 @@ import org.eevolution.model.X_PP_Order_Cost;
  */
 public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_CostInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Workflow;
+	 private ForeignEntityInput mC_AcctSchema;
+	 private ForeignEntityInput mM_AttributeSetInstance;
+	 private ForeignEntityInput mM_CostElement;
+	 private ForeignEntityInput mM_CostType;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mPP_Order;
 	 private I_AD_Ref_ListInput mCostingMethod;
-	 private I_AD_WorkflowInput mAD_Workflow;
-	 private I_C_AcctSchemaInput mC_AcctSchema;
-	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
-	 private I_M_CostElementInput mM_CostElement;
-	 private I_M_CostTypeInput mM_CostType;
-	 private I_M_ProductInput mM_Product;
-	 private I_PP_OrderInput mPP_Order;
 
 	/**
 	 * Standard constructor
@@ -50,7 +50,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -69,7 +69,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -79,7 +79,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow) {
+	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
 		if (AD_Workflow != null &&
@@ -98,7 +98,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @return Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public I_AD_WorkflowInput AD_Workflow() {
+	public ForeignEntityInput AD_Workflow() {
 		return mAD_Workflow;
 	}
 
@@ -108,7 +108,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @param C_AcctSchema Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
@@ -127,7 +127,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @return Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public I_C_AcctSchemaInput C_AcctSchema() {
+	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
 	}
 
@@ -230,7 +230,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
@@ -249,7 +249,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @return Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+	public ForeignEntityInput M_AttributeSetInstance() {
 		return mM_AttributeSetInstance;
 	}
 
@@ -259,7 +259,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @param M_CostElement Product Cost Element
 	 */
 	@JsonProperty("M_CostElement")
-	public void setM_CostElementInput(I_M_CostElementInput M_CostElement) {
+	public void setM_CostElementInput(ForeignEntityInput M_CostElement) {
 		this.mM_CostElement = M_CostElement;
 		MCostElement foreignEntity;
 		if (get_ID() == 0 &&M_CostElement != null &&
@@ -276,7 +276,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @return Product Cost Element
 	 */
 	@JsonProperty("M_CostElement")
-	public I_M_CostElementInput M_CostElement() {
+	public ForeignEntityInput M_CostElement() {
 		return mM_CostElement;
 	}
 
@@ -286,7 +286,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @param M_CostType Type of Cost (e.g. Current, Plan, Future)
 	 */
 	@JsonProperty("M_CostType")
-	public void setM_CostTypeInput(I_M_CostTypeInput M_CostType) {
+	public void setM_CostTypeInput(ForeignEntityInput M_CostType) {
 		this.mM_CostType = M_CostType;
 		MCostType foreignEntity;
 		if (M_CostType != null &&
@@ -305,7 +305,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
 	@JsonProperty("M_CostType")
-	public I_M_CostTypeInput M_CostType() {
+	public ForeignEntityInput M_CostType() {
 		return mM_CostType;
 	}
 
@@ -315,7 +315,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (get_ID() == 0 &&M_Product != null &&
@@ -332,7 +332,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -360,7 +360,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @param PP_Order Manufacturing Order
 	 */
 	@JsonProperty("PP_Order")
-	public void setPP_OrderInput(I_PP_OrderInput PP_Order) {
+	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
 		X_PP_Order foreignEntity;
 		if (get_ID() == 0 &&PP_Order != null &&
@@ -377,7 +377,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @return Manufacturing Order
 	 */
 	@JsonProperty("PP_Order")
-	public I_PP_OrderInput PP_Order() {
+	public ForeignEntityInput PP_Order() {
 		return mPP_Order;
 	}
 }

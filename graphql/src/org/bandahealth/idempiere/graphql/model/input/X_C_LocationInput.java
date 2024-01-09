@@ -20,11 +20,11 @@ import org.compiere.util.Env;
  */
 public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_AddressValidationInput mC_AddressValidation;
-	 private I_C_CityInput mC_City;
-	 private I_C_CountryInput mC_Country;
-	 private I_C_RegionInput mC_Region;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_AddressValidation;
+	 private ForeignEntityInput mC_City;
+	 private ForeignEntityInput mC_Country;
+	 private ForeignEntityInput mC_Region;
 
 	/**
 	 * Standard constructor
@@ -41,7 +41,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -58,7 +58,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -68,7 +68,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 * @param C_AddressValidation Address Validation
 	 */
 	@JsonProperty("C_AddressValidation")
-	public void setC_AddressValidationInput(I_C_AddressValidationInput C_AddressValidation) {
+	public void setC_AddressValidationInput(ForeignEntityInput C_AddressValidation) {
 		this.mC_AddressValidation = C_AddressValidation;
 		MAddressValidation foreignEntity;
 		if (get_ID() == 0 &&C_AddressValidation != null &&
@@ -85,7 +85,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 * @return Address Validation
 	 */
 	@JsonProperty("C_AddressValidation")
-	public I_C_AddressValidationInput C_AddressValidation() {
+	public ForeignEntityInput C_AddressValidation() {
 		return mC_AddressValidation;
 	}
 
@@ -95,7 +95,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 * @param C_City City
 	 */
 	@JsonProperty("C_City")
-	public void setC_CityInput(I_C_CityInput C_City) {
+	public void setC_CityInput(ForeignEntityInput C_City) {
 		this.mC_City = C_City;
 		MCity foreignEntity;
 		if (C_City != null &&
@@ -114,7 +114,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 * @return City
 	 */
 	@JsonProperty("C_City")
-	public I_C_CityInput C_City() {
+	public ForeignEntityInput C_City() {
 		return mC_City;
 	}
 
@@ -124,7 +124,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 * @param C_Country Country 
 	 */
 	@JsonProperty("C_Country")
-	public void setC_CountryInput(I_C_CountryInput C_Country) {
+	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
 		MCountry foreignEntity;
 		if (C_Country != null &&
@@ -143,7 +143,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 * @return Country 
 	 */
 	@JsonProperty("C_Country")
-	public I_C_CountryInput C_Country() {
+	public ForeignEntityInput C_Country() {
 		return mC_Country;
 	}
 
@@ -171,7 +171,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 * @param C_Region Identifies a geographical Region
 	 */
 	@JsonProperty("C_Region")
-	public void setC_RegionInput(I_C_RegionInput C_Region) {
+	public void setC_RegionInput(ForeignEntityInput C_Region) {
 		this.mC_Region = C_Region;
 		MRegion foreignEntity;
 		if (C_Region != null &&
@@ -190,7 +190,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 * @return Identifies a geographical Region
 	 */
 	@JsonProperty("C_Region")
-	public I_C_RegionInput C_Region() {
+	public ForeignEntityInput C_Region() {
 		return mC_Region;
 	}
 	/**

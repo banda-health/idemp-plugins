@@ -15,14 +15,14 @@ public interface I_BH_EncounterInput extends I_BH_Encounter {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set BH_Encounter_Type.
@@ -57,12 +57,12 @@ public interface I_BH_EncounterInput extends I_BH_Encounter {
 	 *
 	 * @param BH_Visit BH_Visit
 	 */
-	void setBH_VisitInput(I_BH_VisitInput BH_Visit);
+	void setBH_VisitInput(ForeignEntityInput BH_Visit);
 
 	/**
 	 * Get BH_Visit.
 	 *
 	 * @return BH_Visit
 	 */
-	I_BH_VisitInput BH_Visit();
+	ForeignEntityInput BH_Visit();
 }

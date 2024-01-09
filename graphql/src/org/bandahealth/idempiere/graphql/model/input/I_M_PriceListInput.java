@@ -15,42 +15,42 @@ public interface I_M_PriceListInput extends I_M_PriceList {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set BasePriceList.
 	 *
 	 * @param BasePriceList Pricelist to be used, if product not found on this pricelist
 	 */
-	void setBasePriceListInput(I_M_PriceListInput BasePriceList);
+	void setBasePriceListInput(ForeignEntityInput BasePriceList);
 
 	/**
 	 * Get BasePriceList.
 	 *
 	 * @return Pricelist to be used, if product not found on this pricelist
 	 */
-	I_M_PriceListInput BasePriceList();
+	ForeignEntityInput BasePriceList();
 
 	/**
 	 * Set C_Currency.
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(ForeignEntityInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput C_Currency();
+	ForeignEntityInput C_Currency();
 
 	/**
 	 * Set ID.

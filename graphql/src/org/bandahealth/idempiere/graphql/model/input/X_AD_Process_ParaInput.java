@@ -21,13 +21,13 @@ import org.compiere.util.Env;
  */
 public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process_ParaInput {
 
-	 private I_AD_ElementInput mAD_Element;
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_ProcessInput mAD_Process;
-	 private I_AD_ReferenceInput mAD_Reference;
-	 private I_AD_ReferenceInput mAD_Reference_Value;
-	 private I_AD_Val_RuleInput mAD_Val_Rule;
+	 private ForeignEntityInput mAD_Element;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Process;
+	 private ForeignEntityInput mAD_Reference;
+	 private ForeignEntityInput mAD_Reference_Value;
+	 private ForeignEntityInput mAD_Val_Rule;
 
 	/**
 	 * Standard constructor
@@ -44,7 +44,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @param AD_Element System Element enables the central maintenance of column description and help.
 	 */
 	@JsonProperty("AD_Element")
-	public void setAD_ElementInput(I_AD_ElementInput AD_Element) {
+	public void setAD_ElementInput(ForeignEntityInput AD_Element) {
 		this.mAD_Element = AD_Element;
 		M_Element foreignEntity;
 		if (AD_Element != null &&
@@ -63,7 +63,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @return System Element enables the central maintenance of column description and help.
 	 */
 	@JsonProperty("AD_Element")
-	public I_AD_ElementInput AD_Element() {
+	public ForeignEntityInput AD_Element() {
 		return mAD_Element;
 	}
 
@@ -73,7 +73,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -90,7 +90,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -100,7 +100,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @param AD_Process Process or Report
 	 */
 	@JsonProperty("AD_Process")
-	public void setAD_ProcessInput(I_AD_ProcessInput AD_Process) {
+	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
 		if (get_ID() == 0 &&AD_Process != null &&
@@ -117,7 +117,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @return Process or Report
 	 */
 	@JsonProperty("AD_Process")
-	public I_AD_ProcessInput AD_Process() {
+	public ForeignEntityInput AD_Process() {
 		return mAD_Process;
 	}
 
@@ -145,7 +145,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @param AD_Reference System Reference and Validation
 	 */
 	@JsonProperty("AD_Reference")
-	public void setAD_ReferenceInput(I_AD_ReferenceInput AD_Reference) {
+	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
 		MReference_BH foreignEntity;
 		if (AD_Reference != null &&
@@ -164,7 +164,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @return System Reference and Validation
 	 */
 	@JsonProperty("AD_Reference")
-	public I_AD_ReferenceInput AD_Reference() {
+	public ForeignEntityInput AD_Reference() {
 		return mAD_Reference;
 	}
 
@@ -174,7 +174,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @param AD_Reference_Value Required to specify, if data type is Table or List
 	 */
 	@JsonProperty("AD_Reference_Value")
-	public void setAD_Reference_ValueInput(I_AD_ReferenceInput AD_Reference_Value) {
+	public void setAD_Reference_ValueInput(ForeignEntityInput AD_Reference_Value) {
 		this.mAD_Reference_Value = AD_Reference_Value;
 		MReference_BH foreignEntity;
 		if (AD_Reference_Value != null &&
@@ -193,7 +193,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @return Required to specify, if data type is Table or List
 	 */
 	@JsonProperty("AD_Reference_Value")
-	public I_AD_ReferenceInput AD_Reference_Value() {
+	public ForeignEntityInput AD_Reference_Value() {
 		return mAD_Reference_Value;
 	}
 
@@ -203,7 +203,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @param AD_Val_Rule Dynamic Validation Rule
 	 */
 	@JsonProperty("AD_Val_Rule")
-	public void setAD_Val_RuleInput(I_AD_Val_RuleInput AD_Val_Rule) {
+	public void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule) {
 		this.mAD_Val_Rule = AD_Val_Rule;
 		MValRule foreignEntity;
 		if (AD_Val_Rule != null &&
@@ -222,7 +222,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @return Dynamic Validation Rule
 	 */
 	@JsonProperty("AD_Val_Rule")
-	public I_AD_Val_RuleInput AD_Val_Rule() {
+	public ForeignEntityInput AD_Val_Rule() {
 		return mAD_Val_Rule;
 	}
 
@@ -232,7 +232,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -251,7 +251,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 }

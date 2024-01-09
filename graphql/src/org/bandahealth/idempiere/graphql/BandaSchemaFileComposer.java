@@ -7,6 +7,7 @@ public class BandaSchemaFileComposer {
 		builder
 				.files(
 						"WEB-INF/resources/authentication.graphqls",
+						"WEB-INF/resources/foreign-entity.graphqls",
 						"WEB-INF/resources/MBHVisit.graphqls",
 //						"WEB-INF/resources/MOrder.graphqls",
 						"WEB-INF/resources/paging-info.graphqls",

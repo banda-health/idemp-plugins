@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_ElementValueInput mC_ElementValue;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_ElementValue;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -62,7 +62,7 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	 * @param C_ElementValue Account Element
 	 */
 	@JsonProperty("C_ElementValue")
-	public void setC_ElementValueInput(I_C_ElementValueInput C_ElementValue) {
+	public void setC_ElementValueInput(ForeignEntityInput C_ElementValue) {
 		this.mC_ElementValue = C_ElementValue;
 		MElementValue foreignEntity;
 		if (get_ID() == 0 &&C_ElementValue != null &&
@@ -79,7 +79,7 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	 * @return Account Element
 	 */
 	@JsonProperty("C_ElementValue")
-	public I_C_ElementValueInput C_ElementValue() {
+	public ForeignEntityInput C_ElementValue() {
 		return mC_ElementValue;
 	}
 

@@ -28,7 +28,20 @@ import org.compiere.util.Env;
  */
 public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_ReportColumnInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_ElementValue;
+	 private ForeignEntityInput mC_Location;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mC_SalesRegion;
+	 private ForeignEntityInput mGL_Budget;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mOper_1;
+	 private ForeignEntityInput mOper_2;
+	 private ForeignEntityInput mPA_ReportColumnSet;
 	 private I_AD_Ref_ListInput mCalculationType;
 	 private I_AD_Ref_ListInput mColumnType;
 	 private I_AD_Ref_ListInput mCurrencyType;
@@ -37,19 +50,6 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 private I_AD_Ref_ListInput mPAAmountType;
 	 private I_AD_Ref_ListInput mPAPeriodType;
 	 private I_AD_Ref_ListInput mPostingType;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_ElementValueInput mC_ElementValue;
-	 private I_C_LocationInput mC_Location;
-	 private I_C_ProjectInput mC_Project;
-	 private I_C_SalesRegionInput mC_SalesRegion;
-	 private I_GL_BudgetInput mGL_Budget;
-	 private I_M_ProductInput mM_Product;
-	 private I_PA_ReportColumnInput mOper_1;
-	 private I_PA_ReportColumnInput mOper_2;
-	 private I_PA_ReportColumnSetInput mPA_ReportColumnSet;
 
 	/**
 	 * Standard constructor
@@ -66,7 +66,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -83,7 +83,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -93,7 +93,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -112,7 +112,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -122,7 +122,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -141,7 +141,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -151,7 +151,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -170,7 +170,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -180,7 +180,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -199,7 +199,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -209,7 +209,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param C_ElementValue Account Element
 	 */
 	@JsonProperty("C_ElementValue")
-	public void setC_ElementValueInput(I_C_ElementValueInput C_ElementValue) {
+	public void setC_ElementValueInput(ForeignEntityInput C_ElementValue) {
 		this.mC_ElementValue = C_ElementValue;
 		MElementValue foreignEntity;
 		if (C_ElementValue != null &&
@@ -228,7 +228,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return Account Element
 	 */
 	@JsonProperty("C_ElementValue")
-	public I_C_ElementValueInput C_ElementValue() {
+	public ForeignEntityInput C_ElementValue() {
 		return mC_ElementValue;
 	}
 
@@ -238,7 +238,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param C_Location Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public void setC_LocationInput(I_C_LocationInput C_Location) {
+	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
@@ -257,7 +257,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public I_C_LocationInput C_Location() {
+	public ForeignEntityInput C_Location() {
 		return mC_Location;
 	}
 
@@ -267,7 +267,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -286,7 +286,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -296,7 +296,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param C_SalesRegion Sales coverage region
 	 */
 	@JsonProperty("C_SalesRegion")
-	public void setC_SalesRegionInput(I_C_SalesRegionInput C_SalesRegion) {
+	public void setC_SalesRegionInput(ForeignEntityInput C_SalesRegion) {
 		this.mC_SalesRegion = C_SalesRegion;
 		MSalesRegion foreignEntity;
 		if (C_SalesRegion != null &&
@@ -315,7 +315,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return Sales coverage region
 	 */
 	@JsonProperty("C_SalesRegion")
-	public I_C_SalesRegionInput C_SalesRegion() {
+	public ForeignEntityInput C_SalesRegion() {
 		return mC_SalesRegion;
 	}
 
@@ -470,7 +470,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param GL_Budget General Ledger Budget
 	 */
 	@JsonProperty("GL_Budget")
-	public void setGL_BudgetInput(I_GL_BudgetInput GL_Budget) {
+	public void setGL_BudgetInput(ForeignEntityInput GL_Budget) {
 		this.mGL_Budget = GL_Budget;
 		X_GL_Budget foreignEntity;
 		if (GL_Budget != null &&
@@ -489,7 +489,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return General Ledger Budget
 	 */
 	@JsonProperty("GL_Budget")
-	public I_GL_BudgetInput GL_Budget() {
+	public ForeignEntityInput GL_Budget() {
 		return mGL_Budget;
 	}
 
@@ -499,7 +499,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -518,7 +518,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -528,7 +528,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param Oper_1 First operand for calculation
 	 */
 	@JsonProperty("Oper_1")
-	public void setOper_1Input(I_PA_ReportColumnInput Oper_1) {
+	public void setOper_1Input(ForeignEntityInput Oper_1) {
 		this.mOper_1 = Oper_1;
 		X_PA_ReportColumn foreignEntity;
 		if (Oper_1 != null &&
@@ -547,7 +547,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return First operand for calculation
 	 */
 	@JsonProperty("Oper_1")
-	public I_PA_ReportColumnInput Oper_1() {
+	public ForeignEntityInput Oper_1() {
 		return mOper_1;
 	}
 
@@ -557,7 +557,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param Oper_2 Second operand for calculation
 	 */
 	@JsonProperty("Oper_2")
-	public void setOper_2Input(I_PA_ReportColumnInput Oper_2) {
+	public void setOper_2Input(ForeignEntityInput Oper_2) {
 		this.mOper_2 = Oper_2;
 		X_PA_ReportColumn foreignEntity;
 		if (Oper_2 != null &&
@@ -576,7 +576,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return Second operand for calculation
 	 */
 	@JsonProperty("Oper_2")
-	public I_PA_ReportColumnInput Oper_2() {
+	public ForeignEntityInput Oper_2() {
 		return mOper_2;
 	}
 
@@ -604,7 +604,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @param PA_ReportColumnSet Collection of Columns for Report
 	 */
 	@JsonProperty("PA_ReportColumnSet")
-	public void setPA_ReportColumnSetInput(I_PA_ReportColumnSetInput PA_ReportColumnSet) {
+	public void setPA_ReportColumnSetInput(ForeignEntityInput PA_ReportColumnSet) {
 		this.mPA_ReportColumnSet = PA_ReportColumnSet;
 		X_PA_ReportColumnSet foreignEntity;
 		if (get_ID() == 0 &&PA_ReportColumnSet != null &&
@@ -621,7 +621,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 * @return Collection of Columns for Report
 	 */
 	@JsonProperty("PA_ReportColumnSet")
-	public I_PA_ReportColumnSetInput PA_ReportColumnSet() {
+	public ForeignEntityInput PA_ReportColumnSet() {
 		return mPA_ReportColumnSet;
 	}
 

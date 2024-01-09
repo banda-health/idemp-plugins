@@ -20,11 +20,11 @@ import org.compiere.util.Env;
  */
 public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_ChargeType;
+	 private ForeignEntityInput mC_TaxCategory;
 	 private I_AD_Ref_ListInput mBH_SubType;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_ChargeTypeInput mC_ChargeType;
-	 private I_C_TaxCategoryInput mC_TaxCategory;
 
 	/**
 	 * Standard constructor
@@ -41,7 +41,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -58,7 +58,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -97,7 +97,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -116,7 +116,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -144,7 +144,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 * @param C_ChargeType Charge Type
 	 */
 	@JsonProperty("C_ChargeType")
-	public void setC_ChargeTypeInput(I_C_ChargeTypeInput C_ChargeType) {
+	public void setC_ChargeTypeInput(ForeignEntityInput C_ChargeType) {
 		this.mC_ChargeType = C_ChargeType;
 		MChargeType_BH foreignEntity;
 		if (C_ChargeType != null &&
@@ -163,7 +163,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 * @return Charge Type
 	 */
 	@JsonProperty("C_ChargeType")
-	public I_C_ChargeTypeInput C_ChargeType() {
+	public ForeignEntityInput C_ChargeType() {
 		return mC_ChargeType;
 	}
 
@@ -173,7 +173,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 * @param C_TaxCategory Tax Category
 	 */
 	@JsonProperty("C_TaxCategory")
-	public void setC_TaxCategoryInput(I_C_TaxCategoryInput C_TaxCategory) {
+	public void setC_TaxCategoryInput(ForeignEntityInput C_TaxCategory) {
 		this.mC_TaxCategory = C_TaxCategory;
 		MTaxCategory foreignEntity;
 		if (C_TaxCategory != null &&
@@ -192,7 +192,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 * @return Tax Category
 	 */
 	@JsonProperty("C_TaxCategory")
-	public I_C_TaxCategoryInput C_TaxCategory() {
+	public ForeignEntityInput C_TaxCategory() {
 		return mC_TaxCategory;
 	}
 }

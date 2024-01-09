@@ -5,6 +5,11 @@ extend type Query {
 	A_Depreciation_ForecastGet(page: Int, size: Int, sort: String, filter: String): A_Depreciation_ForecastConnection!
 }
 
+extend type Mutation {
+	A_Depreciation_ForecastSave(entity: A_Depreciation_ForecastInput!): A_Depreciation_Forecast!
+	A_Depreciation_ForecastDelete(uuids: [String!]!): Boolean!
+}
+
 type A_Depreciation_ForecastConnection {
 	results: [A_Depreciation_Forecast!]!
 	pagingInfo: PagingInfo!
@@ -37,3 +42,19 @@ type A_Depreciation_Forecast {
 	UpdatedBy: AD_User!
 }
 
+input A_Depreciation_ForecastInput {
+	ID: ID
+	A_End_Asset: ForeignEntityInput
+	A_Start_Asset: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Date of the Document
+	DateDoc: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_ListInput
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+}

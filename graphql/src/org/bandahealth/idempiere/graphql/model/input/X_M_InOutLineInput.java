@@ -30,23 +30,23 @@ import org.compiere.util.Env;
  */
 public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_ChargeInput mC_Charge;
-	 private I_C_ElementValueInput mUser1;
-	 private I_C_ElementValueInput mUser2;
-	 private I_C_OrderLineInput mC_OrderLine;
-	 private I_C_ProjectInput mC_Project;
-	 private I_C_ProjectPhaseInput mC_ProjectPhase;
-	 private I_C_ProjectTaskInput mC_ProjectTask;
-	 private I_C_UOMInput mC_UOM;
-	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
-	 private I_M_InOutInput mM_InOut;
-	 private I_M_InOutLineInput mReversalLine;
-	 private I_M_LocatorInput mM_Locator;
-	 private I_M_ProductInput mM_Product;
-	 private I_M_RMALineInput mM_RMALine;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_Charge;
+	 private ForeignEntityInput mC_OrderLine;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mC_ProjectPhase;
+	 private ForeignEntityInput mC_ProjectTask;
+	 private ForeignEntityInput mC_UOM;
+	 private ForeignEntityInput mM_AttributeSetInstance;
+	 private ForeignEntityInput mM_InOut;
+	 private ForeignEntityInput mM_Locator;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mM_RMALine;
+	 private ForeignEntityInput mReversalLine;
+	 private ForeignEntityInput mUser1;
+	 private ForeignEntityInput mUser2;
 
 	/**
 	 * Standard constructor
@@ -63,7 +63,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -80,7 +80,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -90,7 +90,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -109,7 +109,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -119,7 +119,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -138,7 +138,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -148,7 +148,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param C_Charge Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
@@ -167,7 +167,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public I_C_ChargeInput C_Charge() {
+	public ForeignEntityInput C_Charge() {
 		return mC_Charge;
 	}
 
@@ -177,7 +177,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param C_OrderLine Sales Order Line
 	 */
 	@JsonProperty("C_OrderLine")
-	public void setC_OrderLineInput(I_C_OrderLineInput C_OrderLine) {
+	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
 		MOrderLine_BH foreignEntity;
 		if (get_ID() == 0 &&C_OrderLine != null &&
@@ -194,7 +194,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Sales Order Line
 	 */
 	@JsonProperty("C_OrderLine")
-	public I_C_OrderLineInput C_OrderLine() {
+	public ForeignEntityInput C_OrderLine() {
 		return mC_OrderLine;
 	}
 
@@ -204,7 +204,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -223,7 +223,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -233,7 +233,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param C_ProjectPhase Phase of a Project
 	 */
 	@JsonProperty("C_ProjectPhase")
-	public void setC_ProjectPhaseInput(I_C_ProjectPhaseInput C_ProjectPhase) {
+	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
 		MProjectPhase foreignEntity;
 		if (C_ProjectPhase != null &&
@@ -252,7 +252,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Phase of a Project
 	 */
 	@JsonProperty("C_ProjectPhase")
-	public I_C_ProjectPhaseInput C_ProjectPhase() {
+	public ForeignEntityInput C_ProjectPhase() {
 		return mC_ProjectPhase;
 	}
 
@@ -262,7 +262,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param C_ProjectTask Actual Project Task in a Phase
 	 */
 	@JsonProperty("C_ProjectTask")
-	public void setC_ProjectTaskInput(I_C_ProjectTaskInput C_ProjectTask) {
+	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
 		MProjectTask foreignEntity;
 		if (C_ProjectTask != null &&
@@ -281,7 +281,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Actual Project Task in a Phase
 	 */
 	@JsonProperty("C_ProjectTask")
-	public I_C_ProjectTaskInput C_ProjectTask() {
+	public ForeignEntityInput C_ProjectTask() {
 		return mC_ProjectTask;
 	}
 
@@ -291,7 +291,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param C_UOM Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public void setC_UOMInput(I_C_UOMInput C_UOM) {
+	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (get_ID() == 0 &&C_UOM != null &&
@@ -308,7 +308,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public I_C_UOMInput C_UOM() {
+	public ForeignEntityInput C_UOM() {
 		return mC_UOM;
 	}
 
@@ -318,7 +318,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
@@ -337,7 +337,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+	public ForeignEntityInput M_AttributeSetInstance() {
 		return mM_AttributeSetInstance;
 	}
 
@@ -347,7 +347,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param M_InOut Material Shipment Document
 	 */
 	@JsonProperty("M_InOut")
-	public void setM_InOutInput(I_M_InOutInput M_InOut) {
+	public void setM_InOutInput(ForeignEntityInput M_InOut) {
 		this.mM_InOut = M_InOut;
 		MInOut_BH foreignEntity;
 		if (get_ID() == 0 &&M_InOut != null &&
@@ -364,7 +364,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Material Shipment Document
 	 */
 	@JsonProperty("M_InOut")
-	public I_M_InOutInput M_InOut() {
+	public ForeignEntityInput M_InOut() {
 		return mM_InOut;
 	}
 
@@ -392,7 +392,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param M_Locator Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public void setM_LocatorInput(I_M_LocatorInput M_Locator) {
+	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
@@ -411,7 +411,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public I_M_LocatorInput M_Locator() {
+	public ForeignEntityInput M_Locator() {
 		return mM_Locator;
 	}
 
@@ -421,7 +421,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -440,7 +440,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -450,7 +450,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param M_RMALine Return Material Authorization Line
 	 */
 	@JsonProperty("M_RMALine")
-	public void setM_RMALineInput(I_M_RMALineInput M_RMALine) {
+	public void setM_RMALineInput(ForeignEntityInput M_RMALine) {
 		this.mM_RMALine = M_RMALine;
 		MRMALine foreignEntity;
 		if (M_RMALine != null &&
@@ -469,7 +469,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Return Material Authorization Line
 	 */
 	@JsonProperty("M_RMALine")
-	public I_M_RMALineInput M_RMALine() {
+	public ForeignEntityInput M_RMALine() {
 		return mM_RMALine;
 	}
 
@@ -479,7 +479,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param ReversalLine Use to keep the reversal line ID for reversing costing purpose
 	 */
 	@JsonProperty("ReversalLine")
-	public void setReversalLineInput(I_M_InOutLineInput ReversalLine) {
+	public void setReversalLineInput(ForeignEntityInput ReversalLine) {
 		this.mReversalLine = ReversalLine;
 		MInOutLine foreignEntity;
 		if (ReversalLine != null &&
@@ -498,7 +498,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return Use to keep the reversal line ID for reversing costing purpose
 	 */
 	@JsonProperty("ReversalLine")
-	public I_M_InOutLineInput ReversalLine() {
+	public ForeignEntityInput ReversalLine() {
 		return mReversalLine;
 	}
 
@@ -508,7 +508,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param User1 User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public void setUser1Input(I_C_ElementValueInput User1) {
+	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
@@ -527,7 +527,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public I_C_ElementValueInput User1() {
+	public ForeignEntityInput User1() {
 		return mUser1;
 	}
 
@@ -537,7 +537,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @param User2 User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public void setUser2Input(I_C_ElementValueInput User2) {
+	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
@@ -556,7 +556,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 * @return User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public I_C_ElementValueInput User2() {
+	public ForeignEntityInput User2() {
 		return mUser2;
 	}
 }

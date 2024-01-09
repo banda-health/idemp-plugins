@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_MeasureInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_TableInput mAD_Table;
-	 private I_PA_SLA_GoalInput mPA_SLA_Goal;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Table;
+	 private ForeignEntityInput mPA_SLA_Goal;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_Measu
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_Measu
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -64,7 +64,7 @@ public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_Measu
 	 * @param AD_Table Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (AD_Table != null &&
@@ -83,7 +83,7 @@ public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_Measu
 	 * @return Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public I_AD_TableInput AD_Table() {
+	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
 	}
 
@@ -93,7 +93,7 @@ public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_Measu
 	 * @param PA_SLA_Goal Service Level Agreement Goal
 	 */
 	@JsonProperty("PA_SLA_Goal")
-	public void setPA_SLA_GoalInput(I_PA_SLA_GoalInput PA_SLA_Goal) {
+	public void setPA_SLA_GoalInput(ForeignEntityInput PA_SLA_Goal) {
 		this.mPA_SLA_Goal = PA_SLA_Goal;
 		MSLAGoal foreignEntity;
 		if (get_ID() == 0 &&PA_SLA_Goal != null &&
@@ -110,7 +110,7 @@ public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_Measu
 	 * @return Service Level Agreement Goal
 	 */
 	@JsonProperty("PA_SLA_Goal")
-	public I_PA_SLA_GoalInput PA_SLA_Goal() {
+	public ForeignEntityInput PA_SLA_Goal() {
 		return mPA_SLA_Goal;
 	}
 

@@ -18,8 +18,8 @@ import org.compiere.util.Env;
  */
 public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
 	 private I_AD_Ref_ListInput mAccessLevel;
 	 private I_AD_Ref_ListInput mEventType;
 	 private I_AD_Ref_ListInput mRuleType;
@@ -68,7 +68,7 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -85,7 +85,7 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -113,7 +113,7 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -132,7 +132,7 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 

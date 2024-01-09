@@ -21,11 +21,11 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset_DeliveryInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_UserInput mAD_User;
-	 private I_A_AssetInput mA_Asset;
-	 private I_M_InOutLineInput mM_InOutLine;
-	 private I_M_ProductDownloadInput mM_ProductDownload;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mA_Asset;
+	 private ForeignEntityInput mM_InOutLine;
+	 private ForeignEntityInput mM_ProductDownload;
 
 	/**
 	 * Standard constructor
@@ -60,7 +60,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 * @param A_Asset Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (get_ID() == 0 &&A_Asset != null &&
@@ -77,7 +77,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 * @return Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public I_A_AssetInput A_Asset() {
+	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
 	}
 
@@ -87,7 +87,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -104,7 +104,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -114,7 +114,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (get_ID() == 0 &&AD_User != null &&
@@ -131,7 +131,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 	/**
@@ -163,7 +163,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 * @param M_InOutLine Line on Shipment or Receipt document
 	 */
 	@JsonProperty("M_InOutLine")
-	public void setM_InOutLineInput(I_M_InOutLineInput M_InOutLine) {
+	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
 		if (get_ID() == 0 &&M_InOutLine != null &&
@@ -180,7 +180,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 * @return Line on Shipment or Receipt document
 	 */
 	@JsonProperty("M_InOutLine")
-	public I_M_InOutLineInput M_InOutLine() {
+	public ForeignEntityInput M_InOutLine() {
 		return mM_InOutLine;
 	}
 
@@ -190,7 +190,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 * @param M_ProductDownload Product downloads
 	 */
 	@JsonProperty("M_ProductDownload")
-	public void setM_ProductDownloadInput(I_M_ProductDownloadInput M_ProductDownload) {
+	public void setM_ProductDownloadInput(ForeignEntityInput M_ProductDownload) {
 		this.mM_ProductDownload = M_ProductDownload;
 		MProductDownload foreignEntity;
 		if (M_ProductDownload != null &&
@@ -209,7 +209,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 * @return Product downloads
 	 */
 	@JsonProperty("M_ProductDownload")
-	public I_M_ProductDownloadInput M_ProductDownload() {
+	public ForeignEntityInput M_ProductDownload() {
 		return mM_ProductDownload;
 	}
 	/**

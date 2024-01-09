@@ -19,10 +19,10 @@ import org.compiere.util.Env;
  */
 public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_M_ShipperCfgInput mM_ShipperCfg;
-	 private I_M_ShippingProcessorInput mM_ShippingProcessor;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mM_ShipperCfg;
+	 private ForeignEntityInput mM_ShippingProcessor;
 
 	/**
 	 * Standard constructor
@@ -39,7 +39,7 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -56,7 +56,7 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -66,7 +66,7 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -85,7 +85,7 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -113,7 +113,7 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	 * @param M_ShipperCfg Shipper Configuration
 	 */
 	@JsonProperty("M_ShipperCfg")
-	public void setM_ShipperCfgInput(I_M_ShipperCfgInput M_ShipperCfg) {
+	public void setM_ShipperCfgInput(ForeignEntityInput M_ShipperCfg) {
 		this.mM_ShipperCfg = M_ShipperCfg;
 		X_M_ShipperCfg foreignEntity;
 		if (M_ShipperCfg != null &&
@@ -132,7 +132,7 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	 * @return Shipper Configuration
 	 */
 	@JsonProperty("M_ShipperCfg")
-	public I_M_ShipperCfgInput M_ShipperCfg() {
+	public ForeignEntityInput M_ShipperCfg() {
 		return mM_ShipperCfg;
 	}
 
@@ -142,7 +142,7 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	 * @param M_ShippingProcessor Shipping Processor
 	 */
 	@JsonProperty("M_ShippingProcessor")
-	public void setM_ShippingProcessorInput(I_M_ShippingProcessorInput M_ShippingProcessor) {
+	public void setM_ShippingProcessorInput(ForeignEntityInput M_ShippingProcessor) {
 		this.mM_ShippingProcessor = M_ShippingProcessor;
 		MShippingProcessor foreignEntity;
 		if (M_ShippingProcessor != null &&
@@ -161,7 +161,7 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	 * @return Shipping Processor
 	 */
 	@JsonProperty("M_ShippingProcessor")
-	public I_M_ShippingProcessorInput M_ShippingProcessor() {
+	public ForeignEntityInput M_ShippingProcessor() {
 		return mM_ShippingProcessor;
 	}
 }

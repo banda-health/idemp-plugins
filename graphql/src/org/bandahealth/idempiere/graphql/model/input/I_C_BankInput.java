@@ -15,14 +15,14 @@ public interface I_C_BankInput extends I_C_Bank {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,12 +43,12 @@ public interface I_C_BankInput extends I_C_Bank {
 	 *
 	 * @param C_Location Location or Address
 	 */
-	void setC_LocationInput(I_C_LocationInput C_Location);
+	void setC_LocationInput(ForeignEntityInput C_Location);
 
 	/**
 	 * Get C_Location.
 	 *
 	 * @return Location or Address
 	 */
-	I_C_LocationInput C_Location();
+	ForeignEntityInput C_Location();
 }

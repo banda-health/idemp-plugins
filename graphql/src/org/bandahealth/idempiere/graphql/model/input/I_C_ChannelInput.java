@@ -15,28 +15,28 @@ public interface I_C_ChannelInput extends I_C_Channel {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_PrintColor.
 	 *
 	 * @param AD_PrintColor Color used for printing and display
 	 */
-	void setAD_PrintColorInput(I_AD_PrintColorInput AD_PrintColor);
+	void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor);
 
 	/**
 	 * Get AD_PrintColor.
 	 *
 	 * @return Color used for printing and display
 	 */
-	I_AD_PrintColorInput AD_PrintColor();
+	ForeignEntityInput AD_PrintColor();
 
 	/**
 	 * Set ID.

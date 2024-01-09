@@ -29,126 +29,126 @@ public interface I_AD_WF_NodeInput extends I_AD_WF_Node {
 	 *
 	 * @param AD_Column Column in the table
 	 */
-	void setAD_ColumnInput(I_AD_ColumnInput AD_Column);
+	void setAD_ColumnInput(ForeignEntityInput AD_Column);
 
 	/**
 	 * Get AD_Column.
 	 *
 	 * @return Column in the table
 	 */
-	I_AD_ColumnInput AD_Column();
+	ForeignEntityInput AD_Column();
 
 	/**
 	 * Set AD_CtxHelp.
 	 *
 	 * @param AD_CtxHelp AD_CtxHelp
 	 */
-	void setAD_CtxHelpInput(I_AD_CtxHelpInput AD_CtxHelp);
+	void setAD_CtxHelpInput(ForeignEntityInput AD_CtxHelp);
 
 	/**
 	 * Get AD_CtxHelp.
 	 *
 	 * @return AD_CtxHelp
 	 */
-	I_AD_CtxHelpInput AD_CtxHelp();
+	ForeignEntityInput AD_CtxHelp();
 
 	/**
 	 * Set AD_Form.
 	 *
 	 * @param AD_Form Special Form
 	 */
-	void setAD_FormInput(I_AD_FormInput AD_Form);
+	void setAD_FormInput(ForeignEntityInput AD_Form);
 
 	/**
 	 * Get AD_Form.
 	 *
 	 * @return Special Form
 	 */
-	I_AD_FormInput AD_Form();
+	ForeignEntityInput AD_Form();
 
 	/**
 	 * Set AD_Image.
 	 *
 	 * @param AD_Image Image or Icon
 	 */
-	void setAD_ImageInput(I_AD_ImageInput AD_Image);
+	void setAD_ImageInput(ForeignEntityInput AD_Image);
 
 	/**
 	 * Get AD_Image.
 	 *
 	 * @return Image or Icon
 	 */
-	I_AD_ImageInput AD_Image();
+	ForeignEntityInput AD_Image();
 
 	/**
 	 * Set AD_InfoWindow.
 	 *
 	 * @param AD_InfoWindow Info and search/select Window
 	 */
-	void setAD_InfoWindowInput(I_AD_InfoWindowInput AD_InfoWindow);
+	void setAD_InfoWindowInput(ForeignEntityInput AD_InfoWindow);
 
 	/**
 	 * Get AD_InfoWindow.
 	 *
 	 * @return Info and search/select Window
 	 */
-	I_AD_InfoWindowInput AD_InfoWindow();
+	ForeignEntityInput AD_InfoWindow();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_Process.
 	 *
 	 * @param AD_Process Process or Report
 	 */
-	void setAD_ProcessInput(I_AD_ProcessInput AD_Process);
+	void setAD_ProcessInput(ForeignEntityInput AD_Process);
 
 	/**
 	 * Get AD_Process.
 	 *
 	 * @return Process or Report
 	 */
-	I_AD_ProcessInput AD_Process();
+	ForeignEntityInput AD_Process();
 
 	/**
 	 * Set AD_Task.
 	 *
 	 * @param AD_Task Operation System Task
 	 */
-	void setAD_TaskInput(I_AD_TaskInput AD_Task);
+	void setAD_TaskInput(ForeignEntityInput AD_Task);
 
 	/**
 	 * Get AD_Task.
 	 *
 	 * @return Operation System Task
 	 */
-	I_AD_TaskInput AD_Task();
+	ForeignEntityInput AD_Task();
 
 	/**
 	 * Set AD_WF_Block.
 	 *
 	 * @param AD_WF_Block Workflow Transaction Execution Block
 	 */
-	void setAD_WF_BlockInput(I_AD_WF_BlockInput AD_WF_Block);
+	void setAD_WF_BlockInput(ForeignEntityInput AD_WF_Block);
 
 	/**
 	 * Get AD_WF_Block.
 	 *
 	 * @return Workflow Transaction Execution Block
 	 */
-	I_AD_WF_BlockInput AD_WF_Block();
+	ForeignEntityInput AD_WF_Block();
 
 	/**
 	 * Set ID.
@@ -169,56 +169,56 @@ public interface I_AD_WF_NodeInput extends I_AD_WF_Node {
 	 *
 	 * @param AD_WF_Responsible Responsible for Workflow Execution
 	 */
-	void setAD_WF_ResponsibleInput(I_AD_WF_ResponsibleInput AD_WF_Responsible);
+	void setAD_WF_ResponsibleInput(ForeignEntityInput AD_WF_Responsible);
 
 	/**
 	 * Get AD_WF_Responsible.
 	 *
 	 * @return Responsible for Workflow Execution
 	 */
-	I_AD_WF_ResponsibleInput AD_WF_Responsible();
+	ForeignEntityInput AD_WF_Responsible();
 
 	/**
 	 * Set AD_Window.
 	 *
 	 * @param AD_Window Data entry or display window
 	 */
-	void setAD_WindowInput(I_AD_WindowInput AD_Window);
+	void setAD_WindowInput(ForeignEntityInput AD_Window);
 
 	/**
 	 * Get AD_Window.
 	 *
 	 * @return Data entry or display window
 	 */
-	I_AD_WindowInput AD_Window();
+	ForeignEntityInput AD_Window();
 
 	/**
 	 * Set AD_Workflow.
 	 *
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
-	void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow);
+	void setAD_WorkflowInput(ForeignEntityInput AD_Workflow);
 
 	/**
 	 * Get AD_Workflow.
 	 *
 	 * @return Workflow or combination of tasks
 	 */
-	I_AD_WorkflowInput AD_Workflow();
+	ForeignEntityInput AD_Workflow();
 
 	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	void setC_BPartnerInput(I_C_BPartnerInput C_BPartner);
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
 
 	/**
 	 * Get C_BPartner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	I_C_BPartnerInput C_BPartner();
+	ForeignEntityInput C_BPartner();
 
 	/**
 	 * Set DocAction.
@@ -267,14 +267,14 @@ public interface I_AD_WF_NodeInput extends I_AD_WF_Node {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput AD_EntityType();
+	ForeignEntityInput AD_EntityType();
 
 	/**
 	 * Set FinishMode.
@@ -309,28 +309,28 @@ public interface I_AD_WF_NodeInput extends I_AD_WF_Node {
 	 *
 	 * @param R_MailText Text templates for mailings
 	 */
-	void setR_MailTextInput(I_R_MailTextInput R_MailText);
+	void setR_MailTextInput(ForeignEntityInput R_MailText);
 
 	/**
 	 * Get R_MailText.
 	 *
 	 * @return Text templates for mailings
 	 */
-	I_R_MailTextInput R_MailText();
+	ForeignEntityInput R_MailText();
 
 	/**
 	 * Set S_Resource.
 	 *
 	 * @param S_Resource Resource
 	 */
-	void setS_ResourceInput(I_S_ResourceInput S_Resource);
+	void setS_ResourceInput(ForeignEntityInput S_Resource);
 
 	/**
 	 * Get S_Resource.
 	 *
 	 * @return Resource
 	 */
-	I_S_ResourceInput S_Resource();
+	ForeignEntityInput S_Resource();
 
 	/**
 	 * Set SplitElement.
@@ -379,12 +379,12 @@ public interface I_AD_WF_NodeInput extends I_AD_WF_Node {
 	 *
 	 * @param Workflow Workflow or tasks
 	 */
-	void setWorkflowInput(I_AD_WorkflowInput Workflow);
+	void setWorkflowInput(ForeignEntityInput Workflow);
 
 	/**
 	 * Get Workflow.
 	 *
 	 * @return Workflow or tasks
 	 */
-	I_AD_WorkflowInput Workflow();
+	ForeignEntityInput Workflow();
 }

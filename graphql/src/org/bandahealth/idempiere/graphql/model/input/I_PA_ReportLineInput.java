@@ -15,14 +15,14 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set CalculationType.
@@ -43,14 +43,14 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	 *
 	 * @param GL_Budget General Ledger Budget
 	 */
-	void setGL_BudgetInput(I_GL_BudgetInput GL_Budget);
+	void setGL_BudgetInput(ForeignEntityInput GL_Budget);
 
 	/**
 	 * Get GL_Budget.
 	 *
 	 * @return General Ledger Budget
 	 */
-	I_GL_BudgetInput GL_Budget();
+	ForeignEntityInput GL_Budget();
 
 	/**
 	 * Set LineType.
@@ -71,28 +71,28 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	 *
 	 * @param Oper_1 First operand for calculation
 	 */
-	void setOper_1Input(I_PA_ReportLineInput Oper_1);
+	void setOper_1Input(ForeignEntityInput Oper_1);
 
 	/**
 	 * Get Oper_1.
 	 *
 	 * @return First operand for calculation
 	 */
-	I_PA_ReportLineInput Oper_1();
+	ForeignEntityInput Oper_1();
 
 	/**
 	 * Set Oper_2.
 	 *
 	 * @param Oper_2 Second operand for calculation
 	 */
-	void setOper_2Input(I_PA_ReportLineInput Oper_2);
+	void setOper_2Input(ForeignEntityInput Oper_2);
 
 	/**
 	 * Get Oper_2.
 	 *
 	 * @return Second operand for calculation
 	 */
-	I_PA_ReportLineInput Oper_2();
+	ForeignEntityInput Oper_2();
 
 	/**
 	 * Set OverlineStrokeType.
@@ -127,14 +127,14 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	 *
 	 * @param PA_ReportLineSet PA_ReportLineSet
 	 */
-	void setPA_ReportLineSetInput(I_PA_ReportLineSetInput PA_ReportLineSet);
+	void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet);
 
 	/**
 	 * Get PA_ReportLineSet.
 	 *
 	 * @return PA_ReportLineSet
 	 */
-	I_PA_ReportLineSetInput PA_ReportLineSet();
+	ForeignEntityInput PA_ReportLineSet();
 
 	/**
 	 * Set PAAmountType.

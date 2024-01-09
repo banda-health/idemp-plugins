@@ -15,28 +15,28 @@ public interface I_C_SubAcctInput extends I_C_SubAcct {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_ElementValue.
 	 *
 	 * @param C_ElementValue Account Element
 	 */
-	void setC_ElementValueInput(I_C_ElementValueInput C_ElementValue);
+	void setC_ElementValueInput(ForeignEntityInput C_ElementValue);
 
 	/**
 	 * Get C_ElementValue.
 	 *
 	 * @return Account Element
 	 */
-	I_C_ElementValueInput C_ElementValue();
+	ForeignEntityInput C_ElementValue();
 
 	/**
 	 * Set ID.

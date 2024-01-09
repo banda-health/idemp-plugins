@@ -5,6 +5,11 @@ extend type Query {
 	C_RevenueRecognitionGet(page: Int, size: Int, sort: String, filter: String): C_RevenueRecognitionConnection!
 }
 
+extend type Mutation {
+	C_RevenueRecognitionSave(entity: C_RevenueRecognitionInput!): C_RevenueRecognition!
+	C_RevenueRecognitionDelete(uuids: [String!]!): Boolean!
+}
+
 type C_RevenueRecognitionConnection {
 	results: [C_RevenueRecognition!]!
 	pagingInfo: PagingInfo!
@@ -38,3 +43,20 @@ type C_RevenueRecognition {
 	UpdatedBy: AD_User!
 }
 
+input C_RevenueRecognitionInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Day of the period recognition occurs
+	FixedRecogDay: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Time based Revenue Recognition rather than Service Level based
+	IsTimeBased: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	NoMonths: Int
+	RecognitionFrequency: AD_Ref_ListInput
+}

@@ -5,6 +5,11 @@ extend type Query {
 	AD_WF_ProcessDataGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ProcessDataConnection!
 }
 
+extend type Mutation {
+	AD_WF_ProcessDataSave(entity: AD_WF_ProcessDataInput!): AD_WF_ProcessData!
+	AD_WF_ProcessDataDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_WF_ProcessDataConnection {
 	results: [AD_WF_ProcessData!]!
 	pagingInfo: PagingInfo!
@@ -34,3 +39,16 @@ type AD_WF_ProcessData {
 	UpdatedBy: AD_User!
 }
 
+input AD_WF_ProcessDataInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Actual Workflow Process Instance
+	AD_WF_Process: ForeignEntityInput
+	ID: ID
+	# Name of the Attribute
+	AttributeName: String
+	# Value of the Attribute
+	AttributeValue: String
+	# The record is active in the system
+	IsActive: Boolean
+}

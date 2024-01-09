@@ -23,14 +23,14 @@ import org.compiere.util.Env;
  */
 public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintFormatInput mAD_PrintFormat;
-	 private I_AD_ProcessInput mJasperProcess;
-	 private I_C_AcctSchemaInput mC_AcctSchema;
-	 private I_C_CalendarInput mC_Calendar;
-	 private I_PA_ReportColumnSetInput mPA_ReportColumnSet;
-	 private I_PA_ReportCubeInput mPA_ReportCube;
-	 private I_PA_ReportLineSetInput mPA_ReportLineSet;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_PrintFormat;
+	 private ForeignEntityInput mC_AcctSchema;
+	 private ForeignEntityInput mC_Calendar;
+	 private ForeignEntityInput mJasperProcess;
+	 private ForeignEntityInput mPA_ReportColumnSet;
+	 private ForeignEntityInput mPA_ReportCube;
+	 private ForeignEntityInput mPA_ReportLineSet;
 
 	/**
 	 * Standard constructor
@@ -47,7 +47,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -64,7 +64,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -74,7 +74,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @param AD_PrintFormat Data Print Format
 	 */
 	@JsonProperty("AD_PrintFormat")
-	public void setAD_PrintFormatInput(I_AD_PrintFormatInput AD_PrintFormat) {
+	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
 		if (AD_PrintFormat != null &&
@@ -93,7 +93,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @return Data Print Format
 	 */
 	@JsonProperty("AD_PrintFormat")
-	public I_AD_PrintFormatInput AD_PrintFormat() {
+	public ForeignEntityInput AD_PrintFormat() {
 		return mAD_PrintFormat;
 	}
 
@@ -103,7 +103,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @param C_AcctSchema Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
@@ -122,7 +122,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @return Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public I_C_AcctSchemaInput C_AcctSchema() {
+	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
 	}
 
@@ -132,7 +132,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @param C_Calendar Accounting Calendar Name
 	 */
 	@JsonProperty("C_Calendar")
-	public void setC_CalendarInput(I_C_CalendarInput C_Calendar) {
+	public void setC_CalendarInput(ForeignEntityInput C_Calendar) {
 		this.mC_Calendar = C_Calendar;
 		MCalendar foreignEntity;
 		if (C_Calendar != null &&
@@ -151,7 +151,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @return Accounting Calendar Name
 	 */
 	@JsonProperty("C_Calendar")
-	public I_C_CalendarInput C_Calendar() {
+	public ForeignEntityInput C_Calendar() {
 		return mC_Calendar;
 	}
 
@@ -161,7 +161,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @param JasperProcess The Jasper Process used by the printengine if any process defined
 	 */
 	@JsonProperty("JasperProcess")
-	public void setJasperProcessInput(I_AD_ProcessInput JasperProcess) {
+	public void setJasperProcessInput(ForeignEntityInput JasperProcess) {
 		this.mJasperProcess = JasperProcess;
 		MProcess_BH foreignEntity;
 		if (JasperProcess != null &&
@@ -180,7 +180,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @return The Jasper Process used by the printengine if any process defined
 	 */
 	@JsonProperty("JasperProcess")
-	public I_AD_ProcessInput JasperProcess() {
+	public ForeignEntityInput JasperProcess() {
 		return mJasperProcess;
 	}
 
@@ -208,7 +208,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @param PA_ReportColumnSet Collection of Columns for Report
 	 */
 	@JsonProperty("PA_ReportColumnSet")
-	public void setPA_ReportColumnSetInput(I_PA_ReportColumnSetInput PA_ReportColumnSet) {
+	public void setPA_ReportColumnSetInput(ForeignEntityInput PA_ReportColumnSet) {
 		this.mPA_ReportColumnSet = PA_ReportColumnSet;
 		X_PA_ReportColumnSet foreignEntity;
 		if (PA_ReportColumnSet != null &&
@@ -227,7 +227,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @return Collection of Columns for Report
 	 */
 	@JsonProperty("PA_ReportColumnSet")
-	public I_PA_ReportColumnSetInput PA_ReportColumnSet() {
+	public ForeignEntityInput PA_ReportColumnSet() {
 		return mPA_ReportColumnSet;
 	}
 
@@ -237,7 +237,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @param PA_ReportCube Define reporting cube for pre-calculation of summary accounting data.
 	 */
 	@JsonProperty("PA_ReportCube")
-	public void setPA_ReportCubeInput(I_PA_ReportCubeInput PA_ReportCube) {
+	public void setPA_ReportCubeInput(ForeignEntityInput PA_ReportCube) {
 		this.mPA_ReportCube = PA_ReportCube;
 		MReportCube foreignEntity;
 		if (PA_ReportCube != null &&
@@ -256,7 +256,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @return Define reporting cube for pre-calculation of summary accounting data.
 	 */
 	@JsonProperty("PA_ReportCube")
-	public I_PA_ReportCubeInput PA_ReportCube() {
+	public ForeignEntityInput PA_ReportCube() {
 		return mPA_ReportCube;
 	}
 
@@ -266,7 +266,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @param PA_ReportLineSet Report Line Set
 	 */
 	@JsonProperty("PA_ReportLineSet")
-	public void setPA_ReportLineSetInput(I_PA_ReportLineSetInput PA_ReportLineSet) {
+	public void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet) {
 		this.mPA_ReportLineSet = PA_ReportLineSet;
 		X_PA_ReportLineSet foreignEntity;
 		if (PA_ReportLineSet != null &&
@@ -285,7 +285,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 * @return Report Line Set
 	 */
 	@JsonProperty("PA_ReportLineSet")
-	public I_PA_ReportLineSetInput PA_ReportLineSet() {
+	public ForeignEntityInput PA_ReportLineSet() {
 		return mPA_ReportLineSet;
 	}
 }

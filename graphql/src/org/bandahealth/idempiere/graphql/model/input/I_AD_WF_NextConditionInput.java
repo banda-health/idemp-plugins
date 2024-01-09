@@ -15,28 +15,28 @@ public interface I_AD_WF_NextConditionInput extends I_AD_WF_NextCondition {
 	 *
 	 * @param AD_Column Column in the table
 	 */
-	void setAD_ColumnInput(I_AD_ColumnInput AD_Column);
+	void setAD_ColumnInput(ForeignEntityInput AD_Column);
 
 	/**
 	 * Get AD_Column.
 	 *
 	 * @return Column in the table
 	 */
-	I_AD_ColumnInput AD_Column();
+	ForeignEntityInput AD_Column();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -57,14 +57,14 @@ public interface I_AD_WF_NextConditionInput extends I_AD_WF_NextCondition {
 	 *
 	 * @param AD_WF_NodeNext Workflow Node Transition
 	 */
-	void setAD_WF_NodeNextInput(I_AD_WF_NodeNextInput AD_WF_NodeNext);
+	void setAD_WF_NodeNextInput(ForeignEntityInput AD_WF_NodeNext);
 
 	/**
 	 * Get AD_WF_NodeNext.
 	 *
 	 * @return Workflow Node Transition
 	 */
-	I_AD_WF_NodeNextInput AD_WF_NodeNext();
+	ForeignEntityInput AD_WF_NodeNext();
 
 	/**
 	 * Set AndOr.
@@ -85,14 +85,14 @@ public interface I_AD_WF_NextConditionInput extends I_AD_WF_NextCondition {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput AD_EntityType();
+	ForeignEntityInput AD_EntityType();
 
 	/**
 	 * Set Operation.

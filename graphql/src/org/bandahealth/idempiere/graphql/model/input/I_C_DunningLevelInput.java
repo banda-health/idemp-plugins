@@ -15,28 +15,28 @@ public interface I_C_DunningLevelInput extends I_C_DunningLevel {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_Dunning.
 	 *
 	 * @param C_Dunning Dunning Rules for overdue invoices
 	 */
-	void setC_DunningInput(I_C_DunningInput C_Dunning);
+	void setC_DunningInput(ForeignEntityInput C_Dunning);
 
 	/**
 	 * Get C_Dunning.
 	 *
 	 * @return Dunning Rules for overdue invoices
 	 */
-	I_C_DunningInput C_Dunning();
+	ForeignEntityInput C_Dunning();
 
 	/**
 	 * Set ID.
@@ -57,28 +57,28 @@ public interface I_C_DunningLevelInput extends I_C_DunningLevel {
 	 *
 	 * @param C_PaymentTerm The terms of Payment (timing, discount)
 	 */
-	void setC_PaymentTermInput(I_C_PaymentTermInput C_PaymentTerm);
+	void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm);
 
 	/**
 	 * Get C_PaymentTerm.
 	 *
 	 * @return The terms of Payment (timing, discount)
 	 */
-	I_C_PaymentTermInput C_PaymentTerm();
+	ForeignEntityInput C_PaymentTerm();
 
 	/**
 	 * Set Dunning_PrintFormat.
 	 *
 	 * @param Dunning_PrintFormat Print Format for printing Dunning Letters
 	 */
-	void setDunning_PrintFormatInput(I_AD_PrintFormatInput Dunning_PrintFormat);
+	void setDunning_PrintFormatInput(ForeignEntityInput Dunning_PrintFormat);
 
 	/**
 	 * Get Dunning_PrintFormat.
 	 *
 	 * @return Print Format for printing Dunning Letters
 	 */
-	I_AD_PrintFormatInput Dunning_PrintFormat();
+	ForeignEntityInput Dunning_PrintFormat();
 
 	/**
 	 * Set InvoiceCollectionType.

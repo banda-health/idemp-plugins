@@ -15,42 +15,42 @@ public interface I_AD_WF_NodeNextInput extends I_AD_WF_NodeNext {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_WF_Next.
 	 *
 	 * @param AD_WF_Next Next Node in workflow
 	 */
-	void setAD_WF_NextInput(I_AD_WF_NodeInput AD_WF_Next);
+	void setAD_WF_NextInput(ForeignEntityInput AD_WF_Next);
 
 	/**
 	 * Get AD_WF_Next.
 	 *
 	 * @return Next Node in workflow
 	 */
-	I_AD_WF_NodeInput AD_WF_Next();
+	ForeignEntityInput AD_WF_Next();
 
 	/**
 	 * Set AD_WF_Node.
 	 *
 	 * @param AD_WF_Node Workflow Node (activity), step or process
 	 */
-	void setAD_WF_NodeInput(I_AD_WF_NodeInput AD_WF_Node);
+	void setAD_WF_NodeInput(ForeignEntityInput AD_WF_Node);
 
 	/**
 	 * Get AD_WF_Node.
 	 *
 	 * @return Workflow Node (activity), step or process
 	 */
-	I_AD_WF_NodeInput AD_WF_Node();
+	ForeignEntityInput AD_WF_Node();
 
 	/**
 	 * Set ID.
@@ -71,12 +71,12 @@ public interface I_AD_WF_NodeNextInput extends I_AD_WF_NodeNext {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput AD_EntityType();
+	ForeignEntityInput AD_EntityType();
 }

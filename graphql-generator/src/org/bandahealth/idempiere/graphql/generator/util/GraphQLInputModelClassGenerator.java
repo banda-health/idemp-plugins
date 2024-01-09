@@ -319,7 +319,8 @@ public class GraphQLInputModelClassGenerator {
 
 			// Make sure that a private property is set correctly
 			String propertyName = "m" + entityName;
-			privateProperties.add(returnType + " " + propertyName);
+//			privateProperties.add(returnType + " " + propertyName);
+			privateProperties.add("ForeignEntityInput " + propertyName);
 			generateJavaSetComment(entityName, Name, Description, columnBuilder);
 			ModelMap foreignEntityModelMap = modelsForTables.get(foreignEntityTable);
 			String modelForForeignEntity = foreignEntityModelMap.getClassName();
@@ -327,8 +328,9 @@ public class GraphQLInputModelClassGenerator {
 			classesToImport.add("com.fasterxml.jackson.annotation.JsonProperty");
 			columnBuilder
 					.append("\t@JsonProperty(\"").append(entityName).append("\")\n")
-					.append("\tpublic void set").append(entityName).append("Input(").append(returnType).append(" ")
-					.append(entityName).append(") {\n")
+//					.append("\tpublic void set").append(entityName).append("Input(").append(returnType).append(" ")
+					.append("\tpublic void set").append(entityName).append("Input(ForeignEntityInput ").append(entityName)
+					.append(") {\n")
 					.append("\t\tthis.").append(propertyName).append(" = ").append(entityName).append(";\n")
 					.append("\t\t").append(modelForForeignEntity).append(" foreignEntity;\n")
 					.append("\t\tif (");
@@ -355,11 +357,12 @@ public class GraphQLInputModelClassGenerator {
 			generateJavaGetComment(Name, Description, columnBuilder);
 			columnBuilder
 					.append("\t@JsonProperty(\"").append(entityName).append("\")\n")
-					.append("\tpublic ").append(returnType).append(" ").append(entityName).append("() {\n")
+//					.append("\tpublic ").append(returnType).append(" ").append(entityName).append("() {\n")
+					.append("\tpublic ForeignEntityInput ").append(entityName).append("() {\n")
 					.append("\t\treturn ").append(propertyName).append(";\n")
 					.append("\t}");
 
-			addImportClass(clazz);
+//			addImportClass(clazz);
 
 			return columnBuilder.toString();
 		} else if (columnName.endsWith("_UU")) {

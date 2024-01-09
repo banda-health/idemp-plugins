@@ -15,42 +15,42 @@ public interface I_PA_SLA_GoalInput extends I_PA_SLA_Goal {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	void setC_BPartnerInput(I_C_BPartnerInput C_BPartner);
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
 
 	/**
 	 * Get C_BPartner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	I_C_BPartnerInput C_BPartner();
+	ForeignEntityInput C_BPartner();
 
 	/**
 	 * Set PA_SLA_Criteria.
 	 *
 	 * @param PA_SLA_Criteria Service Level Agreement Criteria
 	 */
-	void setPA_SLA_CriteriaInput(I_PA_SLA_CriteriaInput PA_SLA_Criteria);
+	void setPA_SLA_CriteriaInput(ForeignEntityInput PA_SLA_Criteria);
 
 	/**
 	 * Get PA_SLA_Criteria.
 	 *
 	 * @return Service Level Agreement Criteria
 	 */
-	I_PA_SLA_CriteriaInput PA_SLA_Criteria();
+	ForeignEntityInput PA_SLA_Criteria();
 
 	/**
 	 * Set ID.

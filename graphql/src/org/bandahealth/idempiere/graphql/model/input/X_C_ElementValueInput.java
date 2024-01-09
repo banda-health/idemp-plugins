@@ -20,13 +20,13 @@ import org.compiere.util.Env;
  */
 public class X_C_ElementValueInput extends MElementValue implements I_C_ElementValueInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BankAccount;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_Element;
 	 private I_AD_Ref_ListInput mAccountSign;
 	 private I_AD_Ref_ListInput mAccountType;
 	 private I_AD_Ref_ListInput mBPartnerType;
-	 private I_C_BankAccountInput mC_BankAccount;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_ElementInput mC_Element;
 
 	/**
 	 * Standard constructor
@@ -101,7 +101,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -118,7 +118,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -157,7 +157,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @param C_BankAccount Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount) {
+	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
@@ -176,7 +176,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @return Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public I_C_BankAccountInput C_BankAccount() {
+	public ForeignEntityInput C_BankAccount() {
 		return mC_BankAccount;
 	}
 
@@ -186,7 +186,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -205,7 +205,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -215,7 +215,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @param C_Element Accounting Element
 	 */
 	@JsonProperty("C_Element")
-	public void setC_ElementInput(I_C_ElementInput C_Element) {
+	public void setC_ElementInput(ForeignEntityInput C_Element) {
 		this.mC_Element = C_Element;
 		MElement foreignEntity;
 		if (get_ID() == 0 &&C_Element != null &&
@@ -232,7 +232,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @return Accounting Element
 	 */
 	@JsonProperty("C_Element")
-	public I_C_ElementInput C_Element() {
+	public ForeignEntityInput C_Element() {
 		return mC_Element;
 	}
 

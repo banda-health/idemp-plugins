@@ -5,6 +5,11 @@ extend type Query {
 	C_CashLineGet(page: Int, size: Int, sort: String, filter: String): C_CashLineConnection!
 }
 
+extend type Mutation {
+	C_CashLineSave(entity: C_CashLineInput!): C_CashLine!
+	C_CashLineDelete(uuids: [String!]!): Boolean!
+}
+
 type C_CashLineConnection {
 	results: [C_CashLine!]!
 	pagingInfo: PagingInfo!
@@ -56,3 +61,38 @@ type C_CashLine {
 	WriteOffAmt: Int
 }
 
+input C_CashLineInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Amount in a defined currency
+	Amount: Int
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	# Cash Journal
+	C_Cash: ForeignEntityInput
+	ID: ID
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# Source of Cash
+	CashType: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	# Calculated amount of discount
+	DiscountAmt: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# This Line is generated
+	IsGenerated: Boolean
+	# Unique line for this document
+	Line: Int
+	# The document has been processed
+	Processed: Boolean
+	# Amount to write-off
+	WriteOffAmt: Int
+}

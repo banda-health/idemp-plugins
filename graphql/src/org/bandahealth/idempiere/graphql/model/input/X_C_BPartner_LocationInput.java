@@ -19,10 +19,10 @@ import org.compiere.util.Env;
  */
 public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C_BPartner_LocationInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_LocationInput mC_Location;
-	 private I_C_SalesRegionInput mC_SalesRegion;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_Location;
+	 private ForeignEntityInput mC_SalesRegion;
 
 	/**
 	 * Standard constructor
@@ -39,7 +39,7 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -56,7 +56,7 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -66,7 +66,7 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (get_ID() == 0 &&C_BPartner != null &&
@@ -83,7 +83,7 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -111,7 +111,7 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 * @param C_Location Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public void setC_LocationInput(I_C_LocationInput C_Location) {
+	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
@@ -130,7 +130,7 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 * @return Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public I_C_LocationInput C_Location() {
+	public ForeignEntityInput C_Location() {
 		return mC_Location;
 	}
 
@@ -140,7 +140,7 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 * @param C_SalesRegion Sales coverage region
 	 */
 	@JsonProperty("C_SalesRegion")
-	public void setC_SalesRegionInput(I_C_SalesRegionInput C_SalesRegion) {
+	public void setC_SalesRegionInput(ForeignEntityInput C_SalesRegion) {
 		this.mC_SalesRegion = C_SalesRegion;
 		MSalesRegion foreignEntity;
 		if (C_SalesRegion != null &&
@@ -159,7 +159,7 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 * @return Sales coverage region
 	 */
 	@JsonProperty("C_SalesRegion")
-	public I_C_SalesRegionInput C_SalesRegion() {
+	public ForeignEntityInput C_SalesRegion() {
 		return mC_SalesRegion;
 	}
 }

@@ -25,20 +25,20 @@ import org.compiere.util.Env;
  */
 public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 
-	 private I_AD_ChartInput mAD_Chart;
-	 private I_AD_ElementInput mAD_Element;
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_ProcessInput mAD_Process;
+	 private ForeignEntityInput mAD_Chart;
+	 private ForeignEntityInput mAD_Element;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Process;
+	 private ForeignEntityInput mAD_Reference;
+	 private ForeignEntityInput mAD_Reference_Value;
+	 private ForeignEntityInput mAD_Table;
+	 private ForeignEntityInput mAD_Val_Rule;
+	 private ForeignEntityInput mAD_Val_Rule_Lookup;
+	 private ForeignEntityInput mPA_DashboardContent;
 	 private I_AD_Ref_ListInput mFKConstraintType;
 	 private I_AD_Ref_ListInput mIsEncrypted;
 	 private I_AD_Ref_ListInput mIsToolbarButton;
-	 private I_AD_ReferenceInput mAD_Reference;
-	 private I_AD_ReferenceInput mAD_Reference_Value;
-	 private I_AD_TableInput mAD_Table;
-	 private I_AD_Val_RuleInput mAD_Val_Rule;
-	 private I_AD_Val_RuleInput mAD_Val_Rule_Lookup;
-	 private I_PA_DashboardContentInput mPA_DashboardContent;
 
 	/**
 	 * Standard constructor
@@ -55,7 +55,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param AD_Chart Chart
 	 */
 	@JsonProperty("AD_Chart")
-	public void setAD_ChartInput(I_AD_ChartInput AD_Chart) {
+	public void setAD_ChartInput(ForeignEntityInput AD_Chart) {
 		this.mAD_Chart = AD_Chart;
 		MChart foreignEntity;
 		if (AD_Chart != null &&
@@ -74,7 +74,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Chart
 	 */
 	@JsonProperty("AD_Chart")
-	public I_AD_ChartInput AD_Chart() {
+	public ForeignEntityInput AD_Chart() {
 		return mAD_Chart;
 	}
 
@@ -102,7 +102,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param AD_Element System Element enables the central maintenance of column description and help.
 	 */
 	@JsonProperty("AD_Element")
-	public void setAD_ElementInput(I_AD_ElementInput AD_Element) {
+	public void setAD_ElementInput(ForeignEntityInput AD_Element) {
 		this.mAD_Element = AD_Element;
 		M_Element foreignEntity;
 		if (AD_Element != null &&
@@ -121,7 +121,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return System Element enables the central maintenance of column description and help.
 	 */
 	@JsonProperty("AD_Element")
-	public I_AD_ElementInput AD_Element() {
+	public ForeignEntityInput AD_Element() {
 		return mAD_Element;
 	}
 
@@ -131,7 +131,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -148,7 +148,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -158,7 +158,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param AD_Process Process or Report
 	 */
 	@JsonProperty("AD_Process")
-	public void setAD_ProcessInput(I_AD_ProcessInput AD_Process) {
+	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
 		if (AD_Process != null &&
@@ -177,7 +177,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Process or Report
 	 */
 	@JsonProperty("AD_Process")
-	public I_AD_ProcessInput AD_Process() {
+	public ForeignEntityInput AD_Process() {
 		return mAD_Process;
 	}
 
@@ -187,7 +187,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param AD_Reference System Reference and Validation
 	 */
 	@JsonProperty("AD_Reference")
-	public void setAD_ReferenceInput(I_AD_ReferenceInput AD_Reference) {
+	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
 		MReference_BH foreignEntity;
 		if (AD_Reference != null &&
@@ -206,7 +206,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return System Reference and Validation
 	 */
 	@JsonProperty("AD_Reference")
-	public I_AD_ReferenceInput AD_Reference() {
+	public ForeignEntityInput AD_Reference() {
 		return mAD_Reference;
 	}
 
@@ -216,7 +216,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param AD_Reference_Value Required to specify, if data type is Table or List
 	 */
 	@JsonProperty("AD_Reference_Value")
-	public void setAD_Reference_ValueInput(I_AD_ReferenceInput AD_Reference_Value) {
+	public void setAD_Reference_ValueInput(ForeignEntityInput AD_Reference_Value) {
 		this.mAD_Reference_Value = AD_Reference_Value;
 		MReference_BH foreignEntity;
 		if (AD_Reference_Value != null &&
@@ -235,7 +235,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Required to specify, if data type is Table or List
 	 */
 	@JsonProperty("AD_Reference_Value")
-	public I_AD_ReferenceInput AD_Reference_Value() {
+	public ForeignEntityInput AD_Reference_Value() {
 		return mAD_Reference_Value;
 	}
 
@@ -245,7 +245,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param AD_Table Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (get_ID() == 0 &&AD_Table != null &&
@@ -262,7 +262,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public I_AD_TableInput AD_Table() {
+	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
 	}
 
@@ -272,7 +272,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param AD_Val_Rule Dynamic Validation Rule
 	 */
 	@JsonProperty("AD_Val_Rule")
-	public void setAD_Val_RuleInput(I_AD_Val_RuleInput AD_Val_Rule) {
+	public void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule) {
 		this.mAD_Val_Rule = AD_Val_Rule;
 		MValRule foreignEntity;
 		if (AD_Val_Rule != null &&
@@ -291,7 +291,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Dynamic Validation Rule
 	 */
 	@JsonProperty("AD_Val_Rule")
-	public I_AD_Val_RuleInput AD_Val_Rule() {
+	public ForeignEntityInput AD_Val_Rule() {
 		return mAD_Val_Rule;
 	}
 
@@ -301,7 +301,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param AD_Val_Rule_Lookup Override Dynamic Validation Rule for Lookup Window
 	 */
 	@JsonProperty("AD_Val_Rule_Lookup")
-	public void setAD_Val_Rule_LookupInput(I_AD_Val_RuleInput AD_Val_Rule_Lookup) {
+	public void setAD_Val_Rule_LookupInput(ForeignEntityInput AD_Val_Rule_Lookup) {
 		this.mAD_Val_Rule_Lookup = AD_Val_Rule_Lookup;
 		MValRule foreignEntity;
 		if (AD_Val_Rule_Lookup != null &&
@@ -320,7 +320,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Override Dynamic Validation Rule for Lookup Window
 	 */
 	@JsonProperty("AD_Val_Rule_Lookup")
-	public I_AD_Val_RuleInput AD_Val_Rule_Lookup() {
+	public ForeignEntityInput AD_Val_Rule_Lookup() {
 		return mAD_Val_Rule_Lookup;
 	}
 
@@ -330,7 +330,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -349,7 +349,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 
@@ -446,7 +446,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param PA_DashboardContent Dashboard Content
 	 */
 	@JsonProperty("PA_DashboardContent")
-	public void setPA_DashboardContentInput(I_PA_DashboardContentInput PA_DashboardContent) {
+	public void setPA_DashboardContentInput(ForeignEntityInput PA_DashboardContent) {
 		this.mPA_DashboardContent = PA_DashboardContent;
 		MDashboardContent foreignEntity;
 		if (PA_DashboardContent != null &&
@@ -465,7 +465,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Dashboard Content
 	 */
 	@JsonProperty("PA_DashboardContent")
-	public I_PA_DashboardContentInput PA_DashboardContent() {
+	public ForeignEntityInput PA_DashboardContent() {
 		return mPA_DashboardContent;
 	}
 }

@@ -19,8 +19,8 @@ import org.compiere.util.Env;
  */
 public class X_S_ResourceAssignmentInput extends MResourceAssignment implements I_S_ResourceAssignmentInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_S_ResourceInput mS_Resource;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mS_Resource;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 	/**
@@ -108,7 +108,7 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 * @param S_Resource Resource
 	 */
 	@JsonProperty("S_Resource")
-	public void setS_ResourceInput(I_S_ResourceInput S_Resource) {
+	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
 		if (get_ID() == 0 &&S_Resource != null &&
@@ -125,7 +125,7 @@ public class X_S_ResourceAssignmentInput extends MResourceAssignment implements 
 	 * @return Resource
 	 */
 	@JsonProperty("S_Resource")
-	public I_S_ResourceInput S_Resource() {
+	public ForeignEntityInput S_Resource() {
 		return mS_Resource;
 	}
 

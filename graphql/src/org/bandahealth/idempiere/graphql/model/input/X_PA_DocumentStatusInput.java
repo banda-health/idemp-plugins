@@ -25,18 +25,18 @@ import org.compiere.util.Env;
  */
 public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_DocumentStatusInput {
 
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_FormInput mAD_Form;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintColorInput mName_PrintColor;
-	 private I_AD_PrintColorInput mNumber_PrintColor;
-	 private I_AD_PrintFontInput mName_PrintFont;
-	 private I_AD_PrintFontInput mNumber_PrintFont;
-	 private I_AD_RoleInput mAD_Role;
-	 private I_AD_TableInput mAD_Table;
-	 private I_AD_UserInput mAD_User;
-	 private I_AD_WindowInput mAD_Window;
-	 private I_C_ProjectInput mC_Project;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Form;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Role;
+	 private ForeignEntityInput mAD_Table;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mAD_Window;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mName_PrintColor;
+	 private ForeignEntityInput mName_PrintFont;
+	 private ForeignEntityInput mNumber_PrintColor;
+	 private ForeignEntityInput mNumber_PrintFont;
 
 	/**
 	 * Standard constructor
@@ -53,7 +53,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param AD_Form Special Form
 	 */
 	@JsonProperty("AD_Form")
-	public void setAD_FormInput(I_AD_FormInput AD_Form) {
+	public void setAD_FormInput(ForeignEntityInput AD_Form) {
 		this.mAD_Form = AD_Form;
 		MForm foreignEntity;
 		if (AD_Form != null &&
@@ -72,7 +72,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return Special Form
 	 */
 	@JsonProperty("AD_Form")
-	public I_AD_FormInput AD_Form() {
+	public ForeignEntityInput AD_Form() {
 		return mAD_Form;
 	}
 
@@ -82,7 +82,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -99,7 +99,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -109,7 +109,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param AD_Role Responsibility Role
 	 */
 	@JsonProperty("AD_Role")
-	public void setAD_RoleInput(I_AD_RoleInput AD_Role) {
+	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
@@ -128,7 +128,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return Responsibility Role
 	 */
 	@JsonProperty("AD_Role")
-	public I_AD_RoleInput AD_Role() {
+	public ForeignEntityInput AD_Role() {
 		return mAD_Role;
 	}
 
@@ -138,7 +138,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param AD_Table Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (AD_Table != null &&
@@ -157,7 +157,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public I_AD_TableInput AD_Table() {
+	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
 	}
 
@@ -167,7 +167,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -186,7 +186,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -196,7 +196,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param AD_Window Data entry or display window
 	 */
 	@JsonProperty("AD_Window")
-	public void setAD_WindowInput(I_AD_WindowInput AD_Window) {
+	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
 		if (AD_Window != null &&
@@ -215,7 +215,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return Data entry or display window
 	 */
 	@JsonProperty("AD_Window")
-	public I_AD_WindowInput AD_Window() {
+	public ForeignEntityInput AD_Window() {
 		return mAD_Window;
 	}
 
@@ -225,7 +225,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -244,7 +244,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -254,7 +254,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -273,7 +273,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 
@@ -283,7 +283,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param Name_PrintColor Print Color for Name
 	 */
 	@JsonProperty("Name_PrintColor")
-	public void setName_PrintColorInput(I_AD_PrintColorInput Name_PrintColor) {
+	public void setName_PrintColorInput(ForeignEntityInput Name_PrintColor) {
 		this.mName_PrintColor = Name_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (Name_PrintColor != null &&
@@ -302,7 +302,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return Print Color for Name
 	 */
 	@JsonProperty("Name_PrintColor")
-	public I_AD_PrintColorInput Name_PrintColor() {
+	public ForeignEntityInput Name_PrintColor() {
 		return mName_PrintColor;
 	}
 
@@ -312,7 +312,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param Name_PrintFont Print Font for Name
 	 */
 	@JsonProperty("Name_PrintFont")
-	public void setName_PrintFontInput(I_AD_PrintFontInput Name_PrintFont) {
+	public void setName_PrintFontInput(ForeignEntityInput Name_PrintFont) {
 		this.mName_PrintFont = Name_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (Name_PrintFont != null &&
@@ -331,7 +331,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return Print Font for Name
 	 */
 	@JsonProperty("Name_PrintFont")
-	public I_AD_PrintFontInput Name_PrintFont() {
+	public ForeignEntityInput Name_PrintFont() {
 		return mName_PrintFont;
 	}
 
@@ -341,7 +341,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param Number_PrintColor Print Color for Number
 	 */
 	@JsonProperty("Number_PrintColor")
-	public void setNumber_PrintColorInput(I_AD_PrintColorInput Number_PrintColor) {
+	public void setNumber_PrintColorInput(ForeignEntityInput Number_PrintColor) {
 		this.mNumber_PrintColor = Number_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (Number_PrintColor != null &&
@@ -360,7 +360,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return Print Color for Number
 	 */
 	@JsonProperty("Number_PrintColor")
-	public I_AD_PrintColorInput Number_PrintColor() {
+	public ForeignEntityInput Number_PrintColor() {
 		return mNumber_PrintColor;
 	}
 
@@ -370,7 +370,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @param Number_PrintFont Print Font for Number
 	 */
 	@JsonProperty("Number_PrintFont")
-	public void setNumber_PrintFontInput(I_AD_PrintFontInput Number_PrintFont) {
+	public void setNumber_PrintFontInput(ForeignEntityInput Number_PrintFont) {
 		this.mNumber_PrintFont = Number_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (Number_PrintFont != null &&
@@ -389,7 +389,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * @return Print Font for Number
 	 */
 	@JsonProperty("Number_PrintFont")
-	public I_AD_PrintFontInput Number_PrintFont() {
+	public ForeignEntityInput Number_PrintFont() {
 		return mNumber_PrintFont;
 	}
 

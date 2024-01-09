@@ -5,6 +5,11 @@ extend type Query {
 	A_Asset_AcctGet(page: Int, size: Int, sort: String, filter: String): A_Asset_AcctConnection!
 }
 
+extend type Mutation {
+	A_Asset_AcctSave(entity: A_Asset_AcctInput!): A_Asset_Acct!
+	A_Asset_AcctDelete(uuids: [String!]!): Boolean!
+}
+
 type A_Asset_AcctConnection {
 	results: [A_Asset_Acct!]!
 	pagingInfo: PagingInfo!
@@ -64,3 +69,46 @@ type A_Asset_Acct {
 	ValidFrom: Date
 }
 
+input A_Asset_AcctInput {
+	A_Accumdepreciation_A: ForeignEntityInput
+	A_Asset_A: ForeignEntityInput
+	ID: ID
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	A_Depreciation_A: ForeignEntityInput
+	A_Depreciation_Conv_F: ForeignEntityInput
+	A_Depreciation_Conv: ForeignEntityInput
+	A_Depreciation_F: ForeignEntityInput
+	A_Depreciation: ForeignEntityInput
+	A_Depreciation_Manual_Amount: Int
+	A_Depreciation_Manual_Period: AD_Ref_ListInput
+	A_Depreciation_Method_F: ForeignEntityInput
+	A_Depreciation_Method: ForeignEntityInput
+	A_Depreciation_Table_Header: ForeignEntityInput
+	A_Depreciation_Variable_Perc: Int
+	A_Depreciation_Variable_Perc_F: Int
+	A_Disposal_Gain_A: ForeignEntityInput
+	A_Disposal_Loss_A: ForeignEntityInput
+	A_Disposal_Revenue_A: ForeignEntityInput
+	A_Period_End: Int
+	A_Period_Start: Int
+	A_Reval_Adep_Offset_Cur_A: ForeignEntityInput
+	A_Reval_Adep_Offset_Prior_A: ForeignEntityInput
+	A_Reval_Cal_Method: AD_Ref_ListInput
+	A_Reval_Cost_Offset_A: ForeignEntityInput
+	A_Reval_Cost_Offset_Prior_A: ForeignEntityInput
+	A_Reval_Depexp_Offset_A: ForeignEntityInput
+	A_Salvage_Value: Int
+	A_Split_Percent: Int
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_ListInput
+	Processing: Boolean
+	# Valid from including this date (first day)
+	ValidFrom: Date
+}

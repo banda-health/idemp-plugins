@@ -5,6 +5,11 @@ extend type Query {
 	M_LocatorTypeGet(page: Int, size: Int, sort: String, filter: String): M_LocatorTypeConnection!
 }
 
+extend type Mutation {
+	M_LocatorTypeSave(entity: M_LocatorTypeInput!): M_LocatorType!
+	M_LocatorTypeDelete(uuids: [String!]!): Boolean!
+}
+
 type M_LocatorTypeConnection {
 	results: [M_LocatorType!]!
 	pagingInfo: PagingInfo!
@@ -37,3 +42,19 @@ type M_LocatorType {
 	UpdatedBy: AD_User!
 }
 
+input M_LocatorTypeInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsAvailableForReplenishment: Boolean
+	IsAvailableForReservation: Boolean
+	IsAvailableForShipping: Boolean
+	ID: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+}

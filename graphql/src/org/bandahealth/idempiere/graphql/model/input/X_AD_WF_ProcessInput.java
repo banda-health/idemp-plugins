@@ -22,13 +22,13 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_ProcessInput {
 
-	 private I_AD_MessageInput mAD_Message;
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Message;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Table;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mAD_WF_Responsible;
+	 private ForeignEntityInput mAD_Workflow;
 	 private I_AD_Ref_ListInput mWFState;
-	 private I_AD_TableInput mAD_Table;
-	 private I_AD_UserInput mAD_User;
-	 private I_AD_WF_ResponsibleInput mAD_WF_Responsible;
-	 private I_AD_WorkflowInput mAD_Workflow;
 
 	/**
 	 * Standard constructor
@@ -45,7 +45,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @param AD_Message System Message
 	 */
 	@JsonProperty("AD_Message")
-	public void setAD_MessageInput(I_AD_MessageInput AD_Message) {
+	public void setAD_MessageInput(ForeignEntityInput AD_Message) {
 		this.mAD_Message = AD_Message;
 		MMessage_BH foreignEntity;
 		if (AD_Message != null &&
@@ -64,7 +64,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @return System Message
 	 */
 	@JsonProperty("AD_Message")
-	public I_AD_MessageInput AD_Message() {
+	public ForeignEntityInput AD_Message() {
 		return mAD_Message;
 	}
 
@@ -74,7 +74,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -91,7 +91,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -101,7 +101,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @param AD_Table Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (AD_Table != null &&
@@ -120,7 +120,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @return Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public I_AD_TableInput AD_Table() {
+	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
 	}
 
@@ -130,7 +130,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -149,7 +149,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -177,7 +177,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @param AD_WF_Responsible Responsible for Workflow Execution
 	 */
 	@JsonProperty("AD_WF_Responsible")
-	public void setAD_WF_ResponsibleInput(I_AD_WF_ResponsibleInput AD_WF_Responsible) {
+	public void setAD_WF_ResponsibleInput(ForeignEntityInput AD_WF_Responsible) {
 		this.mAD_WF_Responsible = AD_WF_Responsible;
 		X_AD_WF_Responsible foreignEntity;
 		if (AD_WF_Responsible != null &&
@@ -196,7 +196,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @return Responsible for Workflow Execution
 	 */
 	@JsonProperty("AD_WF_Responsible")
-	public I_AD_WF_ResponsibleInput AD_WF_Responsible() {
+	public ForeignEntityInput AD_WF_Responsible() {
 		return mAD_WF_Responsible;
 	}
 
@@ -206,7 +206,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow) {
+	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
 		if (AD_Workflow != null &&
@@ -225,7 +225,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	 * @return Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public I_AD_WorkflowInput AD_Workflow() {
+	public ForeignEntityInput AD_Workflow() {
 		return mAD_Workflow;
 	}
 

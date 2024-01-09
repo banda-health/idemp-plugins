@@ -15,14 +15,14 @@ public interface I_C_ChargeType_DocTypeInput extends I_C_ChargeType_DocType {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,26 +43,26 @@ public interface I_C_ChargeType_DocTypeInput extends I_C_ChargeType_DocType {
 	 *
 	 * @param C_ChargeType C_ChargeType
 	 */
-	void setC_ChargeTypeInput(I_C_ChargeTypeInput C_ChargeType);
+	void setC_ChargeTypeInput(ForeignEntityInput C_ChargeType);
 
 	/**
 	 * Get C_ChargeType.
 	 *
 	 * @return C_ChargeType
 	 */
-	I_C_ChargeTypeInput C_ChargeType();
+	ForeignEntityInput C_ChargeType();
 
 	/**
 	 * Set C_DocType.
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(ForeignEntityInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput C_DocType();
+	ForeignEntityInput C_DocType();
 }

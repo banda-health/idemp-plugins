@@ -5,6 +5,11 @@ extend type Query {
 	C_CashBook_AcctGet(page: Int, size: Int, sort: String, filter: String): C_CashBook_AcctConnection!
 }
 
+extend type Mutation {
+	C_CashBook_AcctSave(entity: C_CashBook_AcctInput!): C_CashBook_Acct!
+	C_CashBook_AcctDelete(uuids: [String!]!): Boolean!
+}
+
 type C_CashBook_AcctConnection {
 	results: [C_CashBook_Acct!]!
 	pagingInfo: PagingInfo!
@@ -42,3 +47,24 @@ type C_CashBook_Acct {
 	UpdatedBy: AD_User!
 }
 
+input C_CashBook_AcctInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	ID: ID
+	# Cash Book for recording petty cash transactions
+	C_CashBook: ForeignEntityInput
+	# Cash Book Asset Account
+	CB_Asset_A: ForeignEntityInput
+	# Cash Transfer Clearing Account
+	CB_CashTransfer_A: ForeignEntityInput
+	# Cash Book Differences Account
+	CB_Differences_A: ForeignEntityInput
+	# Cash Book Expense Account
+	CB_Expense_A: ForeignEntityInput
+	# Cash Book Receipts Account
+	CB_Receipt_A: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

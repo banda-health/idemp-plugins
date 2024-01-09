@@ -5,6 +5,11 @@ extend type Query {
 	AD_RoleGet(page: Int, size: Int, sort: String, filter: String): AD_RoleConnection!
 }
 
+extend type Mutation {
+	AD_RoleSave(entity: AD_RoleInput!): AD_Role!
+	AD_RoleDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_RoleConnection {
 	results: [AD_Role!]!
 	pagingInfo: PagingInfo!
@@ -95,3 +100,77 @@ type AD_Role {
 	UserLevel: AD_Ref_List!
 }
 
+input AD_RoleInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Tree of the menu
+	AD_Tree_Menu: ForeignEntityInput
+	# Trees are used for (financial) reporting and security access (via role)
+	AD_Tree_Org: ForeignEntityInput
+	Allow_Info_Account: Boolean
+	Allow_Info_Asset: Boolean
+	Allow_Info_BPartner: Boolean
+	Allow_Info_InOut: Boolean
+	Allow_Info_Invoice: Boolean
+	Allow_Info_Order: Boolean
+	Allow_Info_Payment: Boolean
+	Allow_Info_Product: Boolean
+	Allow_Info_Resource: Boolean
+	Allow_Info_Schedule: Boolean
+	# The approval amount limit for this role
+	AmtApproval: Int
+	# The approval amount limit for this role accumulated on a period
+	AmtApprovalAccum: Int
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Require Confirmation if more records will be returned by the query (If not defined 500)
+	ConfirmQueryRecords: Int
+	# The days approval indicates the days to take into account to verify the accumulated approval amount.
+	DaysApprovalAccum: Int
+	# Optional short description of the record
+	Description: String
+	IsAccessAdvanced: Boolean
+	# Access all Organizations (no org access control) of the client
+	IsAccessAllOrgs: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# Users with this role can approve their own documents
+	IsCanApproveOwnDoc: Boolean
+	# Users with this role can export data
+	IsCanExport: Boolean
+	# Users with this role can create reports
+	IsCanReport: Boolean
+	# Maintain a log of changes
+	IsChangeLog: Boolean
+	IsDiscountAllowedOnTotal: Boolean
+	IsDiscountUptoLimitPrice: Boolean
+	# This is a manual process
+	IsManual: Boolean
+	# A master role cannot be assigned to users, it is intended to define access to menu option and documents and inherit to other roles
+	IsMasterRole: Boolean
+	# If ticked, the menu is automatically expanded
+	IsMenuAutoExpand: Boolean
+	# Allow access to all personal records
+	IsPersonalAccess: Boolean
+	# Allow users with role to lock access to personal records
+	IsPersonalLock: Boolean
+	# Users with this role can see accounting information
+	IsShowAcct: Boolean
+	# Use Org Access defined by user instead of Role Org Access
+	IsUseUserOrgAccess: Boolean
+	# If defined, you cannot query more records as defined - the query criteria needs to be changed to query less records
+	MaxQueryRecords: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Overwrite Price Limit if the Price List  enforces the Price Limit
+	OverwritePriceLimit: Boolean
+	# Determines what preferences the user can set
+	PreferenceType: AD_Ref_ListInput
+	RoleType: AD_Ref_ListInput
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: ForeignEntityInput
+	UserDiscount: Int
+	# System Client Organization
+	UserLevel: AD_Ref_ListInput
+}

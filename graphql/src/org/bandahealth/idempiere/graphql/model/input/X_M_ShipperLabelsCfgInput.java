@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I_M_ShipperLabelsCfgInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mM_ShipperCfg;
 	 private I_AD_Ref_ListInput mLabelPrintMethod;
-	 private I_M_ShipperCfgInput mM_ShipperCfg;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -93,7 +93,7 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	 * @param M_ShipperCfg Shipper Configuration
 	 */
 	@JsonProperty("M_ShipperCfg")
-	public void setM_ShipperCfgInput(I_M_ShipperCfgInput M_ShipperCfg) {
+	public void setM_ShipperCfgInput(ForeignEntityInput M_ShipperCfg) {
 		this.mM_ShipperCfg = M_ShipperCfg;
 		X_M_ShipperCfg foreignEntity;
 		if (get_ID() == 0 &&M_ShipperCfg != null &&
@@ -110,7 +110,7 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	 * @return Shipper Configuration
 	 */
 	@JsonProperty("M_ShipperCfg")
-	public I_M_ShipperCfgInput M_ShipperCfg() {
+	public ForeignEntityInput M_ShipperCfg() {
 		return mM_ShipperCfg;
 	}
 

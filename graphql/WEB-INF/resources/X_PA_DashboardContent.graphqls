@@ -5,6 +5,11 @@ extend type Query {
 	PA_DashboardContentGet(page: Int, size: Int, sort: String, filter: String): PA_DashboardContentConnection!
 }
 
+extend type Mutation {
+	PA_DashboardContentSave(entity: PA_DashboardContentInput!): PA_DashboardContent!
+	PA_DashboardContentDelete(uuids: [String!]!): Boolean!
+}
+
 type PA_DashboardContentConnection {
 	results: [PA_DashboardContent!]!
 	pagingInfo: PagingInfo!
@@ -63,3 +68,45 @@ type PA_DashboardContent {
 	ZulFilePath: String
 }
 
+input PA_DashboardContentInput {
+	AD_Chart: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	# Dashboard content column number
+	ColumnNo: Int
+	# Optional short description of the record
+	Description: String
+	# Type of goal display on dashboard
+	GoalDisplay: AD_Ref_ListInput
+	HTML: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Flag to set the initial state of collapsible field group.
+	IsCollapsedByDefault: Boolean
+	# Flag to indicate the state of the dashboard panel
+	IsCollapsible: Boolean
+	# Embed report content into dashboard
+	IsEmbedReportContent: Boolean
+	# Show the dashlet in the dashboard
+	IsShowInDashboard: Boolean
+	IsShowinLogin: Boolean
+	# Unique line for this document
+	Line: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	ID: ID
+	# Performance Goal
+	PA_Goal: ForeignEntityInput
+	# Comma separated process parameter list
+	ProcessParameters: String
+	# URI for Dashboard Gadget
+	ZulFilePath: String
+}

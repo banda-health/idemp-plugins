@@ -15,28 +15,28 @@ public interface I_C_CountryInput extends I_C_Country {
 	 *
 	 * @param AD_Language Language for this entity
 	 */
-	void setAD_LanguageInput(I_AD_LanguageInput AD_Language);
+	void setAD_LanguageInput(ForeignEntityInput AD_Language);
 
 	/**
 	 * Get AD_Language.
 	 *
 	 * @return Language for this entity
 	 */
-	I_AD_LanguageInput AD_Language();
+	ForeignEntityInput AD_Language();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -57,12 +57,12 @@ public interface I_C_CountryInput extends I_C_Country {
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(ForeignEntityInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput C_Currency();
+	ForeignEntityInput C_Currency();
 }

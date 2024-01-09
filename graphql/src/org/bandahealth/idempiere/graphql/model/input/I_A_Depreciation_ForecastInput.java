@@ -29,42 +29,42 @@ public interface I_A_Depreciation_ForecastInput extends I_A_Depreciation_Forecas
 	 *
 	 * @param A_End_Asset A_End_Asset
 	 */
-	void setA_End_AssetInput(I_A_AssetInput A_End_Asset);
+	void setA_End_AssetInput(ForeignEntityInput A_End_Asset);
 
 	/**
 	 * Get A_End_Asset.
 	 *
 	 * @return A_End_Asset
 	 */
-	I_A_AssetInput A_End_Asset();
+	ForeignEntityInput A_End_Asset();
 
 	/**
 	 * Set A_Start_Asset.
 	 *
 	 * @param A_Start_Asset A_Start_Asset
 	 */
-	void setA_Start_AssetInput(I_A_AssetInput A_Start_Asset);
+	void setA_Start_AssetInput(ForeignEntityInput A_Start_Asset);
 
 	/**
 	 * Get A_Start_Asset.
 	 *
 	 * @return A_Start_Asset
 	 */
-	I_A_AssetInput A_Start_Asset();
+	ForeignEntityInput A_Start_Asset();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set PostingType.

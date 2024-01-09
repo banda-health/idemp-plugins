@@ -5,6 +5,11 @@ extend type Query {
 	PP_Order_Node_AssetGet(page: Int, size: Int, sort: String, filter: String): PP_Order_Node_AssetConnection!
 }
 
+extend type Mutation {
+	PP_Order_Node_AssetSave(entity: PP_Order_Node_AssetInput!): PP_Order_Node_Asset!
+	PP_Order_Node_AssetDelete(uuids: [String!]!): Boolean!
+}
+
 type PP_Order_Node_AssetConnection {
 	results: [PP_Order_Node_Asset!]!
 	pagingInfo: PagingInfo!
@@ -35,3 +40,17 @@ type PP_Order_Node_Asset {
 	UpdatedBy: AD_User!
 }
 
+input PP_Order_Node_AssetInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Manufacturing Order
+	PP_Order: ForeignEntityInput
+	ID: ID
+	# Workflow Node (activity), step or process
+	PP_Order_Node: ForeignEntityInput
+	PP_Order_Workflow: ForeignEntityInput
+}

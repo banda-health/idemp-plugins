@@ -20,13 +20,13 @@ import org.compiere.util.Env;
  */
 public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Val_Rule;
+	 private ForeignEntityInput mAD_Window;
+	 private ForeignEntityInput mPO_Window;
 	 private I_AD_Ref_ListInput mAccessLevel;
 	 private I_AD_Ref_ListInput mReplicationType;
-	 private I_AD_Val_RuleInput mAD_Val_Rule;
-	 private I_AD_WindowInput mAD_Window;
-	 private I_AD_WindowInput mPO_Window;
 
 	/**
 	 * Standard constructor
@@ -72,7 +72,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -89,7 +89,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -117,7 +117,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @param AD_Val_Rule Dynamic Validation Rule
 	 */
 	@JsonProperty("AD_Val_Rule")
-	public void setAD_Val_RuleInput(I_AD_Val_RuleInput AD_Val_Rule) {
+	public void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule) {
 		this.mAD_Val_Rule = AD_Val_Rule;
 		MValRule foreignEntity;
 		if (AD_Val_Rule != null &&
@@ -136,7 +136,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @return Dynamic Validation Rule
 	 */
 	@JsonProperty("AD_Val_Rule")
-	public I_AD_Val_RuleInput AD_Val_Rule() {
+	public ForeignEntityInput AD_Val_Rule() {
 		return mAD_Val_Rule;
 	}
 
@@ -146,7 +146,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @param AD_Window Data entry or display window
 	 */
 	@JsonProperty("AD_Window")
-	public void setAD_WindowInput(I_AD_WindowInput AD_Window) {
+	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
 		if (AD_Window != null &&
@@ -165,7 +165,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @return Data entry or display window
 	 */
 	@JsonProperty("AD_Window")
-	public I_AD_WindowInput AD_Window() {
+	public ForeignEntityInput AD_Window() {
 		return mAD_Window;
 	}
 
@@ -175,7 +175,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -194,7 +194,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 	/**
@@ -215,7 +215,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @param PO_Window Purchase Order Window
 	 */
 	@JsonProperty("PO_Window")
-	public void setPO_WindowInput(I_AD_WindowInput PO_Window) {
+	public void setPO_WindowInput(ForeignEntityInput PO_Window) {
 		this.mPO_Window = PO_Window;
 		MWindow foreignEntity;
 		if (PO_Window != null &&
@@ -234,7 +234,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @return Purchase Order Window
 	 */
 	@JsonProperty("PO_Window")
-	public I_AD_WindowInput PO_Window() {
+	public ForeignEntityInput PO_Window() {
 		return mPO_Window;
 	}
 

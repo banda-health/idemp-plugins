@@ -40,36 +40,36 @@ import org.compiere.util.Env;
  */
 public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mBH_Visit;
+	 private ForeignEntityInput mBH_Voided_Reason;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_BPartner_Location;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_CashLine;
+	 private ForeignEntityInput mC_CashPlanLine;
+	 private ForeignEntityInput mC_Charge;
+	 private ForeignEntityInput mC_ConversionType;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_DocTypeTarget;
+	 private ForeignEntityInput mC_DunningLevel;
+	 private ForeignEntityInput mC_Order;
+	 private ForeignEntityInput mC_Payment;
+	 private ForeignEntityInput mC_PaymentTerm;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mM_PriceList;
+	 private ForeignEntityInput mM_RMA;
+	 private ForeignEntityInput mRelatedInvoice;
+	 private ForeignEntityInput mReversal;
+	 private ForeignEntityInput mSalesRep;
+	 private ForeignEntityInput mUser1;
+	 private ForeignEntityInput mUser2;
 	 private I_AD_Ref_ListInput mDocAction;
 	 private I_AD_Ref_ListInput mDocStatus;
 	 private I_AD_Ref_ListInput mInvoiceCollectionType;
-	 private I_AD_UserInput mAD_User;
-	 private I_AD_UserInput mSalesRep;
-	 private I_BH_VisitInput mBH_Visit;
-	 private I_BH_Voided_ReasonInput mBH_Voided_Reason;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BPartner_LocationInput mC_BPartner_Location;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_CashLineInput mC_CashLine;
-	 private I_C_CashPlanLineInput mC_CashPlanLine;
-	 private I_C_ChargeInput mC_Charge;
-	 private I_C_ConversionTypeInput mC_ConversionType;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_DocTypeInput mC_DocTypeTarget;
-	 private I_C_DunningLevelInput mC_DunningLevel;
-	 private I_C_ElementValueInput mUser1;
-	 private I_C_ElementValueInput mUser2;
-	 private I_C_InvoiceInput mRelatedInvoice;
-	 private I_C_InvoiceInput mReversal;
-	 private I_C_OrderInput mC_Order;
-	 private I_C_PaymentInput mC_Payment;
-	 private I_C_PaymentTermInput mC_PaymentTerm;
-	 private I_C_ProjectInput mC_Project;
-	 private I_M_PriceListInput mM_PriceList;
-	 private I_M_RMAInput mM_RMA;
 
 	/**
 	 * Standard constructor
@@ -86,7 +86,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -105,7 +105,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -115,7 +115,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -134,7 +134,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -144,7 +144,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param BH_Visit Visit
 	 */
 	@JsonProperty("BH_Visit")
-	public void setBH_VisitInput(I_BH_VisitInput BH_Visit) {
+	public void setBH_VisitInput(ForeignEntityInput BH_Visit) {
 		this.mBH_Visit = BH_Visit;
 		MBHVisit foreignEntity;
 		if (BH_Visit != null &&
@@ -163,7 +163,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Visit
 	 */
 	@JsonProperty("BH_Visit")
-	public I_BH_VisitInput BH_Visit() {
+	public ForeignEntityInput BH_Visit() {
 		return mBH_Visit;
 	}
 
@@ -173,7 +173,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param BH_Voided_Reason BH_Voided_Reason_ID
 	 */
 	@JsonProperty("BH_Voided_Reason")
-	public void setBH_Voided_ReasonInput(I_BH_Voided_ReasonInput BH_Voided_Reason) {
+	public void setBH_Voided_ReasonInput(ForeignEntityInput BH_Voided_Reason) {
 		this.mBH_Voided_Reason = BH_Voided_Reason;
 		MBHVoidedReason foreignEntity;
 		if (BH_Voided_Reason != null &&
@@ -192,7 +192,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return BH_Voided_Reason_ID
 	 */
 	@JsonProperty("BH_Voided_Reason")
-	public I_BH_Voided_ReasonInput BH_Voided_Reason() {
+	public ForeignEntityInput BH_Voided_Reason() {
 		return mBH_Voided_Reason;
 	}
 
@@ -202,7 +202,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -221,7 +221,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -231,7 +231,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -250,7 +250,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -260,7 +260,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
@@ -279,7 +279,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public I_C_BPartner_LocationInput C_BPartner_Location() {
+	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
 
@@ -289,7 +289,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -308,7 +308,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -318,7 +318,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_CashLine Cash Journal Line
 	 */
 	@JsonProperty("C_CashLine")
-	public void setC_CashLineInput(I_C_CashLineInput C_CashLine) {
+	public void setC_CashLineInput(ForeignEntityInput C_CashLine) {
 		this.mC_CashLine = C_CashLine;
 		MCashLine foreignEntity;
 		if (C_CashLine != null &&
@@ -337,7 +337,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Cash Journal Line
 	 */
 	@JsonProperty("C_CashLine")
-	public I_C_CashLineInput C_CashLine() {
+	public ForeignEntityInput C_CashLine() {
 		return mC_CashLine;
 	}
 
@@ -347,7 +347,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_CashPlanLine Cash Plan Line
 	 */
 	@JsonProperty("C_CashPlanLine")
-	public void setC_CashPlanLineInput(I_C_CashPlanLineInput C_CashPlanLine) {
+	public void setC_CashPlanLineInput(ForeignEntityInput C_CashPlanLine) {
 		this.mC_CashPlanLine = C_CashPlanLine;
 		MCashPlanLine foreignEntity;
 		if (C_CashPlanLine != null &&
@@ -366,7 +366,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Cash Plan Line
 	 */
 	@JsonProperty("C_CashPlanLine")
-	public I_C_CashPlanLineInput C_CashPlanLine() {
+	public ForeignEntityInput C_CashPlanLine() {
 		return mC_CashPlanLine;
 	}
 
@@ -376,7 +376,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_Charge Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
@@ -395,7 +395,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public I_C_ChargeInput C_Charge() {
+	public ForeignEntityInput C_Charge() {
 		return mC_Charge;
 	}
 
@@ -405,7 +405,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_ConversionType Currency Conversion Rate Type
 	 */
 	@JsonProperty("C_ConversionType")
-	public void setC_ConversionTypeInput(I_C_ConversionTypeInput C_ConversionType) {
+	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
 		MConversionType foreignEntity;
 		if (C_ConversionType != null &&
@@ -424,7 +424,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Currency Conversion Rate Type
 	 */
 	@JsonProperty("C_ConversionType")
-	public I_C_ConversionTypeInput C_ConversionType() {
+	public ForeignEntityInput C_ConversionType() {
 		return mC_ConversionType;
 	}
 
@@ -434,7 +434,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -453,7 +453,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -463,7 +463,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (get_ID() == 0 &&C_DocType != null &&
@@ -480,7 +480,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -490,7 +490,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_DocTypeTarget Target document type for conversing documents
 	 */
 	@JsonProperty("C_DocTypeTarget")
-	public void setC_DocTypeTargetInput(I_C_DocTypeInput C_DocTypeTarget) {
+	public void setC_DocTypeTargetInput(ForeignEntityInput C_DocTypeTarget) {
 		this.mC_DocTypeTarget = C_DocTypeTarget;
 		MDocType_BH foreignEntity;
 		if (C_DocTypeTarget != null &&
@@ -509,7 +509,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Target document type for conversing documents
 	 */
 	@JsonProperty("C_DocTypeTarget")
-	public I_C_DocTypeInput C_DocTypeTarget() {
+	public ForeignEntityInput C_DocTypeTarget() {
 		return mC_DocTypeTarget;
 	}
 
@@ -519,7 +519,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_DunningLevel Dunning Level
 	 */
 	@JsonProperty("C_DunningLevel")
-	public void setC_DunningLevelInput(I_C_DunningLevelInput C_DunningLevel) {
+	public void setC_DunningLevelInput(ForeignEntityInput C_DunningLevel) {
 		this.mC_DunningLevel = C_DunningLevel;
 		MDunningLevel foreignEntity;
 		if (C_DunningLevel != null &&
@@ -538,7 +538,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Dunning Level
 	 */
 	@JsonProperty("C_DunningLevel")
-	public I_C_DunningLevelInput C_DunningLevel() {
+	public ForeignEntityInput C_DunningLevel() {
 		return mC_DunningLevel;
 	}
 
@@ -566,7 +566,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_Order Order
 	 */
 	@JsonProperty("C_Order")
-	public void setC_OrderInput(I_C_OrderInput C_Order) {
+	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
 		if (get_ID() == 0 &&C_Order != null &&
@@ -583,7 +583,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Order
 	 */
 	@JsonProperty("C_Order")
-	public I_C_OrderInput C_Order() {
+	public ForeignEntityInput C_Order() {
 		return mC_Order;
 	}
 
@@ -593,7 +593,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_Payment Payment identifier
 	 */
 	@JsonProperty("C_Payment")
-	public void setC_PaymentInput(I_C_PaymentInput C_Payment) {
+	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
 		MPayment_BH foreignEntity;
 		if (C_Payment != null &&
@@ -612,7 +612,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Payment identifier
 	 */
 	@JsonProperty("C_Payment")
-	public I_C_PaymentInput C_Payment() {
+	public ForeignEntityInput C_Payment() {
 		return mC_Payment;
 	}
 
@@ -622,7 +622,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_PaymentTerm The terms of Payment (timing, discount)
 	 */
 	@JsonProperty("C_PaymentTerm")
-	public void setC_PaymentTermInput(I_C_PaymentTermInput C_PaymentTerm) {
+	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null &&
@@ -641,7 +641,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return The terms of Payment (timing, discount)
 	 */
 	@JsonProperty("C_PaymentTerm")
-	public I_C_PaymentTermInput C_PaymentTerm() {
+	public ForeignEntityInput C_PaymentTerm() {
 		return mC_PaymentTerm;
 	}
 
@@ -651,7 +651,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -670,7 +670,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 	/**
@@ -855,7 +855,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public void setM_PriceListInput(I_M_PriceListInput M_PriceList) {
+	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (M_PriceList != null &&
@@ -874,7 +874,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public I_M_PriceListInput M_PriceList() {
+	public ForeignEntityInput M_PriceList() {
 		return mM_PriceList;
 	}
 
@@ -884,7 +884,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param M_RMA Return Material Authorization
 	 */
 	@JsonProperty("M_RMA")
-	public void setM_RMAInput(I_M_RMAInput M_RMA) {
+	public void setM_RMAInput(ForeignEntityInput M_RMA) {
 		this.mM_RMA = M_RMA;
 		MRMA foreignEntity;
 		if (M_RMA != null &&
@@ -903,7 +903,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Return Material Authorization
 	 */
 	@JsonProperty("M_RMA")
-	public I_M_RMAInput M_RMA() {
+	public ForeignEntityInput M_RMA() {
 		return mM_RMA;
 	}
 	/**
@@ -935,7 +935,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param RelatedInvoice Related Invoice
 	 */
 	@JsonProperty("RelatedInvoice")
-	public void setRelatedInvoiceInput(I_C_InvoiceInput RelatedInvoice) {
+	public void setRelatedInvoiceInput(ForeignEntityInput RelatedInvoice) {
 		this.mRelatedInvoice = RelatedInvoice;
 		MInvoice_BH foreignEntity;
 		if (RelatedInvoice != null &&
@@ -954,7 +954,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Related Invoice
 	 */
 	@JsonProperty("RelatedInvoice")
-	public I_C_InvoiceInput RelatedInvoice() {
+	public ForeignEntityInput RelatedInvoice() {
 		return mRelatedInvoice;
 	}
 
@@ -964,7 +964,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param Reversal ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public void setReversalInput(I_C_InvoiceInput Reversal) {
+	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
 		MInvoice_BH foreignEntity;
 		if (Reversal != null &&
@@ -983,7 +983,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public I_C_InvoiceInput Reversal() {
+	public ForeignEntityInput Reversal() {
 		return mReversal;
 	}
 
@@ -993,7 +993,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
@@ -1012,7 +1012,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public I_AD_UserInput SalesRep() {
+	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
 	/**
@@ -1033,7 +1033,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param User1 User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public void setUser1Input(I_C_ElementValueInput User1) {
+	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
@@ -1052,7 +1052,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public I_C_ElementValueInput User1() {
+	public ForeignEntityInput User1() {
 		return mUser1;
 	}
 
@@ -1062,7 +1062,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param User2 User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public void setUser2Input(I_C_ElementValueInput User2) {
+	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
@@ -1081,7 +1081,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public I_C_ElementValueInput User2() {
+	public ForeignEntityInput User2() {
 		return mUser2;
 	}
 }

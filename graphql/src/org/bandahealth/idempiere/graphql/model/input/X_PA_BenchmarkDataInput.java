@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_BenchmarkDataInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_PA_BenchmarkInput mPA_Benchmark;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mPA_Benchmark;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -62,7 +62,7 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	 * @param PA_Benchmark Performance Benchmark
 	 */
 	@JsonProperty("PA_Benchmark")
-	public void setPA_BenchmarkInput(I_PA_BenchmarkInput PA_Benchmark) {
+	public void setPA_BenchmarkInput(ForeignEntityInput PA_Benchmark) {
 		this.mPA_Benchmark = PA_Benchmark;
 		X_PA_Benchmark foreignEntity;
 		if (get_ID() == 0 &&PA_Benchmark != null &&
@@ -79,7 +79,7 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	 * @return Performance Benchmark
 	 */
 	@JsonProperty("PA_Benchmark")
-	public I_PA_BenchmarkInput PA_Benchmark() {
+	public ForeignEntityInput PA_Benchmark() {
 		return mPA_Benchmark;
 	}
 

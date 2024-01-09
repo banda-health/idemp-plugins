@@ -22,15 +22,15 @@ import org.compiere.util.Env;
  */
 public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_JournalBatchInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_Period;
+	 private ForeignEntityInput mGL_Category;
+	 private ForeignEntityInput mReversal;
 	 private I_AD_Ref_ListInput mDocAction;
 	 private I_AD_Ref_ListInput mDocStatus;
 	 private I_AD_Ref_ListInput mPostingType;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_PeriodInput mC_Period;
-	 private I_GL_CategoryInput mGL_Category;
-	 private I_GL_JournalBatchInput mReversal;
 
 	/**
 	 * Standard constructor
@@ -47,7 +47,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -64,7 +64,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -74,7 +74,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -93,7 +93,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -103,7 +103,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
@@ -122,7 +122,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -132,7 +132,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @param C_Period Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public void setC_PeriodInput(I_C_PeriodInput C_Period) {
+	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
@@ -151,7 +151,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @return Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public I_C_PeriodInput C_Period() {
+	public ForeignEntityInput C_Period() {
 		return mC_Period;
 	}
 
@@ -230,7 +230,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @param GL_Category General Ledger Category
 	 */
 	@JsonProperty("GL_Category")
-	public void setGL_CategoryInput(I_GL_CategoryInput GL_Category) {
+	public void setGL_CategoryInput(ForeignEntityInput GL_Category) {
 		this.mGL_Category = GL_Category;
 		MGLCategory foreignEntity;
 		if (GL_Category != null &&
@@ -249,7 +249,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @return General Ledger Category
 	 */
 	@JsonProperty("GL_Category")
-	public I_GL_CategoryInput GL_Category() {
+	public ForeignEntityInput GL_Category() {
 		return mGL_Category;
 	}
 
@@ -306,7 +306,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @param Reversal ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public void setReversalInput(I_GL_JournalBatchInput Reversal) {
+	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
 		MJournalBatch foreignEntity;
 		if (Reversal != null &&
@@ -325,7 +325,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @return ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public I_GL_JournalBatchInput Reversal() {
+	public ForeignEntityInput Reversal() {
 		return mReversal;
 	}
 	/**

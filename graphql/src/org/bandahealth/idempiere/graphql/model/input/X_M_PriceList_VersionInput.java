@@ -18,10 +18,10 @@ import org.compiere.util.Env;
  */
 public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M_PriceList_VersionInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_M_DiscountSchemaInput mM_DiscountSchema;
-	 private I_M_PriceListInput mM_PriceList;
-	 private I_M_PriceList_VersionInput mM_Pricelist_Version_Base;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mM_DiscountSchema;
+	 private ForeignEntityInput mM_PriceList;
+	 private ForeignEntityInput mM_Pricelist_Version_Base;
 
 	/**
 	 * Standard constructor
@@ -38,7 +38,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -55,7 +55,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -65,7 +65,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 * @param M_DiscountSchema Schema to calculate the trade discount percentage
 	 */
 	@JsonProperty("M_DiscountSchema")
-	public void setM_DiscountSchemaInput(I_M_DiscountSchemaInput M_DiscountSchema) {
+	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (M_DiscountSchema != null &&
@@ -84,7 +84,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 * @return Schema to calculate the trade discount percentage
 	 */
 	@JsonProperty("M_DiscountSchema")
-	public I_M_DiscountSchemaInput M_DiscountSchema() {
+	public ForeignEntityInput M_DiscountSchema() {
 		return mM_DiscountSchema;
 	}
 
@@ -94,7 +94,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public void setM_PriceListInput(I_M_PriceListInput M_PriceList) {
+	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (get_ID() == 0 &&M_PriceList != null &&
@@ -111,7 +111,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 * @return Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public I_M_PriceListInput M_PriceList() {
+	public ForeignEntityInput M_PriceList() {
 		return mM_PriceList;
 	}
 
@@ -121,7 +121,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 * @param M_Pricelist_Version_Base Source for Price list calculations
 	 */
 	@JsonProperty("M_Pricelist_Version_Base")
-	public void setM_Pricelist_Version_BaseInput(I_M_PriceList_VersionInput M_Pricelist_Version_Base) {
+	public void setM_Pricelist_Version_BaseInput(ForeignEntityInput M_Pricelist_Version_Base) {
 		this.mM_Pricelist_Version_Base = M_Pricelist_Version_Base;
 		MPriceListVersion foreignEntity;
 		if (M_Pricelist_Version_Base != null &&
@@ -140,7 +140,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 * @return Source for Price list calculations
 	 */
 	@JsonProperty("M_Pricelist_Version_Base")
-	public I_M_PriceList_VersionInput M_Pricelist_Version_Base() {
+	public ForeignEntityInput M_Pricelist_Version_Base() {
 		return mM_Pricelist_Version_Base;
 	}
 

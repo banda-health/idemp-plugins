@@ -20,14 +20,14 @@ import org.compiere.util.Env;
  */
 public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_RatioElementInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAccount;
+	 private ForeignEntityInput mPA_MeasureCalc;
+	 private ForeignEntityInput mPA_Ratio;
+	 private ForeignEntityInput mPA_RatioUsed;
 	 private I_AD_Ref_ListInput mPostingType;
 	 private I_AD_Ref_ListInput mRatioElementType;
 	 private I_AD_Ref_ListInput mRatioOperand;
-	 private I_C_ElementValueInput mAccount;
-	 private I_PA_MeasureCalcInput mPA_MeasureCalc;
-	 private I_PA_RatioInput mPA_Ratio;
-	 private I_PA_RatioInput mPA_RatioUsed;
 
 	/**
 	 * Standard constructor
@@ -44,7 +44,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @param Account Account used
 	 */
 	@JsonProperty("Account")
-	public void setAccountInput(I_C_ElementValueInput Account) {
+	public void setAccountInput(ForeignEntityInput Account) {
 		this.mAccount = Account;
 		MElementValue foreignEntity;
 		if (Account != null &&
@@ -63,7 +63,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @return Account used
 	 */
 	@JsonProperty("Account")
-	public I_C_ElementValueInput Account() {
+	public ForeignEntityInput Account() {
 		return mAccount;
 	}
 
@@ -73,7 +73,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -90,7 +90,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -100,7 +100,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @param PA_MeasureCalc Calculation method for measuring performance
 	 */
 	@JsonProperty("PA_MeasureCalc")
-	public void setPA_MeasureCalcInput(I_PA_MeasureCalcInput PA_MeasureCalc) {
+	public void setPA_MeasureCalcInput(ForeignEntityInput PA_MeasureCalc) {
 		this.mPA_MeasureCalc = PA_MeasureCalc;
 		MMeasureCalc foreignEntity;
 		if (PA_MeasureCalc != null &&
@@ -119,7 +119,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @return Calculation method for measuring performance
 	 */
 	@JsonProperty("PA_MeasureCalc")
-	public I_PA_MeasureCalcInput PA_MeasureCalc() {
+	public ForeignEntityInput PA_MeasureCalc() {
 		return mPA_MeasureCalc;
 	}
 
@@ -129,7 +129,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @param PA_Ratio Performance Ratio
 	 */
 	@JsonProperty("PA_Ratio")
-	public void setPA_RatioInput(I_PA_RatioInput PA_Ratio) {
+	public void setPA_RatioInput(ForeignEntityInput PA_Ratio) {
 		this.mPA_Ratio = PA_Ratio;
 		X_PA_Ratio foreignEntity;
 		if (get_ID() == 0 &&PA_Ratio != null &&
@@ -146,7 +146,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @return Performance Ratio
 	 */
 	@JsonProperty("PA_Ratio")
-	public I_PA_RatioInput PA_Ratio() {
+	public ForeignEntityInput PA_Ratio() {
 		return mPA_Ratio;
 	}
 
@@ -174,7 +174,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @param PA_RatioUsed Performance Ratio Used
 	 */
 	@JsonProperty("PA_RatioUsed")
-	public void setPA_RatioUsedInput(I_PA_RatioInput PA_RatioUsed) {
+	public void setPA_RatioUsedInput(ForeignEntityInput PA_RatioUsed) {
 		this.mPA_RatioUsed = PA_RatioUsed;
 		X_PA_Ratio foreignEntity;
 		if (PA_RatioUsed != null &&
@@ -193,7 +193,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @return Performance Ratio Used
 	 */
 	@JsonProperty("PA_RatioUsed")
-	public I_PA_RatioInput PA_RatioUsed() {
+	public ForeignEntityInput PA_RatioUsed() {
 		return mPA_RatioUsed;
 	}
 

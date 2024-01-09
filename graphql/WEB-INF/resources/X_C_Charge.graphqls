@@ -5,6 +5,11 @@ extend type Query {
 	C_ChargeGet(page: Int, size: Int, sort: String, filter: String): C_ChargeConnection!
 }
 
+extend type Mutation {
+	C_ChargeSave(entity: C_ChargeInput!): C_Charge!
+	C_ChargeDelete(uuids: [String!]!): Boolean!
+}
+
 type C_ChargeConnection {
 	results: [C_Charge!]!
 	pagingInfo: PagingInfo!
@@ -48,3 +53,30 @@ type C_Charge {
 	UpdatedBy: AD_User!
 }
 
+input C_ChargeInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	BH_Locked: Boolean
+	# Meant to be a sub-type of the charge type
+	BH_SubType: AD_Ref_ListInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	ID: ID
+	C_ChargeType: ForeignEntityInput
+	# Tax Category
+	C_TaxCategory: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: Int
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsSameCurrency: Boolean
+	# Use the same tax as the main transaction
+	IsSameTax: Boolean
+	# Tax is included in the price 
+	IsTaxIncluded: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

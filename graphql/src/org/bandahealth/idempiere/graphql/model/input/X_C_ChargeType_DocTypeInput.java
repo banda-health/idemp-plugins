@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implements I_C_ChargeType_DocTypeInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_ChargeTypeInput mC_ChargeType;
-	 private I_C_DocTypeInput mC_DocType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_ChargeType;
+	 private ForeignEntityInput mC_DocType;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -82,7 +82,7 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 * @param C_ChargeType Charge Type
 	 */
 	@JsonProperty("C_ChargeType")
-	public void setC_ChargeTypeInput(I_C_ChargeTypeInput C_ChargeType) {
+	public void setC_ChargeTypeInput(ForeignEntityInput C_ChargeType) {
 		this.mC_ChargeType = C_ChargeType;
 		MChargeType_BH foreignEntity;
 		if (get_ID() == 0 &&C_ChargeType != null &&
@@ -99,7 +99,7 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 * @return Charge Type
 	 */
 	@JsonProperty("C_ChargeType")
-	public I_C_ChargeTypeInput C_ChargeType() {
+	public ForeignEntityInput C_ChargeType() {
 		return mC_ChargeType;
 	}
 
@@ -109,7 +109,7 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (get_ID() == 0 &&C_DocType != null &&
@@ -126,7 +126,7 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 }

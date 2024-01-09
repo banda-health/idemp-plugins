@@ -15,70 +15,70 @@ public interface I_A_Depreciation_ExpInput extends I_A_Depreciation_Exp {
 	 *
 	 * @param A_Account_Number_A A_Account_Number_A
 	 */
-	void setA_Account_Number_AInput(I_C_ValidCombinationInput A_Account_Number_A);
+	void setA_Account_Number_AInput(ForeignEntityInput A_Account_Number_A);
 
 	/**
 	 * Get A_Account_Number_A.
 	 *
 	 * @return A_Account_Number_A
 	 */
-	I_C_ValidCombinationInput A_Account_Number_A();
+	ForeignEntityInput A_Account_Number_A();
 
 	/**
 	 * Set A_Asset_Addition.
 	 *
 	 * @param A_Asset_Addition A_Asset_Addition
 	 */
-	void setA_Asset_AdditionInput(I_A_Asset_AdditionInput A_Asset_Addition);
+	void setA_Asset_AdditionInput(ForeignEntityInput A_Asset_Addition);
 
 	/**
 	 * Get A_Asset_Addition.
 	 *
 	 * @return A_Asset_Addition
 	 */
-	I_A_Asset_AdditionInput A_Asset_Addition();
+	ForeignEntityInput A_Asset_Addition();
 
 	/**
 	 * Set A_Asset_Disposed.
 	 *
 	 * @param A_Asset_Disposed A_Asset_Disposed
 	 */
-	void setA_Asset_DisposedInput(I_A_Asset_DisposedInput A_Asset_Disposed);
+	void setA_Asset_DisposedInput(ForeignEntityInput A_Asset_Disposed);
 
 	/**
 	 * Get A_Asset_Disposed.
 	 *
 	 * @return A_Asset_Disposed
 	 */
-	I_A_Asset_DisposedInput A_Asset_Disposed();
+	ForeignEntityInput A_Asset_Disposed();
 
 	/**
 	 * Set A_Asset.
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_AssetInput(I_A_AssetInput A_Asset);
+	void setA_AssetInput(ForeignEntityInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput A_Asset();
+	ForeignEntityInput A_Asset();
 
 	/**
 	 * Set A_Depreciation_Entry.
 	 *
 	 * @param A_Depreciation_Entry A_Depreciation_Entry
 	 */
-	void setA_Depreciation_EntryInput(I_A_Depreciation_EntryInput A_Depreciation_Entry);
+	void setA_Depreciation_EntryInput(ForeignEntityInput A_Depreciation_Entry);
 
 	/**
 	 * Get A_Depreciation_Entry.
 	 *
 	 * @return A_Depreciation_Entry
 	 */
-	I_A_Depreciation_EntryInput A_Depreciation_Entry();
+	ForeignEntityInput A_Depreciation_Entry();
 
 	/**
 	 * Set ID.
@@ -113,56 +113,56 @@ public interface I_A_Depreciation_ExpInput extends I_A_Depreciation_Exp {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_AcctSchema.
 	 *
 	 * @param C_AcctSchema Rules for accounting
 	 */
-	void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema);
+	void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema);
 
 	/**
 	 * Get C_AcctSchema.
 	 *
 	 * @return Rules for accounting
 	 */
-	I_C_AcctSchemaInput C_AcctSchema();
+	ForeignEntityInput C_AcctSchema();
 
 	/**
 	 * Set CR_Account.
 	 *
 	 * @param CR_Account Account used
 	 */
-	void setCR_AccountInput(I_C_ValidCombinationInput CR_Account);
+	void setCR_AccountInput(ForeignEntityInput CR_Account);
 
 	/**
 	 * Get CR_Account.
 	 *
 	 * @return Account used
 	 */
-	I_C_ValidCombinationInput CR_Account();
+	ForeignEntityInput CR_Account();
 
 	/**
 	 * Set DR_Account.
 	 *
 	 * @param DR_Account Account used
 	 */
-	void setDR_AccountInput(I_C_ValidCombinationInput DR_Account);
+	void setDR_AccountInput(ForeignEntityInput DR_Account);
 
 	/**
 	 * Get DR_Account.
 	 *
 	 * @return Account used
 	 */
-	I_C_ValidCombinationInput DR_Account();
+	ForeignEntityInput DR_Account();
 
 	/**
 	 * Set PostingType.

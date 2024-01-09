@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_JobCategoryInput mC_JobCategory;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_JobCategory;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -80,7 +80,7 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	 * @param C_JobCategory Job Position Category
 	 */
 	@JsonProperty("C_JobCategory")
-	public void setC_JobCategoryInput(I_C_JobCategoryInput C_JobCategory) {
+	public void setC_JobCategoryInput(ForeignEntityInput C_JobCategory) {
 		this.mC_JobCategory = C_JobCategory;
 		X_C_JobCategory foreignEntity;
 		if (C_JobCategory != null &&
@@ -99,7 +99,7 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	 * @return Job Position Category
 	 */
 	@JsonProperty("C_JobCategory")
-	public I_C_JobCategoryInput C_JobCategory() {
+	public ForeignEntityInput C_JobCategory() {
 		return mC_JobCategory;
 	}
 }

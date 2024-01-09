@@ -19,10 +19,10 @@ import org.compiere.util.Env;
  */
 public class X_PA_DashboardPreferenceInput extends MDashboardPreference implements I_PA_DashboardPreferenceInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_RoleInput mAD_Role;
-	 private I_AD_UserInput mAD_User;
-	 private I_PA_DashboardContentInput mPA_DashboardContent;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Role;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mPA_DashboardContent;
 
 	/**
 	 * Standard constructor
@@ -39,7 +39,7 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -56,7 +56,7 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -66,7 +66,7 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	 * @param AD_Role Responsibility Role
 	 */
 	@JsonProperty("AD_Role")
-	public void setAD_RoleInput(I_AD_RoleInput AD_Role) {
+	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
@@ -85,7 +85,7 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	 * @return Responsibility Role
 	 */
 	@JsonProperty("AD_Role")
-	public I_AD_RoleInput AD_Role() {
+	public ForeignEntityInput AD_Role() {
 		return mAD_Role;
 	}
 
@@ -95,7 +95,7 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -114,7 +114,7 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -124,7 +124,7 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	 * @param PA_DashboardContent Dashboard Content
 	 */
 	@JsonProperty("PA_DashboardContent")
-	public void setPA_DashboardContentInput(I_PA_DashboardContentInput PA_DashboardContent) {
+	public void setPA_DashboardContentInput(ForeignEntityInput PA_DashboardContent) {
 		this.mPA_DashboardContent = PA_DashboardContent;
 		MDashboardContent foreignEntity;
 		if (PA_DashboardContent != null &&
@@ -143,7 +143,7 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	 * @return Dashboard Content
 	 */
 	@JsonProperty("PA_DashboardContent")
-	public I_PA_DashboardContentInput PA_DashboardContent() {
+	public ForeignEntityInput PA_DashboardContent() {
 		return mPA_DashboardContent;
 	}
 

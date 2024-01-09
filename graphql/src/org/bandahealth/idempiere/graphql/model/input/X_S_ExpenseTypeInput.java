@@ -19,10 +19,10 @@ import org.compiere.util.Env;
  */
 public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTypeInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_TaxCategoryInput mC_TaxCategory;
-	 private I_C_UOMInput mC_UOM;
-	 private I_M_Product_CategoryInput mM_Product_Category;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_TaxCategory;
+	 private ForeignEntityInput mC_UOM;
+	 private ForeignEntityInput mM_Product_Category;
 
 	/**
 	 * Standard constructor
@@ -39,7 +39,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -56,7 +56,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -66,7 +66,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	 * @param C_TaxCategory Tax Category
 	 */
 	@JsonProperty("C_TaxCategory")
-	public void setC_TaxCategoryInput(I_C_TaxCategoryInput C_TaxCategory) {
+	public void setC_TaxCategoryInput(ForeignEntityInput C_TaxCategory) {
 		this.mC_TaxCategory = C_TaxCategory;
 		MTaxCategory foreignEntity;
 		if (C_TaxCategory != null &&
@@ -85,7 +85,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	 * @return Tax Category
 	 */
 	@JsonProperty("C_TaxCategory")
-	public I_C_TaxCategoryInput C_TaxCategory() {
+	public ForeignEntityInput C_TaxCategory() {
 		return mC_TaxCategory;
 	}
 
@@ -95,7 +95,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	 * @param C_UOM Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public void setC_UOMInput(I_C_UOMInput C_UOM) {
+	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (C_UOM != null &&
@@ -114,7 +114,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	 * @return Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public I_C_UOMInput C_UOM() {
+	public ForeignEntityInput C_UOM() {
 		return mC_UOM;
 	}
 
@@ -124,7 +124,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	 * @param M_Product_Category Category of a Product
 	 */
 	@JsonProperty("M_Product_Category")
-	public void setM_Product_CategoryInput(I_M_Product_CategoryInput M_Product_Category) {
+	public void setM_Product_CategoryInput(ForeignEntityInput M_Product_Category) {
 		this.mM_Product_Category = M_Product_Category;
 		MProductCategory_BH foreignEntity;
 		if (M_Product_Category != null &&
@@ -143,7 +143,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	 * @return Category of a Product
 	 */
 	@JsonProperty("M_Product_Category")
-	public I_M_Product_CategoryInput M_Product_Category() {
+	public ForeignEntityInput M_Product_Category() {
 		return mM_Product_Category;
 	}
 

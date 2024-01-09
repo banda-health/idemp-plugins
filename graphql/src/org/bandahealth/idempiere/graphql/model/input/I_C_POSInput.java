@@ -15,70 +15,70 @@ public interface I_C_POSInput extends I_C_POS {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_BankAccount.
 	 *
 	 * @param C_BankAccount Account at the Bank
 	 */
-	void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount);
+	void setC_BankAccountInput(ForeignEntityInput C_BankAccount);
 
 	/**
 	 * Get C_BankAccount.
 	 *
 	 * @return Account at the Bank
 	 */
-	I_C_BankAccountInput C_BankAccount();
+	ForeignEntityInput C_BankAccount();
 
 	/**
 	 * Set C_BPartnerCashTrx.
 	 *
 	 * @param C_BPartnerCashTrx Business Partner used for creating new Business Partners on the fly
 	 */
-	void setC_BPartnerCashTrxInput(I_C_BPartnerInput C_BPartnerCashTrx);
+	void setC_BPartnerCashTrxInput(ForeignEntityInput C_BPartnerCashTrx);
 
 	/**
 	 * Get C_BPartnerCashTrx.
 	 *
 	 * @return Business Partner used for creating new Business Partners on the fly
 	 */
-	I_C_BPartnerInput C_BPartnerCashTrx();
+	ForeignEntityInput C_BPartnerCashTrx();
 
 	/**
 	 * Set C_CashBook.
 	 *
 	 * @param C_CashBook Cash Book for recording petty cash transactions
 	 */
-	void setC_CashBookInput(I_C_CashBookInput C_CashBook);
+	void setC_CashBookInput(ForeignEntityInput C_CashBook);
 
 	/**
 	 * Get C_CashBook.
 	 *
 	 * @return Cash Book for recording petty cash transactions
 	 */
-	I_C_CashBookInput C_CashBook();
+	ForeignEntityInput C_CashBook();
 
 	/**
 	 * Set C_DocType.
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(ForeignEntityInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput C_DocType();
+	ForeignEntityInput C_DocType();
 
 	/**
 	 * Set ID.
@@ -99,82 +99,82 @@ public interface I_C_POSInput extends I_C_POS {
 	 *
 	 * @param C_POSKeyLayout POS Function Key Layout
 	 */
-	void setC_POSKeyLayoutInput(I_C_POSKeyLayoutInput C_POSKeyLayout);
+	void setC_POSKeyLayoutInput(ForeignEntityInput C_POSKeyLayout);
 
 	/**
 	 * Get C_POSKeyLayout.
 	 *
 	 * @return POS Function Key Layout
 	 */
-	I_C_POSKeyLayoutInput C_POSKeyLayout();
+	ForeignEntityInput C_POSKeyLayout();
 
 	/**
 	 * Set M_PriceList.
 	 *
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
-	void setM_PriceListInput(I_M_PriceListInput M_PriceList);
+	void setM_PriceListInput(ForeignEntityInput M_PriceList);
 
 	/**
 	 * Get M_PriceList.
 	 *
 	 * @return Unique identifier of a Price List
 	 */
-	I_M_PriceListInput M_PriceList();
+	ForeignEntityInput M_PriceList();
 
 	/**
 	 * Set M_Warehouse.
 	 *
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
-	void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse);
+	void setM_WarehouseInput(ForeignEntityInput M_Warehouse);
 
 	/**
 	 * Get M_Warehouse.
 	 *
 	 * @return Storage Warehouse and Service Point
 	 */
-	I_M_WarehouseInput M_Warehouse();
+	ForeignEntityInput M_Warehouse();
 
 	/**
 	 * Set OSK_KeyLayout.
 	 *
 	 * @param OSK_KeyLayout The key layout to use for on screen keyboard for text fields.
 	 */
-	void setOSK_KeyLayoutInput(I_C_POSKeyLayoutInput OSK_KeyLayout);
+	void setOSK_KeyLayoutInput(ForeignEntityInput OSK_KeyLayout);
 
 	/**
 	 * Get OSK_KeyLayout.
 	 *
 	 * @return The key layout to use for on screen keyboard for text fields.
 	 */
-	I_C_POSKeyLayoutInput OSK_KeyLayout();
+	ForeignEntityInput OSK_KeyLayout();
 
 	/**
 	 * Set OSNP_KeyLayout.
 	 *
 	 * @param OSNP_KeyLayout The key layout to use for on screen number pad for numeric fields.
 	 */
-	void setOSNP_KeyLayoutInput(I_C_POSKeyLayoutInput OSNP_KeyLayout);
+	void setOSNP_KeyLayoutInput(ForeignEntityInput OSNP_KeyLayout);
 
 	/**
 	 * Get OSNP_KeyLayout.
 	 *
 	 * @return The key layout to use for on screen number pad for numeric fields.
 	 */
-	I_C_POSKeyLayoutInput OSNP_KeyLayout();
+	ForeignEntityInput OSNP_KeyLayout();
 
 	/**
 	 * Set SalesRep.
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
-	void setSalesRepInput(I_AD_UserInput SalesRep);
+	void setSalesRepInput(ForeignEntityInput SalesRep);
 
 	/**
 	 * Get SalesRep.
 	 *
 	 * @return Sales Representative or Company Agent
 	 */
-	I_AD_UserInput SalesRep();
+	ForeignEntityInput SalesRep();
 }

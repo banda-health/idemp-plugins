@@ -5,6 +5,11 @@ extend type Query {
 	M_CostElementGet(page: Int, size: Int, sort: String, filter: String): M_CostElementConnection!
 }
 
+extend type Mutation {
+	M_CostElementSave(entity: M_CostElementInput!): M_CostElement!
+	M_CostElementDelete(uuids: [String!]!): Boolean!
+}
+
 type M_CostElementConnection {
 	results: [M_CostElement!]!
 	pagingInfo: PagingInfo!
@@ -38,3 +43,20 @@ type M_CostElement {
 	UpdatedBy: AD_User!
 }
 
+input M_CostElementInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Type of Cost Element
+	CostElementType: AD_Ref_ListInput
+	# Indicates how Costs will be calculated
+	CostingMethod: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The value is calculated by the system
+	IsCalculated: Boolean
+	ID: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+}

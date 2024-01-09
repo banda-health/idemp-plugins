@@ -21,15 +21,15 @@ import org.compiere.util.Env;
  */
 public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintColorInput mAD_PrintColor;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_PrintColor;
+	 private ForeignEntityInput mC_Dunning;
+	 private ForeignEntityInput mM_DiscountSchema;
+	 private ForeignEntityInput mM_PriceList;
+	 private ForeignEntityInput mPO_DiscountSchema;
+	 private ForeignEntityInput mPO_PriceList;
 	 private I_AD_Ref_ListInput mBH_SubType;
 	 private I_AD_Ref_ListInput mPriorityBase;
-	 private I_C_DunningInput mC_Dunning;
-	 private I_M_DiscountSchemaInput mM_DiscountSchema;
-	 private I_M_DiscountSchemaInput mPO_DiscountSchema;
-	 private I_M_PriceListInput mM_PriceList;
-	 private I_M_PriceListInput mPO_PriceList;
 
 	/**
 	 * Standard constructor
@@ -46,7 +46,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -63,7 +63,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -73,7 +73,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @param AD_PrintColor Color used for printing and display
 	 */
 	@JsonProperty("AD_PrintColor")
-	public void setAD_PrintColorInput(I_AD_PrintColorInput AD_PrintColor) {
+	public void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor) {
 		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null &&
@@ -92,7 +92,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @return Color used for printing and display
 	 */
 	@JsonProperty("AD_PrintColor")
-	public I_AD_PrintColorInput AD_PrintColor() {
+	public ForeignEntityInput AD_PrintColor() {
 		return mAD_PrintColor;
 	}
 
@@ -149,7 +149,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @param C_Dunning Dunning Rules for overdue invoices
 	 */
 	@JsonProperty("C_Dunning")
-	public void setC_DunningInput(I_C_DunningInput C_Dunning) {
+	public void setC_DunningInput(ForeignEntityInput C_Dunning) {
 		this.mC_Dunning = C_Dunning;
 		MDunning foreignEntity;
 		if (C_Dunning != null &&
@@ -168,7 +168,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @return Dunning Rules for overdue invoices
 	 */
 	@JsonProperty("C_Dunning")
-	public I_C_DunningInput C_Dunning() {
+	public ForeignEntityInput C_Dunning() {
 		return mC_Dunning;
 	}
 
@@ -178,7 +178,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @param M_DiscountSchema Schema to calculate the trade discount percentage
 	 */
 	@JsonProperty("M_DiscountSchema")
-	public void setM_DiscountSchemaInput(I_M_DiscountSchemaInput M_DiscountSchema) {
+	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (M_DiscountSchema != null &&
@@ -197,7 +197,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @return Schema to calculate the trade discount percentage
 	 */
 	@JsonProperty("M_DiscountSchema")
-	public I_M_DiscountSchemaInput M_DiscountSchema() {
+	public ForeignEntityInput M_DiscountSchema() {
 		return mM_DiscountSchema;
 	}
 
@@ -207,7 +207,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public void setM_PriceListInput(I_M_PriceListInput M_PriceList) {
+	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (M_PriceList != null &&
@@ -226,7 +226,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @return Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public I_M_PriceListInput M_PriceList() {
+	public ForeignEntityInput M_PriceList() {
 		return mM_PriceList;
 	}
 
@@ -236,7 +236,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @param PO_DiscountSchema Schema to calculate the purchase trade discount percentage
 	 */
 	@JsonProperty("PO_DiscountSchema")
-	public void setPO_DiscountSchemaInput(I_M_DiscountSchemaInput PO_DiscountSchema) {
+	public void setPO_DiscountSchemaInput(ForeignEntityInput PO_DiscountSchema) {
 		this.mPO_DiscountSchema = PO_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (PO_DiscountSchema != null &&
@@ -255,7 +255,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @return Schema to calculate the purchase trade discount percentage
 	 */
 	@JsonProperty("PO_DiscountSchema")
-	public I_M_DiscountSchemaInput PO_DiscountSchema() {
+	public ForeignEntityInput PO_DiscountSchema() {
 		return mPO_DiscountSchema;
 	}
 
@@ -265,7 +265,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @param PO_PriceList Price List used by this Business Partner
 	 */
 	@JsonProperty("PO_PriceList")
-	public void setPO_PriceListInput(I_M_PriceListInput PO_PriceList) {
+	public void setPO_PriceListInput(ForeignEntityInput PO_PriceList) {
 		this.mPO_PriceList = PO_PriceList;
 		MPriceList foreignEntity;
 		if (PO_PriceList != null &&
@@ -284,7 +284,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @return Price List used by this Business Partner
 	 */
 	@JsonProperty("PO_PriceList")
-	public I_M_PriceListInput PO_PriceList() {
+	public ForeignEntityInput PO_PriceList() {
 		return mPO_PriceList;
 	}
 

@@ -18,12 +18,12 @@ import org.compiere.util.Env;
  */
 public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSchemaInput {
 
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintColorInput mAD_PrintColor1;
-	 private I_AD_PrintColorInput mAD_PrintColor2;
-	 private I_AD_PrintColorInput mAD_PrintColor3;
-	 private I_AD_PrintColorInput mAD_PrintColor4;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_PrintColor1;
+	 private ForeignEntityInput mAD_PrintColor2;
+	 private ForeignEntityInput mAD_PrintColor3;
+	 private ForeignEntityInput mAD_PrintColor4;
 
 	/**
 	 * Standard constructor
@@ -40,7 +40,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -57,7 +57,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -67,7 +67,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @param AD_PrintColor1 First color used
 	 */
 	@JsonProperty("AD_PrintColor1")
-	public void setAD_PrintColor1Input(I_AD_PrintColorInput AD_PrintColor1) {
+	public void setAD_PrintColor1Input(ForeignEntityInput AD_PrintColor1) {
 		this.mAD_PrintColor1 = AD_PrintColor1;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor1 != null &&
@@ -86,7 +86,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @return First color used
 	 */
 	@JsonProperty("AD_PrintColor1")
-	public I_AD_PrintColorInput AD_PrintColor1() {
+	public ForeignEntityInput AD_PrintColor1() {
 		return mAD_PrintColor1;
 	}
 
@@ -96,7 +96,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @param AD_PrintColor2 Second color used
 	 */
 	@JsonProperty("AD_PrintColor2")
-	public void setAD_PrintColor2Input(I_AD_PrintColorInput AD_PrintColor2) {
+	public void setAD_PrintColor2Input(ForeignEntityInput AD_PrintColor2) {
 		this.mAD_PrintColor2 = AD_PrintColor2;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor2 != null &&
@@ -115,7 +115,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @return Second color used
 	 */
 	@JsonProperty("AD_PrintColor2")
-	public I_AD_PrintColorInput AD_PrintColor2() {
+	public ForeignEntityInput AD_PrintColor2() {
 		return mAD_PrintColor2;
 	}
 
@@ -125,7 +125,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @param AD_PrintColor3 Third color used
 	 */
 	@JsonProperty("AD_PrintColor3")
-	public void setAD_PrintColor3Input(I_AD_PrintColorInput AD_PrintColor3) {
+	public void setAD_PrintColor3Input(ForeignEntityInput AD_PrintColor3) {
 		this.mAD_PrintColor3 = AD_PrintColor3;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor3 != null &&
@@ -144,7 +144,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @return Third color used
 	 */
 	@JsonProperty("AD_PrintColor3")
-	public I_AD_PrintColorInput AD_PrintColor3() {
+	public ForeignEntityInput AD_PrintColor3() {
 		return mAD_PrintColor3;
 	}
 
@@ -154,7 +154,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @param AD_PrintColor4 Forth color used
 	 */
 	@JsonProperty("AD_PrintColor4")
-	public void setAD_PrintColor4Input(I_AD_PrintColorInput AD_PrintColor4) {
+	public void setAD_PrintColor4Input(ForeignEntityInput AD_PrintColor4) {
 		this.mAD_PrintColor4 = AD_PrintColor4;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor4 != null &&
@@ -173,7 +173,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @return Forth color used
 	 */
 	@JsonProperty("AD_PrintColor4")
-	public I_AD_PrintColorInput AD_PrintColor4() {
+	public ForeignEntityInput AD_PrintColor4() {
 		return mAD_PrintColor4;
 	}
 
@@ -183,7 +183,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -202,7 +202,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 

@@ -31,10 +31,23 @@ import org.eevolution.model.X_C_TaxGroup;
  */
 public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput {
 
-	 private I_AD_ImageInput mAD_Image;
-	 private I_AD_LanguageInput mAD_Language;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintFormatInput mInvoice_PrintFormat;
+	 private ForeignEntityInput mAD_Image;
+	 private ForeignEntityInput mAD_Language;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BP_Group;
+	 private ForeignEntityInput mC_Dunning;
+	 private ForeignEntityInput mC_Greeting;
+	 private ForeignEntityInput mC_InvoiceSchedule;
+	 private ForeignEntityInput mC_PaymentTerm;
+	 private ForeignEntityInput mC_TaxGroup;
+	 private ForeignEntityInput mDefault1099Box;
+	 private ForeignEntityInput mInvoice_PrintFormat;
+	 private ForeignEntityInput mM_DiscountSchema;
+	 private ForeignEntityInput mM_PriceList;
+	 private ForeignEntityInput mPO_DiscountSchema;
+	 private ForeignEntityInput mPO_PaymentTerm;
+	 private ForeignEntityInput mPO_PriceList;
+	 private ForeignEntityInput mSalesRep;
 	 private I_AD_Ref_ListInput mDeliveryRule;
 	 private I_AD_Ref_ListInput mDeliveryViaRule;
 	 private I_AD_Ref_ListInput mFreightCostRule;
@@ -43,19 +56,6 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 private I_AD_Ref_ListInput mPaymentRulePO;
 	 private I_AD_Ref_ListInput mSOCreditStatus;
 	 private I_AD_Ref_ListInput mbh_gender;
-	 private I_AD_UserInput mSalesRep;
-	 private I_C_1099BoxInput mDefault1099Box;
-	 private I_C_BP_GroupInput mC_BP_Group;
-	 private I_C_DunningInput mC_Dunning;
-	 private I_C_GreetingInput mC_Greeting;
-	 private I_C_InvoiceScheduleInput mC_InvoiceSchedule;
-	 private I_C_PaymentTermInput mC_PaymentTerm;
-	 private I_C_PaymentTermInput mPO_PaymentTerm;
-	 private I_C_TaxGroupInput mC_TaxGroup;
-	 private I_M_DiscountSchemaInput mM_DiscountSchema;
-	 private I_M_DiscountSchemaInput mPO_DiscountSchema;
-	 private I_M_PriceListInput mM_PriceList;
-	 private I_M_PriceListInput mPO_PriceList;
 
 	/**
 	 * Standard constructor
@@ -72,7 +72,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param AD_Language Language for this entity
 	 */
 	@JsonProperty("AD_Language")
-	public void setAD_LanguageInput(I_AD_LanguageInput AD_Language) {
+	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
 		MLanguage foreignEntity;
 		if (AD_Language != null &&
@@ -91,7 +91,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Language for this entity
 	 */
 	@JsonProperty("AD_Language")
-	public I_AD_LanguageInput AD_Language() {
+	public ForeignEntityInput AD_Language() {
 		return mAD_Language;
 	}
 
@@ -101,7 +101,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -118,7 +118,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -157,7 +157,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param C_BP_Group Business Partner Group
 	 */
 	@JsonProperty("C_BP_Group")
-	public void setC_BP_GroupInput(I_C_BP_GroupInput C_BP_Group) {
+	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
 		this.mC_BP_Group = C_BP_Group;
 		MBPGroup_BH foreignEntity;
 		if (C_BP_Group != null &&
@@ -176,7 +176,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Business Partner Group
 	 */
 	@JsonProperty("C_BP_Group")
-	public I_C_BP_GroupInput C_BP_Group() {
+	public ForeignEntityInput C_BP_Group() {
 		return mC_BP_Group;
 	}
 
@@ -204,7 +204,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param C_Dunning Dunning Rules for overdue invoices
 	 */
 	@JsonProperty("C_Dunning")
-	public void setC_DunningInput(I_C_DunningInput C_Dunning) {
+	public void setC_DunningInput(ForeignEntityInput C_Dunning) {
 		this.mC_Dunning = C_Dunning;
 		MDunning foreignEntity;
 		if (C_Dunning != null &&
@@ -223,7 +223,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Dunning Rules for overdue invoices
 	 */
 	@JsonProperty("C_Dunning")
-	public I_C_DunningInput C_Dunning() {
+	public ForeignEntityInput C_Dunning() {
 		return mC_Dunning;
 	}
 
@@ -233,7 +233,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param C_Greeting Greeting to print on correspondence
 	 */
 	@JsonProperty("C_Greeting")
-	public void setC_GreetingInput(I_C_GreetingInput C_Greeting) {
+	public void setC_GreetingInput(ForeignEntityInput C_Greeting) {
 		this.mC_Greeting = C_Greeting;
 		X_C_Greeting foreignEntity;
 		if (C_Greeting != null &&
@@ -252,7 +252,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Greeting to print on correspondence
 	 */
 	@JsonProperty("C_Greeting")
-	public I_C_GreetingInput C_Greeting() {
+	public ForeignEntityInput C_Greeting() {
 		return mC_Greeting;
 	}
 
@@ -262,7 +262,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param C_InvoiceSchedule Schedule for generating Invoices
 	 */
 	@JsonProperty("C_InvoiceSchedule")
-	public void setC_InvoiceScheduleInput(I_C_InvoiceScheduleInput C_InvoiceSchedule) {
+	public void setC_InvoiceScheduleInput(ForeignEntityInput C_InvoiceSchedule) {
 		this.mC_InvoiceSchedule = C_InvoiceSchedule;
 		MInvoiceSchedule foreignEntity;
 		if (C_InvoiceSchedule != null &&
@@ -281,7 +281,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Schedule for generating Invoices
 	 */
 	@JsonProperty("C_InvoiceSchedule")
-	public I_C_InvoiceScheduleInput C_InvoiceSchedule() {
+	public ForeignEntityInput C_InvoiceSchedule() {
 		return mC_InvoiceSchedule;
 	}
 
@@ -291,7 +291,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param C_PaymentTerm The terms of Payment (timing, discount)
 	 */
 	@JsonProperty("C_PaymentTerm")
-	public void setC_PaymentTermInput(I_C_PaymentTermInput C_PaymentTerm) {
+	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null &&
@@ -310,7 +310,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return The terms of Payment (timing, discount)
 	 */
 	@JsonProperty("C_PaymentTerm")
-	public I_C_PaymentTermInput C_PaymentTerm() {
+	public ForeignEntityInput C_PaymentTerm() {
 		return mC_PaymentTerm;
 	}
 
@@ -320,7 +320,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param C_TaxGroup Tax Group
 	 */
 	@JsonProperty("C_TaxGroup")
-	public void setC_TaxGroupInput(I_C_TaxGroupInput C_TaxGroup) {
+	public void setC_TaxGroupInput(ForeignEntityInput C_TaxGroup) {
 		this.mC_TaxGroup = C_TaxGroup;
 		X_C_TaxGroup foreignEntity;
 		if (C_TaxGroup != null &&
@@ -339,7 +339,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Tax Group
 	 */
 	@JsonProperty("C_TaxGroup")
-	public I_C_TaxGroupInput C_TaxGroup() {
+	public ForeignEntityInput C_TaxGroup() {
 		return mC_TaxGroup;
 	}
 
@@ -349,7 +349,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param Default1099Box Default 1099 Box
 	 */
 	@JsonProperty("Default1099Box")
-	public void setDefault1099BoxInput(I_C_1099BoxInput Default1099Box) {
+	public void setDefault1099BoxInput(ForeignEntityInput Default1099Box) {
 		this.mDefault1099Box = Default1099Box;
 		X_C_1099Box foreignEntity;
 		if (Default1099Box != null &&
@@ -368,7 +368,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Default 1099 Box
 	 */
 	@JsonProperty("Default1099Box")
-	public I_C_1099BoxInput Default1099Box() {
+	public ForeignEntityInput Default1099Box() {
 		return mDefault1099Box;
 	}
 
@@ -465,7 +465,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param Invoice_PrintFormat Print Format for printing Invoices
 	 */
 	@JsonProperty("Invoice_PrintFormat")
-	public void setInvoice_PrintFormatInput(I_AD_PrintFormatInput Invoice_PrintFormat) {
+	public void setInvoice_PrintFormatInput(ForeignEntityInput Invoice_PrintFormat) {
 		this.mInvoice_PrintFormat = Invoice_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
 		if (Invoice_PrintFormat != null &&
@@ -484,7 +484,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Print Format for printing Invoices
 	 */
 	@JsonProperty("Invoice_PrintFormat")
-	public I_AD_PrintFormatInput Invoice_PrintFormat() {
+	public ForeignEntityInput Invoice_PrintFormat() {
 		return mInvoice_PrintFormat;
 	}
 
@@ -523,7 +523,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param AD_Image Logo
 	 */
 	@JsonProperty("AD_Image")
-	public void setAD_ImageInput(I_AD_ImageInput AD_Image) {
+	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
@@ -542,7 +542,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Logo
 	 */
 	@JsonProperty("AD_Image")
-	public I_AD_ImageInput AD_Image() {
+	public ForeignEntityInput AD_Image() {
 		return mAD_Image;
 	}
 
@@ -552,7 +552,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param M_DiscountSchema Schema to calculate the trade discount percentage
 	 */
 	@JsonProperty("M_DiscountSchema")
-	public void setM_DiscountSchemaInput(I_M_DiscountSchemaInput M_DiscountSchema) {
+	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (M_DiscountSchema != null &&
@@ -571,7 +571,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Schema to calculate the trade discount percentage
 	 */
 	@JsonProperty("M_DiscountSchema")
-	public I_M_DiscountSchemaInput M_DiscountSchema() {
+	public ForeignEntityInput M_DiscountSchema() {
 		return mM_DiscountSchema;
 	}
 
@@ -581,7 +581,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public void setM_PriceListInput(I_M_PriceListInput M_PriceList) {
+	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (M_PriceList != null &&
@@ -600,7 +600,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public I_M_PriceListInput M_PriceList() {
+	public ForeignEntityInput M_PriceList() {
 		return mM_PriceList;
 	}
 
@@ -668,7 +668,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param PO_DiscountSchema Schema to calculate the purchase trade discount percentage
 	 */
 	@JsonProperty("PO_DiscountSchema")
-	public void setPO_DiscountSchemaInput(I_M_DiscountSchemaInput PO_DiscountSchema) {
+	public void setPO_DiscountSchemaInput(ForeignEntityInput PO_DiscountSchema) {
 		this.mPO_DiscountSchema = PO_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (PO_DiscountSchema != null &&
@@ -687,7 +687,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Schema to calculate the purchase trade discount percentage
 	 */
 	@JsonProperty("PO_DiscountSchema")
-	public I_M_DiscountSchemaInput PO_DiscountSchema() {
+	public ForeignEntityInput PO_DiscountSchema() {
 		return mPO_DiscountSchema;
 	}
 
@@ -697,7 +697,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param PO_PaymentTerm Payment rules for a purchase order
 	 */
 	@JsonProperty("PO_PaymentTerm")
-	public void setPO_PaymentTermInput(I_C_PaymentTermInput PO_PaymentTerm) {
+	public void setPO_PaymentTermInput(ForeignEntityInput PO_PaymentTerm) {
 		this.mPO_PaymentTerm = PO_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (PO_PaymentTerm != null &&
@@ -716,7 +716,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Payment rules for a purchase order
 	 */
 	@JsonProperty("PO_PaymentTerm")
-	public I_C_PaymentTermInput PO_PaymentTerm() {
+	public ForeignEntityInput PO_PaymentTerm() {
 		return mPO_PaymentTerm;
 	}
 
@@ -726,7 +726,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param PO_PriceList Price List used by this Business Partner
 	 */
 	@JsonProperty("PO_PriceList")
-	public void setPO_PriceListInput(I_M_PriceListInput PO_PriceList) {
+	public void setPO_PriceListInput(ForeignEntityInput PO_PriceList) {
 		this.mPO_PriceList = PO_PriceList;
 		MPriceList foreignEntity;
 		if (PO_PriceList != null &&
@@ -745,7 +745,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Price List used by this Business Partner
 	 */
 	@JsonProperty("PO_PriceList")
-	public I_M_PriceListInput PO_PriceList() {
+	public ForeignEntityInput PO_PriceList() {
 		return mPO_PriceList;
 	}
 
@@ -755,7 +755,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
@@ -774,7 +774,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public I_AD_UserInput SalesRep() {
+	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
 	/**

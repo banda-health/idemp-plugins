@@ -5,6 +5,11 @@ extend type Query {
 	AD_TaskGet(page: Int, size: Int, sort: String, filter: String): AD_TaskConnection!
 }
 
+extend type Mutation {
+	AD_TaskSave(entity: AD_TaskInput!): AD_Task!
+	AD_TaskDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_TaskConnection {
 	results: [AD_Task!]!
 	pagingInfo: PagingInfo!
@@ -41,3 +46,23 @@ type AD_Task {
 	UpdatedBy: AD_User!
 }
 
+input AD_TaskInput {
+	# Access Level required
+	AccessLevel: AD_Ref_ListInput
+	AD_CtxHelp: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Operating System Command
+	OS_Command: String
+}

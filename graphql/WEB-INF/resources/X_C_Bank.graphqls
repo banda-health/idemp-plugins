@@ -5,6 +5,11 @@ extend type Query {
 	C_BankGet(page: Int, size: Int, sort: String, filter: String): C_BankConnection!
 }
 
+extend type Mutation {
+	C_BankSave(entity: C_BankInput!): C_Bank!
+	C_BankDelete(uuids: [String!]!): Boolean!
+}
+
 type C_BankConnection {
 	results: [C_Bank!]!
 	pagingInfo: PagingInfo!
@@ -40,3 +45,22 @@ type C_Bank {
 	UpdatedBy: AD_User!
 }
 
+input C_BankInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Location or Address
+	C_Location: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Bank for this Organization
+	IsOwnBank: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Bank Routing Number
+	RoutingNo: String
+	# Swift Code or BIC
+	SwiftCode: String
+}

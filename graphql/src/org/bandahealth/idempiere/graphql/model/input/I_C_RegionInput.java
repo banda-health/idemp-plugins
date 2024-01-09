@@ -15,28 +15,28 @@ public interface I_C_RegionInput extends I_C_Region {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_Country.
 	 *
 	 * @param C_Country Country 
 	 */
-	void setC_CountryInput(I_C_CountryInput C_Country);
+	void setC_CountryInput(ForeignEntityInput C_Country);
 
 	/**
 	 * Get C_Country.
 	 *
 	 * @return Country 
 	 */
-	I_C_CountryInput C_Country();
+	ForeignEntityInput C_Country();
 
 	/**
 	 * Set ID.

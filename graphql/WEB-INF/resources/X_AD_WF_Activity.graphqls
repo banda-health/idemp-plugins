@@ -5,6 +5,11 @@ extend type Query {
 	AD_WF_ActivityGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ActivityConnection!
 }
 
+extend type Mutation {
+	AD_WF_ActivitySave(entity: AD_WF_ActivityInput!): AD_WF_Activity!
+	AD_WF_ActivityDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_WF_ActivityConnection {
 	results: [AD_WF_Activity!]!
 	pagingInfo: PagingInfo!
@@ -59,3 +64,41 @@ type AD_WF_Activity {
 	WFState: AD_Ref_List!
 }
 
+input AD_WF_ActivityInput {
+	# System Message
+	AD_Message: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	ID: ID
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	# Actual Workflow Process Instance
+	AD_WF_Process: ForeignEntityInput
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# Date when last alert were sent
+	DateLastAlert: Date
+	# Starting priority before changed dynamically
+	DynPriorityStart: Int
+	# End of sleep time
+	EndWaitTime: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Direct internal record ID
+	Record_ID: Int
+	# Text Message
+	TextMsg: String
+	# State of the execution of the workflow
+	WFState: AD_Ref_ListInput
+}

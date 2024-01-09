@@ -32,27 +32,27 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset_AdditionInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mA_Asset;
+	 private ForeignEntityInput mC_Charge;
+	 private ForeignEntityInput mC_ConversionType;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_Invoice;
+	 private ForeignEntityInput mC_InvoiceLine;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mGL_JournalBatch;
+	 private ForeignEntityInput mI_FixedAsset;
+	 private ForeignEntityInput mM_AttributeSetInstance;
+	 private ForeignEntityInput mM_InOutLine;
+	 private ForeignEntityInput mM_Locator;
+	 private ForeignEntityInput mM_MatchInv;
+	 private ForeignEntityInput mM_Product;
 	 private I_AD_Ref_ListInput mA_CapvsExp;
 	 private I_AD_Ref_ListInput mA_SourceType;
 	 private I_AD_Ref_ListInput mDocAction;
 	 private I_AD_Ref_ListInput mDocStatus;
 	 private I_AD_Ref_ListInput mPostingType;
-	 private I_A_AssetInput mA_Asset;
-	 private I_C_ChargeInput mC_Charge;
-	 private I_C_ConversionTypeInput mC_ConversionType;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_InvoiceInput mC_Invoice;
-	 private I_C_InvoiceLineInput mC_InvoiceLine;
-	 private I_C_ProjectInput mC_Project;
-	 private I_GL_JournalBatchInput mGL_JournalBatch;
-	 private I_I_FixedAssetInput mI_FixedAsset;
-	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
-	 private I_M_InOutLineInput mM_InOutLine;
-	 private I_M_LocatorInput mM_Locator;
-	 private I_M_MatchInvInput mM_MatchInv;
-	 private I_M_ProductInput mM_Product;
 
 	/**
 	 * Standard constructor
@@ -87,7 +87,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param A_Asset Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
@@ -106,7 +106,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public I_A_AssetInput A_Asset() {
+	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
 	}
 
@@ -196,7 +196,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -215,7 +215,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -225,7 +225,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param C_Charge Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
@@ -244,7 +244,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public I_C_ChargeInput C_Charge() {
+	public ForeignEntityInput C_Charge() {
 		return mC_Charge;
 	}
 
@@ -254,7 +254,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param C_ConversionType Currency Conversion Rate Type
 	 */
 	@JsonProperty("C_ConversionType")
-	public void setC_ConversionTypeInput(I_C_ConversionTypeInput C_ConversionType) {
+	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
 		MConversionType foreignEntity;
 		if (C_ConversionType != null &&
@@ -273,7 +273,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Currency Conversion Rate Type
 	 */
 	@JsonProperty("C_ConversionType")
-	public I_C_ConversionTypeInput C_ConversionType() {
+	public ForeignEntityInput C_ConversionType() {
 		return mC_ConversionType;
 	}
 
@@ -283,7 +283,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -302,7 +302,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -312,7 +312,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
@@ -331,7 +331,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -341,7 +341,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param C_Invoice Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public void setC_InvoiceInput(I_C_InvoiceInput C_Invoice) {
+	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
 		if (C_Invoice != null &&
@@ -360,7 +360,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public I_C_InvoiceInput C_Invoice() {
+	public ForeignEntityInput C_Invoice() {
 		return mC_Invoice;
 	}
 
@@ -370,7 +370,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param C_InvoiceLine Invoice Detail Line
 	 */
 	@JsonProperty("C_InvoiceLine")
-	public void setC_InvoiceLineInput(I_C_InvoiceLineInput C_InvoiceLine) {
+	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
 		MInvoiceLine_BH foreignEntity;
 		if (C_InvoiceLine != null &&
@@ -389,7 +389,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Invoice Detail Line
 	 */
 	@JsonProperty("C_InvoiceLine")
-	public I_C_InvoiceLineInput C_InvoiceLine() {
+	public ForeignEntityInput C_InvoiceLine() {
 		return mC_InvoiceLine;
 	}
 
@@ -399,7 +399,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -418,7 +418,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -497,7 +497,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param GL_JournalBatch General Ledger Journal Batch
 	 */
 	@JsonProperty("GL_JournalBatch")
-	public void setGL_JournalBatchInput(I_GL_JournalBatchInput GL_JournalBatch) {
+	public void setGL_JournalBatchInput(ForeignEntityInput GL_JournalBatch) {
 		this.mGL_JournalBatch = GL_JournalBatch;
 		MJournalBatch foreignEntity;
 		if (GL_JournalBatch != null &&
@@ -516,7 +516,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return General Ledger Journal Batch
 	 */
 	@JsonProperty("GL_JournalBatch")
-	public I_GL_JournalBatchInput GL_JournalBatch() {
+	public ForeignEntityInput GL_JournalBatch() {
 		return mGL_JournalBatch;
 	}
 
@@ -526,7 +526,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param I_FixedAsset Imported Fixed Asset
 	 */
 	@JsonProperty("I_FixedAsset")
-	public void setI_FixedAssetInput(I_I_FixedAssetInput I_FixedAsset) {
+	public void setI_FixedAssetInput(ForeignEntityInput I_FixedAsset) {
 		this.mI_FixedAsset = I_FixedAsset;
 		MIFixedAsset foreignEntity;
 		if (I_FixedAsset != null &&
@@ -545,7 +545,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Imported Fixed Asset
 	 */
 	@JsonProperty("I_FixedAsset")
-	public I_I_FixedAssetInput I_FixedAsset() {
+	public ForeignEntityInput I_FixedAsset() {
 		return mI_FixedAsset;
 	}
 
@@ -555,7 +555,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
@@ -574,7 +574,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+	public ForeignEntityInput M_AttributeSetInstance() {
 		return mM_AttributeSetInstance;
 	}
 
@@ -584,7 +584,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param M_InOutLine Line on Shipment or Receipt document
 	 */
 	@JsonProperty("M_InOutLine")
-	public void setM_InOutLineInput(I_M_InOutLineInput M_InOutLine) {
+	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
 		if (M_InOutLine != null &&
@@ -603,7 +603,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Line on Shipment or Receipt document
 	 */
 	@JsonProperty("M_InOutLine")
-	public I_M_InOutLineInput M_InOutLine() {
+	public ForeignEntityInput M_InOutLine() {
 		return mM_InOutLine;
 	}
 
@@ -613,7 +613,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param M_Locator Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public void setM_LocatorInput(I_M_LocatorInput M_Locator) {
+	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
@@ -632,7 +632,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public I_M_LocatorInput M_Locator() {
+	public ForeignEntityInput M_Locator() {
 		return mM_Locator;
 	}
 
@@ -642,7 +642,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param M_MatchInv Match Shipment/Receipt to Invoice
 	 */
 	@JsonProperty("M_MatchInv")
-	public void setM_MatchInvInput(I_M_MatchInvInput M_MatchInv) {
+	public void setM_MatchInvInput(ForeignEntityInput M_MatchInv) {
 		this.mM_MatchInv = M_MatchInv;
 		MMatchInv foreignEntity;
 		if (M_MatchInv != null &&
@@ -661,7 +661,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Match Shipment/Receipt to Invoice
 	 */
 	@JsonProperty("M_MatchInv")
-	public I_M_MatchInvInput M_MatchInv() {
+	public ForeignEntityInput M_MatchInv() {
 		return mM_MatchInv;
 	}
 
@@ -671,7 +671,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -690,7 +690,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 	/**

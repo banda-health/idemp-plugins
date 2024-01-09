@@ -15,28 +15,28 @@ public interface I_C_TaskInput extends I_C_Task {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_Phase.
 	 *
 	 * @param C_Phase Standard Phase of the Project Type
 	 */
-	void setC_PhaseInput(I_C_PhaseInput C_Phase);
+	void setC_PhaseInput(ForeignEntityInput C_Phase);
 
 	/**
 	 * Get C_Phase.
 	 *
 	 * @return Standard Phase of the Project Type
 	 */
-	I_C_PhaseInput C_Phase();
+	ForeignEntityInput C_Phase();
 
 	/**
 	 * Set ID.
@@ -57,12 +57,12 @@ public interface I_C_TaskInput extends I_C_Task {
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_ProductInput(I_M_ProductInput M_Product);
+	void setM_ProductInput(ForeignEntityInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput M_Product();
+	ForeignEntityInput M_Product();
 }

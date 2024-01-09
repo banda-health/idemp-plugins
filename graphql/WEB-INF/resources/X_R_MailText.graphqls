@@ -5,6 +5,11 @@ extend type Query {
 	R_MailTextGet(page: Int, size: Int, sort: String, filter: String): R_MailTextConnection!
 }
 
+extend type Mutation {
+	R_MailTextSave(entity: R_MailTextInput!): R_MailText!
+	R_MailTextDelete(uuids: [String!]!): Boolean!
+}
+
 type R_MailTextConnection {
 	results: [R_MailText!]!
 	pagingInfo: PagingInfo!
@@ -40,3 +45,22 @@ type R_MailText {
 	UpdatedBy: AD_User!
 }
 
+input R_MailTextInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Text has HTML tags
+	IsHtml: Boolean
+	# Mail Header (Subject)
+	MailHeader: String
+	# Text used for Mail message
+	MailText: String
+	# Optional second text part used for Mail message
+	MailText2: String
+	# Optional third text part used for Mail message
+	MailText3: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	ID: ID
+}

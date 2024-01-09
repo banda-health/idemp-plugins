@@ -29,56 +29,56 @@ public interface I_AD_ClientInput extends I_AD_Client {
 	 *
 	 * @param AD_Language Language for this entity
 	 */
-	void setAD_LanguageInput(I_AD_LanguageInput AD_Language);
+	void setAD_LanguageInput(ForeignEntityInput AD_Language);
 
 	/**
 	 * Get AD_Language.
 	 *
 	 * @return Language for this entity
 	 */
-	I_AD_LanguageInput AD_Language();
+	ForeignEntityInput AD_Language();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_PasswordRule.
 	 *
 	 * @param AD_PasswordRule AD_PasswordRule
 	 */
-	void setAD_PasswordRuleInput(I_AD_PasswordRuleInput AD_PasswordRule);
+	void setAD_PasswordRuleInput(ForeignEntityInput AD_PasswordRule);
 
 	/**
 	 * Get AD_PasswordRule.
 	 *
 	 * @return AD_PasswordRule
 	 */
-	I_AD_PasswordRuleInput AD_PasswordRule();
+	ForeignEntityInput AD_PasswordRule();
 
 	/**
 	 * Set AD_ReplicationStrategy.
 	 *
 	 * @param AD_ReplicationStrategy Data Replication Strategy
 	 */
-	void setAD_ReplicationStrategyInput(I_AD_ReplicationStrategyInput AD_ReplicationStrategy);
+	void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy);
 
 	/**
 	 * Get AD_ReplicationStrategy.
 	 *
 	 * @return Data Replication Strategy
 	 */
-	I_AD_ReplicationStrategyInput AD_ReplicationStrategy();
+	ForeignEntityInput AD_ReplicationStrategy();
 
 	/**
 	 * Set AutoArchive.

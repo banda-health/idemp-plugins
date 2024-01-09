@@ -5,6 +5,11 @@ extend type Query {
 	PP_Order_BOMGet(page: Int, size: Int, sort: String, filter: String): PP_Order_BOMConnection!
 }
 
+extend type Mutation {
+	PP_Order_BOMSave(entity: PP_Order_BOMInput!): PP_Order_BOM!
+	PP_Order_BOMDelete(uuids: [String!]!): Boolean!
+}
+
 type PP_Order_BOMConnection {
 	results: [PP_Order_BOM!]!
 	pagingInfo: PagingInfo!
@@ -60,3 +65,42 @@ type PP_Order_BOM {
 	Value: String!
 }
 
+input PP_Order_BOMInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Type of BOM
+	BOMType: AD_Ref_ListInput
+	# The use of the Bill of Material
+	BOMUse: AD_Ref_ListInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# Copy From Record
+	CopyFrom: String
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Bill of Materials (Engineering) Change Notice (Version)
+	M_ChangeNotice: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	ID: ID
+	# Manufacturing Order
+	PP_Order: ForeignEntityInput
+	Processing: Boolean
+	Revision: String
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

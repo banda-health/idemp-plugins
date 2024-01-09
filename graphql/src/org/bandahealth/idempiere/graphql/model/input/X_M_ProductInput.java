@@ -31,22 +31,22 @@ import org.compiere.util.Env;
  */
 public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_RevenueRecognition;
+	 private ForeignEntityInput mC_SubscriptionType;
+	 private ForeignEntityInput mC_TaxCategory;
+	 private ForeignEntityInput mC_UOM;
+	 private ForeignEntityInput mM_AttributeSet;
+	 private ForeignEntityInput mM_AttributeSetInstance;
+	 private ForeignEntityInput mM_FreightCategory;
+	 private ForeignEntityInput mM_Locator;
+	 private ForeignEntityInput mM_PartType;
+	 private ForeignEntityInput mM_Product_Category;
+	 private ForeignEntityInput mR_MailText;
+	 private ForeignEntityInput mS_ExpenseType;
+	 private ForeignEntityInput mS_Resource;
+	 private ForeignEntityInput mSalesRep;
 	 private I_AD_Ref_ListInput mProductType;
-	 private I_AD_UserInput mSalesRep;
-	 private I_C_RevenueRecognitionInput mC_RevenueRecognition;
-	 private I_C_SubscriptionTypeInput mC_SubscriptionType;
-	 private I_C_TaxCategoryInput mC_TaxCategory;
-	 private I_C_UOMInput mC_UOM;
-	 private I_M_AttributeSetInput mM_AttributeSet;
-	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
-	 private I_M_FreightCategoryInput mM_FreightCategory;
-	 private I_M_LocatorInput mM_Locator;
-	 private I_M_PartTypeInput mM_PartType;
-	 private I_M_Product_CategoryInput mM_Product_Category;
-	 private I_R_MailTextInput mR_MailText;
-	 private I_S_ExpenseTypeInput mS_ExpenseType;
-	 private I_S_ResourceInput mS_Resource;
 
 	/**
 	 * Standard constructor
@@ -63,7 +63,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -80,7 +80,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -90,7 +90,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param C_RevenueRecognition Method for recording revenue
 	 */
 	@JsonProperty("C_RevenueRecognition")
-	public void setC_RevenueRecognitionInput(I_C_RevenueRecognitionInput C_RevenueRecognition) {
+	public void setC_RevenueRecognitionInput(ForeignEntityInput C_RevenueRecognition) {
 		this.mC_RevenueRecognition = C_RevenueRecognition;
 		MRevenueRecognition foreignEntity;
 		if (C_RevenueRecognition != null &&
@@ -109,7 +109,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Method for recording revenue
 	 */
 	@JsonProperty("C_RevenueRecognition")
-	public I_C_RevenueRecognitionInput C_RevenueRecognition() {
+	public ForeignEntityInput C_RevenueRecognition() {
 		return mC_RevenueRecognition;
 	}
 
@@ -119,7 +119,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param C_SubscriptionType Type of subscription
 	 */
 	@JsonProperty("C_SubscriptionType")
-	public void setC_SubscriptionTypeInput(I_C_SubscriptionTypeInput C_SubscriptionType) {
+	public void setC_SubscriptionTypeInput(ForeignEntityInput C_SubscriptionType) {
 		this.mC_SubscriptionType = C_SubscriptionType;
 		X_C_SubscriptionType foreignEntity;
 		if (C_SubscriptionType != null &&
@@ -138,7 +138,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Type of subscription
 	 */
 	@JsonProperty("C_SubscriptionType")
-	public I_C_SubscriptionTypeInput C_SubscriptionType() {
+	public ForeignEntityInput C_SubscriptionType() {
 		return mC_SubscriptionType;
 	}
 
@@ -148,7 +148,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param C_TaxCategory Tax Category
 	 */
 	@JsonProperty("C_TaxCategory")
-	public void setC_TaxCategoryInput(I_C_TaxCategoryInput C_TaxCategory) {
+	public void setC_TaxCategoryInput(ForeignEntityInput C_TaxCategory) {
 		this.mC_TaxCategory = C_TaxCategory;
 		MTaxCategory foreignEntity;
 		if (C_TaxCategory != null &&
@@ -167,7 +167,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Tax Category
 	 */
 	@JsonProperty("C_TaxCategory")
-	public I_C_TaxCategoryInput C_TaxCategory() {
+	public ForeignEntityInput C_TaxCategory() {
 		return mC_TaxCategory;
 	}
 
@@ -177,7 +177,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param C_UOM Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public void setC_UOMInput(I_C_UOMInput C_UOM) {
+	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (C_UOM != null &&
@@ -196,7 +196,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public I_C_UOMInput C_UOM() {
+	public ForeignEntityInput C_UOM() {
 		return mC_UOM;
 	}
 	/**
@@ -217,7 +217,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param M_AttributeSet Product Attribute Set
 	 */
 	@JsonProperty("M_AttributeSet")
-	public void setM_AttributeSetInput(I_M_AttributeSetInput M_AttributeSet) {
+	public void setM_AttributeSetInput(ForeignEntityInput M_AttributeSet) {
 		this.mM_AttributeSet = M_AttributeSet;
 		MAttributeSet_BH foreignEntity;
 		if (M_AttributeSet != null &&
@@ -236,7 +236,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Product Attribute Set
 	 */
 	@JsonProperty("M_AttributeSet")
-	public I_M_AttributeSetInput M_AttributeSet() {
+	public ForeignEntityInput M_AttributeSet() {
 		return mM_AttributeSet;
 	}
 
@@ -246,7 +246,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
@@ -265,7 +265,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+	public ForeignEntityInput M_AttributeSetInstance() {
 		return mM_AttributeSetInstance;
 	}
 
@@ -275,7 +275,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param M_FreightCategory Category of the Freight
 	 */
 	@JsonProperty("M_FreightCategory")
-	public void setM_FreightCategoryInput(I_M_FreightCategoryInput M_FreightCategory) {
+	public void setM_FreightCategoryInput(ForeignEntityInput M_FreightCategory) {
 		this.mM_FreightCategory = M_FreightCategory;
 		MFreightCategory foreignEntity;
 		if (M_FreightCategory != null &&
@@ -294,7 +294,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Category of the Freight
 	 */
 	@JsonProperty("M_FreightCategory")
-	public I_M_FreightCategoryInput M_FreightCategory() {
+	public ForeignEntityInput M_FreightCategory() {
 		return mM_FreightCategory;
 	}
 
@@ -304,7 +304,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param M_Locator Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public void setM_LocatorInput(I_M_LocatorInput M_Locator) {
+	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
@@ -323,7 +323,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public I_M_LocatorInput M_Locator() {
+	public ForeignEntityInput M_Locator() {
 		return mM_Locator;
 	}
 
@@ -333,7 +333,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param M_PartType Part Type
 	 */
 	@JsonProperty("M_PartType")
-	public void setM_PartTypeInput(I_M_PartTypeInput M_PartType) {
+	public void setM_PartTypeInput(ForeignEntityInput M_PartType) {
 		this.mM_PartType = M_PartType;
 		X_M_PartType foreignEntity;
 		if (M_PartType != null &&
@@ -352,7 +352,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Part Type
 	 */
 	@JsonProperty("M_PartType")
-	public I_M_PartTypeInput M_PartType() {
+	public ForeignEntityInput M_PartType() {
 		return mM_PartType;
 	}
 
@@ -362,7 +362,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param M_Product_Category Category of a Product
 	 */
 	@JsonProperty("M_Product_Category")
-	public void setM_Product_CategoryInput(I_M_Product_CategoryInput M_Product_Category) {
+	public void setM_Product_CategoryInput(ForeignEntityInput M_Product_Category) {
 		this.mM_Product_Category = M_Product_Category;
 		MProductCategory_BH foreignEntity;
 		if (M_Product_Category != null &&
@@ -381,7 +381,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Category of a Product
 	 */
 	@JsonProperty("M_Product_Category")
-	public I_M_Product_CategoryInput M_Product_Category() {
+	public ForeignEntityInput M_Product_Category() {
 		return mM_Product_Category;
 	}
 
@@ -449,7 +449,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param R_MailText Text templates for mailings
 	 */
 	@JsonProperty("R_MailText")
-	public void setR_MailTextInput(I_R_MailTextInput R_MailText) {
+	public void setR_MailTextInput(ForeignEntityInput R_MailText) {
 		this.mR_MailText = R_MailText;
 		MMailText foreignEntity;
 		if (R_MailText != null &&
@@ -468,7 +468,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Text templates for mailings
 	 */
 	@JsonProperty("R_MailText")
-	public I_R_MailTextInput R_MailText() {
+	public ForeignEntityInput R_MailText() {
 		return mR_MailText;
 	}
 
@@ -478,7 +478,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param S_ExpenseType Expense report type
 	 */
 	@JsonProperty("S_ExpenseType")
-	public void setS_ExpenseTypeInput(I_S_ExpenseTypeInput S_ExpenseType) {
+	public void setS_ExpenseTypeInput(ForeignEntityInput S_ExpenseType) {
 		this.mS_ExpenseType = S_ExpenseType;
 		MExpenseType foreignEntity;
 		if (get_ID() == 0 &&S_ExpenseType != null &&
@@ -495,7 +495,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Expense report type
 	 */
 	@JsonProperty("S_ExpenseType")
-	public I_S_ExpenseTypeInput S_ExpenseType() {
+	public ForeignEntityInput S_ExpenseType() {
 		return mS_ExpenseType;
 	}
 
@@ -505,7 +505,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param S_Resource Resource
 	 */
 	@JsonProperty("S_Resource")
-	public void setS_ResourceInput(I_S_ResourceInput S_Resource) {
+	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
 		if (get_ID() == 0 &&S_Resource != null &&
@@ -522,7 +522,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Resource
 	 */
 	@JsonProperty("S_Resource")
-	public I_S_ResourceInput S_Resource() {
+	public ForeignEntityInput S_Resource() {
 		return mS_Resource;
 	}
 
@@ -532,7 +532,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
@@ -551,7 +551,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public I_AD_UserInput SalesRep() {
+	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
 }

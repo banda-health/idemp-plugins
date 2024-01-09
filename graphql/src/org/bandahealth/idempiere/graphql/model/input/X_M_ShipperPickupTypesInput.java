@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements I_M_ShipperPickupTypesInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_M_ShipperInput mM_Shipper;
-	 private I_M_ShipperPickupTypesCfgInput mM_ShipperPickupTypesCfg;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mM_Shipper;
+	 private ForeignEntityInput mM_ShipperPickupTypesCfg;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -64,7 +64,7 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 	 * @param M_Shipper Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public void setM_ShipperInput(I_M_ShipperInput M_Shipper) {
+	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (get_ID() == 0 &&M_Shipper != null &&
@@ -81,7 +81,7 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 	 * @return Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public I_M_ShipperInput M_Shipper() {
+	public ForeignEntityInput M_Shipper() {
 		return mM_Shipper;
 	}
 
@@ -109,7 +109,7 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 	 * @param M_ShipperPickupTypesCfg Shipper Pickup Types Configuration
 	 */
 	@JsonProperty("M_ShipperPickupTypesCfg")
-	public void setM_ShipperPickupTypesCfgInput(I_M_ShipperPickupTypesCfgInput M_ShipperPickupTypesCfg) {
+	public void setM_ShipperPickupTypesCfgInput(ForeignEntityInput M_ShipperPickupTypesCfg) {
 		this.mM_ShipperPickupTypesCfg = M_ShipperPickupTypesCfg;
 		X_M_ShipperPickupTypesCfg foreignEntity;
 		if (M_ShipperPickupTypesCfg != null &&
@@ -128,7 +128,7 @@ public class X_M_ShipperPickupTypesInput extends MShipperPickupTypes implements 
 	 * @return Shipper Pickup Types Configuration
 	 */
 	@JsonProperty("M_ShipperPickupTypesCfg")
-	public I_M_ShipperPickupTypesCfgInput M_ShipperPickupTypesCfg() {
+	public ForeignEntityInput M_ShipperPickupTypesCfg() {
 		return mM_ShipperPickupTypesCfg;
 	}
 }

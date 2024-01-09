@@ -5,6 +5,11 @@ extend type Query {
 	AD_WF_NodeGet(page: Int, size: Int, sort: String, filter: String): AD_WF_NodeConnection!
 }
 
+extend type Mutation {
+	AD_WF_NodeSave(entity: AD_WF_NodeInput!): AD_WF_Node!
+	AD_WF_NodeDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_WF_NodeConnection {
 	results: [AD_WF_Node!]!
 	pagingInfo: PagingInfo!
@@ -130,3 +135,112 @@ type AD_WF_Node {
 	YPosition: Int!
 }
 
+input AD_WF_NodeInput {
+	# Indicates the Action to be performed
+	Action: AD_Ref_ListInput
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	AD_CtxHelp: ForeignEntityInput
+	# Special Form
+	AD_Form: ForeignEntityInput
+	# Image or Icon
+	AD_Image: ForeignEntityInput
+	# Info and search/select Window
+	AD_InfoWindow: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# Operation System Task
+	AD_Task: ForeignEntityInput
+	# Workflow Transaction Execution Block
+	AD_WF_Block: ForeignEntityInput
+	ID: ID
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# Name of the Attribute
+	AttributeName: String
+	# Value of the Attribute
+	AttributeValue: String
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Cost information
+	Cost: Int
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# Normal Duration in Duration Unit
+	Duration: Int
+	# Change of priority when Activity is suspended waiting for user
+	DynPriorityChange: Int
+	# Change of priority when Activity is suspended waiting for user
+	DynPriorityUnit: AD_Ref_ListInput
+	# Electronic Mail Address
+	EMail: String
+	# Recipient of the EMail
+	EMailRecipient: AD_Ref_ListInput
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Workflow Activity Finish Mode
+	FinishMode: AD_Ref_ListInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean
+	IsMilestone: Boolean
+	IsSubcontracting: Boolean
+	# Semantics for multiple incoming Transitions
+	JoinElement: AD_Ref_ListInput
+	# Maximum Duration in Duration Unit
+	Limit: Int
+	MovingTime: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Overlap Units are number of units that must be completed before they are moved the next activity
+	OverlapUnits: Int
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	# Queue time is the time a job waits at a work center before begin handled.
+	QueuingTime: Int
+	# Text templates for mailings
+	R_MailText: ForeignEntityInput
+	# Resource
+	S_Resource: ForeignEntityInput
+	# Setup time before starting Production
+	SetupTime: Int
+	# Semantics for multiple outgoing Transitions
+	SplitElement: AD_Ref_ListInput
+	# Workflow Activity Start Mode 
+	StartMode: AD_Ref_ListInput
+	# Mode how the sub-workflow is executed
+	SubflowExecution: AD_Ref_ListInput
+	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
+	UnitsCycles: Int
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Workflow Simulation Waiting time
+	WaitingTime: Int
+	# Time in minutes to wait (sleep)
+	WaitTime: Int
+	# Workflow or tasks
+	Workflow: ForeignEntityInput
+	# Workflow Simulation Execution Time
+	WorkingTime: Int
+	# Absolute X (horizontal) position in 1/72 of an inch
+	XPosition: Int
+	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
+	Yield: Int
+	# Absolute Y (vertical) position in 1/72 of an inch
+	YPosition: Int
+}

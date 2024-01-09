@@ -5,6 +5,11 @@ extend type Query {
 	AD_PrintFontGet(page: Int, size: Int, sort: String, filter: String): AD_PrintFontConnection!
 }
 
+extend type Mutation {
+	AD_PrintFontSave(entity: AD_PrintFontInput!): AD_PrintFont!
+	AD_PrintFontDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_PrintFontConnection {
 	results: [AD_PrintFont!]!
 	pagingInfo: PagingInfo!
@@ -34,3 +39,16 @@ type AD_PrintFont {
 	UpdatedBy: AD_User!
 }
 
+input AD_PrintFontInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Validation Code
+	Code: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

@@ -15,14 +15,14 @@ public interface I_PP_Order_BOMInput extends I_PP_Order_BOM {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set BOMType.
@@ -57,56 +57,56 @@ public interface I_PP_Order_BOMInput extends I_PP_Order_BOM {
 	 *
 	 * @param C_UOM Unit of Measure
 	 */
-	void setC_UOMInput(I_C_UOMInput C_UOM);
+	void setC_UOMInput(ForeignEntityInput C_UOM);
 
 	/**
 	 * Get C_UOM.
 	 *
 	 * @return Unit of Measure
 	 */
-	I_C_UOMInput C_UOM();
+	ForeignEntityInput C_UOM();
 
 	/**
 	 * Set M_AttributeSetInstance.
 	 *
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
-	void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance);
+	void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance);
 
 	/**
 	 * Get M_AttributeSetInstance.
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	I_M_AttributeSetInstanceInput M_AttributeSetInstance();
+	ForeignEntityInput M_AttributeSetInstance();
 
 	/**
 	 * Set M_ChangeNotice.
 	 *
 	 * @param M_ChangeNotice Bill of Materials (Engineering) Change Notice (Version)
 	 */
-	void setM_ChangeNoticeInput(I_M_ChangeNoticeInput M_ChangeNotice);
+	void setM_ChangeNoticeInput(ForeignEntityInput M_ChangeNotice);
 
 	/**
 	 * Get M_ChangeNotice.
 	 *
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
-	I_M_ChangeNoticeInput M_ChangeNotice();
+	ForeignEntityInput M_ChangeNotice();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_ProductInput(I_M_ProductInput M_Product);
+	void setM_ProductInput(ForeignEntityInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput M_Product();
+	ForeignEntityInput M_Product();
 
 	/**
 	 * Set ID.
@@ -127,12 +127,12 @@ public interface I_PP_Order_BOMInput extends I_PP_Order_BOM {
 	 *
 	 * @param PP_Order Manufacturing Order
 	 */
-	void setPP_OrderInput(I_PP_OrderInput PP_Order);
+	void setPP_OrderInput(ForeignEntityInput PP_Order);
 
 	/**
 	 * Get PP_Order.
 	 *
 	 * @return Manufacturing Order
 	 */
-	I_PP_OrderInput PP_Order();
+	ForeignEntityInput PP_Order();
 }

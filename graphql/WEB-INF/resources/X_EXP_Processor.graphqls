@@ -5,6 +5,11 @@ extend type Query {
 	EXP_ProcessorGet(page: Int, size: Int, sort: String, filter: String): EXP_ProcessorConnection!
 }
 
+extend type Mutation {
+	EXP_ProcessorSave(entity: EXP_ProcessorInput!): EXP_Processor!
+	EXP_ProcessorDelete(uuids: [String!]!): Boolean!
+}
+
 type EXP_ProcessorConnection {
 	results: [EXP_Processor!]!
 	pagingInfo: PagingInfo!
@@ -41,3 +46,23 @@ type EXP_Processor {
 	Value: String!
 }
 
+input EXP_ProcessorInput {
+	Account: String
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	EXP_Processor_Type: ForeignEntityInput
+	ID: ID
+	# Comment or Hint
+	Help: String
+	Host: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	PasswordInfo: String
+	Port: Int
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

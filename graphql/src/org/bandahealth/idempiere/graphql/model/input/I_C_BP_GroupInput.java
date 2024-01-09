@@ -15,28 +15,28 @@ public interface I_C_BP_GroupInput extends I_C_BP_Group {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_PrintColor.
 	 *
 	 * @param AD_PrintColor Color used for printing and display
 	 */
-	void setAD_PrintColorInput(I_AD_PrintColorInput AD_PrintColor);
+	void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor);
 
 	/**
 	 * Get AD_PrintColor.
 	 *
 	 * @return Color used for printing and display
 	 */
-	I_AD_PrintColorInput AD_PrintColor();
+	ForeignEntityInput AD_PrintColor();
 
 	/**
 	 * Set BH_SubType.
@@ -71,70 +71,70 @@ public interface I_C_BP_GroupInput extends I_C_BP_Group {
 	 *
 	 * @param C_Dunning Dunning Rules for overdue invoices
 	 */
-	void setC_DunningInput(I_C_DunningInput C_Dunning);
+	void setC_DunningInput(ForeignEntityInput C_Dunning);
 
 	/**
 	 * Get C_Dunning.
 	 *
 	 * @return Dunning Rules for overdue invoices
 	 */
-	I_C_DunningInput C_Dunning();
+	ForeignEntityInput C_Dunning();
 
 	/**
 	 * Set M_DiscountSchema.
 	 *
 	 * @param M_DiscountSchema Schema to calculate the trade discount percentage
 	 */
-	void setM_DiscountSchemaInput(I_M_DiscountSchemaInput M_DiscountSchema);
+	void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema);
 
 	/**
 	 * Get M_DiscountSchema.
 	 *
 	 * @return Schema to calculate the trade discount percentage
 	 */
-	I_M_DiscountSchemaInput M_DiscountSchema();
+	ForeignEntityInput M_DiscountSchema();
 
 	/**
 	 * Set M_PriceList.
 	 *
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
-	void setM_PriceListInput(I_M_PriceListInput M_PriceList);
+	void setM_PriceListInput(ForeignEntityInput M_PriceList);
 
 	/**
 	 * Get M_PriceList.
 	 *
 	 * @return Unique identifier of a Price List
 	 */
-	I_M_PriceListInput M_PriceList();
+	ForeignEntityInput M_PriceList();
 
 	/**
 	 * Set PO_DiscountSchema.
 	 *
 	 * @param PO_DiscountSchema Schema to calculate the purchase trade discount percentage
 	 */
-	void setPO_DiscountSchemaInput(I_M_DiscountSchemaInput PO_DiscountSchema);
+	void setPO_DiscountSchemaInput(ForeignEntityInput PO_DiscountSchema);
 
 	/**
 	 * Get PO_DiscountSchema.
 	 *
 	 * @return Schema to calculate the purchase trade discount percentage
 	 */
-	I_M_DiscountSchemaInput PO_DiscountSchema();
+	ForeignEntityInput PO_DiscountSchema();
 
 	/**
 	 * Set PO_PriceList.
 	 *
 	 * @param PO_PriceList Price List used by this Business Partner
 	 */
-	void setPO_PriceListInput(I_M_PriceListInput PO_PriceList);
+	void setPO_PriceListInput(ForeignEntityInput PO_PriceList);
 
 	/**
 	 * Get PO_PriceList.
 	 *
 	 * @return Price List used by this Business Partner
 	 */
-	I_M_PriceListInput PO_PriceList();
+	ForeignEntityInput PO_PriceList();
 
 	/**
 	 * Set PriorityBase.

@@ -5,6 +5,11 @@ extend type Query {
 	M_RMALineGet(page: Int, size: Int, sort: String, filter: String): M_RMALineConnection!
 }
 
+extend type Mutation {
+	M_RMALineSave(entity: M_RMALineInput!): M_RMALine!
+	M_RMALineDelete(uuids: [String!]!): Boolean!
+}
+
 type M_RMALineConnection {
 	results: [M_RMALine!]!
 	pagingInfo: PagingInfo!
@@ -55,3 +60,37 @@ type M_RMALine {
 	UpdatedBy: AD_User!
 }
 
+input M_RMALineInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Amount
+	Amt: Int
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Tax identifier
+	C_Tax: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Line Extended Amount (Quantity * Actual Price) without Freight and Charges
+	LineNetAmt: Int
+	# Line on Shipment or Receipt document
+	M_InOutLine: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Return Material Authorization
+	M_RMA: ForeignEntityInput
+	ID: ID
+	# The document has been processed
+	Processed: Boolean
+	# Quantity
+	Qty: Int
+	# Delivered Quantity
+	QtyDelivered: Int
+	# Invoiced Quantity
+	QtyInvoiced: Int
+	Ref_RMALine: ForeignEntityInput
+}

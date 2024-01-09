@@ -15,28 +15,28 @@ public interface I_M_ShipperInput extends I_M_Shipper {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	void setC_BPartnerInput(I_C_BPartnerInput C_BPartner);
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
 
 	/**
 	 * Get C_BPartner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	I_C_BPartnerInput C_BPartner();
+	ForeignEntityInput C_BPartner();
 
 	/**
 	 * Set ID.
@@ -57,26 +57,26 @@ public interface I_M_ShipperInput extends I_M_Shipper {
 	 *
 	 * @param M_ShipperCfg M_ShipperCfg
 	 */
-	void setM_ShipperCfgInput(I_M_ShipperCfgInput M_ShipperCfg);
+	void setM_ShipperCfgInput(ForeignEntityInput M_ShipperCfg);
 
 	/**
 	 * Get M_ShipperCfg.
 	 *
 	 * @return M_ShipperCfg
 	 */
-	I_M_ShipperCfgInput M_ShipperCfg();
+	ForeignEntityInput M_ShipperCfg();
 
 	/**
 	 * Set M_ShippingProcessor.
 	 *
 	 * @param M_ShippingProcessor M_ShippingProcessor
 	 */
-	void setM_ShippingProcessorInput(I_M_ShippingProcessorInput M_ShippingProcessor);
+	void setM_ShippingProcessorInput(ForeignEntityInput M_ShippingProcessor);
 
 	/**
 	 * Get M_ShippingProcessor.
 	 *
 	 * @return M_ShippingProcessor
 	 */
-	I_M_ShippingProcessorInput M_ShippingProcessor();
+	ForeignEntityInput M_ShippingProcessor();
 }

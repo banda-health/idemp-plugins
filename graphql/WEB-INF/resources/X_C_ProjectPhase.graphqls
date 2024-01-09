@@ -5,6 +5,11 @@ extend type Query {
 	C_ProjectPhaseGet(page: Int, size: Int, sort: String, filter: String): C_ProjectPhaseConnection!
 }
 
+extend type Mutation {
+	C_ProjectPhaseSave(entity: C_ProjectPhaseInput!): C_ProjectPhase!
+	C_ProjectPhaseDelete(uuids: [String!]!): Boolean!
+}
+
 type C_ProjectPhaseConnection {
 	results: [C_ProjectPhase!]!
 	pagingInfo: PagingInfo!
@@ -64,3 +69,46 @@ type C_ProjectPhase {
 	UpdatedBy: AD_User!
 }
 
+input C_ProjectPhaseInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Order
+	C_Order: ForeignEntityInput
+	# Standard Phase of the Project Type
+	C_Phase: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	ID: ID
+	# The (legal) commitment amount
+	CommittedAmt: Int
+	# Optional short description of the record
+	Description: String
+	# Last effective date (inclusive)
+	EndDate: Date
+	# Generate Order
+	GenerateOrder: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The commitment amount/quantity is the chargeable ceiling 
+	IsCommitCeiling: Boolean
+	# It is complete
+	IsComplete: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Planned amount for this project
+	PlannedAmt: Int
+	# Actual Price 
+	PriceActual: Int
+	# Invoice Rule for the project
+	ProjInvoiceRule: AD_Ref_ListInput
+	# Quantity
+	Qty: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# First effective day (inclusive)
+	StartDate: Date
+}

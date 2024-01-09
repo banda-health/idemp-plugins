@@ -38,30 +38,30 @@ import org.eevolution.model.X_PP_Cost_Collector;
  */
 public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BPartner_LocationInput mC_BPartner_Location;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_ChargeInput mC_Charge;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_ElementValueInput mUser1;
-	 private I_C_ElementValueInput mUser2;
-	 private I_C_OrderInput mC_Order;
-	 private I_C_OrderLineInput mLink_OrderLine;
-	 private I_C_OrderLineInput mRef_OrderLine;
-	 private I_C_ProjectInput mC_Project;
-	 private I_C_ProjectPhaseInput mC_ProjectPhase;
-	 private I_C_ProjectTaskInput mC_ProjectTask;
-	 private I_C_TaxInput mC_Tax;
-	 private I_C_UOMInput mC_UOM;
-	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
-	 private I_M_ProductInput mM_Product;
-	 private I_M_PromotionInput mM_Promotion;
-	 private I_M_ShipperInput mM_Shipper;
-	 private I_M_WarehouseInput mM_Warehouse;
-	 private I_PP_Cost_CollectorInput mPP_Cost_Collector;
-	 private I_S_ResourceAssignmentInput mS_ResourceAssignment;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_BPartner_Location;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_Charge;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_Order;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mC_ProjectPhase;
+	 private ForeignEntityInput mC_ProjectTask;
+	 private ForeignEntityInput mC_Tax;
+	 private ForeignEntityInput mC_UOM;
+	 private ForeignEntityInput mLink_OrderLine;
+	 private ForeignEntityInput mM_AttributeSetInstance;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mM_Promotion;
+	 private ForeignEntityInput mM_Shipper;
+	 private ForeignEntityInput mM_Warehouse;
+	 private ForeignEntityInput mPP_Cost_Collector;
+	 private ForeignEntityInput mRef_OrderLine;
+	 private ForeignEntityInput mS_ResourceAssignment;
+	 private ForeignEntityInput mUser1;
+	 private ForeignEntityInput mUser2;
 
 	/**
 	 * Standard constructor
@@ -78,7 +78,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -97,7 +97,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 	/**
@@ -140,7 +140,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -159,7 +159,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -169,7 +169,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (get_ID() == 0 &&C_BPartner != null &&
@@ -186,7 +186,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -196,7 +196,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
@@ -215,7 +215,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public I_C_BPartner_LocationInput C_BPartner_Location() {
+	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
 
@@ -225,7 +225,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -244,7 +244,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -254,7 +254,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_Charge Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
@@ -273,7 +273,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public I_C_ChargeInput C_Charge() {
+	public ForeignEntityInput C_Charge() {
 		return mC_Charge;
 	}
 
@@ -283,7 +283,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (get_ID() == 0 &&C_Currency != null &&
@@ -300,7 +300,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -310,7 +310,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_Order Order
 	 */
 	@JsonProperty("C_Order")
-	public void setC_OrderInput(I_C_OrderInput C_Order) {
+	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
 		if (get_ID() == 0 &&C_Order != null &&
@@ -327,7 +327,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Order
 	 */
 	@JsonProperty("C_Order")
-	public I_C_OrderInput C_Order() {
+	public ForeignEntityInput C_Order() {
 		return mC_Order;
 	}
 
@@ -355,7 +355,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -374,7 +374,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -384,7 +384,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_ProjectPhase Phase of a Project
 	 */
 	@JsonProperty("C_ProjectPhase")
-	public void setC_ProjectPhaseInput(I_C_ProjectPhaseInput C_ProjectPhase) {
+	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
 		MProjectPhase foreignEntity;
 		if (get_ID() == 0 &&C_ProjectPhase != null &&
@@ -401,7 +401,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Phase of a Project
 	 */
 	@JsonProperty("C_ProjectPhase")
-	public I_C_ProjectPhaseInput C_ProjectPhase() {
+	public ForeignEntityInput C_ProjectPhase() {
 		return mC_ProjectPhase;
 	}
 
@@ -411,7 +411,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_ProjectTask Actual Project Task in a Phase
 	 */
 	@JsonProperty("C_ProjectTask")
-	public void setC_ProjectTaskInput(I_C_ProjectTaskInput C_ProjectTask) {
+	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
 		MProjectTask foreignEntity;
 		if (get_ID() == 0 &&C_ProjectTask != null &&
@@ -428,7 +428,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Actual Project Task in a Phase
 	 */
 	@JsonProperty("C_ProjectTask")
-	public I_C_ProjectTaskInput C_ProjectTask() {
+	public ForeignEntityInput C_ProjectTask() {
 		return mC_ProjectTask;
 	}
 
@@ -438,7 +438,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_Tax Tax identifier
 	 */
 	@JsonProperty("C_Tax")
-	public void setC_TaxInput(I_C_TaxInput C_Tax) {
+	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
 		MTax foreignEntity;
 		if (C_Tax != null &&
@@ -457,7 +457,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Tax identifier
 	 */
 	@JsonProperty("C_Tax")
-	public I_C_TaxInput C_Tax() {
+	public ForeignEntityInput C_Tax() {
 		return mC_Tax;
 	}
 
@@ -467,7 +467,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param C_UOM Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public void setC_UOMInput(I_C_UOMInput C_UOM) {
+	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (get_ID() == 0 &&C_UOM != null &&
@@ -484,7 +484,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public I_C_UOMInput C_UOM() {
+	public ForeignEntityInput C_UOM() {
 		return mC_UOM;
 	}
 	/**
@@ -527,7 +527,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param Link_OrderLine This field links a sales order line to the purchase order line that is generated from it.
 	 */
 	@JsonProperty("Link_OrderLine")
-	public void setLink_OrderLineInput(I_C_OrderLineInput Link_OrderLine) {
+	public void setLink_OrderLineInput(ForeignEntityInput Link_OrderLine) {
 		this.mLink_OrderLine = Link_OrderLine;
 		MOrderLine_BH foreignEntity;
 		if (get_ID() == 0 &&Link_OrderLine != null &&
@@ -544,7 +544,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return This field links a sales order line to the purchase order line that is generated from it.
 	 */
 	@JsonProperty("Link_OrderLine")
-	public I_C_OrderLineInput Link_OrderLine() {
+	public ForeignEntityInput Link_OrderLine() {
 		return mLink_OrderLine;
 	}
 
@@ -554,7 +554,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
@@ -573,7 +573,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+	public ForeignEntityInput M_AttributeSetInstance() {
 		return mM_AttributeSetInstance;
 	}
 
@@ -583,7 +583,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -602,7 +602,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -612,7 +612,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param M_Promotion Promotion
 	 */
 	@JsonProperty("M_Promotion")
-	public void setM_PromotionInput(I_M_PromotionInput M_Promotion) {
+	public void setM_PromotionInput(ForeignEntityInput M_Promotion) {
 		this.mM_Promotion = M_Promotion;
 		X_M_Promotion foreignEntity;
 		if (M_Promotion != null &&
@@ -631,7 +631,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Promotion
 	 */
 	@JsonProperty("M_Promotion")
-	public I_M_PromotionInput M_Promotion() {
+	public ForeignEntityInput M_Promotion() {
 		return mM_Promotion;
 	}
 
@@ -641,7 +641,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param M_Shipper Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public void setM_ShipperInput(I_M_ShipperInput M_Shipper) {
+	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (M_Shipper != null &&
@@ -660,7 +660,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public I_M_ShipperInput M_Shipper() {
+	public ForeignEntityInput M_Shipper() {
 		return mM_Shipper;
 	}
 
@@ -670,7 +670,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
@@ -689,7 +689,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public I_M_WarehouseInput M_Warehouse() {
+	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
 
@@ -699,7 +699,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param PP_Cost_Collector Manufacturing Cost Collector
 	 */
 	@JsonProperty("PP_Cost_Collector")
-	public void setPP_Cost_CollectorInput(I_PP_Cost_CollectorInput PP_Cost_Collector) {
+	public void setPP_Cost_CollectorInput(ForeignEntityInput PP_Cost_Collector) {
 		this.mPP_Cost_Collector = PP_Cost_Collector;
 		X_PP_Cost_Collector foreignEntity;
 		if (PP_Cost_Collector != null &&
@@ -718,7 +718,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Manufacturing Cost Collector
 	 */
 	@JsonProperty("PP_Cost_Collector")
-	public I_PP_Cost_CollectorInput PP_Cost_Collector() {
+	public ForeignEntityInput PP_Cost_Collector() {
 		return mPP_Cost_Collector;
 	}
 	/**
@@ -783,7 +783,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param Ref_OrderLine Reference to corresponding Sales/Purchase Order
 	 */
 	@JsonProperty("Ref_OrderLine")
-	public void setRef_OrderLineInput(I_C_OrderLineInput Ref_OrderLine) {
+	public void setRef_OrderLineInput(ForeignEntityInput Ref_OrderLine) {
 		this.mRef_OrderLine = Ref_OrderLine;
 		MOrderLine_BH foreignEntity;
 		if (Ref_OrderLine != null &&
@@ -802,7 +802,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Reference to corresponding Sales/Purchase Order
 	 */
 	@JsonProperty("Ref_OrderLine")
-	public I_C_OrderLineInput Ref_OrderLine() {
+	public ForeignEntityInput Ref_OrderLine() {
 		return mRef_OrderLine;
 	}
 
@@ -812,7 +812,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param S_ResourceAssignment Resource Assignment
 	 */
 	@JsonProperty("S_ResourceAssignment")
-	public void setS_ResourceAssignmentInput(I_S_ResourceAssignmentInput S_ResourceAssignment) {
+	public void setS_ResourceAssignmentInput(ForeignEntityInput S_ResourceAssignment) {
 		this.mS_ResourceAssignment = S_ResourceAssignment;
 		MResourceAssignment foreignEntity;
 		if (S_ResourceAssignment != null &&
@@ -831,7 +831,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return Resource Assignment
 	 */
 	@JsonProperty("S_ResourceAssignment")
-	public I_S_ResourceAssignmentInput S_ResourceAssignment() {
+	public ForeignEntityInput S_ResourceAssignment() {
 		return mS_ResourceAssignment;
 	}
 
@@ -841,7 +841,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param User1 User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public void setUser1Input(I_C_ElementValueInput User1) {
+	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
@@ -860,7 +860,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public I_C_ElementValueInput User1() {
+	public ForeignEntityInput User1() {
 		return mUser1;
 	}
 
@@ -870,7 +870,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @param User2 User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public void setUser2Input(I_C_ElementValueInput User2) {
+	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
@@ -889,7 +889,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 * @return User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public I_C_ElementValueInput User2() {
+	public ForeignEntityInput User2() {
 		return mUser2;
 	}
 }

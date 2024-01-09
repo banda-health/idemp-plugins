@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCubeInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_CalendarInput mC_Calendar;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Calendar;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCube
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCube
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -64,7 +64,7 @@ public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCube
 	 * @param C_Calendar Accounting Calendar Name
 	 */
 	@JsonProperty("C_Calendar")
-	public void setC_CalendarInput(I_C_CalendarInput C_Calendar) {
+	public void setC_CalendarInput(ForeignEntityInput C_Calendar) {
 		this.mC_Calendar = C_Calendar;
 		MCalendar foreignEntity;
 		if (C_Calendar != null &&
@@ -83,7 +83,7 @@ public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCube
 	 * @return Accounting Calendar Name
 	 */
 	@JsonProperty("C_Calendar")
-	public I_C_CalendarInput C_Calendar() {
+	public ForeignEntityInput C_Calendar() {
 		return mC_Calendar;
 	}
 

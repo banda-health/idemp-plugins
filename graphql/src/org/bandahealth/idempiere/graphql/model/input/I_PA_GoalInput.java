@@ -15,42 +15,42 @@ public interface I_PA_GoalInput extends I_PA_Goal {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_Role.
 	 *
 	 * @param AD_Role Responsibility Role
 	 */
-	void setAD_RoleInput(I_AD_RoleInput AD_Role);
+	void setAD_RoleInput(ForeignEntityInput AD_Role);
 
 	/**
 	 * Get AD_Role.
 	 *
 	 * @return Responsibility Role
 	 */
-	I_AD_RoleInput AD_Role();
+	ForeignEntityInput AD_Role();
 
 	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	void setAD_UserInput(I_AD_UserInput AD_User);
+	void setAD_UserInput(ForeignEntityInput AD_User);
 
 	/**
 	 * Get AD_User.
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	I_AD_UserInput AD_User();
+	ForeignEntityInput AD_User();
 
 	/**
 	 * Set ChartType.
@@ -99,14 +99,14 @@ public interface I_PA_GoalInput extends I_PA_Goal {
 	 *
 	 * @param PA_ColorSchema Performance Color Schema
 	 */
-	void setPA_ColorSchemaInput(I_PA_ColorSchemaInput PA_ColorSchema);
+	void setPA_ColorSchemaInput(ForeignEntityInput PA_ColorSchema);
 
 	/**
 	 * Get PA_ColorSchema.
 	 *
 	 * @return Performance Color Schema
 	 */
-	I_PA_ColorSchemaInput PA_ColorSchema();
+	ForeignEntityInput PA_ColorSchema();
 
 	/**
 	 * Set ID.
@@ -127,26 +127,26 @@ public interface I_PA_GoalInput extends I_PA_Goal {
 	 *
 	 * @param PA_GoalParent Parent Goal
 	 */
-	void setPA_GoalParentInput(I_PA_GoalInput PA_GoalParent);
+	void setPA_GoalParentInput(ForeignEntityInput PA_GoalParent);
 
 	/**
 	 * Get PA_GoalParent.
 	 *
 	 * @return Parent Goal
 	 */
-	I_PA_GoalInput PA_GoalParent();
+	ForeignEntityInput PA_GoalParent();
 
 	/**
 	 * Set PA_Measure.
 	 *
 	 * @param PA_Measure Concrete Performance Measurement
 	 */
-	void setPA_MeasureInput(I_PA_MeasureInput PA_Measure);
+	void setPA_MeasureInput(ForeignEntityInput PA_Measure);
 
 	/**
 	 * Get PA_Measure.
 	 *
 	 * @return Concrete Performance Measurement
 	 */
-	I_PA_MeasureInput PA_Measure();
+	ForeignEntityInput PA_Measure();
 }

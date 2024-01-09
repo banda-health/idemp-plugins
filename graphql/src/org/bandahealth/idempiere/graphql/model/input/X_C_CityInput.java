@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_C_CityInput extends MCity implements I_C_CityInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_CountryInput mC_Country;
-	 private I_C_RegionInput mC_Region;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Country;
+	 private ForeignEntityInput mC_Region;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_C_CityInput extends MCity implements I_C_CityInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_C_CityInput extends MCity implements I_C_CityInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -82,7 +82,7 @@ public class X_C_CityInput extends MCity implements I_C_CityInput {
 	 * @param C_Country Country 
 	 */
 	@JsonProperty("C_Country")
-	public void setC_CountryInput(I_C_CountryInput C_Country) {
+	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
 		MCountry foreignEntity;
 		if (get_ID() == 0 &&C_Country != null &&
@@ -99,7 +99,7 @@ public class X_C_CityInput extends MCity implements I_C_CityInput {
 	 * @return Country 
 	 */
 	@JsonProperty("C_Country")
-	public I_C_CountryInput C_Country() {
+	public ForeignEntityInput C_Country() {
 		return mC_Country;
 	}
 
@@ -109,7 +109,7 @@ public class X_C_CityInput extends MCity implements I_C_CityInput {
 	 * @param C_Region Identifies a geographical Region
 	 */
 	@JsonProperty("C_Region")
-	public void setC_RegionInput(I_C_RegionInput C_Region) {
+	public void setC_RegionInput(ForeignEntityInput C_Region) {
 		this.mC_Region = C_Region;
 		MRegion foreignEntity;
 		if (C_Region != null &&
@@ -128,7 +128,7 @@ public class X_C_CityInput extends MCity implements I_C_CityInput {
 	 * @return Identifies a geographical Region
 	 */
 	@JsonProperty("C_Region")
-	public I_C_RegionInput C_Region() {
+	public ForeignEntityInput C_Region() {
 		return mC_Region;
 	}
 }

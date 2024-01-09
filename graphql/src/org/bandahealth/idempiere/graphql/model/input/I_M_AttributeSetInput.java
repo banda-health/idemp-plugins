@@ -15,14 +15,14 @@ public interface I_M_AttributeSetInput extends I_M_AttributeSet {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set M_AttributeSet_Type.
@@ -57,28 +57,28 @@ public interface I_M_AttributeSetInput extends I_M_AttributeSet {
 	 *
 	 * @param M_LotCtl Product Lot Control
 	 */
-	void setM_LotCtlInput(I_M_LotCtlInput M_LotCtl);
+	void setM_LotCtlInput(ForeignEntityInput M_LotCtl);
 
 	/**
 	 * Get M_LotCtl.
 	 *
 	 * @return Product Lot Control
 	 */
-	I_M_LotCtlInput M_LotCtl();
+	ForeignEntityInput M_LotCtl();
 
 	/**
 	 * Set M_SerNoCtl.
 	 *
 	 * @param M_SerNoCtl Product Serial Number Control
 	 */
-	void setM_SerNoCtlInput(I_M_SerNoCtlInput M_SerNoCtl);
+	void setM_SerNoCtlInput(ForeignEntityInput M_SerNoCtl);
 
 	/**
 	 * Get M_SerNoCtl.
 	 *
 	 * @return Product Serial Number Control
 	 */
-	I_M_SerNoCtlInput M_SerNoCtl();
+	ForeignEntityInput M_SerNoCtl();
 
 	/**
 	 * Set MandatoryType.

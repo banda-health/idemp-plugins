@@ -5,6 +5,11 @@ extend type Query {
 	AD_Val_RuleGet(page: Int, size: Int, sort: String, filter: String): AD_Val_RuleConnection!
 }
 
+extend type Mutation {
+	AD_Val_RuleSave(entity: AD_Val_RuleInput!): AD_Val_Rule!
+	AD_Val_RuleDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_Val_RuleConnection {
 	results: [AD_Val_Rule!]!
 	pagingInfo: PagingInfo!
@@ -38,3 +43,20 @@ type AD_Val_Rule {
 	UpdatedBy: AD_User!
 }
 
+input AD_Val_RuleInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Validation Code
+	Code: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Type of Validation (SQL, Java Script, Java Language)
+	Type: AD_Ref_ListInput
+}

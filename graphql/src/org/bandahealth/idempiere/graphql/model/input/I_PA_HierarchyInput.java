@@ -15,126 +15,126 @@ public interface I_PA_HierarchyInput extends I_PA_Hierarchy {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_Tree_Account.
 	 *
 	 * @param AD_Tree_Account Tree for Natural Account Tree
 	 */
-	void setAD_Tree_AccountInput(I_AD_TreeInput AD_Tree_Account);
+	void setAD_Tree_AccountInput(ForeignEntityInput AD_Tree_Account);
 
 	/**
 	 * Get AD_Tree_Account.
 	 *
 	 * @return Tree for Natural Account Tree
 	 */
-	I_AD_TreeInput AD_Tree_Account();
+	ForeignEntityInput AD_Tree_Account();
 
 	/**
 	 * Set AD_Tree_Activity.
 	 *
 	 * @param AD_Tree_Activity Trees are used for (financial) reporting
 	 */
-	void setAD_Tree_ActivityInput(I_AD_TreeInput AD_Tree_Activity);
+	void setAD_Tree_ActivityInput(ForeignEntityInput AD_Tree_Activity);
 
 	/**
 	 * Get AD_Tree_Activity.
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	I_AD_TreeInput AD_Tree_Activity();
+	ForeignEntityInput AD_Tree_Activity();
 
 	/**
 	 * Set AD_Tree_BPartner.
 	 *
 	 * @param AD_Tree_BPartner Trees are used for (financial) reporting
 	 */
-	void setAD_Tree_BPartnerInput(I_AD_TreeInput AD_Tree_BPartner);
+	void setAD_Tree_BPartnerInput(ForeignEntityInput AD_Tree_BPartner);
 
 	/**
 	 * Get AD_Tree_BPartner.
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	I_AD_TreeInput AD_Tree_BPartner();
+	ForeignEntityInput AD_Tree_BPartner();
 
 	/**
 	 * Set AD_Tree_Campaign.
 	 *
 	 * @param AD_Tree_Campaign Trees are used for (financial) reporting
 	 */
-	void setAD_Tree_CampaignInput(I_AD_TreeInput AD_Tree_Campaign);
+	void setAD_Tree_CampaignInput(ForeignEntityInput AD_Tree_Campaign);
 
 	/**
 	 * Get AD_Tree_Campaign.
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	I_AD_TreeInput AD_Tree_Campaign();
+	ForeignEntityInput AD_Tree_Campaign();
 
 	/**
 	 * Set AD_Tree_Org.
 	 *
 	 * @param AD_Tree_Org Trees are used for (financial) reporting and security access (via role)
 	 */
-	void setAD_Tree_OrgInput(I_AD_TreeInput AD_Tree_Org);
+	void setAD_Tree_OrgInput(ForeignEntityInput AD_Tree_Org);
 
 	/**
 	 * Get AD_Tree_Org.
 	 *
 	 * @return Trees are used for (financial) reporting and security access (via role)
 	 */
-	I_AD_TreeInput AD_Tree_Org();
+	ForeignEntityInput AD_Tree_Org();
 
 	/**
 	 * Set AD_Tree_Product.
 	 *
 	 * @param AD_Tree_Product Trees are used for (financial) reporting
 	 */
-	void setAD_Tree_ProductInput(I_AD_TreeInput AD_Tree_Product);
+	void setAD_Tree_ProductInput(ForeignEntityInput AD_Tree_Product);
 
 	/**
 	 * Get AD_Tree_Product.
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	I_AD_TreeInput AD_Tree_Product();
+	ForeignEntityInput AD_Tree_Product();
 
 	/**
 	 * Set AD_Tree_Project.
 	 *
 	 * @param AD_Tree_Project Trees are used for (financial) reporting
 	 */
-	void setAD_Tree_ProjectInput(I_AD_TreeInput AD_Tree_Project);
+	void setAD_Tree_ProjectInput(ForeignEntityInput AD_Tree_Project);
 
 	/**
 	 * Get AD_Tree_Project.
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	I_AD_TreeInput AD_Tree_Project();
+	ForeignEntityInput AD_Tree_Project();
 
 	/**
 	 * Set AD_Tree_SalesRegion.
 	 *
 	 * @param AD_Tree_SalesRegion Trees are used for (financial) reporting
 	 */
-	void setAD_Tree_SalesRegionInput(I_AD_TreeInput AD_Tree_SalesRegion);
+	void setAD_Tree_SalesRegionInput(ForeignEntityInput AD_Tree_SalesRegion);
 
 	/**
 	 * Get AD_Tree_SalesRegion.
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	I_AD_TreeInput AD_Tree_SalesRegion();
+	ForeignEntityInput AD_Tree_SalesRegion();
 
 	/**
 	 * Set ID.

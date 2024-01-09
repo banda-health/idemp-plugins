@@ -5,6 +5,11 @@ extend type Query {
 	C_ValidCombinationGet(page: Int, size: Int, sort: String, filter: String): C_ValidCombinationConnection!
 }
 
+extend type Mutation {
+	C_ValidCombinationSave(entity: C_ValidCombinationInput!): C_ValidCombination!
+	C_ValidCombinationDelete(uuids: [String!]!): Boolean!
+}
+
 type C_ValidCombinationConnection {
 	results: [C_ValidCombination!]!
 	pagingInfo: PagingInfo!
@@ -62,3 +67,44 @@ type C_ValidCombination {
 	User2: C_ElementValue
 }
 
+input C_ValidCombinationInput {
+	# Account used
+	Account: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Defines an alternate method of indicating an account combination.
+	Alias: String
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Location that inventory was moved from
+	C_LocFrom: ForeignEntityInput
+	# Location that inventory was moved to
+	C_LocTo: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Sales coverage region
+	C_SalesRegion: ForeignEntityInput
+	# Sub account for Element Value
+	C_SubAcct: ForeignEntityInput
+	ID: ID
+	# Unique combination of account elements
+	Combination: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This account is fully qualified
+	IsFullyQualified: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

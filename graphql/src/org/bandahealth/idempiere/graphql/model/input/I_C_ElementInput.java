@@ -15,28 +15,28 @@ public interface I_C_ElementInput extends I_C_Element {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_Tree.
 	 *
 	 * @param AD_Tree Identifies a Tree
 	 */
-	void setAD_TreeInput(I_AD_TreeInput AD_Tree);
+	void setAD_TreeInput(ForeignEntityInput AD_Tree);
 
 	/**
 	 * Get AD_Tree.
 	 *
 	 * @return Identifies a Tree
 	 */
-	I_AD_TreeInput AD_Tree();
+	ForeignEntityInput AD_Tree();
 
 	/**
 	 * Set ID.

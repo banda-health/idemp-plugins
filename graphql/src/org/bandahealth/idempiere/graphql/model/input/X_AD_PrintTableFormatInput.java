@@ -20,16 +20,16 @@ import org.compiere.util.Env;
  */
 public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements I_AD_PrintTableFormatInput {
 
-	 private I_AD_ImageInput mAD_Image;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintColorInput mFunctBG_PrintColor;
-	 private I_AD_PrintColorInput mFunctFG_PrintColor;
-	 private I_AD_PrintColorInput mHdrLine_PrintColor;
-	 private I_AD_PrintColorInput mHdrTextBG_PrintColor;
-	 private I_AD_PrintColorInput mHdrTextFG_PrintColor;
-	 private I_AD_PrintColorInput mLine_PrintColor;
-	 private I_AD_PrintFontInput mFunct_PrintFont;
-	 private I_AD_PrintFontInput mHdr_PrintFont;
+	 private ForeignEntityInput mAD_Image;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mFunctBG_PrintColor;
+	 private ForeignEntityInput mFunctFG_PrintColor;
+	 private ForeignEntityInput mFunct_PrintFont;
+	 private ForeignEntityInput mHdrLine_PrintColor;
+	 private ForeignEntityInput mHdrTextBG_PrintColor;
+	 private ForeignEntityInput mHdrTextFG_PrintColor;
+	 private ForeignEntityInput mHdr_PrintFont;
+	 private ForeignEntityInput mLine_PrintColor;
 	 private I_AD_Ref_ListInput mHdrStrokeType;
 	 private I_AD_Ref_ListInput mLineStrokeType;
 
@@ -48,7 +48,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param AD_Image Image or Icon
 	 */
 	@JsonProperty("AD_Image")
-	public void setAD_ImageInput(I_AD_ImageInput AD_Image) {
+	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
@@ -67,7 +67,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Image or Icon
 	 */
 	@JsonProperty("AD_Image")
-	public I_AD_ImageInput AD_Image() {
+	public ForeignEntityInput AD_Image() {
 		return mAD_Image;
 	}
 
@@ -77,7 +77,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -94,7 +94,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -122,7 +122,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param Funct_PrintFont Function row Font
 	 */
 	@JsonProperty("Funct_PrintFont")
-	public void setFunct_PrintFontInput(I_AD_PrintFontInput Funct_PrintFont) {
+	public void setFunct_PrintFontInput(ForeignEntityInput Funct_PrintFont) {
 		this.mFunct_PrintFont = Funct_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (Funct_PrintFont != null &&
@@ -141,7 +141,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Function row Font
 	 */
 	@JsonProperty("Funct_PrintFont")
-	public I_AD_PrintFontInput Funct_PrintFont() {
+	public ForeignEntityInput Funct_PrintFont() {
 		return mFunct_PrintFont;
 	}
 
@@ -151,7 +151,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param FunctBG_PrintColor Function Background Color
 	 */
 	@JsonProperty("FunctBG_PrintColor")
-	public void setFunctBG_PrintColorInput(I_AD_PrintColorInput FunctBG_PrintColor) {
+	public void setFunctBG_PrintColorInput(ForeignEntityInput FunctBG_PrintColor) {
 		this.mFunctBG_PrintColor = FunctBG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (FunctBG_PrintColor != null &&
@@ -170,7 +170,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Function Background Color
 	 */
 	@JsonProperty("FunctBG_PrintColor")
-	public I_AD_PrintColorInput FunctBG_PrintColor() {
+	public ForeignEntityInput FunctBG_PrintColor() {
 		return mFunctBG_PrintColor;
 	}
 
@@ -180,7 +180,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param FunctFG_PrintColor Function Foreground Color
 	 */
 	@JsonProperty("FunctFG_PrintColor")
-	public void setFunctFG_PrintColorInput(I_AD_PrintColorInput FunctFG_PrintColor) {
+	public void setFunctFG_PrintColorInput(ForeignEntityInput FunctFG_PrintColor) {
 		this.mFunctFG_PrintColor = FunctFG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (FunctFG_PrintColor != null &&
@@ -199,7 +199,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Function Foreground Color
 	 */
 	@JsonProperty("FunctFG_PrintColor")
-	public I_AD_PrintColorInput FunctFG_PrintColor() {
+	public ForeignEntityInput FunctFG_PrintColor() {
 		return mFunctFG_PrintColor;
 	}
 
@@ -209,7 +209,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param Hdr_PrintFont Header row Font
 	 */
 	@JsonProperty("Hdr_PrintFont")
-	public void setHdr_PrintFontInput(I_AD_PrintFontInput Hdr_PrintFont) {
+	public void setHdr_PrintFontInput(ForeignEntityInput Hdr_PrintFont) {
 		this.mHdr_PrintFont = Hdr_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (Hdr_PrintFont != null &&
@@ -228,7 +228,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Header row Font
 	 */
 	@JsonProperty("Hdr_PrintFont")
-	public I_AD_PrintFontInput Hdr_PrintFont() {
+	public ForeignEntityInput Hdr_PrintFont() {
 		return mHdr_PrintFont;
 	}
 
@@ -238,7 +238,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param HdrLine_PrintColor Table header row line color
 	 */
 	@JsonProperty("HdrLine_PrintColor")
-	public void setHdrLine_PrintColorInput(I_AD_PrintColorInput HdrLine_PrintColor) {
+	public void setHdrLine_PrintColorInput(ForeignEntityInput HdrLine_PrintColor) {
 		this.mHdrLine_PrintColor = HdrLine_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (HdrLine_PrintColor != null &&
@@ -257,7 +257,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Table header row line color
 	 */
 	@JsonProperty("HdrLine_PrintColor")
-	public I_AD_PrintColorInput HdrLine_PrintColor() {
+	public ForeignEntityInput HdrLine_PrintColor() {
 		return mHdrLine_PrintColor;
 	}
 
@@ -296,7 +296,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param HdrTextBG_PrintColor Background color of header row
 	 */
 	@JsonProperty("HdrTextBG_PrintColor")
-	public void setHdrTextBG_PrintColorInput(I_AD_PrintColorInput HdrTextBG_PrintColor) {
+	public void setHdrTextBG_PrintColorInput(ForeignEntityInput HdrTextBG_PrintColor) {
 		this.mHdrTextBG_PrintColor = HdrTextBG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (HdrTextBG_PrintColor != null &&
@@ -315,7 +315,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Background color of header row
 	 */
 	@JsonProperty("HdrTextBG_PrintColor")
-	public I_AD_PrintColorInput HdrTextBG_PrintColor() {
+	public ForeignEntityInput HdrTextBG_PrintColor() {
 		return mHdrTextBG_PrintColor;
 	}
 
@@ -325,7 +325,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param HdrTextFG_PrintColor Foreground color if the table header row
 	 */
 	@JsonProperty("HdrTextFG_PrintColor")
-	public void setHdrTextFG_PrintColorInput(I_AD_PrintColorInput HdrTextFG_PrintColor) {
+	public void setHdrTextFG_PrintColorInput(ForeignEntityInput HdrTextFG_PrintColor) {
 		this.mHdrTextFG_PrintColor = HdrTextFG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (HdrTextFG_PrintColor != null &&
@@ -344,7 +344,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Foreground color if the table header row
 	 */
 	@JsonProperty("HdrTextFG_PrintColor")
-	public I_AD_PrintColorInput HdrTextFG_PrintColor() {
+	public ForeignEntityInput HdrTextFG_PrintColor() {
 		return mHdrTextFG_PrintColor;
 	}
 
@@ -354,7 +354,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param Line_PrintColor Table line color
 	 */
 	@JsonProperty("Line_PrintColor")
-	public void setLine_PrintColorInput(I_AD_PrintColorInput Line_PrintColor) {
+	public void setLine_PrintColorInput(ForeignEntityInput Line_PrintColor) {
 		this.mLine_PrintColor = Line_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (Line_PrintColor != null &&
@@ -373,7 +373,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Table line color
 	 */
 	@JsonProperty("Line_PrintColor")
-	public I_AD_PrintColorInput Line_PrintColor() {
+	public ForeignEntityInput Line_PrintColor() {
 		return mLine_PrintColor;
 	}
 

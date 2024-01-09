@@ -24,17 +24,17 @@ import org.compiere.util.Env;
  */
 public class X_C_POSInput extends MPOS implements I_C_POSInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_UserInput mSalesRep;
-	 private I_C_BPartnerInput mC_BPartnerCashTrx;
-	 private I_C_BankAccountInput mC_BankAccount;
-	 private I_C_CashBookInput mC_CashBook;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_POSKeyLayoutInput mC_POSKeyLayout;
-	 private I_C_POSKeyLayoutInput mOSK_KeyLayout;
-	 private I_C_POSKeyLayoutInput mOSNP_KeyLayout;
-	 private I_M_PriceListInput mM_PriceList;
-	 private I_M_WarehouseInput mM_Warehouse;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BPartnerCashTrx;
+	 private ForeignEntityInput mC_BankAccount;
+	 private ForeignEntityInput mC_CashBook;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_POSKeyLayout;
+	 private ForeignEntityInput mM_PriceList;
+	 private ForeignEntityInput mM_Warehouse;
+	 private ForeignEntityInput mOSK_KeyLayout;
+	 private ForeignEntityInput mOSNP_KeyLayout;
+	 private ForeignEntityInput mSalesRep;
 
 	/**
 	 * Standard constructor
@@ -51,7 +51,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -68,7 +68,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -78,7 +78,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @param C_BankAccount Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount) {
+	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
@@ -97,7 +97,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @return Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public I_C_BankAccountInput C_BankAccount() {
+	public ForeignEntityInput C_BankAccount() {
 		return mC_BankAccount;
 	}
 
@@ -107,7 +107,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @param C_BPartnerCashTrx Business Partner used for creating new Business Partners on the fly
 	 */
 	@JsonProperty("C_BPartnerCashTrx")
-	public void setC_BPartnerCashTrxInput(I_C_BPartnerInput C_BPartnerCashTrx) {
+	public void setC_BPartnerCashTrxInput(ForeignEntityInput C_BPartnerCashTrx) {
 		this.mC_BPartnerCashTrx = C_BPartnerCashTrx;
 		MBPartner_BH foreignEntity;
 		if (C_BPartnerCashTrx != null &&
@@ -126,7 +126,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @return Business Partner used for creating new Business Partners on the fly
 	 */
 	@JsonProperty("C_BPartnerCashTrx")
-	public I_C_BPartnerInput C_BPartnerCashTrx() {
+	public ForeignEntityInput C_BPartnerCashTrx() {
 		return mC_BPartnerCashTrx;
 	}
 
@@ -136,7 +136,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @param C_CashBook Cash Book for recording petty cash transactions
 	 */
 	@JsonProperty("C_CashBook")
-	public void setC_CashBookInput(I_C_CashBookInput C_CashBook) {
+	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
 		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
 		if (C_CashBook != null &&
@@ -155,7 +155,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @return Cash Book for recording petty cash transactions
 	 */
 	@JsonProperty("C_CashBook")
-	public I_C_CashBookInput C_CashBook() {
+	public ForeignEntityInput C_CashBook() {
 		return mC_CashBook;
 	}
 
@@ -165,7 +165,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
@@ -184,7 +184,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -212,7 +212,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @param C_POSKeyLayout POS Function Key Layout
 	 */
 	@JsonProperty("C_POSKeyLayout")
-	public void setC_POSKeyLayoutInput(I_C_POSKeyLayoutInput C_POSKeyLayout) {
+	public void setC_POSKeyLayoutInput(ForeignEntityInput C_POSKeyLayout) {
 		this.mC_POSKeyLayout = C_POSKeyLayout;
 		MPOSKeyLayout foreignEntity;
 		if (C_POSKeyLayout != null &&
@@ -231,7 +231,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @return POS Function Key Layout
 	 */
 	@JsonProperty("C_POSKeyLayout")
-	public I_C_POSKeyLayoutInput C_POSKeyLayout() {
+	public ForeignEntityInput C_POSKeyLayout() {
 		return mC_POSKeyLayout;
 	}
 
@@ -241,7 +241,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @param M_PriceList Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public void setM_PriceListInput(I_M_PriceListInput M_PriceList) {
+	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (M_PriceList != null &&
@@ -260,7 +260,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @return Unique identifier of a Price List
 	 */
 	@JsonProperty("M_PriceList")
-	public I_M_PriceListInput M_PriceList() {
+	public ForeignEntityInput M_PriceList() {
 		return mM_PriceList;
 	}
 
@@ -270,7 +270,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
@@ -289,7 +289,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @return Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public I_M_WarehouseInput M_Warehouse() {
+	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
 
@@ -299,7 +299,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @param OSK_KeyLayout The key layout to use for on screen keyboard for text fields.
 	 */
 	@JsonProperty("OSK_KeyLayout")
-	public void setOSK_KeyLayoutInput(I_C_POSKeyLayoutInput OSK_KeyLayout) {
+	public void setOSK_KeyLayoutInput(ForeignEntityInput OSK_KeyLayout) {
 		this.mOSK_KeyLayout = OSK_KeyLayout;
 		MPOSKeyLayout foreignEntity;
 		if (OSK_KeyLayout != null &&
@@ -318,7 +318,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @return The key layout to use for on screen keyboard for text fields.
 	 */
 	@JsonProperty("OSK_KeyLayout")
-	public I_C_POSKeyLayoutInput OSK_KeyLayout() {
+	public ForeignEntityInput OSK_KeyLayout() {
 		return mOSK_KeyLayout;
 	}
 
@@ -328,7 +328,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @param OSNP_KeyLayout The key layout to use for on screen number pad for numeric fields.
 	 */
 	@JsonProperty("OSNP_KeyLayout")
-	public void setOSNP_KeyLayoutInput(I_C_POSKeyLayoutInput OSNP_KeyLayout) {
+	public void setOSNP_KeyLayoutInput(ForeignEntityInput OSNP_KeyLayout) {
 		this.mOSNP_KeyLayout = OSNP_KeyLayout;
 		MPOSKeyLayout foreignEntity;
 		if (OSNP_KeyLayout != null &&
@@ -347,7 +347,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @return The key layout to use for on screen number pad for numeric fields.
 	 */
 	@JsonProperty("OSNP_KeyLayout")
-	public I_C_POSKeyLayoutInput OSNP_KeyLayout() {
+	public ForeignEntityInput OSNP_KeyLayout() {
 		return mOSNP_KeyLayout;
 	}
 
@@ -357,7 +357,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
@@ -376,7 +376,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * @return Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public I_AD_UserInput SalesRep() {
+	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
 }

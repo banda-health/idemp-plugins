@@ -5,6 +5,11 @@ extend type Query {
 	C_ElementGet(page: Int, size: Int, sort: String, filter: String): C_ElementConnection!
 }
 
+extend type Mutation {
+	C_ElementSave(entity: C_ElementInput!): C_Element!
+	C_ElementDelete(uuids: [String!]!): Boolean!
+}
+
 type C_ElementConnection {
 	results: [C_Element!]!
 	pagingInfo: PagingInfo!
@@ -42,3 +47,24 @@ type C_Element {
 	VFormat: String
 }
 
+input C_ElementInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Identifies a Tree
+	AD_Tree: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Element Type (account or user defined)
+	ElementType: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	# All transactions within an element value must balance (e.g. cost centers)
+	IsBalancing: Boolean
+	# The primary natural account
+	IsNaturalAccount: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}

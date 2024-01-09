@@ -105,6 +105,7 @@ public class GraphQLSchemaGenerator {
 		}
 
 		stringBuilder
+				// File generation details
 				.append("# Generated Schema for ").append(tableName).append(" - DO NOT CHANGE\n")
 				.append("#\t\t@author Banda Health (generated) ").append("\n")
 				.append("#\t\t@version ").append(Adempiere.MAIN_VERSION).append(" - $Id$").append("\n")
@@ -116,21 +117,23 @@ public class GraphQLSchemaGenerator {
 				.append("}\n\n")
 
 				// Default Mutations
-//				.append("extend type Mutation {\n")
-//				.append("\t").append(tableName).append("Save(entity: ").append(tableName)
-//				.append("Input!): ").append(tableName).append("!\n")
-//				.append("\t").append(tableName)
-//				.append("Delete(uuids: [String!]!): Boolean!\n}\n\n")
+				.append("extend type Mutation {\n")
+				.append("\t").append(tableName).append("Save(entity: ").append(tableName).append("Input!): ").append(tableName)
+				.append("!\n")
+				.append("\t").append(tableName).append("Delete(uuids: [String!]!): Boolean!\n}\n\n")
 
 				// Connection Type
-				.append("type ").append(tableName).append("Connection {\n\tresults: [").append(tableName).append("!]!\n")
-				.append("\tpagingInfo: PagingInfo!\n}\n\n");
+				.append("type ").append(tableName).append("Connection {\n")
+				.append("\tresults: [").append(tableName).append("!]!\n")
+				.append("\tpagingInfo: PagingInfo!\n}\n\n")
 
-		stringBuilder
+				// Regular type
 				.append("type ").append(tableName).append(" {\n")
-				.append(generatedColumns.regularModel).append("}\n\n");
-//				.append("input ").append(tableName).append("Input {\n")
-//				.append(generatedColumns.inputModel).append("}\n");
+				.append(generatedColumns.regularModel).append("}\n\n")
+
+				// Input type
+				.append("input ").append(tableName).append("Input {\n")
+				.append(generatedColumns.inputModel).append("}\n");
 
 		return "X_" + tableName;
 	}
@@ -286,7 +289,8 @@ public class GraphQLSchemaGenerator {
 				if (Description != null && !Description.isEmpty()) {
 					generatedColumns.inputModel.append("# ").append(Description).append("\n\t");
 				}
-				generatedColumns.inputModel.append(fieldName).append(": ").append(referenceClassName).append("Input");
+//				generatedColumns.inputModel.append(fieldName).append(": ").append(referenceClassName).append("Input");
+				generatedColumns.inputModel.append(fieldName).append(": ForeignEntityInput");
 				generatedColumns.inputModel.append("\n");
 			} else if (columnName.equals("AD_Language")) {
 				addGraphQLFields(generatedColumns, columnName, Description, columnName, isMandatory,
@@ -397,7 +401,8 @@ public class GraphQLSchemaGenerator {
 		String entityName = columnName.substring(0, columnName.length() - 3);
 		generatedColumns.regularModel.append("\t").append(columnName).append(": ").append(fieldType);
 		if (!shouldSkipInputField) {
-			generatedColumns.inputModel.append("\t").append(columnName).append(": ").append(fieldType).append("Input");
+//			generatedColumns.inputModel.append("\t").append(columnName).append(": ").append(fieldType).append("Input");
+			generatedColumns.inputModel.append("\t").append(columnName).append(": ForeignEntityInput");
 		}
 		if (isMandatory) {
 			generatedColumns.regularModel.append("!");

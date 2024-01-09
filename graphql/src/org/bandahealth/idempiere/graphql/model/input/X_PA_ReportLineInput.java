@@ -19,7 +19,11 @@ import org.compiere.util.Env;
  */
 public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_ReportLineInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mGL_Budget;
+	 private ForeignEntityInput mOper_1;
+	 private ForeignEntityInput mOper_2;
+	 private ForeignEntityInput mPA_ReportLineSet;
 	 private I_AD_Ref_ListInput mCalculationType;
 	 private I_AD_Ref_ListInput mLineType;
 	 private I_AD_Ref_ListInput mOverlineStrokeType;
@@ -27,10 +31,6 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 private I_AD_Ref_ListInput mPAPeriodType;
 	 private I_AD_Ref_ListInput mPostingType;
 	 private I_AD_Ref_ListInput mUnderlineStrokeType;
-	 private I_GL_BudgetInput mGL_Budget;
-	 private I_PA_ReportLineInput mOper_1;
-	 private I_PA_ReportLineInput mOper_2;
-	 private I_PA_ReportLineSetInput mPA_ReportLineSet;
 
 	/**
 	 * Standard constructor
@@ -47,7 +47,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -64,7 +64,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -103,7 +103,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 * @param GL_Budget General Ledger Budget
 	 */
 	@JsonProperty("GL_Budget")
-	public void setGL_BudgetInput(I_GL_BudgetInput GL_Budget) {
+	public void setGL_BudgetInput(ForeignEntityInput GL_Budget) {
 		this.mGL_Budget = GL_Budget;
 		X_GL_Budget foreignEntity;
 		if (GL_Budget != null &&
@@ -122,7 +122,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 * @return General Ledger Budget
 	 */
 	@JsonProperty("GL_Budget")
-	public I_GL_BudgetInput GL_Budget() {
+	public ForeignEntityInput GL_Budget() {
 		return mGL_Budget;
 	}
 
@@ -161,7 +161,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 * @param Oper_1 First operand for calculation
 	 */
 	@JsonProperty("Oper_1")
-	public void setOper_1Input(I_PA_ReportLineInput Oper_1) {
+	public void setOper_1Input(ForeignEntityInput Oper_1) {
 		this.mOper_1 = Oper_1;
 		X_PA_ReportLine foreignEntity;
 		if (Oper_1 != null &&
@@ -180,7 +180,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 * @return First operand for calculation
 	 */
 	@JsonProperty("Oper_1")
-	public I_PA_ReportLineInput Oper_1() {
+	public ForeignEntityInput Oper_1() {
 		return mOper_1;
 	}
 
@@ -190,7 +190,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 * @param Oper_2 Second operand for calculation
 	 */
 	@JsonProperty("Oper_2")
-	public void setOper_2Input(I_PA_ReportLineInput Oper_2) {
+	public void setOper_2Input(ForeignEntityInput Oper_2) {
 		this.mOper_2 = Oper_2;
 		X_PA_ReportLine foreignEntity;
 		if (Oper_2 != null &&
@@ -209,7 +209,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 * @return Second operand for calculation
 	 */
 	@JsonProperty("Oper_2")
-	public I_PA_ReportLineInput Oper_2() {
+	public ForeignEntityInput Oper_2() {
 		return mOper_2;
 	}
 
@@ -266,7 +266,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 * @param PA_ReportLineSet Report Line Set
 	 */
 	@JsonProperty("PA_ReportLineSet")
-	public void setPA_ReportLineSetInput(I_PA_ReportLineSetInput PA_ReportLineSet) {
+	public void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet) {
 		this.mPA_ReportLineSet = PA_ReportLineSet;
 		X_PA_ReportLineSet foreignEntity;
 		if (get_ID() == 0 &&PA_ReportLineSet != null &&
@@ -283,7 +283,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 * @return Report Line Set
 	 */
 	@JsonProperty("PA_ReportLineSet")
-	public I_PA_ReportLineSetInput PA_ReportLineSet() {
+	public ForeignEntityInput PA_ReportLineSet() {
 		return mPA_ReportLineSet;
 	}
 

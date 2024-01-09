@@ -20,15 +20,15 @@ import org.compiere.util.Env;
  */
 public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_Period;
+	 private ForeignEntityInput mM_CostType;
 	 private I_AD_Ref_ListInput mCommitmentType;
 	 private I_AD_Ref_ListInput mCostingLevel;
 	 private I_AD_Ref_ListInput mCostingMethod;
 	 private I_AD_Ref_ListInput mGAAP;
 	 private I_AD_Ref_ListInput mTaxCorrectionType;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_PeriodInput mC_Period;
-	 private I_M_CostTypeInput mM_CostType;
 
 	/**
 	 * Standard constructor
@@ -45,7 +45,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -62,7 +62,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -90,7 +90,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -109,7 +109,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -119,7 +119,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @param C_Period Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public void setC_PeriodInput(I_C_PeriodInput C_Period) {
+	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (get_ID() == 0 &&C_Period != null &&
@@ -136,7 +136,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @return Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public I_C_PeriodInput C_Period() {
+	public ForeignEntityInput C_Period() {
 		return mC_Period;
 	}
 
@@ -262,7 +262,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @param M_CostType Type of Cost (e.g. Current, Plan, Future)
 	 */
 	@JsonProperty("M_CostType")
-	public void setM_CostTypeInput(I_M_CostTypeInput M_CostType) {
+	public void setM_CostTypeInput(ForeignEntityInput M_CostType) {
 		this.mM_CostType = M_CostType;
 		MCostType foreignEntity;
 		if (M_CostType != null &&
@@ -281,7 +281,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
 	@JsonProperty("M_CostType")
-	public I_M_CostTypeInput M_CostType() {
+	public ForeignEntityInput M_CostType() {
 		return mM_CostType;
 	}
 

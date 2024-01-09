@@ -15,14 +15,14 @@ public interface I_AD_RoleInput extends I_AD_Role {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,42 +43,42 @@ public interface I_AD_RoleInput extends I_AD_Role {
 	 *
 	 * @param AD_Tree_Menu Tree of the menu
 	 */
-	void setAD_Tree_MenuInput(I_AD_TreeInput AD_Tree_Menu);
+	void setAD_Tree_MenuInput(ForeignEntityInput AD_Tree_Menu);
 
 	/**
 	 * Get AD_Tree_Menu.
 	 *
 	 * @return Tree of the menu
 	 */
-	I_AD_TreeInput AD_Tree_Menu();
+	ForeignEntityInput AD_Tree_Menu();
 
 	/**
 	 * Set AD_Tree_Org.
 	 *
 	 * @param AD_Tree_Org Trees are used for (financial) reporting and security access (via role)
 	 */
-	void setAD_Tree_OrgInput(I_AD_TreeInput AD_Tree_Org);
+	void setAD_Tree_OrgInput(ForeignEntityInput AD_Tree_Org);
 
 	/**
 	 * Get AD_Tree_Org.
 	 *
 	 * @return Trees are used for (financial) reporting and security access (via role)
 	 */
-	I_AD_TreeInput AD_Tree_Org();
+	ForeignEntityInput AD_Tree_Org();
 
 	/**
 	 * Set C_Currency.
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(ForeignEntityInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput C_Currency();
+	ForeignEntityInput C_Currency();
 
 	/**
 	 * Set PreferenceType.
@@ -113,14 +113,14 @@ public interface I_AD_RoleInput extends I_AD_Role {
 	 *
 	 * @param Supervisor Supervisor for this user/organization - used for escalation and approval
 	 */
-	void setSupervisorInput(I_AD_UserInput Supervisor);
+	void setSupervisorInput(ForeignEntityInput Supervisor);
 
 	/**
 	 * Get Supervisor.
 	 *
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
-	I_AD_UserInput Supervisor();
+	ForeignEntityInput Supervisor();
 
 	/**
 	 * Set UserLevel.

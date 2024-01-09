@@ -5,6 +5,11 @@ extend type Query {
 	A_Asset_Info_LicGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Info_LicConnection!
 }
 
+extend type Mutation {
+	A_Asset_Info_LicSave(entity: A_Asset_Info_LicInput!): A_Asset_Info_Lic!
+	A_Asset_Info_LicDelete(uuids: [String!]!): Boolean!
+}
+
 type A_Asset_Info_LicConnection {
 	results: [A_Asset_Info_Lic!]!
 	pagingInfo: PagingInfo!
@@ -39,3 +44,21 @@ type A_Asset_Info_Lic {
 	UpdatedBy: AD_User!
 }
 
+input A_Asset_Info_LicInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	ID: ID
+	A_Issuing_Agency: String
+	A_License_Fee: Int
+	A_License_No: String
+	A_Renewal_Date: Date
+	# State of the Credit Card or Account holder
+	A_State: String
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# The document has been processed
+	Processed: Boolean
+	Text: String
+}

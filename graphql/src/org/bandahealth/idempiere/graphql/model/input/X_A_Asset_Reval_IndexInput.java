@@ -17,7 +17,7 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements I_A_Asset_Reval_IndexInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
 	 private I_AD_Ref_ListInput mA_Reval_Code;
 	 private I_AD_Ref_ListInput mA_Reval_Multiplier;
 
@@ -112,7 +112,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -131,7 +131,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 }

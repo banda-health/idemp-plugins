@@ -5,6 +5,11 @@ extend type Query {
 	M_ProductDownloadGet(page: Int, size: Int, sort: String, filter: String): M_ProductDownloadConnection!
 }
 
+extend type Mutation {
+	M_ProductDownloadSave(entity: M_ProductDownloadInput!): M_ProductDownload!
+	M_ProductDownloadDelete(uuids: [String!]!): Boolean!
+}
+
 type M_ProductDownloadConnection {
 	results: [M_ProductDownload!]!
 	pagingInfo: PagingInfo!
@@ -34,3 +39,16 @@ type M_ProductDownload {
 	UpdatedBy: AD_User!
 }
 
+input M_ProductDownloadInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# URL of the Download files
+	DownloadURL: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	ID: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+}

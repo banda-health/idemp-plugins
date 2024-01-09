@@ -19,11 +19,11 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_Asset_Info_FinInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mA_Asset;
+	 private ForeignEntityInput mC_BPartner;
 	 private I_AD_Ref_ListInput mA_Due_On;
 	 private I_AD_Ref_ListInput mA_Finance_Meth;
-	 private I_A_AssetInput mA_Asset;
-	 private I_C_BPartnerInput mC_BPartner;
 
 	/**
 	 * Standard constructor
@@ -40,7 +40,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 * @param A_Asset Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (get_ID() == 0 &&A_Asset != null &&
@@ -57,7 +57,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 * @return Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public I_A_AssetInput A_Asset() {
+	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
 	}
 
@@ -143,7 +143,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -160,7 +160,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -170,7 +170,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -189,7 +189,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 	/**

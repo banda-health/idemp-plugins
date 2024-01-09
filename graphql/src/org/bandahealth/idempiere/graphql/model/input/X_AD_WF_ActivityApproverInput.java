@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implements I_AD_WF_ActivityApproverInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_UserInput mAD_User;
-	 private I_AD_WF_ActivityInput mAD_WF_Activity;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mAD_WF_Activity;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -64,7 +64,7 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -83,7 +83,7 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -93,7 +93,7 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	 * @param AD_WF_Activity Workflow Activity
 	 */
 	@JsonProperty("AD_WF_Activity")
-	public void setAD_WF_ActivityInput(I_AD_WF_ActivityInput AD_WF_Activity) {
+	public void setAD_WF_ActivityInput(ForeignEntityInput AD_WF_Activity) {
 		this.mAD_WF_Activity = AD_WF_Activity;
 		X_AD_WF_Activity foreignEntity;
 		if (get_ID() == 0 &&AD_WF_Activity != null &&
@@ -110,7 +110,7 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	 * @return Workflow Activity
 	 */
 	@JsonProperty("AD_WF_Activity")
-	public I_AD_WF_ActivityInput AD_WF_Activity() {
+	public ForeignEntityInput AD_WF_Activity() {
 		return mAD_WF_Activity;
 	}
 

@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implements I_AD_WorkflowProcessorInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_ScheduleInput mAD_Schedule;
-	 private I_AD_UserInput mSupervisor;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Schedule;
+	 private ForeignEntityInput mSupervisor;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -64,7 +64,7 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 	 * @param AD_Schedule Schedule
 	 */
 	@JsonProperty("AD_Schedule")
-	public void setAD_ScheduleInput(I_AD_ScheduleInput AD_Schedule) {
+	public void setAD_ScheduleInput(ForeignEntityInput AD_Schedule) {
 		this.mAD_Schedule = AD_Schedule;
 		MSchedule foreignEntity;
 		if (AD_Schedule != null &&
@@ -83,7 +83,7 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 	 * @return Schedule
 	 */
 	@JsonProperty("AD_Schedule")
-	public I_AD_ScheduleInput AD_Schedule() {
+	public ForeignEntityInput AD_Schedule() {
 		return mAD_Schedule;
 	}
 
@@ -111,7 +111,7 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 	 * @param Supervisor Supervisor for this user/organization - used for escalation and approval
 	 */
 	@JsonProperty("Supervisor")
-	public void setSupervisorInput(I_AD_UserInput Supervisor) {
+	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
 		MUser_BH foreignEntity;
 		if (Supervisor != null &&
@@ -130,7 +130,7 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	@JsonProperty("Supervisor")
-	public I_AD_UserInput Supervisor() {
+	public ForeignEntityInput Supervisor() {
 		return mSupervisor;
 	}
 }

@@ -5,6 +5,11 @@ extend type Query {
 	C_POSKeyLayoutGet(page: Int, size: Int, sort: String, filter: String): C_POSKeyLayoutConnection!
 }
 
+extend type Mutation {
+	C_POSKeyLayoutSave(entity: C_POSKeyLayoutInput!): C_POSKeyLayout!
+	C_POSKeyLayoutDelete(uuids: [String!]!): Boolean!
+}
+
 type C_POSKeyLayoutConnection {
 	results: [C_POSKeyLayout!]!
 	pagingInfo: PagingInfo!
@@ -42,3 +47,24 @@ type C_POSKeyLayout {
 	UpdatedBy: AD_User!
 }
 
+input C_POSKeyLayoutInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Color used for printing and display
+	AD_PrintColor: ForeignEntityInput
+	# Maintain Print Font
+	AD_PrintFont: ForeignEntityInput
+	ID: ID
+	# Number of columns
+	Columns: Int
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The type of Key Layout
+	POSKeyLayoutType: AD_Ref_ListInput
+}

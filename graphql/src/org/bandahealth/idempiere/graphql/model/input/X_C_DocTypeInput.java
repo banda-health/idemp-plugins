@@ -20,18 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintFormatInput mAD_PrintFormat;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_PrintFormat;
+	 private ForeignEntityInput mC_DocTypeDifference;
+	 private ForeignEntityInput mC_DocTypeInvoice;
+	 private ForeignEntityInput mC_DocTypeProforma;
+	 private ForeignEntityInput mC_DocTypeShipment;
+	 private ForeignEntityInput mDefiniteSequence;
+	 private ForeignEntityInput mDocNoSequence;
+	 private ForeignEntityInput mGL_Category;
 	 private I_AD_Ref_ListInput mDocBaseType;
 	 private I_AD_Ref_ListInput mDocSubTypeInv;
 	 private I_AD_Ref_ListInput mDocSubTypeSO;
-	 private I_AD_SequenceInput mDefiniteSequence;
-	 private I_AD_SequenceInput mDocNoSequence;
-	 private I_C_DocTypeInput mC_DocTypeDifference;
-	 private I_C_DocTypeInput mC_DocTypeInvoice;
-	 private I_C_DocTypeInput mC_DocTypeProforma;
-	 private I_C_DocTypeInput mC_DocTypeShipment;
-	 private I_GL_CategoryInput mGL_Category;
 
 	/**
 	 * Standard constructor
@@ -48,7 +48,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -65,7 +65,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -75,7 +75,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param AD_PrintFormat Data Print Format
 	 */
 	@JsonProperty("AD_PrintFormat")
-	public void setAD_PrintFormatInput(I_AD_PrintFormatInput AD_PrintFormat) {
+	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
 		if (AD_PrintFormat != null &&
@@ -94,7 +94,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return Data Print Format
 	 */
 	@JsonProperty("AD_PrintFormat")
-	public I_AD_PrintFormatInput AD_PrintFormat() {
+	public ForeignEntityInput AD_PrintFormat() {
 		return mAD_PrintFormat;
 	}
 
@@ -122,7 +122,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param C_DocTypeDifference Document type for generating in dispute Shipments
 	 */
 	@JsonProperty("C_DocTypeDifference")
-	public void setC_DocTypeDifferenceInput(I_C_DocTypeInput C_DocTypeDifference) {
+	public void setC_DocTypeDifferenceInput(ForeignEntityInput C_DocTypeDifference) {
 		this.mC_DocTypeDifference = C_DocTypeDifference;
 		MDocType_BH foreignEntity;
 		if (C_DocTypeDifference != null &&
@@ -141,7 +141,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return Document type for generating in dispute Shipments
 	 */
 	@JsonProperty("C_DocTypeDifference")
-	public I_C_DocTypeInput C_DocTypeDifference() {
+	public ForeignEntityInput C_DocTypeDifference() {
 		return mC_DocTypeDifference;
 	}
 
@@ -151,7 +151,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param C_DocTypeInvoice Document type used for invoices generated from this sales document
 	 */
 	@JsonProperty("C_DocTypeInvoice")
-	public void setC_DocTypeInvoiceInput(I_C_DocTypeInput C_DocTypeInvoice) {
+	public void setC_DocTypeInvoiceInput(ForeignEntityInput C_DocTypeInvoice) {
 		this.mC_DocTypeInvoice = C_DocTypeInvoice;
 		MDocType_BH foreignEntity;
 		if (C_DocTypeInvoice != null &&
@@ -170,7 +170,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return Document type used for invoices generated from this sales document
 	 */
 	@JsonProperty("C_DocTypeInvoice")
-	public I_C_DocTypeInput C_DocTypeInvoice() {
+	public ForeignEntityInput C_DocTypeInvoice() {
 		return mC_DocTypeInvoice;
 	}
 
@@ -180,7 +180,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param C_DocTypeProforma Document type used for pro forma invoices generated from this sales document
 	 */
 	@JsonProperty("C_DocTypeProforma")
-	public void setC_DocTypeProformaInput(I_C_DocTypeInput C_DocTypeProforma) {
+	public void setC_DocTypeProformaInput(ForeignEntityInput C_DocTypeProforma) {
 		this.mC_DocTypeProforma = C_DocTypeProforma;
 		MDocType_BH foreignEntity;
 		if (C_DocTypeProforma != null &&
@@ -199,7 +199,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return Document type used for pro forma invoices generated from this sales document
 	 */
 	@JsonProperty("C_DocTypeProforma")
-	public I_C_DocTypeInput C_DocTypeProforma() {
+	public ForeignEntityInput C_DocTypeProforma() {
 		return mC_DocTypeProforma;
 	}
 
@@ -209,7 +209,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param C_DocTypeShipment Document type used for shipments generated from this sales document
 	 */
 	@JsonProperty("C_DocTypeShipment")
-	public void setC_DocTypeShipmentInput(I_C_DocTypeInput C_DocTypeShipment) {
+	public void setC_DocTypeShipmentInput(ForeignEntityInput C_DocTypeShipment) {
 		this.mC_DocTypeShipment = C_DocTypeShipment;
 		MDocType_BH foreignEntity;
 		if (C_DocTypeShipment != null &&
@@ -228,7 +228,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return Document type used for shipments generated from this sales document
 	 */
 	@JsonProperty("C_DocTypeShipment")
-	public I_C_DocTypeInput C_DocTypeShipment() {
+	public ForeignEntityInput C_DocTypeShipment() {
 		return mC_DocTypeShipment;
 	}
 
@@ -238,7 +238,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param DefiniteSequence Definite Sequence
 	 */
 	@JsonProperty("DefiniteSequence")
-	public void setDefiniteSequenceInput(I_AD_SequenceInput DefiniteSequence) {
+	public void setDefiniteSequenceInput(ForeignEntityInput DefiniteSequence) {
 		this.mDefiniteSequence = DefiniteSequence;
 		MSequence_BH foreignEntity;
 		if (DefiniteSequence != null &&
@@ -257,7 +257,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return Definite Sequence
 	 */
 	@JsonProperty("DefiniteSequence")
-	public I_AD_SequenceInput DefiniteSequence() {
+	public ForeignEntityInput DefiniteSequence() {
 		return mDefiniteSequence;
 	}
 
@@ -296,7 +296,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param DocNoSequence Document sequence determines the numbering of documents
 	 */
 	@JsonProperty("DocNoSequence")
-	public void setDocNoSequenceInput(I_AD_SequenceInput DocNoSequence) {
+	public void setDocNoSequenceInput(ForeignEntityInput DocNoSequence) {
 		this.mDocNoSequence = DocNoSequence;
 		MSequence_BH foreignEntity;
 		if (DocNoSequence != null &&
@@ -315,7 +315,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return Document sequence determines the numbering of documents
 	 */
 	@JsonProperty("DocNoSequence")
-	public I_AD_SequenceInput DocNoSequence() {
+	public ForeignEntityInput DocNoSequence() {
 		return mDocNoSequence;
 	}
 
@@ -383,7 +383,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param GL_Category General Ledger Category
 	 */
 	@JsonProperty("GL_Category")
-	public void setGL_CategoryInput(I_GL_CategoryInput GL_Category) {
+	public void setGL_CategoryInput(ForeignEntityInput GL_Category) {
 		this.mGL_Category = GL_Category;
 		MGLCategory foreignEntity;
 		if (GL_Category != null &&
@@ -402,7 +402,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return General Ledger Category
 	 */
 	@JsonProperty("GL_Category")
-	public I_GL_CategoryInput GL_Category() {
+	public ForeignEntityInput GL_Category() {
 		return mGL_Category;
 	}
 }

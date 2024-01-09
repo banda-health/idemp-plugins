@@ -5,6 +5,11 @@ extend type Query {
 	AD_Process_ParaGet(page: Int, size: Int, sort: String, filter: String): AD_Process_ParaConnection!
 }
 
+extend type Mutation {
+	AD_Process_ParaSave(entity: AD_Process_ParaInput!): AD_Process_Para!
+	AD_Process_ParaDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_Process_ParaConnection {
 	results: [AD_Process_Para!]!
 	pagingInfo: PagingInfo!
@@ -79,3 +84,61 @@ type AD_Process_Para {
 	VFormat: String
 }
 
+input AD_Process_ParaInput {
+	# System Element enables the central maintenance of column description and help.
+	AD_Element: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	ID: ID
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Name of the column in the database
+	ColumnName: String
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Default value hierarchy, separated by ;
+	DefaultValue2: String
+	# Optional short description of the record
+	Description: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Length of the column in the database
+	FieldLength: Int
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Automatic completion for textfields
+	IsAutocomplete: Boolean
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean
+	# Display or Storage is encrypted
+	IsEncrypted: Boolean
+	# Data entry is required in this column
+	IsMandatory: Boolean
+	# The parameter is a range of values
+	IsRange: Boolean
+	MandatoryLogic: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	Placeholder: String
+	Placeholder2: String
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Maximum Value for a field
+	ValueMax: String
+	# Minimum Value for a field
+	ValueMin: String
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}

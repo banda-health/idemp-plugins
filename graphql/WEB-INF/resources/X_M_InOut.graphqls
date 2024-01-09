@@ -5,6 +5,11 @@ extend type Query {
 	M_InOutGet(page: Int, size: Int, sort: String, filter: String): M_InOutConnection!
 }
 
+extend type Mutation {
+	M_InOutSave(entity: M_InOutInput!): M_InOut!
+	M_InOutDelete(uuids: [String!]!): Boolean!
+}
+
 type M_InOutConnection {
 	results: [M_InOut!]!
 	pagingInfo: PagingInfo!
@@ -150,3 +155,132 @@ type M_InOut {
 	Weight: Int
 }
 
+input M_InOutInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	BH_Visit: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Order
+	C_Order: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: Int
+	CreateConfirm: String
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	CreatePackage: String
+	# Accounting Date
+	DateAcct: Date
+	# Date of Order
+	DateOrdered: Date
+	# Date the document was printed.
+	DatePrinted: Date
+	# Date a product was received
+	DateReceived: Date
+	# Defines the timing of Delivery
+	DeliveryRule: AD_Ref_ListInput
+	# How the order will be delivered
+	DeliveryViaRule: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# Business Partner to ship to
+	DropShip_BPartner: ForeignEntityInput
+	# Business Partner Location for shipping to
+	DropShip_Location: ForeignEntityInput
+	# Business Partner Contact for drop shipment
+	DropShip_User: ForeignEntityInput
+	FOB: AD_Ref_ListInput
+	# Freight Amount 
+	FreightAmt: Int
+	FreightCharges: AD_Ref_ListInput
+	# Method for charging Freight
+	FreightCostRule: AD_Ref_ListInput
+	# Generate To
+	GenerateTo: String
+	Insurance: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	IsAlternateReturnAddress: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Drop Shipments are sent from the Vendor directly to the Customer
+	IsDropShip: Boolean
+	# Document is in dispute
+	IsInDispute: Boolean
+	# Movement is in transit
+	IsInTransit: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	ID: ID
+	# Return Material Authorization
+	M_RMA: ForeignEntityInput
+	# Method or manner of product delivery
+	M_Shipper: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
+	# Method of moving the inventory
+	MovementType: AD_Ref_ListInput
+	# Number of packages shipped
+	NoPackages: Int
+	# Date/Time when picked for Shipment
+	PickDate: Date
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# Posting status
+	Posted: Boolean
+	# Priority of a document
+	PriorityRule: AD_Ref_ListInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean
+	ReturnBPartner: ForeignEntityInput
+	ReturnLocation: ForeignEntityInput
+	ReturnUser: ForeignEntityInput
+	# ID of document reversal
+	Reversal: ForeignEntityInput
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	# Enable sending Document EMail
+	SendEMail: Boolean
+	# Shipment Date/Time
+	ShipDate: Date
+	ShipperAccount: String
+	# Number to track the shipment
+	TrackingNo: String
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+	# Volume of a product
+	Volume: Int
+	# Weight of a product
+	Weight: Int
+}

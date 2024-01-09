@@ -5,6 +5,11 @@ extend type Query {
 	PA_MeasureGet(page: Int, size: Int, sort: String, filter: String): PA_MeasureConnection!
 }
 
+extend type Mutation {
+	PA_MeasureSave(entity: PA_MeasureInput!): PA_Measure!
+	PA_MeasureDelete(uuids: [String!]!): Boolean!
+}
+
 type PA_MeasureConnection {
 	results: [PA_Measure!]!
 	pagingInfo: PagingInfo!
@@ -54,3 +59,36 @@ type PA_Measure {
 	UpdatedBy: AD_User!
 }
 
+input PA_MeasureInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Type of the project
+	C_ProjectType: ForeignEntityInput
+	# Java Class for calculation, implementing Interface Measure
+	CalculationClass: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Manually entered actual value
+	ManualActual: Int
+	# Note for manual entry
+	ManualNote: String
+	# Type of data - Status or in Time
+	MeasureDataType: AD_Ref_ListInput
+	# Determines how the actual performance is derived
+	MeasureType: AD_Ref_ListInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Performance Benchmark
+	PA_Benchmark: ForeignEntityInput
+	# Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
+	PA_Hierarchy: ForeignEntityInput
+	ID: ID
+	# Calculation method for measuring performance
+	PA_MeasureCalc: ForeignEntityInput
+	# Performance Ratio
+	PA_Ratio: ForeignEntityInput
+	# Type of request (e.g. Inquiry, Complaint, ..)
+	R_RequestType: ForeignEntityInput
+}

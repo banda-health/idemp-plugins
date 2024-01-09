@@ -20,12 +20,12 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements I_AD_WF_NextConditionInput {
 
-	 private I_AD_ColumnInput mAD_Column;
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Column;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_WF_NodeNext;
 	 private I_AD_Ref_ListInput mAndOr;
 	 private I_AD_Ref_ListInput mOperation;
-	 private I_AD_WF_NodeNextInput mAD_WF_NodeNext;
 
 	/**
 	 * Standard constructor
@@ -42,7 +42,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @param AD_Column Column in the table
 	 */
 	@JsonProperty("AD_Column")
-	public void setAD_ColumnInput(I_AD_ColumnInput AD_Column) {
+	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
 		MColumn foreignEntity;
 		if (AD_Column != null &&
@@ -61,7 +61,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @return Column in the table
 	 */
 	@JsonProperty("AD_Column")
-	public I_AD_ColumnInput AD_Column() {
+	public ForeignEntityInput AD_Column() {
 		return mAD_Column;
 	}
 
@@ -71,7 +71,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -88,7 +88,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -116,7 +116,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @param AD_WF_NodeNext Workflow Node Transition
 	 */
 	@JsonProperty("AD_WF_NodeNext")
-	public void setAD_WF_NodeNextInput(I_AD_WF_NodeNextInput AD_WF_NodeNext) {
+	public void setAD_WF_NodeNextInput(ForeignEntityInput AD_WF_NodeNext) {
 		this.mAD_WF_NodeNext = AD_WF_NodeNext;
 		X_AD_WF_NodeNext foreignEntity;
 		if (get_ID() == 0 &&AD_WF_NodeNext != null &&
@@ -133,7 +133,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @return Workflow Node Transition
 	 */
 	@JsonProperty("AD_WF_NodeNext")
-	public I_AD_WF_NodeNextInput AD_WF_NodeNext() {
+	public ForeignEntityInput AD_WF_NodeNext() {
 		return mAD_WF_NodeNext;
 	}
 
@@ -172,7 +172,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -191,7 +191,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 

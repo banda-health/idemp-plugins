@@ -15,42 +15,42 @@ public interface I_AD_WindowInput extends I_AD_Window {
 	 *
 	 * @param AD_Color Color for backgrounds or indicators
 	 */
-	void setAD_ColorInput(I_AD_ColorInput AD_Color);
+	void setAD_ColorInput(ForeignEntityInput AD_Color);
 
 	/**
 	 * Get AD_Color.
 	 *
 	 * @return Color for backgrounds or indicators
 	 */
-	I_AD_ColorInput AD_Color();
+	ForeignEntityInput AD_Color();
 
 	/**
 	 * Set AD_Image.
 	 *
 	 * @param AD_Image Image or Icon
 	 */
-	void setAD_ImageInput(I_AD_ImageInput AD_Image);
+	void setAD_ImageInput(ForeignEntityInput AD_Image);
 
 	/**
 	 * Get AD_Image.
 	 *
 	 * @return Image or Icon
 	 */
-	I_AD_ImageInput AD_Image();
+	ForeignEntityInput AD_Image();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -71,14 +71,14 @@ public interface I_AD_WindowInput extends I_AD_Window {
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput AD_EntityType();
+	ForeignEntityInput AD_EntityType();
 
 	/**
 	 * Set WindowType.

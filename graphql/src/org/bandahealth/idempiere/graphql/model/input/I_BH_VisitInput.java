@@ -15,14 +15,14 @@ public interface I_BH_VisitInput extends I_BH_Visit {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set BH_PatientType.
@@ -85,26 +85,26 @@ public interface I_BH_VisitInput extends I_BH_Visit {
 	 *
 	 * @param BH_Voided_Reason BH_Voided_Reason
 	 */
-	void setBH_Voided_ReasonInput(I_BH_Voided_ReasonInput BH_Voided_Reason);
+	void setBH_Voided_ReasonInput(ForeignEntityInput BH_Voided_Reason);
 
 	/**
 	 * Get BH_Voided_Reason.
 	 *
 	 * @return BH_Voided_Reason
 	 */
-	I_BH_Voided_ReasonInput BH_Voided_Reason();
+	ForeignEntityInput BH_Voided_Reason();
 
 	/**
 	 * Set Patient.
 	 *
 	 * @param Patient The Patient must be a valid business partner.
 	 */
-	void setPatientInput(I_C_BPartnerInput Patient);
+	void setPatientInput(ForeignEntityInput Patient);
 
 	/**
 	 * Get Patient.
 	 *
 	 * @return The Patient must be a valid business partner.
 	 */
-	I_C_BPartnerInput Patient();
+	ForeignEntityInput Patient();
 }

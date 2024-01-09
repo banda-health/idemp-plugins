@@ -24,30 +24,30 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_Asset_Group_AcctInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mA_Accumdepreciation_A;
+	 private ForeignEntityInput mA_Asset_A;
+	 private ForeignEntityInput mA_Asset_Group;
+	 private ForeignEntityInput mA_Depreciation;
+	 private ForeignEntityInput mA_Depreciation_A;
+	 private ForeignEntityInput mA_Depreciation_Conv;
+	 private ForeignEntityInput mA_Depreciation_Conv_F;
+	 private ForeignEntityInput mA_Depreciation_F;
+	 private ForeignEntityInput mA_Depreciation_Method;
+	 private ForeignEntityInput mA_Depreciation_Method_F;
+	 private ForeignEntityInput mA_Depreciation_Table_Header;
+	 private ForeignEntityInput mA_Disposal_Gain_A;
+	 private ForeignEntityInput mA_Disposal_Loss_A;
+	 private ForeignEntityInput mA_Disposal_Revenue_A;
+	 private ForeignEntityInput mA_Reval_Adep_Offset_Cur_A;
+	 private ForeignEntityInput mA_Reval_Adep_Offset_Prior_A;
+	 private ForeignEntityInput mA_Reval_Cost_Offset_A;
+	 private ForeignEntityInput mA_Reval_Cost_Offset_Prior_A;
+	 private ForeignEntityInput mA_Reval_Depexp_Offset_A;
+	 private ForeignEntityInput mC_AcctSchema;
 	 private I_AD_Ref_ListInput mA_Depreciation_Manual_Period;
 	 private I_AD_Ref_ListInput mA_Reval_Cal_Method;
 	 private I_AD_Ref_ListInput mPostingType;
-	 private I_A_Asset_GroupInput mA_Asset_Group;
-	 private I_A_DepreciationInput mA_Depreciation;
-	 private I_A_DepreciationInput mA_Depreciation_F;
-	 private I_A_Depreciation_ConventionInput mA_Depreciation_Conv;
-	 private I_A_Depreciation_ConventionInput mA_Depreciation_Conv_F;
-	 private I_A_Depreciation_MethodInput mA_Depreciation_Method;
-	 private I_A_Depreciation_MethodInput mA_Depreciation_Method_F;
-	 private I_A_Depreciation_Table_HeaderInput mA_Depreciation_Table_Header;
-	 private I_C_AcctSchemaInput mC_AcctSchema;
-	 private I_C_ValidCombinationInput mA_Accumdepreciation_A;
-	 private I_C_ValidCombinationInput mA_Asset_A;
-	 private I_C_ValidCombinationInput mA_Depreciation_A;
-	 private I_C_ValidCombinationInput mA_Disposal_Gain_A;
-	 private I_C_ValidCombinationInput mA_Disposal_Loss_A;
-	 private I_C_ValidCombinationInput mA_Disposal_Revenue_A;
-	 private I_C_ValidCombinationInput mA_Reval_Adep_Offset_Cur_A;
-	 private I_C_ValidCombinationInput mA_Reval_Adep_Offset_Prior_A;
-	 private I_C_ValidCombinationInput mA_Reval_Cost_Offset_A;
-	 private I_C_ValidCombinationInput mA_Reval_Cost_Offset_Prior_A;
-	 private I_C_ValidCombinationInput mA_Reval_Depexp_Offset_A;
 
 	/**
 	 * Standard constructor
@@ -64,7 +64,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Accumdepreciation_A Accumulated Depreciation Account
 	 */
 	@JsonProperty("A_Accumdepreciation_A")
-	public void setA_Accumdepreciation_AInput(I_C_ValidCombinationInput A_Accumdepreciation_A) {
+	public void setA_Accumdepreciation_AInput(ForeignEntityInput A_Accumdepreciation_A) {
 		this.mA_Accumdepreciation_A = A_Accumdepreciation_A;
 		MAccount foreignEntity;
 		if (A_Accumdepreciation_A != null &&
@@ -83,7 +83,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Accumulated Depreciation Account
 	 */
 	@JsonProperty("A_Accumdepreciation_A")
-	public I_C_ValidCombinationInput A_Accumdepreciation_A() {
+	public ForeignEntityInput A_Accumdepreciation_A() {
 		return mA_Accumdepreciation_A;
 	}
 
@@ -93,7 +93,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Asset_A Asset Acct
 	 */
 	@JsonProperty("A_Asset_A")
-	public void setA_Asset_AInput(I_C_ValidCombinationInput A_Asset_A) {
+	public void setA_Asset_AInput(ForeignEntityInput A_Asset_A) {
 		this.mA_Asset_A = A_Asset_A;
 		MAccount foreignEntity;
 		if (A_Asset_A != null &&
@@ -112,7 +112,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Asset Acct
 	 */
 	@JsonProperty("A_Asset_A")
-	public I_C_ValidCombinationInput A_Asset_A() {
+	public ForeignEntityInput A_Asset_A() {
 		return mA_Asset_A;
 	}
 
@@ -140,7 +140,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Asset_Group Group of Assets
 	 */
 	@JsonProperty("A_Asset_Group")
-	public void setA_Asset_GroupInput(I_A_Asset_GroupInput A_Asset_Group) {
+	public void setA_Asset_GroupInput(ForeignEntityInput A_Asset_Group) {
 		this.mA_Asset_Group = A_Asset_Group;
 		MAssetGroup foreignEntity;
 		if (get_ID() == 0 &&A_Asset_Group != null &&
@@ -157,7 +157,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Group of Assets
 	 */
 	@JsonProperty("A_Asset_Group")
-	public I_A_Asset_GroupInput A_Asset_Group() {
+	public ForeignEntityInput A_Asset_Group() {
 		return mA_Asset_Group;
 	}
 
@@ -167,7 +167,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Depreciation_A Depreciation Account
 	 */
 	@JsonProperty("A_Depreciation_A")
-	public void setA_Depreciation_AInput(I_C_ValidCombinationInput A_Depreciation_A) {
+	public void setA_Depreciation_AInput(ForeignEntityInput A_Depreciation_A) {
 		this.mA_Depreciation_A = A_Depreciation_A;
 		MAccount foreignEntity;
 		if (A_Depreciation_A != null &&
@@ -186,7 +186,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Depreciation Account
 	 */
 	@JsonProperty("A_Depreciation_A")
-	public I_C_ValidCombinationInput A_Depreciation_A() {
+	public ForeignEntityInput A_Depreciation_A() {
 		return mA_Depreciation_A;
 	}
 
@@ -196,7 +196,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Depreciation_Conv_F Depreciation Convention (fiscal)
 	 */
 	@JsonProperty("A_Depreciation_Conv_F")
-	public void setA_Depreciation_Conv_FInput(I_A_Depreciation_ConventionInput A_Depreciation_Conv_F) {
+	public void setA_Depreciation_Conv_FInput(ForeignEntityInput A_Depreciation_Conv_F) {
 		this.mA_Depreciation_Conv_F = A_Depreciation_Conv_F;
 		MDepreciationConvention foreignEntity;
 		if (A_Depreciation_Conv_F != null &&
@@ -215,7 +215,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Depreciation Convention (fiscal)
 	 */
 	@JsonProperty("A_Depreciation_Conv_F")
-	public I_A_Depreciation_ConventionInput A_Depreciation_Conv_F() {
+	public ForeignEntityInput A_Depreciation_Conv_F() {
 		return mA_Depreciation_Conv_F;
 	}
 
@@ -225,7 +225,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Depreciation_Conv Convention Type
 	 */
 	@JsonProperty("A_Depreciation_Conv")
-	public void setA_Depreciation_ConvInput(I_A_Depreciation_ConventionInput A_Depreciation_Conv) {
+	public void setA_Depreciation_ConvInput(ForeignEntityInput A_Depreciation_Conv) {
 		this.mA_Depreciation_Conv = A_Depreciation_Conv;
 		MDepreciationConvention foreignEntity;
 		if (A_Depreciation_Conv != null &&
@@ -244,7 +244,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Convention Type
 	 */
 	@JsonProperty("A_Depreciation_Conv")
-	public I_A_Depreciation_ConventionInput A_Depreciation_Conv() {
+	public ForeignEntityInput A_Depreciation_Conv() {
 		return mA_Depreciation_Conv;
 	}
 
@@ -254,7 +254,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Depreciation_F Depreciation (fiscal)
 	 */
 	@JsonProperty("A_Depreciation_F")
-	public void setA_Depreciation_FInput(I_A_DepreciationInput A_Depreciation_F) {
+	public void setA_Depreciation_FInput(ForeignEntityInput A_Depreciation_F) {
 		this.mA_Depreciation_F = A_Depreciation_F;
 		MDepreciation foreignEntity;
 		if (A_Depreciation_F != null &&
@@ -273,7 +273,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Depreciation (fiscal)
 	 */
 	@JsonProperty("A_Depreciation_F")
-	public I_A_DepreciationInput A_Depreciation_F() {
+	public ForeignEntityInput A_Depreciation_F() {
 		return mA_Depreciation_F;
 	}
 
@@ -283,7 +283,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Depreciation Depreciation
 	 */
 	@JsonProperty("A_Depreciation")
-	public void setA_DepreciationInput(I_A_DepreciationInput A_Depreciation) {
+	public void setA_DepreciationInput(ForeignEntityInput A_Depreciation) {
 		this.mA_Depreciation = A_Depreciation;
 		MDepreciation foreignEntity;
 		if (A_Depreciation != null &&
@@ -302,7 +302,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Depreciation
 	 */
 	@JsonProperty("A_Depreciation")
-	public I_A_DepreciationInput A_Depreciation() {
+	public ForeignEntityInput A_Depreciation() {
 		return mA_Depreciation;
 	}
 
@@ -341,7 +341,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Depreciation_Method_F Depreciation Method (fiscal)
 	 */
 	@JsonProperty("A_Depreciation_Method_F")
-	public void setA_Depreciation_Method_FInput(I_A_Depreciation_MethodInput A_Depreciation_Method_F) {
+	public void setA_Depreciation_Method_FInput(ForeignEntityInput A_Depreciation_Method_F) {
 		this.mA_Depreciation_Method_F = A_Depreciation_Method_F;
 		MDepreciationMethod foreignEntity;
 		if (A_Depreciation_Method_F != null &&
@@ -360,7 +360,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Depreciation Method (fiscal)
 	 */
 	@JsonProperty("A_Depreciation_Method_F")
-	public I_A_Depreciation_MethodInput A_Depreciation_Method_F() {
+	public ForeignEntityInput A_Depreciation_Method_F() {
 		return mA_Depreciation_Method_F;
 	}
 
@@ -370,7 +370,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Depreciation_Method Depreciation Method
 	 */
 	@JsonProperty("A_Depreciation_Method")
-	public void setA_Depreciation_MethodInput(I_A_Depreciation_MethodInput A_Depreciation_Method) {
+	public void setA_Depreciation_MethodInput(ForeignEntityInput A_Depreciation_Method) {
 		this.mA_Depreciation_Method = A_Depreciation_Method;
 		MDepreciationMethod foreignEntity;
 		if (A_Depreciation_Method != null &&
@@ -389,7 +389,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Depreciation Method
 	 */
 	@JsonProperty("A_Depreciation_Method")
-	public I_A_Depreciation_MethodInput A_Depreciation_Method() {
+	public ForeignEntityInput A_Depreciation_Method() {
 		return mA_Depreciation_Method;
 	}
 
@@ -399,7 +399,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Depreciation_Table_Header A_Depreciation_Table_Header_ID
 	 */
 	@JsonProperty("A_Depreciation_Table_Header")
-	public void setA_Depreciation_Table_HeaderInput(I_A_Depreciation_Table_HeaderInput A_Depreciation_Table_Header) {
+	public void setA_Depreciation_Table_HeaderInput(ForeignEntityInput A_Depreciation_Table_Header) {
 		this.mA_Depreciation_Table_Header = A_Depreciation_Table_Header;
 		X_A_Depreciation_Table_Header foreignEntity;
 		if (A_Depreciation_Table_Header != null &&
@@ -418,7 +418,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return A_Depreciation_Table_Header_ID
 	 */
 	@JsonProperty("A_Depreciation_Table_Header")
-	public I_A_Depreciation_Table_HeaderInput A_Depreciation_Table_Header() {
+	public ForeignEntityInput A_Depreciation_Table_Header() {
 		return mA_Depreciation_Table_Header;
 	}
 
@@ -428,7 +428,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Disposal_Gain_A Disposal Gain Acct
 	 */
 	@JsonProperty("A_Disposal_Gain_A")
-	public void setA_Disposal_Gain_AInput(I_C_ValidCombinationInput A_Disposal_Gain_A) {
+	public void setA_Disposal_Gain_AInput(ForeignEntityInput A_Disposal_Gain_A) {
 		this.mA_Disposal_Gain_A = A_Disposal_Gain_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Gain_A != null &&
@@ -447,7 +447,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Disposal Gain Acct
 	 */
 	@JsonProperty("A_Disposal_Gain_A")
-	public I_C_ValidCombinationInput A_Disposal_Gain_A() {
+	public ForeignEntityInput A_Disposal_Gain_A() {
 		return mA_Disposal_Gain_A;
 	}
 
@@ -457,7 +457,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Disposal_Loss_A Disposal Loss Acct
 	 */
 	@JsonProperty("A_Disposal_Loss_A")
-	public void setA_Disposal_Loss_AInput(I_C_ValidCombinationInput A_Disposal_Loss_A) {
+	public void setA_Disposal_Loss_AInput(ForeignEntityInput A_Disposal_Loss_A) {
 		this.mA_Disposal_Loss_A = A_Disposal_Loss_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Loss_A != null &&
@@ -476,7 +476,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Disposal Loss Acct
 	 */
 	@JsonProperty("A_Disposal_Loss_A")
-	public I_C_ValidCombinationInput A_Disposal_Loss_A() {
+	public ForeignEntityInput A_Disposal_Loss_A() {
 		return mA_Disposal_Loss_A;
 	}
 
@@ -486,7 +486,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Disposal_Revenue_A Disposal Revenue Acct
 	 */
 	@JsonProperty("A_Disposal_Revenue_A")
-	public void setA_Disposal_Revenue_AInput(I_C_ValidCombinationInput A_Disposal_Revenue_A) {
+	public void setA_Disposal_Revenue_AInput(ForeignEntityInput A_Disposal_Revenue_A) {
 		this.mA_Disposal_Revenue_A = A_Disposal_Revenue_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Revenue_A != null &&
@@ -505,7 +505,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Disposal Revenue Acct
 	 */
 	@JsonProperty("A_Disposal_Revenue_A")
-	public I_C_ValidCombinationInput A_Disposal_Revenue_A() {
+	public ForeignEntityInput A_Disposal_Revenue_A() {
 		return mA_Disposal_Revenue_A;
 	}
 
@@ -515,7 +515,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Reval_Adep_Offset_Cur_A A_Reval_Accumdep_Offset_Cur
 	 */
 	@JsonProperty("A_Reval_Adep_Offset_Cur_A")
-	public void setA_Reval_Adep_Offset_Cur_AInput(I_C_ValidCombinationInput A_Reval_Adep_Offset_Cur_A) {
+	public void setA_Reval_Adep_Offset_Cur_AInput(ForeignEntityInput A_Reval_Adep_Offset_Cur_A) {
 		this.mA_Reval_Adep_Offset_Cur_A = A_Reval_Adep_Offset_Cur_A;
 		MAccount foreignEntity;
 		if (A_Reval_Adep_Offset_Cur_A != null &&
@@ -534,7 +534,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return A_Reval_Accumdep_Offset_Cur
 	 */
 	@JsonProperty("A_Reval_Adep_Offset_Cur_A")
-	public I_C_ValidCombinationInput A_Reval_Adep_Offset_Cur_A() {
+	public ForeignEntityInput A_Reval_Adep_Offset_Cur_A() {
 		return mA_Reval_Adep_Offset_Cur_A;
 	}
 
@@ -544,7 +544,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Reval_Adep_Offset_Prior_A A_Reval_Accumdep_Offset_Prior
 	 */
 	@JsonProperty("A_Reval_Adep_Offset_Prior_A")
-	public void setA_Reval_Adep_Offset_Prior_AInput(I_C_ValidCombinationInput A_Reval_Adep_Offset_Prior_A) {
+	public void setA_Reval_Adep_Offset_Prior_AInput(ForeignEntityInput A_Reval_Adep_Offset_Prior_A) {
 		this.mA_Reval_Adep_Offset_Prior_A = A_Reval_Adep_Offset_Prior_A;
 		MAccount foreignEntity;
 		if (A_Reval_Adep_Offset_Prior_A != null &&
@@ -563,7 +563,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return A_Reval_Accumdep_Offset_Prior
 	 */
 	@JsonProperty("A_Reval_Adep_Offset_Prior_A")
-	public I_C_ValidCombinationInput A_Reval_Adep_Offset_Prior_A() {
+	public ForeignEntityInput A_Reval_Adep_Offset_Prior_A() {
 		return mA_Reval_Adep_Offset_Prior_A;
 	}
 
@@ -602,7 +602,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Reval_Cost_Offset_A Reval Cost Offset Acct
 	 */
 	@JsonProperty("A_Reval_Cost_Offset_A")
-	public void setA_Reval_Cost_Offset_AInput(I_C_ValidCombinationInput A_Reval_Cost_Offset_A) {
+	public void setA_Reval_Cost_Offset_AInput(ForeignEntityInput A_Reval_Cost_Offset_A) {
 		this.mA_Reval_Cost_Offset_A = A_Reval_Cost_Offset_A;
 		MAccount foreignEntity;
 		if (A_Reval_Cost_Offset_A != null &&
@@ -621,7 +621,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Reval Cost Offset Acct
 	 */
 	@JsonProperty("A_Reval_Cost_Offset_A")
-	public I_C_ValidCombinationInput A_Reval_Cost_Offset_A() {
+	public ForeignEntityInput A_Reval_Cost_Offset_A() {
 		return mA_Reval_Cost_Offset_A;
 	}
 
@@ -631,7 +631,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Reval_Cost_Offset_Prior_A Reval Cost Offset Prior Acct
 	 */
 	@JsonProperty("A_Reval_Cost_Offset_Prior_A")
-	public void setA_Reval_Cost_Offset_Prior_AInput(I_C_ValidCombinationInput A_Reval_Cost_Offset_Prior_A) {
+	public void setA_Reval_Cost_Offset_Prior_AInput(ForeignEntityInput A_Reval_Cost_Offset_Prior_A) {
 		this.mA_Reval_Cost_Offset_Prior_A = A_Reval_Cost_Offset_Prior_A;
 		MAccount foreignEntity;
 		if (A_Reval_Cost_Offset_Prior_A != null &&
@@ -650,7 +650,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Reval Cost Offset Prior Acct
 	 */
 	@JsonProperty("A_Reval_Cost_Offset_Prior_A")
-	public I_C_ValidCombinationInput A_Reval_Cost_Offset_Prior_A() {
+	public ForeignEntityInput A_Reval_Cost_Offset_Prior_A() {
 		return mA_Reval_Cost_Offset_Prior_A;
 	}
 
@@ -660,7 +660,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param A_Reval_Depexp_Offset_A Reval Depexp Offset Acct
 	 */
 	@JsonProperty("A_Reval_Depexp_Offset_A")
-	public void setA_Reval_Depexp_Offset_AInput(I_C_ValidCombinationInput A_Reval_Depexp_Offset_A) {
+	public void setA_Reval_Depexp_Offset_AInput(ForeignEntityInput A_Reval_Depexp_Offset_A) {
 		this.mA_Reval_Depexp_Offset_A = A_Reval_Depexp_Offset_A;
 		MAccount foreignEntity;
 		if (A_Reval_Depexp_Offset_A != null &&
@@ -679,7 +679,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Reval Depexp Offset Acct
 	 */
 	@JsonProperty("A_Reval_Depexp_Offset_A")
-	public I_C_ValidCombinationInput A_Reval_Depexp_Offset_A() {
+	public ForeignEntityInput A_Reval_Depexp_Offset_A() {
 		return mA_Reval_Depexp_Offset_A;
 	}
 
@@ -689,7 +689,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -706,7 +706,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -716,7 +716,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @param C_AcctSchema Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
@@ -735,7 +735,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	 * @return Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public I_C_AcctSchemaInput C_AcctSchema() {
+	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
 	}
 

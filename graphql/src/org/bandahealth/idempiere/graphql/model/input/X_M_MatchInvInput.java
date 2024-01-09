@@ -22,13 +22,13 @@ import org.compiere.util.Env;
  */
 public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_InvoiceLineInput mC_InvoiceLine;
-	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
-	 private I_M_InOutLineInput mM_InOutLine;
-	 private I_M_MatchInvInput mRef_MatchInv;
-	 private I_M_MatchInvInput mReversal;
-	 private I_M_ProductInput mM_Product;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_InvoiceLine;
+	 private ForeignEntityInput mM_AttributeSetInstance;
+	 private ForeignEntityInput mM_InOutLine;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mRef_MatchInv;
+	 private ForeignEntityInput mReversal;
 
 	/**
 	 * Standard constructor
@@ -45,7 +45,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -62,7 +62,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -72,7 +72,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @param C_InvoiceLine Invoice Detail Line
 	 */
 	@JsonProperty("C_InvoiceLine")
-	public void setC_InvoiceLineInput(I_C_InvoiceLineInput C_InvoiceLine) {
+	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
 		MInvoiceLine_BH foreignEntity;
 		if (get_ID() == 0 &&C_InvoiceLine != null &&
@@ -89,7 +89,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @return Invoice Detail Line
 	 */
 	@JsonProperty("C_InvoiceLine")
-	public I_C_InvoiceLineInput C_InvoiceLine() {
+	public ForeignEntityInput C_InvoiceLine() {
 		return mC_InvoiceLine;
 	}
 	/**
@@ -110,7 +110,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (get_ID() == 0 &&M_AttributeSetInstance != null &&
@@ -127,7 +127,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @return Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+	public ForeignEntityInput M_AttributeSetInstance() {
 		return mM_AttributeSetInstance;
 	}
 
@@ -137,7 +137,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @param M_InOutLine Line on Shipment or Receipt document
 	 */
 	@JsonProperty("M_InOutLine")
-	public void setM_InOutLineInput(I_M_InOutLineInput M_InOutLine) {
+	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
 		if (get_ID() == 0 &&M_InOutLine != null &&
@@ -154,7 +154,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @return Line on Shipment or Receipt document
 	 */
 	@JsonProperty("M_InOutLine")
-	public I_M_InOutLineInput M_InOutLine() {
+	public ForeignEntityInput M_InOutLine() {
 		return mM_InOutLine;
 	}
 
@@ -182,7 +182,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (get_ID() == 0 &&M_Product != null &&
@@ -199,7 +199,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 	/**
@@ -242,7 +242,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @param Ref_MatchInv Referenced Match Invoice
 	 */
 	@JsonProperty("Ref_MatchInv")
-	public void setRef_MatchInvInput(I_M_MatchInvInput Ref_MatchInv) {
+	public void setRef_MatchInvInput(ForeignEntityInput Ref_MatchInv) {
 		this.mRef_MatchInv = Ref_MatchInv;
 		MMatchInv foreignEntity;
 		if (Ref_MatchInv != null &&
@@ -261,7 +261,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @return Referenced Match Invoice
 	 */
 	@JsonProperty("Ref_MatchInv")
-	public I_M_MatchInvInput Ref_MatchInv() {
+	public ForeignEntityInput Ref_MatchInv() {
 		return mRef_MatchInv;
 	}
 
@@ -271,7 +271,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @param Reversal ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public void setReversalInput(I_M_MatchInvInput Reversal) {
+	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
 		MMatchInv foreignEntity;
 		if (Reversal != null &&
@@ -290,7 +290,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 * @return ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public I_M_MatchInvInput Reversal() {
+	public ForeignEntityInput Reversal() {
 		return mReversal;
 	}
 }

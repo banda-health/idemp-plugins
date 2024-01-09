@@ -5,6 +5,11 @@ extend type Query {
 	C_ProjectGet(page: Int, size: Int, sort: String, filter: String): C_ProjectConnection!
 }
 
+extend type Mutation {
+	C_ProjectSave(entity: C_ProjectInput!): C_Project!
+	C_ProjectDelete(uuids: [String!]!): Boolean!
+}
+
 type C_ProjectConnection {
 	results: [C_Project!]!
 	pagingInfo: PagingInfo!
@@ -103,3 +108,85 @@ type C_Project {
 	Value: String!
 }
 
+input C_ProjectInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Business Partner (Agent or Sales Rep)
+	C_BPartnerSR: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
+	# Standard Phase of the Project Type
+	C_Phase: ForeignEntityInput
+	ID: ID
+	# Type of the project
+	C_ProjectType_ID: Int
+	# The (legal) commitment amount
+	CommittedAmt: Int
+	# The (legal) commitment Quantity
+	CommittedQty: Int
+	# Copy From Record
+	CopyFrom: String
+	# The (planned) effective date of this document.
+	DateContract: Date
+	# Finish or (planned) completion date
+	DateFinish: Date
+	# Optional short description of the record
+	Description: String
+	# Generate To
+	GenerateTo: String
+	# The amount invoiced
+	InvoicedAmt: Int
+	# The quantity invoiced
+	InvoicedQty: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# The commitment amount/quantity is the chargeable ceiling 
+	IsCommitCeiling: Boolean
+	# Is this document a (legal) commitment?
+	IsCommitment: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Identifies a unique instance of a Price List
+	M_PriceList_Version: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Optional additional user defined information
+	Note: String
+	# Planned amount for this project
+	PlannedAmt: Int
+	# Project's planned margin amount
+	PlannedMarginAmt: Int
+	# Planned quantity for this project
+	PlannedQty: Int
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Total Project Balance
+	ProjectBalanceAmt: Int
+	# Project Category
+	ProjectCategory: AD_Ref_ListInput
+	# Project Line Level
+	ProjectLineLevel: AD_Ref_ListInput
+	# Invoice Rule for the project
+	ProjInvoiceRule: AD_Ref_ListInput
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

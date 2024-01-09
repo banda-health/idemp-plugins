@@ -5,6 +5,11 @@ extend type Query {
 	C_RegionGet(page: Int, size: Int, sort: String, filter: String): C_RegionConnection!
 }
 
+extend type Mutation {
+	C_RegionSave(entity: C_RegionInput!): C_Region!
+	C_RegionDelete(uuids: [String!]!): Boolean!
+}
+
 type C_RegionConnection {
 	results: [C_Region!]!
 	pagingInfo: PagingInfo!
@@ -36,3 +41,18 @@ type C_Region {
 	UpdatedBy: AD_User!
 }
 
+input C_RegionInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Country 
+	C_Country: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}
