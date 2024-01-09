@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
 
-	 private I_AD_LanguageInput mAD_Language;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_CurrencyInput mC_Currency;
+	 private ForeignEntityInput mAD_Language;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Currency;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
 	 * @param AD_Language Language for this entity
 	 */
 	@JsonProperty("AD_Language")
-	public void setAD_LanguageInput(I_AD_LanguageInput AD_Language) {
+	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
 		MLanguage foreignEntity;
 		if (AD_Language != null &&
@@ -56,7 +56,7 @@ public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
 	 * @return Language for this entity
 	 */
 	@JsonProperty("AD_Language")
-	public I_AD_LanguageInput AD_Language() {
+	public ForeignEntityInput AD_Language() {
 		return mAD_Language;
 	}
 
@@ -66,7 +66,7 @@ public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -83,7 +83,7 @@ public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -111,7 +111,7 @@ public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -130,7 +130,7 @@ public class X_C_CountryInput extends MCountry implements I_C_CountryInput {
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 }

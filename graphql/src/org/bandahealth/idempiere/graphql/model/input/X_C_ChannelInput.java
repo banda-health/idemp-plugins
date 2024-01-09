@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_C_ChannelInput extends X_C_Channel implements I_C_ChannelInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintColorInput mAD_PrintColor;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_PrintColor;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_C_ChannelInput extends X_C_Channel implements I_C_ChannelInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_C_ChannelInput extends X_C_Channel implements I_C_ChannelInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -62,7 +62,7 @@ public class X_C_ChannelInput extends X_C_Channel implements I_C_ChannelInput {
 	 * @param AD_PrintColor Color used for printing and display
 	 */
 	@JsonProperty("AD_PrintColor")
-	public void setAD_PrintColorInput(I_AD_PrintColorInput AD_PrintColor) {
+	public void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor) {
 		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null &&
@@ -81,7 +81,7 @@ public class X_C_ChannelInput extends X_C_Channel implements I_C_ChannelInput {
 	 * @return Color used for printing and display
 	 */
 	@JsonProperty("AD_PrintColor")
-	public I_AD_PrintColorInput AD_PrintColor() {
+	public ForeignEntityInput AD_PrintColor() {
 		return mAD_PrintColor;
 	}
 

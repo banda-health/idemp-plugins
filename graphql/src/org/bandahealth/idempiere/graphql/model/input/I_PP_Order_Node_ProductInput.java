@@ -15,56 +15,56 @@ public interface I_PP_Order_Node_ProductInput extends I_PP_Order_Node_Product {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_ProductInput(I_M_ProductInput M_Product);
+	void setM_ProductInput(ForeignEntityInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput M_Product();
+	ForeignEntityInput M_Product();
 
 	/**
 	 * Set PP_Order.
 	 *
 	 * @param PP_Order Manufacturing Order
 	 */
-	void setPP_OrderInput(I_PP_OrderInput PP_Order);
+	void setPP_OrderInput(ForeignEntityInput PP_Order);
 
 	/**
 	 * Get PP_Order.
 	 *
 	 * @return Manufacturing Order
 	 */
-	I_PP_OrderInput PP_Order();
+	ForeignEntityInput PP_Order();
 
 	/**
 	 * Set PP_Order_Node.
 	 *
 	 * @param PP_Order_Node Workflow Node (activity), step or process
 	 */
-	void setPP_Order_NodeInput(I_PP_Order_NodeInput PP_Order_Node);
+	void setPP_Order_NodeInput(ForeignEntityInput PP_Order_Node);
 
 	/**
 	 * Get PP_Order_Node.
 	 *
 	 * @return Workflow Node (activity), step or process
 	 */
-	I_PP_Order_NodeInput PP_Order_Node();
+	ForeignEntityInput PP_Order_Node();
 
 	/**
 	 * Set ID.
@@ -85,12 +85,12 @@ public interface I_PP_Order_Node_ProductInput extends I_PP_Order_Node_Product {
 	 *
 	 * @param PP_Order_Workflow PP_Order_Workflow
 	 */
-	void setPP_Order_WorkflowInput(I_PP_Order_WorkflowInput PP_Order_Workflow);
+	void setPP_Order_WorkflowInput(ForeignEntityInput PP_Order_Workflow);
 
 	/**
 	 * Get PP_Order_Workflow.
 	 *
 	 * @return PP_Order_Workflow
 	 */
-	I_PP_Order_WorkflowInput PP_Order_Workflow();
+	ForeignEntityInput PP_Order_Workflow();
 }

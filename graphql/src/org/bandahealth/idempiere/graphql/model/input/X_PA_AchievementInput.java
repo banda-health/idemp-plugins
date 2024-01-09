@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_PA_AchievementInput extends MAchievement implements I_PA_AchievementInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_PA_MeasureInput mPA_Measure;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mPA_Measure;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -80,7 +80,7 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	 * @param PA_Measure Concrete Performance Measurement
 	 */
 	@JsonProperty("PA_Measure")
-	public void setPA_MeasureInput(I_PA_MeasureInput PA_Measure) {
+	public void setPA_MeasureInput(ForeignEntityInput PA_Measure) {
 		this.mPA_Measure = PA_Measure;
 		MMeasure foreignEntity;
 		if (get_ID() == 0 &&PA_Measure != null &&
@@ -97,7 +97,7 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	 * @return Concrete Performance Measurement
 	 */
 	@JsonProperty("PA_Measure")
-	public I_PA_MeasureInput PA_Measure() {
+	public ForeignEntityInput PA_Measure() {
 		return mPA_Measure;
 	}
 }

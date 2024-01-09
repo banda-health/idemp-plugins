@@ -32,29 +32,29 @@ import org.eevolution.model.X_PP_Order_Workflow;
  */
 public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_PP_Cost_CollectorInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_DocTypeTarget;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mC_UOM;
+	 private ForeignEntityInput mM_AttributeSetInstance;
+	 private ForeignEntityInput mM_Locator;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mM_Warehouse;
+	 private ForeignEntityInput mPP_Order;
+	 private ForeignEntityInput mPP_Order_BOMLine;
+	 private ForeignEntityInput mPP_Order_Node;
+	 private ForeignEntityInput mPP_Order_Workflow;
+	 private ForeignEntityInput mReversal;
+	 private ForeignEntityInput mS_Resource;
+	 private ForeignEntityInput mUser1;
+	 private ForeignEntityInput mUser2;
 	 private I_AD_Ref_ListInput mCostCollectorType;
 	 private I_AD_Ref_ListInput mDocAction;
 	 private I_AD_Ref_ListInput mDocStatus;
-	 private I_AD_UserInput mAD_User;
-	 private I_AD_UserInput mUser1;
-	 private I_AD_UserInput mUser2;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_DocTypeInput mC_DocTypeTarget;
-	 private I_C_ProjectInput mC_Project;
-	 private I_C_UOMInput mC_UOM;
-	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
-	 private I_M_LocatorInput mM_Locator;
-	 private I_M_ProductInput mM_Product;
-	 private I_M_WarehouseInput mM_Warehouse;
-	 private I_PP_Cost_CollectorInput mReversal;
-	 private I_PP_OrderInput mPP_Order;
-	 private I_PP_Order_BOMLineInput mPP_Order_BOMLine;
-	 private I_PP_Order_NodeInput mPP_Order_Node;
-	 private I_PP_Order_WorkflowInput mPP_Order_Workflow;
-	 private I_S_ResourceInput mS_Resource;
 
 	/**
 	 * Standard constructor
@@ -71,7 +71,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -90,7 +90,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -100,7 +100,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -119,7 +119,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -129,7 +129,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -148,7 +148,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -158,7 +158,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -177,7 +177,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -187,7 +187,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
@@ -206,7 +206,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -216,7 +216,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param C_DocTypeTarget Target document type for conversing documents
 	 */
 	@JsonProperty("C_DocTypeTarget")
-	public void setC_DocTypeTargetInput(I_C_DocTypeInput C_DocTypeTarget) {
+	public void setC_DocTypeTargetInput(ForeignEntityInput C_DocTypeTarget) {
 		this.mC_DocTypeTarget = C_DocTypeTarget;
 		MDocType_BH foreignEntity;
 		if (get_ID() == 0 &&C_DocTypeTarget != null &&
@@ -233,7 +233,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Target document type for conversing documents
 	 */
 	@JsonProperty("C_DocTypeTarget")
-	public I_C_DocTypeInput C_DocTypeTarget() {
+	public ForeignEntityInput C_DocTypeTarget() {
 		return mC_DocTypeTarget;
 	}
 
@@ -243,7 +243,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -262,7 +262,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -272,7 +272,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param C_UOM Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public void setC_UOMInput(I_C_UOMInput C_UOM) {
+	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (C_UOM != null &&
@@ -291,7 +291,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public I_C_UOMInput C_UOM() {
+	public ForeignEntityInput C_UOM() {
 		return mC_UOM;
 	}
 
@@ -399,7 +399,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
@@ -418,7 +418,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+	public ForeignEntityInput M_AttributeSetInstance() {
 		return mM_AttributeSetInstance;
 	}
 
@@ -428,7 +428,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param M_Locator Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public void setM_LocatorInput(I_M_LocatorInput M_Locator) {
+	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
@@ -447,7 +447,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public I_M_LocatorInput M_Locator() {
+	public ForeignEntityInput M_Locator() {
 		return mM_Locator;
 	}
 
@@ -457,7 +457,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -476,7 +476,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -486,7 +486,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
@@ -505,7 +505,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public I_M_WarehouseInput M_Warehouse() {
+	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
 
@@ -533,7 +533,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param PP_Order_BOMLine Manufacturing Order BOM Line
 	 */
 	@JsonProperty("PP_Order_BOMLine")
-	public void setPP_Order_BOMLineInput(I_PP_Order_BOMLineInput PP_Order_BOMLine) {
+	public void setPP_Order_BOMLineInput(ForeignEntityInput PP_Order_BOMLine) {
 		this.mPP_Order_BOMLine = PP_Order_BOMLine;
 		X_PP_Order_BOMLine foreignEntity;
 		if (PP_Order_BOMLine != null &&
@@ -552,7 +552,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Manufacturing Order BOM Line
 	 */
 	@JsonProperty("PP_Order_BOMLine")
-	public I_PP_Order_BOMLineInput PP_Order_BOMLine() {
+	public ForeignEntityInput PP_Order_BOMLine() {
 		return mPP_Order_BOMLine;
 	}
 
@@ -562,7 +562,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param PP_Order Manufacturing Order
 	 */
 	@JsonProperty("PP_Order")
-	public void setPP_OrderInput(I_PP_OrderInput PP_Order) {
+	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
 		X_PP_Order foreignEntity;
 		if (PP_Order != null &&
@@ -581,7 +581,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Manufacturing Order
 	 */
 	@JsonProperty("PP_Order")
-	public I_PP_OrderInput PP_Order() {
+	public ForeignEntityInput PP_Order() {
 		return mPP_Order;
 	}
 
@@ -591,7 +591,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param PP_Order_Node Workflow Node (activity), step or process
 	 */
 	@JsonProperty("PP_Order_Node")
-	public void setPP_Order_NodeInput(I_PP_Order_NodeInput PP_Order_Node) {
+	public void setPP_Order_NodeInput(ForeignEntityInput PP_Order_Node) {
 		this.mPP_Order_Node = PP_Order_Node;
 		X_PP_Order_Node foreignEntity;
 		if (PP_Order_Node != null &&
@@ -610,7 +610,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Workflow Node (activity), step or process
 	 */
 	@JsonProperty("PP_Order_Node")
-	public I_PP_Order_NodeInput PP_Order_Node() {
+	public ForeignEntityInput PP_Order_Node() {
 		return mPP_Order_Node;
 	}
 
@@ -620,7 +620,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param PP_Order_Workflow Manufacturing Order Workflow
 	 */
 	@JsonProperty("PP_Order_Workflow")
-	public void setPP_Order_WorkflowInput(I_PP_Order_WorkflowInput PP_Order_Workflow) {
+	public void setPP_Order_WorkflowInput(ForeignEntityInput PP_Order_Workflow) {
 		this.mPP_Order_Workflow = PP_Order_Workflow;
 		X_PP_Order_Workflow foreignEntity;
 		if (PP_Order_Workflow != null &&
@@ -639,7 +639,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Manufacturing Order Workflow
 	 */
 	@JsonProperty("PP_Order_Workflow")
-	public I_PP_Order_WorkflowInput PP_Order_Workflow() {
+	public ForeignEntityInput PP_Order_Workflow() {
 		return mPP_Order_Workflow;
 	}
 
@@ -649,7 +649,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param Reversal ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public void setReversalInput(I_PP_Cost_CollectorInput Reversal) {
+	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
 		X_PP_Cost_Collector foreignEntity;
 		if (Reversal != null &&
@@ -668,7 +668,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public I_PP_Cost_CollectorInput Reversal() {
+	public ForeignEntityInput Reversal() {
 		return mReversal;
 	}
 
@@ -678,7 +678,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param S_Resource Resource
 	 */
 	@JsonProperty("S_Resource")
-	public void setS_ResourceInput(I_S_ResourceInput S_Resource) {
+	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
 		if (S_Resource != null &&
@@ -697,7 +697,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return Resource
 	 */
 	@JsonProperty("S_Resource")
-	public I_S_ResourceInput S_Resource() {
+	public ForeignEntityInput S_Resource() {
 		return mS_Resource;
 	}
 
@@ -707,7 +707,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param User1 User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public void setUser1Input(I_AD_UserInput User1) {
+	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MUser_BH foreignEntity;
 		if (User1 != null &&
@@ -726,7 +726,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public I_AD_UserInput User1() {
+	public ForeignEntityInput User1() {
 		return mUser1;
 	}
 
@@ -736,7 +736,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @param User2 User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public void setUser2Input(I_AD_UserInput User2) {
+	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MUser_BH foreignEntity;
 		if (User2 != null &&
@@ -755,7 +755,7 @@ public class X_PP_Cost_CollectorInput extends X_PP_Cost_Collector implements I_P
 	 * @return User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public I_AD_UserInput User2() {
+	public ForeignEntityInput User2() {
 		return mUser2;
 	}
 }

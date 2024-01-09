@@ -29,14 +29,14 @@ public interface I_AD_TableInput extends I_AD_Table {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -57,56 +57,56 @@ public interface I_AD_TableInput extends I_AD_Table {
 	 *
 	 * @param AD_Val_Rule Dynamic Validation Rule
 	 */
-	void setAD_Val_RuleInput(I_AD_Val_RuleInput AD_Val_Rule);
+	void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule);
 
 	/**
 	 * Get AD_Val_Rule.
 	 *
 	 * @return Dynamic Validation Rule
 	 */
-	I_AD_Val_RuleInput AD_Val_Rule();
+	ForeignEntityInput AD_Val_Rule();
 
 	/**
 	 * Set AD_Window.
 	 *
 	 * @param AD_Window Data entry or display window
 	 */
-	void setAD_WindowInput(I_AD_WindowInput AD_Window);
+	void setAD_WindowInput(ForeignEntityInput AD_Window);
 
 	/**
 	 * Get AD_Window.
 	 *
 	 * @return Data entry or display window
 	 */
-	I_AD_WindowInput AD_Window();
+	ForeignEntityInput AD_Window();
 
 	/**
 	 * Set AD_EntityType.
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput AD_EntityType();
+	ForeignEntityInput AD_EntityType();
 
 	/**
 	 * Set PO_Window.
 	 *
 	 * @param PO_Window Purchase Order Window
 	 */
-	void setPO_WindowInput(I_AD_WindowInput PO_Window);
+	void setPO_WindowInput(ForeignEntityInput PO_Window);
 
 	/**
 	 * Get PO_Window.
 	 *
 	 * @return Purchase Order Window
 	 */
-	I_AD_WindowInput PO_Window();
+	ForeignEntityInput PO_Window();
 
 	/**
 	 * Set ReplicationType.

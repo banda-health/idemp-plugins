@@ -15,154 +15,154 @@ public interface I_M_ProductInput extends I_M_Product {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_RevenueRecognition.
 	 *
 	 * @param C_RevenueRecognition Method for recording revenue
 	 */
-	void setC_RevenueRecognitionInput(I_C_RevenueRecognitionInput C_RevenueRecognition);
+	void setC_RevenueRecognitionInput(ForeignEntityInput C_RevenueRecognition);
 
 	/**
 	 * Get C_RevenueRecognition.
 	 *
 	 * @return Method for recording revenue
 	 */
-	I_C_RevenueRecognitionInput C_RevenueRecognition();
+	ForeignEntityInput C_RevenueRecognition();
 
 	/**
 	 * Set C_SubscriptionType.
 	 *
 	 * @param C_SubscriptionType Type of subscription
 	 */
-	void setC_SubscriptionTypeInput(I_C_SubscriptionTypeInput C_SubscriptionType);
+	void setC_SubscriptionTypeInput(ForeignEntityInput C_SubscriptionType);
 
 	/**
 	 * Get C_SubscriptionType.
 	 *
 	 * @return Type of subscription
 	 */
-	I_C_SubscriptionTypeInput C_SubscriptionType();
+	ForeignEntityInput C_SubscriptionType();
 
 	/**
 	 * Set C_TaxCategory.
 	 *
 	 * @param C_TaxCategory Tax Category
 	 */
-	void setC_TaxCategoryInput(I_C_TaxCategoryInput C_TaxCategory);
+	void setC_TaxCategoryInput(ForeignEntityInput C_TaxCategory);
 
 	/**
 	 * Get C_TaxCategory.
 	 *
 	 * @return Tax Category
 	 */
-	I_C_TaxCategoryInput C_TaxCategory();
+	ForeignEntityInput C_TaxCategory();
 
 	/**
 	 * Set C_UOM.
 	 *
 	 * @param C_UOM Unit of Measure
 	 */
-	void setC_UOMInput(I_C_UOMInput C_UOM);
+	void setC_UOMInput(ForeignEntityInput C_UOM);
 
 	/**
 	 * Get C_UOM.
 	 *
 	 * @return Unit of Measure
 	 */
-	I_C_UOMInput C_UOM();
+	ForeignEntityInput C_UOM();
 
 	/**
 	 * Set M_AttributeSet.
 	 *
 	 * @param M_AttributeSet Product Attribute Set
 	 */
-	void setM_AttributeSetInput(I_M_AttributeSetInput M_AttributeSet);
+	void setM_AttributeSetInput(ForeignEntityInput M_AttributeSet);
 
 	/**
 	 * Get M_AttributeSet.
 	 *
 	 * @return Product Attribute Set
 	 */
-	I_M_AttributeSetInput M_AttributeSet();
+	ForeignEntityInput M_AttributeSet();
 
 	/**
 	 * Set M_AttributeSetInstance.
 	 *
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
-	void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance);
+	void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance);
 
 	/**
 	 * Get M_AttributeSetInstance.
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	I_M_AttributeSetInstanceInput M_AttributeSetInstance();
+	ForeignEntityInput M_AttributeSetInstance();
 
 	/**
 	 * Set M_FreightCategory.
 	 *
 	 * @param M_FreightCategory Category of the Freight
 	 */
-	void setM_FreightCategoryInput(I_M_FreightCategoryInput M_FreightCategory);
+	void setM_FreightCategoryInput(ForeignEntityInput M_FreightCategory);
 
 	/**
 	 * Get M_FreightCategory.
 	 *
 	 * @return Category of the Freight
 	 */
-	I_M_FreightCategoryInput M_FreightCategory();
+	ForeignEntityInput M_FreightCategory();
 
 	/**
 	 * Set M_Locator.
 	 *
 	 * @param M_Locator Warehouse Locator
 	 */
-	void setM_LocatorInput(I_M_LocatorInput M_Locator);
+	void setM_LocatorInput(ForeignEntityInput M_Locator);
 
 	/**
 	 * Get M_Locator.
 	 *
 	 * @return Warehouse Locator
 	 */
-	I_M_LocatorInput M_Locator();
+	ForeignEntityInput M_Locator();
 
 	/**
 	 * Set M_PartType.
 	 *
 	 * @param M_PartType M_PartType
 	 */
-	void setM_PartTypeInput(I_M_PartTypeInput M_PartType);
+	void setM_PartTypeInput(ForeignEntityInput M_PartType);
 
 	/**
 	 * Get M_PartType.
 	 *
 	 * @return M_PartType
 	 */
-	I_M_PartTypeInput M_PartType();
+	ForeignEntityInput M_PartType();
 
 	/**
 	 * Set M_Product_Category.
 	 *
 	 * @param M_Product_Category Category of a Product
 	 */
-	void setM_Product_CategoryInput(I_M_Product_CategoryInput M_Product_Category);
+	void setM_Product_CategoryInput(ForeignEntityInput M_Product_Category);
 
 	/**
 	 * Get M_Product_Category.
 	 *
 	 * @return Category of a Product
 	 */
-	I_M_Product_CategoryInput M_Product_Category();
+	ForeignEntityInput M_Product_Category();
 
 	/**
 	 * Set ID.
@@ -197,54 +197,54 @@ public interface I_M_ProductInput extends I_M_Product {
 	 *
 	 * @param R_MailText Text templates for mailings
 	 */
-	void setR_MailTextInput(I_R_MailTextInput R_MailText);
+	void setR_MailTextInput(ForeignEntityInput R_MailText);
 
 	/**
 	 * Get R_MailText.
 	 *
 	 * @return Text templates for mailings
 	 */
-	I_R_MailTextInput R_MailText();
+	ForeignEntityInput R_MailText();
 
 	/**
 	 * Set S_ExpenseType.
 	 *
 	 * @param S_ExpenseType Expense report type
 	 */
-	void setS_ExpenseTypeInput(I_S_ExpenseTypeInput S_ExpenseType);
+	void setS_ExpenseTypeInput(ForeignEntityInput S_ExpenseType);
 
 	/**
 	 * Get S_ExpenseType.
 	 *
 	 * @return Expense report type
 	 */
-	I_S_ExpenseTypeInput S_ExpenseType();
+	ForeignEntityInput S_ExpenseType();
 
 	/**
 	 * Set S_Resource.
 	 *
 	 * @param S_Resource Resource
 	 */
-	void setS_ResourceInput(I_S_ResourceInput S_Resource);
+	void setS_ResourceInput(ForeignEntityInput S_Resource);
 
 	/**
 	 * Get S_Resource.
 	 *
 	 * @return Resource
 	 */
-	I_S_ResourceInput S_Resource();
+	ForeignEntityInput S_Resource();
 
 	/**
 	 * Set SalesRep.
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
-	void setSalesRepInput(I_AD_UserInput SalesRep);
+	void setSalesRepInput(ForeignEntityInput SalesRep);
 
 	/**
 	 * Get SalesRep.
 	 *
 	 * @return Sales Representative or Company Agent
 	 */
-	I_AD_UserInput SalesRep();
+	ForeignEntityInput SalesRep();
 }

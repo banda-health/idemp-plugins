@@ -19,10 +19,10 @@ import org.compiere.util.Env;
  */
 public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_UOMInput mC_UOM_Length;
-	 private I_C_UOMInput mC_UOM_Weight;
-	 private I_M_PackageInput mM_Package;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_UOM_Length;
+	 private ForeignEntityInput mC_UOM_Weight;
+	 private ForeignEntityInput mM_Package;
 
 	/**
 	 * Standard constructor
@@ -39,7 +39,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -56,7 +56,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -66,7 +66,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 * @param C_UOM_Length Standard Unit of Measure for Length
 	 */
 	@JsonProperty("C_UOM_Length")
-	public void setC_UOM_LengthInput(I_C_UOMInput C_UOM_Length) {
+	public void setC_UOM_LengthInput(ForeignEntityInput C_UOM_Length) {
 		this.mC_UOM_Length = C_UOM_Length;
 		MUOM foreignEntity;
 		if (C_UOM_Length != null &&
@@ -85,7 +85,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 * @return Standard Unit of Measure for Length
 	 */
 	@JsonProperty("C_UOM_Length")
-	public I_C_UOMInput C_UOM_Length() {
+	public ForeignEntityInput C_UOM_Length() {
 		return mC_UOM_Length;
 	}
 
@@ -95,7 +95,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 * @param C_UOM_Weight Standard Unit of Measure for Weight
 	 */
 	@JsonProperty("C_UOM_Weight")
-	public void setC_UOM_WeightInput(I_C_UOMInput C_UOM_Weight) {
+	public void setC_UOM_WeightInput(ForeignEntityInput C_UOM_Weight) {
 		this.mC_UOM_Weight = C_UOM_Weight;
 		MUOM foreignEntity;
 		if (C_UOM_Weight != null &&
@@ -114,7 +114,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 * @return Standard Unit of Measure for Weight
 	 */
 	@JsonProperty("C_UOM_Weight")
-	public I_C_UOMInput C_UOM_Weight() {
+	public ForeignEntityInput C_UOM_Weight() {
 		return mC_UOM_Weight;
 	}
 	/**
@@ -135,7 +135,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 * @param M_Package Shipment Package
 	 */
 	@JsonProperty("M_Package")
-	public void setM_PackageInput(I_M_PackageInput M_Package) {
+	public void setM_PackageInput(ForeignEntityInput M_Package) {
 		this.mM_Package = M_Package;
 		MPackage foreignEntity;
 		if (get_ID() == 0 &&M_Package != null &&
@@ -152,7 +152,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 * @return Shipment Package
 	 */
 	@JsonProperty("M_Package")
-	public I_M_PackageInput M_Package() {
+	public ForeignEntityInput M_Package() {
 		return mM_Package;
 	}
 

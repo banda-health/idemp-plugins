@@ -15,14 +15,14 @@ public interface I_R_RequestTypeInput extends I_R_RequestType {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ConfidentialType.
@@ -57,12 +57,12 @@ public interface I_R_RequestTypeInput extends I_R_RequestType {
 	 *
 	 * @param R_StatusCategory Request Status Category
 	 */
-	void setR_StatusCategoryInput(I_R_StatusCategoryInput R_StatusCategory);
+	void setR_StatusCategoryInput(ForeignEntityInput R_StatusCategory);
 
 	/**
 	 * Get R_StatusCategory.
 	 *
 	 * @return Request Status Category
 	 */
-	I_R_StatusCategoryInput R_StatusCategory();
+	ForeignEntityInput R_StatusCategory();
 }

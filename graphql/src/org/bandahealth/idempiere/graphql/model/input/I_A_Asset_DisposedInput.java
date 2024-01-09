@@ -43,14 +43,14 @@ public interface I_A_Asset_DisposedInput extends I_A_Asset_Disposed {
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_AssetInput(I_A_AssetInput A_Asset);
+	void setA_AssetInput(ForeignEntityInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput A_Asset();
+	ForeignEntityInput A_Asset();
 
 	/**
 	 * Set A_Asset_Status.
@@ -71,14 +71,14 @@ public interface I_A_Asset_DisposedInput extends I_A_Asset_Disposed {
 	 *
 	 * @param A_Asset_Trade A_Asset_Trade
 	 */
-	void setA_Asset_TradeInput(I_A_AssetInput A_Asset_Trade);
+	void setA_Asset_TradeInput(ForeignEntityInput A_Asset_Trade);
 
 	/**
 	 * Get A_Asset_Trade.
 	 *
 	 * @return A_Asset_Trade
 	 */
-	I_A_AssetInput A_Asset_Trade();
+	ForeignEntityInput A_Asset_Trade();
 
 	/**
 	 * Set A_Disposed_Method.
@@ -113,70 +113,70 @@ public interface I_A_Asset_DisposedInput extends I_A_Asset_Disposed {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_DocType.
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(ForeignEntityInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput C_DocType();
+	ForeignEntityInput C_DocType();
 
 	/**
 	 * Set C_Invoice.
 	 *
 	 * @param C_Invoice Invoice Identifier
 	 */
-	void setC_InvoiceInput(I_C_InvoiceInput C_Invoice);
+	void setC_InvoiceInput(ForeignEntityInput C_Invoice);
 
 	/**
 	 * Get C_Invoice.
 	 *
 	 * @return Invoice Identifier
 	 */
-	I_C_InvoiceInput C_Invoice();
+	ForeignEntityInput C_Invoice();
 
 	/**
 	 * Set C_InvoiceLine.
 	 *
 	 * @param C_InvoiceLine Invoice Detail Line
 	 */
-	void setC_InvoiceLineInput(I_C_InvoiceLineInput C_InvoiceLine);
+	void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine);
 
 	/**
 	 * Get C_InvoiceLine.
 	 *
 	 * @return Invoice Detail Line
 	 */
-	I_C_InvoiceLineInput C_InvoiceLine();
+	ForeignEntityInput C_InvoiceLine();
 
 	/**
 	 * Set C_Period.
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	void setC_PeriodInput(I_C_PeriodInput C_Period);
+	void setC_PeriodInput(ForeignEntityInput C_Period);
 
 	/**
 	 * Get C_Period.
 	 *
 	 * @return Period of the Calendar
 	 */
-	I_C_PeriodInput C_Period();
+	ForeignEntityInput C_Period();
 
 	/**
 	 * Set DocAction.

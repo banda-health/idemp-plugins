@@ -33,26 +33,26 @@ import org.eevolution.model.X_PP_Order;
  */
 public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Workflow;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_DocTypeTarget;
+	 private ForeignEntityInput mC_OrderLine;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mC_UOM;
+	 private ForeignEntityInput mM_AttributeSetInstance;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mM_Warehouse;
+	 private ForeignEntityInput mPP_Product_BOM;
+	 private ForeignEntityInput mPlanner;
+	 private ForeignEntityInput mS_Resource;
+	 private ForeignEntityInput mUser1;
+	 private ForeignEntityInput mUser2;
 	 private I_AD_Ref_ListInput mDocAction;
 	 private I_AD_Ref_ListInput mDocStatus;
 	 private I_AD_Ref_ListInput mPriorityRule;
-	 private I_AD_UserInput mPlanner;
-	 private I_AD_WorkflowInput mAD_Workflow;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_DocTypeInput mC_DocTypeTarget;
-	 private I_C_ElementValueInput mUser1;
-	 private I_C_ElementValueInput mUser2;
-	 private I_C_OrderLineInput mC_OrderLine;
-	 private I_C_ProjectInput mC_Project;
-	 private I_C_UOMInput mC_UOM;
-	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
-	 private I_M_ProductInput mM_Product;
-	 private I_M_WarehouseInput mM_Warehouse;
-	 private I_PP_Product_BOMInput mPP_Product_BOM;
-	 private I_S_ResourceInput mS_Resource;
 
 	/**
 	 * Standard constructor
@@ -69,7 +69,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -86,7 +86,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -96,7 +96,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow) {
+	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
 		if (get_ID() == 0 &&AD_Workflow != null &&
@@ -113,7 +113,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public I_AD_WorkflowInput AD_Workflow() {
+	public ForeignEntityInput AD_Workflow() {
 		return mAD_Workflow;
 	}
 
@@ -123,7 +123,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -142,7 +142,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -152,7 +152,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -171,7 +171,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -181,7 +181,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
@@ -200,7 +200,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -210,7 +210,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param C_DocTypeTarget Target document type for conversing documents
 	 */
 	@JsonProperty("C_DocTypeTarget")
-	public void setC_DocTypeTargetInput(I_C_DocTypeInput C_DocTypeTarget) {
+	public void setC_DocTypeTargetInput(ForeignEntityInput C_DocTypeTarget) {
 		this.mC_DocTypeTarget = C_DocTypeTarget;
 		MDocType_BH foreignEntity;
 		if (get_ID() == 0 &&C_DocTypeTarget != null &&
@@ -227,7 +227,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Target document type for conversing documents
 	 */
 	@JsonProperty("C_DocTypeTarget")
-	public I_C_DocTypeInput C_DocTypeTarget() {
+	public ForeignEntityInput C_DocTypeTarget() {
 		return mC_DocTypeTarget;
 	}
 
@@ -237,7 +237,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param C_OrderLine Sales Order Line
 	 */
 	@JsonProperty("C_OrderLine")
-	public void setC_OrderLineInput(I_C_OrderLineInput C_OrderLine) {
+	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
 		MOrderLine_BH foreignEntity;
 		if (C_OrderLine != null &&
@@ -256,7 +256,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Sales Order Line
 	 */
 	@JsonProperty("C_OrderLine")
-	public I_C_OrderLineInput C_OrderLine() {
+	public ForeignEntityInput C_OrderLine() {
 		return mC_OrderLine;
 	}
 
@@ -266,7 +266,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -285,7 +285,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -295,7 +295,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param C_UOM Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public void setC_UOMInput(I_C_UOMInput C_UOM) {
+	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (get_ID() == 0 &&C_UOM != null &&
@@ -312,7 +312,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public I_C_UOMInput C_UOM() {
+	public ForeignEntityInput C_UOM() {
 		return mC_UOM;
 	}
 	/**
@@ -424,7 +424,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
@@ -443,7 +443,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+	public ForeignEntityInput M_AttributeSetInstance() {
 		return mM_AttributeSetInstance;
 	}
 
@@ -453,7 +453,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (get_ID() == 0 &&M_Product != null &&
@@ -470,7 +470,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -480,7 +480,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (get_ID() == 0 &&M_Warehouse != null &&
@@ -497,7 +497,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public I_M_WarehouseInput M_Warehouse() {
+	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
 
@@ -507,7 +507,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param Planner Planner
 	 */
 	@JsonProperty("Planner")
-	public void setPlannerInput(I_AD_UserInput Planner) {
+	public void setPlannerInput(ForeignEntityInput Planner) {
 		this.mPlanner = Planner;
 		MUser_BH foreignEntity;
 		if (Planner != null &&
@@ -526,7 +526,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Planner
 	 */
 	@JsonProperty("Planner")
-	public I_AD_UserInput Planner() {
+	public ForeignEntityInput Planner() {
 		return mPlanner;
 	}
 
@@ -554,7 +554,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param PP_Product_BOM BOM & Formula
 	 */
 	@JsonProperty("PP_Product_BOM")
-	public void setPP_Product_BOMInput(I_PP_Product_BOMInput PP_Product_BOM) {
+	public void setPP_Product_BOMInput(ForeignEntityInput PP_Product_BOM) {
 		this.mPP_Product_BOM = PP_Product_BOM;
 		MPPProductBOM foreignEntity;
 		if (get_ID() == 0 &&PP_Product_BOM != null &&
@@ -571,7 +571,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return BOM & Formula
 	 */
 	@JsonProperty("PP_Product_BOM")
-	public I_PP_Product_BOMInput PP_Product_BOM() {
+	public ForeignEntityInput PP_Product_BOM() {
 		return mPP_Product_BOM;
 	}
 
@@ -643,7 +643,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param S_Resource Resource
 	 */
 	@JsonProperty("S_Resource")
-	public void setS_ResourceInput(I_S_ResourceInput S_Resource) {
+	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
 		if (get_ID() == 0 &&S_Resource != null &&
@@ -660,7 +660,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Resource
 	 */
 	@JsonProperty("S_Resource")
-	public I_S_ResourceInput S_Resource() {
+	public ForeignEntityInput S_Resource() {
 		return mS_Resource;
 	}
 
@@ -670,7 +670,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param User1 User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public void setUser1Input(I_C_ElementValueInput User1) {
+	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
@@ -689,7 +689,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public I_C_ElementValueInput User1() {
+	public ForeignEntityInput User1() {
 		return mUser1;
 	}
 
@@ -699,7 +699,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param User2 User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public void setUser2Input(I_C_ElementValueInput User2) {
+	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
@@ -718,7 +718,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public I_C_ElementValueInput User2() {
+	public ForeignEntityInput User2() {
 		return mUser2;
 	}
 }

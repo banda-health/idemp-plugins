@@ -5,6 +5,11 @@ extend type Query {
 	PA_RatioGet(page: Int, size: Int, sort: String, filter: String): PA_RatioConnection!
 }
 
+extend type Mutation {
+	PA_RatioSave(entity: PA_RatioInput!): PA_Ratio!
+	PA_RatioDelete(uuids: [String!]!): Boolean!
+}
+
 type PA_RatioConnection {
 	results: [PA_Ratio!]!
 	pagingInfo: PagingInfo!
@@ -36,3 +41,18 @@ type PA_Ratio {
 	UpdatedBy: AD_User!
 }
 
+input PA_RatioInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	ID: ID
+}

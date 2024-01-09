@@ -5,6 +5,11 @@ extend type Query {
 	C_1099BoxGet(page: Int, size: Int, sort: String, filter: String): C_1099BoxConnection!
 }
 
+extend type Mutation {
+	C_1099BoxSave(entity: C_1099BoxInput!): C_1099Box!
+	C_1099BoxDelete(uuids: [String!]!): Boolean!
+}
+
 type C_1099BoxConnection {
 	results: [C_1099Box!]!
 	pagingInfo: PagingInfo!
@@ -37,3 +42,19 @@ type C_1099Box {
 	Value: String!
 }
 
+input C_1099BoxInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	Bucket: Int
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

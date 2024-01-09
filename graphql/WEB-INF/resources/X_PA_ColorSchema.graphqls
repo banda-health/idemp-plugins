@@ -5,6 +5,11 @@ extend type Query {
 	PA_ColorSchemaGet(page: Int, size: Int, sort: String, filter: String): PA_ColorSchemaConnection!
 }
 
+extend type Mutation {
+	PA_ColorSchemaSave(entity: PA_ColorSchemaInput!): PA_ColorSchema!
+	PA_ColorSchemaDelete(uuids: [String!]!): Boolean!
+}
+
 type PA_ColorSchemaConnection {
 	results: [PA_ColorSchema!]!
 	pagingInfo: PagingInfo!
@@ -50,3 +55,32 @@ type PA_ColorSchema {
 	UpdatedBy: AD_User!
 }
 
+input PA_ColorSchemaInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# First color used
+	AD_PrintColor1: ForeignEntityInput
+	# Second color used
+	AD_PrintColor2: ForeignEntityInput
+	# Third color used
+	AD_PrintColor3: ForeignEntityInput
+	# Forth color used
+	AD_PrintColor4: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Percentage up to this color is used
+	Mark1Percent: Int
+	# Percentage up to this color is used
+	Mark2Percent: Int
+	# Percentage up to this color is used
+	Mark3Percent: Int
+	# Percentage up to this color is used
+	Mark4Percent: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	ID: ID
+}

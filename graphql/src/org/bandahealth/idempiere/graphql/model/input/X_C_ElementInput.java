@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Tree;
 	 private I_AD_Ref_ListInput mElementType;
-	 private I_AD_TreeInput mAD_Tree;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -64,7 +64,7 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 	 * @param AD_Tree Identifies a Tree
 	 */
 	@JsonProperty("AD_Tree")
-	public void setAD_TreeInput(I_AD_TreeInput AD_Tree) {
+	public void setAD_TreeInput(ForeignEntityInput AD_Tree) {
 		this.mAD_Tree = AD_Tree;
 		MTree foreignEntity;
 		if (get_ID() == 0 &&AD_Tree != null &&
@@ -81,7 +81,7 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 	 * @return Identifies a Tree
 	 */
 	@JsonProperty("AD_Tree")
-	public I_AD_TreeInput AD_Tree() {
+	public ForeignEntityInput AD_Tree() {
 		return mAD_Tree;
 	}
 

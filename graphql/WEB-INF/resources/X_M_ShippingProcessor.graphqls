@@ -5,6 +5,11 @@ extend type Query {
 	M_ShippingProcessorGet(page: Int, size: Int, sort: String, filter: String): M_ShippingProcessorConnection!
 }
 
+extend type Mutation {
+	M_ShippingProcessorSave(entity: M_ShippingProcessorInput!): M_ShippingProcessor!
+	M_ShippingProcessorDelete(uuids: [String!]!): Boolean!
+}
+
 type M_ShippingProcessorConnection {
 	results: [M_ShippingProcessor!]!
 	pagingInfo: PagingInfo!
@@ -35,3 +40,17 @@ type M_ShippingProcessor {
 	UserID: String!
 }
 
+input M_ShippingProcessorInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ConnectionKey: String
+	ConnectionPassword: String
+	# The record is active in the system
+	IsActive: Boolean
+	ID: ID
+	M_ShippingProcessorCfg: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# User ID or account number
+	UserID: String
+}

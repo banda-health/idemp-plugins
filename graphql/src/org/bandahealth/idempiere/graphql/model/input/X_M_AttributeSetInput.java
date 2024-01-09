@@ -19,11 +19,11 @@ import org.compiere.util.Env;
  */
 public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_AttributeSetInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mM_LotCtl;
+	 private ForeignEntityInput mM_SerNoCtl;
 	 private I_AD_Ref_ListInput mM_AttributeSet_Type;
 	 private I_AD_Ref_ListInput mMandatoryType;
-	 private I_M_LotCtlInput mM_LotCtl;
-	 private I_M_SerNoCtlInput mM_SerNoCtl;
 
 	/**
 	 * Standard constructor
@@ -40,7 +40,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -57,7 +57,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -114,7 +114,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 * @param M_LotCtl Product Lot Control
 	 */
 	@JsonProperty("M_LotCtl")
-	public void setM_LotCtlInput(I_M_LotCtlInput M_LotCtl) {
+	public void setM_LotCtlInput(ForeignEntityInput M_LotCtl) {
 		this.mM_LotCtl = M_LotCtl;
 		MLotCtl foreignEntity;
 		if (M_LotCtl != null &&
@@ -133,7 +133,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 * @return Product Lot Control
 	 */
 	@JsonProperty("M_LotCtl")
-	public I_M_LotCtlInput M_LotCtl() {
+	public ForeignEntityInput M_LotCtl() {
 		return mM_LotCtl;
 	}
 
@@ -143,7 +143,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 * @param M_SerNoCtl Product Serial Number Control
 	 */
 	@JsonProperty("M_SerNoCtl")
-	public void setM_SerNoCtlInput(I_M_SerNoCtlInput M_SerNoCtl) {
+	public void setM_SerNoCtlInput(ForeignEntityInput M_SerNoCtl) {
 		this.mM_SerNoCtl = M_SerNoCtl;
 		MSerNoCtl_BH foreignEntity;
 		if (M_SerNoCtl != null &&
@@ -162,7 +162,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 * @return Product Serial Number Control
 	 */
 	@JsonProperty("M_SerNoCtl")
-	public I_M_SerNoCtlInput M_SerNoCtl() {
+	public ForeignEntityInput M_SerNoCtl() {
 		return mM_SerNoCtl;
 	}
 

@@ -5,6 +5,11 @@ extend type Query {
 	AD_WF_ProcessGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ProcessConnection!
 }
 
+extend type Mutation {
+	AD_WF_ProcessSave(entity: AD_WF_ProcessInput!): AD_WF_Process!
+	AD_WF_ProcessDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_WF_ProcessConnection {
 	results: [AD_WF_Process!]!
 	pagingInfo: PagingInfo!
@@ -49,3 +54,31 @@ type AD_WF_Process {
 	WFState: AD_Ref_List!
 }
 
+input AD_WF_ProcessInput {
+	# System Message
+	AD_Message: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	ID: ID
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Direct internal record ID
+	Record_ID: Int
+	# Text Message
+	TextMsg: String
+	# State of the execution of the workflow
+	WFState: AD_Ref_ListInput
+}

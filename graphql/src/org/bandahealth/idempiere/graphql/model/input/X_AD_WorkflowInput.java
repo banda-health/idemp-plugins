@@ -24,19 +24,19 @@ import org.compiere.util.Env;
  */
 public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowInput {
 
-	 private I_AD_CtxHelpInput mAD_CtxHelp;
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_CtxHelp;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Table;
+	 private ForeignEntityInput mAD_WF_Node;
+	 private ForeignEntityInput mAD_WF_Responsible;
+	 private ForeignEntityInput mAD_WorkflowProcessor;
+	 private ForeignEntityInput mS_Resource;
 	 private I_AD_Ref_ListInput mAccessLevel;
 	 private I_AD_Ref_ListInput mDurationUnit;
 	 private I_AD_Ref_ListInput mProcessType;
 	 private I_AD_Ref_ListInput mPublishStatus;
 	 private I_AD_Ref_ListInput mWorkflowType;
-	 private I_AD_TableInput mAD_Table;
-	 private I_AD_WF_NodeInput mAD_WF_Node;
-	 private I_AD_WF_ResponsibleInput mAD_WF_Responsible;
-	 private I_AD_WorkflowProcessorInput mAD_WorkflowProcessor;
-	 private I_S_ResourceInput mS_Resource;
 
 	/**
 	 * Standard constructor
@@ -82,7 +82,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @param AD_CtxHelp Context Help
 	 */
 	@JsonProperty("AD_CtxHelp")
-	public void setAD_CtxHelpInput(I_AD_CtxHelpInput AD_CtxHelp) {
+	public void setAD_CtxHelpInput(ForeignEntityInput AD_CtxHelp) {
 		this.mAD_CtxHelp = AD_CtxHelp;
 		MCtxHelp foreignEntity;
 		if (AD_CtxHelp != null &&
@@ -101,7 +101,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @return Context Help
 	 */
 	@JsonProperty("AD_CtxHelp")
-	public I_AD_CtxHelpInput AD_CtxHelp() {
+	public ForeignEntityInput AD_CtxHelp() {
 		return mAD_CtxHelp;
 	}
 
@@ -111,7 +111,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -128,7 +128,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -138,7 +138,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @param AD_Table Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (AD_Table != null &&
@@ -157,7 +157,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @return Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public I_AD_TableInput AD_Table() {
+	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
 	}
 
@@ -167,7 +167,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @param AD_WF_Node Workflow Node (activity), step or process
 	 */
 	@JsonProperty("AD_WF_Node")
-	public void setAD_WF_NodeInput(I_AD_WF_NodeInput AD_WF_Node) {
+	public void setAD_WF_NodeInput(ForeignEntityInput AD_WF_Node) {
 		this.mAD_WF_Node = AD_WF_Node;
 		X_AD_WF_Node foreignEntity;
 		if (AD_WF_Node != null &&
@@ -186,7 +186,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @return Workflow Node (activity), step or process
 	 */
 	@JsonProperty("AD_WF_Node")
-	public I_AD_WF_NodeInput AD_WF_Node() {
+	public ForeignEntityInput AD_WF_Node() {
 		return mAD_WF_Node;
 	}
 
@@ -196,7 +196,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @param AD_WF_Responsible Responsible for Workflow Execution
 	 */
 	@JsonProperty("AD_WF_Responsible")
-	public void setAD_WF_ResponsibleInput(I_AD_WF_ResponsibleInput AD_WF_Responsible) {
+	public void setAD_WF_ResponsibleInput(ForeignEntityInput AD_WF_Responsible) {
 		this.mAD_WF_Responsible = AD_WF_Responsible;
 		X_AD_WF_Responsible foreignEntity;
 		if (AD_WF_Responsible != null &&
@@ -215,7 +215,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @return Responsible for Workflow Execution
 	 */
 	@JsonProperty("AD_WF_Responsible")
-	public I_AD_WF_ResponsibleInput AD_WF_Responsible() {
+	public ForeignEntityInput AD_WF_Responsible() {
 		return mAD_WF_Responsible;
 	}
 
@@ -243,7 +243,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @param AD_WorkflowProcessor Workflow Processor Server
 	 */
 	@JsonProperty("AD_WorkflowProcessor")
-	public void setAD_WorkflowProcessorInput(I_AD_WorkflowProcessorInput AD_WorkflowProcessor) {
+	public void setAD_WorkflowProcessorInput(ForeignEntityInput AD_WorkflowProcessor) {
 		this.mAD_WorkflowProcessor = AD_WorkflowProcessor;
 		X_AD_WorkflowProcessor foreignEntity;
 		if (AD_WorkflowProcessor != null &&
@@ -262,7 +262,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @return Workflow Processor Server
 	 */
 	@JsonProperty("AD_WorkflowProcessor")
-	public I_AD_WorkflowProcessorInput AD_WorkflowProcessor() {
+	public ForeignEntityInput AD_WorkflowProcessor() {
 		return mAD_WorkflowProcessor;
 	}
 
@@ -301,7 +301,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -320,7 +320,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 
@@ -388,7 +388,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @param S_Resource Resource
 	 */
 	@JsonProperty("S_Resource")
-	public void setS_ResourceInput(I_S_ResourceInput S_Resource) {
+	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
 		if (S_Resource != null &&
@@ -407,7 +407,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 * @return Resource
 	 */
 	@JsonProperty("S_Resource")
-	public I_S_ResourceInput S_Resource() {
+	public ForeignEntityInput S_Resource() {
 		return mS_Resource;
 	}
 

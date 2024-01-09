@@ -15,14 +15,14 @@ public interface I_C_PhaseInput extends I_C_Phase {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,26 +43,26 @@ public interface I_C_PhaseInput extends I_C_Phase {
 	 *
 	 * @param C_ProjectType Type of the project
 	 */
-	void setC_ProjectTypeInput(I_C_ProjectTypeInput C_ProjectType);
+	void setC_ProjectTypeInput(ForeignEntityInput C_ProjectType);
 
 	/**
 	 * Get C_ProjectType.
 	 *
 	 * @return Type of the project
 	 */
-	I_C_ProjectTypeInput C_ProjectType();
+	ForeignEntityInput C_ProjectType();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_ProductInput(I_M_ProductInput M_Product);
+	void setM_ProductInput(ForeignEntityInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput M_Product();
+	ForeignEntityInput M_Product();
 }

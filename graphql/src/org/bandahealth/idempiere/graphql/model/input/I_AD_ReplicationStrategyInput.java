@@ -15,14 +15,14 @@ public interface I_AD_ReplicationStrategyInput extends I_AD_ReplicationStrategy 
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,26 +43,26 @@ public interface I_AD_ReplicationStrategyInput extends I_AD_ReplicationStrategy 
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType);
+	void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType);
 
 	/**
 	 * Get AD_EntityType.
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	I_AD_EntityTypeInput AD_EntityType();
+	ForeignEntityInput AD_EntityType();
 
 	/**
 	 * Set EXP_Processor.
 	 *
 	 * @param EXP_Processor EXP_Processor
 	 */
-	void setEXP_ProcessorInput(I_EXP_ProcessorInput EXP_Processor);
+	void setEXP_ProcessorInput(ForeignEntityInput EXP_Processor);
 
 	/**
 	 * Get EXP_Processor.
 	 *
 	 * @return EXP_Processor
 	 */
-	I_EXP_ProcessorInput EXP_Processor();
+	ForeignEntityInput EXP_Processor();
 }

@@ -5,6 +5,11 @@ extend type Query {
 	PA_GoalRestrictionGet(page: Int, size: Int, sort: String, filter: String): PA_GoalRestrictionConnection!
 }
 
+extend type Mutation {
+	PA_GoalRestrictionSave(entity: PA_GoalRestrictionInput!): PA_GoalRestriction!
+	PA_GoalRestrictionDelete(uuids: [String!]!): Boolean!
+}
+
 type PA_GoalRestrictionConnection {
 	results: [PA_GoalRestriction!]!
 	pagingInfo: PagingInfo!
@@ -42,3 +47,24 @@ type PA_GoalRestriction {
 	UpdatedBy: AD_User!
 }
 
+input PA_GoalRestrictionInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Goal Restriction Type
+	GoalRestrictionType: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Category of a Product
+	M_Product_Category: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Performance Goal
+	PA_Goal: ForeignEntityInput
+	ID: ID
+}

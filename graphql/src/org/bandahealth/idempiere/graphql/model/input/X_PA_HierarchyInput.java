@@ -17,15 +17,15 @@ import org.compiere.util.Env;
  */
 public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_TreeInput mAD_Tree_Account;
-	 private I_AD_TreeInput mAD_Tree_Activity;
-	 private I_AD_TreeInput mAD_Tree_BPartner;
-	 private I_AD_TreeInput mAD_Tree_Campaign;
-	 private I_AD_TreeInput mAD_Tree_Org;
-	 private I_AD_TreeInput mAD_Tree_Product;
-	 private I_AD_TreeInput mAD_Tree_Project;
-	 private I_AD_TreeInput mAD_Tree_SalesRegion;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Tree_Account;
+	 private ForeignEntityInput mAD_Tree_Activity;
+	 private ForeignEntityInput mAD_Tree_BPartner;
+	 private ForeignEntityInput mAD_Tree_Campaign;
+	 private ForeignEntityInput mAD_Tree_Org;
+	 private ForeignEntityInput mAD_Tree_Product;
+	 private ForeignEntityInput mAD_Tree_Project;
+	 private ForeignEntityInput mAD_Tree_SalesRegion;
 
 	/**
 	 * Standard constructor
@@ -42,7 +42,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -59,7 +59,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -69,7 +69,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @param AD_Tree_Account Tree for Natural Account Tree
 	 */
 	@JsonProperty("AD_Tree_Account")
-	public void setAD_Tree_AccountInput(I_AD_TreeInput AD_Tree_Account) {
+	public void setAD_Tree_AccountInput(ForeignEntityInput AD_Tree_Account) {
 		this.mAD_Tree_Account = AD_Tree_Account;
 		MTree foreignEntity;
 		if (AD_Tree_Account != null &&
@@ -88,7 +88,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @return Tree for Natural Account Tree
 	 */
 	@JsonProperty("AD_Tree_Account")
-	public I_AD_TreeInput AD_Tree_Account() {
+	public ForeignEntityInput AD_Tree_Account() {
 		return mAD_Tree_Account;
 	}
 
@@ -98,7 +98,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @param AD_Tree_Activity Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_Activity")
-	public void setAD_Tree_ActivityInput(I_AD_TreeInput AD_Tree_Activity) {
+	public void setAD_Tree_ActivityInput(ForeignEntityInput AD_Tree_Activity) {
 		this.mAD_Tree_Activity = AD_Tree_Activity;
 		MTree foreignEntity;
 		if (AD_Tree_Activity != null &&
@@ -117,7 +117,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @return Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_Activity")
-	public I_AD_TreeInput AD_Tree_Activity() {
+	public ForeignEntityInput AD_Tree_Activity() {
 		return mAD_Tree_Activity;
 	}
 
@@ -127,7 +127,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @param AD_Tree_BPartner Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_BPartner")
-	public void setAD_Tree_BPartnerInput(I_AD_TreeInput AD_Tree_BPartner) {
+	public void setAD_Tree_BPartnerInput(ForeignEntityInput AD_Tree_BPartner) {
 		this.mAD_Tree_BPartner = AD_Tree_BPartner;
 		MTree foreignEntity;
 		if (AD_Tree_BPartner != null &&
@@ -146,7 +146,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @return Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_BPartner")
-	public I_AD_TreeInput AD_Tree_BPartner() {
+	public ForeignEntityInput AD_Tree_BPartner() {
 		return mAD_Tree_BPartner;
 	}
 
@@ -156,7 +156,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @param AD_Tree_Campaign Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_Campaign")
-	public void setAD_Tree_CampaignInput(I_AD_TreeInput AD_Tree_Campaign) {
+	public void setAD_Tree_CampaignInput(ForeignEntityInput AD_Tree_Campaign) {
 		this.mAD_Tree_Campaign = AD_Tree_Campaign;
 		MTree foreignEntity;
 		if (AD_Tree_Campaign != null &&
@@ -175,7 +175,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @return Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_Campaign")
-	public I_AD_TreeInput AD_Tree_Campaign() {
+	public ForeignEntityInput AD_Tree_Campaign() {
 		return mAD_Tree_Campaign;
 	}
 
@@ -185,7 +185,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @param AD_Tree_Org Trees are used for (financial) reporting and security access (via role)
 	 */
 	@JsonProperty("AD_Tree_Org")
-	public void setAD_Tree_OrgInput(I_AD_TreeInput AD_Tree_Org) {
+	public void setAD_Tree_OrgInput(ForeignEntityInput AD_Tree_Org) {
 		this.mAD_Tree_Org = AD_Tree_Org;
 		MTree foreignEntity;
 		if (AD_Tree_Org != null &&
@@ -204,7 +204,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @return Trees are used for (financial) reporting and security access (via role)
 	 */
 	@JsonProperty("AD_Tree_Org")
-	public I_AD_TreeInput AD_Tree_Org() {
+	public ForeignEntityInput AD_Tree_Org() {
 		return mAD_Tree_Org;
 	}
 
@@ -214,7 +214,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @param AD_Tree_Product Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_Product")
-	public void setAD_Tree_ProductInput(I_AD_TreeInput AD_Tree_Product) {
+	public void setAD_Tree_ProductInput(ForeignEntityInput AD_Tree_Product) {
 		this.mAD_Tree_Product = AD_Tree_Product;
 		MTree foreignEntity;
 		if (AD_Tree_Product != null &&
@@ -233,7 +233,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @return Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_Product")
-	public I_AD_TreeInput AD_Tree_Product() {
+	public ForeignEntityInput AD_Tree_Product() {
 		return mAD_Tree_Product;
 	}
 
@@ -243,7 +243,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @param AD_Tree_Project Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_Project")
-	public void setAD_Tree_ProjectInput(I_AD_TreeInput AD_Tree_Project) {
+	public void setAD_Tree_ProjectInput(ForeignEntityInput AD_Tree_Project) {
 		this.mAD_Tree_Project = AD_Tree_Project;
 		MTree foreignEntity;
 		if (AD_Tree_Project != null &&
@@ -262,7 +262,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @return Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_Project")
-	public I_AD_TreeInput AD_Tree_Project() {
+	public ForeignEntityInput AD_Tree_Project() {
 		return mAD_Tree_Project;
 	}
 
@@ -272,7 +272,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @param AD_Tree_SalesRegion Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_SalesRegion")
-	public void setAD_Tree_SalesRegionInput(I_AD_TreeInput AD_Tree_SalesRegion) {
+	public void setAD_Tree_SalesRegionInput(ForeignEntityInput AD_Tree_SalesRegion) {
 		this.mAD_Tree_SalesRegion = AD_Tree_SalesRegion;
 		MTree foreignEntity;
 		if (AD_Tree_SalesRegion != null &&
@@ -291,7 +291,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 * @return Trees are used for (financial) reporting
 	 */
 	@JsonProperty("AD_Tree_SalesRegion")
-	public I_AD_TreeInput AD_Tree_SalesRegion() {
+	public ForeignEntityInput AD_Tree_SalesRegion() {
 		return mAD_Tree_SalesRegion;
 	}
 

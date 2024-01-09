@@ -18,10 +18,10 @@ import org.compiere.util.Env;
  */
 public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_LocationInput mC_Location;
-	 private I_M_LocatorInput mM_ReserveLocator;
-	 private I_M_WarehouseInput mM_WarehouseSource;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Location;
+	 private ForeignEntityInput mM_ReserveLocator;
+	 private ForeignEntityInput mM_WarehouseSource;
 
 	/**
 	 * Standard constructor
@@ -38,7 +38,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -55,7 +55,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -65,7 +65,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	 * @param C_Location Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public void setC_LocationInput(I_C_LocationInput C_Location) {
+	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
@@ -84,7 +84,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	 * @return Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public I_C_LocationInput C_Location() {
+	public ForeignEntityInput C_Location() {
 		return mC_Location;
 	}
 
@@ -94,7 +94,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	 * @param M_ReserveLocator Reservation Locator (just for reporting purposes)
 	 */
 	@JsonProperty("M_ReserveLocator")
-	public void setM_ReserveLocatorInput(I_M_LocatorInput M_ReserveLocator) {
+	public void setM_ReserveLocatorInput(ForeignEntityInput M_ReserveLocator) {
 		this.mM_ReserveLocator = M_ReserveLocator;
 		MLocator foreignEntity;
 		if (M_ReserveLocator != null &&
@@ -113,7 +113,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	 * @return Reservation Locator (just for reporting purposes)
 	 */
 	@JsonProperty("M_ReserveLocator")
-	public I_M_LocatorInput M_ReserveLocator() {
+	public ForeignEntityInput M_ReserveLocator() {
 		return mM_ReserveLocator;
 	}
 
@@ -141,7 +141,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	 * @param M_WarehouseSource Optional Warehouse to replenish from
 	 */
 	@JsonProperty("M_WarehouseSource")
-	public void setM_WarehouseSourceInput(I_M_WarehouseInput M_WarehouseSource) {
+	public void setM_WarehouseSourceInput(ForeignEntityInput M_WarehouseSource) {
 		this.mM_WarehouseSource = M_WarehouseSource;
 		MWarehouse_BH foreignEntity;
 		if (M_WarehouseSource != null &&
@@ -160,7 +160,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	 * @return Optional Warehouse to replenish from
 	 */
 	@JsonProperty("M_WarehouseSource")
-	public I_M_WarehouseInput M_WarehouseSource() {
+	public ForeignEntityInput M_WarehouseSource() {
 		return mM_WarehouseSource;
 	}
 }

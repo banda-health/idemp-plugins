@@ -21,16 +21,16 @@ import org.compiere.util.Env;
  */
 public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_BankAccountInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_Bank;
+	 private ForeignEntityInput mC_PaymentProcessor;
 	 private I_AD_Ref_ListInput mBPBankAcctUse;
 	 private I_AD_Ref_ListInput mBankAccountType;
 	 private I_AD_Ref_ListInput mCreditCardType;
 	 private I_AD_Ref_ListInput mR_AvsAddr;
 	 private I_AD_Ref_ListInput mR_AvsZip;
-	 private I_AD_UserInput mAD_User;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BankInput mC_Bank;
-	 private I_C_PaymentProcessorInput mC_PaymentProcessor;
 
 	/**
 	 * Standard constructor
@@ -47,7 +47,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -64,7 +64,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -74,7 +74,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -93,7 +93,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -161,7 +161,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @param C_Bank Bank
 	 */
 	@JsonProperty("C_Bank")
-	public void setC_BankInput(I_C_BankInput C_Bank) {
+	public void setC_BankInput(ForeignEntityInput C_Bank) {
 		this.mC_Bank = C_Bank;
 		MBank foreignEntity;
 		if (C_Bank != null &&
@@ -180,7 +180,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @return Bank
 	 */
 	@JsonProperty("C_Bank")
-	public I_C_BankInput C_Bank() {
+	public ForeignEntityInput C_Bank() {
 		return mC_Bank;
 	}
 
@@ -208,7 +208,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (get_ID() == 0 &&C_BPartner != null &&
@@ -225,7 +225,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -235,7 +235,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @param C_PaymentProcessor Payment processor for electronic payments
 	 */
 	@JsonProperty("C_PaymentProcessor")
-	public void setC_PaymentProcessorInput(I_C_PaymentProcessorInput C_PaymentProcessor) {
+	public void setC_PaymentProcessorInput(ForeignEntityInput C_PaymentProcessor) {
 		this.mC_PaymentProcessor = C_PaymentProcessor;
 		MPaymentProcessor foreignEntity;
 		if (C_PaymentProcessor != null &&
@@ -254,7 +254,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @return Payment processor for electronic payments
 	 */
 	@JsonProperty("C_PaymentProcessor")
-	public I_C_PaymentProcessorInput C_PaymentProcessor() {
+	public ForeignEntityInput C_PaymentProcessor() {
 		return mC_PaymentProcessor;
 	}
 

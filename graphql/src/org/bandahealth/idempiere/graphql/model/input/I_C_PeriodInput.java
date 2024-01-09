@@ -15,14 +15,14 @@ public interface I_C_PeriodInput extends I_C_Period {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,14 +43,14 @@ public interface I_C_PeriodInput extends I_C_Period {
 	 *
 	 * @param C_Year Calendar Year
 	 */
-	void setC_YearInput(I_C_YearInput C_Year);
+	void setC_YearInput(ForeignEntityInput C_Year);
 
 	/**
 	 * Get C_Year.
 	 *
 	 * @return Calendar Year
 	 */
-	I_C_YearInput C_Year();
+	ForeignEntityInput C_Year();
 
 	/**
 	 * Set PeriodType.

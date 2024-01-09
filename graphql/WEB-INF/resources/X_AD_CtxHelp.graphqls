@@ -5,6 +5,11 @@ extend type Query {
 	AD_CtxHelpGet(page: Int, size: Int, sort: String, filter: String): AD_CtxHelpConnection!
 }
 
+extend type Mutation {
+	AD_CtxHelpSave(entity: AD_CtxHelpInput!): AD_CtxHelp!
+	AD_CtxHelpDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_CtxHelpConnection {
 	results: [AD_CtxHelp!]!
 	pagingInfo: PagingInfo!
@@ -34,3 +39,16 @@ type AD_CtxHelp {
 	UpdatedBy: AD_User!
 }
 
+input AD_CtxHelpInput {
+	ID: ID
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Type of Context Help
+	CtxType: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

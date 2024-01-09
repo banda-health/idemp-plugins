@@ -19,10 +19,10 @@ import org.compiere.util.Env;
  */
 public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
 
-	 private I_AD_ColumnInput mParent_Column;
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Table;
+	 private ForeignEntityInput mParent_Column;
 	 private I_AD_Ref_ListInput mTreeType;
-	 private I_AD_TableInput mAD_Table;
 
 	/**
 	 * Standard constructor
@@ -39,7 +39,7 @@ public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -56,7 +56,7 @@ public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -66,7 +66,7 @@ public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
 	 * @param AD_Table Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (get_ID() == 0 &&AD_Table != null &&
@@ -83,7 +83,7 @@ public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
 	 * @return Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public I_AD_TableInput AD_Table() {
+	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
 	}
 
@@ -111,7 +111,7 @@ public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
 	 * @param Parent_Column The link column on the parent tab.
 	 */
 	@JsonProperty("Parent_Column")
-	public void setParent_ColumnInput(I_AD_ColumnInput Parent_Column) {
+	public void setParent_ColumnInput(ForeignEntityInput Parent_Column) {
 		this.mParent_Column = Parent_Column;
 		MColumn foreignEntity;
 		if (Parent_Column != null &&
@@ -130,7 +130,7 @@ public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
 	 * @return The link column on the parent tab.
 	 */
 	@JsonProperty("Parent_Column")
-	public I_AD_ColumnInput Parent_Column() {
+	public ForeignEntityInput Parent_Column() {
 		return mParent_Column;
 	}
 

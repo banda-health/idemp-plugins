@@ -20,11 +20,11 @@ import org.compiere.util.Env;
  */
 public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_PaymentProcessorInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Sequence;
+	 private ForeignEntityInput mC_BankAccount;
+	 private ForeignEntityInput mC_Currency;
 	 private I_AD_Ref_ListInput mTrxType;
-	 private I_AD_SequenceInput mAD_Sequence;
-	 private I_C_BankAccountInput mC_BankAccount;
-	 private I_C_CurrencyInput mC_Currency;
 
 	/**
 	 * Standard constructor
@@ -41,7 +41,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -58,7 +58,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -68,7 +68,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 * @param AD_Sequence Document Sequence
 	 */
 	@JsonProperty("AD_Sequence")
-	public void setAD_SequenceInput(I_AD_SequenceInput AD_Sequence) {
+	public void setAD_SequenceInput(ForeignEntityInput AD_Sequence) {
 		this.mAD_Sequence = AD_Sequence;
 		MSequence_BH foreignEntity;
 		if (AD_Sequence != null &&
@@ -87,7 +87,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 * @return Document Sequence
 	 */
 	@JsonProperty("AD_Sequence")
-	public I_AD_SequenceInput AD_Sequence() {
+	public ForeignEntityInput AD_Sequence() {
 		return mAD_Sequence;
 	}
 
@@ -97,7 +97,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 * @param C_BankAccount Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount) {
+	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (get_ID() == 0 &&C_BankAccount != null &&
@@ -114,7 +114,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 * @return Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public I_C_BankAccountInput C_BankAccount() {
+	public ForeignEntityInput C_BankAccount() {
 		return mC_BankAccount;
 	}
 
@@ -124,7 +124,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -143,7 +143,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 

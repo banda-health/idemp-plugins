@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mBH_Visit;
 	 private I_AD_Ref_ListInput mBH_Encounter_Type;
-	 private I_BH_VisitInput mBH_Visit;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -109,7 +109,7 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	 * @param BH_Visit Visit
 	 */
 	@JsonProperty("BH_Visit")
-	public void setBH_VisitInput(I_BH_VisitInput BH_Visit) {
+	public void setBH_VisitInput(ForeignEntityInput BH_Visit) {
 		this.mBH_Visit = BH_Visit;
 		MBHVisit foreignEntity;
 		if (BH_Visit != null &&
@@ -128,7 +128,7 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	 * @return Visit
 	 */
 	@JsonProperty("BH_Visit")
-	public I_BH_VisitInput BH_Visit() {
+	public ForeignEntityInput BH_Visit() {
 		return mBH_Visit;
 	}
 }

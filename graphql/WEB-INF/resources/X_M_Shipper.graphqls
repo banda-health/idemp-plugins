@@ -5,6 +5,11 @@ extend type Query {
 	M_ShipperGet(page: Int, size: Int, sort: String, filter: String): M_ShipperConnection!
 }
 
+extend type Mutation {
+	M_ShipperSave(entity: M_ShipperInput!): M_Shipper!
+	M_ShipperDelete(uuids: [String!]!): Boolean!
+}
+
 type M_ShipperConnection {
 	results: [M_Shipper!]!
 	pagingInfo: PagingInfo!
@@ -36,3 +41,18 @@ type M_Shipper {
 	UpdatedBy: AD_User!
 }
 
+input M_ShipperInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	# The record is active in the system
+	IsActive: Boolean
+	ID: ID
+	M_ShipperCfg: ForeignEntityInput
+	M_ShippingProcessor: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+}

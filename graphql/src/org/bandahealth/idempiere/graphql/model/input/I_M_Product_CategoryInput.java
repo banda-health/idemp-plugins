@@ -15,42 +15,42 @@ public interface I_M_Product_CategoryInput extends I_M_Product_Category {
 	 *
 	 * @param A_Asset_Group Group of Assets
 	 */
-	void setA_Asset_GroupInput(I_A_Asset_GroupInput A_Asset_Group);
+	void setA_Asset_GroupInput(ForeignEntityInput A_Asset_Group);
 
 	/**
 	 * Get A_Asset_Group.
 	 *
 	 * @return Group of Assets
 	 */
-	I_A_Asset_GroupInput A_Asset_Group();
+	ForeignEntityInput A_Asset_Group();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_PrintColor.
 	 *
 	 * @param AD_PrintColor Color used for printing and display
 	 */
-	void setAD_PrintColorInput(I_AD_PrintColorInput AD_PrintColor);
+	void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor);
 
 	/**
 	 * Get AD_PrintColor.
 	 *
 	 * @return Color used for printing and display
 	 */
-	I_AD_PrintColorInput AD_PrintColor();
+	ForeignEntityInput AD_PrintColor();
 
 	/**
 	 * Set BH_Product_Category_Type.
@@ -71,14 +71,14 @@ public interface I_M_Product_CategoryInput extends I_M_Product_Category {
 	 *
 	 * @param M_Product_Category_Parent M_Product_Category_Parent
 	 */
-	void setM_Product_Category_ParentInput(I_M_Product_CategoryInput M_Product_Category_Parent);
+	void setM_Product_Category_ParentInput(ForeignEntityInput M_Product_Category_Parent);
 
 	/**
 	 * Get M_Product_Category_Parent.
 	 *
 	 * @return M_Product_Category_Parent
 	 */
-	I_M_Product_CategoryInput M_Product_Category_Parent();
+	ForeignEntityInput M_Product_Category_Parent();
 
 	/**
 	 * Set ID.

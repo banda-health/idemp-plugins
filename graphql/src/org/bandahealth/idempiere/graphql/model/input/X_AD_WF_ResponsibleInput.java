@@ -20,11 +20,11 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_AD_WF_ResponsibleInput {
 
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Role;
+	 private ForeignEntityInput mAD_User;
 	 private I_AD_Ref_ListInput mResponsibleType;
-	 private I_AD_RoleInput mAD_Role;
-	 private I_AD_UserInput mAD_User;
 
 	/**
 	 * Standard constructor
@@ -41,7 +41,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -58,7 +58,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -68,7 +68,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 * @param AD_Role Responsibility Role
 	 */
 	@JsonProperty("AD_Role")
-	public void setAD_RoleInput(I_AD_RoleInput AD_Role) {
+	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
@@ -87,7 +87,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 * @return Responsibility Role
 	 */
 	@JsonProperty("AD_Role")
-	public I_AD_RoleInput AD_Role() {
+	public ForeignEntityInput AD_Role() {
 		return mAD_Role;
 	}
 
@@ -97,7 +97,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -116,7 +116,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -144,7 +144,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -163,7 +163,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 

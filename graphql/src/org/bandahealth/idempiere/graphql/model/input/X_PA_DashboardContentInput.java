@@ -23,14 +23,14 @@ import org.compiere.util.Env;
  */
 public class X_PA_DashboardContentInput extends MDashboardContent implements I_PA_DashboardContentInput {
 
-	 private I_AD_ChartInput mAD_Chart;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_ProcessInput mAD_Process;
+	 private ForeignEntityInput mAD_Chart;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Process;
+	 private ForeignEntityInput mAD_Role;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mAD_Window;
+	 private ForeignEntityInput mPA_Goal;
 	 private I_AD_Ref_ListInput mGoalDisplay;
-	 private I_AD_RoleInput mAD_Role;
-	 private I_AD_UserInput mAD_User;
-	 private I_AD_WindowInput mAD_Window;
-	 private I_PA_GoalInput mPA_Goal;
 
 	/**
 	 * Standard constructor
@@ -47,7 +47,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @param AD_Chart Chart
 	 */
 	@JsonProperty("AD_Chart")
-	public void setAD_ChartInput(I_AD_ChartInput AD_Chart) {
+	public void setAD_ChartInput(ForeignEntityInput AD_Chart) {
 		this.mAD_Chart = AD_Chart;
 		MChart foreignEntity;
 		if (AD_Chart != null &&
@@ -66,7 +66,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @return Chart
 	 */
 	@JsonProperty("AD_Chart")
-	public I_AD_ChartInput AD_Chart() {
+	public ForeignEntityInput AD_Chart() {
 		return mAD_Chart;
 	}
 
@@ -76,7 +76,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -93,7 +93,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -103,7 +103,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @param AD_Process Process or Report
 	 */
 	@JsonProperty("AD_Process")
-	public void setAD_ProcessInput(I_AD_ProcessInput AD_Process) {
+	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
 		if (AD_Process != null &&
@@ -122,7 +122,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @return Process or Report
 	 */
 	@JsonProperty("AD_Process")
-	public I_AD_ProcessInput AD_Process() {
+	public ForeignEntityInput AD_Process() {
 		return mAD_Process;
 	}
 
@@ -132,7 +132,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @param AD_Role Responsibility Role
 	 */
 	@JsonProperty("AD_Role")
-	public void setAD_RoleInput(I_AD_RoleInput AD_Role) {
+	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
@@ -151,7 +151,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @return Responsibility Role
 	 */
 	@JsonProperty("AD_Role")
-	public I_AD_RoleInput AD_Role() {
+	public ForeignEntityInput AD_Role() {
 		return mAD_Role;
 	}
 
@@ -161,7 +161,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -180,7 +180,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -190,7 +190,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @param AD_Window Data entry or display window
 	 */
 	@JsonProperty("AD_Window")
-	public void setAD_WindowInput(I_AD_WindowInput AD_Window) {
+	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
 		if (AD_Window != null &&
@@ -209,7 +209,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @return Data entry or display window
 	 */
 	@JsonProperty("AD_Window")
-	public I_AD_WindowInput AD_Window() {
+	public ForeignEntityInput AD_Window() {
 		return mAD_Window;
 	}
 
@@ -266,7 +266,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @param PA_Goal Performance Goal
 	 */
 	@JsonProperty("PA_Goal")
-	public void setPA_GoalInput(I_PA_GoalInput PA_Goal) {
+	public void setPA_GoalInput(ForeignEntityInput PA_Goal) {
 		this.mPA_Goal = PA_Goal;
 		MGoal foreignEntity;
 		if (PA_Goal != null &&
@@ -285,7 +285,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @return Performance Goal
 	 */
 	@JsonProperty("PA_Goal")
-	public I_PA_GoalInput PA_Goal() {
+	public ForeignEntityInput PA_Goal() {
 		return mPA_Goal;
 	}
 }

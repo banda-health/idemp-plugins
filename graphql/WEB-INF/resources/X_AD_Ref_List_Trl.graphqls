@@ -5,6 +5,11 @@ extend type Query {
 	AD_Ref_List_TrlGet(page: Int, size: Int, sort: String, filter: String): AD_Ref_List_TrlConnection!
 }
 
+extend type Mutation {
+	AD_Ref_List_TrlSave(entity: AD_Ref_List_TrlInput!): AD_Ref_List_Trl!
+	AD_Ref_List_TrlDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_Ref_List_TrlConnection {
 	results: [AD_Ref_List_Trl!]!
 	pagingInfo: PagingInfo!
@@ -38,3 +43,20 @@ type AD_Ref_List_Trl {
 	UpdatedBy: AD_User!
 }
 
+input AD_Ref_List_TrlInput {
+	# Language for this entity
+	AD_Language: ChildEntityInput
+	# Organizational entity within client
+	AD_Org: ChildEntityInput
+	# Reference List based on Table
+	AD_Ref_List: ChildEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This column is translated
+	IsTranslated: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

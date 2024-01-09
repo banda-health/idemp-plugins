@@ -5,6 +5,11 @@ extend type Query {
 	PP_Order_WorkflowGet(page: Int, size: Int, sort: String, filter: String): PP_Order_WorkflowConnection!
 }
 
+extend type Mutation {
+	PP_Order_WorkflowSave(entity: PP_Order_WorkflowInput!): PP_Order_Workflow!
+	PP_Order_WorkflowDelete(uuids: [String!]!): Boolean!
+}
+
 type PP_Order_WorkflowConnection {
 	results: [PP_Order_Workflow!]!
 	pagingInfo: PagingInfo!
@@ -100,3 +105,82 @@ type PP_Order_Workflow {
 	Yield: Int
 }
 
+input PP_Order_WorkflowInput {
+	# Access Level required
+	AccessLevel: AD_Ref_ListInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# Workflow Processor Server
+	AD_WorkflowProcessor: ForeignEntityInput
+	# Author/Creator of the Entity
+	Author: String
+	# Cost information
+	Cost: Int
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Normal Duration in Duration Unit
+	Duration: Int
+	# Unit of Duration
+	DurationUnit: AD_Ref_ListInput
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Maximum Duration in Duration Unit
+	Limit: Int
+	MovingTime: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Overlap Units are number of units that must be completed before they are moved the next activity
+	OverlapUnits: Int
+	# Manufacturing Order
+	PP_Order: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	PP_Order_Node: ForeignEntityInput
+	ID: ID
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	ProcessType: AD_Ref_ListInput
+	# Status of Publication
+	PublishStatus: AD_Ref_ListInput
+	QtyBatchSize: Int
+	# Queue time is the time a job waits at a work center before begin handled.
+	QueuingTime: Int
+	# Resource
+	S_Resource: ForeignEntityInput
+	# Setup time before starting Production
+	SetupTime: Int
+	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
+	UnitsCycles: Int
+	ValidateWorkflow: String
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Version of the table definition
+	Version: Int
+	# Workflow Simulation Waiting time
+	WaitingTime: Int
+	# Type of Workflow
+	WorkflowType: AD_Ref_ListInput
+	# Workflow Simulation Execution Time
+	WorkingTime: Int
+	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
+	Yield: Int
+}

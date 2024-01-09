@@ -5,6 +5,11 @@ extend type Query {
 	S_ResourceAssignmentGet(page: Int, size: Int, sort: String, filter: String): S_ResourceAssignmentConnection!
 }
 
+extend type Mutation {
+	S_ResourceAssignmentSave(entity: S_ResourceAssignmentInput!): S_ResourceAssignment!
+	S_ResourceAssignmentDelete(uuids: [String!]!): Boolean!
+}
+
 type S_ResourceAssignmentConnection {
 	results: [S_ResourceAssignment!]!
 	pagingInfo: PagingInfo!
@@ -42,3 +47,24 @@ type S_ResourceAssignment {
 	UpdatedBy: AD_User!
 }
 
+input S_ResourceAssignmentInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Assign resource from
+	AssignDateFrom: Date
+	# Assign resource until
+	AssignDateTo: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Assignment is confirmed
+	IsConfirmed: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Quantity
+	Qty: Int
+	# Resource
+	S_Resource: ForeignEntityInput
+	ID: ID
+}

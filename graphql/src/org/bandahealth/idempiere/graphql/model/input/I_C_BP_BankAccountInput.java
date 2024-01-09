@@ -15,28 +15,28 @@ public interface I_C_BP_BankAccountInput extends I_C_BP_BankAccount {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	void setAD_UserInput(I_AD_UserInput AD_User);
+	void setAD_UserInput(ForeignEntityInput AD_User);
 
 	/**
 	 * Get AD_User.
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	I_AD_UserInput AD_User();
+	ForeignEntityInput AD_User();
 
 	/**
 	 * Set BankAccountType.
@@ -71,14 +71,14 @@ public interface I_C_BP_BankAccountInput extends I_C_BP_BankAccount {
 	 *
 	 * @param C_Bank Bank
 	 */
-	void setC_BankInput(I_C_BankInput C_Bank);
+	void setC_BankInput(ForeignEntityInput C_Bank);
 
 	/**
 	 * Get C_Bank.
 	 *
 	 * @return Bank
 	 */
-	I_C_BankInput C_Bank();
+	ForeignEntityInput C_Bank();
 
 	/**
 	 * Set ID.
@@ -99,28 +99,28 @@ public interface I_C_BP_BankAccountInput extends I_C_BP_BankAccount {
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	void setC_BPartnerInput(I_C_BPartnerInput C_BPartner);
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
 
 	/**
 	 * Get C_BPartner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	I_C_BPartnerInput C_BPartner();
+	ForeignEntityInput C_BPartner();
 
 	/**
 	 * Set C_PaymentProcessor.
 	 *
 	 * @param C_PaymentProcessor Payment processor for electronic payments
 	 */
-	void setC_PaymentProcessorInput(I_C_PaymentProcessorInput C_PaymentProcessor);
+	void setC_PaymentProcessorInput(ForeignEntityInput C_PaymentProcessor);
 
 	/**
 	 * Get C_PaymentProcessor.
 	 *
 	 * @return Payment processor for electronic payments
 	 */
-	I_C_PaymentProcessorInput C_PaymentProcessor();
+	ForeignEntityInput C_PaymentProcessor();
 
 	/**
 	 * Set CreditCardType.

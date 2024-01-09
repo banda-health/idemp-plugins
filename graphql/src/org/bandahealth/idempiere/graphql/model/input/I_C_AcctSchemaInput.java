@@ -15,14 +15,14 @@ public interface I_C_AcctSchemaInput extends I_C_AcctSchema {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,28 +43,28 @@ public interface I_C_AcctSchemaInput extends I_C_AcctSchema {
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(ForeignEntityInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput C_Currency();
+	ForeignEntityInput C_Currency();
 
 	/**
 	 * Set C_Period.
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	void setC_PeriodInput(I_C_PeriodInput C_Period);
+	void setC_PeriodInput(ForeignEntityInput C_Period);
 
 	/**
 	 * Get C_Period.
 	 *
 	 * @return Period of the Calendar
 	 */
-	I_C_PeriodInput C_Period();
+	ForeignEntityInput C_Period();
 
 	/**
 	 * Set CommitmentType.
@@ -127,14 +127,14 @@ public interface I_C_AcctSchemaInput extends I_C_AcctSchema {
 	 *
 	 * @param M_CostType Type of Cost (e.g. Current, Plan, Future)
 	 */
-	void setM_CostTypeInput(I_M_CostTypeInput M_CostType);
+	void setM_CostTypeInput(ForeignEntityInput M_CostType);
 
 	/**
 	 * Get M_CostType.
 	 *
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
-	I_M_CostTypeInput M_CostType();
+	ForeignEntityInput M_CostType();
 
 	/**
 	 * Set TaxCorrectionType.

@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_ShipperPackagingInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_M_ShipperInput mM_Shipper;
-	 private I_M_ShipperPackagingCfgInput mM_ShipperPackagingCfg;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mM_Shipper;
+	 private ForeignEntityInput mM_ShipperPackagingCfg;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -64,7 +64,7 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 	 * @param M_Shipper Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public void setM_ShipperInput(I_M_ShipperInput M_Shipper) {
+	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (get_ID() == 0 &&M_Shipper != null &&
@@ -81,7 +81,7 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 	 * @return Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public I_M_ShipperInput M_Shipper() {
+	public ForeignEntityInput M_Shipper() {
 		return mM_Shipper;
 	}
 
@@ -109,7 +109,7 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 	 * @param M_ShipperPackagingCfg Shipper Packaging Configuration
 	 */
 	@JsonProperty("M_ShipperPackagingCfg")
-	public void setM_ShipperPackagingCfgInput(I_M_ShipperPackagingCfgInput M_ShipperPackagingCfg) {
+	public void setM_ShipperPackagingCfgInput(ForeignEntityInput M_ShipperPackagingCfg) {
 		this.mM_ShipperPackagingCfg = M_ShipperPackagingCfg;
 		X_M_ShipperPackagingCfg foreignEntity;
 		if (M_ShipperPackagingCfg != null &&
@@ -128,7 +128,7 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 	 * @return Shipper Packaging Configuration
 	 */
 	@JsonProperty("M_ShipperPackagingCfg")
-	public I_M_ShipperPackagingCfgInput M_ShipperPackagingCfg() {
+	public ForeignEntityInput M_ShipperPackagingCfg() {
 		return mM_ShipperPackagingCfg;
 	}
 }

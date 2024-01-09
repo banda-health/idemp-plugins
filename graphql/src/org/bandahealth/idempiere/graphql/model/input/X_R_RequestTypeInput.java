@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTypeInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mR_StatusCategory;
 	 private I_AD_Ref_ListInput mConfidentialType;
-	 private I_R_StatusCategoryInput mR_StatusCategory;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTyp
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTyp
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -111,7 +111,7 @@ public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTyp
 	 * @param R_StatusCategory Request Status Category
 	 */
 	@JsonProperty("R_StatusCategory")
-	public void setR_StatusCategoryInput(I_R_StatusCategoryInput R_StatusCategory) {
+	public void setR_StatusCategoryInput(ForeignEntityInput R_StatusCategory) {
 		this.mR_StatusCategory = R_StatusCategory;
 		MStatusCategory foreignEntity;
 		if (R_StatusCategory != null &&
@@ -130,7 +130,7 @@ public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTyp
 	 * @return Request Status Category
 	 */
 	@JsonProperty("R_StatusCategory")
-	public I_R_StatusCategoryInput R_StatusCategory() {
+	public ForeignEntityInput R_StatusCategory() {
 		return mR_StatusCategory;
 	}
 }

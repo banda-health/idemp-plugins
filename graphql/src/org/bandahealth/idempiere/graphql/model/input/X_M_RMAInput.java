@@ -24,17 +24,17 @@ import org.compiere.util.Env;
  */
 public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_Order;
+	 private ForeignEntityInput mInOut;
+	 private ForeignEntityInput mM_RMAType;
+	 private ForeignEntityInput mRef_RMA;
+	 private ForeignEntityInput mSalesRep;
 	 private I_AD_Ref_ListInput mDocAction;
 	 private I_AD_Ref_ListInput mDocStatus;
-	 private I_AD_UserInput mSalesRep;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_OrderInput mC_Order;
-	 private I_M_InOutInput mInOut;
-	 private I_M_RMAInput mRef_RMA;
-	 private I_M_RMATypeInput mM_RMAType;
 
 	/**
 	 * Standard constructor
@@ -51,7 +51,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -68,7 +68,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -78,7 +78,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -97,7 +97,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -107,7 +107,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -126,7 +126,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -136,7 +136,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
@@ -155,7 +155,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -165,7 +165,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @param C_Order Order
 	 */
 	@JsonProperty("C_Order")
-	public void setC_OrderInput(I_C_OrderInput C_Order) {
+	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
 		if (get_ID() == 0 &&C_Order != null &&
@@ -182,7 +182,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @return Order
 	 */
 	@JsonProperty("C_Order")
-	public I_C_OrderInput C_Order() {
+	public ForeignEntityInput C_Order() {
 		return mC_Order;
 	}
 
@@ -250,7 +250,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @param InOut MaterialShipment Document
 	 */
 	@JsonProperty("InOut")
-	public void setInOutInput(I_M_InOutInput InOut) {
+	public void setInOutInput(ForeignEntityInput InOut) {
 		this.mInOut = InOut;
 		MInOut_BH foreignEntity;
 		if (get_ID() == 0 &&InOut != null &&
@@ -267,7 +267,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @return MaterialShipment Document
 	 */
 	@JsonProperty("InOut")
-	public I_M_InOutInput InOut() {
+	public ForeignEntityInput InOut() {
 		return mInOut;
 	}
 
@@ -295,7 +295,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @param M_RMAType Return Material Authorization Type
 	 */
 	@JsonProperty("M_RMAType")
-	public void setM_RMATypeInput(I_M_RMATypeInput M_RMAType) {
+	public void setM_RMATypeInput(ForeignEntityInput M_RMAType) {
 		this.mM_RMAType = M_RMAType;
 		X_M_RMAType foreignEntity;
 		if (M_RMAType != null &&
@@ -314,7 +314,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @return Return Material Authorization Type
 	 */
 	@JsonProperty("M_RMAType")
-	public I_M_RMATypeInput M_RMAType() {
+	public ForeignEntityInput M_RMAType() {
 		return mM_RMAType;
 	}
 
@@ -324,7 +324,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @param Ref_RMA Referenced RMA
 	 */
 	@JsonProperty("Ref_RMA")
-	public void setRef_RMAInput(I_M_RMAInput Ref_RMA) {
+	public void setRef_RMAInput(ForeignEntityInput Ref_RMA) {
 		this.mRef_RMA = Ref_RMA;
 		MRMA foreignEntity;
 		if (Ref_RMA != null &&
@@ -343,7 +343,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @return Referenced RMA
 	 */
 	@JsonProperty("Ref_RMA")
-	public I_M_RMAInput Ref_RMA() {
+	public ForeignEntityInput Ref_RMA() {
 		return mRef_RMA;
 	}
 
@@ -353,7 +353,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
@@ -372,7 +372,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 * @return Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public I_AD_UserInput SalesRep() {
+	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
 }

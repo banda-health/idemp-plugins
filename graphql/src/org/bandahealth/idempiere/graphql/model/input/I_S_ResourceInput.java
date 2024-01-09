@@ -15,42 +15,42 @@ public interface I_S_ResourceInput extends I_S_Resource {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	void setAD_UserInput(I_AD_UserInput AD_User);
+	void setAD_UserInput(ForeignEntityInput AD_User);
 
 	/**
 	 * Get AD_User.
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	I_AD_UserInput AD_User();
+	ForeignEntityInput AD_User();
 
 	/**
 	 * Set M_Warehouse.
 	 *
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
-	void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse);
+	void setM_WarehouseInput(ForeignEntityInput M_Warehouse);
 
 	/**
 	 * Get M_Warehouse.
 	 *
 	 * @return Storage Warehouse and Service Point
 	 */
-	I_M_WarehouseInput M_Warehouse();
+	ForeignEntityInput M_Warehouse();
 
 	/**
 	 * Set ManufacturingResourceType.
@@ -85,12 +85,12 @@ public interface I_S_ResourceInput extends I_S_Resource {
 	 *
 	 * @param S_ResourceType S_ResourceType
 	 */
-	void setS_ResourceTypeInput(I_S_ResourceTypeInput S_ResourceType);
+	void setS_ResourceTypeInput(ForeignEntityInput S_ResourceType);
 
 	/**
 	 * Get S_ResourceType.
 	 *
 	 * @return S_ResourceType
 	 */
-	I_S_ResourceTypeInput S_ResourceType();
+	ForeignEntityInput S_ResourceType();
 }

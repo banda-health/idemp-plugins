@@ -28,7 +28,19 @@ import org.compiere.util.Env;
  */
 public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BP_ShippingAcct;
+	 private ForeignEntityInput mC_BPartner_Location;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_UOM_Length;
+	 private ForeignEntityInput mC_UOM_Weight;
+	 private ForeignEntityInput mHoldAddress;
+	 private ForeignEntityInput mM_InOut;
+	 private ForeignEntityInput mM_Shipper;
+	 private ForeignEntityInput mM_ShipperLabels;
+	 private ForeignEntityInput mM_ShipperPackaging;
+	 private ForeignEntityInput mM_ShipperPickupTypes;
+	 private ForeignEntityInput mM_ShippingProcessor;
 	 private I_AD_Ref_ListInput mDeliveryConfirmationType;
 	 private I_AD_Ref_ListInput mDotHazardClassOrDivision;
 	 private I_AD_Ref_ListInput mFOB;
@@ -37,18 +49,6 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 private I_AD_Ref_ListInput mInsurance;
 	 private I_AD_Ref_ListInput mNotificationType;
 	 private I_AD_Ref_ListInput mPaymentRule;
-	 private I_C_BP_ShippingAcctInput mC_BP_ShippingAcct;
-	 private I_C_BPartner_LocationInput mC_BPartner_Location;
-	 private I_C_BPartner_LocationInput mHoldAddress;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_UOMInput mC_UOM_Length;
-	 private I_C_UOMInput mC_UOM_Weight;
-	 private I_M_InOutInput mM_InOut;
-	 private I_M_ShipperInput mM_Shipper;
-	 private I_M_ShipperLabelsInput mM_ShipperLabels;
-	 private I_M_ShipperPackagingInput mM_ShipperPackaging;
-	 private I_M_ShipperPickupTypesInput mM_ShipperPickupTypes;
-	 private I_M_ShippingProcessorInput mM_ShippingProcessor;
 
 	/**
 	 * Standard constructor
@@ -65,7 +65,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -82,7 +82,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -92,7 +92,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param C_BP_ShippingAcct Business Partner Shipping Account
 	 */
 	@JsonProperty("C_BP_ShippingAcct")
-	public void setC_BP_ShippingAcctInput(I_C_BP_ShippingAcctInput C_BP_ShippingAcct) {
+	public void setC_BP_ShippingAcctInput(ForeignEntityInput C_BP_ShippingAcct) {
 		this.mC_BP_ShippingAcct = C_BP_ShippingAcct;
 		X_C_BP_ShippingAcct foreignEntity;
 		if (C_BP_ShippingAcct != null &&
@@ -111,7 +111,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Business Partner Shipping Account
 	 */
 	@JsonProperty("C_BP_ShippingAcct")
-	public I_C_BP_ShippingAcctInput C_BP_ShippingAcct() {
+	public ForeignEntityInput C_BP_ShippingAcct() {
 		return mC_BP_ShippingAcct;
 	}
 
@@ -121,7 +121,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
@@ -140,7 +140,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public I_C_BPartner_LocationInput C_BPartner_Location() {
+	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
 
@@ -150,7 +150,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -169,7 +169,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -179,7 +179,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param C_UOM_Length Standard Unit of Measure for Length
 	 */
 	@JsonProperty("C_UOM_Length")
-	public void setC_UOM_LengthInput(I_C_UOMInput C_UOM_Length) {
+	public void setC_UOM_LengthInput(ForeignEntityInput C_UOM_Length) {
 		this.mC_UOM_Length = C_UOM_Length;
 		MUOM foreignEntity;
 		if (C_UOM_Length != null &&
@@ -198,7 +198,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Standard Unit of Measure for Length
 	 */
 	@JsonProperty("C_UOM_Length")
-	public I_C_UOMInput C_UOM_Length() {
+	public ForeignEntityInput C_UOM_Length() {
 		return mC_UOM_Length;
 	}
 
@@ -208,7 +208,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param C_UOM_Weight Standard Unit of Measure for Weight
 	 */
 	@JsonProperty("C_UOM_Weight")
-	public void setC_UOM_WeightInput(I_C_UOMInput C_UOM_Weight) {
+	public void setC_UOM_WeightInput(ForeignEntityInput C_UOM_Weight) {
 		this.mC_UOM_Weight = C_UOM_Weight;
 		MUOM foreignEntity;
 		if (C_UOM_Weight != null &&
@@ -227,7 +227,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Standard Unit of Measure for Weight
 	 */
 	@JsonProperty("C_UOM_Weight")
-	public I_C_UOMInput C_UOM_Weight() {
+	public ForeignEntityInput C_UOM_Weight() {
 		return mC_UOM_Weight;
 	}
 
@@ -371,7 +371,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param HoldAddress Hold Address
 	 */
 	@JsonProperty("HoldAddress")
-	public void setHoldAddressInput(I_C_BPartner_LocationInput HoldAddress) {
+	public void setHoldAddressInput(ForeignEntityInput HoldAddress) {
 		this.mHoldAddress = HoldAddress;
 		MBPartnerLocation foreignEntity;
 		if (HoldAddress != null &&
@@ -390,7 +390,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Hold Address
 	 */
 	@JsonProperty("HoldAddress")
-	public I_C_BPartner_LocationInput HoldAddress() {
+	public ForeignEntityInput HoldAddress() {
 		return mHoldAddress;
 	}
 
@@ -456,7 +456,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param M_InOut Material Shipment Document
 	 */
 	@JsonProperty("M_InOut")
-	public void setM_InOutInput(I_M_InOutInput M_InOut) {
+	public void setM_InOutInput(ForeignEntityInput M_InOut) {
 		this.mM_InOut = M_InOut;
 		MInOut_BH foreignEntity;
 		if (get_ID() == 0 &&M_InOut != null &&
@@ -473,7 +473,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Material Shipment Document
 	 */
 	@JsonProperty("M_InOut")
-	public I_M_InOutInput M_InOut() {
+	public ForeignEntityInput M_InOut() {
 		return mM_InOut;
 	}
 
@@ -501,7 +501,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param M_Shipper Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public void setM_ShipperInput(I_M_ShipperInput M_Shipper) {
+	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (M_Shipper != null &&
@@ -520,7 +520,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public I_M_ShipperInput M_Shipper() {
+	public ForeignEntityInput M_Shipper() {
 		return mM_Shipper;
 	}
 
@@ -530,7 +530,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param M_ShipperLabels Shipper Labels
 	 */
 	@JsonProperty("M_ShipperLabels")
-	public void setM_ShipperLabelsInput(I_M_ShipperLabelsInput M_ShipperLabels) {
+	public void setM_ShipperLabelsInput(ForeignEntityInput M_ShipperLabels) {
 		this.mM_ShipperLabels = M_ShipperLabels;
 		MShipperLabels foreignEntity;
 		if (M_ShipperLabels != null &&
@@ -549,7 +549,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Shipper Labels
 	 */
 	@JsonProperty("M_ShipperLabels")
-	public I_M_ShipperLabelsInput M_ShipperLabels() {
+	public ForeignEntityInput M_ShipperLabels() {
 		return mM_ShipperLabels;
 	}
 
@@ -559,7 +559,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param M_ShipperPackaging Shipper Packaging
 	 */
 	@JsonProperty("M_ShipperPackaging")
-	public void setM_ShipperPackagingInput(I_M_ShipperPackagingInput M_ShipperPackaging) {
+	public void setM_ShipperPackagingInput(ForeignEntityInput M_ShipperPackaging) {
 		this.mM_ShipperPackaging = M_ShipperPackaging;
 		MShipperPackaging foreignEntity;
 		if (M_ShipperPackaging != null &&
@@ -578,7 +578,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Shipper Packaging
 	 */
 	@JsonProperty("M_ShipperPackaging")
-	public I_M_ShipperPackagingInput M_ShipperPackaging() {
+	public ForeignEntityInput M_ShipperPackaging() {
 		return mM_ShipperPackaging;
 	}
 
@@ -588,7 +588,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param M_ShipperPickupTypes Shipper Pickup Types
 	 */
 	@JsonProperty("M_ShipperPickupTypes")
-	public void setM_ShipperPickupTypesInput(I_M_ShipperPickupTypesInput M_ShipperPickupTypes) {
+	public void setM_ShipperPickupTypesInput(ForeignEntityInput M_ShipperPickupTypes) {
 		this.mM_ShipperPickupTypes = M_ShipperPickupTypes;
 		MShipperPickupTypes foreignEntity;
 		if (M_ShipperPickupTypes != null &&
@@ -607,7 +607,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Shipper Pickup Types
 	 */
 	@JsonProperty("M_ShipperPickupTypes")
-	public I_M_ShipperPickupTypesInput M_ShipperPickupTypes() {
+	public ForeignEntityInput M_ShipperPickupTypes() {
 		return mM_ShipperPickupTypes;
 	}
 
@@ -617,7 +617,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param M_ShippingProcessor Shipping Processor
 	 */
 	@JsonProperty("M_ShippingProcessor")
-	public void setM_ShippingProcessorInput(I_M_ShippingProcessorInput M_ShippingProcessor) {
+	public void setM_ShippingProcessorInput(ForeignEntityInput M_ShippingProcessor) {
 		this.mM_ShippingProcessor = M_ShippingProcessor;
 		MShippingProcessor foreignEntity;
 		if (get_ID() == 0 &&M_ShippingProcessor != null &&
@@ -634,7 +634,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Shipping Processor
 	 */
 	@JsonProperty("M_ShippingProcessor")
-	public I_M_ShippingProcessorInput M_ShippingProcessor() {
+	public ForeignEntityInput M_ShippingProcessor() {
 		return mM_ShippingProcessor;
 	}
 

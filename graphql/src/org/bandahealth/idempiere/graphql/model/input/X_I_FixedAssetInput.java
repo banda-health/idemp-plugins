@@ -28,19 +28,19 @@ import org.compiere.util.Env;
  */
 public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mA_Asset;
+	 private ForeignEntityInput mA_Asset_Class;
+	 private ForeignEntityInput mA_Asset_Group;
+	 private ForeignEntityInput mA_Asset_Type;
+	 private ForeignEntityInput mC_AcctSchema;
+	 private ForeignEntityInput mC_BPartnerSR;
+	 private ForeignEntityInput mC_City;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_UOM;
+	 private ForeignEntityInput mM_Locator;
+	 private ForeignEntityInput mM_Product;
 	 private I_AD_Ref_ListInput mDocAction;
-	 private I_A_AssetInput mA_Asset;
-	 private I_A_Asset_ClassInput mA_Asset_Class;
-	 private I_A_Asset_GroupInput mA_Asset_Group;
-	 private I_A_Asset_TypeInput mA_Asset_Type;
-	 private I_C_AcctSchemaInput mC_AcctSchema;
-	 private I_C_BPartnerInput mC_BPartnerSR;
-	 private I_C_CityInput mC_City;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_UOMInput mC_UOM;
-	 private I_M_LocatorInput mM_Locator;
-	 private I_M_ProductInput mM_Product;
 
 	/**
 	 * Standard constructor
@@ -57,7 +57,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param A_Asset_Class Asset class
 	 */
 	@JsonProperty("A_Asset_Class")
-	public void setA_Asset_ClassInput(I_A_Asset_ClassInput A_Asset_Class) {
+	public void setA_Asset_ClassInput(ForeignEntityInput A_Asset_Class) {
 		this.mA_Asset_Class = A_Asset_Class;
 		MAssetClass foreignEntity;
 		if (A_Asset_Class != null &&
@@ -76,7 +76,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return Asset class
 	 */
 	@JsonProperty("A_Asset_Class")
-	public I_A_Asset_ClassInput A_Asset_Class() {
+	public ForeignEntityInput A_Asset_Class() {
 		return mA_Asset_Class;
 	}
 
@@ -86,7 +86,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param A_Asset_Group Group of Assets
 	 */
 	@JsonProperty("A_Asset_Group")
-	public void setA_Asset_GroupInput(I_A_Asset_GroupInput A_Asset_Group) {
+	public void setA_Asset_GroupInput(ForeignEntityInput A_Asset_Group) {
 		this.mA_Asset_Group = A_Asset_Group;
 		MAssetGroup foreignEntity;
 		if (A_Asset_Group != null &&
@@ -105,7 +105,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return Group of Assets
 	 */
 	@JsonProperty("A_Asset_Group")
-	public I_A_Asset_GroupInput A_Asset_Group() {
+	public ForeignEntityInput A_Asset_Group() {
 		return mA_Asset_Group;
 	}
 
@@ -115,7 +115,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param A_Asset Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
@@ -134,7 +134,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public I_A_AssetInput A_Asset() {
+	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
 	}
 
@@ -144,7 +144,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param A_Asset_Type Asset Type
 	 */
 	@JsonProperty("A_Asset_Type")
-	public void setA_Asset_TypeInput(I_A_Asset_TypeInput A_Asset_Type) {
+	public void setA_Asset_TypeInput(ForeignEntityInput A_Asset_Type) {
 		this.mA_Asset_Type = A_Asset_Type;
 		MAssetType foreignEntity;
 		if (A_Asset_Type != null &&
@@ -163,7 +163,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return Asset Type
 	 */
 	@JsonProperty("A_Asset_Type")
-	public I_A_Asset_TypeInput A_Asset_Type() {
+	public ForeignEntityInput A_Asset_Type() {
 		return mA_Asset_Type;
 	}
 
@@ -173,7 +173,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -192,7 +192,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -202,7 +202,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param C_AcctSchema Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
@@ -221,7 +221,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public I_C_AcctSchemaInput C_AcctSchema() {
+	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
 	}
 
@@ -231,7 +231,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param C_BPartnerSR Business Partner (Agent or Sales Rep)
 	 */
 	@JsonProperty("C_BPartnerSR")
-	public void setC_BPartnerSRInput(I_C_BPartnerInput C_BPartnerSR) {
+	public void setC_BPartnerSRInput(ForeignEntityInput C_BPartnerSR) {
 		this.mC_BPartnerSR = C_BPartnerSR;
 		MBPartner_BH foreignEntity;
 		if (C_BPartnerSR != null &&
@@ -250,7 +250,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return Business Partner (Agent or Sales Rep)
 	 */
 	@JsonProperty("C_BPartnerSR")
-	public I_C_BPartnerInput C_BPartnerSR() {
+	public ForeignEntityInput C_BPartnerSR() {
 		return mC_BPartnerSR;
 	}
 
@@ -260,7 +260,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param C_City City
 	 */
 	@JsonProperty("C_City")
-	public void setC_CityInput(I_C_CityInput C_City) {
+	public void setC_CityInput(ForeignEntityInput C_City) {
 		this.mC_City = C_City;
 		MCity foreignEntity;
 		if (C_City != null &&
@@ -279,7 +279,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return City
 	 */
 	@JsonProperty("C_City")
-	public I_C_CityInput C_City() {
+	public ForeignEntityInput C_City() {
 		return mC_City;
 	}
 
@@ -289,7 +289,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -308,7 +308,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -318,7 +318,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param C_UOM Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public void setC_UOMInput(I_C_UOMInput C_UOM) {
+	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (C_UOM != null &&
@@ -337,7 +337,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public I_C_UOMInput C_UOM() {
+	public ForeignEntityInput C_UOM() {
 		return mC_UOM;
 	}
 
@@ -394,7 +394,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param M_Locator Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public void setM_LocatorInput(I_M_LocatorInput M_Locator) {
+	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
@@ -413,7 +413,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public I_M_LocatorInput M_Locator() {
+	public ForeignEntityInput M_Locator() {
 		return mM_Locator;
 	}
 
@@ -423,7 +423,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -442,7 +442,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 }

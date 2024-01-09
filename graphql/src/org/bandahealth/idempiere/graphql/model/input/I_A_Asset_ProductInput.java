@@ -15,14 +15,14 @@ public interface I_A_Asset_ProductInput extends I_A_Asset_Product {
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_AssetInput(I_A_AssetInput A_Asset);
+	void setA_AssetInput(ForeignEntityInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput A_Asset();
+	ForeignEntityInput A_Asset();
 
 	/**
 	 * Set ID.
@@ -43,54 +43,54 @@ public interface I_A_Asset_ProductInput extends I_A_Asset_Product {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set M_AttributeSetInstance.
 	 *
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
-	void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance);
+	void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance);
 
 	/**
 	 * Get M_AttributeSetInstance.
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	I_M_AttributeSetInstanceInput M_AttributeSetInstance();
+	ForeignEntityInput M_AttributeSetInstance();
 
 	/**
 	 * Set M_Locator.
 	 *
 	 * @param M_Locator Warehouse Locator
 	 */
-	void setM_LocatorInput(I_M_LocatorInput M_Locator);
+	void setM_LocatorInput(ForeignEntityInput M_Locator);
 
 	/**
 	 * Get M_Locator.
 	 *
 	 * @return Warehouse Locator
 	 */
-	I_M_LocatorInput M_Locator();
+	ForeignEntityInput M_Locator();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_ProductInput(I_M_ProductInput M_Product);
+	void setM_ProductInput(ForeignEntityInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput M_Product();
+	ForeignEntityInput M_Product();
 }

@@ -26,18 +26,18 @@ import org.compiere.util.Env;
  */
 public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlanLineInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_CashPlanInput mC_CashPlan;
-	 private I_C_ChargeInput mC_Charge;
-	 private I_C_ElementValueInput mUser1;
-	 private I_C_ElementValueInput mUser2;
-	 private I_C_ProjectInput mC_Project;
-	 private I_C_ProjectPhaseInput mC_ProjectPhase;
-	 private I_C_ProjectTaskInput mC_ProjectTask;
-	 private I_M_ProductInput mM_Product;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_CashPlan;
+	 private ForeignEntityInput mC_Charge;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mC_ProjectPhase;
+	 private ForeignEntityInput mC_ProjectTask;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mUser1;
+	 private ForeignEntityInput mUser2;
 
 	/**
 	 * Standard constructor
@@ -54,7 +54,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -73,7 +73,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -83,7 +83,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -102,7 +102,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -112,7 +112,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -131,7 +131,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -141,7 +141,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -160,7 +160,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -170,7 +170,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param C_CashPlan Cash Plan
 	 */
 	@JsonProperty("C_CashPlan")
-	public void setC_CashPlanInput(I_C_CashPlanInput C_CashPlan) {
+	public void setC_CashPlanInput(ForeignEntityInput C_CashPlan) {
 		this.mC_CashPlan = C_CashPlan;
 		MCashPlan foreignEntity;
 		if (get_ID() == 0 &&C_CashPlan != null &&
@@ -187,7 +187,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return Cash Plan
 	 */
 	@JsonProperty("C_CashPlan")
-	public I_C_CashPlanInput C_CashPlan() {
+	public ForeignEntityInput C_CashPlan() {
 		return mC_CashPlan;
 	}
 
@@ -215,7 +215,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param C_Charge Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
@@ -234,7 +234,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public I_C_ChargeInput C_Charge() {
+	public ForeignEntityInput C_Charge() {
 		return mC_Charge;
 	}
 
@@ -244,7 +244,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -263,7 +263,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -273,7 +273,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param C_ProjectPhase Phase of a Project
 	 */
 	@JsonProperty("C_ProjectPhase")
-	public void setC_ProjectPhaseInput(I_C_ProjectPhaseInput C_ProjectPhase) {
+	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
 		MProjectPhase foreignEntity;
 		if (get_ID() == 0 &&C_ProjectPhase != null &&
@@ -290,7 +290,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return Phase of a Project
 	 */
 	@JsonProperty("C_ProjectPhase")
-	public I_C_ProjectPhaseInput C_ProjectPhase() {
+	public ForeignEntityInput C_ProjectPhase() {
 		return mC_ProjectPhase;
 	}
 
@@ -300,7 +300,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param C_ProjectTask Actual Project Task in a Phase
 	 */
 	@JsonProperty("C_ProjectTask")
-	public void setC_ProjectTaskInput(I_C_ProjectTaskInput C_ProjectTask) {
+	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
 		MProjectTask foreignEntity;
 		if (get_ID() == 0 &&C_ProjectTask != null &&
@@ -317,7 +317,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return Actual Project Task in a Phase
 	 */
 	@JsonProperty("C_ProjectTask")
-	public I_C_ProjectTaskInput C_ProjectTask() {
+	public ForeignEntityInput C_ProjectTask() {
 		return mC_ProjectTask;
 	}
 
@@ -327,7 +327,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -346,7 +346,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -356,7 +356,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param User1 User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public void setUser1Input(I_C_ElementValueInput User1) {
+	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
@@ -375,7 +375,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public I_C_ElementValueInput User1() {
+	public ForeignEntityInput User1() {
 		return mUser1;
 	}
 
@@ -385,7 +385,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @param User2 User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public void setUser2Input(I_C_ElementValueInput User2) {
+	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
@@ -404,7 +404,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	 * @return User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public I_C_ElementValueInput User2() {
+	public ForeignEntityInput User2() {
 		return mUser2;
 	}
 }

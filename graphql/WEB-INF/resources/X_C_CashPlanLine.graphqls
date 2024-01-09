@@ -5,6 +5,11 @@ extend type Query {
 	C_CashPlanLineGet(page: Int, size: Int, sort: String, filter: String): C_CashPlanLineConnection!
 }
 
+extend type Mutation {
+	C_CashPlanLineSave(entity: C_CashPlanLineInput!): C_CashPlanLine!
+	C_CashPlanLineDelete(uuids: [String!]!): Boolean!
+}
+
 type C_CashPlanLineConnection {
 	results: [C_CashPlanLine!]!
 	pagingInfo: PagingInfo!
@@ -64,3 +69,46 @@ type C_CashPlanLine {
 	User2: C_ElementValue
 }
 
+input C_CashPlanLineInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	C_CashPlan: ForeignEntityInput
+	ID: ID
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Phase of a Project
+	C_ProjectPhase: ForeignEntityInput
+	# Actual Project Task in a Phase
+	C_ProjectTask: ForeignEntityInput
+	# Transaction Date
+	DateTrx: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Total line amount incl. Tax
+	LineTotalAmt: Int
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	Probability: Int
+	# The document has been processed
+	Processed: Boolean
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: Int
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

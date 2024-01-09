@@ -15,14 +15,14 @@ public interface I_A_Asset_Info_FinInput extends I_A_Asset_Info_Fin {
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_AssetInput(I_A_AssetInput A_Asset);
+	void setA_AssetInput(ForeignEntityInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput A_Asset();
+	ForeignEntityInput A_Asset();
 
 	/**
 	 * Set ID.
@@ -71,26 +71,26 @@ public interface I_A_Asset_Info_FinInput extends I_A_Asset_Info_Fin {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	void setC_BPartnerInput(I_C_BPartnerInput C_BPartner);
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
 
 	/**
 	 * Get C_BPartner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	I_C_BPartnerInput C_BPartner();
+	ForeignEntityInput C_BPartner();
 }

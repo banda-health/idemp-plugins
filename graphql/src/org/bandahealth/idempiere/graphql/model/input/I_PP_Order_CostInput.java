@@ -15,42 +15,42 @@ public interface I_PP_Order_CostInput extends I_PP_Order_Cost {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_Workflow.
 	 *
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
-	void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow);
+	void setAD_WorkflowInput(ForeignEntityInput AD_Workflow);
 
 	/**
 	 * Get AD_Workflow.
 	 *
 	 * @return Workflow or combination of tasks
 	 */
-	I_AD_WorkflowInput AD_Workflow();
+	ForeignEntityInput AD_Workflow();
 
 	/**
 	 * Set C_AcctSchema.
 	 *
 	 * @param C_AcctSchema Rules for accounting
 	 */
-	void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema);
+	void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema);
 
 	/**
 	 * Get C_AcctSchema.
 	 *
 	 * @return Rules for accounting
 	 */
-	I_C_AcctSchemaInput C_AcctSchema();
+	ForeignEntityInput C_AcctSchema();
 
 	/**
 	 * Set CostingMethod.
@@ -71,56 +71,56 @@ public interface I_PP_Order_CostInput extends I_PP_Order_Cost {
 	 *
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
-	void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance);
+	void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance);
 
 	/**
 	 * Get M_AttributeSetInstance.
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	I_M_AttributeSetInstanceInput M_AttributeSetInstance();
+	ForeignEntityInput M_AttributeSetInstance();
 
 	/**
 	 * Set M_CostElement.
 	 *
 	 * @param M_CostElement Product Cost Element
 	 */
-	void setM_CostElementInput(I_M_CostElementInput M_CostElement);
+	void setM_CostElementInput(ForeignEntityInput M_CostElement);
 
 	/**
 	 * Get M_CostElement.
 	 *
 	 * @return Product Cost Element
 	 */
-	I_M_CostElementInput M_CostElement();
+	ForeignEntityInput M_CostElement();
 
 	/**
 	 * Set M_CostType.
 	 *
 	 * @param M_CostType Type of Cost (e.g. Current, Plan, Future)
 	 */
-	void setM_CostTypeInput(I_M_CostTypeInput M_CostType);
+	void setM_CostTypeInput(ForeignEntityInput M_CostType);
 
 	/**
 	 * Get M_CostType.
 	 *
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
-	I_M_CostTypeInput M_CostType();
+	ForeignEntityInput M_CostType();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_ProductInput(I_M_ProductInput M_Product);
+	void setM_ProductInput(ForeignEntityInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput M_Product();
+	ForeignEntityInput M_Product();
 
 	/**
 	 * Set ID.
@@ -141,12 +141,12 @@ public interface I_PP_Order_CostInput extends I_PP_Order_Cost {
 	 *
 	 * @param PP_Order Manufacturing Order
 	 */
-	void setPP_OrderInput(I_PP_OrderInput PP_Order);
+	void setPP_OrderInput(ForeignEntityInput PP_Order);
 
 	/**
 	 * Get PP_Order.
 	 *
 	 * @return Manufacturing Order
 	 */
-	I_PP_OrderInput PP_Order();
+	ForeignEntityInput PP_Order();
 }

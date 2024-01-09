@@ -5,6 +5,11 @@ extend type Query {
 	PA_ReportLineSetGet(page: Int, size: Int, sort: String, filter: String): PA_ReportLineSetConnection!
 }
 
+extend type Mutation {
+	PA_ReportLineSetSave(entity: PA_ReportLineSetInput!): PA_ReportLineSet!
+	PA_ReportLineSetDelete(uuids: [String!]!): Boolean!
+}
+
 type PA_ReportLineSetConnection {
 	results: [PA_ReportLineSet!]!
 	pagingInfo: PagingInfo!
@@ -33,3 +38,15 @@ type PA_ReportLineSet {
 	UpdatedBy: AD_User!
 }
 
+input PA_ReportLineSetInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	ID: ID
+	Processing: Boolean
+}

@@ -5,6 +5,11 @@ extend type Query {
 	AD_ElementGet(page: Int, size: Int, sort: String, filter: String): AD_ElementConnection!
 }
 
+extend type Mutation {
+	AD_ElementSave(entity: AD_ElementInput!): AD_Element!
+	AD_ElementDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_ElementConnection {
 	results: [AD_Element!]!
 	pagingInfo: PagingInfo!
@@ -49,3 +54,31 @@ type AD_Element {
 	UpdatedBy: AD_User!
 }
 
+input AD_ElementInput {
+	ID: ID
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Name of the column in the database
+	ColumnName: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Placeholder: String
+	# Description in PO Screens
+	PO_Description: String
+	# Help for PO Screens
+	PO_Help: String
+	# Name on PO Screens
+	PO_Name: String
+	# Print name on PO Screens/Reports
+	PO_PrintName: String
+	# The label text to be printed on a document or correspondence.
+	PrintName: String
+}

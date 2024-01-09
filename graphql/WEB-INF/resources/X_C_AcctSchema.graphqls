@@ -5,6 +5,11 @@ extend type Query {
 	C_AcctSchemaGet(page: Int, size: Int, sort: String, filter: String): C_AcctSchemaConnection!
 }
 
+extend type Mutation {
+	C_AcctSchemaSave(entity: C_AcctSchemaInput!): C_AcctSchema!
+	C_AcctSchemaDelete(uuids: [String!]!): Boolean!
+}
+
 type C_AcctSchemaConnection {
 	results: [C_AcctSchema!]!
 	pagingInfo: PagingInfo!
@@ -77,3 +82,59 @@ type C_AcctSchema {
 	UpdatedBy: AD_User!
 }
 
+input C_AcctSchemaInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# If selected, the periods are automatically opened and closed
+	AutoPeriodControl: Boolean
+	ID: ID
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
+	# Create Commitment and/or Reservations for Budget Control
+	CommitmentType: AD_Ref_ListInput
+	# The lowest level to accumulate Costing Information
+	CostingLevel: AD_Ref_ListInput
+	# Indicates how Costs will be calculated
+	CostingMethod: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	# Generally Accepted Accounting Principles
+	GAAP: AD_Ref_ListInput
+	# Ability to select (partial) account combinations by an Alias
+	HasAlias: Boolean
+	# Combination of account elements are checked
+	HasCombination: Boolean
+	# Indicates if Accrual or Cash Based accounting will be used
+	IsAccrual: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# Adjust Cost of Good Sold
+	IsAdjustCOGS: Boolean
+	# Allow to post negative accounting values
+	IsAllowNegativePosting: Boolean
+	# Correct the tax for payment discount and charges
+	IsDiscountCorrectsTax: Boolean
+	# Post the cost adjustment explicitly
+	IsExplicitCostAdjustment: Boolean
+	# This flag controls if Adempiere must post when clearing (transit) and final accounts are the same
+	IsPostIfClearingEqual: Boolean
+	# Differentiate between Services and Product Receivable/Payables
+	IsPostServices: Boolean
+	# Generate postings for trade discounts
+	IsTradeDiscountPosted: Boolean
+	# Type of Cost (e.g. Current, Plan, Future)
+	M_CostType: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Number of days to be able to post to a future date (based on system date)
+	Period_OpenFuture: Int
+	# Number of days to be able to post in the past (based on system date)
+	Period_OpenHistory: Int
+	Processing: Boolean
+	# Element Separator
+	Separator: String
+	# Type of Tax Correction
+	TaxCorrectionType: AD_Ref_ListInput
+}

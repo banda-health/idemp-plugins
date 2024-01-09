@@ -268,11 +268,14 @@ public class GraphQLInputModelInterfaceGenerator {
 			columnBuilder.append("\n");
 
 			generateJavaSetComment(entityName, entityName, Description, columnBuilder);
-			columnBuilder.append("\tvoid set").append(entityName).append("Input(").append(returnType).append(" ")
-					.append(entityName).append(");\n");
+			columnBuilder
+//					.append("\tvoid set").append(entityName).append("Input(").append(returnType).append(" ")
+					.append("\tvoid set").append(entityName).append("Input(ForeignEntityInput ").append(entityName).append(");\n");
 
 			generateJavaGetComment(entityName, Description, columnBuilder);
-			columnBuilder.append("\t").append(returnType).append(" ").append(entityName).append("();");
+			columnBuilder
+//					.append("\t").append(returnType).append(" ").append(entityName).append("();");
+					.append("\tForeignEntityInput ").append(entityName).append("();");
 
 			return columnBuilder.toString();
 		} else if (columnName.endsWith("_UU")) {

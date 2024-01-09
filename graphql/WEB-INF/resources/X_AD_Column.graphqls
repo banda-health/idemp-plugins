@@ -5,6 +5,11 @@ extend type Query {
 	AD_ColumnGet(page: Int, size: Int, sort: String, filter: String): AD_ColumnConnection!
 }
 
+extend type Mutation {
+	AD_ColumnSave(entity: AD_ColumnInput!): AD_Column!
+	AD_ColumnDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_ColumnConnection {
 	results: [AD_Column!]!
 	pagingInfo: PagingInfo!
@@ -114,3 +119,96 @@ type AD_Column {
 	VFormat: String
 }
 
+input AD_ColumnInput {
+	AD_Chart: ForeignEntityInput
+	ID: ID
+	# System Element enables the central maintenance of column description and help.
+	AD_Element: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Override Dynamic Validation Rule for Lookup Window
+	AD_Val_Rule_Lookup: ForeignEntityInput
+	# Fully qualified class names and method - separated by semicolons
+	Callout: String
+	# Name of the column in the database
+	ColumnName: String
+	# Virtual Column (r/o)
+	ColumnSQL: String
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Length of the column in the database
+	FieldLength: Int
+	FKConstraintName: String
+	FKConstraintType: AD_Ref_ListInput
+	# The pattern used to format a number or date.
+	FormatPattern: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Determine if a column must be copied when pushing the button to copy record
+	IsAllowCopy: Boolean
+	# Determine if a column must be recorded into the change log
+	IsAllowLogging: Boolean
+	# The column is always updateable, even if the record is not active or processed
+	IsAlwaysUpdateable: Boolean
+	# Automatic completion for textfields
+	IsAutocomplete: Boolean
+	# Display or Storage is encrypted
+	IsEncrypted: AD_Ref_ListInput
+	# Text has HTML tags
+	IsHtml: Boolean
+	# This column is part of the record identifier
+	IsIdentifier: Boolean
+	# This column is the key in this table
+	IsKey: Boolean
+	# Data entry is required in this column
+	IsMandatory: Boolean
+	# This column is a link to the parent table (e.g. header from lines) - incl. Association key columns
+	IsParent: Boolean
+	# Defines whether content must be treated as secure
+	IsSecure: Boolean
+	# Is this column used for finding rows in windows
+	IsSelectionColumn: Boolean
+	# Change database table definition when changing dictionary definition
+	IsSyncDatabase: String
+	# Show the button on the toolbar, the window, or both
+	IsToolbarButton: AD_Ref_ListInput
+	# This column is translated
+	IsTranslated: Boolean
+	# Determines, if the field can be updated
+	IsUpdateable: Boolean
+	MandatoryLogic: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	PA_DashboardContent: ForeignEntityInput
+	Placeholder: String
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Selection Column Sequence
+	SeqNoSelection: Int
+	# Maximum Value for a field
+	ValueMax: String
+	# Minimum Value for a field
+	ValueMin: String
+	# Version of the table definition
+	Version: Int
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}

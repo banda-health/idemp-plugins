@@ -15,14 +15,14 @@ public interface I_C_AddressValidationInput extends I_C_AddressValidation {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,12 +43,12 @@ public interface I_C_AddressValidationInput extends I_C_AddressValidation {
 	 *
 	 * @param C_AddressValidationCfg C_AddressValidationCfg
 	 */
-	void setC_AddressValidationCfgInput(I_C_AddressValidationCfgInput C_AddressValidationCfg);
+	void setC_AddressValidationCfgInput(ForeignEntityInput C_AddressValidationCfg);
 
 	/**
 	 * Get C_AddressValidationCfg.
 	 *
 	 * @return C_AddressValidationCfg
 	 */
-	I_C_AddressValidationCfgInput C_AddressValidationCfg();
+	ForeignEntityInput C_AddressValidationCfg();
 }

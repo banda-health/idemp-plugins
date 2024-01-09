@@ -15,14 +15,14 @@ public interface I_A_Asset_UseInput extends I_A_Asset_Use {
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_AssetInput(I_A_AssetInput A_Asset);
+	void setA_AssetInput(ForeignEntityInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput A_Asset();
+	ForeignEntityInput A_Asset();
 
 	/**
 	 * Set ID.
@@ -43,12 +43,12 @@ public interface I_A_Asset_UseInput extends I_A_Asset_Use {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 }

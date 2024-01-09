@@ -29,14 +29,14 @@ public interface I_A_Asset_AdditionInput extends I_A_Asset_Addition {
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_AssetInput(I_A_AssetInput A_Asset);
+	void setA_AssetInput(ForeignEntityInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput A_Asset();
+	ForeignEntityInput A_Asset();
 
 	/**
 	 * Set A_CapvsExp.
@@ -71,112 +71,112 @@ public interface I_A_Asset_AdditionInput extends I_A_Asset_Addition {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_Charge.
 	 *
 	 * @param C_Charge Additional document charges
 	 */
-	void setC_ChargeInput(I_C_ChargeInput C_Charge);
+	void setC_ChargeInput(ForeignEntityInput C_Charge);
 
 	/**
 	 * Get C_Charge.
 	 *
 	 * @return Additional document charges
 	 */
-	I_C_ChargeInput C_Charge();
+	ForeignEntityInput C_Charge();
 
 	/**
 	 * Set C_ConversionType.
 	 *
 	 * @param C_ConversionType Currency Conversion Rate Type
 	 */
-	void setC_ConversionTypeInput(I_C_ConversionTypeInput C_ConversionType);
+	void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType);
 
 	/**
 	 * Get C_ConversionType.
 	 *
 	 * @return Currency Conversion Rate Type
 	 */
-	I_C_ConversionTypeInput C_ConversionType();
+	ForeignEntityInput C_ConversionType();
 
 	/**
 	 * Set C_Currency.
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(ForeignEntityInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput C_Currency();
+	ForeignEntityInput C_Currency();
 
 	/**
 	 * Set C_DocType.
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(ForeignEntityInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput C_DocType();
+	ForeignEntityInput C_DocType();
 
 	/**
 	 * Set C_Invoice.
 	 *
 	 * @param C_Invoice Invoice Identifier
 	 */
-	void setC_InvoiceInput(I_C_InvoiceInput C_Invoice);
+	void setC_InvoiceInput(ForeignEntityInput C_Invoice);
 
 	/**
 	 * Get C_Invoice.
 	 *
 	 * @return Invoice Identifier
 	 */
-	I_C_InvoiceInput C_Invoice();
+	ForeignEntityInput C_Invoice();
 
 	/**
 	 * Set C_InvoiceLine.
 	 *
 	 * @param C_InvoiceLine Invoice Detail Line
 	 */
-	void setC_InvoiceLineInput(I_C_InvoiceLineInput C_InvoiceLine);
+	void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine);
 
 	/**
 	 * Get C_InvoiceLine.
 	 *
 	 * @return Invoice Detail Line
 	 */
-	I_C_InvoiceLineInput C_InvoiceLine();
+	ForeignEntityInput C_InvoiceLine();
 
 	/**
 	 * Set C_Project.
 	 *
 	 * @param C_Project Financial Project
 	 */
-	void setC_ProjectInput(I_C_ProjectInput C_Project);
+	void setC_ProjectInput(ForeignEntityInput C_Project);
 
 	/**
 	 * Get C_Project.
 	 *
 	 * @return Financial Project
 	 */
-	I_C_ProjectInput C_Project();
+	ForeignEntityInput C_Project();
 
 	/**
 	 * Set DocAction.
@@ -211,98 +211,98 @@ public interface I_A_Asset_AdditionInput extends I_A_Asset_Addition {
 	 *
 	 * @param GL_JournalBatch General Ledger Journal Batch
 	 */
-	void setGL_JournalBatchInput(I_GL_JournalBatchInput GL_JournalBatch);
+	void setGL_JournalBatchInput(ForeignEntityInput GL_JournalBatch);
 
 	/**
 	 * Get GL_JournalBatch.
 	 *
 	 * @return General Ledger Journal Batch
 	 */
-	I_GL_JournalBatchInput GL_JournalBatch();
+	ForeignEntityInput GL_JournalBatch();
 
 	/**
 	 * Set I_FixedAsset.
 	 *
 	 * @param I_FixedAsset I_FixedAsset
 	 */
-	void setI_FixedAssetInput(I_I_FixedAssetInput I_FixedAsset);
+	void setI_FixedAssetInput(ForeignEntityInput I_FixedAsset);
 
 	/**
 	 * Get I_FixedAsset.
 	 *
 	 * @return I_FixedAsset
 	 */
-	I_I_FixedAssetInput I_FixedAsset();
+	ForeignEntityInput I_FixedAsset();
 
 	/**
 	 * Set M_AttributeSetInstance.
 	 *
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
-	void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance);
+	void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance);
 
 	/**
 	 * Get M_AttributeSetInstance.
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	I_M_AttributeSetInstanceInput M_AttributeSetInstance();
+	ForeignEntityInput M_AttributeSetInstance();
 
 	/**
 	 * Set M_InOutLine.
 	 *
 	 * @param M_InOutLine Line on Shipment or Receipt document
 	 */
-	void setM_InOutLineInput(I_M_InOutLineInput M_InOutLine);
+	void setM_InOutLineInput(ForeignEntityInput M_InOutLine);
 
 	/**
 	 * Get M_InOutLine.
 	 *
 	 * @return Line on Shipment or Receipt document
 	 */
-	I_M_InOutLineInput M_InOutLine();
+	ForeignEntityInput M_InOutLine();
 
 	/**
 	 * Set M_Locator.
 	 *
 	 * @param M_Locator Warehouse Locator
 	 */
-	void setM_LocatorInput(I_M_LocatorInput M_Locator);
+	void setM_LocatorInput(ForeignEntityInput M_Locator);
 
 	/**
 	 * Get M_Locator.
 	 *
 	 * @return Warehouse Locator
 	 */
-	I_M_LocatorInput M_Locator();
+	ForeignEntityInput M_Locator();
 
 	/**
 	 * Set M_MatchInv.
 	 *
 	 * @param M_MatchInv Match Shipment/Receipt to Invoice
 	 */
-	void setM_MatchInvInput(I_M_MatchInvInput M_MatchInv);
+	void setM_MatchInvInput(ForeignEntityInput M_MatchInv);
 
 	/**
 	 * Get M_MatchInv.
 	 *
 	 * @return Match Shipment/Receipt to Invoice
 	 */
-	I_M_MatchInvInput M_MatchInv();
+	ForeignEntityInput M_MatchInv();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_ProductInput(I_M_ProductInput M_Product);
+	void setM_ProductInput(ForeignEntityInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput M_Product();
+	ForeignEntityInput M_Product();
 
 	/**
 	 * Set PostingType.

@@ -20,14 +20,14 @@ import org.compiere.util.Env;
  */
 public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Tree_Menu;
+	 private ForeignEntityInput mAD_Tree_Org;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mSupervisor;
 	 private I_AD_Ref_ListInput mPreferenceType;
 	 private I_AD_Ref_ListInput mRoleType;
 	 private I_AD_Ref_ListInput mUserLevel;
-	 private I_AD_TreeInput mAD_Tree_Menu;
-	 private I_AD_TreeInput mAD_Tree_Org;
-	 private I_AD_UserInput mSupervisor;
-	 private I_C_CurrencyInput mC_Currency;
 
 	/**
 	 * Standard constructor
@@ -44,7 +44,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -61,7 +61,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -89,7 +89,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @param AD_Tree_Menu Tree of the menu
 	 */
 	@JsonProperty("AD_Tree_Menu")
-	public void setAD_Tree_MenuInput(I_AD_TreeInput AD_Tree_Menu) {
+	public void setAD_Tree_MenuInput(ForeignEntityInput AD_Tree_Menu) {
 		this.mAD_Tree_Menu = AD_Tree_Menu;
 		MTree foreignEntity;
 		if (AD_Tree_Menu != null &&
@@ -108,7 +108,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @return Tree of the menu
 	 */
 	@JsonProperty("AD_Tree_Menu")
-	public I_AD_TreeInput AD_Tree_Menu() {
+	public ForeignEntityInput AD_Tree_Menu() {
 		return mAD_Tree_Menu;
 	}
 
@@ -118,7 +118,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @param AD_Tree_Org Trees are used for (financial) reporting and security access (via role)
 	 */
 	@JsonProperty("AD_Tree_Org")
-	public void setAD_Tree_OrgInput(I_AD_TreeInput AD_Tree_Org) {
+	public void setAD_Tree_OrgInput(ForeignEntityInput AD_Tree_Org) {
 		this.mAD_Tree_Org = AD_Tree_Org;
 		MTree foreignEntity;
 		if (AD_Tree_Org != null &&
@@ -137,7 +137,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @return Trees are used for (financial) reporting and security access (via role)
 	 */
 	@JsonProperty("AD_Tree_Org")
-	public I_AD_TreeInput AD_Tree_Org() {
+	public ForeignEntityInput AD_Tree_Org() {
 		return mAD_Tree_Org;
 	}
 
@@ -147,7 +147,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -166,7 +166,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -234,7 +234,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @param Supervisor Supervisor for this user/organization - used for escalation and approval
 	 */
 	@JsonProperty("Supervisor")
-	public void setSupervisorInput(I_AD_UserInput Supervisor) {
+	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
 		MUser_BH foreignEntity;
 		if (Supervisor != null &&
@@ -253,7 +253,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	@JsonProperty("Supervisor")
-	public I_AD_UserInput Supervisor() {
+	public ForeignEntityInput Supervisor() {
 		return mSupervisor;
 	}
 

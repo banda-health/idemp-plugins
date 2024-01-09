@@ -15,28 +15,28 @@ public interface I_AD_WorkflowProcessorInput extends I_AD_WorkflowProcessor {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_Schedule.
 	 *
 	 * @param AD_Schedule AD_Schedule
 	 */
-	void setAD_ScheduleInput(I_AD_ScheduleInput AD_Schedule);
+	void setAD_ScheduleInput(ForeignEntityInput AD_Schedule);
 
 	/**
 	 * Get AD_Schedule.
 	 *
 	 * @return AD_Schedule
 	 */
-	I_AD_ScheduleInput AD_Schedule();
+	ForeignEntityInput AD_Schedule();
 
 	/**
 	 * Set ID.
@@ -57,12 +57,12 @@ public interface I_AD_WorkflowProcessorInput extends I_AD_WorkflowProcessor {
 	 *
 	 * @param Supervisor Supervisor for this user/organization - used for escalation and approval
 	 */
-	void setSupervisorInput(I_AD_UserInput Supervisor);
+	void setSupervisorInput(ForeignEntityInput Supervisor);
 
 	/**
 	 * Get Supervisor.
 	 *
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
-	I_AD_UserInput Supervisor();
+	ForeignEntityInput Supervisor();
 }

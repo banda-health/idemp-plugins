@@ -15,126 +15,126 @@ public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_Activity.
 	 *
 	 * @param C_Activity Business Activity
 	 */
-	void setC_ActivityInput(I_C_ActivityInput C_Activity);
+	void setC_ActivityInput(ForeignEntityInput C_Activity);
 
 	/**
 	 * Get C_Activity.
 	 *
 	 * @return Business Activity
 	 */
-	I_C_ActivityInput C_Activity();
+	ForeignEntityInput C_Activity();
 
 	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	void setC_BPartnerInput(I_C_BPartnerInput C_BPartner);
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
 
 	/**
 	 * Get C_BPartner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	I_C_BPartnerInput C_BPartner();
+	ForeignEntityInput C_BPartner();
 
 	/**
 	 * Set C_Campaign.
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	void setC_CampaignInput(I_C_CampaignInput C_Campaign);
+	void setC_CampaignInput(ForeignEntityInput C_Campaign);
 
 	/**
 	 * Get C_Campaign.
 	 *
 	 * @return Marketing Campaign
 	 */
-	I_C_CampaignInput C_Campaign();
+	ForeignEntityInput C_Campaign();
 
 	/**
 	 * Set C_Currency.
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(ForeignEntityInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput C_Currency();
+	ForeignEntityInput C_Currency();
 
 	/**
 	 * Set C_ElementValue.
 	 *
 	 * @param C_ElementValue Account Element
 	 */
-	void setC_ElementValueInput(I_C_ElementValueInput C_ElementValue);
+	void setC_ElementValueInput(ForeignEntityInput C_ElementValue);
 
 	/**
 	 * Get C_ElementValue.
 	 *
 	 * @return Account Element
 	 */
-	I_C_ElementValueInput C_ElementValue();
+	ForeignEntityInput C_ElementValue();
 
 	/**
 	 * Set C_Location.
 	 *
 	 * @param C_Location Location or Address
 	 */
-	void setC_LocationInput(I_C_LocationInput C_Location);
+	void setC_LocationInput(ForeignEntityInput C_Location);
 
 	/**
 	 * Get C_Location.
 	 *
 	 * @return Location or Address
 	 */
-	I_C_LocationInput C_Location();
+	ForeignEntityInput C_Location();
 
 	/**
 	 * Set C_Project.
 	 *
 	 * @param C_Project Financial Project
 	 */
-	void setC_ProjectInput(I_C_ProjectInput C_Project);
+	void setC_ProjectInput(ForeignEntityInput C_Project);
 
 	/**
 	 * Get C_Project.
 	 *
 	 * @return Financial Project
 	 */
-	I_C_ProjectInput C_Project();
+	ForeignEntityInput C_Project();
 
 	/**
 	 * Set C_SalesRegion.
 	 *
 	 * @param C_SalesRegion Sales coverage region
 	 */
-	void setC_SalesRegionInput(I_C_SalesRegionInput C_SalesRegion);
+	void setC_SalesRegionInput(ForeignEntityInput C_SalesRegion);
 
 	/**
 	 * Get C_SalesRegion.
 	 *
 	 * @return Sales coverage region
 	 */
-	I_C_SalesRegionInput C_SalesRegion();
+	ForeignEntityInput C_SalesRegion();
 
 	/**
 	 * Set CalculationType.
@@ -211,56 +211,56 @@ public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 	 *
 	 * @param GL_Budget General Ledger Budget
 	 */
-	void setGL_BudgetInput(I_GL_BudgetInput GL_Budget);
+	void setGL_BudgetInput(ForeignEntityInput GL_Budget);
 
 	/**
 	 * Get GL_Budget.
 	 *
 	 * @return General Ledger Budget
 	 */
-	I_GL_BudgetInput GL_Budget();
+	ForeignEntityInput GL_Budget();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_ProductInput(I_M_ProductInput M_Product);
+	void setM_ProductInput(ForeignEntityInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput M_Product();
+	ForeignEntityInput M_Product();
 
 	/**
 	 * Set Oper_1.
 	 *
 	 * @param Oper_1 First operand for calculation
 	 */
-	void setOper_1Input(I_PA_ReportColumnInput Oper_1);
+	void setOper_1Input(ForeignEntityInput Oper_1);
 
 	/**
 	 * Get Oper_1.
 	 *
 	 * @return First operand for calculation
 	 */
-	I_PA_ReportColumnInput Oper_1();
+	ForeignEntityInput Oper_1();
 
 	/**
 	 * Set Oper_2.
 	 *
 	 * @param Oper_2 Second operand for calculation
 	 */
-	void setOper_2Input(I_PA_ReportColumnInput Oper_2);
+	void setOper_2Input(ForeignEntityInput Oper_2);
 
 	/**
 	 * Get Oper_2.
 	 *
 	 * @return Second operand for calculation
 	 */
-	I_PA_ReportColumnInput Oper_2();
+	ForeignEntityInput Oper_2();
 
 	/**
 	 * Set ID.
@@ -281,14 +281,14 @@ public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 	 *
 	 * @param PA_ReportColumnSet Collection of Columns for Report
 	 */
-	void setPA_ReportColumnSetInput(I_PA_ReportColumnSetInput PA_ReportColumnSet);
+	void setPA_ReportColumnSetInput(ForeignEntityInput PA_ReportColumnSet);
 
 	/**
 	 * Get PA_ReportColumnSet.
 	 *
 	 * @return Collection of Columns for Report
 	 */
-	I_PA_ReportColumnSetInput PA_ReportColumnSet();
+	ForeignEntityInput PA_ReportColumnSet();
 
 	/**
 	 * Set PAAmountType.

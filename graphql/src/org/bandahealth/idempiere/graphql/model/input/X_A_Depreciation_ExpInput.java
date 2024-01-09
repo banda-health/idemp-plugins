@@ -23,17 +23,17 @@ import org.compiere.util.Env;
  */
 public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_Depreciation_ExpInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mA_Account_Number_A;
+	 private ForeignEntityInput mA_Asset;
+	 private ForeignEntityInput mA_Asset_Addition;
+	 private ForeignEntityInput mA_Asset_Disposed;
+	 private ForeignEntityInput mA_Depreciation_Entry;
+	 private ForeignEntityInput mCR_Account;
+	 private ForeignEntityInput mC_AcctSchema;
+	 private ForeignEntityInput mDR_Account;
 	 private I_AD_Ref_ListInput mA_Entry_Type;
 	 private I_AD_Ref_ListInput mPostingType;
-	 private I_A_AssetInput mA_Asset;
-	 private I_A_Asset_AdditionInput mA_Asset_Addition;
-	 private I_A_Asset_DisposedInput mA_Asset_Disposed;
-	 private I_A_Depreciation_EntryInput mA_Depreciation_Entry;
-	 private I_C_AcctSchemaInput mC_AcctSchema;
-	 private I_C_ValidCombinationInput mA_Account_Number_A;
-	 private I_C_ValidCombinationInput mCR_Account;
-	 private I_C_ValidCombinationInput mDR_Account;
 
 	/**
 	 * Standard constructor
@@ -50,7 +50,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @param A_Account_Number_A A_Account_Number_Acct
 	 */
 	@JsonProperty("A_Account_Number_A")
-	public void setA_Account_Number_AInput(I_C_ValidCombinationInput A_Account_Number_A) {
+	public void setA_Account_Number_AInput(ForeignEntityInput A_Account_Number_A) {
 		this.mA_Account_Number_A = A_Account_Number_A;
 		MAccount foreignEntity;
 		if (A_Account_Number_A != null &&
@@ -69,7 +69,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @return A_Account_Number_Acct
 	 */
 	@JsonProperty("A_Account_Number_A")
-	public I_C_ValidCombinationInput A_Account_Number_A() {
+	public ForeignEntityInput A_Account_Number_A() {
 		return mA_Account_Number_A;
 	}
 
@@ -79,7 +79,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @param A_Asset_Addition Asset Addition
 	 */
 	@JsonProperty("A_Asset_Addition")
-	public void setA_Asset_AdditionInput(I_A_Asset_AdditionInput A_Asset_Addition) {
+	public void setA_Asset_AdditionInput(ForeignEntityInput A_Asset_Addition) {
 		this.mA_Asset_Addition = A_Asset_Addition;
 		MAssetAddition foreignEntity;
 		if (A_Asset_Addition != null &&
@@ -98,7 +98,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @return Asset Addition
 	 */
 	@JsonProperty("A_Asset_Addition")
-	public I_A_Asset_AdditionInput A_Asset_Addition() {
+	public ForeignEntityInput A_Asset_Addition() {
 		return mA_Asset_Addition;
 	}
 
@@ -108,7 +108,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @param A_Asset_Disposed Asset Disposed
 	 */
 	@JsonProperty("A_Asset_Disposed")
-	public void setA_Asset_DisposedInput(I_A_Asset_DisposedInput A_Asset_Disposed) {
+	public void setA_Asset_DisposedInput(ForeignEntityInput A_Asset_Disposed) {
 		this.mA_Asset_Disposed = A_Asset_Disposed;
 		MAssetDisposed foreignEntity;
 		if (A_Asset_Disposed != null &&
@@ -127,7 +127,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @return Asset Disposed
 	 */
 	@JsonProperty("A_Asset_Disposed")
-	public I_A_Asset_DisposedInput A_Asset_Disposed() {
+	public ForeignEntityInput A_Asset_Disposed() {
 		return mA_Asset_Disposed;
 	}
 
@@ -137,7 +137,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @param A_Asset Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
@@ -156,7 +156,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @return Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public I_A_AssetInput A_Asset() {
+	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
 	}
 
@@ -166,7 +166,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @param A_Depreciation_Entry Depreciation Entry
 	 */
 	@JsonProperty("A_Depreciation_Entry")
-	public void setA_Depreciation_EntryInput(I_A_Depreciation_EntryInput A_Depreciation_Entry) {
+	public void setA_Depreciation_EntryInput(ForeignEntityInput A_Depreciation_Entry) {
 		this.mA_Depreciation_Entry = A_Depreciation_Entry;
 		MDepreciationEntry foreignEntity;
 		if (A_Depreciation_Entry != null &&
@@ -185,7 +185,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @return Depreciation Entry
 	 */
 	@JsonProperty("A_Depreciation_Entry")
-	public I_A_Depreciation_EntryInput A_Depreciation_Entry() {
+	public ForeignEntityInput A_Depreciation_Entry() {
 		return mA_Depreciation_Entry;
 	}
 
@@ -253,7 +253,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -272,7 +272,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -282,7 +282,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @param C_AcctSchema Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (get_ID() == 0 &&C_AcctSchema != null &&
@@ -299,7 +299,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @return Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public I_C_AcctSchemaInput C_AcctSchema() {
+	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
 	}
 
@@ -309,7 +309,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @param CR_Account Account used
 	 */
 	@JsonProperty("CR_Account")
-	public void setCR_AccountInput(I_C_ValidCombinationInput CR_Account) {
+	public void setCR_AccountInput(ForeignEntityInput CR_Account) {
 		this.mCR_Account = CR_Account;
 		MAccount foreignEntity;
 		if (CR_Account != null &&
@@ -328,7 +328,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @return Account used
 	 */
 	@JsonProperty("CR_Account")
-	public I_C_ValidCombinationInput CR_Account() {
+	public ForeignEntityInput CR_Account() {
 		return mCR_Account;
 	}
 
@@ -338,7 +338,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @param DR_Account Account used
 	 */
 	@JsonProperty("DR_Account")
-	public void setDR_AccountInput(I_C_ValidCombinationInput DR_Account) {
+	public void setDR_AccountInput(ForeignEntityInput DR_Account) {
 		this.mDR_Account = DR_Account;
 		MAccount foreignEntity;
 		if (DR_Account != null &&
@@ -357,7 +357,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @return Account used
 	 */
 	@JsonProperty("DR_Account")
-	public I_C_ValidCombinationInput DR_Account() {
+	public ForeignEntityInput DR_Account() {
 		return mDR_Account;
 	}
 

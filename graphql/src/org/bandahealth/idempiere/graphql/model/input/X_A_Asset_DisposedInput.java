@@ -22,7 +22,13 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset_DisposedInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mA_Asset;
+	 private ForeignEntityInput mA_Asset_Trade;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_Invoice;
+	 private ForeignEntityInput mC_InvoiceLine;
+	 private ForeignEntityInput mC_Period;
 	 private I_AD_Ref_ListInput mA_Activation_Method;
 	 private I_AD_Ref_ListInput mA_Asset_Status;
 	 private I_AD_Ref_ListInput mA_Disposed_Method;
@@ -30,12 +36,6 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 private I_AD_Ref_ListInput mDocAction;
 	 private I_AD_Ref_ListInput mDocStatus;
 	 private I_AD_Ref_ListInput mPostingType;
-	 private I_A_AssetInput mA_Asset;
-	 private I_A_AssetInput mA_Asset_Trade;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_InvoiceInput mC_Invoice;
-	 private I_C_InvoiceLineInput mC_InvoiceLine;
-	 private I_C_PeriodInput mC_Period;
 
 	/**
 	 * Standard constructor
@@ -99,7 +99,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param A_Asset Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
@@ -118,7 +118,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public I_A_AssetInput A_Asset() {
+	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
 	}
 
@@ -157,7 +157,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param A_Asset_Trade Asset Trade
 	 */
 	@JsonProperty("A_Asset_Trade")
-	public void setA_Asset_TradeInput(I_A_AssetInput A_Asset_Trade) {
+	public void setA_Asset_TradeInput(ForeignEntityInput A_Asset_Trade) {
 		this.mA_Asset_Trade = A_Asset_Trade;
 		MAsset foreignEntity;
 		if (A_Asset_Trade != null &&
@@ -176,7 +176,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return Asset Trade
 	 */
 	@JsonProperty("A_Asset_Trade")
-	public I_A_AssetInput A_Asset_Trade() {
+	public ForeignEntityInput A_Asset_Trade() {
 		return mA_Asset_Trade;
 	}
 
@@ -244,7 +244,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -263,7 +263,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -273,7 +273,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
@@ -292,7 +292,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -302,7 +302,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param C_Invoice Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public void setC_InvoiceInput(I_C_InvoiceInput C_Invoice) {
+	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
 		if (C_Invoice != null &&
@@ -321,7 +321,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public I_C_InvoiceInput C_Invoice() {
+	public ForeignEntityInput C_Invoice() {
 		return mC_Invoice;
 	}
 
@@ -331,7 +331,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param C_InvoiceLine Invoice Detail Line
 	 */
 	@JsonProperty("C_InvoiceLine")
-	public void setC_InvoiceLineInput(I_C_InvoiceLineInput C_InvoiceLine) {
+	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
 		MInvoiceLine_BH foreignEntity;
 		if (C_InvoiceLine != null &&
@@ -350,7 +350,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return Invoice Detail Line
 	 */
 	@JsonProperty("C_InvoiceLine")
-	public I_C_InvoiceLineInput C_InvoiceLine() {
+	public ForeignEntityInput C_InvoiceLine() {
 		return mC_InvoiceLine;
 	}
 
@@ -360,7 +360,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param C_Period Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public void setC_PeriodInput(I_C_PeriodInput C_Period) {
+	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
@@ -379,7 +379,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public I_C_PeriodInput C_Period() {
+	public ForeignEntityInput C_Period() {
 		return mC_Period;
 	}
 

@@ -5,6 +5,11 @@ extend type Query {
 	A_Asset_DeliveryGet(page: Int, size: Int, sort: String, filter: String): A_Asset_DeliveryConnection!
 }
 
+extend type Mutation {
+	A_Asset_DeliverySave(entity: A_Asset_DeliveryInput!): A_Asset_Delivery!
+	A_Asset_DeliveryDelete(uuids: [String!]!): Boolean!
+}
+
 type A_Asset_DeliveryConnection {
 	results: [A_Asset_Delivery!]!
 	pagingInfo: PagingInfo!
@@ -60,3 +65,42 @@ type A_Asset_Delivery {
 	VersionNo: String
 }
 
+input A_Asset_DeliveryInput {
+	ID: ID
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# EMail Delivery confirmation
+	DeliveryConfirmation: String
+	# Optional short description of the record
+	Description: String
+	# Electronic Mail Address
+	EMail: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Lot number (alphanumeric)
+	Lot: String
+	# Line on Shipment or Receipt document
+	M_InOutLine: ForeignEntityInput
+	# Product downloads
+	M_ProductDownload: ForeignEntityInput
+	# EMail Message ID
+	MessageID: String
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
+	# Referring web address
+	Referrer: String
+	# Remote Address
+	Remote_Addr: String
+	# Remote host Info
+	Remote_Host: String
+	# Product Serial Number 
+	SerNo: String
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+	# Version Number
+	VersionNo: String
+}

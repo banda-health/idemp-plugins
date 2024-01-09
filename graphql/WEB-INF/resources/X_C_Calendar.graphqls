@@ -5,6 +5,11 @@ extend type Query {
 	C_CalendarGet(page: Int, size: Int, sort: String, filter: String): C_CalendarConnection!
 }
 
+extend type Mutation {
+	C_CalendarSave(entity: C_CalendarInput!): C_Calendar!
+	C_CalendarDelete(uuids: [String!]!): Boolean!
+}
+
 type C_CalendarConnection {
 	results: [C_Calendar!]!
 	pagingInfo: PagingInfo!
@@ -32,3 +37,14 @@ type C_Calendar {
 	UpdatedBy: AD_User!
 }
 
+input C_CalendarInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

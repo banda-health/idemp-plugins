@@ -15,28 +15,28 @@ public interface I_C_DepositBatchInput extends I_C_DepositBatch {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_BankAccount.
 	 *
 	 * @param C_BankAccount Account at the Bank
 	 */
-	void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount);
+	void setC_BankAccountInput(ForeignEntityInput C_BankAccount);
 
 	/**
 	 * Get C_BankAccount.
 	 *
 	 * @return Account at the Bank
 	 */
-	I_C_BankAccountInput C_BankAccount();
+	ForeignEntityInput C_BankAccount();
 
 	/**
 	 * Set ID.
@@ -57,14 +57,14 @@ public interface I_C_DepositBatchInput extends I_C_DepositBatch {
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(ForeignEntityInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput C_DocType();
+	ForeignEntityInput C_DocType();
 
 	/**
 	 * Set DocStatus.

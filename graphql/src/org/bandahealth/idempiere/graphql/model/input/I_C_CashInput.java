@@ -15,42 +15,42 @@ public interface I_C_CashInput extends I_C_Cash {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_Activity.
 	 *
 	 * @param C_Activity Business Activity
 	 */
-	void setC_ActivityInput(I_C_ActivityInput C_Activity);
+	void setC_ActivityInput(ForeignEntityInput C_Activity);
 
 	/**
 	 * Get C_Activity.
 	 *
 	 * @return Business Activity
 	 */
-	I_C_ActivityInput C_Activity();
+	ForeignEntityInput C_Activity();
 
 	/**
 	 * Set C_Campaign.
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	void setC_CampaignInput(I_C_CampaignInput C_Campaign);
+	void setC_CampaignInput(ForeignEntityInput C_Campaign);
 
 	/**
 	 * Get C_Campaign.
 	 *
 	 * @return Marketing Campaign
 	 */
-	I_C_CampaignInput C_Campaign();
+	ForeignEntityInput C_Campaign();
 
 	/**
 	 * Set ID.
@@ -71,28 +71,28 @@ public interface I_C_CashInput extends I_C_Cash {
 	 *
 	 * @param C_CashBook Cash Book for recording petty cash transactions
 	 */
-	void setC_CashBookInput(I_C_CashBookInput C_CashBook);
+	void setC_CashBookInput(ForeignEntityInput C_CashBook);
 
 	/**
 	 * Get C_CashBook.
 	 *
 	 * @return Cash Book for recording petty cash transactions
 	 */
-	I_C_CashBookInput C_CashBook();
+	ForeignEntityInput C_CashBook();
 
 	/**
 	 * Set C_Project.
 	 *
 	 * @param C_Project Financial Project
 	 */
-	void setC_ProjectInput(I_C_ProjectInput C_Project);
+	void setC_ProjectInput(ForeignEntityInput C_Project);
 
 	/**
 	 * Get C_Project.
 	 *
 	 * @return Financial Project
 	 */
-	I_C_ProjectInput C_Project();
+	ForeignEntityInput C_Project();
 
 	/**
 	 * Set DocAction.
@@ -127,26 +127,26 @@ public interface I_C_CashInput extends I_C_Cash {
 	 *
 	 * @param User1 User defined list element #1
 	 */
-	void setUser1Input(I_C_ElementValueInput User1);
+	void setUser1Input(ForeignEntityInput User1);
 
 	/**
 	 * Get User1.
 	 *
 	 * @return User defined list element #1
 	 */
-	I_C_ElementValueInput User1();
+	ForeignEntityInput User1();
 
 	/**
 	 * Set User2.
 	 *
 	 * @param User2 User defined list element #2
 	 */
-	void setUser2Input(I_C_ElementValueInput User2);
+	void setUser2Input(ForeignEntityInput User2);
 
 	/**
 	 * Get User2.
 	 *
 	 * @return User defined list element #2
 	 */
-	I_C_ElementValueInput User2();
+	ForeignEntityInput User2();
 }

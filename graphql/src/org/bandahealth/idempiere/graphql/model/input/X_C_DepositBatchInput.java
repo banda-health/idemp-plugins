@@ -19,10 +19,10 @@ import org.compiere.util.Env;
  */
 public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositBatchInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BankAccount;
+	 private ForeignEntityInput mC_DocType;
 	 private I_AD_Ref_ListInput mDocStatus;
-	 private I_C_BankAccountInput mC_BankAccount;
-	 private I_C_DocTypeInput mC_DocType;
 
 	/**
 	 * Standard constructor
@@ -39,7 +39,7 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -56,7 +56,7 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -66,7 +66,7 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	 * @param C_BankAccount Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount) {
+	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
@@ -85,7 +85,7 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	 * @return Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public I_C_BankAccountInput C_BankAccount() {
+	public ForeignEntityInput C_BankAccount() {
 		return mC_BankAccount;
 	}
 
@@ -113,7 +113,7 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
@@ -132,7 +132,7 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 

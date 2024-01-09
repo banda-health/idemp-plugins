@@ -5,6 +5,11 @@ extend type Query {
 	C_ElementValueGet(page: Int, size: Int, sort: String, filter: String): C_ElementValueConnection!
 }
 
+extend type Mutation {
+	C_ElementValueSave(entity: C_ElementValueInput!): C_ElementValue!
+	C_ElementValueDelete(uuids: [String!]!): Boolean!
+}
+
 type C_ElementValueConnection {
 	results: [C_ElementValue!]!
 	pagingInfo: PagingInfo!
@@ -67,3 +72,49 @@ type C_ElementValue {
 	Value: String!
 }
 
+input C_ElementValueInput {
+	# Indicates the Natural Sign of the Account as a Debit or Credit
+	AccountSign: AD_Ref_ListInput
+	# Indicates the type of account
+	AccountType: AD_Ref_ListInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	BPartnerType: AD_Ref_ListInput
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Accounting Element
+	C_Element: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this is the Bank Account
+	IsBankAccount: Boolean
+	IsDetailBPartner: Boolean
+	IsDetailProduct: Boolean
+	# Control account - If an account is controlled by a document, you cannot post manually to it
+	IsDocControlled: Boolean
+	# Balances in foreign currency accounts are held in the nominated currency
+	IsForeignCurrency: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Actual Values can be posted
+	PostActual: Boolean
+	# Budget values can be posted
+	PostBudget: Boolean
+	# Post commitments to this account
+	PostEncumbrance: Boolean
+	# Post statistical quantities to this account?
+	PostStatistical: Boolean
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

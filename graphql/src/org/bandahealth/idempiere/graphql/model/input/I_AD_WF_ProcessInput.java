@@ -15,56 +15,56 @@ public interface I_AD_WF_ProcessInput extends I_AD_WF_Process {
 	 *
 	 * @param AD_Message System Message
 	 */
-	void setAD_MessageInput(I_AD_MessageInput AD_Message);
+	void setAD_MessageInput(ForeignEntityInput AD_Message);
 
 	/**
 	 * Get AD_Message.
 	 *
 	 * @return System Message
 	 */
-	I_AD_MessageInput AD_Message();
+	ForeignEntityInput AD_Message();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_Table.
 	 *
 	 * @param AD_Table Database Table information
 	 */
-	void setAD_TableInput(I_AD_TableInput AD_Table);
+	void setAD_TableInput(ForeignEntityInput AD_Table);
 
 	/**
 	 * Get AD_Table.
 	 *
 	 * @return Database Table information
 	 */
-	I_AD_TableInput AD_Table();
+	ForeignEntityInput AD_Table();
 
 	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
-	void setAD_UserInput(I_AD_UserInput AD_User);
+	void setAD_UserInput(ForeignEntityInput AD_User);
 
 	/**
 	 * Get AD_User.
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	I_AD_UserInput AD_User();
+	ForeignEntityInput AD_User();
 
 	/**
 	 * Set ID.
@@ -85,28 +85,28 @@ public interface I_AD_WF_ProcessInput extends I_AD_WF_Process {
 	 *
 	 * @param AD_WF_Responsible Responsible for Workflow Execution
 	 */
-	void setAD_WF_ResponsibleInput(I_AD_WF_ResponsibleInput AD_WF_Responsible);
+	void setAD_WF_ResponsibleInput(ForeignEntityInput AD_WF_Responsible);
 
 	/**
 	 * Get AD_WF_Responsible.
 	 *
 	 * @return Responsible for Workflow Execution
 	 */
-	I_AD_WF_ResponsibleInput AD_WF_Responsible();
+	ForeignEntityInput AD_WF_Responsible();
 
 	/**
 	 * Set AD_Workflow.
 	 *
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
-	void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow);
+	void setAD_WorkflowInput(ForeignEntityInput AD_Workflow);
 
 	/**
 	 * Get AD_Workflow.
 	 *
 	 * @return Workflow or combination of tasks
 	 */
-	I_AD_WorkflowInput AD_Workflow();
+	ForeignEntityInput AD_Workflow();
 
 	/**
 	 * Set WFState.

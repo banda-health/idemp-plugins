@@ -5,6 +5,11 @@ extend type Query {
 	C_InvoiceLineGet(page: Int, size: Int, sort: String, filter: String): C_InvoiceLineConnection!
 }
 
+extend type Mutation {
+	C_InvoiceLineSave(entity: C_InvoiceLineInput!): C_InvoiceLine!
+	C_InvoiceLineDelete(uuids: [String!]!): Boolean!
+}
+
 type C_InvoiceLineConnection {
 	results: [C_InvoiceLine!]!
 	pagingInfo: PagingInfo!
@@ -105,3 +110,87 @@ type C_InvoiceLine {
 	User2: C_ElementValue
 }
 
+input C_InvoiceLineInput {
+	# Group of Assets
+	A_Asset_Group: ForeignEntityInput
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	A_CapvsExp: AD_Ref_ListInput
+	A_CreateAsset: Boolean
+	A_Processed: Boolean
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Element to allow buttons to be displayed that trigger tab navigation
+	BH_NavButtons: Object
+	C_1099Box: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	ID: ID
+	# Sales Order Line
+	C_OrderLine: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Phase of a Project
+	C_ProjectPhase: ForeignEntityInput
+	# Actual Project Task in a Phase
+	C_ProjectTask: ForeignEntityInput
+	# Tax identifier
+	C_Tax: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# if true, the line is just description and no transaction
+	IsDescription: Boolean
+	IsFixedAssetInvoice: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# Unique line for this document
+	Line: Int
+	# Line Extended Amount (Quantity * Actual Price) without Freight and Charges
+	LineNetAmt: Int
+	# Total line amount incl. Tax
+	LineTotalAmt: Int
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Line on Shipment or Receipt document
+	M_InOutLine: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Return Material Authorization Line
+	M_RMALine: ForeignEntityInput
+	# Actual Price 
+	PriceActual: Int
+	# Price Entered - the price based on the selected/base UoM
+	PriceEntered: Int
+	# Lowest price for a product
+	PriceLimit: Int
+	# List Price
+	PriceList: Int
+	# The document has been processed
+	Processed: Boolean
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: Int
+	# Invoiced Quantity
+	QtyInvoiced: Int
+	# Revenue Recognition Amount
+	RRAmt: Int
+	# Revenue Recognition Start Date
+	RRStartDate: Date
+	# Resource Assignment
+	S_ResourceAssignment: ForeignEntityInput
+	# Tax Amount for a document
+	TaxAmt: Int
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

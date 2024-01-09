@@ -17,9 +17,9 @@ import org.compiere.util.Env;
  */
 public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_M_PriceListInput mBasePriceList;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mBasePriceList;
+	 private ForeignEntityInput mC_Currency;
 
 	/**
 	 * Standard constructor
@@ -36,7 +36,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -53,7 +53,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -63,7 +63,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	 * @param BasePriceList Pricelist to be used, if product not found on this pricelist
 	 */
 	@JsonProperty("BasePriceList")
-	public void setBasePriceListInput(I_M_PriceListInput BasePriceList) {
+	public void setBasePriceListInput(ForeignEntityInput BasePriceList) {
 		this.mBasePriceList = BasePriceList;
 		MPriceList foreignEntity;
 		if (BasePriceList != null &&
@@ -82,7 +82,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	 * @return Pricelist to be used, if product not found on this pricelist
 	 */
 	@JsonProperty("BasePriceList")
-	public I_M_PriceListInput BasePriceList() {
+	public ForeignEntityInput BasePriceList() {
 		return mBasePriceList;
 	}
 
@@ -92,7 +92,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -111,7 +111,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 

@@ -23,14 +23,14 @@ import org.compiere.util.Env;
  */
 public class X_C_OpportunityInput extends MOpportunity implements I_C_OpportunityInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_UserInput mAD_User;
-	 private I_AD_UserInput mSalesRep;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_OrderInput mC_Order;
-	 private I_C_SalesStageInput mC_SalesStage;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_Order;
+	 private ForeignEntityInput mC_SalesStage;
+	 private ForeignEntityInput mSalesRep;
 
 	/**
 	 * Standard constructor
@@ -47,7 +47,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -64,7 +64,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -74,7 +74,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -93,7 +93,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -103,7 +103,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -122,7 +122,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -132,7 +132,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -151,7 +151,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -161,7 +161,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -180,7 +180,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -208,7 +208,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @param C_Order Order
 	 */
 	@JsonProperty("C_Order")
-	public void setC_OrderInput(I_C_OrderInput C_Order) {
+	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
 		if (C_Order != null &&
@@ -227,7 +227,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @return Order
 	 */
 	@JsonProperty("C_Order")
-	public I_C_OrderInput C_Order() {
+	public ForeignEntityInput C_Order() {
 		return mC_Order;
 	}
 
@@ -237,7 +237,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @param C_SalesStage Stages of the sales process
 	 */
 	@JsonProperty("C_SalesStage")
-	public void setC_SalesStageInput(I_C_SalesStageInput C_SalesStage) {
+	public void setC_SalesStageInput(ForeignEntityInput C_SalesStage) {
 		this.mC_SalesStage = C_SalesStage;
 		X_C_SalesStage foreignEntity;
 		if (C_SalesStage != null &&
@@ -256,7 +256,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @return Stages of the sales process
 	 */
 	@JsonProperty("C_SalesStage")
-	public I_C_SalesStageInput C_SalesStage() {
+	public ForeignEntityInput C_SalesStage() {
 		return mC_SalesStage;
 	}
 
@@ -266,7 +266,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
@@ -285,7 +285,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 * @return Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public I_AD_UserInput SalesRep() {
+	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
 	/**

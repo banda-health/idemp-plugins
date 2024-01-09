@@ -15,28 +15,28 @@ public interface I_AD_TreeInput extends I_AD_Tree {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_Table.
 	 *
 	 * @param AD_Table Database Table information
 	 */
-	void setAD_TableInput(I_AD_TableInput AD_Table);
+	void setAD_TableInput(ForeignEntityInput AD_Table);
 
 	/**
 	 * Get AD_Table.
 	 *
 	 * @return Database Table information
 	 */
-	I_AD_TableInput AD_Table();
+	ForeignEntityInput AD_Table();
 
 	/**
 	 * Set ID.
@@ -57,14 +57,14 @@ public interface I_AD_TreeInput extends I_AD_Tree {
 	 *
 	 * @param Parent_Column The link column on the parent tab.
 	 */
-	void setParent_ColumnInput(I_AD_ColumnInput Parent_Column);
+	void setParent_ColumnInput(ForeignEntityInput Parent_Column);
 
 	/**
 	 * Get Parent_Column.
 	 *
 	 * @return The link column on the parent tab.
 	 */
-	I_AD_ColumnInput Parent_Column();
+	ForeignEntityInput Parent_Column();
 
 	/**
 	 * Set TreeType.

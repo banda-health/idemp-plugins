@@ -5,6 +5,11 @@ extend type Query {
 	M_ShipperPickupTypesGet(page: Int, size: Int, sort: String, filter: String): M_ShipperPickupTypesConnection!
 }
 
+extend type Mutation {
+	M_ShipperPickupTypesSave(entity: M_ShipperPickupTypesInput!): M_ShipperPickupTypes!
+	M_ShipperPickupTypesDelete(uuids: [String!]!): Boolean!
+}
+
 type M_ShipperPickupTypesConnection {
 	results: [M_ShipperPickupTypes!]!
 	pagingInfo: PagingInfo!
@@ -35,3 +40,17 @@ type M_ShipperPickupTypes {
 	UpdatedBy: AD_User!
 }
 
+input M_ShipperPickupTypesInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Method or manner of product delivery
+	M_Shipper: ForeignEntityInput
+	ID: ID
+	M_ShipperPickupTypesCfg: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+}

@@ -5,6 +5,11 @@ extend type Query {
 	C_OrderGet(page: Int, size: Int, sort: String, filter: String): C_OrderConnection!
 }
 
+extend type Mutation {
+	C_OrderSave(entity: C_OrderInput!): C_Order!
+	C_OrderDelete(uuids: [String!]!): Boolean!
+}
+
 type C_OrderConnection {
 	results: [C_Order!]!
 	pagingInfo: PagingInfo!
@@ -178,3 +183,160 @@ type C_Order {
 	Weight: Int
 }
 
+input C_OrderInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	AmountRefunded: Int
+	AmountTendered: Int
+	BH_Visit: ForeignEntityInput
+	BH_Voided_Reason: ForeignEntityInput
+	# Business Partner to be invoiced
+	Bill_BPartner: ForeignEntityInput
+	# Business Partner Location for invoicing
+	Bill_Location: ForeignEntityInput
+	# Business Partner Contact for invoicing
+	Bill_User: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Cash Journal Line
+	C_CashLine: ForeignEntityInput
+	C_CashPlanLine: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Currency Conversion Rate Type
+	C_ConversionType: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Target document type for conversing documents
+	C_DocTypeTarget: ForeignEntityInput
+	C_Opportunity: ForeignEntityInput
+	ID: ID
+	C_OrderSource: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
+	# Point of Sales Terminal
+	C_POS: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: Int
+	# Copy From Record
+	CopyFrom: String
+	# Accounting Date
+	DateAcct: Date
+	# Date of Order
+	DateOrdered: Date
+	# Date the document was printed.
+	DatePrinted: Date
+	# Date Order was promised
+	DatePromised: Date
+	# Defines the timing of Delivery
+	DeliveryRule: AD_Ref_ListInput
+	# How the order will be delivered
+	DeliveryViaRule: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# Business Partner to ship to
+	DropShip_BPartner: ForeignEntityInput
+	# Business Partner Location for shipping to
+	DropShip_Location: ForeignEntityInput
+	# Business Partner Contact for drop shipment
+	DropShip_User: ForeignEntityInput
+	# Freight Amount 
+	FreightAmt: Int
+	# Method for charging Freight
+	FreightCostRule: AD_Ref_ListInput
+	# Total amount of document
+	GrandTotal: Int
+	# Frequency and method of invoicing 
+	InvoiceRule: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Credit  has been approved
+	IsCreditApproved: Boolean
+	IsDelivered: Boolean
+	# Print Discount on Invoice and Order
+	IsDiscountPrinted: Boolean
+	# Drop Shipments are sent from the Vendor directly to the Customer
+	IsDropShip: Boolean
+	# Is this invoiced?
+	IsInvoiced: Boolean
+	# Is the Payment Schedule is valid
+	IsPayScheduleValid: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	IsPriviledgedRate: Boolean
+	IsSelected: Boolean
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# Tax is included in the price 
+	IsTaxIncluded: Boolean
+	# Transferred to General Ledger (i.e. accounted)
+	IsTransferred: Boolean
+	# This field links a sales order to the purchase order that is generated from it.
+	Link_Order: ForeignEntityInput
+	# Category of the Freight
+	M_FreightCategory: ForeignEntityInput
+	# Unique identifier of a Price List
+	M_PriceList: ForeignEntityInput
+	# Method or manner of product delivery
+	M_Shipper: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# How you pay the invoice
+	PaymentRule: String
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# Posting status
+	Posted: Boolean
+	# Priority of a document
+	PriorityRule: AD_Ref_ListInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean
+	# User entered promotion code at sales time
+	PromotionCode: String
+	# Quotation used for generating this order
+	QuotationOrder: ForeignEntityInput
+	# Reference to corresponding Sales/Purchase Order
+	Ref_Order: ForeignEntityInput
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	# Enable sending Document EMail
+	SendEMail: Boolean
+	ShippingRateInquiry: String
+	# Total of all document lines
+	TotalLines: Int
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+	# Volume of a product
+	Volume: Int
+	# Weight of a product
+	Weight: Int
+}

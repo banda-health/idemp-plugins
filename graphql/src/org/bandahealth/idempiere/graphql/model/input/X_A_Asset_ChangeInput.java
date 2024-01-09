@@ -29,27 +29,27 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_ChangeInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mA_Accumdepreciation_A;
+	 private ForeignEntityInput mA_Asset;
+	 private ForeignEntityInput mA_Asset_A;
+	 private ForeignEntityInput mA_Asset_Addition;
+	 private ForeignEntityInput mA_Asset_Retirement;
+	 private ForeignEntityInput mA_Depreciation_A;
+	 private ForeignEntityInput mA_Depreciation_Table_Header;
+	 private ForeignEntityInput mA_Disposal_Loss_A;
+	 private ForeignEntityInput mA_Disposal_Revenue_A;
+	 private ForeignEntityInput mA_Parent_Asset;
+	 private ForeignEntityInput mC_AcctSchema;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_BPartner_Location;
+	 private ForeignEntityInput mC_Location;
+	 private ForeignEntityInput mC_ValidCombination;
 	 private I_AD_Ref_ListInput mA_Depreciation_Manual_Period;
 	 private I_AD_Ref_ListInput mA_Reval_Cal_Method;
 	 private I_AD_Ref_ListInput mChangeType;
 	 private I_AD_Ref_ListInput mPostingType;
-	 private I_AD_UserInput mAD_User;
-	 private I_A_AssetInput mA_Asset;
-	 private I_A_AssetInput mA_Parent_Asset;
-	 private I_A_Asset_AdditionInput mA_Asset_Addition;
-	 private I_A_Asset_RetirementInput mA_Asset_Retirement;
-	 private I_A_Depreciation_Table_HeaderInput mA_Depreciation_Table_Header;
-	 private I_C_AcctSchemaInput mC_AcctSchema;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BPartner_LocationInput mC_BPartner_Location;
-	 private I_C_LocationInput mC_Location;
-	 private I_C_ValidCombinationInput mA_Accumdepreciation_A;
-	 private I_C_ValidCombinationInput mA_Asset_A;
-	 private I_C_ValidCombinationInput mA_Depreciation_A;
-	 private I_C_ValidCombinationInput mA_Disposal_Loss_A;
-	 private I_C_ValidCombinationInput mA_Disposal_Revenue_A;
-	 private I_C_ValidCombinationInput mC_ValidCombination;
 
 	/**
 	 * Standard constructor
@@ -66,7 +66,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Accumdepreciation_A Accumulated Depreciation Account
 	 */
 	@JsonProperty("A_Accumdepreciation_A")
-	public void setA_Accumdepreciation_AInput(I_C_ValidCombinationInput A_Accumdepreciation_A) {
+	public void setA_Accumdepreciation_AInput(ForeignEntityInput A_Accumdepreciation_A) {
 		this.mA_Accumdepreciation_A = A_Accumdepreciation_A;
 		MAccount foreignEntity;
 		if (A_Accumdepreciation_A != null &&
@@ -85,7 +85,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Accumulated Depreciation Account
 	 */
 	@JsonProperty("A_Accumdepreciation_A")
-	public I_C_ValidCombinationInput A_Accumdepreciation_A() {
+	public ForeignEntityInput A_Accumdepreciation_A() {
 		return mA_Accumdepreciation_A;
 	}
 
@@ -95,7 +95,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Asset_A Asset Acct
 	 */
 	@JsonProperty("A_Asset_A")
-	public void setA_Asset_AInput(I_C_ValidCombinationInput A_Asset_A) {
+	public void setA_Asset_AInput(ForeignEntityInput A_Asset_A) {
 		this.mA_Asset_A = A_Asset_A;
 		MAccount foreignEntity;
 		if (A_Asset_A != null &&
@@ -114,7 +114,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Asset Acct
 	 */
 	@JsonProperty("A_Asset_A")
-	public I_C_ValidCombinationInput A_Asset_A() {
+	public ForeignEntityInput A_Asset_A() {
 		return mA_Asset_A;
 	}
 
@@ -124,7 +124,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Asset_Addition Asset Addition
 	 */
 	@JsonProperty("A_Asset_Addition")
-	public void setA_Asset_AdditionInput(I_A_Asset_AdditionInput A_Asset_Addition) {
+	public void setA_Asset_AdditionInput(ForeignEntityInput A_Asset_Addition) {
 		this.mA_Asset_Addition = A_Asset_Addition;
 		MAssetAddition foreignEntity;
 		if (get_ID() == 0 &&A_Asset_Addition != null &&
@@ -141,7 +141,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Asset Addition
 	 */
 	@JsonProperty("A_Asset_Addition")
-	public I_A_Asset_AdditionInput A_Asset_Addition() {
+	public ForeignEntityInput A_Asset_Addition() {
 		return mA_Asset_Addition;
 	}
 
@@ -169,7 +169,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Asset Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (get_ID() == 0 &&A_Asset != null &&
@@ -186,7 +186,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public I_A_AssetInput A_Asset() {
+	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
 	}
 
@@ -196,7 +196,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Asset_Retirement Internally used asset is not longer used.
 	 */
 	@JsonProperty("A_Asset_Retirement")
-	public void setA_Asset_RetirementInput(I_A_Asset_RetirementInput A_Asset_Retirement) {
+	public void setA_Asset_RetirementInput(ForeignEntityInput A_Asset_Retirement) {
 		this.mA_Asset_Retirement = A_Asset_Retirement;
 		X_A_Asset_Retirement foreignEntity;
 		if (get_ID() == 0 &&A_Asset_Retirement != null &&
@@ -213,7 +213,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Internally used asset is not longer used.
 	 */
 	@JsonProperty("A_Asset_Retirement")
-	public I_A_Asset_RetirementInput A_Asset_Retirement() {
+	public ForeignEntityInput A_Asset_Retirement() {
 		return mA_Asset_Retirement;
 	}
 
@@ -223,7 +223,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Depreciation_A Depreciation Account
 	 */
 	@JsonProperty("A_Depreciation_A")
-	public void setA_Depreciation_AInput(I_C_ValidCombinationInput A_Depreciation_A) {
+	public void setA_Depreciation_AInput(ForeignEntityInput A_Depreciation_A) {
 		this.mA_Depreciation_A = A_Depreciation_A;
 		MAccount foreignEntity;
 		if (A_Depreciation_A != null &&
@@ -242,7 +242,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Depreciation Account
 	 */
 	@JsonProperty("A_Depreciation_A")
-	public I_C_ValidCombinationInput A_Depreciation_A() {
+	public ForeignEntityInput A_Depreciation_A() {
 		return mA_Depreciation_A;
 	}
 
@@ -281,7 +281,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Depreciation_Table_Header A_Depreciation_Table_Header_ID
 	 */
 	@JsonProperty("A_Depreciation_Table_Header")
-	public void setA_Depreciation_Table_HeaderInput(I_A_Depreciation_Table_HeaderInput A_Depreciation_Table_Header) {
+	public void setA_Depreciation_Table_HeaderInput(ForeignEntityInput A_Depreciation_Table_Header) {
 		this.mA_Depreciation_Table_Header = A_Depreciation_Table_Header;
 		X_A_Depreciation_Table_Header foreignEntity;
 		if (A_Depreciation_Table_Header != null &&
@@ -300,7 +300,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return A_Depreciation_Table_Header_ID
 	 */
 	@JsonProperty("A_Depreciation_Table_Header")
-	public I_A_Depreciation_Table_HeaderInput A_Depreciation_Table_Header() {
+	public ForeignEntityInput A_Depreciation_Table_Header() {
 		return mA_Depreciation_Table_Header;
 	}
 
@@ -310,7 +310,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Disposal_Loss_A Disposal Loss Acct
 	 */
 	@JsonProperty("A_Disposal_Loss_A")
-	public void setA_Disposal_Loss_AInput(I_C_ValidCombinationInput A_Disposal_Loss_A) {
+	public void setA_Disposal_Loss_AInput(ForeignEntityInput A_Disposal_Loss_A) {
 		this.mA_Disposal_Loss_A = A_Disposal_Loss_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Loss_A != null &&
@@ -329,7 +329,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Disposal Loss Acct
 	 */
 	@JsonProperty("A_Disposal_Loss_A")
-	public I_C_ValidCombinationInput A_Disposal_Loss_A() {
+	public ForeignEntityInput A_Disposal_Loss_A() {
 		return mA_Disposal_Loss_A;
 	}
 
@@ -339,7 +339,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Disposal_Revenue_A Disposal Revenue Acct
 	 */
 	@JsonProperty("A_Disposal_Revenue_A")
-	public void setA_Disposal_Revenue_AInput(I_C_ValidCombinationInput A_Disposal_Revenue_A) {
+	public void setA_Disposal_Revenue_AInput(ForeignEntityInput A_Disposal_Revenue_A) {
 		this.mA_Disposal_Revenue_A = A_Disposal_Revenue_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Revenue_A != null &&
@@ -358,7 +358,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Disposal Revenue Acct
 	 */
 	@JsonProperty("A_Disposal_Revenue_A")
-	public I_C_ValidCombinationInput A_Disposal_Revenue_A() {
+	public ForeignEntityInput A_Disposal_Revenue_A() {
 		return mA_Disposal_Revenue_A;
 	}
 
@@ -368,7 +368,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Parent_Asset Parent Asset
 	 */
 	@JsonProperty("A_Parent_Asset")
-	public void setA_Parent_AssetInput(I_A_AssetInput A_Parent_Asset) {
+	public void setA_Parent_AssetInput(ForeignEntityInput A_Parent_Asset) {
 		this.mA_Parent_Asset = A_Parent_Asset;
 		MAsset foreignEntity;
 		if (A_Parent_Asset != null &&
@@ -387,7 +387,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Parent Asset
 	 */
 	@JsonProperty("A_Parent_Asset")
-	public I_A_AssetInput A_Parent_Asset() {
+	public ForeignEntityInput A_Parent_Asset() {
 		return mA_Parent_Asset;
 	}
 
@@ -426,7 +426,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -443,7 +443,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -453,7 +453,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -472,7 +472,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 	/**
@@ -548,7 +548,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param C_AcctSchema Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
@@ -567,7 +567,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public I_C_AcctSchemaInput C_AcctSchema() {
+	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
 	}
 
@@ -577,7 +577,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -596,7 +596,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -606,7 +606,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
@@ -625,7 +625,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public I_C_BPartner_LocationInput C_BPartner_Location() {
+	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
 
@@ -635,7 +635,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param C_Location Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public void setC_LocationInput(I_C_LocationInput C_Location) {
+	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
@@ -654,7 +654,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public I_C_LocationInput C_Location() {
+	public ForeignEntityInput C_Location() {
 		return mC_Location;
 	}
 
@@ -664,7 +664,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param C_ValidCombination Valid Account Combination
 	 */
 	@JsonProperty("C_ValidCombination")
-	public void setC_ValidCombinationInput(I_C_ValidCombinationInput C_ValidCombination) {
+	public void setC_ValidCombinationInput(ForeignEntityInput C_ValidCombination) {
 		this.mC_ValidCombination = C_ValidCombination;
 		MAccount foreignEntity;
 		if (C_ValidCombination != null &&
@@ -683,7 +683,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Valid Account Combination
 	 */
 	@JsonProperty("C_ValidCombination")
-	public I_C_ValidCombinationInput C_ValidCombination() {
+	public ForeignEntityInput C_ValidCombination() {
 		return mC_ValidCombination;
 	}
 	/**

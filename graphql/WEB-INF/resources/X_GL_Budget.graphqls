@@ -5,6 +5,11 @@ extend type Query {
 	GL_BudgetGet(page: Int, size: Int, sort: String, filter: String): GL_BudgetConnection!
 }
 
+extend type Mutation {
+	GL_BudgetSave(entity: GL_BudgetInput!): GL_Budget!
+	GL_BudgetDelete(uuids: [String!]!): Boolean!
+}
+
 type GL_BudgetConnection {
 	results: [GL_Budget!]!
 	pagingInfo: PagingInfo!
@@ -36,3 +41,18 @@ type GL_Budget {
 	UpdatedBy: AD_User!
 }
 
+input GL_BudgetInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Indicates the current status of this budget
+	BudgetStatus: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	ID: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this is the primary budget
+	IsPrimary: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

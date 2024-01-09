@@ -15,28 +15,28 @@ public interface I_C_DocTypeInput extends I_C_DocType {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_PrintFormat.
 	 *
 	 * @param AD_PrintFormat Data Print Format
 	 */
-	void setAD_PrintFormatInput(I_AD_PrintFormatInput AD_PrintFormat);
+	void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat);
 
 	/**
 	 * Get AD_PrintFormat.
 	 *
 	 * @return Data Print Format
 	 */
-	I_AD_PrintFormatInput AD_PrintFormat();
+	ForeignEntityInput AD_PrintFormat();
 
 	/**
 	 * Set ID.
@@ -57,70 +57,70 @@ public interface I_C_DocTypeInput extends I_C_DocType {
 	 *
 	 * @param C_DocTypeDifference Document type for generating in dispute Shipments
 	 */
-	void setC_DocTypeDifferenceInput(I_C_DocTypeInput C_DocTypeDifference);
+	void setC_DocTypeDifferenceInput(ForeignEntityInput C_DocTypeDifference);
 
 	/**
 	 * Get C_DocTypeDifference.
 	 *
 	 * @return Document type for generating in dispute Shipments
 	 */
-	I_C_DocTypeInput C_DocTypeDifference();
+	ForeignEntityInput C_DocTypeDifference();
 
 	/**
 	 * Set C_DocTypeInvoice.
 	 *
 	 * @param C_DocTypeInvoice Document type used for invoices generated from this sales document
 	 */
-	void setC_DocTypeInvoiceInput(I_C_DocTypeInput C_DocTypeInvoice);
+	void setC_DocTypeInvoiceInput(ForeignEntityInput C_DocTypeInvoice);
 
 	/**
 	 * Get C_DocTypeInvoice.
 	 *
 	 * @return Document type used for invoices generated from this sales document
 	 */
-	I_C_DocTypeInput C_DocTypeInvoice();
+	ForeignEntityInput C_DocTypeInvoice();
 
 	/**
 	 * Set C_DocTypeProforma.
 	 *
 	 * @param C_DocTypeProforma Document type used for pro forma invoices generated from this sales document
 	 */
-	void setC_DocTypeProformaInput(I_C_DocTypeInput C_DocTypeProforma);
+	void setC_DocTypeProformaInput(ForeignEntityInput C_DocTypeProforma);
 
 	/**
 	 * Get C_DocTypeProforma.
 	 *
 	 * @return Document type used for pro forma invoices generated from this sales document
 	 */
-	I_C_DocTypeInput C_DocTypeProforma();
+	ForeignEntityInput C_DocTypeProforma();
 
 	/**
 	 * Set C_DocTypeShipment.
 	 *
 	 * @param C_DocTypeShipment Document type used for shipments generated from this sales document
 	 */
-	void setC_DocTypeShipmentInput(I_C_DocTypeInput C_DocTypeShipment);
+	void setC_DocTypeShipmentInput(ForeignEntityInput C_DocTypeShipment);
 
 	/**
 	 * Get C_DocTypeShipment.
 	 *
 	 * @return Document type used for shipments generated from this sales document
 	 */
-	I_C_DocTypeInput C_DocTypeShipment();
+	ForeignEntityInput C_DocTypeShipment();
 
 	/**
 	 * Set DefiniteSequence.
 	 *
 	 * @param DefiniteSequence DefiniteSequence
 	 */
-	void setDefiniteSequenceInput(I_AD_SequenceInput DefiniteSequence);
+	void setDefiniteSequenceInput(ForeignEntityInput DefiniteSequence);
 
 	/**
 	 * Get DefiniteSequence.
 	 *
 	 * @return DefiniteSequence
 	 */
-	I_AD_SequenceInput DefiniteSequence();
+	ForeignEntityInput DefiniteSequence();
 
 	/**
 	 * Set DocBaseType.
@@ -141,14 +141,14 @@ public interface I_C_DocTypeInput extends I_C_DocType {
 	 *
 	 * @param DocNoSequence Document sequence determines the numbering of documents
 	 */
-	void setDocNoSequenceInput(I_AD_SequenceInput DocNoSequence);
+	void setDocNoSequenceInput(ForeignEntityInput DocNoSequence);
 
 	/**
 	 * Get DocNoSequence.
 	 *
 	 * @return Document sequence determines the numbering of documents
 	 */
-	I_AD_SequenceInput DocNoSequence();
+	ForeignEntityInput DocNoSequence();
 
 	/**
 	 * Set DocSubTypeInv.
@@ -183,12 +183,12 @@ public interface I_C_DocTypeInput extends I_C_DocType {
 	 *
 	 * @param GL_Category General Ledger Category
 	 */
-	void setGL_CategoryInput(I_GL_CategoryInput GL_Category);
+	void setGL_CategoryInput(ForeignEntityInput GL_Category);
 
 	/**
 	 * Get GL_Category.
 	 *
 	 * @return General Ledger Category
 	 */
-	I_GL_CategoryInput GL_Category();
+	ForeignEntityInput GL_Category();
 }

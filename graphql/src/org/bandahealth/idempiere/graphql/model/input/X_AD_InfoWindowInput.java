@@ -19,10 +19,10 @@ import org.compiere.util.Env;
  */
 public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindowInput {
 
-	 private I_AD_CtxHelpInput mAD_CtxHelp;
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_TableInput mAD_Table;
+	 private ForeignEntityInput mAD_CtxHelp;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Table;
 
 	/**
 	 * Standard constructor
@@ -39,7 +39,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	 * @param AD_CtxHelp Context Help
 	 */
 	@JsonProperty("AD_CtxHelp")
-	public void setAD_CtxHelpInput(I_AD_CtxHelpInput AD_CtxHelp) {
+	public void setAD_CtxHelpInput(ForeignEntityInput AD_CtxHelp) {
 		this.mAD_CtxHelp = AD_CtxHelp;
 		MCtxHelp foreignEntity;
 		if (AD_CtxHelp != null &&
@@ -58,7 +58,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	 * @return Context Help
 	 */
 	@JsonProperty("AD_CtxHelp")
-	public I_AD_CtxHelpInput AD_CtxHelp() {
+	public ForeignEntityInput AD_CtxHelp() {
 		return mAD_CtxHelp;
 	}
 
@@ -86,7 +86,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -103,7 +103,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -113,7 +113,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	 * @param AD_Table Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public void setAD_TableInput(I_AD_TableInput AD_Table) {
+	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (AD_Table != null &&
@@ -132,7 +132,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	 * @return Database Table information
 	 */
 	@JsonProperty("AD_Table")
-	public I_AD_TableInput AD_Table() {
+	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
 	}
 
@@ -142,7 +142,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -161,7 +161,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 }

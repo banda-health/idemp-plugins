@@ -5,6 +5,11 @@ extend type Query {
 	C_ChannelGet(page: Int, size: Int, sort: String, filter: String): C_ChannelConnection!
 }
 
+extend type Mutation {
+	C_ChannelSave(entity: C_ChannelInput!): C_Channel!
+	C_ChannelDelete(uuids: [String!]!): Boolean!
+}
+
 type C_ChannelConnection {
 	results: [C_Channel!]!
 	pagingInfo: PagingInfo!
@@ -34,3 +39,16 @@ type C_Channel {
 	UpdatedBy: AD_User!
 }
 
+input C_ChannelInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Color used for printing and display
+	AD_PrintColor: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

@@ -15,14 +15,14 @@ public interface I_M_ShippingProcessorInput extends I_M_ShippingProcessor {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -43,12 +43,12 @@ public interface I_M_ShippingProcessorInput extends I_M_ShippingProcessor {
 	 *
 	 * @param M_ShippingProcessorCfg M_ShippingProcessorCfg
 	 */
-	void setM_ShippingProcessorCfgInput(I_M_ShippingProcessorCfgInput M_ShippingProcessorCfg);
+	void setM_ShippingProcessorCfgInput(ForeignEntityInput M_ShippingProcessorCfg);
 
 	/**
 	 * Get M_ShippingProcessorCfg.
 	 *
 	 * @return M_ShippingProcessorCfg
 	 */
-	I_M_ShippingProcessorCfgInput M_ShippingProcessorCfg();
+	ForeignEntityInput M_ShippingProcessorCfg();
 }

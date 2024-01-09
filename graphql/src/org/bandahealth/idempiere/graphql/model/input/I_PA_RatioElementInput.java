@@ -15,56 +15,56 @@ public interface I_PA_RatioElementInput extends I_PA_RatioElement {
 	 *
 	 * @param Account Account used
 	 */
-	void setAccountInput(I_C_ElementValueInput Account);
+	void setAccountInput(ForeignEntityInput Account);
 
 	/**
 	 * Get Account.
 	 *
 	 * @return Account used
 	 */
-	I_C_ElementValueInput Account();
+	ForeignEntityInput Account();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set PA_MeasureCalc.
 	 *
 	 * @param PA_MeasureCalc Calculation method for measuring performance
 	 */
-	void setPA_MeasureCalcInput(I_PA_MeasureCalcInput PA_MeasureCalc);
+	void setPA_MeasureCalcInput(ForeignEntityInput PA_MeasureCalc);
 
 	/**
 	 * Get PA_MeasureCalc.
 	 *
 	 * @return Calculation method for measuring performance
 	 */
-	I_PA_MeasureCalcInput PA_MeasureCalc();
+	ForeignEntityInput PA_MeasureCalc();
 
 	/**
 	 * Set PA_Ratio.
 	 *
 	 * @param PA_Ratio Performance Ratio
 	 */
-	void setPA_RatioInput(I_PA_RatioInput PA_Ratio);
+	void setPA_RatioInput(ForeignEntityInput PA_Ratio);
 
 	/**
 	 * Get PA_Ratio.
 	 *
 	 * @return Performance Ratio
 	 */
-	I_PA_RatioInput PA_Ratio();
+	ForeignEntityInput PA_Ratio();
 
 	/**
 	 * Set ID.
@@ -85,14 +85,14 @@ public interface I_PA_RatioElementInput extends I_PA_RatioElement {
 	 *
 	 * @param PA_RatioUsed Performance Ratio Used
 	 */
-	void setPA_RatioUsedInput(I_PA_RatioInput PA_RatioUsed);
+	void setPA_RatioUsedInput(ForeignEntityInput PA_RatioUsed);
 
 	/**
 	 * Get PA_RatioUsed.
 	 *
 	 * @return Performance Ratio Used
 	 */
-	I_PA_RatioInput PA_RatioUsed();
+	ForeignEntityInput PA_RatioUsed();
 
 	/**
 	 * Set PostingType.

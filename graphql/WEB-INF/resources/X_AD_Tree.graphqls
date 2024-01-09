@@ -5,6 +5,11 @@ extend type Query {
 	AD_TreeGet(page: Int, size: Int, sort: String, filter: String): AD_TreeConnection!
 }
 
+extend type Mutation {
+	AD_TreeSave(entity: AD_TreeInput!): AD_Tree!
+	AD_TreeDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_TreeConnection {
 	results: [AD_Tree!]!
 	pagingInfo: PagingInfo!
@@ -48,3 +53,30 @@ type AD_Tree {
 	UpdatedBy: AD_User!
 }
 
+input AD_TreeInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# All Nodes are included (Complete Tree)
+	IsAllNodes: Boolean
+	# Default value
+	IsDefault: Boolean
+	# If checked, all nodes are loaded before tree is displayed
+	IsLoadAllNodesImmediately: Boolean
+	IsTreeDrivenByValue: Boolean
+	# Displays Value column with the Display column
+	IsValueDisplayed: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The link column on the parent tab.
+	Parent_Column: ForeignEntityInput
+	Processing: Boolean
+	# Element this tree is built on (i.e Product, Business Partner)
+	TreeType: AD_Ref_ListInput
+}

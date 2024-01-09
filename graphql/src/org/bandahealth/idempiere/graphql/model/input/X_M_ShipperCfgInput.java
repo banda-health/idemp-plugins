@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCfgInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_M_ShippingProcessorCfgInput mM_ShippingProcessorCfg;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mM_ShippingProcessorCfg;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -80,7 +80,7 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 	 * @param M_ShippingProcessorCfg Shipping Processor Configuration
 	 */
 	@JsonProperty("M_ShippingProcessorCfg")
-	public void setM_ShippingProcessorCfgInput(I_M_ShippingProcessorCfgInput M_ShippingProcessorCfg) {
+	public void setM_ShippingProcessorCfgInput(ForeignEntityInput M_ShippingProcessorCfg) {
 		this.mM_ShippingProcessorCfg = M_ShippingProcessorCfg;
 		X_M_ShippingProcessorCfg foreignEntity;
 		if (M_ShippingProcessorCfg != null &&
@@ -99,7 +99,7 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 	 * @return Shipping Processor Configuration
 	 */
 	@JsonProperty("M_ShippingProcessorCfg")
-	public I_M_ShippingProcessorCfgInput M_ShippingProcessorCfg() {
+	public ForeignEntityInput M_ShippingProcessorCfg() {
 		return mM_ShippingProcessorCfg;
 	}
 }

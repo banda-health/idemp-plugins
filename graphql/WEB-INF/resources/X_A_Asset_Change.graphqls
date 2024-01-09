@@ -5,6 +5,11 @@ extend type Query {
 	A_Asset_ChangeGet(page: Int, size: Int, sort: String, filter: String): A_Asset_ChangeConnection!
 }
 
+extend type Mutation {
+	A_Asset_ChangeSave(entity: A_Asset_ChangeInput!): A_Asset_Change!
+	A_Asset_ChangeDelete(uuids: [String!]!): Boolean!
+}
+
 type A_Asset_ChangeConnection {
 	results: [A_Asset_Change!]!
 	pagingInfo: PagingInfo!
@@ -119,3 +124,101 @@ type A_Asset_Change {
 	VersionNo: String
 }
 
+input A_Asset_ChangeInput {
+	A_Accumdepreciation_A: ForeignEntityInput
+	A_Asset_A: ForeignEntityInput
+	A_Asset_Acct_ID: Int
+	A_Asset_Addition: ForeignEntityInput
+	ID: ID
+	A_Asset_CreateDate: Date
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	# Internally used asset is not longer used.
+	A_Asset_Retirement: ForeignEntityInput
+	A_Asset_RevalDate: Date
+	A_Depreciation_A: ForeignEntityInput
+	A_Depreciation_Manual_Amount: Int
+	A_Depreciation_Manual_Period: AD_Ref_ListInput
+	A_Depreciation_Table_Header: ForeignEntityInput
+	A_Depreciation_Variable_Perc: Int
+	A_Disposal_Loss_A: ForeignEntityInput
+	A_Disposal_Revenue_A: ForeignEntityInput
+	A_Parent_Asset: ForeignEntityInput
+	A_Period_End: Int
+	A_Period_Start: Int
+	A_QTY_Current: Int
+	A_QTY_Original: Int
+	A_Reval_Accumdep_Offset_Cur: Int
+	A_Reval_Accumdep_Offset_Prior: Int
+	A_Reval_Adep_Offset_Cur_Acct: Int
+	A_Reval_Adep_Offset_Prior_Acct: Int
+	A_Reval_Cal_Method: AD_Ref_ListInput
+	A_Reval_Cost_Offset: Int
+	A_Reval_Cost_Offset_Acct: Int
+	A_Reval_Cost_Offset_Prior: Int
+	A_Reval_Cost_Offset_Prior_Acct: Int
+	A_Reval_Depexp_Offset: Int
+	A_Reval_Depexp_Offset_Acct: Int
+	A_Salvage_Value: Int
+	A_Split_Percent: Int
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	AssetAccumDepreciationAmt: Int
+	AssetBookValueAmt: Int
+	# Date of last depreciation
+	AssetDepreciationDate: Date
+	# Date when the asset is/was disposed
+	AssetDisposalDate: Date
+	# Market value of the asset
+	AssetMarketValueAmt: Int
+	# Date when Asset was put into service
+	AssetServiceDate: Date
+	# Book Value of the asset
+	AssetValueAmt: Int
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Location or Address
+	C_Location: ForeignEntityInput
+	# Valid Account Combination
+	C_ValidCombination: ForeignEntityInput
+	ChangeAmt: Int
+	ChangeDate: Date
+	ChangeType: AD_Ref_ListInput
+	# Accounting Date
+	DateAcct: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# The asset will be depreciated
+	IsDepreciated: Boolean
+	# The asset is disposed
+	IsDisposed: Boolean
+	# The asset is fully depreciated
+	IsFullyDepreciated: Boolean
+	# The asset is in the possession of the organization
+	IsInPosession: Boolean
+	# The asset is owned by the organization
+	IsOwned: Boolean
+	# Units of use until the asset is not usable anymore
+	LifeUseUnits: Int
+	# Lot number (alphanumeric)
+	Lot: String
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_ListInput
+	# Product Serial Number 
+	SerNo: String
+	TextDetails: String
+	# Months of the usable life of the asset
+	UseLifeMonths: Int
+	# Years of the usable life of the asset
+	UseLifeYears: Int
+	# Currently used units of the assets
+	UseUnits: Int
+	# Version Number
+	VersionNo: String
+}

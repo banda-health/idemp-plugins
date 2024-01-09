@@ -27,18 +27,18 @@ import org.eevolution.model.X_PP_Order_BOMLine;
  */
 public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_Order_BOMLineInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mC_UOM;
+	 private ForeignEntityInput mM_AttributeSetInstance;
+	 private ForeignEntityInput mM_ChangeNotice;
+	 private ForeignEntityInput mM_Locator;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mM_Warehouse;
+	 private ForeignEntityInput mPP_Order;
+	 private ForeignEntityInput mPP_Order_BOM;
 	 private I_AD_Ref_ListInput mComponentType;
 	 private I_AD_Ref_ListInput mIssueMethod;
-	 private I_AD_UserInput mAD_User;
-	 private I_C_UOMInput mC_UOM;
-	 private I_M_AttributeSetInstanceInput mM_AttributeSetInstance;
-	 private I_M_ChangeNoticeInput mM_ChangeNotice;
-	 private I_M_LocatorInput mM_Locator;
-	 private I_M_ProductInput mM_Product;
-	 private I_M_WarehouseInput mM_Warehouse;
-	 private I_PP_OrderInput mPP_Order;
-	 private I_PP_Order_BOMInput mPP_Order_BOM;
 
 	/**
 	 * Standard constructor
@@ -55,7 +55,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -72,7 +72,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -82,7 +82,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -101,7 +101,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 	/**
@@ -133,7 +133,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @param C_UOM Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public void setC_UOMInput(I_C_UOMInput C_UOM) {
+	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (get_ID() == 0 &&C_UOM != null &&
@@ -150,7 +150,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @return Unit of Measure
 	 */
 	@JsonProperty("C_UOM")
-	public I_C_UOMInput C_UOM() {
+	public ForeignEntityInput C_UOM() {
 		return mC_UOM;
 	}
 
@@ -240,7 +240,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @param M_AttributeSetInstance Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public void setM_AttributeSetInstanceInput(I_M_AttributeSetInstanceInput M_AttributeSetInstance) {
+	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (get_ID() == 0 &&M_AttributeSetInstance != null &&
@@ -257,7 +257,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @return Product Attribute Set Instance
 	 */
 	@JsonProperty("M_AttributeSetInstance")
-	public I_M_AttributeSetInstanceInput M_AttributeSetInstance() {
+	public ForeignEntityInput M_AttributeSetInstance() {
 		return mM_AttributeSetInstance;
 	}
 
@@ -267,7 +267,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @param M_ChangeNotice Bill of Materials (Engineering) Change Notice (Version)
 	 */
 	@JsonProperty("M_ChangeNotice")
-	public void setM_ChangeNoticeInput(I_M_ChangeNoticeInput M_ChangeNotice) {
+	public void setM_ChangeNoticeInput(ForeignEntityInput M_ChangeNotice) {
 		this.mM_ChangeNotice = M_ChangeNotice;
 		MChangeNotice foreignEntity;
 		if (M_ChangeNotice != null &&
@@ -286,7 +286,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
 	@JsonProperty("M_ChangeNotice")
-	public I_M_ChangeNoticeInput M_ChangeNotice() {
+	public ForeignEntityInput M_ChangeNotice() {
 		return mM_ChangeNotice;
 	}
 
@@ -296,7 +296,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @param M_Locator Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public void setM_LocatorInput(I_M_LocatorInput M_Locator) {
+	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
@@ -315,7 +315,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @return Warehouse Locator
 	 */
 	@JsonProperty("M_Locator")
-	public I_M_LocatorInput M_Locator() {
+	public ForeignEntityInput M_Locator() {
 		return mM_Locator;
 	}
 
@@ -325,7 +325,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (get_ID() == 0 &&M_Product != null &&
@@ -342,7 +342,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -352,7 +352,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
@@ -371,7 +371,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @return Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public I_M_WarehouseInput M_Warehouse() {
+	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
 
@@ -381,7 +381,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @param PP_Order_BOM Manufacturing Order BOM
 	 */
 	@JsonProperty("PP_Order_BOM")
-	public void setPP_Order_BOMInput(I_PP_Order_BOMInput PP_Order_BOM) {
+	public void setPP_Order_BOMInput(ForeignEntityInput PP_Order_BOM) {
 		this.mPP_Order_BOM = PP_Order_BOM;
 		X_PP_Order_BOM foreignEntity;
 		if (get_ID() == 0 &&PP_Order_BOM != null &&
@@ -398,7 +398,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @return Manufacturing Order BOM
 	 */
 	@JsonProperty("PP_Order_BOM")
-	public I_PP_Order_BOMInput PP_Order_BOM() {
+	public ForeignEntityInput PP_Order_BOM() {
 		return mPP_Order_BOM;
 	}
 
@@ -426,7 +426,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @param PP_Order Manufacturing Order
 	 */
 	@JsonProperty("PP_Order")
-	public void setPP_OrderInput(I_PP_OrderInput PP_Order) {
+	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
 		X_PP_Order foreignEntity;
 		if (get_ID() == 0 &&PP_Order != null &&
@@ -443,7 +443,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 * @return Manufacturing Order
 	 */
 	@JsonProperty("PP_Order")
-	public I_PP_OrderInput PP_Order() {
+	public ForeignEntityInput PP_Order() {
 		return mPP_Order;
 	}
 	/**

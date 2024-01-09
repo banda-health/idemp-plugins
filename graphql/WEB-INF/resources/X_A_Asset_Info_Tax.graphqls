@@ -5,6 +5,11 @@ extend type Query {
 	A_Asset_Info_TaxGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Info_TaxConnection!
 }
 
+extend type Mutation {
+	A_Asset_Info_TaxSave(entity: A_Asset_Info_TaxInput!): A_Asset_Info_Tax!
+	A_Asset_Info_TaxDelete(uuids: [String!]!): Boolean!
+}
+
 type A_Asset_Info_TaxConnection {
 	results: [A_Asset_Info_Tax!]!
 	pagingInfo: PagingInfo!
@@ -38,3 +43,20 @@ type A_Asset_Info_Tax {
 	UpdatedBy: AD_User!
 }
 
+input A_Asset_Info_TaxInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	ID: ID
+	A_Finance_Meth: AD_Ref_ListInput
+	A_Investment_CR: Int
+	A_New_Used: Boolean
+	# State of the Credit Card or Account holder
+	A_State: String
+	A_Tax_Entity: String
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Text Message
+	TextMsg: String
+}

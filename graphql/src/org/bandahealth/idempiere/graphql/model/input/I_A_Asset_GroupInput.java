@@ -15,14 +15,14 @@ public interface I_A_Asset_GroupInput extends I_A_Asset_Group {
 	 *
 	 * @param A_Asset_Class A_Asset_Class
 	 */
-	void setA_Asset_ClassInput(I_A_Asset_ClassInput A_Asset_Class);
+	void setA_Asset_ClassInput(ForeignEntityInput A_Asset_Class);
 
 	/**
 	 * Get A_Asset_Class.
 	 *
 	 * @return A_Asset_Class
 	 */
-	I_A_Asset_ClassInput A_Asset_Class();
+	ForeignEntityInput A_Asset_Class();
 
 	/**
 	 * Set ID.
@@ -43,26 +43,26 @@ public interface I_A_Asset_GroupInput extends I_A_Asset_Group {
 	 *
 	 * @param A_Asset_Type A_Asset_Type
 	 */
-	void setA_Asset_TypeInput(I_A_Asset_TypeInput A_Asset_Type);
+	void setA_Asset_TypeInput(ForeignEntityInput A_Asset_Type);
 
 	/**
 	 * Get A_Asset_Type.
 	 *
 	 * @return A_Asset_Type
 	 */
-	I_A_Asset_TypeInput A_Asset_Type();
+	ForeignEntityInput A_Asset_Type();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 }

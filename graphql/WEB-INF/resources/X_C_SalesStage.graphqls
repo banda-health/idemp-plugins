@@ -5,6 +5,11 @@ extend type Query {
 	C_SalesStageGet(page: Int, size: Int, sort: String, filter: String): C_SalesStageConnection!
 }
 
+extend type Mutation {
+	C_SalesStageSave(entity: C_SalesStageInput!): C_SalesStage!
+	C_SalesStageDelete(uuids: [String!]!): Boolean!
+}
+
 type C_SalesStageConnection {
 	results: [C_SalesStage!]!
 	pagingInfo: PagingInfo!
@@ -39,3 +44,21 @@ type C_SalesStage {
 	Value: String!
 }
 
+input C_SalesStageInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The status is closed
+	IsClosed: Boolean
+	# The opportunity was won
+	IsWon: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Probability: Int
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

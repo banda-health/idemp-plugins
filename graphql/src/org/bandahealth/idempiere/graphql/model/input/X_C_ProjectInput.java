@@ -28,22 +28,22 @@ import org.compiere.util.Env;
  */
 public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_BPartnerSR;
+	 private ForeignEntityInput mC_BPartner_Location;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_PaymentTerm;
+	 private ForeignEntityInput mC_Phase;
+	 private ForeignEntityInput mM_PriceList_Version;
+	 private ForeignEntityInput mM_Warehouse;
+	 private ForeignEntityInput mSalesRep;
 	 private I_AD_Ref_ListInput mProjInvoiceRule;
 	 private I_AD_Ref_ListInput mProjectCategory;
 	 private I_AD_Ref_ListInput mProjectLineLevel;
-	 private I_AD_UserInput mAD_User;
-	 private I_AD_UserInput mSalesRep;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BPartnerInput mC_BPartnerSR;
-	 private I_C_BPartner_LocationInput mC_BPartner_Location;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_PaymentTermInput mC_PaymentTerm;
-	 private I_C_PhaseInput mC_Phase;
-	 private I_M_PriceList_VersionInput mM_PriceList_Version;
-	 private I_M_WarehouseInput mM_Warehouse;
 
 	/**
 	 * Standard constructor
@@ -60,7 +60,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -77,7 +77,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -87,7 +87,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -106,7 +106,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -116,7 +116,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -135,7 +135,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -145,7 +145,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -164,7 +164,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -174,7 +174,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
@@ -193,7 +193,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public I_C_BPartner_LocationInput C_BPartner_Location() {
+	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
 
@@ -203,7 +203,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param C_BPartnerSR Business Partner (Agent or Sales Rep)
 	 */
 	@JsonProperty("C_BPartnerSR")
-	public void setC_BPartnerSRInput(I_C_BPartnerInput C_BPartnerSR) {
+	public void setC_BPartnerSRInput(ForeignEntityInput C_BPartnerSR) {
 		this.mC_BPartnerSR = C_BPartnerSR;
 		MBPartner_BH foreignEntity;
 		if (C_BPartnerSR != null &&
@@ -222,7 +222,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Business Partner (Agent or Sales Rep)
 	 */
 	@JsonProperty("C_BPartnerSR")
-	public I_C_BPartnerInput C_BPartnerSR() {
+	public ForeignEntityInput C_BPartnerSR() {
 		return mC_BPartnerSR;
 	}
 
@@ -232,7 +232,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -251,7 +251,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -261,7 +261,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -280,7 +280,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -290,7 +290,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param C_PaymentTerm The terms of Payment (timing, discount)
 	 */
 	@JsonProperty("C_PaymentTerm")
-	public void setC_PaymentTermInput(I_C_PaymentTermInput C_PaymentTerm) {
+	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null &&
@@ -309,7 +309,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return The terms of Payment (timing, discount)
 	 */
 	@JsonProperty("C_PaymentTerm")
-	public I_C_PaymentTermInput C_PaymentTerm() {
+	public ForeignEntityInput C_PaymentTerm() {
 		return mC_PaymentTerm;
 	}
 
@@ -319,7 +319,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param C_Phase Standard Phase of the Project Type
 	 */
 	@JsonProperty("C_Phase")
-	public void setC_PhaseInput(I_C_PhaseInput C_Phase) {
+	public void setC_PhaseInput(ForeignEntityInput C_Phase) {
 		this.mC_Phase = C_Phase;
 		MProjectTypePhase foreignEntity;
 		if (C_Phase != null &&
@@ -338,7 +338,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Standard Phase of the Project Type
 	 */
 	@JsonProperty("C_Phase")
-	public I_C_PhaseInput C_Phase() {
+	public ForeignEntityInput C_Phase() {
 		return mC_Phase;
 	}
 
@@ -388,7 +388,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param M_PriceList_Version Identifies a unique instance of a Price List
 	 */
 	@JsonProperty("M_PriceList_Version")
-	public void setM_PriceList_VersionInput(I_M_PriceList_VersionInput M_PriceList_Version) {
+	public void setM_PriceList_VersionInput(ForeignEntityInput M_PriceList_Version) {
 		this.mM_PriceList_Version = M_PriceList_Version;
 		MPriceListVersion foreignEntity;
 		if (M_PriceList_Version != null &&
@@ -407,7 +407,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Identifies a unique instance of a Price List
 	 */
 	@JsonProperty("M_PriceList_Version")
-	public I_M_PriceList_VersionInput M_PriceList_Version() {
+	public ForeignEntityInput M_PriceList_Version() {
 		return mM_PriceList_Version;
 	}
 
@@ -417,7 +417,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
@@ -436,7 +436,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public I_M_WarehouseInput M_Warehouse() {
+	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
 	/**
@@ -544,7 +544,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
@@ -563,7 +563,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public I_AD_UserInput SalesRep() {
+	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
 }

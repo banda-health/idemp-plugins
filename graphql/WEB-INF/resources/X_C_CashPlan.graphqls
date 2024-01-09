@@ -5,6 +5,11 @@ extend type Query {
 	C_CashPlanGet(page: Int, size: Int, sort: String, filter: String): C_CashPlanConnection!
 }
 
+extend type Mutation {
+	C_CashPlanSave(entity: C_CashPlanInput!): C_CashPlan!
+	C_CashPlanDelete(uuids: [String!]!): Boolean!
+}
+
 type C_CashPlanConnection {
 	results: [C_CashPlan!]!
 	pagingInfo: PagingInfo!
@@ -58,3 +63,40 @@ type C_CashPlan {
 	User2: C_ElementValue
 }
 
+input C_CashPlanInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	ID: ID
+	# Financial Project
+	C_Project: ForeignEntityInput
+	CashFlowType: AD_Ref_ListInput
+	# Copy From Record
+	CopyFrom: String
+	# Date of the Document
+	DateDoc: Date
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	GeneratePeriodic: String
+	# Total amount of document
+	GrandTotal: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_GroupInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_A_Asset_ClassInput mA_Asset_Class;
-	 private I_A_Asset_TypeInput mA_Asset_Type;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mA_Asset_Class;
+	 private ForeignEntityInput mA_Asset_Type;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	 * @param A_Asset_Class Asset class
 	 */
 	@JsonProperty("A_Asset_Class")
-	public void setA_Asset_ClassInput(I_A_Asset_ClassInput A_Asset_Class) {
+	public void setA_Asset_ClassInput(ForeignEntityInput A_Asset_Class) {
 		this.mA_Asset_Class = A_Asset_Class;
 		MAssetClass foreignEntity;
 		if (A_Asset_Class != null &&
@@ -56,7 +56,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	 * @return Asset class
 	 */
 	@JsonProperty("A_Asset_Class")
-	public I_A_Asset_ClassInput A_Asset_Class() {
+	public ForeignEntityInput A_Asset_Class() {
 		return mA_Asset_Class;
 	}
 
@@ -84,7 +84,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	 * @param A_Asset_Type Asset Type
 	 */
 	@JsonProperty("A_Asset_Type")
-	public void setA_Asset_TypeInput(I_A_Asset_TypeInput A_Asset_Type) {
+	public void setA_Asset_TypeInput(ForeignEntityInput A_Asset_Type) {
 		this.mA_Asset_Type = A_Asset_Type;
 		MAssetType foreignEntity;
 		if (A_Asset_Type != null &&
@@ -103,7 +103,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	 * @return Asset Type
 	 */
 	@JsonProperty("A_Asset_Type")
-	public I_A_Asset_TypeInput A_Asset_Type() {
+	public ForeignEntityInput A_Asset_Type() {
 		return mA_Asset_Type;
 	}
 
@@ -113,7 +113,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -130,7 +130,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 }

@@ -18,8 +18,8 @@ import org.compiere.util.Env;
  */
 public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 
-	 private I_AD_ImageInput mAD_Image;
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Image;
+	 private ForeignEntityInput mAD_Org;
 	 private I_AD_Ref_ListInput mColorType;
 	 private I_AD_Ref_ListInput mStartPoint;
 
@@ -56,7 +56,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	 * @param AD_Image Image or Icon
 	 */
 	@JsonProperty("AD_Image")
-	public void setAD_ImageInput(I_AD_ImageInput AD_Image) {
+	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
@@ -75,7 +75,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	 * @return Image or Icon
 	 */
 	@JsonProperty("AD_Image")
-	public I_AD_ImageInput AD_Image() {
+	public ForeignEntityInput AD_Image() {
 		return mAD_Image;
 	}
 
@@ -85,7 +85,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -102,7 +102,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 

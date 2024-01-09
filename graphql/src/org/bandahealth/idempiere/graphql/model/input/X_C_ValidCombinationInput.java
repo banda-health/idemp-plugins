@@ -26,20 +26,20 @@ import org.compiere.util.Env;
  */
 public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidCombinationInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_AcctSchemaInput mC_AcctSchema;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_ElementValueInput mAccount;
-	 private I_C_ElementValueInput mUser1;
-	 private I_C_ElementValueInput mUser2;
-	 private I_C_LocationInput mC_LocFrom;
-	 private I_C_LocationInput mC_LocTo;
-	 private I_C_ProjectInput mC_Project;
-	 private I_C_SalesRegionInput mC_SalesRegion;
-	 private I_C_SubAcctInput mC_SubAcct;
-	 private I_M_ProductInput mM_Product;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAccount;
+	 private ForeignEntityInput mC_AcctSchema;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_LocFrom;
+	 private ForeignEntityInput mC_LocTo;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mC_SalesRegion;
+	 private ForeignEntityInput mC_SubAcct;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mUser1;
+	 private ForeignEntityInput mUser2;
 
 	/**
 	 * Standard constructor
@@ -56,7 +56,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param Account Account used
 	 */
 	@JsonProperty("Account")
-	public void setAccountInput(I_C_ElementValueInput Account) {
+	public void setAccountInput(ForeignEntityInput Account) {
 		this.mAccount = Account;
 		MElementValue foreignEntity;
 		if (get_ID() == 0 &&Account != null &&
@@ -73,7 +73,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Account used
 	 */
 	@JsonProperty("Account")
-	public I_C_ElementValueInput Account() {
+	public ForeignEntityInput Account() {
 		return mAccount;
 	}
 
@@ -83,7 +83,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -100,7 +100,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -110,7 +110,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param C_AcctSchema Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (get_ID() == 0 &&C_AcctSchema != null &&
@@ -127,7 +127,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public I_C_AcctSchemaInput C_AcctSchema() {
+	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
 	}
 
@@ -137,7 +137,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (get_ID() == 0 &&C_Activity != null &&
@@ -154,7 +154,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -164,7 +164,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (get_ID() == 0 &&C_BPartner != null &&
@@ -181,7 +181,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -191,7 +191,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (get_ID() == 0 &&C_Campaign != null &&
@@ -208,7 +208,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -218,7 +218,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param C_LocFrom Location that inventory was moved from
 	 */
 	@JsonProperty("C_LocFrom")
-	public void setC_LocFromInput(I_C_LocationInput C_LocFrom) {
+	public void setC_LocFromInput(ForeignEntityInput C_LocFrom) {
 		this.mC_LocFrom = C_LocFrom;
 		MLocation foreignEntity;
 		if (get_ID() == 0 &&C_LocFrom != null &&
@@ -235,7 +235,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Location that inventory was moved from
 	 */
 	@JsonProperty("C_LocFrom")
-	public I_C_LocationInput C_LocFrom() {
+	public ForeignEntityInput C_LocFrom() {
 		return mC_LocFrom;
 	}
 
@@ -245,7 +245,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param C_LocTo Location that inventory was moved to
 	 */
 	@JsonProperty("C_LocTo")
-	public void setC_LocToInput(I_C_LocationInput C_LocTo) {
+	public void setC_LocToInput(ForeignEntityInput C_LocTo) {
 		this.mC_LocTo = C_LocTo;
 		MLocation foreignEntity;
 		if (get_ID() == 0 &&C_LocTo != null &&
@@ -262,7 +262,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Location that inventory was moved to
 	 */
 	@JsonProperty("C_LocTo")
-	public I_C_LocationInput C_LocTo() {
+	public ForeignEntityInput C_LocTo() {
 		return mC_LocTo;
 	}
 
@@ -272,7 +272,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (get_ID() == 0 &&C_Project != null &&
@@ -289,7 +289,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -299,7 +299,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param C_SalesRegion Sales coverage region
 	 */
 	@JsonProperty("C_SalesRegion")
-	public void setC_SalesRegionInput(I_C_SalesRegionInput C_SalesRegion) {
+	public void setC_SalesRegionInput(ForeignEntityInput C_SalesRegion) {
 		this.mC_SalesRegion = C_SalesRegion;
 		MSalesRegion foreignEntity;
 		if (get_ID() == 0 &&C_SalesRegion != null &&
@@ -316,7 +316,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Sales coverage region
 	 */
 	@JsonProperty("C_SalesRegion")
-	public I_C_SalesRegionInput C_SalesRegion() {
+	public ForeignEntityInput C_SalesRegion() {
 		return mC_SalesRegion;
 	}
 
@@ -326,7 +326,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param C_SubAcct Sub account for Element Value
 	 */
 	@JsonProperty("C_SubAcct")
-	public void setC_SubAcctInput(I_C_SubAcctInput C_SubAcct) {
+	public void setC_SubAcctInput(ForeignEntityInput C_SubAcct) {
 		this.mC_SubAcct = C_SubAcct;
 		X_C_SubAcct foreignEntity;
 		if (get_ID() == 0 &&C_SubAcct != null &&
@@ -343,7 +343,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Sub account for Element Value
 	 */
 	@JsonProperty("C_SubAcct")
-	public I_C_SubAcctInput C_SubAcct() {
+	public ForeignEntityInput C_SubAcct() {
 		return mC_SubAcct;
 	}
 
@@ -404,7 +404,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (get_ID() == 0 &&M_Product != null &&
@@ -421,7 +421,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -431,7 +431,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param User1 User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public void setUser1Input(I_C_ElementValueInput User1) {
+	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (get_ID() == 0 &&User1 != null &&
@@ -448,7 +448,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public I_C_ElementValueInput User1() {
+	public ForeignEntityInput User1() {
 		return mUser1;
 	}
 
@@ -458,7 +458,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @param User2 User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public void setUser2Input(I_C_ElementValueInput User2) {
+	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (get_ID() == 0 &&User2 != null &&
@@ -475,7 +475,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 * @return User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public I_C_ElementValueInput User2() {
+	public ForeignEntityInput User2() {
 		return mUser2;
 	}
 }

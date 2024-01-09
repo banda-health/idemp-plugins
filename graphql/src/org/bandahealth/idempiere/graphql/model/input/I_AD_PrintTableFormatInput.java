@@ -15,28 +15,28 @@ public interface I_AD_PrintTableFormatInput extends I_AD_PrintTableFormat {
 	 *
 	 * @param AD_Image Image or Icon
 	 */
-	void setAD_ImageInput(I_AD_ImageInput AD_Image);
+	void setAD_ImageInput(ForeignEntityInput AD_Image);
 
 	/**
 	 * Get AD_Image.
 	 *
 	 * @return Image or Icon
 	 */
-	I_AD_ImageInput AD_Image();
+	ForeignEntityInput AD_Image();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -57,70 +57,70 @@ public interface I_AD_PrintTableFormatInput extends I_AD_PrintTableFormat {
 	 *
 	 * @param Funct_PrintFont Function row Font
 	 */
-	void setFunct_PrintFontInput(I_AD_PrintFontInput Funct_PrintFont);
+	void setFunct_PrintFontInput(ForeignEntityInput Funct_PrintFont);
 
 	/**
 	 * Get Funct_PrintFont.
 	 *
 	 * @return Function row Font
 	 */
-	I_AD_PrintFontInput Funct_PrintFont();
+	ForeignEntityInput Funct_PrintFont();
 
 	/**
 	 * Set FunctBG_PrintColor.
 	 *
 	 * @param FunctBG_PrintColor Function Background Color
 	 */
-	void setFunctBG_PrintColorInput(I_AD_PrintColorInput FunctBG_PrintColor);
+	void setFunctBG_PrintColorInput(ForeignEntityInput FunctBG_PrintColor);
 
 	/**
 	 * Get FunctBG_PrintColor.
 	 *
 	 * @return Function Background Color
 	 */
-	I_AD_PrintColorInput FunctBG_PrintColor();
+	ForeignEntityInput FunctBG_PrintColor();
 
 	/**
 	 * Set FunctFG_PrintColor.
 	 *
 	 * @param FunctFG_PrintColor Function Foreground Color
 	 */
-	void setFunctFG_PrintColorInput(I_AD_PrintColorInput FunctFG_PrintColor);
+	void setFunctFG_PrintColorInput(ForeignEntityInput FunctFG_PrintColor);
 
 	/**
 	 * Get FunctFG_PrintColor.
 	 *
 	 * @return Function Foreground Color
 	 */
-	I_AD_PrintColorInput FunctFG_PrintColor();
+	ForeignEntityInput FunctFG_PrintColor();
 
 	/**
 	 * Set Hdr_PrintFont.
 	 *
 	 * @param Hdr_PrintFont Header row Font
 	 */
-	void setHdr_PrintFontInput(I_AD_PrintFontInput Hdr_PrintFont);
+	void setHdr_PrintFontInput(ForeignEntityInput Hdr_PrintFont);
 
 	/**
 	 * Get Hdr_PrintFont.
 	 *
 	 * @return Header row Font
 	 */
-	I_AD_PrintFontInput Hdr_PrintFont();
+	ForeignEntityInput Hdr_PrintFont();
 
 	/**
 	 * Set HdrLine_PrintColor.
 	 *
 	 * @param HdrLine_PrintColor Table header row line color
 	 */
-	void setHdrLine_PrintColorInput(I_AD_PrintColorInput HdrLine_PrintColor);
+	void setHdrLine_PrintColorInput(ForeignEntityInput HdrLine_PrintColor);
 
 	/**
 	 * Get HdrLine_PrintColor.
 	 *
 	 * @return Table header row line color
 	 */
-	I_AD_PrintColorInput HdrLine_PrintColor();
+	ForeignEntityInput HdrLine_PrintColor();
 
 	/**
 	 * Set HdrStrokeType.
@@ -141,42 +141,42 @@ public interface I_AD_PrintTableFormatInput extends I_AD_PrintTableFormat {
 	 *
 	 * @param HdrTextBG_PrintColor Background color of header row
 	 */
-	void setHdrTextBG_PrintColorInput(I_AD_PrintColorInput HdrTextBG_PrintColor);
+	void setHdrTextBG_PrintColorInput(ForeignEntityInput HdrTextBG_PrintColor);
 
 	/**
 	 * Get HdrTextBG_PrintColor.
 	 *
 	 * @return Background color of header row
 	 */
-	I_AD_PrintColorInput HdrTextBG_PrintColor();
+	ForeignEntityInput HdrTextBG_PrintColor();
 
 	/**
 	 * Set HdrTextFG_PrintColor.
 	 *
 	 * @param HdrTextFG_PrintColor Foreground color if the table header row
 	 */
-	void setHdrTextFG_PrintColorInput(I_AD_PrintColorInput HdrTextFG_PrintColor);
+	void setHdrTextFG_PrintColorInput(ForeignEntityInput HdrTextFG_PrintColor);
 
 	/**
 	 * Get HdrTextFG_PrintColor.
 	 *
 	 * @return Foreground color if the table header row
 	 */
-	I_AD_PrintColorInput HdrTextFG_PrintColor();
+	ForeignEntityInput HdrTextFG_PrintColor();
 
 	/**
 	 * Set Line_PrintColor.
 	 *
 	 * @param Line_PrintColor Table line color
 	 */
-	void setLine_PrintColorInput(I_AD_PrintColorInput Line_PrintColor);
+	void setLine_PrintColorInput(ForeignEntityInput Line_PrintColor);
 
 	/**
 	 * Get Line_PrintColor.
 	 *
 	 * @return Table line color
 	 */
-	I_AD_PrintColorInput Line_PrintColor();
+	ForeignEntityInput Line_PrintColor();
 
 	/**
 	 * Set LineStrokeType.

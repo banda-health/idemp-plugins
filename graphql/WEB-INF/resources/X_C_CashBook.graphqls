@@ -5,6 +5,11 @@ extend type Query {
 	C_CashBookGet(page: Int, size: Int, sort: String, filter: String): C_CashBookConnection!
 }
 
+extend type Mutation {
+	C_CashBookSave(entity: C_CashBookInput!): C_CashBook!
+	C_CashBookDelete(uuids: [String!]!): Boolean!
+}
+
 type C_CashBookConnection {
 	results: [C_CashBook!]!
 	pagingInfo: PagingInfo!
@@ -36,3 +41,18 @@ type C_CashBook {
 	UpdatedBy: AD_User!
 }
 
+input C_CashBookInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

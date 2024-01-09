@@ -5,6 +5,11 @@ extend type Query {
 	AD_PrintPaperGet(page: Int, size: Int, sort: String, filter: String): AD_PrintPaperConnection!
 }
 
+extend type Mutation {
+	AD_PrintPaperSave(entity: AD_PrintPaperInput!): AD_PrintPaper!
+	AD_PrintPaperDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_PrintPaperConnection {
 	results: [AD_PrintPaper!]!
 	pagingInfo: PagingInfo!
@@ -53,3 +58,35 @@ type AD_PrintPaper {
 	UpdatedBy: AD_User!
 }
 
+input AD_PrintPaperInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Validation Code
+	Code: String
+	# Optional short description of the record
+	Description: String
+	# Units of Dimension
+	DimensionUnits: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Landscape orientation
+	IsLandscape: Boolean
+	# Bottom Space in 1/72 inch
+	MarginBottom: Int
+	# Left Space in 1/72 inch
+	MarginLeft: Int
+	# Right Space in 1/72 inch
+	MarginRight: Int
+	# Top Space in 1/72 inch
+	MarginTop: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	# X (horizontal) dimension size
+	SizeX: Int
+	# Y (vertical) dimension size
+	SizeY: Int
+}

@@ -5,6 +5,11 @@ extend type Query {
 	C_ConversionTypeGet(page: Int, size: Int, sort: String, filter: String): C_ConversionTypeConnection!
 }
 
+extend type Mutation {
+	C_ConversionTypeSave(entity: C_ConversionTypeInput!): C_ConversionType!
+	C_ConversionTypeDelete(uuids: [String!]!): Boolean!
+}
+
 type C_ConversionTypeConnection {
 	results: [C_ConversionType!]!
 	pagingInfo: PagingInfo!
@@ -36,3 +41,18 @@ type C_ConversionType {
 	Value: String!
 }
 
+input C_ConversionTypeInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

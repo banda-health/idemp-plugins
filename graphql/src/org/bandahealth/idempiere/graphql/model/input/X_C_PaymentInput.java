@@ -36,7 +36,29 @@ import org.compiere.util.Env;
  */
 public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mBH_Visit;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_BP_BankAccount;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_BankAccount;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_CashBook;
+	 private ForeignEntityInput mC_Charge;
+	 private ForeignEntityInput mC_ConversionType;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_DepositBatch;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_Invoice;
+	 private ForeignEntityInput mC_Order;
+	 private ForeignEntityInput mC_POSTenderType;
+	 private ForeignEntityInput mC_PaymentBatch;
+	 private ForeignEntityInput mC_PaymentProcessor;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mRef_Payment;
+	 private ForeignEntityInput mReversal;
+	 private ForeignEntityInput mUser1;
+	 private ForeignEntityInput mUser2;
 	 private I_AD_Ref_ListInput mCreditCardType;
 	 private I_AD_Ref_ListInput mDocAction;
 	 private I_AD_Ref_ListInput mDocStatus;
@@ -44,28 +66,6 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 private I_AD_Ref_ListInput mR_AvsZip;
 	 private I_AD_Ref_ListInput mTenderType;
 	 private I_AD_Ref_ListInput mTrxType;
-	 private I_BH_VisitInput mBH_Visit;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_BP_BankAccountInput mC_BP_BankAccount;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BankAccountInput mC_BankAccount;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_CashBookInput mC_CashBook;
-	 private I_C_ChargeInput mC_Charge;
-	 private I_C_ConversionTypeInput mC_ConversionType;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_DepositBatchInput mC_DepositBatch;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_ElementValueInput mUser1;
-	 private I_C_ElementValueInput mUser2;
-	 private I_C_InvoiceInput mC_Invoice;
-	 private I_C_OrderInput mC_Order;
-	 private I_C_POSTenderTypeInput mC_POSTenderType;
-	 private I_C_PaymentBatchInput mC_PaymentBatch;
-	 private I_C_PaymentInput mRef_Payment;
-	 private I_C_PaymentInput mReversal;
-	 private I_C_PaymentProcessorInput mC_PaymentProcessor;
-	 private I_C_ProjectInput mC_Project;
 
 	/**
 	 * Standard constructor
@@ -82,7 +82,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -99,7 +99,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -109,7 +109,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param BH_Visit Visit
 	 */
 	@JsonProperty("BH_Visit")
-	public void setBH_VisitInput(I_BH_VisitInput BH_Visit) {
+	public void setBH_VisitInput(ForeignEntityInput BH_Visit) {
 		this.mBH_Visit = BH_Visit;
 		MBHVisit foreignEntity;
 		if (BH_Visit != null &&
@@ -128,7 +128,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Visit
 	 */
 	@JsonProperty("BH_Visit")
-	public I_BH_VisitInput BH_Visit() {
+	public ForeignEntityInput BH_Visit() {
 		return mBH_Visit;
 	}
 
@@ -138,7 +138,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -157,7 +157,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -167,7 +167,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_BankAccount Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount) {
+	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
@@ -186,7 +186,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public I_C_BankAccountInput C_BankAccount() {
+	public ForeignEntityInput C_BankAccount() {
 		return mC_BankAccount;
 	}
 
@@ -196,7 +196,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_BP_BankAccount Bank Account of the Business Partner
 	 */
 	@JsonProperty("C_BP_BankAccount")
-	public void setC_BP_BankAccountInput(I_C_BP_BankAccountInput C_BP_BankAccount) {
+	public void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount) {
 		this.mC_BP_BankAccount = C_BP_BankAccount;
 		MBPBankAccount foreignEntity;
 		if (C_BP_BankAccount != null &&
@@ -215,7 +215,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Bank Account of the Business Partner
 	 */
 	@JsonProperty("C_BP_BankAccount")
-	public I_C_BP_BankAccountInput C_BP_BankAccount() {
+	public ForeignEntityInput C_BP_BankAccount() {
 		return mC_BP_BankAccount;
 	}
 
@@ -225,7 +225,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -244,7 +244,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -254,7 +254,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -273,7 +273,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -283,7 +283,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_CashBook Cash Book for recording petty cash transactions
 	 */
 	@JsonProperty("C_CashBook")
-	public void setC_CashBookInput(I_C_CashBookInput C_CashBook) {
+	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
 		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
 		if (C_CashBook != null &&
@@ -302,7 +302,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Cash Book for recording petty cash transactions
 	 */
 	@JsonProperty("C_CashBook")
-	public I_C_CashBookInput C_CashBook() {
+	public ForeignEntityInput C_CashBook() {
 		return mC_CashBook;
 	}
 
@@ -312,7 +312,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_Charge Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
@@ -331,7 +331,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public I_C_ChargeInput C_Charge() {
+	public ForeignEntityInput C_Charge() {
 		return mC_Charge;
 	}
 
@@ -341,7 +341,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_ConversionType Currency Conversion Rate Type
 	 */
 	@JsonProperty("C_ConversionType")
-	public void setC_ConversionTypeInput(I_C_ConversionTypeInput C_ConversionType) {
+	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
 		MConversionType foreignEntity;
 		if (C_ConversionType != null &&
@@ -360,7 +360,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Currency Conversion Rate Type
 	 */
 	@JsonProperty("C_ConversionType")
-	public I_C_ConversionTypeInput C_ConversionType() {
+	public ForeignEntityInput C_ConversionType() {
 		return mC_ConversionType;
 	}
 
@@ -370,7 +370,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -389,7 +389,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -399,7 +399,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_DepositBatch Deposit Batch
 	 */
 	@JsonProperty("C_DepositBatch")
-	public void setC_DepositBatchInput(I_C_DepositBatchInput C_DepositBatch) {
+	public void setC_DepositBatchInput(ForeignEntityInput C_DepositBatch) {
 		this.mC_DepositBatch = C_DepositBatch;
 		MDepositBatch foreignEntity;
 		if (get_ID() == 0 &&C_DepositBatch != null &&
@@ -416,7 +416,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Deposit Batch
 	 */
 	@JsonProperty("C_DepositBatch")
-	public I_C_DepositBatchInput C_DepositBatch() {
+	public ForeignEntityInput C_DepositBatch() {
 		return mC_DepositBatch;
 	}
 
@@ -426,7 +426,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
@@ -445,7 +445,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -455,7 +455,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_Invoice Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public void setC_InvoiceInput(I_C_InvoiceInput C_Invoice) {
+	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
 		if (C_Invoice != null &&
@@ -474,7 +474,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public I_C_InvoiceInput C_Invoice() {
+	public ForeignEntityInput C_Invoice() {
 		return mC_Invoice;
 	}
 
@@ -484,7 +484,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_Order Order
 	 */
 	@JsonProperty("C_Order")
-	public void setC_OrderInput(I_C_OrderInput C_Order) {
+	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
 		if (C_Order != null &&
@@ -503,7 +503,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Order
 	 */
 	@JsonProperty("C_Order")
-	public I_C_OrderInput C_Order() {
+	public ForeignEntityInput C_Order() {
 		return mC_Order;
 	}
 
@@ -531,7 +531,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_PaymentBatch Payment batch for EFT
 	 */
 	@JsonProperty("C_PaymentBatch")
-	public void setC_PaymentBatchInput(I_C_PaymentBatchInput C_PaymentBatch) {
+	public void setC_PaymentBatchInput(ForeignEntityInput C_PaymentBatch) {
 		this.mC_PaymentBatch = C_PaymentBatch;
 		MPaymentBatch foreignEntity;
 		if (C_PaymentBatch != null &&
@@ -550,7 +550,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Payment batch for EFT
 	 */
 	@JsonProperty("C_PaymentBatch")
-	public I_C_PaymentBatchInput C_PaymentBatch() {
+	public ForeignEntityInput C_PaymentBatch() {
 		return mC_PaymentBatch;
 	}
 
@@ -560,7 +560,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_PaymentProcessor Payment processor for electronic payments
 	 */
 	@JsonProperty("C_PaymentProcessor")
-	public void setC_PaymentProcessorInput(I_C_PaymentProcessorInput C_PaymentProcessor) {
+	public void setC_PaymentProcessorInput(ForeignEntityInput C_PaymentProcessor) {
 		this.mC_PaymentProcessor = C_PaymentProcessor;
 		MPaymentProcessor foreignEntity;
 		if (C_PaymentProcessor != null &&
@@ -579,7 +579,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Payment processor for electronic payments
 	 */
 	@JsonProperty("C_PaymentProcessor")
-	public I_C_PaymentProcessorInput C_PaymentProcessor() {
+	public ForeignEntityInput C_PaymentProcessor() {
 		return mC_PaymentProcessor;
 	}
 
@@ -589,7 +589,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_POSTenderType POS Tender Type
 	 */
 	@JsonProperty("C_POSTenderType")
-	public void setC_POSTenderTypeInput(I_C_POSTenderTypeInput C_POSTenderType) {
+	public void setC_POSTenderTypeInput(ForeignEntityInput C_POSTenderType) {
 		this.mC_POSTenderType = C_POSTenderType;
 		X_C_POSTenderType foreignEntity;
 		if (C_POSTenderType != null &&
@@ -608,7 +608,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return POS Tender Type
 	 */
 	@JsonProperty("C_POSTenderType")
-	public I_C_POSTenderTypeInput C_POSTenderType() {
+	public ForeignEntityInput C_POSTenderType() {
 		return mC_POSTenderType;
 	}
 
@@ -618,7 +618,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -637,7 +637,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -898,7 +898,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param Ref_Payment Referenced Payment
 	 */
 	@JsonProperty("Ref_Payment")
-	public void setRef_PaymentInput(I_C_PaymentInput Ref_Payment) {
+	public void setRef_PaymentInput(ForeignEntityInput Ref_Payment) {
 		this.mRef_Payment = Ref_Payment;
 		MPayment_BH foreignEntity;
 		if (get_ID() == 0 &&Ref_Payment != null &&
@@ -915,7 +915,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return Referenced Payment
 	 */
 	@JsonProperty("Ref_Payment")
-	public I_C_PaymentInput Ref_Payment() {
+	public ForeignEntityInput Ref_Payment() {
 		return mRef_Payment;
 	}
 
@@ -925,7 +925,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param Reversal ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public void setReversalInput(I_C_PaymentInput Reversal) {
+	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
 		MPayment_BH foreignEntity;
 		if (Reversal != null &&
@@ -944,7 +944,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public I_C_PaymentInput Reversal() {
+	public ForeignEntityInput Reversal() {
 		return mReversal;
 	}
 	/**
@@ -1023,7 +1023,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param User1 User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public void setUser1Input(I_C_ElementValueInput User1) {
+	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
@@ -1042,7 +1042,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public I_C_ElementValueInput User1() {
+	public ForeignEntityInput User1() {
 		return mUser1;
 	}
 
@@ -1052,7 +1052,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @param User2 User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public void setUser2Input(I_C_ElementValueInput User2) {
+	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
@@ -1071,7 +1071,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	 * @return User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public I_C_ElementValueInput User2() {
+	public ForeignEntityInput User2() {
 		return mUser2;
 	}
 }

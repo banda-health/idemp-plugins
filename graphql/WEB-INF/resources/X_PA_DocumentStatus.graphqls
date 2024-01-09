@@ -5,6 +5,11 @@ extend type Query {
 	PA_DocumentStatusGet(page: Int, size: Int, sort: String, filter: String): PA_DocumentStatusConnection!
 }
 
+extend type Mutation {
+	PA_DocumentStatusSave(entity: PA_DocumentStatusInput!): PA_DocumentStatus!
+	PA_DocumentStatusDelete(uuids: [String!]!): Boolean!
+}
+
 type PA_DocumentStatusConnection {
 	results: [PA_DocumentStatus!]!
 	pagingInfo: PagingInfo!
@@ -54,3 +59,36 @@ type PA_DocumentStatus {
 	WhereClause: String
 }
 
+input PA_DocumentStatusInput {
+	# Special Form
+	AD_Form: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Name_PrintColor: ForeignEntityInput
+	Name_PrintFont: ForeignEntityInput
+	Number_PrintColor: ForeignEntityInput
+	Number_PrintFont: ForeignEntityInput
+	ID: ID
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}

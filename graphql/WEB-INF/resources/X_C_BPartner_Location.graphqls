@@ -5,6 +5,11 @@ extend type Query {
 	C_BPartner_LocationGet(page: Int, size: Int, sort: String, filter: String): C_BPartner_LocationConnection!
 }
 
+extend type Mutation {
+	C_BPartner_LocationSave(entity: C_BPartner_LocationInput!): C_BPartner_Location!
+	C_BPartner_LocationDelete(uuids: [String!]!): Boolean!
+}
+
 type C_BPartner_LocationConnection {
 	results: [C_BPartner_Location!]!
 	pagingInfo: PagingInfo!
@@ -54,3 +59,36 @@ type C_BPartner_Location {
 	UpdatedBy: AD_User!
 }
 
+input C_BPartner_LocationInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	ID: ID
+	# Location or Address
+	C_Location: ForeignEntityInput
+	# Sales coverage region
+	C_SalesRegion: ForeignEntityInput
+	CustomerAddressID: String
+	# Facsimile number
+	Fax: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Business Partner Invoice/Bill Address
+	IsBillTo: Boolean
+	# ISDN or modem line
+	ISDN: String
+	# Business Partner pays from that address and we'll send dunning letters there
+	IsPayFrom: Boolean
+	IsPreserveCustomName: Boolean
+	# Business Partner payment address
+	IsRemitTo: Boolean
+	# Business Partner Shipment Address
+	IsShipTo: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Identifies a telephone number
+	Phone: String
+	# Identifies an alternate telephone number.
+	Phone2: String
+}

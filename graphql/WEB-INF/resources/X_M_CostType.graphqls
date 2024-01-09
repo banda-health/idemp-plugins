@@ -5,6 +5,11 @@ extend type Query {
 	M_CostTypeGet(page: Int, size: Int, sort: String, filter: String): M_CostTypeConnection!
 }
 
+extend type Mutation {
+	M_CostTypeSave(entity: M_CostTypeInput!): M_CostType!
+	M_CostTypeDelete(uuids: [String!]!): Boolean!
+}
+
 type M_CostTypeConnection {
 	results: [M_CostType!]!
 	pagingInfo: PagingInfo!
@@ -34,3 +39,16 @@ type M_CostType {
 	UpdatedBy: AD_User!
 }
 
+input M_CostTypeInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	ID: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+}

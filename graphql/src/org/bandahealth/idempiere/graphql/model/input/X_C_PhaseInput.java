@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_C_PhaseInput extends MProjectTypePhase implements I_C_PhaseInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_ProjectTypeInput mC_ProjectType;
-	 private I_M_ProductInput mM_Product;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_ProjectType;
+	 private ForeignEntityInput mM_Product;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_C_PhaseInput extends MProjectTypePhase implements I_C_PhaseInput 
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_C_PhaseInput extends MProjectTypePhase implements I_C_PhaseInput 
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -82,7 +82,7 @@ public class X_C_PhaseInput extends MProjectTypePhase implements I_C_PhaseInput 
 	 * @param C_ProjectType Type of the project
 	 */
 	@JsonProperty("C_ProjectType")
-	public void setC_ProjectTypeInput(I_C_ProjectTypeInput C_ProjectType) {
+	public void setC_ProjectTypeInput(ForeignEntityInput C_ProjectType) {
 		this.mC_ProjectType = C_ProjectType;
 		MProjectType foreignEntity;
 		if (get_ID() == 0 &&C_ProjectType != null &&
@@ -99,7 +99,7 @@ public class X_C_PhaseInput extends MProjectTypePhase implements I_C_PhaseInput 
 	 * @return Type of the project
 	 */
 	@JsonProperty("C_ProjectType")
-	public I_C_ProjectTypeInput C_ProjectType() {
+	public ForeignEntityInput C_ProjectType() {
 		return mC_ProjectType;
 	}
 
@@ -109,7 +109,7 @@ public class X_C_PhaseInput extends MProjectTypePhase implements I_C_PhaseInput 
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -128,7 +128,7 @@ public class X_C_PhaseInput extends MProjectTypePhase implements I_C_PhaseInput 
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 }

@@ -5,6 +5,11 @@ extend type Query {
 	R_StatusCategoryGet(page: Int, size: Int, sort: String, filter: String): R_StatusCategoryConnection!
 }
 
+extend type Mutation {
+	R_StatusCategorySave(entity: R_StatusCategoryInput!): R_StatusCategory!
+	R_StatusCategoryDelete(uuids: [String!]!): Boolean!
+}
+
 type R_StatusCategoryConnection {
 	results: [R_StatusCategory!]!
 	pagingInfo: PagingInfo!
@@ -36,3 +41,18 @@ type R_StatusCategory {
 	UpdatedBy: AD_User!
 }
 
+input R_StatusCategoryInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	ID: ID
+}

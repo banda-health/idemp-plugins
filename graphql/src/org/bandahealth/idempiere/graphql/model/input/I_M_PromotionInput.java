@@ -15,28 +15,28 @@ public interface I_M_PromotionInput extends I_M_Promotion {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_Campaign.
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	void setC_CampaignInput(I_C_CampaignInput C_Campaign);
+	void setC_CampaignInput(ForeignEntityInput C_Campaign);
 
 	/**
 	 * Get C_Campaign.
 	 *
 	 * @return Marketing Campaign
 	 */
-	I_C_CampaignInput C_Campaign();
+	ForeignEntityInput C_Campaign();
 
 	/**
 	 * Set ID.

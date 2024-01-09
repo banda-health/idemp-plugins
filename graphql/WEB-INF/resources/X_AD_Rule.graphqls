@@ -5,6 +5,11 @@ extend type Query {
 	AD_RuleGet(page: Int, size: Int, sort: String, filter: String): AD_RuleConnection!
 }
 
+extend type Mutation {
+	AD_RuleSave(entity: AD_RuleInput!): AD_Rule!
+	AD_RuleDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_RuleConnection {
 	results: [AD_Rule!]!
 	pagingInfo: PagingInfo!
@@ -45,3 +50,27 @@ type AD_Rule {
 	Value: String!
 }
 
+input AD_RuleInput {
+	# Access Level required
+	AccessLevel: AD_Ref_ListInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Type of Event
+	EventType: AD_Ref_ListInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	RuleType: AD_Ref_ListInput
+	# Dynamic Java Language Script to calculate result
+	Script: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

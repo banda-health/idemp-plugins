@@ -5,6 +5,11 @@ extend type Query {
 	C_ProjectTypeGet(page: Int, size: Int, sort: String, filter: String): C_ProjectTypeConnection!
 }
 
+extend type Mutation {
+	C_ProjectTypeSave(entity: C_ProjectTypeInput!): C_ProjectType!
+	C_ProjectTypeDelete(uuids: [String!]!): Boolean!
+}
+
 type C_ProjectTypeConnection {
 	results: [C_ProjectType!]!
 	pagingInfo: PagingInfo!
@@ -36,3 +41,18 @@ type C_ProjectType {
 	UpdatedBy: AD_User!
 }
 
+input C_ProjectTypeInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Project Category
+	ProjectCategory: AD_Ref_ListInput
+}

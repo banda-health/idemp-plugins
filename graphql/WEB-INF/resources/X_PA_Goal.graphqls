@@ -5,6 +5,11 @@ extend type Query {
 	PA_GoalGet(page: Int, size: Int, sort: String, filter: String): PA_GoalConnection!
 }
 
+extend type Mutation {
+	PA_GoalSave(entity: PA_GoalInput!): PA_Goal!
+	PA_GoalDelete(uuids: [String!]!): Boolean!
+}
+
 type PA_GoalConnection {
 	results: [PA_Goal!]!
 	pagingInfo: PagingInfo!
@@ -68,3 +73,50 @@ type PA_Goal {
 	UpdatedBy: AD_User!
 }
 
+input PA_GoalInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Type of chart to render
+	ChartType: AD_Ref_ListInput
+	# Starting date for a range
+	DateFrom: Date
+	# Date the process was last run.
+	DateLastRun: Date
+	# End date of a date range
+	DateTo: Date
+	# Optional short description of the record
+	Description: String
+	# Target achievement from 0..1
+	GoalPerformance: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Actual value that has been measured.
+	MeasureActual: Int
+	# Measure Scope initially displayed
+	MeasureDisplay: AD_Ref_ListInput
+	# Performance Measure Scope
+	MeasureScope: AD_Ref_ListInput
+	# Target value for measure
+	MeasureTarget: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Optional additional user defined information
+	Note: String
+	# Performance Color Schema
+	PA_ColorSchema: ForeignEntityInput
+	ID: ID
+	# Parent Goal
+	PA_GoalParent: ForeignEntityInput
+	# Concrete Performance Measurement
+	PA_Measure: ForeignEntityInput
+	# Relative weight of this step (0 = ignored)
+	RelativeWeight: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

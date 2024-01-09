@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentBatchInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_PaymentProcessorInput mC_PaymentProcessor;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_PaymentProcessor;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentB
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentB
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -80,7 +80,7 @@ public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentB
 	 * @param C_PaymentProcessor Payment processor for electronic payments
 	 */
 	@JsonProperty("C_PaymentProcessor")
-	public void setC_PaymentProcessorInput(I_C_PaymentProcessorInput C_PaymentProcessor) {
+	public void setC_PaymentProcessorInput(ForeignEntityInput C_PaymentProcessor) {
 		this.mC_PaymentProcessor = C_PaymentProcessor;
 		MPaymentProcessor foreignEntity;
 		if (C_PaymentProcessor != null &&
@@ -99,7 +99,7 @@ public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentB
 	 * @return Payment processor for electronic payments
 	 */
 	@JsonProperty("C_PaymentProcessor")
-	public I_C_PaymentProcessorInput C_PaymentProcessor() {
+	public ForeignEntityInput C_PaymentProcessor() {
 		return mC_PaymentProcessor;
 	}
 }

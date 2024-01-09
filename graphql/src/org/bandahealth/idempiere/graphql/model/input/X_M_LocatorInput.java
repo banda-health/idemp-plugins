@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_M_LocatorTypeInput mM_LocatorType;
-	 private I_M_WarehouseInput mM_Warehouse;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mM_LocatorType;
+	 private ForeignEntityInput mM_Warehouse;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -82,7 +82,7 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	 * @param M_LocatorType Locator Type
 	 */
 	@JsonProperty("M_LocatorType")
-	public void setM_LocatorTypeInput(I_M_LocatorTypeInput M_LocatorType) {
+	public void setM_LocatorTypeInput(ForeignEntityInput M_LocatorType) {
 		this.mM_LocatorType = M_LocatorType;
 		MLocatorType foreignEntity;
 		if (M_LocatorType != null &&
@@ -101,7 +101,7 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	 * @return Locator Type
 	 */
 	@JsonProperty("M_LocatorType")
-	public I_M_LocatorTypeInput M_LocatorType() {
+	public ForeignEntityInput M_LocatorType() {
 		return mM_LocatorType;
 	}
 
@@ -111,7 +111,7 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (get_ID() == 0 &&M_Warehouse != null &&
@@ -128,7 +128,7 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	 * @return Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public I_M_WarehouseInput M_Warehouse() {
+	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
 }

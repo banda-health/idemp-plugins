@@ -5,6 +5,11 @@ extend type Query {
 	C_UOMGet(page: Int, size: Int, sort: String, filter: String): C_UOMConnection!
 }
 
+extend type Mutation {
+	C_UOMSave(entity: C_UOMInput!): C_UOM!
+	C_UOMDelete(uuids: [String!]!): Boolean!
+}
+
 type C_UOMConnection {
 	results: [C_UOM!]!
 	pagingInfo: PagingInfo!
@@ -43,3 +48,25 @@ type C_UOM {
 	X12DE355: String!
 }
 
+input C_UOMInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Rounding used costing calculations
+	CostingPrecision: Int
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Rule for rounding  calculated amounts
+	StdPrecision: Int
+	# Symbol for a Unit of Measure
+	UOMSymbol: String
+	UOMType: AD_Ref_ListInput
+	# UOM EDI X12 Code
+	X12DE355: String
+}

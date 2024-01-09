@@ -5,6 +5,11 @@ extend type Query {
 	PP_Order_CostGet(page: Int, size: Int, sort: String, filter: String): PP_Order_CostConnection!
 }
 
+extend type Mutation {
+	PP_Order_CostSave(entity: PP_Order_CostInput!): PP_Order_Cost!
+	PP_Order_CostDelete(uuids: [String!]!): Boolean!
+}
+
 type PP_Order_CostConnection {
 	results: [PP_Order_Cost!]!
 	pagingInfo: PagingInfo!
@@ -56,3 +61,38 @@ type PP_Order_Cost {
 	UpdatedBy: AD_User!
 }
 
+input PP_Order_CostInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Indicates how Costs will be calculated
+	CostingMethod: AD_Ref_ListInput
+	# Total Amount
+	CumulatedAmt: Int
+	CumulatedAmtPost: Int
+	# Total Quantity
+	CumulatedQty: Int
+	CumulatedQtyPost: Int
+	# The currently used cost price
+	CurrentCostPrice: Int
+	# Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
+	CurrentCostPriceLL: Int
+	# Current Quantity
+	CurrentQty: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Product Cost Element
+	M_CostElement: ForeignEntityInput
+	# Type of Cost (e.g. Current, Plan, Future)
+	M_CostType: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	ID: ID
+	# Manufacturing Order
+	PP_Order: ForeignEntityInput
+}

@@ -5,6 +5,11 @@ extend type Query {
 	PA_DashboardPreferenceGet(page: Int, size: Int, sort: String, filter: String): PA_DashboardPreferenceConnection!
 }
 
+extend type Mutation {
+	PA_DashboardPreferenceSave(entity: PA_DashboardPreferenceInput!): PA_DashboardPreference!
+	PA_DashboardPreferenceDelete(uuids: [String!]!): Boolean!
+}
+
 type PA_DashboardPreferenceConnection {
 	results: [PA_DashboardPreference!]!
 	pagingInfo: PagingInfo!
@@ -41,3 +46,23 @@ type PA_DashboardPreference {
 	UpdatedBy: AD_User!
 }
 
+input PA_DashboardPreferenceInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Dashboard content column number
+	ColumnNo: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Flag to set the initial state of collapsible field group.
+	IsCollapsedByDefault: Boolean
+	# Show the dashlet in the dashboard
+	IsShowInDashboard: Boolean
+	# Unique line for this document
+	Line: Int
+	PA_DashboardContent: ForeignEntityInput
+	ID: ID
+}

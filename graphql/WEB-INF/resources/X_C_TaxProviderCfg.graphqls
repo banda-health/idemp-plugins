@@ -5,6 +5,11 @@ extend type Query {
 	C_TaxProviderCfgGet(page: Int, size: Int, sort: String, filter: String): C_TaxProviderCfgConnection!
 }
 
+extend type Mutation {
+	C_TaxProviderCfgSave(entity: C_TaxProviderCfgInput!): C_TaxProviderCfg!
+	C_TaxProviderCfgDelete(uuids: [String!]!): Boolean!
+}
+
 type C_TaxProviderCfgConnection {
 	results: [C_TaxProviderCfg!]!
 	pagingInfo: PagingInfo!
@@ -35,3 +40,17 @@ type C_TaxProviderCfg {
 	URL: String
 }
 
+input C_TaxProviderCfgInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	TaxProviderClass: String
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+}

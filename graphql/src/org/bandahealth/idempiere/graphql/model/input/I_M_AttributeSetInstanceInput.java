@@ -15,14 +15,14 @@ public interface I_M_AttributeSetInstanceInput extends I_M_AttributeSetInstance 
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set bh_update_reason.
@@ -43,14 +43,14 @@ public interface I_M_AttributeSetInstanceInput extends I_M_AttributeSetInstance 
 	 *
 	 * @param M_AttributeSet Product Attribute Set
 	 */
-	void setM_AttributeSetInput(I_M_AttributeSetInput M_AttributeSet);
+	void setM_AttributeSetInput(ForeignEntityInput M_AttributeSet);
 
 	/**
 	 * Get M_AttributeSet.
 	 *
 	 * @return Product Attribute Set
 	 */
-	I_M_AttributeSetInput M_AttributeSet();
+	ForeignEntityInput M_AttributeSet();
 
 	/**
 	 * Set ID.
@@ -71,12 +71,12 @@ public interface I_M_AttributeSetInstanceInput extends I_M_AttributeSetInstance 
 	 *
 	 * @param M_Lot Product Lot Definition
 	 */
-	void setM_LotInput(I_M_LotInput M_Lot);
+	void setM_LotInput(ForeignEntityInput M_Lot);
 
 	/**
 	 * Get M_Lot.
 	 *
 	 * @return Product Lot Definition
 	 */
-	I_M_LotInput M_Lot();
+	ForeignEntityInput M_Lot();
 }

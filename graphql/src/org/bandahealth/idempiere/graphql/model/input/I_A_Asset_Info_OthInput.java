@@ -15,28 +15,28 @@ public interface I_A_Asset_Info_OthInput extends I_A_Asset_Info_Oth {
 	 *
 	 * @param A_Asset Asset used internally or by customers
 	 */
-	void setA_AssetInput(I_A_AssetInput A_Asset);
+	void setA_AssetInput(ForeignEntityInput A_Asset);
 
 	/**
 	 * Get A_Asset.
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	I_A_AssetInput A_Asset();
+	ForeignEntityInput A_Asset();
 
 	/**
 	 * Set A_Asset_Info_Oth.
 	 *
 	 * @param A_Asset_Info_Oth A_Asset_Info_Oth
 	 */
-	void setA_Asset_Info_OthInput(I_A_Asset_Info_OthInput A_Asset_Info_Oth);
+	void setA_Asset_Info_OthInput(ForeignEntityInput A_Asset_Info_Oth);
 
 	/**
 	 * Get A_Asset_Info_Oth.
 	 *
 	 * @return A_Asset_Info_Oth
 	 */
-	I_A_Asset_Info_OthInput A_Asset_Info_Oth();
+	ForeignEntityInput A_Asset_Info_Oth();
 
 	/**
 	 * Set ID.
@@ -57,12 +57,12 @@ public interface I_A_Asset_Info_OthInput extends I_A_Asset_Info_Oth {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 }

@@ -26,22 +26,22 @@ import org.compiere.util.Env;
  */
 public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 
-	 private I_AD_ImageInput mAD_Image;
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Image;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mBP_Location;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_BPartner_Location;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_Greeting;
+	 private ForeignEntityInput mC_Job;
+	 private ForeignEntityInput mC_Location;
+	 private ForeignEntityInput mR_DefaultMailText;
+	 private ForeignEntityInput mSalesRep;
+	 private ForeignEntityInput mSupervisor;
 	 private I_AD_Ref_ListInput mIsMenuAutoExpand;
 	 private I_AD_Ref_ListInput mLeadSource;
 	 private I_AD_Ref_ListInput mLeadStatus;
 	 private I_AD_Ref_ListInput mNotificationType;
-	 private I_AD_UserInput mSalesRep;
-	 private I_AD_UserInput mSupervisor;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BPartner_LocationInput mC_BPartner_Location;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_GreetingInput mC_Greeting;
-	 private I_C_JobInput mC_Job;
-	 private I_C_LocationInput mBP_Location;
-	 private I_C_LocationInput mC_Location;
-	 private I_R_MailTextInput mR_DefaultMailText;
 
 	/**
 	 * Standard constructor
@@ -58,7 +58,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param AD_Image Image or Icon
 	 */
 	@JsonProperty("AD_Image")
-	public void setAD_ImageInput(I_AD_ImageInput AD_Image) {
+	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
@@ -77,7 +77,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Image or Icon
 	 */
 	@JsonProperty("AD_Image")
-	public I_AD_ImageInput AD_Image() {
+	public ForeignEntityInput AD_Image() {
 		return mAD_Image;
 	}
 
@@ -87,7 +87,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -104,7 +104,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -132,7 +132,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param BP_Location Address of the Business Partner
 	 */
 	@JsonProperty("BP_Location")
-	public void setBP_LocationInput(I_C_LocationInput BP_Location) {
+	public void setBP_LocationInput(ForeignEntityInput BP_Location) {
 		this.mBP_Location = BP_Location;
 		MLocation foreignEntity;
 		if (BP_Location != null &&
@@ -151,7 +151,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Address of the Business Partner
 	 */
 	@JsonProperty("BP_Location")
-	public I_C_LocationInput BP_Location() {
+	public ForeignEntityInput BP_Location() {
 		return mBP_Location;
 	}
 
@@ -161,7 +161,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -180,7 +180,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -190,7 +190,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
@@ -209,7 +209,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public I_C_BPartner_LocationInput C_BPartner_Location() {
+	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
 
@@ -219,7 +219,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -238,7 +238,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -248,7 +248,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param C_Greeting Greeting to print on correspondence
 	 */
 	@JsonProperty("C_Greeting")
-	public void setC_GreetingInput(I_C_GreetingInput C_Greeting) {
+	public void setC_GreetingInput(ForeignEntityInput C_Greeting) {
 		this.mC_Greeting = C_Greeting;
 		X_C_Greeting foreignEntity;
 		if (C_Greeting != null &&
@@ -267,7 +267,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Greeting to print on correspondence
 	 */
 	@JsonProperty("C_Greeting")
-	public I_C_GreetingInput C_Greeting() {
+	public ForeignEntityInput C_Greeting() {
 		return mC_Greeting;
 	}
 
@@ -277,7 +277,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param C_Job Job Position
 	 */
 	@JsonProperty("C_Job")
-	public void setC_JobInput(I_C_JobInput C_Job) {
+	public void setC_JobInput(ForeignEntityInput C_Job) {
 		this.mC_Job = C_Job;
 		X_C_Job foreignEntity;
 		if (C_Job != null &&
@@ -296,7 +296,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Job Position
 	 */
 	@JsonProperty("C_Job")
-	public I_C_JobInput C_Job() {
+	public ForeignEntityInput C_Job() {
 		return mC_Job;
 	}
 
@@ -306,7 +306,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param C_Location Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public void setC_LocationInput(I_C_LocationInput C_Location) {
+	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
@@ -325,7 +325,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public I_C_LocationInput C_Location() {
+	public ForeignEntityInput C_Location() {
 		return mC_Location;
 	}
 	/**
@@ -473,7 +473,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param R_DefaultMailText Default mail template
 	 */
 	@JsonProperty("R_DefaultMailText")
-	public void setR_DefaultMailTextInput(I_R_MailTextInput R_DefaultMailText) {
+	public void setR_DefaultMailTextInput(ForeignEntityInput R_DefaultMailText) {
 		this.mR_DefaultMailText = R_DefaultMailText;
 		MMailText foreignEntity;
 		if (R_DefaultMailText != null &&
@@ -492,7 +492,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Default mail template
 	 */
 	@JsonProperty("R_DefaultMailText")
-	public I_R_MailTextInput R_DefaultMailText() {
+	public ForeignEntityInput R_DefaultMailText() {
 		return mR_DefaultMailText;
 	}
 
@@ -502,7 +502,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
@@ -521,7 +521,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public I_AD_UserInput SalesRep() {
+	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
 	/**
@@ -542,7 +542,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param Supervisor Supervisor for this user/organization - used for escalation and approval
 	 */
 	@JsonProperty("Supervisor")
-	public void setSupervisorInput(I_AD_UserInput Supervisor) {
+	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
 		MUser_BH foreignEntity;
 		if (Supervisor != null &&
@@ -561,7 +561,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	@JsonProperty("Supervisor")
-	public I_AD_UserInput Supervisor() {
+	public ForeignEntityInput Supervisor() {
 		return mSupervisor;
 	}
 }

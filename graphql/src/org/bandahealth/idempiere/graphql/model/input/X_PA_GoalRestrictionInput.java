@@ -22,13 +22,13 @@ import org.compiere.util.Env;
  */
 public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_GoalRestrictionInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BP_Group;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mM_Product_Category;
+	 private ForeignEntityInput mPA_Goal;
 	 private I_AD_Ref_ListInput mGoalRestrictionType;
-	 private I_C_BP_GroupInput mC_BP_Group;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_M_ProductInput mM_Product;
-	 private I_M_Product_CategoryInput mM_Product_Category;
-	 private I_PA_GoalInput mPA_Goal;
 
 	/**
 	 * Standard constructor
@@ -45,7 +45,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -62,7 +62,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -72,7 +72,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @param C_BP_Group Business Partner Group
 	 */
 	@JsonProperty("C_BP_Group")
-	public void setC_BP_GroupInput(I_C_BP_GroupInput C_BP_Group) {
+	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
 		this.mC_BP_Group = C_BP_Group;
 		MBPGroup_BH foreignEntity;
 		if (C_BP_Group != null &&
@@ -91,7 +91,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @return Business Partner Group
 	 */
 	@JsonProperty("C_BP_Group")
-	public I_C_BP_GroupInput C_BP_Group() {
+	public ForeignEntityInput C_BP_Group() {
 		return mC_BP_Group;
 	}
 
@@ -101,7 +101,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -120,7 +120,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -159,7 +159,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @param M_Product_Category Category of a Product
 	 */
 	@JsonProperty("M_Product_Category")
-	public void setM_Product_CategoryInput(I_M_Product_CategoryInput M_Product_Category) {
+	public void setM_Product_CategoryInput(ForeignEntityInput M_Product_Category) {
 		this.mM_Product_Category = M_Product_Category;
 		MProductCategory_BH foreignEntity;
 		if (M_Product_Category != null &&
@@ -178,7 +178,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @return Category of a Product
 	 */
 	@JsonProperty("M_Product_Category")
-	public I_M_Product_CategoryInput M_Product_Category() {
+	public ForeignEntityInput M_Product_Category() {
 		return mM_Product_Category;
 	}
 
@@ -188,7 +188,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -207,7 +207,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -217,7 +217,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @param PA_Goal Performance Goal
 	 */
 	@JsonProperty("PA_Goal")
-	public void setPA_GoalInput(I_PA_GoalInput PA_Goal) {
+	public void setPA_GoalInput(ForeignEntityInput PA_Goal) {
 		this.mPA_Goal = PA_Goal;
 		MGoal foreignEntity;
 		if (PA_Goal != null &&
@@ -236,7 +236,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @return Performance Goal
 	 */
 	@JsonProperty("PA_Goal")
-	public I_PA_GoalInput PA_Goal() {
+	public ForeignEntityInput PA_Goal() {
 		return mPA_Goal;
 	}
 

@@ -17,9 +17,9 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_Asset_Info_OthInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_A_AssetInput mA_Asset;
-	 private I_A_Asset_Info_OthInput mA_Asset_Info_Oth;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mA_Asset;
+	 private ForeignEntityInput mA_Asset_Info_Oth;
 
 	/**
 	 * Standard constructor
@@ -36,7 +36,7 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 	 * @param A_Asset Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public void setA_AssetInput(I_A_AssetInput A_Asset) {
+	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (get_ID() == 0 &&A_Asset != null &&
@@ -53,7 +53,7 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 	 * @return Asset used internally or by customers
 	 */
 	@JsonProperty("A_Asset")
-	public I_A_AssetInput A_Asset() {
+	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
 	}
 
@@ -63,7 +63,7 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 	 * @param A_Asset_Info_Oth A_Asset_Info_Oth_ID
 	 */
 	@JsonProperty("A_Asset_Info_Oth")
-	public void setA_Asset_Info_OthInput(I_A_Asset_Info_OthInput A_Asset_Info_Oth) {
+	public void setA_Asset_Info_OthInput(ForeignEntityInput A_Asset_Info_Oth) {
 		this.mA_Asset_Info_Oth = A_Asset_Info_Oth;
 		X_A_Asset_Info_Oth foreignEntity;
 		if (A_Asset_Info_Oth != null &&
@@ -82,7 +82,7 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 	 * @return A_Asset_Info_Oth_ID
 	 */
 	@JsonProperty("A_Asset_Info_Oth")
-	public I_A_Asset_Info_OthInput A_Asset_Info_Oth() {
+	public ForeignEntityInput A_Asset_Info_Oth() {
 		return mA_Asset_Info_Oth;
 	}
 
@@ -110,7 +110,7 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -127,7 +127,7 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 }

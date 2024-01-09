@@ -19,10 +19,10 @@ import org.compiere.util.Env;
  */
 public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH implements I_M_AttributeSetInstanceInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mM_AttributeSet;
+	 private ForeignEntityInput mM_Lot;
 	 private I_AD_Ref_ListInput mbh_update_reason;
-	 private I_M_AttributeSetInput mM_AttributeSet;
-	 private I_M_LotInput mM_Lot;
 
 	/**
 	 * Standard constructor
@@ -39,7 +39,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -56,7 +56,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 	/**
@@ -106,7 +106,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	 * @param M_AttributeSet Product Attribute Set
 	 */
 	@JsonProperty("M_AttributeSet")
-	public void setM_AttributeSetInput(I_M_AttributeSetInput M_AttributeSet) {
+	public void setM_AttributeSetInput(ForeignEntityInput M_AttributeSet) {
 		this.mM_AttributeSet = M_AttributeSet;
 		MAttributeSet_BH foreignEntity;
 		if (M_AttributeSet != null &&
@@ -125,7 +125,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	 * @return Product Attribute Set
 	 */
 	@JsonProperty("M_AttributeSet")
-	public I_M_AttributeSetInput M_AttributeSet() {
+	public ForeignEntityInput M_AttributeSet() {
 		return mM_AttributeSet;
 	}
 
@@ -153,7 +153,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	 * @param M_Lot Product Lot Definition
 	 */
 	@JsonProperty("M_Lot")
-	public void setM_LotInput(I_M_LotInput M_Lot) {
+	public void setM_LotInput(ForeignEntityInput M_Lot) {
 		this.mM_Lot = M_Lot;
 		MLot foreignEntity;
 		if (M_Lot != null &&
@@ -172,7 +172,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	 * @return Product Lot Definition
 	 */
 	@JsonProperty("M_Lot")
-	public I_M_LotInput M_Lot() {
+	public ForeignEntityInput M_Lot() {
 		return mM_Lot;
 	}
 }

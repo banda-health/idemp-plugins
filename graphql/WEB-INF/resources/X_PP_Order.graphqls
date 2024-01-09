@@ -5,6 +5,11 @@ extend type Query {
 	PP_OrderGet(page: Int, size: Int, sort: String, filter: String): PP_OrderConnection!
 }
 
+extend type Mutation {
+	PP_OrderSave(entity: PP_OrderInput!): PP_Order!
+	PP_OrderDelete(uuids: [String!]!): Boolean!
+}
+
 type PP_OrderConnection {
 	results: [PP_Order!]!
 	pagingInfo: PagingInfo!
@@ -132,3 +137,114 @@ type PP_Order {
 	Yield: Int!
 }
 
+input PP_OrderInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# Indicated the Quantity Assay to use into Quality Order
+	Assay: Int
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Target document type for conversing documents
+	C_DocTypeTarget: ForeignEntityInput
+	# Sales Order Line
+	C_OrderLine: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# Copy From Record
+	CopyFrom: String
+	# Date Confirm of this Order
+	DateConfirm: Date
+	# Date when the product was delivered
+	DateDelivered: Date
+	# Finish or (planned) completion date
+	DateFinish: Date
+	# Scheduled Finish date for this Order
+	DateFinishSchedule: Date
+	# Date of Order
+	DateOrdered: Date
+	# Date Order was promised
+	DatePromised: Date
+	# Date Start for this Order
+	DateStart: Date
+	# Scheduled start date for this Order
+	DateStartSchedule: Date
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	FloatAfter: Int
+	FloatBefored: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# Indicate that this component is based in % Quantity
+	IsQtyPercentage: Boolean
+	IsSelected: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# Unique line for this document
+	Line: Int
+	# Lot number (alphanumeric)
+	Lot: String
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Type of Order: MRP records grouped by source (Sales Order, Purchase Order, Distribution Order, Requisition)
+	OrderType: String
+	Planner: ForeignEntityInput
+	# Posting status
+	Posted: Boolean
+	ID: ID
+	# BOM & Formula
+	PP_Product_BOM: ForeignEntityInput
+	# Priority of a document
+	PriorityRule: AD_Ref_ListInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean
+	QtyBatchs: Int
+	QtyBatchSize: Int
+	# Delivered Quantity
+	QtyDelivered: Int
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: Int
+	# Ordered Quantity
+	QtyOrdered: Int
+	QtyReject: Int
+	# Reserved Quantity
+	QtyReserved: Int
+	# Scrap % Quantity for this componet
+	QtyScrap: Int
+	# Resource
+	S_Resource: ForeignEntityInput
+	# Type of schedule
+	ScheduleType: String
+	# Product Serial Number 
+	SerNo: String
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
+	Yield: Int
+}

@@ -19,14 +19,14 @@ import org.compiere.util.Env;
  */
 public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_CashBook_AcctInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_AcctSchemaInput mC_AcctSchema;
-	 private I_C_CashBookInput mC_CashBook;
-	 private I_C_ValidCombinationInput mCB_Asset_A;
-	 private I_C_ValidCombinationInput mCB_CashTransfer_A;
-	 private I_C_ValidCombinationInput mCB_Differences_A;
-	 private I_C_ValidCombinationInput mCB_Expense_A;
-	 private I_C_ValidCombinationInput mCB_Receipt_A;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mCB_Asset_A;
+	 private ForeignEntityInput mCB_CashTransfer_A;
+	 private ForeignEntityInput mCB_Differences_A;
+	 private ForeignEntityInput mCB_Expense_A;
+	 private ForeignEntityInput mCB_Receipt_A;
+	 private ForeignEntityInput mC_AcctSchema;
+	 private ForeignEntityInput mC_CashBook;
 
 	/**
 	 * Standard constructor
@@ -43,7 +43,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -60,7 +60,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -70,7 +70,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @param C_AcctSchema Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema) {
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (get_ID() == 0 &&C_AcctSchema != null &&
@@ -87,7 +87,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @return Rules for accounting
 	 */
 	@JsonProperty("C_AcctSchema")
-	public I_C_AcctSchemaInput C_AcctSchema() {
+	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
 	}
 
@@ -115,7 +115,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @param C_CashBook Cash Book for recording petty cash transactions
 	 */
 	@JsonProperty("C_CashBook")
-	public void setC_CashBookInput(I_C_CashBookInput C_CashBook) {
+	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
 		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
 		if (get_ID() == 0 &&C_CashBook != null &&
@@ -132,7 +132,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @return Cash Book for recording petty cash transactions
 	 */
 	@JsonProperty("C_CashBook")
-	public I_C_CashBookInput C_CashBook() {
+	public ForeignEntityInput C_CashBook() {
 		return mC_CashBook;
 	}
 
@@ -142,7 +142,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @param CB_Asset_A Cash Book Asset Account
 	 */
 	@JsonProperty("CB_Asset_A")
-	public void setCB_Asset_AInput(I_C_ValidCombinationInput CB_Asset_A) {
+	public void setCB_Asset_AInput(ForeignEntityInput CB_Asset_A) {
 		this.mCB_Asset_A = CB_Asset_A;
 		MAccount foreignEntity;
 		if (CB_Asset_A != null &&
@@ -161,7 +161,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @return Cash Book Asset Account
 	 */
 	@JsonProperty("CB_Asset_A")
-	public I_C_ValidCombinationInput CB_Asset_A() {
+	public ForeignEntityInput CB_Asset_A() {
 		return mCB_Asset_A;
 	}
 
@@ -171,7 +171,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @param CB_CashTransfer_A Cash Transfer Clearing Account
 	 */
 	@JsonProperty("CB_CashTransfer_A")
-	public void setCB_CashTransfer_AInput(I_C_ValidCombinationInput CB_CashTransfer_A) {
+	public void setCB_CashTransfer_AInput(ForeignEntityInput CB_CashTransfer_A) {
 		this.mCB_CashTransfer_A = CB_CashTransfer_A;
 		MAccount foreignEntity;
 		if (CB_CashTransfer_A != null &&
@@ -190,7 +190,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @return Cash Transfer Clearing Account
 	 */
 	@JsonProperty("CB_CashTransfer_A")
-	public I_C_ValidCombinationInput CB_CashTransfer_A() {
+	public ForeignEntityInput CB_CashTransfer_A() {
 		return mCB_CashTransfer_A;
 	}
 
@@ -200,7 +200,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @param CB_Differences_A Cash Book Differences Account
 	 */
 	@JsonProperty("CB_Differences_A")
-	public void setCB_Differences_AInput(I_C_ValidCombinationInput CB_Differences_A) {
+	public void setCB_Differences_AInput(ForeignEntityInput CB_Differences_A) {
 		this.mCB_Differences_A = CB_Differences_A;
 		MAccount foreignEntity;
 		if (CB_Differences_A != null &&
@@ -219,7 +219,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @return Cash Book Differences Account
 	 */
 	@JsonProperty("CB_Differences_A")
-	public I_C_ValidCombinationInput CB_Differences_A() {
+	public ForeignEntityInput CB_Differences_A() {
 		return mCB_Differences_A;
 	}
 
@@ -229,7 +229,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @param CB_Expense_A Cash Book Expense Account
 	 */
 	@JsonProperty("CB_Expense_A")
-	public void setCB_Expense_AInput(I_C_ValidCombinationInput CB_Expense_A) {
+	public void setCB_Expense_AInput(ForeignEntityInput CB_Expense_A) {
 		this.mCB_Expense_A = CB_Expense_A;
 		MAccount foreignEntity;
 		if (CB_Expense_A != null &&
@@ -248,7 +248,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @return Cash Book Expense Account
 	 */
 	@JsonProperty("CB_Expense_A")
-	public I_C_ValidCombinationInput CB_Expense_A() {
+	public ForeignEntityInput CB_Expense_A() {
 		return mCB_Expense_A;
 	}
 
@@ -258,7 +258,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @param CB_Receipt_A Cash Book Receipts Account
 	 */
 	@JsonProperty("CB_Receipt_A")
-	public void setCB_Receipt_AInput(I_C_ValidCombinationInput CB_Receipt_A) {
+	public void setCB_Receipt_AInput(ForeignEntityInput CB_Receipt_A) {
 		this.mCB_Receipt_A = CB_Receipt_A;
 		MAccount foreignEntity;
 		if (CB_Receipt_A != null &&
@@ -277,7 +277,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * @return Cash Book Receipts Account
 	 */
 	@JsonProperty("CB_Receipt_A")
-	public I_C_ValidCombinationInput CB_Receipt_A() {
+	public ForeignEntityInput CB_Receipt_A() {
 		return mCB_Receipt_A;
 	}
 }

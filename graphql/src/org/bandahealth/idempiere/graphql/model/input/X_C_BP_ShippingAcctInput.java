@@ -19,10 +19,10 @@ import org.compiere.util.Env;
  */
 public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C_BP_ShippingAcctInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BPartner_LocationInput mC_BPartner_Location;
-	 private I_M_ShippingProcessorInput mM_ShippingProcessor;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_BPartner_Location;
+	 private ForeignEntityInput mM_ShippingProcessor;
 
 	/**
 	 * Standard constructor
@@ -39,7 +39,7 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -56,7 +56,7 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -84,7 +84,7 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (get_ID() == 0 &&C_BPartner != null &&
@@ -101,7 +101,7 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -111,7 +111,7 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
@@ -130,7 +130,7 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public I_C_BPartner_LocationInput C_BPartner_Location() {
+	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
 
@@ -140,7 +140,7 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	 * @param M_ShippingProcessor Shipping Processor
 	 */
 	@JsonProperty("M_ShippingProcessor")
-	public void setM_ShippingProcessorInput(I_M_ShippingProcessorInput M_ShippingProcessor) {
+	public void setM_ShippingProcessorInput(ForeignEntityInput M_ShippingProcessor) {
 		this.mM_ShippingProcessor = M_ShippingProcessor;
 		MShippingProcessor foreignEntity;
 		if (M_ShippingProcessor != null &&
@@ -159,7 +159,7 @@ public class X_C_BP_ShippingAcctInput extends X_C_BP_ShippingAcct implements I_C
 	 * @return Shipping Processor
 	 */
 	@JsonProperty("M_ShippingProcessor")
-	public I_M_ShippingProcessorInput M_ShippingProcessor() {
+	public ForeignEntityInput M_ShippingProcessor() {
 		return mM_ShippingProcessor;
 	}
 }

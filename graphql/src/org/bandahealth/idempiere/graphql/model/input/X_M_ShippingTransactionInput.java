@@ -33,7 +33,30 @@ import org.compiere.util.Env;
  */
 public class X_M_ShippingTransactionInput extends MShippingTransaction implements I_M_ShippingTransactionInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mBill_Location;
+	 private ForeignEntityInput mC_BP_ShippingAcct;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_BPartner_Location;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_Invoice;
+	 private ForeignEntityInput mC_Order;
+	 private ForeignEntityInput mC_UOM_Length;
+	 private ForeignEntityInput mC_UOM_Weight;
+	 private ForeignEntityInput mHoldAddress;
+	 private ForeignEntityInput mM_InOut;
+	 private ForeignEntityInput mM_Package;
+	 private ForeignEntityInput mM_Shipper;
+	 private ForeignEntityInput mM_ShipperLabels;
+	 private ForeignEntityInput mM_ShipperPackaging;
+	 private ForeignEntityInput mM_ShipperPickupTypes;
+	 private ForeignEntityInput mM_ShippingProcessor;
+	 private ForeignEntityInput mM_Warehouse;
+	 private ForeignEntityInput mReturnBPartner;
+	 private ForeignEntityInput mReturnLocation;
+	 private ForeignEntityInput mReturnUser;
+	 private ForeignEntityInput mSalesRep;
 	 private I_AD_Ref_ListInput mAction;
 	 private I_AD_Ref_ListInput mDeliveryConfirmationType;
 	 private I_AD_Ref_ListInput mDotHazardClassOrDivision;
@@ -43,29 +66,6 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 private I_AD_Ref_ListInput mInsurance;
 	 private I_AD_Ref_ListInput mNotificationType;
 	 private I_AD_Ref_ListInput mPaymentRule;
-	 private I_AD_UserInput mAD_User;
-	 private I_AD_UserInput mReturnUser;
-	 private I_AD_UserInput mSalesRep;
-	 private I_C_BP_ShippingAcctInput mC_BP_ShippingAcct;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BPartnerInput mReturnBPartner;
-	 private I_C_BPartner_LocationInput mBill_Location;
-	 private I_C_BPartner_LocationInput mC_BPartner_Location;
-	 private I_C_BPartner_LocationInput mHoldAddress;
-	 private I_C_BPartner_LocationInput mReturnLocation;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_InvoiceInput mC_Invoice;
-	 private I_C_OrderInput mC_Order;
-	 private I_C_UOMInput mC_UOM_Length;
-	 private I_C_UOMInput mC_UOM_Weight;
-	 private I_M_InOutInput mM_InOut;
-	 private I_M_PackageInput mM_Package;
-	 private I_M_ShipperInput mM_Shipper;
-	 private I_M_ShipperLabelsInput mM_ShipperLabels;
-	 private I_M_ShipperPackagingInput mM_ShipperPackaging;
-	 private I_M_ShipperPickupTypesInput mM_ShipperPickupTypes;
-	 private I_M_ShippingProcessorInput mM_ShippingProcessor;
-	 private I_M_WarehouseInput mM_Warehouse;
 
 	/**
 	 * Standard constructor
@@ -111,7 +111,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -128,7 +128,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -138,7 +138,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -157,7 +157,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -167,7 +167,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param Bill_Location Business Partner Location for invoicing
 	 */
 	@JsonProperty("Bill_Location")
-	public void setBill_LocationInput(I_C_BPartner_LocationInput Bill_Location) {
+	public void setBill_LocationInput(ForeignEntityInput Bill_Location) {
 		this.mBill_Location = Bill_Location;
 		MBPartnerLocation foreignEntity;
 		if (Bill_Location != null &&
@@ -186,7 +186,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Business Partner Location for invoicing
 	 */
 	@JsonProperty("Bill_Location")
-	public I_C_BPartner_LocationInput Bill_Location() {
+	public ForeignEntityInput Bill_Location() {
 		return mBill_Location;
 	}
 
@@ -196,7 +196,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param C_BP_ShippingAcct Business Partner Shipping Account
 	 */
 	@JsonProperty("C_BP_ShippingAcct")
-	public void setC_BP_ShippingAcctInput(I_C_BP_ShippingAcctInput C_BP_ShippingAcct) {
+	public void setC_BP_ShippingAcctInput(ForeignEntityInput C_BP_ShippingAcct) {
 		this.mC_BP_ShippingAcct = C_BP_ShippingAcct;
 		X_C_BP_ShippingAcct foreignEntity;
 		if (C_BP_ShippingAcct != null &&
@@ -215,7 +215,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Business Partner Shipping Account
 	 */
 	@JsonProperty("C_BP_ShippingAcct")
-	public I_C_BP_ShippingAcctInput C_BP_ShippingAcct() {
+	public ForeignEntityInput C_BP_ShippingAcct() {
 		return mC_BP_ShippingAcct;
 	}
 
@@ -225,7 +225,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -244,7 +244,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -254,7 +254,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
@@ -273,7 +273,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public I_C_BPartner_LocationInput C_BPartner_Location() {
+	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
 
@@ -283,7 +283,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
@@ -302,7 +302,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -312,7 +312,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param C_Invoice Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public void setC_InvoiceInput(I_C_InvoiceInput C_Invoice) {
+	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
 		if (C_Invoice != null &&
@@ -331,7 +331,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public I_C_InvoiceInput C_Invoice() {
+	public ForeignEntityInput C_Invoice() {
 		return mC_Invoice;
 	}
 
@@ -341,7 +341,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param C_Order Order
 	 */
 	@JsonProperty("C_Order")
-	public void setC_OrderInput(I_C_OrderInput C_Order) {
+	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
 		if (C_Order != null &&
@@ -360,7 +360,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Order
 	 */
 	@JsonProperty("C_Order")
-	public I_C_OrderInput C_Order() {
+	public ForeignEntityInput C_Order() {
 		return mC_Order;
 	}
 
@@ -370,7 +370,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param C_UOM_Length Standard Unit of Measure for Length
 	 */
 	@JsonProperty("C_UOM_Length")
-	public void setC_UOM_LengthInput(I_C_UOMInput C_UOM_Length) {
+	public void setC_UOM_LengthInput(ForeignEntityInput C_UOM_Length) {
 		this.mC_UOM_Length = C_UOM_Length;
 		MUOM foreignEntity;
 		if (C_UOM_Length != null &&
@@ -389,7 +389,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Standard Unit of Measure for Length
 	 */
 	@JsonProperty("C_UOM_Length")
-	public I_C_UOMInput C_UOM_Length() {
+	public ForeignEntityInput C_UOM_Length() {
 		return mC_UOM_Length;
 	}
 
@@ -399,7 +399,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param C_UOM_Weight Standard Unit of Measure for Weight
 	 */
 	@JsonProperty("C_UOM_Weight")
-	public void setC_UOM_WeightInput(I_C_UOMInput C_UOM_Weight) {
+	public void setC_UOM_WeightInput(ForeignEntityInput C_UOM_Weight) {
 		this.mC_UOM_Weight = C_UOM_Weight;
 		MUOM foreignEntity;
 		if (C_UOM_Weight != null &&
@@ -418,7 +418,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Standard Unit of Measure for Weight
 	 */
 	@JsonProperty("C_UOM_Weight")
-	public I_C_UOMInput C_UOM_Weight() {
+	public ForeignEntityInput C_UOM_Weight() {
 		return mC_UOM_Weight;
 	}
 
@@ -540,7 +540,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param HoldAddress Hold Address
 	 */
 	@JsonProperty("HoldAddress")
-	public void setHoldAddressInput(I_C_BPartner_LocationInput HoldAddress) {
+	public void setHoldAddressInput(ForeignEntityInput HoldAddress) {
 		this.mHoldAddress = HoldAddress;
 		MBPartnerLocation foreignEntity;
 		if (HoldAddress != null &&
@@ -559,7 +559,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Hold Address
 	 */
 	@JsonProperty("HoldAddress")
-	public I_C_BPartner_LocationInput HoldAddress() {
+	public ForeignEntityInput HoldAddress() {
 		return mHoldAddress;
 	}
 
@@ -625,7 +625,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param M_InOut Material Shipment Document
 	 */
 	@JsonProperty("M_InOut")
-	public void setM_InOutInput(I_M_InOutInput M_InOut) {
+	public void setM_InOutInput(ForeignEntityInput M_InOut) {
 		this.mM_InOut = M_InOut;
 		MInOut_BH foreignEntity;
 		if (get_ID() == 0 &&M_InOut != null &&
@@ -642,7 +642,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Material Shipment Document
 	 */
 	@JsonProperty("M_InOut")
-	public I_M_InOutInput M_InOut() {
+	public ForeignEntityInput M_InOut() {
 		return mM_InOut;
 	}
 
@@ -652,7 +652,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param M_Package Shipment Package
 	 */
 	@JsonProperty("M_Package")
-	public void setM_PackageInput(I_M_PackageInput M_Package) {
+	public void setM_PackageInput(ForeignEntityInput M_Package) {
 		this.mM_Package = M_Package;
 		MPackage foreignEntity;
 		if (M_Package != null &&
@@ -671,7 +671,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Shipment Package
 	 */
 	@JsonProperty("M_Package")
-	public I_M_PackageInput M_Package() {
+	public ForeignEntityInput M_Package() {
 		return mM_Package;
 	}
 
@@ -681,7 +681,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param M_Shipper Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public void setM_ShipperInput(I_M_ShipperInput M_Shipper) {
+	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (M_Shipper != null &&
@@ -700,7 +700,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public I_M_ShipperInput M_Shipper() {
+	public ForeignEntityInput M_Shipper() {
 		return mM_Shipper;
 	}
 
@@ -710,7 +710,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param M_ShipperLabels Shipper Labels
 	 */
 	@JsonProperty("M_ShipperLabels")
-	public void setM_ShipperLabelsInput(I_M_ShipperLabelsInput M_ShipperLabels) {
+	public void setM_ShipperLabelsInput(ForeignEntityInput M_ShipperLabels) {
 		this.mM_ShipperLabels = M_ShipperLabels;
 		MShipperLabels foreignEntity;
 		if (M_ShipperLabels != null &&
@@ -729,7 +729,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Shipper Labels
 	 */
 	@JsonProperty("M_ShipperLabels")
-	public I_M_ShipperLabelsInput M_ShipperLabels() {
+	public ForeignEntityInput M_ShipperLabels() {
 		return mM_ShipperLabels;
 	}
 
@@ -739,7 +739,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param M_ShipperPackaging Shipper Packaging
 	 */
 	@JsonProperty("M_ShipperPackaging")
-	public void setM_ShipperPackagingInput(I_M_ShipperPackagingInput M_ShipperPackaging) {
+	public void setM_ShipperPackagingInput(ForeignEntityInput M_ShipperPackaging) {
 		this.mM_ShipperPackaging = M_ShipperPackaging;
 		MShipperPackaging foreignEntity;
 		if (M_ShipperPackaging != null &&
@@ -758,7 +758,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Shipper Packaging
 	 */
 	@JsonProperty("M_ShipperPackaging")
-	public I_M_ShipperPackagingInput M_ShipperPackaging() {
+	public ForeignEntityInput M_ShipperPackaging() {
 		return mM_ShipperPackaging;
 	}
 
@@ -768,7 +768,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param M_ShipperPickupTypes Shipper Pickup Types
 	 */
 	@JsonProperty("M_ShipperPickupTypes")
-	public void setM_ShipperPickupTypesInput(I_M_ShipperPickupTypesInput M_ShipperPickupTypes) {
+	public void setM_ShipperPickupTypesInput(ForeignEntityInput M_ShipperPickupTypes) {
 		this.mM_ShipperPickupTypes = M_ShipperPickupTypes;
 		MShipperPickupTypes foreignEntity;
 		if (M_ShipperPickupTypes != null &&
@@ -787,7 +787,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Shipper Pickup Types
 	 */
 	@JsonProperty("M_ShipperPickupTypes")
-	public I_M_ShipperPickupTypesInput M_ShipperPickupTypes() {
+	public ForeignEntityInput M_ShipperPickupTypes() {
 		return mM_ShipperPickupTypes;
 	}
 
@@ -797,7 +797,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param M_ShippingProcessor Shipping Processor
 	 */
 	@JsonProperty("M_ShippingProcessor")
-	public void setM_ShippingProcessorInput(I_M_ShippingProcessorInput M_ShippingProcessor) {
+	public void setM_ShippingProcessorInput(ForeignEntityInput M_ShippingProcessor) {
 		this.mM_ShippingProcessor = M_ShippingProcessor;
 		MShippingProcessor foreignEntity;
 		if (get_ID() == 0 &&M_ShippingProcessor != null &&
@@ -814,7 +814,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Shipping Processor
 	 */
 	@JsonProperty("M_ShippingProcessor")
-	public I_M_ShippingProcessorInput M_ShippingProcessor() {
+	public ForeignEntityInput M_ShippingProcessor() {
 		return mM_ShippingProcessor;
 	}
 
@@ -842,7 +842,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
@@ -861,7 +861,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public I_M_WarehouseInput M_Warehouse() {
+	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
 
@@ -929,7 +929,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param ReturnBPartner Return Partner
 	 */
 	@JsonProperty("ReturnBPartner")
-	public void setReturnBPartnerInput(I_C_BPartnerInput ReturnBPartner) {
+	public void setReturnBPartnerInput(ForeignEntityInput ReturnBPartner) {
 		this.mReturnBPartner = ReturnBPartner;
 		MBPartner_BH foreignEntity;
 		if (ReturnBPartner != null &&
@@ -948,7 +948,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Return Partner
 	 */
 	@JsonProperty("ReturnBPartner")
-	public I_C_BPartnerInput ReturnBPartner() {
+	public ForeignEntityInput ReturnBPartner() {
 		return mReturnBPartner;
 	}
 
@@ -958,7 +958,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param ReturnLocation Return Location
 	 */
 	@JsonProperty("ReturnLocation")
-	public void setReturnLocationInput(I_C_BPartner_LocationInput ReturnLocation) {
+	public void setReturnLocationInput(ForeignEntityInput ReturnLocation) {
 		this.mReturnLocation = ReturnLocation;
 		MBPartnerLocation foreignEntity;
 		if (ReturnLocation != null &&
@@ -977,7 +977,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Return Location
 	 */
 	@JsonProperty("ReturnLocation")
-	public I_C_BPartner_LocationInput ReturnLocation() {
+	public ForeignEntityInput ReturnLocation() {
 		return mReturnLocation;
 	}
 
@@ -987,7 +987,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param ReturnUser Return User/Contact
 	 */
 	@JsonProperty("ReturnUser")
-	public void setReturnUserInput(I_AD_UserInput ReturnUser) {
+	public void setReturnUserInput(ForeignEntityInput ReturnUser) {
 		this.mReturnUser = ReturnUser;
 		MUser_BH foreignEntity;
 		if (ReturnUser != null &&
@@ -1006,7 +1006,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Return User/Contact
 	 */
 	@JsonProperty("ReturnUser")
-	public I_AD_UserInput ReturnUser() {
+	public ForeignEntityInput ReturnUser() {
 		return mReturnUser;
 	}
 
@@ -1016,7 +1016,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
@@ -1035,7 +1035,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public I_AD_UserInput SalesRep() {
+	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
 }

@@ -19,10 +19,10 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF_Node_ParaInput {
 
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_Process_ParaInput mAD_Process_Para;
-	 private I_AD_WF_NodeInput mAD_WF_Node;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Process_Para;
+	 private ForeignEntityInput mAD_WF_Node;
 
 	/**
 	 * Standard constructor
@@ -39,7 +39,7 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -56,7 +56,7 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -66,7 +66,7 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 * @param AD_Process_Para Process Parameter
 	 */
 	@JsonProperty("AD_Process_Para")
-	public void setAD_Process_ParaInput(I_AD_Process_ParaInput AD_Process_Para) {
+	public void setAD_Process_ParaInput(ForeignEntityInput AD_Process_Para) {
 		this.mAD_Process_Para = AD_Process_Para;
 		MProcessPara foreignEntity;
 		if (AD_Process_Para != null &&
@@ -85,7 +85,7 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 * @return Process Parameter
 	 */
 	@JsonProperty("AD_Process_Para")
-	public I_AD_Process_ParaInput AD_Process_Para() {
+	public ForeignEntityInput AD_Process_Para() {
 		return mAD_Process_Para;
 	}
 
@@ -95,7 +95,7 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 * @param AD_WF_Node Workflow Node (activity), step or process
 	 */
 	@JsonProperty("AD_WF_Node")
-	public void setAD_WF_NodeInput(I_AD_WF_NodeInput AD_WF_Node) {
+	public void setAD_WF_NodeInput(ForeignEntityInput AD_WF_Node) {
 		this.mAD_WF_Node = AD_WF_Node;
 		X_AD_WF_Node foreignEntity;
 		if (get_ID() == 0 &&AD_WF_Node != null &&
@@ -112,7 +112,7 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 * @return Workflow Node (activity), step or process
 	 */
 	@JsonProperty("AD_WF_Node")
-	public I_AD_WF_NodeInput AD_WF_Node() {
+	public ForeignEntityInput AD_WF_Node() {
 		return mAD_WF_Node;
 	}
 
@@ -140,7 +140,7 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -159,7 +159,7 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 }

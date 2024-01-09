@@ -5,6 +5,11 @@ extend type Query {
 	A_Asset_ClassGet(page: Int, size: Int, sort: String, filter: String): A_Asset_ClassConnection!
 }
 
+extend type Mutation {
+	A_Asset_ClassSave(entity: A_Asset_ClassInput!): A_Asset_Class!
+	A_Asset_ClassDelete(uuids: [String!]!): Boolean!
+}
+
 type A_Asset_ClassConnection {
 	results: [A_Asset_Class!]!
 	pagingInfo: PagingInfo!
@@ -42,3 +47,24 @@ type A_Asset_Class {
 	Value: String!
 }
 
+input A_Asset_ClassInput {
+	ID: ID
+	A_Life_Period_2004: Int
+	A_Life_Period_Max: Int
+	A_Life_Period_Min: Int
+	A_Value_2004: String
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	MFX_Clasa: Int
+	MFX_Grupa: Int
+	MFX_SubClasa: Int
+	MFX_SubGrupa: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

@@ -15,28 +15,28 @@ public interface I_C_ProjectTaskInput extends I_C_ProjectTask {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_ProjectPhase.
 	 *
 	 * @param C_ProjectPhase Phase of a Project
 	 */
-	void setC_ProjectPhaseInput(I_C_ProjectPhaseInput C_ProjectPhase);
+	void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase);
 
 	/**
 	 * Get C_ProjectPhase.
 	 *
 	 * @return Phase of a Project
 	 */
-	I_C_ProjectPhaseInput C_ProjectPhase();
+	ForeignEntityInput C_ProjectPhase();
 
 	/**
 	 * Set ID.
@@ -57,28 +57,28 @@ public interface I_C_ProjectTaskInput extends I_C_ProjectTask {
 	 *
 	 * @param C_Task Standard Project Type Task
 	 */
-	void setC_TaskInput(I_C_TaskInput C_Task);
+	void setC_TaskInput(ForeignEntityInput C_Task);
 
 	/**
 	 * Get C_Task.
 	 *
 	 * @return Standard Project Type Task
 	 */
-	I_C_TaskInput C_Task();
+	ForeignEntityInput C_Task();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_ProductInput(I_M_ProductInput M_Product);
+	void setM_ProductInput(ForeignEntityInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput M_Product();
+	ForeignEntityInput M_Product();
 
 	/**
 	 * Set ProjInvoiceRule.

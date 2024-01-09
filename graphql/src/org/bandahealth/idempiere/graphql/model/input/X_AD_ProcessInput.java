@@ -23,17 +23,17 @@ import org.compiere.util.Env;
  */
 public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput {
 
-	 private I_AD_CtxHelpInput mAD_CtxHelp;
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_FormInput mAD_Form;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintFormatInput mAD_PrintFormat;
+	 private ForeignEntityInput mAD_CtxHelp;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Form;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_PrintFormat;
+	 private ForeignEntityInput mAD_ReportView;
+	 private ForeignEntityInput mAD_Workflow;
 	 private I_AD_Ref_ListInput mAccessLevel;
 	 private I_AD_Ref_ListInput mAllowMultipleExecution;
 	 private I_AD_Ref_ListInput mExecutionType;
 	 private I_AD_Ref_ListInput mShowHelp;
-	 private I_AD_ReportViewInput mAD_ReportView;
-	 private I_AD_WorkflowInput mAD_Workflow;
 
 	/**
 	 * Standard constructor
@@ -79,7 +79,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @param AD_CtxHelp Context Help
 	 */
 	@JsonProperty("AD_CtxHelp")
-	public void setAD_CtxHelpInput(I_AD_CtxHelpInput AD_CtxHelp) {
+	public void setAD_CtxHelpInput(ForeignEntityInput AD_CtxHelp) {
 		this.mAD_CtxHelp = AD_CtxHelp;
 		MCtxHelp foreignEntity;
 		if (AD_CtxHelp != null &&
@@ -98,7 +98,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @return Context Help
 	 */
 	@JsonProperty("AD_CtxHelp")
-	public I_AD_CtxHelpInput AD_CtxHelp() {
+	public ForeignEntityInput AD_CtxHelp() {
 		return mAD_CtxHelp;
 	}
 
@@ -108,7 +108,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @param AD_Form Special Form
 	 */
 	@JsonProperty("AD_Form")
-	public void setAD_FormInput(I_AD_FormInput AD_Form) {
+	public void setAD_FormInput(ForeignEntityInput AD_Form) {
 		this.mAD_Form = AD_Form;
 		MForm foreignEntity;
 		if (AD_Form != null &&
@@ -127,7 +127,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @return Special Form
 	 */
 	@JsonProperty("AD_Form")
-	public I_AD_FormInput AD_Form() {
+	public ForeignEntityInput AD_Form() {
 		return mAD_Form;
 	}
 
@@ -137,7 +137,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -154,7 +154,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -164,7 +164,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @param AD_PrintFormat Data Print Format
 	 */
 	@JsonProperty("AD_PrintFormat")
-	public void setAD_PrintFormatInput(I_AD_PrintFormatInput AD_PrintFormat) {
+	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
 		if (AD_PrintFormat != null &&
@@ -183,7 +183,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @return Data Print Format
 	 */
 	@JsonProperty("AD_PrintFormat")
-	public I_AD_PrintFormatInput AD_PrintFormat() {
+	public ForeignEntityInput AD_PrintFormat() {
 		return mAD_PrintFormat;
 	}
 
@@ -211,7 +211,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @param AD_ReportView View used to generate this report
 	 */
 	@JsonProperty("AD_ReportView")
-	public void setAD_ReportViewInput(I_AD_ReportViewInput AD_ReportView) {
+	public void setAD_ReportViewInput(ForeignEntityInput AD_ReportView) {
 		this.mAD_ReportView = AD_ReportView;
 		MReportView foreignEntity;
 		if (AD_ReportView != null &&
@@ -230,7 +230,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @return View used to generate this report
 	 */
 	@JsonProperty("AD_ReportView")
-	public I_AD_ReportViewInput AD_ReportView() {
+	public ForeignEntityInput AD_ReportView() {
 		return mAD_ReportView;
 	}
 
@@ -240,7 +240,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow) {
+	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
 		if (AD_Workflow != null &&
@@ -259,7 +259,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @return Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public I_AD_WorkflowInput AD_Workflow() {
+	public ForeignEntityInput AD_Workflow() {
 		return mAD_Workflow;
 	}
 
@@ -298,7 +298,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -317,7 +317,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 

@@ -23,14 +23,14 @@ import org.compiere.util.Env;
  */
 public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_BankAccount;
+	 private ForeignEntityInput mC_Cash;
+	 private ForeignEntityInput mC_Charge;
+	 private ForeignEntityInput mC_Currency;
+	 private ForeignEntityInput mC_Invoice;
+	 private ForeignEntityInput mC_Payment;
 	 private I_AD_Ref_ListInput mCashType;
-	 private I_C_BankAccountInput mC_BankAccount;
-	 private I_C_CashInput mC_Cash;
-	 private I_C_ChargeInput mC_Charge;
-	 private I_C_CurrencyInput mC_Currency;
-	 private I_C_InvoiceInput mC_Invoice;
-	 private I_C_PaymentInput mC_Payment;
 
 	/**
 	 * Standard constructor
@@ -47,7 +47,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -64,7 +64,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -74,7 +74,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @param C_BankAccount Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount) {
+	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
@@ -93,7 +93,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @return Account at the Bank
 	 */
 	@JsonProperty("C_BankAccount")
-	public I_C_BankAccountInput C_BankAccount() {
+	public ForeignEntityInput C_BankAccount() {
 		return mC_BankAccount;
 	}
 
@@ -103,7 +103,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @param C_Cash Cash Journal
 	 */
 	@JsonProperty("C_Cash")
-	public void setC_CashInput(I_C_CashInput C_Cash) {
+	public void setC_CashInput(ForeignEntityInput C_Cash) {
 		this.mC_Cash = C_Cash;
 		MCash foreignEntity;
 		if (get_ID() == 0 &&C_Cash != null &&
@@ -120,7 +120,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @return Cash Journal
 	 */
 	@JsonProperty("C_Cash")
-	public I_C_CashInput C_Cash() {
+	public ForeignEntityInput C_Cash() {
 		return mC_Cash;
 	}
 
@@ -148,7 +148,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @param C_Charge Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
@@ -167,7 +167,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @return Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public I_C_ChargeInput C_Charge() {
+	public ForeignEntityInput C_Charge() {
 		return mC_Charge;
 	}
 
@@ -177,7 +177,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @param C_Currency The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public void setC_CurrencyInput(I_C_CurrencyInput C_Currency) {
+	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (get_ID() == 0 &&C_Currency != null &&
@@ -194,7 +194,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @return The Currency for this record
 	 */
 	@JsonProperty("C_Currency")
-	public I_C_CurrencyInput C_Currency() {
+	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
 	}
 
@@ -204,7 +204,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @param C_Invoice Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public void setC_InvoiceInput(I_C_InvoiceInput C_Invoice) {
+	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
 		if (get_ID() == 0 &&C_Invoice != null &&
@@ -221,7 +221,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @return Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public I_C_InvoiceInput C_Invoice() {
+	public ForeignEntityInput C_Invoice() {
 		return mC_Invoice;
 	}
 
@@ -231,7 +231,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @param C_Payment Payment identifier
 	 */
 	@JsonProperty("C_Payment")
-	public void setC_PaymentInput(I_C_PaymentInput C_Payment) {
+	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
 		MPayment_BH foreignEntity;
 		if (C_Payment != null &&
@@ -250,7 +250,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @return Payment identifier
 	 */
 	@JsonProperty("C_Payment")
-	public I_C_PaymentInput C_Payment() {
+	public ForeignEntityInput C_Payment() {
 		return mC_Payment;
 	}
 

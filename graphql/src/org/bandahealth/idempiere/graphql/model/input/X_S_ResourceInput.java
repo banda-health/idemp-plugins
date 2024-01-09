@@ -20,11 +20,11 @@ import org.compiere.util.Env;
  */
 public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mM_Warehouse;
+	 private ForeignEntityInput mS_ResourceType;
 	 private I_AD_Ref_ListInput mManufacturingResourceType;
-	 private I_AD_UserInput mAD_User;
-	 private I_M_WarehouseInput mM_Warehouse;
-	 private I_S_ResourceTypeInput mS_ResourceType;
 
 	/**
 	 * Standard constructor
@@ -41,7 +41,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -58,7 +58,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -68,7 +68,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -87,7 +87,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -97,7 +97,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
@@ -116,7 +116,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 * @return Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public I_M_WarehouseInput M_Warehouse() {
+	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
 
@@ -173,7 +173,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 * @param S_ResourceType Resource Type
 	 */
 	@JsonProperty("S_ResourceType")
-	public void setS_ResourceTypeInput(I_S_ResourceTypeInput S_ResourceType) {
+	public void setS_ResourceTypeInput(ForeignEntityInput S_ResourceType) {
 		this.mS_ResourceType = S_ResourceType;
 		MResourceType foreignEntity;
 		if (S_ResourceType != null &&
@@ -192,7 +192,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 * @return Resource Type
 	 */
 	@JsonProperty("S_ResourceType")
-	public I_S_ResourceTypeInput S_ResourceType() {
+	public ForeignEntityInput S_ResourceType() {
 		return mS_ResourceType;
 	}
 }

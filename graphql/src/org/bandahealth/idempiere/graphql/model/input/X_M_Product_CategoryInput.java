@@ -19,12 +19,12 @@ import org.compiere.util.Env;
  */
 public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_M_Product_CategoryInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintColorInput mAD_PrintColor;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_PrintColor;
+	 private ForeignEntityInput mA_Asset_Group;
+	 private ForeignEntityInput mM_Product_Category_Parent;
 	 private I_AD_Ref_ListInput mBH_Product_Category_Type;
 	 private I_AD_Ref_ListInput mMMPolicy;
-	 private I_A_Asset_GroupInput mA_Asset_Group;
-	 private I_M_Product_CategoryInput mM_Product_Category_Parent;
 
 	/**
 	 * Standard constructor
@@ -41,7 +41,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @param A_Asset_Group Group of Assets
 	 */
 	@JsonProperty("A_Asset_Group")
-	public void setA_Asset_GroupInput(I_A_Asset_GroupInput A_Asset_Group) {
+	public void setA_Asset_GroupInput(ForeignEntityInput A_Asset_Group) {
 		this.mA_Asset_Group = A_Asset_Group;
 		MAssetGroup foreignEntity;
 		if (A_Asset_Group != null &&
@@ -60,7 +60,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @return Group of Assets
 	 */
 	@JsonProperty("A_Asset_Group")
-	public I_A_Asset_GroupInput A_Asset_Group() {
+	public ForeignEntityInput A_Asset_Group() {
 		return mA_Asset_Group;
 	}
 
@@ -70,7 +70,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -87,7 +87,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -97,7 +97,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @param AD_PrintColor Color used for printing and display
 	 */
 	@JsonProperty("AD_PrintColor")
-	public void setAD_PrintColorInput(I_AD_PrintColorInput AD_PrintColor) {
+	public void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor) {
 		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null &&
@@ -116,7 +116,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @return Color used for printing and display
 	 */
 	@JsonProperty("AD_PrintColor")
-	public I_AD_PrintColorInput AD_PrintColor() {
+	public ForeignEntityInput AD_PrintColor() {
 		return mAD_PrintColor;
 	}
 
@@ -155,7 +155,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @param M_Product_Category_Parent Parent Product Category
 	 */
 	@JsonProperty("M_Product_Category_Parent")
-	public void setM_Product_Category_ParentInput(I_M_Product_CategoryInput M_Product_Category_Parent) {
+	public void setM_Product_Category_ParentInput(ForeignEntityInput M_Product_Category_Parent) {
 		this.mM_Product_Category_Parent = M_Product_Category_Parent;
 		MProductCategory_BH foreignEntity;
 		if (M_Product_Category_Parent != null &&
@@ -174,7 +174,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @return Parent Product Category
 	 */
 	@JsonProperty("M_Product_Category_Parent")
-	public I_M_Product_CategoryInput M_Product_Category_Parent() {
+	public ForeignEntityInput M_Product_Category_Parent() {
 		return mM_Product_Category_Parent;
 	}
 

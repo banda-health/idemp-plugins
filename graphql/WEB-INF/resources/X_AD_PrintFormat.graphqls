@@ -5,6 +5,11 @@ extend type Query {
 	AD_PrintFormatGet(page: Int, size: Int, sort: String, filter: String): AD_PrintFormatConnection!
 }
 
+extend type Mutation {
+	AD_PrintFormatSave(entity: AD_PrintFormatInput!): AD_PrintFormat!
+	AD_PrintFormatDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_PrintFormatConnection {
 	results: [AD_PrintFormat!]!
 	pagingInfo: PagingInfo!
@@ -68,3 +73,50 @@ type AD_PrintFormat {
 	UpdatedBy: AD_User!
 }
 
+input AD_PrintFormatInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Color used for printing and display
+	AD_PrintColor: ForeignEntityInput
+	# Maintain Print Font
+	AD_PrintFont: ForeignEntityInput
+	ID: ID
+	# Printer paper definition
+	AD_PrintPaper: ForeignEntityInput
+	# Table Format in Reports
+	AD_PrintTableFormat: ForeignEntityInput
+	# View used to generate this report
+	AD_ReportView: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	Args: String
+	# Java Classname
+	Classname: String
+	CreateCopy: String
+	# Optional short description of the record
+	Description: String
+	# Margin of the Footer in 1/72 of an inch
+	FooterMargin: Int
+	# Margin of the Header in 1/72 of an inch
+	HeaderMargin: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Page Break after each record
+	IsBreakPagePerRecord: Boolean
+	# Default value
+	IsDefault: Boolean
+	# If Selected, a Form is printed, if not selected a columnar List report
+	IsForm: Boolean
+	# The standard Header and Footer is used
+	IsStandardHeaderFooter: Boolean
+	# Table based List Reporting
+	IsTableBased: Boolean
+	# The Jasper Process used by the printengine if any process defined
+	JasperProcess: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Name of the Printer
+	PrinterName: String
+}

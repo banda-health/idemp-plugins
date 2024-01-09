@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  */
 public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 
-	 private I_AD_ReplicationStrategyInput mAD_ReplicationStrategy;
+	 private ForeignEntityInput mAD_ReplicationStrategy;
 
 	/**
 	 * Standard constructor
@@ -51,7 +51,7 @@ public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 	 * @param AD_ReplicationStrategy Data Replication Strategy
 	 */
 	@JsonProperty("AD_ReplicationStrategy")
-	public void setAD_ReplicationStrategyInput(I_AD_ReplicationStrategyInput AD_ReplicationStrategy) {
+	public void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy) {
 		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
 		MReplicationStrategy foreignEntity;
 		if (AD_ReplicationStrategy != null &&
@@ -70,7 +70,7 @@ public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 	 * @return Data Replication Strategy
 	 */
 	@JsonProperty("AD_ReplicationStrategy")
-	public I_AD_ReplicationStrategyInput AD_ReplicationStrategy() {
+	public ForeignEntityInput AD_ReplicationStrategy() {
 		return mAD_ReplicationStrategy;
 	}
 }

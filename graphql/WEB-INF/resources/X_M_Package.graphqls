@@ -5,6 +5,11 @@ extend type Query {
 	M_PackageGet(page: Int, size: Int, sort: String, filter: String): M_PackageConnection!
 }
 
+extend type Mutation {
+	M_PackageSave(entity: M_PackageInput!): M_Package!
+	M_PackageDelete(uuids: [String!]!): Boolean!
+}
+
 type M_PackageConnection {
 	results: [M_Package!]!
 	pagingInfo: PagingInfo!
@@ -117,3 +122,93 @@ type M_Package {
 	Width: Int
 }
 
+input M_PackageInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	BoxCount: Int
+	C_BP_ShippingAcct: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Standard Unit of Measure for Length
+	C_UOM_Length: ForeignEntityInput
+	# Standard Unit of Measure for Weight
+	C_UOM_Weight: ForeignEntityInput
+	CashOnDelivery: Boolean
+	# Date a product was received
+	DateReceived: Date
+	# EMail Delivery confirmation
+	DeliveryConfirmation: Boolean
+	DeliveryConfirmationType: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	DotHazardClassOrDivision: AD_Ref_ListInput
+	DryIceWeight: Int
+	DutiesShipperAccount: String
+	HandlingCharge: Int
+	Height: Int
+	HoldAddress: ForeignEntityInput
+	HomeDeliveryPremiumDate: Date
+	HomeDeliveryPremiumPhone: String
+	HomeDeliveryPremiumType: AD_Ref_ListInput
+	InsuredAmount: Int
+	IsAccessible: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	IsAddedHandling: Boolean
+	IsCargoAircraftOnly: Boolean
+	IsDryIce: Boolean
+	IsDutiable: Boolean
+	IsFutureDayShipment: Boolean
+	IsHazMat: Boolean
+	IsHoldAtLocation: Boolean
+	IsIgnoreZipNotFound: Boolean
+	IsIgnoreZipStateNotMatch: Boolean
+	IsResidential: Boolean
+	IsSaturdayDelivery: Boolean
+	IsSaturdayPickup: Boolean
+	IsVerbalConfirmation: Boolean
+	LabelPrint: String
+	LatestPickupTime: Date
+	Length: Int
+	# Material Shipment Document
+	M_InOut: ForeignEntityInput
+	ID: ID
+	# Method or manner of product delivery
+	M_Shipper: ForeignEntityInput
+	M_ShipperLabels: ForeignEntityInput
+	M_ShipperPackaging: ForeignEntityInput
+	M_ShipperPickupTypes: ForeignEntityInput
+	NotificationMessage: String
+	# Type of Notifications
+	NotificationType: AD_Ref_ListInput
+	# This payment can be processed online
+	OProcessing: String
+	# How you pay the invoice
+	PaymentRule: AD_Ref_ListInput
+	# Price
+	Price: Int
+	# Actual Price 
+	PriceActual: Int
+	# The document has been processed
+	Processed: Boolean
+	RateInquiryMessage: String
+	# Information of the receipt of the package (acknowledgement)
+	ReceivedInfo: String
+	# Shipment Date/Time
+	ShipDate: Date
+	ShipperAccount: String
+	ShippingRateInquiry: String
+	ShippingRespMessage: String
+	Surcharges: Int
+	TrackingInfo: String
+	# Number to track the shipment
+	TrackingNo: String
+	VoidIt: String
+	# Weight of a product
+	Weight: Int
+	Width: Int
+}

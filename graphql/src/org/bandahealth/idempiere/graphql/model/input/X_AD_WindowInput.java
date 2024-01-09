@@ -20,10 +20,10 @@ import org.compiere.util.Env;
  */
 public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 
-	 private I_AD_ColorInput mAD_Color;
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_ImageInput mAD_Image;
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Color;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Image;
+	 private ForeignEntityInput mAD_Org;
 	 private I_AD_Ref_ListInput mWindowType;
 
 	/**
@@ -41,7 +41,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 * @param AD_Color Color for backgrounds or indicators
 	 */
 	@JsonProperty("AD_Color")
-	public void setAD_ColorInput(I_AD_ColorInput AD_Color) {
+	public void setAD_ColorInput(ForeignEntityInput AD_Color) {
 		this.mAD_Color = AD_Color;
 		MColor foreignEntity;
 		if (AD_Color != null &&
@@ -60,7 +60,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 * @return Color for backgrounds or indicators
 	 */
 	@JsonProperty("AD_Color")
-	public I_AD_ColorInput AD_Color() {
+	public ForeignEntityInput AD_Color() {
 		return mAD_Color;
 	}
 
@@ -70,7 +70,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 * @param AD_Image Image or Icon
 	 */
 	@JsonProperty("AD_Image")
-	public void setAD_ImageInput(I_AD_ImageInput AD_Image) {
+	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
@@ -89,7 +89,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 * @return Image or Icon
 	 */
 	@JsonProperty("AD_Image")
-	public I_AD_ImageInput AD_Image() {
+	public ForeignEntityInput AD_Image() {
 		return mAD_Image;
 	}
 
@@ -99,7 +99,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -116,7 +116,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -144,7 +144,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -163,7 +163,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 

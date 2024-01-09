@@ -20,11 +20,11 @@ import org.compiere.util.Env;
  */
 public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningLevelInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_PrintFormatInput mDunning_PrintFormat;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Dunning;
+	 private ForeignEntityInput mC_PaymentTerm;
+	 private ForeignEntityInput mDunning_PrintFormat;
 	 private I_AD_Ref_ListInput mInvoiceCollectionType;
-	 private I_C_DunningInput mC_Dunning;
-	 private I_C_PaymentTermInput mC_PaymentTerm;
 
 	/**
 	 * Standard constructor
@@ -41,7 +41,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -58,7 +58,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -68,7 +68,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 * @param C_Dunning Dunning Rules for overdue invoices
 	 */
 	@JsonProperty("C_Dunning")
-	public void setC_DunningInput(I_C_DunningInput C_Dunning) {
+	public void setC_DunningInput(ForeignEntityInput C_Dunning) {
 		this.mC_Dunning = C_Dunning;
 		MDunning foreignEntity;
 		if (get_ID() == 0 &&C_Dunning != null &&
@@ -85,7 +85,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 * @return Dunning Rules for overdue invoices
 	 */
 	@JsonProperty("C_Dunning")
-	public I_C_DunningInput C_Dunning() {
+	public ForeignEntityInput C_Dunning() {
 		return mC_Dunning;
 	}
 
@@ -113,7 +113,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 * @param C_PaymentTerm The terms of Payment (timing, discount)
 	 */
 	@JsonProperty("C_PaymentTerm")
-	public void setC_PaymentTermInput(I_C_PaymentTermInput C_PaymentTerm) {
+	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null &&
@@ -132,7 +132,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 * @return The terms of Payment (timing, discount)
 	 */
 	@JsonProperty("C_PaymentTerm")
-	public I_C_PaymentTermInput C_PaymentTerm() {
+	public ForeignEntityInput C_PaymentTerm() {
 		return mC_PaymentTerm;
 	}
 
@@ -142,7 +142,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 * @param Dunning_PrintFormat Print Format for printing Dunning Letters
 	 */
 	@JsonProperty("Dunning_PrintFormat")
-	public void setDunning_PrintFormatInput(I_AD_PrintFormatInput Dunning_PrintFormat) {
+	public void setDunning_PrintFormatInput(ForeignEntityInput Dunning_PrintFormat) {
 		this.mDunning_PrintFormat = Dunning_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
 		if (Dunning_PrintFormat != null &&
@@ -161,7 +161,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 * @return Print Format for printing Dunning Letters
 	 */
 	@JsonProperty("Dunning_PrintFormat")
-	public I_AD_PrintFormatInput Dunning_PrintFormat() {
+	public ForeignEntityInput Dunning_PrintFormat() {
 		return mDunning_PrintFormat;
 	}
 

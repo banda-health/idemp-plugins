@@ -43,14 +43,14 @@ public interface I_C_ElementValueInput extends I_C_ElementValue {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set BPartnerType.
@@ -71,42 +71,42 @@ public interface I_C_ElementValueInput extends I_C_ElementValue {
 	 *
 	 * @param C_BankAccount Account at the Bank
 	 */
-	void setC_BankAccountInput(I_C_BankAccountInput C_BankAccount);
+	void setC_BankAccountInput(ForeignEntityInput C_BankAccount);
 
 	/**
 	 * Get C_BankAccount.
 	 *
 	 * @return Account at the Bank
 	 */
-	I_C_BankAccountInput C_BankAccount();
+	ForeignEntityInput C_BankAccount();
 
 	/**
 	 * Set C_Currency.
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(ForeignEntityInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput C_Currency();
+	ForeignEntityInput C_Currency();
 
 	/**
 	 * Set C_Element.
 	 *
 	 * @param C_Element Accounting Element
 	 */
-	void setC_ElementInput(I_C_ElementInput C_Element);
+	void setC_ElementInput(ForeignEntityInput C_Element);
 
 	/**
 	 * Get C_Element.
 	 *
 	 * @return Accounting Element
 	 */
-	I_C_ElementInput C_Element();
+	ForeignEntityInput C_Element();
 
 	/**
 	 * Set ID.

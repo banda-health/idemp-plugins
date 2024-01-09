@@ -15,28 +15,28 @@ public interface I_AD_UserInput extends I_AD_User {
 	 *
 	 * @param AD_Image Image or Icon
 	 */
-	void setAD_ImageInput(I_AD_ImageInput AD_Image);
+	void setAD_ImageInput(ForeignEntityInput AD_Image);
 
 	/**
 	 * Get AD_Image.
 	 *
 	 * @return Image or Icon
 	 */
-	I_AD_ImageInput AD_Image();
+	ForeignEntityInput AD_Image();
 
 	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set ID.
@@ -57,98 +57,98 @@ public interface I_AD_UserInput extends I_AD_User {
 	 *
 	 * @param BP_Location Address of the Business Partner
 	 */
-	void setBP_LocationInput(I_C_LocationInput BP_Location);
+	void setBP_LocationInput(ForeignEntityInput BP_Location);
 
 	/**
 	 * Get BP_Location.
 	 *
 	 * @return Address of the Business Partner
 	 */
-	I_C_LocationInput BP_Location();
+	ForeignEntityInput BP_Location();
 
 	/**
 	 * Set C_BPartner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
-	void setC_BPartnerInput(I_C_BPartnerInput C_BPartner);
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
 
 	/**
 	 * Get C_BPartner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	I_C_BPartnerInput C_BPartner();
+	ForeignEntityInput C_BPartner();
 
 	/**
 	 * Set C_BPartner_Location.
 	 *
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
-	void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location);
+	void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location);
 
 	/**
 	 * Get C_BPartner_Location.
 	 *
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
-	I_C_BPartner_LocationInput C_BPartner_Location();
+	ForeignEntityInput C_BPartner_Location();
 
 	/**
 	 * Set C_Campaign.
 	 *
 	 * @param C_Campaign Marketing Campaign
 	 */
-	void setC_CampaignInput(I_C_CampaignInput C_Campaign);
+	void setC_CampaignInput(ForeignEntityInput C_Campaign);
 
 	/**
 	 * Get C_Campaign.
 	 *
 	 * @return Marketing Campaign
 	 */
-	I_C_CampaignInput C_Campaign();
+	ForeignEntityInput C_Campaign();
 
 	/**
 	 * Set C_Greeting.
 	 *
 	 * @param C_Greeting Greeting to print on correspondence
 	 */
-	void setC_GreetingInput(I_C_GreetingInput C_Greeting);
+	void setC_GreetingInput(ForeignEntityInput C_Greeting);
 
 	/**
 	 * Get C_Greeting.
 	 *
 	 * @return Greeting to print on correspondence
 	 */
-	I_C_GreetingInput C_Greeting();
+	ForeignEntityInput C_Greeting();
 
 	/**
 	 * Set C_Job.
 	 *
 	 * @param C_Job Job Position
 	 */
-	void setC_JobInput(I_C_JobInput C_Job);
+	void setC_JobInput(ForeignEntityInput C_Job);
 
 	/**
 	 * Get C_Job.
 	 *
 	 * @return Job Position
 	 */
-	I_C_JobInput C_Job();
+	ForeignEntityInput C_Job();
 
 	/**
 	 * Set C_Location.
 	 *
 	 * @param C_Location Location or Address
 	 */
-	void setC_LocationInput(I_C_LocationInput C_Location);
+	void setC_LocationInput(ForeignEntityInput C_Location);
 
 	/**
 	 * Get C_Location.
 	 *
 	 * @return Location or Address
 	 */
-	I_C_LocationInput C_Location();
+	ForeignEntityInput C_Location();
 
 	/**
 	 * Set IsMenuAutoExpand.
@@ -211,40 +211,40 @@ public interface I_AD_UserInput extends I_AD_User {
 	 *
 	 * @param R_DefaultMailText R_DefaultMailText
 	 */
-	void setR_DefaultMailTextInput(I_R_MailTextInput R_DefaultMailText);
+	void setR_DefaultMailTextInput(ForeignEntityInput R_DefaultMailText);
 
 	/**
 	 * Get R_DefaultMailText.
 	 *
 	 * @return R_DefaultMailText
 	 */
-	I_R_MailTextInput R_DefaultMailText();
+	ForeignEntityInput R_DefaultMailText();
 
 	/**
 	 * Set SalesRep.
 	 *
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
-	void setSalesRepInput(I_AD_UserInput SalesRep);
+	void setSalesRepInput(ForeignEntityInput SalesRep);
 
 	/**
 	 * Get SalesRep.
 	 *
 	 * @return Sales Representative or Company Agent
 	 */
-	I_AD_UserInput SalesRep();
+	ForeignEntityInput SalesRep();
 
 	/**
 	 * Set Supervisor.
 	 *
 	 * @param Supervisor Supervisor for this user/organization - used for escalation and approval
 	 */
-	void setSupervisorInput(I_AD_UserInput Supervisor);
+	void setSupervisorInput(ForeignEntityInput Supervisor);
 
 	/**
 	 * Get Supervisor.
 	 *
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
-	I_AD_UserInput Supervisor();
+	ForeignEntityInput Supervisor();
 }

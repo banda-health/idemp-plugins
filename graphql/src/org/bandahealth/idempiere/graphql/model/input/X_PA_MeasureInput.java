@@ -23,15 +23,15 @@ import org.compiere.util.Env;
  */
 public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_ProjectType;
+	 private ForeignEntityInput mPA_Benchmark;
+	 private ForeignEntityInput mPA_Hierarchy;
+	 private ForeignEntityInput mPA_MeasureCalc;
+	 private ForeignEntityInput mPA_Ratio;
+	 private ForeignEntityInput mR_RequestType;
 	 private I_AD_Ref_ListInput mMeasureDataType;
 	 private I_AD_Ref_ListInput mMeasureType;
-	 private I_C_ProjectTypeInput mC_ProjectType;
-	 private I_PA_BenchmarkInput mPA_Benchmark;
-	 private I_PA_HierarchyInput mPA_Hierarchy;
-	 private I_PA_MeasureCalcInput mPA_MeasureCalc;
-	 private I_PA_RatioInput mPA_Ratio;
-	 private I_R_RequestTypeInput mR_RequestType;
 
 	/**
 	 * Standard constructor
@@ -48,7 +48,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -65,7 +65,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -75,7 +75,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @param C_ProjectType Type of the project
 	 */
 	@JsonProperty("C_ProjectType")
-	public void setC_ProjectTypeInput(I_C_ProjectTypeInput C_ProjectType) {
+	public void setC_ProjectTypeInput(ForeignEntityInput C_ProjectType) {
 		this.mC_ProjectType = C_ProjectType;
 		MProjectType foreignEntity;
 		if (C_ProjectType != null &&
@@ -94,7 +94,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @return Type of the project
 	 */
 	@JsonProperty("C_ProjectType")
-	public I_C_ProjectTypeInput C_ProjectType() {
+	public ForeignEntityInput C_ProjectType() {
 		return mC_ProjectType;
 	}
 
@@ -162,7 +162,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @param PA_Benchmark Performance Benchmark
 	 */
 	@JsonProperty("PA_Benchmark")
-	public void setPA_BenchmarkInput(I_PA_BenchmarkInput PA_Benchmark) {
+	public void setPA_BenchmarkInput(ForeignEntityInput PA_Benchmark) {
 		this.mPA_Benchmark = PA_Benchmark;
 		X_PA_Benchmark foreignEntity;
 		if (PA_Benchmark != null &&
@@ -181,7 +181,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @return Performance Benchmark
 	 */
 	@JsonProperty("PA_Benchmark")
-	public I_PA_BenchmarkInput PA_Benchmark() {
+	public ForeignEntityInput PA_Benchmark() {
 		return mPA_Benchmark;
 	}
 
@@ -191,7 +191,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @param PA_Hierarchy Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	 */
 	@JsonProperty("PA_Hierarchy")
-	public void setPA_HierarchyInput(I_PA_HierarchyInput PA_Hierarchy) {
+	public void setPA_HierarchyInput(ForeignEntityInput PA_Hierarchy) {
 		this.mPA_Hierarchy = PA_Hierarchy;
 		MHierarchy foreignEntity;
 		if (PA_Hierarchy != null &&
@@ -210,7 +210,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @return Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	 */
 	@JsonProperty("PA_Hierarchy")
-	public I_PA_HierarchyInput PA_Hierarchy() {
+	public ForeignEntityInput PA_Hierarchy() {
 		return mPA_Hierarchy;
 	}
 
@@ -238,7 +238,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @param PA_MeasureCalc Calculation method for measuring performance
 	 */
 	@JsonProperty("PA_MeasureCalc")
-	public void setPA_MeasureCalcInput(I_PA_MeasureCalcInput PA_MeasureCalc) {
+	public void setPA_MeasureCalcInput(ForeignEntityInput PA_MeasureCalc) {
 		this.mPA_MeasureCalc = PA_MeasureCalc;
 		MMeasureCalc foreignEntity;
 		if (PA_MeasureCalc != null &&
@@ -257,7 +257,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @return Calculation method for measuring performance
 	 */
 	@JsonProperty("PA_MeasureCalc")
-	public I_PA_MeasureCalcInput PA_MeasureCalc() {
+	public ForeignEntityInput PA_MeasureCalc() {
 		return mPA_MeasureCalc;
 	}
 
@@ -267,7 +267,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @param PA_Ratio Performance Ratio
 	 */
 	@JsonProperty("PA_Ratio")
-	public void setPA_RatioInput(I_PA_RatioInput PA_Ratio) {
+	public void setPA_RatioInput(ForeignEntityInput PA_Ratio) {
 		this.mPA_Ratio = PA_Ratio;
 		X_PA_Ratio foreignEntity;
 		if (PA_Ratio != null &&
@@ -286,7 +286,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @return Performance Ratio
 	 */
 	@JsonProperty("PA_Ratio")
-	public I_PA_RatioInput PA_Ratio() {
+	public ForeignEntityInput PA_Ratio() {
 		return mPA_Ratio;
 	}
 
@@ -296,7 +296,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @param R_RequestType Type of request (e.g. Inquiry, Complaint, ..)
 	 */
 	@JsonProperty("R_RequestType")
-	public void setR_RequestTypeInput(I_R_RequestTypeInput R_RequestType) {
+	public void setR_RequestTypeInput(ForeignEntityInput R_RequestType) {
 		this.mR_RequestType = R_RequestType;
 		MRequestType foreignEntity;
 		if (R_RequestType != null &&
@@ -315,7 +315,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @return Type of request (e.g. Inquiry, Complaint, ..)
 	 */
 	@JsonProperty("R_RequestType")
-	public I_R_RequestTypeInput R_RequestType() {
+	public ForeignEntityInput R_RequestType() {
 		return mR_RequestType;
 	}
 }

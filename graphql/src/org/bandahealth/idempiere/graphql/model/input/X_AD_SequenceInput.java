@@ -16,7 +16,7 @@ import org.compiere.util.Env;
  */
 public class X_AD_SequenceInput extends MSequence_BH implements I_AD_SequenceInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
 
 	/**
 	 * Standard constructor
@@ -33,7 +33,7 @@ public class X_AD_SequenceInput extends MSequence_BH implements I_AD_SequenceInp
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -50,7 +50,7 @@ public class X_AD_SequenceInput extends MSequence_BH implements I_AD_SequenceInp
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 

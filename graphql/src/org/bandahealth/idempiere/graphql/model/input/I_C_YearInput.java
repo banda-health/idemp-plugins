@@ -15,28 +15,28 @@ public interface I_C_YearInput extends I_C_Year {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_Calendar.
 	 *
 	 * @param C_Calendar Accounting Calendar Name
 	 */
-	void setC_CalendarInput(I_C_CalendarInput C_Calendar);
+	void setC_CalendarInput(ForeignEntityInput C_Calendar);
 
 	/**
 	 * Get C_Calendar.
 	 *
 	 * @return Accounting Calendar Name
 	 */
-	I_C_CalendarInput C_Calendar();
+	ForeignEntityInput C_Calendar();
 
 	/**
 	 * Set ID.

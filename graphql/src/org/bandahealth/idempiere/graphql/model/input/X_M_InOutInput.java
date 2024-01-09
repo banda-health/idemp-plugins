@@ -33,7 +33,31 @@ import org.compiere.util.Env;
  */
 public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_User;
+	 private ForeignEntityInput mBH_Visit;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_BPartner_Location;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_Charge;
+	 private ForeignEntityInput mC_DocType;
+	 private ForeignEntityInput mC_Invoice;
+	 private ForeignEntityInput mC_Order;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mDropShip_BPartner;
+	 private ForeignEntityInput mDropShip_Location;
+	 private ForeignEntityInput mDropShip_User;
+	 private ForeignEntityInput mM_RMA;
+	 private ForeignEntityInput mM_Shipper;
+	 private ForeignEntityInput mM_Warehouse;
+	 private ForeignEntityInput mReturnBPartner;
+	 private ForeignEntityInput mReturnLocation;
+	 private ForeignEntityInput mReturnUser;
+	 private ForeignEntityInput mReversal;
+	 private ForeignEntityInput mSalesRep;
+	 private ForeignEntityInput mUser1;
+	 private ForeignEntityInput mUser2;
 	 private I_AD_Ref_ListInput mDeliveryRule;
 	 private I_AD_Ref_ListInput mDeliveryViaRule;
 	 private I_AD_Ref_ListInput mDocAction;
@@ -44,30 +68,6 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 private I_AD_Ref_ListInput mInsurance;
 	 private I_AD_Ref_ListInput mMovementType;
 	 private I_AD_Ref_ListInput mPriorityRule;
-	 private I_AD_UserInput mAD_User;
-	 private I_AD_UserInput mDropShip_User;
-	 private I_AD_UserInput mReturnUser;
-	 private I_AD_UserInput mSalesRep;
-	 private I_BH_VisitInput mBH_Visit;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_BPartnerInput mDropShip_BPartner;
-	 private I_C_BPartnerInput mReturnBPartner;
-	 private I_C_BPartner_LocationInput mC_BPartner_Location;
-	 private I_C_BPartner_LocationInput mDropShip_Location;
-	 private I_C_BPartner_LocationInput mReturnLocation;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_ChargeInput mC_Charge;
-	 private I_C_DocTypeInput mC_DocType;
-	 private I_C_ElementValueInput mUser1;
-	 private I_C_ElementValueInput mUser2;
-	 private I_C_InvoiceInput mC_Invoice;
-	 private I_C_OrderInput mC_Order;
-	 private I_C_ProjectInput mC_Project;
-	 private I_M_InOutInput mReversal;
-	 private I_M_RMAInput mM_RMA;
-	 private I_M_ShipperInput mM_Shipper;
-	 private I_M_WarehouseInput mM_Warehouse;
 
 	/**
 	 * Standard constructor
@@ -84,7 +84,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -101,7 +101,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -111,7 +111,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param AD_User User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public void setAD_UserInput(I_AD_UserInput AD_User) {
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
@@ -130,7 +130,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	@JsonProperty("AD_User")
-	public I_AD_UserInput AD_User() {
+	public ForeignEntityInput AD_User() {
 		return mAD_User;
 	}
 
@@ -140,7 +140,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param BH_Visit Visit
 	 */
 	@JsonProperty("BH_Visit")
-	public void setBH_VisitInput(I_BH_VisitInput BH_Visit) {
+	public void setBH_VisitInput(ForeignEntityInput BH_Visit) {
 		this.mBH_Visit = BH_Visit;
 		MBHVisit foreignEntity;
 		if (BH_Visit != null &&
@@ -159,7 +159,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Visit
 	 */
 	@JsonProperty("BH_Visit")
-	public I_BH_VisitInput BH_Visit() {
+	public ForeignEntityInput BH_Visit() {
 		return mBH_Visit;
 	}
 
@@ -169,7 +169,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -188,7 +188,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -198,7 +198,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -217,7 +217,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -227,7 +227,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public void setC_BPartner_LocationInput(I_C_BPartner_LocationInput C_BPartner_Location) {
+	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
@@ -246,7 +246,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	@JsonProperty("C_BPartner_Location")
-	public I_C_BPartner_LocationInput C_BPartner_Location() {
+	public ForeignEntityInput C_BPartner_Location() {
 		return mC_BPartner_Location;
 	}
 
@@ -256,7 +256,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -275,7 +275,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -285,7 +285,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param C_Charge Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
@@ -304,7 +304,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public I_C_ChargeInput C_Charge() {
+	public ForeignEntityInput C_Charge() {
 		return mC_Charge;
 	}
 
@@ -314,7 +314,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param C_DocType Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public void setC_DocTypeInput(I_C_DocTypeInput C_DocType) {
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (get_ID() == 0 &&C_DocType != null &&
@@ -331,7 +331,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Document type or rules
 	 */
 	@JsonProperty("C_DocType")
-	public I_C_DocTypeInput C_DocType() {
+	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
 	}
 
@@ -341,7 +341,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param C_Invoice Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public void setC_InvoiceInput(I_C_InvoiceInput C_Invoice) {
+	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
 		if (get_ID() == 0 &&C_Invoice != null &&
@@ -358,7 +358,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Invoice Identifier
 	 */
 	@JsonProperty("C_Invoice")
-	public I_C_InvoiceInput C_Invoice() {
+	public ForeignEntityInput C_Invoice() {
 		return mC_Invoice;
 	}
 
@@ -368,7 +368,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param C_Order Order
 	 */
 	@JsonProperty("C_Order")
-	public void setC_OrderInput(I_C_OrderInput C_Order) {
+	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
 		if (get_ID() == 0 &&C_Order != null &&
@@ -385,7 +385,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Order
 	 */
 	@JsonProperty("C_Order")
-	public I_C_OrderInput C_Order() {
+	public ForeignEntityInput C_Order() {
 		return mC_Order;
 	}
 
@@ -395,7 +395,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -414,7 +414,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 	/**
@@ -562,7 +562,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param DropShip_BPartner Business Partner to ship to
 	 */
 	@JsonProperty("DropShip_BPartner")
-	public void setDropShip_BPartnerInput(I_C_BPartnerInput DropShip_BPartner) {
+	public void setDropShip_BPartnerInput(ForeignEntityInput DropShip_BPartner) {
 		this.mDropShip_BPartner = DropShip_BPartner;
 		MBPartner_BH foreignEntity;
 		if (DropShip_BPartner != null &&
@@ -581,7 +581,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Business Partner to ship to
 	 */
 	@JsonProperty("DropShip_BPartner")
-	public I_C_BPartnerInput DropShip_BPartner() {
+	public ForeignEntityInput DropShip_BPartner() {
 		return mDropShip_BPartner;
 	}
 
@@ -591,7 +591,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param DropShip_Location Business Partner Location for shipping to
 	 */
 	@JsonProperty("DropShip_Location")
-	public void setDropShip_LocationInput(I_C_BPartner_LocationInput DropShip_Location) {
+	public void setDropShip_LocationInput(ForeignEntityInput DropShip_Location) {
 		this.mDropShip_Location = DropShip_Location;
 		MBPartnerLocation foreignEntity;
 		if (DropShip_Location != null &&
@@ -610,7 +610,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Business Partner Location for shipping to
 	 */
 	@JsonProperty("DropShip_Location")
-	public I_C_BPartner_LocationInput DropShip_Location() {
+	public ForeignEntityInput DropShip_Location() {
 		return mDropShip_Location;
 	}
 
@@ -620,7 +620,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param DropShip_User Business Partner Contact for drop shipment
 	 */
 	@JsonProperty("DropShip_User")
-	public void setDropShip_UserInput(I_AD_UserInput DropShip_User) {
+	public void setDropShip_UserInput(ForeignEntityInput DropShip_User) {
 		this.mDropShip_User = DropShip_User;
 		MUser_BH foreignEntity;
 		if (DropShip_User != null &&
@@ -639,7 +639,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Business Partner Contact for drop shipment
 	 */
 	@JsonProperty("DropShip_User")
-	public I_AD_UserInput DropShip_User() {
+	public ForeignEntityInput DropShip_User() {
 		return mDropShip_User;
 	}
 
@@ -783,7 +783,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param M_RMA Return Material Authorization
 	 */
 	@JsonProperty("M_RMA")
-	public void setM_RMAInput(I_M_RMAInput M_RMA) {
+	public void setM_RMAInput(ForeignEntityInput M_RMA) {
 		this.mM_RMA = M_RMA;
 		MRMA foreignEntity;
 		if (M_RMA != null &&
@@ -802,7 +802,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Return Material Authorization
 	 */
 	@JsonProperty("M_RMA")
-	public I_M_RMAInput M_RMA() {
+	public ForeignEntityInput M_RMA() {
 		return mM_RMA;
 	}
 
@@ -812,7 +812,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param M_Shipper Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public void setM_ShipperInput(I_M_ShipperInput M_Shipper) {
+	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (M_Shipper != null &&
@@ -831,7 +831,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Method or manner of product delivery
 	 */
 	@JsonProperty("M_Shipper")
-	public I_M_ShipperInput M_Shipper() {
+	public ForeignEntityInput M_Shipper() {
 		return mM_Shipper;
 	}
 
@@ -841,7 +841,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param M_Warehouse Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public void setM_WarehouseInput(I_M_WarehouseInput M_Warehouse) {
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (get_ID() == 0 &&M_Warehouse != null &&
@@ -858,7 +858,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Storage Warehouse and Service Point
 	 */
 	@JsonProperty("M_Warehouse")
-	public I_M_WarehouseInput M_Warehouse() {
+	public ForeignEntityInput M_Warehouse() {
 		return mM_Warehouse;
 	}
 
@@ -935,7 +935,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param ReturnBPartner Return Partner
 	 */
 	@JsonProperty("ReturnBPartner")
-	public void setReturnBPartnerInput(I_C_BPartnerInput ReturnBPartner) {
+	public void setReturnBPartnerInput(ForeignEntityInput ReturnBPartner) {
 		this.mReturnBPartner = ReturnBPartner;
 		MBPartner_BH foreignEntity;
 		if (ReturnBPartner != null &&
@@ -954,7 +954,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Return Partner
 	 */
 	@JsonProperty("ReturnBPartner")
-	public I_C_BPartnerInput ReturnBPartner() {
+	public ForeignEntityInput ReturnBPartner() {
 		return mReturnBPartner;
 	}
 
@@ -964,7 +964,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param ReturnLocation Return Location
 	 */
 	@JsonProperty("ReturnLocation")
-	public void setReturnLocationInput(I_C_BPartner_LocationInput ReturnLocation) {
+	public void setReturnLocationInput(ForeignEntityInput ReturnLocation) {
 		this.mReturnLocation = ReturnLocation;
 		MBPartnerLocation foreignEntity;
 		if (ReturnLocation != null &&
@@ -983,7 +983,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Return Location
 	 */
 	@JsonProperty("ReturnLocation")
-	public I_C_BPartner_LocationInput ReturnLocation() {
+	public ForeignEntityInput ReturnLocation() {
 		return mReturnLocation;
 	}
 
@@ -993,7 +993,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param ReturnUser Return User/Contact
 	 */
 	@JsonProperty("ReturnUser")
-	public void setReturnUserInput(I_AD_UserInput ReturnUser) {
+	public void setReturnUserInput(ForeignEntityInput ReturnUser) {
 		this.mReturnUser = ReturnUser;
 		MUser_BH foreignEntity;
 		if (ReturnUser != null &&
@@ -1012,7 +1012,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Return User/Contact
 	 */
 	@JsonProperty("ReturnUser")
-	public I_AD_UserInput ReturnUser() {
+	public ForeignEntityInput ReturnUser() {
 		return mReturnUser;
 	}
 
@@ -1022,7 +1022,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param Reversal ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public void setReversalInput(I_M_InOutInput Reversal) {
+	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
 		MInOut_BH foreignEntity;
 		if (Reversal != null &&
@@ -1041,7 +1041,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return ID of document reversal
 	 */
 	@JsonProperty("Reversal")
-	public I_M_InOutInput Reversal() {
+	public ForeignEntityInput Reversal() {
 		return mReversal;
 	}
 
@@ -1051,7 +1051,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param SalesRep Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public void setSalesRepInput(I_AD_UserInput SalesRep) {
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
@@ -1070,7 +1070,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Sales Representative or Company Agent
 	 */
 	@JsonProperty("SalesRep")
-	public I_AD_UserInput SalesRep() {
+	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
 	}
 
@@ -1080,7 +1080,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param User1 User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public void setUser1Input(I_C_ElementValueInput User1) {
+	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
@@ -1099,7 +1099,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public I_C_ElementValueInput User1() {
+	public ForeignEntityInput User1() {
 		return mUser1;
 	}
 
@@ -1109,7 +1109,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param User2 User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public void setUser2Input(I_C_ElementValueInput User2) {
+	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
@@ -1128,7 +1128,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public I_C_ElementValueInput User2() {
+	public ForeignEntityInput User2() {
 		return mUser2;
 	}
 }

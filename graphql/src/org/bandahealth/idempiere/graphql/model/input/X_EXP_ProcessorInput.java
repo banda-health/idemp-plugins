@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_ProcessorInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_EXP_Processor_TypeInput mEXP_Processor_Type;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mEXP_Processor_Type;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_Process
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_Process
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -62,7 +62,7 @@ public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_Process
 	 * @param EXP_Processor_Type Export Processor Type
 	 */
 	@JsonProperty("EXP_Processor_Type")
-	public void setEXP_Processor_TypeInput(I_EXP_Processor_TypeInput EXP_Processor_Type) {
+	public void setEXP_Processor_TypeInput(ForeignEntityInput EXP_Processor_Type) {
 		this.mEXP_Processor_Type = EXP_Processor_Type;
 		MEXPProcessorType foreignEntity;
 		if (EXP_Processor_Type != null &&
@@ -81,7 +81,7 @@ public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_Process
 	 * @return Export Processor Type
 	 */
 	@JsonProperty("EXP_Processor_Type")
-	public I_EXP_Processor_TypeInput EXP_Processor_Type() {
+	public ForeignEntityInput EXP_Processor_Type() {
 		return mEXP_Processor_Type;
 	}
 

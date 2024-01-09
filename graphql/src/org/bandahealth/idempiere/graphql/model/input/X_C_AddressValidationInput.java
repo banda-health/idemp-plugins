@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_C_AddressValidationInput extends MAddressValidation implements I_C_AddressValidationInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_AddressValidationCfgInput mC_AddressValidationCfg;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_AddressValidationCfg;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_C_AddressValidationInput extends MAddressValidation implements I_
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_C_AddressValidationInput extends MAddressValidation implements I_
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -80,7 +80,7 @@ public class X_C_AddressValidationInput extends MAddressValidation implements I_
 	 * @param C_AddressValidationCfg Address Validation Configuration
 	 */
 	@JsonProperty("C_AddressValidationCfg")
-	public void setC_AddressValidationCfgInput(I_C_AddressValidationCfgInput C_AddressValidationCfg) {
+	public void setC_AddressValidationCfgInput(ForeignEntityInput C_AddressValidationCfg) {
 		this.mC_AddressValidationCfg = C_AddressValidationCfg;
 		X_C_AddressValidationCfg foreignEntity;
 		if (C_AddressValidationCfg != null &&
@@ -99,7 +99,7 @@ public class X_C_AddressValidationInput extends MAddressValidation implements I_
 	 * @return Address Validation Configuration
 	 */
 	@JsonProperty("C_AddressValidationCfg")
-	public I_C_AddressValidationCfgInput C_AddressValidationCfg() {
+	public ForeignEntityInput C_AddressValidationCfg() {
 		return mC_AddressValidationCfg;
 	}
 }

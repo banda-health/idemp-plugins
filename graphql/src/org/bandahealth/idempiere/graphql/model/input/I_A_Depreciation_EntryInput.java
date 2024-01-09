@@ -43,70 +43,70 @@ public interface I_A_Depreciation_EntryInput extends I_A_Depreciation_Entry {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_AcctSchema.
 	 *
 	 * @param C_AcctSchema Rules for accounting
 	 */
-	void setC_AcctSchemaInput(I_C_AcctSchemaInput C_AcctSchema);
+	void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema);
 
 	/**
 	 * Get C_AcctSchema.
 	 *
 	 * @return Rules for accounting
 	 */
-	I_C_AcctSchemaInput C_AcctSchema();
+	ForeignEntityInput C_AcctSchema();
 
 	/**
 	 * Set C_Currency.
 	 *
 	 * @param C_Currency The Currency for this record
 	 */
-	void setC_CurrencyInput(I_C_CurrencyInput C_Currency);
+	void setC_CurrencyInput(ForeignEntityInput C_Currency);
 
 	/**
 	 * Get C_Currency.
 	 *
 	 * @return The Currency for this record
 	 */
-	I_C_CurrencyInput C_Currency();
+	ForeignEntityInput C_Currency();
 
 	/**
 	 * Set C_DocType.
 	 *
 	 * @param C_DocType Document type or rules
 	 */
-	void setC_DocTypeInput(I_C_DocTypeInput C_DocType);
+	void setC_DocTypeInput(ForeignEntityInput C_DocType);
 
 	/**
 	 * Get C_DocType.
 	 *
 	 * @return Document type or rules
 	 */
-	I_C_DocTypeInput C_DocType();
+	ForeignEntityInput C_DocType();
 
 	/**
 	 * Set C_Period.
 	 *
 	 * @param C_Period Period of the Calendar
 	 */
-	void setC_PeriodInput(I_C_PeriodInput C_Period);
+	void setC_PeriodInput(ForeignEntityInput C_Period);
 
 	/**
 	 * Get C_Period.
 	 *
 	 * @return Period of the Calendar
 	 */
-	I_C_PeriodInput C_Period();
+	ForeignEntityInput C_Period();
 
 	/**
 	 * Set DocAction.

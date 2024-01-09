@@ -5,6 +5,11 @@ extend type Query {
 	C_TaxProviderGet(page: Int, size: Int, sort: String, filter: String): C_TaxProviderConnection!
 }
 
+extend type Mutation {
+	C_TaxProviderSave(entity: C_TaxProviderInput!): C_TaxProvider!
+	C_TaxProviderDelete(uuids: [String!]!): Boolean!
+}
+
 type C_TaxProviderConnection {
 	results: [C_TaxProvider!]!
 	pagingInfo: PagingInfo!
@@ -37,3 +42,19 @@ type C_TaxProvider {
 	ValidateConnection: String
 }
 
+input C_TaxProviderInput {
+	Account: String
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	C_TaxProviderCfg: ForeignEntityInput
+	CompanyCode: String
+	# The record is active in the system
+	IsActive: Boolean
+	License: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	ValidateConnection: String
+}

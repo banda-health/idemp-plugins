@@ -23,14 +23,14 @@ import org.compiere.util.Env;
  */
 public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Activity;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mC_Campaign;
+	 private ForeignEntityInput mC_Project;
+	 private ForeignEntityInput mUser1;
+	 private ForeignEntityInput mUser2;
 	 private I_AD_Ref_ListInput mCashFlowType;
-	 private I_C_ActivityInput mC_Activity;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_C_CampaignInput mC_Campaign;
-	 private I_C_ElementValueInput mUser1;
-	 private I_C_ElementValueInput mUser2;
-	 private I_C_ProjectInput mC_Project;
 
 	/**
 	 * Standard constructor
@@ -47,7 +47,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -66,7 +66,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -76,7 +76,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @param C_Activity Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public void setC_ActivityInput(I_C_ActivityInput C_Activity) {
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
@@ -95,7 +95,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @return Business Activity
 	 */
 	@JsonProperty("C_Activity")
-	public I_C_ActivityInput C_Activity() {
+	public ForeignEntityInput C_Activity() {
 		return mC_Activity;
 	}
 
@@ -105,7 +105,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -124,7 +124,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -134,7 +134,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @param C_Campaign Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public void setC_CampaignInput(I_C_CampaignInput C_Campaign) {
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
@@ -153,7 +153,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @return Marketing Campaign
 	 */
 	@JsonProperty("C_Campaign")
-	public I_C_CampaignInput C_Campaign() {
+	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
 	}
 
@@ -181,7 +181,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @param C_Project Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public void setC_ProjectInput(I_C_ProjectInput C_Project) {
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
@@ -200,7 +200,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @return Financial Project
 	 */
 	@JsonProperty("C_Project")
-	public I_C_ProjectInput C_Project() {
+	public ForeignEntityInput C_Project() {
 		return mC_Project;
 	}
 
@@ -272,7 +272,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @param User1 User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public void setUser1Input(I_C_ElementValueInput User1) {
+	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
@@ -291,7 +291,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @return User defined list element #1
 	 */
 	@JsonProperty("User1")
-	public I_C_ElementValueInput User1() {
+	public ForeignEntityInput User1() {
 		return mUser1;
 	}
 
@@ -301,7 +301,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @param User2 User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public void setUser2Input(I_C_ElementValueInput User2) {
+	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
@@ -320,7 +320,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @return User defined list element #2
 	 */
 	@JsonProperty("User2")
-	public I_C_ElementValueInput User2() {
+	public ForeignEntityInput User2() {
 		return mUser2;
 	}
 }

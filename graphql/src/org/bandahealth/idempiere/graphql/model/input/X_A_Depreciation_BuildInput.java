@@ -19,11 +19,11 @@ import org.compiere.util.Env;
  */
 public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I_A_Depreciation_BuildInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mA_End_Asset;
+	 private ForeignEntityInput mA_Start_Asset;
+	 private ForeignEntityInput mC_Period;
 	 private I_AD_Ref_ListInput mPostingType;
-	 private I_A_AssetInput mA_End_Asset;
-	 private I_A_AssetInput mA_Start_Asset;
-	 private I_C_PeriodInput mC_Period;
 
 	/**
 	 * Standard constructor
@@ -58,7 +58,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 * @param A_End_Asset To Asset
 	 */
 	@JsonProperty("A_End_Asset")
-	public void setA_End_AssetInput(I_A_AssetInput A_End_Asset) {
+	public void setA_End_AssetInput(ForeignEntityInput A_End_Asset) {
 		this.mA_End_Asset = A_End_Asset;
 		MAsset foreignEntity;
 		if (A_End_Asset != null &&
@@ -77,7 +77,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 * @return To Asset
 	 */
 	@JsonProperty("A_End_Asset")
-	public I_A_AssetInput A_End_Asset() {
+	public ForeignEntityInput A_End_Asset() {
 		return mA_End_Asset;
 	}
 
@@ -87,7 +87,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 * @param A_Start_Asset From Asset
 	 */
 	@JsonProperty("A_Start_Asset")
-	public void setA_Start_AssetInput(I_A_AssetInput A_Start_Asset) {
+	public void setA_Start_AssetInput(ForeignEntityInput A_Start_Asset) {
 		this.mA_Start_Asset = A_Start_Asset;
 		MAsset foreignEntity;
 		if (A_Start_Asset != null &&
@@ -106,7 +106,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 * @return From Asset
 	 */
 	@JsonProperty("A_Start_Asset")
-	public I_A_AssetInput A_Start_Asset() {
+	public ForeignEntityInput A_Start_Asset() {
 		return mA_Start_Asset;
 	}
 
@@ -116,7 +116,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
@@ -135,7 +135,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -145,7 +145,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 * @param C_Period Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public void setC_PeriodInput(I_C_PeriodInput C_Period) {
+	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
@@ -164,7 +164,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 * @return Period of the Calendar
 	 */
 	@JsonProperty("C_Period")
-	public I_C_PeriodInput C_Period() {
+	public ForeignEntityInput C_Period() {
 		return mC_Period;
 	}
 

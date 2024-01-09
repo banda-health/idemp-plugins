@@ -15,42 +15,42 @@ public interface I_AD_PrintFormatInput extends I_AD_PrintFormat {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set AD_PrintColor.
 	 *
 	 * @param AD_PrintColor Color used for printing and display
 	 */
-	void setAD_PrintColorInput(I_AD_PrintColorInput AD_PrintColor);
+	void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor);
 
 	/**
 	 * Get AD_PrintColor.
 	 *
 	 * @return Color used for printing and display
 	 */
-	I_AD_PrintColorInput AD_PrintColor();
+	ForeignEntityInput AD_PrintColor();
 
 	/**
 	 * Set AD_PrintFont.
 	 *
 	 * @param AD_PrintFont Maintain Print Font
 	 */
-	void setAD_PrintFontInput(I_AD_PrintFontInput AD_PrintFont);
+	void setAD_PrintFontInput(ForeignEntityInput AD_PrintFont);
 
 	/**
 	 * Get AD_PrintFont.
 	 *
 	 * @return Maintain Print Font
 	 */
-	I_AD_PrintFontInput AD_PrintFont();
+	ForeignEntityInput AD_PrintFont();
 
 	/**
 	 * Set ID.
@@ -71,82 +71,82 @@ public interface I_AD_PrintFormatInput extends I_AD_PrintFormat {
 	 *
 	 * @param AD_PrintPaper Printer paper definition
 	 */
-	void setAD_PrintPaperInput(I_AD_PrintPaperInput AD_PrintPaper);
+	void setAD_PrintPaperInput(ForeignEntityInput AD_PrintPaper);
 
 	/**
 	 * Get AD_PrintPaper.
 	 *
 	 * @return Printer paper definition
 	 */
-	I_AD_PrintPaperInput AD_PrintPaper();
+	ForeignEntityInput AD_PrintPaper();
 
 	/**
 	 * Set AD_PrintTableFormat.
 	 *
 	 * @param AD_PrintTableFormat Table Format in Reports
 	 */
-	void setAD_PrintTableFormatInput(I_AD_PrintTableFormatInput AD_PrintTableFormat);
+	void setAD_PrintTableFormatInput(ForeignEntityInput AD_PrintTableFormat);
 
 	/**
 	 * Get AD_PrintTableFormat.
 	 *
 	 * @return Table Format in Reports
 	 */
-	I_AD_PrintTableFormatInput AD_PrintTableFormat();
+	ForeignEntityInput AD_PrintTableFormat();
 
 	/**
 	 * Set AD_ReportView.
 	 *
 	 * @param AD_ReportView View used to generate this report
 	 */
-	void setAD_ReportViewInput(I_AD_ReportViewInput AD_ReportView);
+	void setAD_ReportViewInput(ForeignEntityInput AD_ReportView);
 
 	/**
 	 * Get AD_ReportView.
 	 *
 	 * @return View used to generate this report
 	 */
-	I_AD_ReportViewInput AD_ReportView();
+	ForeignEntityInput AD_ReportView();
 
 	/**
 	 * Set AD_Table.
 	 *
 	 * @param AD_Table Database Table information
 	 */
-	void setAD_TableInput(I_AD_TableInput AD_Table);
+	void setAD_TableInput(ForeignEntityInput AD_Table);
 
 	/**
 	 * Get AD_Table.
 	 *
 	 * @return Database Table information
 	 */
-	I_AD_TableInput AD_Table();
+	ForeignEntityInput AD_Table();
 
 	/**
 	 * Set AD_Window.
 	 *
 	 * @param AD_Window Data entry or display window
 	 */
-	void setAD_WindowInput(I_AD_WindowInput AD_Window);
+	void setAD_WindowInput(ForeignEntityInput AD_Window);
 
 	/**
 	 * Get AD_Window.
 	 *
 	 * @return Data entry or display window
 	 */
-	I_AD_WindowInput AD_Window();
+	ForeignEntityInput AD_Window();
 
 	/**
 	 * Set JasperProcess.
 	 *
 	 * @param JasperProcess The Jasper Process used by the printengine if any process defined
 	 */
-	void setJasperProcessInput(I_AD_ProcessInput JasperProcess);
+	void setJasperProcessInput(ForeignEntityInput JasperProcess);
 
 	/**
 	 * Get JasperProcess.
 	 *
 	 * @return The Jasper Process used by the printengine if any process defined
 	 */
-	I_AD_ProcessInput JasperProcess();
+	ForeignEntityInput JasperProcess();
 }

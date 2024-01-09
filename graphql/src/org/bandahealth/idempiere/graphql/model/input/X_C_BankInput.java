@@ -17,8 +17,8 @@ import org.compiere.util.Env;
  */
 public class X_C_BankInput extends MBank implements I_C_BankInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_LocationInput mC_Location;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Location;
 
 	/**
 	 * Standard constructor
@@ -35,7 +35,7 @@ public class X_C_BankInput extends MBank implements I_C_BankInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -52,7 +52,7 @@ public class X_C_BankInput extends MBank implements I_C_BankInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -80,7 +80,7 @@ public class X_C_BankInput extends MBank implements I_C_BankInput {
 	 * @param C_Location Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public void setC_LocationInput(I_C_LocationInput C_Location) {
+	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
@@ -99,7 +99,7 @@ public class X_C_BankInput extends MBank implements I_C_BankInput {
 	 * @return Location or Address
 	 */
 	@JsonProperty("C_Location")
-	public I_C_LocationInput C_Location() {
+	public ForeignEntityInput C_Location() {
 		return mC_Location;
 	}
 }

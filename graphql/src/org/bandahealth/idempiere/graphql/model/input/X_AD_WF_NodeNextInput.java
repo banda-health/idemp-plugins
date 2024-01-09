@@ -18,10 +18,10 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_NodeNextInput {
 
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_WF_NodeInput mAD_WF_Next;
-	 private I_AD_WF_NodeInput mAD_WF_Node;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_WF_Next;
+	 private ForeignEntityInput mAD_WF_Node;
 
 	/**
 	 * Standard constructor
@@ -38,7 +38,7 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -55,7 +55,7 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -65,7 +65,7 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	 * @param AD_WF_Next Next Node in workflow
 	 */
 	@JsonProperty("AD_WF_Next")
-	public void setAD_WF_NextInput(I_AD_WF_NodeInput AD_WF_Next) {
+	public void setAD_WF_NextInput(ForeignEntityInput AD_WF_Next) {
 		this.mAD_WF_Next = AD_WF_Next;
 		X_AD_WF_Node foreignEntity;
 		if (AD_WF_Next != null &&
@@ -84,7 +84,7 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	 * @return Next Node in workflow
 	 */
 	@JsonProperty("AD_WF_Next")
-	public I_AD_WF_NodeInput AD_WF_Next() {
+	public ForeignEntityInput AD_WF_Next() {
 		return mAD_WF_Next;
 	}
 
@@ -94,7 +94,7 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	 * @param AD_WF_Node Workflow Node (activity), step or process
 	 */
 	@JsonProperty("AD_WF_Node")
-	public void setAD_WF_NodeInput(I_AD_WF_NodeInput AD_WF_Node) {
+	public void setAD_WF_NodeInput(ForeignEntityInput AD_WF_Node) {
 		this.mAD_WF_Node = AD_WF_Node;
 		X_AD_WF_Node foreignEntity;
 		if (get_ID() == 0 &&AD_WF_Node != null &&
@@ -111,7 +111,7 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	 * @return Workflow Node (activity), step or process
 	 */
 	@JsonProperty("AD_WF_Node")
-	public I_AD_WF_NodeInput AD_WF_Node() {
+	public ForeignEntityInput AD_WF_Node() {
 		return mAD_WF_Node;
 	}
 
@@ -139,7 +139,7 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -158,7 +158,7 @@ public class X_AD_WF_NodeNextInput extends X_AD_WF_NodeNext implements I_AD_WF_N
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 }

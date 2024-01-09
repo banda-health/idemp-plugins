@@ -21,13 +21,13 @@ import org.compiere.util.Env;
  */
 public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 
-	 private I_AD_OrgInput mAD_Org;
-	 private I_C_ChargeInput mC_Charge;
-	 private I_C_TaxInput mC_Tax;
-	 private I_M_InOutLineInput mM_InOutLine;
-	 private I_M_ProductInput mM_Product;
-	 private I_M_RMAInput mM_RMA;
-	 private I_M_RMALineInput mRef_RMALine;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mC_Charge;
+	 private ForeignEntityInput mC_Tax;
+	 private ForeignEntityInput mM_InOutLine;
+	 private ForeignEntityInput mM_Product;
+	 private ForeignEntityInput mM_RMA;
+	 private ForeignEntityInput mRef_RMALine;
 
 	/**
 	 * Standard constructor
@@ -44,7 +44,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -61,7 +61,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -71,7 +71,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @param C_Charge Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public void setC_ChargeInput(I_C_ChargeInput C_Charge) {
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
@@ -90,7 +90,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @return Additional document charges
 	 */
 	@JsonProperty("C_Charge")
-	public I_C_ChargeInput C_Charge() {
+	public ForeignEntityInput C_Charge() {
 		return mC_Charge;
 	}
 
@@ -100,7 +100,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @param C_Tax Tax identifier
 	 */
 	@JsonProperty("C_Tax")
-	public void setC_TaxInput(I_C_TaxInput C_Tax) {
+	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
 		MTax foreignEntity;
 		if (C_Tax != null &&
@@ -119,7 +119,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @return Tax identifier
 	 */
 	@JsonProperty("C_Tax")
-	public I_C_TaxInput C_Tax() {
+	public ForeignEntityInput C_Tax() {
 		return mC_Tax;
 	}
 
@@ -129,7 +129,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @param M_InOutLine Line on Shipment or Receipt document
 	 */
 	@JsonProperty("M_InOutLine")
-	public void setM_InOutLineInput(I_M_InOutLineInput M_InOutLine) {
+	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
 		if (M_InOutLine != null &&
@@ -148,7 +148,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @return Line on Shipment or Receipt document
 	 */
 	@JsonProperty("M_InOutLine")
-	public I_M_InOutLineInput M_InOutLine() {
+	public ForeignEntityInput M_InOutLine() {
 		return mM_InOutLine;
 	}
 
@@ -158,7 +158,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @param M_Product Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public void setM_ProductInput(I_M_ProductInput M_Product) {
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
@@ -177,7 +177,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @return Product, Service, Item
 	 */
 	@JsonProperty("M_Product")
-	public I_M_ProductInput M_Product() {
+	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
 
@@ -187,7 +187,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @param M_RMA Return Material Authorization
 	 */
 	@JsonProperty("M_RMA")
-	public void setM_RMAInput(I_M_RMAInput M_RMA) {
+	public void setM_RMAInput(ForeignEntityInput M_RMA) {
 		this.mM_RMA = M_RMA;
 		MRMA foreignEntity;
 		if (get_ID() == 0 &&M_RMA != null &&
@@ -204,7 +204,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @return Return Material Authorization
 	 */
 	@JsonProperty("M_RMA")
-	public I_M_RMAInput M_RMA() {
+	public ForeignEntityInput M_RMA() {
 		return mM_RMA;
 	}
 
@@ -232,7 +232,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @param Ref_RMALine Referenced RMA Line
 	 */
 	@JsonProperty("Ref_RMALine")
-	public void setRef_RMALineInput(I_M_RMALineInput Ref_RMALine) {
+	public void setRef_RMALineInput(ForeignEntityInput Ref_RMALine) {
 		this.mRef_RMALine = Ref_RMALine;
 		MRMALine foreignEntity;
 		if (Ref_RMALine != null &&
@@ -251,7 +251,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 * @return Referenced RMA Line
 	 */
 	@JsonProperty("Ref_RMALine")
-	public I_M_RMALineInput Ref_RMALine() {
+	public ForeignEntityInput Ref_RMALine() {
 		return mRef_RMALine;
 	}
 }

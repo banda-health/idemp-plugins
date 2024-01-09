@@ -15,84 +15,84 @@ public interface I_M_RMALineInput extends I_M_RMALine {
 	 *
 	 * @param AD_Org Organizational entity within client
 	 */
-	void setAD_OrgInput(I_AD_OrgInput AD_Org);
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
 	 * @return Organizational entity within client
 	 */
-	I_AD_OrgInput AD_Org();
+	ForeignEntityInput AD_Org();
 
 	/**
 	 * Set C_Charge.
 	 *
 	 * @param C_Charge Additional document charges
 	 */
-	void setC_ChargeInput(I_C_ChargeInput C_Charge);
+	void setC_ChargeInput(ForeignEntityInput C_Charge);
 
 	/**
 	 * Get C_Charge.
 	 *
 	 * @return Additional document charges
 	 */
-	I_C_ChargeInput C_Charge();
+	ForeignEntityInput C_Charge();
 
 	/**
 	 * Set C_Tax.
 	 *
 	 * @param C_Tax Tax identifier
 	 */
-	void setC_TaxInput(I_C_TaxInput C_Tax);
+	void setC_TaxInput(ForeignEntityInput C_Tax);
 
 	/**
 	 * Get C_Tax.
 	 *
 	 * @return Tax identifier
 	 */
-	I_C_TaxInput C_Tax();
+	ForeignEntityInput C_Tax();
 
 	/**
 	 * Set M_InOutLine.
 	 *
 	 * @param M_InOutLine Line on Shipment or Receipt document
 	 */
-	void setM_InOutLineInput(I_M_InOutLineInput M_InOutLine);
+	void setM_InOutLineInput(ForeignEntityInput M_InOutLine);
 
 	/**
 	 * Get M_InOutLine.
 	 *
 	 * @return Line on Shipment or Receipt document
 	 */
-	I_M_InOutLineInput M_InOutLine();
+	ForeignEntityInput M_InOutLine();
 
 	/**
 	 * Set M_Product.
 	 *
 	 * @param M_Product Product, Service, Item
 	 */
-	void setM_ProductInput(I_M_ProductInput M_Product);
+	void setM_ProductInput(ForeignEntityInput M_Product);
 
 	/**
 	 * Get M_Product.
 	 *
 	 * @return Product, Service, Item
 	 */
-	I_M_ProductInput M_Product();
+	ForeignEntityInput M_Product();
 
 	/**
 	 * Set M_RMA.
 	 *
 	 * @param M_RMA Return Material Authorization
 	 */
-	void setM_RMAInput(I_M_RMAInput M_RMA);
+	void setM_RMAInput(ForeignEntityInput M_RMA);
 
 	/**
 	 * Get M_RMA.
 	 *
 	 * @return Return Material Authorization
 	 */
-	I_M_RMAInput M_RMA();
+	ForeignEntityInput M_RMA();
 
 	/**
 	 * Set ID.
@@ -113,12 +113,12 @@ public interface I_M_RMALineInput extends I_M_RMALine {
 	 *
 	 * @param Ref_RMALine Ref_RMALine
 	 */
-	void setRef_RMALineInput(I_M_RMALineInput Ref_RMALine);
+	void setRef_RMALineInput(ForeignEntityInput Ref_RMALine);
 
 	/**
 	 * Get Ref_RMALine.
 	 *
 	 * @return Ref_RMALine
 	 */
-	I_M_RMALineInput Ref_RMALine();
+	ForeignEntityInput Ref_RMALine();
 }

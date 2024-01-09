@@ -5,6 +5,11 @@ extend type Query {
 	AD_ImageGet(page: Int, size: Int, sort: String, filter: String): AD_ImageConnection!
 }
 
+extend type Mutation {
+	AD_ImageSave(entity: AD_ImageInput!): AD_Image!
+	AD_ImageDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_ImageConnection {
 	results: [AD_Image!]!
 	pagingInfo: PagingInfo!
@@ -38,3 +43,20 @@ type AD_Image {
 	UpdatedBy: AD_User!
 }
 
+input AD_ImageInput {
+	ID: ID
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Binary Data
+	BinaryData: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

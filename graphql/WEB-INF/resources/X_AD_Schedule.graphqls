@@ -5,6 +5,11 @@ extend type Query {
 	AD_ScheduleGet(page: Int, size: Int, sort: String, filter: String): AD_ScheduleConnection!
 }
 
+extend type Mutation {
+	AD_ScheduleSave(entity: AD_ScheduleInput!): AD_Schedule!
+	AD_ScheduleDelete(uuids: [String!]!): Boolean!
+}
+
 type AD_ScheduleConnection {
 	results: [AD_Schedule!]!
 	pagingInfo: PagingInfo!
@@ -49,3 +54,31 @@ type AD_Schedule {
 	WeekDay: AD_Ref_List
 }
 
+input AD_ScheduleInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Cron pattern to define when the process should be invoked.
+	CronPattern: String
+	# Optional short description of the record
+	Description: String
+	# Frequency of events
+	Frequency: Int
+	# Frequency of event
+	FrequencyType: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Do not include processing time for the DateNextRun calculation
+	IsIgnoreProcessingTime: Boolean
+	# Schedule Just For System
+	IsSystemSchedule: Boolean
+	# Day of the month 1 to 28/29/30/31
+	MonthDay: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	RunOnlyOnIP: String
+	# Type of schedule
+	ScheduleType: AD_Ref_ListInput
+	# Day of the Week
+	WeekDay: AD_Ref_ListInput
+}

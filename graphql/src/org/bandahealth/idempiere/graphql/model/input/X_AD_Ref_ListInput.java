@@ -18,9 +18,9 @@ import org.compiere.util.Env;
  */
 public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInput {
 
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_ReferenceInput mAD_Reference;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Reference;
 
 	/**
 	 * Standard constructor
@@ -37,7 +37,7 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -54,7 +54,7 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -82,7 +82,7 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	 * @param AD_Reference System Reference and Validation
 	 */
 	@JsonProperty("AD_Reference")
-	public void setAD_ReferenceInput(I_AD_ReferenceInput AD_Reference) {
+	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
 		MReference_BH foreignEntity;
 		if (get_ID() == 0 &&AD_Reference != null &&
@@ -99,7 +99,7 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	 * @return System Reference and Validation
 	 */
 	@JsonProperty("AD_Reference")
-	public I_AD_ReferenceInput AD_Reference() {
+	public ForeignEntityInput AD_Reference() {
 		return mAD_Reference;
 	}
 
@@ -109,7 +109,7 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -128,7 +128,7 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 }

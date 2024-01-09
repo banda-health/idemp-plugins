@@ -23,17 +23,17 @@ import org.compiere.util.Env;
  */
 public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 
-	 private I_AD_OrgInput mAD_Org;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Rule;
+	 private ForeignEntityInput mC_Country;
+	 private ForeignEntityInput mC_CountryGroupFrom;
+	 private ForeignEntityInput mC_CountryGroupTo;
+	 private ForeignEntityInput mC_Region;
+	 private ForeignEntityInput mC_TaxCategory;
+	 private ForeignEntityInput mC_TaxProvider;
+	 private ForeignEntityInput mParent_Tax;
+	 private ForeignEntityInput mTo_Region;
 	 private I_AD_Ref_ListInput mSOPOType;
-	 private I_AD_RuleInput mAD_Rule;
-	 private I_C_CountryGroupInput mC_CountryGroupFrom;
-	 private I_C_CountryGroupInput mC_CountryGroupTo;
-	 private I_C_CountryInput mC_Country;
-	 private I_C_RegionInput mC_Region;
-	 private I_C_RegionInput mTo_Region;
-	 private I_C_TaxCategoryInput mC_TaxCategory;
-	 private I_C_TaxInput mParent_Tax;
-	 private I_C_TaxProviderInput mC_TaxProvider;
 
 	/**
 	 * Standard constructor
@@ -50,7 +50,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -67,7 +67,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -77,7 +77,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param AD_Rule Rule
 	 */
 	@JsonProperty("AD_Rule")
-	public void setAD_RuleInput(I_AD_RuleInput AD_Rule) {
+	public void setAD_RuleInput(ForeignEntityInput AD_Rule) {
 		this.mAD_Rule = AD_Rule;
 		MRule foreignEntity;
 		if (AD_Rule != null &&
@@ -96,7 +96,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Rule
 	 */
 	@JsonProperty("AD_Rule")
-	public I_AD_RuleInput AD_Rule() {
+	public ForeignEntityInput AD_Rule() {
 		return mAD_Rule;
 	}
 
@@ -106,7 +106,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param C_Country Country 
 	 */
 	@JsonProperty("C_Country")
-	public void setC_CountryInput(I_C_CountryInput C_Country) {
+	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
 		MCountry foreignEntity;
 		if (C_Country != null &&
@@ -125,7 +125,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Country 
 	 */
 	@JsonProperty("C_Country")
-	public I_C_CountryInput C_Country() {
+	public ForeignEntityInput C_Country() {
 		return mC_Country;
 	}
 
@@ -135,7 +135,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param C_CountryGroupFrom Country Group From
 	 */
 	@JsonProperty("C_CountryGroupFrom")
-	public void setC_CountryGroupFromInput(I_C_CountryGroupInput C_CountryGroupFrom) {
+	public void setC_CountryGroupFromInput(ForeignEntityInput C_CountryGroupFrom) {
 		this.mC_CountryGroupFrom = C_CountryGroupFrom;
 		MCountryGroup foreignEntity;
 		if (C_CountryGroupFrom != null &&
@@ -154,7 +154,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Country Group From
 	 */
 	@JsonProperty("C_CountryGroupFrom")
-	public I_C_CountryGroupInput C_CountryGroupFrom() {
+	public ForeignEntityInput C_CountryGroupFrom() {
 		return mC_CountryGroupFrom;
 	}
 
@@ -164,7 +164,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param C_CountryGroupTo Country Group To
 	 */
 	@JsonProperty("C_CountryGroupTo")
-	public void setC_CountryGroupToInput(I_C_CountryGroupInput C_CountryGroupTo) {
+	public void setC_CountryGroupToInput(ForeignEntityInput C_CountryGroupTo) {
 		this.mC_CountryGroupTo = C_CountryGroupTo;
 		MCountryGroup foreignEntity;
 		if (C_CountryGroupTo != null &&
@@ -183,7 +183,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Country Group To
 	 */
 	@JsonProperty("C_CountryGroupTo")
-	public I_C_CountryGroupInput C_CountryGroupTo() {
+	public ForeignEntityInput C_CountryGroupTo() {
 		return mC_CountryGroupTo;
 	}
 
@@ -193,7 +193,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param C_Region Identifies a geographical Region
 	 */
 	@JsonProperty("C_Region")
-	public void setC_RegionInput(I_C_RegionInput C_Region) {
+	public void setC_RegionInput(ForeignEntityInput C_Region) {
 		this.mC_Region = C_Region;
 		MRegion foreignEntity;
 		if (C_Region != null &&
@@ -212,7 +212,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Identifies a geographical Region
 	 */
 	@JsonProperty("C_Region")
-	public I_C_RegionInput C_Region() {
+	public ForeignEntityInput C_Region() {
 		return mC_Region;
 	}
 
@@ -240,7 +240,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param C_TaxCategory Tax Category
 	 */
 	@JsonProperty("C_TaxCategory")
-	public void setC_TaxCategoryInput(I_C_TaxCategoryInput C_TaxCategory) {
+	public void setC_TaxCategoryInput(ForeignEntityInput C_TaxCategory) {
 		this.mC_TaxCategory = C_TaxCategory;
 		MTaxCategory foreignEntity;
 		if (C_TaxCategory != null &&
@@ -259,7 +259,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Tax Category
 	 */
 	@JsonProperty("C_TaxCategory")
-	public I_C_TaxCategoryInput C_TaxCategory() {
+	public ForeignEntityInput C_TaxCategory() {
 		return mC_TaxCategory;
 	}
 
@@ -269,7 +269,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param C_TaxProvider Tax Provider
 	 */
 	@JsonProperty("C_TaxProvider")
-	public void setC_TaxProviderInput(I_C_TaxProviderInput C_TaxProvider) {
+	public void setC_TaxProviderInput(ForeignEntityInput C_TaxProvider) {
 		this.mC_TaxProvider = C_TaxProvider;
 		MTaxProvider foreignEntity;
 		if (C_TaxProvider != null &&
@@ -288,7 +288,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Tax Provider
 	 */
 	@JsonProperty("C_TaxProvider")
-	public I_C_TaxProviderInput C_TaxProvider() {
+	public ForeignEntityInput C_TaxProvider() {
 		return mC_TaxProvider;
 	}
 
@@ -298,7 +298,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param Parent_Tax Parent Tax indicates a tax that is made up of multiple taxes
 	 */
 	@JsonProperty("Parent_Tax")
-	public void setParent_TaxInput(I_C_TaxInput Parent_Tax) {
+	public void setParent_TaxInput(ForeignEntityInput Parent_Tax) {
 		this.mParent_Tax = Parent_Tax;
 		MTax foreignEntity;
 		if (Parent_Tax != null &&
@@ -317,7 +317,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Parent Tax indicates a tax that is made up of multiple taxes
 	 */
 	@JsonProperty("Parent_Tax")
-	public I_C_TaxInput Parent_Tax() {
+	public ForeignEntityInput Parent_Tax() {
 		return mParent_Tax;
 	}
 
@@ -356,7 +356,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param To_Region Receiving Region
 	 */
 	@JsonProperty("To_Region")
-	public void setTo_RegionInput(I_C_RegionInput To_Region) {
+	public void setTo_RegionInput(ForeignEntityInput To_Region) {
 		this.mTo_Region = To_Region;
 		MRegion foreignEntity;
 		if (To_Region != null &&
@@ -375,7 +375,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Receiving Region
 	 */
 	@JsonProperty("To_Region")
-	public I_C_RegionInput To_Region() {
+	public ForeignEntityInput To_Region() {
 		return mTo_Region;
 	}
 }

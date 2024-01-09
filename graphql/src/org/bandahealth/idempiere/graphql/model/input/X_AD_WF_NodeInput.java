@@ -32,14 +32,23 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput {
 
-	 private I_AD_ColumnInput mAD_Column;
-	 private I_AD_CtxHelpInput mAD_CtxHelp;
-	 private I_AD_EntityTypeInput mAD_EntityType;
-	 private I_AD_FormInput mAD_Form;
-	 private I_AD_ImageInput mAD_Image;
-	 private I_AD_InfoWindowInput mAD_InfoWindow;
-	 private I_AD_OrgInput mAD_Org;
-	 private I_AD_ProcessInput mAD_Process;
+	 private ForeignEntityInput mAD_Column;
+	 private ForeignEntityInput mAD_CtxHelp;
+	 private ForeignEntityInput mAD_EntityType;
+	 private ForeignEntityInput mAD_Form;
+	 private ForeignEntityInput mAD_Image;
+	 private ForeignEntityInput mAD_InfoWindow;
+	 private ForeignEntityInput mAD_Org;
+	 private ForeignEntityInput mAD_Process;
+	 private ForeignEntityInput mAD_Task;
+	 private ForeignEntityInput mAD_WF_Block;
+	 private ForeignEntityInput mAD_WF_Responsible;
+	 private ForeignEntityInput mAD_Window;
+	 private ForeignEntityInput mAD_Workflow;
+	 private ForeignEntityInput mC_BPartner;
+	 private ForeignEntityInput mR_MailText;
+	 private ForeignEntityInput mS_Resource;
+	 private ForeignEntityInput mWorkflow;
 	 private I_AD_Ref_ListInput mAction;
 	 private I_AD_Ref_ListInput mDocAction;
 	 private I_AD_Ref_ListInput mDynPriorityUnit;
@@ -49,15 +58,6 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 private I_AD_Ref_ListInput mSplitElement;
 	 private I_AD_Ref_ListInput mStartMode;
 	 private I_AD_Ref_ListInput mSubflowExecution;
-	 private I_AD_TaskInput mAD_Task;
-	 private I_AD_WF_BlockInput mAD_WF_Block;
-	 private I_AD_WF_ResponsibleInput mAD_WF_Responsible;
-	 private I_AD_WindowInput mAD_Window;
-	 private I_AD_WorkflowInput mAD_Workflow;
-	 private I_AD_WorkflowInput mWorkflow;
-	 private I_C_BPartnerInput mC_BPartner;
-	 private I_R_MailTextInput mR_MailText;
-	 private I_S_ResourceInput mS_Resource;
 
 	/**
 	 * Standard constructor
@@ -103,7 +103,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_Column Column in the table
 	 */
 	@JsonProperty("AD_Column")
-	public void setAD_ColumnInput(I_AD_ColumnInput AD_Column) {
+	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
 		MColumn foreignEntity;
 		if (AD_Column != null &&
@@ -122,7 +122,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Column in the table
 	 */
 	@JsonProperty("AD_Column")
-	public I_AD_ColumnInput AD_Column() {
+	public ForeignEntityInput AD_Column() {
 		return mAD_Column;
 	}
 
@@ -132,7 +132,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_CtxHelp Context Help
 	 */
 	@JsonProperty("AD_CtxHelp")
-	public void setAD_CtxHelpInput(I_AD_CtxHelpInput AD_CtxHelp) {
+	public void setAD_CtxHelpInput(ForeignEntityInput AD_CtxHelp) {
 		this.mAD_CtxHelp = AD_CtxHelp;
 		MCtxHelp foreignEntity;
 		if (AD_CtxHelp != null &&
@@ -151,7 +151,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Context Help
 	 */
 	@JsonProperty("AD_CtxHelp")
-	public I_AD_CtxHelpInput AD_CtxHelp() {
+	public ForeignEntityInput AD_CtxHelp() {
 		return mAD_CtxHelp;
 	}
 
@@ -161,7 +161,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_Form Special Form
 	 */
 	@JsonProperty("AD_Form")
-	public void setAD_FormInput(I_AD_FormInput AD_Form) {
+	public void setAD_FormInput(ForeignEntityInput AD_Form) {
 		this.mAD_Form = AD_Form;
 		MForm foreignEntity;
 		if (AD_Form != null &&
@@ -180,7 +180,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Special Form
 	 */
 	@JsonProperty("AD_Form")
-	public I_AD_FormInput AD_Form() {
+	public ForeignEntityInput AD_Form() {
 		return mAD_Form;
 	}
 
@@ -190,7 +190,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_Image Image or Icon
 	 */
 	@JsonProperty("AD_Image")
-	public void setAD_ImageInput(I_AD_ImageInput AD_Image) {
+	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
@@ -209,7 +209,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Image or Icon
 	 */
 	@JsonProperty("AD_Image")
-	public I_AD_ImageInput AD_Image() {
+	public ForeignEntityInput AD_Image() {
 		return mAD_Image;
 	}
 
@@ -219,7 +219,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_InfoWindow Info and search/select Window
 	 */
 	@JsonProperty("AD_InfoWindow")
-	public void setAD_InfoWindowInput(I_AD_InfoWindowInput AD_InfoWindow) {
+	public void setAD_InfoWindowInput(ForeignEntityInput AD_InfoWindow) {
 		this.mAD_InfoWindow = AD_InfoWindow;
 		MInfoWindow foreignEntity;
 		if (AD_InfoWindow != null &&
@@ -238,7 +238,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Info and search/select Window
 	 */
 	@JsonProperty("AD_InfoWindow")
-	public I_AD_InfoWindowInput AD_InfoWindow() {
+	public ForeignEntityInput AD_InfoWindow() {
 		return mAD_InfoWindow;
 	}
 
@@ -248,7 +248,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_Org Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public void setAD_OrgInput(I_AD_OrgInput AD_Org) {
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (get_ID() == 0 &&AD_Org != null &&
@@ -265,7 +265,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Organizational entity within client
 	 */
 	@JsonProperty("AD_Org")
-	public I_AD_OrgInput AD_Org() {
+	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 
@@ -275,7 +275,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_Process Process or Report
 	 */
 	@JsonProperty("AD_Process")
-	public void setAD_ProcessInput(I_AD_ProcessInput AD_Process) {
+	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
 		if (AD_Process != null &&
@@ -294,7 +294,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Process or Report
 	 */
 	@JsonProperty("AD_Process")
-	public I_AD_ProcessInput AD_Process() {
+	public ForeignEntityInput AD_Process() {
 		return mAD_Process;
 	}
 
@@ -304,7 +304,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_Task Operation System Task
 	 */
 	@JsonProperty("AD_Task")
-	public void setAD_TaskInput(I_AD_TaskInput AD_Task) {
+	public void setAD_TaskInput(ForeignEntityInput AD_Task) {
 		this.mAD_Task = AD_Task;
 		MTask foreignEntity;
 		if (AD_Task != null &&
@@ -323,7 +323,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Operation System Task
 	 */
 	@JsonProperty("AD_Task")
-	public I_AD_TaskInput AD_Task() {
+	public ForeignEntityInput AD_Task() {
 		return mAD_Task;
 	}
 
@@ -333,7 +333,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_WF_Block Workflow Transaction Execution Block
 	 */
 	@JsonProperty("AD_WF_Block")
-	public void setAD_WF_BlockInput(I_AD_WF_BlockInput AD_WF_Block) {
+	public void setAD_WF_BlockInput(ForeignEntityInput AD_WF_Block) {
 		this.mAD_WF_Block = AD_WF_Block;
 		X_AD_WF_Block foreignEntity;
 		if (AD_WF_Block != null &&
@@ -352,7 +352,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Workflow Transaction Execution Block
 	 */
 	@JsonProperty("AD_WF_Block")
-	public I_AD_WF_BlockInput AD_WF_Block() {
+	public ForeignEntityInput AD_WF_Block() {
 		return mAD_WF_Block;
 	}
 
@@ -380,7 +380,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_WF_Responsible Responsible for Workflow Execution
 	 */
 	@JsonProperty("AD_WF_Responsible")
-	public void setAD_WF_ResponsibleInput(I_AD_WF_ResponsibleInput AD_WF_Responsible) {
+	public void setAD_WF_ResponsibleInput(ForeignEntityInput AD_WF_Responsible) {
 		this.mAD_WF_Responsible = AD_WF_Responsible;
 		X_AD_WF_Responsible foreignEntity;
 		if (AD_WF_Responsible != null &&
@@ -399,7 +399,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Responsible for Workflow Execution
 	 */
 	@JsonProperty("AD_WF_Responsible")
-	public I_AD_WF_ResponsibleInput AD_WF_Responsible() {
+	public ForeignEntityInput AD_WF_Responsible() {
 		return mAD_WF_Responsible;
 	}
 
@@ -409,7 +409,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_Window Data entry or display window
 	 */
 	@JsonProperty("AD_Window")
-	public void setAD_WindowInput(I_AD_WindowInput AD_Window) {
+	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
 		if (AD_Window != null &&
@@ -428,7 +428,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Data entry or display window
 	 */
 	@JsonProperty("AD_Window")
-	public I_AD_WindowInput AD_Window() {
+	public ForeignEntityInput AD_Window() {
 		return mAD_Window;
 	}
 
@@ -438,7 +438,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_Workflow Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public void setAD_WorkflowInput(I_AD_WorkflowInput AD_Workflow) {
+	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
 		if (get_ID() == 0 &&AD_Workflow != null &&
@@ -455,7 +455,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Workflow or combination of tasks
 	 */
 	@JsonProperty("AD_Workflow")
-	public I_AD_WorkflowInput AD_Workflow() {
+	public ForeignEntityInput AD_Workflow() {
 		return mAD_Workflow;
 	}
 
@@ -465,7 +465,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param C_BPartner Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public void setC_BPartnerInput(I_C_BPartnerInput C_BPartner) {
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
@@ -484,7 +484,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
-	public I_C_BPartnerInput C_BPartner() {
+	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
 	}
 
@@ -581,7 +581,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public void setAD_EntityTypeInput(I_AD_EntityTypeInput AD_EntityType) {
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
@@ -600,7 +600,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	@JsonProperty("AD_EntityType")
-	public I_AD_EntityTypeInput AD_EntityType() {
+	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
 	}
 
@@ -668,7 +668,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param R_MailText Text templates for mailings
 	 */
 	@JsonProperty("R_MailText")
-	public void setR_MailTextInput(I_R_MailTextInput R_MailText) {
+	public void setR_MailTextInput(ForeignEntityInput R_MailText) {
 		this.mR_MailText = R_MailText;
 		MMailText foreignEntity;
 		if (R_MailText != null &&
@@ -687,7 +687,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Text templates for mailings
 	 */
 	@JsonProperty("R_MailText")
-	public I_R_MailTextInput R_MailText() {
+	public ForeignEntityInput R_MailText() {
 		return mR_MailText;
 	}
 
@@ -697,7 +697,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param S_Resource Resource
 	 */
 	@JsonProperty("S_Resource")
-	public void setS_ResourceInput(I_S_ResourceInput S_Resource) {
+	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
 		if (S_Resource != null &&
@@ -716,7 +716,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Resource
 	 */
 	@JsonProperty("S_Resource")
-	public I_S_ResourceInput S_Resource() {
+	public ForeignEntityInput S_Resource() {
 		return mS_Resource;
 	}
 
@@ -813,7 +813,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param Workflow Workflow or tasks
 	 */
 	@JsonProperty("Workflow")
-	public void setWorkflowInput(I_AD_WorkflowInput Workflow) {
+	public void setWorkflowInput(ForeignEntityInput Workflow) {
 		this.mWorkflow = Workflow;
 		X_AD_Workflow foreignEntity;
 		if (Workflow != null &&
@@ -832,7 +832,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Workflow or tasks
 	 */
 	@JsonProperty("Workflow")
-	public I_AD_WorkflowInput Workflow() {
+	public ForeignEntityInput Workflow() {
 		return mWorkflow;
 	}
 }
