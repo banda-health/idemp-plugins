@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InsuranceInvoice" pageWidth="595" pageHeight="842" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="57" bottomMargin="36" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Docker PostgreSQL"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Ubuntu PostgreSQL"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="515"/>
@@ -766,7 +766,6 @@ WHERE
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
-					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="ProductsDataSet" uuid="77f05f28-fa97-43f1-88b9-ebd17b6e4fdd">
@@ -800,12 +799,12 @@ WHERE
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="73" uuid="f6ac971d-6ade-4fef-8fa1-5ee2b17a142e">
+					<jr:column width="70" uuid="f6ac971d-6ade-4fef-8fa1-5ee2b17a142e">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="73" height="15" uuid="f02ea4ec-4f1c-4a89-b21e-ff61242b0d91"/>
+								<reportElement x="0" y="0" width="70" height="15" uuid="f02ea4ec-4f1c-4a89-b21e-ff61242b0d91"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3" rightIndent="3"/>
@@ -815,8 +814,9 @@ WHERE
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TF" height="20" rowSpan="1"/>
 						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<textField pattern="#,##0">
-								<reportElement x="0" y="0" width="73" height="15" uuid="1b080468-3c74-4a87-ba7d-7742b28ff72e"/>
+								<reportElement x="0" y="0" width="70" height="15" uuid="1b080468-3c74-4a87-ba7d-7742b28ff72e"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
 								</textElement>
@@ -824,11 +824,11 @@ WHERE
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="69" uuid="c3d0d070-e0bd-4c54-a6a6-1915ff69bdfd">
+					<jr:column width="77" uuid="c3d0d070-e0bd-4c54-a6a6-1915ff69bdfd">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="69" height="15" uuid="6df5ed7f-39a6-4654-a4f2-7283daa9f046">
+								<reportElement x="0" y="0" width="77" height="15" uuid="6df5ed7f-39a6-4654-a4f2-7283daa9f046">
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -846,7 +846,7 @@ WHERE
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<staticText>
-								<reportElement style="Table_TF" x="0" y="0" width="69" height="20" uuid="746e194e-52ef-4cc7-81da-69f9ac42b875"/>
+								<reportElement style="Table_TF" x="0" y="0" width="77" height="20" uuid="746e194e-52ef-4cc7-81da-69f9ac42b875"/>
 								<box topPadding="4"/>
 								<textElement textAlignment="Right">
 									<font isBold="true"/>
@@ -856,7 +856,7 @@ WHERE
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="15">
 							<textField pattern="#,##0">
-								<reportElement x="0" y="0" width="69" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
+								<reportElement x="0" y="0" width="77" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
 								</textElement>
@@ -864,11 +864,11 @@ WHERE
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="85" uuid="f8fe607e-ee2b-4d58-a7b7-4006bf725c69">
+					<jr:column width="80" uuid="f8fe607e-ee2b-4d58-a7b7-4006bf725c69">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="85" height="15" uuid="1660fb8e-34f5-4aa4-89a1-7163e7a59c23"/>
+								<reportElement x="0" y="0" width="80" height="15" uuid="1660fb8e-34f5-4aa4-89a1-7163e7a59c23"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font isBold="true"/>
 									<paragraph leftIndent="3" rightIndent="3"/>
@@ -884,7 +884,7 @@ WHERE
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textField>
-								<reportElement style="Table_TF" x="0" y="0" width="85" height="20" uuid="665e383c-2430-4d82-a8ec-c1fa4b8adabe"/>
+								<reportElement style="Table_TF" x="0" y="0" width="80" height="20" uuid="665e383c-2430-4d82-a8ec-c1fa4b8adabe"/>
 								<box topPadding="4"/>
 								<textElement textAlignment="Right">
 									<font isBold="true"/>
@@ -893,8 +893,9 @@ WHERE
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<textField pattern="#,##0">
-								<reportElement x="0" y="0" width="85" height="15" uuid="afa3425e-0418-4a7e-90cd-eb27491a256b"/>
+								<reportElement x="0" y="0" width="80" height="15" uuid="afa3425e-0418-4a7e-90cd-eb27491a256b"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
 								</textElement>
@@ -986,12 +987,13 @@ WHERE
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="69" uuid="48840dab-0888-47b9-bc5c-dd30262b4b59">
+					<jr:column width="74" uuid="48840dab-0888-47b9-bc5c-dd30262b4b59">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:tableHeader style="Table_TH" height="24" rowSpan="1"/>
 						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="69" height="15" uuid="dbb7978b-48e4-4031-97f2-f190613a7994">
+								<reportElement x="0" y="0" width="74" height="15" uuid="dbb7978b-48e4-4031-97f2-f190613a7994">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Right">
@@ -1004,7 +1006,7 @@ WHERE
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<textField>
-								<reportElement x="0" y="0" width="69" height="15" uuid="c788ccaf-7489-4e2a-a217-47a24c495725">
+								<reportElement x="0" y="0" width="74" height="15" uuid="c788ccaf-7489-4e2a-a217-47a24c495725">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Right">
@@ -1014,12 +1016,13 @@ WHERE
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="85" uuid="c58ade63-5884-498d-b062-1177524113bc">
+					<jr:column width="80" uuid="c58ade63-5884-498d-b062-1177524113bc">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:tableHeader style="Table_TH" height="24" rowSpan="1"/>
 						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="85" height="15" uuid="36f90237-be24-4ef1-97c4-c90b919b9170">
+								<reportElement x="0" y="0" width="80" height="15" uuid="36f90237-be24-4ef1-97c4-c90b919b9170">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Right">
@@ -1033,7 +1036,7 @@ WHERE
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<textField>
-								<reportElement x="0" y="0" width="85" height="15" uuid="94e662c9-6ef6-4b35-8981-f74326eeb640">
+								<reportElement x="0" y="0" width="80" height="15" uuid="94e662c9-6ef6-4b35-8981-f74326eeb640">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Right">
@@ -1066,18 +1069,19 @@ WHERE
 		<band height="76">
 			<printWhenExpression><![CDATA[!$P{ShowInsuranceInfo}]]></printWhenExpression>
 			<staticText>
-				<reportElement x="248" y="10" width="200" height="17" uuid="0e4c731f-dc07-4cb6-afc4-67c5c1087abb"/>
+				<reportElement x="237" y="10" width="200" height="17" uuid="0e4c731f-dc07-4cb6-afc4-67c5c1087abb"/>
 				<textElement>
 					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[PAYMENT TYPE]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement x="248" y="30" width="232" height="15" uuid="bd27c0be-9c12-46aa-8ad7-e526a83ebab3">
+				<reportElement x="237" y="30" width="243" height="35" uuid="bd27c0be-9c12-46aa-8ad7-e526a83ebab3">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 3_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 3_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table 3_TD"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -1099,11 +1103,11 @@ WHERE
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="74" uuid="205b7ad5-51a7-486a-9d34-29ce13a2a931">
+					<jr:column width="90" uuid="205b7ad5-51a7-486a-9d34-29ce13a2a931">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnFooter style="Table_TF" height="20" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="74" height="20" uuid="b322b0d3-2719-41e5-9270-8819b28d0a5f"/>
+								<reportElement x="0" y="0" width="90" height="20" uuid="b322b0d3-2719-41e5-9270-8819b28d0a5f"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font isBold="true"/>
 								</textElement>
@@ -1111,8 +1115,9 @@ WHERE
 							</staticText>
 						</jr:columnFooter>
 						<jr:detailCell style="Table 3_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<textField>
-								<reportElement x="0" y="0" width="74" height="15" uuid="2cd2cdb4-6cd0-4d4b-b192-e0917098f104">
+								<reportElement x="0" y="0" width="90" height="15" uuid="2cd2cdb4-6cd0-4d4b-b192-e0917098f104">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Right">
@@ -1122,11 +1127,11 @@ WHERE
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="85" uuid="bc3cceae-45e3-459d-b0a8-f73446797e3f">
+					<jr:column width="80" uuid="bc3cceae-45e3-459d-b0a8-f73446797e3f">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnFooter style="Table_TF" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="85" height="20" uuid="af19c42b-444c-4d52-b731-740da8538634">
+								<reportElement x="0" y="0" width="80" height="20" uuid="af19c42b-444c-4d52-b731-740da8538634">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -1138,9 +1143,8 @@ WHERE
 						</jr:columnFooter>
 						<jr:detailCell style="Table 3_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							<textField>
-								<reportElement x="0" y="0" width="85" height="15" uuid="a6f6e5ce-7ee6-420b-996a-4dc6a8fadcdf">
+								<reportElement x="0" y="0" width="80" height="15" uuid="a6f6e5ce-7ee6-420b-996a-4dc6a8fadcdf">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
 								<textElement textAlignment="Right">

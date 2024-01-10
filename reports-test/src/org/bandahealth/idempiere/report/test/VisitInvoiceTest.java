@@ -273,7 +273,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> cashPaymentRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains("Cash"))).findFirst();
+									cell.getStringCellValue().equals("Cash"))).findFirst();
 			assertTrue(cashPaymentRow.isPresent(), "Cash payment is on the invoice");
 			assertTrue(StreamSupport.stream(cashPaymentRow.get().spliterator(), false).anyMatch(
 					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
@@ -282,7 +282,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> mobileMoneyRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains("Mobile Money"))).findFirst();
+									cell.getStringCellValue().equals("Mobile Money"))).findFirst();
 			assertTrue(mobileMoneyRow.isPresent(), "Mobile money payment is on the invoice");
 			assertTrue(StreamSupport.stream(mobileMoneyRow.get().spliterator(), false).anyMatch(
 					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
