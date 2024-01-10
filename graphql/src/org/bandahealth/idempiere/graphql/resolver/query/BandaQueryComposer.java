@@ -14,6 +14,7 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 	 */
 	public static void addAll(SchemaParserBuilder builder) {
 		builder.resolvers(
+				new AuthenticationQuery(),
 				new MBHVisitQuery(),
 				new X_AD_ChartQuery(),
 				new X_AD_ClientQuery(),
@@ -40,6 +41,7 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 				new X_AD_Ref_ListQuery(),
 				new X_AD_ReplicationStrategyQuery(),
 				new X_AD_ReportViewQuery(),
+				new X_AD_Role_IncludedQuery(),
 				new X_AD_RoleQuery(),
 				new X_AD_RuleQuery(),
 				new X_AD_ScheduleQuery(),
@@ -61,6 +63,7 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 				new X_AD_WF_ProcessDataQuery(),
 				new X_AD_WF_ProcessQuery(),
 				new X_AD_WF_ResponsibleQuery(),
+				new X_AD_Window_AccessQuery(),
 				new X_AD_WindowQuery(),
 				new X_AD_WorkflowProcessorQuery(),
 				new X_AD_WorkflowQuery(),

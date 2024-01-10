@@ -1,4 +1,4 @@
 package org.bandahealth.idempiere.graphql.resolver.model;
 
-public class M_AD_UserResolver extends X_AD_UserResolver {
+public class MRefListResolver extends X_AD_Ref_ListResolver {
 }

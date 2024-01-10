@@ -1,4 +1,4 @@
 package org.bandahealth.idempiere.graphql.resolver.model;
 
-public class M_M_InOutResolver extends X_M_InOutResolver {
+public class MInOutResolver extends X_M_InOutResolver {
 }

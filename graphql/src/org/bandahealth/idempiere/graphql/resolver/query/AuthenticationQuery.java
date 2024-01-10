@@ -1,9 +1,9 @@
-package org.bandahealth.idempiere.graphql.resolver.mutation;
+package org.bandahealth.idempiere.graphql.resolver.query;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
-import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
@@ -45,9 +45,9 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
- * Handle all mutations relating to authentication
+ * Handle all queries relating to authentication
  */
-public class AuthenticationMutation implements GraphQLMutationResolver {
+public class AuthenticationQuery implements GraphQLQueryResolver {
 
 	/**
 	 * The sign-in method to authentication a user
@@ -122,7 +122,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		}
 		if (Util.isEmpty(credentials.getPassword())) {
 			throw new IllegalArgumentException(
-					org.compiere.util.Msg.getMsg(idempiereContext, MMessage_BH.OLD_PASSWORD_MANDATORY));
+					Msg.getMsg(idempiereContext, MMessage_BH.OLD_PASSWORD_MANDATORY));
 		}
 
 		// retrieve list of clients the user has access to.
@@ -140,7 +140,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			throw new IllegalArgumentException(Msg.getMsg(idempiereContext, MMessage_BH.NEW_PASSWORD_MANDATORY));
 		}
 
-		if (org.compiere.model.MSysConfig.getBooleanValue(MSysConfig.CHANGE_PASSWORD_MUST_DIFFER, true)) {
+		if (MSysConfig.getBooleanValue(MSysConfig.CHANGE_PASSWORD_MUST_DIFFER, true)) {
 			if (credentials.getPassword().equals(credentials.getNewPassword())) {
 				throw new IllegalArgumentException(Msg.getMsg(idempiereContext, MMessage_BH.NEW_PASSWORD_MUST_DIFFER));
 			}
@@ -395,7 +395,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			builder.withClaim(LoginClaims.AD_Client_ID.name(), clients[0].getKey());
 
 			MOrg[] organizations =
-					MOrg.getOfClient(new org.compiere.model.MClient(idempiereContext, clients[0].getKey(), null));
+					MOrg.getOfClient(new MClient(idempiereContext, clients[0].getKey(), null));
 
 			// set default org
 			if (organizations.length == 1) {
