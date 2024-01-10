@@ -13,7 +13,7 @@ public class BandaMutationComposer {
 	 */
 	public static void addAll(SchemaParserBuilder builder) {
 		builder.resolvers(
-				new AuthenticationMutation(),
+//				new AuthenticationMutation(),
 				new M_AD_ClientMutation(),
 				new M_AD_OrgMutation(),
 				new M_AD_Ref_ListMutation(),
@@ -48,6 +48,7 @@ public class BandaMutationComposer {
 				new X_AD_ReferenceMutation(),
 				new X_AD_ReplicationStrategyMutation(),
 				new X_AD_ReportViewMutation(),
+				new X_AD_Role_IncludedMutation(),
 				new X_AD_RoleMutation(),
 				new X_AD_RuleMutation(),
 				new X_AD_ScheduleMutation(),
@@ -68,6 +69,7 @@ public class BandaMutationComposer {
 				new X_AD_WF_ProcessDataMutation(),
 				new X_AD_WF_ProcessMutation(),
 				new X_AD_WF_ResponsibleMutation(),
+				new X_AD_Window_AccessMutation(),
 				new X_AD_WindowMutation(),
 				new X_AD_WorkflowMutation(),
 				new X_AD_WorkflowProcessorMutation(),

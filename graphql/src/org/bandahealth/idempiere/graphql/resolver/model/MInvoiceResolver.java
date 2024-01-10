@@ -1,4 +1,4 @@
 package org.bandahealth.idempiere.graphql.resolver.model;
 
-public class M_C_PaymentResolver extends X_C_PaymentResolver {
+public class MInvoiceResolver extends X_C_InvoiceResolver {
 }

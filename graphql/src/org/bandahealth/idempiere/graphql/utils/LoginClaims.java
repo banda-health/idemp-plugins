@@ -32,5 +32,5 @@ package org.bandahealth.idempiere.graphql.utils;
  *
  */
 public enum LoginClaims {
-	AD_Client_ID, AD_User_ID, AD_Role_ID, AD_Org_ID, M_Warehouse_ID
+	AD_Client_ID, AD_User_ID, AD_Role_ID, AD_Org_ID, M_Warehouse_ID, AD_Language
 }

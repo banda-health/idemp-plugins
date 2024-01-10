@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class M_BH_VisitResolver extends X_BH_VisitResolver {
+public class MBHVisitResolver extends X_BH_VisitResolver {
 	public CompletableFuture<List<MBHEncounter>> BH_Encounters(MBHVisit entity, DataFetchingEnvironment environment) {
 		return CompletableFuture.supplyAsync(ArrayList::new);
 	}
@@ -26,7 +26,7 @@ public class M_BH_VisitResolver extends X_BH_VisitResolver {
 
 	public CompletableFuture<List<MOrder_BH>> C_Orders(MBHVisit entity, DataFetchingEnvironment environment) {
 		final DataLoader<String, List<MOrder_BH>> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(MOrderDataLoader.C_ORDER_BH_VISIT_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(MOrderDataLoader.C_Order_BH_VISIT_ID_DATA_LOADER);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getBH_Visit_ID()));
 	}
 

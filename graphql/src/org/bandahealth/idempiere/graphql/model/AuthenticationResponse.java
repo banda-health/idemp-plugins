@@ -2,7 +2,8 @@ package org.bandahealth.idempiere.graphql.model;
 
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.compiere.model.MClient;
+import org.compiere.model.MRole;
+import org.compiere.model.X_AD_Role;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +14,8 @@ import java.util.List;
 public class AuthenticationResponse {
 	private String token;
 	private MUser_BH user;
-	private String username;
-	private List<MClient_BH> clients = new ArrayList<>();
-	private String roleId;
-	private boolean needsToResetPassword;
+	private List<MClient_BH> AD_Clients = new ArrayList<>();
+	private X_AD_Role AD_Role;
 	private List<String> securityQuestions;
 
 	public String getToken() {
@@ -35,36 +34,20 @@ public class AuthenticationResponse {
 		this.user = user;
 	}
 
-	public List<MClient_BH> getClients() {
-		return clients;
+	public List<MClient_BH> getAD_Clients() {
+		return AD_Clients;
 	}
 
-	public void setClients(List<MClient_BH> clients) {
-		this.clients = clients;
+	public void setAD_Clients(List<MClient_BH> AD_Clients) {
+		this.AD_Clients = AD_Clients;
 	}
 
-	public String getUsername() {
-		return username;
+	public X_AD_Role getAD_Role() {
+		return AD_Role;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
-	}
-
-	public boolean getNeedsToResetPassword() {
-		return needsToResetPassword;
-	}
-
-	public void setNeedsToResetPassword(boolean needsToResetPassword) {
-		this.needsToResetPassword = needsToResetPassword;
+	public void setAD_Role(X_AD_Role AD_Role) {
+		this.AD_Role = AD_Role;
 	}
 
 	public List<String> getSecurityQuestions() {

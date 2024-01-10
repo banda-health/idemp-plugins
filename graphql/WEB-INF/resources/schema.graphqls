@@ -6,82 +6,16 @@ scalar Date
 
 # Per the GraphQL standard, Query types cannot be split amongst files, so all are defined here
 type Query {
-#  # Accounts
-#  account(id: String!): Account!
-#  accounts(filter: String, sort: String, page: Int, pageSize: Int): AccountConnection!
-#  # Business Partners
-#  businessPartner(id: String!): BusinessPartner
-#  customers(filter: String, sort: String, page: Int, pageSize: Int): BusinessPartnerConnection!
-#  vendors(filter: String, sort: String, page: Int, pageSize: Int): BusinessPartnerConnection!
-#  # Charges
-#  charge(id: String!): Charge
-#  expenseCategories(filter: String, sort: String, page: Int, pageSize: Int): ChargeConnection!
-#  # Invoices
-#  customerInvoices(filter: String, sort: String, page: Int, pageSize: Int): InvoiceConnection!
-#  invoice(id: String!): Invoice
-#  vendorInvoices(filter: String, sort: String, page: Int, pageSize: Int): InvoiceConnection!
-#  # Orders
-#  purchaseOrders(filter: String, sort: String, page: Int, pageSize: Int): OrderConnection!
-#  order(id: String!): Order
-#  salesOrders(filter: String, sort: String, page: Int, pageSize: Int): OrderConnection!
-#  # Payments
-#  payment(id: String!): Payment
-#  serviceDebtPayments(filter: String, sort: String, page: Int, pageSize: Int): PaymentConnection!
-#  # Processes
-#  generateReport(processInfo: ProcessInfoInput!): String
-#  process(id: String!): Process
-#  processes(filter: String, sort: String, page: Int, pageSize: Int): ProcessConnection!
-#  # Products
-#  items(filter: String, sort: String, page: Int, pageSize: Int): ProductConnection!
-#  product(id: String!): Product
-#  products(filter: String, sort: String, page: Int, pageSize: Int): ProductConnection
-#  services(filter: String, sort: String, page: Int, pageSize: Int): ProductConnection!
-#  # Product Categories
-#  productCategories: [ProductCategory!]!
-#  # Reference Lists
-#  invoicePaymentTypes: [ReferenceList!]!
-#  nhifRelationships: [ReferenceList!]!
-#  nhifTypes: [ReferenceList!]!
-#  orderPaymentTypes: [ReferenceList!]!
-#  patientTypes: [ReferenceList!]!
-#  productCategoryTypes: [ReferenceList!]!
-#  referrals: [ReferenceList!]!
-#  # Storage on hand
-#  allStorageOnHand(filter: String, sort: String, page: Int, pageSize: Int): StorageOnHandConnection!
-#  # Users
-#  acceptTermsOfUse: User!
+  # Authentication
+  changePassword(credentials: AuthenticationData!): AuthenticationResponse
+  signIn(credentials: AuthenticationData!): AuthenticationResponse
 }
 
 # Per the GraphQL standard, Mutation types cannot be split amongst files, so all are defined here
 type Mutation {
-  # Authentication
-  changePassword(credentials: AuthenticationData!): AuthenticationResponse
-  signIn(credentials: AuthenticationData!): AuthenticationResponse
-#  # Business Partner
-#  saveCustomer(businessPartner: BusinessPartnerInput!): BusinessPartner!
-#  saveVendor(businessPartner: BusinessPartnerInput!): BusinessPartner!
-#  # Charges
-#  saveExpenseCategory(charge: ChargeInput!): Charge!
-#  # Invoices
-#  deleteInvoice(id: String!): Boolean!
-#  processInvoice(id: String!): Invoice!
-#  saveCustomerInvoice(invoice: InvoiceInput!, shouldProcess: Boolean = true): Invoice!
-#  saveVendorInvoice(invoice: InvoiceInput!, shouldProcess: Boolean = true): Invoice!
-#  # Orders
-#  deleteOrder(id: String!): Boolean!
-#  processOrder(id: String!): Order!
-#  savePurchaseOrder(order: OrderInput!, shouldProcess: Boolean = true): Order!
-#  saveSalesOrder(order: OrderInput!, shouldProcess: Boolean = true): Order!
-#  # Payments
-#  processPayment(id: String!): Payment!
-#  saveServiceDebtPayment(payment: PaymentInput!, shouldProcess: Boolean = true): Payment!
-#  # Products
-#  saveItem(product: ProductInput): Product!
-#  saveService(product: ProductInput): Product!
-#  # Storage on hand
-#  updateStorageOnHand(storageOnHand: StorageOnHandInput!): StorageOnHand!
-#  # Users
-#  acceptTermsOfService(accept: Boolean!): Boolean!
+#  # Authentication
+#  changePassword(credentials: AuthenticationData!): AuthenticationResponse
+#  signIn(credentials: AuthenticationData!): AuthenticationResponse
 }
 
 # This is the root definition for GraphQL

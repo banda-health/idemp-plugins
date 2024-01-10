@@ -2,7 +2,12 @@ package org.bandahealth.idempiere.graphql.dataloader;
 
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHVisitDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MOrderDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MOrderLineDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MOrgDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MRefListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MRoleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MWarehouseDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MWindowAccessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ChartDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ClientDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColorDataLoader;
@@ -15,7 +20,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoWindowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_LanguageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_MessageDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_OrgDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PasswordRuleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintColorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFontDataLoader;
@@ -27,7 +31,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Process_ParaDataLo
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReferenceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReplicationStrategyDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReportViewDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Role_IncludedDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RuleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ScheduleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_SequenceDataLoader;
@@ -131,7 +135,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_JobCategoryDataLoad
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_JobDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_LocationDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OpportunityDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OrderLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OrderSourceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_POSDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_POSKeyLayoutDataLoader;
@@ -206,7 +209,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShippingProcessorCf
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShippingProcessorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShippingTransactionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShippingTransactionLineDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_WarehouseDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_AchievementDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_BenchmarkDataDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_BenchmarkDataLoader;
@@ -273,8 +275,13 @@ public class BandaDataLoaderComposer {
 	public BandaDataLoaderComposer() {
 		dataLoaders = Arrays.asList(
 				new MBHVisitDataLoader(),
+				new MOrgDataLoader(),
 				new MOrderDataLoader(),
+				new MOrderLineDataLoader(),
 				new MRefListDataLoader(),
+				new MRoleDataLoader(),
+				new MWarehouseDataLoader(),
+				new MWindowAccessDataLoader(),
 				new X_AD_ChartDataLoader(),
 				new X_AD_ClientDataLoader(),
 				new X_AD_ColorDataLoader(),
@@ -287,7 +294,6 @@ public class BandaDataLoaderComposer {
 				new X_AD_InfoWindowDataLoader(),
 				new X_AD_LanguageDataLoader(),
 				new X_AD_MessageDataLoader(),
-				new X_AD_OrgDataLoader(),
 				new X_AD_PasswordRuleDataLoader(),
 				new X_AD_PrintColorDataLoader(),
 				new X_AD_PrintFontDataLoader(),
@@ -299,7 +305,7 @@ public class BandaDataLoaderComposer {
 				new X_AD_ReferenceDataLoader(),
 				new X_AD_ReplicationStrategyDataLoader(),
 				new X_AD_ReportViewDataLoader(),
-				new X_AD_RoleDataLoader(),
+				new X_AD_Role_IncludedDataLoader(),
 				new X_AD_RuleDataLoader(),
 				new X_AD_ScheduleDataLoader(),
 				new X_AD_SequenceDataLoader(),
@@ -403,7 +409,6 @@ public class BandaDataLoaderComposer {
 				new X_C_JobDataLoader(),
 				new X_C_LocationDataLoader(),
 				new X_C_OpportunityDataLoader(),
-				new X_C_OrderLineDataLoader(),
 				new X_C_OrderSourceDataLoader(),
 				new X_C_PaymentBatchDataLoader(),
 				new X_C_PaymentDataLoader(),
@@ -478,7 +483,6 @@ public class BandaDataLoaderComposer {
 				new X_M_ShippingProcessorDataLoader(),
 				new X_M_ShippingTransactionDataLoader(),
 				new X_M_ShippingTransactionLineDataLoader(),
-				new X_M_WarehouseDataLoader(),
 				new X_PA_AchievementDataLoader(),
 				new X_PA_BenchmarkDataDataLoader(),
 				new X_PA_BenchmarkDataLoader(),

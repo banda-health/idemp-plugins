@@ -1,10 +1,8 @@
 type AuthenticationResponse {
   token: String
-  username: String
-  clients: [AD_Client!]!
+  AD_Clients: [AD_Client!]!
   user: AD_User
-  roleId: String!
-  needsToResetPassword: Boolean!
+  AD_Role: AD_Role
   securityQuestions: [String!]
 }
 
@@ -18,4 +16,5 @@ input AuthenticationData {
   roleId: String
   organizationId: String
   warehouseId: String
+  language: String
 }
