@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
@@ -27,7 +26,9 @@ import org.compiere.model.MTax;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_1099Box;
-import org.compiere.util.Env;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_InvoiceLine - DO NOT CHANGE
@@ -37,35 +38,36 @@ import org.compiere.util.Env;
  */
 public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_InvoiceLineInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_Asset;
-	 private ForeignEntityInput mA_Asset_Group;
-	 private ForeignEntityInput mC_1099Box;
-	 private ForeignEntityInput mC_Activity;
-	 private ForeignEntityInput mC_Campaign;
-	 private ForeignEntityInput mC_Charge;
-	 private ForeignEntityInput mC_Invoice;
-	 private ForeignEntityInput mC_OrderLine;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mC_ProjectPhase;
-	 private ForeignEntityInput mC_ProjectTask;
-	 private ForeignEntityInput mC_Tax;
-	 private ForeignEntityInput mC_UOM;
-	 private ForeignEntityInput mM_AttributeSetInstance;
-	 private ForeignEntityInput mM_InOutLine;
-	 private ForeignEntityInput mM_Product;
-	 private ForeignEntityInput mM_RMALine;
-	 private ForeignEntityInput mS_ResourceAssignment;
-	 private ForeignEntityInput mUser1;
-	 private ForeignEntityInput mUser2;
-	 private I_AD_Ref_ListInput mA_CapvsExp;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mA_Asset_Group;
+	private ForeignEntityInput mC_1099Box;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mC_Invoice;
+	private ForeignEntityInput mC_OrderLine;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mC_ProjectPhase;
+	private ForeignEntityInput mC_ProjectTask;
+	private ForeignEntityInput mC_Tax;
+	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mM_AttributeSetInstance;
+	private ForeignEntityInput mM_InOutLine;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mM_RMALine;
+	private ForeignEntityInput mS_ResourceAssignment;
+	private ForeignEntityInput mUser1;
+	private ForeignEntityInput mUser2;
+	private I_AD_Ref_ListInput mA_CapvsExp;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_InvoiceLineInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MInvoiceLine_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -79,7 +81,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mA_Asset_Group = A_Asset_Group;
 		MAssetGroup foreignEntity;
 		if (A_Asset_Group != null &&
-				(foreignEntity = new Query(getCtx(), MAssetGroup.Table_Name, MAssetGroup.COLUMNNAME_A_Asset_Group_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Group", "A_Asset_Group_UU=?", get_TrxName())
 						.setParameters(A_Asset_Group.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Group_ID(foreignEntity.get_ID());
@@ -108,7 +110,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_ID(foreignEntity.get_ID());
@@ -166,7 +168,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -195,7 +197,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mC_1099Box = C_1099Box;
 		X_C_1099Box foreignEntity;
 		if (C_1099Box != null &&
-				(foreignEntity = new Query(getCtx(), X_C_1099Box.Table_Name, X_C_1099Box.COLUMNNAME_C_1099Box_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_1099Box", "C_1099Box_UU=?", get_TrxName())
 						.setParameters(C_1099Box.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_1099Box_ID(foreignEntity.get_ID());
@@ -224,7 +226,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Activity_ID(foreignEntity.get_ID());
@@ -253,7 +255,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Campaign_ID(foreignEntity.get_ID());
@@ -282,7 +284,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Charge_ID(foreignEntity.get_ID());
@@ -310,8 +312,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
-		if (get_ID() == 0 &&C_Invoice != null &&
-				(foreignEntity = new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Invoice_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Invoice != null &&
+				(foreignEntity = new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 						.setParameters(C_Invoice.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Invoice_ID(foreignEntity.get_ID());
@@ -326,6 +328,17 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_Invoice")
 	public ForeignEntityInput C_Invoice() {
 		return mC_Invoice;
+	}
+	/**
+	 * Set Invoice Line.
+	 *
+	 * @param C_InvoiceLine_ID Invoice Detail Line
+	 */
+
+	public void setC_InvoiceLine_ID(int C_InvoiceLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_InvoiceLine_ID(C_InvoiceLine_ID);
+		}
 	}
 
 	/**
@@ -355,8 +368,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
 		MOrderLine_BH foreignEntity;
-		if (get_ID() == 0 &&C_OrderLine != null &&
-				(foreignEntity = new Query(getCtx(), MOrderLine_BH.Table_Name, MOrderLine_BH.COLUMNNAME_C_OrderLine_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_OrderLine != null &&
+				(foreignEntity = new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
 						.setParameters(C_OrderLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_OrderLine_ID(foreignEntity.get_ID());
@@ -383,7 +396,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -411,8 +424,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
 		MProjectPhase foreignEntity;
-		if (get_ID() == 0 &&C_ProjectPhase != null &&
-				(foreignEntity = new Query(getCtx(), MProjectPhase.Table_Name, MProjectPhase.COLUMNNAME_C_ProjectPhase_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_ProjectPhase != null &&
+				(foreignEntity = new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
 						.setParameters(C_ProjectPhase.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ProjectPhase_ID(foreignEntity.get_ID());
@@ -438,8 +451,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
 		MProjectTask foreignEntity;
-		if (get_ID() == 0 &&C_ProjectTask != null &&
-				(foreignEntity = new Query(getCtx(), MProjectTask.Table_Name, MProjectTask.COLUMNNAME_C_ProjectTask_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_ProjectTask != null &&
+				(foreignEntity = new Query(getCtx(), "C_ProjectTask", "C_ProjectTask_UU=?", get_TrxName())
 						.setParameters(C_ProjectTask.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ProjectTask_ID(foreignEntity.get_ID());
@@ -466,7 +479,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mC_Tax = C_Tax;
 		MTax foreignEntity;
 		if (C_Tax != null &&
-				(foreignEntity = new Query(getCtx(), MTax.Table_Name, MTax.COLUMNNAME_C_Tax_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
 						.setParameters(C_Tax.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Tax_ID(foreignEntity.get_ID());
@@ -494,8 +507,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
-		if (get_ID() == 0 &&C_UOM != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_UOM != null &&
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_ID(foreignEntity.get_ID());
@@ -533,7 +546,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
@@ -561,8 +574,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
-		if (get_ID() == 0 &&M_InOutLine != null &&
-				(foreignEntity = new Query(getCtx(), MInOutLine.Table_Name, MInOutLine.COLUMNNAME_M_InOutLine_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_InOutLine != null &&
+				(foreignEntity = new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 						.setParameters(M_InOutLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_InOutLine_ID(foreignEntity.get_ID());
@@ -589,7 +602,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());
@@ -618,7 +631,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mM_RMALine = M_RMALine;
 		MRMALine foreignEntity;
 		if (M_RMALine != null &&
-				(foreignEntity = new Query(getCtx(), MRMALine.Table_Name, MRMALine.COLUMNNAME_M_RMALine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_RMALine", "M_RMALine_UU=?", get_TrxName())
 						.setParameters(M_RMALine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_RMALine_ID(foreignEntity.get_ID());
@@ -657,8 +670,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	public void setS_ResourceAssignmentInput(ForeignEntityInput S_ResourceAssignment) {
 		this.mS_ResourceAssignment = S_ResourceAssignment;
 		MResourceAssignment foreignEntity;
-		if (get_ID() == 0 &&S_ResourceAssignment != null &&
-				(foreignEntity = new Query(getCtx(), MResourceAssignment.Table_Name, MResourceAssignment.COLUMNNAME_S_ResourceAssignment_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && S_ResourceAssignment != null &&
+				(foreignEntity = new Query(getCtx(), "S_ResourceAssignment", "S_ResourceAssignment_UU=?", get_TrxName())
 						.setParameters(S_ResourceAssignment.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setS_ResourceAssignment_ID(foreignEntity.get_ID());
@@ -685,7 +698,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser1_ID(foreignEntity.get_ID());
@@ -714,7 +727,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser2_ID(foreignEntity.get_ID());

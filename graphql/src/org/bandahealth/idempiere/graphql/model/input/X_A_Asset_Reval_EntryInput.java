@@ -12,7 +12,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Asset_Reval_Entry;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Reval_Entry - DO NOT CHANGE
@@ -22,25 +23,37 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements I_A_Asset_Reval_EntryInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_AcctSchema;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_DocType;
-	 private ForeignEntityInput mC_Period;
-	 private ForeignEntityInput mGL_Category;
-	 private I_AD_Ref_ListInput mA_Rev_Code;
-	 private I_AD_Ref_ListInput mA_Reval_Cal_Method;
-	 private I_AD_Ref_ListInput mA_Reval_Effective_Date;
-	 private I_AD_Ref_ListInput mA_Reval_Multiplier;
-	 private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_DocType;
+	private ForeignEntityInput mC_Period;
+	private ForeignEntityInput mGL_Category;
+	private I_AD_Ref_ListInput mA_Rev_Code;
+	private I_AD_Ref_ListInput mA_Reval_Cal_Method;
+	private I_AD_Ref_ListInput mA_Reval_Effective_Date;
+	private I_AD_Ref_ListInput mA_Reval_Multiplier;
+	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Asset_Reval_EntryInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_A_Asset_Reval_Entry(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
+	}
+	/**
+	 * Set Asset Reval. Entry.
+	 *
+	 * @param A_Asset_Reval_Entry_ID Asset Reval. Entry
+	 */
+
+	public void setA_Asset_Reval_Entry_ID(int A_Asset_Reval_Entry_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Reval_Entry_ID(A_Asset_Reval_Entry_ID);
+		}
 	}
 
 	/**
@@ -187,7 +200,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -216,7 +229,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());
@@ -245,7 +258,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -274,7 +287,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocType_ID(foreignEntity.get_ID());
@@ -303,7 +316,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
-				(foreignEntity = new Query(getCtx(), MPeriod.Table_Name, MPeriod.COLUMNNAME_C_Period_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
 						.setParameters(C_Period.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Period_ID(foreignEntity.get_ID());
@@ -332,7 +345,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 		this.mGL_Category = GL_Category;
 		MGLCategory foreignEntity;
 		if (GL_Category != null &&
-				(foreignEntity = new Query(getCtx(), MGLCategory.Table_Name, MGLCategory.COLUMNNAME_GL_Category_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
 						.setParameters(GL_Category.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setGL_Category_ID(foreignEntity.get_ID());

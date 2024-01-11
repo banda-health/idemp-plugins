@@ -8,7 +8,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Ref_List - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInput {
 
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Reference;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Reference;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_Ref_ListInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MRefList_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -56,6 +58,17 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Reference List.
+	 *
+	 * @param AD_Ref_List_ID Reference List based on Table
+	 */
+
+	public void setAD_Ref_List_ID(int AD_Ref_List_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Ref_List_ID(AD_Ref_List_ID);
+		}
 	}
 
 	/**
@@ -85,8 +98,8 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
 		MReference_BH foreignEntity;
-		if (get_ID() == 0 &&AD_Reference != null &&
-				(foreignEntity = new Query(getCtx(), MReference_BH.Table_Name, MReference_BH.COLUMNNAME_AD_Reference_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Reference != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 						.setParameters(AD_Reference.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Reference_ID(foreignEntity.get_ID());
@@ -113,7 +126,7 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());

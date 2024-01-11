@@ -9,7 +9,8 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
 import org.compiere.model.MSalesRegion;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_BPartner_Location - DO NOT CHANGE
@@ -19,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C_BPartner_LocationInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_Location;
-	 private ForeignEntityInput mC_SalesRegion;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_Location;
+	private ForeignEntityInput mC_SalesRegion;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_BPartner_LocationInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MBPartnerLocation(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -42,8 +44,8 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -69,8 +71,8 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 &&C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_BPartner != null &&
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -85,6 +87,17 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	@JsonProperty("C_BPartner")
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
+	}
+	/**
+	 * Set Partner Location.
+	 *
+	 * @param C_BPartner_Location_ID Identifies the (ship to) address for this Business Partner
+	 */
+
+	public void setC_BPartner_Location_ID(int C_BPartner_Location_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_Location_ID(C_BPartner_Location_ID);
+		}
 	}
 
 	/**
@@ -115,7 +128,7 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
-				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 						.setParameters(C_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Location_ID(foreignEntity.get_ID());
@@ -144,7 +157,7 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 		this.mC_SalesRegion = C_SalesRegion;
 		MSalesRegion foreignEntity;
 		if (C_SalesRegion != null &&
-				(foreignEntity = new Query(getCtx(), MSalesRegion.Table_Name, MSalesRegion.COLUMNNAME_C_SalesRegion_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
 						.setParameters(C_SalesRegion.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_SalesRegion_ID(foreignEntity.get_ID());

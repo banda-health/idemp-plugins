@@ -9,7 +9,8 @@ import org.compiere.model.MAssetGroup;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_Product_Category - DO NOT CHANGE
@@ -19,19 +20,20 @@ import org.compiere.util.Env;
  */
 public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_M_Product_CategoryInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_PrintColor;
-	 private ForeignEntityInput mA_Asset_Group;
-	 private ForeignEntityInput mM_Product_Category_Parent;
-	 private I_AD_Ref_ListInput mBH_Product_Category_Type;
-	 private I_AD_Ref_ListInput mMMPolicy;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PrintColor;
+	private ForeignEntityInput mA_Asset_Group;
+	private ForeignEntityInput mM_Product_Category_Parent;
+	private I_AD_Ref_ListInput mBH_Product_Category_Type;
+	private I_AD_Ref_ListInput mMMPolicy;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_Product_CategoryInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MProductCategory_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -45,7 +47,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 		this.mA_Asset_Group = A_Asset_Group;
 		MAssetGroup foreignEntity;
 		if (A_Asset_Group != null &&
-				(foreignEntity = new Query(getCtx(), MAssetGroup.Table_Name, MAssetGroup.COLUMNNAME_A_Asset_Group_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Group", "A_Asset_Group_UU=?", get_TrxName())
 						.setParameters(A_Asset_Group.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Group_ID(foreignEntity.get_ID());
@@ -73,8 +75,8 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -101,7 +103,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(AD_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PrintColor_ID(foreignEntity.get_ID());
@@ -148,6 +150,17 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	public I_AD_Ref_ListInput BH_Product_Category_Type() {
 		return mBH_Product_Category_Type;
 	}
+	/**
+	 * Set Product Category.
+	 *
+	 * @param M_Product_Category_ID Category of a Product
+	 */
+
+	public void setM_Product_Category_ID(int M_Product_Category_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_Category_ID(M_Product_Category_ID);
+		}
+	}
 
 	/**
 	 * Set Parent Product Category.
@@ -159,7 +172,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 		this.mM_Product_Category_Parent = M_Product_Category_Parent;
 		MProductCategory_BH foreignEntity;
 		if (M_Product_Category_Parent != null &&
-				(foreignEntity = new Query(getCtx(), MProductCategory_BH.Table_Name, MProductCategory_BH.COLUMNNAME_M_Product_Category_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
 						.setParameters(M_Product_Category_Parent.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_Category_Parent_ID(foreignEntity.get_ID());

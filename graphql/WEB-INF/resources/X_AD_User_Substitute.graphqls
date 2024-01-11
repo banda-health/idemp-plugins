@@ -1,0 +1,66 @@
+# Generated Schema for AD_User_Substitute - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_User_SubstituteGet(page: Int, size: Int, sort: String, filter: String): AD_User_SubstituteConnection!
+}
+
+extend type Mutation {
+	AD_User_SubstituteSave(entity: AD_User_SubstituteInput!): AD_User_Substitute!
+	AD_User_SubstituteDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_User_SubstituteConnection {
+	results: [AD_User_Substitute!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_User_Substitute {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Entity which can be used in place of this entity
+	Substitute: AD_User!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
+
+input AD_User_SubstituteInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Entity which can be used in place of this entity
+	Substitute: ForeignEntityInput
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

@@ -10,7 +10,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
 import org.compiere.model.X_AD_WF_Responsible;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_WF_Responsible - DO NOT CHANGE
@@ -20,18 +21,19 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_AD_WF_ResponsibleInput {
 
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Role;
-	 private ForeignEntityInput mAD_User;
-	 private I_AD_Ref_ListInput mResponsibleType;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Role;
+	private ForeignEntityInput mAD_User;
+	private I_AD_Ref_ListInput mResponsibleType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_WF_ResponsibleInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_AD_WF_Responsible(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -44,8 +46,8 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -72,7 +74,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_Role.Table_Name, X_AD_Role.COLUMNNAME_AD_Role_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 						.setParameters(AD_Role.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Role_ID(foreignEntity.get_ID());
@@ -101,7 +103,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -118,6 +120,17 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
+	}
+	/**
+	 * Set Workflow Responsible.
+	 *
+	 * @param AD_WF_Responsible_ID Responsible for Workflow Execution
+	 */
+
+	public void setAD_WF_Responsible_ID(int AD_WF_Responsible_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_Responsible_ID(AD_WF_Responsible_ID);
+		}
 	}
 
 	/**
@@ -148,7 +161,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());

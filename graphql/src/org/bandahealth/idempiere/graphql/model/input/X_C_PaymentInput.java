@@ -26,7 +26,8 @@ import org.compiere.model.MPaymentProcessor;
 import org.compiere.model.MProject;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_POSTenderType;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_Payment - DO NOT CHANGE
@@ -36,43 +37,44 @@ import org.compiere.util.Env;
  */
 public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mBH_Visit;
-	 private ForeignEntityInput mC_Activity;
-	 private ForeignEntityInput mC_BP_BankAccount;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_BankAccount;
-	 private ForeignEntityInput mC_Campaign;
-	 private ForeignEntityInput mC_CashBook;
-	 private ForeignEntityInput mC_Charge;
-	 private ForeignEntityInput mC_ConversionType;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_DepositBatch;
-	 private ForeignEntityInput mC_DocType;
-	 private ForeignEntityInput mC_Invoice;
-	 private ForeignEntityInput mC_Order;
-	 private ForeignEntityInput mC_POSTenderType;
-	 private ForeignEntityInput mC_PaymentBatch;
-	 private ForeignEntityInput mC_PaymentProcessor;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mRef_Payment;
-	 private ForeignEntityInput mReversal;
-	 private ForeignEntityInput mUser1;
-	 private ForeignEntityInput mUser2;
-	 private I_AD_Ref_ListInput mCreditCardType;
-	 private I_AD_Ref_ListInput mDocAction;
-	 private I_AD_Ref_ListInput mDocStatus;
-	 private I_AD_Ref_ListInput mR_AvsAddr;
-	 private I_AD_Ref_ListInput mR_AvsZip;
-	 private I_AD_Ref_ListInput mTenderType;
-	 private I_AD_Ref_ListInput mTrxType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_Visit;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_BP_BankAccount;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_BankAccount;
+	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_CashBook;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mC_ConversionType;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_DepositBatch;
+	private ForeignEntityInput mC_DocType;
+	private ForeignEntityInput mC_Invoice;
+	private ForeignEntityInput mC_Order;
+	private ForeignEntityInput mC_POSTenderType;
+	private ForeignEntityInput mC_PaymentBatch;
+	private ForeignEntityInput mC_PaymentProcessor;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mRef_Payment;
+	private ForeignEntityInput mReversal;
+	private ForeignEntityInput mUser1;
+	private ForeignEntityInput mUser2;
+	private I_AD_Ref_ListInput mCreditCardType;
+	private I_AD_Ref_ListInput mDocAction;
+	private I_AD_Ref_ListInput mDocStatus;
+	private I_AD_Ref_ListInput mR_AvsAddr;
+	private I_AD_Ref_ListInput mR_AvsZip;
+	private I_AD_Ref_ListInput mTenderType;
+	private I_AD_Ref_ListInput mTrxType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_PaymentInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MPayment_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -85,8 +87,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -113,7 +115,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mBH_Visit = BH_Visit;
 		MBHVisit foreignEntity;
 		if (BH_Visit != null &&
-				(foreignEntity = new Query(getCtx(), MBHVisit.Table_Name, MBHVisit.COLUMNNAME_BH_Visit_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
 						.setParameters(BH_Visit.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setBH_Visit_ID(foreignEntity.get_ID());
@@ -142,7 +144,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Activity_ID(foreignEntity.get_ID());
@@ -171,7 +173,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), MBankAccount_BH.Table_Name, MBankAccount_BH.COLUMNNAME_C_BankAccount_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 						.setParameters(C_BankAccount.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BankAccount_ID(foreignEntity.get_ID());
@@ -200,7 +202,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_BP_BankAccount = C_BP_BankAccount;
 		MBPBankAccount foreignEntity;
 		if (C_BP_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), MBPBankAccount.Table_Name, MBPBankAccount.COLUMNNAME_C_BP_BankAccount_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BP_BankAccount", "C_BP_BankAccount_UU=?", get_TrxName())
 						.setParameters(C_BP_BankAccount.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BP_BankAccount_ID(foreignEntity.get_ID());
@@ -229,7 +231,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -258,7 +260,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Campaign_ID(foreignEntity.get_ID());
@@ -287,7 +289,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
 		if (C_CashBook != null &&
-				(foreignEntity = new Query(getCtx(), MCashBook.Table_Name, MCashBook.COLUMNNAME_C_CashBook_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
 						.setParameters(C_CashBook.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_CashBook_ID(foreignEntity.get_ID());
@@ -316,7 +318,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Charge_ID(foreignEntity.get_ID());
@@ -345,7 +347,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_ConversionType = C_ConversionType;
 		MConversionType foreignEntity;
 		if (C_ConversionType != null &&
-				(foreignEntity = new Query(getCtx(), MConversionType.Table_Name, MConversionType.COLUMNNAME_C_ConversionType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
 						.setParameters(C_ConversionType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ConversionType_ID(foreignEntity.get_ID());
@@ -374,7 +376,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -402,8 +404,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_DepositBatchInput(ForeignEntityInput C_DepositBatch) {
 		this.mC_DepositBatch = C_DepositBatch;
 		MDepositBatch foreignEntity;
-		if (get_ID() == 0 &&C_DepositBatch != null &&
-				(foreignEntity = new Query(getCtx(), MDepositBatch.Table_Name, MDepositBatch.COLUMNNAME_C_DepositBatch_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_DepositBatch != null &&
+				(foreignEntity = new Query(getCtx(), "C_DepositBatch", "C_DepositBatch_UU=?", get_TrxName())
 						.setParameters(C_DepositBatch.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DepositBatch_ID(foreignEntity.get_ID());
@@ -430,7 +432,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocType_ID(foreignEntity.get_ID());
@@ -459,7 +461,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
 		if (C_Invoice != null &&
-				(foreignEntity = new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Invoice_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 						.setParameters(C_Invoice.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Invoice_ID(foreignEntity.get_ID());
@@ -488,7 +490,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
 		if (C_Order != null &&
-				(foreignEntity = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 						.setParameters(C_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Order_ID(foreignEntity.get_ID());
@@ -505,6 +507,17 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	@JsonProperty("C_Order")
 	public ForeignEntityInput C_Order() {
 		return mC_Order;
+	}
+	/**
+	 * Set Payment.
+	 *
+	 * @param C_Payment_ID Payment identifier
+	 */
+
+	public void setC_Payment_ID(int C_Payment_ID) {
+		if (get_ID() == 0) {
+			super.setC_Payment_ID(C_Payment_ID);
+		}
 	}
 
 	/**
@@ -535,7 +548,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_PaymentBatch = C_PaymentBatch;
 		MPaymentBatch foreignEntity;
 		if (C_PaymentBatch != null &&
-				(foreignEntity = new Query(getCtx(), MPaymentBatch.Table_Name, MPaymentBatch.COLUMNNAME_C_PaymentBatch_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_PaymentBatch", "C_PaymentBatch_UU=?", get_TrxName())
 						.setParameters(C_PaymentBatch.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_PaymentBatch_ID(foreignEntity.get_ID());
@@ -564,7 +577,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_PaymentProcessor = C_PaymentProcessor;
 		MPaymentProcessor foreignEntity;
 		if (C_PaymentProcessor != null &&
-				(foreignEntity = new Query(getCtx(), MPaymentProcessor.Table_Name, MPaymentProcessor.COLUMNNAME_C_PaymentProcessor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_PaymentProcessor", "C_PaymentProcessor_UU=?", get_TrxName())
 						.setParameters(C_PaymentProcessor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_PaymentProcessor_ID(foreignEntity.get_ID());
@@ -593,7 +606,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_POSTenderType = C_POSTenderType;
 		X_C_POSTenderType foreignEntity;
 		if (C_POSTenderType != null &&
-				(foreignEntity = new Query(getCtx(), X_C_POSTenderType.Table_Name, X_C_POSTenderType.COLUMNNAME_C_POSTenderType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_POSTenderType", "C_POSTenderType_UU=?", get_TrxName())
 						.setParameters(C_POSTenderType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_POSTenderType_ID(foreignEntity.get_ID());
@@ -622,7 +635,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -901,8 +914,8 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setRef_PaymentInput(ForeignEntityInput Ref_Payment) {
 		this.mRef_Payment = Ref_Payment;
 		MPayment_BH foreignEntity;
-		if (get_ID() == 0 &&Ref_Payment != null &&
-				(foreignEntity = new Query(getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && Ref_Payment != null &&
+				(foreignEntity = new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
 						.setParameters(Ref_Payment.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setRef_Payment_ID(foreignEntity.get_ID());
@@ -929,7 +942,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mReversal = Reversal;
 		MPayment_BH foreignEntity;
 		if (Reversal != null &&
-				(foreignEntity = new Query(getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
 						.setParameters(Reversal.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setReversal_ID(foreignEntity.get_ID());
@@ -1027,7 +1040,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser1_ID(foreignEntity.get_ID());
@@ -1056,7 +1069,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser2_ID(foreignEntity.get_ID());

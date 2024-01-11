@@ -20,7 +20,8 @@ import org.compiere.model.MProjectTask;
 import org.compiere.model.MRMALine;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_InOutLine - DO NOT CHANGE
@@ -30,30 +31,31 @@ import org.compiere.util.Env;
  */
 public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Activity;
-	 private ForeignEntityInput mC_Campaign;
-	 private ForeignEntityInput mC_Charge;
-	 private ForeignEntityInput mC_OrderLine;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mC_ProjectPhase;
-	 private ForeignEntityInput mC_ProjectTask;
-	 private ForeignEntityInput mC_UOM;
-	 private ForeignEntityInput mM_AttributeSetInstance;
-	 private ForeignEntityInput mM_InOut;
-	 private ForeignEntityInput mM_Locator;
-	 private ForeignEntityInput mM_Product;
-	 private ForeignEntityInput mM_RMALine;
-	 private ForeignEntityInput mReversalLine;
-	 private ForeignEntityInput mUser1;
-	 private ForeignEntityInput mUser2;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mC_OrderLine;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mC_ProjectPhase;
+	private ForeignEntityInput mC_ProjectTask;
+	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mM_AttributeSetInstance;
+	private ForeignEntityInput mM_InOut;
+	private ForeignEntityInput mM_Locator;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mM_RMALine;
+	private ForeignEntityInput mReversalLine;
+	private ForeignEntityInput mUser1;
+	private ForeignEntityInput mUser2;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_InOutLineInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MInOutLine(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -66,8 +68,8 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -94,7 +96,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Activity_ID(foreignEntity.get_ID());
@@ -123,7 +125,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Campaign_ID(foreignEntity.get_ID());
@@ -152,7 +154,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Charge_ID(foreignEntity.get_ID());
@@ -180,8 +182,8 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
 		MOrderLine_BH foreignEntity;
-		if (get_ID() == 0 &&C_OrderLine != null &&
-				(foreignEntity = new Query(getCtx(), MOrderLine_BH.Table_Name, MOrderLine_BH.COLUMNNAME_C_OrderLine_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_OrderLine != null &&
+				(foreignEntity = new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
 						.setParameters(C_OrderLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_OrderLine_ID(foreignEntity.get_ID());
@@ -208,7 +210,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -237,7 +239,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mC_ProjectPhase = C_ProjectPhase;
 		MProjectPhase foreignEntity;
 		if (C_ProjectPhase != null &&
-				(foreignEntity = new Query(getCtx(), MProjectPhase.Table_Name, MProjectPhase.COLUMNNAME_C_ProjectPhase_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
 						.setParameters(C_ProjectPhase.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ProjectPhase_ID(foreignEntity.get_ID());
@@ -266,7 +268,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mC_ProjectTask = C_ProjectTask;
 		MProjectTask foreignEntity;
 		if (C_ProjectTask != null &&
-				(foreignEntity = new Query(getCtx(), MProjectTask.Table_Name, MProjectTask.COLUMNNAME_C_ProjectTask_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ProjectTask", "C_ProjectTask_UU=?", get_TrxName())
 						.setParameters(C_ProjectTask.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ProjectTask_ID(foreignEntity.get_ID());
@@ -294,8 +296,8 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
-		if (get_ID() == 0 &&C_UOM != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_UOM != null &&
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_ID(foreignEntity.get_ID());
@@ -322,7 +324,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
@@ -350,8 +352,8 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	public void setM_InOutInput(ForeignEntityInput M_InOut) {
 		this.mM_InOut = M_InOut;
 		MInOut_BH foreignEntity;
-		if (get_ID() == 0 &&M_InOut != null &&
-				(foreignEntity = new Query(getCtx(), MInOut_BH.Table_Name, MInOut_BH.COLUMNNAME_M_InOut_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_InOut != null &&
+				(foreignEntity = new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
 						.setParameters(M_InOut.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_InOut_ID(foreignEntity.get_ID());
@@ -366,6 +368,17 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	@JsonProperty("M_InOut")
 	public ForeignEntityInput M_InOut() {
 		return mM_InOut;
+	}
+	/**
+	 * Set Shipment/Receipt Line.
+	 *
+	 * @param M_InOutLine_ID Line on Shipment or Receipt document
+	 */
+
+	public void setM_InOutLine_ID(int M_InOutLine_ID) {
+		if (get_ID() == 0) {
+			super.setM_InOutLine_ID(M_InOutLine_ID);
+		}
 	}
 
 	/**
@@ -396,7 +409,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
-				(foreignEntity = new Query(getCtx(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Locator_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 						.setParameters(M_Locator.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Locator_ID(foreignEntity.get_ID());
@@ -425,7 +438,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());
@@ -454,7 +467,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mM_RMALine = M_RMALine;
 		MRMALine foreignEntity;
 		if (M_RMALine != null &&
-				(foreignEntity = new Query(getCtx(), MRMALine.Table_Name, MRMALine.COLUMNNAME_M_RMALine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_RMALine", "M_RMALine_UU=?", get_TrxName())
 						.setParameters(M_RMALine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_RMALine_ID(foreignEntity.get_ID());
@@ -483,7 +496,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mReversalLine = ReversalLine;
 		MInOutLine foreignEntity;
 		if (ReversalLine != null &&
-				(foreignEntity = new Query(getCtx(), MInOutLine.Table_Name, MInOutLine.COLUMNNAME_M_InOutLine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 						.setParameters(ReversalLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setReversalLine_ID(foreignEntity.get_ID());
@@ -512,7 +525,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser1_ID(foreignEntity.get_ID());
@@ -541,7 +554,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser2_ID(foreignEntity.get_ID());

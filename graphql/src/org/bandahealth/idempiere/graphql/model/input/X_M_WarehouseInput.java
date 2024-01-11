@@ -8,7 +8,8 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_Warehouse - DO NOT CHANGE
@@ -18,17 +19,18 @@ import org.compiere.util.Env;
  */
 public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Location;
-	 private ForeignEntityInput mM_ReserveLocator;
-	 private ForeignEntityInput mM_WarehouseSource;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Location;
+	private ForeignEntityInput mM_ReserveLocator;
+	private ForeignEntityInput mM_WarehouseSource;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_WarehouseInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MWarehouse_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -41,8 +43,8 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -69,7 +71,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
-				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 						.setParameters(C_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Location_ID(foreignEntity.get_ID());
@@ -98,7 +100,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 		this.mM_ReserveLocator = M_ReserveLocator;
 		MLocator foreignEntity;
 		if (M_ReserveLocator != null &&
-				(foreignEntity = new Query(getCtx(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Locator_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 						.setParameters(M_ReserveLocator.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ReserveLocator_ID(foreignEntity.get_ID());
@@ -115,6 +117,17 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	@JsonProperty("M_ReserveLocator")
 	public ForeignEntityInput M_ReserveLocator() {
 		return mM_ReserveLocator;
+	}
+	/**
+	 * Set Warehouse.
+	 *
+	 * @param M_Warehouse_ID Storage Warehouse and Service Point
+	 */
+
+	public void setM_Warehouse_ID(int M_Warehouse_ID) {
+		if (get_ID() == 0) {
+			super.setM_Warehouse_ID(M_Warehouse_ID);
+		}
 	}
 
 	/**
@@ -145,7 +158,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 		this.mM_WarehouseSource = M_WarehouseSource;
 		MWarehouse_BH foreignEntity;
 		if (M_WarehouseSource != null &&
-				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 						.setParameters(M_WarehouseSource.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_WarehouseSource_ID(foreignEntity.get_ID());

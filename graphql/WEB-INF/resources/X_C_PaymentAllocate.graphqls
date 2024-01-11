@@ -1,0 +1,74 @@
+# Generated Schema for C_PaymentAllocate - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_PaymentAllocateGet(page: Int, size: Int, sort: String, filter: String): C_PaymentAllocateConnection!
+}
+
+extend type Mutation {
+	C_PaymentAllocateSave(entity: C_PaymentAllocateInput!): C_PaymentAllocate!
+	C_PaymentAllocateDelete(uuids: [String!]!): Boolean!
+}
+
+type C_PaymentAllocateConnection {
+	results: [C_PaymentAllocate!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_PaymentAllocate {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Amount in a defined currency
+	Amount: Int!
+	# Allocation Line
+	C_AllocationLine: C_AllocationLine
+	# Invoice Identifier
+	C_Invoice: C_Invoice!
+	# Payment identifier
+	C_Payment: C_Payment!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Calculated amount of discount
+	DiscountAmt: Int!
+	InvoiceAmt: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
+	OverUnderAmt: Int!
+	# Remaining Amount
+	RemainingAmt: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Amount to write-off
+	WriteOffAmt: Int!
+}
+
+input C_PaymentAllocateInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Amount in a defined currency
+	Amount: Int
+	# Allocation Line
+	C_AllocationLine: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	ID: ID
+	# Calculated amount of discount
+	DiscountAmt: Int
+	InvoiceAmt: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
+	OverUnderAmt: Int
+	# Amount to write-off
+	WriteOffAmt: Int
+}

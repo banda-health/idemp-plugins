@@ -1,0 +1,94 @@
+# Generated Schema for M_BP_Price - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_BP_PriceGet(page: Int, size: Int, sort: String, filter: String): M_BP_PriceConnection!
+}
+
+extend type Mutation {
+	M_BP_PriceSave(entity: M_BP_PriceInput!): M_BP_Price!
+	M_BP_PriceDelete(uuids: [String!]!): Boolean!
+}
+
+type M_BP_PriceConnection {
+	results: [M_BP_Price!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_BP_Price {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Low Value of trade discount break level
+	BreakValue: Int!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Comments or additional information
+	Comments: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Discount in percent
+	Discount: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	# Net Price including all discounts
+	IsNetPrice: Boolean!
+	ID: ID!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Lowest price for a product
+	PriceLimit: Int!
+	# List Price
+	PriceList: Int!
+	# Type of price override, fixed price or discount off list
+	PriceOverrideType: AD_Ref_List
+	# Standard Price
+	PriceStd: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
+
+input M_BP_PriceInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Low Value of trade discount break level
+	BreakValue: Int
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Comments or additional information
+	Comments: String
+	# Discount in percent
+	Discount: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Net Price including all discounts
+	IsNetPrice: Boolean
+	ID: ID
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Lowest price for a product
+	PriceLimit: Int
+	# List Price
+	PriceList: Int
+	# Type of price override, fixed price or discount off list
+	PriceOverrideType: AD_Ref_ListInput
+	# Standard Price
+	PriceStd: Int
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

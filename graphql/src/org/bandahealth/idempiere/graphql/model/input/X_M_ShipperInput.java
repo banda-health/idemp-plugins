@@ -9,7 +9,8 @@ import org.compiere.model.MShipper;
 import org.compiere.model.MShippingProcessor;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_ShipperCfg;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_Shipper - DO NOT CHANGE
@@ -19,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mM_ShipperCfg;
-	 private ForeignEntityInput mM_ShippingProcessor;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mM_ShipperCfg;
+	private ForeignEntityInput mM_ShippingProcessor;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_ShipperInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MShipper(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -42,8 +44,8 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -70,7 +72,7 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -87,6 +89,17 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 	@JsonProperty("C_BPartner")
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
+	}
+	/**
+	 * Set Shipper.
+	 *
+	 * @param M_Shipper_ID Method or manner of product delivery
+	 */
+
+	public void setM_Shipper_ID(int M_Shipper_ID) {
+		if (get_ID() == 0) {
+			super.setM_Shipper_ID(M_Shipper_ID);
+		}
 	}
 
 	/**
@@ -117,7 +130,7 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 		this.mM_ShipperCfg = M_ShipperCfg;
 		X_M_ShipperCfg foreignEntity;
 		if (M_ShipperCfg != null &&
-				(foreignEntity = new Query(getCtx(), X_M_ShipperCfg.Table_Name, X_M_ShipperCfg.COLUMNNAME_M_ShipperCfg_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_ShipperCfg", "M_ShipperCfg_UU=?", get_TrxName())
 						.setParameters(M_ShipperCfg.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShipperCfg_ID(foreignEntity.get_ID());
@@ -146,7 +159,7 @@ public class X_M_ShipperInput extends MShipper implements I_M_ShipperInput {
 		this.mM_ShippingProcessor = M_ShippingProcessor;
 		MShippingProcessor foreignEntity;
 		if (M_ShippingProcessor != null &&
-				(foreignEntity = new Query(getCtx(), MShippingProcessor.Table_Name, MShippingProcessor.COLUMNNAME_M_ShippingProcessor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_ShippingProcessor", "M_ShippingProcessor_UU=?", get_TrxName())
 						.setParameters(M_ShippingProcessor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShippingProcessor_ID(foreignEntity.get_ID());

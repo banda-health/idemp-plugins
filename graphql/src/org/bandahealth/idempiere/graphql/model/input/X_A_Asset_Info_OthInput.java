@@ -7,7 +7,8 @@ import org.compiere.model.MAsset;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Asset_Info_Oth;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Info_Oth - DO NOT CHANGE
@@ -17,16 +18,17 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_Asset_Info_OthInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_Asset;
-	 private ForeignEntityInput mA_Asset_Info_Oth;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mA_Asset_Info_Oth;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Asset_Info_OthInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_A_Asset_Info_Oth(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -39,8 +41,8 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
-		if (get_ID() == 0 &&A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && A_Asset != null &&
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_ID(foreignEntity.get_ID());
@@ -67,7 +69,7 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 		this.mA_Asset_Info_Oth = A_Asset_Info_Oth;
 		X_A_Asset_Info_Oth foreignEntity;
 		if (A_Asset_Info_Oth != null &&
-				(foreignEntity = new Query(getCtx(), X_A_Asset_Info_Oth.Table_Name, X_A_Asset_Info_Oth.COLUMNNAME_A_Asset_Info_Oth_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Info_Oth", "A_Asset_Info_Oth_UU=?", get_TrxName())
 						.setParameters(A_Asset_Info_Oth.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Info_Oth_ID(foreignEntity.get_ID());
@@ -113,8 +115,8 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());

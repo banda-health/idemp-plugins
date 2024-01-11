@@ -13,7 +13,8 @@ import org.compiere.model.MTax;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MTaxProvider;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_Tax - DO NOT CHANGE
@@ -23,24 +24,25 @@ import org.compiere.util.Env;
  */
 public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Rule;
-	 private ForeignEntityInput mC_Country;
-	 private ForeignEntityInput mC_CountryGroupFrom;
-	 private ForeignEntityInput mC_CountryGroupTo;
-	 private ForeignEntityInput mC_Region;
-	 private ForeignEntityInput mC_TaxCategory;
-	 private ForeignEntityInput mC_TaxProvider;
-	 private ForeignEntityInput mParent_Tax;
-	 private ForeignEntityInput mTo_Region;
-	 private I_AD_Ref_ListInput mSOPOType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Rule;
+	private ForeignEntityInput mC_Country;
+	private ForeignEntityInput mC_CountryGroupFrom;
+	private ForeignEntityInput mC_CountryGroupTo;
+	private ForeignEntityInput mC_Region;
+	private ForeignEntityInput mC_TaxCategory;
+	private ForeignEntityInput mC_TaxProvider;
+	private ForeignEntityInput mParent_Tax;
+	private ForeignEntityInput mTo_Region;
+	private I_AD_Ref_ListInput mSOPOType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_TaxInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MTax(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -53,8 +55,8 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -81,7 +83,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 		this.mAD_Rule = AD_Rule;
 		MRule foreignEntity;
 		if (AD_Rule != null &&
-				(foreignEntity = new Query(getCtx(), MRule.Table_Name, MRule.COLUMNNAME_AD_Rule_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Rule", "AD_Rule_UU=?", get_TrxName())
 						.setParameters(AD_Rule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Rule_ID(foreignEntity.get_ID());
@@ -110,7 +112,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 		this.mC_Country = C_Country;
 		MCountry foreignEntity;
 		if (C_Country != null &&
-				(foreignEntity = new Query(getCtx(), MCountry.Table_Name, MCountry.COLUMNNAME_C_Country_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
 						.setParameters(C_Country.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Country_ID(foreignEntity.get_ID());
@@ -139,7 +141,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 		this.mC_CountryGroupFrom = C_CountryGroupFrom;
 		MCountryGroup foreignEntity;
 		if (C_CountryGroupFrom != null &&
-				(foreignEntity = new Query(getCtx(), MCountryGroup.Table_Name, MCountryGroup.COLUMNNAME_C_CountryGroup_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_CountryGroup", "C_CountryGroup_UU=?", get_TrxName())
 						.setParameters(C_CountryGroupFrom.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_CountryGroupFrom_ID(foreignEntity.get_ID());
@@ -168,7 +170,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 		this.mC_CountryGroupTo = C_CountryGroupTo;
 		MCountryGroup foreignEntity;
 		if (C_CountryGroupTo != null &&
-				(foreignEntity = new Query(getCtx(), MCountryGroup.Table_Name, MCountryGroup.COLUMNNAME_C_CountryGroup_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_CountryGroup", "C_CountryGroup_UU=?", get_TrxName())
 						.setParameters(C_CountryGroupTo.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_CountryGroupTo_ID(foreignEntity.get_ID());
@@ -197,7 +199,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 		this.mC_Region = C_Region;
 		MRegion foreignEntity;
 		if (C_Region != null &&
-				(foreignEntity = new Query(getCtx(), MRegion.Table_Name, MRegion.COLUMNNAME_C_Region_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
 						.setParameters(C_Region.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Region_ID(foreignEntity.get_ID());
@@ -214,6 +216,17 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	@JsonProperty("C_Region")
 	public ForeignEntityInput C_Region() {
 		return mC_Region;
+	}
+	/**
+	 * Set Tax.
+	 *
+	 * @param C_Tax_ID Tax identifier
+	 */
+
+	public void setC_Tax_ID(int C_Tax_ID) {
+		if (get_ID() == 0) {
+			super.setC_Tax_ID(C_Tax_ID);
+		}
 	}
 
 	/**
@@ -244,7 +257,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 		this.mC_TaxCategory = C_TaxCategory;
 		MTaxCategory foreignEntity;
 		if (C_TaxCategory != null &&
-				(foreignEntity = new Query(getCtx(), MTaxCategory.Table_Name, MTaxCategory.COLUMNNAME_C_TaxCategory_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
 						.setParameters(C_TaxCategory.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_TaxCategory_ID(foreignEntity.get_ID());
@@ -273,7 +286,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 		this.mC_TaxProvider = C_TaxProvider;
 		MTaxProvider foreignEntity;
 		if (C_TaxProvider != null &&
-				(foreignEntity = new Query(getCtx(), MTaxProvider.Table_Name, MTaxProvider.COLUMNNAME_C_TaxProvider_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_TaxProvider", "C_TaxProvider_UU=?", get_TrxName())
 						.setParameters(C_TaxProvider.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_TaxProvider_ID(foreignEntity.get_ID());
@@ -302,7 +315,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 		this.mParent_Tax = Parent_Tax;
 		MTax foreignEntity;
 		if (Parent_Tax != null &&
-				(foreignEntity = new Query(getCtx(), MTax.Table_Name, MTax.COLUMNNAME_C_Tax_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
 						.setParameters(Parent_Tax.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setParent_Tax_ID(foreignEntity.get_ID());
@@ -360,7 +373,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 		this.mTo_Region = To_Region;
 		MRegion foreignEntity;
 		if (To_Region != null &&
-				(foreignEntity = new Query(getCtx(), MRegion.Table_Name, MRegion.COLUMNNAME_C_Region_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
 						.setParameters(To_Region.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setTo_Region_ID(foreignEntity.get_ID());

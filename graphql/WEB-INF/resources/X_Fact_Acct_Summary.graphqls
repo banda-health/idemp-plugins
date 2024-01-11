@@ -1,0 +1,134 @@
+# Generated Schema for Fact_Acct_Summary - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	Fact_Acct_SummaryGet(page: Int, size: Int, sort: String, filter: String): Fact_Acct_SummaryConnection!
+}
+
+extend type Mutation {
+	Fact_Acct_SummarySave(entity: Fact_Acct_SummaryInput!): Fact_Acct_Summary!
+	Fact_Acct_SummaryDelete(uuids: [String!]!): Boolean!
+}
+
+type Fact_Acct_SummaryConnection {
+	results: [Fact_Acct_Summary!]!
+	pagingInfo: PagingInfo!
+}
+
+type Fact_Acct_Summary {
+	# Account used
+	Account: C_ElementValue!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Accounted Credit Amount
+	AmtAcctCr: Int!
+	# Accounted Debit Amount
+	AmtAcctDr: Int!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Location that inventory was moved from
+	C_LocFrom: C_Location
+	# Location that inventory was moved to
+	C_LocTo: C_Location
+	# Period of the Calendar
+	C_Period: C_Period!
+	# Financial Project
+	C_Project: C_Project
+	# Phase of a Project
+	C_ProjectPhase: C_ProjectPhase
+	# Actual Project Task in a Phase
+	C_ProjectTask: C_ProjectTask
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
+	# Sub account for Element Value
+	C_SubAcct: C_SubAcct
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date
+	ID: ID!
+	# General Ledger Budget
+	GL_Budget: GL_Budget
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Define reporting cube for pre-calculation of summary accounting data.
+	PA_ReportCube: PA_ReportCube!
+	# The type of posted amount for the transaction
+	PostingType: Boolean!
+	# Quantity
+	Qty: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+}
+
+input Fact_Acct_SummaryInput {
+	# Account used
+	Account: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Accounted Credit Amount
+	AmtAcctCr: Int
+	# Accounted Debit Amount
+	AmtAcctDr: Int
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Location that inventory was moved from
+	C_LocFrom: ForeignEntityInput
+	# Location that inventory was moved to
+	C_LocTo: ForeignEntityInput
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Phase of a Project
+	C_ProjectPhase: ForeignEntityInput
+	# Actual Project Task in a Phase
+	C_ProjectTask: ForeignEntityInput
+	# Sales coverage region
+	C_SalesRegion: ForeignEntityInput
+	# Sub account for Element Value
+	C_SubAcct: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	ID: ID
+	# General Ledger Budget
+	GL_Budget: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Define reporting cube for pre-calculation of summary accounting data.
+	PA_ReportCube: ForeignEntityInput
+	# The type of posted amount for the transaction
+	PostingType: Boolean
+	# Quantity
+	Qty: Int
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

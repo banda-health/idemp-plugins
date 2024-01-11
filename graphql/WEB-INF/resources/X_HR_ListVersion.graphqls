@@ -1,0 +1,62 @@
+# Generated Schema for HR_ListVersion - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	HR_ListVersionGet(page: Int, size: Int, sort: String, filter: String): HR_ListVersionConnection!
+}
+
+extend type Mutation {
+	HR_ListVersionSave(entity: HR_ListVersionInput!): HR_ListVersion!
+	HR_ListVersionDelete(uuids: [String!]!): Boolean!
+}
+
+type HR_ListVersionConnection {
+	results: [HR_ListVersion!]!
+	pagingInfo: PagingInfo!
+}
+
+type HR_ListVersion {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	HR_List: HR_List!
+	HR_ListBase: HR_List
+	ID: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date!
+	# Valid to including this date (last day)
+	ValidTo: Date!
+}
+
+input HR_ListVersionInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	HR_List: ForeignEntityInput
+	HR_ListBase: ForeignEntityInput
+	ID: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

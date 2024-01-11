@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
@@ -11,7 +10,9 @@ import org.compiere.model.MDepreciationWorkfile;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_FundingMode;
-import org.compiere.util.Env;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Depreciation_Workfile - DO NOT CHANGE
@@ -21,19 +22,20 @@ import org.compiere.util.Env;
  */
 public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implements I_A_Depreciation_WorkfileInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_Asset;
-	 private ForeignEntityInput mA_FundingMode;
-	 private ForeignEntityInput mC_AcctSchema;
-	 private I_AD_Ref_ListInput mA_Tip_Finantare;
-	 private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mA_FundingMode;
+	private ForeignEntityInput mC_AcctSchema;
+	private I_AD_Ref_ListInput mA_Tip_Finantare;
+	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Depreciation_WorkfileInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MDepreciationWorkfile(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -46,8 +48,8 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
-		if (get_ID() == 0 &&A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && A_Asset != null &&
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_ID(foreignEntity.get_ID());
@@ -85,6 +87,17 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 			super.setA_Asset_Remaining_F(A_Asset_Remaining_F);
 		}
 	}
+	/**
+	 * Set A_Depreciation_Workfile_ID.
+	 *
+	 * @param A_Depreciation_Workfile_ID A_Depreciation_Workfile_ID
+	 */
+
+	public void setA_Depreciation_Workfile_ID(int A_Depreciation_Workfile_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Workfile_ID(A_Depreciation_Workfile_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -103,28 +116,6 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	public String getID() {
 		return getA_Depreciation_Workfile_UU();
 	}
-	/**
-	 * Set SL Expense/Period.
-	 *
-	 * @param A_Expense_SL SL Expense/Period
-	 */
-
-	public void setA_Expense_SL(BigDecimal A_Expense_SL) {
-		if (get_ID() == 0) {
-			super.setA_Expense_SL(A_Expense_SL);
-		}
-	}
-	/**
-	 * Set SL Expense/Period (fiscal).
-	 *
-	 * @param A_Expense_SL_F SL Expense/Period (fiscal)
-	 */
-
-	public void setA_Expense_SL_F(BigDecimal A_Expense_SL_F) {
-		if (get_ID() == 0) {
-			super.setA_Expense_SL_F(A_Expense_SL_F);
-		}
-	}
 
 	/**
 	 * Set Asset Funding Mode.
@@ -136,7 +127,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 		this.mA_FundingMode = A_FundingMode;
 		X_A_FundingMode foreignEntity;
 		if (A_FundingMode != null &&
-				(foreignEntity = new Query(getCtx(), X_A_FundingMode.Table_Name, X_A_FundingMode.COLUMNNAME_A_FundingMode_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_FundingMode", "A_FundingMode_UU=?", get_TrxName())
 						.setParameters(A_FundingMode.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_FundingMode_ID(foreignEntity.get_ID());
@@ -153,28 +144,6 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	@JsonProperty("A_FundingMode")
 	public ForeignEntityInput A_FundingMode() {
 		return mA_FundingMode;
-	}
-	/**
-	 * Set Life periods (max).
-	 *
-	 * @param A_Life_Period_Max Life periods (max)
-	 */
-
-	public void setA_Life_Period_Max(int A_Life_Period_Max) {
-		if (get_ID() == 0) {
-			super.setA_Life_Period_Max(A_Life_Period_Max);
-		}
-	}
-	/**
-	 * Set Life periods (min).
-	 *
-	 * @param A_Life_Period_Min Life periods (min)
-	 */
-
-	public void setA_Life_Period_Min(int A_Life_Period_Min) {
-		if (get_ID() == 0) {
-			super.setA_Life_Period_Min(A_Life_Period_Min);
-		}
 	}
 
 	/**
@@ -216,7 +185,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -244,8 +213,8 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (get_ID() == 0 &&C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_AcctSchema != null &&
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());

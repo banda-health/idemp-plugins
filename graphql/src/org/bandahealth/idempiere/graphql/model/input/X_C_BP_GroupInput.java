@@ -11,7 +11,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_BP_Group - DO NOT CHANGE
@@ -21,22 +22,23 @@ import org.compiere.util.Env;
  */
 public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_PrintColor;
-	 private ForeignEntityInput mC_Dunning;
-	 private ForeignEntityInput mM_DiscountSchema;
-	 private ForeignEntityInput mM_PriceList;
-	 private ForeignEntityInput mPO_DiscountSchema;
-	 private ForeignEntityInput mPO_PriceList;
-	 private I_AD_Ref_ListInput mBH_SubType;
-	 private I_AD_Ref_ListInput mPriorityBase;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PrintColor;
+	private ForeignEntityInput mC_Dunning;
+	private ForeignEntityInput mM_DiscountSchema;
+	private ForeignEntityInput mM_PriceList;
+	private ForeignEntityInput mPO_DiscountSchema;
+	private ForeignEntityInput mPO_PriceList;
+	private I_AD_Ref_ListInput mBH_SubType;
+	private I_AD_Ref_ListInput mPriorityBase;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_BP_GroupInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MBPGroup_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -49,8 +51,8 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -77,7 +79,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(AD_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PrintColor_ID(foreignEntity.get_ID());
@@ -124,6 +126,17 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public I_AD_Ref_ListInput BH_SubType() {
 		return mBH_SubType;
 	}
+	/**
+	 * Set Business Partner Group.
+	 *
+	 * @param C_BP_Group_ID Business Partner Group
+	 */
+
+	public void setC_BP_Group_ID(int C_BP_Group_ID) {
+		if (get_ID() == 0) {
+			super.setC_BP_Group_ID(C_BP_Group_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -153,7 +166,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 		this.mC_Dunning = C_Dunning;
 		MDunning foreignEntity;
 		if (C_Dunning != null &&
-				(foreignEntity = new Query(getCtx(), MDunning.Table_Name, MDunning.COLUMNNAME_C_Dunning_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
 						.setParameters(C_Dunning.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Dunning_ID(foreignEntity.get_ID());
@@ -182,7 +195,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 		this.mM_DiscountSchema = M_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (M_DiscountSchema != null &&
-				(foreignEntity = new Query(getCtx(), MDiscountSchema.Table_Name, MDiscountSchema.COLUMNNAME_M_DiscountSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 						.setParameters(M_DiscountSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_DiscountSchema_ID(foreignEntity.get_ID());
@@ -211,7 +224,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (M_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_M_PriceList_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 						.setParameters(M_PriceList.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_PriceList_ID(foreignEntity.get_ID());
@@ -240,7 +253,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 		this.mPO_DiscountSchema = PO_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (PO_DiscountSchema != null &&
-				(foreignEntity = new Query(getCtx(), MDiscountSchema.Table_Name, MDiscountSchema.COLUMNNAME_M_DiscountSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 						.setParameters(PO_DiscountSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPO_DiscountSchema_ID(foreignEntity.get_ID());
@@ -269,7 +282,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 		this.mPO_PriceList = PO_PriceList;
 		MPriceList foreignEntity;
 		if (PO_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_M_PriceList_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 						.setParameters(PO_PriceList.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPO_PriceList_ID(foreignEntity.get_ID());

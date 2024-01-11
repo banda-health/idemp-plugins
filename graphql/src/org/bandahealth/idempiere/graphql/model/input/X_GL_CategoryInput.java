@@ -7,7 +7,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MGLCategory;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for GL_Category - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_GL_CategoryInput extends MGLCategory implements I_GL_CategoryInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private I_AD_Ref_ListInput mCategoryType;
+	private ForeignEntityInput mAD_Org;
+	private I_AD_Ref_ListInput mCategoryType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_GL_CategoryInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MGLCategory(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_GL_CategoryInput extends MGLCategory implements I_GL_CategoryInpu
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -83,6 +85,17 @@ public class X_GL_CategoryInput extends MGLCategory implements I_GL_CategoryInpu
 	@JsonProperty("CategoryType")
 	public I_AD_Ref_ListInput CategoryType() {
 		return mCategoryType;
+	}
+	/**
+	 * Set GL Category.
+	 *
+	 * @param GL_Category_ID General Ledger Category
+	 */
+
+	public void setGL_Category_ID(int GL_Category_ID) {
+		if (get_ID() == 0) {
+			super.setGL_Category_ID(GL_Category_ID);
+		}
 	}
 
 	/**

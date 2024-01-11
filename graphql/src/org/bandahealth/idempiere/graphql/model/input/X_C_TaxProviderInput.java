@@ -7,7 +7,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MTaxProvider;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_TaxProviderCfg;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_TaxProvider - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_C_TaxProviderInput extends MTaxProvider implements I_C_TaxProviderInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_TaxProviderCfg;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_TaxProviderCfg;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_TaxProviderInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MTaxProvider(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_C_TaxProviderInput extends MTaxProvider implements I_C_TaxProvide
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -54,6 +56,17 @@ public class X_C_TaxProviderInput extends MTaxProvider implements I_C_TaxProvide
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Tax Provider.
+	 *
+	 * @param C_TaxProvider_ID Tax Provider
+	 */
+
+	public void setC_TaxProvider_ID(int C_TaxProvider_ID) {
+		if (get_ID() == 0) {
+			super.setC_TaxProvider_ID(C_TaxProvider_ID);
+		}
 	}
 
 	/**
@@ -84,7 +97,7 @@ public class X_C_TaxProviderInput extends MTaxProvider implements I_C_TaxProvide
 		this.mC_TaxProviderCfg = C_TaxProviderCfg;
 		X_C_TaxProviderCfg foreignEntity;
 		if (C_TaxProviderCfg != null &&
-				(foreignEntity = new Query(getCtx(), X_C_TaxProviderCfg.Table_Name, X_C_TaxProviderCfg.COLUMNNAME_C_TaxProviderCfg_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_TaxProviderCfg", "C_TaxProviderCfg_UU=?", get_TrxName())
 						.setParameters(C_TaxProviderCfg.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_TaxProviderCfg_ID(foreignEntity.get_ID());

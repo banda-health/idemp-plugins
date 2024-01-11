@@ -14,7 +14,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MRMA;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_RMAType;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_RMA - DO NOT CHANGE
@@ -24,24 +25,25 @@ import org.compiere.util.Env;
  */
 public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_DocType;
-	 private ForeignEntityInput mC_Order;
-	 private ForeignEntityInput mInOut;
-	 private ForeignEntityInput mM_RMAType;
-	 private ForeignEntityInput mRef_RMA;
-	 private ForeignEntityInput mSalesRep;
-	 private I_AD_Ref_ListInput mDocAction;
-	 private I_AD_Ref_ListInput mDocStatus;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_DocType;
+	private ForeignEntityInput mC_Order;
+	private ForeignEntityInput mInOut;
+	private ForeignEntityInput mM_RMAType;
+	private ForeignEntityInput mRef_RMA;
+	private ForeignEntityInput mSalesRep;
+	private I_AD_Ref_ListInput mDocAction;
+	private I_AD_Ref_ListInput mDocStatus;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_RMAInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MRMA(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -54,8 +56,8 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -82,7 +84,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -111,7 +113,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -140,7 +142,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocType_ID(foreignEntity.get_ID());
@@ -168,8 +170,8 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
-		if (get_ID() == 0 &&C_Order != null &&
-				(foreignEntity = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Order != null &&
+				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 						.setParameters(C_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Order_ID(foreignEntity.get_ID());
@@ -253,8 +255,8 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setInOutInput(ForeignEntityInput InOut) {
 		this.mInOut = InOut;
 		MInOut_BH foreignEntity;
-		if (get_ID() == 0 &&InOut != null &&
-				(foreignEntity = new Query(getCtx(), MInOut_BH.Table_Name, MInOut_BH.COLUMNNAME_M_InOut_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && InOut != null &&
+				(foreignEntity = new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
 						.setParameters(InOut.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setInOut_ID(foreignEntity.get_ID());
@@ -269,6 +271,17 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	@JsonProperty("InOut")
 	public ForeignEntityInput InOut() {
 		return mInOut;
+	}
+	/**
+	 * Set RMA.
+	 *
+	 * @param M_RMA_ID Return Material Authorization
+	 */
+
+	public void setM_RMA_ID(int M_RMA_ID) {
+		if (get_ID() == 0) {
+			super.setM_RMA_ID(M_RMA_ID);
+		}
 	}
 
 	/**
@@ -299,7 +312,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 		this.mM_RMAType = M_RMAType;
 		X_M_RMAType foreignEntity;
 		if (M_RMAType != null &&
-				(foreignEntity = new Query(getCtx(), X_M_RMAType.Table_Name, X_M_RMAType.COLUMNNAME_M_RMAType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_RMAType", "M_RMAType_UU=?", get_TrxName())
 						.setParameters(M_RMAType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_RMAType_ID(foreignEntity.get_ID());
@@ -328,7 +341,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 		this.mRef_RMA = Ref_RMA;
 		MRMA foreignEntity;
 		if (Ref_RMA != null &&
-				(foreignEntity = new Query(getCtx(), MRMA.Table_Name, MRMA.COLUMNNAME_M_RMA_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_RMA", "M_RMA_UU=?", get_TrxName())
 						.setParameters(Ref_RMA.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setRef_RMA_ID(foreignEntity.get_ID());
@@ -357,7 +370,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setSalesRep_ID(foreignEntity.get_ID());

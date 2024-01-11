@@ -1,0 +1,60 @@
+# Generated Schema for M_DistributionList - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_DistributionListGet(page: Int, size: Int, sort: String, filter: String): M_DistributionListConnection!
+}
+
+extend type Mutation {
+	M_DistributionListSave(entity: M_DistributionListInput!): M_DistributionList!
+	M_DistributionListDelete(uuids: [String!]!): Boolean!
+}
+
+type M_DistributionListConnection {
+	results: [M_DistributionList!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_DistributionList {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	ID: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# Total of relative weight in a distribution
+	RatioTotal: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_DistributionListInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	ID: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	# Total of relative weight in a distribution
+	RatioTotal: Int
+}

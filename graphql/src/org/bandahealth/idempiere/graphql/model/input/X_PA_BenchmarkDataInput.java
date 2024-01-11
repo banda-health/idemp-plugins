@@ -7,7 +7,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_PA_Benchmark;
 import org.compiere.model.X_PA_BenchmarkData;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_BenchmarkData - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_BenchmarkDataInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mPA_Benchmark;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mPA_Benchmark;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_BenchmarkDataInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_PA_BenchmarkData(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -65,8 +67,8 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	public void setPA_BenchmarkInput(ForeignEntityInput PA_Benchmark) {
 		this.mPA_Benchmark = PA_Benchmark;
 		X_PA_Benchmark foreignEntity;
-		if (get_ID() == 0 &&PA_Benchmark != null &&
-				(foreignEntity = new Query(getCtx(), X_PA_Benchmark.Table_Name, X_PA_Benchmark.COLUMNNAME_PA_Benchmark_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && PA_Benchmark != null &&
+				(foreignEntity = new Query(getCtx(), "PA_Benchmark", "PA_Benchmark_UU=?", get_TrxName())
 						.setParameters(PA_Benchmark.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_Benchmark_ID(foreignEntity.get_ID());
@@ -81,6 +83,17 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	@JsonProperty("PA_Benchmark")
 	public ForeignEntityInput PA_Benchmark() {
 		return mPA_Benchmark;
+	}
+	/**
+	 * Set Benchmark Data.
+	 *
+	 * @param PA_BenchmarkData_ID Performance Benchmark Data Point
+	 */
+
+	public void setPA_BenchmarkData_ID(int PA_BenchmarkData_ID) {
+		if (get_ID() == 0) {
+			super.setPA_BenchmarkData_ID(PA_BenchmarkData_ID);
+		}
 	}
 
 	/**

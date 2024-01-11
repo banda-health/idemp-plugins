@@ -7,7 +7,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_ShipperCfg;
 import org.compiere.model.X_M_ShippingProcessorCfg;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_ShipperCfg - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCfgInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mM_ShippingProcessorCfg;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mM_ShippingProcessorCfg;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_ShipperCfgInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_M_ShipperCfg(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -54,6 +56,17 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Shipper Configuration.
+	 *
+	 * @param M_ShipperCfg_ID Shipper Configuration
+	 */
+
+	public void setM_ShipperCfg_ID(int M_ShipperCfg_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperCfg_ID(M_ShipperCfg_ID);
+		}
 	}
 
 	/**
@@ -84,7 +97,7 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 		this.mM_ShippingProcessorCfg = M_ShippingProcessorCfg;
 		X_M_ShippingProcessorCfg foreignEntity;
 		if (M_ShippingProcessorCfg != null &&
-				(foreignEntity = new Query(getCtx(), X_M_ShippingProcessorCfg.Table_Name, X_M_ShippingProcessorCfg.COLUMNNAME_M_ShippingProcessorCfg_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_ShippingProcessorCfg", "M_ShippingProcessorCfg_UU=?", get_TrxName())
 						.setParameters(M_ShippingProcessorCfg.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShippingProcessorCfg_ID(foreignEntity.get_ID());

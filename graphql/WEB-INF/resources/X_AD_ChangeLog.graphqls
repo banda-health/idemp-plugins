@@ -1,0 +1,90 @@
+# Generated Schema for AD_ChangeLog - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_ChangeLogGet(page: Int, size: Int, sort: String, filter: String): AD_ChangeLogConnection!
+}
+
+extend type Mutation {
+	AD_ChangeLogSave(entity: AD_ChangeLogInput!): AD_ChangeLog!
+	AD_ChangeLogDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_ChangeLogConnection {
+	results: [AD_ChangeLog!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_ChangeLog {
+	# Log of data changes
+	AD_ChangeLog: AD_ChangeLog!
+	ID: ID!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# User Session Online or Web
+	AD_Session: AD_Session!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Type of Event in Change Log
+	EventChangeLog: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# The change is a customization of the data dictionary and can be applied after Migration
+	IsCustomization: Boolean!
+	# New field value
+	NewValue: String
+	# The old file data
+	OldValue: String
+	# Direct internal record ID
+	Record_ID: Int!
+	Redo: String
+	# Name of the transaction
+	TrxName: String
+	Undo: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ChangeLogInput {
+	# Log of data changes
+	AD_ChangeLog: ForeignEntityInput
+	ID: ID
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User Session Online or Web
+	AD_Session: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Type of Event in Change Log
+	EventChangeLog: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	# The change is a customization of the data dictionary and can be applied after Migration
+	IsCustomization: Boolean
+	# New field value
+	NewValue: String
+	# The old file data
+	OldValue: String
+	# Direct internal record ID
+	Record_ID: Int
+	Redo: String
+	# Name of the transaction
+	TrxName: String
+	Undo: String
+}

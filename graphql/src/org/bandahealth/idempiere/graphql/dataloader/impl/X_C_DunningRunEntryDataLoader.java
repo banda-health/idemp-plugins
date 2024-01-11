@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.MDunningRunEntry;
+
+/**
+ * Data Loader for C_DunningRunEntry - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_DunningRunEntryDataLoader extends PODataLoader<MDunningRunEntry> {
+	public static String C_DunningRunEntry_BY_ID_DATA_LOADER = "C_DunningRunEntryByIdDataLoader";
+	public static String C_DunningRunEntry_BY_UUID_DATA_LOADER = "C_DunningRunEntryByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return MDunningRunEntry.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return C_DunningRunEntry_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return C_DunningRunEntry_BY_UUID_DATA_LOADER;
+	}
+}

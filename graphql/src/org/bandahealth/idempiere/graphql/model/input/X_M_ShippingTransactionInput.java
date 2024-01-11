@@ -23,7 +23,8 @@ import org.compiere.model.MShippingTransaction;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_BP_ShippingAcct;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_ShippingTransaction - DO NOT CHANGE
@@ -33,46 +34,47 @@ import org.compiere.util.Env;
  */
 public class X_M_ShippingTransactionInput extends MShippingTransaction implements I_M_ShippingTransactionInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_User;
-	 private ForeignEntityInput mBill_Location;
-	 private ForeignEntityInput mC_BP_ShippingAcct;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_BPartner_Location;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_Invoice;
-	 private ForeignEntityInput mC_Order;
-	 private ForeignEntityInput mC_UOM_Length;
-	 private ForeignEntityInput mC_UOM_Weight;
-	 private ForeignEntityInput mHoldAddress;
-	 private ForeignEntityInput mM_InOut;
-	 private ForeignEntityInput mM_Package;
-	 private ForeignEntityInput mM_Shipper;
-	 private ForeignEntityInput mM_ShipperLabels;
-	 private ForeignEntityInput mM_ShipperPackaging;
-	 private ForeignEntityInput mM_ShipperPickupTypes;
-	 private ForeignEntityInput mM_ShippingProcessor;
-	 private ForeignEntityInput mM_Warehouse;
-	 private ForeignEntityInput mReturnBPartner;
-	 private ForeignEntityInput mReturnLocation;
-	 private ForeignEntityInput mReturnUser;
-	 private ForeignEntityInput mSalesRep;
-	 private I_AD_Ref_ListInput mAction;
-	 private I_AD_Ref_ListInput mDeliveryConfirmationType;
-	 private I_AD_Ref_ListInput mDotHazardClassOrDivision;
-	 private I_AD_Ref_ListInput mFOB;
-	 private I_AD_Ref_ListInput mFreightCharges;
-	 private I_AD_Ref_ListInput mHomeDeliveryPremiumType;
-	 private I_AD_Ref_ListInput mInsurance;
-	 private I_AD_Ref_ListInput mNotificationType;
-	 private I_AD_Ref_ListInput mPaymentRule;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mBill_Location;
+	private ForeignEntityInput mC_BP_ShippingAcct;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_BPartner_Location;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_Invoice;
+	private ForeignEntityInput mC_Order;
+	private ForeignEntityInput mC_UOM_Length;
+	private ForeignEntityInput mC_UOM_Weight;
+	private ForeignEntityInput mHoldAddress;
+	private ForeignEntityInput mM_InOut;
+	private ForeignEntityInput mM_Package;
+	private ForeignEntityInput mM_Shipper;
+	private ForeignEntityInput mM_ShipperLabels;
+	private ForeignEntityInput mM_ShipperPackaging;
+	private ForeignEntityInput mM_ShipperPickupTypes;
+	private ForeignEntityInput mM_ShippingProcessor;
+	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mReturnBPartner;
+	private ForeignEntityInput mReturnLocation;
+	private ForeignEntityInput mReturnUser;
+	private ForeignEntityInput mSalesRep;
+	private I_AD_Ref_ListInput mAction;
+	private I_AD_Ref_ListInput mDeliveryConfirmationType;
+	private I_AD_Ref_ListInput mDotHazardClassOrDivision;
+	private I_AD_Ref_ListInput mFOB;
+	private I_AD_Ref_ListInput mFreightCharges;
+	private I_AD_Ref_ListInput mHomeDeliveryPremiumType;
+	private I_AD_Ref_ListInput mInsurance;
+	private I_AD_Ref_ListInput mNotificationType;
+	private I_AD_Ref_ListInput mPaymentRule;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_ShippingTransactionInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MShippingTransaction(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -114,8 +116,8 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -142,7 +144,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -171,7 +173,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mBill_Location = Bill_Location;
 		MBPartnerLocation foreignEntity;
 		if (Bill_Location != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(Bill_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setBill_Location_ID(foreignEntity.get_ID());
@@ -200,7 +202,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mC_BP_ShippingAcct = C_BP_ShippingAcct;
 		X_C_BP_ShippingAcct foreignEntity;
 		if (C_BP_ShippingAcct != null &&
-				(foreignEntity = new Query(getCtx(), X_C_BP_ShippingAcct.Table_Name, X_C_BP_ShippingAcct.COLUMNNAME_C_BP_ShippingAcct_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BP_ShippingAcct", "C_BP_ShippingAcct_UU=?", get_TrxName())
 						.setParameters(C_BP_ShippingAcct.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BP_ShippingAcct_ID(foreignEntity.get_ID());
@@ -229,7 +231,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -258,7 +260,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(C_BPartner_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_Location_ID(foreignEntity.get_ID());
@@ -287,7 +289,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -316,7 +318,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
 		if (C_Invoice != null &&
-				(foreignEntity = new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Invoice_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 						.setParameters(C_Invoice.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Invoice_ID(foreignEntity.get_ID());
@@ -345,7 +347,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
 		if (C_Order != null &&
-				(foreignEntity = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 						.setParameters(C_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Order_ID(foreignEntity.get_ID());
@@ -374,7 +376,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mC_UOM_Length = C_UOM_Length;
 		MUOM foreignEntity;
 		if (C_UOM_Length != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM_Length.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_Length_ID(foreignEntity.get_ID());
@@ -403,7 +405,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mC_UOM_Weight = C_UOM_Weight;
 		MUOM foreignEntity;
 		if (C_UOM_Weight != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM_Weight.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_Weight_ID(foreignEntity.get_ID());
@@ -544,7 +546,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mHoldAddress = HoldAddress;
 		MBPartnerLocation foreignEntity;
 		if (HoldAddress != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(HoldAddress.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setHoldAddress_ID(foreignEntity.get_ID());
@@ -628,8 +630,8 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public void setM_InOutInput(ForeignEntityInput M_InOut) {
 		this.mM_InOut = M_InOut;
 		MInOut_BH foreignEntity;
-		if (get_ID() == 0 &&M_InOut != null &&
-				(foreignEntity = new Query(getCtx(), MInOut_BH.Table_Name, MInOut_BH.COLUMNNAME_M_InOut_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_InOut != null &&
+				(foreignEntity = new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
 						.setParameters(M_InOut.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_InOut_ID(foreignEntity.get_ID());
@@ -656,7 +658,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mM_Package = M_Package;
 		MPackage foreignEntity;
 		if (M_Package != null &&
-				(foreignEntity = new Query(getCtx(), MPackage.Table_Name, MPackage.COLUMNNAME_M_Package_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Package", "M_Package_UU=?", get_TrxName())
 						.setParameters(M_Package.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Package_ID(foreignEntity.get_ID());
@@ -685,7 +687,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (M_Shipper != null &&
-				(foreignEntity = new Query(getCtx(), MShipper.Table_Name, MShipper.COLUMNNAME_M_Shipper_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
 						.setParameters(M_Shipper.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Shipper_ID(foreignEntity.get_ID());
@@ -714,7 +716,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mM_ShipperLabels = M_ShipperLabels;
 		MShipperLabels foreignEntity;
 		if (M_ShipperLabels != null &&
-				(foreignEntity = new Query(getCtx(), MShipperLabels.Table_Name, MShipperLabels.COLUMNNAME_M_ShipperLabels_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_ShipperLabels", "M_ShipperLabels_UU=?", get_TrxName())
 						.setParameters(M_ShipperLabels.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShipperLabels_ID(foreignEntity.get_ID());
@@ -743,7 +745,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mM_ShipperPackaging = M_ShipperPackaging;
 		MShipperPackaging foreignEntity;
 		if (M_ShipperPackaging != null &&
-				(foreignEntity = new Query(getCtx(), MShipperPackaging.Table_Name, MShipperPackaging.COLUMNNAME_M_ShipperPackaging_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_ShipperPackaging", "M_ShipperPackaging_UU=?", get_TrxName())
 						.setParameters(M_ShipperPackaging.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShipperPackaging_ID(foreignEntity.get_ID());
@@ -772,7 +774,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mM_ShipperPickupTypes = M_ShipperPickupTypes;
 		MShipperPickupTypes foreignEntity;
 		if (M_ShipperPickupTypes != null &&
-				(foreignEntity = new Query(getCtx(), MShipperPickupTypes.Table_Name, MShipperPickupTypes.COLUMNNAME_M_ShipperPickupTypes_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_ShipperPickupTypes", "M_ShipperPickupTypes_UU=?", get_TrxName())
 						.setParameters(M_ShipperPickupTypes.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShipperPickupTypes_ID(foreignEntity.get_ID());
@@ -800,8 +802,8 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	public void setM_ShippingProcessorInput(ForeignEntityInput M_ShippingProcessor) {
 		this.mM_ShippingProcessor = M_ShippingProcessor;
 		MShippingProcessor foreignEntity;
-		if (get_ID() == 0 &&M_ShippingProcessor != null &&
-				(foreignEntity = new Query(getCtx(), MShippingProcessor.Table_Name, MShippingProcessor.COLUMNNAME_M_ShippingProcessor_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_ShippingProcessor != null &&
+				(foreignEntity = new Query(getCtx(), "M_ShippingProcessor", "M_ShippingProcessor_UU=?", get_TrxName())
 						.setParameters(M_ShippingProcessor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShippingProcessor_ID(foreignEntity.get_ID());
@@ -816,6 +818,17 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("M_ShippingProcessor")
 	public ForeignEntityInput M_ShippingProcessor() {
 		return mM_ShippingProcessor;
+	}
+	/**
+	 * Set Shipping Transaction.
+	 *
+	 * @param M_ShippingTransaction_ID Shipping Transaction
+	 */
+
+	public void setM_ShippingTransaction_ID(int M_ShippingTransaction_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShippingTransaction_ID(M_ShippingTransaction_ID);
+		}
 	}
 
 	/**
@@ -846,7 +859,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 						.setParameters(M_Warehouse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Warehouse_ID(foreignEntity.get_ID());
@@ -933,7 +946,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mReturnBPartner = ReturnBPartner;
 		MBPartner_BH foreignEntity;
 		if (ReturnBPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(ReturnBPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setReturnBPartner_ID(foreignEntity.get_ID());
@@ -962,7 +975,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mReturnLocation = ReturnLocation;
 		MBPartnerLocation foreignEntity;
 		if (ReturnLocation != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(ReturnLocation.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setReturnLocation_ID(foreignEntity.get_ID());
@@ -991,7 +1004,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mReturnUser = ReturnUser;
 		MUser_BH foreignEntity;
 		if (ReturnUser != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(ReturnUser.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setReturnUser_ID(foreignEntity.get_ID());
@@ -1020,7 +1033,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setSalesRep_ID(foreignEntity.get_ID());

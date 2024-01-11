@@ -1,0 +1,84 @@
+# Generated Schema for AD_PInstance - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_PInstanceGet(page: Int, size: Int, sort: String, filter: String): AD_PInstanceConnection!
+}
+
+extend type Mutation {
+	AD_PInstanceSave(entity: AD_PInstanceInput!): AD_PInstance!
+	AD_PInstanceDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_PInstanceConnection {
+	results: [AD_PInstance!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_PInstance {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client
+	AD_Language: AD_Language
+	# Organizational entity within client
+	AD_Org: AD_Org
+	ID: ID!
+	# Data Print Format
+	AD_PrintFormat: AD_PrintFormat
+	# Process or Report
+	AD_Process: AD_Process!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	ErrorMsg: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsProcessing: Boolean!
+	IsRunAsJob: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Type of Notifications
+	NotificationType: AD_Ref_List
+	# Direct internal record ID
+	Record_ID: Int!
+	ReportType: String
+	# Result of the action taken
+	Result: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_PInstanceInput {
+	AD_Language: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Data Print Format
+	AD_PrintFormat: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	ErrorMsg: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsProcessing: Boolean
+	IsRunAsJob: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Type of Notifications
+	NotificationType: AD_Ref_ListInput
+	# Direct internal record ID
+	Record_ID: Int
+	ReportType: String
+	# Result of the action taken
+	Result: Int
+}

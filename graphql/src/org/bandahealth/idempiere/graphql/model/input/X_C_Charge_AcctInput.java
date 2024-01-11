@@ -9,7 +9,8 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_Charge_Acct;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_Charge_Acct - DO NOT CHANGE
@@ -19,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_AcctInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_AcctSchema;
-	 private ForeignEntityInput mC_Charge;
-	 private ForeignEntityInput mCh_Expense_A;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mCh_Expense_A;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_Charge_AcctInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_C_Charge_Acct(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -42,8 +44,8 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -69,8 +71,8 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (get_ID() == 0 &&C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_AcctSchema != null &&
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());
@@ -114,8 +116,8 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
-		if (get_ID() == 0 &&C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Charge != null &&
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Charge_ID(foreignEntity.get_ID());
@@ -142,7 +144,7 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 		this.mCh_Expense_A = Ch_Expense_A;
 		MAccount foreignEntity;
 		if (Ch_Expense_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(Ch_Expense_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setCh_Expense_Acct(foreignEntity.get_ID());

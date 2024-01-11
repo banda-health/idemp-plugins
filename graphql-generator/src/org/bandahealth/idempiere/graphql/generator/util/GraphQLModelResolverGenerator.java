@@ -297,22 +297,31 @@ public class GraphQLModelResolverGenerator {
 			}
 
 			ModelMap foreignModelMap = modelsForTables.get(foreignEntityTable);
-			classesToImport.add(foreignModelMap.getClassPackageName() + "." + foreignModelMap.getClassName());
-			String dataLoader = "X_" + foreignModelMap.getTableName() + "DataLoader";
+			String modelForForeignEntity;
+			if (foreignModelMap != null) {
+				classesToImport.add(foreignModelMap.getClassPackageName() + "." + foreignModelMap.getClassName());
+				modelForForeignEntity = foreignModelMap.getClassName();
+			} else {
+				log.warning(
+						"Did not have any model or anything mapped for " + foreignEntityTable + ", so resorting to PO");
+				addImportClass("org.compiere.model.PO");
+				modelForForeignEntity = "PO";
+			}
+			String dataLoader = "X_" + foreignEntityTable + "DataLoader";
 			classesToImport.add(dataLoaderPackageName + "." + dataLoader);
 			classesToImport.add("java.util.concurrent.CompletableFuture");
 
 			generateJavaGetComment(Name, Description, columnBuilder);
 			columnBuilder
-					.append("\tpublic CompletableFuture<").append(foreignModelMap.getClassName()).append("> ")
+					.append("\tpublic CompletableFuture<").append(modelForForeignEntity).append("> ")
 					.append(entityName).append("(").append(tableStructureExtensions.getClassName())
 					.append(" entity, DataFetchingEnvironment environment) {\n")
 					.append("\t\tif (").append(defaultCheckToReturnNull).append(") {\n")
 					.append("\t\t\treturn null;\n")
 					.append("\t\t}\n")
-					.append("\t\tDataLoader<Integer, ").append(foreignModelMap.getClassName()).append("> dataLoader =\n")
+					.append("\t\tDataLoader<Integer, ").append(modelForForeignEntity).append("> dataLoader =\n")
 					.append("\t\t\t\tenvironment.getDataLoaderRegistry().getDataLoader(").append(dataLoader).append(".")
-					.append(foreignModelMap.getTableName()).append("_BY_ID_DATA_LOADER);\n")
+					.append(foreignEntityTable).append("_BY_ID_DATA_LOADER);\n")
 					.append("\t\treturn dataLoader.load(").append(valueMapPrefix).append("entity.get").append(columnName)
 					.append("()").append(valueMapSuffix).append(");\n")
 					.append("\t}\n");

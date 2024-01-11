@@ -1,0 +1,96 @@
+# Generated Schema for T_BOM_Indented - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	T_BOM_IndentedGet(page: Int, size: Int, sort: String, filter: String): T_BOM_IndentedConnection!
+}
+
+extend type Mutation {
+	T_BOM_IndentedSave(entity: T_BOM_IndentedInput!): T_BOM_Indented!
+	T_BOM_IndentedDelete(uuids: [String!]!): Boolean!
+}
+
+type T_BOM_IndentedConnection {
+	results: [T_BOM_Indented!]!
+	pagingInfo: PagingInfo!
+}
+
+type T_BOM_Indented {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Instance of the process
+	AD_PInstance: AD_PInstance
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema
+	# Cost information
+	Cost: Int
+	# Cost information
+	CostFuture: Int
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The currently used cost price
+	CurrentCostPrice: Int
+	# Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
+	CurrentCostPriceLL: Int
+	FutureCostPrice: Int
+	FutureCostPriceLL: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	LevelNo: Int
+	Levels: String
+	# Product Cost Element
+	M_CostElement: M_CostElement
+	# Product, Service, Item
+	M_Product: M_Product
+	# Quantity
+	Qty: Int
+	# Indicate the Quantity  use in this BOM
+	QtyBOM: Int
+	Sel_Product: M_Product
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	ID: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input T_BOM_IndentedInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Cost information
+	Cost: Int
+	# Cost information
+	CostFuture: Int
+	# The currently used cost price
+	CurrentCostPrice: Int
+	# Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
+	CurrentCostPriceLL: Int
+	FutureCostPrice: Int
+	FutureCostPriceLL: Int
+	# The record is active in the system
+	IsActive: Boolean
+	LevelNo: Int
+	Levels: String
+	# Product Cost Element
+	M_CostElement: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Quantity
+	Qty: Int
+	# Indicate the Quantity  use in this BOM
+	QtyBOM: Int
+	Sel_Product: ForeignEntityInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	ID: ID
+}

@@ -7,7 +7,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCashBook;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_CashBook - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_C_CashBookInput extends MCashBook implements I_C_CashBookInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Currency;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_CashBookInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MCashBook(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_C_CashBookInput extends MCashBook implements I_C_CashBookInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -54,6 +56,17 @@ public class X_C_CashBookInput extends MCashBook implements I_C_CashBookInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Cash Book.
+	 *
+	 * @param C_CashBook_ID Cash Book for recording petty cash transactions
+	 */
+
+	public void setC_CashBook_ID(int C_CashBook_ID) {
+		if (get_ID() == 0) {
+			super.setC_CashBook_ID(C_CashBook_ID);
+		}
 	}
 
 	/**
@@ -84,7 +97,7 @@ public class X_C_CashBookInput extends MCashBook implements I_C_CashBookInput {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());

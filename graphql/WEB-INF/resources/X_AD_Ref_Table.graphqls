@@ -1,0 +1,82 @@
+# Generated Schema for AD_Ref_Table - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_Ref_TableGet(page: Int, size: Int, sort: String, filter: String): AD_Ref_TableConnection!
+}
+
+extend type Mutation {
+	AD_Ref_TableSave(entity: AD_Ref_TableInput!): AD_Ref_Table!
+	AD_Ref_TableDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_Ref_TableConnection {
+	results: [AD_Ref_Table!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_Ref_Table {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column that will display
+	AD_Disp: AD_Column!
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindow
+	# Unique identifier of a record
+	AD_: AD_Column!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# System Reference and Validation
+	AD_Reference: AD_Reference!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Data entry or display window
+	AD_Window: AD_Window
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Displays Value column with the Display column
+	IsValueDisplayed: Boolean!
+	# Fully qualified ORDER BY clause
+	OrderByClause: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}
+
+input AD_Ref_TableInput {
+	# Column that will display
+	AD_Disp: ForeignEntityInput
+	# Info and search/select Window
+	AD_InfoWindow: ForeignEntityInput
+	# Unique identifier of a record
+	AD_: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Displays Value column with the Display column
+	IsValueDisplayed: Boolean
+	# Fully qualified ORDER BY clause
+	OrderByClause: String
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}

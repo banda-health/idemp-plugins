@@ -13,7 +13,8 @@ import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_PA_Report;
 import org.compiere.model.X_PA_ReportColumnSet;
 import org.compiere.model.X_PA_ReportLineSet;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_Report - DO NOT CHANGE
@@ -23,21 +24,22 @@ import org.compiere.util.Env;
  */
 public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_PrintFormat;
-	 private ForeignEntityInput mC_AcctSchema;
-	 private ForeignEntityInput mC_Calendar;
-	 private ForeignEntityInput mJasperProcess;
-	 private ForeignEntityInput mPA_ReportColumnSet;
-	 private ForeignEntityInput mPA_ReportCube;
-	 private ForeignEntityInput mPA_ReportLineSet;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PrintFormat;
+	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mC_Calendar;
+	private ForeignEntityInput mJasperProcess;
+	private ForeignEntityInput mPA_ReportColumnSet;
+	private ForeignEntityInput mPA_ReportCube;
+	private ForeignEntityInput mPA_ReportLineSet;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_ReportInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_PA_Report(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -50,8 +52,8 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -78,7 +80,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
 		if (AD_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintFormat.Table_Name, X_AD_PrintFormat.COLUMNNAME_AD_PrintFormat_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 						.setParameters(AD_PrintFormat.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PrintFormat_ID(foreignEntity.get_ID());
@@ -107,7 +109,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());
@@ -136,7 +138,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 		this.mC_Calendar = C_Calendar;
 		MCalendar foreignEntity;
 		if (C_Calendar != null &&
-				(foreignEntity = new Query(getCtx(), MCalendar.Table_Name, MCalendar.COLUMNNAME_C_Calendar_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
 						.setParameters(C_Calendar.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Calendar_ID(foreignEntity.get_ID());
@@ -165,7 +167,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 		this.mJasperProcess = JasperProcess;
 		MProcess_BH foreignEntity;
 		if (JasperProcess != null &&
-				(foreignEntity = new Query(getCtx(), MProcess_BH.Table_Name, MProcess_BH.COLUMNNAME_AD_Process_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 						.setParameters(JasperProcess.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setJasperProcess_ID(foreignEntity.get_ID());
@@ -182,6 +184,17 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	@JsonProperty("JasperProcess")
 	public ForeignEntityInput JasperProcess() {
 		return mJasperProcess;
+	}
+	/**
+	 * Set Financial Report.
+	 *
+	 * @param PA_Report_ID Financial Report
+	 */
+
+	public void setPA_Report_ID(int PA_Report_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Report_ID(PA_Report_ID);
+		}
 	}
 
 	/**
@@ -212,7 +225,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 		this.mPA_ReportColumnSet = PA_ReportColumnSet;
 		X_PA_ReportColumnSet foreignEntity;
 		if (PA_ReportColumnSet != null &&
-				(foreignEntity = new Query(getCtx(), X_PA_ReportColumnSet.Table_Name, X_PA_ReportColumnSet.COLUMNNAME_PA_ReportColumnSet_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_ReportColumnSet", "PA_ReportColumnSet_UU=?", get_TrxName())
 						.setParameters(PA_ReportColumnSet.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_ReportColumnSet_ID(foreignEntity.get_ID());
@@ -241,7 +254,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 		this.mPA_ReportCube = PA_ReportCube;
 		MReportCube foreignEntity;
 		if (PA_ReportCube != null &&
-				(foreignEntity = new Query(getCtx(), MReportCube.Table_Name, MReportCube.COLUMNNAME_PA_ReportCube_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_ReportCube", "PA_ReportCube_UU=?", get_TrxName())
 						.setParameters(PA_ReportCube.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_ReportCube_ID(foreignEntity.get_ID());
@@ -270,7 +283,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 		this.mPA_ReportLineSet = PA_ReportLineSet;
 		X_PA_ReportLineSet foreignEntity;
 		if (PA_ReportLineSet != null &&
-				(foreignEntity = new Query(getCtx(), X_PA_ReportLineSet.Table_Name, X_PA_ReportLineSet.COLUMNNAME_PA_ReportLineSet_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
 						.setParameters(PA_ReportLineSet.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_ReportLineSet_ID(foreignEntity.get_ID());

@@ -1,0 +1,68 @@
+# Generated Schema for C_TaxDeclaration - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_TaxDeclarationGet(page: Int, size: Int, sort: String, filter: String): C_TaxDeclarationConnection!
+}
+
+extend type Mutation {
+	C_TaxDeclarationSave(entity: C_TaxDeclarationInput!): C_TaxDeclaration!
+	C_TaxDeclarationDelete(uuids: [String!]!): Boolean!
+}
+
+type C_TaxDeclarationConnection {
+	results: [C_TaxDeclaration!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_TaxDeclaration {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Starting date for a range
+	DateFrom: Date!
+	# End date of a date range
+	DateTo: Date!
+	# Transaction Date
+	DateTrx: Date!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_TaxDeclarationInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Starting date for a range
+	DateFrom: Date
+	# End date of a date range
+	DateTo: Date
+	# Transaction Date
+	DateTrx: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+}

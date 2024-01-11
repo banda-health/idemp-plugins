@@ -7,7 +7,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProjectType;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_ProjectType - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_C_ProjectTypeInput extends MProjectType implements I_C_ProjectTypeInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private I_AD_Ref_ListInput mProjectCategory;
+	private ForeignEntityInput mAD_Org;
+	private I_AD_Ref_ListInput mProjectCategory;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_ProjectTypeInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MProjectType(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_C_ProjectTypeInput extends MProjectType implements I_C_ProjectTyp
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -54,6 +56,17 @@ public class X_C_ProjectTypeInput extends MProjectType implements I_C_ProjectTyp
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Project Type.
+	 *
+	 * @param C_ProjectType_ID Type of the project
+	 */
+
+	public void setC_ProjectType_ID(int C_ProjectType_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectType_ID(C_ProjectType_ID);
+		}
 	}
 
 	/**

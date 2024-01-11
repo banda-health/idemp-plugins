@@ -1,0 +1,30 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_AD_UserDef_WinInput;
+import org.bandahealth.idempiere.graphql.model.input.X_AD_UserDef_WinInput;
+import org.compiere.model.MUserDefWin;
+
+import java.util.List;
+
+/**
+ * Generated Query Resolver for AD_UserDef_Win - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_AD_UserDef_WinMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_AD_UserDef_WinInput.Table_Name;
+	}
+
+	public MUserDefWin AD_UserDef_WinSave(I_AD_UserDef_WinInput input, DataFetchingEnvironment environment) {
+		return (MUserDefWin) super.save((X_AD_UserDef_WinInput) input, environment);
+	}
+
+	public boolean AD_UserDef_WinDelete(List<String> uuids, DataFetchingEnvironment environment) {
+		return super.delete(uuids, environment);
+	}
+}

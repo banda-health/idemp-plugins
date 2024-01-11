@@ -10,7 +10,8 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRegion;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_Location - DO NOT CHANGE
@@ -20,18 +21,19 @@ import org.compiere.util.Env;
  */
 public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_AddressValidation;
-	 private ForeignEntityInput mC_City;
-	 private ForeignEntityInput mC_Country;
-	 private ForeignEntityInput mC_Region;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_AddressValidation;
+	private ForeignEntityInput mC_City;
+	private ForeignEntityInput mC_Country;
+	private ForeignEntityInput mC_Region;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_LocationInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MLocation(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -44,8 +46,8 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -71,8 +73,8 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	public void setC_AddressValidationInput(ForeignEntityInput C_AddressValidation) {
 		this.mC_AddressValidation = C_AddressValidation;
 		MAddressValidation foreignEntity;
-		if (get_ID() == 0 &&C_AddressValidation != null &&
-				(foreignEntity = new Query(getCtx(), MAddressValidation.Table_Name, MAddressValidation.COLUMNNAME_C_AddressValidation_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_AddressValidation != null &&
+				(foreignEntity = new Query(getCtx(), "C_AddressValidation", "C_AddressValidation_UU=?", get_TrxName())
 						.setParameters(C_AddressValidation.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AddressValidation_ID(foreignEntity.get_ID());
@@ -99,7 +101,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 		this.mC_City = C_City;
 		MCity foreignEntity;
 		if (C_City != null &&
-				(foreignEntity = new Query(getCtx(), MCity.Table_Name, MCity.COLUMNNAME_C_City_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_City", "C_City_UU=?", get_TrxName())
 						.setParameters(C_City.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_City_ID(foreignEntity.get_ID());
@@ -128,7 +130,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 		this.mC_Country = C_Country;
 		MCountry foreignEntity;
 		if (C_Country != null &&
-				(foreignEntity = new Query(getCtx(), MCountry.Table_Name, MCountry.COLUMNNAME_C_Country_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
 						.setParameters(C_Country.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Country_ID(foreignEntity.get_ID());
@@ -145,6 +147,17 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	@JsonProperty("C_Country")
 	public ForeignEntityInput C_Country() {
 		return mC_Country;
+	}
+	/**
+	 * Set Address.
+	 *
+	 * @param C_Location_ID Location or Address
+	 */
+
+	public void setC_Location_ID(int C_Location_ID) {
+		if (get_ID() == 0) {
+			super.setC_Location_ID(C_Location_ID);
+		}
 	}
 
 	/**
@@ -175,7 +188,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 		this.mC_Region = C_Region;
 		MRegion foreignEntity;
 		if (C_Region != null &&
-				(foreignEntity = new Query(getCtx(), MRegion.Table_Name, MRegion.COLUMNNAME_C_Region_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
 						.setParameters(C_Region.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Region_ID(foreignEntity.get_ID());

@@ -1,12 +1,12 @@
 package org.bandahealth.idempiere.base.model;
 
+import org.compiere.model.MInventory;
+import org.compiere.model.MInventoryLine;
+
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
-
-import org.compiere.model.MInventory;
-import org.compiere.model.MInventoryLine;
 
 public class MInventoryLine_BH extends MInventoryLine {
 
@@ -15,7 +15,17 @@ public class MInventoryLine_BH extends MInventoryLine {
 	 * Column name BH_RequiresExpiration
 	 */
 	public static final String COLUMNNAME_BH_RequiresExpiration = "BH_RequiresExpiration";
+
+	/**
+	 * Column name BH_OrderDocStatus
+	 */
+	public static final String COLUMNNAME_BH_OrderDocStatus = "BH_OrderDocStatus";
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Column name BH_NumOrderLines
+	 */
+	public static final String COLUMNNAME_BH_NumOrderLines = "BH_NumOrderLines";
 
 	public MInventoryLine_BH(MInventory inventory, int M_Locator_ID, int M_Product_ID, int M_AttributeSetInstance_ID,
 			BigDecimal QtyBook, BigDecimal QtyCount, BigDecimal QtyInternalUse) {
@@ -78,4 +88,43 @@ public class MInventoryLine_BH extends MInventoryLine {
 		throw new IllegalArgumentException("BH_RequiresExpiration is virtual column");
 	}
 
+
+	/**
+	 * Set Number of Order Lines.
+	 *
+	 * @param BH_NumOrderLines The number of order lines on an order
+	 */
+	public void setBH_NumOrderLines(int BH_NumOrderLines) {
+		throw new IllegalArgumentException("BH_NumOrderLines is virtual column");
+	}
+
+	/**
+	 * Get Number of Order Lines.
+	 *
+	 * @return The number of order lines on an order
+	 */
+	public int getBH_NumOrderLines() {
+		Integer ii = (Integer) get_Value(COLUMNNAME_BH_NumOrderLines);
+		if (ii == null)
+			return 0;
+		return ii.intValue();
+	}
+
+	/**
+	 * Set Document Status.
+	 *
+	 * @param BH_OrderDocStatus The current status of the document
+	 */
+	public void setBH_OrderDocStatus(String BH_OrderDocStatus) {
+		throw new IllegalArgumentException("BH_OrderDocStatus is virtual column");
+	}
+
+	/**
+	 * Get Document Status.
+	 *
+	 * @return The current status of the document
+	 */
+	public String getBH_OrderDocStatus() {
+		return (String) get_Value(COLUMNNAME_BH_OrderDocStatus);
+	}
 }

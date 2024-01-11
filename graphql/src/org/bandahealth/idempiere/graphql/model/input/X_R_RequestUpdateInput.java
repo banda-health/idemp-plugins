@@ -1,0 +1,189 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MOrg;
+import org.compiere.model.MRequest;
+import org.compiere.model.MRequestUpdate;
+import org.compiere.model.Query;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for R_RequestUpdate - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_RequestUpdateInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mM_ProductSpent;
+	private ForeignEntityInput mR_Request;
+	private I_AD_Ref_ListInput mConfidentialTypeEntry;
+
+	/**
+	 * Standard constructor
+	 */
+	@JsonCreator
+	public X_R_RequestUpdateInput(@JsonProperty("ID") String ID) {
+		super(null, ModelUtil.getModelResultSet(new MRequestUpdate(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
+		setID(ID);
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		MOrg foreignEntity;
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+						.setParameters(AD_Org.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Org_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Entry Confidentiality.
+	 *
+	 * @param ConfidentialTypeEntry Confidentiality of the individual entry
+	 */
+	@JsonProperty("ConfidentialTypeEntry")
+	public void setConfidentialTypeEntryInput(I_AD_Ref_ListInput ConfidentialTypeEntry) {
+		this.mConfidentialTypeEntry = ConfidentialTypeEntry;
+		MRefList_BH foreignEntity;
+		if (ConfidentialTypeEntry != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(ConfidentialTypeEntry.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			this.setConfidentialTypeEntry(foreignEntity.getValue());
+		} else {
+			this.setConfidentialTypeEntry(null);
+		}
+	}
+
+	/**
+	 * Get Entry Confidentiality.
+	 *
+	 * @return Confidentiality of the individual entry
+	 */
+	@JsonProperty("ConfidentialTypeEntry")
+	public I_AD_Ref_ListInput ConfidentialTypeEntry() {
+		return mConfidentialTypeEntry;
+	}
+
+	/**
+	 * Set Product Used.
+	 *
+	 * @param M_ProductSpent Product/Resource/Service used in Request
+	 */
+	@JsonProperty("M_ProductSpent")
+	public void setM_ProductSpentInput(ForeignEntityInput M_ProductSpent) {
+		this.mM_ProductSpent = M_ProductSpent;
+		MProduct_BH foreignEntity;
+		if (M_ProductSpent != null &&
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+						.setParameters(M_ProductSpent.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setM_ProductSpent_ID(foreignEntity.get_ID());
+		} else {
+			super.setM_ProductSpent_ID(0);
+		}
+	}
+
+	/**
+	 * Get Product Used.
+	 *
+	 * @return Product/Resource/Service used in Request
+	 */
+	@JsonProperty("M_ProductSpent")
+	public ForeignEntityInput M_ProductSpent() {
+		return mM_ProductSpent;
+	}
+
+	/**
+	 * Set Request.
+	 *
+	 * @param R_Request Request from a Business Partner or Prospect
+	 */
+	@JsonProperty("R_Request")
+	public void setR_RequestInput(ForeignEntityInput R_Request) {
+		this.mR_Request = R_Request;
+		MRequest foreignEntity;
+		if (get_ID() == 0 && R_Request != null &&
+				(foreignEntity = new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
+						.setParameters(R_Request.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setR_Request_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Request.
+	 *
+	 * @return Request from a Business Partner or Prospect
+	 */
+	@JsonProperty("R_Request")
+	public ForeignEntityInput R_Request() {
+		return mR_Request;
+	}
+	/**
+	 * Set Request Update.
+	 *
+	 * @param R_RequestUpdate_ID Request Updates
+	 */
+
+	public void setR_RequestUpdate_ID(int R_RequestUpdate_ID) {
+		if (get_ID() == 0) {
+			super.setR_RequestUpdate_ID(R_RequestUpdate_ID);
+		}
+	}
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	public void setID(String ID) {
+		setR_RequestUpdate_UU(ID);
+	}
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	public String getID() {
+		return getR_RequestUpdate_UU();
+	}
+	/**
+	 * Set Result.
+	 *
+	 * @param Result Result of the action taken
+	 */
+
+	public void setResult(String Result) {
+		if (get_ID() == 0) {
+			super.setResult(Result);
+		}
+	}
+}

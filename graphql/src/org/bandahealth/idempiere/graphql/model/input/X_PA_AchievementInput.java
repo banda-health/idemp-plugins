@@ -7,7 +7,8 @@ import org.compiere.model.MAchievement;
 import org.compiere.model.MMeasure;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_Achievement - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_PA_AchievementInput extends MAchievement implements I_PA_AchievementInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mPA_Measure;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mPA_Measure;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_AchievementInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MAchievement(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -54,6 +56,17 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Achievement.
+	 *
+	 * @param PA_Achievement_ID Performance Achievement
+	 */
+
+	public void setPA_Achievement_ID(int PA_Achievement_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Achievement_ID(PA_Achievement_ID);
+		}
 	}
 
 	/**
@@ -83,8 +96,8 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	public void setPA_MeasureInput(ForeignEntityInput PA_Measure) {
 		this.mPA_Measure = PA_Measure;
 		MMeasure foreignEntity;
-		if (get_ID() == 0 &&PA_Measure != null &&
-				(foreignEntity = new Query(getCtx(), MMeasure.Table_Name, MMeasure.COLUMNNAME_PA_Measure_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && PA_Measure != null &&
+				(foreignEntity = new Query(getCtx(), "PA_Measure", "PA_Measure_UU=?", get_TrxName())
 						.setParameters(PA_Measure.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_Measure_ID(foreignEntity.get_ID());

@@ -1,0 +1,48 @@
+# Generated Schema for WS_WebServiceFieldOutput - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	WS_WebServiceFieldOutputGet(page: Int, size: Int, sort: String, filter: String): WS_WebServiceFieldOutputConnection!
+}
+
+extend type Mutation {
+	WS_WebServiceFieldOutputSave(entity: WS_WebServiceFieldOutputInput!): WS_WebServiceFieldOutput!
+	WS_WebServiceFieldOutputDelete(uuids: [String!]!): Boolean!
+}
+
+type WS_WebServiceFieldOutputConnection {
+	results: [WS_WebServiceFieldOutput!]!
+	pagingInfo: PagingInfo!
+}
+
+type WS_WebServiceFieldOutput {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+	ID: ID!
+	WS_WebServiceType: WS_WebServiceType!
+}
+
+input WS_WebServiceFieldOutputInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	ID: ID
+	WS_WebServiceType: ForeignEntityInput
+}

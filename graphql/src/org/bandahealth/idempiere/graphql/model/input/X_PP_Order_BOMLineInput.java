@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -14,10 +13,12 @@ import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
 import org.eevolution.model.X_PP_Order;
 import org.eevolution.model.X_PP_Order_BOM;
 import org.eevolution.model.X_PP_Order_BOMLine;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PP_Order_BOMLine - DO NOT CHANGE
@@ -27,25 +28,26 @@ import org.eevolution.model.X_PP_Order_BOMLine;
  */
 public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_Order_BOMLineInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_User;
-	 private ForeignEntityInput mC_UOM;
-	 private ForeignEntityInput mM_AttributeSetInstance;
-	 private ForeignEntityInput mM_ChangeNotice;
-	 private ForeignEntityInput mM_Locator;
-	 private ForeignEntityInput mM_Product;
-	 private ForeignEntityInput mM_Warehouse;
-	 private ForeignEntityInput mPP_Order;
-	 private ForeignEntityInput mPP_Order_BOM;
-	 private I_AD_Ref_ListInput mComponentType;
-	 private I_AD_Ref_ListInput mIssueMethod;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mM_AttributeSetInstance;
+	private ForeignEntityInput mM_ChangeNotice;
+	private ForeignEntityInput mM_Locator;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mPP_Order;
+	private ForeignEntityInput mPP_Order_BOM;
+	private I_AD_Ref_ListInput mComponentType;
+	private I_AD_Ref_ListInput mIssueMethod;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PP_Order_BOMLineInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_PP_Order_BOMLine(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -58,8 +60,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -86,7 +88,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -136,8 +138,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
-		if (get_ID() == 0 &&C_UOM != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_UOM != null &&
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_ID(foreignEntity.get_ID());
@@ -243,8 +245,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
-		if (get_ID() == 0 &&M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_AttributeSetInstance != null &&
+				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
@@ -271,7 +273,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 		this.mM_ChangeNotice = M_ChangeNotice;
 		MChangeNotice foreignEntity;
 		if (M_ChangeNotice != null &&
-				(foreignEntity = new Query(getCtx(), MChangeNotice.Table_Name, MChangeNotice.COLUMNNAME_M_ChangeNotice_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
 						.setParameters(M_ChangeNotice.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ChangeNotice_ID(foreignEntity.get_ID());
@@ -300,7 +302,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
-				(foreignEntity = new Query(getCtx(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Locator_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 						.setParameters(M_Locator.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Locator_ID(foreignEntity.get_ID());
@@ -328,8 +330,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (get_ID() == 0 &&M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_Product != null &&
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());
@@ -356,7 +358,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 						.setParameters(M_Warehouse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Warehouse_ID(foreignEntity.get_ID());
@@ -384,8 +386,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	public void setPP_Order_BOMInput(ForeignEntityInput PP_Order_BOM) {
 		this.mPP_Order_BOM = PP_Order_BOM;
 		X_PP_Order_BOM foreignEntity;
-		if (get_ID() == 0 &&PP_Order_BOM != null &&
-				(foreignEntity = new Query(getCtx(), X_PP_Order_BOM.Table_Name, X_PP_Order_BOM.COLUMNNAME_PP_Order_BOM_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && PP_Order_BOM != null &&
+				(foreignEntity = new Query(getCtx(), "PP_Order_BOM", "PP_Order_BOM_UU=?", get_TrxName())
 						.setParameters(PP_Order_BOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPP_Order_BOM_ID(foreignEntity.get_ID());
@@ -400,6 +402,17 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	@JsonProperty("PP_Order_BOM")
 	public ForeignEntityInput PP_Order_BOM() {
 		return mPP_Order_BOM;
+	}
+	/**
+	 * Set Manufacturing Order BOM Line.
+	 *
+	 * @param PP_Order_BOMLine_ID Manufacturing Order BOM Line
+	 */
+
+	public void setPP_Order_BOMLine_ID(int PP_Order_BOMLine_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_BOMLine_ID(PP_Order_BOMLine_ID);
+		}
 	}
 
 	/**
@@ -429,8 +442,8 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
 		X_PP_Order foreignEntity;
-		if (get_ID() == 0 &&PP_Order != null &&
-				(foreignEntity = new Query(getCtx(), X_PP_Order.Table_Name, X_PP_Order.COLUMNNAME_PP_Order_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && PP_Order != null &&
+				(foreignEntity = new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
 						.setParameters(PP_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPP_Order_ID(foreignEntity.get_ID());

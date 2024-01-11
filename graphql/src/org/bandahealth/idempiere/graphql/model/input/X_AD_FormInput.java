@@ -9,7 +9,8 @@ import org.compiere.model.MEntityType;
 import org.compiere.model.MForm;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Form - DO NOT CHANGE
@@ -19,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_AD_FormInput extends MForm implements I_AD_FormInput {
 
-	 private ForeignEntityInput mAD_CtxHelp;
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Org;
-	 private I_AD_Ref_ListInput mAccessLevel;
+	private ForeignEntityInput mAD_CtxHelp;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Org;
+	private I_AD_Ref_ListInput mAccessLevel;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_FormInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MForm(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -72,7 +74,7 @@ public class X_AD_FormInput extends MForm implements I_AD_FormInput {
 		this.mAD_CtxHelp = AD_CtxHelp;
 		MCtxHelp foreignEntity;
 		if (AD_CtxHelp != null &&
-				(foreignEntity = new Query(getCtx(), MCtxHelp.Table_Name, MCtxHelp.COLUMNNAME_AD_CtxHelp_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
 						.setParameters(AD_CtxHelp.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_CtxHelp_ID(foreignEntity.get_ID());
@@ -89,6 +91,17 @@ public class X_AD_FormInput extends MForm implements I_AD_FormInput {
 	@JsonProperty("AD_CtxHelp")
 	public ForeignEntityInput AD_CtxHelp() {
 		return mAD_CtxHelp;
+	}
+	/**
+	 * Set Special Form.
+	 *
+	 * @param AD_Form_ID Special Form
+	 */
+
+	public void setAD_Form_ID(int AD_Form_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Form_ID(AD_Form_ID);
+		}
 	}
 
 	/**
@@ -118,8 +131,8 @@ public class X_AD_FormInput extends MForm implements I_AD_FormInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -146,7 +159,7 @@ public class X_AD_FormInput extends MForm implements I_AD_FormInput {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());

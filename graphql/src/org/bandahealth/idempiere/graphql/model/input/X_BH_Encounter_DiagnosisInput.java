@@ -1,0 +1,147 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHEncounter;
+import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MOrg;
+import org.compiere.model.Query;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for BH_Encounter_Diagnosis - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis implements I_BH_Encounter_DiagnosisInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_Coded_Diagnosis;
+	private ForeignEntityInput mBH_Encounter;
+
+	/**
+	 * Standard constructor
+	 */
+	@JsonCreator
+	public X_BH_Encounter_DiagnosisInput(@JsonProperty("ID") String ID) {
+		super(null, ModelUtil.getModelResultSet(new MBHEncounterDiagnosis(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
+		setID(ID);
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		MOrg foreignEntity;
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+						.setParameters(AD_Org.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Org_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Coded Diagnosis.
+	 *
+	 * @param BH_Coded_Diagnosis Coded Diagnosis
+	 */
+	@JsonProperty("BH_Coded_Diagnosis")
+	public void setBH_Coded_DiagnosisInput(ForeignEntityInput BH_Coded_Diagnosis) {
+		this.mBH_Coded_Diagnosis = BH_Coded_Diagnosis;
+		MBHCodedDiagnosis foreignEntity;
+		if (get_ID() == 0 && BH_Coded_Diagnosis != null &&
+				(foreignEntity = new Query(getCtx(), "BH_Coded_Diagnosis", "BH_Coded_Diagnosis_UU=?", get_TrxName())
+						.setParameters(BH_Coded_Diagnosis.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setBH_Coded_Diagnosis_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Coded Diagnosis.
+	 *
+	 * @return Coded Diagnosis
+	 */
+	@JsonProperty("BH_Coded_Diagnosis")
+	public ForeignEntityInput BH_Coded_Diagnosis() {
+		return mBH_Coded_Diagnosis;
+	}
+	/**
+	 * Set Encounter Diagnosis.
+	 *
+	 * @param BH_Encounter_Diagnosis_ID Encounter Diagnosis
+	 */
+
+	public void setBH_Encounter_Diagnosis_ID(int BH_Encounter_Diagnosis_ID) {
+		if (get_ID() == 0) {
+			super.setBH_Encounter_Diagnosis_ID(BH_Encounter_Diagnosis_ID);
+		}
+	}
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	public void setID(String ID) {
+		setBH_Encounter_Diagnosis_UU(ID);
+	}
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	public String getID() {
+		return getBH_Encounter_Diagnosis_UU();
+	}
+
+	/**
+	 * Set Encounter.
+	 *
+	 * @param BH_Encounter Encounter
+	 */
+	@JsonProperty("BH_Encounter")
+	public void setBH_EncounterInput(ForeignEntityInput BH_Encounter) {
+		this.mBH_Encounter = BH_Encounter;
+		MBHEncounter foreignEntity;
+		if (BH_Encounter != null &&
+				(foreignEntity = new Query(getCtx(), "BH_Encounter", "BH_Encounter_UU=?", get_TrxName())
+						.setParameters(BH_Encounter.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setBH_Encounter_ID(foreignEntity.get_ID());
+		} else {
+			super.setBH_Encounter_ID(0);
+		}
+	}
+
+	/**
+	 * Get Encounter.
+	 *
+	 * @return Encounter
+	 */
+	@JsonProperty("BH_Encounter")
+	public ForeignEntityInput BH_Encounter() {
+		return mBH_Encounter;
+	}
+}

@@ -16,7 +16,8 @@ import org.compiere.model.MProject;
 import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTask;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_CashPlanLine - DO NOT CHANGE
@@ -26,25 +27,26 @@ import org.compiere.util.Env;
  */
 public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlanLineInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Activity;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_Campaign;
-	 private ForeignEntityInput mC_CashPlan;
-	 private ForeignEntityInput mC_Charge;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mC_ProjectPhase;
-	 private ForeignEntityInput mC_ProjectTask;
-	 private ForeignEntityInput mM_Product;
-	 private ForeignEntityInput mUser1;
-	 private ForeignEntityInput mUser2;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_CashPlan;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mC_ProjectPhase;
+	private ForeignEntityInput mC_ProjectTask;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mUser1;
+	private ForeignEntityInput mUser2;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_CashPlanLineInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MCashPlanLine(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -58,7 +60,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -87,7 +89,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Activity_ID(foreignEntity.get_ID());
@@ -116,7 +118,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -145,7 +147,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Campaign_ID(foreignEntity.get_ID());
@@ -173,8 +175,8 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	public void setC_CashPlanInput(ForeignEntityInput C_CashPlan) {
 		this.mC_CashPlan = C_CashPlan;
 		MCashPlan foreignEntity;
-		if (get_ID() == 0 &&C_CashPlan != null &&
-				(foreignEntity = new Query(getCtx(), MCashPlan.Table_Name, MCashPlan.COLUMNNAME_C_CashPlan_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_CashPlan != null &&
+				(foreignEntity = new Query(getCtx(), "C_CashPlan", "C_CashPlan_UU=?", get_TrxName())
 						.setParameters(C_CashPlan.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_CashPlan_ID(foreignEntity.get_ID());
@@ -189,6 +191,17 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_CashPlan")
 	public ForeignEntityInput C_CashPlan() {
 		return mC_CashPlan;
+	}
+	/**
+	 * Set Cash Plan Line.
+	 *
+	 * @param C_CashPlanLine_ID Cash Plan Line
+	 */
+
+	public void setC_CashPlanLine_ID(int C_CashPlanLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_CashPlanLine_ID(C_CashPlanLine_ID);
+		}
 	}
 
 	/**
@@ -219,7 +232,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Charge_ID(foreignEntity.get_ID());
@@ -248,7 +261,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -276,8 +289,8 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
 		MProjectPhase foreignEntity;
-		if (get_ID() == 0 &&C_ProjectPhase != null &&
-				(foreignEntity = new Query(getCtx(), MProjectPhase.Table_Name, MProjectPhase.COLUMNNAME_C_ProjectPhase_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_ProjectPhase != null &&
+				(foreignEntity = new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
 						.setParameters(C_ProjectPhase.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ProjectPhase_ID(foreignEntity.get_ID());
@@ -303,8 +316,8 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
 		MProjectTask foreignEntity;
-		if (get_ID() == 0 &&C_ProjectTask != null &&
-				(foreignEntity = new Query(getCtx(), MProjectTask.Table_Name, MProjectTask.COLUMNNAME_C_ProjectTask_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_ProjectTask != null &&
+				(foreignEntity = new Query(getCtx(), "C_ProjectTask", "C_ProjectTask_UU=?", get_TrxName())
 						.setParameters(C_ProjectTask.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ProjectTask_ID(foreignEntity.get_ID());
@@ -331,7 +344,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());
@@ -360,7 +373,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser1_ID(foreignEntity.get_ID());
@@ -389,7 +402,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser2_ID(foreignEntity.get_ID());

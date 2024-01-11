@@ -1,0 +1,62 @@
+# Generated Schema for B_SellerFunds - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	B_SellerFundsGet(page: Int, size: Int, sort: String, filter: String): B_SellerFundsConnection!
+}
+
+extend type Mutation {
+	B_SellerFundsSave(entity: B_SellerFundsInput!): B_SellerFunds!
+	B_SellerFundsDelete(uuids: [String!]!): Boolean!
+}
+
+type B_SellerFundsConnection {
+	results: [B_SellerFunds!]!
+	pagingInfo: PagingInfo!
+}
+
+type B_SellerFunds {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	ID: ID!
+	# Order
+	C_Order: C_Order
+	# Payment identifier
+	C_Payment: C_Payment
+	# The (legal) commitment amount
+	CommittedAmt: Int!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Amount not committed yet
+	NonCommittedAmt: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input B_SellerFundsInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	ID: ID
+	# Order
+	C_Order: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# The (legal) commitment amount
+	CommittedAmt: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Amount not committed yet
+	NonCommittedAmt: Int
+}

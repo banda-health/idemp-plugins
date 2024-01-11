@@ -1,0 +1,74 @@
+# Generated Schema for AD_InfoProcess - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_InfoProcessGet(page: Int, size: Int, sort: String, filter: String): AD_InfoProcessConnection!
+}
+
+extend type Mutation {
+	AD_InfoProcessSave(entity: AD_InfoProcessInput!): AD_InfoProcess!
+	AD_InfoProcessDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_InfoProcessConnection {
+	results: [AD_InfoProcess!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_InfoProcess {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Info Window Column
+	AD_InfoColumn: AD_InfoColumn
+	ID: ID!
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindow
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Process or Report
+	AD_Process: AD_Process!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Layout type of info process
+	LayoutType: AD_Ref_List!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_InfoProcessInput {
+	# Info Window Column
+	AD_InfoColumn: ForeignEntityInput
+	ID: ID
+	# Info and search/select Window
+	AD_InfoWindow: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Layout type of info process
+	LayoutType: AD_Ref_ListInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

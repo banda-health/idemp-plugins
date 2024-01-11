@@ -1,0 +1,134 @@
+# Generated Schema for AD_Attribute - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_AttributeGet(page: Int, size: Int, sort: String, filter: String): AD_AttributeConnection!
+}
+
+extend type Mutation {
+	AD_AttributeSave(entity: AD_AttributeInput!): AD_Attribute!
+	AD_AttributeDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_AttributeConnection {
+	results: [AD_Attribute!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_Attribute {
+	ID: ID!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# System Reference and Validation
+	AD_Reference: AD_Reference!
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: AD_Reference
+	# Database Table information
+	AD_Table: AD_Table!
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_Rule
+	# Fully qualified class names and method - separated by semicolons
+	Callout: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# Length of the display in characters
+	DisplayLength: Int
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Length of the column in the database
+	FieldLength: Int
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Display or Storage is encrypted
+	IsEncrypted: Boolean!
+	# Label is not displayed
+	IsFieldOnly: Boolean!
+	# Field without Column - Only label is displayed
+	IsHeading: Boolean!
+	# Data entry is required in this column
+	IsMandatory: Boolean!
+	# Field is read only
+	IsReadOnly: Boolean!
+	# Displayed on same line as previous field
+	IsSameLine: Boolean!
+	# Determines, if the field can be updated
+	IsUpdateable: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Maximum Value for a field
+	ValueMax: String
+	# Minimum Value for a field
+	ValueMin: String
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}
+
+input AD_AttributeInput {
+	ID: ID
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Fully qualified class names and method - separated by semicolons
+	Callout: String
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# Length of the display in characters
+	DisplayLength: Int
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Length of the column in the database
+	FieldLength: Int
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Display or Storage is encrypted
+	IsEncrypted: Boolean
+	# Label is not displayed
+	IsFieldOnly: Boolean
+	# Field without Column - Only label is displayed
+	IsHeading: Boolean
+	# Data entry is required in this column
+	IsMandatory: Boolean
+	# Field is read only
+	IsReadOnly: Boolean
+	# Displayed on same line as previous field
+	IsSameLine: Boolean
+	# Determines, if the field can be updated
+	IsUpdateable: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Maximum Value for a field
+	ValueMax: String
+	# Minimum Value for a field
+	ValueMin: String
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}

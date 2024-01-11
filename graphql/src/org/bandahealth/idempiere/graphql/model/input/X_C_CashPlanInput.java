@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -13,7 +12,9 @@ import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_CashPlan - DO NOT CHANGE
@@ -23,21 +24,22 @@ import org.compiere.util.Env;
  */
 public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Activity;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_Campaign;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mUser1;
-	 private ForeignEntityInput mUser2;
-	 private I_AD_Ref_ListInput mCashFlowType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mUser1;
+	private ForeignEntityInput mUser2;
+	private I_AD_Ref_ListInput mCashFlowType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_CashPlanInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MCashPlan(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -51,7 +53,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -80,7 +82,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Activity_ID(foreignEntity.get_ID());
@@ -109,7 +111,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -138,7 +140,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Campaign_ID(foreignEntity.get_ID());
@@ -155,6 +157,17 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	@JsonProperty("C_Campaign")
 	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
+	}
+	/**
+	 * Set Cash Plan.
+	 *
+	 * @param C_CashPlan_ID Cash Plan
+	 */
+
+	public void setC_CashPlan_ID(int C_CashPlan_ID) {
+		if (get_ID() == 0) {
+			super.setC_CashPlan_ID(C_CashPlan_ID);
+		}
 	}
 
 	/**
@@ -185,7 +198,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -276,7 +289,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser1_ID(foreignEntity.get_ID());
@@ -305,7 +318,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser2_ID(foreignEntity.get_ID());

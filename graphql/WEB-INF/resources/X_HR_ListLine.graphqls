@@ -1,0 +1,68 @@
+# Generated Schema for HR_ListLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	HR_ListLineGet(page: Int, size: Int, sort: String, filter: String): HR_ListLineConnection!
+}
+
+extend type Mutation {
+	HR_ListLineSave(entity: HR_ListLineInput!): HR_ListLine!
+	HR_ListLineDelete(uuids: [String!]!): Boolean!
+}
+
+type HR_ListLineConnection {
+	results: [HR_ListLine!]!
+	pagingInfo: PagingInfo!
+}
+
+type HR_ListLine {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	Col_1: Int
+	Col_2: Int
+	Col_3: Int
+	Col_4: Int
+	Col_5: Int
+	Col_6: Int
+	Col_7: Int
+	Col_8: Int
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	ID: ID!
+	HR_ListVersion: HR_ListVersion
+	# The record is active in the system
+	IsActive: Boolean!
+	MaxValue: Int!
+	MinValue: Int!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input HR_ListLineInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	Col_1: Int
+	Col_2: Int
+	Col_3: Int
+	Col_4: Int
+	Col_5: Int
+	Col_6: Int
+	Col_7: Int
+	Col_8: Int
+	ID: ID
+	HR_ListVersion: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	MaxValue: Int
+	MinValue: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+}

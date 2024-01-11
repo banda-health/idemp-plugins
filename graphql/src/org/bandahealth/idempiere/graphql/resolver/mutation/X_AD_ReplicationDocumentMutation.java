@@ -1,0 +1,30 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_AD_ReplicationDocumentInput;
+import org.bandahealth.idempiere.graphql.model.input.X_AD_ReplicationDocumentInput;
+import org.compiere.model.X_AD_ReplicationDocument;
+
+import java.util.List;
+
+/**
+ * Generated Query Resolver for AD_ReplicationDocument - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_AD_ReplicationDocumentMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_AD_ReplicationDocumentInput.Table_Name;
+	}
+
+	public X_AD_ReplicationDocument AD_ReplicationDocumentSave(I_AD_ReplicationDocumentInput input, DataFetchingEnvironment environment) {
+		return (X_AD_ReplicationDocument) super.save((X_AD_ReplicationDocumentInput) input, environment);
+	}
+
+	public boolean AD_ReplicationDocumentDelete(List<String> uuids, DataFetchingEnvironment environment) {
+		return super.delete(uuids, environment);
+	}
+}

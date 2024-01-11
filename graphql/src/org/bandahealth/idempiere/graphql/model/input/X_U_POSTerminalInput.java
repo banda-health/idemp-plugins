@@ -1,0 +1,634 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MBankAccount_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MCashBook;
+import org.compiere.model.MOrg;
+import org.compiere.model.MPOSTerminal;
+import org.compiere.model.MPriceList;
+import org.compiere.model.Query;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for U_POSTerminal - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTerminalInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_CashBPartner;
+	private ForeignEntityInput mC_CashBook;
+	private ForeignEntityInput mC_TemplateBPartner;
+	private ForeignEntityInput mCardTransferBankAccount;
+	private ForeignEntityInput mCardTransferCashBook;
+	private ForeignEntityInput mCard_BankAccount;
+	private ForeignEntityInput mCashTransferBankAccount;
+	private ForeignEntityInput mCashTransferCashBook;
+	private ForeignEntityInput mCheckTransferBankAccount;
+	private ForeignEntityInput mCheckTransferCashBook;
+	private ForeignEntityInput mCheck_BankAccount;
+	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mPO_PriceList;
+	private ForeignEntityInput mSO_PriceList;
+	private ForeignEntityInput mSalesRep;
+	private I_AD_Ref_ListInput mCardTransferType;
+	private I_AD_Ref_ListInput mCashBookTransferType;
+	private I_AD_Ref_ListInput mCheckTransferType;
+
+	/**
+	 * Standard constructor
+	 */
+	@JsonCreator
+	public X_U_POSTerminalInput(@JsonProperty("ID") String ID) {
+		super(null, ModelUtil.getModelResultSet(new MPOSTerminal(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
+		setID(ID);
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		MOrg foreignEntity;
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+						.setParameters(AD_Org.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Org_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Cash Book.
+	 *
+	 * @param C_CashBook Cash Book for recording petty cash transactions
+	 */
+	@JsonProperty("C_CashBook")
+	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
+		this.mC_CashBook = C_CashBook;
+		MCashBook foreignEntity;
+		if (C_CashBook != null &&
+				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+						.setParameters(C_CashBook.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_CashBook_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_CashBook_ID(0);
+		}
+	}
+
+	/**
+	 * Get Cash Book.
+	 *
+	 * @return Cash Book for recording petty cash transactions
+	 */
+	@JsonProperty("C_CashBook")
+	public ForeignEntityInput C_CashBook() {
+		return mC_CashBook;
+	}
+
+	/**
+	 * Set Cash BPartner.
+	 *
+	 * @param C_CashBPartner BPartner to be used for Cash transactions
+	 */
+	@JsonProperty("C_CashBPartner")
+	public void setC_CashBPartnerInput(ForeignEntityInput C_CashBPartner) {
+		this.mC_CashBPartner = C_CashBPartner;
+		MBPartner_BH foreignEntity;
+		if (C_CashBPartner != null &&
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+						.setParameters(C_CashBPartner.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_CashBPartner_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_CashBPartner_ID(0);
+		}
+	}
+
+	/**
+	 * Get Cash BPartner.
+	 *
+	 * @return BPartner to be used for Cash transactions
+	 */
+	@JsonProperty("C_CashBPartner")
+	public ForeignEntityInput C_CashBPartner() {
+		return mC_CashBPartner;
+	}
+
+	/**
+	 * Set Template BPartner.
+	 *
+	 * @param C_TemplateBPartner BPartner that is to be used as template when new customers are created
+	 */
+	@JsonProperty("C_TemplateBPartner")
+	public void setC_TemplateBPartnerInput(ForeignEntityInput C_TemplateBPartner) {
+		this.mC_TemplateBPartner = C_TemplateBPartner;
+		MBPartner_BH foreignEntity;
+		if (C_TemplateBPartner != null &&
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+						.setParameters(C_TemplateBPartner.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_TemplateBPartner_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_TemplateBPartner_ID(0);
+		}
+	}
+
+	/**
+	 * Get Template BPartner.
+	 *
+	 * @return BPartner that is to be used as template when new customers are created
+	 */
+	@JsonProperty("C_TemplateBPartner")
+	public ForeignEntityInput C_TemplateBPartner() {
+		return mC_TemplateBPartner;
+	}
+
+	/**
+	 * Set Card Bank Account.
+	 *
+	 * @param Card_BankAccount Bank Account on which card transactions will be processed
+	 */
+	@JsonProperty("Card_BankAccount")
+	public void setCard_BankAccountInput(ForeignEntityInput Card_BankAccount) {
+		this.mCard_BankAccount = Card_BankAccount;
+		MBankAccount_BH foreignEntity;
+		if (Card_BankAccount != null &&
+				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+						.setParameters(Card_BankAccount.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setCard_BankAccount_ID(foreignEntity.get_ID());
+		} else {
+			super.setCard_BankAccount_ID(0);
+		}
+	}
+
+	/**
+	 * Get Card Bank Account.
+	 *
+	 * @return Bank Account on which card transactions will be processed
+	 */
+	@JsonProperty("Card_BankAccount")
+	public ForeignEntityInput Card_BankAccount() {
+		return mCard_BankAccount;
+	}
+
+	/**
+	 * Set Transfer Card trx to.
+	 *
+	 * @param CardTransferBankAccount Bank account on which to transfer Card transactions
+	 */
+	@JsonProperty("CardTransferBankAccount")
+	public void setCardTransferBankAccountInput(ForeignEntityInput CardTransferBankAccount) {
+		this.mCardTransferBankAccount = CardTransferBankAccount;
+		MBankAccount_BH foreignEntity;
+		if (CardTransferBankAccount != null &&
+				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+						.setParameters(CardTransferBankAccount.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setCardTransferBankAccount_ID(foreignEntity.get_ID());
+		} else {
+			super.setCardTransferBankAccount_ID(0);
+		}
+	}
+
+	/**
+	 * Get Transfer Card trx to.
+	 *
+	 * @return Bank account on which to transfer Card transactions
+	 */
+	@JsonProperty("CardTransferBankAccount")
+	public ForeignEntityInput CardTransferBankAccount() {
+		return mCardTransferBankAccount;
+	}
+
+	/**
+	 * Set Transfer Card trx to.
+	 *
+	 * @param CardTransferCashBook Cash Book on which to transfer all Card transactions
+	 */
+	@JsonProperty("CardTransferCashBook")
+	public void setCardTransferCashBookInput(ForeignEntityInput CardTransferCashBook) {
+		this.mCardTransferCashBook = CardTransferCashBook;
+		MCashBook foreignEntity;
+		if (CardTransferCashBook != null &&
+				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+						.setParameters(CardTransferCashBook.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setCardTransferCashBook_ID(foreignEntity.get_ID());
+		} else {
+			super.setCardTransferCashBook_ID(0);
+		}
+	}
+
+	/**
+	 * Get Transfer Card trx to.
+	 *
+	 * @return Cash Book on which to transfer all Card transactions
+	 */
+	@JsonProperty("CardTransferCashBook")
+	public ForeignEntityInput CardTransferCashBook() {
+		return mCardTransferCashBook;
+	}
+
+	/**
+	 * Set Card Transfer Type.
+	 *
+	 * @param CardTransferType Card Transfer Type
+	 */
+	@JsonProperty("CardTransferType")
+	public void setCardTransferTypeInput(I_AD_Ref_ListInput CardTransferType) {
+		this.mCardTransferType = CardTransferType;
+		MRefList_BH foreignEntity;
+		if (CardTransferType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(CardTransferType.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			this.setCardTransferType(foreignEntity.getValue());
+		} else {
+			this.setCardTransferType(null);
+		}
+	}
+
+	/**
+	 * Get Card Transfer Type.
+	 *
+	 * @return Card Transfer Type
+	 */
+	@JsonProperty("CardTransferType")
+	public I_AD_Ref_ListInput CardTransferType() {
+		return mCardTransferType;
+	}
+
+	/**
+	 * Set Cash Book Transfer Type.
+	 *
+	 * @param CashBookTransferType Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
+	 */
+	@JsonProperty("CashBookTransferType")
+	public void setCashBookTransferTypeInput(I_AD_Ref_ListInput CashBookTransferType) {
+		this.mCashBookTransferType = CashBookTransferType;
+		MRefList_BH foreignEntity;
+		if (CashBookTransferType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(CashBookTransferType.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			this.setCashBookTransferType(foreignEntity.getValue());
+		} else {
+			this.setCashBookTransferType(null);
+		}
+	}
+
+	/**
+	 * Get Cash Book Transfer Type.
+	 *
+	 * @return Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
+	 */
+	@JsonProperty("CashBookTransferType")
+	public I_AD_Ref_ListInput CashBookTransferType() {
+		return mCashBookTransferType;
+	}
+
+	/**
+	 * Set Transfer Cash trx to.
+	 *
+	 * @param CashTransferBankAccount Bank Account on which to transfer all Cash transactions
+	 */
+	@JsonProperty("CashTransferBankAccount")
+	public void setCashTransferBankAccountInput(ForeignEntityInput CashTransferBankAccount) {
+		this.mCashTransferBankAccount = CashTransferBankAccount;
+		MBankAccount_BH foreignEntity;
+		if (CashTransferBankAccount != null &&
+				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+						.setParameters(CashTransferBankAccount.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setCashTransferBankAccount_ID(foreignEntity.get_ID());
+		} else {
+			super.setCashTransferBankAccount_ID(0);
+		}
+	}
+
+	/**
+	 * Get Transfer Cash trx to.
+	 *
+	 * @return Bank Account on which to transfer all Cash transactions
+	 */
+	@JsonProperty("CashTransferBankAccount")
+	public ForeignEntityInput CashTransferBankAccount() {
+		return mCashTransferBankAccount;
+	}
+
+	/**
+	 * Set Transfer Cash trx to.
+	 *
+	 * @param CashTransferCashBook Cash Book on which to transfer all Cash transactions
+	 */
+	@JsonProperty("CashTransferCashBook")
+	public void setCashTransferCashBookInput(ForeignEntityInput CashTransferCashBook) {
+		this.mCashTransferCashBook = CashTransferCashBook;
+		MCashBook foreignEntity;
+		if (CashTransferCashBook != null &&
+				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+						.setParameters(CashTransferCashBook.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setCashTransferCashBook_ID(foreignEntity.get_ID());
+		} else {
+			super.setCashTransferCashBook_ID(0);
+		}
+	}
+
+	/**
+	 * Get Transfer Cash trx to.
+	 *
+	 * @return Cash Book on which to transfer all Cash transactions
+	 */
+	@JsonProperty("CashTransferCashBook")
+	public ForeignEntityInput CashTransferCashBook() {
+		return mCashTransferCashBook;
+	}
+
+	/**
+	 * Set Check Bank Account.
+	 *
+	 * @param Check_BankAccount Bank Account to be used for processing Check transactions
+	 */
+	@JsonProperty("Check_BankAccount")
+	public void setCheck_BankAccountInput(ForeignEntityInput Check_BankAccount) {
+		this.mCheck_BankAccount = Check_BankAccount;
+		MBankAccount_BH foreignEntity;
+		if (Check_BankAccount != null &&
+				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+						.setParameters(Check_BankAccount.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setCheck_BankAccount_ID(foreignEntity.get_ID());
+		} else {
+			super.setCheck_BankAccount_ID(0);
+		}
+	}
+
+	/**
+	 * Get Check Bank Account.
+	 *
+	 * @return Bank Account to be used for processing Check transactions
+	 */
+	@JsonProperty("Check_BankAccount")
+	public ForeignEntityInput Check_BankAccount() {
+		return mCheck_BankAccount;
+	}
+
+	/**
+	 * Set Tranfer Check trx to.
+	 *
+	 * @param CheckTransferBankAccount Bank account on which to transfer Check transactions
+	 */
+	@JsonProperty("CheckTransferBankAccount")
+	public void setCheckTransferBankAccountInput(ForeignEntityInput CheckTransferBankAccount) {
+		this.mCheckTransferBankAccount = CheckTransferBankAccount;
+		MBankAccount_BH foreignEntity;
+		if (CheckTransferBankAccount != null &&
+				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+						.setParameters(CheckTransferBankAccount.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setCheckTransferBankAccount_ID(foreignEntity.get_ID());
+		} else {
+			super.setCheckTransferBankAccount_ID(0);
+		}
+	}
+
+	/**
+	 * Get Tranfer Check trx to.
+	 *
+	 * @return Bank account on which to transfer Check transactions
+	 */
+	@JsonProperty("CheckTransferBankAccount")
+	public ForeignEntityInput CheckTransferBankAccount() {
+		return mCheckTransferBankAccount;
+	}
+
+	/**
+	 * Set Transfer Check trx to.
+	 *
+	 * @param CheckTransferCashBook Cash Book on which to transfer all Check transactions
+	 */
+	@JsonProperty("CheckTransferCashBook")
+	public void setCheckTransferCashBookInput(ForeignEntityInput CheckTransferCashBook) {
+		this.mCheckTransferCashBook = CheckTransferCashBook;
+		MCashBook foreignEntity;
+		if (CheckTransferCashBook != null &&
+				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+						.setParameters(CheckTransferCashBook.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setCheckTransferCashBook_ID(foreignEntity.get_ID());
+		} else {
+			super.setCheckTransferCashBook_ID(0);
+		}
+	}
+
+	/**
+	 * Get Transfer Check trx to.
+	 *
+	 * @return Cash Book on which to transfer all Check transactions
+	 */
+	@JsonProperty("CheckTransferCashBook")
+	public ForeignEntityInput CheckTransferCashBook() {
+		return mCheckTransferCashBook;
+	}
+
+	/**
+	 * Set Check Transfer Type.
+	 *
+	 * @param CheckTransferType Check Transfer Type
+	 */
+	@JsonProperty("CheckTransferType")
+	public void setCheckTransferTypeInput(I_AD_Ref_ListInput CheckTransferType) {
+		this.mCheckTransferType = CheckTransferType;
+		MRefList_BH foreignEntity;
+		if (CheckTransferType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(CheckTransferType.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			this.setCheckTransferType(foreignEntity.getValue());
+		} else {
+			this.setCheckTransferType(null);
+		}
+	}
+
+	/**
+	 * Get Check Transfer Type.
+	 *
+	 * @return Check Transfer Type
+	 */
+	@JsonProperty("CheckTransferType")
+	public I_AD_Ref_ListInput CheckTransferType() {
+		return mCheckTransferType;
+	}
+
+	/**
+	 * Set Warehouse.
+	 *
+	 * @param M_Warehouse Storage Warehouse and Service Point
+	 */
+	@JsonProperty("M_Warehouse")
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
+		this.mM_Warehouse = M_Warehouse;
+		MWarehouse_BH foreignEntity;
+		if (M_Warehouse != null &&
+				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+						.setParameters(M_Warehouse.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setM_Warehouse_ID(foreignEntity.get_ID());
+		} else {
+			super.setM_Warehouse_ID(0);
+		}
+	}
+
+	/**
+	 * Get Warehouse.
+	 *
+	 * @return Storage Warehouse and Service Point
+	 */
+	@JsonProperty("M_Warehouse")
+	public ForeignEntityInput M_Warehouse() {
+		return mM_Warehouse;
+	}
+
+	/**
+	 * Set Purchase Pricelist.
+	 *
+	 * @param PO_PriceList Price List used by this Business Partner
+	 */
+	@JsonProperty("PO_PriceList")
+	public void setPO_PriceListInput(ForeignEntityInput PO_PriceList) {
+		this.mPO_PriceList = PO_PriceList;
+		MPriceList foreignEntity;
+		if (PO_PriceList != null &&
+				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
+						.setParameters(PO_PriceList.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setPO_PriceList_ID(foreignEntity.get_ID());
+		} else {
+			super.setPO_PriceList_ID(0);
+		}
+	}
+
+	/**
+	 * Get Purchase Pricelist.
+	 *
+	 * @return Price List used by this Business Partner
+	 */
+	@JsonProperty("PO_PriceList")
+	public ForeignEntityInput PO_PriceList() {
+		return mPO_PriceList;
+	}
+
+	/**
+	 * Set Sales Representative.
+	 *
+	 * @param SalesRep Sales Representative or Company Agent
+	 */
+	@JsonProperty("SalesRep")
+	public void setSalesRepInput(ForeignEntityInput SalesRep) {
+		this.mSalesRep = SalesRep;
+		MUser_BH foreignEntity;
+		if (SalesRep != null &&
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+						.setParameters(SalesRep.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setSalesRep_ID(foreignEntity.get_ID());
+		} else {
+			super.setSalesRep_ID(0);
+		}
+	}
+
+	/**
+	 * Get Sales Representative.
+	 *
+	 * @return Sales Representative or Company Agent
+	 */
+	@JsonProperty("SalesRep")
+	public ForeignEntityInput SalesRep() {
+		return mSalesRep;
+	}
+
+	/**
+	 * Set Sales Pricelist.
+	 *
+	 * @param SO_PriceList Sales Pricelist
+	 */
+	@JsonProperty("SO_PriceList")
+	public void setSO_PriceListInput(ForeignEntityInput SO_PriceList) {
+		this.mSO_PriceList = SO_PriceList;
+		MPriceList foreignEntity;
+		if (SO_PriceList != null &&
+				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
+						.setParameters(SO_PriceList.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setSO_PriceList_ID(foreignEntity.get_ID());
+		} else {
+			super.setSO_PriceList_ID(0);
+		}
+	}
+
+	/**
+	 * Get Sales Pricelist.
+	 *
+	 * @return Sales Pricelist
+	 */
+	@JsonProperty("SO_PriceList")
+	public ForeignEntityInput SO_PriceList() {
+		return mSO_PriceList;
+	}
+	/**
+	 * Set POS Terminal.
+	 *
+	 * @param U_POSTerminal_ID POS Terminal
+	 */
+
+	public void setU_POSTerminal_ID(int U_POSTerminal_ID) {
+		if (get_ID() == 0) {
+			super.setU_POSTerminal_ID(U_POSTerminal_ID);
+		}
+	}
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	public void setID(String ID) {
+		setU_POSTerminal_UU(ID);
+	}
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	public String getID() {
+		return getU_POSTerminal_UU();
+	}
+}

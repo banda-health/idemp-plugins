@@ -11,7 +11,8 @@ import org.compiere.model.MRMA;
 import org.compiere.model.MRMALine;
 import org.compiere.model.MTax;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_RMALine - DO NOT CHANGE
@@ -21,20 +22,21 @@ import org.compiere.util.Env;
  */
 public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Charge;
-	 private ForeignEntityInput mC_Tax;
-	 private ForeignEntityInput mM_InOutLine;
-	 private ForeignEntityInput mM_Product;
-	 private ForeignEntityInput mM_RMA;
-	 private ForeignEntityInput mRef_RMALine;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mC_Tax;
+	private ForeignEntityInput mM_InOutLine;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mM_RMA;
+	private ForeignEntityInput mRef_RMALine;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_RMALineInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MRMALine(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -47,8 +49,8 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -75,7 +77,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Charge_ID(foreignEntity.get_ID());
@@ -104,7 +106,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 		this.mC_Tax = C_Tax;
 		MTax foreignEntity;
 		if (C_Tax != null &&
-				(foreignEntity = new Query(getCtx(), MTax.Table_Name, MTax.COLUMNNAME_C_Tax_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
 						.setParameters(C_Tax.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Tax_ID(foreignEntity.get_ID());
@@ -133,7 +135,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
 		if (M_InOutLine != null &&
-				(foreignEntity = new Query(getCtx(), MInOutLine.Table_Name, MInOutLine.COLUMNNAME_M_InOutLine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 						.setParameters(M_InOutLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_InOutLine_ID(foreignEntity.get_ID());
@@ -162,7 +164,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());
@@ -190,8 +192,8 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	public void setM_RMAInput(ForeignEntityInput M_RMA) {
 		this.mM_RMA = M_RMA;
 		MRMA foreignEntity;
-		if (get_ID() == 0 &&M_RMA != null &&
-				(foreignEntity = new Query(getCtx(), MRMA.Table_Name, MRMA.COLUMNNAME_M_RMA_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_RMA != null &&
+				(foreignEntity = new Query(getCtx(), "M_RMA", "M_RMA_UU=?", get_TrxName())
 						.setParameters(M_RMA.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_RMA_ID(foreignEntity.get_ID());
@@ -206,6 +208,17 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	@JsonProperty("M_RMA")
 	public ForeignEntityInput M_RMA() {
 		return mM_RMA;
+	}
+	/**
+	 * Set RMA Line.
+	 *
+	 * @param M_RMALine_ID Return Material Authorization Line
+	 */
+
+	public void setM_RMALine_ID(int M_RMALine_ID) {
+		if (get_ID() == 0) {
+			super.setM_RMALine_ID(M_RMALine_ID);
+		}
 	}
 
 	/**
@@ -236,7 +249,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 		this.mRef_RMALine = Ref_RMALine;
 		MRMALine foreignEntity;
 		if (Ref_RMALine != null &&
-				(foreignEntity = new Query(getCtx(), MRMALine.Table_Name, MRMALine.COLUMNNAME_M_RMALine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_RMALine", "M_RMALine_UU=?", get_TrxName())
 						.setParameters(Ref_RMALine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setRef_RMALine_ID(foreignEntity.get_ID());

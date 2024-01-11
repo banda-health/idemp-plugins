@@ -1,0 +1,288 @@
+# Generated Schema for I_Payment - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	I_PaymentGet(page: Int, size: Int, sort: String, filter: String): I_PaymentConnection!
+}
+
+extend type Mutation {
+	I_PaymentSave(entity: I_PaymentInput!): I_Payment!
+	I_PaymentDelete(uuids: [String!]!): Boolean!
+}
+
+type I_PaymentConnection {
+	results: [I_Payment!]!
+	pagingInfo: PagingInfo!
+}
+
+type I_Payment {
+	# City or the Credit Card or Account Holder
+	A_City: String
+	# Country
+	A_Country: String
+	# Email Address
+	A_EMail: String
+	# Payment Identification - Driver License
+	A_Ident_DL: String
+	# Payment Identification - Social Security No
+	A_Ident_SSN: String
+	# Name on Credit Card or Account holder
+	A_Name: String
+	# State of the Credit Card or Account holder
+	A_State: String
+	# Street address of the Credit Card or Account holder
+	A_Street: String
+	# Zip Code of the Credit Card or Account Holder
+	A_Zip: String
+	# Account Number
+	AccountNo: String
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within client
+	AD_Org: AD_Org
+	# Bank Account Number
+	BankAccountNo: String
+	# Key of the Business Partner
+	BPartnerValue: String
+	# Account at the Bank
+	C_BankAccount: C_BankAccount
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Additional document charges
+	C_Charge: C_Charge
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Document type or rules
+	C_DocType: C_DocType
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Payment identifier
+	C_Payment: C_Payment
+	# Charge Amount
+	ChargeAmt: Int
+	# Name of the Charge
+	ChargeName: String
+	# Check Number
+	CheckNo: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Expiry Month
+	CreditCardExpMM: Int
+	# Expiry Year
+	CreditCardExpYY: Int
+	# Credit Card Number 
+	CreditCardNumber: String
+	# Credit Card (Visa, MC, AmEx)
+	CreditCardType: AD_Ref_List
+	# Credit Card Verification code on credit card
+	CreditCardVV: String
+	# Accounting Date
+	DateAcct: Date
+	# Transaction Date
+	DateTrx: Date
+	# Calculated amount of discount
+	DiscountAmt: Int
+	# Name of the Document Type
+	DocTypeName: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean!
+	ID: ID!
+	# International Bank Account Number
+	IBAN: String
+	# Document Number of the Invoice
+	InvoiceDocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# Charge after Shipment
+	IsDelayedCapture: Boolean!
+	# Three letter ISO 4217 Code of the Currency
+	ISO_Code: String
+	# Over-Payment (unallocated) or Under-Payment (partial payment)
+	IsOverUnderPayment: Boolean!
+	# This is a sales transaction (receipt)
+	IsReceipt: Boolean!
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean!
+	# Combination of routing no, account and check no
+	Micr: String
+	# Original Transaction ID
+	Orig_TrxID: String
+	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
+	OverUnderAmt: Int
+	# Amount being paid
+	PayAmt: Int
+	# Purchase Order Number
+	PONum: String
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Authorization Code returned
+	R_AuthCode: String
+	# Response info
+	R_Info: String
+	# Payment reference
+	R_PnRef: String
+	# Response message
+	R_RespMsg: String
+	# Result of transmission
+	R_Result: String
+	# Bank Routing Number
+	RoutingNo: String
+	# Swift Code or BIC
+	SwiftCode: String
+	# Track 1 and 2 of the Credit Card
+	Swipe: String
+	# Tax Amount for a document
+	TaxAmt: Int
+	# Method of Payment
+	TenderType: AD_Ref_List
+	# Type of credit card transaction
+	TrxType: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+	# Voice Authorization Code from credit card company
+	VoiceAuthCode: String
+	# Amount to write-off
+	WriteOffAmt: Int
+}
+
+input I_PaymentInput {
+	# City or the Credit Card or Account Holder
+	A_City: String
+	# Country
+	A_Country: String
+	# Email Address
+	A_EMail: String
+	# Payment Identification - Driver License
+	A_Ident_DL: String
+	# Payment Identification - Social Security No
+	A_Ident_SSN: String
+	# Name on Credit Card or Account holder
+	A_Name: String
+	# State of the Credit Card or Account holder
+	A_State: String
+	# Street address of the Credit Card or Account holder
+	A_Street: String
+	# Zip Code of the Credit Card or Account Holder
+	A_Zip: String
+	# Account Number
+	AccountNo: String
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Bank Account Number
+	BankAccountNo: String
+	# Key of the Business Partner
+	BPartnerValue: String
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: Int
+	# Name of the Charge
+	ChargeName: String
+	# Check Number
+	CheckNo: String
+	# Expiry Month
+	CreditCardExpMM: Int
+	# Expiry Year
+	CreditCardExpYY: Int
+	# Credit Card Number 
+	CreditCardNumber: String
+	# Credit Card (Visa, MC, AmEx)
+	CreditCardType: AD_Ref_ListInput
+	# Credit Card Verification code on credit card
+	CreditCardVV: String
+	# Accounting Date
+	DateAcct: Date
+	# Transaction Date
+	DateTrx: Date
+	# Calculated amount of discount
+	DiscountAmt: Int
+	# Name of the Document Type
+	DocTypeName: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean
+	ID: ID
+	# International Bank Account Number
+	IBAN: String
+	# Document Number of the Invoice
+	InvoiceDocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Charge after Shipment
+	IsDelayedCapture: Boolean
+	# Three letter ISO 4217 Code of the Currency
+	ISO_Code: String
+	# Over-Payment (unallocated) or Under-Payment (partial payment)
+	IsOverUnderPayment: Boolean
+	# This is a sales transaction (receipt)
+	IsReceipt: Boolean
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean
+	# Combination of routing no, account and check no
+	Micr: String
+	# Original Transaction ID
+	Orig_TrxID: String
+	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
+	OverUnderAmt: Int
+	# Amount being paid
+	PayAmt: Int
+	# Purchase Order Number
+	PONum: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Authorization Code returned
+	R_AuthCode: String
+	# Response info
+	R_Info: String
+	# Payment reference
+	R_PnRef: String
+	# Response message
+	R_RespMsg: String
+	# Result of transmission
+	R_Result: String
+	# Bank Routing Number
+	RoutingNo: String
+	# Swift Code or BIC
+	SwiftCode: String
+	# Track 1 and 2 of the Credit Card
+	Swipe: String
+	# Tax Amount for a document
+	TaxAmt: Int
+	# Method of Payment
+	TenderType: AD_Ref_ListInput
+	# Type of credit card transaction
+	TrxType: AD_Ref_ListInput
+	# Voice Authorization Code from credit card company
+	VoiceAuthCode: String
+	# Amount to write-off
+	WriteOffAmt: Int
+}

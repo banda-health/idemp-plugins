@@ -11,7 +11,8 @@ import org.compiere.model.MProject;
 import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTypePhase;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_ProjectPhase - DO NOT CHANGE
@@ -21,19 +22,20 @@ import org.compiere.util.Env;
  */
 public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectPhaseInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Order;
-	 private ForeignEntityInput mC_Phase;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mM_Product;
-	 private I_AD_Ref_ListInput mProjInvoiceRule;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Order;
+	private ForeignEntityInput mC_Phase;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mM_Product;
+	private I_AD_Ref_ListInput mProjInvoiceRule;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_ProjectPhaseInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MProjectPhase(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -46,8 +48,8 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -73,8 +75,8 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
-		if (get_ID() == 0 &&C_Order != null &&
-				(foreignEntity = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Order != null &&
+				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 						.setParameters(C_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Order_ID(foreignEntity.get_ID());
@@ -100,8 +102,8 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	public void setC_PhaseInput(ForeignEntityInput C_Phase) {
 		this.mC_Phase = C_Phase;
 		MProjectTypePhase foreignEntity;
-		if (get_ID() == 0 &&C_Phase != null &&
-				(foreignEntity = new Query(getCtx(), MProjectTypePhase.Table_Name, MProjectTypePhase.COLUMNNAME_C_Phase_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Phase != null &&
+				(foreignEntity = new Query(getCtx(), "C_Phase", "C_Phase_UU=?", get_TrxName())
 						.setParameters(C_Phase.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Phase_ID(foreignEntity.get_ID());
@@ -127,8 +129,8 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
-		if (get_ID() == 0 &&C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Project != null &&
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -143,6 +145,17 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	@JsonProperty("C_Project")
 	public ForeignEntityInput C_Project() {
 		return mC_Project;
+	}
+	/**
+	 * Set Project Phase.
+	 *
+	 * @param C_ProjectPhase_ID Phase of a Project
+	 */
+
+	public void setC_ProjectPhase_ID(int C_ProjectPhase_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectPhase_ID(C_ProjectPhase_ID);
+		}
 	}
 
 	/**
@@ -173,7 +186,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());

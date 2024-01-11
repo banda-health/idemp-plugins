@@ -1,0 +1,66 @@
+# Generated Schema for M_PromotionDistribution - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_PromotionDistributionGet(page: Int, size: Int, sort: String, filter: String): M_PromotionDistributionConnection!
+}
+
+extend type Mutation {
+	M_PromotionDistributionSave(entity: M_PromotionDistributionInput!): M_PromotionDistribution!
+	M_PromotionDistributionDelete(uuids: [String!]!): Boolean!
+}
+
+type M_PromotionDistributionConnection {
+	results: [M_PromotionDistribution!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_PromotionDistribution {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Quantity distribution sorting by unit price
+	DistributionSorting: AD_Ref_List
+	# Type of quantity distribution calculation using comparison qty and order qty as operand
+	DistributionType: AD_Ref_List!
+	# The record is active in the system
+	IsActive: Boolean!
+	M_Promotion: M_Promotion!
+	ID: ID!
+	M_PromotionLine: M_PromotionLine!
+	# Compare Operation
+	Operation: AD_Ref_List!
+	# Quantity
+	Qty: Int!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_PromotionDistributionInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Quantity distribution sorting by unit price
+	DistributionSorting: AD_Ref_ListInput
+	# Type of quantity distribution calculation using comparison qty and order qty as operand
+	DistributionType: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	M_Promotion: ForeignEntityInput
+	ID: ID
+	M_PromotionLine: ForeignEntityInput
+	# Compare Operation
+	Operation: AD_Ref_ListInput
+	# Quantity
+	Qty: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

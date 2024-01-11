@@ -1,0 +1,148 @@
+# Generated Schema for GL_Journal - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	GL_JournalGet(page: Int, size: Int, sort: String, filter: String): GL_JournalConnection!
+}
+
+extend type Mutation {
+	GL_JournalSave(entity: GL_JournalInput!): GL_Journal!
+	GL_JournalDelete(uuids: [String!]!): Boolean!
+}
+
+type GL_JournalConnection {
+	results: [GL_Journal!]!
+	pagingInfo: PagingInfo!
+}
+
+type GL_Journal {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Currency Conversion Rate Type
+	C_ConversionType: C_ConversionType!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Document type or rules
+	C_DocType: C_DocType!
+	# Period of the Calendar
+	C_Period: C_Period!
+	# If not zero, the Debit amount of the document must be equal this amount
+	ControlAmt: Int
+	# Copy From Record
+	CopyFrom: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Currency Conversion Rate
+	CurrencyRate: Int!
+	# Accounting Date
+	DateAcct: Date!
+	# Date of the Document
+	DateDoc: Date!
+	# Optional short description of the record
+	Description: String!
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	# General Ledger Budget
+	GL_Budget: GL_Budget
+	# General Ledger Category
+	GL_Category: GL_Category!
+	ID: ID!
+	# General Ledger Journal Batch
+	GL_JournalBatch: GL_JournalBatch
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean!
+	# Posting status
+	Posted: Boolean!
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List!
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean!
+	# ID of document reversal
+	Reversal: GL_Journal
+	# Total Credit in document currency
+	TotalCr: Int!
+	# Total debit in document currency
+	TotalDr: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input GL_JournalInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Currency Conversion Rate Type
+	C_ConversionType: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
+	# If not zero, the Debit amount of the document must be equal this amount
+	ControlAmt: Int
+	# Copy From Record
+	CopyFrom: String
+	# Currency Conversion Rate
+	CurrencyRate: Int
+	# Accounting Date
+	DateAcct: Date
+	# Date of the Document
+	DateDoc: Date
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# General Ledger Budget
+	GL_Budget: ForeignEntityInput
+	# General Ledger Category
+	GL_Category: ForeignEntityInput
+	ID: ID
+	# General Ledger Journal Batch
+	GL_JournalBatch: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# Posting status
+	Posted: Boolean
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_ListInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean
+	# ID of document reversal
+	Reversal: ForeignEntityInput
+	# Total Credit in document currency
+	TotalCr: Int
+	# Total debit in document currency
+	TotalDr: Int
+}

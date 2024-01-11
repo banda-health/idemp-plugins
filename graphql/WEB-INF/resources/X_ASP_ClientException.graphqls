@@ -1,0 +1,78 @@
+# Generated Schema for ASP_ClientException - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	ASP_ClientExceptionGet(page: Int, size: Int, sort: String, filter: String): ASP_ClientExceptionConnection!
+}
+
+extend type Mutation {
+	ASP_ClientExceptionSave(entity: ASP_ClientExceptionInput!): ASP_ClientException!
+	ASP_ClientExceptionDelete(uuids: [String!]!): Boolean!
+}
+
+type ASP_ClientExceptionConnection {
+	results: [ASP_ClientException!]!
+	pagingInfo: PagingInfo!
+}
+
+type ASP_ClientException {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Field on a database table
+	AD_Field: AD_Field
+	# Special Form
+	AD_Form: AD_Form
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Process or Report
+	AD_Process: AD_Process
+	AD_Process_Para: AD_Process_Para
+	# Tab within a Window
+	AD_Tab: AD_Tab
+	# Operation System Task
+	AD_Task: AD_Task
+	# Workflow Node (activity), step or process
+	AD_WF_Node: AD_WF_Node
+	# Data entry or display window
+	AD_Window: AD_Window
+	# Workflow or combination of tasks
+	AD_Workflow: AD_Workflow
+	ID: ID!
+	ASP_Status: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input ASP_ClientExceptionInput {
+	# Field on a database table
+	AD_Field: ForeignEntityInput
+	# Special Form
+	AD_Form: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	AD_Process_Para: ForeignEntityInput
+	# Tab within a Window
+	AD_Tab: ForeignEntityInput
+	# Operation System Task
+	AD_Task: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	ID: ID
+	ASP_Status: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+}

@@ -8,7 +8,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MWFActivityApprover;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_WF_Activity;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_WF_ActivityApprover - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implements I_AD_WF_ActivityApproverInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_User;
-	 private ForeignEntityInput mAD_WF_Activity;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mAD_WF_Activity;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_WF_ActivityApproverInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MWFActivityApprover(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -68,7 +70,7 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -96,8 +98,8 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	public void setAD_WF_ActivityInput(ForeignEntityInput AD_WF_Activity) {
 		this.mAD_WF_Activity = AD_WF_Activity;
 		X_AD_WF_Activity foreignEntity;
-		if (get_ID() == 0 &&AD_WF_Activity != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_WF_Activity.Table_Name, X_AD_WF_Activity.COLUMNNAME_AD_WF_Activity_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_WF_Activity != null &&
+				(foreignEntity = new Query(getCtx(), "AD_WF_Activity", "AD_WF_Activity_UU=?", get_TrxName())
 						.setParameters(AD_WF_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_WF_Activity_ID(foreignEntity.get_ID());
@@ -112,6 +114,17 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	@JsonProperty("AD_WF_Activity")
 	public ForeignEntityInput AD_WF_Activity() {
 		return mAD_WF_Activity;
+	}
+	/**
+	 * Set Workflow Activity Approver.
+	 *
+	 * @param AD_WF_ActivityApprover_ID Workflow Activity Approver
+	 */
+
+	public void setAD_WF_ActivityApprover_ID(int AD_WF_ActivityApprover_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_ActivityApprover_ID(AD_WF_ActivityApprover_ID);
+		}
 	}
 
 	/**

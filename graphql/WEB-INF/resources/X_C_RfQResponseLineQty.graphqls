@@ -1,0 +1,62 @@
+# Generated Schema for C_RfQResponseLineQty - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_RfQResponseLineQtyGet(page: Int, size: Int, sort: String, filter: String): C_RfQResponseLineQtyConnection!
+}
+
+extend type Mutation {
+	C_RfQResponseLineQtySave(entity: C_RfQResponseLineQtyInput!): C_RfQResponseLineQty!
+	C_RfQResponseLineQtyDelete(uuids: [String!]!): Boolean!
+}
+
+type C_RfQResponseLineQtyConnection {
+	results: [C_RfQResponseLineQty!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_RfQResponseLineQty {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Request for Quotation Line Quantity
+	C_RfQLineQty: C_RfQLineQty!
+	# Request for Quotation Response Line
+	C_RfQResponseLine: C_RfQResponseLine!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Discount in percent
+	Discount: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	# Price
+	Price: Int!
+	# Relative Rank Number
+	Ranking: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RfQResponseLineQtyInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Request for Quotation Line Quantity
+	C_RfQLineQty: ForeignEntityInput
+	# Request for Quotation Response Line
+	C_RfQResponseLine: ForeignEntityInput
+	ID: ID
+	# Discount in percent
+	Discount: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Price
+	Price: Int
+	# Relative Rank Number
+	Ranking: Int
+}

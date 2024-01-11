@@ -1,0 +1,58 @@
+# Generated Schema for M_Substitute - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_SubstituteGet(page: Int, size: Int, sort: String, filter: String): M_SubstituteConnection!
+}
+
+extend type Mutation {
+	M_SubstituteSave(entity: M_SubstituteInput!): M_Substitute!
+	M_SubstituteDelete(uuids: [String!]!): Boolean!
+}
+
+type M_SubstituteConnection {
+	results: [M_Substitute!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_Substitute {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product!
+	ID: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Entity which can be used in place of this entity
+	Substitute: M_Product!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_SubstituteInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	ID: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Entity which can be used in place of this entity
+	Substitute: ForeignEntityInput
+}

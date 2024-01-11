@@ -10,7 +10,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MResource;
 import org.compiere.model.MResourceType;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for S_Resource - DO NOT CHANGE
@@ -20,18 +21,19 @@ import org.compiere.util.Env;
  */
 public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_User;
-	 private ForeignEntityInput mM_Warehouse;
-	 private ForeignEntityInput mS_ResourceType;
-	 private I_AD_Ref_ListInput mManufacturingResourceType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mS_ResourceType;
+	private I_AD_Ref_ListInput mManufacturingResourceType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_S_ResourceInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MResource(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -44,8 +46,8 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -72,7 +74,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -101,7 +103,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 						.setParameters(M_Warehouse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Warehouse_ID(foreignEntity.get_ID());
@@ -148,6 +150,17 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	public I_AD_Ref_ListInput ManufacturingResourceType() {
 		return mManufacturingResourceType;
 	}
+	/**
+	 * Set Resource.
+	 *
+	 * @param S_Resource_ID Resource
+	 */
+
+	public void setS_Resource_ID(int S_Resource_ID) {
+		if (get_ID() == 0) {
+			super.setS_Resource_ID(S_Resource_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -177,7 +190,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 		this.mS_ResourceType = S_ResourceType;
 		MResourceType foreignEntity;
 		if (S_ResourceType != null &&
-				(foreignEntity = new Query(getCtx(), MResourceType.Table_Name, MResourceType.COLUMNNAME_S_ResourceType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "S_ResourceType", "S_ResourceType_UU=?", get_TrxName())
 						.setParameters(S_ResourceType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setS_ResourceType_ID(foreignEntity.get_ID());

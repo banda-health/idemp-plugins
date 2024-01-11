@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -12,7 +11,9 @@ import org.compiere.model.MJournalBatch;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for GL_JournalBatch - DO NOT CHANGE
@@ -22,22 +23,23 @@ import org.compiere.util.Env;
  */
 public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_JournalBatchInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_DocType;
-	 private ForeignEntityInput mC_Period;
-	 private ForeignEntityInput mGL_Category;
-	 private ForeignEntityInput mReversal;
-	 private I_AD_Ref_ListInput mDocAction;
-	 private I_AD_Ref_ListInput mDocStatus;
-	 private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_DocType;
+	private ForeignEntityInput mC_Period;
+	private ForeignEntityInput mGL_Category;
+	private ForeignEntityInput mReversal;
+	private I_AD_Ref_ListInput mDocAction;
+	private I_AD_Ref_ListInput mDocStatus;
+	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_GL_JournalBatchInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MJournalBatch(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -50,8 +52,8 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -78,7 +80,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -107,7 +109,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocType_ID(foreignEntity.get_ID());
@@ -136,7 +138,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
-				(foreignEntity = new Query(getCtx(), MPeriod.Table_Name, MPeriod.COLUMNNAME_C_Period_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
 						.setParameters(C_Period.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Period_ID(foreignEntity.get_ID());
@@ -234,7 +236,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 		this.mGL_Category = GL_Category;
 		MGLCategory foreignEntity;
 		if (GL_Category != null &&
-				(foreignEntity = new Query(getCtx(), MGLCategory.Table_Name, MGLCategory.COLUMNNAME_GL_Category_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
 						.setParameters(GL_Category.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setGL_Category_ID(foreignEntity.get_ID());
@@ -251,6 +253,17 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	@JsonProperty("GL_Category")
 	public ForeignEntityInput GL_Category() {
 		return mGL_Category;
+	}
+	/**
+	 * Set Journal Batch.
+	 *
+	 * @param GL_JournalBatch_ID General Ledger Journal Batch
+	 */
+
+	public void setGL_JournalBatch_ID(int GL_JournalBatch_ID) {
+		if (get_ID() == 0) {
+			super.setGL_JournalBatch_ID(GL_JournalBatch_ID);
+		}
 	}
 
 	/**
@@ -310,7 +323,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 		this.mReversal = Reversal;
 		MJournalBatch foreignEntity;
 		if (Reversal != null &&
-				(foreignEntity = new Query(getCtx(), MJournalBatch.Table_Name, MJournalBatch.COLUMNNAME_GL_JournalBatch_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "GL_JournalBatch", "GL_JournalBatch_UU=?", get_TrxName())
 						.setParameters(Reversal.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setReversal_ID(foreignEntity.get_ID());

@@ -1,0 +1,72 @@
+# Generated Schema for AD_UserPreference - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_UserPreferenceGet(page: Int, size: Int, sort: String, filter: String): AD_UserPreferenceConnection!
+}
+
+extend type Mutation {
+	AD_UserPreferenceSave(entity: AD_UserPreferenceInput!): AD_UserPreference!
+	AD_UserPreferenceDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_UserPreferenceConnection {
+	results: [AD_UserPreference!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_UserPreference {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	ID: ID!
+	AutoCommit: Boolean!
+	# Automatically insert a decimal point
+	AutomaticDecimalPlacesForAmoun: Int
+	AutoNew: Boolean!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Force grid view when Find panel closes if number of records exceed threshold
+	GridAfterFindThreshold: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	IsDetailedZoomAcross: Boolean!
+	IsUseSimilarTo: Boolean!
+	MigrationScriptComment: String
+	# Defines if double click in a field on grid mode switch to form view
+	ToggleOnDoubleClick: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Does the system must switch to grid mode after the Find panel closes
+	ViewFindResult: AD_Ref_List!
+}
+
+input AD_UserPreferenceInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	ID: ID
+	AutoCommit: Boolean
+	# Automatically insert a decimal point
+	AutomaticDecimalPlacesForAmoun: Int
+	AutoNew: Boolean
+	# Force grid view when Find panel closes if number of records exceed threshold
+	GridAfterFindThreshold: Int
+	# The record is active in the system
+	IsActive: Boolean
+	IsDetailedZoomAcross: Boolean
+	IsUseSimilarTo: Boolean
+	MigrationScriptComment: String
+	# Defines if double click in a field on grid mode switch to form view
+	ToggleOnDoubleClick: Boolean
+	# Does the system must switch to grid mode after the Find panel closes
+	ViewFindResult: AD_Ref_ListInput
+}

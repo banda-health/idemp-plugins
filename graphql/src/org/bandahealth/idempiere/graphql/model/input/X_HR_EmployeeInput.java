@@ -1,0 +1,242 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MActivity;
+import org.compiere.model.MOrg;
+import org.compiere.model.Query;
+import org.eevolution.model.X_HR_Department;
+import org.eevolution.model.X_HR_Employee;
+import org.eevolution.model.X_HR_Job;
+import org.eevolution.model.X_HR_Payroll;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for HR_Employee - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_HR_EmployeeInput extends X_HR_Employee implements I_HR_EmployeeInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mHR_Department;
+	private ForeignEntityInput mHR_Job;
+	private ForeignEntityInput mHR_Payroll;
+
+	/**
+	 * Standard constructor
+	 */
+	@JsonCreator
+	public X_HR_EmployeeInput(@JsonProperty("ID") String ID) {
+		super(null, ModelUtil.getModelResultSet(new X_HR_Employee(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
+		setID(ID);
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		MOrg foreignEntity;
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+						.setParameters(AD_Org.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Org_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Activity.
+	 *
+	 * @param C_Activity Business Activity
+	 */
+	@JsonProperty("C_Activity")
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
+		this.mC_Activity = C_Activity;
+		MActivity foreignEntity;
+		if (C_Activity != null &&
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
+						.setParameters(C_Activity.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Activity_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_Activity_ID(0);
+		}
+	}
+
+	/**
+	 * Get Activity.
+	 *
+	 * @return Business Activity
+	 */
+	@JsonProperty("C_Activity")
+	public ForeignEntityInput C_Activity() {
+		return mC_Activity;
+	}
+
+	/**
+	 * Set Business Partner .
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
+		MBPartner_BH foreignEntity;
+		if (C_BPartner != null &&
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+						.setParameters(C_BPartner.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_BPartner_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_BPartner_ID(0);
+		}
+	}
+
+	/**
+	 * Get Business Partner .
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public ForeignEntityInput C_BPartner() {
+		return mC_BPartner;
+	}
+
+	/**
+	 * Set Payroll Department.
+	 *
+	 * @param HR_Department Payroll Department
+	 */
+	@JsonProperty("HR_Department")
+	public void setHR_DepartmentInput(ForeignEntityInput HR_Department) {
+		this.mHR_Department = HR_Department;
+		X_HR_Department foreignEntity;
+		if (HR_Department != null &&
+				(foreignEntity = new Query(getCtx(), "HR_Department", "HR_Department_UU=?", get_TrxName())
+						.setParameters(HR_Department.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setHR_Department_ID(foreignEntity.get_ID());
+		} else {
+			super.setHR_Department_ID(0);
+		}
+	}
+
+	/**
+	 * Get Payroll Department.
+	 *
+	 * @return Payroll Department
+	 */
+	@JsonProperty("HR_Department")
+	public ForeignEntityInput HR_Department() {
+		return mHR_Department;
+	}
+	/**
+	 * Set Payroll Employee.
+	 *
+	 * @param HR_Employee_ID Payroll Employee
+	 */
+
+	public void setHR_Employee_ID(int HR_Employee_ID) {
+		if (get_ID() == 0) {
+			super.setHR_Employee_ID(HR_Employee_ID);
+		}
+	}
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	public void setID(String ID) {
+		setHR_Employee_UU(ID);
+	}
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	public String getID() {
+		return getHR_Employee_UU();
+	}
+
+	/**
+	 * Set Payroll Job.
+	 *
+	 * @param HR_Job Payroll Job
+	 */
+	@JsonProperty("HR_Job")
+	public void setHR_JobInput(ForeignEntityInput HR_Job) {
+		this.mHR_Job = HR_Job;
+		X_HR_Job foreignEntity;
+		if (HR_Job != null &&
+				(foreignEntity = new Query(getCtx(), "HR_Job", "HR_Job_UU=?", get_TrxName())
+						.setParameters(HR_Job.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setHR_Job_ID(foreignEntity.get_ID());
+		} else {
+			super.setHR_Job_ID(0);
+		}
+	}
+
+	/**
+	 * Get Payroll Job.
+	 *
+	 * @return Payroll Job
+	 */
+	@JsonProperty("HR_Job")
+	public ForeignEntityInput HR_Job() {
+		return mHR_Job;
+	}
+
+	/**
+	 * Set Payroll.
+	 *
+	 * @param HR_Payroll Payroll
+	 */
+	@JsonProperty("HR_Payroll")
+	public void setHR_PayrollInput(ForeignEntityInput HR_Payroll) {
+		this.mHR_Payroll = HR_Payroll;
+		X_HR_Payroll foreignEntity;
+		if (HR_Payroll != null &&
+				(foreignEntity = new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
+						.setParameters(HR_Payroll.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setHR_Payroll_ID(foreignEntity.get_ID());
+		} else {
+			super.setHR_Payroll_ID(0);
+		}
+	}
+
+	/**
+	 * Get Payroll.
+	 *
+	 * @return Payroll
+	 */
+	@JsonProperty("HR_Payroll")
+	public ForeignEntityInput HR_Payroll() {
+		return mHR_Payroll;
+	}
+}

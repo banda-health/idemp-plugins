@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -13,9 +12,11 @@ import org.compiere.model.MCostType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Workflow;
-import org.compiere.util.Env;
 import org.eevolution.model.X_PP_Order;
 import org.eevolution.model.X_PP_Order_Cost;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PP_Order_Cost - DO NOT CHANGE
@@ -25,22 +26,23 @@ import org.eevolution.model.X_PP_Order_Cost;
  */
 public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_CostInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Workflow;
-	 private ForeignEntityInput mC_AcctSchema;
-	 private ForeignEntityInput mM_AttributeSetInstance;
-	 private ForeignEntityInput mM_CostElement;
-	 private ForeignEntityInput mM_CostType;
-	 private ForeignEntityInput mM_Product;
-	 private ForeignEntityInput mPP_Order;
-	 private I_AD_Ref_ListInput mCostingMethod;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Workflow;
+	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mM_AttributeSetInstance;
+	private ForeignEntityInput mM_CostElement;
+	private ForeignEntityInput mM_CostType;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mPP_Order;
+	private I_AD_Ref_ListInput mCostingMethod;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PP_Order_CostInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_PP_Order_Cost(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -54,7 +56,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -83,7 +85,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
 		if (AD_Workflow != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_Workflow.Table_Name, X_AD_Workflow.COLUMNNAME_AD_Workflow_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
 						.setParameters(AD_Workflow.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Workflow_ID(foreignEntity.get_ID());
@@ -112,7 +114,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());
@@ -234,7 +236,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
@@ -262,8 +264,8 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	public void setM_CostElementInput(ForeignEntityInput M_CostElement) {
 		this.mM_CostElement = M_CostElement;
 		MCostElement foreignEntity;
-		if (get_ID() == 0 &&M_CostElement != null &&
-				(foreignEntity = new Query(getCtx(), MCostElement.Table_Name, MCostElement.COLUMNNAME_M_CostElement_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_CostElement != null &&
+				(foreignEntity = new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
 						.setParameters(M_CostElement.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_CostElement_ID(foreignEntity.get_ID());
@@ -290,7 +292,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 		this.mM_CostType = M_CostType;
 		MCostType foreignEntity;
 		if (M_CostType != null &&
-				(foreignEntity = new Query(getCtx(), MCostType.Table_Name, MCostType.COLUMNNAME_M_CostType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_CostType", "M_CostType_UU=?", get_TrxName())
 						.setParameters(M_CostType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_CostType_ID(foreignEntity.get_ID());
@@ -318,8 +320,8 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (get_ID() == 0 &&M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_Product != null &&
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());
@@ -334,6 +336,17 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	@JsonProperty("M_Product")
 	public ForeignEntityInput M_Product() {
 		return mM_Product;
+	}
+	/**
+	 * Set Manufacturing Order Cost.
+	 *
+	 * @param PP_Order_Cost_ID Manufacturing Order Cost
+	 */
+
+	public void setPP_Order_Cost_ID(int PP_Order_Cost_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_Cost_ID(PP_Order_Cost_ID);
+		}
 	}
 
 	/**
@@ -363,8 +376,8 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
 		X_PP_Order foreignEntity;
-		if (get_ID() == 0 &&PP_Order != null &&
-				(foreignEntity = new Query(getCtx(), X_PP_Order.Table_Name, X_PP_Order.COLUMNNAME_PP_Order_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && PP_Order != null &&
+				(foreignEntity = new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
 						.setParameters(PP_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPP_Order_ID(foreignEntity.get_ID());

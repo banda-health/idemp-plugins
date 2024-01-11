@@ -5,9 +5,11 @@ import org.bandahealth.idempiere.graphql.function.VoidFunction;
 import org.compiere.model.MRole;
 import org.compiere.model.MTable;
 import org.compiere.model.PO;
+import org.compiere.model.POInfo;
 import org.compiere.model.X_AD_Table;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
+import org.compiere.util.Util;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -91,6 +93,64 @@ public class ModelUtil {
 	 */
 	public static String getModelFromKey(String key) {
 		return key.split("\\" + keyDelimiter)[0];
+	}
+
+	/**
+	 * A method to get the result set for the given entity based on the passed-in UUID. This is largely copied from
+	 * iDempiere 8.2's PO.load(String, String) method to load an entity by it's UUID.
+	 *
+	 * @param modelTemplate
+	 * @param idempiereContext
+	 * @param tableName
+	 * @param uuid
+	 * @param <T>
+	 * @return
+	 */
+	public static <T extends PO> ResultSet getModelResultSet(T modelTemplate, Properties idempiereContext,
+			String tableName, String uuid) {
+		MTable table;
+		// First check that the user has access to this table, if we can
+		if (idempiereContext != null) {
+			table = getTableAndCheckAccess(idempiereContext, tableName, true);
+		} else {
+			table = MTable.get(null, tableName, null);
+		}
+		if (Util.isEmpty(uuid, true)) {
+			return null;
+		}
+		POInfo poInfo = POInfo.getPOInfo(null, table.getAD_Table_ID());
+		StringBuilder sql = new StringBuilder("SELECT ");
+		int size = poInfo.getColumnCount();
+		for (int i = 0; i < size; i++) {
+			if (i != 0) {
+				sql.append(",");
+			}
+			String columnSQL = poInfo.getColumnSQL(i);
+			if (!poInfo.isVirtualColumn(i)) {
+				columnSQL = DB.getDatabase().quoteColumnName(columnSQL);
+			}
+			sql.append(columnSQL);  //	Normal and Virtual Column
+		}
+		sql.append(" FROM ").append(poInfo.getTableName())
+				.append(" WHERE ")
+				.append(modelTemplate.get_WhereClause(false, uuid));
+
+		//
+		//	int index = -1;
+		if (log.isLoggable(Level.FINEST)) log.finest(modelTemplate.get_WhereClause(true, uuid));
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql.toString(), null)) {  //	local trx only
+			preparedStatement.setString(1, uuid);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return resultSet;
+			} else {
+				log.log(Level.SEVERE, "NO Data found for " + modelTemplate.get_WhereClause(true, uuid), new Exception());
+			}
+		} catch (Exception e) {
+			String msg = modelTemplate.get_WhereClause(true, uuid) + ", SQL=" + sql.toString();
+			log.log(Level.SEVERE, msg, e);
+		}
+		return null;
 	}
 
 	/**

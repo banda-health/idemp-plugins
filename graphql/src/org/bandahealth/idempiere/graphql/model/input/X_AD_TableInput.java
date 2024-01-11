@@ -10,7 +10,8 @@ import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Table - DO NOT CHANGE
@@ -20,20 +21,21 @@ import org.compiere.util.Env;
  */
 public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Val_Rule;
-	 private ForeignEntityInput mAD_Window;
-	 private ForeignEntityInput mPO_Window;
-	 private I_AD_Ref_ListInput mAccessLevel;
-	 private I_AD_Ref_ListInput mReplicationType;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Val_Rule;
+	private ForeignEntityInput mAD_Window;
+	private ForeignEntityInput mPO_Window;
+	private I_AD_Ref_ListInput mAccessLevel;
+	private I_AD_Ref_ListInput mReplicationType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_TableInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MTable(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -75,8 +77,8 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -91,6 +93,17 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Table.
+	 *
+	 * @param AD_Table_ID Database Table information
+	 */
+
+	public void setAD_Table_ID(int AD_Table_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Table_ID(AD_Table_ID);
+		}
 	}
 
 	/**
@@ -121,7 +134,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 		this.mAD_Val_Rule = AD_Val_Rule;
 		MValRule foreignEntity;
 		if (AD_Val_Rule != null &&
-				(foreignEntity = new Query(getCtx(), MValRule.Table_Name, MValRule.COLUMNNAME_AD_Val_Rule_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
 						.setParameters(AD_Val_Rule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Val_Rule_ID(foreignEntity.get_ID());
@@ -150,7 +163,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
 		if (AD_Window != null &&
-				(foreignEntity = new Query(getCtx(), MWindow.Table_Name, MWindow.COLUMNNAME_AD_Window_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 						.setParameters(AD_Window.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Window_ID(foreignEntity.get_ID());
@@ -179,7 +192,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());
@@ -219,7 +232,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 		this.mPO_Window = PO_Window;
 		MWindow foreignEntity;
 		if (PO_Window != null &&
-				(foreignEntity = new Query(getCtx(), MWindow.Table_Name, MWindow.COLUMNNAME_AD_Window_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 						.setParameters(PO_Window.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPO_Window_ID(foreignEntity.get_ID());

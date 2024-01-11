@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
@@ -16,7 +15,9 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_Greeting;
 import org.compiere.model.X_C_Job;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 /**
  * Generated Model for AD_User - DO NOT CHANGE
@@ -26,29 +27,30 @@ import org.compiere.util.Env;
  */
 public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 
-	 private ForeignEntityInput mAD_Image;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mBP_Location;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_BPartner_Location;
-	 private ForeignEntityInput mC_Campaign;
-	 private ForeignEntityInput mC_Greeting;
-	 private ForeignEntityInput mC_Job;
-	 private ForeignEntityInput mC_Location;
-	 private ForeignEntityInput mR_DefaultMailText;
-	 private ForeignEntityInput mSalesRep;
-	 private ForeignEntityInput mSupervisor;
-	 private I_AD_Ref_ListInput mIsMenuAutoExpand;
-	 private I_AD_Ref_ListInput mLeadSource;
-	 private I_AD_Ref_ListInput mLeadStatus;
-	 private I_AD_Ref_ListInput mNotificationType;
+	private ForeignEntityInput mAD_Image;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBP_Location;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_BPartner_Location;
+	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_Greeting;
+	private ForeignEntityInput mC_Job;
+	private ForeignEntityInput mC_Location;
+	private ForeignEntityInput mR_DefaultMailText;
+	private ForeignEntityInput mSalesRep;
+	private ForeignEntityInput mSupervisor;
+	private I_AD_Ref_ListInput mIsMenuAutoExpand;
+	private I_AD_Ref_ListInput mLeadSource;
+	private I_AD_Ref_ListInput mLeadStatus;
+	private I_AD_Ref_ListInput mNotificationType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_UserInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MUser_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -62,7 +64,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
-				(foreignEntity = new Query(getCtx(), MImage.Table_Name, MImage.COLUMNNAME_AD_Image_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
 						.setParameters(AD_Image.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Image_ID(foreignEntity.get_ID());
@@ -90,8 +92,8 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -106,6 +108,17 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set User/Contact.
+	 *
+	 * @param AD_User_ID User within the system - Internal or Business Partner Contact
+	 */
+
+	public void setAD_User_ID(int AD_User_ID) {
+		if (get_ID() == 0) {
+			super.setAD_User_ID(AD_User_ID);
+		}
 	}
 
 	/**
@@ -136,7 +149,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		this.mBP_Location = BP_Location;
 		MLocation foreignEntity;
 		if (BP_Location != null &&
-				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 						.setParameters(BP_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setBP_Location_ID(foreignEntity.get_ID());
@@ -165,7 +178,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -194,7 +207,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(C_BPartner_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_Location_ID(foreignEntity.get_ID());
@@ -223,7 +236,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Campaign_ID(foreignEntity.get_ID());
@@ -252,7 +265,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		this.mC_Greeting = C_Greeting;
 		X_C_Greeting foreignEntity;
 		if (C_Greeting != null &&
-				(foreignEntity = new Query(getCtx(), X_C_Greeting.Table_Name, X_C_Greeting.COLUMNNAME_C_Greeting_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Greeting", "C_Greeting_UU=?", get_TrxName())
 						.setParameters(C_Greeting.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Greeting_ID(foreignEntity.get_ID());
@@ -281,7 +294,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		this.mC_Job = C_Job;
 		X_C_Job foreignEntity;
 		if (C_Job != null &&
-				(foreignEntity = new Query(getCtx(), X_C_Job.Table_Name, X_C_Job.COLUMNNAME_C_Job_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Job", "C_Job_UU=?", get_TrxName())
 						.setParameters(C_Job.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Job_ID(foreignEntity.get_ID());
@@ -310,7 +323,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
-				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 						.setParameters(C_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Location_ID(foreignEntity.get_ID());
@@ -477,7 +490,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		this.mR_DefaultMailText = R_DefaultMailText;
 		MMailText foreignEntity;
 		if (R_DefaultMailText != null &&
-				(foreignEntity = new Query(getCtx(), MMailText.Table_Name, MMailText.COLUMNNAME_R_MailText_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
 						.setParameters(R_DefaultMailText.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setR_DefaultMailText_ID(foreignEntity.get_ID());
@@ -506,7 +519,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setSalesRep_ID(foreignEntity.get_ID());
@@ -546,7 +559,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 		this.mSupervisor = Supervisor;
 		MUser_BH foreignEntity;
 		if (Supervisor != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(Supervisor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setSupervisor_ID(foreignEntity.get_ID());

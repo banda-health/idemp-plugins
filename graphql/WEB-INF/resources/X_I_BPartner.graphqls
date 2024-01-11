@@ -1,0 +1,208 @@
+# Generated Schema for I_BPartner - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	I_BPartnerGet(page: Int, size: Int, sort: String, filter: String): I_BPartnerConnection!
+}
+
+extend type Mutation {
+	I_BPartnerSave(entity: I_BPartnerInput!): I_BPartner!
+	I_BPartnerDelete(uuids: [String!]!): Boolean!
+}
+
+type I_BPartnerConnection {
+	results: [I_BPartner!]!
+	pagingInfo: PagingInfo!
+}
+
+type I_BPartner {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within client
+	AD_Org: AD_Org
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Address line 1 for this location
+	Address1: String
+	# Address line 2 for this location
+	Address2: String
+	# Birthday or Anniversary day
+	Birthday: Date
+	# Greeting for Business Partner Contact
+	BPContactGreeting: String
+	# Business Partner Group
+	C_BP_Group: C_BP_Group
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location
+	# Country 
+	C_Country: C_Country
+	# Greeting to print on correspondence
+	C_Greeting: C_Greeting
+	# Identifies a geographical Region
+	C_Region: C_Region
+	# Identifies a City
+	City: String
+	# Comments or additional information
+	Comments: String
+	# Description of Contact
+	ContactDescription: String
+	# Business Partner Contact Name
+	ContactName: String
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	CountryCode: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Optional short description of the record
+	Description: String
+	# Dun & Bradstreet Number
+	DUNS: String
+	# Electronic Mail Address
+	EMail: String
+	# Facsimile number
+	Fax: String
+	# Business Partner Group Key
+	GroupValue: String
+	ID: ID!
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean!
+	# Name of the Interest Area
+	InterestAreaName: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this Business Partner is a Customer
+	IsCustomer: Boolean!
+	# Indicates if  this Business Partner is an employee
+	IsEmployee: Boolean!
+	# Indicates if this Business Partner is a Vendor
+	IsVendor: Boolean!
+	# Standard Industry Code or its successor NAIC - http://www.osha.gov/oshstats/sicser.html
+	NAICS: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Additional Name
+	Name2: String
+	# Password of any length (case sensitive)
+	Password: String
+	# Identifies a telephone number
+	Phone: String
+	# Identifies an alternate telephone number.
+	Phone2: String
+	# Postal code
+	Postal: String
+	# Additional ZIP or Postal code
+	Postal_Add: String
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Interest Area or Topic
+	R_InterestArea: R_InterestArea
+	# Name of the Region
+	RegionName: String
+	# Tax Identification
+	TaxID: String
+	# Name this entity is referred to as
+	Title: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input I_BPartnerInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Address line 1 for this location
+	Address1: String
+	# Address line 2 for this location
+	Address2: String
+	# Birthday or Anniversary day
+	Birthday: Date
+	# Greeting for Business Partner Contact
+	BPContactGreeting: String
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Country 
+	C_Country: ForeignEntityInput
+	# Greeting to print on correspondence
+	C_Greeting: ForeignEntityInput
+	# Identifies a geographical Region
+	C_Region: ForeignEntityInput
+	# Identifies a City
+	City: String
+	# Comments or additional information
+	Comments: String
+	# Description of Contact
+	ContactDescription: String
+	# Business Partner Contact Name
+	ContactName: String
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	CountryCode: String
+	# Optional short description of the record
+	Description: String
+	# Dun & Bradstreet Number
+	DUNS: String
+	# Electronic Mail Address
+	EMail: String
+	# Facsimile number
+	Fax: String
+	# Business Partner Group Key
+	GroupValue: String
+	ID: ID
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean
+	# Name of the Interest Area
+	InterestAreaName: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this Business Partner is a Customer
+	IsCustomer: Boolean
+	# Indicates if  this Business Partner is an employee
+	IsEmployee: Boolean
+	# Indicates if this Business Partner is a Vendor
+	IsVendor: Boolean
+	# Standard Industry Code or its successor NAIC - http://www.osha.gov/oshstats/sicser.html
+	NAICS: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Additional Name
+	Name2: String
+	# Password of any length (case sensitive)
+	Password: String
+	# Identifies a telephone number
+	Phone: String
+	# Identifies an alternate telephone number.
+	Phone2: String
+	# Postal code
+	Postal: String
+	# Additional ZIP or Postal code
+	Postal_Add: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Interest Area or Topic
+	R_InterestArea: ForeignEntityInput
+	# Name of the Region
+	RegionName: String
+	# Tax Identification
+	TaxID: String
+	# Name this entity is referred to as
+	Title: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

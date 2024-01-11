@@ -7,7 +7,8 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_PA_Ratio;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_Ratio - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_PA_RatioInput extends X_PA_Ratio implements I_PA_RatioInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_AcctSchema;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_RatioInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_PA_Ratio(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_PA_RatioInput extends X_PA_Ratio implements I_PA_RatioInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -66,7 +68,7 @@ public class X_PA_RatioInput extends X_PA_Ratio implements I_PA_RatioInput {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());
@@ -83,6 +85,17 @@ public class X_PA_RatioInput extends X_PA_Ratio implements I_PA_RatioInput {
 	@JsonProperty("C_AcctSchema")
 	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
+	}
+	/**
+	 * Set Ratio.
+	 *
+	 * @param PA_Ratio_ID Performance Ratio
+	 */
+
+	public void setPA_Ratio_ID(int PA_Ratio_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Ratio_ID(PA_Ratio_ID);
+		}
 	}
 
 	/**

@@ -15,7 +15,8 @@ import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
 import org.compiere.model.X_AD_Role;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_DocumentStatus - DO NOT CHANGE
@@ -25,25 +26,26 @@ import org.compiere.util.Env;
  */
 public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_DocumentStatusInput {
 
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Form;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Role;
-	 private ForeignEntityInput mAD_Table;
-	 private ForeignEntityInput mAD_User;
-	 private ForeignEntityInput mAD_Window;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mName_PrintColor;
-	 private ForeignEntityInput mName_PrintFont;
-	 private ForeignEntityInput mNumber_PrintColor;
-	 private ForeignEntityInput mNumber_PrintFont;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Form;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Role;
+	private ForeignEntityInput mAD_Table;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mAD_Window;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mName_PrintColor;
+	private ForeignEntityInput mName_PrintFont;
+	private ForeignEntityInput mNumber_PrintColor;
+	private ForeignEntityInput mNumber_PrintFont;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_DocumentStatusInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MDocumentStatus(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -57,7 +59,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 		this.mAD_Form = AD_Form;
 		MForm foreignEntity;
 		if (AD_Form != null &&
-				(foreignEntity = new Query(getCtx(), MForm.Table_Name, MForm.COLUMNNAME_AD_Form_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
 						.setParameters(AD_Form.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Form_ID(foreignEntity.get_ID());
@@ -85,8 +87,8 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -113,7 +115,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_Role.Table_Name, X_AD_Role.COLUMNNAME_AD_Role_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 						.setParameters(AD_Role.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Role_ID(foreignEntity.get_ID());
@@ -142,7 +144,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), MTable.Table_Name, MTable.COLUMNNAME_AD_Table_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Table_ID(foreignEntity.get_ID());
@@ -171,7 +173,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -200,7 +202,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
 		if (AD_Window != null &&
-				(foreignEntity = new Query(getCtx(), MWindow.Table_Name, MWindow.COLUMNNAME_AD_Window_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 						.setParameters(AD_Window.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Window_ID(foreignEntity.get_ID());
@@ -229,7 +231,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -258,7 +260,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());
@@ -287,7 +289,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 		this.mName_PrintColor = Name_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (Name_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(Name_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setName_PrintColor_ID(foreignEntity.get_ID());
@@ -316,7 +318,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 		this.mName_PrintFont = Name_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (Name_PrintFont != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintFont.Table_Name, X_AD_PrintFont.COLUMNNAME_AD_PrintFont_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
 						.setParameters(Name_PrintFont.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setName_PrintFont_ID(foreignEntity.get_ID());
@@ -345,7 +347,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 		this.mNumber_PrintColor = Number_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (Number_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(Number_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setNumber_PrintColor_ID(foreignEntity.get_ID());
@@ -374,7 +376,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 		this.mNumber_PrintFont = Number_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (Number_PrintFont != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintFont.Table_Name, X_AD_PrintFont.COLUMNNAME_AD_PrintFont_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
 						.setParameters(Number_PrintFont.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setNumber_PrintFont_ID(foreignEntity.get_ID());
@@ -391,6 +393,17 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	@JsonProperty("Number_PrintFont")
 	public ForeignEntityInput Number_PrintFont() {
 		return mNumber_PrintFont;
+	}
+	/**
+	 * Set Document Status.
+	 *
+	 * @param PA_DocumentStatus_ID Document Status
+	 */
+
+	public void setPA_DocumentStatus_ID(int PA_DocumentStatus_ID) {
+		if (get_ID() == 0) {
+			super.setPA_DocumentStatus_ID(PA_DocumentStatus_ID);
+		}
 	}
 
 	/**

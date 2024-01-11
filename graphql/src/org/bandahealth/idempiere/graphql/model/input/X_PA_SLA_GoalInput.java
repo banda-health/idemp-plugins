@@ -8,7 +8,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MSLACriteria;
 import org.compiere.model.MSLAGoal;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_SLA_Goal - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mPA_SLA_Criteria;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mPA_SLA_Criteria;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_SLA_GoalInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MSLAGoal(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -67,8 +69,8 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 &&C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_BPartner != null &&
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -95,7 +97,7 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 		this.mPA_SLA_Criteria = PA_SLA_Criteria;
 		MSLACriteria foreignEntity;
 		if (PA_SLA_Criteria != null &&
-				(foreignEntity = new Query(getCtx(), MSLACriteria.Table_Name, MSLACriteria.COLUMNNAME_PA_SLA_Criteria_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_SLA_Criteria", "PA_SLA_Criteria_UU=?", get_TrxName())
 						.setParameters(PA_SLA_Criteria.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_SLA_Criteria_ID(foreignEntity.get_ID());
@@ -112,6 +114,17 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 	@JsonProperty("PA_SLA_Criteria")
 	public ForeignEntityInput PA_SLA_Criteria() {
 		return mPA_SLA_Criteria;
+	}
+	/**
+	 * Set SLA Goal.
+	 *
+	 * @param PA_SLA_Goal_ID Service Level Agreement Goal
+	 */
+
+	public void setPA_SLA_Goal_ID(int PA_SLA_Goal_ID) {
+		if (get_ID() == 0) {
+			super.setPA_SLA_Goal_ID(PA_SLA_Goal_ID);
+		}
 	}
 
 	/**

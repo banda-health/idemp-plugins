@@ -1,0 +1,76 @@
+# Generated Schema for AD_Tree_Favorite_Node - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_Tree_Favorite_NodeGet(page: Int, size: Int, sort: String, filter: String): AD_Tree_Favorite_NodeConnection!
+}
+
+extend type Mutation {
+	AD_Tree_Favorite_NodeSave(entity: AD_Tree_Favorite_NodeInput!): AD_Tree_Favorite_Node!
+	AD_Tree_Favorite_NodeDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_Tree_Favorite_NodeConnection {
+	results: [AD_Tree_Favorite_Node!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_Tree_Favorite_Node {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Identifies a Menu
+	AD_Menu: AD_Menu
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	AD_Tree_Favorite: AD_Tree_Favorite!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Flag to indicate the state of the dashboard panel
+	IsCollapsible: Boolean!
+	# This record is a favourite
+	IsFavourite: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Determine the order items will be automatically opened when user logs in
+	LoginOpenSeqNo: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Parent of Entity
+	Parent: AD_Tree_Favorite_Node
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Tree_Favorite_NodeInput {
+	# Identifies a Menu
+	AD_Menu: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	AD_Tree_Favorite: ForeignEntityInput
+	ID: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Flag to indicate the state of the dashboard panel
+	IsCollapsible: Boolean
+	# This record is a favourite
+	IsFavourite: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Determine the order items will be automatically opened when user logs in
+	LoginOpenSeqNo: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Parent of Entity
+	Parent: ForeignEntityInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

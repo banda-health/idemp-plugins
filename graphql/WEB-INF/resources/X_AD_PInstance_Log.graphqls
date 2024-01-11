@@ -1,0 +1,46 @@
+# Generated Schema for AD_PInstance_Log - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_PInstance_LogGet(page: Int, size: Int, sort: String, filter: String): AD_PInstance_LogConnection!
+}
+
+extend type Mutation {
+	AD_PInstance_LogSave(entity: AD_PInstance_LogInput!): AD_PInstance_Log!
+	AD_PInstance_LogDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_PInstance_LogConnection {
+	results: [AD_PInstance_Log!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_PInstance_Log {
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	ID: ID!
+	# Database Table information
+	AD_Table: AD_Table
+	# Process Parameter
+	P_Date: Date
+	P_Msg: String
+	# Process Parameter
+	P_Number: Int
+	# Direct internal record ID
+	Record_ID: Int
+}
+
+input AD_PInstance_LogInput {
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	ID: ID
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Process Parameter
+	P_Date: Date
+	P_Msg: String
+	# Process Parameter
+	P_Number: Int
+	# Direct internal record ID
+	Record_ID: Int
+}

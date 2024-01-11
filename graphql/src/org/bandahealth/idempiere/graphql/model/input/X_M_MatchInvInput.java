@@ -2,8 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -12,7 +10,10 @@ import org.compiere.model.MInOutLine;
 import org.compiere.model.MMatchInv;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 /**
  * Generated Model for M_MatchInv - DO NOT CHANGE
@@ -22,20 +23,21 @@ import org.compiere.util.Env;
  */
 public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_InvoiceLine;
-	 private ForeignEntityInput mM_AttributeSetInstance;
-	 private ForeignEntityInput mM_InOutLine;
-	 private ForeignEntityInput mM_Product;
-	 private ForeignEntityInput mRef_MatchInv;
-	 private ForeignEntityInput mReversal;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_InvoiceLine;
+	private ForeignEntityInput mM_AttributeSetInstance;
+	private ForeignEntityInput mM_InOutLine;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mRef_MatchInv;
+	private ForeignEntityInput mReversal;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_MatchInvInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MMatchInv(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -48,8 +50,8 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -75,8 +77,8 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
 		MInvoiceLine_BH foreignEntity;
-		if (get_ID() == 0 &&C_InvoiceLine != null &&
-				(foreignEntity = new Query(getCtx(), MInvoiceLine_BH.Table_Name, MInvoiceLine_BH.COLUMNNAME_C_InvoiceLine_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_InvoiceLine != null &&
+				(foreignEntity = new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 						.setParameters(C_InvoiceLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_InvoiceLine_ID(foreignEntity.get_ID());
@@ -113,8 +115,8 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
-		if (get_ID() == 0 &&M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_AttributeSetInstance != null &&
+				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
@@ -140,8 +142,8 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
-		if (get_ID() == 0 &&M_InOutLine != null &&
-				(foreignEntity = new Query(getCtx(), MInOutLine.Table_Name, MInOutLine.COLUMNNAME_M_InOutLine_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_InOutLine != null &&
+				(foreignEntity = new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 						.setParameters(M_InOutLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_InOutLine_ID(foreignEntity.get_ID());
@@ -156,6 +158,17 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	@JsonProperty("M_InOutLine")
 	public ForeignEntityInput M_InOutLine() {
 		return mM_InOutLine;
+	}
+	/**
+	 * Set Match Invoice.
+	 *
+	 * @param M_MatchInv_ID Match Shipment/Receipt to Invoice
+	 */
+
+	public void setM_MatchInv_ID(int M_MatchInv_ID) {
+		if (get_ID() == 0) {
+			super.setM_MatchInv_ID(M_MatchInv_ID);
+		}
 	}
 
 	/**
@@ -185,8 +198,8 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (get_ID() == 0 &&M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_Product != null &&
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());
@@ -246,7 +259,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 		this.mRef_MatchInv = Ref_MatchInv;
 		MMatchInv foreignEntity;
 		if (Ref_MatchInv != null &&
-				(foreignEntity = new Query(getCtx(), MMatchInv.Table_Name, MMatchInv.COLUMNNAME_M_MatchInv_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_MatchInv", "M_MatchInv_UU=?", get_TrxName())
 						.setParameters(Ref_MatchInv.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setRef_MatchInv_ID(foreignEntity.get_ID());
@@ -275,7 +288,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 		this.mReversal = Reversal;
 		MMatchInv foreignEntity;
 		if (Reversal != null &&
-				(foreignEntity = new Query(getCtx(), MMatchInv.Table_Name, MMatchInv.COLUMNNAME_M_MatchInv_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_MatchInv", "M_MatchInv_UU=?", get_TrxName())
 						.setParameters(Reversal.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setReversal_ID(foreignEntity.get_ID());

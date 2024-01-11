@@ -1,0 +1,90 @@
+# Generated Schema for AD_SearchDefinition - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_SearchDefinitionGet(page: Int, size: Int, sort: String, filter: String): AD_SearchDefinitionConnection!
+}
+
+extend type Mutation {
+	AD_SearchDefinitionSave(entity: AD_SearchDefinitionInput!): AD_SearchDefinition!
+	AD_SearchDefinitionDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_SearchDefinitionConnection {
+	results: [AD_SearchDefinition!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_SearchDefinition {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Data entry or display window
+	AD_Window: AD_Window!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Type of data
+	DataType: String!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Purchase Order Window
+	PO_Window: AD_Window
+	# SQL
+	Query: String
+	# Which kind of search is used (Query or Table)
+	SearchType: String!
+	# The transaction code represents the search definition
+	TransactionCode: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_SearchDefinitionInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	# Type of data
+	DataType: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Purchase Order Window
+	PO_Window: ForeignEntityInput
+	# SQL
+	Query: String
+	# Which kind of search is used (Query or Table)
+	SearchType: String
+	# The transaction code represents the search definition
+	TransactionCode: String
+}

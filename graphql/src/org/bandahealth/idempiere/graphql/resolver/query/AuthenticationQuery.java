@@ -220,7 +220,7 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 									.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseId())).findFirst();
 
 							return foundWarehouse
-									.filter(mWarehouse -> warehouseAccess.getRoleId() == role.getAD_Role_ID() && mWarehouse
+									.filter(mWarehouse -> warehouseAccess.getAD_Role_ID() == role.getAD_Role_ID() && mWarehouse
 											.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseId()))
 									.isPresent();
 						}).findAny();

@@ -1,0 +1,240 @@
+# Generated Schema for I_Asset - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	I_AssetGet(page: Int, size: Int, sort: String, filter: String): I_AssetConnection!
+}
+
+extend type Mutation {
+	I_AssetSave(entity: I_AssetInput!): I_Asset!
+	I_AssetDelete(uuids: [String!]!): Boolean!
+}
+
+type I_AssetConnection {
+	results: [I_Asset!]!
+	pagingInfo: PagingInfo!
+}
+
+type I_Asset {
+	A_Accumdepreciation_A: C_ValidCombination
+	A_Accumulated_Depr: Int
+	A_Asset_A: C_ValidCombination
+	A_Asset_Cost: Int
+	# Group of Assets
+	A_Asset_Group: A_Asset_Group
+	# Asset used internally or by customers
+	A_Asset: A_Asset
+	A_Asset_Life_Current_Year: Int
+	A_Asset_Life_Years: Int
+	A_Base_Amount: Int
+	A_Calc_Accumulated_Depr: Int
+	A_Curr_Dep_Exp: Int
+	A_Current_Period: Int
+	A_Depreciation_A: C_ValidCombination
+	A_Depreciation_Manual_Amount: Int
+	A_Depreciation_Manual_Period: AD_Ref_List
+	A_Depreciation_Table_Header: A_Depreciation_Table_Header
+	A_Depreciation_Variable_Perc: Int
+	A_Life_Period: Int
+	A_Parent_Asset_ID: Int
+	A_Period_End: Int
+	A_Period_Posted: Int
+	A_Period_Start: Int
+	A_Prior_Year_Accumulated_Depr: Int
+	A_QTY_Current: Int
+	A_QTY_Original: Int
+	A_Reval_Cal_Method: AD_Ref_List
+	A_Salvage_Value: Int
+	A_Split_Percent: Int
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User_ID: Int
+	# Date of last depreciation
+	AssetDepreciationDate: Date
+	# Date when the asset is/was disposed
+	AssetDisposalDate: Date
+	# Market value of the asset
+	AssetMarketValueAmt: Int
+	# Date when Asset was put into service
+	AssetServiceDate: Date
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location
+	# Location or Address
+	C_Location: C_Location
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Optional short description of the record
+	Description: String
+	# Date when guarantee expires
+	GuaranteeDate: Date
+	# Comment or Hint
+	Help: String
+	ID: ID!
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The asset will be depreciated
+	IsDepreciated: Boolean!
+	# The asset is disposed
+	IsDisposed: Boolean!
+	# The asset is fully depreciated
+	IsFullyDepreciated: Boolean!
+	# The asset is in the possession of the organization
+	IsInPosession: Boolean!
+	# The asset is owned by the organization
+	IsOwned: Boolean!
+	# Units of use until the asset is not usable anymore
+	LifeUseUnits: Int
+	# Additional comments or remarks concerning the location
+	LocationComment: String
+	# Lot number (alphanumeric)
+	Lot: String
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance
+	# Warehouse Locator
+	M_Locator: M_Locator
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Product Serial Number 
+	SerNo: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Months of the usable life of the asset
+	UseLifeMonths: Int
+	# Years of the usable life of the asset
+	UseLifeYears: Int
+	# Currently used units of the assets
+	UseUnits: Int
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Version Number
+	VersionNo: String
+}
+
+input I_AssetInput {
+	A_Accumdepreciation_A: ForeignEntityInput
+	A_Accumulated_Depr: Int
+	A_Asset_A: ForeignEntityInput
+	A_Asset_Cost: Int
+	# Group of Assets
+	A_Asset_Group: ForeignEntityInput
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	A_Asset_Life_Current_Year: Int
+	A_Asset_Life_Years: Int
+	A_Base_Amount: Int
+	A_Calc_Accumulated_Depr: Int
+	A_Curr_Dep_Exp: Int
+	A_Current_Period: Int
+	A_Depreciation_A: ForeignEntityInput
+	A_Depreciation_Manual_Amount: Int
+	A_Depreciation_Manual_Period: AD_Ref_ListInput
+	A_Depreciation_Table_Header: ForeignEntityInput
+	A_Depreciation_Variable_Perc: Int
+	A_Life_Period: Int
+	A_Parent_Asset_ID: Int
+	A_Period_End: Int
+	A_Period_Posted: Int
+	A_Period_Start: Int
+	A_Prior_Year_Accumulated_Depr: Int
+	A_QTY_Current: Int
+	A_QTY_Original: Int
+	A_Reval_Cal_Method: AD_Ref_ListInput
+	A_Salvage_Value: Int
+	A_Split_Percent: Int
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User_ID: Int
+	# Date of last depreciation
+	AssetDepreciationDate: Date
+	# Date when the asset is/was disposed
+	AssetDisposalDate: Date
+	# Market value of the asset
+	AssetMarketValueAmt: Int
+	# Date when Asset was put into service
+	AssetServiceDate: Date
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Location or Address
+	C_Location: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Date when guarantee expires
+	GuaranteeDate: Date
+	# Comment or Hint
+	Help: String
+	ID: ID
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# The asset will be depreciated
+	IsDepreciated: Boolean
+	# The asset is disposed
+	IsDisposed: Boolean
+	# The asset is fully depreciated
+	IsFullyDepreciated: Boolean
+	# The asset is in the possession of the organization
+	IsInPosession: Boolean
+	# The asset is owned by the organization
+	IsOwned: Boolean
+	# Units of use until the asset is not usable anymore
+	LifeUseUnits: Int
+	# Additional comments or remarks concerning the location
+	LocationComment: String
+	# Lot number (alphanumeric)
+	Lot: String
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Warehouse Locator
+	M_Locator: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_ListInput
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Product Serial Number 
+	SerNo: String
+	# Months of the usable life of the asset
+	UseLifeMonths: Int
+	# Years of the usable life of the asset
+	UseLifeYears: Int
+	# Currently used units of the assets
+	UseUnits: Int
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Version Number
+	VersionNo: String
+}

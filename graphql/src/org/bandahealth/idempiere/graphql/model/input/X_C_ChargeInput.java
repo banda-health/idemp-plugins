@@ -10,7 +10,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_Charge - DO NOT CHANGE
@@ -20,18 +21,19 @@ import org.compiere.util.Env;
  */
 public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_ChargeType;
-	 private ForeignEntityInput mC_TaxCategory;
-	 private I_AD_Ref_ListInput mBH_SubType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_ChargeType;
+	private ForeignEntityInput mC_TaxCategory;
+	private I_AD_Ref_ListInput mBH_SubType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_ChargeInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MCharge_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -44,8 +46,8 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -101,7 +103,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -118,6 +120,17 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	@JsonProperty("C_BPartner")
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
+	}
+	/**
+	 * Set Charge.
+	 *
+	 * @param C_Charge_ID Additional document charges
+	 */
+
+	public void setC_Charge_ID(int C_Charge_ID) {
+		if (get_ID() == 0) {
+			super.setC_Charge_ID(C_Charge_ID);
+		}
 	}
 
 	/**
@@ -148,7 +161,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 		this.mC_ChargeType = C_ChargeType;
 		MChargeType_BH foreignEntity;
 		if (C_ChargeType != null &&
-				(foreignEntity = new Query(getCtx(), MChargeType_BH.Table_Name, MChargeType_BH.COLUMNNAME_C_ChargeType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ChargeType", "C_ChargeType_UU=?", get_TrxName())
 						.setParameters(C_ChargeType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ChargeType_ID(foreignEntity.get_ID());
@@ -177,7 +190,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 		this.mC_TaxCategory = C_TaxCategory;
 		MTaxCategory foreignEntity;
 		if (C_TaxCategory != null &&
-				(foreignEntity = new Query(getCtx(), MTaxCategory.Table_Name, MTaxCategory.COLUMNNAME_C_TaxCategory_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
 						.setParameters(C_TaxCategory.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_TaxCategory_ID(foreignEntity.get_ID());

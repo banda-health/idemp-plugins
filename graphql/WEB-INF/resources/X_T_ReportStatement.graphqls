@@ -1,0 +1,58 @@
+# Generated Schema for T_ReportStatement - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	T_ReportStatementGet(page: Int, size: Int, sort: String, filter: String): T_ReportStatementConnection!
+}
+
+extend type Mutation {
+	T_ReportStatementSave(entity: T_ReportStatementInput!): T_ReportStatement!
+	T_ReportStatementDelete(uuids: [String!]!): Boolean!
+}
+
+type T_ReportStatementConnection {
+	results: [T_ReportStatement!]!
+	pagingInfo: PagingInfo!
+}
+
+type T_ReportStatement {
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	# Accounted Credit Amount
+	AmtAcctCr: Int
+	# Accounted Debit Amount
+	AmtAcctDr: Int
+	Balance: Int
+	# Accounting Date
+	DateAcct: Date!
+	# Optional short description of the record
+	Description: String
+	Fact_Acct: Fact_Acct!
+	LevelNo: Int!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Quantity
+	Qty: Int
+	ID: ID!
+}
+
+input T_ReportStatementInput {
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	# Accounted Credit Amount
+	AmtAcctCr: Int
+	# Accounted Debit Amount
+	AmtAcctDr: Int
+	Balance: Int
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	Fact_Acct: ForeignEntityInput
+	LevelNo: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Quantity
+	Qty: Int
+	ID: ID
+}

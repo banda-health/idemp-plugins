@@ -1,0 +1,50 @@
+# Generated Schema for ASP_Workflow - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	ASP_WorkflowGet(page: Int, size: Int, sort: String, filter: String): ASP_WorkflowConnection!
+}
+
+extend type Mutation {
+	ASP_WorkflowSave(entity: ASP_WorkflowInput!): ASP_Workflow!
+	ASP_WorkflowDelete(uuids: [String!]!): Boolean!
+}
+
+type ASP_WorkflowConnection {
+	results: [ASP_Workflow!]!
+	pagingInfo: PagingInfo!
+}
+
+type ASP_Workflow {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Workflow or combination of tasks
+	AD_Workflow: AD_Workflow!
+	ASP_Level: ASP_Level!
+	ASP_Status: AD_Ref_List!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input ASP_WorkflowInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	ASP_Level: ForeignEntityInput
+	ASP_Status: AD_Ref_ListInput
+	ID: ID
+	# The record is active in the system
+	IsActive: Boolean
+}

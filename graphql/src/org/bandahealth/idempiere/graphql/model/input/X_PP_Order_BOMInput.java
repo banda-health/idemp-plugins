@@ -10,9 +10,10 @@ import org.compiere.model.MChangeNotice;
 import org.compiere.model.MOrg;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
 import org.eevolution.model.X_PP_Order;
 import org.eevolution.model.X_PP_Order_BOM;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PP_Order_BOM - DO NOT CHANGE
@@ -22,21 +23,22 @@ import org.eevolution.model.X_PP_Order_BOM;
  */
 public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BOMInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_UOM;
-	 private ForeignEntityInput mM_AttributeSetInstance;
-	 private ForeignEntityInput mM_ChangeNotice;
-	 private ForeignEntityInput mM_Product;
-	 private ForeignEntityInput mPP_Order;
-	 private I_AD_Ref_ListInput mBOMType;
-	 private I_AD_Ref_ListInput mBOMUse;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mM_AttributeSetInstance;
+	private ForeignEntityInput mM_ChangeNotice;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mPP_Order;
+	private I_AD_Ref_ListInput mBOMType;
+	private I_AD_Ref_ListInput mBOMUse;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PP_Order_BOMInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_PP_Order_BOM(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -50,7 +52,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -137,7 +139,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (C_UOM != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_ID(foreignEntity.get_ID());
@@ -166,7 +168,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
@@ -195,7 +197,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 		this.mM_ChangeNotice = M_ChangeNotice;
 		MChangeNotice foreignEntity;
 		if (M_ChangeNotice != null &&
-				(foreignEntity = new Query(getCtx(), MChangeNotice.Table_Name, MChangeNotice.COLUMNNAME_M_ChangeNotice_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
 						.setParameters(M_ChangeNotice.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ChangeNotice_ID(foreignEntity.get_ID());
@@ -224,7 +226,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());
@@ -241,6 +243,17 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	@JsonProperty("M_Product")
 	public ForeignEntityInput M_Product() {
 		return mM_Product;
+	}
+	/**
+	 * Set Manufacturing Order BOM.
+	 *
+	 * @param PP_Order_BOM_ID Manufacturing Order BOM
+	 */
+
+	public void setPP_Order_BOM_ID(int PP_Order_BOM_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_BOM_ID(PP_Order_BOM_ID);
+		}
 	}
 
 	/**
@@ -270,8 +283,8 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
 		X_PP_Order foreignEntity;
-		if (get_ID() == 0 &&PP_Order != null &&
-				(foreignEntity = new Query(getCtx(), X_PP_Order.Table_Name, X_PP_Order.COLUMNNAME_PP_Order_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && PP_Order != null &&
+				(foreignEntity = new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
 						.setParameters(PP_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPP_Order_ID(foreignEntity.get_ID());

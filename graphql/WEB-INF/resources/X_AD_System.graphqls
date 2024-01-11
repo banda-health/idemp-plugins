@@ -1,0 +1,162 @@
+# Generated Schema for AD_System - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_SystemGet(page: Int, size: Int, sort: String, filter: String): AD_SystemConnection!
+}
+
+extend type Mutation {
+	AD_SystemSave(entity: AD_SystemInput!): AD_System!
+	AD_SystemDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_SystemConnection {
+	results: [AD_System!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_System {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Prefix for Custom entities
+	CustomPrefix: String
+	# JDBC URL of the database server
+	DBAddress: String
+	# Database Name
+	DBInstance: String
+	# Optional short description of the record
+	Description: String
+	# Encryption Class used for securing data content
+	EncryptionKey: String
+	# End if the ID Range used
+	IDRangeEnd: Int
+	# Start of the ID Range used
+	IDRangeStart: Int
+	# Information
+	Info: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Maintain general statistics
+	IsAllowStatistics: Boolean!
+	# Automatically report Errors
+	IsAutoErrorReport: Boolean!
+	IsFailOnBuildDiffer: Boolean!
+	IsFailOnMissingModelValidator: Boolean!
+	# Value set by Migration for post-Migration tasks.
+	IsJustMigrated: Boolean!
+	LastBuildInfo: String
+	# Register of the filename for the last migration script applied on this database
+	LastMigrationScriptApplied: String
+	# Directory service domain name - e.g. idempiere.org
+	LDAPDomain: String
+	# Connection String to LDAP server starting with ldap://
+	LDAPHost: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Number of Database Processors
+	NoProcessors: Int
+	OldName: String
+	# Password of any length (case sensitive)
+	Password: String!
+	Processing: Boolean!
+	# Information to help profiling the system for solving support issues
+	ProfileInfo: String
+	# Internal Release Number
+	ReleaseNo: String
+	# Type of Data Replication
+	ReplicationType: AD_Ref_List!
+	# Information to help profiling the system for solving support issues
+	StatisticsInfo: String
+	# Textual summary of this request
+	Summary: String
+	# EMail address to send support information and updates to
+	SupportEMail: String
+	# Date when the iDempiere support expires
+	SupportExpDate: Date
+	# Number of Internal Users for iDempiere Support
+	SupportUnits: Int
+	# Status of the system - Support priority depends on system status
+	SystemStatus: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	UserName: String!
+	# Version of the table definition
+	Version: String!
+}
+
+input AD_SystemInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Prefix for Custom entities
+	CustomPrefix: String
+	# JDBC URL of the database server
+	DBAddress: String
+	# Database Name
+	DBInstance: String
+	# Optional short description of the record
+	Description: String
+	# Encryption Class used for securing data content
+	EncryptionKey: String
+	# End if the ID Range used
+	IDRangeEnd: Int
+	# Start of the ID Range used
+	IDRangeStart: Int
+	# Information
+	Info: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Maintain general statistics
+	IsAllowStatistics: Boolean
+	# Automatically report Errors
+	IsAutoErrorReport: Boolean
+	IsFailOnBuildDiffer: Boolean
+	IsFailOnMissingModelValidator: Boolean
+	# Value set by Migration for post-Migration tasks.
+	IsJustMigrated: Boolean
+	LastBuildInfo: String
+	# Register of the filename for the last migration script applied on this database
+	LastMigrationScriptApplied: String
+	# Directory service domain name - e.g. idempiere.org
+	LDAPDomain: String
+	# Connection String to LDAP server starting with ldap://
+	LDAPHost: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Number of Database Processors
+	NoProcessors: Int
+	OldName: String
+	# Password of any length (case sensitive)
+	Password: String
+	Processing: Boolean
+	# Information to help profiling the system for solving support issues
+	ProfileInfo: String
+	# Internal Release Number
+	ReleaseNo: String
+	# Type of Data Replication
+	ReplicationType: AD_Ref_ListInput
+	# Information to help profiling the system for solving support issues
+	StatisticsInfo: String
+	# Textual summary of this request
+	Summary: String
+	# EMail address to send support information and updates to
+	SupportEMail: String
+	# Date when the iDempiere support expires
+	SupportExpDate: Date
+	# Number of Internal Users for iDempiere Support
+	SupportUnits: Int
+	# Status of the system - Support priority depends on system status
+	SystemStatus: AD_Ref_ListInput
+	UserName: String
+	# Version of the table definition
+	Version: String
+}

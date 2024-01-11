@@ -1,0 +1,51 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+
+import graphql.kickstart.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
+import org.compiere.model.X_AD_User_Substitute;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * Generated ModelResolver for AD_User_Substitute - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_AD_User_SubstituteResolver extends POResolver<X_AD_User_Substitute> implements GraphQLResolver<X_AD_User_Substitute> {
+
+
+
+	/**
+	 * Get User/Contact.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	public CompletableFuture<MUser_BH> AD_User(X_AD_User_Substitute entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_User_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MUser_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getAD_User_ID());
+	}
+
+
+	/**
+	 * Get Substitute.
+	 *
+	 * @return Entity which can be used in place of this entity
+	 */
+	public CompletableFuture<MUser_BH> Substitute(X_AD_User_Substitute entity, DataFetchingEnvironment environment) {
+		if (entity.getSubstitute_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MUser_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.getSubstitute_ID());
+	}
+
+}

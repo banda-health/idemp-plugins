@@ -1,0 +1,78 @@
+# Generated Schema for C_CommissionDetail - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_CommissionDetailGet(page: Int, size: Int, sort: String, filter: String): C_CommissionDetailConnection!
+}
+
+extend type Mutation {
+	C_CommissionDetailSave(entity: C_CommissionDetailInput!): C_CommissionDetail!
+	C_CommissionDetailDelete(uuids: [String!]!): Boolean!
+}
+
+type C_CommissionDetailConnection {
+	results: [C_CommissionDetail!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_CommissionDetail {
+	# The actual amount
+	ActualAmt: Int!
+	# The actual quantity
+	ActualQty: Int!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Generated Commission Amount 
+	C_CommissionAmt: C_CommissionAmt!
+	ID: ID!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Invoice Detail Line
+	C_InvoiceLine: C_InvoiceLine
+	# Sales Order Line
+	C_OrderLine: C_OrderLine
+	# Converted Amount
+	ConvertedAmt: Int!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Information
+	Info: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Reference for this record
+	Reference: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CommissionDetailInput {
+	# The actual amount
+	ActualAmt: Int
+	# The actual quantity
+	ActualQty: Int
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Generated Commission Amount 
+	C_CommissionAmt: ForeignEntityInput
+	ID: ID
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Invoice Detail Line
+	C_InvoiceLine: ForeignEntityInput
+	# Sales Order Line
+	C_OrderLine: ForeignEntityInput
+	# Converted Amount
+	ConvertedAmt: Int
+	# Information
+	Info: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Reference for this record
+	Reference: String
+}

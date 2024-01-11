@@ -1,0 +1,30 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_AD_UserQueryInput;
+import org.bandahealth.idempiere.graphql.model.input.X_AD_UserQueryInput;
+import org.compiere.model.MUserQuery;
+
+import java.util.List;
+
+/**
+ * Generated Query Resolver for AD_UserQuery - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_AD_UserQueryMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_AD_UserQueryInput.Table_Name;
+	}
+
+	public MUserQuery AD_UserQuerySave(I_AD_UserQueryInput input, DataFetchingEnvironment environment) {
+		return (MUserQuery) super.save((X_AD_UserQueryInput) input, environment);
+	}
+
+	public boolean AD_UserQueryDelete(List<String> uuids, DataFetchingEnvironment environment) {
+		return super.delete(uuids, environment);
+	}
+}

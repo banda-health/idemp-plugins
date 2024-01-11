@@ -1,0 +1,30 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_PP_Product_BOMLineInput;
+import org.bandahealth.idempiere.graphql.model.input.X_PP_Product_BOMLineInput;
+import org.eevolution.model.MPPProductBOMLine;
+
+import java.util.List;
+
+/**
+ * Generated Query Resolver for PP_Product_BOMLine - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_PP_Product_BOMLineMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_PP_Product_BOMLineInput.Table_Name;
+	}
+
+	public MPPProductBOMLine PP_Product_BOMLineSave(I_PP_Product_BOMLineInput input, DataFetchingEnvironment environment) {
+		return (MPPProductBOMLine) super.save((X_PP_Product_BOMLineInput) input, environment);
+	}
+
+	public boolean PP_Product_BOMLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
+		return super.delete(uuids, environment);
+	}
+}

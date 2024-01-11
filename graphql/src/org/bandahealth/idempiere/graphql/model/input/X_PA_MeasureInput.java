@@ -13,7 +13,8 @@ import org.compiere.model.MRequestType;
 import org.compiere.model.Query;
 import org.compiere.model.X_PA_Benchmark;
 import org.compiere.model.X_PA_Ratio;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_Measure - DO NOT CHANGE
@@ -23,22 +24,23 @@ import org.compiere.util.Env;
  */
 public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_ProjectType;
-	 private ForeignEntityInput mPA_Benchmark;
-	 private ForeignEntityInput mPA_Hierarchy;
-	 private ForeignEntityInput mPA_MeasureCalc;
-	 private ForeignEntityInput mPA_Ratio;
-	 private ForeignEntityInput mR_RequestType;
-	 private I_AD_Ref_ListInput mMeasureDataType;
-	 private I_AD_Ref_ListInput mMeasureType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_ProjectType;
+	private ForeignEntityInput mPA_Benchmark;
+	private ForeignEntityInput mPA_Hierarchy;
+	private ForeignEntityInput mPA_MeasureCalc;
+	private ForeignEntityInput mPA_Ratio;
+	private ForeignEntityInput mR_RequestType;
+	private I_AD_Ref_ListInput mMeasureDataType;
+	private I_AD_Ref_ListInput mMeasureType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_MeasureInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MMeasure(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -51,8 +53,8 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -79,7 +81,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 		this.mC_ProjectType = C_ProjectType;
 		MProjectType foreignEntity;
 		if (C_ProjectType != null &&
-				(foreignEntity = new Query(getCtx(), MProjectType.Table_Name, MProjectType.COLUMNNAME_C_ProjectType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ProjectType", "C_ProjectType_UU=?", get_TrxName())
 						.setParameters(C_ProjectType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ProjectType_ID(foreignEntity.get_ID());
@@ -166,7 +168,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 		this.mPA_Benchmark = PA_Benchmark;
 		X_PA_Benchmark foreignEntity;
 		if (PA_Benchmark != null &&
-				(foreignEntity = new Query(getCtx(), X_PA_Benchmark.Table_Name, X_PA_Benchmark.COLUMNNAME_PA_Benchmark_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_Benchmark", "PA_Benchmark_UU=?", get_TrxName())
 						.setParameters(PA_Benchmark.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_Benchmark_ID(foreignEntity.get_ID());
@@ -195,7 +197,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 		this.mPA_Hierarchy = PA_Hierarchy;
 		MHierarchy foreignEntity;
 		if (PA_Hierarchy != null &&
-				(foreignEntity = new Query(getCtx(), MHierarchy.Table_Name, MHierarchy.COLUMNNAME_PA_Hierarchy_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_Hierarchy", "PA_Hierarchy_UU=?", get_TrxName())
 						.setParameters(PA_Hierarchy.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_Hierarchy_ID(foreignEntity.get_ID());
@@ -212,6 +214,17 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	@JsonProperty("PA_Hierarchy")
 	public ForeignEntityInput PA_Hierarchy() {
 		return mPA_Hierarchy;
+	}
+	/**
+	 * Set Measure.
+	 *
+	 * @param PA_Measure_ID Concrete Performance Measurement
+	 */
+
+	public void setPA_Measure_ID(int PA_Measure_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Measure_ID(PA_Measure_ID);
+		}
 	}
 
 	/**
@@ -242,7 +255,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 		this.mPA_MeasureCalc = PA_MeasureCalc;
 		MMeasureCalc foreignEntity;
 		if (PA_MeasureCalc != null &&
-				(foreignEntity = new Query(getCtx(), MMeasureCalc.Table_Name, MMeasureCalc.COLUMNNAME_PA_MeasureCalc_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_MeasureCalc", "PA_MeasureCalc_UU=?", get_TrxName())
 						.setParameters(PA_MeasureCalc.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_MeasureCalc_ID(foreignEntity.get_ID());
@@ -271,7 +284,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 		this.mPA_Ratio = PA_Ratio;
 		X_PA_Ratio foreignEntity;
 		if (PA_Ratio != null &&
-				(foreignEntity = new Query(getCtx(), X_PA_Ratio.Table_Name, X_PA_Ratio.COLUMNNAME_PA_Ratio_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
 						.setParameters(PA_Ratio.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_Ratio_ID(foreignEntity.get_ID());
@@ -300,7 +313,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 		this.mR_RequestType = R_RequestType;
 		MRequestType foreignEntity;
 		if (R_RequestType != null &&
-				(foreignEntity = new Query(getCtx(), MRequestType.Table_Name, MRequestType.COLUMNNAME_R_RequestType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "R_RequestType", "R_RequestType_UU=?", get_TrxName())
 						.setParameters(R_RequestType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setR_RequestType_ID(foreignEntity.get_ID());

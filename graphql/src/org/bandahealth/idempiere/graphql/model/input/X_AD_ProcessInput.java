@@ -13,7 +13,8 @@ import org.compiere.model.MReportView;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_Workflow;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Process - DO NOT CHANGE
@@ -23,24 +24,25 @@ import org.compiere.util.Env;
  */
 public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput {
 
-	 private ForeignEntityInput mAD_CtxHelp;
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Form;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_PrintFormat;
-	 private ForeignEntityInput mAD_ReportView;
-	 private ForeignEntityInput mAD_Workflow;
-	 private I_AD_Ref_ListInput mAccessLevel;
-	 private I_AD_Ref_ListInput mAllowMultipleExecution;
-	 private I_AD_Ref_ListInput mExecutionType;
-	 private I_AD_Ref_ListInput mShowHelp;
+	private ForeignEntityInput mAD_CtxHelp;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Form;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PrintFormat;
+	private ForeignEntityInput mAD_ReportView;
+	private ForeignEntityInput mAD_Workflow;
+	private I_AD_Ref_ListInput mAccessLevel;
+	private I_AD_Ref_ListInput mAllowMultipleExecution;
+	private I_AD_Ref_ListInput mExecutionType;
+	private I_AD_Ref_ListInput mShowHelp;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_ProcessInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MProcess_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -83,7 +85,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 		this.mAD_CtxHelp = AD_CtxHelp;
 		MCtxHelp foreignEntity;
 		if (AD_CtxHelp != null &&
-				(foreignEntity = new Query(getCtx(), MCtxHelp.Table_Name, MCtxHelp.COLUMNNAME_AD_CtxHelp_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
 						.setParameters(AD_CtxHelp.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_CtxHelp_ID(foreignEntity.get_ID());
@@ -112,7 +114,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 		this.mAD_Form = AD_Form;
 		MForm foreignEntity;
 		if (AD_Form != null &&
-				(foreignEntity = new Query(getCtx(), MForm.Table_Name, MForm.COLUMNNAME_AD_Form_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
 						.setParameters(AD_Form.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Form_ID(foreignEntity.get_ID());
@@ -140,8 +142,8 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -168,7 +170,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
 		if (AD_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintFormat.Table_Name, X_AD_PrintFormat.COLUMNNAME_AD_PrintFormat_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 						.setParameters(AD_PrintFormat.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PrintFormat_ID(foreignEntity.get_ID());
@@ -185,6 +187,17 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	@JsonProperty("AD_PrintFormat")
 	public ForeignEntityInput AD_PrintFormat() {
 		return mAD_PrintFormat;
+	}
+	/**
+	 * Set Process.
+	 *
+	 * @param AD_Process_ID Process or Report
+	 */
+
+	public void setAD_Process_ID(int AD_Process_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Process_ID(AD_Process_ID);
+		}
 	}
 
 	/**
@@ -215,7 +228,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 		this.mAD_ReportView = AD_ReportView;
 		MReportView foreignEntity;
 		if (AD_ReportView != null &&
-				(foreignEntity = new Query(getCtx(), MReportView.Table_Name, MReportView.COLUMNNAME_AD_ReportView_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_ReportView", "AD_ReportView_UU=?", get_TrxName())
 						.setParameters(AD_ReportView.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_ReportView_ID(foreignEntity.get_ID());
@@ -244,7 +257,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
 		if (AD_Workflow != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_Workflow.Table_Name, X_AD_Workflow.COLUMNNAME_AD_Workflow_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
 						.setParameters(AD_Workflow.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Workflow_ID(foreignEntity.get_ID());
@@ -302,7 +315,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());

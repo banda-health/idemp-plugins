@@ -7,7 +7,8 @@ import org.compiere.model.MCountry;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRegion;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_Region - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_C_RegionInput extends MRegion implements I_C_RegionInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Country;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Country;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_RegionInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MRegion(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_C_RegionInput extends MRegion implements I_C_RegionInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -65,8 +67,8 @@ public class X_C_RegionInput extends MRegion implements I_C_RegionInput {
 	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
 		MCountry foreignEntity;
-		if (get_ID() == 0 &&C_Country != null &&
-				(foreignEntity = new Query(getCtx(), MCountry.Table_Name, MCountry.COLUMNNAME_C_Country_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Country != null &&
+				(foreignEntity = new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
 						.setParameters(C_Country.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Country_ID(foreignEntity.get_ID());
@@ -81,6 +83,17 @@ public class X_C_RegionInput extends MRegion implements I_C_RegionInput {
 	@JsonProperty("C_Country")
 	public ForeignEntityInput C_Country() {
 		return mC_Country;
+	}
+	/**
+	 * Set Region.
+	 *
+	 * @param C_Region_ID Identifies a geographical Region
+	 */
+
+	public void setC_Region_ID(int C_Region_ID) {
+		if (get_ID() == 0) {
+			super.setC_Region_ID(C_Region_ID);
+		}
 	}
 
 	/**

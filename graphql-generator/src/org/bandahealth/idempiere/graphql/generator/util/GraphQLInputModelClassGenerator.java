@@ -22,7 +22,6 @@ package org.bandahealth.idempiere.graphql.generator.util;
 import org.adempiere.exceptions.DBException;
 import org.adempiere.util.ModelInterfaceGenerator;
 import org.compiere.Adempiere;
-import org.compiere.model.MEntityType;
 import org.compiere.model.MRefList;
 import org.compiere.model.MReference;
 import org.compiere.model.MTable;
@@ -38,7 +37,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,8 +47,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 import java.util.logging.Level;
-
-import static org.compiere.model.SystemIDs.REFERENCE_PAYMENTRULE;
 
 /**
  * Generate GraphQL Schemas.
@@ -126,11 +122,14 @@ public class GraphQLInputModelClassGenerator {
 
 		// Insert the required iDempiere imports
 		classesToImport.add("org.compiere.model.Query");
-		classesToImport.add("org.compiere.util.Env");
-		classesToImport.add("org.bandahealth.idempiere.graphql.utils.ModelUtil");
 		classesToImport.add(tableStructureExtensions.getClassPackageName() + "." + tableStructureExtensions.getClassName());
-		classesToImport.add("com.fasterxml.jackson.annotation.JsonCreator");
-		classesToImport.add("com.fasterxml.jackson.annotation.JsonProperty");
+		boolean hasUuidColumn = generatedColumns.toString().contains("public void setID(String ID)");
+		if (hasUuidColumn) {
+			classesToImport.add("com.fasterxml.jackson.annotation.JsonCreator");
+			classesToImport.add("com.fasterxml.jackson.annotation.JsonProperty");
+			classesToImport.add("org.bandahealth.idempiere.graphql.utils.ModelUtil");
+		}
+		classesToImport.add("java.sql.ResultSet");
 
 		createImports(generatedClass);
 		generatedClass
@@ -144,13 +143,23 @@ public class GraphQLInputModelClassGenerator {
 				.append(" {\n\n");
 
 		createPrivateProperties(generatedClass);
-		generatedClass
-				.append("\t/**\n\t * Standard constructor\n\t */\n")
-				.append("\t@JsonCreator\n")
-				.append("\tpublic ").append(className).append("(@JsonProperty(\"ID\") String ID) {\n")
-				.append("\t\tsuper(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);\n")
-				.append("\t\tsetID(ID);\n")
-				.append("\t}");
+		if (hasUuidColumn) {
+			generatedClass
+					.append("\t/**\n\t * Standard constructor\n\t */\n")
+					.append("\t@JsonCreator\n")
+					.append("\tpublic ").append(className).append("(@JsonProperty(\"ID\") String ID) {\n")
+					.append("\t\tsuper(null, ModelUtil.getModelResultSet(new ").append(tableStructureExtensions.getClassName())
+					.append("(null, (ResultSet) null, null), null, Table_Name, ID),\n")
+					.append("\t\t\t\tnull);\n")
+					.append("\t\tsetID(ID);\n")
+					.append("\t}");
+		} else {
+			generatedClass
+					.append("\t/**\n\t * Standard constructor\n\t */\n")
+					.append("\tpublic ").append(className).append("() {\n")
+					.append("\t\tsuper(null, (ResultSet) null, null);\n")
+					.append("\t}");
+		}
 
 		generatedColumns.insert(0, generatedClass);
 		generatedColumns.append("\n}\n");
@@ -323,26 +332,32 @@ public class GraphQLInputModelClassGenerator {
 			privateProperties.add("ForeignEntityInput " + propertyName);
 			generateJavaSetComment(entityName, Name, Description, columnBuilder);
 			ModelMap foreignEntityModelMap = modelsForTables.get(foreignEntityTable);
-			String modelForForeignEntity = foreignEntityModelMap.getClassName();
-			classesToImport.add(foreignEntityModelMap.getClassPackageName() + "." + foreignEntityModelMap.getClassName());
+			String modelForForeignEntity;
+			if (foreignEntityModelMap == null) {
+				log.warning(
+						"Did not have any model or anything mapped for " + foreignEntityTable + ", so resorting to PO");
+				addImportClass("org.compiere.model.PO");
+				modelForForeignEntity = "PO";
+			} else {
+				classesToImport.add(foreignEntityModelMap.getClassPackageName() + "." + foreignEntityModelMap.getClassName());
+				modelForForeignEntity = foreignEntityModelMap.getClassName();
+			}
 			classesToImport.add("com.fasterxml.jackson.annotation.JsonProperty");
 			columnBuilder
 					.append("\t@JsonProperty(\"").append(entityName).append("\")\n")
-//					.append("\tpublic void set").append(entityName).append("Input(").append(returnType).append(" ")
 					.append("\tpublic void set").append(entityName).append("Input(ForeignEntityInput ").append(entityName)
 					.append(") {\n")
 					.append("\t\tthis.").append(propertyName).append(" = ").append(entityName).append(";\n")
 					.append("\t\t").append(modelForForeignEntity).append(" foreignEntity;\n")
 					.append("\t\tif (");
 			if (!isUpdateable) {
-				columnBuilder.append("get_ID() == 0 &&");
+				columnBuilder.append("get_ID() == 0 && ");
 			}
 			columnBuilder
 					.append(entityName).append(" != null &&\n\t\t\t\t")
-					.append("(foreignEntity = new Query(getCtx(), ").append(modelForForeignEntity).append(".Table_Name, ")
-					.append(modelForForeignEntity).append(".COLUMNNAME_").append(foreignEntityTable)
-					.append("_UU + \"=?\", get_TrxName())")
-					.append("\n\t\t\t\t\t\t.setParameters(").append(entityName).append(".getID())\n")
+					.append("(foreignEntity = new Query(getCtx(), \"").append(foreignEntityTable).append("\", \"")
+					.append(foreignEntityTable).append("_UU=?\", get_TrxName())\n")
+					.append("\t\t\t\t\t\t.setParameters(").append(entityName).append(".getID())\n")
 					.append("\t\t\t\t\t\t.first()) != null && foreignEntity.get_ID() != 0) {\n")
 					.append("\t\t\tsuper.set").append(columnName).append("(foreignEntity.").append(defaultValueMethod)
 					.append(");\n")
@@ -381,8 +396,6 @@ public class GraphQLInputModelClassGenerator {
 
 			// Since the UUID is always defined on the base, generated model, return
 			return columnBuilder.toString();
-		} else if (IsKey) {
-			return "";
 		}
 //
 //		// If the column is user-maintained and the table isn't, we need to generate
@@ -564,6 +577,10 @@ public class GraphQLInputModelClassGenerator {
 		}
 
 //		if (wereColumnMethodsGeneratedElsewhere) {
+		// If we're here, be done if this is a virtual column
+		if (virtualColumn) {
+			return "";
+		}
 		// Since this property isn't updatable, we need to generate a method that updates the property only if the entity
 		// is new
 		generateJavaSetComment(columnName, Name, Description, columnBuilder);
@@ -790,8 +807,22 @@ public class GraphQLInputModelClassGenerator {
 	 * @param generatedClass
 	 */
 	private void createImports(StringBuilder generatedClass) {
+		boolean hasJavaImports = false;
 		for (String name : classesToImport) {
+			if (name.startsWith("java.")) {
+				hasJavaImports = true;
+				continue;
+			}
 			generatedClass.append("import ").append(name).append(";").append("\n");
+		}
+		if (hasJavaImports) {
+			generatedClass.append("\n");
+			for (String name : classesToImport) {
+				if (!name.startsWith("java.")) {
+					continue;
+				}
+				generatedClass.append("import ").append(name).append(";").append("\n");
+			}
 		}
 		generatedClass.append("\n");
 	}
@@ -803,7 +834,7 @@ public class GraphQLInputModelClassGenerator {
 	 */
 	private void createPrivateProperties(StringBuilder generatedClass) {
 		for (String privateProperty : privateProperties) {
-			generatedClass.append("\t private ").append(privateProperty).append(";").append("\n");
+			generatedClass.append("\tprivate ").append(privateProperty).append(";").append("\n");
 		}
 		generatedClass.append("\n");
 	}

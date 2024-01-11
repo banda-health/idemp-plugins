@@ -1,0 +1,74 @@
+# Generated Schema for AD_AccessLog - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_AccessLogGet(page: Int, size: Int, sort: String, filter: String): AD_AccessLogConnection!
+}
+
+extend type Mutation {
+	AD_AccessLogSave(entity: AD_AccessLogInput!): AD_AccessLog!
+	AD_AccessLogDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_AccessLogConnection {
+	results: [AD_AccessLog!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_AccessLog {
+	ID: ID!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Direct internal record ID
+	Record_ID: Int
+	# Remote Address
+	Remote_Addr: String
+	# Remote host Info
+	Remote_Host: String
+	# Reply or Answer
+	Reply: String
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_AccessLogInput {
+	ID: ID
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Direct internal record ID
+	Record_ID: Int
+	# Remote Address
+	Remote_Addr: String
+	# Remote host Info
+	Remote_Host: String
+	# Reply or Answer
+	Reply: String
+	# Text Message
+	TextMsg: String
+}

@@ -1,0 +1,92 @@
+# Generated Schema for C_POSKey - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_POSKeyGet(page: Int, size: Int, sort: String, filter: String): C_POSKeyConnection!
+}
+
+extend type Mutation {
+	C_POSKeySave(entity: C_POSKeyInput!): C_POSKey!
+	C_POSKeyDelete(uuids: [String!]!): Boolean!
+}
+
+type C_POSKeyConnection {
+	results: [C_POSKey!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_POSKey {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Image or Icon
+	AD_Image: AD_Image
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Color used for printing and display
+	AD_PrintColor: AD_PrintColor
+	# Maintain Print Font
+	AD_PrintFont: AD_PrintFont
+	ID: ID!
+	# POS Function Key Layout
+	C_POSKeyLayout: C_POSKeyLayout!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Quantity
+	Qty: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Number of columns spanned
+	SpanX: Int
+	# Number of rows spanned
+	SpanY: Int
+	# Key Layout to be displayed when this key is pressed
+	SubKeyLayout: C_POSKeyLayout
+	Text: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_POSKeyInput {
+	# Image or Icon
+	AD_Image: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Color used for printing and display
+	AD_PrintColor: ForeignEntityInput
+	# Maintain Print Font
+	AD_PrintFont: ForeignEntityInput
+	ID: ID
+	# POS Function Key Layout
+	C_POSKeyLayout: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Quantity
+	Qty: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Number of columns spanned
+	SpanX: Int
+	# Number of rows spanned
+	SpanY: Int
+	# Key Layout to be displayed when this key is pressed
+	SubKeyLayout: ForeignEntityInput
+	Text: String
+}

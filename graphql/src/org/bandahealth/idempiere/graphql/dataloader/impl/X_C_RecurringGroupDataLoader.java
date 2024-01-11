@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.X_C_RecurringGroup;
+
+/**
+ * Data Loader for C_RecurringGroup - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_RecurringGroupDataLoader extends PODataLoader<X_C_RecurringGroup> {
+	public static String C_RecurringGroup_BY_ID_DATA_LOADER = "C_RecurringGroupByIdDataLoader";
+	public static String C_RecurringGroup_BY_UUID_DATA_LOADER = "C_RecurringGroupByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return X_C_RecurringGroup.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return C_RecurringGroup_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return C_RecurringGroup_BY_UUID_DATA_LOADER;
+	}
+}

@@ -1,0 +1,62 @@
+# Generated Schema for C_JobRemuneration - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_JobRemunerationGet(page: Int, size: Int, sort: String, filter: String): C_JobRemunerationConnection!
+}
+
+extend type Mutation {
+	C_JobRemunerationSave(entity: C_JobRemunerationInput!): C_JobRemuneration!
+	C_JobRemunerationDelete(uuids: [String!]!): Boolean!
+}
+
+type C_JobRemunerationConnection {
+	results: [C_JobRemuneration!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_JobRemuneration {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Job Position
+	C_Job: C_Job!
+	ID: ID!
+	# Wage or Salary
+	C_Remuneration: C_Remuneration!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date!
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
+
+input C_JobRemunerationInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Job Position
+	C_Job: ForeignEntityInput
+	ID: ID
+	# Wage or Salary
+	C_Remuneration: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

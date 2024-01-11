@@ -1,0 +1,90 @@
+# Generated Schema for M_CostHistory - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_CostHistoryGet(page: Int, size: Int, sort: String, filter: String): M_CostHistoryConnection!
+}
+
+extend type Mutation {
+	M_CostHistorySave(entity: M_CostHistoryInput!): M_CostHistory!
+	M_CostHistoryDelete(uuids: [String!]!): Boolean!
+}
+
+type M_CostHistoryConnection {
+	results: [M_CostHistory!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_CostHistory {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Cost Detail Information
+	M_CostDetail: M_CostDetail!
+	# Product Cost Element
+	M_CostElement: M_CostElement!
+	ID: ID!
+	# Type of Cost (e.g. Current, Plan, Future)
+	M_CostType: M_CostType!
+	# Accumulated Amt after processing of M_CostDetail
+	NewCAmt: Int
+	# New current cost price after processing of M_CostDetail
+	NewCostPrice: Int!
+	# New Accumulated Qty after processing of M_CostDetail
+	NewCQty: Int
+	# New current quantity after processing of M_CostDetail
+	NewQty: Int!
+	# Old accumulated amt before the processing of M_CostDetail
+	OldCAmt: Int
+	# Old current cost price before the processing of M_CostDetail
+	OldCostPrice: Int!
+	# Old accumulated qty before the processing of M_CostDetail
+	OldCQty: Int
+	# Old current quantity before the processing of M_CostDetail
+	OldQty: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_CostHistoryInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Cost Detail Information
+	M_CostDetail: ForeignEntityInput
+	# Product Cost Element
+	M_CostElement: ForeignEntityInput
+	ID: ID
+	# Type of Cost (e.g. Current, Plan, Future)
+	M_CostType: ForeignEntityInput
+	# Accumulated Amt after processing of M_CostDetail
+	NewCAmt: Int
+	# New current cost price after processing of M_CostDetail
+	NewCostPrice: Int
+	# New Accumulated Qty after processing of M_CostDetail
+	NewCQty: Int
+	# New current quantity after processing of M_CostDetail
+	NewQty: Int
+	# Old accumulated amt before the processing of M_CostDetail
+	OldCAmt: Int
+	# Old current cost price before the processing of M_CostDetail
+	OldCostPrice: Int
+	# Old accumulated qty before the processing of M_CostDetail
+	OldCQty: Int
+	# Old current quantity before the processing of M_CostDetail
+	OldQty: Int
+}

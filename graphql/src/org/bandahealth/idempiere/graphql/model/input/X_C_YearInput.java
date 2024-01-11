@@ -7,7 +7,8 @@ import org.compiere.model.MCalendar;
 import org.compiere.model.MOrg;
 import org.compiere.model.MYear;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_Year - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_C_YearInput extends MYear implements I_C_YearInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Calendar;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Calendar;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_YearInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MYear(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -65,8 +67,8 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 	public void setC_CalendarInput(ForeignEntityInput C_Calendar) {
 		this.mC_Calendar = C_Calendar;
 		MCalendar foreignEntity;
-		if (get_ID() == 0 &&C_Calendar != null &&
-				(foreignEntity = new Query(getCtx(), MCalendar.Table_Name, MCalendar.COLUMNNAME_C_Calendar_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Calendar != null &&
+				(foreignEntity = new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
 						.setParameters(C_Calendar.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Calendar_ID(foreignEntity.get_ID());
@@ -81,6 +83,17 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 	@JsonProperty("C_Calendar")
 	public ForeignEntityInput C_Calendar() {
 		return mC_Calendar;
+	}
+	/**
+	 * Set Year.
+	 *
+	 * @param C_Year_ID Calendar Year
+	 */
+
+	public void setC_Year_ID(int C_Year_ID) {
+		if (get_ID() == 0) {
+			super.setC_Year_ID(C_Year_ID);
+		}
 	}
 
 	/**

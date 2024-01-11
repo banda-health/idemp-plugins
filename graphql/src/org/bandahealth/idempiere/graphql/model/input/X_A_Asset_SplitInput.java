@@ -9,7 +9,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Asset_Split;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Split - DO NOT CHANGE
@@ -19,19 +20,20 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_SplitInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_Asset;
-	 private ForeignEntityInput mA_Asset_To;
-	 private ForeignEntityInput mC_Period;
-	 private I_AD_Ref_ListInput mA_Split_Type;
-	 private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mA_Asset_To;
+	private ForeignEntityInput mC_Period;
+	private I_AD_Ref_ListInput mA_Split_Type;
+	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Asset_SplitInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_A_Asset_Split(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -45,7 +47,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_ID(foreignEntity.get_ID());
@@ -74,7 +76,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 		this.mA_Asset_To = A_Asset_To;
 		MAsset foreignEntity;
 		if (A_Asset_To != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Asset_To.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_ID_To(foreignEntity.get_ID());
@@ -91,6 +93,17 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	@JsonProperty("A_Asset_To")
 	public ForeignEntityInput A_Asset_To() {
 		return mA_Asset_To;
+	}
+	/**
+	 * Set Asset Split.
+	 *
+	 * @param A_Asset_Split_ID Asset Split
+	 */
+
+	public void setA_Asset_Split_ID(int A_Asset_Split_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Split_ID(A_Asset_Split_ID);
+		}
 	}
 
 	/**
@@ -160,8 +173,8 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -188,7 +201,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
-				(foreignEntity = new Query(getCtx(), MPeriod.Table_Name, MPeriod.COLUMNNAME_C_Period_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
 						.setParameters(C_Period.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Period_ID(foreignEntity.get_ID());

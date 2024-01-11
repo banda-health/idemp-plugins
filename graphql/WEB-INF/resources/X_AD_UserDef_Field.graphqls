@@ -1,0 +1,166 @@
+# Generated Schema for AD_UserDef_Field - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_UserDef_FieldGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_FieldConnection!
+}
+
+extend type Mutation {
+	AD_UserDef_FieldSave(entity: AD_UserDef_FieldInput!): AD_UserDef_Field!
+	AD_UserDef_FieldDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_UserDef_FieldConnection {
+	results: [AD_UserDef_Field!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_UserDef_Field {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Field on a database table
+	AD_Field: AD_Field!
+	# Logical grouping of fields
+	AD_FieldGroup: AD_FieldGroup
+	# Field CSS Style 
+	AD_FieldStyle: AD_Style
+	# Label CSS Style
+	AD_LabelStyle: AD_Style
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# System Reference and Validation
+	AD_Reference: AD_Reference
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: AD_Reference
+	ID: ID!
+	AD_UserDef_Tab: AD_UserDef_Tab!
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_Rule
+	# Override Dynamic Validation Rule for Lookup Window
+	AD_Val_Rule_Lookup: AD_Val_Rule
+	# Number of column for a box of field
+	ColumnSpan: Int
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# Length of the display in characters
+	DisplayLength: Int
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The column is always updateable, even if the record is not active or processed
+	IsAlwaysUpdateable: AD_Ref_List
+	# Automatic completion for textfields
+	IsAutocomplete: AD_Ref_List
+	# Determines, if this field is displayed
+	IsDisplayed: AD_Ref_List
+	# Data entry is required in this column
+	IsMandatory: AD_Ref_List
+	# Field is read only
+	IsReadOnly: AD_Ref_List
+	# Displayed on same line as previous field
+	IsSameLine: AD_Ref_List
+	# Show the button on the toolbar, the window, or both
+	IsToolbarButton: AD_Ref_List
+	# Determines, if the field can be updated
+	IsUpdateable: AD_Ref_List
+	MandatoryLogic: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Number of lines for a field
+	NumLines: Int
+	PA_DashboardContent: PA_DashboardContent
+	Placeholder: String
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Determines in what order the records are displayed
+	SortNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+	# Absolute X (horizontal) position in 1/72 of an inch
+	XPosition: Int
+}
+
+input AD_UserDef_FieldInput {
+	# Field on a database table
+	AD_Field: ForeignEntityInput
+	# Logical grouping of fields
+	AD_FieldGroup: ForeignEntityInput
+	# Field CSS Style 
+	AD_FieldStyle: ForeignEntityInput
+	# Label CSS Style
+	AD_LabelStyle: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	ID: ID
+	AD_UserDef_Tab: ForeignEntityInput
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Override Dynamic Validation Rule for Lookup Window
+	AD_Val_Rule_Lookup: ForeignEntityInput
+	# Number of column for a box of field
+	ColumnSpan: Int
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# Length of the display in characters
+	DisplayLength: Int
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The column is always updateable, even if the record is not active or processed
+	IsAlwaysUpdateable: AD_Ref_ListInput
+	# Automatic completion for textfields
+	IsAutocomplete: AD_Ref_ListInput
+	# Determines, if this field is displayed
+	IsDisplayed: AD_Ref_ListInput
+	# Data entry is required in this column
+	IsMandatory: AD_Ref_ListInput
+	# Field is read only
+	IsReadOnly: AD_Ref_ListInput
+	# Displayed on same line as previous field
+	IsSameLine: AD_Ref_ListInput
+	# Show the button on the toolbar, the window, or both
+	IsToolbarButton: AD_Ref_ListInput
+	# Determines, if the field can be updated
+	IsUpdateable: AD_Ref_ListInput
+	MandatoryLogic: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Number of lines for a field
+	NumLines: Int
+	PA_DashboardContent: ForeignEntityInput
+	Placeholder: String
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Determines in what order the records are displayed
+	SortNo: Int
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+	# Absolute X (horizontal) position in 1/72 of an inch
+	XPosition: Int
+}

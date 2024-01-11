@@ -9,7 +9,8 @@ import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for BH_Visit - DO NOT CHANGE
@@ -19,19 +20,20 @@ import org.compiere.util.Env;
  */
 public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mBH_Voided_Reason;
-	 private ForeignEntityInput mPatient;
-	 private I_AD_Ref_ListInput mBH_PatientType;
-	 private I_AD_Ref_ListInput mBH_Process_Stage;
-	 private I_AD_Ref_ListInput mbh_referral;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_Voided_Reason;
+	private ForeignEntityInput mPatient;
+	private I_AD_Ref_ListInput mBH_PatientType;
+	private I_AD_Ref_ListInput mBH_Process_Stage;
+	private I_AD_Ref_ListInput mbh_referral;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_BH_VisitInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MBHVisit(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -44,8 +46,8 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -148,6 +150,17 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	public I_AD_Ref_ListInput bh_referral() {
 		return mbh_referral;
 	}
+	/**
+	 * Set Visit.
+	 *
+	 * @param BH_Visit_ID Visit
+	 */
+
+	public void setBH_Visit_ID(int BH_Visit_ID) {
+		if (get_ID() == 0) {
+			super.setBH_Visit_ID(BH_Visit_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -177,7 +190,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 		this.mBH_Voided_Reason = BH_Voided_Reason;
 		MBHVoidedReason foreignEntity;
 		if (BH_Voided_Reason != null &&
-				(foreignEntity = new Query(getCtx(), MBHVoidedReason.Table_Name, MBHVoidedReason.COLUMNNAME_BH_Voided_Reason_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "BH_Voided_Reason", "BH_Voided_Reason_UU=?", get_TrxName())
 						.setParameters(BH_Voided_Reason.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setBH_Voided_Reason_ID(foreignEntity.get_ID());
@@ -217,7 +230,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 		this.mPatient = Patient;
 		MBPartner_BH foreignEntity;
 		if (Patient != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(Patient.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPatient_ID(foreignEntity.get_ID());

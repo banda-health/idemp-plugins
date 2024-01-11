@@ -1,0 +1,82 @@
+# Generated Schema for M_PromotionReward - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_PromotionRewardGet(page: Int, size: Int, sort: String, filter: String): M_PromotionRewardConnection!
+}
+
+extend type Mutation {
+	M_PromotionRewardSave(entity: M_PromotionRewardInput!): M_PromotionReward!
+	M_PromotionRewardDelete(uuids: [String!]!): Boolean!
+}
+
+type M_PromotionRewardConnection {
+	results: [M_PromotionReward!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_PromotionReward {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Amount in a defined currency
+	Amount: Int
+	# Additional document charges
+	C_Charge: C_Charge!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Quantity distribution sorting by unit price
+	DistributionSorting: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# This reward is for all distribution
+	IsForAllDistribution: Boolean!
+	# Use the same distribution for source and target
+	IsSameDistribution: Boolean!
+	M_Promotion: M_Promotion!
+	M_PromotionDistribution: M_PromotionDistribution
+	ID: ID!
+	# Get product from target distribution to apply the promotion reward
+	M_TargetDistribution: M_PromotionDistribution
+	# Quantity
+	Qty: Int
+	# Type of reward which consists of percentage discount, flat discount or absolute amount
+	RewardType: AD_Ref_List!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_PromotionRewardInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Amount in a defined currency
+	Amount: Int
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Quantity distribution sorting by unit price
+	DistributionSorting: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	# This reward is for all distribution
+	IsForAllDistribution: Boolean
+	# Use the same distribution for source and target
+	IsSameDistribution: Boolean
+	M_Promotion: ForeignEntityInput
+	M_PromotionDistribution: ForeignEntityInput
+	ID: ID
+	# Get product from target distribution to apply the promotion reward
+	M_TargetDistribution: ForeignEntityInput
+	# Quantity
+	Qty: Int
+	# Type of reward which consists of percentage discount, flat discount or absolute amount
+	RewardType: AD_Ref_ListInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

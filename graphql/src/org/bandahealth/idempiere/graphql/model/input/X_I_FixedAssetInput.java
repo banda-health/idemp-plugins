@@ -18,7 +18,8 @@ import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for I_FixedAsset - DO NOT CHANGE
@@ -28,26 +29,27 @@ import org.compiere.util.Env;
  */
 public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_Asset;
-	 private ForeignEntityInput mA_Asset_Class;
-	 private ForeignEntityInput mA_Asset_Group;
-	 private ForeignEntityInput mA_Asset_Type;
-	 private ForeignEntityInput mC_AcctSchema;
-	 private ForeignEntityInput mC_BPartnerSR;
-	 private ForeignEntityInput mC_City;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_UOM;
-	 private ForeignEntityInput mM_Locator;
-	 private ForeignEntityInput mM_Product;
-	 private I_AD_Ref_ListInput mDocAction;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mA_Asset_Class;
+	private ForeignEntityInput mA_Asset_Group;
+	private ForeignEntityInput mA_Asset_Type;
+	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mC_BPartnerSR;
+	private ForeignEntityInput mC_City;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mM_Locator;
+	private ForeignEntityInput mM_Product;
+	private I_AD_Ref_ListInput mDocAction;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_I_FixedAssetInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MIFixedAsset(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -61,7 +63,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mA_Asset_Class = A_Asset_Class;
 		MAssetClass foreignEntity;
 		if (A_Asset_Class != null &&
-				(foreignEntity = new Query(getCtx(), MAssetClass.Table_Name, MAssetClass.COLUMNNAME_A_Asset_Class_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Class", "A_Asset_Class_UU=?", get_TrxName())
 						.setParameters(A_Asset_Class.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Class_ID(foreignEntity.get_ID());
@@ -90,7 +92,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mA_Asset_Group = A_Asset_Group;
 		MAssetGroup foreignEntity;
 		if (A_Asset_Group != null &&
-				(foreignEntity = new Query(getCtx(), MAssetGroup.Table_Name, MAssetGroup.COLUMNNAME_A_Asset_Group_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Group", "A_Asset_Group_UU=?", get_TrxName())
 						.setParameters(A_Asset_Group.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Group_ID(foreignEntity.get_ID());
@@ -119,7 +121,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_ID(foreignEntity.get_ID());
@@ -148,7 +150,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mA_Asset_Type = A_Asset_Type;
 		MAssetType foreignEntity;
 		if (A_Asset_Type != null &&
-				(foreignEntity = new Query(getCtx(), MAssetType.Table_Name, MAssetType.COLUMNNAME_A_Asset_Type_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Type", "A_Asset_Type_UU=?", get_TrxName())
 						.setParameters(A_Asset_Type.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Type_ID(foreignEntity.get_ID());
@@ -177,7 +179,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -206,7 +208,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());
@@ -235,7 +237,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mC_BPartnerSR = C_BPartnerSR;
 		MBPartner_BH foreignEntity;
 		if (C_BPartnerSR != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartnerSR.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartnerSR_ID(foreignEntity.get_ID());
@@ -264,7 +266,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mC_City = C_City;
 		MCity foreignEntity;
 		if (C_City != null &&
-				(foreignEntity = new Query(getCtx(), MCity.Table_Name, MCity.COLUMNNAME_C_City_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_City", "C_City_UU=?", get_TrxName())
 						.setParameters(C_City.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_City_ID(foreignEntity.get_ID());
@@ -293,7 +295,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -322,7 +324,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (C_UOM != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_ID(foreignEntity.get_ID());
@@ -369,6 +371,17 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	public I_AD_Ref_ListInput DocAction() {
 		return mDocAction;
 	}
+	/**
+	 * Set Imported Fixed Asset.
+	 *
+	 * @param I_FixedAsset_ID Imported Fixed Asset
+	 */
+
+	public void setI_FixedAsset_ID(int I_FixedAsset_ID) {
+		if (get_ID() == 0) {
+			super.setI_FixedAsset_ID(I_FixedAsset_ID);
+		}
+	}
 
 	/**
 	 * Set ID.
@@ -398,7 +411,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
-				(foreignEntity = new Query(getCtx(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Locator_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 						.setParameters(M_Locator.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Locator_ID(foreignEntity.get_ID());
@@ -427,7 +440,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());

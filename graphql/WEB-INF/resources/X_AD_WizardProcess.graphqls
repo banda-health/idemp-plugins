@@ -1,0 +1,56 @@
+# Generated Schema for AD_WizardProcess - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_WizardProcessGet(page: Int, size: Int, sort: String, filter: String): AD_WizardProcessConnection!
+}
+
+extend type Mutation {
+	AD_WizardProcessSave(entity: AD_WizardProcessInput!): AD_WizardProcess!
+	AD_WizardProcessDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_WizardProcessConnection {
+	results: [AD_WizardProcess!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_WizardProcess {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Workflow Node (activity), step or process
+	AD_WF_Node: AD_WF_Node!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Optional additional user defined information
+	Note: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	WizardStatus: AD_Ref_List
+}
+
+input AD_WizardProcessInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	ID: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Optional additional user defined information
+	Note: String
+	WizardStatus: AD_Ref_ListInput
+}

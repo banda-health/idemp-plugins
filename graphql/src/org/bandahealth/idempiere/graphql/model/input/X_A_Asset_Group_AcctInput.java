@@ -14,7 +14,8 @@ import org.compiere.model.MDepreciationMethod;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Depreciation_Table_Header;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Group_Acct - DO NOT CHANGE
@@ -24,37 +25,38 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_Asset_Group_AcctInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_Accumdepreciation_A;
-	 private ForeignEntityInput mA_Asset_A;
-	 private ForeignEntityInput mA_Asset_Group;
-	 private ForeignEntityInput mA_Depreciation;
-	 private ForeignEntityInput mA_Depreciation_A;
-	 private ForeignEntityInput mA_Depreciation_Conv;
-	 private ForeignEntityInput mA_Depreciation_Conv_F;
-	 private ForeignEntityInput mA_Depreciation_F;
-	 private ForeignEntityInput mA_Depreciation_Method;
-	 private ForeignEntityInput mA_Depreciation_Method_F;
-	 private ForeignEntityInput mA_Depreciation_Table_Header;
-	 private ForeignEntityInput mA_Disposal_Gain_A;
-	 private ForeignEntityInput mA_Disposal_Loss_A;
-	 private ForeignEntityInput mA_Disposal_Revenue_A;
-	 private ForeignEntityInput mA_Reval_Adep_Offset_Cur_A;
-	 private ForeignEntityInput mA_Reval_Adep_Offset_Prior_A;
-	 private ForeignEntityInput mA_Reval_Cost_Offset_A;
-	 private ForeignEntityInput mA_Reval_Cost_Offset_Prior_A;
-	 private ForeignEntityInput mA_Reval_Depexp_Offset_A;
-	 private ForeignEntityInput mC_AcctSchema;
-	 private I_AD_Ref_ListInput mA_Depreciation_Manual_Period;
-	 private I_AD_Ref_ListInput mA_Reval_Cal_Method;
-	 private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Accumdepreciation_A;
+	private ForeignEntityInput mA_Asset_A;
+	private ForeignEntityInput mA_Asset_Group;
+	private ForeignEntityInput mA_Depreciation;
+	private ForeignEntityInput mA_Depreciation_A;
+	private ForeignEntityInput mA_Depreciation_Conv;
+	private ForeignEntityInput mA_Depreciation_Conv_F;
+	private ForeignEntityInput mA_Depreciation_F;
+	private ForeignEntityInput mA_Depreciation_Method;
+	private ForeignEntityInput mA_Depreciation_Method_F;
+	private ForeignEntityInput mA_Depreciation_Table_Header;
+	private ForeignEntityInput mA_Disposal_Gain_A;
+	private ForeignEntityInput mA_Disposal_Loss_A;
+	private ForeignEntityInput mA_Disposal_Revenue_A;
+	private ForeignEntityInput mA_Reval_Adep_Offset_Cur_A;
+	private ForeignEntityInput mA_Reval_Adep_Offset_Prior_A;
+	private ForeignEntityInput mA_Reval_Cost_Offset_A;
+	private ForeignEntityInput mA_Reval_Cost_Offset_Prior_A;
+	private ForeignEntityInput mA_Reval_Depexp_Offset_A;
+	private ForeignEntityInput mC_AcctSchema;
+	private I_AD_Ref_ListInput mA_Depreciation_Manual_Period;
+	private I_AD_Ref_ListInput mA_Reval_Cal_Method;
+	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Asset_Group_AcctInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MAssetGroupAcct(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -68,7 +70,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Accumdepreciation_A = A_Accumdepreciation_A;
 		MAccount foreignEntity;
 		if (A_Accumdepreciation_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Accumdepreciation_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Accumdepreciation_Acct(foreignEntity.get_ID());
@@ -97,7 +99,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Asset_A = A_Asset_A;
 		MAccount foreignEntity;
 		if (A_Asset_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Asset_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Acct(foreignEntity.get_ID());
@@ -114,6 +116,17 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	@JsonProperty("A_Asset_A")
 	public ForeignEntityInput A_Asset_A() {
 		return mA_Asset_A;
+	}
+	/**
+	 * Set Asset Group Accounting.
+	 *
+	 * @param A_Asset_Group_Acct_ID Asset Group Accounting
+	 */
+
+	public void setA_Asset_Group_Acct_ID(int A_Asset_Group_Acct_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Group_Acct_ID(A_Asset_Group_Acct_ID);
+		}
 	}
 
 	/**
@@ -143,8 +156,8 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	public void setA_Asset_GroupInput(ForeignEntityInput A_Asset_Group) {
 		this.mA_Asset_Group = A_Asset_Group;
 		MAssetGroup foreignEntity;
-		if (get_ID() == 0 &&A_Asset_Group != null &&
-				(foreignEntity = new Query(getCtx(), MAssetGroup.Table_Name, MAssetGroup.COLUMNNAME_A_Asset_Group_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && A_Asset_Group != null &&
+				(foreignEntity = new Query(getCtx(), "A_Asset_Group", "A_Asset_Group_UU=?", get_TrxName())
 						.setParameters(A_Asset_Group.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Group_ID(foreignEntity.get_ID());
@@ -171,7 +184,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Depreciation_A = A_Depreciation_A;
 		MAccount foreignEntity;
 		if (A_Depreciation_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Depreciation_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Depreciation_Acct(foreignEntity.get_ID());
@@ -200,7 +213,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Depreciation_Conv_F = A_Depreciation_Conv_F;
 		MDepreciationConvention foreignEntity;
 		if (A_Depreciation_Conv_F != null &&
-				(foreignEntity = new Query(getCtx(), MDepreciationConvention.Table_Name, MDepreciationConvention.COLUMNNAME_A_Depreciation_Convention_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Depreciation_Convention", "A_Depreciation_Convention_UU=?", get_TrxName())
 						.setParameters(A_Depreciation_Conv_F.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Depreciation_Conv_F_ID(foreignEntity.get_ID());
@@ -229,7 +242,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Depreciation_Conv = A_Depreciation_Conv;
 		MDepreciationConvention foreignEntity;
 		if (A_Depreciation_Conv != null &&
-				(foreignEntity = new Query(getCtx(), MDepreciationConvention.Table_Name, MDepreciationConvention.COLUMNNAME_A_Depreciation_Convention_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Depreciation_Convention", "A_Depreciation_Convention_UU=?", get_TrxName())
 						.setParameters(A_Depreciation_Conv.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Depreciation_Conv_ID(foreignEntity.get_ID());
@@ -258,7 +271,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Depreciation_F = A_Depreciation_F;
 		MDepreciation foreignEntity;
 		if (A_Depreciation_F != null &&
-				(foreignEntity = new Query(getCtx(), MDepreciation.Table_Name, MDepreciation.COLUMNNAME_A_Depreciation_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Depreciation", "A_Depreciation_UU=?", get_TrxName())
 						.setParameters(A_Depreciation_F.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Depreciation_F_ID(foreignEntity.get_ID());
@@ -287,7 +300,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Depreciation = A_Depreciation;
 		MDepreciation foreignEntity;
 		if (A_Depreciation != null &&
-				(foreignEntity = new Query(getCtx(), MDepreciation.Table_Name, MDepreciation.COLUMNNAME_A_Depreciation_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Depreciation", "A_Depreciation_UU=?", get_TrxName())
 						.setParameters(A_Depreciation.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Depreciation_ID(foreignEntity.get_ID());
@@ -345,7 +358,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Depreciation_Method_F = A_Depreciation_Method_F;
 		MDepreciationMethod foreignEntity;
 		if (A_Depreciation_Method_F != null &&
-				(foreignEntity = new Query(getCtx(), MDepreciationMethod.Table_Name, MDepreciationMethod.COLUMNNAME_A_Depreciation_Method_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Depreciation_Method", "A_Depreciation_Method_UU=?", get_TrxName())
 						.setParameters(A_Depreciation_Method_F.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Depreciation_Method_F_ID(foreignEntity.get_ID());
@@ -374,7 +387,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Depreciation_Method = A_Depreciation_Method;
 		MDepreciationMethod foreignEntity;
 		if (A_Depreciation_Method != null &&
-				(foreignEntity = new Query(getCtx(), MDepreciationMethod.Table_Name, MDepreciationMethod.COLUMNNAME_A_Depreciation_Method_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Depreciation_Method", "A_Depreciation_Method_UU=?", get_TrxName())
 						.setParameters(A_Depreciation_Method.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Depreciation_Method_ID(foreignEntity.get_ID());
@@ -403,7 +416,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Depreciation_Table_Header = A_Depreciation_Table_Header;
 		X_A_Depreciation_Table_Header foreignEntity;
 		if (A_Depreciation_Table_Header != null &&
-				(foreignEntity = new Query(getCtx(), X_A_Depreciation_Table_Header.Table_Name, X_A_Depreciation_Table_Header.COLUMNNAME_A_Depreciation_Table_Header_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Depreciation_Table_Header", "A_Depreciation_Table_Header_UU=?", get_TrxName())
 						.setParameters(A_Depreciation_Table_Header.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Depreciation_Table_Header_ID(foreignEntity.get_ID());
@@ -432,7 +445,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Disposal_Gain_A = A_Disposal_Gain_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Gain_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Disposal_Gain_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Disposal_Gain_Acct(foreignEntity.get_ID());
@@ -461,7 +474,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Disposal_Loss_A = A_Disposal_Loss_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Loss_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Disposal_Loss_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Disposal_Loss_Acct(foreignEntity.get_ID());
@@ -490,7 +503,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Disposal_Revenue_A = A_Disposal_Revenue_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Revenue_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Disposal_Revenue_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Disposal_Revenue_Acct(foreignEntity.get_ID());
@@ -519,7 +532,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Reval_Adep_Offset_Cur_A = A_Reval_Adep_Offset_Cur_A;
 		MAccount foreignEntity;
 		if (A_Reval_Adep_Offset_Cur_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Reval_Adep_Offset_Cur_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Reval_Adep_Offset_Cur_Acct(foreignEntity.get_ID());
@@ -548,7 +561,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Reval_Adep_Offset_Prior_A = A_Reval_Adep_Offset_Prior_A;
 		MAccount foreignEntity;
 		if (A_Reval_Adep_Offset_Prior_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Reval_Adep_Offset_Prior_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Reval_Adep_Offset_Prior_Acct(foreignEntity.get_ID());
@@ -606,7 +619,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Reval_Cost_Offset_A = A_Reval_Cost_Offset_A;
 		MAccount foreignEntity;
 		if (A_Reval_Cost_Offset_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Reval_Cost_Offset_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Reval_Cost_Offset_Acct(foreignEntity.get_ID());
@@ -635,7 +648,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Reval_Cost_Offset_Prior_A = A_Reval_Cost_Offset_Prior_A;
 		MAccount foreignEntity;
 		if (A_Reval_Cost_Offset_Prior_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Reval_Cost_Offset_Prior_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Reval_Cost_Offset_Prior_Acct(foreignEntity.get_ID());
@@ -664,7 +677,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mA_Reval_Depexp_Offset_A = A_Reval_Depexp_Offset_A;
 		MAccount foreignEntity;
 		if (A_Reval_Depexp_Offset_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Reval_Depexp_Offset_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Reval_Depexp_Offset_Acct(foreignEntity.get_ID());
@@ -692,8 +705,8 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -720,7 +733,7 @@ public class X_A_Asset_Group_AcctInput extends MAssetGroupAcct implements I_A_As
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());

@@ -1,0 +1,142 @@
+# Generated Schema for HR_Movement - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	HR_MovementGet(page: Int, size: Int, sort: String, filter: String): HR_MovementConnection!
+}
+
+extend type Mutation {
+	HR_MovementSave(entity: HR_MovementInput!): HR_Movement!
+	HR_MovementDelete(uuids: [String!]!): Boolean!
+}
+
+type HR_MovementConnection {
+	results: [HR_Movement!]!
+	pagingInfo: PagingInfo!
+}
+
+type HR_Movement {
+	# Indicates the Natural Sign of the Account as a Debit or Credit
+	AccountSign: AD_Ref_List
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	AD_Rule: AD_Rule
+	# Amount in a defined currency
+	Amount: Int
+	# Business Activity
+	C_Activity: C_Activity
+	# Bank Account of the Business Partner
+	C_BP_BankAccount: C_BP_BankAccount
+	# Business Partner Group
+	C_BP_Group: C_BP_Group
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Financial Project
+	C_Project: C_Project
+	# Phase of a Project
+	C_ProjectPhase: C_ProjectPhase
+	# Actual Project Task in a Phase
+	C_ProjectTask: C_ProjectTask
+	ColumnType: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	HR_Concept_Category: HR_Concept_Category
+	HR_Concept: HR_Concept!
+	HR_Department: HR_Department
+	HR_Job: HR_Job
+	ID: ID!
+	HR_Process: HR_Process
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean!
+	# The application is registered.
+	IsRegistered: Boolean!
+	PP_Cost_Collector: PP_Cost_Collector
+	# The document has been processed
+	Processed: Boolean!
+	# Quantity
+	Qty: Int
+	# Date service was provided
+	ServiceDate: Date
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+	# Valid from including this date (first day)
+	ValidFrom: Date!
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
+
+input HR_MovementInput {
+	# Indicates the Natural Sign of the Account as a Debit or Credit
+	AccountSign: AD_Ref_ListInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	AD_Rule: ForeignEntityInput
+	# Amount in a defined currency
+	Amount: Int
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Bank Account of the Business Partner
+	C_BP_BankAccount: ForeignEntityInput
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Phase of a Project
+	C_ProjectPhase: ForeignEntityInput
+	# Actual Project Task in a Phase
+	C_ProjectTask: ForeignEntityInput
+	ColumnType: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	HR_Concept_Category: ForeignEntityInput
+	HR_Concept: ForeignEntityInput
+	HR_Department: ForeignEntityInput
+	HR_Job: ForeignEntityInput
+	ID: ID
+	HR_Process: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# The application is registered.
+	IsRegistered: Boolean
+	PP_Cost_Collector: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	# Quantity
+	Qty: Int
+	# Date service was provided
+	ServiceDate: Date
+	# Text Message
+	TextMsg: String
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

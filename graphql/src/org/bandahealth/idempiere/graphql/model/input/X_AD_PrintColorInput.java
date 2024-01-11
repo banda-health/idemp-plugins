@@ -6,7 +6,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_PrintColor - DO NOT CHANGE
@@ -16,14 +17,15 @@ import org.compiere.util.Env;
  */
 public class X_AD_PrintColorInput extends X_AD_PrintColor implements I_AD_PrintColorInput {
 
-	 private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Org;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_PrintColorInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_AD_PrintColor(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -36,8 +38,8 @@ public class X_AD_PrintColorInput extends X_AD_PrintColor implements I_AD_PrintC
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -52,6 +54,17 @@ public class X_AD_PrintColorInput extends X_AD_PrintColor implements I_AD_PrintC
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Print Color.
+	 *
+	 * @param AD_PrintColor_ID Color used for printing and display
+	 */
+
+	public void setAD_PrintColor_ID(int AD_PrintColor_ID) {
+		if (get_ID() == 0) {
+			super.setAD_PrintColor_ID(AD_PrintColor_ID);
+		}
 	}
 
 	/**

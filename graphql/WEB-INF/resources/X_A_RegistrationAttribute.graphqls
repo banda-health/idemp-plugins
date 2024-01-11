@@ -1,0 +1,70 @@
+# Generated Schema for A_RegistrationAttribute - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	A_RegistrationAttributeGet(page: Int, size: Int, sort: String, filter: String): A_RegistrationAttributeConnection!
+}
+
+extend type Mutation {
+	A_RegistrationAttributeSave(entity: A_RegistrationAttributeInput!): A_RegistrationAttribute!
+	A_RegistrationAttributeDelete(uuids: [String!]!): Boolean!
+}
+
+type A_RegistrationAttributeConnection {
+	results: [A_RegistrationAttribute!]!
+	pagingInfo: PagingInfo!
+}
+
+type A_RegistrationAttribute {
+	ID: ID!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# System Reference and Validation
+	AD_Reference: AD_Reference!
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: AD_Reference
+	# Name of the column in the database
+	ColumnName: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_RegistrationAttributeInput {
+	ID: ID
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	# Name of the column in the database
+	ColumnName: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

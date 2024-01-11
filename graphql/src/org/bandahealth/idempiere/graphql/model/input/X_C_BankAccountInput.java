@@ -9,7 +9,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBank;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_BankAccount - DO NOT CHANGE
@@ -19,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAccountInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Bank;
-	 private ForeignEntityInput mC_Currency;
-	 private I_AD_Ref_ListInput mBankAccountType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Bank;
+	private ForeignEntityInput mC_Currency;
+	private I_AD_Ref_ListInput mBankAccountType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_BankAccountInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MBankAccount_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -42,8 +44,8 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -98,8 +100,8 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 	public void setC_BankInput(ForeignEntityInput C_Bank) {
 		this.mC_Bank = C_Bank;
 		MBank foreignEntity;
-		if (get_ID() == 0 &&C_Bank != null &&
-				(foreignEntity = new Query(getCtx(), MBank.Table_Name, MBank.COLUMNNAME_C_Bank_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Bank != null &&
+				(foreignEntity = new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
 						.setParameters(C_Bank.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Bank_ID(foreignEntity.get_ID());
@@ -114,6 +116,17 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 	@JsonProperty("C_Bank")
 	public ForeignEntityInput C_Bank() {
 		return mC_Bank;
+	}
+	/**
+	 * Set Bank Account.
+	 *
+	 * @param C_BankAccount_ID Account at the Bank
+	 */
+
+	public void setC_BankAccount_ID(int C_BankAccount_ID) {
+		if (get_ID() == 0) {
+			super.setC_BankAccount_ID(C_BankAccount_ID);
+		}
 	}
 
 	/**
@@ -144,7 +157,7 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());

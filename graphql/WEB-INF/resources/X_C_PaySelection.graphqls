@@ -1,0 +1,78 @@
+# Generated Schema for C_PaySelection - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_PaySelectionGet(page: Int, size: Int, sort: String, filter: String): C_PaySelectionConnection!
+}
+
+extend type Mutation {
+	C_PaySelectionSave(entity: C_PaySelectionInput!): C_PaySelection!
+	C_PaySelectionDelete(uuids: [String!]!): Boolean!
+}
+
+type C_PaySelectionConnection {
+	results: [C_PaySelection!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_PaySelection {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Account at the Bank
+	C_BankAccount: C_BankAccount!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	IsOnePaymentPerInvoice: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date Payment made
+	PayDate: Date!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Total Amount
+	TotalAmt: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_PaySelectionInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	ID: ID
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	IsOnePaymentPerInvoice: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Date Payment made
+	PayDate: Date
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Total Amount
+	TotalAmt: Int
+}

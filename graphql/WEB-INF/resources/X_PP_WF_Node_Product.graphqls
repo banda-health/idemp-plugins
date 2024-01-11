@@ -1,0 +1,68 @@
+# Generated Schema for PP_WF_Node_Product - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	PP_WF_Node_ProductGet(page: Int, size: Int, sort: String, filter: String): PP_WF_Node_ProductConnection!
+}
+
+extend type Mutation {
+	PP_WF_Node_ProductSave(entity: PP_WF_Node_ProductInput!): PP_WF_Node_Product!
+	PP_WF_Node_ProductDelete(uuids: [String!]!): Boolean!
+}
+
+type PP_WF_Node_ProductConnection {
+	results: [PP_WF_Node_Product!]!
+	pagingInfo: PagingInfo!
+}
+
+type PP_WF_Node_Product {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Workflow Node (activity), step or process
+	AD_WF_Node: AD_WF_Node!
+	# Configuration Level for this parameter
+	ConfigurationLevel: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	IsSubcontracting: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product!
+	ID: ID!
+	# Quantity
+	Qty: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input PP_WF_Node_ProductInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	# Configuration Level for this parameter
+	ConfigurationLevel: AD_Ref_ListInput
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	IsSubcontracting: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	ID: ID
+	# Quantity
+	Qty: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

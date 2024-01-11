@@ -1,0 +1,62 @@
+# Generated Schema for GL_JournalGeneratorSource - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	GL_JournalGeneratorSourceGet(page: Int, size: Int, sort: String, filter: String): GL_JournalGeneratorSourceConnection!
+}
+
+extend type Mutation {
+	GL_JournalGeneratorSourceSave(entity: GL_JournalGeneratorSourceInput!): GL_JournalGeneratorSource!
+	GL_JournalGeneratorSourceDelete(uuids: [String!]!): Boolean!
+}
+
+type GL_JournalGeneratorSourceConnection {
+	results: [GL_JournalGeneratorSource!]!
+	pagingInfo: PagingInfo!
+}
+
+type GL_JournalGeneratorSource {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Multiplier Amount for generating commissions
+	AmtMultiplier: Int!
+	# Account Element
+	C_ElementValue: C_ElementValue!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# General Ledger Category
+	GL_Category: GL_Category
+	GL_JournalGeneratorLine: GL_JournalGeneratorLine!
+	ID: ID!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	RoundFactor: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input GL_JournalGeneratorSourceInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Multiplier Amount for generating commissions
+	AmtMultiplier: Int
+	# Account Element
+	C_ElementValue: ForeignEntityInput
+	# General Ledger Category
+	GL_Category: ForeignEntityInput
+	GL_JournalGeneratorLine: ForeignEntityInput
+	ID: ID
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	RoundFactor: Int
+}

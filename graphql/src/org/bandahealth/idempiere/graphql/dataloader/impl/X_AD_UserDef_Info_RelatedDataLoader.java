@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.MUserDefInfoRelated;
+
+/**
+ * Data Loader for AD_UserDef_Info_Related - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_AD_UserDef_Info_RelatedDataLoader extends PODataLoader<MUserDefInfoRelated> {
+	public static String AD_UserDef_Info_Related_BY_ID_DATA_LOADER = "AD_UserDef_Info_RelatedByIdDataLoader";
+	public static String AD_UserDef_Info_Related_BY_UUID_DATA_LOADER = "AD_UserDef_Info_RelatedByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return MUserDefInfoRelated.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return AD_UserDef_Info_Related_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return AD_UserDef_Info_Related_BY_UUID_DATA_LOADER;
+	}
+}

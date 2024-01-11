@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.MRevenueRecognitionPlan;
+
+/**
+ * Data Loader for C_RevenueRecognition_Plan - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_RevenueRecognition_PlanDataLoader extends PODataLoader<MRevenueRecognitionPlan> {
+	public static String C_RevenueRecognition_Plan_BY_ID_DATA_LOADER = "C_RevenueRecognition_PlanByIdDataLoader";
+	public static String C_RevenueRecognition_Plan_BY_UUID_DATA_LOADER = "C_RevenueRecognition_PlanByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return MRevenueRecognitionPlan.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return C_RevenueRecognition_Plan_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return C_RevenueRecognition_Plan_BY_UUID_DATA_LOADER;
+	}
+}

@@ -8,7 +8,8 @@ import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.MReplicationStrategy;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_ReplicationStrategy - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implements I_AD_ReplicationStrategyInput {
 
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mEXP_Processor;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mEXP_Processor;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_ReplicationStrategyInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MReplicationStrategy(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -56,6 +58,17 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Replication Strategy.
+	 *
+	 * @param AD_ReplicationStrategy_ID Data Replication Strategy
+	 */
+
+	public void setAD_ReplicationStrategy_ID(int AD_ReplicationStrategy_ID) {
+		if (get_ID() == 0) {
+			super.setAD_ReplicationStrategy_ID(AD_ReplicationStrategy_ID);
+		}
 	}
 
 	/**
@@ -86,7 +99,7 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());
@@ -115,7 +128,7 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 		this.mEXP_Processor = EXP_Processor;
 		MEXPProcessor foreignEntity;
 		if (EXP_Processor != null &&
-				(foreignEntity = new Query(getCtx(), MEXPProcessor.Table_Name, MEXPProcessor.COLUMNNAME_EXP_Processor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "EXP_Processor", "EXP_Processor_UU=?", get_TrxName())
 						.setParameters(EXP_Processor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEXP_Processor_ID(foreignEntity.get_ID());

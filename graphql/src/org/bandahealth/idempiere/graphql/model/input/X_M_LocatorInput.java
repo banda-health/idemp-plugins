@@ -8,7 +8,8 @@ import org.compiere.model.MLocator;
 import org.compiere.model.MLocatorType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_Locator - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mM_LocatorType;
-	 private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mM_LocatorType;
+	private ForeignEntityInput mM_Warehouse;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_LocatorInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MLocator(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -56,6 +58,17 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Locator.
+	 *
+	 * @param M_Locator_ID Warehouse Locator
+	 */
+
+	public void setM_Locator_ID(int M_Locator_ID) {
+		if (get_ID() == 0) {
+			super.setM_Locator_ID(M_Locator_ID);
+		}
 	}
 
 	/**
@@ -86,7 +99,7 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 		this.mM_LocatorType = M_LocatorType;
 		MLocatorType foreignEntity;
 		if (M_LocatorType != null &&
-				(foreignEntity = new Query(getCtx(), MLocatorType.Table_Name, MLocatorType.COLUMNNAME_M_LocatorType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_LocatorType", "M_LocatorType_UU=?", get_TrxName())
 						.setParameters(M_LocatorType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_LocatorType_ID(foreignEntity.get_ID());
@@ -114,8 +127,8 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
-		if (get_ID() == 0 &&M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_Warehouse != null &&
+				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 						.setParameters(M_Warehouse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Warehouse_ID(foreignEntity.get_ID());

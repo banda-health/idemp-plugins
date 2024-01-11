@@ -1,0 +1,202 @@
+# Generated Schema for AD_Issue - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_IssueGet(page: Int, size: Int, sort: String, filter: String): AD_IssueConnection!
+}
+
+extend type Mutation {
+	AD_IssueSave(entity: AD_IssueInput!): AD_Issue!
+	AD_IssueDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_IssueConnection {
+	results: [AD_Issue!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_Issue {
+	# Asset used internally or by customers
+	A_Asset: A_Asset
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Special Form
+	AD_Form: AD_Form
+	ID: ID!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Process or Report
+	AD_Process: AD_Process
+	# Data entry or display window
+	AD_Window: AD_Window
+	# Comments or additional information
+	Comments: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Database Information
+	DatabaseInfo: String
+	# JDBC URL of the database server
+	DBAddress: String
+	# System Error Trace
+	ErrorTrace: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Problem can re reproduced in Gardenworld
+	IsReproducible: AD_Ref_List
+	# Issue Source
+	IssueSource: AD_Ref_List
+	# Issue Summary
+	IssueSummary: String!
+	# The system was NOT compiled from Source - i.e. standard distribution
+	IsVanillaSystem: AD_Ref_List
+	# Java Version Info
+	JavaInfo: String
+	# Line No
+	LineNo: Int
+	# Local Host Info
+	Local_Host: String
+	# Logger Name
+	LoggerName: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Operating System Info
+	OperatingSystemInfo: String
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Information to help profiling the system for solving support issues
+	ProfileInfo: String
+	# Known Issue
+	R_IssueKnown: R_IssueKnown
+	# Implementation Projects
+	R_IssueProject: R_IssueProject
+	# System creating the issue
+	R_IssueSystem: R_IssueSystem
+	# User who reported issues
+	R_IssueUser: R_IssueUser
+	# Request from a Business Partner or Prospect
+	R_Request: R_Request
+	# Direct internal record ID
+	Record_ID: Int
+	# Internal Release Number
+	ReleaseNo: String!
+	# Release Tag
+	ReleaseTag: String
+	# Remote Address
+	Remote_Addr: String
+	# Remote host Info
+	Remote_Host: String
+	# iDempiere Request Document No
+	RequestDocumentNo: String
+	# Request Response Text
+	ResponseText: String
+	# Source Class Name
+	SourceClassName: String
+	# Source Method Name
+	SourceMethodName: String
+	# System Log Trace
+	StackTrace: String
+	# Information to help profiling the system for solving support issues
+	StatisticsInfo: String
+	# EMail address to send support information and updates to
+	SupportEMail: String
+	# Status of the system - Support priority depends on system status
+	SystemStatus: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	UserName: String!
+	# Version of the table definition
+	Version: String!
+}
+
+input AD_IssueInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	# Special Form
+	AD_Form: ForeignEntityInput
+	ID: ID
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	# Comments or additional information
+	Comments: String
+	# Database Information
+	DatabaseInfo: String
+	# JDBC URL of the database server
+	DBAddress: String
+	# System Error Trace
+	ErrorTrace: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Problem can re reproduced in Gardenworld
+	IsReproducible: AD_Ref_ListInput
+	# Issue Source
+	IssueSource: AD_Ref_ListInput
+	# Issue Summary
+	IssueSummary: String
+	# The system was NOT compiled from Source - i.e. standard distribution
+	IsVanillaSystem: AD_Ref_ListInput
+	# Java Version Info
+	JavaInfo: String
+	# Line No
+	LineNo: Int
+	# Local Host Info
+	Local_Host: String
+	# Logger Name
+	LoggerName: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Operating System Info
+	OperatingSystemInfo: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Information to help profiling the system for solving support issues
+	ProfileInfo: String
+	# Known Issue
+	R_IssueKnown: ForeignEntityInput
+	# Implementation Projects
+	R_IssueProject: ForeignEntityInput
+	# System creating the issue
+	R_IssueSystem: ForeignEntityInput
+	# User who reported issues
+	R_IssueUser: ForeignEntityInput
+	# Request from a Business Partner or Prospect
+	R_Request: ForeignEntityInput
+	# Direct internal record ID
+	Record_ID: Int
+	# Internal Release Number
+	ReleaseNo: String
+	# Release Tag
+	ReleaseTag: String
+	# Remote Address
+	Remote_Addr: String
+	# Remote host Info
+	Remote_Host: String
+	# iDempiere Request Document No
+	RequestDocumentNo: String
+	# Request Response Text
+	ResponseText: String
+	# Source Class Name
+	SourceClassName: String
+	# Source Method Name
+	SourceMethodName: String
+	# System Log Trace
+	StackTrace: String
+	# Information to help profiling the system for solving support issues
+	StatisticsInfo: String
+	# EMail address to send support information and updates to
+	SupportEMail: String
+	# Status of the system - Support priority depends on system status
+	SystemStatus: AD_Ref_ListInput
+	UserName: String
+	# Version of the table definition
+	Version: String
+}

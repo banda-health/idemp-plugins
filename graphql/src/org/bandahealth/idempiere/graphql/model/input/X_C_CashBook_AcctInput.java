@@ -9,7 +9,8 @@ import org.compiere.model.MCashBook;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_CashBook_Acct;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_CashBook_Acct - DO NOT CHANGE
@@ -19,21 +20,22 @@ import org.compiere.util.Env;
  */
 public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_CashBook_AcctInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mCB_Asset_A;
-	 private ForeignEntityInput mCB_CashTransfer_A;
-	 private ForeignEntityInput mCB_Differences_A;
-	 private ForeignEntityInput mCB_Expense_A;
-	 private ForeignEntityInput mCB_Receipt_A;
-	 private ForeignEntityInput mC_AcctSchema;
-	 private ForeignEntityInput mC_CashBook;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mCB_Asset_A;
+	private ForeignEntityInput mCB_CashTransfer_A;
+	private ForeignEntityInput mCB_Differences_A;
+	private ForeignEntityInput mCB_Expense_A;
+	private ForeignEntityInput mCB_Receipt_A;
+	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mC_CashBook;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_CashBook_AcctInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_C_CashBook_Acct(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -46,8 +48,8 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -73,8 +75,8 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (get_ID() == 0 &&C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_AcctSchema != null &&
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());
@@ -118,8 +120,8 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
 		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
-		if (get_ID() == 0 &&C_CashBook != null &&
-				(foreignEntity = new Query(getCtx(), MCashBook.Table_Name, MCashBook.COLUMNNAME_C_CashBook_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_CashBook != null &&
+				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
 						.setParameters(C_CashBook.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_CashBook_ID(foreignEntity.get_ID());
@@ -146,7 +148,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 		this.mCB_Asset_A = CB_Asset_A;
 		MAccount foreignEntity;
 		if (CB_Asset_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(CB_Asset_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setCB_Asset_Acct(foreignEntity.get_ID());
@@ -175,7 +177,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 		this.mCB_CashTransfer_A = CB_CashTransfer_A;
 		MAccount foreignEntity;
 		if (CB_CashTransfer_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(CB_CashTransfer_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setCB_CashTransfer_Acct(foreignEntity.get_ID());
@@ -204,7 +206,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 		this.mCB_Differences_A = CB_Differences_A;
 		MAccount foreignEntity;
 		if (CB_Differences_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(CB_Differences_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setCB_Differences_Acct(foreignEntity.get_ID());
@@ -233,7 +235,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 		this.mCB_Expense_A = CB_Expense_A;
 		MAccount foreignEntity;
 		if (CB_Expense_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(CB_Expense_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setCB_Expense_Acct(foreignEntity.get_ID());
@@ -262,7 +264,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 		this.mCB_Receipt_A = CB_Receipt_A;
 		MAccount foreignEntity;
 		if (CB_Receipt_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(CB_Receipt_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setCB_Receipt_Acct(foreignEntity.get_ID());

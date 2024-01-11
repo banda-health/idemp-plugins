@@ -9,7 +9,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDepositBatch;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_DepositBatch - DO NOT CHANGE
@@ -19,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositBatchInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_BankAccount;
-	 private ForeignEntityInput mC_DocType;
-	 private I_AD_Ref_ListInput mDocStatus;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_BankAccount;
+	private ForeignEntityInput mC_DocType;
+	private I_AD_Ref_ListInput mDocStatus;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_DepositBatchInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MDepositBatch(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -42,8 +44,8 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -70,7 +72,7 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), MBankAccount_BH.Table_Name, MBankAccount_BH.COLUMNNAME_C_BankAccount_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 						.setParameters(C_BankAccount.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BankAccount_ID(foreignEntity.get_ID());
@@ -87,6 +89,17 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	@JsonProperty("C_BankAccount")
 	public ForeignEntityInput C_BankAccount() {
 		return mC_BankAccount;
+	}
+	/**
+	 * Set Deposit Batch.
+	 *
+	 * @param C_DepositBatch_ID Deposit Batch
+	 */
+
+	public void setC_DepositBatch_ID(int C_DepositBatch_ID) {
+		if (get_ID() == 0) {
+			super.setC_DepositBatch_ID(C_DepositBatch_ID);
+		}
 	}
 
 	/**
@@ -117,7 +130,7 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocType_ID(foreignEntity.get_ID());

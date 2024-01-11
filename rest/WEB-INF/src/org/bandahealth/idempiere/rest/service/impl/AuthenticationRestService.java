@@ -194,7 +194,7 @@ public class AuthenticationRestService {
 									.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseUuid())).findFirst();
 
 							return foundWarehouse
-									.filter(mWarehouse -> warehouseAccess.getRoleId() == role.getId() && mWarehouse
+									.filter(mWarehouse -> warehouseAccess.getAD_Role_ID() == role.getId() && mWarehouse
 											.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseUuid()))
 									.isPresent();
 						}).findAny();

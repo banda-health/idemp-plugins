@@ -1,0 +1,118 @@
+# Generated Schema for AD_OrgInfo - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_OrgInfoGet(page: Int, size: Int, sort: String, filter: String): AD_OrgInfoConnection!
+}
+
+extend type Mutation {
+	AD_OrgInfoSave(entity: AD_OrgInfoInput!): AD_OrgInfo!
+	AD_OrgInfoDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_OrgInfoConnection {
+	results: [AD_OrgInfo!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_OrgInfo {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Organization Type
+	AD_OrgType: AD_OrgType
+	# Enter additional information for this organization
+	BH_ExtraInfo: String
+	# Facility Number (MFL No.)
+	BH_FacilityNumber: String
+	# Header information e.g address, phone number etc.
+	BH_Header: String
+	# Payment Information
+	BH_PaymentInformation: String
+	# Accounting Calendar Name
+	C_Calendar: C_Calendar
+	# Location or Address
+	C_Location: C_Location
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The (logical) warehouse to use for recording drop ship receipts and shipments.
+	DropShip_Warehouse: M_Warehouse
+	# Dun & Bradstreet Number
+	DUNS: String!
+	# Electronic Mail Address
+	EMail: String
+	# Facsimile number
+	Fax: String
+	# The record is active in the system
+	IsActive: Boolean!
+	Logo: AD_Image
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse
+	# Identifies a telephone number
+	Phone: String
+	# Identifies an alternate telephone number.
+	Phone2: String
+	# This message will be displayed at the bottom of a receipt when doing a sales or purchase
+	ReceiptFooterMsg: String
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: AD_User
+	# Tax Identification
+	TaxID: String!
+	# Bank account depending on currency will be used from this bank for doing transfers
+	TransferBank: C_Bank
+	TransferCashBook: C_CashBook
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_OrgInfoInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Organization Type
+	AD_OrgType: ForeignEntityInput
+	# Enter additional information for this organization
+	BH_ExtraInfo: String
+	# Facility Number (MFL No.)
+	BH_FacilityNumber: String
+	# Header information e.g address, phone number etc.
+	BH_Header: String
+	# Payment Information
+	BH_PaymentInformation: String
+	# Accounting Calendar Name
+	C_Calendar: ForeignEntityInput
+	# Location or Address
+	C_Location: ForeignEntityInput
+	# The (logical) warehouse to use for recording drop ship receipts and shipments.
+	DropShip_Warehouse: ForeignEntityInput
+	# Dun & Bradstreet Number
+	DUNS: String
+	# Electronic Mail Address
+	EMail: String
+	# Facsimile number
+	Fax: String
+	# The record is active in the system
+	IsActive: Boolean
+	Logo: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Identifies a telephone number
+	Phone: String
+	# Identifies an alternate telephone number.
+	Phone2: String
+	# This message will be displayed at the bottom of a receipt when doing a sales or purchase
+	ReceiptFooterMsg: String
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: ForeignEntityInput
+	# Tax Identification
+	TaxID: String
+	# Bank account depending on currency will be used from this bank for doing transfers
+	TransferBank: ForeignEntityInput
+	TransferCashBook: ForeignEntityInput
+}

@@ -1,0 +1,518 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MAcctSchema;
+import org.compiere.model.MActivity;
+import org.compiere.model.MCampaign;
+import org.compiere.model.MCashPlanLine;
+import org.compiere.model.MElementValue;
+import org.compiere.model.MOrg;
+import org.compiere.model.MPInstance;
+import org.compiere.model.MProject;
+import org.compiere.model.Query;
+import org.compiere.model.X_T_CashFlow;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for T_CashFlow - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PInstance;
+	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_CashPlanLine;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mC_ElementValue;
+	private ForeignEntityInput mC_Invoice;
+	private ForeignEntityInput mC_Order;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mM_Product;
+	private I_AD_Ref_ListInput mCashFlowSource;
+	private I_AD_Ref_ListInput mCashFlowType;
+
+	/**
+	 * Standard constructor
+	 */
+	@JsonCreator
+	public X_T_CashFlowInput(@JsonProperty("ID") String ID) {
+		super(null, ModelUtil.getModelResultSet(new X_T_CashFlow(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
+		setID(ID);
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		MOrg foreignEntity;
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+						.setParameters(AD_Org.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Org_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Process Instance.
+	 *
+	 * @param AD_PInstance Instance of the process
+	 */
+	@JsonProperty("AD_PInstance")
+	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
+		this.mAD_PInstance = AD_PInstance;
+		MPInstance foreignEntity;
+		if (get_ID() == 0 && AD_PInstance != null &&
+				(foreignEntity = new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
+						.setParameters(AD_PInstance.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_PInstance_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Process Instance.
+	 *
+	 * @return Instance of the process
+	 */
+	@JsonProperty("AD_PInstance")
+	public ForeignEntityInput AD_PInstance() {
+		return mAD_PInstance;
+	}
+
+	/**
+	 * Set Accounting Schema.
+	 *
+	 * @param C_AcctSchema Rules for accounting
+	 */
+	@JsonProperty("C_AcctSchema")
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
+		this.mC_AcctSchema = C_AcctSchema;
+		MAcctSchema foreignEntity;
+		if (C_AcctSchema != null &&
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
+						.setParameters(C_AcctSchema.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_AcctSchema_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_AcctSchema_ID(0);
+		}
+	}
+
+	/**
+	 * Get Accounting Schema.
+	 *
+	 * @return Rules for accounting
+	 */
+	@JsonProperty("C_AcctSchema")
+	public ForeignEntityInput C_AcctSchema() {
+		return mC_AcctSchema;
+	}
+
+	/**
+	 * Set Activity.
+	 *
+	 * @param C_Activity Business Activity
+	 */
+	@JsonProperty("C_Activity")
+	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
+		this.mC_Activity = C_Activity;
+		MActivity foreignEntity;
+		if (C_Activity != null &&
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
+						.setParameters(C_Activity.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Activity_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_Activity_ID(0);
+		}
+	}
+
+	/**
+	 * Get Activity.
+	 *
+	 * @return Business Activity
+	 */
+	@JsonProperty("C_Activity")
+	public ForeignEntityInput C_Activity() {
+		return mC_Activity;
+	}
+
+	/**
+	 * Set Business Partner .
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
+		MBPartner_BH foreignEntity;
+		if (C_BPartner != null &&
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+						.setParameters(C_BPartner.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_BPartner_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_BPartner_ID(0);
+		}
+	}
+
+	/**
+	 * Get Business Partner .
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public ForeignEntityInput C_BPartner() {
+		return mC_BPartner;
+	}
+
+	/**
+	 * Set Campaign.
+	 *
+	 * @param C_Campaign Marketing Campaign
+	 */
+	@JsonProperty("C_Campaign")
+	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
+		this.mC_Campaign = C_Campaign;
+		MCampaign foreignEntity;
+		if (C_Campaign != null &&
+				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
+						.setParameters(C_Campaign.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Campaign_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_Campaign_ID(0);
+		}
+	}
+
+	/**
+	 * Get Campaign.
+	 *
+	 * @return Marketing Campaign
+	 */
+	@JsonProperty("C_Campaign")
+	public ForeignEntityInput C_Campaign() {
+		return mC_Campaign;
+	}
+
+	/**
+	 * Set Cash Plan Line.
+	 *
+	 * @param C_CashPlanLine Cash Plan Line
+	 */
+	@JsonProperty("C_CashPlanLine")
+	public void setC_CashPlanLineInput(ForeignEntityInput C_CashPlanLine) {
+		this.mC_CashPlanLine = C_CashPlanLine;
+		MCashPlanLine foreignEntity;
+		if (C_CashPlanLine != null &&
+				(foreignEntity = new Query(getCtx(), "C_CashPlanLine", "C_CashPlanLine_UU=?", get_TrxName())
+						.setParameters(C_CashPlanLine.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_CashPlanLine_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_CashPlanLine_ID(0);
+		}
+	}
+
+	/**
+	 * Get Cash Plan Line.
+	 *
+	 * @return Cash Plan Line
+	 */
+	@JsonProperty("C_CashPlanLine")
+	public ForeignEntityInput C_CashPlanLine() {
+		return mC_CashPlanLine;
+	}
+
+	/**
+	 * Set Charge.
+	 *
+	 * @param C_Charge Additional document charges
+	 */
+	@JsonProperty("C_Charge")
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
+		this.mC_Charge = C_Charge;
+		MCharge_BH foreignEntity;
+		if (C_Charge != null &&
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
+						.setParameters(C_Charge.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Charge_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_Charge_ID(0);
+		}
+	}
+
+	/**
+	 * Get Charge.
+	 *
+	 * @return Additional document charges
+	 */
+	@JsonProperty("C_Charge")
+	public ForeignEntityInput C_Charge() {
+		return mC_Charge;
+	}
+
+	/**
+	 * Set Account Element.
+	 *
+	 * @param C_ElementValue Account Element
+	 */
+	@JsonProperty("C_ElementValue")
+	public void setC_ElementValueInput(ForeignEntityInput C_ElementValue) {
+		this.mC_ElementValue = C_ElementValue;
+		MElementValue foreignEntity;
+		if (C_ElementValue != null &&
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
+						.setParameters(C_ElementValue.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_ElementValue_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_ElementValue_ID(0);
+		}
+	}
+
+	/**
+	 * Get Account Element.
+	 *
+	 * @return Account Element
+	 */
+	@JsonProperty("C_ElementValue")
+	public ForeignEntityInput C_ElementValue() {
+		return mC_ElementValue;
+	}
+
+	/**
+	 * Set Invoice.
+	 *
+	 * @param C_Invoice Invoice Identifier
+	 */
+	@JsonProperty("C_Invoice")
+	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
+		this.mC_Invoice = C_Invoice;
+		MInvoice_BH foreignEntity;
+		if (C_Invoice != null &&
+				(foreignEntity = new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
+						.setParameters(C_Invoice.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Invoice_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_Invoice_ID(0);
+		}
+	}
+
+	/**
+	 * Get Invoice.
+	 *
+	 * @return Invoice Identifier
+	 */
+	@JsonProperty("C_Invoice")
+	public ForeignEntityInput C_Invoice() {
+		return mC_Invoice;
+	}
+
+	/**
+	 * Set Order.
+	 *
+	 * @param C_Order Order
+	 */
+	@JsonProperty("C_Order")
+	public void setC_OrderInput(ForeignEntityInput C_Order) {
+		this.mC_Order = C_Order;
+		MOrder_BH foreignEntity;
+		if (C_Order != null &&
+				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
+						.setParameters(C_Order.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Order_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_Order_ID(0);
+		}
+	}
+
+	/**
+	 * Get Order.
+	 *
+	 * @return Order
+	 */
+	@JsonProperty("C_Order")
+	public ForeignEntityInput C_Order() {
+		return mC_Order;
+	}
+
+	/**
+	 * Set Project.
+	 *
+	 * @param C_Project Financial Project
+	 */
+	@JsonProperty("C_Project")
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
+		this.mC_Project = C_Project;
+		MProject foreignEntity;
+		if (C_Project != null &&
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
+						.setParameters(C_Project.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Project_ID(foreignEntity.get_ID());
+		} else {
+			super.setC_Project_ID(0);
+		}
+	}
+
+	/**
+	 * Get Project.
+	 *
+	 * @return Financial Project
+	 */
+	@JsonProperty("C_Project")
+	public ForeignEntityInput C_Project() {
+		return mC_Project;
+	}
+
+	/**
+	 * Set Cash Flow Source.
+	 *
+	 * @param CashFlowSource Cash Flow Source
+	 */
+	@JsonProperty("CashFlowSource")
+	public void setCashFlowSourceInput(I_AD_Ref_ListInput CashFlowSource) {
+		this.mCashFlowSource = CashFlowSource;
+		MRefList_BH foreignEntity;
+		if (CashFlowSource != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(CashFlowSource.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			this.setCashFlowSource(foreignEntity.getValue());
+		} else {
+			this.setCashFlowSource(null);
+		}
+	}
+
+	/**
+	 * Get Cash Flow Source.
+	 *
+	 * @return Cash Flow Source
+	 */
+	@JsonProperty("CashFlowSource")
+	public I_AD_Ref_ListInput CashFlowSource() {
+		return mCashFlowSource;
+	}
+
+	/**
+	 * Set Cash Flow Type.
+	 *
+	 * @param CashFlowType Cash Flow Type
+	 */
+	@JsonProperty("CashFlowType")
+	public void setCashFlowTypeInput(I_AD_Ref_ListInput CashFlowType) {
+		this.mCashFlowType = CashFlowType;
+		MRefList_BH foreignEntity;
+		if (CashFlowType != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(CashFlowType.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			this.setCashFlowType(foreignEntity.getValue());
+		} else {
+			this.setCashFlowType(null);
+		}
+	}
+
+	/**
+	 * Get Cash Flow Type.
+	 *
+	 * @return Cash Flow Type
+	 */
+	@JsonProperty("CashFlowType")
+	public I_AD_Ref_ListInput CashFlowType() {
+		return mCashFlowType;
+	}
+
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product Product, Service, Item
+	 */
+	@JsonProperty("M_Product")
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
+		this.mM_Product = M_Product;
+		MProduct_BH foreignEntity;
+		if (M_Product != null &&
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+						.setParameters(M_Product.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setM_Product_ID(foreignEntity.get_ID());
+		} else {
+			super.setM_Product_ID(0);
+		}
+	}
+
+	/**
+	 * Get Product/Service.
+	 *
+	 * @return Product, Service, Item
+	 */
+	@JsonProperty("M_Product")
+	public ForeignEntityInput M_Product() {
+		return mM_Product;
+	}
+	/**
+	 * Set T_CashFlow_ID.
+	 *
+	 * @param T_CashFlow_ID T_CashFlow_ID
+	 */
+
+	public void setT_CashFlow_ID(int T_CashFlow_ID) {
+		if (get_ID() == 0) {
+			super.setT_CashFlow_ID(T_CashFlow_ID);
+		}
+	}
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	public void setID(String ID) {
+		setT_CashFlow_UU(ID);
+	}
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	public String getID() {
+		return getT_CashFlow_UU();
+	}
+}

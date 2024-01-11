@@ -1,0 +1,112 @@
+# Generated Schema for T_Report - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	T_ReportGet(page: Int, size: Int, sort: String, filter: String): T_ReportConnection!
+}
+
+extend type Mutation {
+	T_ReportSave(entity: T_ReportInput!): T_Report!
+	T_ReportDelete(uuids: [String!]!): Boolean!
+}
+
+type T_ReportConnection {
+	results: [T_Report!]!
+	pagingInfo: PagingInfo!
+}
+
+type T_Report {
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	Col_0: Int
+	Col_1: Int
+	Col_10: Int
+	Col_11: Int
+	Col_12: Int
+	Col_13: Int
+	Col_14: Int
+	Col_15: Int
+	Col_16: Int
+	Col_17: Int
+	Col_18: Int
+	Col_19: Int
+	Col_2: Int
+	Col_20: Int
+	Col_21: Int
+	Col_22: Int
+	Col_23: Int
+	Col_24: Int
+	Col_25: Int
+	Col_26: Int
+	Col_27: Int
+	Col_28: Int
+	Col_29: Int
+	Col_3: Int
+	Col_30: Int
+	Col_4: Int
+	Col_5: Int
+	Col_6: Int
+	Col_7: Int
+	Col_8: Int
+	Col_9: Int
+	# Optional short description of the record
+	Description: String
+	Fact_Acct: Fact_Acct!
+	LevelNo: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	PA_ReportLine: PA_ReportLine!
+	# Direct internal record ID
+	Record_ID: Int!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	ID: ID!
+}
+
+input T_ReportInput {
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	Col_0: Int
+	Col_1: Int
+	Col_10: Int
+	Col_11: Int
+	Col_12: Int
+	Col_13: Int
+	Col_14: Int
+	Col_15: Int
+	Col_16: Int
+	Col_17: Int
+	Col_18: Int
+	Col_19: Int
+	Col_2: Int
+	Col_20: Int
+	Col_21: Int
+	Col_22: Int
+	Col_23: Int
+	Col_24: Int
+	Col_25: Int
+	Col_26: Int
+	Col_27: Int
+	Col_28: Int
+	Col_29: Int
+	Col_3: Int
+	Col_30: Int
+	Col_4: Int
+	Col_5: Int
+	Col_6: Int
+	Col_7: Int
+	Col_8: Int
+	Col_9: Int
+	# Optional short description of the record
+	Description: String
+	Fact_Acct: ForeignEntityInput
+	LevelNo: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	PA_ReportLine: ForeignEntityInput
+	# Direct internal record ID
+	Record_ID: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	ID: ID
+}
