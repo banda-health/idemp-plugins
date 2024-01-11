@@ -6,12 +6,17 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChargeTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_Charge_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxCategoryDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MTaxCategory;
+import org.compiere.model.PO;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -92,6 +97,21 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 		return dataLoader.load(entity.getC_TaxCategory_ID());
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(MCharge_BH entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Charge_TrlDataLoader.C_Charge_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCharge_BH.COLUMNNAME_Description));
+	}
+
 	public Boolean IsSameCurrency(MCharge_BH entity, DataFetchingEnvironment environment) {
 		return entity.isSameCurrency();
 	}
@@ -102,6 +122,21 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 
 	public Boolean IsTaxIncluded(MCharge_BH entity, DataFetchingEnvironment environment) {
 		return entity.isTaxIncluded();
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MCharge_BH entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Charge_TrlDataLoader.C_Charge_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCharge_BH.COLUMNNAME_Name));
 	}
 
 }

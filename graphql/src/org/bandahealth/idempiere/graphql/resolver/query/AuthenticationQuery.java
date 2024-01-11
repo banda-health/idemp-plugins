@@ -86,6 +86,7 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 
 		AuthenticationResponse response = new AuthenticationResponse();
 		builder.withClaim(LoginClaims.AD_User_ID.name(), user.getAD_User_ID());
+		builder.withClaim(LoginClaims.AD_Language.name(), credentials.getLanguage());
 		Env.setContext(idempiereContext, Env.AD_USER_ID, user.getAD_User_ID());
 		response.setUser(new MUser_BH(idempiereContext, user.getAD_User_ID(), null));
 

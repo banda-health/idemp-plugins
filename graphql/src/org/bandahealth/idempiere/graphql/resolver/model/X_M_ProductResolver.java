@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_RevenueRecognitionDataLoader;
@@ -20,6 +21,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_FreightCategoryData
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_LocatorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PartTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_Product_CategoryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_Product_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_R_MailTextDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ExpenseTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ResourceDataLoader;
@@ -32,8 +34,11 @@ import org.compiere.model.MResource;
 import org.compiere.model.MRevenueRecognition;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
+import org.compiere.model.PO;
 import org.compiere.model.X_C_SubscriptionType;
 import org.compiere.model.X_M_PartType;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -121,8 +126,38 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(MProduct_BH entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_Product_TrlDataLoader.M_Product_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MProduct_BH.COLUMNNAME_Description));
+	}
+
 	public Boolean Discontinued(MProduct_BH entity, DataFetchingEnvironment environment) {
 		return entity.isDiscontinued();
+	}
+
+	/**
+	 * Get Document Note.
+	 *
+	 * @return Additional information for a Document
+	 */
+	public CompletableFuture<String> DocumentNote(MProduct_BH entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDocumentNote);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_Product_TrlDataLoader.M_Product_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MProduct_BH.COLUMNNAME_DocumentNote));
 	}
 
 	public Boolean IsBOM(MProduct_BH entity, DataFetchingEnvironment environment) {
@@ -281,6 +316,21 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.M_Product_Category_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getM_Product_Category_ID());
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MProduct_BH entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_Product_TrlDataLoader.M_Product_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MProduct_BH.COLUMNNAME_Name));
 	}
 
 	public Boolean Processing(MProduct_BH entity, DataFetchingEnvironment environment) {

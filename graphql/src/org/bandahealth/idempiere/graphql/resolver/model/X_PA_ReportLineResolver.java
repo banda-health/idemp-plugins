@@ -3,14 +3,19 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_BudgetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLineSetDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLine_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.PO;
 import org.compiere.model.X_GL_Budget;
 import org.compiere.model.X_PA_ReportLine;
 import org.compiere.model.X_PA_ReportLineSet;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -41,6 +46,21 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(CALCULATIONTYPE_UUIDS_BY_VALUE.get(entity.getCalculationType()));
+	}
+
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PA_ReportLine_TrlDataLoader.PA_ReportLine_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportLine.COLUMNNAME_Description));
 	}
 
 
@@ -84,6 +104,21 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(LINETYPE_UUIDS_BY_VALUE.get(entity.getLineType()));
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PA_ReportLine_TrlDataLoader.PA_ReportLine_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportLine.COLUMNNAME_Name));
 	}
 
 

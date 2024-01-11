@@ -3,11 +3,16 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_LanguageDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_Country_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MCountry;
 import org.compiere.model.MLanguage;
+import org.compiere.model.PO;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -171,6 +176,21 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_Description));
+	}
+
 	public Boolean HasPostal_Add(MCountry entity, DataFetchingEnvironment environment) {
 		return entity.isHasPostal_Add();
 	}
@@ -189,6 +209,171 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 
 	public Boolean IsPostcodeLookup(MCountry entity, DataFetchingEnvironment environment) {
 		return entity.isPostcodeLookup();
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_Name));
+	}
+
+	/**
+	 * Get Placeholder for Address 1.
+	 *
+	 * @return Placeholder for Address 1
+	 */
+	public CompletableFuture<String> PlaceholderAddress1(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPlaceholderAddress1);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress1));
+	}
+
+	/**
+	 * Get Placeholder for Address 2.
+	 *
+	 * @return Placeholder for Address 2
+	 */
+	public CompletableFuture<String> PlaceholderAddress2(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPlaceholderAddress2);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress2));
+	}
+
+	/**
+	 * Get Placeholder for Address 3.
+	 *
+	 * @return Placeholder for Address 3
+	 */
+	public CompletableFuture<String> PlaceholderAddress3(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPlaceholderAddress3);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress3));
+	}
+
+	/**
+	 * Get Placeholder for Address 4.
+	 *
+	 * @return Placeholder for Address 4
+	 */
+	public CompletableFuture<String> PlaceholderAddress4(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPlaceholderAddress4);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress4));
+	}
+
+	/**
+	 * Get Placeholder for Address 5.
+	 *
+	 * @return Placeholder for Address 5
+	 */
+	public CompletableFuture<String> PlaceholderAddress5(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPlaceholderAddress5);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress5));
+	}
+
+	/**
+	 * Get Placeholder for city.
+	 *
+	 * @return Placeholder for city
+	 */
+	public CompletableFuture<String> PlaceholderCity(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPlaceholderCity);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderCity));
+	}
+
+	/**
+	 * Get Placeholder for comments.
+	 *
+	 * @return Placeholder for comments
+	 */
+	public CompletableFuture<String> PlaceholderComments(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPlaceholderComments);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderComments));
+	}
+
+	/**
+	 * Get Placeholder for postal.
+	 *
+	 * @return Placeholder for postal
+	 */
+	public CompletableFuture<String> PlaceholderPostal(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPlaceholderPostal);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderPostal));
+	}
+
+	/**
+	 * Get Placeholder for additional zip.
+	 *
+	 * @return Placeholder for additional zip
+	 */
+	public CompletableFuture<String> PlaceholderPostal_Add(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPlaceholderPostal_Add);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderPostal_Add));
+	}
+
+	/**
+	 * Get Region.
+	 *
+	 * @return Name of the Region
+	 */
+	public CompletableFuture<String> RegionName(MCountry entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getRegionName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Country_TrlDataLoader.C_Country_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_RegionName));
 	}
 
 }

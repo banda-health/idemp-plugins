@@ -5,6 +5,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_FormDataLoader;
@@ -19,6 +20,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WorkflowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_OrderDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_Node_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_WorkflowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ResourceDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
@@ -29,10 +31,13 @@ import org.compiere.model.MImage;
 import org.compiere.model.MResource;
 import org.compiere.model.MTask;
 import org.compiere.model.MWindow;
+import org.compiere.model.PO;
 import org.compiere.model.X_AD_WF_Block;
 import org.compiere.model.X_AD_WF_Node;
 import org.compiere.model.X_AD_WF_Responsible;
 import org.compiere.model.X_AD_Workflow;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_PP_Order;
 import org.eevolution.model.X_PP_Order_Node;
@@ -242,6 +247,21 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PP_Order_Node_TrlDataLoader.PP_Order_Node_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_Node.COLUMNNAME_Description));
+	}
+
 	static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("CO", "74a9fe55-28e4-4d3b-98aa-02ad6d1a12da");
@@ -340,6 +360,21 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 		return dataLoader.load(FINISHMODE_UUIDS_BY_VALUE.get(entity.getFinishMode()));
 	}
 
+	/**
+	 * Get Comment/Help.
+	 *
+	 * @return Comment or Hint
+	 */
+	public CompletableFuture<String> Help(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getHelp);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PP_Order_Node_TrlDataLoader.PP_Order_Node_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_Node.COLUMNNAME_Help));
+	}
+
 	public Boolean IsCentrallyMaintained(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
 		return entity.isCentrallyMaintained();
 	}
@@ -365,6 +400,21 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(JOINELEMENT_UUIDS_BY_VALUE.get(entity.getJoinElement()));
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(X_PP_Order_Node entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PP_Order_Node_TrlDataLoader.PP_Order_Node_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_Node.COLUMNNAME_Name));
 	}
 
 

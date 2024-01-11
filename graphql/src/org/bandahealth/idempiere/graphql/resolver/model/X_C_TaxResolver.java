@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RuleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CountryDataLoader;
@@ -11,6 +12,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_RegionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxCategoryDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxProviderDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_Tax_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MCountry;
 import org.compiere.model.MCountryGroup;
@@ -19,6 +21,9 @@ import org.compiere.model.MRule;
 import org.compiere.model.MTax;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MTaxProvider;
+import org.compiere.model.PO;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -139,6 +144,21 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 		return dataLoader.load(entity.getC_TaxProvider_ID());
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(MTax entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Tax_TrlDataLoader.C_Tax_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MTax.COLUMNNAME_Description));
+	}
+
 	public Boolean IsDefault(MTax entity, DataFetchingEnvironment environment) {
 		return entity.isDefault();
 	}
@@ -157,6 +177,21 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 
 	public Boolean IsTaxExempt(MTax entity, DataFetchingEnvironment environment) {
 		return entity.isTaxExempt();
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MTax entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Tax_TrlDataLoader.C_Tax_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MTax.COLUMNNAME_Name));
 	}
 
 
@@ -192,6 +227,21 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(SOPOTYPE_UUIDS_BY_VALUE.get(entity.getSOPOType()));
+	}
+
+	/**
+	 * Get Tax Indicator.
+	 *
+	 * @return Short form for Tax to be printed on documents
+	 */
+	public CompletableFuture<String> TaxIndicator(MTax entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getTaxIndicator);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Tax_TrlDataLoader.C_Tax_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MTax.COLUMNNAME_TaxIndicator));
 	}
 
 

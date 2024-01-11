@@ -5,7 +5,9 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ChartDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Column_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ElementDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
@@ -22,6 +24,9 @@ import org.compiere.model.MEntityType;
 import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.M_Element;
+import org.compiere.model.PO;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -289,6 +294,21 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		return entity.isUpdateable();
 	}
 
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MColumn entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_Column_TrlDataLoader.AD_Column_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MColumn.COLUMNNAME_Name));
+	}
+
 
 	/**
 	 * Get Dashboard Content.
@@ -302,6 +322,21 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		DataLoader<Integer, MDashboardContent> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_DashboardContentDataLoader.PA_DashboardContent_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getPA_DashboardContent_ID());
+	}
+
+	/**
+	 * Get Placeholder.
+	 *
+	 * @return Placeholder
+	 */
+	public CompletableFuture<String> Placeholder(MColumn entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPlaceholder);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_Column_TrlDataLoader.AD_Column_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MColumn.COLUMNNAME_Placeholder));
 	}
 
 }

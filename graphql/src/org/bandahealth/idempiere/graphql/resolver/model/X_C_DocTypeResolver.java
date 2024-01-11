@@ -5,14 +5,19 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_SequenceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocType_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_CategoryDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MGLCategory;
+import org.compiere.model.PO;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -215,6 +220,21 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 		return dataLoader.load(DOCSUBTYPESO_UUIDS_BY_VALUE.get(entity.getDocSubTypeSO()));
 	}
 
+	/**
+	 * Get Document Note.
+	 *
+	 * @return Additional information for a Document
+	 */
+	public CompletableFuture<String> DocumentNote(MDocType_BH entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDocumentNote);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_DocType_TrlDataLoader.C_DocType_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MDocType_BH.COLUMNNAME_DocumentNote));
+	}
+
 
 	/**
 	 * Get GL Category.
@@ -292,6 +312,36 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 
 	public Boolean IsSplitWhenDifference(MDocType_BH entity, DataFetchingEnvironment environment) {
 		return entity.isSplitWhenDifference();
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MDocType_BH entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_DocType_TrlDataLoader.C_DocType_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MDocType_BH.COLUMNNAME_Name));
+	}
+
+	/**
+	 * Get Print Text.
+	 *
+	 * @return The label text to be printed on a document or correspondence.
+	 */
+	public CompletableFuture<String> PrintName(MDocType_BH entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPrintName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_DocType_TrlDataLoader.C_DocType_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MDocType_BH.COLUMNNAME_PrintName));
 	}
 
 }

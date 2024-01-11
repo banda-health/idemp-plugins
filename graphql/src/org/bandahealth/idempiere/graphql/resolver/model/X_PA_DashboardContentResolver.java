@@ -5,19 +5,24 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ChartDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_DashboardContent_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_GoalDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MChart;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MGoal;
 import org.compiere.model.MWindow;
+import org.compiere.model.PO;
 import org.compiere.model.X_AD_Role;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -108,6 +113,21 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(MDashboardContent entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PA_DashboardContent_TrlDataLoader.PA_DashboardContent_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MDashboardContent.COLUMNNAME_Description));
+	}
+
 	static Map<String, String> GOALDISPLAY_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("T", "2cd129ed-3973-4e05-a770-94af63a68791");
@@ -121,6 +141,21 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
 		return dataLoader.load(GOALDISPLAY_UUIDS_BY_VALUE.get(entity.getGoalDisplay()));
+	}
+
+	/**
+	 * Get HTML.
+	 *
+	 * @return HTML
+	 */
+	public CompletableFuture<String> HTML(MDashboardContent entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getHTML);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PA_DashboardContent_TrlDataLoader.PA_DashboardContent_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MDashboardContent.COLUMNNAME_HTML));
 	}
 
 	public Boolean IsCollapsedByDefault(MDashboardContent entity, DataFetchingEnvironment environment) {
@@ -141,6 +176,21 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 
 	public Boolean IsShowinLogin(MDashboardContent entity, DataFetchingEnvironment environment) {
 		return entity.isShowinLogin();
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MDashboardContent entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PA_DashboardContent_TrlDataLoader.PA_DashboardContent_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MDashboardContent.COLUMNNAME_Name));
 	}
 
 

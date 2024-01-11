@@ -3,8 +3,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintColorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFontDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormat_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintPaperDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintTableFormatDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
@@ -14,11 +16,14 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
 import org.compiere.model.MReportView;
 import org.compiere.model.MTable;
 import org.compiere.model.MWindow;
+import org.compiere.model.PO;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_PrintPaper;
 import org.compiere.model.X_AD_PrintTableFormat;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -137,6 +142,21 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_PrintFormat_TrlDataLoader.AD_PrintFormat_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_Description));
+	}
+
 	public Boolean IsBreakPagePerRecord(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
 		return entity.isBreakPagePerRecord();
 	}
@@ -170,6 +190,21 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 		DataLoader<Integer, MProcess_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getJasperProcess_ID());
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_PrintFormat_TrlDataLoader.AD_PrintFormat_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_Name));
 	}
 
 }

@@ -155,7 +155,8 @@ public class GraphQLModelResolverGenerator {
 		String sql = "SELECT c.ColumnName, c.IsUpdateable, c.IsMandatory,"    //	1..3
 				+ " c.AD_Reference_ID, c.AD_Reference_Value_ID, DefaultValue, SeqNo, "  //	4..7
 				+ " c.FieldLength, c.ValueMin, c.ValueMax, c.VFormat, c.Callout, "  //	8..12
-				+ " c.Name, c.Description, c.ColumnSQL, c.IsEncrypted, c.IsKey "  // 13..17
+				+ " c.Name, c.Description, c.ColumnSQL, c.IsEncrypted, c.IsKey, "  // 13..17
+				+ " c.IsTranslated "  // 18
 				+ "FROM AD_Column c "
 				+ "WHERE c.AD_Table_ID=?"
 				+ " AND c.IsActive='Y'"
@@ -183,11 +184,12 @@ public class GraphQLModelResolverGenerator {
 				boolean virtualColumn = ColumnSQL != null && !ColumnSQL.isEmpty();
 				boolean IsEncrypted = "Y".equals(resultSet.getString(16));
 				boolean IsKey = "Y".equals(resultSet.getString(17));
+				boolean isTranslated = "Y".equals(resultSet.getString(18));
 				//
 				generatedColumns.append(
 						createColumnMethods(columnName, isUpdatable, isMandatory, displayType, AD_Reference_Value_ID, fieldLength,
 								defaultValue, ValueMin, ValueMax, VFormat, Callout, Name, Description, virtualColumn, IsEncrypted,
-								IsKey, AD_Table_ID));
+								IsKey, isTranslated, AD_Table_ID));
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -218,7 +220,7 @@ public class GraphQLModelResolverGenerator {
 	private String createColumnMethods(String columnName, boolean isUpdateable, boolean isMandatory, int displayType,
 			int AD_Reference_ID, int fieldLength, String defaultValue, String ValueMin, String ValueMax, String VFormat,
 			String Callout, String Name, String Description, boolean virtualColumn, boolean IsEncrypted, boolean IsKey,
-			int AD_Table_ID) {
+			boolean isTranslated, int AD_Table_ID) {
 		Class<?> clazz = ModelInterfaceGenerator.getClass(columnName, displayType, AD_Reference_ID);
 		String dataType = ModelInterfaceGenerator.getDataTypeName(clazz, displayType);
 		if (defaultValue == null) {
@@ -237,7 +239,7 @@ public class GraphQLModelResolverGenerator {
 		if (shouldSkipInputField || IsKey) {
 			return "";
 		}
-		if (DisplayType.isID(displayType) && !IsKey) {
+		if (DisplayType.isID(displayType)) {
 			String fieldName = ModelInterfaceGenerator.getFieldName(columnName);
 			String referenceClassName =
 					ModelInterfaceGenerator.getReferenceClassName(AD_Table_ID, columnName, displayType, AD_Reference_ID);
@@ -323,7 +325,6 @@ public class GraphQLModelResolverGenerator {
 				clazz.equals(String.class)) {
 			ModelMap classToUseMap = modelsForTables.get(MRefList.Table_Name);
 			classesToImport.add(classToUseMap.getClassPackageName() + "." + classToUseMap.getClassName());
-			columnBuilder.append("\n");
 			ModelMap foreignModelMap = modelsForTables.get("AD_Ref_List");
 			classesToImport.add(foreignModelMap.getClassPackageName() + "." + foreignModelMap.getClassName());
 			classesToImport.add("java.util.concurrent.CompletableFuture");
@@ -332,6 +333,7 @@ public class GraphQLModelResolverGenerator {
 
 			// We need to generate a UUID by value for this associated reference
 			// Make sure that a private property is set correctly
+			columnBuilder.append("\n");
 			String referenceListUuidByValuePropertyName =
 					addListValidationCodeAndReturnReferenceUuidsByValueProperty(columnBuilder, AD_Reference_ID, columnName);
 			classesToImport.add("org.bandahealth.idempiere.graphql.utils.StringUtil");
@@ -375,6 +377,34 @@ public class GraphQLModelResolverGenerator {
 					.append("\t\treturn entity.get").append(columnName).append("();\n")
 					.append("\t}\n");
 			addImportClass(clazz);
+			return columnBuilder.toString();
+		} else if (isTranslated && clazz.equals(String.class)) {
+			// We need to generate a duplicate method that will use a data loader to fetch the translation
+			String languageDataLoaderName = "X_" + tableStructureExtensions.getTableName() + "_TrlDataLoader";
+			addImportClass("org.bandahealth.idempiere.graphql.context.BandaGraphQLContext");
+			addImportClass("org.compiere.model.PO");
+			addImportClass("org.compiere.util.Env");
+			addImportClass("org.compiere.util.Language");
+			addImportClass("org.dataloader.DataLoader");
+			addImportClass("java.util.concurrent.CompletableFuture");
+			addImportClass(dataLoaderPackageName + "." + languageDataLoaderName);
+			generateJavaGetComment(Name, Description, columnBuilder);
+			columnBuilder
+					.append("\tpublic CompletableFuture<String> ").append(columnName).append("(")
+					.append(tableStructureExtensions.getClassName())
+					.append(" entity, DataFetchingEnvironment environment) {\n")
+					.append("\t\tif (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {\n")
+					.append("\t\t\treturn CompletableFuture.supplyAsync(entity::get").append(columnName).append(");\n")
+					.append("\t\t}\n")
+					.append("\t\tDataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()\n")
+					.append("\t\t\t\t.getDataLoader(").append(languageDataLoaderName).append(".")
+					.append(
+							GraphQLDataLoaderGenerator.getDataLoaderByIdProperty(tableStructureExtensions.getTableName() + "_Trl"))
+					.append(");\n")
+					.append("\t\treturn dataLoader.load(entity.get_ID())\n")
+					.append("\t\t\t\t.thenApply(translation -> translation.get_ValueAsString(")
+					.append(tableStructureExtensions.getClassName()).append(".COLUMNNAME_").append(columnName).append("));\n")
+					.append("\t}\n");
 			return columnBuilder.toString();
 		}
 

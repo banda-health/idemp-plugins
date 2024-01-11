@@ -2,12 +2,17 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_DiscountSchemaDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PriceListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PriceList_VersionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PriceList_Version_TrlDataLoader;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
+import org.compiere.model.PO;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -64,6 +69,21 @@ public class X_M_PriceList_VersionResolver extends POResolver<MPriceListVersion>
 		DataLoader<Integer, MPriceListVersion> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceList_VersionDataLoader.M_PriceList_Version_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getM_Pricelist_Version_Base_ID());
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MPriceListVersion entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_PriceList_Version_TrlDataLoader.M_PriceList_Version_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MPriceListVersion.COLUMNNAME_Name));
 	}
 
 }
