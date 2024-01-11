@@ -1,0 +1,4 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+public class MProductBOMMutation extends X_M_Product_BOMMutation {
+}
