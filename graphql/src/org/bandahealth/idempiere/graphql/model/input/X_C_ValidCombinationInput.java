@@ -16,7 +16,8 @@ import org.compiere.model.MProject;
 import org.compiere.model.MSalesRegion;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_SubAcct;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_ValidCombination - DO NOT CHANGE
@@ -26,27 +27,28 @@ import org.compiere.util.Env;
  */
 public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidCombinationInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAccount;
-	 private ForeignEntityInput mC_AcctSchema;
-	 private ForeignEntityInput mC_Activity;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_Campaign;
-	 private ForeignEntityInput mC_LocFrom;
-	 private ForeignEntityInput mC_LocTo;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mC_SalesRegion;
-	 private ForeignEntityInput mC_SubAcct;
-	 private ForeignEntityInput mM_Product;
-	 private ForeignEntityInput mUser1;
-	 private ForeignEntityInput mUser2;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAccount;
+	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_LocFrom;
+	private ForeignEntityInput mC_LocTo;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mC_SalesRegion;
+	private ForeignEntityInput mC_SubAcct;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mUser1;
+	private ForeignEntityInput mUser2;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_ValidCombinationInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MAccount(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -59,8 +61,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setAccountInput(ForeignEntityInput Account) {
 		this.mAccount = Account;
 		MElementValue foreignEntity;
-		if (get_ID() == 0 &&Account != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && Account != null &&
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(Account.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAccount_ID(foreignEntity.get_ID());
@@ -86,8 +88,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -113,8 +115,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (get_ID() == 0 &&C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_AcctSchema != null &&
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());
@@ -140,8 +142,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
-		if (get_ID() == 0 &&C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Activity != null &&
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Activity_ID(foreignEntity.get_ID());
@@ -167,8 +169,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 &&C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_BPartner != null &&
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -194,8 +196,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
-		if (get_ID() == 0 &&C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Campaign != null &&
+				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Campaign_ID(foreignEntity.get_ID());
@@ -221,8 +223,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setC_LocFromInput(ForeignEntityInput C_LocFrom) {
 		this.mC_LocFrom = C_LocFrom;
 		MLocation foreignEntity;
-		if (get_ID() == 0 &&C_LocFrom != null &&
-				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_LocFrom != null &&
+				(foreignEntity = new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 						.setParameters(C_LocFrom.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_LocFrom_ID(foreignEntity.get_ID());
@@ -248,8 +250,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setC_LocToInput(ForeignEntityInput C_LocTo) {
 		this.mC_LocTo = C_LocTo;
 		MLocation foreignEntity;
-		if (get_ID() == 0 &&C_LocTo != null &&
-				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_LocTo != null &&
+				(foreignEntity = new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 						.setParameters(C_LocTo.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_LocTo_ID(foreignEntity.get_ID());
@@ -275,8 +277,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
-		if (get_ID() == 0 &&C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Project != null &&
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -302,8 +304,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setC_SalesRegionInput(ForeignEntityInput C_SalesRegion) {
 		this.mC_SalesRegion = C_SalesRegion;
 		MSalesRegion foreignEntity;
-		if (get_ID() == 0 &&C_SalesRegion != null &&
-				(foreignEntity = new Query(getCtx(), MSalesRegion.Table_Name, MSalesRegion.COLUMNNAME_C_SalesRegion_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_SalesRegion != null &&
+				(foreignEntity = new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
 						.setParameters(C_SalesRegion.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_SalesRegion_ID(foreignEntity.get_ID());
@@ -329,8 +331,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setC_SubAcctInput(ForeignEntityInput C_SubAcct) {
 		this.mC_SubAcct = C_SubAcct;
 		X_C_SubAcct foreignEntity;
-		if (get_ID() == 0 &&C_SubAcct != null &&
-				(foreignEntity = new Query(getCtx(), X_C_SubAcct.Table_Name, X_C_SubAcct.COLUMNNAME_C_SubAcct_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_SubAcct != null &&
+				(foreignEntity = new Query(getCtx(), "C_SubAcct", "C_SubAcct_UU=?", get_TrxName())
 						.setParameters(C_SubAcct.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_SubAcct_ID(foreignEntity.get_ID());
@@ -345,6 +347,17 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	@JsonProperty("C_SubAcct")
 	public ForeignEntityInput C_SubAcct() {
 		return mC_SubAcct;
+	}
+	/**
+	 * Set Combination.
+	 *
+	 * @param C_ValidCombination_ID Valid Account Combination
+	 */
+
+	public void setC_ValidCombination_ID(int C_ValidCombination_ID) {
+		if (get_ID() == 0) {
+			super.setC_ValidCombination_ID(C_ValidCombination_ID);
+		}
 	}
 
 	/**
@@ -407,8 +420,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (get_ID() == 0 &&M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_Product != null &&
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());
@@ -434,8 +447,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
-		if (get_ID() == 0 &&User1 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && User1 != null &&
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser1_ID(foreignEntity.get_ID());
@@ -461,8 +474,8 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
-		if (get_ID() == 0 &&User2 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && User2 != null &&
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser2_ID(foreignEntity.get_ID());

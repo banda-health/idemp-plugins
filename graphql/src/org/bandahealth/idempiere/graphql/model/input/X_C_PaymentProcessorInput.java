@@ -10,7 +10,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentProcessor;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_PaymentProcessor - DO NOT CHANGE
@@ -20,18 +21,19 @@ import org.compiere.util.Env;
  */
 public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_PaymentProcessorInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Sequence;
-	 private ForeignEntityInput mC_BankAccount;
-	 private ForeignEntityInput mC_Currency;
-	 private I_AD_Ref_ListInput mTrxType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Sequence;
+	private ForeignEntityInput mC_BankAccount;
+	private ForeignEntityInput mC_Currency;
+	private I_AD_Ref_ListInput mTrxType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_PaymentProcessorInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MPaymentProcessor(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -44,8 +46,8 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -72,7 +74,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 		this.mAD_Sequence = AD_Sequence;
 		MSequence_BH foreignEntity;
 		if (AD_Sequence != null &&
-				(foreignEntity = new Query(getCtx(), MSequence_BH.Table_Name, MSequence_BH.COLUMNNAME_AD_Sequence_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
 						.setParameters(AD_Sequence.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Sequence_ID(foreignEntity.get_ID());
@@ -100,8 +102,8 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
-		if (get_ID() == 0 &&C_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), MBankAccount_BH.Table_Name, MBankAccount_BH.COLUMNNAME_C_BankAccount_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_BankAccount != null &&
+				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 						.setParameters(C_BankAccount.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BankAccount_ID(foreignEntity.get_ID());
@@ -128,7 +130,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -145,6 +147,17 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	@JsonProperty("C_Currency")
 	public ForeignEntityInput C_Currency() {
 		return mC_Currency;
+	}
+	/**
+	 * Set Payment Processor.
+	 *
+	 * @param C_PaymentProcessor_ID Payment processor for electronic payments
+	 */
+
+	public void setC_PaymentProcessor_ID(int C_PaymentProcessor_ID) {
+		if (get_ID() == 0) {
+			super.setC_PaymentProcessor_ID(C_PaymentProcessor_ID);
+		}
 	}
 
 	/**

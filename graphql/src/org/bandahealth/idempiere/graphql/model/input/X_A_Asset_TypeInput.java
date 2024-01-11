@@ -7,7 +7,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAssetType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Type - DO NOT CHANGE
@@ -17,18 +18,30 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private I_AD_Ref_ListInput mIsDepreciable;
-	 private I_AD_Ref_ListInput mIsInPosession;
-	 private I_AD_Ref_ListInput mIsOwned;
+	private ForeignEntityInput mAD_Org;
+	private I_AD_Ref_ListInput mIsDepreciable;
+	private I_AD_Ref_ListInput mIsInPosession;
+	private I_AD_Ref_ListInput mIsOwned;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Asset_TypeInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MAssetType(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
+	}
+	/**
+	 * Set Asset Type.
+	 *
+	 * @param A_Asset_Type_ID Asset Type
+	 */
+
+	public void setA_Asset_Type_ID(int A_Asset_Type_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Type_ID(A_Asset_Type_ID);
+		}
 	}
 
 	/**
@@ -58,8 +71,8 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());

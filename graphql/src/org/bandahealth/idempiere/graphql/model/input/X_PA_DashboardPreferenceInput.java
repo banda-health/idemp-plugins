@@ -9,7 +9,8 @@ import org.compiere.model.MDashboardPreference;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_DashboardPreference - DO NOT CHANGE
@@ -19,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_PA_DashboardPreferenceInput extends MDashboardPreference implements I_PA_DashboardPreferenceInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Role;
-	 private ForeignEntityInput mAD_User;
-	 private ForeignEntityInput mPA_DashboardContent;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Role;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mPA_DashboardContent;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_DashboardPreferenceInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MDashboardPreference(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -42,8 +44,8 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -70,7 +72,7 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_Role.Table_Name, X_AD_Role.COLUMNNAME_AD_Role_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 						.setParameters(AD_Role.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Role_ID(foreignEntity.get_ID());
@@ -99,7 +101,7 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -128,7 +130,7 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 		this.mPA_DashboardContent = PA_DashboardContent;
 		MDashboardContent foreignEntity;
 		if (PA_DashboardContent != null &&
-				(foreignEntity = new Query(getCtx(), MDashboardContent.Table_Name, MDashboardContent.COLUMNNAME_PA_DashboardContent_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_DashboardContent", "PA_DashboardContent_UU=?", get_TrxName())
 						.setParameters(PA_DashboardContent.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_DashboardContent_ID(foreignEntity.get_ID());
@@ -145,6 +147,17 @@ public class X_PA_DashboardPreferenceInput extends MDashboardPreference implemen
 	@JsonProperty("PA_DashboardContent")
 	public ForeignEntityInput PA_DashboardContent() {
 		return mPA_DashboardContent;
+	}
+	/**
+	 * Set Dashboard Preference.
+	 *
+	 * @param PA_DashboardPreference_ID Dashboard Preference
+	 */
+
+	public void setPA_DashboardPreference_ID(int PA_DashboardPreference_ID) {
+		if (get_ID() == 0) {
+			super.setPA_DashboardPreference_ID(PA_DashboardPreference_ID);
+		}
 	}
 
 	/**

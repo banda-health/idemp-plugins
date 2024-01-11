@@ -1,0 +1,72 @@
+# Generated Schema for C_Subscription - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_SubscriptionGet(page: Int, size: Int, sort: String, filter: String): C_SubscriptionConnection!
+}
+
+extend type Mutation {
+	C_SubscriptionSave(entity: C_SubscriptionInput!): C_Subscription!
+	C_SubscriptionDelete(uuids: [String!]!): Boolean!
+}
+
+type C_SubscriptionConnection {
+	results: [C_Subscription!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_Subscription {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	ID: ID!
+	# Type of subscription
+	C_SubscriptionType: C_SubscriptionType!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Subscription Renewal is Due
+	IsDue: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Subscription is paid/valid until this date
+	PaidUntilDate: Date!
+	RenewalDate: Date!
+	# First effective day (inclusive)
+	StartDate: Date!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_SubscriptionInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	ID: ID
+	# Type of subscription
+	C_SubscriptionType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Subscription Renewal is Due
+	IsDue: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Subscription is paid/valid until this date
+	PaidUntilDate: Date
+	RenewalDate: Date
+	# First effective day (inclusive)
+	StartDate: Date
+}

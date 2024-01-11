@@ -19,10 +19,11 @@ import org.compiere.model.X_AD_WF_Block;
 import org.compiere.model.X_AD_WF_Node;
 import org.compiere.model.X_AD_WF_Responsible;
 import org.compiere.model.X_AD_Workflow;
-import org.compiere.util.Env;
 import org.eevolution.model.X_PP_Order;
 import org.eevolution.model.X_PP_Order_Node;
 import org.eevolution.model.X_PP_Order_Workflow;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PP_Order_Node - DO NOT CHANGE
@@ -32,38 +33,39 @@ import org.eevolution.model.X_PP_Order_Workflow;
  */
 public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_NodeInput {
 
-	 private ForeignEntityInput mAD_Column;
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Form;
-	 private ForeignEntityInput mAD_Image;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Process;
-	 private ForeignEntityInput mAD_Task;
-	 private ForeignEntityInput mAD_WF_Block;
-	 private ForeignEntityInput mAD_WF_Node;
-	 private ForeignEntityInput mAD_WF_Responsible;
-	 private ForeignEntityInput mAD_Window;
-	 private ForeignEntityInput mAD_Workflow;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mPP_Order;
-	 private ForeignEntityInput mPP_Order_Workflow;
-	 private ForeignEntityInput mS_Resource;
-	 private ForeignEntityInput mWorkflow;
-	 private I_AD_Ref_ListInput mAction;
-	 private I_AD_Ref_ListInput mDocAction;
-	 private I_AD_Ref_ListInput mDocStatus;
-	 private I_AD_Ref_ListInput mFinishMode;
-	 private I_AD_Ref_ListInput mJoinElement;
-	 private I_AD_Ref_ListInput mSplitElement;
-	 private I_AD_Ref_ListInput mStartMode;
-	 private I_AD_Ref_ListInput mSubflowExecution;
+	private ForeignEntityInput mAD_Column;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Form;
+	private ForeignEntityInput mAD_Image;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Process;
+	private ForeignEntityInput mAD_Task;
+	private ForeignEntityInput mAD_WF_Block;
+	private ForeignEntityInput mAD_WF_Node;
+	private ForeignEntityInput mAD_WF_Responsible;
+	private ForeignEntityInput mAD_Window;
+	private ForeignEntityInput mAD_Workflow;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mPP_Order;
+	private ForeignEntityInput mPP_Order_Workflow;
+	private ForeignEntityInput mS_Resource;
+	private ForeignEntityInput mWorkflow;
+	private I_AD_Ref_ListInput mAction;
+	private I_AD_Ref_ListInput mDocAction;
+	private I_AD_Ref_ListInput mDocStatus;
+	private I_AD_Ref_ListInput mFinishMode;
+	private I_AD_Ref_ListInput mJoinElement;
+	private I_AD_Ref_ListInput mSplitElement;
+	private I_AD_Ref_ListInput mStartMode;
+	private I_AD_Ref_ListInput mSubflowExecution;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PP_Order_NodeInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_PP_Order_Node(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -106,7 +108,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_Column = AD_Column;
 		MColumn foreignEntity;
 		if (AD_Column != null &&
-				(foreignEntity = new Query(getCtx(), MColumn.Table_Name, MColumn.COLUMNNAME_AD_Column_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
 						.setParameters(AD_Column.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Column_ID(foreignEntity.get_ID());
@@ -135,7 +137,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_Form = AD_Form;
 		MForm foreignEntity;
 		if (AD_Form != null &&
-				(foreignEntity = new Query(getCtx(), MForm.Table_Name, MForm.COLUMNNAME_AD_Form_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
 						.setParameters(AD_Form.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Form_ID(foreignEntity.get_ID());
@@ -164,7 +166,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
-				(foreignEntity = new Query(getCtx(), MImage.Table_Name, MImage.COLUMNNAME_AD_Image_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
 						.setParameters(AD_Image.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Image_ID(foreignEntity.get_ID());
@@ -193,7 +195,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -222,7 +224,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
 		if (AD_Process != null &&
-				(foreignEntity = new Query(getCtx(), MProcess_BH.Table_Name, MProcess_BH.COLUMNNAME_AD_Process_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 						.setParameters(AD_Process.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Process_ID(foreignEntity.get_ID());
@@ -251,7 +253,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_Task = AD_Task;
 		MTask foreignEntity;
 		if (AD_Task != null &&
-				(foreignEntity = new Query(getCtx(), MTask.Table_Name, MTask.COLUMNNAME_AD_Task_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Task", "AD_Task_UU=?", get_TrxName())
 						.setParameters(AD_Task.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Task_ID(foreignEntity.get_ID());
@@ -280,7 +282,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_WF_Block = AD_WF_Block;
 		X_AD_WF_Block foreignEntity;
 		if (AD_WF_Block != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_WF_Block.Table_Name, X_AD_WF_Block.COLUMNNAME_AD_WF_Block_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_WF_Block", "AD_WF_Block_UU=?", get_TrxName())
 						.setParameters(AD_WF_Block.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_WF_Block_ID(foreignEntity.get_ID());
@@ -309,7 +311,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_WF_Node = AD_WF_Node;
 		X_AD_WF_Node foreignEntity;
 		if (AD_WF_Node != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_WF_Node.Table_Name, X_AD_WF_Node.COLUMNNAME_AD_WF_Node_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
 						.setParameters(AD_WF_Node.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_WF_Node_ID(foreignEntity.get_ID());
@@ -338,7 +340,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_WF_Responsible = AD_WF_Responsible;
 		X_AD_WF_Responsible foreignEntity;
 		if (AD_WF_Responsible != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_WF_Responsible.Table_Name, X_AD_WF_Responsible.COLUMNNAME_AD_WF_Responsible_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_WF_Responsible", "AD_WF_Responsible_UU=?", get_TrxName())
 						.setParameters(AD_WF_Responsible.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_WF_Responsible_ID(foreignEntity.get_ID());
@@ -367,7 +369,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
 		if (AD_Window != null &&
-				(foreignEntity = new Query(getCtx(), MWindow.Table_Name, MWindow.COLUMNNAME_AD_Window_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 						.setParameters(AD_Window.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Window_ID(foreignEntity.get_ID());
@@ -396,7 +398,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
 		if (AD_Workflow != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_Workflow.Table_Name, X_AD_Workflow.COLUMNNAME_AD_Workflow_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
 						.setParameters(AD_Workflow.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Workflow_ID(foreignEntity.get_ID());
@@ -425,7 +427,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -512,7 +514,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());
@@ -598,8 +600,8 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
 		X_PP_Order foreignEntity;
-		if (get_ID() == 0 &&PP_Order != null &&
-				(foreignEntity = new Query(getCtx(), X_PP_Order.Table_Name, X_PP_Order.COLUMNNAME_PP_Order_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && PP_Order != null &&
+				(foreignEntity = new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
 						.setParameters(PP_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPP_Order_ID(foreignEntity.get_ID());
@@ -614,6 +616,17 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	@JsonProperty("PP_Order")
 	public ForeignEntityInput PP_Order() {
 		return mPP_Order;
+	}
+	/**
+	 * Set Manufacturing Order Activity.
+	 *
+	 * @param PP_Order_Node_ID Workflow Node (activity), step or process
+	 */
+
+	public void setPP_Order_Node_ID(int PP_Order_Node_ID) {
+		if (get_ID() == 0) {
+			super.setPP_Order_Node_ID(PP_Order_Node_ID);
+		}
 	}
 
 	/**
@@ -643,8 +656,8 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	public void setPP_Order_WorkflowInput(ForeignEntityInput PP_Order_Workflow) {
 		this.mPP_Order_Workflow = PP_Order_Workflow;
 		X_PP_Order_Workflow foreignEntity;
-		if (get_ID() == 0 &&PP_Order_Workflow != null &&
-				(foreignEntity = new Query(getCtx(), X_PP_Order_Workflow.Table_Name, X_PP_Order_Workflow.COLUMNNAME_PP_Order_Workflow_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && PP_Order_Workflow != null &&
+				(foreignEntity = new Query(getCtx(), "PP_Order_Workflow", "PP_Order_Workflow_UU=?", get_TrxName())
 						.setParameters(PP_Order_Workflow.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPP_Order_Workflow_ID(foreignEntity.get_ID());
@@ -671,7 +684,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
 		if (S_Resource != null &&
-				(foreignEntity = new Query(getCtx(), MResource.Table_Name, MResource.COLUMNNAME_S_Resource_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
 						.setParameters(S_Resource.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setS_Resource_ID(foreignEntity.get_ID());
@@ -787,7 +800,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 		this.mWorkflow = Workflow;
 		X_AD_Workflow foreignEntity;
 		if (Workflow != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_Workflow.Table_Name, X_AD_Workflow.COLUMNNAME_AD_Workflow_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
 						.setParameters(Workflow.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setWorkflow_ID(foreignEntity.get_ID());

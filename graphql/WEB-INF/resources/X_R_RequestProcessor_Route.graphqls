@@ -1,0 +1,62 @@
+# Generated Schema for R_RequestProcessor_Route - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	R_RequestProcessor_RouteGet(page: Int, size: Int, sort: String, filter: String): R_RequestProcessor_RouteConnection!
+}
+
+extend type Mutation {
+	R_RequestProcessor_RouteSave(entity: R_RequestProcessor_RouteInput!): R_RequestProcessor_Route!
+	R_RequestProcessor_RouteDelete(uuids: [String!]!): Boolean!
+}
+
+type R_RequestProcessor_RouteConnection {
+	results: [R_RequestProcessor_Route!]!
+	pagingInfo: PagingInfo!
+}
+
+type R_RequestProcessor_Route {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Case insensitive keyword
+	Keyword: String
+	# Processor for Requests
+	R_RequestProcessor: R_RequestProcessor!
+	ID: ID!
+	# Type of request (e.g. Inquiry, Complaint, ..)
+	R_RequestType: R_RequestType
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input R_RequestProcessor_RouteInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Case insensitive keyword
+	Keyword: String
+	# Processor for Requests
+	R_RequestProcessor: ForeignEntityInput
+	ID: ID
+	# Type of request (e.g. Inquiry, Complaint, ..)
+	R_RequestType: ForeignEntityInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

@@ -1,0 +1,102 @@
+# Generated Schema for M_InOutConfirm - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_InOutConfirmGet(page: Int, size: Int, sort: String, filter: String): M_InOutConfirmConnection!
+}
+
+extend type Mutation {
+	M_InOutConfirmSave(entity: M_InOutConfirmInput!): M_InOutConfirm!
+	M_InOutConfirmDelete(uuids: [String!]!): Boolean!
+}
+
+type M_InOutConfirmConnection {
+	results: [M_InOutConfirm!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_InOutConfirm {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Document Approval Amount
+	ApprovalAmt: Int
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Confirmation Number
+	ConfirmationNo: String
+	# Type of confirmation
+	ConfirmType: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	CreatePackage: String
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# The transaction was cancelled
+	IsCancelled: Boolean!
+	# Document is in dispute
+	IsInDispute: Boolean!
+	# Material Shipment Document
+	M_InOut: M_InOut!
+	ID: ID!
+	# Parameters for a Physical Inventory
+	M_Inventory: M_Inventory
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_InOutConfirmInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Document Approval Amount
+	ApprovalAmt: Int
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Confirmation Number
+	ConfirmationNo: String
+	# Type of confirmation
+	ConfirmType: AD_Ref_ListInput
+	CreatePackage: String
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# The transaction was cancelled
+	IsCancelled: Boolean
+	# Document is in dispute
+	IsInDispute: Boolean
+	# Material Shipment Document
+	M_InOut: ForeignEntityInput
+	ID: ID
+	# Parameters for a Physical Inventory
+	M_Inventory: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+}

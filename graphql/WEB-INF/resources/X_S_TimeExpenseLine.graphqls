@@ -1,0 +1,158 @@
+# Generated Schema for S_TimeExpenseLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	S_TimeExpenseLineGet(page: Int, size: Int, sort: String, filter: String): S_TimeExpenseLineConnection!
+}
+
+extend type Mutation {
+	S_TimeExpenseLineSave(entity: S_TimeExpenseLineInput!): S_TimeExpenseLine!
+	S_TimeExpenseLineDelete(uuids: [String!]!): Boolean!
+}
+
+type S_TimeExpenseLineConnection {
+	results: [S_TimeExpenseLine!]!
+	pagingInfo: PagingInfo!
+}
+
+type S_TimeExpenseLine {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Invoice Detail Line
+	C_InvoiceLine: C_InvoiceLine
+	# Sales Order Line
+	C_OrderLine: C_OrderLine
+	# Financial Project
+	C_Project: C_Project
+	# Phase of a Project
+	C_ProjectPhase: C_ProjectPhase
+	# Actual Project Task in a Phase
+	C_ProjectTask: C_ProjectTask
+	# Unit of Measure
+	C_UOM: C_UOM
+	# Converted Amount
+	ConvertedAmt: Int
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date of expense
+	DateExpense: Date!
+	# Optional short description of the record
+	Description: String
+	# Amount for this expense
+	ExpenseAmt: Int
+	# Unit price to be invoiced or 0 for default price
+	InvoicePrice: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	# Is this invoiced?
+	IsInvoiced: Boolean!
+	# Line is a time report only (no expense)
+	IsTimeReport: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Optional additional user defined information
+	Note: String
+	# The priced invoiced to the customer (in the currency of the customer's AR price list) - 0 for default price
+	PriceInvoiced: Int
+	# The reimbursed price (in currency of the employee's AP price list)
+	PriceReimbursed: Int
+	# The document has been processed
+	Processed: Boolean!
+	# Quantity
+	Qty: Int
+	# Invoiced Quantity
+	QtyInvoiced: Int
+	# The reimbursed quantity
+	QtyReimbursed: Int
+	# Resource Assignment
+	S_ResourceAssignment: S_ResourceAssignment
+	# Time and Expense Report
+	S_TimeExpense: S_TimeExpense!
+	ID: ID!
+	# Type of time recorded
+	S_TimeType: S_TimeType
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input S_TimeExpenseLineInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Invoice Detail Line
+	C_InvoiceLine: ForeignEntityInput
+	# Sales Order Line
+	C_OrderLine: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Phase of a Project
+	C_ProjectPhase: ForeignEntityInput
+	# Actual Project Task in a Phase
+	C_ProjectTask: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# Converted Amount
+	ConvertedAmt: Int
+	# Date of expense
+	DateExpense: Date
+	# Optional short description of the record
+	Description: String
+	# Amount for this expense
+	ExpenseAmt: Int
+	# Unit price to be invoiced or 0 for default price
+	InvoicePrice: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Is this invoiced?
+	IsInvoiced: Boolean
+	# Line is a time report only (no expense)
+	IsTimeReport: Boolean
+	# Unique line for this document
+	Line: Int
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Optional additional user defined information
+	Note: String
+	# The priced invoiced to the customer (in the currency of the customer's AR price list) - 0 for default price
+	PriceInvoiced: Int
+	# The reimbursed price (in currency of the employee's AP price list)
+	PriceReimbursed: Int
+	# The document has been processed
+	Processed: Boolean
+	# Quantity
+	Qty: Int
+	# Invoiced Quantity
+	QtyInvoiced: Int
+	# The reimbursed quantity
+	QtyReimbursed: Int
+	# Resource Assignment
+	S_ResourceAssignment: ForeignEntityInput
+	# Time and Expense Report
+	S_TimeExpense: ForeignEntityInput
+	ID: ID
+	# Type of time recorded
+	S_TimeType: ForeignEntityInput
+}

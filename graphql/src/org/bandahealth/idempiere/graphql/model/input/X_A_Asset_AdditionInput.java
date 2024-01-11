@@ -22,7 +22,8 @@ import org.compiere.model.MMatchInv;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Addition - DO NOT CHANGE
@@ -32,35 +33,47 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset_AdditionInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_Asset;
-	 private ForeignEntityInput mC_Charge;
-	 private ForeignEntityInput mC_ConversionType;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_DocType;
-	 private ForeignEntityInput mC_Invoice;
-	 private ForeignEntityInput mC_InvoiceLine;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mGL_JournalBatch;
-	 private ForeignEntityInput mI_FixedAsset;
-	 private ForeignEntityInput mM_AttributeSetInstance;
-	 private ForeignEntityInput mM_InOutLine;
-	 private ForeignEntityInput mM_Locator;
-	 private ForeignEntityInput mM_MatchInv;
-	 private ForeignEntityInput mM_Product;
-	 private I_AD_Ref_ListInput mA_CapvsExp;
-	 private I_AD_Ref_ListInput mA_SourceType;
-	 private I_AD_Ref_ListInput mDocAction;
-	 private I_AD_Ref_ListInput mDocStatus;
-	 private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mC_ConversionType;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_DocType;
+	private ForeignEntityInput mC_Invoice;
+	private ForeignEntityInput mC_InvoiceLine;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mGL_JournalBatch;
+	private ForeignEntityInput mI_FixedAsset;
+	private ForeignEntityInput mM_AttributeSetInstance;
+	private ForeignEntityInput mM_InOutLine;
+	private ForeignEntityInput mM_Locator;
+	private ForeignEntityInput mM_MatchInv;
+	private ForeignEntityInput mM_Product;
+	private I_AD_Ref_ListInput mA_CapvsExp;
+	private I_AD_Ref_ListInput mA_SourceType;
+	private I_AD_Ref_ListInput mDocAction;
+	private I_AD_Ref_ListInput mDocStatus;
+	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Asset_AdditionInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MAssetAddition(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
+	}
+	/**
+	 * Set Asset Addition.
+	 *
+	 * @param A_Asset_Addition_ID Asset Addition
+	 */
+
+	public void setA_Asset_Addition_ID(int A_Asset_Addition_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Addition_ID(A_Asset_Addition_ID);
+		}
 	}
 
 	/**
@@ -91,7 +104,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_ID(foreignEntity.get_ID());
@@ -138,28 +151,6 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	public I_AD_Ref_ListInput A_CapvsExp() {
 		return mA_CapvsExp;
 	}
-	/**
-	 * Set Life periods (max).
-	 *
-	 * @param A_Life_Period_Max Life periods (max)
-	 */
-
-	public void setA_Life_Period_Max(int A_Life_Period_Max) {
-		if (get_ID() == 0) {
-			super.setA_Life_Period_Max(A_Life_Period_Max);
-		}
-	}
-	/**
-	 * Set Life periods (min).
-	 *
-	 * @param A_Life_Period_Min Life periods (min)
-	 */
-
-	public void setA_Life_Period_Min(int A_Life_Period_Min) {
-		if (get_ID() == 0) {
-			super.setA_Life_Period_Min(A_Life_Period_Min);
-		}
-	}
 
 	/**
 	 * Set Source Type.
@@ -200,7 +191,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -229,7 +220,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Charge_ID(foreignEntity.get_ID());
@@ -258,7 +249,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mC_ConversionType = C_ConversionType;
 		MConversionType foreignEntity;
 		if (C_ConversionType != null &&
-				(foreignEntity = new Query(getCtx(), MConversionType.Table_Name, MConversionType.COLUMNNAME_C_ConversionType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
 						.setParameters(C_ConversionType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ConversionType_ID(foreignEntity.get_ID());
@@ -287,7 +278,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -316,7 +307,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocType_ID(foreignEntity.get_ID());
@@ -345,7 +336,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
 		if (C_Invoice != null &&
-				(foreignEntity = new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Invoice_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 						.setParameters(C_Invoice.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Invoice_ID(foreignEntity.get_ID());
@@ -374,7 +365,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mC_InvoiceLine = C_InvoiceLine;
 		MInvoiceLine_BH foreignEntity;
 		if (C_InvoiceLine != null &&
-				(foreignEntity = new Query(getCtx(), MInvoiceLine_BH.Table_Name, MInvoiceLine_BH.COLUMNNAME_C_InvoiceLine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 						.setParameters(C_InvoiceLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_InvoiceLine_ID(foreignEntity.get_ID());
@@ -403,7 +394,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -501,7 +492,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mGL_JournalBatch = GL_JournalBatch;
 		MJournalBatch foreignEntity;
 		if (GL_JournalBatch != null &&
-				(foreignEntity = new Query(getCtx(), MJournalBatch.Table_Name, MJournalBatch.COLUMNNAME_GL_JournalBatch_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "GL_JournalBatch", "GL_JournalBatch_UU=?", get_TrxName())
 						.setParameters(GL_JournalBatch.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setGL_JournalBatch_ID(foreignEntity.get_ID());
@@ -530,7 +521,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mI_FixedAsset = I_FixedAsset;
 		MIFixedAsset foreignEntity;
 		if (I_FixedAsset != null &&
-				(foreignEntity = new Query(getCtx(), MIFixedAsset.Table_Name, MIFixedAsset.COLUMNNAME_I_FixedAsset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "I_FixedAsset", "I_FixedAsset_UU=?", get_TrxName())
 						.setParameters(I_FixedAsset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setI_FixedAsset_ID(foreignEntity.get_ID());
@@ -559,7 +550,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
@@ -588,7 +579,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
 		if (M_InOutLine != null &&
-				(foreignEntity = new Query(getCtx(), MInOutLine.Table_Name, MInOutLine.COLUMNNAME_M_InOutLine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 						.setParameters(M_InOutLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_InOutLine_ID(foreignEntity.get_ID());
@@ -617,7 +608,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
-				(foreignEntity = new Query(getCtx(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Locator_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 						.setParameters(M_Locator.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Locator_ID(foreignEntity.get_ID());
@@ -646,7 +637,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mM_MatchInv = M_MatchInv;
 		MMatchInv foreignEntity;
 		if (M_MatchInv != null &&
-				(foreignEntity = new Query(getCtx(), MMatchInv.Table_Name, MMatchInv.COLUMNNAME_M_MatchInv_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_MatchInv", "M_MatchInv_UU=?", get_TrxName())
 						.setParameters(M_MatchInv.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_MatchInv_ID(foreignEntity.get_ID());
@@ -675,7 +666,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());

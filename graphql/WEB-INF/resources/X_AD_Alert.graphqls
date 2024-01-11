@@ -1,0 +1,78 @@
+# Generated Schema for AD_Alert - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_AlertGet(page: Int, size: Int, sort: String, filter: String): AD_AlertConnection!
+}
+
+extend type Mutation {
+	AD_AlertSave(entity: AD_AlertInput!): AD_Alert!
+	AD_AlertDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_AlertConnection {
+	results: [AD_Alert!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_Alert {
+	ID: ID!
+	# Alert Processor/Server Parameter
+	AD_AlertProcessor: AD_AlertProcessor!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Message of the Alert
+	AlertMessage: String!
+	# Subject of the Alert
+	AlertSubject: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Send alerts to recipient only if the client security rules of the role allows
+	EnforceClientSecurity: Boolean!
+	# Send alerts to recipient only if the data security rules of the role allows
+	EnforceRoleSecurity: Boolean!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Element is valid
+	IsValid: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_AlertInput {
+	ID: ID
+	# Alert Processor/Server Parameter
+	AD_AlertProcessor: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Message of the Alert
+	AlertMessage: String
+	# Subject of the Alert
+	AlertSubject: String
+	# Optional short description of the record
+	Description: String
+	# Send alerts to recipient only if the client security rules of the role allows
+	EnforceClientSecurity: Boolean
+	# Send alerts to recipient only if the data security rules of the role allows
+	EnforceRoleSecurity: Boolean
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Element is valid
+	IsValid: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

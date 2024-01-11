@@ -1,0 +1,92 @@
+# Generated Schema for HR_Period - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	HR_PeriodGet(page: Int, size: Int, sort: String, filter: String): HR_PeriodConnection!
+}
+
+extend type Mutation {
+	HR_PeriodSave(entity: HR_PeriodInput!): HR_Period!
+	HR_PeriodDelete(uuids: [String!]!): Boolean!
+}
+
+type HR_PeriodConnection {
+	results: [HR_Period!]!
+	pagingInfo: PagingInfo!
+}
+
+type HR_Period {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Period of the Calendar
+	C_Period: C_Period!
+	# Calendar Year
+	C_Year: C_Year!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date!
+	# Optional short description of the record
+	Description: String
+	# Last effective date (inclusive)
+	EndDate: Date
+	HR_Payroll: HR_Payroll!
+	ID: ID!
+	HR_Year: HR_Year
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Action taken for this period
+	PeriodAction: String
+	# Unique Period Number
+	PeriodNo: Int!
+	# Current state of this period
+	PeriodStatus: String
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# First effective day (inclusive)
+	StartDate: Date!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input HR_PeriodInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
+	# Calendar Year
+	C_Year: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# Last effective date (inclusive)
+	EndDate: Date
+	HR_Payroll: ForeignEntityInput
+	ID: ID
+	HR_Year: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Action taken for this period
+	PeriodAction: String
+	# Unique Period Number
+	PeriodNo: Int
+	# Current state of this period
+	PeriodStatus: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# First effective day (inclusive)
+	StartDate: Date
+}

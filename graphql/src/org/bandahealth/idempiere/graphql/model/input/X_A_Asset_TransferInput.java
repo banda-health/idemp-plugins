@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAccount;
@@ -12,7 +11,9 @@ import org.compiere.model.MAssetTransfer;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Transfer - DO NOT CHANGE
@@ -22,31 +23,32 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset_TransferInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_Accumdepreciation_A;
-	 private ForeignEntityInput mA_Accumdepreciation_New_A;
-	 private ForeignEntityInput mA_Asset;
-	 private ForeignEntityInput mA_Asset_A;
-	 private ForeignEntityInput mA_Asset_New_A;
-	 private ForeignEntityInput mA_Depreciation_A;
-	 private ForeignEntityInput mA_Depreciation_New_A;
-	 private ForeignEntityInput mA_Disposal_Loss_A;
-	 private ForeignEntityInput mA_Disposal_Loss_New_A;
-	 private ForeignEntityInput mA_Disposal_Revenue_A;
-	 private ForeignEntityInput mA_Disposal_Revenue_New_A;
-	 private ForeignEntityInput mC_AcctSchema;
-	 private ForeignEntityInput mC_Period;
-	 private I_AD_Ref_ListInput mA_CapvsExp;
-	 private I_AD_Ref_ListInput mDocAction;
-	 private I_AD_Ref_ListInput mDocStatus;
-	 private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Accumdepreciation_A;
+	private ForeignEntityInput mA_Accumdepreciation_New_A;
+	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mA_Asset_A;
+	private ForeignEntityInput mA_Asset_New_A;
+	private ForeignEntityInput mA_Depreciation_A;
+	private ForeignEntityInput mA_Depreciation_New_A;
+	private ForeignEntityInput mA_Disposal_Loss_A;
+	private ForeignEntityInput mA_Disposal_Loss_New_A;
+	private ForeignEntityInput mA_Disposal_Revenue_A;
+	private ForeignEntityInput mA_Disposal_Revenue_New_A;
+	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mC_Period;
+	private I_AD_Ref_ListInput mA_CapvsExp;
+	private I_AD_Ref_ListInput mDocAction;
+	private I_AD_Ref_ListInput mDocStatus;
+	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Asset_TransferInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MAssetTransfer(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -59,8 +61,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Accumdepreciation_AInput(ForeignEntityInput A_Accumdepreciation_A) {
 		this.mA_Accumdepreciation_A = A_Accumdepreciation_A;
 		MAccount foreignEntity;
-		if (get_ID() == 0 &&A_Accumdepreciation_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && A_Accumdepreciation_A != null &&
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Accumdepreciation_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Accumdepreciation_Acct(foreignEntity.get_ID());
@@ -98,7 +100,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 		this.mA_Accumdepreciation_New_A = A_Accumdepreciation_New_A;
 		MAccount foreignEntity;
 		if (A_Accumdepreciation_New_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Accumdepreciation_New_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Accumdepreciation_New_Acct(foreignEntity.get_ID());
@@ -126,8 +128,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Asset_AInput(ForeignEntityInput A_Asset_A) {
 		this.mA_Asset_A = A_Asset_A;
 		MAccount foreignEntity;
-		if (get_ID() == 0 &&A_Asset_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && A_Asset_A != null &&
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Asset_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Acct(foreignEntity.get_ID());
@@ -164,8 +166,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
-		if (get_ID() == 0 &&A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && A_Asset != null &&
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_ID(foreignEntity.get_ID());
@@ -192,7 +194,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 		this.mA_Asset_New_A = A_Asset_New_A;
 		MAccount foreignEntity;
 		if (A_Asset_New_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Asset_New_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_New_Acct(foreignEntity.get_ID());
@@ -209,6 +211,17 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	@JsonProperty("A_Asset_New_A")
 	public ForeignEntityInput A_Asset_New_A() {
 		return mA_Asset_New_A;
+	}
+	/**
+	 * Set A_Asset_Transfer_ID.
+	 *
+	 * @param A_Asset_Transfer_ID A_Asset_Transfer_ID
+	 */
+
+	public void setA_Asset_Transfer_ID(int A_Asset_Transfer_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Transfer_ID(A_Asset_Transfer_ID);
+		}
 	}
 
 	/**
@@ -267,8 +280,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Depreciation_AInput(ForeignEntityInput A_Depreciation_A) {
 		this.mA_Depreciation_A = A_Depreciation_A;
 		MAccount foreignEntity;
-		if (get_ID() == 0 &&A_Depreciation_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && A_Depreciation_A != null &&
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Depreciation_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Depreciation_Acct(foreignEntity.get_ID());
@@ -306,7 +319,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 		this.mA_Depreciation_New_A = A_Depreciation_New_A;
 		MAccount foreignEntity;
 		if (A_Depreciation_New_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Depreciation_New_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Depreciation_New_Acct(foreignEntity.get_ID());
@@ -334,8 +347,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Disposal_Loss_AInput(ForeignEntityInput A_Disposal_Loss_A) {
 		this.mA_Disposal_Loss_A = A_Disposal_Loss_A;
 		MAccount foreignEntity;
-		if (get_ID() == 0 &&A_Disposal_Loss_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && A_Disposal_Loss_A != null &&
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Disposal_Loss_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Disposal_Loss_Acct(foreignEntity.get_ID());
@@ -362,7 +375,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 		this.mA_Disposal_Loss_New_A = A_Disposal_Loss_New_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Loss_New_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Disposal_Loss_New_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Disposal_Loss_New_Acct(foreignEntity.get_ID());
@@ -401,8 +414,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Disposal_Revenue_AInput(ForeignEntityInput A_Disposal_Revenue_A) {
 		this.mA_Disposal_Revenue_A = A_Disposal_Revenue_A;
 		MAccount foreignEntity;
-		if (get_ID() == 0 &&A_Disposal_Revenue_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && A_Disposal_Revenue_A != null &&
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Disposal_Revenue_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Disposal_Revenue_Acct(foreignEntity.get_ID());
@@ -429,7 +442,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 		this.mA_Disposal_Revenue_New_A = A_Disposal_Revenue_New_A;
 		MAccount foreignEntity;
 		if (A_Disposal_Revenue_New_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Disposal_Revenue_New_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Disposal_Revenue_New_Acct(foreignEntity.get_ID());
@@ -501,8 +514,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -528,8 +541,8 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (get_ID() == 0 &&C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_AcctSchema != null &&
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());
@@ -556,7 +569,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
-				(foreignEntity = new Query(getCtx(), MPeriod.Table_Name, MPeriod.COLUMNNAME_C_Period_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
 						.setParameters(C_Period.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Period_ID(foreignEntity.get_ID());

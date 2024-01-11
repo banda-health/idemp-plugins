@@ -13,7 +13,8 @@ import org.compiere.model.MDepreciationEntry;
 import org.compiere.model.MDepreciationExp;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Depreciation_Exp - DO NOT CHANGE
@@ -23,24 +24,25 @@ import org.compiere.util.Env;
  */
 public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_Depreciation_ExpInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_Account_Number_A;
-	 private ForeignEntityInput mA_Asset;
-	 private ForeignEntityInput mA_Asset_Addition;
-	 private ForeignEntityInput mA_Asset_Disposed;
-	 private ForeignEntityInput mA_Depreciation_Entry;
-	 private ForeignEntityInput mCR_Account;
-	 private ForeignEntityInput mC_AcctSchema;
-	 private ForeignEntityInput mDR_Account;
-	 private I_AD_Ref_ListInput mA_Entry_Type;
-	 private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Account_Number_A;
+	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mA_Asset_Addition;
+	private ForeignEntityInput mA_Asset_Disposed;
+	private ForeignEntityInput mA_Depreciation_Entry;
+	private ForeignEntityInput mCR_Account;
+	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mDR_Account;
+	private I_AD_Ref_ListInput mA_Entry_Type;
+	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Depreciation_ExpInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MDepreciationExp(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -54,7 +56,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 		this.mA_Account_Number_A = A_Account_Number_A;
 		MAccount foreignEntity;
 		if (A_Account_Number_A != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(A_Account_Number_A.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Account_Number_Acct(foreignEntity.get_ID());
@@ -83,7 +85,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 		this.mA_Asset_Addition = A_Asset_Addition;
 		MAssetAddition foreignEntity;
 		if (A_Asset_Addition != null &&
-				(foreignEntity = new Query(getCtx(), MAssetAddition.Table_Name, MAssetAddition.COLUMNNAME_A_Asset_Addition_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Addition", "A_Asset_Addition_UU=?", get_TrxName())
 						.setParameters(A_Asset_Addition.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Addition_ID(foreignEntity.get_ID());
@@ -112,7 +114,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 		this.mA_Asset_Disposed = A_Asset_Disposed;
 		MAssetDisposed foreignEntity;
 		if (A_Asset_Disposed != null &&
-				(foreignEntity = new Query(getCtx(), MAssetDisposed.Table_Name, MAssetDisposed.COLUMNNAME_A_Asset_Disposed_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Disposed", "A_Asset_Disposed_UU=?", get_TrxName())
 						.setParameters(A_Asset_Disposed.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Disposed_ID(foreignEntity.get_ID());
@@ -141,7 +143,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
 		if (A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_ID(foreignEntity.get_ID());
@@ -170,7 +172,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 		this.mA_Depreciation_Entry = A_Depreciation_Entry;
 		MDepreciationEntry foreignEntity;
 		if (A_Depreciation_Entry != null &&
-				(foreignEntity = new Query(getCtx(), MDepreciationEntry.Table_Name, MDepreciationEntry.COLUMNNAME_A_Depreciation_Entry_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Depreciation_Entry", "A_Depreciation_Entry_UU=?", get_TrxName())
 						.setParameters(A_Depreciation_Entry.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Depreciation_Entry_ID(foreignEntity.get_ID());
@@ -187,6 +189,17 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	@JsonProperty("A_Depreciation_Entry")
 	public ForeignEntityInput A_Depreciation_Entry() {
 		return mA_Depreciation_Entry;
+	}
+	/**
+	 * Set A_Depreciation_Exp_ID.
+	 *
+	 * @param A_Depreciation_Exp_ID A_Depreciation_Exp_ID
+	 */
+
+	public void setA_Depreciation_Exp_ID(int A_Depreciation_Exp_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Exp_ID(A_Depreciation_Exp_ID);
+		}
 	}
 
 	/**
@@ -257,7 +270,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -285,8 +298,8 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (get_ID() == 0 &&C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), MAcctSchema.Table_Name, MAcctSchema.COLUMNNAME_C_AcctSchema_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_AcctSchema != null &&
+				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 						.setParameters(C_AcctSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_AcctSchema_ID(foreignEntity.get_ID());
@@ -313,7 +326,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 		this.mCR_Account = CR_Account;
 		MAccount foreignEntity;
 		if (CR_Account != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(CR_Account.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setCR_Account_ID(foreignEntity.get_ID());
@@ -342,7 +355,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 		this.mDR_Account = DR_Account;
 		MAccount foreignEntity;
 		if (DR_Account != null &&
-				(foreignEntity = new Query(getCtx(), MAccount.Table_Name, MAccount.COLUMNNAME_C_ValidCombination_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 						.setParameters(DR_Account.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setDR_Account_ID(foreignEntity.get_ID());

@@ -8,7 +8,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.MYear;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_Period - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Year;
-	 private I_AD_Ref_ListInput mPeriodType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Year;
+	private I_AD_Ref_ListInput mPeriodType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_PeriodInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MPeriod(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -56,6 +58,17 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Period.
+	 *
+	 * @param C_Period_ID Period of the Calendar
+	 */
+
+	public void setC_Period_ID(int C_Period_ID) {
+		if (get_ID() == 0) {
+			super.setC_Period_ID(C_Period_ID);
+		}
 	}
 
 	/**
@@ -85,8 +98,8 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	public void setC_YearInput(ForeignEntityInput C_Year) {
 		this.mC_Year = C_Year;
 		MYear foreignEntity;
-		if (get_ID() == 0 &&C_Year != null &&
-				(foreignEntity = new Query(getCtx(), MYear.Table_Name, MYear.COLUMNNAME_C_Year_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Year != null &&
+				(foreignEntity = new Query(getCtx(), "C_Year", "C_Year_UU=?", get_TrxName())
 						.setParameters(C_Year.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Year_ID(foreignEntity.get_ID());

@@ -1,0 +1,54 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import org.compiere.model.I_AD_CtxHelpMsg;
+
+/**
+ * Generated Interface for AD_CtxHelpMsg - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public interface I_AD_CtxHelpMsgInput extends I_AD_CtxHelpMsg {
+
+	/**
+	 * Set AD_CtxHelp.
+	 *
+	 * @param AD_CtxHelp AD_CtxHelp
+	 */
+	void setAD_CtxHelpInput(ForeignEntityInput AD_CtxHelp);
+
+	/**
+	 * Get AD_CtxHelp.
+	 *
+	 * @return AD_CtxHelp
+	 */
+	ForeignEntityInput AD_CtxHelp();
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	void setID(String ID);
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	String getID();
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within client
+	 */
+	ForeignEntityInput AD_Org();
+}

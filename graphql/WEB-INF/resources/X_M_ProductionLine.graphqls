@@ -1,0 +1,92 @@
+# Generated Schema for M_ProductionLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_ProductionLineGet(page: Int, size: Int, sort: String, filter: String): M_ProductionLineConnection!
+}
+
+extend type Mutation {
+	M_ProductionLineSave(entity: M_ProductionLineInput!): M_ProductionLine!
+	M_ProductionLineDelete(uuids: [String!]!): Boolean!
+}
+
+type M_ProductionLineConnection {
+	results: [M_ProductionLine!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_ProductionLine {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# End Product of production
+	IsEndProduct: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Warehouse Locator
+	M_Locator: M_Locator!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Plan for producing a product
+	M_Production: M_Production
+	ID: ID!
+	# Plan for how a product is produced
+	M_ProductionPlan: M_ProductionPlan
+	# Quantity of a product moved.
+	MovementQty: Int!
+	# Planned quantity for this project
+	PlannedQty: Int
+	# The document has been processed
+	Processed: Boolean!
+	# Type of product
+	ProductType: String
+	# Available Quantity (On Hand - Reserved)
+	QtyAvailable: Int
+	QtyUsed: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_ProductionLineInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# End Product of production
+	IsEndProduct: Boolean
+	# Unique line for this document
+	Line: Int
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Warehouse Locator
+	M_Locator: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Plan for producing a product
+	M_Production: ForeignEntityInput
+	ID: ID
+	# Plan for how a product is produced
+	M_ProductionPlan: ForeignEntityInput
+	# Quantity of a product moved.
+	MovementQty: Int
+	# Planned quantity for this project
+	PlannedQty: Int
+	# The document has been processed
+	Processed: Boolean
+	QtyUsed: Int
+}

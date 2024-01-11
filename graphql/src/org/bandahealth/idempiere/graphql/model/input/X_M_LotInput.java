@@ -8,7 +8,8 @@ import org.compiere.model.MLot;
 import org.compiere.model.MLotCtl;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_Lot - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_M_LotInput extends MLot implements I_M_LotInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mM_LotCtl;
-	 private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mM_LotCtl;
+	private ForeignEntityInput mM_Product;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_LotInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MLot(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -56,6 +58,17 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Lot.
+	 *
+	 * @param M_Lot_ID Product Lot Definition
+	 */
+
+	public void setM_Lot_ID(int M_Lot_ID) {
+		if (get_ID() == 0) {
+			super.setM_Lot_ID(M_Lot_ID);
+		}
 	}
 
 	/**
@@ -85,8 +98,8 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	public void setM_LotCtlInput(ForeignEntityInput M_LotCtl) {
 		this.mM_LotCtl = M_LotCtl;
 		MLotCtl foreignEntity;
-		if (get_ID() == 0 &&M_LotCtl != null &&
-				(foreignEntity = new Query(getCtx(), MLotCtl.Table_Name, MLotCtl.COLUMNNAME_M_LotCtl_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_LotCtl != null &&
+				(foreignEntity = new Query(getCtx(), "M_LotCtl", "M_LotCtl_UU=?", get_TrxName())
 						.setParameters(M_LotCtl.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_LotCtl_ID(foreignEntity.get_ID());
@@ -112,8 +125,8 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (get_ID() == 0 &&M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_Product != null &&
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());

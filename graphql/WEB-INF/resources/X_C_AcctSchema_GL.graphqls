@@ -1,0 +1,78 @@
+# Generated Schema for C_AcctSchema_GL - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_AcctSchema_GLGet(page: Int, size: Int, sort: String, filter: String): C_AcctSchema_GLConnection!
+}
+
+extend type Mutation {
+	C_AcctSchema_GLSave(entity: C_AcctSchema_GLInput!): C_AcctSchema_GL!
+	C_AcctSchema_GLDelete(uuids: [String!]!): Boolean!
+}
+
+type C_AcctSchema_GLConnection {
+	results: [C_AcctSchema_GL!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_AcctSchema_GL {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Budgetary Commitment Offset Account
+	CommitmentOffset_A: C_ValidCombination!
+	# Budgetary Commitment Offset Account for Sales
+	CommitmentOffsetSales_A: C_ValidCombination!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Account used when a currency is out of balance
+	CurrencyBalancing_A: C_ValidCombination
+	# Intercompany Due From / Receivables Account
+	IntercompanyDueFrom_A: C_ValidCombination!
+	# Intercompany Due To / Payable Account
+	IntercompanyDueTo_A: C_ValidCombination!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Purchase Price Variance Offset Account
+	PPVOffset_A: C_ValidCombination!
+	SuspenseBalancing_A: C_ValidCombination
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	UseCurrencyBalancing: Boolean!
+	UseSuspenseBalancing: Boolean!
+	UseSuspenseError: Boolean!
+}
+
+input C_AcctSchema_GLInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Budgetary Commitment Offset Account
+	CommitmentOffset_A: ForeignEntityInput
+	# Budgetary Commitment Offset Account for Sales
+	CommitmentOffsetSales_A: ForeignEntityInput
+	# Account used when a currency is out of balance
+	CurrencyBalancing_A: ForeignEntityInput
+	# Intercompany Due From / Receivables Account
+	IntercompanyDueFrom_A: ForeignEntityInput
+	# Intercompany Due To / Payable Account
+	IntercompanyDueTo_A: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Purchase Price Variance Offset Account
+	PPVOffset_A: ForeignEntityInput
+	SuspenseBalancing_A: ForeignEntityInput
+	UseCurrencyBalancing: Boolean
+	UseSuspenseBalancing: Boolean
+	UseSuspenseError: Boolean
+}

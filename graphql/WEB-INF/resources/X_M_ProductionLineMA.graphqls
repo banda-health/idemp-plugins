@@ -1,0 +1,58 @@
+# Generated Schema for M_ProductionLineMA - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_ProductionLineMAGet(page: Int, size: Int, sort: String, filter: String): M_ProductionLineMAConnection!
+}
+
+extend type Mutation {
+	M_ProductionLineMASave(entity: M_ProductionLineMAInput!): M_ProductionLineMA!
+	M_ProductionLineMADelete(uuids: [String!]!): Boolean!
+}
+
+type M_ProductionLineMAConnection {
+	results: [M_ProductionLineMA!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_ProductionLineMA {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Time used for LIFO and FIFO Material Policy
+	DateMaterialPolicy: Date
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Document Line representing a production
+	M_ProductionLine: M_ProductionLine!
+	ID: ID!
+	# Quantity of a product moved.
+	MovementQty: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_ProductionLineMAInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Time used for LIFO and FIFO Material Policy
+	DateMaterialPolicy: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Document Line representing a production
+	M_ProductionLine: ForeignEntityInput
+	ID: ID
+	# Quantity of a product moved.
+	MovementQty: Int
+}

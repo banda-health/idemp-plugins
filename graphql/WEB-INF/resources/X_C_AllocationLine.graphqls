@@ -1,0 +1,94 @@
+# Generated Schema for C_AllocationLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_AllocationLineGet(page: Int, size: Int, sort: String, filter: String): C_AllocationLineConnection!
+}
+
+extend type Mutation {
+	C_AllocationLineSave(entity: C_AllocationLineInput!): C_AllocationLine!
+	C_AllocationLineDelete(uuids: [String!]!): Boolean!
+}
+
+type C_AllocationLineConnection {
+	results: [C_AllocationLine!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_AllocationLine {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Amount in a defined currency
+	Amount: Int!
+	# Payment allocation
+	C_AllocationHdr: C_AllocationHdr!
+	ID: ID!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Cash Journal Line
+	C_CashLine: C_CashLine
+	# Additional document charges
+	C_Charge: C_Charge
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Order
+	C_Order: C_Order
+	# Payment identifier
+	C_Payment: C_Payment
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Transaction Date
+	DateTrx: Date
+	# Calculated amount of discount
+	DiscountAmt: Int!
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a manual process
+	IsManual: Boolean!
+	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
+	OverUnderAmt: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Amount to write-off
+	WriteOffAmt: Int!
+}
+
+input C_AllocationLineInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Amount in a defined currency
+	Amount: Int
+	# Payment allocation
+	C_AllocationHdr: ForeignEntityInput
+	ID: ID
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Cash Journal Line
+	C_CashLine: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Order
+	C_Order: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# Transaction Date
+	DateTrx: Date
+	# Calculated amount of discount
+	DiscountAmt: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a manual process
+	IsManual: Boolean
+	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
+	OverUnderAmt: Int
+	# Amount to write-off
+	WriteOffAmt: Int
+}

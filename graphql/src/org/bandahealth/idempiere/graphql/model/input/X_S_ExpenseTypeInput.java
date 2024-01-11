@@ -9,7 +9,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for S_ExpenseType - DO NOT CHANGE
@@ -19,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTypeInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_TaxCategory;
-	 private ForeignEntityInput mC_UOM;
-	 private ForeignEntityInput mM_Product_Category;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_TaxCategory;
+	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mM_Product_Category;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_S_ExpenseTypeInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MExpenseType(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -42,8 +44,8 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -70,7 +72,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 		this.mC_TaxCategory = C_TaxCategory;
 		MTaxCategory foreignEntity;
 		if (C_TaxCategory != null &&
-				(foreignEntity = new Query(getCtx(), MTaxCategory.Table_Name, MTaxCategory.COLUMNNAME_C_TaxCategory_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
 						.setParameters(C_TaxCategory.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_TaxCategory_ID(foreignEntity.get_ID());
@@ -99,7 +101,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (C_UOM != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_ID(foreignEntity.get_ID());
@@ -128,7 +130,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 		this.mM_Product_Category = M_Product_Category;
 		MProductCategory_BH foreignEntity;
 		if (M_Product_Category != null &&
-				(foreignEntity = new Query(getCtx(), MProductCategory_BH.Table_Name, MProductCategory_BH.COLUMNNAME_M_Product_Category_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
 						.setParameters(M_Product_Category.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_Category_ID(foreignEntity.get_ID());
@@ -145,6 +147,17 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	@JsonProperty("M_Product_Category")
 	public ForeignEntityInput M_Product_Category() {
 		return mM_Product_Category;
+	}
+	/**
+	 * Set Expense Type.
+	 *
+	 * @param S_ExpenseType_ID Expense report type
+	 */
+
+	public void setS_ExpenseType_ID(int S_ExpenseType_ID) {
+		if (get_ID() == 0) {
+			super.setS_ExpenseType_ID(S_ExpenseType_ID);
+		}
 	}
 
 	/**

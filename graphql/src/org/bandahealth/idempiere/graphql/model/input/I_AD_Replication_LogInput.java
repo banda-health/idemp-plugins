@@ -1,0 +1,68 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import org.compiere.model.I_AD_Replication_Log;
+
+/**
+ * Generated Interface for AD_Replication_Log - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public interface I_AD_Replication_LogInput extends I_AD_Replication_Log {
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within client
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	void setID(String ID);
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	String getID();
+
+	/**
+	 * Set AD_Replication_Run.
+	 *
+	 * @param AD_Replication_Run Data Replication Run
+	 */
+	void setAD_Replication_RunInput(ForeignEntityInput AD_Replication_Run);
+
+	/**
+	 * Get AD_Replication_Run.
+	 *
+	 * @return Data Replication Run
+	 */
+	ForeignEntityInput AD_Replication_Run();
+
+	/**
+	 * Set AD_ReplicationTable.
+	 *
+	 * @param AD_ReplicationTable Data Replication Strategy Table Info
+	 */
+	void setAD_ReplicationTableInput(ForeignEntityInput AD_ReplicationTable);
+
+	/**
+	 * Get AD_ReplicationTable.
+	 *
+	 * @return Data Replication Strategy Table Info
+	 */
+	ForeignEntityInput AD_ReplicationTable();
+}

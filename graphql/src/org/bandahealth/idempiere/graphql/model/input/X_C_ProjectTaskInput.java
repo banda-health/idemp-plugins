@@ -10,7 +10,8 @@ import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTask;
 import org.compiere.model.MProjectTypeTask;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_ProjectTask - DO NOT CHANGE
@@ -20,18 +21,19 @@ import org.compiere.util.Env;
  */
 public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTaskInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_ProjectPhase;
-	 private ForeignEntityInput mC_Task;
-	 private ForeignEntityInput mM_Product;
-	 private I_AD_Ref_ListInput mProjInvoiceRule;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_ProjectPhase;
+	private ForeignEntityInput mC_Task;
+	private ForeignEntityInput mM_Product;
+	private I_AD_Ref_ListInput mProjInvoiceRule;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_ProjectTaskInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MProjectTask(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -44,8 +46,8 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -71,8 +73,8 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
 		MProjectPhase foreignEntity;
-		if (get_ID() == 0 &&C_ProjectPhase != null &&
-				(foreignEntity = new Query(getCtx(), MProjectPhase.Table_Name, MProjectPhase.COLUMNNAME_C_ProjectPhase_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_ProjectPhase != null &&
+				(foreignEntity = new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
 						.setParameters(C_ProjectPhase.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ProjectPhase_ID(foreignEntity.get_ID());
@@ -87,6 +89,17 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	@JsonProperty("C_ProjectPhase")
 	public ForeignEntityInput C_ProjectPhase() {
 		return mC_ProjectPhase;
+	}
+	/**
+	 * Set Project Task.
+	 *
+	 * @param C_ProjectTask_ID Actual Project Task in a Phase
+	 */
+
+	public void setC_ProjectTask_ID(int C_ProjectTask_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectTask_ID(C_ProjectTask_ID);
+		}
 	}
 
 	/**
@@ -116,8 +129,8 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 	public void setC_TaskInput(ForeignEntityInput C_Task) {
 		this.mC_Task = C_Task;
 		MProjectTypeTask foreignEntity;
-		if (get_ID() == 0 &&C_Task != null &&
-				(foreignEntity = new Query(getCtx(), MProjectTypeTask.Table_Name, MProjectTypeTask.COLUMNNAME_C_Task_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Task != null &&
+				(foreignEntity = new Query(getCtx(), "C_Task", "C_Task_UU=?", get_TrxName())
 						.setParameters(C_Task.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Task_ID(foreignEntity.get_ID());
@@ -144,7 +157,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());

@@ -2,8 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
@@ -27,8 +25,11 @@ import org.compiere.model.MTax;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_Promotion;
-import org.compiere.util.Env;
 import org.eevolution.model.X_PP_Cost_Collector;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 /**
  * Generated Model for C_OrderLine - DO NOT CHANGE
@@ -38,37 +39,38 @@ import org.eevolution.model.X_PP_Cost_Collector;
  */
 public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Activity;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_BPartner_Location;
-	 private ForeignEntityInput mC_Campaign;
-	 private ForeignEntityInput mC_Charge;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_Order;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mC_ProjectPhase;
-	 private ForeignEntityInput mC_ProjectTask;
-	 private ForeignEntityInput mC_Tax;
-	 private ForeignEntityInput mC_UOM;
-	 private ForeignEntityInput mLink_OrderLine;
-	 private ForeignEntityInput mM_AttributeSetInstance;
-	 private ForeignEntityInput mM_Product;
-	 private ForeignEntityInput mM_Promotion;
-	 private ForeignEntityInput mM_Shipper;
-	 private ForeignEntityInput mM_Warehouse;
-	 private ForeignEntityInput mPP_Cost_Collector;
-	 private ForeignEntityInput mRef_OrderLine;
-	 private ForeignEntityInput mS_ResourceAssignment;
-	 private ForeignEntityInput mUser1;
-	 private ForeignEntityInput mUser2;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_BPartner_Location;
+	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_Order;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mC_ProjectPhase;
+	private ForeignEntityInput mC_ProjectTask;
+	private ForeignEntityInput mC_Tax;
+	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mLink_OrderLine;
+	private ForeignEntityInput mM_AttributeSetInstance;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mM_Promotion;
+	private ForeignEntityInput mM_Shipper;
+	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mPP_Cost_Collector;
+	private ForeignEntityInput mRef_OrderLine;
+	private ForeignEntityInput mS_ResourceAssignment;
+	private ForeignEntityInput mUser1;
+	private ForeignEntityInput mUser2;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_OrderLineInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MOrderLine_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -82,7 +84,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -100,39 +102,6 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
-	/**
-	 * Set Number of Order Lines.
-	 *
-	 * @param BH_NumOrderLines The number of order lines on an order
-	 */
-
-	public void setBH_NumOrderLines(int BH_NumOrderLines) {
-		if (get_ID() == 0) {
-			super.setBH_NumOrderLines(BH_NumOrderLines);
-		}
-	}
-	/**
-	 * Set Document Status.
-	 *
-	 * @param BH_OrderDocStatus The current status of the document
-	 */
-
-	public void setBH_OrderDocStatus(String BH_OrderDocStatus) {
-		if (get_ID() == 0) {
-			super.setBH_OrderDocStatus(BH_OrderDocStatus);
-		}
-	}
-	/**
-	 * Set Requires Expiration.
-	 *
-	 * @param BH_RequiresExpiration Requires Expiration
-	 */
-
-	public void setBH_RequiresExpiration(boolean BH_RequiresExpiration) {
-		if (get_ID() == 0) {
-			super.setBH_RequiresExpiration(BH_RequiresExpiration);
-		}
-	}
 
 	/**
 	 * Set Activity.
@@ -144,7 +113,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Activity_ID(foreignEntity.get_ID());
@@ -172,8 +141,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 &&C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_BPartner != null &&
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -200,7 +169,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(C_BPartner_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_Location_ID(foreignEntity.get_ID());
@@ -229,7 +198,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Campaign_ID(foreignEntity.get_ID());
@@ -258,7 +227,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Charge_ID(foreignEntity.get_ID());
@@ -286,8 +255,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
-		if (get_ID() == 0 &&C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Currency != null &&
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -313,8 +282,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
-		if (get_ID() == 0 &&C_Order != null &&
-				(foreignEntity = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Order != null &&
+				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 						.setParameters(C_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Order_ID(foreignEntity.get_ID());
@@ -329,6 +298,17 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	@JsonProperty("C_Order")
 	public ForeignEntityInput C_Order() {
 		return mC_Order;
+	}
+	/**
+	 * Set Sales Order Line.
+	 *
+	 * @param C_OrderLine_ID Sales Order Line
+	 */
+
+	public void setC_OrderLine_ID(int C_OrderLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_OrderLine_ID(C_OrderLine_ID);
+		}
 	}
 
 	/**
@@ -359,7 +339,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -387,8 +367,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
 		MProjectPhase foreignEntity;
-		if (get_ID() == 0 &&C_ProjectPhase != null &&
-				(foreignEntity = new Query(getCtx(), MProjectPhase.Table_Name, MProjectPhase.COLUMNNAME_C_ProjectPhase_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_ProjectPhase != null &&
+				(foreignEntity = new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
 						.setParameters(C_ProjectPhase.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ProjectPhase_ID(foreignEntity.get_ID());
@@ -414,8 +394,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
 		MProjectTask foreignEntity;
-		if (get_ID() == 0 &&C_ProjectTask != null &&
-				(foreignEntity = new Query(getCtx(), MProjectTask.Table_Name, MProjectTask.COLUMNNAME_C_ProjectTask_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_ProjectTask != null &&
+				(foreignEntity = new Query(getCtx(), "C_ProjectTask", "C_ProjectTask_UU=?", get_TrxName())
 						.setParameters(C_ProjectTask.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ProjectTask_ID(foreignEntity.get_ID());
@@ -442,7 +422,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mC_Tax = C_Tax;
 		MTax foreignEntity;
 		if (C_Tax != null &&
-				(foreignEntity = new Query(getCtx(), MTax.Table_Name, MTax.COLUMNNAME_C_Tax_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
 						.setParameters(C_Tax.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Tax_ID(foreignEntity.get_ID());
@@ -470,8 +450,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
-		if (get_ID() == 0 &&C_UOM != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_UOM != null &&
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_ID(foreignEntity.get_ID());
@@ -530,8 +510,8 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public void setLink_OrderLineInput(ForeignEntityInput Link_OrderLine) {
 		this.mLink_OrderLine = Link_OrderLine;
 		MOrderLine_BH foreignEntity;
-		if (get_ID() == 0 &&Link_OrderLine != null &&
-				(foreignEntity = new Query(getCtx(), MOrderLine_BH.Table_Name, MOrderLine_BH.COLUMNNAME_C_OrderLine_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && Link_OrderLine != null &&
+				(foreignEntity = new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
 						.setParameters(Link_OrderLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setLink_OrderLine_ID(foreignEntity.get_ID());
@@ -558,7 +538,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
@@ -587,7 +567,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());
@@ -616,7 +596,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mM_Promotion = M_Promotion;
 		X_M_Promotion foreignEntity;
 		if (M_Promotion != null &&
-				(foreignEntity = new Query(getCtx(), X_M_Promotion.Table_Name, X_M_Promotion.COLUMNNAME_M_Promotion_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
 						.setParameters(M_Promotion.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Promotion_ID(foreignEntity.get_ID());
@@ -645,7 +625,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (M_Shipper != null &&
-				(foreignEntity = new Query(getCtx(), MShipper.Table_Name, MShipper.COLUMNNAME_M_Shipper_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
 						.setParameters(M_Shipper.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Shipper_ID(foreignEntity.get_ID());
@@ -674,7 +654,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 						.setParameters(M_Warehouse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Warehouse_ID(foreignEntity.get_ID());
@@ -703,7 +683,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mPP_Cost_Collector = PP_Cost_Collector;
 		X_PP_Cost_Collector foreignEntity;
 		if (PP_Cost_Collector != null &&
-				(foreignEntity = new Query(getCtx(), X_PP_Cost_Collector.Table_Name, X_PP_Cost_Collector.COLUMNNAME_PP_Cost_Collector_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PP_Cost_Collector", "PP_Cost_Collector_UU=?", get_TrxName())
 						.setParameters(PP_Cost_Collector.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPP_Cost_Collector_ID(foreignEntity.get_ID());
@@ -787,7 +767,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mRef_OrderLine = Ref_OrderLine;
 		MOrderLine_BH foreignEntity;
 		if (Ref_OrderLine != null &&
-				(foreignEntity = new Query(getCtx(), MOrderLine_BH.Table_Name, MOrderLine_BH.COLUMNNAME_C_OrderLine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
 						.setParameters(Ref_OrderLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setRef_OrderLine_ID(foreignEntity.get_ID());
@@ -816,7 +796,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mS_ResourceAssignment = S_ResourceAssignment;
 		MResourceAssignment foreignEntity;
 		if (S_ResourceAssignment != null &&
-				(foreignEntity = new Query(getCtx(), MResourceAssignment.Table_Name, MResourceAssignment.COLUMNNAME_S_ResourceAssignment_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "S_ResourceAssignment", "S_ResourceAssignment_UU=?", get_TrxName())
 						.setParameters(S_ResourceAssignment.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setS_ResourceAssignment_ID(foreignEntity.get_ID());
@@ -845,7 +825,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser1_ID(foreignEntity.get_ID());
@@ -874,7 +854,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser2_ID(foreignEntity.get_ID());

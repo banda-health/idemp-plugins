@@ -7,7 +7,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Asset_Reval_Index;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Reval_Index - DO NOT CHANGE
@@ -17,17 +18,29 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements I_A_Asset_Reval_IndexInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private I_AD_Ref_ListInput mA_Reval_Code;
-	 private I_AD_Ref_ListInput mA_Reval_Multiplier;
+	private ForeignEntityInput mAD_Org;
+	private I_AD_Ref_ListInput mA_Reval_Code;
+	private I_AD_Ref_ListInput mA_Reval_Multiplier;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Asset_Reval_IndexInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_A_Asset_Reval_Index(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
+	}
+	/**
+	 * Set Asset Reval Index.
+	 *
+	 * @param A_Asset_Reval_Index_ID Asset Reval Index
+	 */
+
+	public void setA_Asset_Reval_Index_ID(int A_Asset_Reval_Index_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Reval_Index_ID(A_Asset_Reval_Index_ID);
+		}
 	}
 
 	/**
@@ -116,7 +129,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());

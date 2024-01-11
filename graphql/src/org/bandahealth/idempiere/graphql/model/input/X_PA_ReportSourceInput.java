@@ -16,7 +16,8 @@ import org.compiere.model.MSalesRegion;
 import org.compiere.model.Query;
 import org.compiere.model.X_PA_ReportLine;
 import org.compiere.model.X_PA_ReportSource;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_ReportSource - DO NOT CHANGE
@@ -26,24 +27,25 @@ import org.compiere.util.Env;
  */
 public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_ReportSourceInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Activity;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_Campaign;
-	 private ForeignEntityInput mC_ElementValue;
-	 private ForeignEntityInput mC_Location;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mC_SalesRegion;
-	 private ForeignEntityInput mM_Product;
-	 private ForeignEntityInput mPA_ReportLine;
-	 private I_AD_Ref_ListInput mElementType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_ElementValue;
+	private ForeignEntityInput mC_Location;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mC_SalesRegion;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mPA_ReportLine;
+	private I_AD_Ref_ListInput mElementType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_ReportSourceInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_PA_ReportSource(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -56,8 +58,8 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -84,7 +86,7 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Activity_ID(foreignEntity.get_ID());
@@ -113,7 +115,7 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -142,7 +144,7 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Campaign_ID(foreignEntity.get_ID());
@@ -171,7 +173,7 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 		this.mC_ElementValue = C_ElementValue;
 		MElementValue foreignEntity;
 		if (C_ElementValue != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(C_ElementValue.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ElementValue_ID(foreignEntity.get_ID());
@@ -200,7 +202,7 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
-				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 						.setParameters(C_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Location_ID(foreignEntity.get_ID());
@@ -229,7 +231,7 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -258,7 +260,7 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 		this.mC_SalesRegion = C_SalesRegion;
 		MSalesRegion foreignEntity;
 		if (C_SalesRegion != null &&
-				(foreignEntity = new Query(getCtx(), MSalesRegion.Table_Name, MSalesRegion.COLUMNNAME_C_SalesRegion_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
 						.setParameters(C_SalesRegion.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_SalesRegion_ID(foreignEntity.get_ID());
@@ -316,7 +318,7 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());
@@ -344,8 +346,8 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 	public void setPA_ReportLineInput(ForeignEntityInput PA_ReportLine) {
 		this.mPA_ReportLine = PA_ReportLine;
 		X_PA_ReportLine foreignEntity;
-		if (get_ID() == 0 &&PA_ReportLine != null &&
-				(foreignEntity = new Query(getCtx(), X_PA_ReportLine.Table_Name, X_PA_ReportLine.COLUMNNAME_PA_ReportLine_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && PA_ReportLine != null &&
+				(foreignEntity = new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
 						.setParameters(PA_ReportLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_ReportLine_ID(foreignEntity.get_ID());
@@ -360,6 +362,17 @@ public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_Re
 	@JsonProperty("PA_ReportLine")
 	public ForeignEntityInput PA_ReportLine() {
 		return mPA_ReportLine;
+	}
+	/**
+	 * Set Report Source.
+	 *
+	 * @param PA_ReportSource_ID Restriction of what will be shown in Report Line
+	 */
+
+	public void setPA_ReportSource_ID(int PA_ReportSource_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportSource_ID(PA_ReportSource_ID);
+		}
 	}
 
 	/**

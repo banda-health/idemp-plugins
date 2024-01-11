@@ -1,0 +1,108 @@
+# Generated Schema for Test - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	TestGet(page: Int, size: Int, sort: String, filter: String): TestConnection!
+}
+
+extend type Mutation {
+	TestSave(entity: TestInput!): Test!
+	TestDelete(uuids: [String!]!): Boolean!
+}
+
+type TestConnection {
+	results: [Test!]!
+	pagingInfo: PagingInfo!
+}
+
+type Test {
+	Account_A: C_ValidCombination
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Location or Address
+	C_Location: C_Location
+	# Payment identifier
+	C_Payment: C_Payment
+	# Unit of Measure
+	C_UOM: C_UOM
+	# Long Character Field
+	CharacterData: String
+	Color: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Warehouse Locator
+	M_Locator: M_Locator
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	T_Amount: Int
+	T_Date: Date
+	T_DateTime: Date
+	T_Integer: Int
+	T_Number: Int
+	T_Qty: Int
+	ID: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input TestInput {
+	Account_A: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Location or Address
+	C_Location: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# Long Character Field
+	CharacterData: String
+	Color: String
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Warehouse Locator
+	M_Locator: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	T_Amount: Int
+	T_Date: Date
+	T_DateTime: Date
+	T_Integer: Int
+	T_Number: Int
+	T_Qty: Int
+	ID: ID
+}

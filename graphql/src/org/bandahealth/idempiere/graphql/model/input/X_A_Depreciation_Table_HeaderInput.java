@@ -7,7 +7,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Depreciation_Table_Header;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Depreciation_Table_Header - DO NOT CHANGE
@@ -17,17 +18,29 @@ import org.compiere.util.Env;
  */
 public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_Header implements I_A_Depreciation_Table_HeaderInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private I_AD_Ref_ListInput mA_Table_Rate_Type;
-	 private I_AD_Ref_ListInput mA_Term;
+	private ForeignEntityInput mAD_Org;
+	private I_AD_Ref_ListInput mA_Table_Rate_Type;
+	private I_AD_Ref_ListInput mA_Term;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Depreciation_Table_HeaderInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_A_Depreciation_Table_Header(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
+	}
+	/**
+	 * Set A_Depreciation_Table_Header_ID.
+	 *
+	 * @param A_Depreciation_Table_Header_ID A_Depreciation_Table_Header_ID
+	 */
+
+	public void setA_Depreciation_Table_Header_ID(int A_Depreciation_Table_Header_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Table_Header_ID(A_Depreciation_Table_Header_ID);
+		}
 	}
 
 	/**
@@ -116,7 +129,7 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());

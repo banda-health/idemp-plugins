@@ -10,7 +10,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_DunningLevel - DO NOT CHANGE
@@ -20,18 +21,19 @@ import org.compiere.util.Env;
  */
 public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningLevelInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Dunning;
-	 private ForeignEntityInput mC_PaymentTerm;
-	 private ForeignEntityInput mDunning_PrintFormat;
-	 private I_AD_Ref_ListInput mInvoiceCollectionType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Dunning;
+	private ForeignEntityInput mC_PaymentTerm;
+	private ForeignEntityInput mDunning_PrintFormat;
+	private I_AD_Ref_ListInput mInvoiceCollectionType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_DunningLevelInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MDunningLevel(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -44,8 +46,8 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -71,8 +73,8 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	public void setC_DunningInput(ForeignEntityInput C_Dunning) {
 		this.mC_Dunning = C_Dunning;
 		MDunning foreignEntity;
-		if (get_ID() == 0 &&C_Dunning != null &&
-				(foreignEntity = new Query(getCtx(), MDunning.Table_Name, MDunning.COLUMNNAME_C_Dunning_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Dunning != null &&
+				(foreignEntity = new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
 						.setParameters(C_Dunning.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Dunning_ID(foreignEntity.get_ID());
@@ -87,6 +89,17 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	@JsonProperty("C_Dunning")
 	public ForeignEntityInput C_Dunning() {
 		return mC_Dunning;
+	}
+	/**
+	 * Set Dunning Level.
+	 *
+	 * @param C_DunningLevel_ID Dunning Level
+	 */
+
+	public void setC_DunningLevel_ID(int C_DunningLevel_ID) {
+		if (get_ID() == 0) {
+			super.setC_DunningLevel_ID(C_DunningLevel_ID);
+		}
 	}
 
 	/**
@@ -117,7 +130,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 		this.mC_PaymentTerm = C_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null &&
-				(foreignEntity = new Query(getCtx(), MPaymentTerm.Table_Name, MPaymentTerm.COLUMNNAME_C_PaymentTerm_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
 						.setParameters(C_PaymentTerm.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_PaymentTerm_ID(foreignEntity.get_ID());
@@ -146,7 +159,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 		this.mDunning_PrintFormat = Dunning_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
 		if (Dunning_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintFormat.Table_Name, X_AD_PrintFormat.COLUMNNAME_AD_PrintFormat_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 						.setParameters(Dunning_PrintFormat.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setDunning_PrintFormat_ID(foreignEntity.get_ID());

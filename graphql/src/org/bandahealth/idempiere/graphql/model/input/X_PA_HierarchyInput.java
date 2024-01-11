@@ -2,12 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MTree_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MHierarchy;
 import org.compiere.model.MOrg;
-import org.compiere.model.MTree;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_Hierarchy - DO NOT CHANGE
@@ -17,22 +18,23 @@ import org.compiere.util.Env;
  */
 public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Tree_Account;
-	 private ForeignEntityInput mAD_Tree_Activity;
-	 private ForeignEntityInput mAD_Tree_BPartner;
-	 private ForeignEntityInput mAD_Tree_Campaign;
-	 private ForeignEntityInput mAD_Tree_Org;
-	 private ForeignEntityInput mAD_Tree_Product;
-	 private ForeignEntityInput mAD_Tree_Project;
-	 private ForeignEntityInput mAD_Tree_SalesRegion;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Tree_Account;
+	private ForeignEntityInput mAD_Tree_Activity;
+	private ForeignEntityInput mAD_Tree_BPartner;
+	private ForeignEntityInput mAD_Tree_Campaign;
+	private ForeignEntityInput mAD_Tree_Org;
+	private ForeignEntityInput mAD_Tree_Product;
+	private ForeignEntityInput mAD_Tree_Project;
+	private ForeignEntityInput mAD_Tree_SalesRegion;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_HierarchyInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MHierarchy(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -45,8 +47,8 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -71,9 +73,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Account")
 	public void setAD_Tree_AccountInput(ForeignEntityInput AD_Tree_Account) {
 		this.mAD_Tree_Account = AD_Tree_Account;
-		MTree foreignEntity;
+		MTree_BH foreignEntity;
 		if (AD_Tree_Account != null &&
-				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 						.setParameters(AD_Tree_Account.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Tree_Account_ID(foreignEntity.get_ID());
@@ -100,9 +102,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Activity")
 	public void setAD_Tree_ActivityInput(ForeignEntityInput AD_Tree_Activity) {
 		this.mAD_Tree_Activity = AD_Tree_Activity;
-		MTree foreignEntity;
+		MTree_BH foreignEntity;
 		if (AD_Tree_Activity != null &&
-				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 						.setParameters(AD_Tree_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Tree_Activity_ID(foreignEntity.get_ID());
@@ -129,9 +131,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_BPartner")
 	public void setAD_Tree_BPartnerInput(ForeignEntityInput AD_Tree_BPartner) {
 		this.mAD_Tree_BPartner = AD_Tree_BPartner;
-		MTree foreignEntity;
+		MTree_BH foreignEntity;
 		if (AD_Tree_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 						.setParameters(AD_Tree_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Tree_BPartner_ID(foreignEntity.get_ID());
@@ -158,9 +160,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Campaign")
 	public void setAD_Tree_CampaignInput(ForeignEntityInput AD_Tree_Campaign) {
 		this.mAD_Tree_Campaign = AD_Tree_Campaign;
-		MTree foreignEntity;
+		MTree_BH foreignEntity;
 		if (AD_Tree_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 						.setParameters(AD_Tree_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Tree_Campaign_ID(foreignEntity.get_ID());
@@ -187,9 +189,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Org")
 	public void setAD_Tree_OrgInput(ForeignEntityInput AD_Tree_Org) {
 		this.mAD_Tree_Org = AD_Tree_Org;
-		MTree foreignEntity;
+		MTree_BH foreignEntity;
 		if (AD_Tree_Org != null &&
-				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 						.setParameters(AD_Tree_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Tree_Org_ID(foreignEntity.get_ID());
@@ -216,9 +218,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Product")
 	public void setAD_Tree_ProductInput(ForeignEntityInput AD_Tree_Product) {
 		this.mAD_Tree_Product = AD_Tree_Product;
-		MTree foreignEntity;
+		MTree_BH foreignEntity;
 		if (AD_Tree_Product != null &&
-				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 						.setParameters(AD_Tree_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Tree_Product_ID(foreignEntity.get_ID());
@@ -245,9 +247,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Project")
 	public void setAD_Tree_ProjectInput(ForeignEntityInput AD_Tree_Project) {
 		this.mAD_Tree_Project = AD_Tree_Project;
-		MTree foreignEntity;
+		MTree_BH foreignEntity;
 		if (AD_Tree_Project != null &&
-				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 						.setParameters(AD_Tree_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Tree_Project_ID(foreignEntity.get_ID());
@@ -274,9 +276,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_SalesRegion")
 	public void setAD_Tree_SalesRegionInput(ForeignEntityInput AD_Tree_SalesRegion) {
 		this.mAD_Tree_SalesRegion = AD_Tree_SalesRegion;
-		MTree foreignEntity;
+		MTree_BH foreignEntity;
 		if (AD_Tree_SalesRegion != null &&
-				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 						.setParameters(AD_Tree_SalesRegion.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Tree_SalesRegion_ID(foreignEntity.get_ID());
@@ -293,6 +295,17 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_SalesRegion")
 	public ForeignEntityInput AD_Tree_SalesRegion() {
 		return mAD_Tree_SalesRegion;
+	}
+	/**
+	 * Set Reporting Hierarchy.
+	 *
+	 * @param PA_Hierarchy_ID Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
+	 */
+
+	public void setPA_Hierarchy_ID(int PA_Hierarchy_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Hierarchy_ID(PA_Hierarchy_ID);
+		}
 	}
 
 	/**

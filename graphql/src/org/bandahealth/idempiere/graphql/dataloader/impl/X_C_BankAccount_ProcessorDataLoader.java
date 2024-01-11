@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.MBankAccountProcessor;
+
+/**
+ * Data Loader for C_BankAccount_Processor - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_BankAccount_ProcessorDataLoader extends PODataLoader<MBankAccountProcessor> {
+	public static String C_BankAccount_Processor_BY_ID_DATA_LOADER = "C_BankAccount_ProcessorByIdDataLoader";
+	public static String C_BankAccount_Processor_BY_UUID_DATA_LOADER = "C_BankAccount_ProcessorByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return MBankAccountProcessor.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return C_BankAccount_Processor_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return C_BankAccount_Processor_BY_UUID_DATA_LOADER;
+	}
+}

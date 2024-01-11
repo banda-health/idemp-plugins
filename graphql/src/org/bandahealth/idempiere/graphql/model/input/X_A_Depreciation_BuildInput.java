@@ -9,7 +9,8 @@ import org.compiere.model.MDepreciationBuild;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Depreciation_Build - DO NOT CHANGE
@@ -19,19 +20,31 @@ import org.compiere.util.Env;
  */
 public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I_A_Depreciation_BuildInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_End_Asset;
-	 private ForeignEntityInput mA_Start_Asset;
-	 private ForeignEntityInput mC_Period;
-	 private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_End_Asset;
+	private ForeignEntityInput mA_Start_Asset;
+	private ForeignEntityInput mC_Period;
+	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Depreciation_BuildInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MDepreciationBuild(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
+	}
+	/**
+	 * Set Build Depreciation.
+	 *
+	 * @param A_Depreciation_Build_ID Build Depreciation
+	 */
+
+	public void setA_Depreciation_Build_ID(int A_Depreciation_Build_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Build_ID(A_Depreciation_Build_ID);
+		}
 	}
 
 	/**
@@ -62,7 +75,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 		this.mA_End_Asset = A_End_Asset;
 		MAsset foreignEntity;
 		if (A_End_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_End_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_End_Asset_ID(foreignEntity.get_ID());
@@ -91,7 +104,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 		this.mA_Start_Asset = A_Start_Asset;
 		MAsset foreignEntity;
 		if (A_Start_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Start_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Start_Asset_ID(foreignEntity.get_ID());
@@ -120,7 +133,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -149,7 +162,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
 		if (C_Period != null &&
-				(foreignEntity = new Query(getCtx(), MPeriod.Table_Name, MPeriod.COLUMNNAME_C_Period_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
 						.setParameters(C_Period.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Period_ID(foreignEntity.get_ID());

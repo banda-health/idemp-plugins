@@ -1,0 +1,68 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import org.compiere.model.I_C_DunningRun;
+
+/**
+ * Generated Interface for C_DunningRun - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public interface I_C_DunningRunInput extends I_C_DunningRun {
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within client
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set C_Dunning.
+	 *
+	 * @param C_Dunning Dunning Rules for overdue invoices
+	 */
+	void setC_DunningInput(ForeignEntityInput C_Dunning);
+
+	/**
+	 * Get C_Dunning.
+	 *
+	 * @return Dunning Rules for overdue invoices
+	 */
+	ForeignEntityInput C_Dunning();
+
+	/**
+	 * Set C_DunningLevel.
+	 *
+	 * @param C_DunningLevel C_DunningLevel
+	 */
+	void setC_DunningLevelInput(ForeignEntityInput C_DunningLevel);
+
+	/**
+	 * Get C_DunningLevel.
+	 *
+	 * @return C_DunningLevel
+	 */
+	ForeignEntityInput C_DunningLevel();
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	void setID(String ID);
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	String getID();
+}

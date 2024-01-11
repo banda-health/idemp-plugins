@@ -10,7 +10,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_PA_Ratio;
 import org.compiere.model.X_PA_RatioElement;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_RatioElement - DO NOT CHANGE
@@ -20,21 +21,22 @@ import org.compiere.util.Env;
  */
 public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_RatioElementInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAccount;
-	 private ForeignEntityInput mPA_MeasureCalc;
-	 private ForeignEntityInput mPA_Ratio;
-	 private ForeignEntityInput mPA_RatioUsed;
-	 private I_AD_Ref_ListInput mPostingType;
-	 private I_AD_Ref_ListInput mRatioElementType;
-	 private I_AD_Ref_ListInput mRatioOperand;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAccount;
+	private ForeignEntityInput mPA_MeasureCalc;
+	private ForeignEntityInput mPA_Ratio;
+	private ForeignEntityInput mPA_RatioUsed;
+	private I_AD_Ref_ListInput mPostingType;
+	private I_AD_Ref_ListInput mRatioElementType;
+	private I_AD_Ref_ListInput mRatioOperand;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_RatioElementInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_PA_RatioElement(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -48,7 +50,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 		this.mAccount = Account;
 		MElementValue foreignEntity;
 		if (Account != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(Account.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAccount_ID(foreignEntity.get_ID());
@@ -76,8 +78,8 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -104,7 +106,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 		this.mPA_MeasureCalc = PA_MeasureCalc;
 		MMeasureCalc foreignEntity;
 		if (PA_MeasureCalc != null &&
-				(foreignEntity = new Query(getCtx(), MMeasureCalc.Table_Name, MMeasureCalc.COLUMNNAME_PA_MeasureCalc_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_MeasureCalc", "PA_MeasureCalc_UU=?", get_TrxName())
 						.setParameters(PA_MeasureCalc.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_MeasureCalc_ID(foreignEntity.get_ID());
@@ -132,8 +134,8 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	public void setPA_RatioInput(ForeignEntityInput PA_Ratio) {
 		this.mPA_Ratio = PA_Ratio;
 		X_PA_Ratio foreignEntity;
-		if (get_ID() == 0 &&PA_Ratio != null &&
-				(foreignEntity = new Query(getCtx(), X_PA_Ratio.Table_Name, X_PA_Ratio.COLUMNNAME_PA_Ratio_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && PA_Ratio != null &&
+				(foreignEntity = new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
 						.setParameters(PA_Ratio.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_Ratio_ID(foreignEntity.get_ID());
@@ -148,6 +150,17 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("PA_Ratio")
 	public ForeignEntityInput PA_Ratio() {
 		return mPA_Ratio;
+	}
+	/**
+	 * Set Ratio Element.
+	 *
+	 * @param PA_RatioElement_ID Performance Ratio Element
+	 */
+
+	public void setPA_RatioElement_ID(int PA_RatioElement_ID) {
+		if (get_ID() == 0) {
+			super.setPA_RatioElement_ID(PA_RatioElement_ID);
+		}
 	}
 
 	/**
@@ -178,7 +191,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 		this.mPA_RatioUsed = PA_RatioUsed;
 		X_PA_Ratio foreignEntity;
 		if (PA_RatioUsed != null &&
-				(foreignEntity = new Query(getCtx(), X_PA_Ratio.Table_Name, X_PA_Ratio.COLUMNNAME_PA_Ratio_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
 						.setParameters(PA_RatioUsed.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_RatioUsed_ID(foreignEntity.get_ID());

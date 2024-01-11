@@ -1,0 +1,58 @@
+# Generated Schema for C_Project_Acct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_Project_AcctGet(page: Int, size: Int, sort: String, filter: String): C_Project_AcctConnection!
+}
+
+extend type Mutation {
+	C_Project_AcctSave(entity: C_Project_AcctInput!): C_Project_Acct!
+	C_Project_AcctDelete(uuids: [String!]!): Boolean!
+}
+
+type C_Project_AcctConnection {
+	results: [C_Project_Acct!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_Project_Acct {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	ID: ID!
+	# Financial Project
+	C_Project: C_Project!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Project Asset Account
+	PJ_Asset_A: C_ValidCombination!
+	# Account for Work in Progress
+	PJ_WIP_A: C_ValidCombination!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_Project_AcctInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	ID: ID
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Project Asset Account
+	PJ_Asset_A: ForeignEntityInput
+	# Account for Work in Progress
+	PJ_WIP_A: ForeignEntityInput
+}

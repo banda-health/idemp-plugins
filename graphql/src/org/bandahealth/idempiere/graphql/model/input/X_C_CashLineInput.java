@@ -13,7 +13,8 @@ import org.compiere.model.MCash;
 import org.compiere.model.MCashLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_CashLine - DO NOT CHANGE
@@ -23,21 +24,22 @@ import org.compiere.util.Env;
  */
 public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_BankAccount;
-	 private ForeignEntityInput mC_Cash;
-	 private ForeignEntityInput mC_Charge;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_Invoice;
-	 private ForeignEntityInput mC_Payment;
-	 private I_AD_Ref_ListInput mCashType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_BankAccount;
+	private ForeignEntityInput mC_Cash;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_Invoice;
+	private ForeignEntityInput mC_Payment;
+	private I_AD_Ref_ListInput mCashType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_CashLineInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MCashLine(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -50,8 +52,8 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -78,7 +80,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), MBankAccount_BH.Table_Name, MBankAccount_BH.COLUMNNAME_C_BankAccount_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 						.setParameters(C_BankAccount.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BankAccount_ID(foreignEntity.get_ID());
@@ -106,8 +108,8 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	public void setC_CashInput(ForeignEntityInput C_Cash) {
 		this.mC_Cash = C_Cash;
 		MCash foreignEntity;
-		if (get_ID() == 0 &&C_Cash != null &&
-				(foreignEntity = new Query(getCtx(), MCash.Table_Name, MCash.COLUMNNAME_C_Cash_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Cash != null &&
+				(foreignEntity = new Query(getCtx(), "C_Cash", "C_Cash_UU=?", get_TrxName())
 						.setParameters(C_Cash.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Cash_ID(foreignEntity.get_ID());
@@ -122,6 +124,17 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("C_Cash")
 	public ForeignEntityInput C_Cash() {
 		return mC_Cash;
+	}
+	/**
+	 * Set Cash Journal Line.
+	 *
+	 * @param C_CashLine_ID Cash Journal Line
+	 */
+
+	public void setC_CashLine_ID(int C_CashLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_CashLine_ID(C_CashLine_ID);
+		}
 	}
 
 	/**
@@ -152,7 +165,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Charge_ID(foreignEntity.get_ID());
@@ -180,8 +193,8 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
-		if (get_ID() == 0 &&C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Currency != null &&
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -207,8 +220,8 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
-		if (get_ID() == 0 &&C_Invoice != null &&
-				(foreignEntity = new Query(getCtx(), MInvoice_BH.Table_Name, MInvoice_BH.COLUMNNAME_C_Invoice_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Invoice != null &&
+				(foreignEntity = new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 						.setParameters(C_Invoice.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Invoice_ID(foreignEntity.get_ID());
@@ -235,7 +248,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 		this.mC_Payment = C_Payment;
 		MPayment_BH foreignEntity;
 		if (C_Payment != null &&
-				(foreignEntity = new Query(getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
 						.setParameters(C_Payment.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Payment_ID(foreignEntity.get_ID());

@@ -1,0 +1,104 @@
+# Generated Schema for C_AllocationHdr - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_AllocationHdrGet(page: Int, size: Int, sort: String, filter: String): C_AllocationHdrConnection!
+}
+
+extend type Mutation {
+	C_AllocationHdrSave(entity: C_AllocationHdrInput!): C_AllocationHdr!
+	C_AllocationHdrDelete(uuids: [String!]!): Boolean!
+}
+
+type C_AllocationHdrConnection {
+	results: [C_AllocationHdr!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_AllocationHdr {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Document Approval Amount
+	ApprovalAmt: Int!
+	ID: ID!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Document type or rules
+	C_DocType: C_DocType
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date!
+	# Transaction Date
+	DateTrx: Date!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# This is a manual process
+	IsManual: Boolean!
+	# Posting status
+	Posted: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean!
+	# ID of document reversal
+	Reversal: C_AllocationHdr
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_AllocationHdrInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Document Approval Amount
+	ApprovalAmt: Int
+	ID: ID
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# Transaction Date
+	DateTrx: Date
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# This is a manual process
+	IsManual: Boolean
+	# Posting status
+	Posted: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean
+	# ID of document reversal
+	Reversal: ForeignEntityInput
+}

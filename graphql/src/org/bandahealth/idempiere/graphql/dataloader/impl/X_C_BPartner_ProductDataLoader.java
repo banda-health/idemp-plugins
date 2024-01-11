@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.MBPartnerProduct;
+
+/**
+ * Data Loader for C_BPartner_Product - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_BPartner_ProductDataLoader extends PODataLoader<MBPartnerProduct> {
+	public static String C_BPartner_Product_BY_ID_DATA_LOADER = "C_BPartner_ProductByIdDataLoader";
+	public static String C_BPartner_Product_BY_UUID_DATA_LOADER = "C_BPartner_ProductByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return MBPartnerProduct.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return C_BPartner_Product_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return C_BPartner_Product_BY_UUID_DATA_LOADER;
+	}
+}

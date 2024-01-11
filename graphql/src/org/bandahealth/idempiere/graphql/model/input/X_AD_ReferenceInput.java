@@ -9,7 +9,8 @@ import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.M_Element;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Reference - DO NOT CHANGE
@@ -19,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_AD_ReferenceInput extends MReference_BH implements I_AD_ReferenceInput {
 
-	 private ForeignEntityInput mAD_Element;
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Org;
-	 private I_AD_Ref_ListInput mValidationType;
+	private ForeignEntityInput mAD_Element;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Org;
+	private I_AD_Ref_ListInput mValidationType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_ReferenceInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MReference_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -43,7 +45,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 		this.mAD_Element = AD_Element;
 		M_Element foreignEntity;
 		if (AD_Element != null &&
-				(foreignEntity = new Query(getCtx(), M_Element.Table_Name, M_Element.COLUMNNAME_AD_Element_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Element", "AD_Element_UU=?", get_TrxName())
 						.setParameters(AD_Element.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Element_ID(foreignEntity.get_ID());
@@ -71,8 +73,8 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -87,6 +89,17 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Reference.
+	 *
+	 * @param AD_Reference_ID System Reference and Validation
+	 */
+
+	public void setAD_Reference_ID(int AD_Reference_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Reference_ID(AD_Reference_ID);
+		}
 	}
 
 	/**
@@ -117,7 +130,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());

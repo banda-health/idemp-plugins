@@ -8,7 +8,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_PriceList_Version - DO NOT CHANGE
@@ -18,17 +19,18 @@ import org.compiere.util.Env;
  */
 public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M_PriceList_VersionInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mM_DiscountSchema;
-	 private ForeignEntityInput mM_PriceList;
-	 private ForeignEntityInput mM_Pricelist_Version_Base;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mM_DiscountSchema;
+	private ForeignEntityInput mM_PriceList;
+	private ForeignEntityInput mM_Pricelist_Version_Base;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_PriceList_VersionInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MPriceListVersion(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -41,8 +43,8 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -69,7 +71,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 		this.mM_DiscountSchema = M_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (M_DiscountSchema != null &&
-				(foreignEntity = new Query(getCtx(), MDiscountSchema.Table_Name, MDiscountSchema.COLUMNNAME_M_DiscountSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 						.setParameters(M_DiscountSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_DiscountSchema_ID(foreignEntity.get_ID());
@@ -97,8 +99,8 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
-		if (get_ID() == 0 &&M_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_M_PriceList_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_PriceList != null &&
+				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 						.setParameters(M_PriceList.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_PriceList_ID(foreignEntity.get_ID());
@@ -125,7 +127,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 		this.mM_Pricelist_Version_Base = M_Pricelist_Version_Base;
 		MPriceListVersion foreignEntity;
 		if (M_Pricelist_Version_Base != null &&
-				(foreignEntity = new Query(getCtx(), MPriceListVersion.Table_Name, MPriceListVersion.COLUMNNAME_M_PriceList_Version_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_PriceList_Version", "M_PriceList_Version_UU=?", get_TrxName())
 						.setParameters(M_Pricelist_Version_Base.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Pricelist_Version_Base_ID(foreignEntity.get_ID());
@@ -142,6 +144,17 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	@JsonProperty("M_Pricelist_Version_Base")
 	public ForeignEntityInput M_Pricelist_Version_Base() {
 		return mM_Pricelist_Version_Base;
+	}
+	/**
+	 * Set Price List Version.
+	 *
+	 * @param M_PriceList_Version_ID Identifies a unique instance of a Price List
+	 */
+
+	public void setM_PriceList_Version_ID(int M_PriceList_Version_ID) {
+		if (get_ID() == 0) {
+			super.setM_PriceList_Version_ID(M_PriceList_Version_ID);
+		}
 	}
 
 	/**

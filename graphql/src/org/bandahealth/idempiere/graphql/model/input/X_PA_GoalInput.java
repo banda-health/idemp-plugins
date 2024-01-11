@@ -2,8 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -13,7 +11,10 @@ import org.compiere.model.MMeasure;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
-import org.compiere.util.Env;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 /**
  * Generated Model for PA_Goal - DO NOT CHANGE
@@ -23,22 +24,23 @@ import org.compiere.util.Env;
  */
 public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Role;
-	 private ForeignEntityInput mAD_User;
-	 private ForeignEntityInput mPA_ColorSchema;
-	 private ForeignEntityInput mPA_GoalParent;
-	 private ForeignEntityInput mPA_Measure;
-	 private I_AD_Ref_ListInput mChartType;
-	 private I_AD_Ref_ListInput mMeasureDisplay;
-	 private I_AD_Ref_ListInput mMeasureScope;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Role;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mPA_ColorSchema;
+	private ForeignEntityInput mPA_GoalParent;
+	private ForeignEntityInput mPA_Measure;
+	private I_AD_Ref_ListInput mChartType;
+	private I_AD_Ref_ListInput mMeasureDisplay;
+	private I_AD_Ref_ListInput mMeasureScope;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_GoalInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MGoal(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -51,8 +53,8 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -79,7 +81,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
 		if (AD_Role != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_Role.Table_Name, X_AD_Role.COLUMNNAME_AD_Role_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 						.setParameters(AD_Role.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Role_ID(foreignEntity.get_ID());
@@ -108,7 +110,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -257,7 +259,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 		this.mPA_ColorSchema = PA_ColorSchema;
 		MColorSchema foreignEntity;
 		if (PA_ColorSchema != null &&
-				(foreignEntity = new Query(getCtx(), MColorSchema.Table_Name, MColorSchema.COLUMNNAME_PA_ColorSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_ColorSchema", "PA_ColorSchema_UU=?", get_TrxName())
 						.setParameters(PA_ColorSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_ColorSchema_ID(foreignEntity.get_ID());
@@ -274,6 +276,17 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	@JsonProperty("PA_ColorSchema")
 	public ForeignEntityInput PA_ColorSchema() {
 		return mPA_ColorSchema;
+	}
+	/**
+	 * Set Goal.
+	 *
+	 * @param PA_Goal_ID Performance Goal
+	 */
+
+	public void setPA_Goal_ID(int PA_Goal_ID) {
+		if (get_ID() == 0) {
+			super.setPA_Goal_ID(PA_Goal_ID);
+		}
 	}
 
 	/**
@@ -304,7 +317,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 		this.mPA_GoalParent = PA_GoalParent;
 		MGoal foreignEntity;
 		if (PA_GoalParent != null &&
-				(foreignEntity = new Query(getCtx(), MGoal.Table_Name, MGoal.COLUMNNAME_PA_Goal_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_Goal", "PA_Goal_UU=?", get_TrxName())
 						.setParameters(PA_GoalParent.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_GoalParent_ID(foreignEntity.get_ID());
@@ -333,7 +346,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 		this.mPA_Measure = PA_Measure;
 		MMeasure foreignEntity;
 		if (PA_Measure != null &&
-				(foreignEntity = new Query(getCtx(), MMeasure.Table_Name, MMeasure.COLUMNNAME_PA_Measure_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "PA_Measure", "PA_Measure_UU=?", get_TrxName())
 						.setParameters(PA_Measure.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPA_Measure_ID(foreignEntity.get_ID());

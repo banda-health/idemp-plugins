@@ -8,7 +8,8 @@ import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.MValRule;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Val_Rule - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_AD_Val_RuleInput extends MValRule implements I_AD_Val_RuleInput {
 
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Org;
-	 private I_AD_Ref_ListInput mType;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Org;
+	private I_AD_Ref_ListInput mType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_Val_RuleInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MValRule(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_AD_Val_RuleInput extends MValRule implements I_AD_Val_RuleInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -56,6 +58,17 @@ public class X_AD_Val_RuleInput extends MValRule implements I_AD_Val_RuleInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Dynamic Validation.
+	 *
+	 * @param AD_Val_Rule_ID Dynamic Validation Rule
+	 */
+
+	public void setAD_Val_Rule_ID(int AD_Val_Rule_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Val_Rule_ID(AD_Val_Rule_ID);
+		}
 	}
 
 	/**
@@ -86,7 +99,7 @@ public class X_AD_Val_RuleInput extends MValRule implements I_AD_Val_RuleInput {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());

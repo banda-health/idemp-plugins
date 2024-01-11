@@ -10,7 +10,8 @@ import org.compiere.model.MElement;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_ElementValue - DO NOT CHANGE
@@ -20,20 +21,21 @@ import org.compiere.util.Env;
  */
 public class X_C_ElementValueInput extends MElementValue implements I_C_ElementValueInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_BankAccount;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_Element;
-	 private I_AD_Ref_ListInput mAccountSign;
-	 private I_AD_Ref_ListInput mAccountType;
-	 private I_AD_Ref_ListInput mBPartnerType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_BankAccount;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_Element;
+	private I_AD_Ref_ListInput mAccountSign;
+	private I_AD_Ref_ListInput mAccountType;
+	private I_AD_Ref_ListInput mBPartnerType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_ElementValueInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MElementValue(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -104,8 +106,8 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -161,7 +163,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), MBankAccount_BH.Table_Name, MBankAccount_BH.COLUMNNAME_C_BankAccount_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 						.setParameters(C_BankAccount.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BankAccount_ID(foreignEntity.get_ID());
@@ -190,7 +192,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -218,8 +220,8 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	public void setC_ElementInput(ForeignEntityInput C_Element) {
 		this.mC_Element = C_Element;
 		MElement foreignEntity;
-		if (get_ID() == 0 &&C_Element != null &&
-				(foreignEntity = new Query(getCtx(), MElement.Table_Name, MElement.COLUMNNAME_C_Element_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Element != null &&
+				(foreignEntity = new Query(getCtx(), "C_Element", "C_Element_UU=?", get_TrxName())
 						.setParameters(C_Element.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Element_ID(foreignEntity.get_ID());
@@ -234,6 +236,17 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	@JsonProperty("C_Element")
 	public ForeignEntityInput C_Element() {
 		return mC_Element;
+	}
+	/**
+	 * Set Account Element.
+	 *
+	 * @param C_ElementValue_ID Account Element
+	 */
+
+	public void setC_ElementValue_ID(int C_ElementValue_ID) {
+		if (get_ID() == 0) {
+			super.setC_ElementValue_ID(C_ElementValue_ID);
+		}
 	}
 
 	/**

@@ -7,7 +7,8 @@ import org.compiere.model.MCalendar;
 import org.compiere.model.MOrg;
 import org.compiere.model.MReportCube;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_ReportCube - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCubeInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Calendar;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Calendar;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_ReportCubeInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MReportCube(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -39,7 +41,7 @@ public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCube
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -68,7 +70,7 @@ public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCube
 		this.mC_Calendar = C_Calendar;
 		MCalendar foreignEntity;
 		if (C_Calendar != null &&
-				(foreignEntity = new Query(getCtx(), MCalendar.Table_Name, MCalendar.COLUMNNAME_C_Calendar_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
 						.setParameters(C_Calendar.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Calendar_ID(foreignEntity.get_ID());
@@ -85,6 +87,17 @@ public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCube
 	@JsonProperty("C_Calendar")
 	public ForeignEntityInput C_Calendar() {
 		return mC_Calendar;
+	}
+	/**
+	 * Set Report Cube.
+	 *
+	 * @param PA_ReportCube_ID Define reporting cube for pre-calculation of summary accounting data.
+	 */
+
+	public void setPA_ReportCube_ID(int PA_ReportCube_ID) {
+		if (get_ID() == 0) {
+			super.setPA_ReportCube_ID(PA_ReportCube_ID);
+		}
 	}
 
 	/**

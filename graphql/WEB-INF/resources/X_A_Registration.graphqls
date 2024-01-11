@@ -1,0 +1,100 @@
+# Generated Schema for A_Registration - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	A_RegistrationGet(page: Int, size: Int, sort: String, filter: String): A_RegistrationConnection!
+}
+
+extend type Mutation {
+	A_RegistrationSave(entity: A_RegistrationInput!): A_Registration!
+	A_RegistrationDelete(uuids: [String!]!): Boolean!
+}
+
+type A_RegistrationConnection {
+	results: [A_Registration!]!
+	pagingInfo: PagingInfo!
+}
+
+type A_Registration {
+	# Asset used internally or by customers
+	A_Asset: A_Asset
+	ID: ID!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Date when Asset was put into service
+	AssetServiceDate: Date!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# You allow to publish the information, not just statistical summary info
+	IsAllowPublish: Boolean!
+	# The system is in production
+	IsInProduction: Boolean!
+	# The application is registered.
+	IsRegistered: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Optional additional user defined information
+	Note: String
+	Processing: Boolean!
+	# Remote Address
+	Remote_Addr: String
+	# Remote host Info
+	Remote_Host: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_RegistrationInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	ID: ID
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Date when Asset was put into service
+	AssetServiceDate: Date
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# You allow to publish the information, not just statistical summary info
+	IsAllowPublish: Boolean
+	# The system is in production
+	IsInProduction: Boolean
+	# The application is registered.
+	IsRegistered: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Optional additional user defined information
+	Note: String
+	Processing: Boolean
+	# Remote Address
+	Remote_Addr: String
+	# Remote host Info
+	Remote_Host: String
+}

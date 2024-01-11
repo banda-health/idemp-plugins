@@ -14,7 +14,8 @@ import org.compiere.model.MPOS;
 import org.compiere.model.MPOSKeyLayout;
 import org.compiere.model.MPriceList;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_POS - DO NOT CHANGE
@@ -24,24 +25,25 @@ import org.compiere.util.Env;
  */
 public class X_C_POSInput extends MPOS implements I_C_POSInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_BPartnerCashTrx;
-	 private ForeignEntityInput mC_BankAccount;
-	 private ForeignEntityInput mC_CashBook;
-	 private ForeignEntityInput mC_DocType;
-	 private ForeignEntityInput mC_POSKeyLayout;
-	 private ForeignEntityInput mM_PriceList;
-	 private ForeignEntityInput mM_Warehouse;
-	 private ForeignEntityInput mOSK_KeyLayout;
-	 private ForeignEntityInput mOSNP_KeyLayout;
-	 private ForeignEntityInput mSalesRep;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_BPartnerCashTrx;
+	private ForeignEntityInput mC_BankAccount;
+	private ForeignEntityInput mC_CashBook;
+	private ForeignEntityInput mC_DocType;
+	private ForeignEntityInput mC_POSKeyLayout;
+	private ForeignEntityInput mM_PriceList;
+	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mOSK_KeyLayout;
+	private ForeignEntityInput mOSNP_KeyLayout;
+	private ForeignEntityInput mSalesRep;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_POSInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MPOS(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -54,8 +56,8 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -82,7 +84,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), MBankAccount_BH.Table_Name, MBankAccount_BH.COLUMNNAME_C_BankAccount_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 						.setParameters(C_BankAccount.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BankAccount_ID(foreignEntity.get_ID());
@@ -111,7 +113,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 		this.mC_BPartnerCashTrx = C_BPartnerCashTrx;
 		MBPartner_BH foreignEntity;
 		if (C_BPartnerCashTrx != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartnerCashTrx.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartnerCashTrx_ID(foreignEntity.get_ID());
@@ -140,7 +142,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
 		if (C_CashBook != null &&
-				(foreignEntity = new Query(getCtx(), MCashBook.Table_Name, MCashBook.COLUMNNAME_C_CashBook_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
 						.setParameters(C_CashBook.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_CashBook_ID(foreignEntity.get_ID());
@@ -169,7 +171,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
 		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocType_ID(foreignEntity.get_ID());
@@ -186,6 +188,17 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	@JsonProperty("C_DocType")
 	public ForeignEntityInput C_DocType() {
 		return mC_DocType;
+	}
+	/**
+	 * Set POS Terminal.
+	 *
+	 * @param C_POS_ID Point of Sales Terminal
+	 */
+
+	public void setC_POS_ID(int C_POS_ID) {
+		if (get_ID() == 0) {
+			super.setC_POS_ID(C_POS_ID);
+		}
 	}
 
 	/**
@@ -216,7 +229,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 		this.mC_POSKeyLayout = C_POSKeyLayout;
 		MPOSKeyLayout foreignEntity;
 		if (C_POSKeyLayout != null &&
-				(foreignEntity = new Query(getCtx(), MPOSKeyLayout.Table_Name, MPOSKeyLayout.COLUMNNAME_C_POSKeyLayout_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
 						.setParameters(C_POSKeyLayout.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_POSKeyLayout_ID(foreignEntity.get_ID());
@@ -245,7 +258,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (M_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_M_PriceList_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 						.setParameters(M_PriceList.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_PriceList_ID(foreignEntity.get_ID());
@@ -274,7 +287,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 						.setParameters(M_Warehouse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Warehouse_ID(foreignEntity.get_ID());
@@ -303,7 +316,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 		this.mOSK_KeyLayout = OSK_KeyLayout;
 		MPOSKeyLayout foreignEntity;
 		if (OSK_KeyLayout != null &&
-				(foreignEntity = new Query(getCtx(), MPOSKeyLayout.Table_Name, MPOSKeyLayout.COLUMNNAME_C_POSKeyLayout_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
 						.setParameters(OSK_KeyLayout.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setOSK_KeyLayout_ID(foreignEntity.get_ID());
@@ -332,7 +345,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 		this.mOSNP_KeyLayout = OSNP_KeyLayout;
 		MPOSKeyLayout foreignEntity;
 		if (OSNP_KeyLayout != null &&
-				(foreignEntity = new Query(getCtx(), MPOSKeyLayout.Table_Name, MPOSKeyLayout.COLUMNNAME_C_POSKeyLayout_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
 						.setParameters(OSNP_KeyLayout.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setOSNP_KeyLayout_ID(foreignEntity.get_ID());
@@ -361,7 +374,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setSalesRep_ID(foreignEntity.get_ID());

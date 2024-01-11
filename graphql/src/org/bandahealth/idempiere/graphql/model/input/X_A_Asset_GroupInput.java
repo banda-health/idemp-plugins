@@ -8,7 +8,8 @@ import org.compiere.model.MAssetGroup;
 import org.compiere.model.MAssetType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Group - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_GroupInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_Asset_Class;
-	 private ForeignEntityInput mA_Asset_Type;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Asset_Class;
+	private ForeignEntityInput mA_Asset_Type;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Asset_GroupInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MAssetGroup(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -41,7 +43,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 		this.mA_Asset_Class = A_Asset_Class;
 		MAssetClass foreignEntity;
 		if (A_Asset_Class != null &&
-				(foreignEntity = new Query(getCtx(), MAssetClass.Table_Name, MAssetClass.COLUMNNAME_A_Asset_Class_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Class", "A_Asset_Class_UU=?", get_TrxName())
 						.setParameters(A_Asset_Class.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Class_ID(foreignEntity.get_ID());
@@ -58,6 +60,17 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	@JsonProperty("A_Asset_Class")
 	public ForeignEntityInput A_Asset_Class() {
 		return mA_Asset_Class;
+	}
+	/**
+	 * Set Asset Group.
+	 *
+	 * @param A_Asset_Group_ID Group of Assets
+	 */
+
+	public void setA_Asset_Group_ID(int A_Asset_Group_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Group_ID(A_Asset_Group_ID);
+		}
 	}
 
 	/**
@@ -88,7 +101,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 		this.mA_Asset_Type = A_Asset_Type;
 		MAssetType foreignEntity;
 		if (A_Asset_Type != null &&
-				(foreignEntity = new Query(getCtx(), MAssetType.Table_Name, MAssetType.COLUMNNAME_A_Asset_Type_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Type", "A_Asset_Type_UU=?", get_TrxName())
 						.setParameters(A_Asset_Type.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Type_ID(foreignEntity.get_ID());
@@ -116,8 +129,8 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());

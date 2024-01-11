@@ -1,0 +1,58 @@
+# Generated Schema for C_RevenueRecog_Service - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_RevenueRecog_ServiceGet(page: Int, size: Int, sort: String, filter: String): C_RevenueRecog_ServiceConnection!
+}
+
+extend type Mutation {
+	C_RevenueRecog_ServiceSave(entity: C_RevenueRecog_ServiceInput!): C_RevenueRecog_Service!
+	C_RevenueRecog_ServiceDelete(uuids: [String!]!): Boolean!
+}
+
+type C_RevenueRecog_ServiceConnection {
+	results: [C_RevenueRecog_Service!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_RevenueRecog_Service {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Method for recording revenue
+	C_RevenueRecognition: C_RevenueRecognition!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int
+	# Percentage
+	Percent: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RevenueRecog_ServiceInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Method for recording revenue
+	C_RevenueRecognition: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Percentage
+	Percent: Int
+}

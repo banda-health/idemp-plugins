@@ -8,7 +8,8 @@ import org.compiere.model.MAsset;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Asset_Retirement;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Retirement - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I_A_Asset_RetirementInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_Asset;
-	 private ForeignEntityInput mC_InvoiceLine;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mC_InvoiceLine;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Asset_RetirementInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_A_Asset_Retirement(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
-		if (get_ID() == 0 &&A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && A_Asset != null &&
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_ID(foreignEntity.get_ID());
@@ -56,6 +58,17 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 	@JsonProperty("A_Asset")
 	public ForeignEntityInput A_Asset() {
 		return mA_Asset;
+	}
+	/**
+	 * Set Asset Retirement.
+	 *
+	 * @param A_Asset_Retirement_ID Internally used asset is not longer used.
+	 */
+
+	public void setA_Asset_Retirement_ID(int A_Asset_Retirement_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_Retirement_ID(A_Asset_Retirement_ID);
+		}
 	}
 
 	/**
@@ -85,8 +98,8 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -113,7 +126,7 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 		this.mC_InvoiceLine = C_InvoiceLine;
 		MInvoiceLine_BH foreignEntity;
 		if (C_InvoiceLine != null &&
-				(foreignEntity = new Query(getCtx(), MInvoiceLine_BH.Table_Name, MInvoiceLine_BH.COLUMNNAME_C_InvoiceLine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 						.setParameters(C_InvoiceLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_InvoiceLine_ID(foreignEntity.get_ID());

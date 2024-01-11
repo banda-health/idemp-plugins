@@ -1,0 +1,282 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MInOutLine;
+import org.compiere.model.MLocator;
+import org.compiere.model.MOrg;
+import org.compiere.model.MProject;
+import org.compiere.model.MProjectIssue;
+import org.compiere.model.MTimeExpenseLine;
+import org.compiere.model.Query;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for C_ProjectIssue - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectIssueInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mM_AttributeSetInstance;
+	private ForeignEntityInput mM_InOutLine;
+	private ForeignEntityInput mM_Locator;
+	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mS_TimeExpenseLine;
+
+	/**
+	 * Standard constructor
+	 */
+	@JsonCreator
+	public X_C_ProjectIssueInput(@JsonProperty("ID") String ID) {
+		super(null, ModelUtil.getModelResultSet(new MProjectIssue(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
+		setID(ID);
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		MOrg foreignEntity;
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+						.setParameters(AD_Org.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Org_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Project.
+	 *
+	 * @param C_Project Financial Project
+	 */
+	@JsonProperty("C_Project")
+	public void setC_ProjectInput(ForeignEntityInput C_Project) {
+		this.mC_Project = C_Project;
+		MProject foreignEntity;
+		if (get_ID() == 0 && C_Project != null &&
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
+						.setParameters(C_Project.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Project_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Project.
+	 *
+	 * @return Financial Project
+	 */
+	@JsonProperty("C_Project")
+	public ForeignEntityInput C_Project() {
+		return mC_Project;
+	}
+	/**
+	 * Set Project Issue.
+	 *
+	 * @param C_ProjectIssue_ID Project Issues (Material, Labor)
+	 */
+
+	public void setC_ProjectIssue_ID(int C_ProjectIssue_ID) {
+		if (get_ID() == 0) {
+			super.setC_ProjectIssue_ID(C_ProjectIssue_ID);
+		}
+	}
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	public void setID(String ID) {
+		setC_ProjectIssue_UU(ID);
+	}
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	public String getID() {
+		return getC_ProjectIssue_UU();
+	}
+
+	/**
+	 * Set Attribute Set Instance.
+	 *
+	 * @param M_AttributeSetInstance Product Attribute Set Instance
+	 */
+	@JsonProperty("M_AttributeSetInstance")
+	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
+		this.mM_AttributeSetInstance = M_AttributeSetInstance;
+		MAttributeSetInstance_BH foreignEntity;
+		if (M_AttributeSetInstance != null &&
+				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
+						.setParameters(M_AttributeSetInstance.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+		} else {
+			super.setM_AttributeSetInstance_ID(0);
+		}
+	}
+
+	/**
+	 * Get Attribute Set Instance.
+	 *
+	 * @return Product Attribute Set Instance
+	 */
+	@JsonProperty("M_AttributeSetInstance")
+	public ForeignEntityInput M_AttributeSetInstance() {
+		return mM_AttributeSetInstance;
+	}
+
+	/**
+	 * Set Shipment/Receipt Line.
+	 *
+	 * @param M_InOutLine Line on Shipment or Receipt document
+	 */
+	@JsonProperty("M_InOutLine")
+	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
+		this.mM_InOutLine = M_InOutLine;
+		MInOutLine foreignEntity;
+		if (M_InOutLine != null &&
+				(foreignEntity = new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
+						.setParameters(M_InOutLine.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setM_InOutLine_ID(foreignEntity.get_ID());
+		} else {
+			super.setM_InOutLine_ID(0);
+		}
+	}
+
+	/**
+	 * Get Shipment/Receipt Line.
+	 *
+	 * @return Line on Shipment or Receipt document
+	 */
+	@JsonProperty("M_InOutLine")
+	public ForeignEntityInput M_InOutLine() {
+		return mM_InOutLine;
+	}
+
+	/**
+	 * Set Locator.
+	 *
+	 * @param M_Locator Warehouse Locator
+	 */
+	@JsonProperty("M_Locator")
+	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
+		this.mM_Locator = M_Locator;
+		MLocator foreignEntity;
+		if (M_Locator != null &&
+				(foreignEntity = new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
+						.setParameters(M_Locator.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setM_Locator_ID(foreignEntity.get_ID());
+		} else {
+			super.setM_Locator_ID(0);
+		}
+	}
+
+	/**
+	 * Get Locator.
+	 *
+	 * @return Warehouse Locator
+	 */
+	@JsonProperty("M_Locator")
+	public ForeignEntityInput M_Locator() {
+		return mM_Locator;
+	}
+
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product Product, Service, Item
+	 */
+	@JsonProperty("M_Product")
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
+		this.mM_Product = M_Product;
+		MProduct_BH foreignEntity;
+		if (M_Product != null &&
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+						.setParameters(M_Product.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setM_Product_ID(foreignEntity.get_ID());
+		} else {
+			super.setM_Product_ID(0);
+		}
+	}
+
+	/**
+	 * Get Product/Service.
+	 *
+	 * @return Product, Service, Item
+	 */
+	@JsonProperty("M_Product")
+	public ForeignEntityInput M_Product() {
+		return mM_Product;
+	}
+	/**
+	 * Set Posted.
+	 *
+	 * @param Posted Posting status
+	 */
+
+	public void setPosted(boolean Posted) {
+		if (get_ID() == 0) {
+			super.setPosted(Posted);
+		}
+	}
+
+	/**
+	 * Set Expense Line.
+	 *
+	 * @param S_TimeExpenseLine Time and Expense Report Line
+	 */
+	@JsonProperty("S_TimeExpenseLine")
+	public void setS_TimeExpenseLineInput(ForeignEntityInput S_TimeExpenseLine) {
+		this.mS_TimeExpenseLine = S_TimeExpenseLine;
+		MTimeExpenseLine foreignEntity;
+		if (S_TimeExpenseLine != null &&
+				(foreignEntity = new Query(getCtx(), "S_TimeExpenseLine", "S_TimeExpenseLine_UU=?", get_TrxName())
+						.setParameters(S_TimeExpenseLine.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setS_TimeExpenseLine_ID(foreignEntity.get_ID());
+		} else {
+			super.setS_TimeExpenseLine_ID(0);
+		}
+	}
+
+	/**
+	 * Get Expense Line.
+	 *
+	 * @return Time and Expense Report Line
+	 */
+	@JsonProperty("S_TimeExpenseLine")
+	public ForeignEntityInput S_TimeExpenseLine() {
+		return mS_TimeExpenseLine;
+	}
+}

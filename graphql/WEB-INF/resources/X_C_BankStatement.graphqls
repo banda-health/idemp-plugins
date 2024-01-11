@@ -1,0 +1,124 @@
+# Generated Schema for C_BankStatement - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_BankStatementGet(page: Int, size: Int, sort: String, filter: String): C_BankStatementConnection!
+}
+
+extend type Mutation {
+	C_BankStatementSave(entity: C_BankStatementInput!): C_BankStatement!
+	C_BankStatementDelete(uuids: [String!]!): Boolean!
+}
+
+type C_BankStatementConnection {
+	results: [C_BankStatement!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_BankStatement {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Balance prior to any transactions
+	BeginningBalance: Int
+	# Account at the Bank
+	C_BankAccount: C_BankAccount!
+	ID: ID!
+	# Copy From Record
+	CopyFrom: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	CreateFromBatch: String
+	# Accounting Date
+	DateAcct: Date!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Electronic Funds Transfer Statement Date
+	EftStatementDate: Date
+	# Electronic Funds Transfer Statement Reference
+	EftStatementReference: String
+	# Ending  or closing balance
+	EndingBalance: Int!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# This is a manual process
+	IsManual: Boolean!
+	MatchStatement: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Posting status
+	Posted: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean!
+	# Date of the statement
+	StatementDate: Date!
+	# Difference between statement ending balance and actual ending balance
+	StatementDifference: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_BankStatementInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Balance prior to any transactions
+	BeginningBalance: Int
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	ID: ID
+	# Copy From Record
+	CopyFrom: String
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	CreateFromBatch: String
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Electronic Funds Transfer Statement Date
+	EftStatementDate: Date
+	# Electronic Funds Transfer Statement Reference
+	EftStatementReference: String
+	# Ending  or closing balance
+	EndingBalance: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# This is a manual process
+	IsManual: Boolean
+	MatchStatement: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Posting status
+	Posted: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: Int
+	Processing: Boolean
+	# Date of the statement
+	StatementDate: Date
+	# Difference between statement ending balance and actual ending balance
+	StatementDifference: Int
+}

@@ -7,7 +7,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MSalesRegion;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_SalesRegion - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_C_SalesRegionInput extends MSalesRegion implements I_C_SalesRegionInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mSalesRep;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mSalesRep;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_SalesRegionInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MSalesRegion(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_C_SalesRegionInput extends MSalesRegion implements I_C_SalesRegio
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -54,6 +56,17 @@ public class X_C_SalesRegionInput extends MSalesRegion implements I_C_SalesRegio
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Sales Region.
+	 *
+	 * @param C_SalesRegion_ID Sales coverage region
+	 */
+
+	public void setC_SalesRegion_ID(int C_SalesRegion_ID) {
+		if (get_ID() == 0) {
+			super.setC_SalesRegion_ID(C_SalesRegion_ID);
+		}
 	}
 
 	/**
@@ -84,7 +97,7 @@ public class X_C_SalesRegionInput extends MSalesRegion implements I_C_SalesRegio
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setSalesRep_ID(foreignEntity.get_ID());

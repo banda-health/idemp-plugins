@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.X_S_TimeType;
+
+/**
+ * Data Loader for S_TimeType - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_S_TimeTypeDataLoader extends PODataLoader<X_S_TimeType> {
+	public static String S_TimeType_BY_ID_DATA_LOADER = "S_TimeTypeByIdDataLoader";
+	public static String S_TimeType_BY_UUID_DATA_LOADER = "S_TimeTypeByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return X_S_TimeType.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return S_TimeType_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return S_TimeType_BY_UUID_DATA_LOADER;
+	}
+}

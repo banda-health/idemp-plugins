@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.MPeriodControl;
+
+/**
+ * Data Loader for C_PeriodControl - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_PeriodControlDataLoader extends PODataLoader<MPeriodControl> {
+	public static String C_PeriodControl_BY_ID_DATA_LOADER = "C_PeriodControlByIdDataLoader";
+	public static String C_PeriodControl_BY_UUID_DATA_LOADER = "C_PeriodControlByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return MPeriodControl.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return C_PeriodControl_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return C_PeriodControl_BY_UUID_DATA_LOADER;
+	}
+}

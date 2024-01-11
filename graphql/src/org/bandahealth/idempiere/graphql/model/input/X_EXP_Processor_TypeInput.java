@@ -6,7 +6,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEXPProcessorType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for EXP_Processor_Type - DO NOT CHANGE
@@ -16,14 +17,15 @@ import org.compiere.util.Env;
  */
 public class X_EXP_Processor_TypeInput extends MEXPProcessorType implements I_EXP_Processor_TypeInput {
 
-	 private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Org;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_EXP_Processor_TypeInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MEXPProcessorType(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -36,8 +38,8 @@ public class X_EXP_Processor_TypeInput extends MEXPProcessorType implements I_EX
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -52,6 +54,17 @@ public class X_EXP_Processor_TypeInput extends MEXPProcessorType implements I_EX
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Export Processor Type.
+	 *
+	 * @param EXP_Processor_Type_ID Export Processor Type
+	 */
+
+	public void setEXP_Processor_Type_ID(int EXP_Processor_Type_ID) {
+		if (get_ID() == 0) {
+			super.setEXP_Processor_Type_ID(EXP_Processor_Type_ID);
+		}
 	}
 
 	/**

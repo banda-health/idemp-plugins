@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -18,7 +17,8 @@ import org.compiere.model.MShippingProcessor;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_BP_ShippingAcct;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_Package - DO NOT CHANGE
@@ -28,34 +28,35 @@ import org.compiere.util.Env;
  */
 public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_BP_ShippingAcct;
-	 private ForeignEntityInput mC_BPartner_Location;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_UOM_Length;
-	 private ForeignEntityInput mC_UOM_Weight;
-	 private ForeignEntityInput mHoldAddress;
-	 private ForeignEntityInput mM_InOut;
-	 private ForeignEntityInput mM_Shipper;
-	 private ForeignEntityInput mM_ShipperLabels;
-	 private ForeignEntityInput mM_ShipperPackaging;
-	 private ForeignEntityInput mM_ShipperPickupTypes;
-	 private ForeignEntityInput mM_ShippingProcessor;
-	 private I_AD_Ref_ListInput mDeliveryConfirmationType;
-	 private I_AD_Ref_ListInput mDotHazardClassOrDivision;
-	 private I_AD_Ref_ListInput mFOB;
-	 private I_AD_Ref_ListInput mFreightCharges;
-	 private I_AD_Ref_ListInput mHomeDeliveryPremiumType;
-	 private I_AD_Ref_ListInput mInsurance;
-	 private I_AD_Ref_ListInput mNotificationType;
-	 private I_AD_Ref_ListInput mPaymentRule;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_BP_ShippingAcct;
+	private ForeignEntityInput mC_BPartner_Location;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_UOM_Length;
+	private ForeignEntityInput mC_UOM_Weight;
+	private ForeignEntityInput mHoldAddress;
+	private ForeignEntityInput mM_InOut;
+	private ForeignEntityInput mM_Shipper;
+	private ForeignEntityInput mM_ShipperLabels;
+	private ForeignEntityInput mM_ShipperPackaging;
+	private ForeignEntityInput mM_ShipperPickupTypes;
+	private ForeignEntityInput mM_ShippingProcessor;
+	private I_AD_Ref_ListInput mDeliveryConfirmationType;
+	private I_AD_Ref_ListInput mDotHazardClassOrDivision;
+	private I_AD_Ref_ListInput mFOB;
+	private I_AD_Ref_ListInput mFreightCharges;
+	private I_AD_Ref_ListInput mHomeDeliveryPremiumType;
+	private I_AD_Ref_ListInput mInsurance;
+	private I_AD_Ref_ListInput mNotificationType;
+	private I_AD_Ref_ListInput mPaymentRule;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_PackageInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MPackage(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -68,8 +69,8 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -96,7 +97,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 		this.mC_BP_ShippingAcct = C_BP_ShippingAcct;
 		X_C_BP_ShippingAcct foreignEntity;
 		if (C_BP_ShippingAcct != null &&
-				(foreignEntity = new Query(getCtx(), X_C_BP_ShippingAcct.Table_Name, X_C_BP_ShippingAcct.COLUMNNAME_C_BP_ShippingAcct_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BP_ShippingAcct", "C_BP_ShippingAcct_UU=?", get_TrxName())
 						.setParameters(C_BP_ShippingAcct.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BP_ShippingAcct_ID(foreignEntity.get_ID());
@@ -125,7 +126,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(C_BPartner_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_Location_ID(foreignEntity.get_ID());
@@ -154,7 +155,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -183,7 +184,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 		this.mC_UOM_Length = C_UOM_Length;
 		MUOM foreignEntity;
 		if (C_UOM_Length != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM_Length.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_Length_ID(foreignEntity.get_ID());
@@ -212,7 +213,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 		this.mC_UOM_Weight = C_UOM_Weight;
 		MUOM foreignEntity;
 		if (C_UOM_Weight != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM_Weight.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_Weight_ID(foreignEntity.get_ID());
@@ -299,17 +300,6 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	public I_AD_Ref_ListInput DotHazardClassOrDivision() {
 		return mDotHazardClassOrDivision;
 	}
-	/**
-	 * Set Estimated Weight.
-	 *
-	 * @param EstimatedWeight Estimated Weight
-	 */
-
-	public void setEstimatedWeight(BigDecimal EstimatedWeight) {
-		if (get_ID() == 0) {
-			super.setEstimatedWeight(EstimatedWeight);
-		}
-	}
 
 	/**
 	 * Set Freight Terms.
@@ -375,7 +365,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 		this.mHoldAddress = HoldAddress;
 		MBPartnerLocation foreignEntity;
 		if (HoldAddress != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(HoldAddress.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setHoldAddress_ID(foreignEntity.get_ID());
@@ -459,8 +449,8 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	public void setM_InOutInput(ForeignEntityInput M_InOut) {
 		this.mM_InOut = M_InOut;
 		MInOut_BH foreignEntity;
-		if (get_ID() == 0 &&M_InOut != null &&
-				(foreignEntity = new Query(getCtx(), MInOut_BH.Table_Name, MInOut_BH.COLUMNNAME_M_InOut_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_InOut != null &&
+				(foreignEntity = new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
 						.setParameters(M_InOut.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_InOut_ID(foreignEntity.get_ID());
@@ -475,6 +465,17 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	@JsonProperty("M_InOut")
 	public ForeignEntityInput M_InOut() {
 		return mM_InOut;
+	}
+	/**
+	 * Set Package.
+	 *
+	 * @param M_Package_ID Shipment Package
+	 */
+
+	public void setM_Package_ID(int M_Package_ID) {
+		if (get_ID() == 0) {
+			super.setM_Package_ID(M_Package_ID);
+		}
 	}
 
 	/**
@@ -505,7 +506,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (M_Shipper != null &&
-				(foreignEntity = new Query(getCtx(), MShipper.Table_Name, MShipper.COLUMNNAME_M_Shipper_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
 						.setParameters(M_Shipper.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Shipper_ID(foreignEntity.get_ID());
@@ -534,7 +535,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 		this.mM_ShipperLabels = M_ShipperLabels;
 		MShipperLabels foreignEntity;
 		if (M_ShipperLabels != null &&
-				(foreignEntity = new Query(getCtx(), MShipperLabels.Table_Name, MShipperLabels.COLUMNNAME_M_ShipperLabels_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_ShipperLabels", "M_ShipperLabels_UU=?", get_TrxName())
 						.setParameters(M_ShipperLabels.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShipperLabels_ID(foreignEntity.get_ID());
@@ -563,7 +564,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 		this.mM_ShipperPackaging = M_ShipperPackaging;
 		MShipperPackaging foreignEntity;
 		if (M_ShipperPackaging != null &&
-				(foreignEntity = new Query(getCtx(), MShipperPackaging.Table_Name, MShipperPackaging.COLUMNNAME_M_ShipperPackaging_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_ShipperPackaging", "M_ShipperPackaging_UU=?", get_TrxName())
 						.setParameters(M_ShipperPackaging.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShipperPackaging_ID(foreignEntity.get_ID());
@@ -592,7 +593,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 		this.mM_ShipperPickupTypes = M_ShipperPickupTypes;
 		MShipperPickupTypes foreignEntity;
 		if (M_ShipperPickupTypes != null &&
-				(foreignEntity = new Query(getCtx(), MShipperPickupTypes.Table_Name, MShipperPickupTypes.COLUMNNAME_M_ShipperPickupTypes_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_ShipperPickupTypes", "M_ShipperPickupTypes_UU=?", get_TrxName())
 						.setParameters(M_ShipperPickupTypes.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShipperPickupTypes_ID(foreignEntity.get_ID());
@@ -620,8 +621,8 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	public void setM_ShippingProcessorInput(ForeignEntityInput M_ShippingProcessor) {
 		this.mM_ShippingProcessor = M_ShippingProcessor;
 		MShippingProcessor foreignEntity;
-		if (get_ID() == 0 &&M_ShippingProcessor != null &&
-				(foreignEntity = new Query(getCtx(), MShippingProcessor.Table_Name, MShippingProcessor.COLUMNNAME_M_ShippingProcessor_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_ShippingProcessor != null &&
+				(foreignEntity = new Query(getCtx(), "M_ShippingProcessor", "M_ShippingProcessor_UU=?", get_TrxName())
 						.setParameters(M_ShippingProcessor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShippingProcessor_ID(foreignEntity.get_ID());
@@ -694,16 +695,5 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	@JsonProperty("PaymentRule")
 	public I_AD_Ref_ListInput PaymentRule() {
 		return mPaymentRule;
-	}
-	/**
-	 * Set Total Price.
-	 *
-	 * @param TotalPrice Total Price
-	 */
-
-	public void setTotalPrice(BigDecimal TotalPrice) {
-		if (get_ID() == 0) {
-			super.setTotalPrice(TotalPrice);
-		}
 	}
 }

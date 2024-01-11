@@ -1,0 +1,82 @@
+# Generated Schema for AD_PrintGraph - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_PrintGraphGet(page: Int, size: Int, sort: String, filter: String): AD_PrintGraphConnection!
+}
+
+extend type Mutation {
+	AD_PrintGraphSave(entity: AD_PrintGraphInput!): AD_PrintGraph!
+	AD_PrintGraphDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_PrintGraphConnection {
+	results: [AD_PrintGraph!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_PrintGraph {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Data Print Format
+	AD_PrintFormat: AD_PrintFormat!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Data Column for Pie and Line Charts
+	Data_PrintFormatItem: AD_PrintFormatItem!
+	# Data Column for Line Charts
+	Data1_PrintFormatItem: AD_PrintFormatItem
+	# Data Column for Line Charts
+	Data2_PrintFormatItem: AD_PrintFormatItem
+	# Data Column for Line Charts
+	Data3_PrintFormatItem: AD_PrintFormatItem
+	# Data Column for Line Charts
+	Data4_PrintFormatItem: AD_PrintFormatItem
+	# Optional short description of the record
+	Description: String
+	# Description Column for Pie/Line/Bar Charts
+	Description_PrintFormatItem: AD_PrintFormatItem!
+	# Type of graph to be painted
+	GraphType: AD_Ref_List!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_PrintGraphInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Data Print Format
+	AD_PrintFormat: ForeignEntityInput
+	ID: ID
+	# Data Column for Pie and Line Charts
+	Data_PrintFormatItem: ForeignEntityInput
+	# Data Column for Line Charts
+	Data1_PrintFormatItem: ForeignEntityInput
+	# Data Column for Line Charts
+	Data2_PrintFormatItem: ForeignEntityInput
+	# Data Column for Line Charts
+	Data3_PrintFormatItem: ForeignEntityInput
+	# Data Column for Line Charts
+	Data4_PrintFormatItem: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Description Column for Pie/Line/Bar Charts
+	Description_PrintFormatItem: ForeignEntityInput
+	# Type of graph to be painted
+	GraphType: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

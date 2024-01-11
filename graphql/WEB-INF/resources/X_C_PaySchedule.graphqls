@@ -1,0 +1,74 @@
+# Generated Schema for C_PaySchedule - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_PayScheduleGet(page: Int, size: Int, sort: String, filter: String): C_PayScheduleConnection!
+}
+
+extend type Mutation {
+	C_PayScheduleSave(entity: C_PayScheduleInput!): C_PaySchedule!
+	C_PayScheduleDelete(uuids: [String!]!): Boolean!
+}
+
+type C_PayScheduleConnection {
+	results: [C_PaySchedule!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_PaySchedule {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: C_PaymentTerm!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Discount in percent
+	Discount: Int!
+	# Number of days from invoice date to be eligible for discount
+	DiscountDays: Int!
+	# Days after due date to send first dunning letter
+	GraceDays: Int!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Element is valid
+	IsValid: Boolean!
+	# Day when payment is due net
+	NetDay: AD_Ref_List
+	# Net Days in which payment is due
+	NetDays: Int!
+	# Percent of the entire amount
+	Percentage: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_PayScheduleInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
+	ID: ID
+	# Discount in percent
+	Discount: Int
+	# Number of days from invoice date to be eligible for discount
+	DiscountDays: Int
+	# Days after due date to send first dunning letter
+	GraceDays: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Element is valid
+	IsValid: Boolean
+	# Day when payment is due net
+	NetDay: AD_Ref_ListInput
+	# Net Days in which payment is due
+	NetDays: Int
+	# Percent of the entire amount
+	Percentage: Int
+}

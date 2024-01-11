@@ -1,0 +1,82 @@
+# Generated Schema for AD_UserDef_Win - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_UserDef_WinGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_WinConnection!
+}
+
+extend type Mutation {
+	AD_UserDef_WinSave(entity: AD_UserDef_WinInput!): AD_UserDef_Win!
+	AD_UserDef_WinDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_UserDef_WinConnection {
+	results: [AD_UserDef_Win!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_UserDef_Win {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Language for this entity
+	AD_Language: AD_Language
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	ID: ID!
+	# Data entry or display window
+	AD_Window: AD_Window!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Field is read only
+	IsReadOnly: Boolean!
+	# The field can be updated by the user
+	IsUserUpdateable: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_UserDef_WinInput {
+	# Language for this entity
+	AD_Language: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	ID: ID
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Field is read only
+	IsReadOnly: Boolean
+	# The field can be updated by the user
+	IsUserUpdateable: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

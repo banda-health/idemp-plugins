@@ -1,0 +1,68 @@
+# Generated Schema for M_RMATax - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_RMATaxGet(page: Int, size: Int, sort: String, filter: String): M_RMATaxConnection!
+}
+
+extend type Mutation {
+	M_RMATaxSave(entity: M_RMATaxInput!): M_RMATax!
+	M_RMATaxDelete(uuids: [String!]!): Boolean!
+}
+
+type M_RMATaxConnection {
+	results: [M_RMATax!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_RMATax {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Tax identifier
+	C_Tax: C_Tax!
+	C_TaxProvider: C_TaxProvider
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Tax is included in the price 
+	IsTaxIncluded: Boolean!
+	# Return Material Authorization
+	M_RMA: M_RMA!
+	ID: ID!
+	# The document has been processed
+	Processed: Boolean!
+	# Tax Amount for a document
+	TaxAmt: Int!
+	# Base for calculating the tax amount
+	TaxBaseAmt: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_RMATaxInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Tax identifier
+	C_Tax: ForeignEntityInput
+	C_TaxProvider: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Tax is included in the price 
+	IsTaxIncluded: Boolean
+	# Return Material Authorization
+	M_RMA: ForeignEntityInput
+	ID: ID
+	# The document has been processed
+	Processed: Boolean
+	# Tax Amount for a document
+	TaxAmt: Int
+	# Base for calculating the tax amount
+	TaxBaseAmt: Int
+}

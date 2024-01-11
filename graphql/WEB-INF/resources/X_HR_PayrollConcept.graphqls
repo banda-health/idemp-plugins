@@ -1,0 +1,68 @@
+# Generated Schema for HR_PayrollConcept - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	HR_PayrollConceptGet(page: Int, size: Int, sort: String, filter: String): HR_PayrollConceptConnection!
+}
+
+extend type Mutation {
+	HR_PayrollConceptSave(entity: HR_PayrollConceptInput!): HR_PayrollConcept!
+	HR_PayrollConceptDelete(uuids: [String!]!): Boolean!
+}
+
+type HR_PayrollConceptConnection {
+	results: [HR_PayrollConcept!]!
+	pagingInfo: PagingInfo!
+}
+
+type HR_PayrollConcept {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	AD_Rule: AD_Rule
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	HR_Concept: HR_Concept!
+	HR_Payroll: HR_Payroll!
+	ID: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Determines, if this field is displayed
+	IsDisplayed: Boolean!
+	# Defines whether this content / template is included into another one
+	IsInclude: Boolean!
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input HR_PayrollConceptInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	AD_Rule: ForeignEntityInput
+	HR_Concept: ForeignEntityInput
+	HR_Payroll: ForeignEntityInput
+	ID: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Determines, if this field is displayed
+	IsDisplayed: Boolean
+	# Defines whether this content / template is included into another one
+	IsInclude: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

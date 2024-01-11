@@ -14,7 +14,8 @@ import org.compiere.model.X_AD_WF_Node;
 import org.compiere.model.X_AD_WF_Responsible;
 import org.compiere.model.X_AD_Workflow;
 import org.compiere.model.X_AD_WorkflowProcessor;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Workflow - DO NOT CHANGE
@@ -24,26 +25,27 @@ import org.compiere.util.Env;
  */
 public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowInput {
 
-	 private ForeignEntityInput mAD_CtxHelp;
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Table;
-	 private ForeignEntityInput mAD_WF_Node;
-	 private ForeignEntityInput mAD_WF_Responsible;
-	 private ForeignEntityInput mAD_WorkflowProcessor;
-	 private ForeignEntityInput mS_Resource;
-	 private I_AD_Ref_ListInput mAccessLevel;
-	 private I_AD_Ref_ListInput mDurationUnit;
-	 private I_AD_Ref_ListInput mProcessType;
-	 private I_AD_Ref_ListInput mPublishStatus;
-	 private I_AD_Ref_ListInput mWorkflowType;
+	private ForeignEntityInput mAD_CtxHelp;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Table;
+	private ForeignEntityInput mAD_WF_Node;
+	private ForeignEntityInput mAD_WF_Responsible;
+	private ForeignEntityInput mAD_WorkflowProcessor;
+	private ForeignEntityInput mS_Resource;
+	private I_AD_Ref_ListInput mAccessLevel;
+	private I_AD_Ref_ListInput mDurationUnit;
+	private I_AD_Ref_ListInput mProcessType;
+	private I_AD_Ref_ListInput mPublishStatus;
+	private I_AD_Ref_ListInput mWorkflowType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_WorkflowInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_AD_Workflow(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -86,7 +88,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 		this.mAD_CtxHelp = AD_CtxHelp;
 		MCtxHelp foreignEntity;
 		if (AD_CtxHelp != null &&
-				(foreignEntity = new Query(getCtx(), MCtxHelp.Table_Name, MCtxHelp.COLUMNNAME_AD_CtxHelp_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
 						.setParameters(AD_CtxHelp.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_CtxHelp_ID(foreignEntity.get_ID());
@@ -114,8 +116,8 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -142,7 +144,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), MTable.Table_Name, MTable.COLUMNNAME_AD_Table_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Table_ID(foreignEntity.get_ID());
@@ -171,7 +173,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 		this.mAD_WF_Node = AD_WF_Node;
 		X_AD_WF_Node foreignEntity;
 		if (AD_WF_Node != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_WF_Node.Table_Name, X_AD_WF_Node.COLUMNNAME_AD_WF_Node_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
 						.setParameters(AD_WF_Node.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_WF_Node_ID(foreignEntity.get_ID());
@@ -200,7 +202,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 		this.mAD_WF_Responsible = AD_WF_Responsible;
 		X_AD_WF_Responsible foreignEntity;
 		if (AD_WF_Responsible != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_WF_Responsible.Table_Name, X_AD_WF_Responsible.COLUMNNAME_AD_WF_Responsible_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_WF_Responsible", "AD_WF_Responsible_UU=?", get_TrxName())
 						.setParameters(AD_WF_Responsible.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_WF_Responsible_ID(foreignEntity.get_ID());
@@ -217,6 +219,17 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	@JsonProperty("AD_WF_Responsible")
 	public ForeignEntityInput AD_WF_Responsible() {
 		return mAD_WF_Responsible;
+	}
+	/**
+	 * Set Workflow.
+	 *
+	 * @param AD_Workflow_ID Workflow or combination of tasks
+	 */
+
+	public void setAD_Workflow_ID(int AD_Workflow_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Workflow_ID(AD_Workflow_ID);
+		}
 	}
 
 	/**
@@ -247,7 +260,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 		this.mAD_WorkflowProcessor = AD_WorkflowProcessor;
 		X_AD_WorkflowProcessor foreignEntity;
 		if (AD_WorkflowProcessor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_WorkflowProcessor.Table_Name, X_AD_WorkflowProcessor.COLUMNNAME_AD_WorkflowProcessor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_WorkflowProcessor", "AD_WorkflowProcessor_UU=?", get_TrxName())
 						.setParameters(AD_WorkflowProcessor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_WorkflowProcessor_ID(foreignEntity.get_ID());
@@ -305,7 +318,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());
@@ -392,7 +405,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
 		if (S_Resource != null &&
-				(foreignEntity = new Query(getCtx(), MResource.Table_Name, MResource.COLUMNNAME_S_Resource_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
 						.setParameters(S_Resource.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setS_Resource_ID(foreignEntity.get_ID());

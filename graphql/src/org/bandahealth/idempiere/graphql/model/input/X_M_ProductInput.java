@@ -21,7 +21,8 @@ import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_SubscriptionType;
 import org.compiere.model.X_M_PartType;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_Product - DO NOT CHANGE
@@ -31,29 +32,30 @@ import org.compiere.util.Env;
  */
 public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_RevenueRecognition;
-	 private ForeignEntityInput mC_SubscriptionType;
-	 private ForeignEntityInput mC_TaxCategory;
-	 private ForeignEntityInput mC_UOM;
-	 private ForeignEntityInput mM_AttributeSet;
-	 private ForeignEntityInput mM_AttributeSetInstance;
-	 private ForeignEntityInput mM_FreightCategory;
-	 private ForeignEntityInput mM_Locator;
-	 private ForeignEntityInput mM_PartType;
-	 private ForeignEntityInput mM_Product_Category;
-	 private ForeignEntityInput mR_MailText;
-	 private ForeignEntityInput mS_ExpenseType;
-	 private ForeignEntityInput mS_Resource;
-	 private ForeignEntityInput mSalesRep;
-	 private I_AD_Ref_ListInput mProductType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_RevenueRecognition;
+	private ForeignEntityInput mC_SubscriptionType;
+	private ForeignEntityInput mC_TaxCategory;
+	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mM_AttributeSet;
+	private ForeignEntityInput mM_AttributeSetInstance;
+	private ForeignEntityInput mM_FreightCategory;
+	private ForeignEntityInput mM_Locator;
+	private ForeignEntityInput mM_PartType;
+	private ForeignEntityInput mM_Product_Category;
+	private ForeignEntityInput mR_MailText;
+	private ForeignEntityInput mS_ExpenseType;
+	private ForeignEntityInput mS_Resource;
+	private ForeignEntityInput mSalesRep;
+	private I_AD_Ref_ListInput mProductType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_ProductInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MProduct_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -66,8 +68,8 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -94,7 +96,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mC_RevenueRecognition = C_RevenueRecognition;
 		MRevenueRecognition foreignEntity;
 		if (C_RevenueRecognition != null &&
-				(foreignEntity = new Query(getCtx(), MRevenueRecognition.Table_Name, MRevenueRecognition.COLUMNNAME_C_RevenueRecognition_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_RevenueRecognition", "C_RevenueRecognition_UU=?", get_TrxName())
 						.setParameters(C_RevenueRecognition.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_RevenueRecognition_ID(foreignEntity.get_ID());
@@ -123,7 +125,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mC_SubscriptionType = C_SubscriptionType;
 		X_C_SubscriptionType foreignEntity;
 		if (C_SubscriptionType != null &&
-				(foreignEntity = new Query(getCtx(), X_C_SubscriptionType.Table_Name, X_C_SubscriptionType.COLUMNNAME_C_SubscriptionType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_SubscriptionType", "C_SubscriptionType_UU=?", get_TrxName())
 						.setParameters(C_SubscriptionType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_SubscriptionType_ID(foreignEntity.get_ID());
@@ -152,7 +154,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mC_TaxCategory = C_TaxCategory;
 		MTaxCategory foreignEntity;
 		if (C_TaxCategory != null &&
-				(foreignEntity = new Query(getCtx(), MTaxCategory.Table_Name, MTaxCategory.COLUMNNAME_C_TaxCategory_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
 						.setParameters(C_TaxCategory.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_TaxCategory_ID(foreignEntity.get_ID());
@@ -181,7 +183,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
 		if (C_UOM != null &&
-				(foreignEntity = new Query(getCtx(), MUOM.Table_Name, MUOM.COLUMNNAME_C_UOM_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 						.setParameters(C_UOM.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_UOM_ID(foreignEntity.get_ID());
@@ -221,7 +223,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mM_AttributeSet = M_AttributeSet;
 		MAttributeSet_BH foreignEntity;
 		if (M_AttributeSet != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSet_BH.Table_Name, MAttributeSet_BH.COLUMNNAME_M_AttributeSet_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
 						.setParameters(M_AttributeSet.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSet_ID(foreignEntity.get_ID());
@@ -250,7 +252,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
@@ -279,7 +281,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mM_FreightCategory = M_FreightCategory;
 		MFreightCategory foreignEntity;
 		if (M_FreightCategory != null &&
-				(foreignEntity = new Query(getCtx(), MFreightCategory.Table_Name, MFreightCategory.COLUMNNAME_M_FreightCategory_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_FreightCategory", "M_FreightCategory_UU=?", get_TrxName())
 						.setParameters(M_FreightCategory.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_FreightCategory_ID(foreignEntity.get_ID());
@@ -308,7 +310,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
-				(foreignEntity = new Query(getCtx(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Locator_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 						.setParameters(M_Locator.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Locator_ID(foreignEntity.get_ID());
@@ -337,7 +339,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mM_PartType = M_PartType;
 		X_M_PartType foreignEntity;
 		if (M_PartType != null &&
-				(foreignEntity = new Query(getCtx(), X_M_PartType.Table_Name, X_M_PartType.COLUMNNAME_M_PartType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_PartType", "M_PartType_UU=?", get_TrxName())
 						.setParameters(M_PartType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_PartType_ID(foreignEntity.get_ID());
@@ -366,7 +368,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mM_Product_Category = M_Product_Category;
 		MProductCategory_BH foreignEntity;
 		if (M_Product_Category != null &&
-				(foreignEntity = new Query(getCtx(), MProductCategory_BH.Table_Name, MProductCategory_BH.COLUMNNAME_M_Product_Category_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
 						.setParameters(M_Product_Category.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_Category_ID(foreignEntity.get_ID());
@@ -383,6 +385,17 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	@JsonProperty("M_Product_Category")
 	public ForeignEntityInput M_Product_Category() {
 		return mM_Product_Category;
+	}
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product_ID Product, Service, Item
+	 */
+
+	public void setM_Product_ID(int M_Product_ID) {
+		if (get_ID() == 0) {
+			super.setM_Product_ID(M_Product_ID);
+		}
 	}
 
 	/**
@@ -431,17 +444,6 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	public I_AD_Ref_ListInput ProductType() {
 		return mProductType;
 	}
-	/**
-	 * Set QtyInStore.
-	 *
-	 * @param QtyInStore Quantity In Store
-	 */
-
-	public void setQtyInStore(int QtyInStore) {
-		if (get_ID() == 0) {
-			super.setQtyInStore(QtyInStore);
-		}
-	}
 
 	/**
 	 * Set Mail Template.
@@ -453,7 +455,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mR_MailText = R_MailText;
 		MMailText foreignEntity;
 		if (R_MailText != null &&
-				(foreignEntity = new Query(getCtx(), MMailText.Table_Name, MMailText.COLUMNNAME_R_MailText_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
 						.setParameters(R_MailText.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setR_MailText_ID(foreignEntity.get_ID());
@@ -481,8 +483,8 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	public void setS_ExpenseTypeInput(ForeignEntityInput S_ExpenseType) {
 		this.mS_ExpenseType = S_ExpenseType;
 		MExpenseType foreignEntity;
-		if (get_ID() == 0 &&S_ExpenseType != null &&
-				(foreignEntity = new Query(getCtx(), MExpenseType.Table_Name, MExpenseType.COLUMNNAME_S_ExpenseType_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && S_ExpenseType != null &&
+				(foreignEntity = new Query(getCtx(), "S_ExpenseType", "S_ExpenseType_UU=?", get_TrxName())
 						.setParameters(S_ExpenseType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setS_ExpenseType_ID(foreignEntity.get_ID());
@@ -508,8 +510,8 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
-		if (get_ID() == 0 &&S_Resource != null &&
-				(foreignEntity = new Query(getCtx(), MResource.Table_Name, MResource.COLUMNNAME_S_Resource_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && S_Resource != null &&
+				(foreignEntity = new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
 						.setParameters(S_Resource.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setS_Resource_ID(foreignEntity.get_ID());
@@ -536,7 +538,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setSalesRep_ID(foreignEntity.get_ID());

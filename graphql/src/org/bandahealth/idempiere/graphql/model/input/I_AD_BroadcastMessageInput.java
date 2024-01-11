@@ -1,0 +1,110 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import org.compiere.model.I_AD_BroadcastMessage;
+
+/**
+ * Generated Interface for AD_BroadcastMessage - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public interface I_AD_BroadcastMessageInput extends I_AD_BroadcastMessage {
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	void setID(String ID);
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	String getID();
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within client
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set AD_Role.
+	 *
+	 * @param AD_Role Responsibility Role
+	 */
+	void setAD_RoleInput(ForeignEntityInput AD_Role);
+
+	/**
+	 * Get AD_Role.
+	 *
+	 * @return Responsibility Role
+	 */
+	ForeignEntityInput AD_Role();
+
+	/**
+	 * Set AD_User.
+	 *
+	 * @param AD_User User within the system - Internal or Business Partner Contact
+	 */
+	void setAD_UserInput(ForeignEntityInput AD_User);
+
+	/**
+	 * Get AD_User.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	ForeignEntityInput AD_User();
+
+	/**
+	 * Set BroadcastFrequency.
+	 *
+	 * @param BroadcastFrequency How Many Times Message Should be Broadcasted
+	 */
+	void setBroadcastFrequencyInput(I_AD_Ref_ListInput BroadcastFrequency);
+
+	/**
+	 * Get BroadcastFrequency.
+	 *
+	 * @return How Many Times Message Should be Broadcasted
+	 */
+	I_AD_Ref_ListInput BroadcastFrequency();
+
+	/**
+	 * Set BroadcastType.
+	 *
+	 * @param BroadcastType Type of Broadcast
+	 */
+	void setBroadcastTypeInput(I_AD_Ref_ListInput BroadcastType);
+
+	/**
+	 * Get BroadcastType.
+	 *
+	 * @return Type of Broadcast
+	 */
+	I_AD_Ref_ListInput BroadcastType();
+
+	/**
+	 * Set Target.
+	 *
+	 * @param Target Target client
+	 */
+	void setTargetInput(I_AD_Ref_ListInput Target);
+
+	/**
+	 * Get Target.
+	 *
+	 * @return Target client
+	 */
+	I_AD_Ref_ListInput Target();
+}

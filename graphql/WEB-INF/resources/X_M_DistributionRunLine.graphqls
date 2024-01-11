@@ -1,0 +1,70 @@
+# Generated Schema for M_DistributionRunLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_DistributionRunLineGet(page: Int, size: Int, sort: String, filter: String): M_DistributionRunLineConnection!
+}
+
+extend type Mutation {
+	M_DistributionRunLineSave(entity: M_DistributionRunLineInput!): M_DistributionRunLine!
+	M_DistributionRunLineDelete(uuids: [String!]!): Boolean!
+}
+
+type M_DistributionRunLineConnection {
+	results: [M_DistributionRunLine!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_DistributionRunLine {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Distribution Lists allow to distribute products to a selected list of partners
+	M_DistributionList: M_DistributionList!
+	# Distribution Run create Orders to distribute products to a selected list of partners
+	M_DistributionRun: M_DistributionRun!
+	ID: ID!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Minimum quantity for the business partner
+	MinQty: Int!
+	# Total Quantity
+	TotalQty: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_DistributionRunLineInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Distribution Lists allow to distribute products to a selected list of partners
+	M_DistributionList: ForeignEntityInput
+	# Distribution Run create Orders to distribute products to a selected list of partners
+	M_DistributionRun: ForeignEntityInput
+	ID: ID
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Minimum quantity for the business partner
+	MinQty: Int
+	# Total Quantity
+	TotalQty: Int
+}

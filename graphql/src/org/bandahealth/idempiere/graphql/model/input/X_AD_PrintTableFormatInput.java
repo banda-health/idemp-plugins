@@ -10,7 +10,8 @@ import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
 import org.compiere.model.X_AD_PrintTableFormat;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_PrintTableFormat - DO NOT CHANGE
@@ -20,25 +21,26 @@ import org.compiere.util.Env;
  */
 public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements I_AD_PrintTableFormatInput {
 
-	 private ForeignEntityInput mAD_Image;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mFunctBG_PrintColor;
-	 private ForeignEntityInput mFunctFG_PrintColor;
-	 private ForeignEntityInput mFunct_PrintFont;
-	 private ForeignEntityInput mHdrLine_PrintColor;
-	 private ForeignEntityInput mHdrTextBG_PrintColor;
-	 private ForeignEntityInput mHdrTextFG_PrintColor;
-	 private ForeignEntityInput mHdr_PrintFont;
-	 private ForeignEntityInput mLine_PrintColor;
-	 private I_AD_Ref_ListInput mHdrStrokeType;
-	 private I_AD_Ref_ListInput mLineStrokeType;
+	private ForeignEntityInput mAD_Image;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mFunctBG_PrintColor;
+	private ForeignEntityInput mFunctFG_PrintColor;
+	private ForeignEntityInput mFunct_PrintFont;
+	private ForeignEntityInput mHdrLine_PrintColor;
+	private ForeignEntityInput mHdrTextBG_PrintColor;
+	private ForeignEntityInput mHdrTextFG_PrintColor;
+	private ForeignEntityInput mHdr_PrintFont;
+	private ForeignEntityInput mLine_PrintColor;
+	private I_AD_Ref_ListInput mHdrStrokeType;
+	private I_AD_Ref_ListInput mLineStrokeType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_PrintTableFormatInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_AD_PrintTableFormat(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -52,7 +54,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
-				(foreignEntity = new Query(getCtx(), MImage.Table_Name, MImage.COLUMNNAME_AD_Image_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
 						.setParameters(AD_Image.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Image_ID(foreignEntity.get_ID());
@@ -80,8 +82,8 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -96,6 +98,17 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Print Table Format.
+	 *
+	 * @param AD_PrintTableFormat_ID Table Format in Reports
+	 */
+
+	public void setAD_PrintTableFormat_ID(int AD_PrintTableFormat_ID) {
+		if (get_ID() == 0) {
+			super.setAD_PrintTableFormat_ID(AD_PrintTableFormat_ID);
+		}
 	}
 
 	/**
@@ -126,7 +139,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 		this.mFunct_PrintFont = Funct_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (Funct_PrintFont != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintFont.Table_Name, X_AD_PrintFont.COLUMNNAME_AD_PrintFont_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
 						.setParameters(Funct_PrintFont.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setFunct_PrintFont_ID(foreignEntity.get_ID());
@@ -155,7 +168,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 		this.mFunctBG_PrintColor = FunctBG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (FunctBG_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(FunctBG_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setFunctBG_PrintColor_ID(foreignEntity.get_ID());
@@ -184,7 +197,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 		this.mFunctFG_PrintColor = FunctFG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (FunctFG_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(FunctFG_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setFunctFG_PrintColor_ID(foreignEntity.get_ID());
@@ -213,7 +226,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 		this.mHdr_PrintFont = Hdr_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (Hdr_PrintFont != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintFont.Table_Name, X_AD_PrintFont.COLUMNNAME_AD_PrintFont_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
 						.setParameters(Hdr_PrintFont.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setHdr_PrintFont_ID(foreignEntity.get_ID());
@@ -242,7 +255,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 		this.mHdrLine_PrintColor = HdrLine_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (HdrLine_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(HdrLine_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setHdrLine_PrintColor_ID(foreignEntity.get_ID());
@@ -300,7 +313,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 		this.mHdrTextBG_PrintColor = HdrTextBG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (HdrTextBG_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(HdrTextBG_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setHdrTextBG_PrintColor_ID(foreignEntity.get_ID());
@@ -329,7 +342,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 		this.mHdrTextFG_PrintColor = HdrTextFG_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (HdrTextFG_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(HdrTextFG_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setHdrTextFG_PrintColor_ID(foreignEntity.get_ID());
@@ -358,7 +371,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 		this.mLine_PrintColor = Line_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (Line_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(Line_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setLine_PrintColor_ID(foreignEntity.get_ID());

@@ -1,0 +1,148 @@
+# Generated Schema for U_POSTerminal - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	U_POSTerminalGet(page: Int, size: Int, sort: String, filter: String): U_POSTerminalConnection!
+}
+
+extend type Mutation {
+	U_POSTerminalSave(entity: U_POSTerminalInput!): U_POSTerminal!
+	U_POSTerminalDelete(uuids: [String!]!): Boolean!
+}
+
+type U_POSTerminalConnection {
+	results: [U_POSTerminal!]!
+	pagingInfo: PagingInfo!
+}
+
+type U_POSTerminal {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Whether to automatically lock the terminal when till is closed
+	AutoLock: Boolean!
+	# Cash Book for recording petty cash transactions
+	C_CashBook: C_CashBook!
+	# BPartner to be used for Cash transactions
+	C_CashBPartner: C_BPartner!
+	# BPartner that is to be used as template when new customers are created
+	C_TemplateBPartner: C_BPartner
+	# Bank Account on which card transactions will be processed
+	Card_BankAccount: C_BankAccount
+	# Bank account on which to transfer Card transactions
+	CardTransferBankAccount: C_BankAccount
+	# Cash Book on which to transfer all Card transactions
+	CardTransferCashBook: C_CashBook
+	CardTransferType: AD_Ref_List
+	# Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
+	CashBookTransferType: AD_Ref_List!
+	# Bank Account on which to transfer all Cash transactions
+	CashTransferBankAccount: C_BankAccount
+	# Cash Book on which to transfer all Cash transactions
+	CashTransferCashBook: C_CashBook
+	# Bank Account to be used for processing Check transactions
+	Check_BankAccount: C_BankAccount
+	# Bank account on which to transfer Check transactions
+	CheckTransferBankAccount: C_BankAccount
+	# Cash Book on which to transfer all Check transactions
+	CheckTransferCashBook: C_CashBook
+	CheckTransferType: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Last time at which the terminal was locked
+	LastLockTime: Date
+	# Whether the terminal is locked
+	Locked: Boolean!
+	# Time in minutes the terminal should be kept in a locked state.
+	LockTime: Int
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Price List used by this Business Partner
+	PO_PriceList: M_PriceList
+	# Name of the Printer
+	PrinterName: String
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
+	SO_PriceList: M_PriceList
+	ID: ID!
+	# Time at which the terminal should be unlocked
+	UnlockingTime: Date
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input U_POSTerminalInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Whether to automatically lock the terminal when till is closed
+	AutoLock: Boolean
+	# Cash Book for recording petty cash transactions
+	C_CashBook: ForeignEntityInput
+	# BPartner to be used for Cash transactions
+	C_CashBPartner: ForeignEntityInput
+	# BPartner that is to be used as template when new customers are created
+	C_TemplateBPartner: ForeignEntityInput
+	# Bank Account on which card transactions will be processed
+	Card_BankAccount: ForeignEntityInput
+	# Bank account on which to transfer Card transactions
+	CardTransferBankAccount: ForeignEntityInput
+	# Cash Book on which to transfer all Card transactions
+	CardTransferCashBook: ForeignEntityInput
+	CardTransferType: AD_Ref_ListInput
+	# Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
+	CashBookTransferType: AD_Ref_ListInput
+	# Bank Account on which to transfer all Cash transactions
+	CashTransferBankAccount: ForeignEntityInput
+	# Cash Book on which to transfer all Cash transactions
+	CashTransferCashBook: ForeignEntityInput
+	# Bank Account to be used for processing Check transactions
+	Check_BankAccount: ForeignEntityInput
+	# Bank account on which to transfer Check transactions
+	CheckTransferBankAccount: ForeignEntityInput
+	# Cash Book on which to transfer all Check transactions
+	CheckTransferCashBook: ForeignEntityInput
+	CheckTransferType: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Last time at which the terminal was locked
+	LastLockTime: Date
+	# Whether the terminal is locked
+	Locked: Boolean
+	# Time in minutes the terminal should be kept in a locked state.
+	LockTime: Int
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Price List used by this Business Partner
+	PO_PriceList: ForeignEntityInput
+	# Name of the Printer
+	PrinterName: String
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	SO_PriceList: ForeignEntityInput
+	ID: ID
+	# Time at which the terminal should be unlocked
+	UnlockingTime: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

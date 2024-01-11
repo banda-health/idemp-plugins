@@ -1,0 +1,46 @@
+# Generated Schema for C_Subscription_Delivery - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_Subscription_DeliveryGet(page: Int, size: Int, sort: String, filter: String): C_Subscription_DeliveryConnection!
+}
+
+extend type Mutation {
+	C_Subscription_DeliverySave(entity: C_Subscription_DeliveryInput!): C_Subscription_Delivery!
+	C_Subscription_DeliveryDelete(uuids: [String!]!): Boolean!
+}
+
+type C_Subscription_DeliveryConnection {
+	results: [C_Subscription_Delivery!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_Subscription_Delivery {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	ID: ID!
+	# Subscription of a Business Partner of a Product to renew
+	C_Subscription: C_Subscription!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_Subscription_DeliveryInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	ID: ID
+	# Subscription of a Business Partner of a Product to renew
+	C_Subscription: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

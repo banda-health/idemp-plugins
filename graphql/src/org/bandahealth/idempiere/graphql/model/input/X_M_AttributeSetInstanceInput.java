@@ -9,7 +9,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLot;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_AttributeSetInstance - DO NOT CHANGE
@@ -19,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH implements I_M_AttributeSetInstanceInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mM_AttributeSet;
-	 private ForeignEntityInput mM_Lot;
-	 private I_AD_Ref_ListInput mbh_update_reason;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mM_AttributeSet;
+	private ForeignEntityInput mM_Lot;
+	private I_AD_Ref_ListInput mbh_update_reason;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_AttributeSetInstanceInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MAttributeSetInstance_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -42,8 +44,8 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -58,17 +60,6 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
-	}
-	/**
-	 * Set Guarantee Date String.
-	 *
-	 * @param BH_GuaranteeDateString String date when guarantee expires
-	 */
-
-	public void setBH_GuaranteeDateString(String BH_GuaranteeDateString) {
-		if (get_ID() == 0) {
-			super.setBH_GuaranteeDateString(BH_GuaranteeDateString);
-		}
 	}
 
 	/**
@@ -110,7 +101,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 		this.mM_AttributeSet = M_AttributeSet;
 		MAttributeSet_BH foreignEntity;
 		if (M_AttributeSet != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSet_BH.Table_Name, MAttributeSet_BH.COLUMNNAME_M_AttributeSet_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
 						.setParameters(M_AttributeSet.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSet_ID(foreignEntity.get_ID());
@@ -127,6 +118,17 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	@JsonProperty("M_AttributeSet")
 	public ForeignEntityInput M_AttributeSet() {
 		return mM_AttributeSet;
+	}
+	/**
+	 * Set Attribute Set Instance.
+	 *
+	 * @param M_AttributeSetInstance_ID Product Attribute Set Instance
+	 */
+
+	public void setM_AttributeSetInstance_ID(int M_AttributeSetInstance_ID) {
+		if (get_ID() == 0) {
+			super.setM_AttributeSetInstance_ID(M_AttributeSetInstance_ID);
+		}
 	}
 
 	/**
@@ -157,7 +159,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 		this.mM_Lot = M_Lot;
 		MLot foreignEntity;
 		if (M_Lot != null &&
-				(foreignEntity = new Query(getCtx(), MLot.Table_Name, MLot.COLUMNNAME_M_Lot_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Lot", "M_Lot_UU=?", get_TrxName())
 						.setParameters(M_Lot.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Lot_ID(foreignEntity.get_ID());

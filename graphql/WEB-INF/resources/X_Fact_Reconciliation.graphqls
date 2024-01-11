@@ -1,0 +1,56 @@
+# Generated Schema for Fact_Reconciliation - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	Fact_ReconciliationGet(page: Int, size: Int, sort: String, filter: String): Fact_ReconciliationConnection!
+}
+
+extend type Mutation {
+	Fact_ReconciliationSave(entity: Fact_ReconciliationInput!): Fact_Reconciliation!
+	Fact_ReconciliationDelete(uuids: [String!]!): Boolean!
+}
+
+type Fact_ReconciliationConnection {
+	results: [Fact_Reconciliation!]!
+	pagingInfo: PagingInfo!
+}
+
+type Fact_Reconciliation {
+	# Account used
+	Account: C_ElementValue
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Amount Balance in Currency of Accounting Schema
+	AmtAcct: Int
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date
+	Fact_Acct: Fact_Acct!
+	ID: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# String identifying related accounting facts
+	MatchCode: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input Fact_ReconciliationInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	Fact_Acct: ForeignEntityInput
+	ID: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# String identifying related accounting facts
+	MatchCode: String
+}

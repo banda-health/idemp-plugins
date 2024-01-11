@@ -1,0 +1,92 @@
+# Generated Schema for AD_AllUsers_V - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_AllUsers_VGet(page: Int, size: Int, sort: String, filter: String): AD_AllUsers_VConnection!
+}
+
+extend type Mutation {
+	AD_AllUsers_VSave(entity: AD_AllUsers_VInput!): AD_AllUsers_V!
+	AD_AllUsers_VDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_AllUsers_VConnection {
+	results: [AD_AllUsers_V!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_AllUsers_V {
+	AD_AllClients_V: AD_AllClients_V
+	ID: ID!
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within client
+	AD_Org: AD_Org
+	# Date this record was created
+	Created: Date
+	# User who created this records
+	CreatedBy: AD_User
+	DateAccountLocked: Date
+	DateLastLogin: Date
+	DatePasswordChanged: Date
+	# Optional short description of the record
+	Description: String
+	# Electronic Mail Address
+	EMail: String
+	FailedLoginCount: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	IsExpired: Boolean!
+	IsLocked: Boolean!
+	IsNoExpire: Boolean!
+	IsNoPasswordReset: Boolean!
+	IsSupportUser: Boolean!
+	# User Name used for authorization via LDAP (directory) services
+	LDAPUser: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Password of any length (case sensitive)
+	Password: String
+	# Random data added to improve password hash effectiveness
+	Salt: String
+	# Date this record was updated
+	Updated: Date
+	# User who updated this records
+	UpdatedBy: AD_User
+	UserPIN: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input AD_AllUsers_VInput {
+	AD_AllClients_V: ForeignEntityInput
+	ID: ID
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	DateAccountLocked: Date
+	DateLastLogin: Date
+	DatePasswordChanged: Date
+	# Optional short description of the record
+	Description: String
+	# Electronic Mail Address
+	EMail: String
+	FailedLoginCount: Int
+	# The record is active in the system
+	IsActive: Boolean
+	IsExpired: Boolean
+	IsLocked: Boolean
+	IsNoExpire: Boolean
+	IsNoPasswordReset: Boolean
+	IsSupportUser: Boolean
+	# User Name used for authorization via LDAP (directory) services
+	LDAPUser: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Password of any length (case sensitive)
+	Password: String
+	# Random data added to improve password hash effectiveness
+	Salt: String
+	UserPIN: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

@@ -1,0 +1,126 @@
+# Generated Schema for AD_UserDef_Info_Column - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_UserDef_Info_ColumnGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_Info_ColumnConnection!
+}
+
+extend type Mutation {
+	AD_UserDef_Info_ColumnSave(entity: AD_UserDef_Info_ColumnInput!): AD_UserDef_Info_Column!
+	AD_UserDef_Info_ColumnDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_UserDef_Info_ColumnConnection {
+	results: [AD_UserDef_Info_Column!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_UserDef_Info_Column {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Field CSS Style 
+	AD_FieldStyle: AD_Style
+	# Info Window Column
+	AD_InfoColumn: AD_InfoColumn!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# System Reference and Validation
+	AD_Reference: AD_Reference
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: AD_Reference
+	ID: ID!
+	AD_UserDef_Info: AD_UserDef_Info!
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_Rule
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Comment or Hint
+	Help: String
+	# Input field validaton query
+	InputFieldValidation: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Automatic completion for textfields
+	IsAutocomplete: AD_Ref_List
+	# Determines, if this field is displayed
+	IsDisplayed: AD_Ref_List
+	# Data entry is required in this column
+	IsMandatory: AD_Ref_List
+	# The column is also used as a query criteria
+	IsQueryCriteria: AD_Ref_List
+	# Field is read only
+	IsReadOnly: AD_Ref_List
+	# Alphanumeric identifier of the entity
+	Name: String
+	Placeholder: String
+	# Database function for query
+	QueryFunction: String
+	# Operator for database query
+	QueryOperator: AD_Ref_List
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Selection Column Sequence
+	SeqNoSelection: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_UserDef_Info_ColumnInput {
+	# Field CSS Style 
+	AD_FieldStyle: ForeignEntityInput
+	# Info Window Column
+	AD_InfoColumn: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	ID: ID
+	AD_UserDef_Info: ForeignEntityInput
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Comment or Hint
+	Help: String
+	# Input field validaton query
+	InputFieldValidation: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Automatic completion for textfields
+	IsAutocomplete: AD_Ref_ListInput
+	# Determines, if this field is displayed
+	IsDisplayed: AD_Ref_ListInput
+	# Data entry is required in this column
+	IsMandatory: AD_Ref_ListInput
+	# The column is also used as a query criteria
+	IsQueryCriteria: AD_Ref_ListInput
+	# Field is read only
+	IsReadOnly: AD_Ref_ListInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	Placeholder: String
+	# Database function for query
+	QueryFunction: String
+	# Operator for database query
+	QueryOperator: AD_Ref_ListInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Selection Column Sequence
+	SeqNoSelection: Int
+}

@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.sql.Timestamp;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -21,7 +20,9 @@ import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 /**
  * Generated Model for A_Asset - DO NOT CHANGE
@@ -31,32 +32,33 @@ import org.compiere.util.Env;
  */
 public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_User;
-	 private ForeignEntityInput mA_Asset_Class;
-	 private ForeignEntityInput mA_Asset_Group;
-	 private ForeignEntityInput mA_Asset_Type;
-	 private ForeignEntityInput mA_Parent_Asset;
-	 private ForeignEntityInput mC_Activity;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_BPartnerSR;
-	 private ForeignEntityInput mC_BPartner_Location;
-	 private ForeignEntityInput mC_Location;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mLease_BPartner;
-	 private ForeignEntityInput mM_AttributeSetInstance;
-	 private ForeignEntityInput mM_InOutLine;
-	 private ForeignEntityInput mM_Locator;
-	 private ForeignEntityInput mM_Product;
-	 private I_AD_Ref_ListInput mA_Asset_Action;
-	 private I_AD_Ref_ListInput mA_Asset_Status;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mA_Asset_Class;
+	private ForeignEntityInput mA_Asset_Group;
+	private ForeignEntityInput mA_Asset_Type;
+	private ForeignEntityInput mA_Parent_Asset;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_BPartnerSR;
+	private ForeignEntityInput mC_BPartner_Location;
+	private ForeignEntityInput mC_Location;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mLease_BPartner;
+	private ForeignEntityInput mM_AttributeSetInstance;
+	private ForeignEntityInput mM_InOutLine;
+	private ForeignEntityInput mM_Locator;
+	private ForeignEntityInput mM_Product;
+	private I_AD_Ref_ListInput mA_Asset_Action;
+	private I_AD_Ref_ListInput mA_Asset_Status;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_AssetInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MAsset(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -99,7 +101,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mA_Asset_Class = A_Asset_Class;
 		MAssetClass foreignEntity;
 		if (A_Asset_Class != null &&
-				(foreignEntity = new Query(getCtx(), MAssetClass.Table_Name, MAssetClass.COLUMNNAME_A_Asset_Class_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Class", "A_Asset_Class_UU=?", get_TrxName())
 						.setParameters(A_Asset_Class.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Class_ID(foreignEntity.get_ID());
@@ -139,7 +141,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mA_Asset_Group = A_Asset_Group;
 		MAssetGroup foreignEntity;
 		if (A_Asset_Group != null &&
-				(foreignEntity = new Query(getCtx(), MAssetGroup.Table_Name, MAssetGroup.COLUMNNAME_A_Asset_Group_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Group", "A_Asset_Group_UU=?", get_TrxName())
 						.setParameters(A_Asset_Group.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Group_ID(foreignEntity.get_ID());
@@ -156,6 +158,17 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("A_Asset_Group")
 	public ForeignEntityInput A_Asset_Group() {
 		return mA_Asset_Group;
+	}
+	/**
+	 * Set Asset.
+	 *
+	 * @param A_Asset_ID Asset used internally or by customers
+	 */
+
+	public void setA_Asset_ID(int A_Asset_ID) {
+		if (get_ID() == 0) {
+			super.setA_Asset_ID(A_Asset_ID);
+		}
 	}
 
 	/**
@@ -197,7 +210,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mA_Asset_Type = A_Asset_Type;
 		MAssetType foreignEntity;
 		if (A_Asset_Type != null &&
-				(foreignEntity = new Query(getCtx(), MAssetType.Table_Name, MAssetType.COLUMNNAME_A_Asset_Type_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset_Type", "A_Asset_Type_UU=?", get_TrxName())
 						.setParameters(A_Asset_Type.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Asset_Type_ID(foreignEntity.get_ID());
@@ -244,7 +257,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mA_Parent_Asset = A_Parent_Asset;
 		MAsset foreignEntity;
 		if (A_Parent_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Parent_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Parent_Asset_ID(foreignEntity.get_ID());
@@ -272,8 +285,8 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -300,7 +313,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -329,7 +342,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Activity_ID(foreignEntity.get_ID());
@@ -358,7 +371,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -387,7 +400,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(C_BPartner_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_Location_ID(foreignEntity.get_ID());
@@ -416,7 +429,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mC_BPartnerSR = C_BPartnerSR;
 		MBPartner_BH foreignEntity;
 		if (C_BPartnerSR != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartnerSR.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartnerSR_ID(foreignEntity.get_ID());
@@ -445,7 +458,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
 		if (C_Location != null &&
-				(foreignEntity = new Query(getCtx(), MLocation.Table_Name, MLocation.COLUMNNAME_C_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 						.setParameters(C_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Location_ID(foreignEntity.get_ID());
@@ -474,7 +487,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -514,7 +527,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mLease_BPartner = Lease_BPartner;
 		MBPartner_BH foreignEntity;
 		if (Lease_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(Lease_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setLease_BPartner_ID(foreignEntity.get_ID());
@@ -542,8 +555,8 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
-		if (get_ID() == 0 &&M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), MAttributeSetInstance_BH.Table_Name, MAttributeSetInstance_BH.COLUMNNAME_M_AttributeSetInstance_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_AttributeSetInstance != null &&
+				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 						.setParameters(M_AttributeSetInstance.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
@@ -570,7 +583,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
 		if (M_InOutLine != null &&
-				(foreignEntity = new Query(getCtx(), MInOutLine.Table_Name, MInOutLine.COLUMNNAME_M_InOutLine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 						.setParameters(M_InOutLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_InOutLine_ID(foreignEntity.get_ID());
@@ -599,7 +612,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
 		if (M_Locator != null &&
-				(foreignEntity = new Query(getCtx(), MLocator.Table_Name, MLocator.COLUMNNAME_M_Locator_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 						.setParameters(M_Locator.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Locator_ID(foreignEntity.get_ID());
@@ -628,7 +641,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
 		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), MProduct_BH.Table_Name, MProduct_BH.COLUMNNAME_M_Product_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 						.setParameters(M_Product.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Product_ID(foreignEntity.get_ID());

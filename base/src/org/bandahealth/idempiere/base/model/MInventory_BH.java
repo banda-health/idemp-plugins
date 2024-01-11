@@ -1,11 +1,12 @@
 package org.bandahealth.idempiere.base.model;
 
+import org.compiere.model.MInventory;
+import org.compiere.model.MWarehouse;
+
 import java.sql.ResultSet;
 import java.util.Properties;
 
-import org.compiere.model.MWarehouse;
-
-public class MInventory_BH extends org.compiere.model.MInventory {
+public class MInventory_BH extends MInventory {
 
 	/**
 	 * Column name bh_update_reason

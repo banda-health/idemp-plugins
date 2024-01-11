@@ -1,0 +1,64 @@
+# Generated Schema for AD_ImportTemplate - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_ImportTemplateGet(page: Int, size: Int, sort: String, filter: String): AD_ImportTemplateConnection!
+}
+
+extend type Mutation {
+	AD_ImportTemplateSave(entity: AD_ImportTemplateInput!): AD_ImportTemplate!
+	AD_ImportTemplateDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_ImportTemplateConnection {
+	results: [AD_ImportTemplate!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_ImportTemplate {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	ID: ID!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Tab within a Window
+	AD_Tab: AD_Tab!
+	# Data entry or display window
+	AD_Window: AD_Window!
+	CharacterSet: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	CSVAliasHeader: String
+	CSVHeader: String!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ImportTemplateInput {
+	ID: ID
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Tab within a Window
+	AD_Tab: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	CharacterSet: String
+	CSVAliasHeader: String
+	CSVHeader: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

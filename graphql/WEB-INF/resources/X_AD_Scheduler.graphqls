@@ -1,0 +1,94 @@
+# Generated Schema for AD_Scheduler - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_SchedulerGet(page: Int, size: Int, sort: String, filter: String): AD_SchedulerConnection!
+}
+
+extend type Mutation {
+	AD_SchedulerSave(entity: AD_SchedulerInput!): AD_Scheduler!
+	AD_SchedulerDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_SchedulerConnection {
+	results: [AD_Scheduler!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_Scheduler {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Data Print Format
+	AD_PrintFormat: AD_PrintFormat
+	# Process or Report
+	AD_Process: AD_Process!
+	AD_Schedule: AD_Schedule!
+	ID: ID!
+	# Database Table information
+	AD_Table: AD_Table
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date the process was last run.
+	DateLastRun: Date
+	# Date the process will run next
+	DateNextRun: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Number of days to keep the log entries
+	KeepLogDays: Int!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# Text templates for mailings
+	R_MailText: R_MailText
+	# Direct internal record ID
+	Record_ID: Int
+	ReportOutputType: AD_Ref_List
+	# State of this scheduler record (not scheduled, started or stopped)
+	SchedulerState: Object
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: AD_User!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_SchedulerInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Data Print Format
+	AD_PrintFormat: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	AD_Schedule: ForeignEntityInput
+	ID: ID
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Date the process was last run.
+	DateLastRun: Date
+	# Date the process will run next
+	DateNextRun: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Number of days to keep the log entries
+	KeepLogDays: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	# Text templates for mailings
+	R_MailText: ForeignEntityInput
+	# Direct internal record ID
+	Record_ID: Int
+	ReportOutputType: AD_Ref_ListInput
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: ForeignEntityInput
+}

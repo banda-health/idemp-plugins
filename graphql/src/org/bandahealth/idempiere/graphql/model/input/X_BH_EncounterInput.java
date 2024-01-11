@@ -8,7 +8,8 @@ import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for BH_Encounter - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mBH_Visit;
-	 private I_AD_Ref_ListInput mBH_Encounter_Type;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_Visit;
+	private I_AD_Ref_ListInput mBH_Encounter_Type;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_BH_EncounterInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MBHEncounter(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -56,6 +58,17 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Encounter.
+	 *
+	 * @param BH_Encounter_ID Encounter
+	 */
+
+	public void setBH_Encounter_ID(int BH_Encounter_ID) {
+		if (get_ID() == 0) {
+			super.setBH_Encounter_ID(BH_Encounter_ID);
+		}
 	}
 
 	/**
@@ -113,7 +126,7 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 		this.mBH_Visit = BH_Visit;
 		MBHVisit foreignEntity;
 		if (BH_Visit != null &&
-				(foreignEntity = new Query(getCtx(), MBHVisit.Table_Name, MBHVisit.COLUMNNAME_BH_Visit_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
 						.setParameters(BH_Visit.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setBH_Visit_ID(foreignEntity.get_ID());

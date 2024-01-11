@@ -7,7 +7,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentBatch;
 import org.compiere.model.MPaymentProcessor;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_PaymentBatch - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentBatchInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_PaymentProcessor;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_PaymentProcessor;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_PaymentBatchInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MPaymentBatch(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentB
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -54,6 +56,17 @@ public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentB
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Payment Batch.
+	 *
+	 * @param C_PaymentBatch_ID Payment batch for EFT
+	 */
+
+	public void setC_PaymentBatch_ID(int C_PaymentBatch_ID) {
+		if (get_ID() == 0) {
+			super.setC_PaymentBatch_ID(C_PaymentBatch_ID);
+		}
 	}
 
 	/**
@@ -84,7 +97,7 @@ public class X_C_PaymentBatchInput extends MPaymentBatch implements I_C_PaymentB
 		this.mC_PaymentProcessor = C_PaymentProcessor;
 		MPaymentProcessor foreignEntity;
 		if (C_PaymentProcessor != null &&
-				(foreignEntity = new Query(getCtx(), MPaymentProcessor.Table_Name, MPaymentProcessor.COLUMNNAME_C_PaymentProcessor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_PaymentProcessor", "C_PaymentProcessor_UU=?", get_TrxName())
 						.setParameters(C_PaymentProcessor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_PaymentProcessor_ID(foreignEntity.get_ID());

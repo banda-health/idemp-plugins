@@ -56,6 +56,7 @@ import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MTabNavBtn;
 import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
+import org.bandahealth.idempiere.base.model.MTree_BH;
 import org.bandahealth.idempiere.base.model.MUIButton;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
@@ -171,6 +172,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHEncounter.class;
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return MBHObservation.class;
+		} else if (tableName.equalsIgnoreCase(MTree_BH.Table_Name)) {
+			return MTree_BH.class;
 		} else if (tableName.equalsIgnoreCase(MRefList_BH.Table_Name)) {
 			return MRefList_BH.class;
 		} else if (tableName.equalsIgnoreCase(MInvoiceLine_BH.Table_Name)) {
@@ -292,6 +295,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHEncounter(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return new MBHObservation(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MTree_BH.Table_Name)) {
+			return new MTree_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MRefList_BH.Table_Name)) {
 			return new MRefList_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MInvoiceLine_BH.Table_Name)) {
@@ -415,6 +420,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHEncounter(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return new MBHObservation(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MTree_BH.Table_Name)) {
+			return new MTree_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MRefList_BH.Table_Name)) {
 			return new MRefList_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MInvoiceLine_BH.Table_Name)) {

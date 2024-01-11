@@ -11,7 +11,8 @@ import org.compiere.model.MBank;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentProcessor;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_BP_BankAccount - DO NOT CHANGE
@@ -21,23 +22,24 @@ import org.compiere.util.Env;
  */
 public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_BankAccountInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_User;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_Bank;
-	 private ForeignEntityInput mC_PaymentProcessor;
-	 private I_AD_Ref_ListInput mBPBankAcctUse;
-	 private I_AD_Ref_ListInput mBankAccountType;
-	 private I_AD_Ref_ListInput mCreditCardType;
-	 private I_AD_Ref_ListInput mR_AvsAddr;
-	 private I_AD_Ref_ListInput mR_AvsZip;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_Bank;
+	private ForeignEntityInput mC_PaymentProcessor;
+	private I_AD_Ref_ListInput mBPBankAcctUse;
+	private I_AD_Ref_ListInput mBankAccountType;
+	private I_AD_Ref_ListInput mCreditCardType;
+	private I_AD_Ref_ListInput mR_AvsAddr;
+	private I_AD_Ref_ListInput mR_AvsZip;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_BP_BankAccountInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MBPBankAccount(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -50,8 +52,8 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -78,7 +80,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -165,7 +167,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 		this.mC_Bank = C_Bank;
 		MBank foreignEntity;
 		if (C_Bank != null &&
-				(foreignEntity = new Query(getCtx(), MBank.Table_Name, MBank.COLUMNNAME_C_Bank_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
 						.setParameters(C_Bank.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Bank_ID(foreignEntity.get_ID());
@@ -182,6 +184,17 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	@JsonProperty("C_Bank")
 	public ForeignEntityInput C_Bank() {
 		return mC_Bank;
+	}
+	/**
+	 * Set Partner Bank Account.
+	 *
+	 * @param C_BP_BankAccount_ID Bank Account of the Business Partner
+	 */
+
+	public void setC_BP_BankAccount_ID(int C_BP_BankAccount_ID) {
+		if (get_ID() == 0) {
+			super.setC_BP_BankAccount_ID(C_BP_BankAccount_ID);
+		}
 	}
 
 	/**
@@ -211,8 +224,8 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 &&C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_BPartner != null &&
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -239,7 +252,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 		this.mC_PaymentProcessor = C_PaymentProcessor;
 		MPaymentProcessor foreignEntity;
 		if (C_PaymentProcessor != null &&
-				(foreignEntity = new Query(getCtx(), MPaymentProcessor.Table_Name, MPaymentProcessor.COLUMNNAME_C_PaymentProcessor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_PaymentProcessor", "C_PaymentProcessor_UU=?", get_TrxName())
 						.setParameters(C_PaymentProcessor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_PaymentProcessor_ID(foreignEntity.get_ID());

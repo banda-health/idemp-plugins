@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -32,7 +31,9 @@ import org.compiere.model.MProject;
 import org.compiere.model.MShipper;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_OrderSource;
-import org.compiere.util.Env;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_Order - DO NOT CHANGE
@@ -42,57 +43,58 @@ import org.compiere.util.Env;
  */
 public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_User;
-	 private ForeignEntityInput mBH_Visit;
-	 private ForeignEntityInput mBH_Voided_Reason;
-	 private ForeignEntityInput mBill_BPartner;
-	 private ForeignEntityInput mBill_Location;
-	 private ForeignEntityInput mBill_User;
-	 private ForeignEntityInput mC_Activity;
-	 private ForeignEntityInput mC_BPartner;
-	 private ForeignEntityInput mC_BPartner_Location;
-	 private ForeignEntityInput mC_Campaign;
-	 private ForeignEntityInput mC_CashLine;
-	 private ForeignEntityInput mC_CashPlanLine;
-	 private ForeignEntityInput mC_Charge;
-	 private ForeignEntityInput mC_ConversionType;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_DocType;
-	 private ForeignEntityInput mC_DocTypeTarget;
-	 private ForeignEntityInput mC_Opportunity;
-	 private ForeignEntityInput mC_OrderSource;
-	 private ForeignEntityInput mC_POS;
-	 private ForeignEntityInput mC_Payment;
-	 private ForeignEntityInput mC_PaymentTerm;
-	 private ForeignEntityInput mC_Project;
-	 private ForeignEntityInput mDropShip_BPartner;
-	 private ForeignEntityInput mDropShip_Location;
-	 private ForeignEntityInput mDropShip_User;
-	 private ForeignEntityInput mLink_Order;
-	 private ForeignEntityInput mM_FreightCategory;
-	 private ForeignEntityInput mM_PriceList;
-	 private ForeignEntityInput mM_Shipper;
-	 private ForeignEntityInput mM_Warehouse;
-	 private ForeignEntityInput mQuotationOrder;
-	 private ForeignEntityInput mRef_Order;
-	 private ForeignEntityInput mSalesRep;
-	 private ForeignEntityInput mUser1;
-	 private ForeignEntityInput mUser2;
-	 private I_AD_Ref_ListInput mDeliveryRule;
-	 private I_AD_Ref_ListInput mDeliveryViaRule;
-	 private I_AD_Ref_ListInput mDocAction;
-	 private I_AD_Ref_ListInput mDocStatus;
-	 private I_AD_Ref_ListInput mFreightCostRule;
-	 private I_AD_Ref_ListInput mInvoiceRule;
-	 private I_AD_Ref_ListInput mPriorityRule;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mBH_Visit;
+	private ForeignEntityInput mBH_Voided_Reason;
+	private ForeignEntityInput mBill_BPartner;
+	private ForeignEntityInput mBill_Location;
+	private ForeignEntityInput mBill_User;
+	private ForeignEntityInput mC_Activity;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_BPartner_Location;
+	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_CashLine;
+	private ForeignEntityInput mC_CashPlanLine;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mC_ConversionType;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_DocType;
+	private ForeignEntityInput mC_DocTypeTarget;
+	private ForeignEntityInput mC_Opportunity;
+	private ForeignEntityInput mC_OrderSource;
+	private ForeignEntityInput mC_POS;
+	private ForeignEntityInput mC_Payment;
+	private ForeignEntityInput mC_PaymentTerm;
+	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mDropShip_BPartner;
+	private ForeignEntityInput mDropShip_Location;
+	private ForeignEntityInput mDropShip_User;
+	private ForeignEntityInput mLink_Order;
+	private ForeignEntityInput mM_FreightCategory;
+	private ForeignEntityInput mM_PriceList;
+	private ForeignEntityInput mM_Shipper;
+	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mQuotationOrder;
+	private ForeignEntityInput mRef_Order;
+	private ForeignEntityInput mSalesRep;
+	private ForeignEntityInput mUser1;
+	private ForeignEntityInput mUser2;
+	private I_AD_Ref_ListInput mDeliveryRule;
+	private I_AD_Ref_ListInput mDeliveryViaRule;
+	private I_AD_Ref_ListInput mDocAction;
+	private I_AD_Ref_ListInput mDocStatus;
+	private I_AD_Ref_ListInput mFreightCostRule;
+	private I_AD_Ref_ListInput mInvoiceRule;
+	private I_AD_Ref_ListInput mPriorityRule;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_OrderInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MOrder_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -106,7 +108,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -135,7 +137,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -164,7 +166,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mBH_Visit = BH_Visit;
 		MBHVisit foreignEntity;
 		if (BH_Visit != null &&
-				(foreignEntity = new Query(getCtx(), MBHVisit.Table_Name, MBHVisit.COLUMNNAME_BH_Visit_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
 						.setParameters(BH_Visit.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setBH_Visit_ID(foreignEntity.get_ID());
@@ -193,7 +195,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mBH_Voided_Reason = BH_Voided_Reason;
 		MBHVoidedReason foreignEntity;
 		if (BH_Voided_Reason != null &&
-				(foreignEntity = new Query(getCtx(), MBHVoidedReason.Table_Name, MBHVoidedReason.COLUMNNAME_BH_Voided_Reason_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "BH_Voided_Reason", "BH_Voided_Reason_UU=?", get_TrxName())
 						.setParameters(BH_Voided_Reason.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setBH_Voided_Reason_ID(foreignEntity.get_ID());
@@ -222,7 +224,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mBill_BPartner = Bill_BPartner;
 		MBPartner_BH foreignEntity;
 		if (Bill_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(Bill_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setBill_BPartner_ID(foreignEntity.get_ID());
@@ -251,7 +253,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mBill_Location = Bill_Location;
 		MBPartnerLocation foreignEntity;
 		if (Bill_Location != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(Bill_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setBill_Location_ID(foreignEntity.get_ID());
@@ -280,7 +282,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mBill_User = Bill_User;
 		MUser_BH foreignEntity;
 		if (Bill_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(Bill_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setBill_User_ID(foreignEntity.get_ID());
@@ -309,7 +311,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
 		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), MActivity.Table_Name, MActivity.COLUMNNAME_C_Activity_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 						.setParameters(C_Activity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Activity_ID(foreignEntity.get_ID());
@@ -338,7 +340,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
 		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(C_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_ID(foreignEntity.get_ID());
@@ -367,7 +369,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(C_BPartner_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BPartner_Location_ID(foreignEntity.get_ID());
@@ -396,7 +398,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
 		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), MCampaign.Table_Name, MCampaign.COLUMNNAME_C_Campaign_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 						.setParameters(C_Campaign.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Campaign_ID(foreignEntity.get_ID());
@@ -425,7 +427,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_CashLine = C_CashLine;
 		MCashLine foreignEntity;
 		if (C_CashLine != null &&
-				(foreignEntity = new Query(getCtx(), MCashLine.Table_Name, MCashLine.COLUMNNAME_C_CashLine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_CashLine", "C_CashLine_UU=?", get_TrxName())
 						.setParameters(C_CashLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_CashLine_ID(foreignEntity.get_ID());
@@ -454,7 +456,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_CashPlanLine = C_CashPlanLine;
 		MCashPlanLine foreignEntity;
 		if (C_CashPlanLine != null &&
-				(foreignEntity = new Query(getCtx(), MCashPlanLine.Table_Name, MCashPlanLine.COLUMNNAME_C_CashPlanLine_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_CashPlanLine", "C_CashPlanLine_UU=?", get_TrxName())
 						.setParameters(C_CashPlanLine.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_CashPlanLine_ID(foreignEntity.get_ID());
@@ -483,7 +485,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
 		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), MCharge_BH.Table_Name, MCharge_BH.COLUMNNAME_C_Charge_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 						.setParameters(C_Charge.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Charge_ID(foreignEntity.get_ID());
@@ -512,7 +514,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_ConversionType = C_ConversionType;
 		MConversionType foreignEntity;
 		if (C_ConversionType != null &&
-				(foreignEntity = new Query(getCtx(), MConversionType.Table_Name, MConversionType.COLUMNNAME_C_ConversionType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
 						.setParameters(C_ConversionType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_ConversionType_ID(foreignEntity.get_ID());
@@ -540,8 +542,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
-		if (get_ID() == 0 &&C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Currency != null &&
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -567,8 +569,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
-		if (get_ID() == 0 &&C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_DocType != null &&
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocType_ID(foreignEntity.get_ID());
@@ -595,7 +597,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_DocTypeTarget = C_DocTypeTarget;
 		MDocType_BH foreignEntity;
 		if (C_DocTypeTarget != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocTypeTarget.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocTypeTarget_ID(foreignEntity.get_ID());
@@ -624,7 +626,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_Opportunity = C_Opportunity;
 		MOpportunity foreignEntity;
 		if (C_Opportunity != null &&
-				(foreignEntity = new Query(getCtx(), MOpportunity.Table_Name, MOpportunity.COLUMNNAME_C_Opportunity_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Opportunity", "C_Opportunity_UU=?", get_TrxName())
 						.setParameters(C_Opportunity.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Opportunity_ID(foreignEntity.get_ID());
@@ -641,6 +643,17 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_Opportunity")
 	public ForeignEntityInput C_Opportunity() {
 		return mC_Opportunity;
+	}
+	/**
+	 * Set Order.
+	 *
+	 * @param C_Order_ID Order
+	 */
+
+	public void setC_Order_ID(int C_Order_ID) {
+		if (get_ID() == 0) {
+			super.setC_Order_ID(C_Order_ID);
+		}
 	}
 
 	/**
@@ -671,7 +684,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_OrderSource = C_OrderSource;
 		X_C_OrderSource foreignEntity;
 		if (C_OrderSource != null &&
-				(foreignEntity = new Query(getCtx(), X_C_OrderSource.Table_Name, X_C_OrderSource.COLUMNNAME_C_OrderSource_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_OrderSource", "C_OrderSource_UU=?", get_TrxName())
 						.setParameters(C_OrderSource.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_OrderSource_ID(foreignEntity.get_ID());
@@ -700,7 +713,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_Payment = C_Payment;
 		MPayment_BH foreignEntity;
 		if (C_Payment != null &&
-				(foreignEntity = new Query(getCtx(), MPayment_BH.Table_Name, MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
 						.setParameters(C_Payment.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Payment_ID(foreignEntity.get_ID());
@@ -729,7 +742,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_PaymentTerm = C_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null &&
-				(foreignEntity = new Query(getCtx(), MPaymentTerm.Table_Name, MPaymentTerm.COLUMNNAME_C_PaymentTerm_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
 						.setParameters(C_PaymentTerm.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_PaymentTerm_ID(foreignEntity.get_ID());
@@ -758,7 +771,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_POS = C_POS;
 		MPOS foreignEntity;
 		if (C_POS != null &&
-				(foreignEntity = new Query(getCtx(), MPOS.Table_Name, MPOS.COLUMNNAME_C_POS_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_POS", "C_POS_UU=?", get_TrxName())
 						.setParameters(C_POS.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_POS_ID(foreignEntity.get_ID());
@@ -787,7 +800,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
 		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), MProject.Table_Name, MProject.COLUMNNAME_C_Project_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 						.setParameters(C_Project.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Project_ID(foreignEntity.get_ID());
@@ -943,7 +956,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mDropShip_BPartner = DropShip_BPartner;
 		MBPartner_BH foreignEntity;
 		if (DropShip_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), MBPartner_BH.Table_Name, MBPartner_BH.COLUMNNAME_C_BPartner_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 						.setParameters(DropShip_BPartner.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setDropShip_BPartner_ID(foreignEntity.get_ID());
@@ -972,7 +985,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mDropShip_Location = DropShip_Location;
 		MBPartnerLocation foreignEntity;
 		if (DropShip_Location != null &&
-				(foreignEntity = new Query(getCtx(), MBPartnerLocation.Table_Name, MBPartnerLocation.COLUMNNAME_C_BPartner_Location_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 						.setParameters(DropShip_Location.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setDropShip_Location_ID(foreignEntity.get_ID());
@@ -1001,7 +1014,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mDropShip_User = DropShip_User;
 		MUser_BH foreignEntity;
 		if (DropShip_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(DropShip_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setDropShip_User_ID(foreignEntity.get_ID());
@@ -1164,8 +1177,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	public void setLink_OrderInput(ForeignEntityInput Link_Order) {
 		this.mLink_Order = Link_Order;
 		MOrder_BH foreignEntity;
-		if (get_ID() == 0 &&Link_Order != null &&
-				(foreignEntity = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && Link_Order != null &&
+				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 						.setParameters(Link_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setLink_Order_ID(foreignEntity.get_ID());
@@ -1192,7 +1205,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mM_FreightCategory = M_FreightCategory;
 		MFreightCategory foreignEntity;
 		if (M_FreightCategory != null &&
-				(foreignEntity = new Query(getCtx(), MFreightCategory.Table_Name, MFreightCategory.COLUMNNAME_M_FreightCategory_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_FreightCategory", "M_FreightCategory_UU=?", get_TrxName())
 						.setParameters(M_FreightCategory.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_FreightCategory_ID(foreignEntity.get_ID());
@@ -1221,7 +1234,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (M_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_M_PriceList_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 						.setParameters(M_PriceList.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_PriceList_ID(foreignEntity.get_ID());
@@ -1250,7 +1263,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
 		if (M_Shipper != null &&
-				(foreignEntity = new Query(getCtx(), MShipper.Table_Name, MShipper.COLUMNNAME_M_Shipper_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
 						.setParameters(M_Shipper.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Shipper_ID(foreignEntity.get_ID());
@@ -1279,7 +1292,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_M_Warehouse_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 						.setParameters(M_Warehouse.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_Warehouse_ID(foreignEntity.get_ID());
@@ -1359,7 +1372,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mQuotationOrder = QuotationOrder;
 		MOrder_BH foreignEntity;
 		if (QuotationOrder != null &&
-				(foreignEntity = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 						.setParameters(QuotationOrder.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setQuotationOrder_ID(foreignEntity.get_ID());
@@ -1388,7 +1401,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mRef_Order = Ref_Order;
 		MOrder_BH foreignEntity;
 		if (Ref_Order != null &&
-				(foreignEntity = new Query(getCtx(), MOrder_BH.Table_Name, MOrder_BH.COLUMNNAME_C_Order_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 						.setParameters(Ref_Order.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setRef_Order_ID(foreignEntity.get_ID());
@@ -1417,7 +1430,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setSalesRep_ID(foreignEntity.get_ID());
@@ -1457,7 +1470,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
 		if (User1 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User1.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser1_ID(foreignEntity.get_ID());
@@ -1486,7 +1499,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
 		if (User2 != null &&
-				(foreignEntity = new Query(getCtx(), MElementValue.Table_Name, MElementValue.COLUMNNAME_C_ElementValue_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 						.setParameters(User2.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setUser2_ID(foreignEntity.get_ID());

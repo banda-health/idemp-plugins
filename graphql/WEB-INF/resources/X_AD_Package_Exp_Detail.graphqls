@@ -1,0 +1,154 @@
+# Generated Schema for AD_Package_Exp_Detail - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_Package_Exp_DetailGet(page: Int, size: Int, sort: String, filter: String): AD_Package_Exp_DetailConnection!
+}
+
+extend type Mutation {
+	AD_Package_Exp_DetailSave(entity: AD_Package_Exp_DetailInput!): AD_Package_Exp_Detail!
+	AD_Package_Exp_DetailDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_Package_Exp_DetailConnection {
+	results: [AD_Package_Exp_Detail!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_Package_Exp_Detail {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# System Entity Type
+	AD_EntityType: AD_EntityType
+	# Special Form
+	AD_Form: AD_Form
+	AD_ImpFormat: AD_ImpFormat
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindow
+	# Identifies a Menu
+	AD_Menu: AD_Menu
+	# System Message
+	AD_Message: AD_Message
+	AD_ModelValidator: AD_ModelValidator
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	AD_Package_Code_New: String
+	AD_Package_Code_Old: String
+	ID: ID!
+	AD_Package_Exp: AD_Package_Exp!
+	# Data Print Format
+	AD_PrintFormat: AD_PrintFormat
+	# Process or Report
+	AD_Process: AD_Process
+	# System Reference and Validation
+	AD_Reference: AD_Reference
+	# View used to generate this report
+	AD_ReportView: AD_ReportView
+	# Responsibility Role
+	AD_Role: AD_Role
+	# Database Table information
+	AD_Table: AD_Table
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_Rule
+	# Data entry or display window
+	AD_Window: AD_Window
+	# Collection of windows, reports
+	AD_Workbench: AD_Workbench
+	# Workflow or combination of tasks
+	AD_Workflow: AD_Workflow
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	DBType: AD_Ref_List
+	# Optional short description of the record
+	Description: String
+	Destination_Directory: String
+	Destination_FileName: String
+	File_Directory: String
+	# Name of the local file or URL
+	FileName: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int
+	# Additional Name
+	Name2: String
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Internal Release Number
+	ReleaseNo: AD_Ref_List
+	SQLStatement: String
+	Target_Directory: String
+	# Type of Validation (SQL, Java Script, Java Language)
+	Type: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Package_Exp_DetailInput {
+	# System Entity Type
+	AD_EntityType: ForeignEntityInput
+	# Special Form
+	AD_Form: ForeignEntityInput
+	AD_ImpFormat: ForeignEntityInput
+	# Info and search/select Window
+	AD_InfoWindow: ForeignEntityInput
+	# Identifies a Menu
+	AD_Menu: ForeignEntityInput
+	# System Message
+	AD_Message: ForeignEntityInput
+	AD_ModelValidator: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	AD_Package_Code_New: String
+	AD_Package_Code_Old: String
+	ID: ID
+	AD_Package_Exp: ForeignEntityInput
+	# Data Print Format
+	AD_PrintFormat: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# View used to generate this report
+	AD_ReportView: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	# Collection of windows, reports
+	AD_Workbench: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	DBType: AD_Ref_ListInput
+	# Optional short description of the record
+	Description: String
+	Destination_Directory: String
+	Destination_FileName: String
+	File_Directory: String
+	# Name of the local file or URL
+	FileName: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Additional Name
+	Name2: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Internal Release Number
+	ReleaseNo: AD_Ref_ListInput
+	SQLStatement: String
+	Target_Directory: String
+	# Type of Validation (SQL, Java Script, Java Language)
+	Type: AD_Ref_ListInput
+}

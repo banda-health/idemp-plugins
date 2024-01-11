@@ -8,7 +8,8 @@ import org.compiere.model.MAsset;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Depreciation_Forecast;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Depreciation_Forecast - DO NOT CHANGE
@@ -18,18 +19,30 @@ import org.compiere.util.Env;
  */
 public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast implements I_A_Depreciation_ForecastInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mA_End_Asset;
-	 private ForeignEntityInput mA_Start_Asset;
-	 private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_End_Asset;
+	private ForeignEntityInput mA_Start_Asset;
+	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_A_Depreciation_ForecastInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_A_Depreciation_Forecast(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
+	}
+	/**
+	 * Set Depreciation Forecast.
+	 *
+	 * @param A_Depreciation_Forecast_ID Depreciation Forecast
+	 */
+
+	public void setA_Depreciation_Forecast_ID(int A_Depreciation_Forecast_ID) {
+		if (get_ID() == 0) {
+			super.setA_Depreciation_Forecast_ID(A_Depreciation_Forecast_ID);
+		}
 	}
 
 	/**
@@ -60,7 +73,7 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 		this.mA_End_Asset = A_End_Asset;
 		MAsset foreignEntity;
 		if (A_End_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_End_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_End_Asset_ID(foreignEntity.get_ID());
@@ -89,7 +102,7 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 		this.mA_Start_Asset = A_Start_Asset;
 		MAsset foreignEntity;
 		if (A_Start_Asset != null &&
-				(foreignEntity = new Query(getCtx(), MAsset.Table_Name, MAsset.COLUMNNAME_A_Asset_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 						.setParameters(A_Start_Asset.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setA_Start_Asset_ID(foreignEntity.get_ID());
@@ -118,7 +131,7 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
 		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());

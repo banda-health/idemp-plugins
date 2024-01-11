@@ -1,0 +1,100 @@
+# Generated Schema for AD_ToolBarButton - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_ToolBarButtonGet(page: Int, size: Int, sort: String, filter: String): AD_ToolBarButtonConnection!
+}
+
+extend type Mutation {
+	AD_ToolBarButtonSave(entity: AD_ToolBarButtonInput!): AD_ToolBarButton!
+	AD_ToolBarButtonDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_ToolBarButtonConnection {
+	results: [AD_ToolBarButton!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_ToolBarButton {
+	# Indicates the Action to be performed
+	Action: AD_Ref_List!
+	# The service component name that implements the interface for toolbar actions
+	ActionClassName: String
+	# Action name on the toolbar
+	ActionName: String
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Process or Report
+	AD_Process: AD_Process
+	# Tab within a Window
+	AD_Tab: AD_Tab
+	ID: ID!
+	ComponentName: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	IsAddSeparator: Boolean!
+	# This Button contains advanced Functionality
+	IsAdvancedButton: Boolean!
+	# The change is a customization of the data dictionary and can be applied after Migration
+	IsCustomization: Boolean!
+	IsShowMore: Boolean!
+	# KeyCode for shortcuts
+	KeyStroke_KeyCode: Int
+	# Keystroke Modifiers for shortcuts
+	KeyStroke_Modifiers: Int
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ToolBarButtonInput {
+	# Indicates the Action to be performed
+	Action: AD_Ref_ListInput
+	# The service component name that implements the interface for toolbar actions
+	ActionClassName: String
+	# Action name on the toolbar
+	ActionName: String
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# Tab within a Window
+	AD_Tab: ForeignEntityInput
+	ID: ID
+	ComponentName: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	IsAddSeparator: Boolean
+	# This Button contains advanced Functionality
+	IsAdvancedButton: Boolean
+	# The change is a customization of the data dictionary and can be applied after Migration
+	IsCustomization: Boolean
+	IsShowMore: Boolean
+	# KeyCode for shortcuts
+	KeyStroke_KeyCode: Int
+	# Keystroke Modifiers for shortcuts
+	KeyStroke_Modifiers: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

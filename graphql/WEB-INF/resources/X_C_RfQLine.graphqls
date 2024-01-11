@@ -1,0 +1,78 @@
+# Generated Schema for C_RfQLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_RfQLineGet(page: Int, size: Int, sort: String, filter: String): C_RfQLineConnection!
+}
+
+extend type Mutation {
+	C_RfQLineSave(entity: C_RfQLineInput!): C_RfQLine!
+	C_RfQLineDelete(uuids: [String!]!): Boolean!
+}
+
+type C_RfQLineConnection {
+	results: [C_RfQLine!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_RfQLine {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Request for Quotation
+	C_RfQ: C_RfQ!
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date when work is (planned to be) complete
+	DateWorkComplete: Date
+	# Date when work is (planned to be) started
+	DateWorkStart: Date
+	# Number of Days (planned) until Delivery
+	DeliveryDays: Int
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RfQLineInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Request for Quotation
+	C_RfQ: ForeignEntityInput
+	ID: ID
+	# Date when work is (planned to be) complete
+	DateWorkComplete: Date
+	# Date when work is (planned to be) started
+	DateWorkStart: Date
+	# Number of Days (planned) until Delivery
+	DeliveryDays: Int
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+}

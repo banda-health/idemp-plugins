@@ -1,0 +1,138 @@
+# Generated Schema for M_Product_PO - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_Product_POGet(page: Int, size: Int, sort: String, filter: String): M_Product_POConnection!
+}
+
+extend type Mutation {
+	M_Product_POSave(entity: M_Product_POInput!): M_Product_PO!
+	M_Product_PODelete(uuids: [String!]!): Boolean!
+}
+
+type M_Product_POConnection {
+	results: [M_Product_PO!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_Product_PO {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Unit of Measure
+	C_UOM: C_UOM
+	# Fixed Cost Per Order
+	CostPerOrder: Int
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Actual days between order and delivery
+	DeliveryTime_Actual: Int
+	# Promised days between order and delivery
+	DeliveryTime_Promised: Int
+	# This product is no longer available
+	Discontinued: Boolean!
+	# Discontinued At indicates Date when product was discontinued
+	DiscontinuedAt: Date
+	# Discontinued By
+	DiscontinuedBy: Date
+	# The record is active in the system
+	IsActive: Boolean!
+	# Use this Vendor for pricing and stock replenishment
+	IsCurrentVendor: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product!
+	ID: ID!
+	# Manufacturer of the Product
+	Manufacturer: String
+	# Minimum order quantity in UOM
+	Order_Min: Int
+	# Package order size in UOM (e.g. order set of 5 units)
+	Order_Pack: Int
+	# Effective Date of Price
+	PriceEffective: Date
+	# Price of the last invoice for the product
+	PriceLastInv: Int
+	# Price of the last purchase order for the product
+	PriceLastPO: Int
+	# List Price
+	PriceList: Int
+	# Price based on a purchase order
+	PricePO: Int
+	# Method for rating vendors
+	QualityRating: Int
+	# (Included) Amount for copyright, etc.
+	RoyaltyAmt: Int
+	# Bar Code (Universal Product Code or its superset European Article Number)
+	UPC: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Product Category of the Business Partner
+	VendorCategory: String
+	# Product Key of the Business Partner
+	VendorProductNo: String!
+}
+
+input M_Product_POInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# Fixed Cost Per Order
+	CostPerOrder: Int
+	# Actual days between order and delivery
+	DeliveryTime_Actual: Int
+	# Promised days between order and delivery
+	DeliveryTime_Promised: Int
+	# This product is no longer available
+	Discontinued: Boolean
+	# Discontinued At indicates Date when product was discontinued
+	DiscontinuedAt: Date
+	# Discontinued By
+	DiscontinuedBy: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# Use this Vendor for pricing and stock replenishment
+	IsCurrentVendor: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	ID: ID
+	# Manufacturer of the Product
+	Manufacturer: String
+	# Minimum order quantity in UOM
+	Order_Min: Int
+	# Package order size in UOM (e.g. order set of 5 units)
+	Order_Pack: Int
+	# Effective Date of Price
+	PriceEffective: Date
+	# Price of the last invoice for the product
+	PriceLastInv: Int
+	# Price of the last purchase order for the product
+	PriceLastPO: Int
+	# List Price
+	PriceList: Int
+	# Price based on a purchase order
+	PricePO: Int
+	# Method for rating vendors
+	QualityRating: Int
+	# (Included) Amount for copyright, etc.
+	RoyaltyAmt: Int
+	# Bar Code (Universal Product Code or its superset European Article Number)
+	UPC: String
+	# Product Category of the Business Partner
+	VendorCategory: String
+	# Product Key of the Business Partner
+	VendorProductNo: String
+}

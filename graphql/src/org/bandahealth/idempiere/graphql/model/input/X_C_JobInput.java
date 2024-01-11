@@ -7,7 +7,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_Job;
 import org.compiere.model.X_C_JobCategory;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_Job - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_JobCategory;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_JobCategory;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_JobInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_C_Job(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -54,6 +56,17 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Position.
+	 *
+	 * @param C_Job_ID Job Position
+	 */
+
+	public void setC_Job_ID(int C_Job_ID) {
+		if (get_ID() == 0) {
+			super.setC_Job_ID(C_Job_ID);
+		}
 	}
 
 	/**
@@ -84,7 +97,7 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 		this.mC_JobCategory = C_JobCategory;
 		X_C_JobCategory foreignEntity;
 		if (C_JobCategory != null &&
-				(foreignEntity = new Query(getCtx(), X_C_JobCategory.Table_Name, X_C_JobCategory.COLUMNNAME_C_JobCategory_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_JobCategory", "C_JobCategory_UU=?", get_TrxName())
 						.setParameters(C_JobCategory.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_JobCategory_ID(foreignEntity.get_ID());

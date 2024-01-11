@@ -1,0 +1,86 @@
+# Generated Schema for M_InOutLineConfirm - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_InOutLineConfirmGet(page: Int, size: Int, sort: String, filter: String): M_InOutLineConfirmConnection!
+}
+
+extend type Mutation {
+	M_InOutLineConfirmSave(entity: M_InOutLineConfirmInput!): M_InOutLineConfirm!
+	M_InOutLineConfirmDelete(uuids: [String!]!): Boolean!
+}
+
+type M_InOutLineConfirmConnection {
+	results: [M_InOutLineConfirm!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_InOutLineConfirm {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Invoice Detail Line
+	C_InvoiceLine: C_InvoiceLine
+	# Confirmation Number
+	ConfirmationNo: String
+	# Confirmation of a received quantity
+	ConfirmedQty: Int!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Difference Quantity
+	DifferenceQty: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	# Material Shipment or Receipt Confirmation
+	M_InOutConfirm: M_InOutConfirm!
+	# Line on Shipment or Receipt document
+	M_InOutLine: M_InOutLine!
+	ID: ID!
+	# Unique line in an Inventory document
+	M_InventoryLine: M_InventoryLine
+	# The document has been processed
+	Processed: Boolean!
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: Int
+	# Target Movement Quantity
+	TargetQty: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_InOutLineConfirmInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Invoice Detail Line
+	C_InvoiceLine: ForeignEntityInput
+	# Confirmation Number
+	ConfirmationNo: String
+	# Confirmation of a received quantity
+	ConfirmedQty: Int
+	# Optional short description of the record
+	Description: String
+	# Difference Quantity
+	DifferenceQty: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Material Shipment or Receipt Confirmation
+	M_InOutConfirm: ForeignEntityInput
+	# Line on Shipment or Receipt document
+	M_InOutLine: ForeignEntityInput
+	ID: ID
+	# Unique line in an Inventory document
+	M_InventoryLine: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: Int
+	# Target Movement Quantity
+	TargetQty: Int
+}

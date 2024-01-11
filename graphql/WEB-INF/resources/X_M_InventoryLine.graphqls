@@ -1,0 +1,121 @@
+# Generated Schema for M_InventoryLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_InventoryLineGet(page: Int, size: Int, sort: String, filter: String): M_InventoryLineConnection!
+}
+
+extend type Mutation {
+	M_InventoryLineSave(entity: M_InventoryLineInput!): M_InventoryLine!
+	M_InventoryLineDelete(uuids: [String!]!): Boolean!
+}
+
+type M_InventoryLineConnection {
+	results: [M_InventoryLine!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_InventoryLine {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Expire On
+	BH_Expiration: Date
+	# Element to allow buttons to be displayed that trigger tab navigation
+	BH_NavButtons: Object
+	# The number of order lines on an order
+	BH_NumOrderLines: Int
+	# The current status of the document
+	BH_OrderDocStatus: String
+	BH_RequiresExpiration: Boolean!
+	# Additional document charges
+	C_Charge: C_Charge
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The currently used cost price
+	CurrentCostPrice: Int
+	# Optional short description of the record
+	Description: String
+	# Type of inventory difference
+	InventoryType: AD_Ref_List!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Parameters for a Physical Inventory
+	M_Inventory: M_Inventory!
+	ID: ID!
+	# Warehouse Locator
+	M_Locator: M_Locator
+	# Product, Service, Item
+	M_Product: M_Product!
+	# New current cost price after processing of M_CostDetail
+	NewCostPrice: Int
+	# The document has been processed
+	Processed: Boolean!
+	# Book Quantity
+	QtyBook: Int!
+	# Counted Quantity
+	QtyCount: Int!
+	QtyCsv: Int!
+	# Internal Use Quantity removed from Inventory
+	QtyInternalUse: Int
+	# Use to keep the reversal line ID for reversing costing purpose
+	ReversalLine: M_InventoryLine
+	# Bar Code (Universal Product Code or its superset European Article Number)
+	UPC: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input M_InventoryLineInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Expire On
+	BH_Expiration: Date
+	# Element to allow buttons to be displayed that trigger tab navigation
+	BH_NavButtons: Object
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# The currently used cost price
+	CurrentCostPrice: Int
+	# Optional short description of the record
+	Description: String
+	# Type of inventory difference
+	InventoryType: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Parameters for a Physical Inventory
+	M_Inventory: ForeignEntityInput
+	ID: ID
+	# Warehouse Locator
+	M_Locator: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# New current cost price after processing of M_CostDetail
+	NewCostPrice: Int
+	# The document has been processed
+	Processed: Boolean
+	# Book Quantity
+	QtyBook: Int
+	# Counted Quantity
+	QtyCount: Int
+	QtyCsv: Int
+	# Internal Use Quantity removed from Inventory
+	QtyInternalUse: Int
+	# Use to keep the reversal line ID for reversing costing purpose
+	ReversalLine: ForeignEntityInput
+}

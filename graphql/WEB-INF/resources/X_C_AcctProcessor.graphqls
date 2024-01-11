@@ -1,0 +1,78 @@
+# Generated Schema for C_AcctProcessor - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_AcctProcessorGet(page: Int, size: Int, sort: String, filter: String): C_AcctProcessorConnection!
+}
+
+extend type Mutation {
+	C_AcctProcessorSave(entity: C_AcctProcessorInput!): C_AcctProcessor!
+	C_AcctProcessorDelete(uuids: [String!]!): Boolean!
+}
+
+type C_AcctProcessorConnection {
+	results: [C_AcctProcessor!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_AcctProcessor {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	AD_Schedule: AD_Schedule!
+	# Database Table information
+	AD_Table: AD_Table
+	ID: ID!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date the process was last run.
+	DateLastRun: Date
+	# Date the process will run next
+	DateNextRun: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Number of days to keep the log entries
+	KeepLogDays: Int!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: AD_User!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_AcctProcessorInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	AD_Schedule: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	ID: ID
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Date the process was last run.
+	DateLastRun: Date
+	# Date the process will run next
+	DateNextRun: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Number of days to keep the log entries
+	KeepLogDays: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: ForeignEntityInput
+}

@@ -1,0 +1,48 @@
+# Generated Schema for AD_CtxHelpMsg - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_CtxHelpMsgGet(page: Int, size: Int, sort: String, filter: String): AD_CtxHelpMsgConnection!
+}
+
+extend type Mutation {
+	AD_CtxHelpMsgSave(entity: AD_CtxHelpMsgInput!): AD_CtxHelpMsg!
+	AD_CtxHelpMsgDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_CtxHelpMsgConnection {
+	results: [AD_CtxHelpMsg!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_CtxHelpMsg {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	AD_CtxHelp: AD_CtxHelp!
+	ID: ID!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Textual Informational, Menu or Error Message
+	MsgText: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_CtxHelpMsgInput {
+	AD_CtxHelp: ForeignEntityInput
+	ID: ID
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Textual Informational, Menu or Error Message
+	MsgText: String
+}

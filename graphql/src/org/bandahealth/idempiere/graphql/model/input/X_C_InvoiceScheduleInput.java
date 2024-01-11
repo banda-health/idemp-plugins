@@ -7,7 +7,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInvoiceSchedule;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_InvoiceSchedule - DO NOT CHANGE
@@ -17,17 +18,18 @@ import org.compiere.util.Env;
  */
 public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_InvoiceScheduleInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private I_AD_Ref_ListInput mInvoiceFrequency;
-	 private I_AD_Ref_ListInput mInvoiceWeekDay;
-	 private I_AD_Ref_ListInput mInvoiceWeekDayCutoff;
+	private ForeignEntityInput mAD_Org;
+	private I_AD_Ref_ListInput mInvoiceFrequency;
+	private I_AD_Ref_ListInput mInvoiceWeekDay;
+	private I_AD_Ref_ListInput mInvoiceWeekDayCutoff;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_InvoiceScheduleInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MInvoiceSchedule(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -56,6 +58,17 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Invoice Schedule.
+	 *
+	 * @param C_InvoiceSchedule_ID Schedule for generating Invoices
+	 */
+
+	public void setC_InvoiceSchedule_ID(int C_InvoiceSchedule_ID) {
+		if (get_ID() == 0) {
+			super.setC_InvoiceSchedule_ID(C_InvoiceSchedule_ID);
+		}
 	}
 
 	/**

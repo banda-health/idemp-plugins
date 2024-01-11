@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -20,8 +19,10 @@ import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_C_1099Box;
 import org.compiere.model.X_C_Greeting;
-import org.compiere.util.Env;
 import org.eevolution.model.X_C_TaxGroup;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_BPartner - DO NOT CHANGE
@@ -31,38 +32,39 @@ import org.eevolution.model.X_C_TaxGroup;
  */
 public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput {
 
-	 private ForeignEntityInput mAD_Image;
-	 private ForeignEntityInput mAD_Language;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_BP_Group;
-	 private ForeignEntityInput mC_Dunning;
-	 private ForeignEntityInput mC_Greeting;
-	 private ForeignEntityInput mC_InvoiceSchedule;
-	 private ForeignEntityInput mC_PaymentTerm;
-	 private ForeignEntityInput mC_TaxGroup;
-	 private ForeignEntityInput mDefault1099Box;
-	 private ForeignEntityInput mInvoice_PrintFormat;
-	 private ForeignEntityInput mM_DiscountSchema;
-	 private ForeignEntityInput mM_PriceList;
-	 private ForeignEntityInput mPO_DiscountSchema;
-	 private ForeignEntityInput mPO_PaymentTerm;
-	 private ForeignEntityInput mPO_PriceList;
-	 private ForeignEntityInput mSalesRep;
-	 private I_AD_Ref_ListInput mDeliveryRule;
-	 private I_AD_Ref_ListInput mDeliveryViaRule;
-	 private I_AD_Ref_ListInput mFreightCostRule;
-	 private I_AD_Ref_ListInput mInvoiceRule;
-	 private I_AD_Ref_ListInput mPaymentRule;
-	 private I_AD_Ref_ListInput mPaymentRulePO;
-	 private I_AD_Ref_ListInput mSOCreditStatus;
-	 private I_AD_Ref_ListInput mbh_gender;
+	private ForeignEntityInput mAD_Image;
+	private ForeignEntityInput mAD_Language;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_BP_Group;
+	private ForeignEntityInput mC_Dunning;
+	private ForeignEntityInput mC_Greeting;
+	private ForeignEntityInput mC_InvoiceSchedule;
+	private ForeignEntityInput mC_PaymentTerm;
+	private ForeignEntityInput mC_TaxGroup;
+	private ForeignEntityInput mDefault1099Box;
+	private ForeignEntityInput mInvoice_PrintFormat;
+	private ForeignEntityInput mM_DiscountSchema;
+	private ForeignEntityInput mM_PriceList;
+	private ForeignEntityInput mPO_DiscountSchema;
+	private ForeignEntityInput mPO_PaymentTerm;
+	private ForeignEntityInput mPO_PriceList;
+	private ForeignEntityInput mSalesRep;
+	private I_AD_Ref_ListInput mDeliveryRule;
+	private I_AD_Ref_ListInput mDeliveryViaRule;
+	private I_AD_Ref_ListInput mFreightCostRule;
+	private I_AD_Ref_ListInput mInvoiceRule;
+	private I_AD_Ref_ListInput mPaymentRule;
+	private I_AD_Ref_ListInput mPaymentRulePO;
+	private I_AD_Ref_ListInput mSOCreditStatus;
+	private I_AD_Ref_ListInput mbh_gender;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_BPartnerInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MBPartner_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -76,7 +78,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mAD_Language = AD_Language;
 		MLanguage foreignEntity;
 		if (AD_Language != null &&
-				(foreignEntity = new Query(getCtx(), MLanguage.Table_Name, MLanguage.COLUMNNAME_AD_Language_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
 						.setParameters(AD_Language.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Language(foreignEntity.getAD_Language());
@@ -104,8 +106,8 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -161,7 +163,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mC_BP_Group = C_BP_Group;
 		MBPGroup_BH foreignEntity;
 		if (C_BP_Group != null &&
-				(foreignEntity = new Query(getCtx(), MBPGroup_BH.Table_Name, MBPGroup_BH.COLUMNNAME_C_BP_Group_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
 						.setParameters(C_BP_Group.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_BP_Group_ID(foreignEntity.get_ID());
@@ -178,6 +180,17 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("C_BP_Group")
 	public ForeignEntityInput C_BP_Group() {
 		return mC_BP_Group;
+	}
+	/**
+	 * Set Business Partner .
+	 *
+	 * @param C_BPartner_ID Identifies a Business Partner
+	 */
+
+	public void setC_BPartner_ID(int C_BPartner_ID) {
+		if (get_ID() == 0) {
+			super.setC_BPartner_ID(C_BPartner_ID);
+		}
 	}
 
 	/**
@@ -208,7 +221,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mC_Dunning = C_Dunning;
 		MDunning foreignEntity;
 		if (C_Dunning != null &&
-				(foreignEntity = new Query(getCtx(), MDunning.Table_Name, MDunning.COLUMNNAME_C_Dunning_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
 						.setParameters(C_Dunning.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Dunning_ID(foreignEntity.get_ID());
@@ -237,7 +250,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mC_Greeting = C_Greeting;
 		X_C_Greeting foreignEntity;
 		if (C_Greeting != null &&
-				(foreignEntity = new Query(getCtx(), X_C_Greeting.Table_Name, X_C_Greeting.COLUMNNAME_C_Greeting_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Greeting", "C_Greeting_UU=?", get_TrxName())
 						.setParameters(C_Greeting.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Greeting_ID(foreignEntity.get_ID());
@@ -266,7 +279,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mC_InvoiceSchedule = C_InvoiceSchedule;
 		MInvoiceSchedule foreignEntity;
 		if (C_InvoiceSchedule != null &&
-				(foreignEntity = new Query(getCtx(), MInvoiceSchedule.Table_Name, MInvoiceSchedule.COLUMNNAME_C_InvoiceSchedule_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_InvoiceSchedule", "C_InvoiceSchedule_UU=?", get_TrxName())
 						.setParameters(C_InvoiceSchedule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_InvoiceSchedule_ID(foreignEntity.get_ID());
@@ -295,7 +308,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mC_PaymentTerm = C_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null &&
-				(foreignEntity = new Query(getCtx(), MPaymentTerm.Table_Name, MPaymentTerm.COLUMNNAME_C_PaymentTerm_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
 						.setParameters(C_PaymentTerm.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_PaymentTerm_ID(foreignEntity.get_ID());
@@ -324,7 +337,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mC_TaxGroup = C_TaxGroup;
 		X_C_TaxGroup foreignEntity;
 		if (C_TaxGroup != null &&
-				(foreignEntity = new Query(getCtx(), X_C_TaxGroup.Table_Name, X_C_TaxGroup.COLUMNNAME_C_TaxGroup_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_TaxGroup", "C_TaxGroup_UU=?", get_TrxName())
 						.setParameters(C_TaxGroup.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_TaxGroup_ID(foreignEntity.get_ID());
@@ -353,7 +366,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mDefault1099Box = Default1099Box;
 		X_C_1099Box foreignEntity;
 		if (Default1099Box != null &&
-				(foreignEntity = new Query(getCtx(), X_C_1099Box.Table_Name, X_C_1099Box.COLUMNNAME_C_1099Box_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_1099Box", "C_1099Box_UU=?", get_TrxName())
 						.setParameters(Default1099Box.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setDefault1099Box_ID(foreignEntity.get_ID());
@@ -469,7 +482,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mInvoice_PrintFormat = Invoice_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
 		if (Invoice_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintFormat.Table_Name, X_AD_PrintFormat.COLUMNNAME_AD_PrintFormat_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 						.setParameters(Invoice_PrintFormat.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setInvoice_PrintFormat_ID(foreignEntity.get_ID());
@@ -527,7 +540,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
 		if (AD_Image != null &&
-				(foreignEntity = new Query(getCtx(), MImage.Table_Name, MImage.COLUMNNAME_AD_Image_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
 						.setParameters(AD_Image.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setLogo_ID(foreignEntity.get_ID());
@@ -556,7 +569,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mM_DiscountSchema = M_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (M_DiscountSchema != null &&
-				(foreignEntity = new Query(getCtx(), MDiscountSchema.Table_Name, MDiscountSchema.COLUMNNAME_M_DiscountSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 						.setParameters(M_DiscountSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_DiscountSchema_ID(foreignEntity.get_ID());
@@ -585,7 +598,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
 		if (M_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_M_PriceList_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 						.setParameters(M_PriceList.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_PriceList_ID(foreignEntity.get_ID());
@@ -672,7 +685,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mPO_DiscountSchema = PO_DiscountSchema;
 		MDiscountSchema foreignEntity;
 		if (PO_DiscountSchema != null &&
-				(foreignEntity = new Query(getCtx(), MDiscountSchema.Table_Name, MDiscountSchema.COLUMNNAME_M_DiscountSchema_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 						.setParameters(PO_DiscountSchema.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPO_DiscountSchema_ID(foreignEntity.get_ID());
@@ -701,7 +714,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mPO_PaymentTerm = PO_PaymentTerm;
 		MPaymentTerm foreignEntity;
 		if (PO_PaymentTerm != null &&
-				(foreignEntity = new Query(getCtx(), MPaymentTerm.Table_Name, MPaymentTerm.COLUMNNAME_C_PaymentTerm_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
 						.setParameters(PO_PaymentTerm.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPO_PaymentTerm_ID(foreignEntity.get_ID());
@@ -730,7 +743,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mPO_PriceList = PO_PriceList;
 		MPriceList foreignEntity;
 		if (PO_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), MPriceList.Table_Name, MPriceList.COLUMNNAME_M_PriceList_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 						.setParameters(PO_PriceList.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setPO_PriceList_ID(foreignEntity.get_ID());
@@ -759,7 +772,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
 		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(SalesRep.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setSalesRep_ID(foreignEntity.get_ID());

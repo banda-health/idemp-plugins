@@ -6,7 +6,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MReplicationStrategy;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Org - DO NOT CHANGE
@@ -16,14 +17,15 @@ import org.compiere.util.Env;
  */
 public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 
-	 private ForeignEntityInput mAD_ReplicationStrategy;
+	private ForeignEntityInput mAD_ReplicationStrategy;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_OrgInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MOrg(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -55,7 +57,7 @@ public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
 		MReplicationStrategy foreignEntity;
 		if (AD_ReplicationStrategy != null &&
-				(foreignEntity = new Query(getCtx(), MReplicationStrategy.Table_Name, MReplicationStrategy.COLUMNNAME_AD_ReplicationStrategy_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
 						.setParameters(AD_ReplicationStrategy.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());

@@ -7,7 +7,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_ShipperCfg;
 import org.compiere.model.X_M_ShipperPackagingCfg;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_ShipperPackagingCfg - DO NOT CHANGE
@@ -17,15 +18,16 @@ import org.compiere.util.Env;
  */
 public class X_M_ShipperPackagingCfgInput extends X_M_ShipperPackagingCfg implements I_M_ShipperPackagingCfgInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mM_ShipperCfg;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mM_ShipperCfg;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_M_ShipperPackagingCfgInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_M_ShipperPackagingCfg(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -38,8 +40,8 @@ public class X_M_ShipperPackagingCfgInput extends X_M_ShipperPackagingCfg implem
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -65,8 +67,8 @@ public class X_M_ShipperPackagingCfgInput extends X_M_ShipperPackagingCfg implem
 	public void setM_ShipperCfgInput(ForeignEntityInput M_ShipperCfg) {
 		this.mM_ShipperCfg = M_ShipperCfg;
 		X_M_ShipperCfg foreignEntity;
-		if (get_ID() == 0 &&M_ShipperCfg != null &&
-				(foreignEntity = new Query(getCtx(), X_M_ShipperCfg.Table_Name, X_M_ShipperCfg.COLUMNNAME_M_ShipperCfg_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && M_ShipperCfg != null &&
+				(foreignEntity = new Query(getCtx(), "M_ShipperCfg", "M_ShipperCfg_UU=?", get_TrxName())
 						.setParameters(M_ShipperCfg.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_ShipperCfg_ID(foreignEntity.get_ID());
@@ -81,6 +83,17 @@ public class X_M_ShipperPackagingCfgInput extends X_M_ShipperPackagingCfg implem
 	@JsonProperty("M_ShipperCfg")
 	public ForeignEntityInput M_ShipperCfg() {
 		return mM_ShipperCfg;
+	}
+	/**
+	 * Set Shipper Packaging Configuration.
+	 *
+	 * @param M_ShipperPackagingCfg_ID Shipper Packaging Configuration
+	 */
+
+	public void setM_ShipperPackagingCfg_ID(int M_ShipperPackagingCfg_ID) {
+		if (get_ID() == 0) {
+			super.setM_ShipperPackagingCfg_ID(M_ShipperPackagingCfg_ID);
+		}
 	}
 
 	/**

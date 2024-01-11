@@ -1,0 +1,102 @@
+# Generated Schema for T_1099Extract - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	T_1099ExtractGet(page: Int, size: Int, sort: String, filter: String): T_1099ExtractConnection!
+}
+
+extend type Mutation {
+	T_1099ExtractSave(entity: T_1099ExtractInput!): T_1099Extract!
+	T_1099ExtractDelete(uuids: [String!]!): Boolean!
+}
+
+type T_1099ExtractConnection {
+	results: [T_1099Extract!]!
+	pagingInfo: PagingInfo!
+}
+
+type T_1099Extract {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	AmtBucket01: Int
+	AmtBucket02: Int
+	AmtBucket03: Int
+	AmtBucket04: Int
+	AmtBucket05: Int
+	AmtBucket06: Int
+	AmtBucket07: Int
+	AmtBucket08: Int
+	AmtBucket09: Int
+	AmtBucket10: Int
+	AmtBucket11: Int
+	AmtBucket12: Int
+	AmtBucket13: Int
+	AmtBucket14: Int
+	AmtBucket15: Int
+	AmtBucket16: Int
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Location or Address
+	C_Location: C_Location
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	Cut_Date: Date
+	Cut_Year: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	ID: ID!
+	# Tax Identification
+	TaxID: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input T_1099ExtractInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	AmtBucket01: Int
+	AmtBucket02: Int
+	AmtBucket03: Int
+	AmtBucket04: Int
+	AmtBucket05: Int
+	AmtBucket06: Int
+	AmtBucket07: Int
+	AmtBucket08: Int
+	AmtBucket09: Int
+	AmtBucket10: Int
+	AmtBucket11: Int
+	AmtBucket12: Int
+	AmtBucket13: Int
+	AmtBucket14: Int
+	AmtBucket15: Int
+	AmtBucket16: Int
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Location or Address
+	C_Location: ForeignEntityInput
+	Cut_Date: Date
+	Cut_Year: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	ID: ID
+	# Tax Identification
+	TaxID: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

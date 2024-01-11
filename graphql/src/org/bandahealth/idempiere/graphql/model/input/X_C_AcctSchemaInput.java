@@ -10,7 +10,8 @@ import org.compiere.model.MCostType;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_AcctSchema - DO NOT CHANGE
@@ -20,22 +21,23 @@ import org.compiere.util.Env;
  */
 public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mC_Period;
-	 private ForeignEntityInput mM_CostType;
-	 private I_AD_Ref_ListInput mCommitmentType;
-	 private I_AD_Ref_ListInput mCostingLevel;
-	 private I_AD_Ref_ListInput mCostingMethod;
-	 private I_AD_Ref_ListInput mGAAP;
-	 private I_AD_Ref_ListInput mTaxCorrectionType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mC_Period;
+	private ForeignEntityInput mM_CostType;
+	private I_AD_Ref_ListInput mCommitmentType;
+	private I_AD_Ref_ListInput mCostingLevel;
+	private I_AD_Ref_ListInput mCostingMethod;
+	private I_AD_Ref_ListInput mGAAP;
+	private I_AD_Ref_ListInput mTaxCorrectionType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_AcctSchemaInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MAcctSchema(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -48,8 +50,8 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -64,6 +66,17 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Accounting Schema.
+	 *
+	 * @param C_AcctSchema_ID Rules for accounting
+	 */
+
+	public void setC_AcctSchema_ID(int C_AcctSchema_ID) {
+		if (get_ID() == 0) {
+			super.setC_AcctSchema_ID(C_AcctSchema_ID);
+		}
 	}
 
 	/**
@@ -94,7 +107,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -122,8 +135,8 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
-		if (get_ID() == 0 &&C_Period != null &&
-				(foreignEntity = new Query(getCtx(), MPeriod.Table_Name, MPeriod.COLUMNNAME_C_Period_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && C_Period != null &&
+				(foreignEntity = new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
 						.setParameters(C_Period.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Period_ID(foreignEntity.get_ID());
@@ -266,7 +279,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 		this.mM_CostType = M_CostType;
 		MCostType foreignEntity;
 		if (M_CostType != null &&
-				(foreignEntity = new Query(getCtx(), MCostType.Table_Name, MCostType.COLUMNNAME_M_CostType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "M_CostType", "M_CostType_UU=?", get_TrxName())
 						.setParameters(M_CostType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setM_CostType_ID(foreignEntity.get_ID());

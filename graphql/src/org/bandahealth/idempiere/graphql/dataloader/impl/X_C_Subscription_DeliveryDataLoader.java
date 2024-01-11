@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.X_C_Subscription_Delivery;
+
+/**
+ * Data Loader for C_Subscription_Delivery - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_Subscription_DeliveryDataLoader extends PODataLoader<X_C_Subscription_Delivery> {
+	public static String C_Subscription_Delivery_BY_ID_DATA_LOADER = "C_Subscription_DeliveryByIdDataLoader";
+	public static String C_Subscription_Delivery_BY_UUID_DATA_LOADER = "C_Subscription_DeliveryByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return X_C_Subscription_Delivery.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return C_Subscription_Delivery_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return C_Subscription_Delivery_BY_UUID_DATA_LOADER;
+	}
+}

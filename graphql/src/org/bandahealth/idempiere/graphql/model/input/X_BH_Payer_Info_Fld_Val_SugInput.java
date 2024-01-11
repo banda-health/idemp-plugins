@@ -1,0 +1,116 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFldSug;
+import org.bandahealth.idempiere.base.model.MBHPayerInfoFldValSug;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MOrg;
+import org.compiere.model.Query;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for BH_Payer_Info_Fld_Val_Sug - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_BH_Payer_Info_Fld_Val_SugInput extends MBHPayerInfoFldValSug implements I_BH_Payer_Info_Fld_Val_SugInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_Payer_Info_Fld_Sug;
+
+	/**
+	 * Standard constructor
+	 */
+	@JsonCreator
+	public X_BH_Payer_Info_Fld_Val_SugInput(@JsonProperty("ID") String ID) {
+		super(null, ModelUtil.getModelResultSet(new MBHPayerInfoFldValSug(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
+		setID(ID);
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		MOrg foreignEntity;
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+						.setParameters(AD_Org.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Org_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Payer Info Field Suggestion.
+	 *
+	 * @param BH_Payer_Info_Fld_Sug Payer Info Field Suggestion
+	 */
+	@JsonProperty("BH_Payer_Info_Fld_Sug")
+	public void setBH_Payer_Info_Fld_SugInput(ForeignEntityInput BH_Payer_Info_Fld_Sug) {
+		this.mBH_Payer_Info_Fld_Sug = BH_Payer_Info_Fld_Sug;
+		MBHPayerInfoFldSug foreignEntity;
+		if (get_ID() == 0 && BH_Payer_Info_Fld_Sug != null &&
+				(foreignEntity = new Query(getCtx(), "BH_Payer_Info_Fld_Sug", "BH_Payer_Info_Fld_Sug_UU=?", get_TrxName())
+						.setParameters(BH_Payer_Info_Fld_Sug.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setBH_Payer_Info_Fld_Sug_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Payer Info Field Suggestion.
+	 *
+	 * @return Payer Info Field Suggestion
+	 */
+	@JsonProperty("BH_Payer_Info_Fld_Sug")
+	public ForeignEntityInput BH_Payer_Info_Fld_Sug() {
+		return mBH_Payer_Info_Fld_Sug;
+	}
+	/**
+	 * Set Payer Info Field Value Suggestion.
+	 *
+	 * @param BH_Payer_Info_Fld_Val_Sug_ID Payer Info Field Value Suggestion
+	 */
+
+	public void setBH_Payer_Info_Fld_Val_Sug_ID(int BH_Payer_Info_Fld_Val_Sug_ID) {
+		if (get_ID() == 0) {
+			super.setBH_Payer_Info_Fld_Val_Sug_ID(BH_Payer_Info_Fld_Val_Sug_ID);
+		}
+	}
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	public void setID(String ID) {
+		setBH_Payer_Info_Fld_Val_Sug_UU(ID);
+	}
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	public String getID() {
+		return getBH_Payer_Info_Fld_Val_Sug_UU();
+	}
+}

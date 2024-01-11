@@ -1,0 +1,118 @@
+# Generated Schema for C_POSPayment - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	C_POSPaymentGet(page: Int, size: Int, sort: String, filter: String): C_POSPaymentConnection!
+}
+
+extend type Mutation {
+	C_POSPaymentSave(entity: C_POSPaymentInput!): C_POSPayment!
+	C_POSPaymentDelete(uuids: [String!]!): Boolean!
+}
+
+type C_POSPaymentConnection {
+	results: [C_POSPayment!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_POSPayment {
+	# Name on Credit Card or Account holder
+	A_Name: String
+	# Account Number
+	AccountNo: String
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Order
+	C_Order: C_Order!
+	# Payment identifier
+	C_Payment: C_Payment
+	ID: ID!
+	C_POSTenderType: C_POSTenderType!
+	# Check Number
+	CheckNo: String
+	CheckStatus: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Credit Card Number 
+	CreditCardNumber: String
+	# Credit Card (Visa, MC, AmEx)
+	CreditCardType: AD_Ref_List
+	# Date Order was promised
+	DatePromised: Date
+	DepositGroup: String
+	# Comment or Hint
+	Help: String
+	# International Bank Account Number
+	IBAN: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsPostDated: Boolean!
+	# Combination of routing no, account and check no
+	Micr: String
+	# Amount being paid
+	PayAmt: Int!
+	# The document has been processed
+	Processed: Boolean!
+	# Bank Routing Number
+	RoutingNo: String
+	# Swift Code or BIC
+	SwiftCode: String
+	# Method of Payment
+	TenderType: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Voice Authorization Code from credit card company
+	VoiceAuthCode: String
+}
+
+input C_POSPaymentInput {
+	# Name on Credit Card or Account holder
+	A_Name: String
+	# Account Number
+	AccountNo: String
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Order
+	C_Order: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	ID: ID
+	C_POSTenderType: ForeignEntityInput
+	# Check Number
+	CheckNo: String
+	CheckStatus: AD_Ref_ListInput
+	# Credit Card Number 
+	CreditCardNumber: String
+	# Credit Card (Visa, MC, AmEx)
+	CreditCardType: AD_Ref_ListInput
+	# Date Order was promised
+	DatePromised: Date
+	DepositGroup: String
+	# Comment or Hint
+	Help: String
+	# International Bank Account Number
+	IBAN: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsPostDated: Boolean
+	# Combination of routing no, account and check no
+	Micr: String
+	# Amount being paid
+	PayAmt: Int
+	# The document has been processed
+	Processed: Boolean
+	# Bank Routing Number
+	RoutingNo: String
+	# Swift Code or BIC
+	SwiftCode: String
+	# Method of Payment
+	TenderType: AD_Ref_ListInput
+	# Voice Authorization Code from credit card company
+	VoiceAuthCode: String
+}

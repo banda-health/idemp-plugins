@@ -1,0 +1,70 @@
+# Generated Schema for AD_Session - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	AD_SessionGet(page: Int, size: Int, sort: String, filter: String): AD_SessionConnection!
+}
+
+extend type Mutation {
+	AD_SessionSave(entity: AD_SessionInput!): AD_Session!
+	AD_SessionDelete(uuids: [String!]!): Boolean!
+}
+
+type AD_SessionConnection {
+	results: [AD_Session!]!
+	pagingInfo: PagingInfo!
+}
+
+type AD_Session {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role
+	ID: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	LoginDate: Date
+	# The document has been processed
+	Processed: Boolean!
+	# Remote Address
+	Remote_Addr: String
+	# Remote host Info
+	Remote_Host: String
+	ServerName: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Web Session ID
+	WebSession: String
+}
+
+input AD_SessionInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	ID: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	LoginDate: Date
+	# The document has been processed
+	Processed: Boolean
+	# Remote Address
+	Remote_Addr: String
+	# Remote host Info
+	Remote_Host: String
+	ServerName: String
+	# Web Session ID
+	WebSession: String
+}

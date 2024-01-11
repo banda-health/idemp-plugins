@@ -8,7 +8,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MSchedule;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_WorkflowProcessor;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_WorkflowProcessor - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implements I_AD_WorkflowProcessorInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Schedule;
-	 private ForeignEntityInput mSupervisor;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Schedule;
+	private ForeignEntityInput mSupervisor;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_WorkflowProcessorInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_AD_WorkflowProcessor(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -68,7 +70,7 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 		this.mAD_Schedule = AD_Schedule;
 		MSchedule foreignEntity;
 		if (AD_Schedule != null &&
-				(foreignEntity = new Query(getCtx(), MSchedule.Table_Name, MSchedule.COLUMNNAME_AD_Schedule_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Schedule", "AD_Schedule_UU=?", get_TrxName())
 						.setParameters(AD_Schedule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Schedule_ID(foreignEntity.get_ID());
@@ -85,6 +87,17 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 	@JsonProperty("AD_Schedule")
 	public ForeignEntityInput AD_Schedule() {
 		return mAD_Schedule;
+	}
+	/**
+	 * Set Workflow Processor.
+	 *
+	 * @param AD_WorkflowProcessor_ID Workflow Processor Server
+	 */
+
+	public void setAD_WorkflowProcessor_ID(int AD_WorkflowProcessor_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WorkflowProcessor_ID(AD_WorkflowProcessor_ID);
+		}
 	}
 
 	/**
@@ -115,7 +128,7 @@ public class X_AD_WorkflowProcessorInput extends X_AD_WorkflowProcessor implemen
 		this.mSupervisor = Supervisor;
 		MUser_BH foreignEntity;
 		if (Supervisor != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(Supervisor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setSupervisor_ID(foreignEntity.get_ID());

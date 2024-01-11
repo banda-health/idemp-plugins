@@ -1,0 +1,84 @@
+# Generated Schema for EXP_FormatLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	EXP_FormatLineGet(page: Int, size: Int, sort: String, filter: String): EXP_FormatLineConnection!
+}
+
+extend type Mutation {
+	EXP_FormatLineSave(entity: EXP_FormatLineInput!): EXP_FormatLine!
+	EXP_FormatLineDelete(uuids: [String!]!): Boolean!
+}
+
+type EXP_FormatLineConnection {
+	results: [EXP_FormatLine!]!
+	pagingInfo: PagingInfo!
+}
+
+type EXP_FormatLine {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# System Reference and Validation
+	AD_Reference: AD_Reference
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date format used in the input format
+	DateFormat: String
+	# Optional short description of the record
+	Description: String
+	EXP_EmbeddedFormat: EXP_Format
+	EXP_Format: EXP_Format
+	ID: ID!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Data entry is required in this column
+	IsMandatory: Boolean!
+	IsPartUniqueIndex: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Position: Int
+	# Type of Validation (SQL, Java Script, Java Language)
+	Type: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input EXP_FormatLineInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Date format used in the input format
+	DateFormat: String
+	# Optional short description of the record
+	Description: String
+	EXP_EmbeddedFormat: ForeignEntityInput
+	EXP_Format: ForeignEntityInput
+	ID: ID
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Data entry is required in this column
+	IsMandatory: Boolean
+	IsPartUniqueIndex: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Position: Int
+	# Type of Validation (SQL, Java Script, Java Language)
+	Type: AD_Ref_ListInput
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

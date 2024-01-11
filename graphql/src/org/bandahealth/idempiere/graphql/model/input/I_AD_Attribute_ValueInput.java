@@ -1,0 +1,40 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import org.compiere.model.I_AD_Attribute_Value;
+
+/**
+ * Generated Interface for AD_Attribute_Value - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public interface I_AD_Attribute_ValueInput extends I_AD_Attribute_Value {
+
+	/**
+	 * Set AD_Attribute.
+	 *
+	 * @param AD_Attribute AD_Attribute
+	 */
+	void setAD_AttributeInput(ForeignEntityInput AD_Attribute);
+
+	/**
+	 * Get AD_Attribute.
+	 *
+	 * @return AD_Attribute
+	 */
+	ForeignEntityInput AD_Attribute();
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	void setID(String ID);
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	String getID();
+}

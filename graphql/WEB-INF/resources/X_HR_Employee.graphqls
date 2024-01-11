@@ -1,0 +1,84 @@
+# Generated Schema for HR_Employee - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	HR_EmployeeGet(page: Int, size: Int, sort: String, filter: String): HR_EmployeeConnection!
+}
+
+extend type Mutation {
+	HR_EmployeeSave(entity: HR_EmployeeInput!): HR_Employee!
+	HR_EmployeeDelete(uuids: [String!]!): Boolean!
+}
+
+type HR_EmployeeConnection {
+	results: [HR_Employee!]!
+	pagingInfo: PagingInfo!
+}
+
+type HR_Employee {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Validation Code
+	Code: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Last effective date (inclusive)
+	EndDate: Date
+	HR_Department: HR_Department!
+	ID: ID!
+	HR_Job: HR_Job!
+	HR_Payroll: HR_Payroll
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Additional Name
+	Name2: String
+	NationalCode: String
+	SSCode: String
+	# First effective day (inclusive)
+	StartDate: Date!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input HR_EmployeeInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Validation Code
+	Code: String
+	# Last effective date (inclusive)
+	EndDate: Date
+	HR_Department: ForeignEntityInput
+	ID: ID
+	HR_Job: ForeignEntityInput
+	HR_Payroll: ForeignEntityInput
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Additional Name
+	Name2: String
+	NationalCode: String
+	SSCode: String
+	# First effective day (inclusive)
+	StartDate: Date
+}

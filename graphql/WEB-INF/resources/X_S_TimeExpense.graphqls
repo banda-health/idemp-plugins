@@ -1,0 +1,88 @@
+# Generated Schema for S_TimeExpense - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	S_TimeExpenseGet(page: Int, size: Int, sort: String, filter: String): S_TimeExpenseConnection!
+}
+
+extend type Mutation {
+	S_TimeExpenseSave(entity: S_TimeExpenseInput!): S_TimeExpense!
+	S_TimeExpenseDelete(uuids: [String!]!): Boolean!
+}
+
+type S_TimeExpenseConnection {
+	results: [S_TimeExpense!]!
+	pagingInfo: PagingInfo!
+}
+
+type S_TimeExpense {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Document Approval Amount
+	ApprovalAmt: Int
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Expense/Time Report Date
+	DateReport: Date!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# Unique identifier of a Price List
+	M_PriceList: M_PriceList!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	ID: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input S_TimeExpenseInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Document Approval Amount
+	ApprovalAmt: Int
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Expense/Time Report Date
+	DateReport: Date
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Unique identifier of a Price List
+	M_PriceList: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	ID: ID
+}

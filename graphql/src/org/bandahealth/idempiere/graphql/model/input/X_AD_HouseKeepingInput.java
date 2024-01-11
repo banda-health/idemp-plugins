@@ -1,0 +1,118 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MHouseKeeping;
+import org.compiere.model.MOrg;
+import org.compiere.model.MTable;
+import org.compiere.model.Query;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for AD_HouseKeeping - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_AD_HouseKeepingInput extends MHouseKeeping implements I_AD_HouseKeepingInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Table;
+
+	/**
+	 * Standard constructor
+	 */
+	@JsonCreator
+	public X_AD_HouseKeepingInput(@JsonProperty("ID") String ID) {
+		super(null, ModelUtil.getModelResultSet(new MHouseKeeping(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
+		setID(ID);
+	}
+	/**
+	 * Set House Keeping Configuration.
+	 *
+	 * @param AD_HouseKeeping_ID House Keeping Configuration
+	 */
+
+	public void setAD_HouseKeeping_ID(int AD_HouseKeeping_ID) {
+		if (get_ID() == 0) {
+			super.setAD_HouseKeeping_ID(AD_HouseKeeping_ID);
+		}
+	}
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	public void setID(String ID) {
+		setAD_HouseKeeping_UU(ID);
+	}
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	public String getID() {
+		return getAD_HouseKeeping_UU();
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		MOrg foreignEntity;
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+						.setParameters(AD_Org.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Org_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Table.
+	 *
+	 * @param AD_Table Database Table information
+	 */
+	@JsonProperty("AD_Table")
+	public void setAD_TableInput(ForeignEntityInput AD_Table) {
+		this.mAD_Table = AD_Table;
+		MTable foreignEntity;
+		if (AD_Table != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
+						.setParameters(AD_Table.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Table_ID(foreignEntity.get_ID());
+		} else {
+			super.setAD_Table_ID(0);
+		}
+	}
+
+	/**
+	 * Get Table.
+	 *
+	 * @return Database Table information
+	 */
+	@JsonProperty("AD_Table")
+	public ForeignEntityInput AD_Table() {
+		return mAD_Table;
+	}
+}

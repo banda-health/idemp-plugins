@@ -14,7 +14,8 @@ import org.compiere.model.X_AD_PrintFont;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_PrintPaper;
 import org.compiere.model.X_AD_PrintTableFormat;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_PrintFormat - DO NOT CHANGE
@@ -24,22 +25,23 @@ import org.compiere.util.Env;
  */
 public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_PrintFormatInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_PrintColor;
-	 private ForeignEntityInput mAD_PrintFont;
-	 private ForeignEntityInput mAD_PrintPaper;
-	 private ForeignEntityInput mAD_PrintTableFormat;
-	 private ForeignEntityInput mAD_ReportView;
-	 private ForeignEntityInput mAD_Table;
-	 private ForeignEntityInput mAD_Window;
-	 private ForeignEntityInput mJasperProcess;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PrintColor;
+	private ForeignEntityInput mAD_PrintFont;
+	private ForeignEntityInput mAD_PrintPaper;
+	private ForeignEntityInput mAD_PrintTableFormat;
+	private ForeignEntityInput mAD_ReportView;
+	private ForeignEntityInput mAD_Table;
+	private ForeignEntityInput mAD_Window;
+	private ForeignEntityInput mJasperProcess;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_PrintFormatInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_AD_PrintFormat(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -52,8 +54,8 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -80,7 +82,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(AD_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PrintColor_ID(foreignEntity.get_ID());
@@ -109,7 +111,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 		this.mAD_PrintFont = AD_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (AD_PrintFont != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintFont.Table_Name, X_AD_PrintFont.COLUMNNAME_AD_PrintFont_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
 						.setParameters(AD_PrintFont.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PrintFont_ID(foreignEntity.get_ID());
@@ -126,6 +128,17 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	@JsonProperty("AD_PrintFont")
 	public ForeignEntityInput AD_PrintFont() {
 		return mAD_PrintFont;
+	}
+	/**
+	 * Set Print Format.
+	 *
+	 * @param AD_PrintFormat_ID Data Print Format
+	 */
+
+	public void setAD_PrintFormat_ID(int AD_PrintFormat_ID) {
+		if (get_ID() == 0) {
+			super.setAD_PrintFormat_ID(AD_PrintFormat_ID);
+		}
 	}
 
 	/**
@@ -156,7 +169,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 		this.mAD_PrintPaper = AD_PrintPaper;
 		X_AD_PrintPaper foreignEntity;
 		if (AD_PrintPaper != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintPaper.Table_Name, X_AD_PrintPaper.COLUMNNAME_AD_PrintPaper_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintPaper", "AD_PrintPaper_UU=?", get_TrxName())
 						.setParameters(AD_PrintPaper.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PrintPaper_ID(foreignEntity.get_ID());
@@ -185,7 +198,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 		this.mAD_PrintTableFormat = AD_PrintTableFormat;
 		X_AD_PrintTableFormat foreignEntity;
 		if (AD_PrintTableFormat != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintTableFormat.Table_Name, X_AD_PrintTableFormat.COLUMNNAME_AD_PrintTableFormat_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintTableFormat", "AD_PrintTableFormat_UU=?", get_TrxName())
 						.setParameters(AD_PrintTableFormat.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PrintTableFormat_ID(foreignEntity.get_ID());
@@ -213,8 +226,8 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	public void setAD_ReportViewInput(ForeignEntityInput AD_ReportView) {
 		this.mAD_ReportView = AD_ReportView;
 		MReportView foreignEntity;
-		if (get_ID() == 0 &&AD_ReportView != null &&
-				(foreignEntity = new Query(getCtx(), MReportView.Table_Name, MReportView.COLUMNNAME_AD_ReportView_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_ReportView != null &&
+				(foreignEntity = new Query(getCtx(), "AD_ReportView", "AD_ReportView_UU=?", get_TrxName())
 						.setParameters(AD_ReportView.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_ReportView_ID(foreignEntity.get_ID());
@@ -240,8 +253,8 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
-		if (get_ID() == 0 &&AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), MTable.Table_Name, MTable.COLUMNNAME_AD_Table_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Table != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Table_ID(foreignEntity.get_ID());
@@ -268,7 +281,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
 		if (AD_Window != null &&
-				(foreignEntity = new Query(getCtx(), MWindow.Table_Name, MWindow.COLUMNNAME_AD_Window_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 						.setParameters(AD_Window.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Window_ID(foreignEntity.get_ID());
@@ -308,7 +321,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 		this.mJasperProcess = JasperProcess;
 		MProcess_BH foreignEntity;
 		if (JasperProcess != null &&
-				(foreignEntity = new Query(getCtx(), MProcess_BH.Table_Name, MProcess_BH.COLUMNNAME_AD_Process_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 						.setParameters(JasperProcess.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setJasperProcess_ID(foreignEntity.get_ID());

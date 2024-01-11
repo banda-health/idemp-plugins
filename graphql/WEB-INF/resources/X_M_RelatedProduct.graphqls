@@ -1,0 +1,60 @@
+# Generated Schema for M_RelatedProduct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	M_RelatedProductGet(page: Int, size: Int, sort: String, filter: String): M_RelatedProductConnection!
+}
+
+extend type Mutation {
+	M_RelatedProductSave(entity: M_RelatedProductInput!): M_RelatedProduct!
+	M_RelatedProductDelete(uuids: [String!]!): Boolean!
+}
+
+type M_RelatedProductConnection {
+	results: [M_RelatedProduct!]!
+	pagingInfo: PagingInfo!
+}
+
+type M_RelatedProduct {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product!
+	ID: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Related Product
+	RelatedProduct: M_Product!
+	RelatedProductType: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_RelatedProductInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	ID: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Related Product
+	RelatedProduct: ForeignEntityInput
+	RelatedProductType: AD_Ref_ListInput
+}

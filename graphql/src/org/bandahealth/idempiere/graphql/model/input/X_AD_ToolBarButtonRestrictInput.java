@@ -1,0 +1,284 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MOrg;
+import org.compiere.model.MTab;
+import org.compiere.model.MToolBarButton;
+import org.compiere.model.MToolBarButtonRestrict;
+import org.compiere.model.MWindow;
+import org.compiere.model.Query;
+import org.compiere.model.X_AD_Role;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for AD_ToolBarButtonRestrict - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict implements I_AD_ToolBarButtonRestrictInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Process;
+	private ForeignEntityInput mAD_Role;
+	private ForeignEntityInput mAD_Tab;
+	private ForeignEntityInput mAD_ToolBarButton;
+	private ForeignEntityInput mAD_Window;
+	private I_AD_Ref_ListInput mAction;
+
+	/**
+	 * Standard constructor
+	 */
+	@JsonCreator
+	public X_AD_ToolBarButtonRestrictInput(@JsonProperty("ID") String ID) {
+		super(null, ModelUtil.getModelResultSet(new MToolBarButtonRestrict(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
+		setID(ID);
+	}
+
+	/**
+	 * Set Action.
+	 *
+	 * @param Action Indicates the Action to be performed
+	 */
+	@JsonProperty("Action")
+	public void setActionInput(I_AD_Ref_ListInput Action) {
+		this.mAction = Action;
+		MRefList_BH foreignEntity;
+		if (Action != null &&
+				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+						.setParameters(Action.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			this.setAction(foreignEntity.getValue());
+		} else {
+			this.setAction(null);
+		}
+	}
+
+	/**
+	 * Get Action.
+	 *
+	 * @return Indicates the Action to be performed
+	 */
+	@JsonProperty("Action")
+	public I_AD_Ref_ListInput Action() {
+		return mAction;
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		MOrg foreignEntity;
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+						.setParameters(AD_Org.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Org_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Process.
+	 *
+	 * @param AD_Process Process or Report
+	 */
+	@JsonProperty("AD_Process")
+	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
+		this.mAD_Process = AD_Process;
+		MProcess_BH foreignEntity;
+		if (AD_Process != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
+						.setParameters(AD_Process.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Process_ID(foreignEntity.get_ID());
+		} else {
+			super.setAD_Process_ID(0);
+		}
+	}
+
+	/**
+	 * Get Process.
+	 *
+	 * @return Process or Report
+	 */
+	@JsonProperty("AD_Process")
+	public ForeignEntityInput AD_Process() {
+		return mAD_Process;
+	}
+
+	/**
+	 * Set Role.
+	 *
+	 * @param AD_Role Responsibility Role
+	 */
+	@JsonProperty("AD_Role")
+	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
+		this.mAD_Role = AD_Role;
+		X_AD_Role foreignEntity;
+		if (AD_Role != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
+						.setParameters(AD_Role.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Role_ID(foreignEntity.get_ID());
+		} else {
+			super.setAD_Role_ID(0);
+		}
+	}
+
+	/**
+	 * Get Role.
+	 *
+	 * @return Responsibility Role
+	 */
+	@JsonProperty("AD_Role")
+	public ForeignEntityInput AD_Role() {
+		return mAD_Role;
+	}
+
+	/**
+	 * Set Tab.
+	 *
+	 * @param AD_Tab Tab within a Window
+	 */
+	@JsonProperty("AD_Tab")
+	public void setAD_TabInput(ForeignEntityInput AD_Tab) {
+		this.mAD_Tab = AD_Tab;
+		MTab foreignEntity;
+		if (AD_Tab != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
+						.setParameters(AD_Tab.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Tab_ID(foreignEntity.get_ID());
+		} else {
+			super.setAD_Tab_ID(0);
+		}
+	}
+
+	/**
+	 * Get Tab.
+	 *
+	 * @return Tab within a Window
+	 */
+	@JsonProperty("AD_Tab")
+	public ForeignEntityInput AD_Tab() {
+		return mAD_Tab;
+	}
+
+	/**
+	 * Set ToolBar Button.
+	 *
+	 * @param AD_ToolBarButton ToolBar Button
+	 */
+	@JsonProperty("AD_ToolBarButton")
+	public void setAD_ToolBarButtonInput(ForeignEntityInput AD_ToolBarButton) {
+		this.mAD_ToolBarButton = AD_ToolBarButton;
+		MToolBarButton foreignEntity;
+		if (AD_ToolBarButton != null &&
+				(foreignEntity = new Query(getCtx(), "AD_ToolBarButton", "AD_ToolBarButton_UU=?", get_TrxName())
+						.setParameters(AD_ToolBarButton.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_ToolBarButton_ID(foreignEntity.get_ID());
+		} else {
+			super.setAD_ToolBarButton_ID(0);
+		}
+	}
+
+	/**
+	 * Get ToolBar Button.
+	 *
+	 * @return ToolBar Button
+	 */
+	@JsonProperty("AD_ToolBarButton")
+	public ForeignEntityInput AD_ToolBarButton() {
+		return mAD_ToolBarButton;
+	}
+	/**
+	 * Set ToolBar Button Restrict.
+	 *
+	 * @param AD_ToolBarButtonRestrict_ID ToolBar Button Restrict
+	 */
+
+	public void setAD_ToolBarButtonRestrict_ID(int AD_ToolBarButtonRestrict_ID) {
+		if (get_ID() == 0) {
+			super.setAD_ToolBarButtonRestrict_ID(AD_ToolBarButtonRestrict_ID);
+		}
+	}
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	public void setID(String ID) {
+		setAD_ToolBarButtonRestrict_UU(ID);
+	}
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	public String getID() {
+		return getAD_ToolBarButtonRestrict_UU();
+	}
+
+	/**
+	 * Set Window.
+	 *
+	 * @param AD_Window Data entry or display window
+	 */
+	@JsonProperty("AD_Window")
+	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
+		this.mAD_Window = AD_Window;
+		MWindow foreignEntity;
+		if (AD_Window != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
+						.setParameters(AD_Window.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Window_ID(foreignEntity.get_ID());
+		} else {
+			super.setAD_Window_ID(0);
+		}
+	}
+
+	/**
+	 * Get Window.
+	 *
+	 * @return Data entry or display window
+	 */
+	@JsonProperty("AD_Window")
+	public ForeignEntityInput AD_Window() {
+		return mAD_Window;
+	}
+	/**
+	 * Set Exclude.
+	 *
+	 * @param IsExclude Exclude access to the data - if not selected Include access to the data
+	 */
+
+	public void setIsExclude(boolean IsExclude) {
+		if (get_ID() == 0) {
+			super.setIsExclude(IsExclude);
+		}
+	}
+}

@@ -1,0 +1,114 @@
+# Generated Schema for T_InventoryValue - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 8.2 - $Id$
+extend type Query {
+	T_InventoryValueGet(page: Int, size: Int, sort: String, filter: String): T_InventoryValueConnection!
+}
+
+extend type Mutation {
+	T_InventoryValueSave(entity: T_InventoryValueInput!): T_InventoryValue!
+	T_InventoryValueDelete(uuids: [String!]!): Boolean!
+}
+
+type T_InventoryValueConnection {
+	results: [T_InventoryValue!]!
+	pagingInfo: PagingInfo!
+}
+
+type T_InventoryValue {
+	# Client/Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within client
+	AD_Org: AD_Org!
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Cost information
+	Cost: Int
+	# Value with Cost
+	CostAmt: Int
+	# Standard Costs
+	CostStandard: Int
+	# Value in Standard Costs
+	CostStandardAmt: Int
+	# Date of valuation
+	DateValue: Date
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Product Cost Element
+	M_CostElement: M_CostElement
+	# Identifies a unique instance of a Price List
+	M_PriceList_Version: M_PriceList_Version
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Lowest price for a product
+	PriceLimit: Int
+	# Value with limit price
+	PriceLimitAmt: Int
+	# List Price
+	PriceList: Int
+	# Valuation with List Price
+	PriceListAmt: Int
+	# Price based on a purchase order
+	PricePO: Int
+	# Valuation with PO Price
+	PricePOAmt: Int
+	# Standard Price
+	PriceStd: Int
+	# Valuation with standard price
+	PriceStdAmt: Int
+	# On Hand Quantity
+	QtyOnHand: Int
+	ID: ID!
+}
+
+input T_InventoryValueInput {
+	# Organizational entity within client
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Cost information
+	Cost: Int
+	# Value with Cost
+	CostAmt: Int
+	# Standard Costs
+	CostStandard: Int
+	# Value in Standard Costs
+	CostStandardAmt: Int
+	# Date of valuation
+	DateValue: Date
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Product Cost Element
+	M_CostElement: ForeignEntityInput
+	# Identifies a unique instance of a Price List
+	M_PriceList_Version: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Lowest price for a product
+	PriceLimit: Int
+	# Value with limit price
+	PriceLimitAmt: Int
+	# List Price
+	PriceList: Int
+	# Valuation with List Price
+	PriceListAmt: Int
+	# Price based on a purchase order
+	PricePO: Int
+	# Valuation with PO Price
+	PricePOAmt: Int
+	# Standard Price
+	PriceStd: Int
+	# Valuation with standard price
+	PriceStdAmt: Int
+	# On Hand Quantity
+	QtyOnHand: Int
+	ID: ID
+}

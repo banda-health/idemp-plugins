@@ -8,7 +8,8 @@ import org.compiere.model.MMeasureCalc;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for PA_MeasureCalc - DO NOT CHANGE
@@ -18,16 +19,17 @@ import org.compiere.util.Env;
  */
 public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureCalcInput {
 
-	 private ForeignEntityInput mAD_EntityType;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Table;
+	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Table;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_PA_MeasureCalcInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MMeasureCalc(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -40,8 +42,8 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -68,7 +70,7 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), MTable.Table_Name, MTable.COLUMNNAME_AD_Table_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Table_ID(foreignEntity.get_ID());
@@ -97,7 +99,7 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
 		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), MEntityType.Table_Name, MEntityType.COLUMNNAME_AD_EntityType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 						.setParameters(AD_EntityType.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setEntityType(foreignEntity.getEntityType());
@@ -114,6 +116,17 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 	@JsonProperty("AD_EntityType")
 	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
+	}
+	/**
+	 * Set Measure Calculation.
+	 *
+	 * @param PA_MeasureCalc_ID Calculation method for measuring performance
+	 */
+
+	public void setPA_MeasureCalc_ID(int PA_MeasureCalc_ID) {
+		if (get_ID() == 0) {
+			super.setPA_MeasureCalc_ID(PA_MeasureCalc_ID);
+		}
 	}
 
 	/**

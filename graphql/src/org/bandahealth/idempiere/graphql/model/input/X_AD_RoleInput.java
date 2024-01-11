@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MTree_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MTree;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Role - DO NOT CHANGE
@@ -20,21 +21,22 @@ import org.compiere.util.Env;
  */
 public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Tree_Menu;
-	 private ForeignEntityInput mAD_Tree_Org;
-	 private ForeignEntityInput mC_Currency;
-	 private ForeignEntityInput mSupervisor;
-	 private I_AD_Ref_ListInput mPreferenceType;
-	 private I_AD_Ref_ListInput mRoleType;
-	 private I_AD_Ref_ListInput mUserLevel;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Tree_Menu;
+	private ForeignEntityInput mAD_Tree_Org;
+	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mSupervisor;
+	private I_AD_Ref_ListInput mPreferenceType;
+	private I_AD_Ref_ListInput mRoleType;
+	private I_AD_Ref_ListInput mUserLevel;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_RoleInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_AD_Role(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -47,8 +49,8 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -63,6 +65,17 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Role.
+	 *
+	 * @param AD_Role_ID Responsibility Role
+	 */
+
+	public void setAD_Role_ID(int AD_Role_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Role_ID(AD_Role_ID);
+		}
 	}
 
 	/**
@@ -91,9 +104,9 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	@JsonProperty("AD_Tree_Menu")
 	public void setAD_Tree_MenuInput(ForeignEntityInput AD_Tree_Menu) {
 		this.mAD_Tree_Menu = AD_Tree_Menu;
-		MTree foreignEntity;
+		MTree_BH foreignEntity;
 		if (AD_Tree_Menu != null &&
-				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 						.setParameters(AD_Tree_Menu.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Tree_Menu_ID(foreignEntity.get_ID());
@@ -120,9 +133,9 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	@JsonProperty("AD_Tree_Org")
 	public void setAD_Tree_OrgInput(ForeignEntityInput AD_Tree_Org) {
 		this.mAD_Tree_Org = AD_Tree_Org;
-		MTree foreignEntity;
+		MTree_BH foreignEntity;
 		if (AD_Tree_Org != null &&
-				(foreignEntity = new Query(getCtx(), MTree.Table_Name, MTree.COLUMNNAME_AD_Tree_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 						.setParameters(AD_Tree_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Tree_Org_ID(foreignEntity.get_ID());
@@ -151,7 +164,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
 		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), MCurrency_BH.Table_Name, MCurrency_BH.COLUMNNAME_C_Currency_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 						.setParameters(C_Currency.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_Currency_ID(foreignEntity.get_ID());
@@ -238,7 +251,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 		this.mSupervisor = Supervisor;
 		MUser_BH foreignEntity;
 		if (Supervisor != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(Supervisor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setSupervisor_ID(foreignEntity.get_ID());

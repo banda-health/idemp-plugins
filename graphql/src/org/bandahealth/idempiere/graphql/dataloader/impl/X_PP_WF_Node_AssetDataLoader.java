@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.eevolution.model.X_PP_WF_Node_Asset;
+
+/**
+ * Data Loader for PP_WF_Node_Asset - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_PP_WF_Node_AssetDataLoader extends PODataLoader<X_PP_WF_Node_Asset> {
+	public static String PP_WF_Node_Asset_BY_ID_DATA_LOADER = "PP_WF_Node_AssetByIdDataLoader";
+	public static String PP_WF_Node_Asset_BY_UUID_DATA_LOADER = "PP_WF_Node_AssetByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return X_PP_WF_Node_Asset.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return PP_WF_Node_Asset_BY_ID_DATA_LOADER;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return PP_WF_Node_Asset_BY_UUID_DATA_LOADER;
+	}
+}

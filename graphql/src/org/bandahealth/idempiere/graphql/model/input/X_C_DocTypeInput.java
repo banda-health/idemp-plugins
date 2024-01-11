@@ -10,7 +10,8 @@ import org.compiere.model.MGLCategory;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_DocType - DO NOT CHANGE
@@ -20,25 +21,26 @@ import org.compiere.util.Env;
  */
 public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_PrintFormat;
-	 private ForeignEntityInput mC_DocTypeDifference;
-	 private ForeignEntityInput mC_DocTypeInvoice;
-	 private ForeignEntityInput mC_DocTypeProforma;
-	 private ForeignEntityInput mC_DocTypeShipment;
-	 private ForeignEntityInput mDefiniteSequence;
-	 private ForeignEntityInput mDocNoSequence;
-	 private ForeignEntityInput mGL_Category;
-	 private I_AD_Ref_ListInput mDocBaseType;
-	 private I_AD_Ref_ListInput mDocSubTypeInv;
-	 private I_AD_Ref_ListInput mDocSubTypeSO;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PrintFormat;
+	private ForeignEntityInput mC_DocTypeDifference;
+	private ForeignEntityInput mC_DocTypeInvoice;
+	private ForeignEntityInput mC_DocTypeProforma;
+	private ForeignEntityInput mC_DocTypeShipment;
+	private ForeignEntityInput mDefiniteSequence;
+	private ForeignEntityInput mDocNoSequence;
+	private ForeignEntityInput mGL_Category;
+	private I_AD_Ref_ListInput mDocBaseType;
+	private I_AD_Ref_ListInput mDocSubTypeInv;
+	private I_AD_Ref_ListInput mDocSubTypeSO;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_DocTypeInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MDocType_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -51,8 +53,8 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -79,7 +81,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
 		if (AD_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintFormat.Table_Name, X_AD_PrintFormat.COLUMNNAME_AD_PrintFormat_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 						.setParameters(AD_PrintFormat.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PrintFormat_ID(foreignEntity.get_ID());
@@ -96,6 +98,17 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("AD_PrintFormat")
 	public ForeignEntityInput AD_PrintFormat() {
 		return mAD_PrintFormat;
+	}
+	/**
+	 * Set Document Type.
+	 *
+	 * @param C_DocType_ID Document type or rules
+	 */
+
+	public void setC_DocType_ID(int C_DocType_ID) {
+		if (get_ID() == 0) {
+			super.setC_DocType_ID(C_DocType_ID);
+		}
 	}
 
 	/**
@@ -126,7 +139,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 		this.mC_DocTypeDifference = C_DocTypeDifference;
 		MDocType_BH foreignEntity;
 		if (C_DocTypeDifference != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocTypeDifference.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocTypeDifference_ID(foreignEntity.get_ID());
@@ -155,7 +168,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 		this.mC_DocTypeInvoice = C_DocTypeInvoice;
 		MDocType_BH foreignEntity;
 		if (C_DocTypeInvoice != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocTypeInvoice.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocTypeInvoice_ID(foreignEntity.get_ID());
@@ -184,7 +197,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 		this.mC_DocTypeProforma = C_DocTypeProforma;
 		MDocType_BH foreignEntity;
 		if (C_DocTypeProforma != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocTypeProforma.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocTypeProforma_ID(foreignEntity.get_ID());
@@ -213,7 +226,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 		this.mC_DocTypeShipment = C_DocTypeShipment;
 		MDocType_BH foreignEntity;
 		if (C_DocTypeShipment != null &&
-				(foreignEntity = new Query(getCtx(), MDocType_BH.Table_Name, MDocType_BH.COLUMNNAME_C_DocType_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 						.setParameters(C_DocTypeShipment.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setC_DocTypeShipment_ID(foreignEntity.get_ID());
@@ -242,7 +255,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 		this.mDefiniteSequence = DefiniteSequence;
 		MSequence_BH foreignEntity;
 		if (DefiniteSequence != null &&
-				(foreignEntity = new Query(getCtx(), MSequence_BH.Table_Name, MSequence_BH.COLUMNNAME_AD_Sequence_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
 						.setParameters(DefiniteSequence.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setDefiniteSequence_ID(foreignEntity.get_ID());
@@ -300,7 +313,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 		this.mDocNoSequence = DocNoSequence;
 		MSequence_BH foreignEntity;
 		if (DocNoSequence != null &&
-				(foreignEntity = new Query(getCtx(), MSequence_BH.Table_Name, MSequence_BH.COLUMNNAME_AD_Sequence_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
 						.setParameters(DocNoSequence.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setDocNoSequence_ID(foreignEntity.get_ID());
@@ -387,7 +400,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 		this.mGL_Category = GL_Category;
 		MGLCategory foreignEntity;
 		if (GL_Category != null &&
-				(foreignEntity = new Query(getCtx(), MGLCategory.Table_Name, MGLCategory.COLUMNNAME_GL_Category_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
 						.setParameters(GL_Category.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setGL_Category_ID(foreignEntity.get_ID());

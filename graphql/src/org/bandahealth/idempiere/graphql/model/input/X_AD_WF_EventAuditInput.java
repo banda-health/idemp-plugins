@@ -12,7 +12,8 @@ import org.compiere.model.X_AD_WF_EventAudit;
 import org.compiere.model.X_AD_WF_Node;
 import org.compiere.model.X_AD_WF_Process;
 import org.compiere.model.X_AD_WF_Responsible;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_WF_EventAudit - DO NOT CHANGE
@@ -22,21 +23,22 @@ import org.compiere.util.Env;
  */
 public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_WF_EventAuditInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_Table;
-	 private ForeignEntityInput mAD_User;
-	 private ForeignEntityInput mAD_WF_Node;
-	 private ForeignEntityInput mAD_WF_Process;
-	 private ForeignEntityInput mAD_WF_Responsible;
-	 private I_AD_Ref_ListInput mEventType;
-	 private I_AD_Ref_ListInput mWFState;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Table;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mAD_WF_Node;
+	private ForeignEntityInput mAD_WF_Process;
+	private ForeignEntityInput mAD_WF_Responsible;
+	private I_AD_Ref_ListInput mEventType;
+	private I_AD_Ref_ListInput mWFState;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_WF_EventAuditInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new X_AD_WF_EventAudit(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -49,8 +51,8 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -77,7 +79,7 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
 		if (AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), MTable.Table_Name, MTable.COLUMNNAME_AD_Table_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Table_ID(foreignEntity.get_ID());
@@ -106,7 +108,7 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
 		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), MUser_BH.Table_Name, MUser_BH.COLUMNNAME_AD_User_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 						.setParameters(AD_User.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_User_ID(foreignEntity.get_ID());
@@ -123,6 +125,17 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
+	}
+	/**
+	 * Set Workflow Event Audit.
+	 *
+	 * @param AD_WF_EventAudit_ID Workflow Process Activity Event Audit Information
+	 */
+
+	public void setAD_WF_EventAudit_ID(int AD_WF_EventAudit_ID) {
+		if (get_ID() == 0) {
+			super.setAD_WF_EventAudit_ID(AD_WF_EventAudit_ID);
+		}
 	}
 
 	/**
@@ -153,7 +166,7 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 		this.mAD_WF_Node = AD_WF_Node;
 		X_AD_WF_Node foreignEntity;
 		if (AD_WF_Node != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_WF_Node.Table_Name, X_AD_WF_Node.COLUMNNAME_AD_WF_Node_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
 						.setParameters(AD_WF_Node.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_WF_Node_ID(foreignEntity.get_ID());
@@ -182,7 +195,7 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 		this.mAD_WF_Process = AD_WF_Process;
 		X_AD_WF_Process foreignEntity;
 		if (AD_WF_Process != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_WF_Process.Table_Name, X_AD_WF_Process.COLUMNNAME_AD_WF_Process_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_WF_Process", "AD_WF_Process_UU=?", get_TrxName())
 						.setParameters(AD_WF_Process.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_WF_Process_ID(foreignEntity.get_ID());
@@ -211,7 +224,7 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 		this.mAD_WF_Responsible = AD_WF_Responsible;
 		X_AD_WF_Responsible foreignEntity;
 		if (AD_WF_Responsible != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_WF_Responsible.Table_Name, X_AD_WF_Responsible.COLUMNNAME_AD_WF_Responsible_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_WF_Responsible", "AD_WF_Responsible_UU=?", get_TrxName())
 						.setParameters(AD_WF_Responsible.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_WF_Responsible_ID(foreignEntity.get_ID());

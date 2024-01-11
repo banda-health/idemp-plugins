@@ -9,7 +9,8 @@ import org.compiere.model.MPOSKeyLayout;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_POSKeyLayout - DO NOT CHANGE
@@ -19,17 +20,18 @@ import org.compiere.util.Env;
  */
 public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLayoutInput {
 
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_PrintColor;
-	 private ForeignEntityInput mAD_PrintFont;
-	 private I_AD_Ref_ListInput mPOSKeyLayoutType;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PrintColor;
+	private ForeignEntityInput mAD_PrintFont;
+	private I_AD_Ref_ListInput mPOSKeyLayoutType;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_C_POSKeyLayoutInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MPOSKeyLayout(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -42,8 +44,8 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -70,7 +72,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintColor.Table_Name, X_AD_PrintColor.COLUMNNAME_AD_PrintColor_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 						.setParameters(AD_PrintColor.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PrintColor_ID(foreignEntity.get_ID());
@@ -99,7 +101,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 		this.mAD_PrintFont = AD_PrintFont;
 		X_AD_PrintFont foreignEntity;
 		if (AD_PrintFont != null &&
-				(foreignEntity = new Query(getCtx(), X_AD_PrintFont.Table_Name, X_AD_PrintFont.COLUMNNAME_AD_PrintFont_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
 						.setParameters(AD_PrintFont.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PrintFont_ID(foreignEntity.get_ID());
@@ -116,6 +118,17 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	@JsonProperty("AD_PrintFont")
 	public ForeignEntityInput AD_PrintFont() {
 		return mAD_PrintFont;
+	}
+	/**
+	 * Set POS Key Layout.
+	 *
+	 * @param C_POSKeyLayout_ID POS Function Key Layout
+	 */
+
+	public void setC_POSKeyLayout_ID(int C_POSKeyLayout_ID) {
+		if (get_ID() == 0) {
+			super.setC_POSKeyLayout_ID(C_POSKeyLayout_ID);
+		}
 	}
 
 	/**

@@ -10,7 +10,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPasswordRule;
 import org.compiere.model.MReplicationStrategy;
 import org.compiere.model.Query;
-import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Client - DO NOT CHANGE
@@ -20,19 +21,20 @@ import org.compiere.util.Env;
  */
 public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 
-	 private ForeignEntityInput mAD_Language;
-	 private ForeignEntityInput mAD_Org;
-	 private ForeignEntityInput mAD_PasswordRule;
-	 private ForeignEntityInput mAD_ReplicationStrategy;
-	 private I_AD_Ref_ListInput mAutoArchive;
-	 private I_AD_Ref_ListInput mMMPolicy;
+	private ForeignEntityInput mAD_Language;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PasswordRule;
+	private ForeignEntityInput mAD_ReplicationStrategy;
+	private I_AD_Ref_ListInput mAutoArchive;
+	private I_AD_Ref_ListInput mMMPolicy;
 
 	/**
 	 * Standard constructor
 	 */
 	@JsonCreator
 	public X_AD_ClientInput(@JsonProperty("ID") String ID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, ID), null);
+		super(null, ModelUtil.getModelResultSet(new MClient_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
 		setID(ID);
 	}
 
@@ -64,7 +66,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 		this.mAD_Language = AD_Language;
 		MLanguage foreignEntity;
 		if (AD_Language != null &&
-				(foreignEntity = new Query(getCtx(), MLanguage.Table_Name, MLanguage.COLUMNNAME_AD_Language_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
 						.setParameters(AD_Language.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Language(foreignEntity.getAD_Language());
@@ -92,8 +94,8 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 &&AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?", get_TrxName())
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 						.setParameters(AD_Org.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_Org_ID(foreignEntity.get_ID());
@@ -120,7 +122,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 		this.mAD_PasswordRule = AD_PasswordRule;
 		MPasswordRule foreignEntity;
 		if (AD_PasswordRule != null &&
-				(foreignEntity = new Query(getCtx(), MPasswordRule.Table_Name, MPasswordRule.COLUMNNAME_AD_PasswordRule_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_PasswordRule", "AD_PasswordRule_UU=?", get_TrxName())
 						.setParameters(AD_PasswordRule.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_PasswordRule_ID(foreignEntity.get_ID());
@@ -149,7 +151,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
 		MReplicationStrategy foreignEntity;
 		if (AD_ReplicationStrategy != null &&
-				(foreignEntity = new Query(getCtx(), MReplicationStrategy.Table_Name, MReplicationStrategy.COLUMNNAME_AD_ReplicationStrategy_UU + "=?", get_TrxName())
+				(foreignEntity = new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
 						.setParameters(AD_ReplicationStrategy.getID())
 						.first()) != null && foreignEntity.get_ID() != 0) {
 			super.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());

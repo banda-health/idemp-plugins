@@ -1,0 +1,347 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MOrder_BH;
+import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MAllocationHdr;
+import org.compiere.model.MAllocationLine;
+import org.compiere.model.MCashLine;
+import org.compiere.model.MOrg;
+import org.compiere.model.Query;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+
+/**
+ * Generated Model for C_AllocationLine - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 8.2 - $Id$
+ */
+public class X_C_AllocationLineInput extends MAllocationLine implements I_C_AllocationLineInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_AllocationHdr;
+	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_CashLine;
+	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mC_Invoice;
+	private ForeignEntityInput mC_Order;
+	private ForeignEntityInput mC_Payment;
+
+	/**
+	 * Standard constructor
+	 */
+	@JsonCreator
+	public X_C_AllocationLineInput(@JsonProperty("ID") String ID) {
+		super(null, ModelUtil.getModelResultSet(new MAllocationLine(null, (ResultSet) null, null), null, Table_Name, ID),
+				null);
+		setID(ID);
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		MOrg foreignEntity;
+		if (get_ID() == 0 && AD_Org != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+						.setParameters(AD_Org.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Org_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within client
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+	/**
+	 * Set Amount.
+	 *
+	 * @param Amount Amount in a defined currency
+	 */
+
+	public void setAmount(BigDecimal Amount) {
+		if (get_ID() == 0) {
+			super.setAmount(Amount);
+		}
+	}
+
+	/**
+	 * Set Allocation.
+	 *
+	 * @param C_AllocationHdr Payment allocation
+	 */
+	@JsonProperty("C_AllocationHdr")
+	public void setC_AllocationHdrInput(ForeignEntityInput C_AllocationHdr) {
+		this.mC_AllocationHdr = C_AllocationHdr;
+		MAllocationHdr foreignEntity;
+		if (get_ID() == 0 && C_AllocationHdr != null &&
+				(foreignEntity = new Query(getCtx(), "C_AllocationHdr", "C_AllocationHdr_UU=?", get_TrxName())
+						.setParameters(C_AllocationHdr.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_AllocationHdr_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Allocation.
+	 *
+	 * @return Payment allocation
+	 */
+	@JsonProperty("C_AllocationHdr")
+	public ForeignEntityInput C_AllocationHdr() {
+		return mC_AllocationHdr;
+	}
+	/**
+	 * Set Allocation Line.
+	 *
+	 * @param C_AllocationLine_ID Allocation Line
+	 */
+
+	public void setC_AllocationLine_ID(int C_AllocationLine_ID) {
+		if (get_ID() == 0) {
+			super.setC_AllocationLine_ID(C_AllocationLine_ID);
+		}
+	}
+
+	/**
+	 * Set ID.
+	 *
+	 * @param ID ID
+	 */
+	public void setID(String ID) {
+		setC_AllocationLine_UU(ID);
+	}
+
+	/**
+	 * Get ID.
+	 *
+	 * @return ID
+	 */
+	public String getID() {
+		return getC_AllocationLine_UU();
+	}
+
+	/**
+	 * Set Business Partner .
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
+		this.mC_BPartner = C_BPartner;
+		MBPartner_BH foreignEntity;
+		if (get_ID() == 0 && C_BPartner != null &&
+				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+						.setParameters(C_BPartner.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_BPartner_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Business Partner .
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	@JsonProperty("C_BPartner")
+	public ForeignEntityInput C_BPartner() {
+		return mC_BPartner;
+	}
+
+	/**
+	 * Set Cash Journal Line.
+	 *
+	 * @param C_CashLine Cash Journal Line
+	 */
+	@JsonProperty("C_CashLine")
+	public void setC_CashLineInput(ForeignEntityInput C_CashLine) {
+		this.mC_CashLine = C_CashLine;
+		MCashLine foreignEntity;
+		if (get_ID() == 0 && C_CashLine != null &&
+				(foreignEntity = new Query(getCtx(), "C_CashLine", "C_CashLine_UU=?", get_TrxName())
+						.setParameters(C_CashLine.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_CashLine_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Cash Journal Line.
+	 *
+	 * @return Cash Journal Line
+	 */
+	@JsonProperty("C_CashLine")
+	public ForeignEntityInput C_CashLine() {
+		return mC_CashLine;
+	}
+
+	/**
+	 * Set Charge.
+	 *
+	 * @param C_Charge Additional document charges
+	 */
+	@JsonProperty("C_Charge")
+	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
+		this.mC_Charge = C_Charge;
+		MCharge_BH foreignEntity;
+		if (get_ID() == 0 && C_Charge != null &&
+				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
+						.setParameters(C_Charge.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Charge_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Charge.
+	 *
+	 * @return Additional document charges
+	 */
+	@JsonProperty("C_Charge")
+	public ForeignEntityInput C_Charge() {
+		return mC_Charge;
+	}
+
+	/**
+	 * Set Invoice.
+	 *
+	 * @param C_Invoice Invoice Identifier
+	 */
+	@JsonProperty("C_Invoice")
+	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
+		this.mC_Invoice = C_Invoice;
+		MInvoice_BH foreignEntity;
+		if (get_ID() == 0 && C_Invoice != null &&
+				(foreignEntity = new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
+						.setParameters(C_Invoice.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Invoice_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Invoice.
+	 *
+	 * @return Invoice Identifier
+	 */
+	@JsonProperty("C_Invoice")
+	public ForeignEntityInput C_Invoice() {
+		return mC_Invoice;
+	}
+
+	/**
+	 * Set Order.
+	 *
+	 * @param C_Order Order
+	 */
+	@JsonProperty("C_Order")
+	public void setC_OrderInput(ForeignEntityInput C_Order) {
+		this.mC_Order = C_Order;
+		MOrder_BH foreignEntity;
+		if (get_ID() == 0 && C_Order != null &&
+				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
+						.setParameters(C_Order.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Order_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Order.
+	 *
+	 * @return Order
+	 */
+	@JsonProperty("C_Order")
+	public ForeignEntityInput C_Order() {
+		return mC_Order;
+	}
+
+	/**
+	 * Set Payment.
+	 *
+	 * @param C_Payment Payment identifier
+	 */
+	@JsonProperty("C_Payment")
+	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
+		this.mC_Payment = C_Payment;
+		MPayment_BH foreignEntity;
+		if (get_ID() == 0 && C_Payment != null &&
+				(foreignEntity = new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
+						.setParameters(C_Payment.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setC_Payment_ID(foreignEntity.get_ID());
+		}
+	}
+
+	/**
+	 * Get Payment.
+	 *
+	 * @return Payment identifier
+	 */
+	@JsonProperty("C_Payment")
+	public ForeignEntityInput C_Payment() {
+		return mC_Payment;
+	}
+	/**
+	 * Set Transaction Date.
+	 *
+	 * @param DateTrx Transaction Date
+	 */
+
+	public void setDateTrx(Timestamp DateTrx) {
+		if (get_ID() == 0) {
+			super.setDateTrx(DateTrx);
+		}
+	}
+	/**
+	 * Set Discount Amount.
+	 *
+	 * @param DiscountAmt Calculated amount of discount
+	 */
+
+	public void setDiscountAmt(BigDecimal DiscountAmt) {
+		if (get_ID() == 0) {
+			super.setDiscountAmt(DiscountAmt);
+		}
+	}
+	/**
+	 * Set Manual.
+	 *
+	 * @param IsManual This is a manual process
+	 */
+
+	public void setIsManual(boolean IsManual) {
+		if (get_ID() == 0) {
+			super.setIsManual(IsManual);
+		}
+	}
+	/**
+	 * Set Write-off Amount.
+	 *
+	 * @param WriteOffAmt Amount to write-off
+	 */
+
+	public void setWriteOffAmt(BigDecimal WriteOffAmt) {
+		if (get_ID() == 0) {
+			super.setWriteOffAmt(WriteOffAmt);
+		}
+	}
+}
