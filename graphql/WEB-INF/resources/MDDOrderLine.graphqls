@@ -1,0 +1,2 @@
+extend type DD_OrderLine {
+}
