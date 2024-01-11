@@ -591,6 +591,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_ASP_TabDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_ASP_TaskDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_ASP_WindowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_ASP_WorkflowDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_I_Product_QuantityDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Stocktake_vDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_B_BidCommentDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_B_BidDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_B_BuyerDataLoader;
@@ -1446,6 +1448,8 @@ public class BandaDataLoaderComposer {
 				new X_B_TopicCategoryDataLoader(),
 				new X_B_TopicDataLoader(),
 				new X_B_TopicTypeDataLoader(),
+				new X_BH_I_Product_QuantityDataLoader(),
+				new X_BH_Stocktake_vDataLoader(),
 				new X_BH_TabNavBtn_Tab_TrlDataLoader(),
 				new X_BH_TabNavBtn_TrlDataLoader(),
 				new X_BH_UIButton_TrlDataLoader(),
