@@ -3,9 +3,14 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PriceListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PriceList_TrlDataLoader;
 import org.compiere.model.MPriceList;
+import org.compiere.model.PO;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -49,6 +54,21 @@ public class X_M_PriceListResolver extends POResolver<MPriceList> implements Gra
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(MPriceList entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_PriceList_TrlDataLoader.M_PriceList_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MPriceList.COLUMNNAME_Description));
+	}
+
 	public Boolean EnforcePriceLimit(MPriceList entity, DataFetchingEnvironment environment) {
 		return entity.isEnforcePriceLimit();
 	}
@@ -71,6 +91,21 @@ public class X_M_PriceListResolver extends POResolver<MPriceList> implements Gra
 
 	public Boolean IsTaxIncluded(MPriceList entity, DataFetchingEnvironment environment) {
 		return entity.isTaxIncluded();
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MPriceList entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_PriceList_TrlDataLoader.M_PriceList_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MPriceList.COLUMNNAME_Name));
 	}
 
 }

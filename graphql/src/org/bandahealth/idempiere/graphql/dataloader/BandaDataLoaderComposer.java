@@ -28,6 +28,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintPaperDataLoad
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintTableFormatDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Process_ParaDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_List_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReferenceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReplicationStrategyDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReportViewDataLoader;
@@ -302,6 +303,7 @@ public class BandaDataLoaderComposer {
 				new X_AD_PrintTableFormatDataLoader(),
 				new X_AD_ProcessDataLoader(),
 				new X_AD_Process_ParaDataLoader(),
+				new X_AD_Ref_List_TrlDataLoader(),
 				new X_AD_ReferenceDataLoader(),
 				new X_AD_ReplicationStrategyDataLoader(),
 				new X_AD_ReportViewDataLoader(),

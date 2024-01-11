@@ -3,9 +3,14 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PaymentTerm_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MPaymentTerm;
+import org.compiere.model.PO;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -25,6 +30,36 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 		return entity.isAfterDelivery();
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(MPaymentTerm entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.C_PaymentTerm_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_Description));
+	}
+
+	/**
+	 * Get Document Note.
+	 *
+	 * @return Additional information for a Document
+	 */
+	public CompletableFuture<String> DocumentNote(MPaymentTerm entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDocumentNote);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.C_PaymentTerm_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_DocumentNote));
+	}
+
 	public Boolean IsDefault(MPaymentTerm entity, DataFetchingEnvironment environment) {
 		return entity.isDefault();
 	}
@@ -39,6 +74,21 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 
 	public Boolean IsValid(MPaymentTerm entity, DataFetchingEnvironment environment) {
 		return entity.isValid();
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MPaymentTerm entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.C_PaymentTerm_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_Name));
 	}
 
 	static Map<String, String> NETDAY_UUIDS_BY_VALUE = new HashMap<>() {

@@ -64,7 +64,7 @@ public class AuthenticationUtil {
 		}
 		claim = jwt.getClaim(LoginClaims.AD_Language.name());
 		if (!claim.isNull()) {
-			Env.setContext(Env.getCtx(), Env.LANGUAGE, claim.asString());
+			Env.setContext(context, Env.LANGUAGE, claim.asString());
 		}
 
 		if (AD_Role_ID > 0) {

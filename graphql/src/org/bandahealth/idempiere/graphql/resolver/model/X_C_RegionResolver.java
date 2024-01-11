@@ -2,9 +2,14 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CountryDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_Region_TrlDataLoader;
 import org.compiere.model.MCountry;
 import org.compiere.model.MRegion;
+import org.compiere.model.PO;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -35,6 +40,21 @@ public class X_C_RegionResolver extends POResolver<MRegion> implements GraphQLRe
 
 	public Boolean IsDefault(MRegion entity, DataFetchingEnvironment environment) {
 		return entity.isDefault();
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MRegion entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_Region_TrlDataLoader.C_Region_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MRegion.COLUMNNAME_Name));
 	}
 
 }

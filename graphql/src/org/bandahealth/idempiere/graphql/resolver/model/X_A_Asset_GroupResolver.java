@@ -2,11 +2,16 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_ClassDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Group_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_TypeDataLoader;
 import org.compiere.model.MAssetClass;
 import org.compiere.model.MAssetGroup;
 import org.compiere.model.MAssetType;
+import org.compiere.model.PO;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -50,6 +55,36 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 		return dataLoader.load(entity.getA_Asset_Type_ID());
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(MAssetGroup entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_A_Asset_Group_TrlDataLoader.A_Asset_Group_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Description));
+	}
+
+	/**
+	 * Get Comment/Help.
+	 *
+	 * @return Comment or Hint
+	 */
+	public CompletableFuture<String> Help(MAssetGroup entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getHelp);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_A_Asset_Group_TrlDataLoader.A_Asset_Group_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Help));
+	}
+
 	public Boolean IsCreateAsActive(MAssetGroup entity, DataFetchingEnvironment environment) {
 		return entity.isCreateAsActive();
 	}
@@ -76,6 +111,21 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 
 	public Boolean IsTrackIssues(MAssetGroup entity, DataFetchingEnvironment environment) {
 		return entity.isTrackIssues();
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MAssetGroup entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_A_Asset_Group_TrlDataLoader.A_Asset_Group_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Name));
 	}
 
 }

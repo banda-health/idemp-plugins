@@ -5,13 +5,18 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BankAccountDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ElementDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ElementValue_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MElement;
 import org.compiere.model.MElementValue;
+import org.compiere.model.PO;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -123,6 +128,21 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 		return dataLoader.load(entity.getC_Element_ID());
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(MElementValue entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_ElementValue_TrlDataLoader.C_ElementValue_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MElementValue.COLUMNNAME_Description));
+	}
+
 	public Boolean IsBankAccount(MElementValue entity, DataFetchingEnvironment environment) {
 		return entity.isBankAccount();
 	}
@@ -145,6 +165,21 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 
 	public Boolean IsSummary(MElementValue entity, DataFetchingEnvironment environment) {
 		return entity.isSummary();
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(MElementValue entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_ElementValue_TrlDataLoader.C_ElementValue_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MElementValue.COLUMNNAME_Name));
 	}
 
 	public Boolean PostActual(MElementValue entity, DataFetchingEnvironment environment) {

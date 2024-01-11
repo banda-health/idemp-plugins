@@ -53,6 +53,15 @@ public class GraphQLDataLoaderGenerator {
 	private static final CLogger log = CLogger.getCLogger(GraphQLDataLoaderGenerator.class);
 	private String packageName = "";
 	private ModelMap tableStructureExtensions;
+	private Map<String, ModelMap> modelsForTables;
+
+	public static String getDataLoaderByIdProperty(String tableName) {
+		return tableName + "_BY_ID_DATA_LOADER";
+	}
+
+	public static String getDataLoaderByUuidProperty(String tableName) {
+		return tableName + "_BY_UUID_DATA_LOADER";
+	}
 
 	/**
 	 * Generate Schema
@@ -63,6 +72,11 @@ public class GraphQLDataLoaderGenerator {
 	public GraphQLDataLoaderGenerator(int AD_Table_ID, String directory, String packageName,
 			Map<String, ModelMap> modelsForTables) throws FileNotFoundException {
 		this.packageName = packageName;
+		this.modelsForTables = modelsForTables;
+
+		if (!directory.endsWith(File.separator)) {
+			directory += File.separator;
+		}
 
 		// Get the name of the model to extend
 		tableStructureExtensions = modelsForTables.get(MTable.get(AD_Table_ID).getTableName());
@@ -75,11 +89,18 @@ public class GraphQLDataLoaderGenerator {
 		String fileName = createHeader(AD_Table_ID, generatedFile);
 
 		// Save
-		if (!directory.endsWith(File.separator)) {
-			directory += File.separator;
-		}
-
 		writeToFile(generatedFile, directory + fileName + ".java");
+
+		// If this table has translations, we need a data loader to handle loading
+		MTable translationTable;
+		if ((translationTable = MTable.get(Env.getCtx(), MTable.get(Env.getCtx(), AD_Table_ID).getTableName() + "_Trl")) !=
+				null && translationTable.get_ID() > 0) {
+			generatedFile = new StringBuilder();
+			fileName = createTranslationHeader(translationTable.getAD_Table_ID(), AD_Table_ID, generatedFile);
+
+			// Save
+			writeToFile(generatedFile, directory + fileName + ".java");
+		}
 	}
 
 	/**
@@ -105,8 +126,9 @@ public class GraphQLDataLoaderGenerator {
 			throw new RuntimeException("TableName not found for ID=" + AD_Table_ID);
 		}
 
-		String getByIdDataLoaderIdentifierProperty = tableStructureExtensions.getTableName() + "_BY_ID_DATA_LOADER";
-		String getByUuidDataLoaderIdentifierProperty = tableStructureExtensions.getTableName() + "_BY_UUID_DATA_LOADER";
+		String getByIdDataLoaderIdentifierProperty = getDataLoaderByIdProperty(tableStructureExtensions.getTableName());
+		String getByUuidDataLoaderIdentifierProperty =
+				getDataLoaderByUuidProperty(tableStructureExtensions.getTableName());
 		String className = "X_" + tableName + "DataLoader";
 		StringBuilder generatedClass = new StringBuilder()
 				.append("package ").append(packageName).append(";\n\n");
@@ -146,6 +168,118 @@ public class GraphQLDataLoaderGenerator {
 				.append("\t@Override\n")
 				.append("\tprotected String getByUuidDataLoaderName() {\n")
 				.append("\t\treturn ").append(getByUuidDataLoaderIdentifierProperty).append(";\n")
+				.append("\t}\n")
+				.append("}\n");
+
+		generatedFile.insert(0, generatedClass);
+
+		return className;
+	}
+
+	/**
+	 * Add Header info to buffer
+	 *
+	 * @param translationTableId   table
+	 * @param generatedFile GeneratedColumns
+	 * @return file name
+	 */
+	private String createTranslationHeader(int translationTableId, int relatedTableId, StringBuilder generatedFile) {
+		String tableName = null;
+		String sql = "SELECT TableName FROM AD_Table WHERE AD_Table_ID=?";
+		try (PreparedStatement preparedStatement = DB.prepareStatement(sql, null)) {
+			preparedStatement.setInt(1, translationTableId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				tableName = resultSet.getString(1);
+			}
+		} catch (SQLException e) {
+			throw new DBException(e, sql);
+		}
+		if (tableName == null) {
+			throw new RuntimeException("TableName not found for ID=" + translationTableId);
+		}
+
+		String getByIdDataLoaderIdentifierProperty = getDataLoaderByIdProperty(tableName);
+		String getByUuidDataLoaderIdentifierProperty = getDataLoaderByUuidProperty(tableName);
+		String className = "X_" + tableName + "DataLoader";
+		StringBuilder generatedClass = new StringBuilder()
+				.append("package ").append(packageName).append(";\n\n");
+
+		classesToImport.add(tableStructureExtensions.getClassPackageName() + "." + tableStructureExtensions.getClassName());
+		classesToImport.add("org.bandahealth.idempiere.graphql.utils.QueryUtil");
+		classesToImport.add("org.compiere.model.PO");
+		classesToImport.add("org.compiere.model.Query");
+		classesToImport.add("org.compiere.util.Env");
+		classesToImport.add("org.dataloader.DataLoader");
+		classesToImport.add("org.dataloader.DataLoaderRegistry");
+		classesToImport.add("org.dataloader.MappedBatchLoaderWithContext");
+
+		classesToImport.add("java.util.ArrayList");
+		classesToImport.add("java.util.List");
+		classesToImport.add("java.util.Properties");
+		classesToImport.add("java.util.concurrent.CompletableFuture");
+		classesToImport.add("java.util.stream.Collectors");
+
+		createImports(generatedClass);
+
+		ModelMap relatedTableModelMap = modelsForTables.get(MTable.get(Env.getCtx(), relatedTableId).getTableName());
+		String regularTableModelAndField = relatedTableModelMap.getClassName() + ".COLUMNNAME_" + relatedTableModelMap.getTableName() + "_ID";
+		generatedClass
+				.append("/**\n * Data Loader for ").append(tableName).append(" - DO NOT CHANGE\n *\n")
+				.append(" * @author Banda Health (generated)").append("\n")
+				.append(" * @version ").append(Adempiere.MAIN_VERSION).append(" - $Id$").append("\n */\n")
+
+				// Data loader definition
+				.append("public class ").append(className).append(" extends PODataLoader<PO> {\n")
+
+				// Default data loader identifiers
+				.append("\tpublic static String ").append(getByIdDataLoaderIdentifierProperty)
+				.append(" = \"").append(tableStructureExtensions.getTableName())
+				.append("ByIdDataLoader\";\n")
+				.append("\tpublic static String ").append(getByUuidDataLoaderIdentifierProperty)
+				.append(" = \"").append(tableStructureExtensions.getTableName())
+				.append("ByUuidDataLoader\";\n\n")
+
+				// Table Name Override
+				.append("\t@Override\n")
+				.append("\tprotected String getTableName() {\n")
+				.append("\t\treturn ").append(relatedTableModelMap.getClassName()).append(".Table_Name + \"_Trl\";\n")
+				.append("\t}\n\n")
+
+				// Methods to return identifiers for default data loaders
+				.append("\t@Override\n")
+				.append("\tprotected String getByIdDataLoaderName() {\n")
+				.append("\t\treturn null;\n")
+				.append("\t}\n\n")
+
+				.append("\t@Override\n")
+				.append("\tprotected String getByUuidDataLoaderName() {\n")
+				.append("\t\treturn ").append(getByUuidDataLoaderIdentifierProperty).append(";\n")
+				.append("\t}\n\n")
+
+				// We need to override the register to register the real get-by-ID method
+				.append("\t@Override\n")
+				.append("\tpublic void register(DataLoaderRegistry registry, Properties idempiereContext) {\n")
+				.append("\t\tsuper.register(registry, idempiereContext);\n")
+				.append("\t\tregistry.register(").append(getByIdDataLoaderIdentifierProperty).append(",\n")
+				.append("\t\t\t\tDataLoader.newMappedDataLoader(getByIdAndLanguageBatchLoader(),\n")
+				.append("\t\t\t\t\t\tgetOptionsWithCache(idempiereContext)));\n")
+				.append("\t}\n")
+				.append("\n")
+				.append("\tprivate MappedBatchLoaderWithContext<Integer, PO> getByIdAndLanguageBatchLoader() {\n")
+				.append("\t\treturn (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {\n")
+				.append("\t\t\tList<Object> parameters = new ArrayList<>();\n")
+				.append("\t\t\tString whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(keys, parameters);\n")
+				.append("\t\t\tparameters.add(Env.getLanguage(batchLoaderEnvironment.getContext()).getAD_Language());\n")
+				.append("\t\t\tList<PO> translations = new Query(batchLoaderEnvironment.getContext(), getTableName(),\n")
+				.append("\t\t\t\t\t").append(regularTableModelAndField)
+				.append(" + \" IN (\" + whereClause + \") AND AD_Language = ?\", null).setParameters(\n")
+				.append("\t\t\t\t\tparameters).list();\n")
+				.append("\t\t\treturn translations.stream().collect(\n")
+				.append("\t\t\t\t\tCollectors.toMap(translation -> translation.get_ValueAsInt(")
+				.append(regularTableModelAndField).append("),\n")
+				.append("\t\t\t\t\t\t\ttranslation -> translation));\n")
+				.append("\t\t});\n")
 				.append("\t}\n")
 				.append("}\n");
 

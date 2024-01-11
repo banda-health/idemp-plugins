@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ActivityDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
@@ -19,6 +20,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_BudgetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportColumnSetDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportColumn_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
@@ -26,9 +28,12 @@ import org.compiere.model.MElementValue;
 import org.compiere.model.MLocation;
 import org.compiere.model.MProject;
 import org.compiere.model.MSalesRegion;
+import org.compiere.model.PO;
 import org.compiere.model.X_GL_Budget;
 import org.compiere.model.X_PA_ReportColumn;
 import org.compiere.model.X_PA_ReportColumnSet;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -212,6 +217,21 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 		return dataLoader.load(CURRENCYTYPE_UUIDS_BY_VALUE.get(entity.getCurrencyType()));
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PA_ReportColumn_TrlDataLoader.PA_ReportColumn_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportColumn.COLUMNNAME_Description));
+	}
+
 	static Map<String, String> ELEMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("AC", "1ce3db23-ba22-4658-a7a3-388e2b83e4ec");
@@ -345,6 +365,21 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 		DataLoader<Integer, MProduct_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getM_Product_ID());
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PA_ReportColumn_TrlDataLoader.PA_ReportColumn_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportColumn.COLUMNNAME_Name));
 	}
 
 

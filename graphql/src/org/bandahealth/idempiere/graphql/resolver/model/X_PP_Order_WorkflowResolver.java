@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
@@ -12,15 +13,19 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WorkflowDataLoader
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WorkflowProcessorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_OrderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_NodeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Order_Workflow_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_ResourceDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MResource;
 import org.compiere.model.MTable;
+import org.compiere.model.PO;
 import org.compiere.model.X_AD_WF_Node;
 import org.compiere.model.X_AD_WF_Responsible;
 import org.compiere.model.X_AD_Workflow;
 import org.compiere.model.X_AD_WorkflowProcessor;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_PP_Order;
 import org.eevolution.model.X_PP_Order_Node;
@@ -133,6 +138,21 @@ public class X_PP_Order_WorkflowResolver extends POResolver<X_PP_Order_Workflow>
 		return dataLoader.load(entity.getAD_WorkflowProcessor_ID());
 	}
 
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(X_PP_Order_Workflow entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PP_Order_Workflow_TrlDataLoader.PP_Order_Workflow_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_Workflow.COLUMNNAME_Description));
+	}
+
 	static Map<String, String> DURATIONUNIT_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("Y", "ee4ca59c-d942-4638-bd76-03e91811756f");
@@ -183,8 +203,38 @@ public class X_PP_Order_WorkflowResolver extends POResolver<X_PP_Order_Workflow>
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
+	/**
+	 * Get Comment/Help.
+	 *
+	 * @return Comment or Hint
+	 */
+	public CompletableFuture<String> Help(X_PP_Order_Workflow entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getHelp);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PP_Order_Workflow_TrlDataLoader.PP_Order_Workflow_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_Workflow.COLUMNNAME_Help));
+	}
+
 	public Boolean IsDefault(X_PP_Order_Workflow entity, DataFetchingEnvironment environment) {
 		return entity.isDefault();
+	}
+
+	/**
+	 * Get Name.
+	 *
+	 * @return Alphanumeric identifier of the entity
+	 */
+	public CompletableFuture<String> Name(X_PP_Order_Workflow entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PP_Order_Workflow_TrlDataLoader.PP_Order_Workflow_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_Workflow.COLUMNNAME_Name));
 	}
 
 

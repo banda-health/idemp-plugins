@@ -3,15 +3,20 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DunningDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DunningLevel_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PaymentTermDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MDunning;
 import org.compiere.model.MDunningLevel;
 import org.compiere.model.MPaymentTerm;
+import org.compiere.model.PO;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.util.Env;
+import org.compiere.util.Language;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -115,6 +120,36 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 
 	public Boolean IsStatement(MDunningLevel entity, DataFetchingEnvironment environment) {
 		return entity.isStatement();
+	}
+
+	/**
+	 * Get Note.
+	 *
+	 * @return Optional additional user defined information
+	 */
+	public CompletableFuture<String> Note(MDunningLevel entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getNote);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_DunningLevel_TrlDataLoader.C_DunningLevel_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MDunningLevel.COLUMNNAME_Note));
+	}
+
+	/**
+	 * Get Print Text.
+	 *
+	 * @return The label text to be printed on a document or correspondence.
+	 */
+	public CompletableFuture<String> PrintName(MDunningLevel entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPrintName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_DunningLevel_TrlDataLoader.C_DunningLevel_Trl_BY_ID_DATA_LOADER);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MDunningLevel.COLUMNNAME_PrintName));
 	}
 
 }
