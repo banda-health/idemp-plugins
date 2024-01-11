@@ -30,7 +30,7 @@ public class OrganizationRestService extends BaseRestService<Organization, MOrg,
 	@DELETE
 	@Path("/{uuid}")
 	@Override
-	public Boolean deleteEntity(@PathParam("uuid") String uuid) {
+	public Boolean deleteByUuid(@PathParam("uuid") String uuid) {
 		throw new NotImplementedException();
 	}
 }
