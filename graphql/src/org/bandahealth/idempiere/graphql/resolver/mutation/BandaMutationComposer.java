@@ -585,6 +585,8 @@ public class BandaMutationComposer {
 				new X_B_TopicCategoryMutation(),
 				new X_B_TopicMutation(),
 				new X_B_TopicTypeMutation(),
+				new X_BH_I_Product_QuantityMutation(),
+				new X_BH_Stocktake_vMutation(),
 				new X_C_1099BoxMutation(),
 				new X_C_AddressValidationCfgMutation(),
 				new X_C_BankAccount_AcctMutation(),

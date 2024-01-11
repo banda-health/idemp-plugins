@@ -586,6 +586,8 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 				new X_B_TopicCategoryQuery(),
 				new X_B_TopicQuery(),
 				new X_B_TopicTypeQuery(),
+				new X_BH_I_Product_QuantityQuery(),
+				new X_BH_Stocktake_vQuery(),
 				new X_C_1099BoxQuery(),
 				new X_C_AddressValidationCfgQuery(),
 				new X_C_BankAccount_AcctQuery(),

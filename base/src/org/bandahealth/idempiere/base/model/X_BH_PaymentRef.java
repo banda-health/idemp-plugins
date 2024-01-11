@@ -20,22 +20,18 @@ package org.bandahealth.idempiere.base.model;
 import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.*;
-import org.compiere.model.I_Persistent;
-import org.compiere.model.MTable;
-import org.compiere.model.PO;
-import org.compiere.model.POInfo;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_PaymentRef
  *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
-public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
+ *  @version Release 8.2 - $Id$ */
+public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent 
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200521L;
+	private static final long serialVersionUID = 20240111L;
 
     /** Standard Constructor */
     public X_BH_PaymentRef (Properties ctx, int BH_PaymentRef_ID, String trxName)
@@ -79,7 +75,7 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
 
 	public org.compiere.model.I_AD_Reference getAD_Reference() throws RuntimeException
     {
-		return (org.compiere.model.I_AD_Reference) MTable.get(getCtx(), org.compiere.model.I_AD_Reference.Table_Name)
+		return (org.compiere.model.I_AD_Reference)MTable.get(getCtx(), org.compiere.model.I_AD_Reference.Table_Name)
 			.getPO(getAD_Reference_ID(), get_TrxName());	}
 
 	/** Set Reference.
@@ -103,6 +99,23 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set BH_PaymentRef_Action.
+		@param BH_PaymentRef_Action 
+		Represents an action the can be performed for the payment reference
+	  */
+	public void setBH_PaymentRef_Action (String BH_PaymentRef_Action)
+	{
+		set_Value (COLUMNNAME_BH_PaymentRef_Action, BH_PaymentRef_Action);
+	}
+
+	/** Get BH_PaymentRef_Action.
+		@return Represents an action the can be performed for the payment reference
+	  */
+	public String getBH_PaymentRef_Action () 
+	{
+		return (String)get_Value(COLUMNNAME_BH_PaymentRef_Action);
 	}
 
 	/** Set BH_PaymentRef.

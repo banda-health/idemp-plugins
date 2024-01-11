@@ -584,6 +584,8 @@ public class BandaResolverComposer {
 				new X_B_TopicCategoryResolver(),
 				new X_B_TopicResolver(),
 				new X_B_TopicTypeResolver(),
+				new X_BH_I_Product_QuantityResolver(),
+				new X_BH_Stocktake_vResolver(),
 				new X_C_1099BoxResolver(),
 				new X_C_AddressValidationCfgResolver(),
 				new X_C_BankAccount_AcctResolver(),
