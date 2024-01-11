@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InsuranceInvoice" pageWidth="595" pageHeight="842" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="57" bottomMargin="36" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Ubuntu PostgreSQL"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere UAT PostgreSQL 5552"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="515"/>
@@ -104,57 +104,6 @@
 			<bottomPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="NewData" uuid="6d05f800-2db4-4778-b078-3f85c7208aab">
-		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
-		<parameter name="BH_Visit_UU" class="java.lang.String"/>
-		<queryString language="SQL">
-			<![CDATA[SELECT
-	product.name          AS Product,
-	ol.priceactual        AS Charge,
-	ol.qtyordered         AS Qty,
-	ol.linenetamt         AS Total,
-	date(v.bh_visitdate)  AS Date,
-	o.grandtotal          AS Total_Payment,
-	bp.name               AS Patient,
-	bp.bh_local_patientid AS FileNo,
-	u.name                AS ServedBy
-FROM
-	bh_visit v
-		JOIN c_order o
-		ON v.bh_visit_id = o.bh_visit_id
-		JOIN c_orderline ol
-		ON o.c_order_id = ol.c_order_id
-		JOIN m_product product
-		ON ol.m_product_id = product.m_product_id
-		JOIN c_bpartner bp
-		ON v.patient_id = bp.c_bpartner_id
-		LEFT JOIN ad_user u
-		ON o.salesrep_id = u.ad_user_id
-WHERE
-	issotrx = 'Y'
-	AND v.bh_visit_uu = $P{BH_Visit_UU}]]>
-		</queryString>
-		<field name="product" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="product"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
-		</field>
-		<field name="charge" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="charge"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
-		</field>
-		<field name="qty" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="qty"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
-		</field>
-		<field name="total" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="total"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
-		</field>
-		<group name="product">
-			<groupExpression><![CDATA[$F{product}]]></groupExpression>
-		</group>
-	</subDataset>
 	<subDataset name="ProductsDataSet" uuid="c3eec118-51b1-4edd-9dee-c29770378c9d">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
@@ -221,6 +170,8 @@ FROM bh_visit v
         JOIN c_currency c
         ON i.c_currency_id = c.c_currency_id
 WHERE v.bh_visit_uu = $P{BH_Visit_UU}
+  AND i.docstatus = 'CO'
+  AND COALESCE(i.grandtotal, 0) <> 0
 ORDER BY is_main_payer, ispaid DESC;]]>
 		</queryString>
 		<field name="payer_name" class="java.lang.String">
@@ -416,6 +367,7 @@ FROM
                 ON bpins.c_bp_group_id = bpg.c_bp_group_id
         WHERE
             v.bh_visit_uu = $P{BH_Visit_UU}
+            AND i.docstatus = 'CO'
             AND ( ($P{ShowInsuranceInfo} AND COALESCE(bpg.bh_subtype, '') IN ('I', 'D') )
                   OR (NOT $P{ShowInsuranceInfo} AND COALESCE(bpg.bh_subtype, '') NOT IN ('I', 'D') )
                   )
