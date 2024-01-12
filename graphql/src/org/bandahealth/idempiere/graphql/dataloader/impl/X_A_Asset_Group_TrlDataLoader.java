@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_A_Asset_Group_TrlDataLoader extends PODataLoader<PO> {
-	public static String A_Asset_Group_Trl_BY_ID_DATA_LOADER = "A_Asset_GroupByIdDataLoader";
-	public static String A_Asset_Group_Trl_BY_UUID_DATA_LOADER = "A_Asset_GroupByUuidDataLoader";
+	public static String A_Asset_Group_Trl_BY_ID_DATA_LOADER = "A_Asset_Group_TrlByIdDataLoader";
+	public static String A_Asset_Group_Trl_BY_UUID_DATA_LOADER = "A_Asset_Group_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

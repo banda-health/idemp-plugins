@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_M_PriceList_Version_TrlDataLoader extends PODataLoader<PO> {
-	public static String M_PriceList_Version_Trl_BY_ID_DATA_LOADER = "M_PriceList_VersionByIdDataLoader";
-	public static String M_PriceList_Version_Trl_BY_UUID_DATA_LOADER = "M_PriceList_VersionByUuidDataLoader";
+	public static String M_PriceList_Version_Trl_BY_ID_DATA_LOADER = "M_PriceList_Version_TrlByIdDataLoader";
+	public static String M_PriceList_Version_Trl_BY_UUID_DATA_LOADER = "M_PriceList_Version_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

@@ -162,4 +162,114 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 	public ForeignEntityInput C_PaymentProcessor() {
 		return mC_PaymentProcessor;
 	}
+	/**
+	 * Set Accept AMEX.
+	 *
+	 * @param IsPPAcceptAMEX Accept AMEX
+	 */
+
+	public void setIsPPAcceptAMEX(boolean IsPPAcceptAMEX) {
+		if (get_ID() == 0) {
+			super.setIsPPAcceptAMEX(IsPPAcceptAMEX);
+		}
+	}
+	/**
+	 * Set Accept ATM.
+	 *
+	 * @param IsPPAcceptATM Accept ATM
+	 */
+
+	public void setIsPPAcceptATM(boolean IsPPAcceptATM) {
+		if (get_ID() == 0) {
+			super.setIsPPAcceptATM(IsPPAcceptATM);
+		}
+	}
+	/**
+	 * Set Accept Check.
+	 *
+	 * @param IsPPAcceptCheck Accept Check
+	 */
+
+	public void setIsPPAcceptCheck(boolean IsPPAcceptCheck) {
+		if (get_ID() == 0) {
+			super.setIsPPAcceptCheck(IsPPAcceptCheck);
+		}
+	}
+	/**
+	 * Set Accept Corporate.
+	 *
+	 * @param IsPPAcceptCorporate Accept Corporate
+	 */
+
+	public void setIsPPAcceptCorporate(boolean IsPPAcceptCorporate) {
+		if (get_ID() == 0) {
+			super.setIsPPAcceptCorporate(IsPPAcceptCorporate);
+		}
+	}
+	/**
+	 * Set Accept Diners.
+	 *
+	 * @param IsPPAcceptDiners Accept Diners
+	 */
+
+	public void setIsPPAcceptDiners(boolean IsPPAcceptDiners) {
+		if (get_ID() == 0) {
+			super.setIsPPAcceptDiners(IsPPAcceptDiners);
+		}
+	}
+	/**
+	 * Set Accept Direct Debit.
+	 *
+	 * @param IsPPAcceptDirectDebit Accept Direct Debit
+	 */
+
+	public void setIsPPAcceptDirectDebit(boolean IsPPAcceptDirectDebit) {
+		if (get_ID() == 0) {
+			super.setIsPPAcceptDirectDebit(IsPPAcceptDirectDebit);
+		}
+	}
+	/**
+	 * Set Accept Direct Deposit.
+	 *
+	 * @param IsPPAcceptDirectDeposit Accept Direct Deposit
+	 */
+
+	public void setIsPPAcceptDirectDeposit(boolean IsPPAcceptDirectDeposit) {
+		if (get_ID() == 0) {
+			super.setIsPPAcceptDirectDeposit(IsPPAcceptDirectDeposit);
+		}
+	}
+	/**
+	 * Set Accept Discover.
+	 *
+	 * @param IsPPAcceptDiscover Accept Discover
+	 */
+
+	public void setIsPPAcceptDiscover(boolean IsPPAcceptDiscover) {
+		if (get_ID() == 0) {
+			super.setIsPPAcceptDiscover(IsPPAcceptDiscover);
+		}
+	}
+	/**
+	 * Set Accept MasterCard.
+	 *
+	 * @param IsPPAcceptMC Accept MasterCard
+	 */
+
+	public void setIsPPAcceptMC(boolean IsPPAcceptMC) {
+		if (get_ID() == 0) {
+			super.setIsPPAcceptMC(IsPPAcceptMC);
+		}
+	}
+	/**
+	 * Set Accept Visa.
+	 *
+	 * @param IsPPAcceptVisa Accept Visa
+	 */
+
+	public void setIsPPAcceptVisa(boolean IsPPAcceptVisa) {
+		if (get_ID() == 0) {
+			super.setIsPPAcceptVisa(IsPPAcceptVisa);
+		}
+	}
 }

@@ -12,6 +12,7 @@ import org.compiere.model.MProductionLine;
 import org.compiere.model.MProductionPlan;
 import org.compiere.model.Query;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -234,5 +235,27 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 	@JsonProperty("M_ProductionPlan")
 	public ForeignEntityInput M_ProductionPlan() {
 		return mM_ProductionPlan;
+	}
+	/**
+	 * Set Product Type.
+	 *
+	 * @param ProductType Type of product
+	 */
+
+	public void setProductType(String ProductType) {
+		if (get_ID() == 0) {
+			super.setProductType(ProductType);
+		}
+	}
+	/**
+	 * Set Available Quantity.
+	 *
+	 * @param QtyAvailable Available Quantity (On Hand - Reserved)
+	 */
+
+	public void setQtyAvailable(BigDecimal QtyAvailable) {
+		if (get_ID() == 0) {
+			super.setQtyAvailable(QtyAvailable);
+		}
 	}
 }

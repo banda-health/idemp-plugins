@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
+import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -11,7 +12,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InOutDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InventoryDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MInOutConfirm;
-import org.compiere.model.MInventory;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -145,11 +145,11 @@ public class X_M_InOutConfirmResolver extends POResolver<MInOutConfirm> implemen
 	 *
 	 * @return Parameters for a Physical Inventory
 	 */
-	public CompletableFuture<MInventory> M_Inventory(MInOutConfirm entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventory_BH> M_Inventory(MInOutConfirm entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Inventory_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventory> dataLoader =
+		DataLoader<Integer, MInventory_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryDataLoader.M_Inventory_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getM_Inventory_ID());
 	}

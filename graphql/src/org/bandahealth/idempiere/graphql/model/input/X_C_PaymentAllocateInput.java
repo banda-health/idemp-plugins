@@ -10,6 +10,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentAllocate;
 import org.compiere.model.Query;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -178,5 +179,16 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 	 */
 	public String getID() {
 		return getC_PaymentAllocate_UU();
+	}
+	/**
+	 * Set Remaining Amt.
+	 *
+	 * @param RemainingAmt Remaining Amount
+	 */
+
+	public void setRemainingAmt(BigDecimal RemainingAmt) {
+		if (get_ID() == 0) {
+			super.setRemainingAmt(RemainingAmt);
+		}
 	}
 }

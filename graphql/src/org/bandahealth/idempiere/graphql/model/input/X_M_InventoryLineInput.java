@@ -69,6 +69,39 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Number of Order Lines.
+	 *
+	 * @param BH_NumOrderLines The number of order lines on an order
+	 */
+
+	public void setBH_NumOrderLines(int BH_NumOrderLines) {
+		if (get_ID() == 0) {
+			super.setBH_NumOrderLines(BH_NumOrderLines);
+		}
+	}
+	/**
+	 * Set Document Status.
+	 *
+	 * @param BH_OrderDocStatus The current status of the document
+	 */
+
+	public void setBH_OrderDocStatus(String BH_OrderDocStatus) {
+		if (get_ID() == 0) {
+			super.setBH_OrderDocStatus(BH_OrderDocStatus);
+		}
+	}
+	/**
+	 * Set Requires Expiration.
+	 *
+	 * @param BH_RequiresExpiration Requires Expiration
+	 */
+
+	public void setBH_RequiresExpiration(boolean BH_RequiresExpiration) {
+		if (get_ID() == 0) {
+			super.setBH_RequiresExpiration(BH_RequiresExpiration);
+		}
+	}
 
 	/**
 	 * Set Charge.
@@ -320,5 +353,27 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 	@JsonProperty("ReversalLine")
 	public ForeignEntityInput ReversalLine() {
 		return mReversalLine;
+	}
+	/**
+	 * Set UPC/EAN.
+	 *
+	 * @param UPC Bar Code (Universal Product Code or its superset European Article Number)
+	 */
+
+	public void setUPC(String UPC) {
+		if (get_ID() == 0) {
+			super.setUPC(UPC);
+		}
+	}
+	/**
+	 * Set Search Key.
+	 *
+	 * @param Value Search key for the record in the format required - must be unique
+	 */
+
+	public void setValue(String Value) {
+		if (get_ID() == 0) {
+			super.setValue(Value);
+		}
 	}
 }

@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MProductPrice_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_PriceList_VersionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.compiere.model.MPriceListVersion;
-import org.compiere.model.MProductPrice;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_ProductPriceResolver extends POResolver<MProductPrice> implements GraphQLResolver<MProductPrice> {
+public class X_M_ProductPriceResolver extends POResolver<MProductPrice_BH> implements GraphQLResolver<MProductPrice_BH> {
 
 
 
@@ -26,7 +26,7 @@ public class X_M_ProductPriceResolver extends POResolver<MProductPrice> implemen
 	 *
 	 * @return Identifies a unique instance of a Price List
 	 */
-	public CompletableFuture<MPriceListVersion> M_PriceList_Version(MProductPrice entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MPriceListVersion> M_PriceList_Version(MProductPrice_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getM_PriceList_Version_ID() <= 0) {
 			return null;
 		}
@@ -41,7 +41,7 @@ public class X_M_ProductPriceResolver extends POResolver<MProductPrice> implemen
 	 *
 	 * @return Product, Service, Item
 	 */
-	public CompletableFuture<MProduct_BH> M_Product(MProductPrice entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProduct_BH> M_Product(MProductPrice_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Product_ID() <= 0) {
 			return null;
 		}

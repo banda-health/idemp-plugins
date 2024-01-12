@@ -116,6 +116,28 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	public String getID() {
 		return getA_Depreciation_Workfile_UU();
 	}
+	/**
+	 * Set SL Expense/Period.
+	 *
+	 * @param A_Expense_SL SL Expense/Period
+	 */
+
+	public void setA_Expense_SL(BigDecimal A_Expense_SL) {
+		if (get_ID() == 0) {
+			super.setA_Expense_SL(A_Expense_SL);
+		}
+	}
+	/**
+	 * Set SL Expense/Period (fiscal).
+	 *
+	 * @param A_Expense_SL_F SL Expense/Period (fiscal)
+	 */
+
+	public void setA_Expense_SL_F(BigDecimal A_Expense_SL_F) {
+		if (get_ID() == 0) {
+			super.setA_Expense_SL_F(A_Expense_SL_F);
+		}
+	}
 
 	/**
 	 * Set Asset Funding Mode.
@@ -144,6 +166,28 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	@JsonProperty("A_FundingMode")
 	public ForeignEntityInput A_FundingMode() {
 		return mA_FundingMode;
+	}
+	/**
+	 * Set Life periods (max).
+	 *
+	 * @param A_Life_Period_Max Life periods (max)
+	 */
+
+	public void setA_Life_Period_Max(int A_Life_Period_Max) {
+		if (get_ID() == 0) {
+			super.setA_Life_Period_Max(A_Life_Period_Max);
+		}
+	}
+	/**
+	 * Set Life periods (min).
+	 *
+	 * @param A_Life_Period_Min Life periods (min)
+	 */
+
+	public void setA_Life_Period_Min(int A_Life_Period_Min) {
+		if (get_ID() == 0) {
+			super.setA_Life_Period_Min(A_Life_Period_Min);
+		}
 	}
 
 	/**

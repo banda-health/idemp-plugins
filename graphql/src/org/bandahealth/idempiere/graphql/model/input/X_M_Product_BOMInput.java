@@ -10,6 +10,7 @@ import org.compiere.model.MProductBOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_PartType;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -90,6 +91,39 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	@JsonProperty("BOMType")
 	public I_AD_Ref_ListInput BOMType() {
 		return mBOMType;
+	}
+	/**
+	 * Set Standard Cost.
+	 *
+	 * @param CostStandard Standard Costs
+	 */
+
+	public void setCostStandard(BigDecimal CostStandard) {
+		if (get_ID() == 0) {
+			super.setCostStandard(CostStandard);
+		}
+	}
+	/**
+	 * Set Std Cost Amount Sum.
+	 *
+	 * @param CostStandardCumAmt Standard Cost Invoice Amount Sum (internal)
+	 */
+
+	public void setCostStandardCumAmt(BigDecimal CostStandardCumAmt) {
+		if (get_ID() == 0) {
+			super.setCostStandardCumAmt(CostStandardCumAmt);
+		}
+	}
+	/**
+	 * Set Bill of Materials.
+	 *
+	 * @param IsBillOfMaterial Bill of Materials
+	 */
+
+	public void setIsBillOfMaterial(boolean IsBillOfMaterial) {
+		if (get_ID() == 0) {
+			super.setIsBillOfMaterial(IsBillOfMaterial);
+		}
 	}
 
 	/**
@@ -202,5 +236,16 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	@JsonProperty("M_ProductBOM")
 	public ForeignEntityInput M_ProductBOM() {
 		return mM_ProductBOM;
+	}
+	/**
+	 * Set Search Key.
+	 *
+	 * @param Value Search key for the record in the format required - must be unique
+	 */
+
+	public void setValue(String Value) {
+		if (get_ID() == 0) {
+			super.setValue(Value);
+		}
 	}
 }

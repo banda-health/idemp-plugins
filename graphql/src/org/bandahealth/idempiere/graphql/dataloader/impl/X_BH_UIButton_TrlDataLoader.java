@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_UIButton_TrlDataLoader extends PODataLoader<PO> {
-	public static String BH_UIButton_Trl_BY_ID_DATA_LOADER = "BH_UIButtonByIdDataLoader";
-	public static String BH_UIButton_Trl_BY_UUID_DATA_LOADER = "BH_UIButtonByUuidDataLoader";
+	public static String BH_UIButton_Trl_BY_ID_DATA_LOADER = "BH_UIButton_TrlByIdDataLoader";
+	public static String BH_UIButton_Trl_BY_UUID_DATA_LOADER = "BH_UIButton_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

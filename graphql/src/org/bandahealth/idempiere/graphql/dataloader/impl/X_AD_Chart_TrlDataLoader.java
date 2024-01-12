@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Chart_TrlDataLoader extends PODataLoader<PO> {
-	public static String AD_Chart_Trl_BY_ID_DATA_LOADER = "AD_ChartByIdDataLoader";
-	public static String AD_Chart_Trl_BY_UUID_DATA_LOADER = "AD_ChartByUuidDataLoader";
+	public static String AD_Chart_Trl_BY_ID_DATA_LOADER = "AD_Chart_TrlByIdDataLoader";
+	public static String AD_Chart_Trl_BY_UUID_DATA_LOADER = "AD_Chart_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

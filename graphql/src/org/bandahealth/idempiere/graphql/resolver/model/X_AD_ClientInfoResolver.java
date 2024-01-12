@@ -5,6 +5,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MTree_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_StorageProviderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TreeDataLoader;
@@ -19,7 +20,6 @@ import org.compiere.model.MCalendar;
 import org.compiere.model.MClientInfo;
 import org.compiere.model.MImage;
 import org.compiere.model.MStorageProvider;
-import org.compiere.model.MTree;
 import org.compiere.model.MUOM;
 import org.dataloader.DataLoader;
 
@@ -55,11 +55,11 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public CompletableFuture<MTree> AD_Tree_Activity(MClientInfo entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTree_BH> AD_Tree_Activity(MClientInfo entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tree_Activity_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTree> dataLoader =
+		DataLoader<Integer, MTree_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Tree_Activity_ID());
 	}
@@ -70,11 +70,11 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public CompletableFuture<MTree> AD_Tree_BPartner(MClientInfo entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTree_BH> AD_Tree_BPartner(MClientInfo entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tree_BPartner_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTree> dataLoader =
+		DataLoader<Integer, MTree_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Tree_BPartner_ID());
 	}
@@ -85,11 +85,11 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public CompletableFuture<MTree> AD_Tree_Campaign(MClientInfo entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTree_BH> AD_Tree_Campaign(MClientInfo entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tree_Campaign_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTree> dataLoader =
+		DataLoader<Integer, MTree_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Tree_Campaign_ID());
 	}
@@ -100,11 +100,11 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 *
 	 * @return Tree of the menu
 	 */
-	public CompletableFuture<MTree> AD_Tree_Menu(MClientInfo entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTree_BH> AD_Tree_Menu(MClientInfo entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tree_Menu_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTree> dataLoader =
+		DataLoader<Integer, MTree_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Tree_Menu_ID());
 	}
@@ -115,11 +115,11 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 *
 	 * @return Trees are used for (financial) reporting and security access (via role)
 	 */
-	public CompletableFuture<MTree> AD_Tree_Org(MClientInfo entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTree_BH> AD_Tree_Org(MClientInfo entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tree_Org_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTree> dataLoader =
+		DataLoader<Integer, MTree_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Tree_Org_ID());
 	}
@@ -130,11 +130,11 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public CompletableFuture<MTree> AD_Tree_Product(MClientInfo entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTree_BH> AD_Tree_Product(MClientInfo entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tree_Product_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTree> dataLoader =
+		DataLoader<Integer, MTree_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Tree_Product_ID());
 	}
@@ -145,11 +145,11 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public CompletableFuture<MTree> AD_Tree_Project(MClientInfo entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTree_BH> AD_Tree_Project(MClientInfo entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tree_Project_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTree> dataLoader =
+		DataLoader<Integer, MTree_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Tree_Project_ID());
 	}
@@ -160,11 +160,11 @@ public class X_AD_ClientInfoResolver extends POResolver<MClientInfo> implements 
 	 *
 	 * @return Trees are used for (financial) reporting
 	 */
-	public CompletableFuture<MTree> AD_Tree_SalesRegion(MClientInfo entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTree_BH> AD_Tree_SalesRegion(MClientInfo entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tree_SalesRegion_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTree> dataLoader =
+		DataLoader<Integer, MTree_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Tree_SalesRegion_ID());
 	}

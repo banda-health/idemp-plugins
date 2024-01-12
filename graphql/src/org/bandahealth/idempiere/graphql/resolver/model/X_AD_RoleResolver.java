@@ -4,13 +4,13 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MTree_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TreeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MTree;
 import org.compiere.model.X_AD_Role;
 import org.dataloader.DataLoader;
 
@@ -33,11 +33,11 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 	 *
 	 * @return Tree of the menu
 	 */
-	public CompletableFuture<MTree> AD_Tree_Menu(X_AD_Role entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTree_BH> AD_Tree_Menu(X_AD_Role entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tree_Menu_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTree> dataLoader =
+		DataLoader<Integer, MTree_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Tree_Menu_ID());
 	}
@@ -48,11 +48,11 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 	 *
 	 * @return Trees are used for (financial) reporting and security access (via role)
 	 */
-	public CompletableFuture<MTree> AD_Tree_Org(X_AD_Role entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTree_BH> AD_Tree_Org(X_AD_Role entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tree_Org_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTree> dataLoader =
+		DataLoader<Integer, MTree_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Tree_Org_ID());
 	}

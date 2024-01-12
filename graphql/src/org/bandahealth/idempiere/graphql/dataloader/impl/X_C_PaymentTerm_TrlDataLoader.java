@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_C_PaymentTerm_TrlDataLoader extends PODataLoader<PO> {
-	public static String C_PaymentTerm_Trl_BY_ID_DATA_LOADER = "C_PaymentTermByIdDataLoader";
-	public static String C_PaymentTerm_Trl_BY_UUID_DATA_LOADER = "C_PaymentTermByUuidDataLoader";
+	public static String C_PaymentTerm_Trl_BY_ID_DATA_LOADER = "C_PaymentTerm_TrlByIdDataLoader";
+	public static String C_PaymentTerm_Trl_BY_UUID_DATA_LOADER = "C_PaymentTerm_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

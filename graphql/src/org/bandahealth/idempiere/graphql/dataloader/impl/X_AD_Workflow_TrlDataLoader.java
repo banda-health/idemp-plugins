@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Workflow_TrlDataLoader extends PODataLoader<PO> {
-	public static String AD_Workflow_Trl_BY_ID_DATA_LOADER = "AD_WorkflowByIdDataLoader";
-	public static String AD_Workflow_Trl_BY_UUID_DATA_LOADER = "AD_WorkflowByUuidDataLoader";
+	public static String AD_Workflow_Trl_BY_ID_DATA_LOADER = "AD_Workflow_TrlByIdDataLoader";
+	public static String AD_Workflow_Trl_BY_UUID_DATA_LOADER = "AD_Workflow_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

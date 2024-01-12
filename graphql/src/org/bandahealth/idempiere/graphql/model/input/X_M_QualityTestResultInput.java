@@ -59,6 +59,28 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Description.
+	 *
+	 * @param Description Optional short description of the record
+	 */
+
+	public void setDescription(String Description) {
+		if (get_ID() == 0) {
+			super.setDescription(Description);
+		}
+	}
+	/**
+	 * Set Expected Result.
+	 *
+	 * @param ExpectedResult Expected Result
+	 */
+
+	public void setExpectedResult(String ExpectedResult) {
+		if (get_ID() == 0) {
+			super.setExpectedResult(ExpectedResult);
+		}
+	}
 
 	/**
 	 * Set Attribute Set Instance.

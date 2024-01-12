@@ -325,4 +325,15 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 	public ForeignEntityInput ReversalLine() {
 		return mReversalLine;
 	}
+	/**
+	 * Set Search Key.
+	 *
+	 * @param Value Search key for the record in the format required - must be unique
+	 */
+
+	public void setValue(String Value) {
+		if (get_ID() == 0) {
+			super.setValue(Value);
+		}
+	}
 }

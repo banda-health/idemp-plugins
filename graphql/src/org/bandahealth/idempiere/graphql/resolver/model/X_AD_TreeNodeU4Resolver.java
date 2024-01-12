@@ -2,8 +2,8 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MTree_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TreeDataLoader;
-import org.compiere.model.MTree;
 import org.compiere.model.X_AD_TreeNodeU4;
 import org.dataloader.DataLoader;
 
@@ -24,11 +24,11 @@ public class X_AD_TreeNodeU4Resolver extends POResolver<X_AD_TreeNodeU4> impleme
 	 *
 	 * @return Identifies a Tree
 	 */
-	public CompletableFuture<MTree> AD_Tree(X_AD_TreeNodeU4 entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTree_BH> AD_Tree(X_AD_TreeNodeU4 entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tree_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTree> dataLoader =
+		DataLoader<Integer, MTree_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getAD_Tree_ID());
 	}

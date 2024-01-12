@@ -13,6 +13,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_SalesStage;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -299,5 +300,16 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	@JsonProperty("SalesRep")
 	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
+	}
+	/**
+	 * Set Weighted Amount.
+	 *
+	 * @param WeightedAmt The amount adjusted by the probability.
+	 */
+
+	public void setWeightedAmt(BigDecimal WeightedAmt) {
+		if (get_ID() == 0) {
+			super.setWeightedAmt(WeightedAmt);
+		}
 	}
 }

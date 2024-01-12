@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_ReportColumn_TrlDataLoader extends PODataLoader<PO> {
-	public static String PA_ReportColumn_Trl_BY_ID_DATA_LOADER = "PA_ReportColumnByIdDataLoader";
-	public static String PA_ReportColumn_Trl_BY_UUID_DATA_LOADER = "PA_ReportColumnByUuidDataLoader";
+	public static String PA_ReportColumn_Trl_BY_ID_DATA_LOADER = "PA_ReportColumn_TrlByIdDataLoader";
+	public static String PA_ReportColumn_Trl_BY_UUID_DATA_LOADER = "PA_ReportColumn_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
