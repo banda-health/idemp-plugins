@@ -151,6 +151,28 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	public I_AD_Ref_ListInput A_CapvsExp() {
 		return mA_CapvsExp;
 	}
+	/**
+	 * Set Life periods (max).
+	 *
+	 * @param A_Life_Period_Max Life periods (max)
+	 */
+
+	public void setA_Life_Period_Max(int A_Life_Period_Max) {
+		if (get_ID() == 0) {
+			super.setA_Life_Period_Max(A_Life_Period_Max);
+		}
+	}
+	/**
+	 * Set Life periods (min).
+	 *
+	 * @param A_Life_Period_Min Life periods (min)
+	 */
+
+	public void setA_Life_Period_Min(int A_Life_Period_Min) {
+		if (get_ID() == 0) {
+			super.setA_Life_Period_Min(A_Life_Period_Min);
+		}
+	}
 
 	/**
 	 * Set Source Type.

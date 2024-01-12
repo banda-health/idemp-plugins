@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_C_SalesRegion_TrlDataLoader extends PODataLoader<PO> {
-	public static String C_SalesRegion_Trl_BY_ID_DATA_LOADER = "C_SalesRegionByIdDataLoader";
-	public static String C_SalesRegion_Trl_BY_UUID_DATA_LOADER = "C_SalesRegionByUuidDataLoader";
+	public static String C_SalesRegion_Trl_BY_ID_DATA_LOADER = "C_SalesRegion_TrlByIdDataLoader";
+	public static String C_SalesRegion_Trl_BY_UUID_DATA_LOADER = "C_SalesRegion_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

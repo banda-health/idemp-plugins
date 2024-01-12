@@ -270,4 +270,15 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
+	/**
+	 * Set Processed.
+	 *
+	 * @param Processed The document has been processed
+	 */
+
+	public void setProcessed(boolean Processed) {
+		if (get_ID() == 0) {
+			super.setProcessed(Processed);
+		}
+	}
 }

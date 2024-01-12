@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MProductPrice_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPriceListVersion;
-import org.compiere.model.MProductPrice;
 import org.compiere.model.Query;
 
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_ProductPriceInput extends MProductPrice implements I_M_ProductPriceInput {
+public class X_M_ProductPriceInput extends MProductPrice_BH implements I_M_ProductPriceInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mM_PriceList_Version;
@@ -28,7 +28,7 @@ public class X_M_ProductPriceInput extends MProductPrice implements I_M_ProductP
 	 */
 	@JsonCreator
 	public X_M_ProductPriceInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MProductPrice(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MProductPrice_BH(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}
@@ -141,5 +141,16 @@ public class X_M_ProductPriceInput extends MProductPrice implements I_M_ProductP
 	 */
 	public String getID() {
 		return getM_ProductPrice_UU();
+	}
+	/**
+	 * Set Product Name.
+	 *
+	 * @param ProductName Name of the Product
+	 */
+
+	public void setProductName(String ProductName) {
+		if (get_ID() == 0) {
+			super.setProductName(ProductName);
+		}
 	}
 }

@@ -14,7 +14,9 @@ import org.compiere.model.MTaxDeclaration;
 import org.compiere.model.MTaxDeclarationAcct;
 import org.compiere.model.Query;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 /**
  * Generated Model for C_TaxDeclarationAcct - DO NOT CHANGE
@@ -95,6 +97,50 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set Accounted Credit.
+	 *
+	 * @param AmtAcctCr Accounted Credit Amount
+	 */
+
+	public void setAmtAcctCr(BigDecimal AmtAcctCr) {
+		if (get_ID() == 0) {
+			super.setAmtAcctCr(AmtAcctCr);
+		}
+	}
+	/**
+	 * Set Accounted Debit.
+	 *
+	 * @param AmtAcctDr Accounted Debit Amount
+	 */
+
+	public void setAmtAcctDr(BigDecimal AmtAcctDr) {
+		if (get_ID() == 0) {
+			super.setAmtAcctDr(AmtAcctDr);
+		}
+	}
+	/**
+	 * Set Source Credit.
+	 *
+	 * @param AmtSourceCr Source Credit Amount
+	 */
+
+	public void setAmtSourceCr(BigDecimal AmtSourceCr) {
+		if (get_ID() == 0) {
+			super.setAmtSourceCr(AmtSourceCr);
+		}
+	}
+	/**
+	 * Set Source Debit.
+	 *
+	 * @param AmtSourceDr Source Debit Amount
+	 */
+
+	public void setAmtSourceDr(BigDecimal AmtSourceDr) {
+		if (get_ID() == 0) {
+			super.setAmtSourceDr(AmtSourceDr);
+		}
 	}
 
 	/**
@@ -259,6 +305,17 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 	 */
 	public String getID() {
 		return getC_TaxDeclarationAcct_UU();
+	}
+	/**
+	 * Set Account Date.
+	 *
+	 * @param DateAcct Accounting Date
+	 */
+
+	public void setDateAcct(Timestamp DateAcct) {
+		if (get_ID() == 0) {
+			super.setDateAcct(DateAcct);
+		}
 	}
 
 	/**

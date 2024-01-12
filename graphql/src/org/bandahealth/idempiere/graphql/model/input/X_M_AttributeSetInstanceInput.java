@@ -61,6 +61,17 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Guarantee Date String.
+	 *
+	 * @param BH_GuaranteeDateString String date when guarantee expires
+	 */
+
+	public void setBH_GuaranteeDateString(String BH_GuaranteeDateString) {
+		if (get_ID() == 0) {
+			super.setBH_GuaranteeDateString(BH_GuaranteeDateString);
+		}
+	}
 
 	/**
 	 * Set bh_update_reason.

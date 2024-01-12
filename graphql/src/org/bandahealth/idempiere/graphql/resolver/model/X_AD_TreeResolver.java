@@ -3,13 +3,13 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MTree_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MTable;
-import org.compiere.model.MTree;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_TreeResolver extends POResolver<MTree> implements GraphQLResolver<MTree> {
+public class X_AD_TreeResolver extends POResolver<MTree_BH> implements GraphQLResolver<MTree_BH> {
 
 
 
@@ -31,7 +31,7 @@ public class X_AD_TreeResolver extends POResolver<MTree> implements GraphQLResol
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable> AD_Table(MTree entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable> AD_Table(MTree_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
@@ -40,23 +40,23 @@ public class X_AD_TreeResolver extends POResolver<MTree> implements GraphQLResol
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
-	public Boolean IsAllNodes(MTree entity, DataFetchingEnvironment environment) {
+	public Boolean IsAllNodes(MTree_BH entity, DataFetchingEnvironment environment) {
 		return entity.isAllNodes();
 	}
 
-	public Boolean IsDefault(MTree entity, DataFetchingEnvironment environment) {
+	public Boolean IsDefault(MTree_BH entity, DataFetchingEnvironment environment) {
 		return entity.isDefault();
 	}
 
-	public Boolean IsLoadAllNodesImmediately(MTree entity, DataFetchingEnvironment environment) {
+	public Boolean IsLoadAllNodesImmediately(MTree_BH entity, DataFetchingEnvironment environment) {
 		return entity.isLoadAllNodesImmediately();
 	}
 
-	public Boolean IsTreeDrivenByValue(MTree entity, DataFetchingEnvironment environment) {
+	public Boolean IsTreeDrivenByValue(MTree_BH entity, DataFetchingEnvironment environment) {
 		return entity.isTreeDrivenByValue();
 	}
 
-	public Boolean IsValueDisplayed(MTree entity, DataFetchingEnvironment environment) {
+	public Boolean IsValueDisplayed(MTree_BH entity, DataFetchingEnvironment environment) {
 		return entity.isValueDisplayed();
 	}
 
@@ -66,7 +66,7 @@ public class X_AD_TreeResolver extends POResolver<MTree> implements GraphQLResol
 	 *
 	 * @return The link column on the parent tab.
 	 */
-	public CompletableFuture<MColumn> Parent_Column(MTree entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MColumn> Parent_Column(MTree_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getParent_Column_ID() <= 0) {
 			return null;
 		}
@@ -75,7 +75,7 @@ public class X_AD_TreeResolver extends POResolver<MTree> implements GraphQLResol
 		return dataLoader.load(entity.getParent_Column_ID());
 	}
 
-	public Boolean Processing(MTree entity, DataFetchingEnvironment environment) {
+	public Boolean Processing(MTree_BH entity, DataFetchingEnvironment environment) {
 		return entity.isProcessing();
 	}
 
@@ -103,7 +103,7 @@ public class X_AD_TreeResolver extends POResolver<MTree> implements GraphQLResol
 			put("TL", "e3104c45-9a71-4ea1-bd24-9125d33f07db");
 		}
 	};
-	public CompletableFuture<MRefList_BH> TreeType(MTree entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> TreeType(MTree_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getTreeType())) {
 			return null;
 		}

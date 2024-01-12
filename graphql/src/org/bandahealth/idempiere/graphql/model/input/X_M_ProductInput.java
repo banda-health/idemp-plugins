@@ -444,6 +444,17 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	public I_AD_Ref_ListInput ProductType() {
 		return mProductType;
 	}
+	/**
+	 * Set QtyInStore.
+	 *
+	 * @param QtyInStore Quantity In Store
+	 */
+
+	public void setQtyInStore(int QtyInStore) {
+		if (get_ID() == 0) {
+			super.setQtyInStore(QtyInStore);
+		}
+	}
 
 	/**
 	 * Set Mail Template.

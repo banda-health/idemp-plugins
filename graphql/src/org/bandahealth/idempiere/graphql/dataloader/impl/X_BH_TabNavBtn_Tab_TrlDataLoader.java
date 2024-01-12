@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_TabNavBtn_Tab_TrlDataLoader extends PODataLoader<PO> {
-	public static String BH_TabNavBtn_Tab_Trl_BY_ID_DATA_LOADER = "BH_TabNavBtn_TabByIdDataLoader";
-	public static String BH_TabNavBtn_Tab_Trl_BY_UUID_DATA_LOADER = "BH_TabNavBtn_TabByUuidDataLoader";
+	public static String BH_TabNavBtn_Tab_Trl_BY_ID_DATA_LOADER = "BH_TabNavBtn_Tab_TrlByIdDataLoader";
+	public static String BH_TabNavBtn_Tab_Trl_BY_UUID_DATA_LOADER = "BH_TabNavBtn_Tab_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

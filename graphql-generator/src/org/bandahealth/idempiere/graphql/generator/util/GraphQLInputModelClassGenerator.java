@@ -577,10 +577,6 @@ public class GraphQLInputModelClassGenerator {
 		}
 
 //		if (wereColumnMethodsGeneratedElsewhere) {
-		// If we're here, be done if this is a virtual column
-		if (virtualColumn) {
-			return "";
-		}
 		// Since this property isn't updatable, we need to generate a method that updates the property only if the entity
 		// is new
 		generateJavaSetComment(columnName, Name, Description, columnBuilder);

@@ -9,9 +9,46 @@ import java.util.Properties;
 public class MInventory_BH extends MInventory {
 
 	/**
+	 * Column name BH_NavButtons
+	 */
+	public static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
+
+	/**
 	 * Column name bh_update_reason
 	 */
 	public static final String COLUMNNAME_bh_update_reason = "bh_update_reason";
+
+	private static final long serialVersionUID = -7140493467408459522L;
+
+	public MInventory_BH(Properties ctx, int M_Inventory_ID, String trxName) {
+		super(ctx, M_Inventory_ID, trxName);
+	}
+
+	public MInventory_BH(Properties ctx, ResultSet rs, String trxName) {
+		super(ctx, rs, trxName);
+	}
+
+	public MInventory_BH(MWarehouse wh, String trxName) {
+		super(wh, trxName);
+	}
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons) {
+		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
+	}
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons() {
+		return get_Value(COLUMNNAME_BH_NavButtons);
+	}
 
 	/**
 	 * Damaged products = p_dmg
@@ -41,20 +78,6 @@ public class MInventory_BH extends MInventory {
 	 * Wrong expiration received = p_wer
 	 */
 	public static final String BH_UPDATE_REASON_WrongExpirationReceived = "p_wer";
-
-	private static final long serialVersionUID = -7140493467408459522L;
-
-	public MInventory_BH(Properties ctx, int M_Inventory_ID, String trxName) {
-		super(ctx, M_Inventory_ID, trxName);
-	}
-
-	public MInventory_BH(Properties ctx, ResultSet rs, String trxName) {
-		super(ctx, rs, trxName);
-	}
-
-	public MInventory_BH(MWarehouse wh, String trxName) {
-		super(wh, trxName);
-	}
 
 	/**
 	 * Set bh_update_reason.

@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_DashboardContent_TrlDataLoader extends PODataLoader<PO> {
-	public static String PA_DashboardContent_Trl_BY_ID_DATA_LOADER = "PA_DashboardContentByIdDataLoader";
-	public static String PA_DashboardContent_Trl_BY_UUID_DATA_LOADER = "PA_DashboardContentByUuidDataLoader";
+	public static String PA_DashboardContent_Trl_BY_ID_DATA_LOADER = "PA_DashboardContent_TrlByIdDataLoader";
+	public static String PA_DashboardContent_Trl_BY_UUID_DATA_LOADER = "PA_DashboardContent_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

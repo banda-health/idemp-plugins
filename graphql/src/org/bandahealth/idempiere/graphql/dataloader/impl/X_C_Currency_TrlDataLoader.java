@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_C_Currency_TrlDataLoader extends PODataLoader<PO> {
-	public static String C_Currency_Trl_BY_ID_DATA_LOADER = "C_CurrencyByIdDataLoader";
-	public static String C_Currency_Trl_BY_UUID_DATA_LOADER = "C_CurrencyByUuidDataLoader";
+	public static String C_Currency_Trl_BY_ID_DATA_LOADER = "C_Currency_TrlByIdDataLoader";
+	public static String C_Currency_Trl_BY_UUID_DATA_LOADER = "C_Currency_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

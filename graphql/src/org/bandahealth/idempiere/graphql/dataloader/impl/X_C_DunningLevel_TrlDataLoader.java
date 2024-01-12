@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_C_DunningLevel_TrlDataLoader extends PODataLoader<PO> {
-	public static String C_DunningLevel_Trl_BY_ID_DATA_LOADER = "C_DunningLevelByIdDataLoader";
-	public static String C_DunningLevel_Trl_BY_UUID_DATA_LOADER = "C_DunningLevelByUuidDataLoader";
+	public static String C_DunningLevel_Trl_BY_ID_DATA_LOADER = "C_DunningLevel_TrlByIdDataLoader";
+	public static String C_DunningLevel_Trl_BY_UUID_DATA_LOADER = "C_DunningLevel_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

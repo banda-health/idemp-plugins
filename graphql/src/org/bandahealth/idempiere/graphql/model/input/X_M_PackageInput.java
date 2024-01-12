@@ -18,6 +18,7 @@ import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_BP_ShippingAcct;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -299,6 +300,17 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	@JsonProperty("DotHazardClassOrDivision")
 	public I_AD_Ref_ListInput DotHazardClassOrDivision() {
 		return mDotHazardClassOrDivision;
+	}
+	/**
+	 * Set Estimated Weight.
+	 *
+	 * @param EstimatedWeight Estimated Weight
+	 */
+
+	public void setEstimatedWeight(BigDecimal EstimatedWeight) {
+		if (get_ID() == 0) {
+			super.setEstimatedWeight(EstimatedWeight);
+		}
 	}
 
 	/**
@@ -695,5 +707,16 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	@JsonProperty("PaymentRule")
 	public I_AD_Ref_ListInput PaymentRule() {
 		return mPaymentRule;
+	}
+	/**
+	 * Set Total Price.
+	 *
+	 * @param TotalPrice Total Price
+	 */
+
+	public void setTotalPrice(BigDecimal TotalPrice) {
+		if (get_ID() == 0) {
+			super.setTotalPrice(TotalPrice);
+		}
 	}
 }

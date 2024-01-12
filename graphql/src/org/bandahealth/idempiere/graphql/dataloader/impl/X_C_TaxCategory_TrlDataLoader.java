@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_C_TaxCategory_TrlDataLoader extends PODataLoader<PO> {
-	public static String C_TaxCategory_Trl_BY_ID_DATA_LOADER = "C_TaxCategoryByIdDataLoader";
-	public static String C_TaxCategory_Trl_BY_UUID_DATA_LOADER = "C_TaxCategoryByUuidDataLoader";
+	public static String C_TaxCategory_Trl_BY_ID_DATA_LOADER = "C_TaxCategory_TrlByIdDataLoader";
+	public static String C_TaxCategory_Trl_BY_UUID_DATA_LOADER = "C_TaxCategory_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

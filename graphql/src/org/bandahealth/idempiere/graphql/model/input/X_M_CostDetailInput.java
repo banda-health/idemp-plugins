@@ -20,6 +20,7 @@ import org.compiere.model.MProjectIssue;
 import org.compiere.model.Query;
 import org.eevolution.model.X_PP_Cost_Collector;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -468,5 +469,16 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("PP_Cost_Collector")
 	public ForeignEntityInput PP_Cost_Collector() {
 		return mPP_Cost_Collector;
+	}
+	/**
+	 * Set Price.
+	 *
+	 * @param Price Price
+	 */
+
+	public void setPrice(BigDecimal Price) {
+		if (get_ID() == 0) {
+			super.setPrice(Price);
+		}
 	}
 }

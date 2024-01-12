@@ -5,6 +5,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
+import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
@@ -31,7 +32,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductionLineDataL
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_TransactionDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MInOutLine;
-import org.compiere.model.MInventory;
 import org.compiere.model.MLocator;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProduction;
@@ -151,11 +151,11 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 	 *
 	 * @return Parameters for a Physical Inventory
 	 */
-	public CompletableFuture<MInventory> M_Inventory(X_T_Transaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventory_BH> M_Inventory(X_T_Transaction entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Inventory_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventory> dataLoader =
+		DataLoader<Integer, MInventory_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryDataLoader.M_Inventory_BY_ID_DATA_LOADER);
 		return dataLoader.load(entity.getM_Inventory_ID());
 	}

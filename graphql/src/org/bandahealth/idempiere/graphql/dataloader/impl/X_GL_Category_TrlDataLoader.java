@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_GL_Category_TrlDataLoader extends PODataLoader<PO> {
-	public static String GL_Category_Trl_BY_ID_DATA_LOADER = "GL_CategoryByIdDataLoader";
-	public static String GL_Category_Trl_BY_UUID_DATA_LOADER = "GL_CategoryByUuidDataLoader";
+	public static String GL_Category_Trl_BY_ID_DATA_LOADER = "GL_Category_TrlByIdDataLoader";
+	public static String GL_Category_Trl_BY_UUID_DATA_LOADER = "GL_Category_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

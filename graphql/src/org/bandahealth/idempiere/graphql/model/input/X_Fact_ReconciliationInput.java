@@ -10,7 +10,9 @@ import org.compiere.model.MFactReconciliation;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 
 /**
  * Generated Model for Fact_Reconciliation - DO NOT CHANGE
@@ -88,6 +90,17 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Accounted Amount.
+	 *
+	 * @param AmtAcct Amount Balance in Currency of Accounting Schema
+	 */
+
+	public void setAmtAcct(BigDecimal AmtAcct) {
+		if (get_ID() == 0) {
+			super.setAmtAcct(AmtAcct);
+		}
+	}
 
 	/**
 	 * Set Business Partner .
@@ -114,6 +127,17 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	@JsonProperty("C_BPartner")
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
+	}
+	/**
+	 * Set Account Date.
+	 *
+	 * @param DateAcct Accounting Date
+	 */
+
+	public void setDateAcct(Timestamp DateAcct) {
+		if (get_ID() == 0) {
+			super.setDateAcct(DateAcct);
+		}
 	}
 
 	/**

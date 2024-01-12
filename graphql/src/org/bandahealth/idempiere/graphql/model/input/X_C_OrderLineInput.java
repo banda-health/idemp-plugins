@@ -102,6 +102,39 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
+	/**
+	 * Set Number of Order Lines.
+	 *
+	 * @param BH_NumOrderLines The number of order lines on an order
+	 */
+
+	public void setBH_NumOrderLines(int BH_NumOrderLines) {
+		if (get_ID() == 0) {
+			super.setBH_NumOrderLines(BH_NumOrderLines);
+		}
+	}
+	/**
+	 * Set Document Status.
+	 *
+	 * @param BH_OrderDocStatus The current status of the document
+	 */
+
+	public void setBH_OrderDocStatus(String BH_OrderDocStatus) {
+		if (get_ID() == 0) {
+			super.setBH_OrderDocStatus(BH_OrderDocStatus);
+		}
+	}
+	/**
+	 * Set Requires Expiration.
+	 *
+	 * @param BH_RequiresExpiration Requires Expiration
+	 */
+
+	public void setBH_RequiresExpiration(boolean BH_RequiresExpiration) {
+		if (get_ID() == 0) {
+			super.setBH_RequiresExpiration(BH_RequiresExpiration);
+		}
+	}
 
 	/**
 	 * Set Activity.

@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_R_MailText_TrlDataLoader extends PODataLoader<PO> {
-	public static String R_MailText_Trl_BY_ID_DATA_LOADER = "R_MailTextByIdDataLoader";
-	public static String R_MailText_Trl_BY_UUID_DATA_LOADER = "R_MailTextByUuidDataLoader";
+	public static String R_MailText_Trl_BY_ID_DATA_LOADER = "R_MailText_TrlByIdDataLoader";
+	public static String R_MailText_Trl_BY_UUID_DATA_LOADER = "R_MailText_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

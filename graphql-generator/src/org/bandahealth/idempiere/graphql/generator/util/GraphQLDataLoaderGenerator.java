@@ -234,10 +234,10 @@ public class GraphQLDataLoaderGenerator {
 
 				// Default data loader identifiers
 				.append("\tpublic static String ").append(getByIdDataLoaderIdentifierProperty)
-				.append(" = \"").append(tableStructureExtensions.getTableName())
+				.append(" = \"").append(tableName)
 				.append("ByIdDataLoader\";\n")
 				.append("\tpublic static String ").append(getByUuidDataLoaderIdentifierProperty)
-				.append(" = \"").append(tableStructureExtensions.getTableName())
+				.append(" = \"").append(tableName)
 				.append("ByUuidDataLoader\";\n\n")
 
 				// Table Name Override

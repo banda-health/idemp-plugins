@@ -144,6 +144,17 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 	public ForeignEntityInput BH_PaymentRef() {
 		return mBH_PaymentRef;
 	}
+	/**
+	 * Set BH_ReferenceList_IsActive.
+	 *
+	 * @param BH_ReferenceList_IsActive BH_ReferenceList_IsActive
+	 */
+
+	public void setBH_ReferenceList_IsActive(boolean BH_ReferenceList_IsActive) {
+		if (get_ID() == 0) {
+			super.setBH_ReferenceList_IsActive(BH_ReferenceList_IsActive);
+		}
+	}
 
 	/**
 	 * Set Bank Account.

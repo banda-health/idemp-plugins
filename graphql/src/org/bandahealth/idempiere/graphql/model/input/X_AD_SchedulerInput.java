@@ -268,6 +268,17 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	public I_AD_Ref_ListInput ReportOutputType() {
 		return mReportOutputType;
 	}
+	/**
+	 * Set Scheduler State.
+	 *
+	 * @param SchedulerState State of this scheduler record (not scheduled, started or stopped)
+	 */
+
+	public void setSchedulerState(Object SchedulerState) {
+		if (get_ID() == 0) {
+			super.setSchedulerState(SchedulerState);
+		}
+	}
 
 	/**
 	 * Set Supervisor.

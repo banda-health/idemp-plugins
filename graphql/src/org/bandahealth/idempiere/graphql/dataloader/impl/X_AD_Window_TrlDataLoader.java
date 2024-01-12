@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Window_TrlDataLoader extends PODataLoader<PO> {
-	public static String AD_Window_Trl_BY_ID_DATA_LOADER = "AD_WindowByIdDataLoader";
-	public static String AD_Window_Trl_BY_UUID_DATA_LOADER = "AD_WindowByUuidDataLoader";
+	public static String AD_Window_Trl_BY_ID_DATA_LOADER = "AD_Window_TrlByIdDataLoader";
+	public static String AD_Window_Trl_BY_UUID_DATA_LOADER = "AD_Window_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {

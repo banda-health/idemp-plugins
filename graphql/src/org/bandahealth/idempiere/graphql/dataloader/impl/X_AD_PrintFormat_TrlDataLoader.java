@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_PrintFormat_TrlDataLoader extends PODataLoader<PO> {
-	public static String AD_PrintFormat_Trl_BY_ID_DATA_LOADER = "AD_PrintFormatByIdDataLoader";
-	public static String AD_PrintFormat_Trl_BY_UUID_DATA_LOADER = "AD_PrintFormatByUuidDataLoader";
+	public static String AD_PrintFormat_Trl_BY_ID_DATA_LOADER = "AD_PrintFormat_TrlByIdDataLoader";
+	public static String AD_PrintFormat_Trl_BY_UUID_DATA_LOADER = "AD_PrintFormat_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
