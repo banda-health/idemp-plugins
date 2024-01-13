@@ -38,7 +38,7 @@ public class X_EXP_FormatLineResolver extends POResolver<MEXPFormatLine> impleme
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_EXP_FormatLineResolver extends POResolver<MEXPFormatLine> impleme
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_ID());
 	}
 
@@ -68,7 +68,7 @@ public class X_EXP_FormatLineResolver extends POResolver<MEXPFormatLine> impleme
 			return null;
 		}
 		DataLoader<Integer, MEXPFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_EXP_FormatDataLoader.EXP_Format_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_EXP_FormatDataLoader.DATALOADER_EXP_Format_BY_ID);
 		return dataLoader.load(entity.getEXP_EmbeddedFormat_ID());
 	}
 
@@ -83,7 +83,7 @@ public class X_EXP_FormatLineResolver extends POResolver<MEXPFormatLine> impleme
 			return null;
 		}
 		DataLoader<Integer, MEXPFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_EXP_FormatDataLoader.EXP_Format_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_EXP_FormatDataLoader.DATALOADER_EXP_Format_BY_ID);
 		return dataLoader.load(entity.getEXP_Format_ID());
 	}
 
@@ -108,7 +108,7 @@ public class X_EXP_FormatLineResolver extends POResolver<MEXPFormatLine> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(TYPE_UUIDS_BY_VALUE.get(entity.getType()));
 	}
 

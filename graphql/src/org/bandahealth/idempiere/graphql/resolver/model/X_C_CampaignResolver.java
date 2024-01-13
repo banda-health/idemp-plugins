@@ -34,7 +34,7 @@ public class X_C_CampaignResolver extends POResolver<MCampaign> implements Graph
 			return null;
 		}
 		DataLoader<Integer, X_C_Channel> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ChannelDataLoader.C_Channel_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ChannelDataLoader.DATALOADER_C_Channel_BY_ID);
 		return dataLoader.load(entity.getC_Channel_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_C_CampaignResolver extends POResolver<MCampaign> implements Graph
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Campaign_TrlDataLoader.C_Campaign_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Campaign_TrlDataLoader.DATALOADER_C_Campaign_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MCampaign.COLUMNNAME_Description));
 	}
@@ -67,7 +67,7 @@ public class X_C_CampaignResolver extends POResolver<MCampaign> implements Graph
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Campaign_TrlDataLoader.C_Campaign_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Campaign_TrlDataLoader.DATALOADER_C_Campaign_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MCampaign.COLUMNNAME_Name));
 	}

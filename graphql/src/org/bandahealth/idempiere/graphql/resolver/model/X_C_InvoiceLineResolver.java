@@ -70,7 +70,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_GroupDataLoader.A_Asset_Group_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_GroupDataLoader.DATALOADER_A_Asset_Group_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Group_ID());
 	}
 
@@ -85,7 +85,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -100,7 +100,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(A_CAPVSEXP_UUIDS_BY_VALUE.get(entity.getA_CapvsExp()));
 	}
 
@@ -123,7 +123,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, X_C_1099Box> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_1099BoxDataLoader.C_1099Box_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_1099BoxDataLoader.DATALOADER_C_1099Box_BY_ID);
 		return dataLoader.load(entity.getC_1099Box_ID());
 	}
 
@@ -138,7 +138,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -153,7 +153,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -168,7 +168,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.C_Charge_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.DATALOADER_C_Charge_BY_ID);
 		return dataLoader.load(entity.getC_Charge_ID());
 	}
 
@@ -183,7 +183,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
@@ -198,7 +198,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.C_OrderLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.DATALOADER_C_OrderLine_BY_ID);
 		return dataLoader.load(entity.getC_OrderLine_ID());
 	}
 
@@ -213,7 +213,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -228,7 +228,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectPhaseDataLoader.C_ProjectPhase_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectPhaseDataLoader.DATALOADER_C_ProjectPhase_BY_ID);
 		return dataLoader.load(entity.getC_ProjectPhase_ID());
 	}
 
@@ -243,7 +243,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTaskDataLoader.C_ProjectTask_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTaskDataLoader.DATALOADER_C_ProjectTask_BY_ID);
 		return dataLoader.load(entity.getC_ProjectTask_ID());
 	}
 
@@ -258,7 +258,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.C_Tax_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getC_Tax_ID());
 	}
 
@@ -273,7 +273,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -300,7 +300,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -315,7 +315,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getM_InOutLine_ID());
 	}
 
@@ -330,7 +330,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -345,7 +345,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MRMALine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_RMALineDataLoader.M_RMALine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_RMALineDataLoader.DATALOADER_M_RMALine_BY_ID);
 		return dataLoader.load(entity.getM_RMALine_ID());
 	}
 
@@ -364,7 +364,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MResourceAssignment> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceAssignmentDataLoader.S_ResourceAssignment_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceAssignmentDataLoader.DATALOADER_S_ResourceAssignment_BY_ID);
 		return dataLoader.load(entity.getS_ResourceAssignment_ID());
 	}
 
@@ -379,7 +379,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getUser1_ID());
 	}
 
@@ -394,7 +394,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getUser2_ID());
 	}
 

@@ -9,8 +9,8 @@ import org.compiere.model.MRfQLineQty;
  * @version Release 8.2 - $Id$
  */
 public class X_C_RfQLineQtyDataLoader extends PODataLoader<MRfQLineQty> {
-	public static String C_RfQLineQty_BY_ID_DATA_LOADER = "C_RfQLineQtyByIdDataLoader";
-	public static String C_RfQLineQty_BY_UUID_DATA_LOADER = "C_RfQLineQtyByUuidDataLoader";
+	public static String DATALOADER_C_RfQLineQty_BY_ID = "C_RfQLineQtyByIdDataLoader";
+	public static String DATALOADER_C_RfQLineQty_BY_UUID = "C_RfQLineQtyByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_RfQLineQtyDataLoader extends PODataLoader<MRfQLineQty> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_RfQLineQty_BY_ID_DATA_LOADER;
+		return DATALOADER_C_RfQLineQty_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_RfQLineQty_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_RfQLineQty_BY_UUID;
 	}
 }

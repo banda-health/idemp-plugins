@@ -21,13 +21,13 @@ type M_Product_BOM {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Bill of Materials Quantity
-	BOMQty: Int!
+	BOMQty: BigDecimal!
 	# Type of BOM
 	BOMType: AD_Ref_List
 	# Standard Costs
-	CostStandard: Int
+	CostStandard: BigDecimal
 	# Standard Cost Invoice Amount Sum (internal)
-	CostStandardCumAmt: Int
+	CostStandardCumAmt: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,7 +58,7 @@ input M_Product_BOMInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Bill of Materials Quantity
-	BOMQty: Int
+	BOMQty: BigDecimal
 	# Type of BOM
 	BOMType: AD_Ref_ListInput
 	# Optional short description of the record

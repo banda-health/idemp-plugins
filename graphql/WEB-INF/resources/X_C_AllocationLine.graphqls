@@ -21,7 +21,7 @@ type C_AllocationLine {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount in a defined currency
-	Amount: Int!
+	Amount: BigDecimal!
 	# Payment allocation
 	C_AllocationHdr: C_AllocationHdr!
 	ID: ID!
@@ -44,26 +44,26 @@ type C_AllocationLine {
 	# Transaction Date
 	DateTrx: Date
 	# Calculated amount of discount
-	DiscountAmt: Int!
+	DiscountAmt: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# This is a manual process
 	IsManual: Boolean!
 	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
-	OverUnderAmt: Int
+	OverUnderAmt: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Amount to write-off
-	WriteOffAmt: Int!
+	WriteOffAmt: BigDecimal!
 }
 
 input C_AllocationLineInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount in a defined currency
-	Amount: Int
+	Amount: BigDecimal
 	# Payment allocation
 	C_AllocationHdr: ForeignEntityInput
 	ID: ID
@@ -82,13 +82,13 @@ input C_AllocationLineInput {
 	# Transaction Date
 	DateTrx: Date
 	# Calculated amount of discount
-	DiscountAmt: Int
+	DiscountAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# This is a manual process
 	IsManual: Boolean
 	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
-	OverUnderAmt: Int
+	OverUnderAmt: BigDecimal
 	# Amount to write-off
-	WriteOffAmt: Int
+	WriteOffAmt: BigDecimal
 }

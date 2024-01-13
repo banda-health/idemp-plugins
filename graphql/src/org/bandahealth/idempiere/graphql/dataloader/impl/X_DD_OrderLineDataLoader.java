@@ -9,8 +9,8 @@ import org.eevolution.model.MDDOrderLine;
  * @version Release 8.2 - $Id$
  */
 public class X_DD_OrderLineDataLoader extends PODataLoader<MDDOrderLine> {
-	public static String DD_OrderLine_BY_ID_DATA_LOADER = "DD_OrderLineByIdDataLoader";
-	public static String DD_OrderLine_BY_UUID_DATA_LOADER = "DD_OrderLineByUuidDataLoader";
+	public static String DATALOADER_DD_OrderLine_BY_ID = "DD_OrderLineByIdDataLoader";
+	public static String DATALOADER_DD_OrderLine_BY_UUID = "DD_OrderLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_DD_OrderLineDataLoader extends PODataLoader<MDDOrderLine> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return DD_OrderLine_BY_ID_DATA_LOADER;
+		return DATALOADER_DD_OrderLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return DD_OrderLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_DD_OrderLine_BY_UUID;
 	}
 }

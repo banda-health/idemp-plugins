@@ -31,7 +31,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.R_MailText_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
 		return dataLoader.load(entity.getDistrib_Order_MailText_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getDistrib_Order_PrintFormat_ID());
 	}
 
@@ -61,7 +61,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.R_MailText_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
 		return dataLoader.load(entity.getInvoice_MailText_ID());
 	}
 
@@ -76,7 +76,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getInvoice_PrintFormat_ID());
 	}
 
@@ -91,7 +91,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.R_MailText_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
 		return dataLoader.load(entity.getManuf_Order_MailText_ID());
 	}
 
@@ -106,7 +106,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getManuf_Order_PrintFormat_ID());
 	}
 
@@ -121,7 +121,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.R_MailText_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
 		return dataLoader.load(entity.getOrder_MailText_ID());
 	}
 
@@ -136,7 +136,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getOrder_PrintFormat_ID());
 	}
 
@@ -151,7 +151,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.R_MailText_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
 		return dataLoader.load(entity.getProject_MailText_ID());
 	}
 
@@ -166,7 +166,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getProject_PrintFormat_ID());
 	}
 
@@ -181,7 +181,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.R_MailText_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
 		return dataLoader.load(entity.getRemittance_MailText_ID());
 	}
 
@@ -196,7 +196,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getRemittance_PrintFormat_ID());
 	}
 
@@ -211,7 +211,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.R_MailText_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
 		return dataLoader.load(entity.getShipment_MailText_ID());
 	}
 
@@ -226,7 +226,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getShipment_PrintFormat_ID());
 	}
 

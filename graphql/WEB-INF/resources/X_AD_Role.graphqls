@@ -36,9 +36,9 @@ type AD_Role {
 	Allow_Info_Resource: Boolean!
 	Allow_Info_Schedule: Boolean!
 	# The approval amount limit for this role
-	AmtApproval: Int
+	AmtApproval: BigDecimal
 	# The approval amount limit for this role accumulated on a period
-	AmtApprovalAccum: Int
+	AmtApprovalAccum: BigDecimal
 	# The Currency for this record
 	C_Currency: C_Currency
 	# Require Confirmation if more records will be returned by the query (If not defined 500)
@@ -95,7 +95,7 @@ type AD_Role {
 	Updated: Date!
 	# User who updated this records
 	UpdatedBy: AD_User!
-	UserDiscount: Int
+	UserDiscount: BigDecimal
 	# System Client Organization
 	UserLevel: AD_Ref_List!
 }
@@ -119,9 +119,9 @@ input AD_RoleInput {
 	Allow_Info_Resource: Boolean
 	Allow_Info_Schedule: Boolean
 	# The approval amount limit for this role
-	AmtApproval: Int
+	AmtApproval: BigDecimal
 	# The approval amount limit for this role accumulated on a period
-	AmtApprovalAccum: Int
+	AmtApprovalAccum: BigDecimal
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Require Confirmation if more records will be returned by the query (If not defined 500)
@@ -170,7 +170,7 @@ input AD_RoleInput {
 	RoleType: AD_Ref_ListInput
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: ForeignEntityInput
-	UserDiscount: Int
+	UserDiscount: BigDecimal
 	# System Client Organization
 	UserLevel: AD_Ref_ListInput
 }

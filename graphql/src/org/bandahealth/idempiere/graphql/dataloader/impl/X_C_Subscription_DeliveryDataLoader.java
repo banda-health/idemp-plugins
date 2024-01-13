@@ -9,8 +9,8 @@ import org.compiere.model.X_C_Subscription_Delivery;
  * @version Release 8.2 - $Id$
  */
 public class X_C_Subscription_DeliveryDataLoader extends PODataLoader<X_C_Subscription_Delivery> {
-	public static String C_Subscription_Delivery_BY_ID_DATA_LOADER = "C_Subscription_DeliveryByIdDataLoader";
-	public static String C_Subscription_Delivery_BY_UUID_DATA_LOADER = "C_Subscription_DeliveryByUuidDataLoader";
+	public static String DATALOADER_C_Subscription_Delivery_BY_ID = "C_Subscription_DeliveryByIdDataLoader";
+	public static String DATALOADER_C_Subscription_Delivery_BY_UUID = "C_Subscription_DeliveryByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_Subscription_DeliveryDataLoader extends PODataLoader<X_C_Subscr
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Subscription_Delivery_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Subscription_Delivery_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Subscription_Delivery_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Subscription_Delivery_BY_UUID;
 	}
 }

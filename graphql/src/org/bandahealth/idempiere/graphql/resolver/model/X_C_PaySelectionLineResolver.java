@@ -38,7 +38,7 @@ public class X_C_PaySelectionLineResolver extends POResolver<MPaySelectionLine> 
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_C_PaySelectionLineResolver extends POResolver<MPaySelectionLine> 
 			return null;
 		}
 		DataLoader<Integer, MPaySelection> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaySelectionDataLoader.C_PaySelection_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaySelectionDataLoader.DATALOADER_C_PaySelection_BY_ID);
 		return dataLoader.load(entity.getC_PaySelection_ID());
 	}
 
@@ -68,7 +68,7 @@ public class X_C_PaySelectionLineResolver extends POResolver<MPaySelectionLine> 
 			return null;
 		}
 		DataLoader<Integer, MPaySelectionCheck> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaySelectionCheckDataLoader.C_PaySelectionCheck_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaySelectionCheckDataLoader.DATALOADER_C_PaySelectionCheck_BY_ID);
 		return dataLoader.load(entity.getC_PaySelectionCheck_ID());
 	}
 
@@ -98,7 +98,7 @@ public class X_C_PaySelectionLineResolver extends POResolver<MPaySelectionLine> 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAYMENTRULE_UUIDS_BY_VALUE.get(entity.getPaymentRule()));
 	}
 

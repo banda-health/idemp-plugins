@@ -9,8 +9,8 @@ import org.compiere.model.X_B_Buyer;
  * @version Release 8.2 - $Id$
  */
 public class X_B_BuyerDataLoader extends PODataLoader<X_B_Buyer> {
-	public static String B_Buyer_BY_ID_DATA_LOADER = "B_BuyerByIdDataLoader";
-	public static String B_Buyer_BY_UUID_DATA_LOADER = "B_BuyerByUuidDataLoader";
+	public static String DATALOADER_B_Buyer_BY_ID = "B_BuyerByIdDataLoader";
+	public static String DATALOADER_B_Buyer_BY_UUID = "B_BuyerByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_B_BuyerDataLoader extends PODataLoader<X_B_Buyer> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return B_Buyer_BY_ID_DATA_LOADER;
+		return DATALOADER_B_Buyer_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return B_Buyer_BY_UUID_DATA_LOADER;
+		return DATALOADER_B_Buyer_BY_UUID;
 	}
 }

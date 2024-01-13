@@ -33,7 +33,7 @@ public class X_C_InvoiceTaxResolver extends POResolver<MInvoiceTax> implements G
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_C_InvoiceTaxResolver extends POResolver<MInvoiceTax> implements G
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.C_Tax_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getC_Tax_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_C_InvoiceTaxResolver extends POResolver<MInvoiceTax> implements G
 			return null;
 		}
 		DataLoader<Integer, MTaxProvider> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxProviderDataLoader.C_TaxProvider_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxProviderDataLoader.DATALOADER_C_TaxProvider_BY_ID);
 		return dataLoader.load(entity.getC_TaxProvider_ID());
 	}
 

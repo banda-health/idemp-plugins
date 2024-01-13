@@ -9,8 +9,8 @@ import org.compiere.model.MUserQuery;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_UserQueryDataLoader extends PODataLoader<MUserQuery> {
-	public static String AD_UserQuery_BY_ID_DATA_LOADER = "AD_UserQueryByIdDataLoader";
-	public static String AD_UserQuery_BY_UUID_DATA_LOADER = "AD_UserQueryByUuidDataLoader";
+	public static String DATALOADER_AD_UserQuery_BY_ID = "AD_UserQueryByIdDataLoader";
+	public static String DATALOADER_AD_UserQuery_BY_UUID = "AD_UserQueryByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_UserQueryDataLoader extends PODataLoader<MUserQuery> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_UserQuery_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_UserQuery_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_UserQuery_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_UserQuery_BY_UUID;
 	}
 }

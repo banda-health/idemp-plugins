@@ -33,7 +33,7 @@ type PA_Achievement {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Manually entered actual value
-	ManualActual: Int!
+	ManualActual: BigDecimal!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Optional additional user defined information
@@ -61,7 +61,7 @@ input PA_AchievementInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Manually entered actual value
-	ManualActual: Int
+	ManualActual: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Optional additional user defined information

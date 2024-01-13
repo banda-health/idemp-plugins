@@ -9,8 +9,8 @@ import org.compiere.model.X_M_PartType;
  * @version Release 8.2 - $Id$
  */
 public class X_M_PartTypeDataLoader extends PODataLoader<X_M_PartType> {
-	public static String M_PartType_BY_ID_DATA_LOADER = "M_PartTypeByIdDataLoader";
-	public static String M_PartType_BY_UUID_DATA_LOADER = "M_PartTypeByUuidDataLoader";
+	public static String DATALOADER_M_PartType_BY_ID = "M_PartTypeByIdDataLoader";
+	public static String DATALOADER_M_PartType_BY_UUID = "M_PartTypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_PartTypeDataLoader extends PODataLoader<X_M_PartType> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_PartType_BY_ID_DATA_LOADER;
+		return DATALOADER_M_PartType_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_PartType_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_PartType_BY_UUID;
 	}
 }

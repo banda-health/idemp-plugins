@@ -76,7 +76,7 @@ type GL_DistributionLine {
 	# Overwrite the account segment User 2 with the value specified
 	OverwriteUser2: Boolean!
 	# Percentage
-	Percent: Int!
+	Percent: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -142,7 +142,7 @@ input GL_DistributionLineInput {
 	# Overwrite the account segment User 2 with the value specified
 	OverwriteUser2: Boolean
 	# Percentage
-	Percent: Int
+	Percent: BigDecimal
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2

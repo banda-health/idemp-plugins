@@ -9,8 +9,8 @@ import org.compiere.model.X_M_Product_QualityTest;
  * @version Release 8.2 - $Id$
  */
 public class X_M_Product_QualityTestDataLoader extends PODataLoader<X_M_Product_QualityTest> {
-	public static String M_Product_QualityTest_BY_ID_DATA_LOADER = "M_Product_QualityTestByIdDataLoader";
-	public static String M_Product_QualityTest_BY_UUID_DATA_LOADER = "M_Product_QualityTestByUuidDataLoader";
+	public static String DATALOADER_M_Product_QualityTest_BY_ID = "M_Product_QualityTestByIdDataLoader";
+	public static String DATALOADER_M_Product_QualityTest_BY_UUID = "M_Product_QualityTestByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_Product_QualityTestDataLoader extends PODataLoader<X_M_Product_
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_Product_QualityTest_BY_ID_DATA_LOADER;
+		return DATALOADER_M_Product_QualityTest_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_Product_QualityTest_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_Product_QualityTest_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.X_C_BP_EDI;
  * @version Release 8.2 - $Id$
  */
 public class X_C_BP_EDIDataLoader extends PODataLoader<X_C_BP_EDI> {
-	public static String C_BP_EDI_BY_ID_DATA_LOADER = "C_BP_EDIByIdDataLoader";
-	public static String C_BP_EDI_BY_UUID_DATA_LOADER = "C_BP_EDIByUuidDataLoader";
+	public static String DATALOADER_C_BP_EDI_BY_ID = "C_BP_EDIByIdDataLoader";
+	public static String DATALOADER_C_BP_EDI_BY_UUID = "C_BP_EDIByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_BP_EDIDataLoader extends PODataLoader<X_C_BP_EDI> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_BP_EDI_BY_ID_DATA_LOADER;
+		return DATALOADER_C_BP_EDI_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_BP_EDI_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_BP_EDI_BY_UUID;
 	}
 }

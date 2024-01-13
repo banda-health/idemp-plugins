@@ -9,8 +9,8 @@ import org.compiere.model.MAlertRule;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_AlertRuleDataLoader extends PODataLoader<MAlertRule> {
-	public static String AD_AlertRule_BY_ID_DATA_LOADER = "AD_AlertRuleByIdDataLoader";
-	public static String AD_AlertRule_BY_UUID_DATA_LOADER = "AD_AlertRuleByUuidDataLoader";
+	public static String DATALOADER_AD_AlertRule_BY_ID = "AD_AlertRuleByIdDataLoader";
+	public static String DATALOADER_AD_AlertRule_BY_UUID = "AD_AlertRuleByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_AlertRuleDataLoader extends PODataLoader<MAlertRule> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_AlertRule_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_AlertRule_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_AlertRule_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_AlertRule_BY_UUID;
 	}
 }

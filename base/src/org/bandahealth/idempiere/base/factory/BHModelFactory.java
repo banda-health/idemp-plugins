@@ -48,6 +48,7 @@ import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
+import org.bandahealth.idempiere.base.model.MProductPO_BH;
 import org.bandahealth.idempiere.base.model.MProductPrice_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -173,6 +174,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHEncounter.class;
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return MBHObservation.class;
+		} else if (tableName.equalsIgnoreCase(MProductPO_BH.Table_Name)) {
+			return MProductPO_BH.class;
 		} else if (tableName.equalsIgnoreCase(MProductPrice_BH.Table_Name)) {
 			return MProductPrice_BH.class;
 		} else if (tableName.equalsIgnoreCase(MTree_BH.Table_Name)) {
@@ -298,6 +301,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHEncounter(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return new MBHObservation(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MProductPO_BH.Table_Name)) {
+			return new MProductPO_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductPrice_BH.Table_Name)) {
 			return new MProductPrice_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MTree_BH.Table_Name)) {
@@ -425,6 +430,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHEncounter(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return new MBHObservation(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MProductPO_BH.Table_Name)) {
+			return new MProductPO_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductPrice_BH.Table_Name)) {
 			return new MProductPrice_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MTree_BH.Table_Name)) {

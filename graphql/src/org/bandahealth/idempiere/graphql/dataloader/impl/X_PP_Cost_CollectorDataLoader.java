@@ -9,8 +9,8 @@ import org.eevolution.model.X_PP_Cost_Collector;
  * @version Release 8.2 - $Id$
  */
 public class X_PP_Cost_CollectorDataLoader extends PODataLoader<X_PP_Cost_Collector> {
-	public static String PP_Cost_Collector_BY_ID_DATA_LOADER = "PP_Cost_CollectorByIdDataLoader";
-	public static String PP_Cost_Collector_BY_UUID_DATA_LOADER = "PP_Cost_CollectorByUuidDataLoader";
+	public static String DATALOADER_PP_Cost_Collector_BY_ID = "PP_Cost_CollectorByIdDataLoader";
+	public static String DATALOADER_PP_Cost_Collector_BY_UUID = "PP_Cost_CollectorByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PP_Cost_CollectorDataLoader extends PODataLoader<X_PP_Cost_Collec
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PP_Cost_Collector_BY_ID_DATA_LOADER;
+		return DATALOADER_PP_Cost_Collector_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PP_Cost_Collector_BY_UUID_DATA_LOADER;
+		return DATALOADER_PP_Cost_Collector_BY_UUID;
 	}
 }

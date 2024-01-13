@@ -9,8 +9,8 @@ import org.compiere.model.MRequestAction;
  * @version Release 8.2 - $Id$
  */
 public class X_R_RequestActionDataLoader extends PODataLoader<MRequestAction> {
-	public static String R_RequestAction_BY_ID_DATA_LOADER = "R_RequestActionByIdDataLoader";
-	public static String R_RequestAction_BY_UUID_DATA_LOADER = "R_RequestActionByUuidDataLoader";
+	public static String DATALOADER_R_RequestAction_BY_ID = "R_RequestActionByIdDataLoader";
+	public static String DATALOADER_R_RequestAction_BY_UUID = "R_RequestActionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_RequestActionDataLoader extends PODataLoader<MRequestAction> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_RequestAction_BY_ID_DATA_LOADER;
+		return DATALOADER_R_RequestAction_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_RequestAction_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_RequestAction_BY_UUID;
 	}
 }

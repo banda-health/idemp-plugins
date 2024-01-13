@@ -38,9 +38,9 @@ type M_ForecastLine {
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Calculated Quantity
-	QtyCalculated: Int!
+	QtyCalculated: BigDecimal!
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
 	# Date this record was updated
@@ -66,9 +66,9 @@ input M_ForecastLineInput {
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Calculated Quantity
-	QtyCalculated: Int
+	QtyCalculated: BigDecimal
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
 }

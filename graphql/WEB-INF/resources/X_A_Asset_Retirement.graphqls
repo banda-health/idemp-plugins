@@ -24,9 +24,9 @@ type A_Asset_Retirement {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Market value of the asset
-	AssetMarketValueAmt: Int!
+	AssetMarketValueAmt: BigDecimal!
 	# Book Value of the asset
-	AssetValueAmt: Int!
+	AssetValueAmt: BigDecimal!
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine
 	# Date this record was created
@@ -48,9 +48,9 @@ input A_Asset_RetirementInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Market value of the asset
-	AssetMarketValueAmt: Int
+	AssetMarketValueAmt: BigDecimal
 	# Book Value of the asset
-	AssetValueAmt: Int
+	AssetValueAmt: BigDecimal
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
 	# The record is active in the system

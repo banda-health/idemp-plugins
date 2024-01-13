@@ -9,8 +9,8 @@ import org.compiere.model.X_GL_Fund;
  * @version Release 8.2 - $Id$
  */
 public class X_GL_FundDataLoader extends PODataLoader<X_GL_Fund> {
-	public static String GL_Fund_BY_ID_DATA_LOADER = "GL_FundByIdDataLoader";
-	public static String GL_Fund_BY_UUID_DATA_LOADER = "GL_FundByUuidDataLoader";
+	public static String DATALOADER_GL_Fund_BY_ID = "GL_FundByIdDataLoader";
+	public static String DATALOADER_GL_Fund_BY_UUID = "GL_FundByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_GL_FundDataLoader extends PODataLoader<X_GL_Fund> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return GL_Fund_BY_ID_DATA_LOADER;
+		return DATALOADER_GL_Fund_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return GL_Fund_BY_UUID_DATA_LOADER;
+		return DATALOADER_GL_Fund_BY_UUID;
 	}
 }

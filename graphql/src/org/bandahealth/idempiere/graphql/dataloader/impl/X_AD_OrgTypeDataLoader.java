@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_OrgType;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_OrgTypeDataLoader extends PODataLoader<X_AD_OrgType> {
-	public static String AD_OrgType_BY_ID_DATA_LOADER = "AD_OrgTypeByIdDataLoader";
-	public static String AD_OrgType_BY_UUID_DATA_LOADER = "AD_OrgTypeByUuidDataLoader";
+	public static String DATALOADER_AD_OrgType_BY_ID = "AD_OrgTypeByIdDataLoader";
+	public static String DATALOADER_AD_OrgType_BY_UUID = "AD_OrgTypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_OrgTypeDataLoader extends PODataLoader<X_AD_OrgType> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_OrgType_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_OrgType_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_OrgType_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_OrgType_BY_UUID;
 	}
 }

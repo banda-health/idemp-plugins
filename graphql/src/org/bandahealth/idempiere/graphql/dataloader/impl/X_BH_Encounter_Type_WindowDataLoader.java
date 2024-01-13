@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindow;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_Encounter_Type_WindowDataLoader extends PODataLoader<MBHEncounterTypeWindow> {
-	public static String BH_Encounter_Type_Window_BY_ID_DATA_LOADER = "BH_Encounter_Type_WindowByIdDataLoader";
-	public static String BH_Encounter_Type_Window_BY_UUID_DATA_LOADER = "BH_Encounter_Type_WindowByUuidDataLoader";
+	public static String DATALOADER_BH_Encounter_Type_Window_BY_ID = "BH_Encounter_Type_WindowByIdDataLoader";
+	public static String DATALOADER_BH_Encounter_Type_Window_BY_UUID = "BH_Encounter_Type_WindowByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_Encounter_Type_WindowDataLoader extends PODataLoader<MBHEncoun
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_Encounter_Type_Window_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_Encounter_Type_Window_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_Encounter_Type_Window_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_Encounter_Type_Window_BY_UUID;
 	}
 }

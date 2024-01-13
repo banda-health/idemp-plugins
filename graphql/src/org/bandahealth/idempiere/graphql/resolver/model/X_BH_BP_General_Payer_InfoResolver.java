@@ -31,7 +31,7 @@ public class X_BH_BP_General_Payer_InfoResolver extends POResolver<MBHBPGeneralP
 			return null;
 		}
 		DataLoader<Integer, MBHBPPayerInfo> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_BP_Payer_InfoDataLoader.BH_BP_Payer_Info_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_BP_Payer_InfoDataLoader.DATALOADER_BH_BP_Payer_Info_BY_ID);
 		return dataLoader.load(entity.getBH_BP_Payer_Info_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_BH_BP_General_Payer_InfoResolver extends POResolver<MBHBPGeneralP
 			return null;
 		}
 		DataLoader<Integer, MBHPayerInfoFld> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_Payer_Info_FldDataLoader.BH_Payer_Info_Fld_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_Payer_Info_FldDataLoader.DATALOADER_BH_Payer_Info_Fld_BY_ID);
 		return dataLoader.load(entity.getBH_Payer_Info_Fld_ID());
 	}
 

@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBHVoidedReason;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_Voided_ReasonDataLoader extends PODataLoader<MBHVoidedReason> {
-	public static String BH_Voided_Reason_BY_ID_DATA_LOADER = "BH_Voided_ReasonByIdDataLoader";
-	public static String BH_Voided_Reason_BY_UUID_DATA_LOADER = "BH_Voided_ReasonByUuidDataLoader";
+	public static String DATALOADER_BH_Voided_Reason_BY_ID = "BH_Voided_ReasonByIdDataLoader";
+	public static String DATALOADER_BH_Voided_Reason_BY_UUID = "BH_Voided_ReasonByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_Voided_ReasonDataLoader extends PODataLoader<MBHVoidedReason> 
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_Voided_Reason_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_Voided_Reason_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_Voided_Reason_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_Voided_Reason_BY_UUID;
 	}
 }

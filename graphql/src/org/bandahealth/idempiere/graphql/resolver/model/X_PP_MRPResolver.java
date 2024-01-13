@@ -62,7 +62,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -77,7 +77,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.C_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.DATALOADER_C_Order_BY_ID);
 		return dataLoader.load(entity.getC_Order_ID());
 	}
 
@@ -92,7 +92,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.C_OrderLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.DATALOADER_C_OrderLine_BY_ID);
 		return dataLoader.load(entity.getC_OrderLine_ID());
 	}
 
@@ -107,7 +107,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MDDOrder> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_DD_OrderDataLoader.DD_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_DD_OrderDataLoader.DATALOADER_DD_Order_BY_ID);
 		return dataLoader.load(entity.getDD_Order_ID());
 	}
 
@@ -122,7 +122,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MDDOrderLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_DD_OrderLineDataLoader.DD_OrderLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_DD_OrderLineDataLoader.DATALOADER_DD_OrderLine_BY_ID);
 		return dataLoader.load(entity.getDD_OrderLine_ID());
 	}
 
@@ -147,7 +147,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
 	}
 
@@ -166,7 +166,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MForecast> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastDataLoader.M_Forecast_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastDataLoader.DATALOADER_M_Forecast_BY_ID);
 		return dataLoader.load(entity.getM_Forecast_ID());
 	}
 
@@ -181,7 +181,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MForecastLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastLineDataLoader.M_ForecastLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastLineDataLoader.DATALOADER_M_ForecastLine_BY_ID);
 		return dataLoader.load(entity.getM_ForecastLine_ID());
 	}
 
@@ -196,7 +196,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -211,7 +211,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MRequisition> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_RequisitionDataLoader.M_Requisition_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_RequisitionDataLoader.DATALOADER_M_Requisition_BY_ID);
 		return dataLoader.load(entity.getM_Requisition_ID());
 	}
 
@@ -226,7 +226,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MRequisitionLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_RequisitionLineDataLoader.M_RequisitionLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_RequisitionLineDataLoader.DATALOADER_M_RequisitionLine_BY_ID);
 		return dataLoader.load(entity.getM_RequisitionLine_ID());
 	}
 
@@ -241,7 +241,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
@@ -261,7 +261,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ORDERTYPE_UUIDS_BY_VALUE.get(entity.getOrderType()));
 	}
 
@@ -276,7 +276,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getPlanner_ID());
 	}
 
@@ -291,7 +291,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_BOMLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_Order_BOMLineDataLoader.PP_Order_BOMLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Order_BOMLineDataLoader.DATALOADER_PP_Order_BOMLine_BY_ID);
 		return dataLoader.load(entity.getPP_Order_BOMLine_ID());
 	}
 
@@ -306,7 +306,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_OrderDataLoader.PP_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_OrderDataLoader.DATALOADER_PP_Order_BY_ID);
 		return dataLoader.load(entity.getPP_Order_ID());
 	}
 
@@ -321,7 +321,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.S_Resource_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.DATALOADER_S_Resource_BY_ID);
 		return dataLoader.load(entity.getS_Resource_ID());
 	}
 
@@ -336,7 +336,7 @@ public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLRes
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(TYPEMRP_UUIDS_BY_VALUE.get(entity.getTypeMRP()));
 	}
 

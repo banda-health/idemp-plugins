@@ -9,8 +9,8 @@ import org.compiere.model.MProductCategoryAcct;
  * @version Release 8.2 - $Id$
  */
 public class X_M_Product_Category_AcctDataLoader extends PODataLoader<MProductCategoryAcct> {
-	public static String M_Product_Category_Acct_BY_ID_DATA_LOADER = "M_Product_Category_AcctByIdDataLoader";
-	public static String M_Product_Category_Acct_BY_UUID_DATA_LOADER = "M_Product_Category_AcctByUuidDataLoader";
+	public static String DATALOADER_M_Product_Category_Acct_BY_ID = "M_Product_Category_AcctByIdDataLoader";
+	public static String DATALOADER_M_Product_Category_Acct_BY_UUID = "M_Product_Category_AcctByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_Product_Category_AcctDataLoader extends PODataLoader<MProductCa
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_Product_Category_Acct_BY_ID_DATA_LOADER;
+		return DATALOADER_M_Product_Category_Acct_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_Product_Category_Acct_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_Product_Category_Acct_BY_UUID;
 	}
 }

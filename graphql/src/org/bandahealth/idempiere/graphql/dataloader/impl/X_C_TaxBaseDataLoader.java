@@ -9,8 +9,8 @@ import org.eevolution.model.X_C_TaxBase;
  * @version Release 8.2 - $Id$
  */
 public class X_C_TaxBaseDataLoader extends PODataLoader<X_C_TaxBase> {
-	public static String C_TaxBase_BY_ID_DATA_LOADER = "C_TaxBaseByIdDataLoader";
-	public static String C_TaxBase_BY_UUID_DATA_LOADER = "C_TaxBaseByUuidDataLoader";
+	public static String DATALOADER_C_TaxBase_BY_ID = "C_TaxBaseByIdDataLoader";
+	public static String DATALOADER_C_TaxBase_BY_UUID = "C_TaxBaseByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_TaxBaseDataLoader extends PODataLoader<X_C_TaxBase> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_TaxBase_BY_ID_DATA_LOADER;
+		return DATALOADER_C_TaxBase_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_TaxBase_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_TaxBase_BY_UUID;
 	}
 }

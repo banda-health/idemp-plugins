@@ -29,7 +29,7 @@ public class X_WS_WebServiceMethodResolver extends POResolver<X_WS_WebServiceMet
 			return null;
 		}
 		DataLoader<Integer, X_WS_WebService> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceDataLoader.WS_WebService_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceDataLoader.DATALOADER_WS_WebService_BY_ID);
 		return dataLoader.load(entity.getWS_WebService_ID());
 	}
 

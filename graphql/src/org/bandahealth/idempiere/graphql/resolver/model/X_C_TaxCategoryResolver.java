@@ -31,7 +31,7 @@ public class X_C_TaxCategoryResolver extends POResolver<MTaxCategory> implements
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_TaxCategory_TrlDataLoader.C_TaxCategory_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_TaxCategory_TrlDataLoader.DATALOADER_C_TaxCategory_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTaxCategory.COLUMNNAME_Description));
 	}
@@ -50,7 +50,7 @@ public class X_C_TaxCategoryResolver extends POResolver<MTaxCategory> implements
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_TaxCategory_TrlDataLoader.C_TaxCategory_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_TaxCategory_TrlDataLoader.DATALOADER_C_TaxCategory_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTaxCategory.COLUMNNAME_Name));
 	}

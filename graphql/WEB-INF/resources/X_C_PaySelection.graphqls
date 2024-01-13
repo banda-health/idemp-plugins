@@ -44,7 +44,7 @@ type C_PaySelection {
 	Processed: Boolean!
 	Processing: Boolean!
 	# Total Amount
-	TotalAmt: Int!
+	TotalAmt: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -74,5 +74,5 @@ input C_PaySelectionInput {
 	Processed: Boolean
 	Processing: Boolean
 	# Total Amount
-	TotalAmt: Int
+	TotalAmt: BigDecimal
 }

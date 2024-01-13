@@ -41,7 +41,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -56,7 +56,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.C_Charge_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.DATALOADER_C_Charge_BY_ID);
 		return dataLoader.load(entity.getC_Charge_ID());
 	}
 
@@ -71,7 +71,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.C_OrderLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.DATALOADER_C_OrderLine_BY_ID);
 		return dataLoader.load(entity.getC_OrderLine_ID());
 	}
 
@@ -86,7 +86,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -101,7 +101,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -116,7 +116,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -131,7 +131,7 @@ public class X_M_RequisitionLineResolver extends POResolver<MRequisitionLine> im
 			return null;
 		}
 		DataLoader<Integer, MRequisition> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_RequisitionDataLoader.M_Requisition_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_RequisitionDataLoader.DATALOADER_M_Requisition_BY_ID);
 		return dataLoader.load(entity.getM_Requisition_ID());
 	}
 

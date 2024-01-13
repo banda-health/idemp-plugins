@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_UIButton_TrlDataLoader extends PODataLoader<PO> {
-	public static String BH_UIButton_Trl_BY_ID_DATA_LOADER = "BH_UIButton_TrlByIdDataLoader";
-	public static String BH_UIButton_Trl_BY_UUID_DATA_LOADER = "BH_UIButton_TrlByUuidDataLoader";
+	public static String DATALOADER_BH_UIButton_Trl_BY_ID = "BH_UIButton_TrlByIdDataLoader";
+	public static String DATALOADER_BH_UIButton_Trl_BY_UUID = "BH_UIButton_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -37,13 +37,13 @@ public class X_BH_UIButton_TrlDataLoader extends PODataLoader<PO> {
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_UIButton_Trl_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_UIButton_Trl_BY_UUID;
 	}
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(BH_UIButton_Trl_BY_ID_DATA_LOADER,
+		registry.register(DATALOADER_BH_UIButton_Trl_BY_ID,
 				DataLoader.newMappedDataLoader(getByIdAndLanguageBatchLoader(),
 						getOptionsWithCache(idempiereContext)));
 	}

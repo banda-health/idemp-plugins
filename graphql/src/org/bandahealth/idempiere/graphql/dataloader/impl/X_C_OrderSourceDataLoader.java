@@ -9,8 +9,8 @@ import org.compiere.model.X_C_OrderSource;
  * @version Release 8.2 - $Id$
  */
 public class X_C_OrderSourceDataLoader extends PODataLoader<X_C_OrderSource> {
-	public static String C_OrderSource_BY_ID_DATA_LOADER = "C_OrderSourceByIdDataLoader";
-	public static String C_OrderSource_BY_UUID_DATA_LOADER = "C_OrderSourceByUuidDataLoader";
+	public static String DATALOADER_C_OrderSource_BY_ID = "C_OrderSourceByIdDataLoader";
+	public static String DATALOADER_C_OrderSource_BY_UUID = "C_OrderSourceByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_OrderSourceDataLoader extends PODataLoader<X_C_OrderSource> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_OrderSource_BY_ID_DATA_LOADER;
+		return DATALOADER_C_OrderSource_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_OrderSource_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_OrderSource_BY_UUID;
 	}
 }

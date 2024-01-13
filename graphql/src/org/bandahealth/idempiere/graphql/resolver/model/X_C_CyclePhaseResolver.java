@@ -31,7 +31,7 @@ public class X_C_CyclePhaseResolver extends POResolver<X_C_CyclePhase> implement
 			return null;
 		}
 		DataLoader<Integer, X_C_CycleStep> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CycleStepDataLoader.C_CycleStep_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CycleStepDataLoader.DATALOADER_C_CycleStep_BY_ID);
 		return dataLoader.load(entity.getC_CycleStep_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_CyclePhaseResolver extends POResolver<X_C_CyclePhase> implement
 			return null;
 		}
 		DataLoader<Integer, MProjectTypePhase> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PhaseDataLoader.C_Phase_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PhaseDataLoader.DATALOADER_C_Phase_BY_ID);
 		return dataLoader.load(entity.getC_Phase_ID());
 	}
 

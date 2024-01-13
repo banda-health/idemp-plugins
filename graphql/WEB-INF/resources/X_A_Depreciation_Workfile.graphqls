@@ -16,37 +16,37 @@ type A_Depreciation_WorkfileConnection {
 }
 
 type A_Depreciation_Workfile {
-	A_Accumulated_Depr: Int!
-	A_Accumulated_Depr_F: Int!
-	A_Asset_Cost: Int!
+	A_Accumulated_Depr: BigDecimal!
+	A_Accumulated_Depr_F: BigDecimal!
+	A_Asset_Cost: BigDecimal!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	A_Asset_Life_Current_Year: Int!
+	A_Asset_Life_Current_Year: BigDecimal!
 	A_Asset_Life_Years: Int!
 	A_Asset_Life_Years_F: Int!
-	A_Asset_Remaining: Int
-	A_Asset_Remaining_F: Int
-	A_Base_Amount: Int
-	A_Calc_Accumulated_Depr: Int
-	A_Curr_Dep_Exp: Int!
+	A_Asset_Remaining: BigDecimal
+	A_Asset_Remaining_F: BigDecimal
+	A_Base_Amount: BigDecimal
+	A_Calc_Accumulated_Depr: BigDecimal
+	A_Curr_Dep_Exp: BigDecimal!
 	A_Current_Period: Int
 	ID: ID!
-	A_Expense_SL: Int
-	A_Expense_SL_F: Int
+	A_Expense_SL: BigDecimal
+	A_Expense_SL_F: BigDecimal
 	A_FundingMode: A_FundingMode
 	A_Life_Period: Int!
 	A_Life_Period_F: Int!
 	A_Life_Period_Max: Int
 	A_Life_Period_Min: Int
-	A_Period_Forecast: Int
+	A_Period_Forecast: BigDecimal
 	A_Period_Posted: Int
-	A_Prior_Year_Accumulated_Depr: Int
-	A_QTY_Current: Int!
-	A_Salvage_Value: Int!
+	A_Prior_Year_Accumulated_Depr: BigDecimal
+	A_QTY_Current: BigDecimal!
+	A_Salvage_Value: BigDecimal!
 	# Financing Type
 	A_Tip_Finantare: AD_Ref_List!
-	A_Valoare_Cofinantare: Int
-	A_Valoare_Tert: Int
+	A_Valoare_Cofinantare: BigDecimal
+	A_Valoare_Tert: BigDecimal
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -85,33 +85,33 @@ type A_Depreciation_Workfile {
 }
 
 input A_Depreciation_WorkfileInput {
-	A_Accumulated_Depr: Int
-	A_Accumulated_Depr_F: Int
-	A_Asset_Cost: Int
+	A_Accumulated_Depr: BigDecimal
+	A_Accumulated_Depr_F: BigDecimal
+	A_Asset_Cost: BigDecimal
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	A_Asset_Life_Current_Year: Int
+	A_Asset_Life_Current_Year: BigDecimal
 	A_Asset_Life_Years: Int
 	A_Asset_Life_Years_F: Int
-	A_Asset_Remaining: Int
-	A_Asset_Remaining_F: Int
-	A_Base_Amount: Int
-	A_Calc_Accumulated_Depr: Int
-	A_Curr_Dep_Exp: Int
+	A_Asset_Remaining: BigDecimal
+	A_Asset_Remaining_F: BigDecimal
+	A_Base_Amount: BigDecimal
+	A_Calc_Accumulated_Depr: BigDecimal
+	A_Curr_Dep_Exp: BigDecimal
 	A_Current_Period: Int
 	ID: ID
 	A_FundingMode: ForeignEntityInput
 	A_Life_Period: Int
 	A_Life_Period_F: Int
-	A_Period_Forecast: Int
+	A_Period_Forecast: BigDecimal
 	A_Period_Posted: Int
-	A_Prior_Year_Accumulated_Depr: Int
-	A_QTY_Current: Int
-	A_Salvage_Value: Int
+	A_Prior_Year_Accumulated_Depr: BigDecimal
+	A_QTY_Current: BigDecimal
+	A_Salvage_Value: BigDecimal
 	# Financing Type
 	A_Tip_Finantare: AD_Ref_ListInput
-	A_Valoare_Cofinantare: Int
-	A_Valoare_Tert: Int
+	A_Valoare_Cofinantare: BigDecimal
+	A_Valoare_Tert: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Date of last depreciation

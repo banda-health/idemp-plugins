@@ -55,7 +55,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -70,7 +70,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -85,7 +85,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -100,7 +100,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -115,7 +115,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.C_InvoiceLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}
 
@@ -130,7 +130,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.C_OrderLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.DATALOADER_C_OrderLine_BY_ID);
 		return dataLoader.load(entity.getC_OrderLine_ID());
 	}
 
@@ -145,7 +145,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -160,7 +160,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectPhaseDataLoader.C_ProjectPhase_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectPhaseDataLoader.DATALOADER_C_ProjectPhase_BY_ID);
 		return dataLoader.load(entity.getC_ProjectPhase_ID());
 	}
 
@@ -175,7 +175,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTaskDataLoader.C_ProjectTask_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTaskDataLoader.DATALOADER_C_ProjectTask_BY_ID);
 		return dataLoader.load(entity.getC_ProjectTask_ID());
 	}
 
@@ -190,7 +190,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -213,7 +213,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -232,7 +232,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MResourceAssignment> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceAssignmentDataLoader.S_ResourceAssignment_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceAssignmentDataLoader.DATALOADER_S_ResourceAssignment_BY_ID);
 		return dataLoader.load(entity.getS_ResourceAssignment_ID());
 	}
 
@@ -247,7 +247,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, MTimeExpense> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_TimeExpenseDataLoader.S_TimeExpense_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_TimeExpenseDataLoader.DATALOADER_S_TimeExpense_BY_ID);
 		return dataLoader.load(entity.getS_TimeExpense_ID());
 	}
 
@@ -262,7 +262,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 			return null;
 		}
 		DataLoader<Integer, X_S_TimeType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_TimeTypeDataLoader.S_TimeType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_TimeTypeDataLoader.DATALOADER_S_TimeType_BY_ID);
 		return dataLoader.load(entity.getS_TimeType_ID());
 	}
 

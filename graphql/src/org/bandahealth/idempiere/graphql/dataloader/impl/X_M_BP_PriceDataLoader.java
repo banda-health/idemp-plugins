@@ -9,8 +9,8 @@ import org.compiere.model.X_M_BP_Price;
  * @version Release 8.2 - $Id$
  */
 public class X_M_BP_PriceDataLoader extends PODataLoader<X_M_BP_Price> {
-	public static String M_BP_Price_BY_ID_DATA_LOADER = "M_BP_PriceByIdDataLoader";
-	public static String M_BP_Price_BY_UUID_DATA_LOADER = "M_BP_PriceByUuidDataLoader";
+	public static String DATALOADER_M_BP_Price_BY_ID = "M_BP_PriceByIdDataLoader";
+	public static String DATALOADER_M_BP_Price_BY_UUID = "M_BP_PriceByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_BP_PriceDataLoader extends PODataLoader<X_M_BP_Price> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_BP_Price_BY_ID_DATA_LOADER;
+		return DATALOADER_M_BP_Price_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_BP_Price_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_BP_Price_BY_UUID;
 	}
 }

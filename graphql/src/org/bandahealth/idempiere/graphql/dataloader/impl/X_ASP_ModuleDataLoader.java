@@ -9,8 +9,8 @@ import org.compiere.model.X_ASP_Module;
  * @version Release 8.2 - $Id$
  */
 public class X_ASP_ModuleDataLoader extends PODataLoader<X_ASP_Module> {
-	public static String ASP_Module_BY_ID_DATA_LOADER = "ASP_ModuleByIdDataLoader";
-	public static String ASP_Module_BY_UUID_DATA_LOADER = "ASP_ModuleByUuidDataLoader";
+	public static String DATALOADER_ASP_Module_BY_ID = "ASP_ModuleByIdDataLoader";
+	public static String DATALOADER_ASP_Module_BY_UUID = "ASP_ModuleByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_ASP_ModuleDataLoader extends PODataLoader<X_ASP_Module> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return ASP_Module_BY_ID_DATA_LOADER;
+		return DATALOADER_ASP_Module_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return ASP_Module_BY_UUID_DATA_LOADER;
+		return DATALOADER_ASP_Module_BY_UUID;
 	}
 }

@@ -48,7 +48,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 			return null;
 		}
 		DataLoader<Integer, MRule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RuleDataLoader.AD_Rule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RuleDataLoader.DATALOADER_AD_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Rule_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(COLUMNTYPE_UUIDS_BY_VALUE.get(entity.getColumnType()));
 	}
 
@@ -95,7 +95,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getHR_Attribute_Acct());
 	}
 
@@ -110,7 +110,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 			return null;
 		}
 		DataLoader<Integer, X_HR_Concept> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_ConceptDataLoader.HR_Concept_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_ConceptDataLoader.DATALOADER_HR_Concept_BY_ID);
 		return dataLoader.load(entity.getHR_Concept_ID());
 	}
 
@@ -125,7 +125,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 			return null;
 		}
 		DataLoader<Integer, X_HR_Department> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_DepartmentDataLoader.HR_Department_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_DepartmentDataLoader.DATALOADER_HR_Department_BY_ID);
 		return dataLoader.load(entity.getHR_Department_ID());
 	}
 
@@ -140,7 +140,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 			return null;
 		}
 		DataLoader<Integer, X_HR_Employee> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_EmployeeDataLoader.HR_Employee_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_EmployeeDataLoader.DATALOADER_HR_Employee_BY_ID);
 		return dataLoader.load(entity.getHR_Employee_ID());
 	}
 
@@ -155,7 +155,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 			return null;
 		}
 		DataLoader<Integer, X_HR_Job> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_JobDataLoader.HR_Job_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_JobDataLoader.DATALOADER_HR_Job_BY_ID);
 		return dataLoader.load(entity.getHR_Job_ID());
 	}
 
@@ -170,7 +170,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.HR_Payroll_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.DATALOADER_HR_Payroll_BY_ID);
 		return dataLoader.load(entity.getHR_Payroll_ID());
 	}
 

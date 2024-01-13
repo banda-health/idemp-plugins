@@ -9,8 +9,8 @@ import org.compiere.model.X_R_RequestTypeUpdates;
  * @version Release 8.2 - $Id$
  */
 public class X_R_RequestTypeUpdatesDataLoader extends PODataLoader<X_R_RequestTypeUpdates> {
-	public static String R_RequestTypeUpdates_BY_ID_DATA_LOADER = "R_RequestTypeUpdatesByIdDataLoader";
-	public static String R_RequestTypeUpdates_BY_UUID_DATA_LOADER = "R_RequestTypeUpdatesByUuidDataLoader";
+	public static String DATALOADER_R_RequestTypeUpdates_BY_ID = "R_RequestTypeUpdatesByIdDataLoader";
+	public static String DATALOADER_R_RequestTypeUpdates_BY_UUID = "R_RequestTypeUpdatesByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_RequestTypeUpdatesDataLoader extends PODataLoader<X_R_RequestTy
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_RequestTypeUpdates_BY_ID_DATA_LOADER;
+		return DATALOADER_R_RequestTypeUpdates_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_RequestTypeUpdates_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_RequestTypeUpdates_BY_UUID;
 	}
 }

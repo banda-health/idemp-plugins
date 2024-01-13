@@ -9,8 +9,8 @@ import org.compiere.model.MFormAccess;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Form_AccessDataLoader extends PODataLoader<MFormAccess> {
-	public static String AD_Form_Access_BY_ID_DATA_LOADER = "AD_Form_AccessByIdDataLoader";
-	public static String AD_Form_Access_BY_UUID_DATA_LOADER = "AD_Form_AccessByUuidDataLoader";
+	public static String DATALOADER_AD_Form_Access_BY_ID = "AD_Form_AccessByIdDataLoader";
+	public static String DATALOADER_AD_Form_Access_BY_UUID = "AD_Form_AccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Form_AccessDataLoader extends PODataLoader<MFormAccess> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Form_Access_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Form_Access_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Form_Access_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Form_Access_BY_UUID;
 	}
 }

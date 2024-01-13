@@ -33,7 +33,7 @@ public class X_C_RevenueRecognition_RunResolver extends POResolver<MRevenueRecog
 			return null;
 		}
 		DataLoader<Integer, MRevenueRecogService> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecog_ServiceDataLoader.C_RevenueRecog_Service_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecog_ServiceDataLoader.DATALOADER_C_RevenueRecog_Service_BY_ID);
 		return dataLoader.load(entity.getC_RevenueRecog_Service_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_C_RevenueRecognition_RunResolver extends POResolver<MRevenueRecog
 			return null;
 		}
 		DataLoader<Integer, MRevenueRecognitionPlan> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecognition_PlanDataLoader.C_RevenueRecognition_Plan_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecognition_PlanDataLoader.DATALOADER_C_RevenueRecognition_Plan_BY_ID);
 		return dataLoader.load(entity.getC_RevenueRecognition_Plan_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_C_RevenueRecognition_RunResolver extends POResolver<MRevenueRecog
 			return null;
 		}
 		DataLoader<Integer, MJournal> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalDataLoader.GL_Journal_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalDataLoader.DATALOADER_GL_Journal_BY_ID);
 		return dataLoader.load(entity.getGL_Journal_ID());
 	}
 

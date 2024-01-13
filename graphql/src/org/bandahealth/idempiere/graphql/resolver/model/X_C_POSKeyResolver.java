@@ -37,7 +37,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.AD_Image_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.DATALOADER_AD_Image_BY_ID);
 		return dataLoader.load(entity.getAD_Image_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getAD_PrintColor_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.AD_PrintFont_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.DATALOADER_AD_PrintFont_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFont_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MPOSKeyLayout> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_POSKeyLayoutDataLoader.C_POSKeyLayout_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_POSKeyLayoutDataLoader.DATALOADER_C_POSKeyLayout_BY_ID);
 		return dataLoader.load(entity.getC_POSKeyLayout_ID());
 	}
 
@@ -97,7 +97,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -112,7 +112,7 @@ public class X_C_POSKeyResolver extends POResolver<MPOSKey> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MPOSKeyLayout> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_POSKeyLayoutDataLoader.C_POSKeyLayout_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_POSKeyLayoutDataLoader.DATALOADER_C_POSKeyLayout_BY_ID);
 		return dataLoader.load(entity.getSubKeyLayout_ID());
 	}
 

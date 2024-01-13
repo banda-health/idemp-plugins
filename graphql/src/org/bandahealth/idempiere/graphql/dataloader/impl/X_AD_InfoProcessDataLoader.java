@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_InfoProcess;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_InfoProcessDataLoader extends PODataLoader<X_AD_InfoProcess> {
-	public static String AD_InfoProcess_BY_ID_DATA_LOADER = "AD_InfoProcessByIdDataLoader";
-	public static String AD_InfoProcess_BY_UUID_DATA_LOADER = "AD_InfoProcessByUuidDataLoader";
+	public static String DATALOADER_AD_InfoProcess_BY_ID = "AD_InfoProcessByIdDataLoader";
+	public static String DATALOADER_AD_InfoProcess_BY_UUID = "AD_InfoProcessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_InfoProcessDataLoader extends PODataLoader<X_AD_InfoProcess> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_InfoProcess_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_InfoProcess_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_InfoProcess_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_InfoProcess_BY_UUID;
 	}
 }

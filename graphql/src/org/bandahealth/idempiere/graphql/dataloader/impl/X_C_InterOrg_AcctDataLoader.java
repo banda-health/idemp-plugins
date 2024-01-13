@@ -9,8 +9,8 @@ import org.compiere.model.X_C_InterOrg_Acct;
  * @version Release 8.2 - $Id$
  */
 public class X_C_InterOrg_AcctDataLoader extends PODataLoader<X_C_InterOrg_Acct> {
-	public static String C_InterOrg_Acct_BY_ID_DATA_LOADER = "C_InterOrg_AcctByIdDataLoader";
-	public static String C_InterOrg_Acct_BY_UUID_DATA_LOADER = "C_InterOrg_AcctByUuidDataLoader";
+	public static String DATALOADER_C_InterOrg_Acct_BY_ID = "C_InterOrg_AcctByIdDataLoader";
+	public static String DATALOADER_C_InterOrg_Acct_BY_UUID = "C_InterOrg_AcctByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_InterOrg_AcctDataLoader extends PODataLoader<X_C_InterOrg_Acct>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_InterOrg_Acct_BY_ID_DATA_LOADER;
+		return DATALOADER_C_InterOrg_Acct_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_InterOrg_Acct_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_InterOrg_Acct_BY_UUID;
 	}
 }

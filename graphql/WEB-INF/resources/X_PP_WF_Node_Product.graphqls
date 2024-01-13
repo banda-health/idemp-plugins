@@ -37,7 +37,7 @@ type PP_WF_Node_Product {
 	M_Product: M_Product!
 	ID: ID!
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Date this record was updated
@@ -62,7 +62,7 @@ input PP_WF_Node_ProductInput {
 	M_Product: ForeignEntityInput
 	ID: ID
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

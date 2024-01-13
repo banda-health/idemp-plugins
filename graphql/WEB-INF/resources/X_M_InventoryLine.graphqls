@@ -36,7 +36,7 @@ type M_InventoryLine {
 	# User who created this records
 	CreatedBy: AD_User!
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Type of inventory difference
@@ -55,16 +55,16 @@ type M_InventoryLine {
 	# Product, Service, Item
 	M_Product: M_Product!
 	# New current cost price after processing of M_CostDetail
-	NewCostPrice: Int
+	NewCostPrice: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	# Book Quantity
-	QtyBook: Int!
+	QtyBook: BigDecimal!
 	# Counted Quantity
-	QtyCount: Int!
-	QtyCsv: Int!
+	QtyCount: BigDecimal!
+	QtyCsv: BigDecimal!
 	# Internal Use Quantity removed from Inventory
-	QtyInternalUse: Int
+	QtyInternalUse: BigDecimal
 	# Use to keep the reversal line ID for reversing costing purpose
 	ReversalLine: M_InventoryLine
 	# Bar Code (Universal Product Code or its superset European Article Number)
@@ -87,7 +87,7 @@ input M_InventoryLineInput {
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Type of inventory difference
@@ -106,16 +106,16 @@ input M_InventoryLineInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# New current cost price after processing of M_CostDetail
-	NewCostPrice: Int
+	NewCostPrice: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	# Book Quantity
-	QtyBook: Int
+	QtyBook: BigDecimal
 	# Counted Quantity
-	QtyCount: Int
-	QtyCsv: Int
+	QtyCount: BigDecimal
+	QtyCsv: BigDecimal
 	# Internal Use Quantity removed from Inventory
-	QtyInternalUse: Int
+	QtyInternalUse: BigDecimal
 	# Use to keep the reversal line ID for reversing costing purpose
 	ReversalLine: ForeignEntityInput
 }

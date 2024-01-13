@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_WF_Block;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_WF_BlockDataLoader extends PODataLoader<X_AD_WF_Block> {
-	public static String AD_WF_Block_BY_ID_DATA_LOADER = "AD_WF_BlockByIdDataLoader";
-	public static String AD_WF_Block_BY_UUID_DATA_LOADER = "AD_WF_BlockByUuidDataLoader";
+	public static String DATALOADER_AD_WF_Block_BY_ID = "AD_WF_BlockByIdDataLoader";
+	public static String DATALOADER_AD_WF_Block_BY_UUID = "AD_WF_BlockByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_WF_BlockDataLoader extends PODataLoader<X_AD_WF_Block> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_WF_Block_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_WF_Block_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_WF_Block_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_WF_Block_BY_UUID;
 	}
 }

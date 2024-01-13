@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class MBHEncounterMutation extends X_BH_EncounterMutation {
 	@Override
-	protected boolean delete(List<String> uuids, DataFetchingEnvironment environment) {
+	public boolean BH_EncounterDelete(List<String> uuids, DataFetchingEnvironment environment) {
 		Map<String, MBHEncounter> entitiesByUuid =
 				Repository.getByUuids(BandaGraphQLContext.getCtx(environment), getTableName(), null, new HashSet<>(uuids));
 

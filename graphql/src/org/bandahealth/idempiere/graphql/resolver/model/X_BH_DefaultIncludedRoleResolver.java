@@ -45,7 +45,7 @@ public class X_BH_DefaultIncludedRoleResolver extends POResolver<MBHDefaultInclu
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DB_USERTYPE_UUIDS_BY_VALUE.get(entity.getDB_UserType()));
 	}
 
@@ -60,7 +60,7 @@ public class X_BH_DefaultIncludedRoleResolver extends POResolver<MBHDefaultInclu
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getIncluded_Role_ID());
 	}
 

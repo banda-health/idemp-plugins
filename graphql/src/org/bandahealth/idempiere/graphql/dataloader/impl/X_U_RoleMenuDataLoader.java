@@ -9,8 +9,8 @@ import org.compiere.model.MRoleMenu;
  * @version Release 8.2 - $Id$
  */
 public class X_U_RoleMenuDataLoader extends PODataLoader<MRoleMenu> {
-	public static String U_RoleMenu_BY_ID_DATA_LOADER = "U_RoleMenuByIdDataLoader";
-	public static String U_RoleMenu_BY_UUID_DATA_LOADER = "U_RoleMenuByUuidDataLoader";
+	public static String DATALOADER_U_RoleMenu_BY_ID = "U_RoleMenuByIdDataLoader";
+	public static String DATALOADER_U_RoleMenu_BY_UUID = "U_RoleMenuByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_U_RoleMenuDataLoader extends PODataLoader<MRoleMenu> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return U_RoleMenu_BY_ID_DATA_LOADER;
+		return DATALOADER_U_RoleMenu_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return U_RoleMenu_BY_UUID_DATA_LOADER;
+		return DATALOADER_U_RoleMenu_BY_UUID;
 	}
 }

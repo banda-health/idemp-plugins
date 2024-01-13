@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_M_InventoryLineDataLoader extends PODataLoader<MInventoryLine_BH> {
-	public static String M_InventoryLine_BY_ID_DATA_LOADER = "M_InventoryLineByIdDataLoader";
-	public static String M_InventoryLine_BY_UUID_DATA_LOADER = "M_InventoryLineByUuidDataLoader";
+	public static String DATALOADER_M_InventoryLine_BY_ID = "M_InventoryLineByIdDataLoader";
+	public static String DATALOADER_M_InventoryLine_BY_UUID = "M_InventoryLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_InventoryLineDataLoader extends PODataLoader<MInventoryLine_BH>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_InventoryLine_BY_ID_DATA_LOADER;
+		return DATALOADER_M_InventoryLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_InventoryLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_InventoryLine_BY_UUID;
 	}
 }

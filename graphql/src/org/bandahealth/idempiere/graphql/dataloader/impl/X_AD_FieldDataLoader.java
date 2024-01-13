@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MField_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_FieldDataLoader extends PODataLoader<MField_BH> {
-	public static String AD_Field_BY_ID_DATA_LOADER = "AD_FieldByIdDataLoader";
-	public static String AD_Field_BY_UUID_DATA_LOADER = "AD_FieldByUuidDataLoader";
+	public static String DATALOADER_AD_Field_BY_ID = "AD_FieldByIdDataLoader";
+	public static String DATALOADER_AD_Field_BY_UUID = "AD_FieldByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_FieldDataLoader extends PODataLoader<MField_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Field_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Field_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Field_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Field_BY_UUID;
 	}
 }

@@ -29,19 +29,19 @@ type M_Cost {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Total Amount
-	CumulatedAmt: Int
+	CumulatedAmt: BigDecimal
 	# Total Quantity
-	CumulatedQty: Int
+	CumulatedQty: BigDecimal
 	# The currently used cost price
-	CurrentCostPrice: Int!
+	CurrentCostPrice: BigDecimal!
 	# Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
-	CurrentCostPriceLL: Int!
+	CurrentCostPriceLL: BigDecimal!
 	# Current Quantity
-	CurrentQty: Int!
+	CurrentQty: BigDecimal!
 	# Optional short description of the record
 	Description: String
-	FutureCostPrice: Int!
-	FutureCostPriceLL: Int
+	FutureCostPrice: BigDecimal!
+	FutureCostPriceLL: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicated that the Standard Cost is frozen
@@ -71,19 +71,19 @@ input M_CostInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Total Amount
-	CumulatedAmt: Int
+	CumulatedAmt: BigDecimal
 	# Total Quantity
-	CumulatedQty: Int
+	CumulatedQty: BigDecimal
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
-	CurrentCostPriceLL: Int
+	CurrentCostPriceLL: BigDecimal
 	# Current Quantity
-	CurrentQty: Int
+	CurrentQty: BigDecimal
 	# Optional short description of the record
 	Description: String
-	FutureCostPrice: Int
-	FutureCostPriceLL: Int
+	FutureCostPrice: BigDecimal
+	FutureCostPriceLL: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicated that the Standard Cost is frozen

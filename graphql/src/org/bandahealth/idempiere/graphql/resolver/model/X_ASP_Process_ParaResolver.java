@@ -36,7 +36,7 @@ public class X_ASP_Process_ParaResolver extends POResolver<X_ASP_Process_Para> i
 			return null;
 		}
 		DataLoader<Integer, MProcessPara> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Process_ParaDataLoader.AD_Process_Para_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Process_ParaDataLoader.DATALOADER_AD_Process_Para_BY_ID);
 		return dataLoader.load(entity.getAD_Process_Para_ID());
 	}
 
@@ -51,7 +51,7 @@ public class X_ASP_Process_ParaResolver extends POResolver<X_ASP_Process_Para> i
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Process> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_ASP_ProcessDataLoader.ASP_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_ASP_ProcessDataLoader.DATALOADER_ASP_Process_BY_ID);
 		return dataLoader.load(entity.getASP_Process_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_ASP_Process_ParaResolver extends POResolver<X_ASP_Process_Para> i
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ASP_STATUS_UUIDS_BY_VALUE.get(entity.getASP_Status()));
 	}
 

@@ -28,7 +28,7 @@ type C_ProjectPhase {
 	C_Project: C_Project!
 	ID: ID!
 	# The (legal) commitment amount
-	CommittedAmt: Int!
+	CommittedAmt: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,13 +52,13 @@ type C_ProjectPhase {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Planned amount for this project
-	PlannedAmt: Int!
+	PlannedAmt: BigDecimal!
 	# Actual Price 
-	PriceActual: Int
+	PriceActual: BigDecimal
 	# Invoice Rule for the project
 	ProjInvoiceRule: AD_Ref_List!
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# First effective day (inclusive)
@@ -80,7 +80,7 @@ input C_ProjectPhaseInput {
 	C_Project: ForeignEntityInput
 	ID: ID
 	# The (legal) commitment amount
-	CommittedAmt: Int
+	CommittedAmt: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Last effective date (inclusive)
@@ -100,13 +100,13 @@ input C_ProjectPhaseInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Planned amount for this project
-	PlannedAmt: Int
+	PlannedAmt: BigDecimal
 	# Actual Price 
-	PriceActual: Int
+	PriceActual: BigDecimal
 	# Invoice Rule for the project
 	ProjInvoiceRule: AD_Ref_ListInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# First effective day (inclusive)

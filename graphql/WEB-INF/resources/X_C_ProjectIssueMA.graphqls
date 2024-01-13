@@ -32,7 +32,7 @@ type C_ProjectIssueMA {
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Quantity of a product moved.
-	MovementQty: Int!
+	MovementQty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -50,5 +50,5 @@ input C_ProjectIssueMAInput {
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
 	# Quantity of a product moved.
-	MovementQty: Int
+	MovementQty: BigDecimal
 }

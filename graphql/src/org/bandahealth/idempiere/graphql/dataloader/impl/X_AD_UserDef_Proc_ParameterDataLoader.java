@@ -9,8 +9,8 @@ import org.compiere.model.MUserDefProcParameter;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_UserDef_Proc_ParameterDataLoader extends PODataLoader<MUserDefProcParameter> {
-	public static String AD_UserDef_Proc_Parameter_BY_ID_DATA_LOADER = "AD_UserDef_Proc_ParameterByIdDataLoader";
-	public static String AD_UserDef_Proc_Parameter_BY_UUID_DATA_LOADER = "AD_UserDef_Proc_ParameterByUuidDataLoader";
+	public static String DATALOADER_AD_UserDef_Proc_Parameter_BY_ID = "AD_UserDef_Proc_ParameterByIdDataLoader";
+	public static String DATALOADER_AD_UserDef_Proc_Parameter_BY_UUID = "AD_UserDef_Proc_ParameterByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_UserDef_Proc_ParameterDataLoader extends PODataLoader<MUserDef
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_UserDef_Proc_Parameter_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_UserDef_Proc_Parameter_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_UserDef_Proc_Parameter_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_UserDef_Proc_Parameter_BY_UUID;
 	}
 }

@@ -42,7 +42,7 @@ public class X_AD_WF_EventAuditResolver extends POResolver<X_AD_WF_EventAudit> i
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -57,7 +57,7 @@ public class X_AD_WF_EventAuditResolver extends POResolver<X_AD_WF_EventAudit> i
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -72,7 +72,7 @@ public class X_AD_WF_EventAuditResolver extends POResolver<X_AD_WF_EventAudit> i
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.AD_WF_Node_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.DATALOADER_AD_WF_Node_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Node_ID());
 	}
 
@@ -87,7 +87,7 @@ public class X_AD_WF_EventAuditResolver extends POResolver<X_AD_WF_EventAudit> i
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Process> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ProcessDataLoader.AD_WF_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ProcessDataLoader.DATALOADER_AD_WF_Process_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Process_ID());
 	}
 
@@ -102,7 +102,7 @@ public class X_AD_WF_EventAuditResolver extends POResolver<X_AD_WF_EventAudit> i
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Responsible> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ResponsibleDataLoader.AD_WF_Responsible_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ResponsibleDataLoader.DATALOADER_AD_WF_Responsible_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Responsible_ID());
 	}
 
@@ -118,7 +118,7 @@ public class X_AD_WF_EventAuditResolver extends POResolver<X_AD_WF_EventAudit> i
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(EVENTTYPE_UUIDS_BY_VALUE.get(entity.getEventType()));
 	}
 
@@ -137,7 +137,7 @@ public class X_AD_WF_EventAuditResolver extends POResolver<X_AD_WF_EventAudit> i
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(WFSTATE_UUIDS_BY_VALUE.get(entity.getWFState()));
 	}
 

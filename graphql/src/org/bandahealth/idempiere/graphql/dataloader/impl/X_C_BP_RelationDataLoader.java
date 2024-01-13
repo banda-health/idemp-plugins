@@ -9,8 +9,8 @@ import org.compiere.model.X_C_BP_Relation;
  * @version Release 8.2 - $Id$
  */
 public class X_C_BP_RelationDataLoader extends PODataLoader<X_C_BP_Relation> {
-	public static String C_BP_Relation_BY_ID_DATA_LOADER = "C_BP_RelationByIdDataLoader";
-	public static String C_BP_Relation_BY_UUID_DATA_LOADER = "C_BP_RelationByUuidDataLoader";
+	public static String DATALOADER_C_BP_Relation_BY_ID = "C_BP_RelationByIdDataLoader";
+	public static String DATALOADER_C_BP_Relation_BY_UUID = "C_BP_RelationByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_BP_RelationDataLoader extends PODataLoader<X_C_BP_Relation> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_BP_Relation_BY_ID_DATA_LOADER;
+		return DATALOADER_C_BP_Relation_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_BP_Relation_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_BP_Relation_BY_UUID;
 	}
 }

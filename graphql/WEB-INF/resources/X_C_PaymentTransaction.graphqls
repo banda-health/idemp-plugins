@@ -115,7 +115,7 @@ type C_PaymentTransaction {
 	# Original Transaction ID
 	Orig_TrxID: String
 	# Amount being paid
-	PayAmt: Int!
+	PayAmt: BigDecimal!
 	# Purchase Order Number
 	PONum: String
 	# The document has been processed
@@ -143,7 +143,7 @@ type C_PaymentTransaction {
 	# Swift Code or BIC
 	SwiftCode: String
 	# Tax Amount for a document
-	TaxAmt: Int
+	TaxAmt: BigDecimal
 	# Method of Payment
 	TenderType: AD_Ref_List!
 	# Type of credit card transaction
@@ -255,7 +255,7 @@ input C_PaymentTransactionInput {
 	# Original Transaction ID
 	Orig_TrxID: String
 	# Amount being paid
-	PayAmt: Int
+	PayAmt: BigDecimal
 	# Purchase Order Number
 	PONum: String
 	# The document has been processed
@@ -283,7 +283,7 @@ input C_PaymentTransactionInput {
 	# Swift Code or BIC
 	SwiftCode: String
 	# Tax Amount for a document
-	TaxAmt: Int
+	TaxAmt: BigDecimal
 	# Method of Payment
 	TenderType: AD_Ref_ListInput
 	# Type of credit card transaction

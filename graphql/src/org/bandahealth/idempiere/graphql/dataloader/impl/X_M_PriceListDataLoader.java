@@ -9,8 +9,8 @@ import org.compiere.model.MPriceList;
  * @version Release 8.2 - $Id$
  */
 public class X_M_PriceListDataLoader extends PODataLoader<MPriceList> {
-	public static String M_PriceList_BY_ID_DATA_LOADER = "M_PriceListByIdDataLoader";
-	public static String M_PriceList_BY_UUID_DATA_LOADER = "M_PriceListByUuidDataLoader";
+	public static String DATALOADER_M_PriceList_BY_ID = "M_PriceListByIdDataLoader";
+	public static String DATALOADER_M_PriceList_BY_UUID = "M_PriceListByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_PriceListDataLoader extends PODataLoader<MPriceList> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_PriceList_BY_ID_DATA_LOADER;
+		return DATALOADER_M_PriceList_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_PriceList_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_PriceList_BY_UUID;
 	}
 }

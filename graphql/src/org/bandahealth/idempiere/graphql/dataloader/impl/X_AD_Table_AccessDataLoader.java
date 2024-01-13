@@ -9,8 +9,8 @@ import org.compiere.model.MTableAccess;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Table_AccessDataLoader extends PODataLoader<MTableAccess> {
-	public static String AD_Table_Access_BY_ID_DATA_LOADER = "AD_Table_AccessByIdDataLoader";
-	public static String AD_Table_Access_BY_UUID_DATA_LOADER = "AD_Table_AccessByUuidDataLoader";
+	public static String DATALOADER_AD_Table_Access_BY_ID = "AD_Table_AccessByIdDataLoader";
+	public static String DATALOADER_AD_Table_Access_BY_UUID = "AD_Table_AccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Table_AccessDataLoader extends PODataLoader<MTableAccess> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Table_Access_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Table_Access_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Table_Access_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Table_Access_BY_UUID;
 	}
 }

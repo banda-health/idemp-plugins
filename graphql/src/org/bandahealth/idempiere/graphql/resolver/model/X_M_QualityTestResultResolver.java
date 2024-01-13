@@ -35,7 +35,7 @@ public class X_M_QualityTestResultResolver extends POResolver<MQualityTestResult
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_M_QualityTestResultResolver extends POResolver<MQualityTestResult
 			return null;
 		}
 		DataLoader<Integer, MQualityTest> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_QualityTestDataLoader.M_QualityTest_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_QualityTestDataLoader.DATALOADER_M_QualityTest_BY_ID);
 		return dataLoader.load(entity.getM_QualityTest_ID());
 	}
 

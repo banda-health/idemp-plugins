@@ -37,7 +37,7 @@ type S_ResourceAssignment {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Resource
 	S_Resource: S_Resource!
 	ID: ID!
@@ -63,7 +63,7 @@ input S_ResourceAssignmentInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Resource
 	S_Resource: ForeignEntityInput
 	ID: ID

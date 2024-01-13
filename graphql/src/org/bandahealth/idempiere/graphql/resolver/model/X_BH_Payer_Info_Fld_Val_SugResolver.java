@@ -29,7 +29,7 @@ public class X_BH_Payer_Info_Fld_Val_SugResolver extends POResolver<MBHPayerInfo
 			return null;
 		}
 		DataLoader<Integer, MBHPayerInfoFldSug> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_Payer_Info_Fld_SugDataLoader.BH_Payer_Info_Fld_Sug_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_Payer_Info_Fld_SugDataLoader.DATALOADER_BH_Payer_Info_Fld_Sug_BY_ID);
 		return dataLoader.load(entity.getBH_Payer_Info_Fld_Sug_ID());
 	}
 

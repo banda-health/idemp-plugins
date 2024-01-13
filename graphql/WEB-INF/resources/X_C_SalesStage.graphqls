@@ -35,7 +35,7 @@ type C_SalesStage {
 	IsWon: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	Probability: Int!
+	Probability: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -58,7 +58,7 @@ input C_SalesStageInput {
 	IsWon: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	Probability: Int
+	Probability: BigDecimal
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

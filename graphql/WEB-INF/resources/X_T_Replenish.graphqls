@@ -27,9 +27,9 @@ type T_Replenish {
 	# Document type or rules
 	C_DocType: C_DocType
 	# Maximum Inventory level for this product
-	Level_Max: Int!
+	Level_Max: BigDecimal!
 	# Minimum Inventory level for this product
-	Level_Min: Int!
+	Level_Min: BigDecimal!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Storage Warehouse and Service Point
@@ -37,16 +37,16 @@ type T_Replenish {
 	# Optional Warehouse to replenish from
 	M_WarehouseSource: M_Warehouse
 	# Minimum order quantity in UOM
-	Order_Min: Int
+	Order_Min: BigDecimal
 	# Package order size in UOM (e.g. order set of 5 units)
-	Order_Pack: Int
+	Order_Pack: BigDecimal
 	# On Hand Quantity
-	QtyOnHand: Int
+	QtyOnHand: BigDecimal
 	# Ordered Quantity
-	QtyOrdered: Int
+	QtyOrdered: BigDecimal
 	# Reserved Quantity
-	QtyReserved: Int
-	QtyToOrder: Int
+	QtyReserved: BigDecimal
+	QtyToOrder: BigDecimal
 	# Create from Replenishment
 	ReplenishmentCreate: AD_Ref_List
 	# Method for re-ordering a product
@@ -68,9 +68,9 @@ input T_ReplenishInput {
 	# Document type or rules
 	C_DocType: ForeignEntityInput
 	# Maximum Inventory level for this product
-	Level_Max: Int
+	Level_Max: BigDecimal
 	# Minimum Inventory level for this product
-	Level_Min: Int
+	Level_Min: BigDecimal
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Storage Warehouse and Service Point
@@ -78,16 +78,16 @@ input T_ReplenishInput {
 	# Optional Warehouse to replenish from
 	M_WarehouseSource: ForeignEntityInput
 	# Minimum order quantity in UOM
-	Order_Min: Int
+	Order_Min: BigDecimal
 	# Package order size in UOM (e.g. order set of 5 units)
-	Order_Pack: Int
+	Order_Pack: BigDecimal
 	# On Hand Quantity
-	QtyOnHand: Int
+	QtyOnHand: BigDecimal
 	# Ordered Quantity
-	QtyOrdered: Int
+	QtyOrdered: BigDecimal
 	# Reserved Quantity
-	QtyReserved: Int
-	QtyToOrder: Int
+	QtyReserved: BigDecimal
+	QtyToOrder: BigDecimal
 	# Create from Replenishment
 	ReplenishmentCreate: AD_Ref_ListInput
 	# Method for re-ordering a product

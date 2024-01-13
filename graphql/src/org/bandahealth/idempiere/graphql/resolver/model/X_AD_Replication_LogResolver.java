@@ -31,7 +31,7 @@ public class X_AD_Replication_LogResolver extends POResolver<MReplicationLog> im
 			return null;
 		}
 		DataLoader<Integer, MReplicationRun> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Replication_RunDataLoader.AD_Replication_Run_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Replication_RunDataLoader.DATALOADER_AD_Replication_Run_BY_ID);
 		return dataLoader.load(entity.getAD_Replication_Run_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_Replication_LogResolver extends POResolver<MReplicationLog> im
 			return null;
 		}
 		DataLoader<Integer, X_AD_ReplicationTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReplicationTableDataLoader.AD_ReplicationTable_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReplicationTableDataLoader.DATALOADER_AD_ReplicationTable_BY_ID);
 		return dataLoader.load(entity.getAD_ReplicationTable_ID());
 	}
 

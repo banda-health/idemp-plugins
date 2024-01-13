@@ -32,7 +32,7 @@ type M_PromotionLine {
 	M_PromotionGroup: M_PromotionGroup
 	ID: ID!
 	# Minimum Amount in Document Currency
-	MinimumAmt: Int
+	MinimumAmt: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -50,5 +50,5 @@ input M_PromotionLineInput {
 	M_PromotionGroup: ForeignEntityInput
 	ID: ID
 	# Minimum Amount in Document Currency
-	MinimumAmt: Int
+	MinimumAmt: BigDecimal
 }

@@ -9,8 +9,8 @@ import org.compiere.model.MResourceType;
  * @version Release 8.2 - $Id$
  */
 public class X_S_ResourceTypeDataLoader extends PODataLoader<MResourceType> {
-	public static String S_ResourceType_BY_ID_DATA_LOADER = "S_ResourceTypeByIdDataLoader";
-	public static String S_ResourceType_BY_UUID_DATA_LOADER = "S_ResourceTypeByUuidDataLoader";
+	public static String DATALOADER_S_ResourceType_BY_ID = "S_ResourceTypeByIdDataLoader";
+	public static String DATALOADER_S_ResourceType_BY_UUID = "S_ResourceTypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_S_ResourceTypeDataLoader extends PODataLoader<MResourceType> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return S_ResourceType_BY_ID_DATA_LOADER;
+		return DATALOADER_S_ResourceType_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return S_ResourceType_BY_UUID_DATA_LOADER;
+		return DATALOADER_S_ResourceType_BY_UUID;
 	}
 }

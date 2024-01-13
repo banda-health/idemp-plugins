@@ -9,8 +9,8 @@ import org.compiere.model.X_C_UserRemuneration;
  * @version Release 8.2 - $Id$
  */
 public class X_C_UserRemunerationDataLoader extends PODataLoader<X_C_UserRemuneration> {
-	public static String C_UserRemuneration_BY_ID_DATA_LOADER = "C_UserRemunerationByIdDataLoader";
-	public static String C_UserRemuneration_BY_UUID_DATA_LOADER = "C_UserRemunerationByUuidDataLoader";
+	public static String DATALOADER_C_UserRemuneration_BY_ID = "C_UserRemunerationByIdDataLoader";
+	public static String DATALOADER_C_UserRemuneration_BY_UUID = "C_UserRemunerationByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_UserRemunerationDataLoader extends PODataLoader<X_C_UserRemuner
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_UserRemuneration_BY_ID_DATA_LOADER;
+		return DATALOADER_C_UserRemuneration_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_UserRemuneration_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_UserRemuneration_BY_UUID;
 	}
 }

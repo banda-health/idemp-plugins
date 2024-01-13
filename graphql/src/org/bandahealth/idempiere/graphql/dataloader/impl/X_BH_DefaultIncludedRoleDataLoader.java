@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_DefaultIncludedRoleDataLoader extends PODataLoader<MBHDefaultIncludedRole> {
-	public static String BH_DefaultIncludedRole_BY_ID_DATA_LOADER = "BH_DefaultIncludedRoleByIdDataLoader";
-	public static String BH_DefaultIncludedRole_BY_UUID_DATA_LOADER = "BH_DefaultIncludedRoleByUuidDataLoader";
+	public static String DATALOADER_BH_DefaultIncludedRole_BY_ID = "BH_DefaultIncludedRoleByIdDataLoader";
+	public static String DATALOADER_BH_DefaultIncludedRole_BY_UUID = "BH_DefaultIncludedRoleByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_DefaultIncludedRoleDataLoader extends PODataLoader<MBHDefaultI
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_DefaultIncludedRole_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_DefaultIncludedRole_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_DefaultIncludedRole_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_DefaultIncludedRole_BY_UUID;
 	}
 }

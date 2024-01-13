@@ -68,7 +68,7 @@ type C_RfQ {
 	# This is a Self-Service entry or this entry can be changed via Self-Service
 	IsSelfService: Boolean!
 	# Margin for a product as a percentage
-	Margin: Int
+	Margin: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# The document has been processed
@@ -133,7 +133,7 @@ input C_RfQInput {
 	# This is a Self-Service entry or this entry can be changed via Self-Service
 	IsSelfService: Boolean
 	# Margin for a product as a percentage
-	Margin: Int
+	Margin: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 	# The document has been processed

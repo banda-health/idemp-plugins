@@ -31,7 +31,7 @@ public class X_PP_WF_Node_AssetResolver extends POResolver<X_PP_WF_Node_Asset> i
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_PP_WF_Node_AssetResolver extends POResolver<X_PP_WF_Node_Asset> i
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.AD_WF_Node_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.DATALOADER_AD_WF_Node_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Node_ID());
 	}
 

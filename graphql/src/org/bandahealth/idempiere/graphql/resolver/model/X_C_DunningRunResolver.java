@@ -31,7 +31,7 @@ public class X_C_DunningRunResolver extends POResolver<MDunningRun> implements G
 			return null;
 		}
 		DataLoader<Integer, MDunning> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningDataLoader.C_Dunning_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningDataLoader.DATALOADER_C_Dunning_BY_ID);
 		return dataLoader.load(entity.getC_Dunning_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_DunningRunResolver extends POResolver<MDunningRun> implements G
 			return null;
 		}
 		DataLoader<Integer, MDunningLevel> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningLevelDataLoader.C_DunningLevel_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningLevelDataLoader.DATALOADER_C_DunningLevel_BY_ID);
 		return dataLoader.load(entity.getC_DunningLevel_ID());
 	}
 

@@ -9,8 +9,8 @@ import org.compiere.model.X_R_IssueKnown;
  * @version Release 8.2 - $Id$
  */
 public class X_R_IssueKnownDataLoader extends PODataLoader<X_R_IssueKnown> {
-	public static String R_IssueKnown_BY_ID_DATA_LOADER = "R_IssueKnownByIdDataLoader";
-	public static String R_IssueKnown_BY_UUID_DATA_LOADER = "R_IssueKnownByUuidDataLoader";
+	public static String DATALOADER_R_IssueKnown_BY_ID = "R_IssueKnownByIdDataLoader";
+	public static String DATALOADER_R_IssueKnown_BY_UUID = "R_IssueKnownByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_IssueKnownDataLoader extends PODataLoader<X_R_IssueKnown> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_IssueKnown_BY_ID_DATA_LOADER;
+		return DATALOADER_R_IssueKnown_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_IssueKnown_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_IssueKnown_BY_UUID;
 	}
 }

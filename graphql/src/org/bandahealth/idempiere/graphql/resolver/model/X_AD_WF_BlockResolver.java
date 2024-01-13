@@ -29,7 +29,7 @@ public class X_AD_WF_BlockResolver extends POResolver<X_AD_WF_Block> implements 
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.AD_Workflow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.DATALOADER_AD_Workflow_BY_ID);
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 

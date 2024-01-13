@@ -30,13 +30,13 @@ type I_FAJournal {
 	# Organizational entity within client
 	AD_Org: AD_Org
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
+	AmtAcctDr: BigDecimal
 	# Source Credit Amount
-	AmtSourceCr: Int
+	AmtSourceCr: BigDecimal
 	# Source Debit Amount
-	AmtSourceDr: Int
+	AmtSourceDr: BigDecimal
 	# Description of the Batch
 	BatchDescription: String
 	# Document Number of the Batch
@@ -84,7 +84,7 @@ type I_FAJournal {
 	# User who created this records
 	CreatedBy: AD_User
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	CurrencyRateType: AD_Ref_List
 	# Accounting Date
 	DateAcct: Date
@@ -133,7 +133,7 @@ type I_FAJournal {
 	# Key of the Project
 	ProjectValue: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Stock Keeping Unit
 	SKU: String
 	# Bar Code (Universal Product Code or its superset European Article Number)
@@ -161,13 +161,13 @@ input I_FAJournalInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
+	AmtAcctDr: BigDecimal
 	# Source Credit Amount
-	AmtSourceCr: Int
+	AmtSourceCr: BigDecimal
 	# Source Debit Amount
-	AmtSourceDr: Int
+	AmtSourceDr: BigDecimal
 	# Description of the Batch
 	BatchDescription: String
 	# Document Number of the Batch
@@ -211,7 +211,7 @@ input I_FAJournalInput {
 	# Key value for the Currency Conversion Rate Type
 	ConversionTypeValue: String
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	CurrencyRateType: AD_Ref_ListInput
 	# Accounting Date
 	DateAcct: Date
@@ -260,7 +260,7 @@ input I_FAJournalInput {
 	# Key of the Project
 	ProjectValue: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Stock Keeping Unit
 	SKU: String
 	# Bar Code (Universal Product Code or its superset European Article Number)

@@ -9,8 +9,8 @@ import org.compiere.model.X_M_CommodityShipment;
  * @version Release 8.2 - $Id$
  */
 public class X_M_CommodityShipmentDataLoader extends PODataLoader<X_M_CommodityShipment> {
-	public static String M_CommodityShipment_BY_ID_DATA_LOADER = "M_CommodityShipmentByIdDataLoader";
-	public static String M_CommodityShipment_BY_UUID_DATA_LOADER = "M_CommodityShipmentByUuidDataLoader";
+	public static String DATALOADER_M_CommodityShipment_BY_ID = "M_CommodityShipmentByIdDataLoader";
+	public static String DATALOADER_M_CommodityShipment_BY_UUID = "M_CommodityShipmentByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_CommodityShipmentDataLoader extends PODataLoader<X_M_CommodityS
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_CommodityShipment_BY_ID_DATA_LOADER;
+		return DATALOADER_M_CommodityShipment_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_CommodityShipment_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_CommodityShipment_BY_UUID;
 	}
 }

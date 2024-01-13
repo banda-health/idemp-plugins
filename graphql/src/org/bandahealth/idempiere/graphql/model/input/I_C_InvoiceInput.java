@@ -39,6 +39,25 @@ public interface I_C_InvoiceInput extends I_C_Invoice {
 	ForeignEntityInput AD_User();
 
 	/**
+	 * Column name BH_NavButtons
+	 */
+	static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	void setBH_NavButtons(Object BH_NavButtons);
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	Object getBH_NavButtons();
+
+	/**
 	 * Set BH_Visit.
 	 *
 	 * @param BH_Visit BH_Visit

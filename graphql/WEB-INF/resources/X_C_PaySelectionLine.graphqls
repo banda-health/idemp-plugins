@@ -34,9 +34,9 @@ type C_PaySelectionLine {
 	# Optional short description of the record
 	Description: String
 	# Difference Amount
-	DifferenceAmt: Int!
+	DifferenceAmt: BigDecimal!
 	# Calculated amount of discount
-	DiscountAmt: Int!
+	DiscountAmt: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# This is a manual process
@@ -46,9 +46,9 @@ type C_PaySelectionLine {
 	# Unique line for this document
 	Line: Int!
 	# Open item amount
-	OpenAmt: Int!
+	OpenAmt: BigDecimal!
 	# Amount being paid
-	PayAmt: Int!
+	PayAmt: BigDecimal!
 	# How you pay the invoice
 	PaymentRule: AD_Ref_List!
 	# The document has been processed
@@ -58,7 +58,7 @@ type C_PaySelectionLine {
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Amount to write-off
-	WriteOffAmt: Int!
+	WriteOffAmt: BigDecimal!
 }
 
 input C_PaySelectionLineInput {
@@ -74,9 +74,9 @@ input C_PaySelectionLineInput {
 	# Optional short description of the record
 	Description: String
 	# Difference Amount
-	DifferenceAmt: Int
+	DifferenceAmt: BigDecimal
 	# Calculated amount of discount
-	DiscountAmt: Int
+	DiscountAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# This is a manual process
@@ -86,13 +86,13 @@ input C_PaySelectionLineInput {
 	# Unique line for this document
 	Line: Int
 	# Open item amount
-	OpenAmt: Int
+	OpenAmt: BigDecimal
 	# Amount being paid
-	PayAmt: Int
+	PayAmt: BigDecimal
 	# How you pay the invoice
 	PaymentRule: AD_Ref_ListInput
 	# The document has been processed
 	Processed: Boolean
 	# Amount to write-off
-	WriteOffAmt: Int
+	WriteOffAmt: BigDecimal
 }

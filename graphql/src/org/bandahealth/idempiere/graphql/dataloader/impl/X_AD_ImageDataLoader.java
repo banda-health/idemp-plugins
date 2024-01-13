@@ -9,8 +9,8 @@ import org.compiere.model.MImage;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ImageDataLoader extends PODataLoader<MImage> {
-	public static String AD_Image_BY_ID_DATA_LOADER = "AD_ImageByIdDataLoader";
-	public static String AD_Image_BY_UUID_DATA_LOADER = "AD_ImageByUuidDataLoader";
+	public static String DATALOADER_AD_Image_BY_ID = "AD_ImageByIdDataLoader";
+	public static String DATALOADER_AD_Image_BY_UUID = "AD_ImageByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ImageDataLoader extends PODataLoader<MImage> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Image_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Image_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Image_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Image_BY_UUID;
 	}
 }

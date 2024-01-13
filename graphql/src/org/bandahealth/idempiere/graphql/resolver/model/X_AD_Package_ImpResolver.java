@@ -29,7 +29,7 @@ public class X_AD_Package_ImpResolver extends POResolver<X_AD_Package_Imp> imple
 			return null;
 		}
 		DataLoader<Integer, X_AD_Package_Imp_Proc> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Package_Imp_ProcDataLoader.AD_Package_Imp_Proc_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Package_Imp_ProcDataLoader.DATALOADER_AD_Package_Imp_Proc_BY_ID);
 		return dataLoader.load(entity.getAD_Package_Imp_Proc_ID());
 	}
 

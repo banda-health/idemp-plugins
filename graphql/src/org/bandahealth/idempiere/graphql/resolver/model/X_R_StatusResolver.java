@@ -50,7 +50,7 @@ public class X_R_StatusResolver extends POResolver<MStatus> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MStatus> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_StatusDataLoader.R_Status_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_StatusDataLoader.DATALOADER_R_Status_BY_ID);
 		return dataLoader.load(entity.getNext_Status_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_R_StatusResolver extends POResolver<MStatus> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MStatusCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_StatusCategoryDataLoader.R_StatusCategory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_StatusCategoryDataLoader.DATALOADER_R_StatusCategory_BY_ID);
 		return dataLoader.load(entity.getR_StatusCategory_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_R_StatusResolver extends POResolver<MStatus> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MStatus> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_StatusDataLoader.R_Status_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_StatusDataLoader.DATALOADER_R_Status_BY_ID);
 		return dataLoader.load(entity.getUpdate_Status_ID());
 	}
 

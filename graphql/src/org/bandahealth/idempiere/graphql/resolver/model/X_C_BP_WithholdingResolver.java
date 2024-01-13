@@ -31,7 +31,7 @@ public class X_C_BP_WithholdingResolver extends POResolver<X_C_BP_Withholding> i
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_BP_WithholdingResolver extends POResolver<X_C_BP_Withholding> i
 			return null;
 		}
 		DataLoader<Integer, MWithholding> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_WithholdingDataLoader.C_Withholding_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_WithholdingDataLoader.DATALOADER_C_Withholding_BY_ID);
 		return dataLoader.load(entity.getC_Withholding_ID());
 	}
 

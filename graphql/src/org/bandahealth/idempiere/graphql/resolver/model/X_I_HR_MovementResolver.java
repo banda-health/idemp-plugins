@@ -35,7 +35,7 @@ public class X_I_HR_MovementResolver extends POResolver<X_I_HR_Movement> impleme
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_I_HR_MovementResolver extends POResolver<X_I_HR_Movement> impleme
 			return null;
 		}
 		DataLoader<Integer, X_HR_Concept> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_ConceptDataLoader.HR_Concept_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_ConceptDataLoader.DATALOADER_HR_Concept_BY_ID);
 		return dataLoader.load(entity.getHR_Concept_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_I_HR_MovementResolver extends POResolver<X_I_HR_Movement> impleme
 			return null;
 		}
 		DataLoader<Integer, X_HR_Movement> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_MovementDataLoader.HR_Movement_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_MovementDataLoader.DATALOADER_HR_Movement_BY_ID);
 		return dataLoader.load(entity.getHR_Movement_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_I_HR_MovementResolver extends POResolver<X_I_HR_Movement> impleme
 			return null;
 		}
 		DataLoader<Integer, X_HR_Process> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_ProcessDataLoader.HR_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_ProcessDataLoader.DATALOADER_HR_Process_BY_ID);
 		return dataLoader.load(entity.getHR_Process_ID());
 	}
 

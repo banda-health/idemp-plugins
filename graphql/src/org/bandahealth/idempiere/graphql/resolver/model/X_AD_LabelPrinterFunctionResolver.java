@@ -29,7 +29,7 @@ public class X_AD_LabelPrinterFunctionResolver extends POResolver<X_AD_LabelPrin
 			return null;
 		}
 		DataLoader<Integer, X_AD_LabelPrinter> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_LabelPrinterDataLoader.AD_LabelPrinter_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_LabelPrinterDataLoader.DATALOADER_AD_LabelPrinter_BY_ID);
 		return dataLoader.load(entity.getAD_LabelPrinter_ID());
 	}
 

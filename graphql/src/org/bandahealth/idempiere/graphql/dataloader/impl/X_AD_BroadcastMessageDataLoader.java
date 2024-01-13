@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_BroadcastMessage;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_BroadcastMessageDataLoader extends PODataLoader<X_AD_BroadcastMessage> {
-	public static String AD_BroadcastMessage_BY_ID_DATA_LOADER = "AD_BroadcastMessageByIdDataLoader";
-	public static String AD_BroadcastMessage_BY_UUID_DATA_LOADER = "AD_BroadcastMessageByUuidDataLoader";
+	public static String DATALOADER_AD_BroadcastMessage_BY_ID = "AD_BroadcastMessageByIdDataLoader";
+	public static String DATALOADER_AD_BroadcastMessage_BY_UUID = "AD_BroadcastMessageByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_BroadcastMessageDataLoader extends PODataLoader<X_AD_Broadcast
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_BroadcastMessage_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_BroadcastMessage_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_BroadcastMessage_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_BroadcastMessage_BY_UUID;
 	}
 }

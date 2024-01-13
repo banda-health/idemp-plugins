@@ -36,9 +36,9 @@ type AD_System {
 	# Encryption Class used for securing data content
 	EncryptionKey: String
 	# End if the ID Range used
-	IDRangeEnd: Int
+	IDRangeEnd: BigDecimal
 	# Start of the ID Range used
-	IDRangeStart: Int
+	IDRangeStart: BigDecimal
 	# Information
 	Info: String!
 	# The record is active in the system
@@ -108,9 +108,9 @@ input AD_SystemInput {
 	# Encryption Class used for securing data content
 	EncryptionKey: String
 	# End if the ID Range used
-	IDRangeEnd: Int
+	IDRangeEnd: BigDecimal
 	# Start of the ID Range used
-	IDRangeStart: Int
+	IDRangeStart: BigDecimal
 	# Information
 	Info: String
 	# The record is active in the system

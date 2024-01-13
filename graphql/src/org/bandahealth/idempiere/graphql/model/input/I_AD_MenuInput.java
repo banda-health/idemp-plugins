@@ -149,4 +149,23 @@ public interface I_AD_MenuInput extends I_AD_Menu {
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
 	ForeignEntityInput AD_EntityType();
+
+	/**
+	 * Column name IconClassName
+	 */
+	static final String COLUMNNAME_IconClassName = "IconClassName";
+
+	/**
+	 * Set Icon Class Name.
+	 *
+	 * @param IconClassName The class(es) to display the correct Font Awesome icon
+	 */
+	void setIconClassName(String IconClassName);
+
+	/**
+	 * Get Icon Class Name.
+	 *
+	 * @return The class(es) to display the correct Font Awesome icon
+	 */
+	String getIconClassName();
 }

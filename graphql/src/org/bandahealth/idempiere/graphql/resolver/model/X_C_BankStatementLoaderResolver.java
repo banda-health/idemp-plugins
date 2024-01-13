@@ -29,7 +29,7 @@ public class X_C_BankStatementLoaderResolver extends POResolver<MBankStatementLo
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.C_BankAccount_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.DATALOADER_C_BankAccount_BY_ID);
 		return dataLoader.load(entity.getC_BankAccount_ID());
 	}
 

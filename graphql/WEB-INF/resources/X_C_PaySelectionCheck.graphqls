@@ -34,7 +34,7 @@ type C_PaySelectionCheck {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Calculated amount of discount
-	DiscountAmt: Int!
+	DiscountAmt: BigDecimal!
 	# Document sequence number of the document
 	DocumentNo: String
 	# The record is active in the system
@@ -45,7 +45,7 @@ type C_PaySelectionCheck {
 	# This is a sales transaction (receipt)
 	IsReceipt: Boolean!
 	# Amount being paid
-	PayAmt: Int!
+	PayAmt: BigDecimal!
 	# How you pay the invoice
 	PaymentRule: AD_Ref_List!
 	# The document has been processed
@@ -57,7 +57,7 @@ type C_PaySelectionCheck {
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Amount to write-off
-	WriteOffAmt: Int!
+	WriteOffAmt: BigDecimal!
 }
 
 input C_PaySelectionCheckInput {
@@ -73,7 +73,7 @@ input C_PaySelectionCheckInput {
 	C_PaySelection: ForeignEntityInput
 	ID: ID
 	# Calculated amount of discount
-	DiscountAmt: Int
+	DiscountAmt: BigDecimal
 	# Document sequence number of the document
 	DocumentNo: String
 	# The record is active in the system
@@ -84,7 +84,7 @@ input C_PaySelectionCheckInput {
 	# This is a sales transaction (receipt)
 	IsReceipt: Boolean
 	# Amount being paid
-	PayAmt: Int
+	PayAmt: BigDecimal
 	# How you pay the invoice
 	PaymentRule: AD_Ref_ListInput
 	# The document has been processed
@@ -92,5 +92,5 @@ input C_PaySelectionCheckInput {
 	# Quantity
 	Qty: Int
 	# Amount to write-off
-	WriteOffAmt: Int
+	WriteOffAmt: BigDecimal
 }

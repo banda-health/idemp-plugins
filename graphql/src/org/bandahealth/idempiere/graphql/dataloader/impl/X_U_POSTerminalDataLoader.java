@@ -9,8 +9,8 @@ import org.compiere.model.MPOSTerminal;
  * @version Release 8.2 - $Id$
  */
 public class X_U_POSTerminalDataLoader extends PODataLoader<MPOSTerminal> {
-	public static String U_POSTerminal_BY_ID_DATA_LOADER = "U_POSTerminalByIdDataLoader";
-	public static String U_POSTerminal_BY_UUID_DATA_LOADER = "U_POSTerminalByUuidDataLoader";
+	public static String DATALOADER_U_POSTerminal_BY_ID = "U_POSTerminalByIdDataLoader";
+	public static String DATALOADER_U_POSTerminal_BY_UUID = "U_POSTerminalByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_U_POSTerminalDataLoader extends PODataLoader<MPOSTerminal> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return U_POSTerminal_BY_ID_DATA_LOADER;
+		return DATALOADER_U_POSTerminal_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return U_POSTerminal_BY_UUID_DATA_LOADER;
+		return DATALOADER_U_POSTerminal_BY_UUID;
 	}
 }

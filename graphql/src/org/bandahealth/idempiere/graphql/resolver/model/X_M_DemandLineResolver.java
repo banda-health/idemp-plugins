@@ -33,7 +33,7 @@ public class X_M_DemandLineResolver extends POResolver<X_M_DemandLine> implement
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.C_Period_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.DATALOADER_C_Period_BY_ID);
 		return dataLoader.load(entity.getC_Period_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_M_DemandLineResolver extends POResolver<X_M_DemandLine> implement
 			return null;
 		}
 		DataLoader<Integer, X_M_Demand> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DemandDataLoader.M_Demand_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DemandDataLoader.DATALOADER_M_Demand_BY_ID);
 		return dataLoader.load(entity.getM_Demand_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_M_DemandLineResolver extends POResolver<X_M_DemandLine> implement
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

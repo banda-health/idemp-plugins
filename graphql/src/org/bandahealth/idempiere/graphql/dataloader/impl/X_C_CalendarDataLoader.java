@@ -9,8 +9,8 @@ import org.compiere.model.MCalendar;
  * @version Release 8.2 - $Id$
  */
 public class X_C_CalendarDataLoader extends PODataLoader<MCalendar> {
-	public static String C_Calendar_BY_ID_DATA_LOADER = "C_CalendarByIdDataLoader";
-	public static String C_Calendar_BY_UUID_DATA_LOADER = "C_CalendarByUuidDataLoader";
+	public static String DATALOADER_C_Calendar_BY_ID = "C_CalendarByIdDataLoader";
+	public static String DATALOADER_C_Calendar_BY_UUID = "C_CalendarByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_CalendarDataLoader extends PODataLoader<MCalendar> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Calendar_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Calendar_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Calendar_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Calendar_BY_UUID;
 	}
 }

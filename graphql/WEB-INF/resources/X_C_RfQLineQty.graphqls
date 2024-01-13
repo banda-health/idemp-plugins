@@ -21,9 +21,9 @@ type C_RfQLineQty {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Price to compare responses to
-	BenchmarkPrice: Int!
+	BenchmarkPrice: BigDecimal!
 	# Best Response Amount
-	BestResponseAmt: Int
+	BestResponseAmt: BigDecimal
 	# Request for Quotation Line
 	C_RfQLine: C_RfQLine!
 	ID: ID!
@@ -42,11 +42,11 @@ type C_RfQLineQty {
 	# The quantity is used when generating RfQ Responses
 	IsRfQQty: Boolean!
 	# Margin for a product as a percentage
-	Margin: Int
+	Margin: BigDecimal
 	# Amount of the Offer
-	OfferAmt: Int
+	OfferAmt: BigDecimal
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -57,9 +57,9 @@ input C_RfQLineQtyInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Price to compare responses to
-	BenchmarkPrice: Int
+	BenchmarkPrice: BigDecimal
 	# Best Response Amount
-	BestResponseAmt: Int
+	BestResponseAmt: BigDecimal
 	# Request for Quotation Line
 	C_RfQLine: ForeignEntityInput
 	ID: ID
@@ -74,9 +74,9 @@ input C_RfQLineQtyInput {
 	# The quantity is used when generating RfQ Responses
 	IsRfQQty: Boolean
 	# Margin for a product as a percentage
-	Margin: Int
+	Margin: BigDecimal
 	# Amount of the Offer
-	OfferAmt: Int
+	OfferAmt: BigDecimal
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 }

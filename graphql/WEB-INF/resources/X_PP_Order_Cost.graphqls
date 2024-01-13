@@ -31,17 +31,17 @@ type PP_Order_Cost {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Total Amount
-	CumulatedAmt: Int
-	CumulatedAmtPost: Int
+	CumulatedAmt: BigDecimal
+	CumulatedAmtPost: BigDecimal
 	# Total Quantity
-	CumulatedQty: Int
-	CumulatedQtyPost: Int
+	CumulatedQty: BigDecimal
+	CumulatedQtyPost: BigDecimal
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
-	CurrentCostPriceLL: Int
+	CurrentCostPriceLL: BigDecimal
 	# Current Quantity
-	CurrentQty: Int
+	CurrentQty: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# Product Attribute Set Instance
@@ -71,17 +71,17 @@ input PP_Order_CostInput {
 	# Indicates how Costs will be calculated
 	CostingMethod: AD_Ref_ListInput
 	# Total Amount
-	CumulatedAmt: Int
-	CumulatedAmtPost: Int
+	CumulatedAmt: BigDecimal
+	CumulatedAmtPost: BigDecimal
 	# Total Quantity
-	CumulatedQty: Int
-	CumulatedQtyPost: Int
+	CumulatedQty: BigDecimal
+	CumulatedQtyPost: BigDecimal
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
-	CurrentCostPriceLL: Int
+	CurrentCostPriceLL: BigDecimal
 	# Current Quantity
-	CurrentQty: Int
+	CurrentQty: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Product Attribute Set Instance

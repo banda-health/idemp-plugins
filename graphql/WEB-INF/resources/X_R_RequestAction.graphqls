@@ -75,11 +75,11 @@ type R_RequestAction {
 	# Priority of the issue for the User
 	PriorityUser: AD_Ref_List
 	# Invoiced Quantity
-	QtyInvoiced: Int
+	QtyInvoiced: BigDecimal
 	# Planned Quantity
-	QtyPlan: Int
+	QtyPlan: BigDecimal
 	# Quantity used for this event
-	QtySpent: Int
+	QtySpent: BigDecimal
 	# Request Category
 	R_Category: R_Category
 	# Request Group
@@ -161,11 +161,11 @@ input R_RequestActionInput {
 	# Priority of the issue for the User
 	PriorityUser: AD_Ref_ListInput
 	# Invoiced Quantity
-	QtyInvoiced: Int
+	QtyInvoiced: BigDecimal
 	# Planned Quantity
-	QtyPlan: Int
+	QtyPlan: BigDecimal
 	# Quantity used for this event
-	QtySpent: Int
+	QtySpent: BigDecimal
 	# Request Category
 	R_Category: ForeignEntityInput
 	# Request Group

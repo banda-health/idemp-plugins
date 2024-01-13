@@ -29,7 +29,7 @@ public class X_DD_NetworkDistributionResolver extends POResolver<X_DD_NetworkDis
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.M_ChangeNotice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.DATALOADER_M_ChangeNotice_BY_ID);
 		return dataLoader.load(entity.getM_ChangeNotice_ID());
 	}
 

@@ -35,7 +35,7 @@ public class X_M_PromotionLineResolver extends POResolver<X_M_PromotionLine> imp
 			return null;
 		}
 		DataLoader<Integer, X_M_Promotion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionDataLoader.M_Promotion_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionDataLoader.DATALOADER_M_Promotion_BY_ID);
 		return dataLoader.load(entity.getM_Promotion_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_M_PromotionLineResolver extends POResolver<X_M_PromotionLine> imp
 			return null;
 		}
 		DataLoader<Integer, X_M_PromotionGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionGroupDataLoader.M_PromotionGroup_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionGroupDataLoader.DATALOADER_M_PromotionGroup_BY_ID);
 		return dataLoader.load(entity.getM_PromotionGroup_ID());
 	}
 

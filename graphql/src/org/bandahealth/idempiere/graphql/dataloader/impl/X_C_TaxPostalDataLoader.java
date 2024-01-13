@@ -9,8 +9,8 @@ import org.compiere.model.MTaxPostal;
  * @version Release 8.2 - $Id$
  */
 public class X_C_TaxPostalDataLoader extends PODataLoader<MTaxPostal> {
-	public static String C_TaxPostal_BY_ID_DATA_LOADER = "C_TaxPostalByIdDataLoader";
-	public static String C_TaxPostal_BY_UUID_DATA_LOADER = "C_TaxPostalByUuidDataLoader";
+	public static String DATALOADER_C_TaxPostal_BY_ID = "C_TaxPostalByIdDataLoader";
+	public static String DATALOADER_C_TaxPostal_BY_UUID = "C_TaxPostalByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_TaxPostalDataLoader extends PODataLoader<MTaxPostal> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_TaxPostal_BY_ID_DATA_LOADER;
+		return DATALOADER_C_TaxPostal_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_TaxPostal_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_TaxPostal_BY_UUID;
 	}
 }

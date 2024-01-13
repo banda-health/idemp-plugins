@@ -47,7 +47,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 			return null;
 		}
 		DataLoader<Integer, X_AD_OrgType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_OrgTypeDataLoader.AD_OrgType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_OrgTypeDataLoader.DATALOADER_AD_OrgType_BY_ID);
 		return dataLoader.load(entity.getAD_OrgType_ID());
 	}
 
@@ -62,7 +62,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.C_BP_Group_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
 		return dataLoader.load(entity.getC_BP_Group_ID());
 	}
 
@@ -77,7 +77,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -92,7 +92,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.C_Tax_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getC_Tax_ID());
 	}
 
@@ -107,7 +107,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 			return null;
 		}
 		DataLoader<Integer, X_C_TaxBase> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxBaseDataLoader.C_TaxBase_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxBaseDataLoader.DATALOADER_C_TaxBase_BY_ID);
 		return dataLoader.load(entity.getC_TaxBase_ID());
 	}
 
@@ -122,7 +122,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxCategoryDataLoader.C_TaxCategory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxCategoryDataLoader.DATALOADER_C_TaxCategory_BY_ID);
 		return dataLoader.load(entity.getC_TaxCategory_ID());
 	}
 
@@ -137,7 +137,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 			return null;
 		}
 		DataLoader<Integer, X_C_TaxGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxGroupDataLoader.C_TaxGroup_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxGroupDataLoader.DATALOADER_C_TaxGroup_BY_ID);
 		return dataLoader.load(entity.getC_TaxGroup_ID());
 	}
 
@@ -152,7 +152,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 			return null;
 		}
 		DataLoader<Integer, X_C_TaxType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxTypeDataLoader.C_TaxType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxTypeDataLoader.DATALOADER_C_TaxType_BY_ID);
 		return dataLoader.load(entity.getC_TaxType_ID());
 	}
 
@@ -171,7 +171,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.M_Product_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.DATALOADER_M_Product_Category_BY_ID);
 		return dataLoader.load(entity.getM_Product_Category_ID());
 	}
 
@@ -186,7 +186,7 @@ public class X_C_TaxDefinitionResolver extends POResolver<X_C_TaxDefinition> imp
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

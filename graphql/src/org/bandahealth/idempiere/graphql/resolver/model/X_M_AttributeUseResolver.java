@@ -31,7 +31,7 @@ public class X_M_AttributeUseResolver extends POResolver<MAttributeUse> implemen
 			return null;
 		}
 		DataLoader<Integer, MAttribute> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeDataLoader.M_Attribute_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeDataLoader.DATALOADER_M_Attribute_BY_ID);
 		return dataLoader.load(entity.getM_Attribute_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_M_AttributeUseResolver extends POResolver<MAttributeUse> implemen
 			return null;
 		}
 		DataLoader<Integer, MAttributeSet_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetDataLoader.M_AttributeSet_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetDataLoader.DATALOADER_M_AttributeSet_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSet_ID());
 	}
 

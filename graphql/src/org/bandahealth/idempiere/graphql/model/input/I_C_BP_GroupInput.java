@@ -39,6 +39,25 @@ public interface I_C_BP_GroupInput extends I_C_BP_Group {
 	ForeignEntityInput AD_PrintColor();
 
 	/**
+	 * Column name BH_Locked
+	 */
+	static final String COLUMNNAME_BH_Locked = "BH_Locked";
+
+	/**
+	 * Set BH_Locked.
+	 *
+	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	void setBH_Locked(boolean BH_Locked);
+
+	/**
+	 * Get BH_Locked.
+	 *
+	 * @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	boolean isBH_Locked();
+
+	/**
 	 * Set BH_SubType.
 	 *
 	 * @param BH_SubType Meant to be a sub-type of the charge type

@@ -31,7 +31,7 @@ public class X_CM_ChatUpdateResolver extends POResolver<X_CM_ChatUpdate> impleme
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_CM_ChatUpdateResolver extends POResolver<X_CM_ChatUpdate> impleme
 			return null;
 		}
 		DataLoader<Integer, MChat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_CM_ChatDataLoader.CM_Chat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_CM_ChatDataLoader.DATALOADER_CM_Chat_BY_ID);
 		return dataLoader.load(entity.getCM_Chat_ID());
 	}
 

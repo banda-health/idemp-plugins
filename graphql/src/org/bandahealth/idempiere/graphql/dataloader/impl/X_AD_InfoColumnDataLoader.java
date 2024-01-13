@@ -9,8 +9,8 @@ import org.compiere.model.MInfoColumn;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_InfoColumnDataLoader extends PODataLoader<MInfoColumn> {
-	public static String AD_InfoColumn_BY_ID_DATA_LOADER = "AD_InfoColumnByIdDataLoader";
-	public static String AD_InfoColumn_BY_UUID_DATA_LOADER = "AD_InfoColumnByUuidDataLoader";
+	public static String DATALOADER_AD_InfoColumn_BY_ID = "AD_InfoColumnByIdDataLoader";
+	public static String DATALOADER_AD_InfoColumn_BY_UUID = "AD_InfoColumnByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_InfoColumnDataLoader extends PODataLoader<MInfoColumn> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_InfoColumn_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_InfoColumn_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_InfoColumn_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_InfoColumn_BY_UUID;
 	}
 }

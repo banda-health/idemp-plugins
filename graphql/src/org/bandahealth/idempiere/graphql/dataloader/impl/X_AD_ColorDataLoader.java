@@ -9,8 +9,8 @@ import org.compiere.model.MColor;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ColorDataLoader extends PODataLoader<MColor> {
-	public static String AD_Color_BY_ID_DATA_LOADER = "AD_ColorByIdDataLoader";
-	public static String AD_Color_BY_UUID_DATA_LOADER = "AD_ColorByUuidDataLoader";
+	public static String DATALOADER_AD_Color_BY_ID = "AD_ColorByIdDataLoader";
+	public static String DATALOADER_AD_Color_BY_UUID = "AD_ColorByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ColorDataLoader extends PODataLoader<MColor> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Color_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Color_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Color_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Color_BY_UUID;
 	}
 }

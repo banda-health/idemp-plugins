@@ -39,7 +39,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -54,7 +54,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.C_BP_Group_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
 		return dataLoader.load(entity.getC_BP_Group_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.M_PriceList_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.DATALOADER_M_PriceList_BY_ID);
 		return dataLoader.load(entity.getM_PriceList_ID());
 	}
 
@@ -99,7 +99,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 			return null;
 		}
 		DataLoader<Integer, X_M_Promotion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionDataLoader.M_Promotion_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionDataLoader.DATALOADER_M_Promotion_BY_ID);
 		return dataLoader.load(entity.getM_Promotion_ID());
 	}
 
@@ -114,7 +114,7 @@ public class X_M_PromotionPreConditionResolver extends POResolver<X_M_PromotionP
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 

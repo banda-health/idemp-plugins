@@ -9,8 +9,8 @@ import org.compiere.model.MAllocationLine;
  * @version Release 8.2 - $Id$
  */
 public class X_C_AllocationLineDataLoader extends PODataLoader<MAllocationLine> {
-	public static String C_AllocationLine_BY_ID_DATA_LOADER = "C_AllocationLineByIdDataLoader";
-	public static String C_AllocationLine_BY_UUID_DATA_LOADER = "C_AllocationLineByUuidDataLoader";
+	public static String DATALOADER_C_AllocationLine_BY_ID = "C_AllocationLineByIdDataLoader";
+	public static String DATALOADER_C_AllocationLine_BY_UUID = "C_AllocationLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_AllocationLineDataLoader extends PODataLoader<MAllocationLine> 
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_AllocationLine_BY_ID_DATA_LOADER;
+		return DATALOADER_C_AllocationLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_AllocationLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_AllocationLine_BY_UUID;
 	}
 }

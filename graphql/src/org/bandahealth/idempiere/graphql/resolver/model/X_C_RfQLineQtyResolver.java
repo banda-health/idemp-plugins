@@ -31,7 +31,7 @@ public class X_C_RfQLineQtyResolver extends POResolver<MRfQLineQty> implements G
 			return null;
 		}
 		DataLoader<Integer, MRfQLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RfQLineDataLoader.C_RfQLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RfQLineDataLoader.DATALOADER_C_RfQLine_BY_ID);
 		return dataLoader.load(entity.getC_RfQLine_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_RfQLineQtyResolver extends POResolver<MRfQLineQty> implements G
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 

@@ -29,7 +29,7 @@ public class X_AD_Sequence_NoResolver extends POResolver<X_AD_Sequence_No> imple
 			return null;
 		}
 		DataLoader<Integer, MSequence_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_SequenceDataLoader.AD_Sequence_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_SequenceDataLoader.DATALOADER_AD_Sequence_BY_ID);
 		return dataLoader.load(entity.getAD_Sequence_ID());
 	}
 

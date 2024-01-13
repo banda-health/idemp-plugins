@@ -36,7 +36,7 @@ public class X_ASP_WorkflowResolver extends POResolver<X_ASP_Workflow> implement
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.AD_Workflow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.DATALOADER_AD_Workflow_BY_ID);
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 
@@ -51,7 +51,7 @@ public class X_ASP_WorkflowResolver extends POResolver<X_ASP_Workflow> implement
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Level> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_ASP_LevelDataLoader.ASP_Level_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_ASP_LevelDataLoader.DATALOADER_ASP_Level_BY_ID);
 		return dataLoader.load(entity.getASP_Level_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_ASP_WorkflowResolver extends POResolver<X_ASP_Workflow> implement
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ASP_STATUS_UUIDS_BY_VALUE.get(entity.getASP_Status()));
 	}
 

@@ -29,7 +29,7 @@ public class X_AD_TaskInstanceResolver extends POResolver<X_AD_TaskInstance> imp
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TaskDataLoader.AD_Task_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TaskDataLoader.DATALOADER_AD_Task_BY_ID);
 		return dataLoader.load(entity.getAD_Task_ID());
 	}
 

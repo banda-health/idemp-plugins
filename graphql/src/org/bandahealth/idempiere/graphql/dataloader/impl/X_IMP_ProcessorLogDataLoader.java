@@ -9,8 +9,8 @@ import org.compiere.model.X_IMP_ProcessorLog;
  * @version Release 8.2 - $Id$
  */
 public class X_IMP_ProcessorLogDataLoader extends PODataLoader<X_IMP_ProcessorLog> {
-	public static String IMP_ProcessorLog_BY_ID_DATA_LOADER = "IMP_ProcessorLogByIdDataLoader";
-	public static String IMP_ProcessorLog_BY_UUID_DATA_LOADER = "IMP_ProcessorLogByUuidDataLoader";
+	public static String DATALOADER_IMP_ProcessorLog_BY_ID = "IMP_ProcessorLogByIdDataLoader";
+	public static String DATALOADER_IMP_ProcessorLog_BY_UUID = "IMP_ProcessorLogByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_IMP_ProcessorLogDataLoader extends PODataLoader<X_IMP_ProcessorLo
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return IMP_ProcessorLog_BY_ID_DATA_LOADER;
+		return DATALOADER_IMP_ProcessorLog_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return IMP_ProcessorLog_BY_UUID_DATA_LOADER;
+		return DATALOADER_IMP_ProcessorLog_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.MUserDefField;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_UserDef_FieldDataLoader extends PODataLoader<MUserDefField> {
-	public static String AD_UserDef_Field_BY_ID_DATA_LOADER = "AD_UserDef_FieldByIdDataLoader";
-	public static String AD_UserDef_Field_BY_UUID_DATA_LOADER = "AD_UserDef_FieldByUuidDataLoader";
+	public static String DATALOADER_AD_UserDef_Field_BY_ID = "AD_UserDef_FieldByIdDataLoader";
+	public static String DATALOADER_AD_UserDef_Field_BY_UUID = "AD_UserDef_FieldByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_UserDef_FieldDataLoader extends PODataLoader<MUserDefField> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_UserDef_Field_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_UserDef_Field_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_UserDef_Field_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_UserDef_Field_BY_UUID;
 	}
 }

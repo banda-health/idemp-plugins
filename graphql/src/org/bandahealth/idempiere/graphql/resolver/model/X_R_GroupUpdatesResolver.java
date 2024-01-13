@@ -31,7 +31,7 @@ public class X_R_GroupUpdatesResolver extends POResolver<X_R_GroupUpdates> imple
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_R_GroupUpdatesResolver extends POResolver<X_R_GroupUpdates> imple
 			return null;
 		}
 		DataLoader<Integer, MGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_GroupDataLoader.R_Group_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_GroupDataLoader.DATALOADER_R_Group_BY_ID);
 		return dataLoader.load(entity.getR_Group_ID());
 	}
 

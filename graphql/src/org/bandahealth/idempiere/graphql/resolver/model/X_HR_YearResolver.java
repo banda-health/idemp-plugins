@@ -31,7 +31,7 @@ public class X_HR_YearResolver extends POResolver<X_HR_Year> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, MYear> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_YearDataLoader.C_Year_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_YearDataLoader.DATALOADER_C_Year_BY_ID);
 		return dataLoader.load(entity.getC_Year_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_HR_YearResolver extends POResolver<X_HR_Year> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.HR_Payroll_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.DATALOADER_HR_Payroll_BY_ID);
 		return dataLoader.load(entity.getHR_Payroll_ID());
 	}
 

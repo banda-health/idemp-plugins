@@ -32,7 +32,7 @@ public class X_GL_BudgetResolver extends POResolver<X_GL_Budget> implements Grap
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BUDGETSTATUS_UUIDS_BY_VALUE.get(entity.getBudgetStatus()));
 	}
 

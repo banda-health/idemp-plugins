@@ -9,8 +9,8 @@ import org.eevolution.model.X_DD_NetworkDistributionLine;
  * @version Release 8.2 - $Id$
  */
 public class X_DD_NetworkDistributionLineDataLoader extends PODataLoader<X_DD_NetworkDistributionLine> {
-	public static String DD_NetworkDistributionLine_BY_ID_DATA_LOADER = "DD_NetworkDistributionLineByIdDataLoader";
-	public static String DD_NetworkDistributionLine_BY_UUID_DATA_LOADER = "DD_NetworkDistributionLineByUuidDataLoader";
+	public static String DATALOADER_DD_NetworkDistributionLine_BY_ID = "DD_NetworkDistributionLineByIdDataLoader";
+	public static String DATALOADER_DD_NetworkDistributionLine_BY_UUID = "DD_NetworkDistributionLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_DD_NetworkDistributionLineDataLoader extends PODataLoader<X_DD_Ne
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return DD_NetworkDistributionLine_BY_ID_DATA_LOADER;
+		return DATALOADER_DD_NetworkDistributionLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return DD_NetworkDistributionLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_DD_NetworkDistributionLine_BY_UUID;
 	}
 }

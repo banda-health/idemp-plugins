@@ -31,7 +31,7 @@ public class X_C_ServiceLevelResolver extends POResolver<X_C_ServiceLevel> imple
 			return null;
 		}
 		DataLoader<Integer, MRevenueRecognitionPlan> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecognition_PlanDataLoader.C_RevenueRecognition_Plan_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecognition_PlanDataLoader.DATALOADER_C_RevenueRecognition_Plan_BY_ID);
 		return dataLoader.load(entity.getC_RevenueRecognition_Plan_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_ServiceLevelResolver extends POResolver<X_C_ServiceLevel> imple
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_Sequence_Audit;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Sequence_AuditDataLoader extends PODataLoader<X_AD_Sequence_Audit> {
-	public static String AD_Sequence_Audit_BY_ID_DATA_LOADER = "AD_Sequence_AuditByIdDataLoader";
-	public static String AD_Sequence_Audit_BY_UUID_DATA_LOADER = "AD_Sequence_AuditByUuidDataLoader";
+	public static String DATALOADER_AD_Sequence_Audit_BY_ID = "AD_Sequence_AuditByIdDataLoader";
+	public static String DATALOADER_AD_Sequence_Audit_BY_UUID = "AD_Sequence_AuditByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Sequence_AuditDataLoader extends PODataLoader<X_AD_Sequence_Au
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Sequence_Audit_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Sequence_Audit_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Sequence_Audit_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Sequence_Audit_BY_UUID;
 	}
 }

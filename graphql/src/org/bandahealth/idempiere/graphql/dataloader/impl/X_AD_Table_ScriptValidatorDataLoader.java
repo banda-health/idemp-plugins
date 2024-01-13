@@ -9,8 +9,8 @@ import org.compiere.model.MTableScriptValidator;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Table_ScriptValidatorDataLoader extends PODataLoader<MTableScriptValidator> {
-	public static String AD_Table_ScriptValidator_BY_ID_DATA_LOADER = "AD_Table_ScriptValidatorByIdDataLoader";
-	public static String AD_Table_ScriptValidator_BY_UUID_DATA_LOADER = "AD_Table_ScriptValidatorByUuidDataLoader";
+	public static String DATALOADER_AD_Table_ScriptValidator_BY_ID = "AD_Table_ScriptValidatorByIdDataLoader";
+	public static String DATALOADER_AD_Table_ScriptValidator_BY_UUID = "AD_Table_ScriptValidatorByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Table_ScriptValidatorDataLoader extends PODataLoader<MTableScr
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Table_ScriptValidator_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Table_ScriptValidator_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Table_ScriptValidator_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Table_ScriptValidator_BY_UUID;
 	}
 }

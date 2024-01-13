@@ -46,7 +46,7 @@ type AD_PrintTableFormat {
 	# Table header row line color
 	HdrLine_PrintColor: AD_PrintColor
 	# Width of the Header Line Stroke
-	HdrStroke: Int
+	HdrStroke: BigDecimal
 	# Type of the Header Line Stroke
 	HdrStrokeType: AD_Ref_List
 	# Background color of header row
@@ -82,7 +82,7 @@ type AD_PrintTableFormat {
 	# Table line color
 	Line_PrintColor: AD_PrintColor
 	# Width of the Line Stroke
-	LineStroke: Int
+	LineStroke: BigDecimal
 	# Type of the Line Stroke
 	LineStrokeType: AD_Ref_List
 	# Alphanumeric identifier of the entity
@@ -118,7 +118,7 @@ input AD_PrintTableFormatInput {
 	# Table header row line color
 	HdrLine_PrintColor: ForeignEntityInput
 	# Width of the Header Line Stroke
-	HdrStroke: Int
+	HdrStroke: BigDecimal
 	# Type of the Header Line Stroke
 	HdrStrokeType: AD_Ref_ListInput
 	# Background color of header row
@@ -154,7 +154,7 @@ input AD_PrintTableFormatInput {
 	# Table line color
 	Line_PrintColor: ForeignEntityInput
 	# Width of the Line Stroke
-	LineStroke: Int
+	LineStroke: BigDecimal
 	# Type of the Line Stroke
 	LineStrokeType: AD_Ref_ListInput
 	# Alphanumeric identifier of the entity

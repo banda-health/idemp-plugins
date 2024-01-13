@@ -9,8 +9,8 @@ import org.compiere.model.X_M_PromotionGroupLine;
  * @version Release 8.2 - $Id$
  */
 public class X_M_PromotionGroupLineDataLoader extends PODataLoader<X_M_PromotionGroupLine> {
-	public static String M_PromotionGroupLine_BY_ID_DATA_LOADER = "M_PromotionGroupLineByIdDataLoader";
-	public static String M_PromotionGroupLine_BY_UUID_DATA_LOADER = "M_PromotionGroupLineByUuidDataLoader";
+	public static String DATALOADER_M_PromotionGroupLine_BY_ID = "M_PromotionGroupLineByIdDataLoader";
+	public static String DATALOADER_M_PromotionGroupLine_BY_UUID = "M_PromotionGroupLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_PromotionGroupLineDataLoader extends PODataLoader<X_M_Promotion
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_PromotionGroupLine_BY_ID_DATA_LOADER;
+		return DATALOADER_M_PromotionGroupLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_PromotionGroupLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_PromotionGroupLine_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.X_A_Asset_Info_Tax;
  * @version Release 8.2 - $Id$
  */
 public class X_A_Asset_Info_TaxDataLoader extends PODataLoader<X_A_Asset_Info_Tax> {
-	public static String A_Asset_Info_Tax_BY_ID_DATA_LOADER = "A_Asset_Info_TaxByIdDataLoader";
-	public static String A_Asset_Info_Tax_BY_UUID_DATA_LOADER = "A_Asset_Info_TaxByUuidDataLoader";
+	public static String DATALOADER_A_Asset_Info_Tax_BY_ID = "A_Asset_Info_TaxByIdDataLoader";
+	public static String DATALOADER_A_Asset_Info_Tax_BY_UUID = "A_Asset_Info_TaxByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_A_Asset_Info_TaxDataLoader extends PODataLoader<X_A_Asset_Info_Ta
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return A_Asset_Info_Tax_BY_ID_DATA_LOADER;
+		return DATALOADER_A_Asset_Info_Tax_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return A_Asset_Info_Tax_BY_UUID_DATA_LOADER;
+		return DATALOADER_A_Asset_Info_Tax_BY_UUID;
 	}
 }

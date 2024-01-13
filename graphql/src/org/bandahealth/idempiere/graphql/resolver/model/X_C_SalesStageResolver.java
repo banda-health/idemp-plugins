@@ -31,7 +31,7 @@ public class X_C_SalesStageResolver extends POResolver<X_C_SalesStage> implement
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_SalesStage_TrlDataLoader.C_SalesStage_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_SalesStage_TrlDataLoader.DATALOADER_C_SalesStage_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_C_SalesStage.COLUMNNAME_Description));
 	}
@@ -54,7 +54,7 @@ public class X_C_SalesStageResolver extends POResolver<X_C_SalesStage> implement
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_SalesStage_TrlDataLoader.C_SalesStage_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_SalesStage_TrlDataLoader.DATALOADER_C_SalesStage_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_C_SalesStage.COLUMNNAME_Name));
 	}

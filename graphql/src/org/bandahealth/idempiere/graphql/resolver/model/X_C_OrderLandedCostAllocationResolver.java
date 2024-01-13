@@ -31,7 +31,7 @@ public class X_C_OrderLandedCostAllocationResolver extends POResolver<MOrderLand
 			return null;
 		}
 		DataLoader<Integer, MOrderLandedCost> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLandedCostDataLoader.C_OrderLandedCost_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLandedCostDataLoader.DATALOADER_C_OrderLandedCost_BY_ID);
 		return dataLoader.load(entity.getC_OrderLandedCost_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_OrderLandedCostAllocationResolver extends POResolver<MOrderLand
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.C_OrderLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.DATALOADER_C_OrderLine_BY_ID);
 		return dataLoader.load(entity.getC_OrderLine_ID());
 	}
 

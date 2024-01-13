@@ -9,8 +9,8 @@ import org.compiere.model.MCash;
  * @version Release 8.2 - $Id$
  */
 public class X_C_CashDataLoader extends PODataLoader<MCash> {
-	public static String C_Cash_BY_ID_DATA_LOADER = "C_CashByIdDataLoader";
-	public static String C_Cash_BY_UUID_DATA_LOADER = "C_CashByUuidDataLoader";
+	public static String DATALOADER_C_Cash_BY_ID = "C_CashByIdDataLoader";
+	public static String DATALOADER_C_Cash_BY_UUID = "C_CashByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_CashDataLoader extends PODataLoader<MCash> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Cash_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Cash_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Cash_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Cash_BY_UUID;
 	}
 }

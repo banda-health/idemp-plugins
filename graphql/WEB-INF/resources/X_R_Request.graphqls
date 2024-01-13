@@ -101,11 +101,11 @@ type R_Request {
 	# The document has been processed
 	Processed: Boolean!
 	# Invoiced Quantity
-	QtyInvoiced: Int
+	QtyInvoiced: BigDecimal
 	# Planned Quantity
-	QtyPlan: Int
+	QtyPlan: BigDecimal
 	# Quantity used for this event
-	QtySpent: Int
+	QtySpent: BigDecimal
 	# Request Category
 	R_Category: R_Category
 	# Request Group
@@ -126,7 +126,7 @@ type R_Request {
 	# Direct internal record ID
 	Record_ID: Int
 	# Amount associated with this request
-	RequestAmt: Int!
+	RequestAmt: BigDecimal!
 	# Result of the action taken
 	Result: String
 	# Sales Representative or Company Agent
@@ -225,11 +225,11 @@ input R_RequestInput {
 	# The document has been processed
 	Processed: Boolean
 	# Invoiced Quantity
-	QtyInvoiced: Int
+	QtyInvoiced: BigDecimal
 	# Planned Quantity
-	QtyPlan: Int
+	QtyPlan: BigDecimal
 	# Quantity used for this event
-	QtySpent: Int
+	QtySpent: BigDecimal
 	# Request Category
 	R_Category: ForeignEntityInput
 	# Request Group
@@ -250,7 +250,7 @@ input R_RequestInput {
 	# Direct internal record ID
 	Record_ID: Int
 	# Amount associated with this request
-	RequestAmt: Int
+	RequestAmt: BigDecimal
 	# Result of the action taken
 	Result: String
 	# Sales Representative or Company Agent

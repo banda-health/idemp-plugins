@@ -9,8 +9,8 @@ import org.compiere.model.MYear;
  * @version Release 8.2 - $Id$
  */
 public class X_C_YearDataLoader extends PODataLoader<MYear> {
-	public static String C_Year_BY_ID_DATA_LOADER = "C_YearByIdDataLoader";
-	public static String C_Year_BY_UUID_DATA_LOADER = "C_YearByUuidDataLoader";
+	public static String DATALOADER_C_Year_BY_ID = "C_YearByIdDataLoader";
+	public static String DATALOADER_C_Year_BY_UUID = "C_YearByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_YearDataLoader extends PODataLoader<MYear> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Year_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Year_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Year_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Year_BY_UUID;
 	}
 }

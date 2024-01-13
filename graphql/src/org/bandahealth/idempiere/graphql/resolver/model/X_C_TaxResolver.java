@@ -50,7 +50,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MRule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RuleDataLoader.AD_Rule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RuleDataLoader.DATALOADER_AD_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Rule_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.C_Country_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.DATALOADER_C_Country_BY_ID);
 		return dataLoader.load(entity.getC_Country_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MCountryGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryGroupDataLoader.C_CountryGroup_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryGroupDataLoader.DATALOADER_C_CountryGroup_BY_ID);
 		return dataLoader.load(entity.getC_CountryGroupFrom_ID());
 	}
 
@@ -95,7 +95,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MCountryGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryGroupDataLoader.C_CountryGroup_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryGroupDataLoader.DATALOADER_C_CountryGroup_BY_ID);
 		return dataLoader.load(entity.getC_CountryGroupTo_ID());
 	}
 
@@ -110,7 +110,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.C_Region_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.DATALOADER_C_Region_BY_ID);
 		return dataLoader.load(entity.getC_Region_ID());
 	}
 
@@ -125,7 +125,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxCategoryDataLoader.C_TaxCategory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxCategoryDataLoader.DATALOADER_C_TaxCategory_BY_ID);
 		return dataLoader.load(entity.getC_TaxCategory_ID());
 	}
 
@@ -140,7 +140,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MTaxProvider> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxProviderDataLoader.C_TaxProvider_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxProviderDataLoader.DATALOADER_C_TaxProvider_BY_ID);
 		return dataLoader.load(entity.getC_TaxProvider_ID());
 	}
 
@@ -154,7 +154,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Tax_TrlDataLoader.C_Tax_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Tax_TrlDataLoader.DATALOADER_C_Tax_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTax.COLUMNNAME_Description));
 	}
@@ -189,7 +189,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Tax_TrlDataLoader.C_Tax_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Tax_TrlDataLoader.DATALOADER_C_Tax_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTax.COLUMNNAME_Name));
 	}
@@ -205,7 +205,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.C_Tax_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getParent_Tax_ID());
 	}
 
@@ -225,7 +225,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(SOPOTYPE_UUIDS_BY_VALUE.get(entity.getSOPOType()));
 	}
 
@@ -239,7 +239,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return CompletableFuture.supplyAsync(entity::getTaxIndicator);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Tax_TrlDataLoader.C_Tax_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Tax_TrlDataLoader.DATALOADER_C_Tax_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTax.COLUMNNAME_TaxIndicator));
 	}
@@ -255,7 +255,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.C_Region_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.DATALOADER_C_Region_BY_ID);
 		return dataLoader.load(entity.getTo_Region_ID());
 	}
 

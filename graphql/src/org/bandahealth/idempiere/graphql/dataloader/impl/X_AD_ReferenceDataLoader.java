@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MReference_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ReferenceDataLoader extends PODataLoader<MReference_BH> {
-	public static String AD_Reference_BY_ID_DATA_LOADER = "AD_ReferenceByIdDataLoader";
-	public static String AD_Reference_BY_UUID_DATA_LOADER = "AD_ReferenceByUuidDataLoader";
+	public static String DATALOADER_AD_Reference_BY_ID = "AD_ReferenceByIdDataLoader";
+	public static String DATALOADER_AD_Reference_BY_UUID = "AD_ReferenceByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ReferenceDataLoader extends PODataLoader<MReference_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Reference_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Reference_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Reference_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Reference_BY_UUID;
 	}
 }

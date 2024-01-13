@@ -55,7 +55,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -70,7 +70,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -92,7 +92,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(COMPONENTTYPE_UUIDS_BY_VALUE.get(entity.getComponentType()));
 	}
 
@@ -106,7 +106,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_PP_Order_BOMLine_TrlDataLoader.PP_Order_BOMLine_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_PP_Order_BOMLine_TrlDataLoader.DATALOADER_PP_Order_BOMLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_BOMLine.COLUMNNAME_Description));
 	}
@@ -121,7 +121,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_PP_Order_BOMLine_TrlDataLoader.PP_Order_BOMLine_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_PP_Order_BOMLine_TrlDataLoader.DATALOADER_PP_Order_BOMLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_BOMLine.COLUMNNAME_Help));
 	}
@@ -146,7 +146,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISSUEMETHOD_UUIDS_BY_VALUE.get(entity.getIssueMethod()));
 	}
 
@@ -161,7 +161,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -176,7 +176,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.M_ChangeNotice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.DATALOADER_M_ChangeNotice_BY_ID);
 		return dataLoader.load(entity.getM_ChangeNotice_ID());
 	}
 
@@ -191,7 +191,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.M_Locator_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.DATALOADER_M_Locator_BY_ID);
 		return dataLoader.load(entity.getM_Locator_ID());
 	}
 
@@ -206,7 +206,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -221,7 +221,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
@@ -236,7 +236,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_BOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_Order_BOMDataLoader.PP_Order_BOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Order_BOMDataLoader.DATALOADER_PP_Order_BOM_BY_ID);
 		return dataLoader.load(entity.getPP_Order_BOM_ID());
 	}
 
@@ -251,7 +251,7 @@ public class X_PP_Order_BOMLineResolver extends POResolver<X_PP_Order_BOMLine> i
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_OrderDataLoader.PP_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_OrderDataLoader.DATALOADER_PP_Order_BY_ID);
 		return dataLoader.load(entity.getPP_Order_ID());
 	}
 

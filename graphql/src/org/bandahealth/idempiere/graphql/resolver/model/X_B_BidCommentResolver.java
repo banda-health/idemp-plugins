@@ -31,7 +31,7 @@ public class X_B_BidCommentResolver extends POResolver<X_B_BidComment> implement
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_B_BidCommentResolver extends POResolver<X_B_BidComment> implement
 			return null;
 		}
 		DataLoader<Integer, X_B_Topic> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_B_TopicDataLoader.B_Topic_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_B_TopicDataLoader.DATALOADER_B_Topic_BY_ID);
 		return dataLoader.load(entity.getB_Topic_ID());
 	}
 

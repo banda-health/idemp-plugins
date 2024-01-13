@@ -9,8 +9,8 @@ import org.compiere.model.MStorageOnHand;
  * @version Release 8.2 - $Id$
  */
 public class X_M_StorageOnHandDataLoader extends PODataLoader<MStorageOnHand> {
-	public static String M_StorageOnHand_BY_ID_DATA_LOADER = "M_StorageOnHandByIdDataLoader";
-	public static String M_StorageOnHand_BY_UUID_DATA_LOADER = "M_StorageOnHandByUuidDataLoader";
+	public static String DATALOADER_M_StorageOnHand_BY_ID = "M_StorageOnHandByIdDataLoader";
+	public static String DATALOADER_M_StorageOnHand_BY_UUID = "M_StorageOnHandByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_StorageOnHandDataLoader extends PODataLoader<MStorageOnHand> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_StorageOnHand_BY_ID_DATA_LOADER;
+		return DATALOADER_M_StorageOnHand_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_StorageOnHand_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_StorageOnHand_BY_UUID;
 	}
 }

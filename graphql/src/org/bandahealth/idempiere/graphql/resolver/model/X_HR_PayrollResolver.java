@@ -38,7 +38,7 @@ public class X_HR_PayrollResolver extends POResolver<X_HR_Payroll> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFormat_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_HR_PayrollResolver extends POResolver<X_HR_Payroll> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.C_Charge_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.DATALOADER_C_Charge_BY_ID);
 		return dataLoader.load(entity.getC_Charge_ID());
 	}
 
@@ -68,7 +68,7 @@ public class X_HR_PayrollResolver extends POResolver<X_HR_Payroll> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_HR_Contract> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_ContractDataLoader.HR_Contract_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_ContractDataLoader.DATALOADER_HR_Contract_BY_ID);
 		return dataLoader.load(entity.getHR_Contract_ID());
 	}
 
@@ -99,7 +99,7 @@ public class X_HR_PayrollResolver extends POResolver<X_HR_Payroll> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAYMENTRULE_UUIDS_BY_VALUE.get(entity.getPaymentRule()));
 	}
 

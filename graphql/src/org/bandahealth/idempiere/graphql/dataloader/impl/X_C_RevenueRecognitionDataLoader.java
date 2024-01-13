@@ -9,8 +9,8 @@ import org.compiere.model.MRevenueRecognition;
  * @version Release 8.2 - $Id$
  */
 public class X_C_RevenueRecognitionDataLoader extends PODataLoader<MRevenueRecognition> {
-	public static String C_RevenueRecognition_BY_ID_DATA_LOADER = "C_RevenueRecognitionByIdDataLoader";
-	public static String C_RevenueRecognition_BY_UUID_DATA_LOADER = "C_RevenueRecognitionByUuidDataLoader";
+	public static String DATALOADER_C_RevenueRecognition_BY_ID = "C_RevenueRecognitionByIdDataLoader";
+	public static String DATALOADER_C_RevenueRecognition_BY_UUID = "C_RevenueRecognitionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_RevenueRecognitionDataLoader extends PODataLoader<MRevenueRecog
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_RevenueRecognition_BY_ID_DATA_LOADER;
+		return DATALOADER_C_RevenueRecognition_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_RevenueRecognition_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_RevenueRecognition_BY_UUID;
 	}
 }

@@ -31,7 +31,7 @@ public class X_PP_Cost_CollectorMAResolver extends POResolver<X_PP_Cost_Collecto
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_PP_Cost_CollectorMAResolver extends POResolver<X_PP_Cost_Collecto
 			return null;
 		}
 		DataLoader<Integer, X_PP_Cost_Collector> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_Cost_CollectorDataLoader.PP_Cost_Collector_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Cost_CollectorDataLoader.DATALOADER_PP_Cost_Collector_BY_ID);
 		return dataLoader.load(entity.getPP_Cost_Collector_ID());
 	}
 

@@ -41,7 +41,7 @@ public class X_AD_WorkbenchResolver extends POResolver<X_AD_Workbench> implement
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -56,7 +56,7 @@ public class X_AD_WorkbenchResolver extends POResolver<X_AD_Workbench> implement
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.AD_Image_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.DATALOADER_AD_Image_BY_ID);
 		return dataLoader.load(entity.getAD_Image_ID());
 	}
 
@@ -70,7 +70,7 @@ public class X_AD_WorkbenchResolver extends POResolver<X_AD_Workbench> implement
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Workbench_TrlDataLoader.AD_Workbench_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Workbench_TrlDataLoader.DATALOADER_AD_Workbench_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_Workbench.COLUMNNAME_Description));
 	}
@@ -102,7 +102,7 @@ public class X_AD_WorkbenchResolver extends POResolver<X_AD_Workbench> implement
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -116,7 +116,7 @@ public class X_AD_WorkbenchResolver extends POResolver<X_AD_Workbench> implement
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Workbench_TrlDataLoader.AD_Workbench_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Workbench_TrlDataLoader.DATALOADER_AD_Workbench_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_Workbench.COLUMNNAME_Help));
 	}
@@ -131,7 +131,7 @@ public class X_AD_WorkbenchResolver extends POResolver<X_AD_Workbench> implement
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Workbench_TrlDataLoader.AD_Workbench_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Workbench_TrlDataLoader.DATALOADER_AD_Workbench_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_Workbench.COLUMNNAME_Name));
 	}

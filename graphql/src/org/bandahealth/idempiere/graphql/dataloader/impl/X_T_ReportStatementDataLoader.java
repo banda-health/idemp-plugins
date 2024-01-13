@@ -9,8 +9,8 @@ import org.compiere.model.X_T_ReportStatement;
  * @version Release 8.2 - $Id$
  */
 public class X_T_ReportStatementDataLoader extends PODataLoader<X_T_ReportStatement> {
-	public static String T_ReportStatement_BY_ID_DATA_LOADER = "T_ReportStatementByIdDataLoader";
-	public static String T_ReportStatement_BY_UUID_DATA_LOADER = "T_ReportStatementByUuidDataLoader";
+	public static String DATALOADER_T_ReportStatement_BY_ID = "T_ReportStatementByIdDataLoader";
+	public static String DATALOADER_T_ReportStatement_BY_UUID = "T_ReportStatementByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_T_ReportStatementDataLoader extends PODataLoader<X_T_ReportStatem
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return T_ReportStatement_BY_ID_DATA_LOADER;
+		return DATALOADER_T_ReportStatement_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return T_ReportStatement_BY_UUID_DATA_LOADER;
+		return DATALOADER_T_ReportStatement_BY_UUID;
 	}
 }

@@ -37,7 +37,7 @@ public class X_M_PriceList_VersionResolver extends POResolver<MPriceListVersion>
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.M_DiscountSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.DATALOADER_M_DiscountSchema_BY_ID);
 		return dataLoader.load(entity.getM_DiscountSchema_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_M_PriceList_VersionResolver extends POResolver<MPriceListVersion>
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.M_PriceList_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.DATALOADER_M_PriceList_BY_ID);
 		return dataLoader.load(entity.getM_PriceList_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_M_PriceList_VersionResolver extends POResolver<MPriceListVersion>
 			return null;
 		}
 		DataLoader<Integer, MPriceListVersion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceList_VersionDataLoader.M_PriceList_Version_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceList_VersionDataLoader.DATALOADER_M_PriceList_Version_BY_ID);
 		return dataLoader.load(entity.getM_Pricelist_Version_Base_ID());
 	}
 
@@ -81,7 +81,7 @@ public class X_M_PriceList_VersionResolver extends POResolver<MPriceListVersion>
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_M_PriceList_Version_TrlDataLoader.M_PriceList_Version_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_M_PriceList_Version_TrlDataLoader.DATALOADER_M_PriceList_Version_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MPriceListVersion.COLUMNNAME_Name));
 	}

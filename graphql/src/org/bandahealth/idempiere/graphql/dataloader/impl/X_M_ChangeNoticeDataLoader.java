@@ -9,8 +9,8 @@ import org.compiere.model.MChangeNotice;
  * @version Release 8.2 - $Id$
  */
 public class X_M_ChangeNoticeDataLoader extends PODataLoader<MChangeNotice> {
-	public static String M_ChangeNotice_BY_ID_DATA_LOADER = "M_ChangeNoticeByIdDataLoader";
-	public static String M_ChangeNotice_BY_UUID_DATA_LOADER = "M_ChangeNoticeByUuidDataLoader";
+	public static String DATALOADER_M_ChangeNotice_BY_ID = "M_ChangeNoticeByIdDataLoader";
+	public static String DATALOADER_M_ChangeNotice_BY_UUID = "M_ChangeNoticeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_ChangeNoticeDataLoader extends PODataLoader<MChangeNotice> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_ChangeNotice_BY_ID_DATA_LOADER;
+		return DATALOADER_M_ChangeNotice_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_ChangeNotice_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_ChangeNotice_BY_UUID;
 	}
 }

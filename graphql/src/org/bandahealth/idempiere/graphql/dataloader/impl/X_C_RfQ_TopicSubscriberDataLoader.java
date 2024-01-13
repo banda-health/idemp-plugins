@@ -9,8 +9,8 @@ import org.compiere.model.MRfQTopicSubscriber;
  * @version Release 8.2 - $Id$
  */
 public class X_C_RfQ_TopicSubscriberDataLoader extends PODataLoader<MRfQTopicSubscriber> {
-	public static String C_RfQ_TopicSubscriber_BY_ID_DATA_LOADER = "C_RfQ_TopicSubscriberByIdDataLoader";
-	public static String C_RfQ_TopicSubscriber_BY_UUID_DATA_LOADER = "C_RfQ_TopicSubscriberByUuidDataLoader";
+	public static String DATALOADER_C_RfQ_TopicSubscriber_BY_ID = "C_RfQ_TopicSubscriberByIdDataLoader";
+	public static String DATALOADER_C_RfQ_TopicSubscriber_BY_UUID = "C_RfQ_TopicSubscriberByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_RfQ_TopicSubscriberDataLoader extends PODataLoader<MRfQTopicSub
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_RfQ_TopicSubscriber_BY_ID_DATA_LOADER;
+		return DATALOADER_C_RfQ_TopicSubscriber_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_RfQ_TopicSubscriber_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_RfQ_TopicSubscriber_BY_UUID;
 	}
 }

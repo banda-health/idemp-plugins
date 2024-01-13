@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_Find;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_FindDataLoader extends PODataLoader<X_AD_Find> {
-	public static String AD_Find_BY_ID_DATA_LOADER = "AD_FindByIdDataLoader";
-	public static String AD_Find_BY_UUID_DATA_LOADER = "AD_FindByUuidDataLoader";
+	public static String DATALOADER_AD_Find_BY_ID = "AD_FindByIdDataLoader";
+	public static String DATALOADER_AD_Find_BY_UUID = "AD_FindByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_FindDataLoader extends PODataLoader<X_AD_Find> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Find_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Find_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Find_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Find_BY_UUID;
 	}
 }

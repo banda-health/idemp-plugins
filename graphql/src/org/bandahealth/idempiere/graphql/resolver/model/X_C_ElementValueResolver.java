@@ -44,7 +44,7 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ACCOUNTSIGN_UUIDS_BY_VALUE.get(entity.getAccountSign()));
 	}
 
@@ -63,7 +63,7 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ACCOUNTTYPE_UUIDS_BY_VALUE.get(entity.getAccountType()));
 	}
 
@@ -79,7 +79,7 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BPARTNERTYPE_UUIDS_BY_VALUE.get(entity.getBPartnerType()));
 	}
 
@@ -94,7 +94,7 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.C_BankAccount_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.DATALOADER_C_BankAccount_BY_ID);
 		return dataLoader.load(entity.getC_BankAccount_ID());
 	}
 
@@ -109,7 +109,7 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -124,7 +124,7 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 			return null;
 		}
 		DataLoader<Integer, MElement> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementDataLoader.C_Element_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementDataLoader.DATALOADER_C_Element_BY_ID);
 		return dataLoader.load(entity.getC_Element_ID());
 	}
 
@@ -138,7 +138,7 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_ElementValue_TrlDataLoader.C_ElementValue_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_ElementValue_TrlDataLoader.DATALOADER_C_ElementValue_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MElementValue.COLUMNNAME_Description));
 	}
@@ -177,7 +177,7 @@ public class X_C_ElementValueResolver extends POResolver<MElementValue> implemen
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_ElementValue_TrlDataLoader.C_ElementValue_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_ElementValue_TrlDataLoader.DATALOADER_C_ElementValue_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MElementValue.COLUMNNAME_Name));
 	}

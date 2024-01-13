@@ -9,8 +9,8 @@ import org.compiere.model.MGoal;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_GoalDataLoader extends PODataLoader<MGoal> {
-	public static String PA_Goal_BY_ID_DATA_LOADER = "PA_GoalByIdDataLoader";
-	public static String PA_Goal_BY_UUID_DATA_LOADER = "PA_GoalByUuidDataLoader";
+	public static String DATALOADER_PA_Goal_BY_ID = "PA_GoalByIdDataLoader";
+	public static String DATALOADER_PA_Goal_BY_UUID = "PA_GoalByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_GoalDataLoader extends PODataLoader<MGoal> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_Goal_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_Goal_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_Goal_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_Goal_BY_UUID;
 	}
 }

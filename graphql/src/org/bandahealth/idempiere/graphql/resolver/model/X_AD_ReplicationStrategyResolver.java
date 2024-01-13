@@ -50,7 +50,7 @@ public class X_AD_ReplicationStrategyResolver extends POResolver<MReplicationStr
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -65,7 +65,7 @@ public class X_AD_ReplicationStrategyResolver extends POResolver<MReplicationStr
 			return null;
 		}
 		DataLoader<Integer, MEXPProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_EXP_ProcessorDataLoader.EXP_Processor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_EXP_ProcessorDataLoader.DATALOADER_EXP_Processor_BY_ID);
 		return dataLoader.load(entity.getEXP_Processor_ID());
 	}
 

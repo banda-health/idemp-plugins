@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MInOut_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_M_InOutDataLoader extends PODataLoader<MInOut_BH> {
-	public static String M_InOut_BY_ID_DATA_LOADER = "M_InOutByIdDataLoader";
-	public static String M_InOut_BY_UUID_DATA_LOADER = "M_InOutByUuidDataLoader";
+	public static String DATALOADER_M_InOut_BY_ID = "M_InOutByIdDataLoader";
+	public static String DATALOADER_M_InOut_BY_UUID = "M_InOutByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_InOutDataLoader extends PODataLoader<MInOut_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_InOut_BY_ID_DATA_LOADER;
+		return DATALOADER_M_InOut_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_InOut_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_InOut_BY_UUID;
 	}
 }

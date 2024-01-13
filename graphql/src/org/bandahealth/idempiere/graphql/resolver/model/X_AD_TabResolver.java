@@ -52,7 +52,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_ColumnSortOrder_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_ColumnSortYesNo_ID());
 	}
 
@@ -97,7 +97,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.AD_CtxHelp_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.DATALOADER_AD_CtxHelp_BY_ID);
 		return dataLoader.load(entity.getAD_CtxHelp_ID());
 	}
 
@@ -112,7 +112,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.AD_Image_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.DATALOADER_AD_Image_BY_ID);
 		return dataLoader.load(entity.getAD_Image_ID());
 	}
 
@@ -127,7 +127,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.DATALOADER_AD_Process_BY_ID);
 		return dataLoader.load(entity.getAD_Process_ID());
 	}
 
@@ -142,7 +142,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -157,7 +157,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.AD_Window_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
@@ -171,7 +171,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return CompletableFuture.supplyAsync(entity::getCommitWarning);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Tab_TrlDataLoader.AD_Tab_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Tab_TrlDataLoader.DATALOADER_AD_Tab_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTab.COLUMNNAME_CommitWarning));
 	}
@@ -186,7 +186,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Tab_TrlDataLoader.AD_Tab_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Tab_TrlDataLoader.DATALOADER_AD_Tab_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTab.COLUMNNAME_Description));
 	}
@@ -218,7 +218,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -236,7 +236,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Tab_TrlDataLoader.AD_Tab_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Tab_TrlDataLoader.DATALOADER_AD_Tab_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTab.COLUMNNAME_Help));
 	}
@@ -252,7 +252,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.AD_Tab_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.DATALOADER_AD_Tab_BY_ID);
 		return dataLoader.load(entity.getIncluded_Tab_ID());
 	}
 
@@ -302,7 +302,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Tab_TrlDataLoader.AD_Tab_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Tab_TrlDataLoader.DATALOADER_AD_Tab_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTab.COLUMNNAME_Name));
 	}
@@ -318,7 +318,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getParent_Column_ID());
 	}
 
@@ -338,7 +338,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(TREEDISPLAYEDON_UUIDS_BY_VALUE.get(entity.getTreeDisplayedOn()));
 	}
 

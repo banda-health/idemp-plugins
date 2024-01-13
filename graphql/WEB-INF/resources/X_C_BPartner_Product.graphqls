@@ -38,7 +38,7 @@ type C_BPartner_Product {
 	# Manufacturer of the Product
 	Manufacturer: String
 	# Method for rating vendors
-	QualityRating: Int
+	QualityRating: BigDecimal
 	# Minimum Shelf Life in days based on Product Instance Guarantee Date
 	ShelfLifeMinDays: Int!
 	# Minimum Shelf Life in percent based on Product Instance Guarantee Date
@@ -70,7 +70,7 @@ input C_BPartner_ProductInput {
 	# Manufacturer of the Product
 	Manufacturer: String
 	# Method for rating vendors
-	QualityRating: Int
+	QualityRating: BigDecimal
 	# Minimum Shelf Life in days based on Product Instance Guarantee Date
 	ShelfLifeMinDays: Int
 	# Minimum Shelf Life in percent based on Product Instance Guarantee Date

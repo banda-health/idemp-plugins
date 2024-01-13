@@ -9,8 +9,8 @@ import org.compiere.model.MClientShare;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ClientShareDataLoader extends PODataLoader<MClientShare> {
-	public static String AD_ClientShare_BY_ID_DATA_LOADER = "AD_ClientShareByIdDataLoader";
-	public static String AD_ClientShare_BY_UUID_DATA_LOADER = "AD_ClientShareByUuidDataLoader";
+	public static String DATALOADER_AD_ClientShare_BY_ID = "AD_ClientShareByIdDataLoader";
+	public static String DATALOADER_AD_ClientShare_BY_UUID = "AD_ClientShareByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ClientShareDataLoader extends PODataLoader<MClientShare> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_ClientShare_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_ClientShare_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_ClientShare_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_ClientShare_BY_UUID;
 	}
 }

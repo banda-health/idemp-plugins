@@ -9,8 +9,8 @@ import org.compiere.model.MExpenseType;
  * @version Release 8.2 - $Id$
  */
 public class X_S_ExpenseTypeDataLoader extends PODataLoader<MExpenseType> {
-	public static String S_ExpenseType_BY_ID_DATA_LOADER = "S_ExpenseTypeByIdDataLoader";
-	public static String S_ExpenseType_BY_UUID_DATA_LOADER = "S_ExpenseTypeByUuidDataLoader";
+	public static String DATALOADER_S_ExpenseType_BY_ID = "S_ExpenseTypeByIdDataLoader";
+	public static String DATALOADER_S_ExpenseType_BY_UUID = "S_ExpenseTypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_S_ExpenseTypeDataLoader extends PODataLoader<MExpenseType> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return S_ExpenseType_BY_ID_DATA_LOADER;
+		return DATALOADER_S_ExpenseType_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return S_ExpenseType_BY_UUID_DATA_LOADER;
+		return DATALOADER_S_ExpenseType_BY_UUID;
 	}
 }

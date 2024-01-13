@@ -9,8 +9,8 @@ import org.compiere.model.MLotCtlExclude;
  * @version Release 8.2 - $Id$
  */
 public class X_M_LotCtlExcludeDataLoader extends PODataLoader<MLotCtlExclude> {
-	public static String M_LotCtlExclude_BY_ID_DATA_LOADER = "M_LotCtlExcludeByIdDataLoader";
-	public static String M_LotCtlExclude_BY_UUID_DATA_LOADER = "M_LotCtlExcludeByUuidDataLoader";
+	public static String DATALOADER_M_LotCtlExclude_BY_ID = "M_LotCtlExcludeByIdDataLoader";
+	public static String DATALOADER_M_LotCtlExclude_BY_UUID = "M_LotCtlExcludeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_LotCtlExcludeDataLoader extends PODataLoader<MLotCtlExclude> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_LotCtlExclude_BY_ID_DATA_LOADER;
+		return DATALOADER_M_LotCtlExclude_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_LotCtlExclude_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_LotCtlExclude_BY_UUID;
 	}
 }

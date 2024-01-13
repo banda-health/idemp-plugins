@@ -35,7 +35,7 @@ public class X_A_Asset_DeliveryResolver extends POResolver<MAssetDelivery> imple
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_A_Asset_DeliveryResolver extends POResolver<MAssetDelivery> imple
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_A_Asset_DeliveryResolver extends POResolver<MAssetDelivery> imple
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getM_InOutLine_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_A_Asset_DeliveryResolver extends POResolver<MAssetDelivery> imple
 			return null;
 		}
 		DataLoader<Integer, MProductDownload> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDownloadDataLoader.M_ProductDownload_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDownloadDataLoader.DATALOADER_M_ProductDownload_BY_ID);
 		return dataLoader.load(entity.getM_ProductDownload_ID());
 	}
 

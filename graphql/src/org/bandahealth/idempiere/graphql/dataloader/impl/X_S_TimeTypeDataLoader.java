@@ -9,8 +9,8 @@ import org.compiere.model.X_S_TimeType;
  * @version Release 8.2 - $Id$
  */
 public class X_S_TimeTypeDataLoader extends PODataLoader<X_S_TimeType> {
-	public static String S_TimeType_BY_ID_DATA_LOADER = "S_TimeTypeByIdDataLoader";
-	public static String S_TimeType_BY_UUID_DATA_LOADER = "S_TimeTypeByUuidDataLoader";
+	public static String DATALOADER_S_TimeType_BY_ID = "S_TimeTypeByIdDataLoader";
+	public static String DATALOADER_S_TimeType_BY_UUID = "S_TimeTypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_S_TimeTypeDataLoader extends PODataLoader<X_S_TimeType> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return S_TimeType_BY_ID_DATA_LOADER;
+		return DATALOADER_S_TimeType_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return S_TimeType_BY_UUID_DATA_LOADER;
+		return DATALOADER_S_TimeType_BY_UUID;
 	}
 }

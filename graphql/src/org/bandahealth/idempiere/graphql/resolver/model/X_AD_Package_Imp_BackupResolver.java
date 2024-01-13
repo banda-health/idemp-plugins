@@ -37,7 +37,7 @@ public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp
 			return null;
 		}
 		DataLoader<Integer, X_AD_Package_Imp_Detail> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Package_Imp_DetailDataLoader.AD_Package_Imp_Detail_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Package_Imp_DetailDataLoader.DATALOADER_AD_Package_Imp_Detail_BY_ID);
 		return dataLoader.load(entity.getAD_Package_Imp_Detail_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp
 			return null;
 		}
 		DataLoader<Integer, X_AD_Package_Imp> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Package_ImpDataLoader.AD_Package_Imp_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Package_ImpDataLoader.DATALOADER_AD_Package_Imp_BY_ID);
 		return dataLoader.load(entity.getAD_Package_Imp_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_ID());
 	}
 
@@ -97,7 +97,7 @@ public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 

@@ -9,8 +9,8 @@ import org.compiere.model.MDashboardPreference;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_DashboardPreferenceDataLoader extends PODataLoader<MDashboardPreference> {
-	public static String PA_DashboardPreference_BY_ID_DATA_LOADER = "PA_DashboardPreferenceByIdDataLoader";
-	public static String PA_DashboardPreference_BY_UUID_DATA_LOADER = "PA_DashboardPreferenceByUuidDataLoader";
+	public static String DATALOADER_PA_DashboardPreference_BY_ID = "PA_DashboardPreferenceByIdDataLoader";
+	public static String DATALOADER_PA_DashboardPreference_BY_UUID = "PA_DashboardPreferenceByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_DashboardPreferenceDataLoader extends PODataLoader<MDashboardP
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_DashboardPreference_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_DashboardPreference_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_DashboardPreference_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_DashboardPreference_BY_UUID;
 	}
 }

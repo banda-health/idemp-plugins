@@ -50,7 +50,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 			return null;
 		}
 		DataLoader<Integer, MField_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.AD_Field_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.DATALOADER_AD_Field_BY_ID);
 		return dataLoader.load(entity.getAD_Field_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_FormDataLoader.AD_Form_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FormDataLoader.DATALOADER_AD_Form_BY_ID);
 		return dataLoader.load(entity.getAD_Form_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.DATALOADER_AD_Process_BY_ID);
 		return dataLoader.load(entity.getAD_Process_ID());
 	}
 
@@ -95,7 +95,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 			return null;
 		}
 		DataLoader<Integer, MProcessPara> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Process_ParaDataLoader.AD_Process_Para_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Process_ParaDataLoader.DATALOADER_AD_Process_Para_BY_ID);
 		return dataLoader.load(entity.getAD_Process_Para_ID());
 	}
 
@@ -110,7 +110,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.AD_Tab_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.DATALOADER_AD_Tab_BY_ID);
 		return dataLoader.load(entity.getAD_Tab_ID());
 	}
 
@@ -125,7 +125,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TaskDataLoader.AD_Task_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TaskDataLoader.DATALOADER_AD_Task_BY_ID);
 		return dataLoader.load(entity.getAD_Task_ID());
 	}
 
@@ -140,7 +140,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.AD_WF_Node_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.DATALOADER_AD_WF_Node_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Node_ID());
 	}
 
@@ -155,7 +155,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.AD_Window_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
@@ -170,7 +170,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.AD_Workflow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.DATALOADER_AD_Workflow_BY_ID);
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 
@@ -186,7 +186,7 @@ public class X_ASP_ClientExceptionResolver extends POResolver<X_ASP_ClientExcept
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ASP_STATUS_UUIDS_BY_VALUE.get(entity.getASP_Status()));
 	}
 

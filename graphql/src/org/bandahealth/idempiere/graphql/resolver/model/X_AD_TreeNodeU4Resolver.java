@@ -29,7 +29,7 @@ public class X_AD_TreeNodeU4Resolver extends POResolver<X_AD_TreeNodeU4> impleme
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.DATALOADER_AD_Tree_BY_ID);
 		return dataLoader.load(entity.getAD_Tree_ID());
 	}
 

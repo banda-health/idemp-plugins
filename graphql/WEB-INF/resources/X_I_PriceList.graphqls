@@ -23,7 +23,7 @@ type I_PriceList {
 	# The Key of the Business Partner
 	BPartner_Value: String
 	# Low Value of trade discount break level
-	BreakValue: Int
+	BreakValue: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# The Currency for this record
@@ -60,13 +60,13 @@ type I_PriceList {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Lowest price for a product
-	PriceLimit: Int
+	PriceLimit: BigDecimal
 	# List Price
-	PriceList: Int
+	PriceList: BigDecimal
 	# Precision (number of decimals) for the Price
 	PricePrecision: Int
 	# Standard Price
-	PriceStd: Int
+	PriceStd: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -88,7 +88,7 @@ input I_PriceListInput {
 	# The Key of the Business Partner
 	BPartner_Value: String
 	# Low Value of trade discount break level
-	BreakValue: Int
+	BreakValue: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# The Currency for this record
@@ -121,13 +121,13 @@ input I_PriceListInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Lowest price for a product
-	PriceLimit: Int
+	PriceLimit: BigDecimal
 	# List Price
-	PriceList: Int
+	PriceList: BigDecimal
 	# Precision (number of decimals) for the Price
 	PricePrecision: Int
 	# Standard Price
-	PriceStd: Int
+	PriceStd: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

@@ -39,7 +39,7 @@ public class X_M_ShipperLabelsCfgResolver extends POResolver<X_M_ShipperLabelsCf
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(LABELPRINTMETHOD_UUIDS_BY_VALUE.get(entity.getLabelPrintMethod()));
 	}
 
@@ -54,7 +54,7 @@ public class X_M_ShipperLabelsCfgResolver extends POResolver<X_M_ShipperLabelsCf
 			return null;
 		}
 		DataLoader<Integer, X_M_ShipperCfg> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperCfgDataLoader.M_ShipperCfg_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperCfgDataLoader.DATALOADER_M_ShipperCfg_BY_ID);
 		return dataLoader.load(entity.getM_ShipperCfg_ID());
 	}
 

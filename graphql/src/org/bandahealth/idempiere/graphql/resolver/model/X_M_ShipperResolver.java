@@ -33,7 +33,7 @@ public class X_M_ShipperResolver extends POResolver<MShipper> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_M_ShipperResolver extends POResolver<MShipper> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, X_M_ShipperCfg> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperCfgDataLoader.M_ShipperCfg_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperCfgDataLoader.DATALOADER_M_ShipperCfg_BY_ID);
 		return dataLoader.load(entity.getM_ShipperCfg_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_M_ShipperResolver extends POResolver<MShipper> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MShippingProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShippingProcessorDataLoader.M_ShippingProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShippingProcessorDataLoader.DATALOADER_M_ShippingProcessor_BY_ID);
 		return dataLoader.load(entity.getM_ShippingProcessor_ID());
 	}
 

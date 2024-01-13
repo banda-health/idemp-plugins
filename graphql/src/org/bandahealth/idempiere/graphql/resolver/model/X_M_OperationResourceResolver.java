@@ -33,7 +33,7 @@ public class X_M_OperationResourceResolver extends POResolver<X_M_OperationResou
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_M_OperationResourceResolver extends POResolver<X_M_OperationResou
 			return null;
 		}
 		DataLoader<Integer, X_C_Job> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_JobDataLoader.C_Job_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_JobDataLoader.DATALOADER_C_Job_BY_ID);
 		return dataLoader.load(entity.getC_Job_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_M_OperationResourceResolver extends POResolver<X_M_OperationResou
 			return null;
 		}
 		DataLoader<Integer, X_M_ProductOperation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductOperationDataLoader.M_ProductOperation_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductOperationDataLoader.DATALOADER_M_ProductOperation_BY_ID);
 		return dataLoader.load(entity.getM_ProductOperation_ID());
 	}
 

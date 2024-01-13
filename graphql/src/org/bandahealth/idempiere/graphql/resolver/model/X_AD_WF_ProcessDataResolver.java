@@ -29,7 +29,7 @@ public class X_AD_WF_ProcessDataResolver extends POResolver<X_AD_WF_ProcessData>
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Process> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ProcessDataLoader.AD_WF_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ProcessDataLoader.DATALOADER_AD_WF_Process_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Process_ID());
 	}
 

@@ -39,7 +39,7 @@ type U_WebMenu {
 	Name: String!
 	ParentMenu: U_WebMenu
 	Position: String
-	Sequence: Int
+	Sequence: BigDecimal
 	ID: ID!
 	# Date this record was updated
 	Updated: Date!
@@ -65,6 +65,6 @@ input U_WebMenuInput {
 	Name: String
 	ParentMenu: ForeignEntityInput
 	Position: String
-	Sequence: Int
+	Sequence: BigDecimal
 	ID: ID
 }

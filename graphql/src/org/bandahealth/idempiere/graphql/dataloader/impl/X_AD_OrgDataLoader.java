@@ -9,8 +9,8 @@ import org.compiere.model.MOrg;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_OrgDataLoader extends PODataLoader<MOrg> {
-	public static String AD_Org_BY_ID_DATA_LOADER = "AD_OrgByIdDataLoader";
-	public static String AD_Org_BY_UUID_DATA_LOADER = "AD_OrgByUuidDataLoader";
+	public static String DATALOADER_AD_Org_BY_ID = "AD_OrgByIdDataLoader";
+	public static String DATALOADER_AD_Org_BY_UUID = "AD_OrgByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_OrgDataLoader extends PODataLoader<MOrg> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Org_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Org_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Org_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Org_BY_UUID;
 	}
 }

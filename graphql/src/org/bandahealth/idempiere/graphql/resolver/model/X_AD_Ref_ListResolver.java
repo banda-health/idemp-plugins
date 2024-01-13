@@ -39,7 +39,7 @@ public class X_AD_Ref_ListResolver extends POResolver<MRefList_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_AD_Ref_ListResolver extends POResolver<MRefList_BH> implements Gr
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Ref_List_TrlDataLoader.AD_Ref_List_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Ref_List_TrlDataLoader.DATALOADER_AD_Ref_List_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MRefList_BH.COLUMNNAME_Description));
 	}
@@ -85,7 +85,7 @@ public class X_AD_Ref_ListResolver extends POResolver<MRefList_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -99,7 +99,7 @@ public class X_AD_Ref_ListResolver extends POResolver<MRefList_BH> implements Gr
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Ref_List_TrlDataLoader.AD_Ref_List_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Ref_List_TrlDataLoader.DATALOADER_AD_Ref_List_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MRefList_BH.COLUMNNAME_Name));
 	}

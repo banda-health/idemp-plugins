@@ -48,7 +48,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_SUBTYPE_UUIDS_BY_VALUE.get(entity.getBH_SubType()));
 	}
 
@@ -63,7 +63,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -78,7 +78,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MChargeType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeTypeDataLoader.C_ChargeType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeTypeDataLoader.DATALOADER_C_ChargeType_BY_ID);
 		return dataLoader.load(entity.getC_ChargeType_ID());
 	}
 
@@ -93,7 +93,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxCategoryDataLoader.C_TaxCategory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxCategoryDataLoader.DATALOADER_C_TaxCategory_BY_ID);
 		return dataLoader.load(entity.getC_TaxCategory_ID());
 	}
 
@@ -107,7 +107,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Charge_TrlDataLoader.C_Charge_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Charge_TrlDataLoader.DATALOADER_C_Charge_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MCharge_BH.COLUMNNAME_Description));
 	}
@@ -134,7 +134,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Charge_TrlDataLoader.C_Charge_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Charge_TrlDataLoader.DATALOADER_C_Charge_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MCharge_BH.COLUMNNAME_Name));
 	}

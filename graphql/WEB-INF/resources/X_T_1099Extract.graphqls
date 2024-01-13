@@ -22,22 +22,22 @@ type T_1099Extract {
 	AD_Org: AD_Org
 	# Instance of the process
 	AD_PInstance: AD_PInstance!
-	AmtBucket01: Int
-	AmtBucket02: Int
-	AmtBucket03: Int
-	AmtBucket04: Int
-	AmtBucket05: Int
-	AmtBucket06: Int
-	AmtBucket07: Int
-	AmtBucket08: Int
-	AmtBucket09: Int
-	AmtBucket10: Int
-	AmtBucket11: Int
-	AmtBucket12: Int
-	AmtBucket13: Int
-	AmtBucket14: Int
-	AmtBucket15: Int
-	AmtBucket16: Int
+	AmtBucket01: BigDecimal
+	AmtBucket02: BigDecimal
+	AmtBucket03: BigDecimal
+	AmtBucket04: BigDecimal
+	AmtBucket05: BigDecimal
+	AmtBucket06: BigDecimal
+	AmtBucket07: BigDecimal
+	AmtBucket08: BigDecimal
+	AmtBucket09: BigDecimal
+	AmtBucket10: BigDecimal
+	AmtBucket11: BigDecimal
+	AmtBucket12: BigDecimal
+	AmtBucket13: BigDecimal
+	AmtBucket14: BigDecimal
+	AmtBucket15: BigDecimal
+	AmtBucket16: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Location or Address
@@ -68,22 +68,22 @@ input T_1099ExtractInput {
 	AD_Org: ForeignEntityInput
 	# Instance of the process
 	AD_PInstance: ForeignEntityInput
-	AmtBucket01: Int
-	AmtBucket02: Int
-	AmtBucket03: Int
-	AmtBucket04: Int
-	AmtBucket05: Int
-	AmtBucket06: Int
-	AmtBucket07: Int
-	AmtBucket08: Int
-	AmtBucket09: Int
-	AmtBucket10: Int
-	AmtBucket11: Int
-	AmtBucket12: Int
-	AmtBucket13: Int
-	AmtBucket14: Int
-	AmtBucket15: Int
-	AmtBucket16: Int
+	AmtBucket01: BigDecimal
+	AmtBucket02: BigDecimal
+	AmtBucket03: BigDecimal
+	AmtBucket04: BigDecimal
+	AmtBucket05: BigDecimal
+	AmtBucket06: BigDecimal
+	AmtBucket07: BigDecimal
+	AmtBucket08: BigDecimal
+	AmtBucket09: BigDecimal
+	AmtBucket10: BigDecimal
+	AmtBucket11: BigDecimal
+	AmtBucket12: BigDecimal
+	AmtBucket13: BigDecimal
+	AmtBucket14: BigDecimal
+	AmtBucket15: BigDecimal
+	AmtBucket16: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Location or Address

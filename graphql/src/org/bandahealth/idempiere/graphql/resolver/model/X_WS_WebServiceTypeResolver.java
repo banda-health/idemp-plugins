@@ -33,7 +33,7 @@ public class X_WS_WebServiceTypeResolver extends POResolver<X_WS_WebServiceType>
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_WS_WebServiceTypeResolver extends POResolver<X_WS_WebServiceType>
 			return null;
 		}
 		DataLoader<Integer, X_WS_WebService> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceDataLoader.WS_WebService_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceDataLoader.DATALOADER_WS_WebService_BY_ID);
 		return dataLoader.load(entity.getWS_WebService_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_WS_WebServiceTypeResolver extends POResolver<X_WS_WebServiceType>
 			return null;
 		}
 		DataLoader<Integer, X_WS_WebServiceMethod> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceMethodDataLoader.WS_WebServiceMethod_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceMethodDataLoader.DATALOADER_WS_WebServiceMethod_BY_ID);
 		return dataLoader.load(entity.getWS_WebServiceMethod_ID());
 	}
 

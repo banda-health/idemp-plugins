@@ -25,21 +25,21 @@ type T_BOMLine {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema
 	# Cost information
-	Cost: Int
+	Cost: BigDecimal
 	# Indicates how Costs will be calculated
 	CostingMethod: AD_Ref_List
 	# Standard Costs
-	CostStandard: Int
+	CostStandard: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
-	CurrentCostPriceLL: Int
-	FutureCostPrice: Int
-	FutureCostPriceLL: Int
+	CurrentCostPriceLL: BigDecimal
+	FutureCostPrice: BigDecimal
+	FutureCostPriceLL: BigDecimal
 	# Implosion of a Bill of Materials refers to finding all the BOM''s in which a component is used.
 	Implosion: Boolean!
 	# The record is active in the system
@@ -59,7 +59,7 @@ type T_BOMLine {
 	# BOM Line
 	PP_Product_BOMLine: PP_Product_BOMLine
 	# Indicate the Quantity  use in this BOM
-	QtyBOM: Int
+	QtyBOM: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	ID: ID!
@@ -77,17 +77,17 @@ input T_BOMLineInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Cost information
-	Cost: Int
+	Cost: BigDecimal
 	# Indicates how Costs will be calculated
 	CostingMethod: AD_Ref_ListInput
 	# Standard Costs
-	CostStandard: Int
+	CostStandard: BigDecimal
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
-	CurrentCostPriceLL: Int
-	FutureCostPrice: Int
-	FutureCostPriceLL: Int
+	CurrentCostPriceLL: BigDecimal
+	FutureCostPrice: BigDecimal
+	FutureCostPriceLL: BigDecimal
 	# Implosion of a Bill of Materials refers to finding all the BOM''s in which a component is used.
 	Implosion: Boolean
 	# The record is active in the system
@@ -107,7 +107,7 @@ input T_BOMLineInput {
 	# BOM Line
 	PP_Product_BOMLine: ForeignEntityInput
 	# Indicate the Quantity  use in this BOM
-	QtyBOM: Int
+	QtyBOM: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	ID: ID

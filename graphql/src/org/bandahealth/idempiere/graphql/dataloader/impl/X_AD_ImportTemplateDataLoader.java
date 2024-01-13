@@ -9,8 +9,8 @@ import org.compiere.model.MImportTemplate;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ImportTemplateDataLoader extends PODataLoader<MImportTemplate> {
-	public static String AD_ImportTemplate_BY_ID_DATA_LOADER = "AD_ImportTemplateByIdDataLoader";
-	public static String AD_ImportTemplate_BY_UUID_DATA_LOADER = "AD_ImportTemplateByUuidDataLoader";
+	public static String DATALOADER_AD_ImportTemplate_BY_ID = "AD_ImportTemplateByIdDataLoader";
+	public static String DATALOADER_AD_ImportTemplate_BY_UUID = "AD_ImportTemplateByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ImportTemplateDataLoader extends PODataLoader<MImportTemplate>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_ImportTemplate_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_ImportTemplate_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_ImportTemplate_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_ImportTemplate_BY_UUID;
 	}
 }

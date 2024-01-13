@@ -9,8 +9,8 @@ import org.compiere.model.MResourceAssignment;
  * @version Release 8.2 - $Id$
  */
 public class X_S_ResourceAssignmentDataLoader extends PODataLoader<MResourceAssignment> {
-	public static String S_ResourceAssignment_BY_ID_DATA_LOADER = "S_ResourceAssignmentByIdDataLoader";
-	public static String S_ResourceAssignment_BY_UUID_DATA_LOADER = "S_ResourceAssignmentByUuidDataLoader";
+	public static String DATALOADER_S_ResourceAssignment_BY_ID = "S_ResourceAssignmentByIdDataLoader";
+	public static String DATALOADER_S_ResourceAssignment_BY_UUID = "S_ResourceAssignmentByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_S_ResourceAssignmentDataLoader extends PODataLoader<MResourceAssi
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return S_ResourceAssignment_BY_ID_DATA_LOADER;
+		return DATALOADER_S_ResourceAssignment_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return S_ResourceAssignment_BY_UUID_DATA_LOADER;
+		return DATALOADER_S_ResourceAssignment_BY_UUID;
 	}
 }

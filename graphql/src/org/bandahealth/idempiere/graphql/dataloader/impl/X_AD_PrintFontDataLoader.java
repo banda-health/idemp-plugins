@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_PrintFont;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_PrintFontDataLoader extends PODataLoader<X_AD_PrintFont> {
-	public static String AD_PrintFont_BY_ID_DATA_LOADER = "AD_PrintFontByIdDataLoader";
-	public static String AD_PrintFont_BY_UUID_DATA_LOADER = "AD_PrintFontByUuidDataLoader";
+	public static String DATALOADER_AD_PrintFont_BY_ID = "AD_PrintFontByIdDataLoader";
+	public static String DATALOADER_AD_PrintFont_BY_UUID = "AD_PrintFontByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_PrintFontDataLoader extends PODataLoader<X_AD_PrintFont> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_PrintFont_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_PrintFont_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_PrintFont_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_PrintFont_BY_UUID;
 	}
 }

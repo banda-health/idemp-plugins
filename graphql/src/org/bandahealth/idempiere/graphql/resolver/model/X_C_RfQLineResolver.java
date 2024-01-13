@@ -33,7 +33,7 @@ public class X_C_RfQLineResolver extends POResolver<MRfQLine> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MRfQ> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RfQDataLoader.C_RfQ_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RfQDataLoader.DATALOADER_C_RfQ_BY_ID);
 		return dataLoader.load(entity.getC_RfQ_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_C_RfQLineResolver extends POResolver<MRfQLine> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_C_RfQLineResolver extends POResolver<MRfQLine> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

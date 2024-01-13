@@ -36,7 +36,7 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -51,7 +51,7 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 			return null;
 		}
 		DataLoader<Integer, MOpportunity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OpportunityDataLoader.C_Opportunity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OpportunityDataLoader.DATALOADER_C_Opportunity_BY_ID);
 		return dataLoader.load(entity.getC_Opportunity_ID());
 	}
 
@@ -68,7 +68,7 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CONTACTACTIVITYTYPE_UUIDS_BY_VALUE.get(entity.getContactActivityType()));
 	}
 
@@ -87,7 +87,7 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 

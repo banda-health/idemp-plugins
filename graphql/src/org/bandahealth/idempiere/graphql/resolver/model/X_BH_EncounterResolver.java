@@ -37,7 +37,7 @@ public class X_BH_EncounterResolver extends POResolver<MBHEncounter> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_ENCOUNTER_TYPE_UUIDS_BY_VALUE.get(entity.getBH_Encounter_Type()));
 	}
 
@@ -52,7 +52,7 @@ public class X_BH_EncounterResolver extends POResolver<MBHEncounter> implements 
 			return null;
 		}
 		DataLoader<Integer, MBHVisit> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_VisitDataLoader.BH_Visit_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_VisitDataLoader.DATALOADER_BH_Visit_BY_ID);
 		return dataLoader.load(entity.getBH_Visit_ID());
 	}
 

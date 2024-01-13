@@ -25,19 +25,19 @@ type T_BOM_Indented {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema
 	# Cost information
-	Cost: Int
+	Cost: BigDecimal
 	# Cost information
-	CostFuture: Int
+	CostFuture: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
-	CurrentCostPriceLL: Int
-	FutureCostPrice: Int
-	FutureCostPriceLL: Int
+	CurrentCostPriceLL: BigDecimal
+	FutureCostPrice: BigDecimal
+	FutureCostPriceLL: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	LevelNo: Int
@@ -47,9 +47,9 @@ type T_BOM_Indented {
 	# Product, Service, Item
 	M_Product: M_Product
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Indicate the Quantity  use in this BOM
-	QtyBOM: Int
+	QtyBOM: BigDecimal
 	Sel_Product: M_Product
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
@@ -68,15 +68,15 @@ input T_BOM_IndentedInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Cost information
-	Cost: Int
+	Cost: BigDecimal
 	# Cost information
-	CostFuture: Int
+	CostFuture: BigDecimal
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Current Price Lower Level Is the sum of the costs of the components of this product manufactured for this level.
-	CurrentCostPriceLL: Int
-	FutureCostPrice: Int
-	FutureCostPriceLL: Int
+	CurrentCostPriceLL: BigDecimal
+	FutureCostPrice: BigDecimal
+	FutureCostPriceLL: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	LevelNo: Int
@@ -86,9 +86,9 @@ input T_BOM_IndentedInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Indicate the Quantity  use in this BOM
-	QtyBOM: Int
+	QtyBOM: BigDecimal
 	Sel_Product: ForeignEntityInput
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int

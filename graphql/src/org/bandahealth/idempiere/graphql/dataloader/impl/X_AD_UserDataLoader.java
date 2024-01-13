@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_UserDataLoader extends PODataLoader<MUser_BH> {
-	public static String AD_User_BY_ID_DATA_LOADER = "AD_UserByIdDataLoader";
-	public static String AD_User_BY_UUID_DATA_LOADER = "AD_UserByUuidDataLoader";
+	public static String DATALOADER_AD_User_BY_ID = "AD_UserByIdDataLoader";
+	public static String DATALOADER_AD_User_BY_UUID = "AD_UserByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_UserDataLoader extends PODataLoader<MUser_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_User_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_User_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_User_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_User_BY_UUID;
 	}
 }

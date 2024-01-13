@@ -1,5 +1,7 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import org.compiere.model.I_M_Product;
 
 /**
@@ -23,6 +25,139 @@ public interface I_M_ProductInput extends I_M_Product {
 	 * @return Organizational entity within client
 	 */
 	ForeignEntityInput AD_Org();
+
+	/**
+	 * Column name BH_BuyPrice
+	 */
+	static final String COLUMNNAME_BH_BuyPrice = "BH_BuyPrice";
+
+	/**
+	 * Set BH_BuyPrice.
+	 *
+	 * @param BH_BuyPrice Purchase price of product
+	 */
+	void setBH_BuyPrice(BigDecimal BH_BuyPrice);
+
+	/**
+	 * Get BH_BuyPrice.
+	 *
+	 * @return Purchase price of product
+	 */
+	BigDecimal getBH_BuyPrice();
+
+	/**
+	 * Column name BH_HasExpiration
+	 */
+	static final String COLUMNNAME_BH_HasExpiration = "BH_HasExpiration";
+
+	/**
+	 * Set Has Expiration.
+	 *
+	 * @param BH_HasExpiration Has Expiration
+	 */
+	void setBH_HasExpiration(boolean BH_HasExpiration);
+
+	/**
+	 * Get Has Expiration.
+	 *
+	 * @return Has Expiration
+	 */
+	boolean isBH_HasExpiration();
+
+	/**
+	 * Column name BH_NavButtons
+	 */
+	static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	void setBH_NavButtons(Object BH_NavButtons);
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	Object getBH_NavButtons();
+
+	/**
+	 * Column name BH_PriceMargin
+	 */
+	static final String COLUMNNAME_BH_PriceMargin = "BH_PriceMargin";
+
+	/**
+	 * Set Price Margin.
+	 *
+	 * @param BH_PriceMargin Price Margin
+	 */
+	void setBH_PriceMargin(BigDecimal BH_PriceMargin);
+
+	/**
+	 * Get Price Margin.
+	 *
+	 * @return Price Margin
+	 */
+	BigDecimal getBH_PriceMargin();
+
+	/**
+	 * Column name bh_reorder_level
+	 */
+	static final String COLUMNNAME_bh_reorder_level = "bh_reorder_level";
+
+	/**
+	 * Set Re-order Level.
+	 *
+	 * @param bh_reorder_level Re-order Level
+	 */
+	void setbh_reorder_level(int bh_reorder_level);
+
+	/**
+	 * Get Re-order Level.
+	 *
+	 * @return Re-order Level
+	 */
+	int getbh_reorder_level();
+
+	/**
+	 * Column name bh_reorder_quantity
+	 */
+	static final String COLUMNNAME_bh_reorder_quantity = "bh_reorder_quantity";
+
+	/**
+	 * Set Re-order Quantity.
+	 *
+	 * @param bh_reorder_quantity How much quantity you want to re-order
+	 */
+	void setbh_reorder_quantity(int bh_reorder_quantity);
+
+	/**
+	 * Get Re-order Quantity.
+	 *
+	 * @return How much quantity you want to re-order
+	 */
+	int getbh_reorder_quantity();
+
+	/**
+	 * Column name BH_SellPrice
+	 */
+	static final String COLUMNNAME_BH_SellPrice = "BH_SellPrice";
+
+	/**
+	 * Set BH_SellPrice.
+	 *
+	 * @param BH_SellPrice Selling price of BandaGo product
+	 */
+	void setBH_SellPrice(BigDecimal BH_SellPrice);
+
+	/**
+	 * Get BH_SellPrice.
+	 *
+	 * @return Selling price of BandaGo product
+	 */
+	BigDecimal getBH_SellPrice();
 
 	/**
 	 * Set C_RevenueRecognition.
@@ -79,6 +214,63 @@ public interface I_M_ProductInput extends I_M_Product {
 	 * @return Unit of Measure
 	 */
 	ForeignEntityInput C_UOM();
+
+	/**
+	 * Column name DiscontinuedBy
+	 */
+	static final String COLUMNNAME_DiscontinuedBy = "DiscontinuedBy";
+
+	/**
+	 * Set Discontinued by.
+	 *
+	 * @param DiscontinuedBy Discontinued By
+	 */
+	void setDiscontinuedBy(Timestamp DiscontinuedBy);
+
+	/**
+	 * Get Discontinued by.
+	 *
+	 * @return Discontinued By
+	 */
+	Timestamp getDiscontinuedBy();
+
+	/**
+	 * Column name DownloadURL
+	 */
+	static final String COLUMNNAME_DownloadURL = "DownloadURL";
+
+	/**
+	 * Set Download URL.
+	 *
+	 * @param DownloadURL URL of the Download files
+	 */
+	void setDownloadURL(String DownloadURL);
+
+	/**
+	 * Get Download URL.
+	 *
+	 * @return URL of the Download files
+	 */
+	String getDownloadURL();
+
+	/**
+	 * Column name istoformule
+	 */
+	static final String COLUMNNAME_istoformule = "istoformule";
+
+	/**
+	 * Set istoformule.
+	 *
+	 * @param istoformule istoformule
+	 */
+	void setistoformule(boolean istoformule);
+
+	/**
+	 * Get istoformule.
+	 *
+	 * @return istoformule
+	 */
+	boolean istoformule();
 
 	/**
 	 * Set M_AttributeSet.
@@ -191,6 +383,25 @@ public interface I_M_ProductInput extends I_M_Product {
 	 * @return Type of product
 	 */
 	I_AD_Ref_ListInput ProductType();
+
+	/**
+	 * Column name QtyInStore
+	 */
+	static final String COLUMNNAME_QtyInStore = "QtyInStore";
+
+	/**
+	 * Set QtyInStore.
+	 *
+	 * @param QtyInStore Quantity In Store
+	 */
+	void setQtyInStore(int QtyInStore);
+
+	/**
+	 * Get QtyInStore.
+	 *
+	 * @return Quantity In Store
+	 */
+	int getQtyInStore();
 
 	/**
 	 * Set R_MailText.

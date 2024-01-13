@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MWarehouse_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_M_WarehouseDataLoader extends PODataLoader<MWarehouse_BH> {
-	public static String M_Warehouse_BY_ID_DATA_LOADER = "M_WarehouseByIdDataLoader";
-	public static String M_Warehouse_BY_UUID_DATA_LOADER = "M_WarehouseByUuidDataLoader";
+	public static String DATALOADER_M_Warehouse_BY_ID = "M_WarehouseByIdDataLoader";
+	public static String DATALOADER_M_Warehouse_BY_UUID = "M_WarehouseByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_WarehouseDataLoader extends PODataLoader<MWarehouse_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_Warehouse_BY_ID_DATA_LOADER;
+		return DATALOADER_M_Warehouse_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_Warehouse_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_Warehouse_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.MProjectIssue;
  * @version Release 8.2 - $Id$
  */
 public class X_C_ProjectIssueDataLoader extends PODataLoader<MProjectIssue> {
-	public static String C_ProjectIssue_BY_ID_DATA_LOADER = "C_ProjectIssueByIdDataLoader";
-	public static String C_ProjectIssue_BY_UUID_DATA_LOADER = "C_ProjectIssueByUuidDataLoader";
+	public static String DATALOADER_C_ProjectIssue_BY_ID = "C_ProjectIssueByIdDataLoader";
+	public static String DATALOADER_C_ProjectIssue_BY_UUID = "C_ProjectIssueByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_ProjectIssueDataLoader extends PODataLoader<MProjectIssue> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_ProjectIssue_BY_ID_DATA_LOADER;
+		return DATALOADER_C_ProjectIssue_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_ProjectIssue_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_ProjectIssue_BY_UUID;
 	}
 }

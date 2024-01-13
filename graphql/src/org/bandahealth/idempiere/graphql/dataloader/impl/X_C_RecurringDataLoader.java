@@ -9,8 +9,8 @@ import org.compiere.model.MRecurring;
  * @version Release 8.2 - $Id$
  */
 public class X_C_RecurringDataLoader extends PODataLoader<MRecurring> {
-	public static String C_Recurring_BY_ID_DATA_LOADER = "C_RecurringByIdDataLoader";
-	public static String C_Recurring_BY_UUID_DATA_LOADER = "C_RecurringByUuidDataLoader";
+	public static String DATALOADER_C_Recurring_BY_ID = "C_RecurringByIdDataLoader";
+	public static String DATALOADER_C_Recurring_BY_UUID = "C_RecurringByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_RecurringDataLoader extends PODataLoader<MRecurring> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Recurring_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Recurring_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Recurring_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Recurring_BY_UUID;
 	}
 }

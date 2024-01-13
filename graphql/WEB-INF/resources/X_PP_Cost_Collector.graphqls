@@ -50,7 +50,7 @@ type PP_Cost_Collector {
 	DocStatus: AD_Ref_List
 	# Document sequence number of the document
 	DocumentNo: String
-	DurationReal: Int
+	DurationReal: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	IsBatchTime: Boolean!
@@ -66,7 +66,7 @@ type PP_Cost_Collector {
 	# Date a product was moved in or out of inventory
 	MovementDate: Date!
 	# Quantity of a product moved.
-	MovementQty: Int!
+	MovementQty: BigDecimal!
 	# Posting status
 	Posted: Boolean!
 	ID: ID!
@@ -79,16 +79,16 @@ type PP_Cost_Collector {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
-	QtyReject: Int
+	QtyReject: BigDecimal
 	# ID of document reversal
 	Reversal: PP_Cost_Collector
 	# Resource
 	S_Resource: S_Resource!
 	# The Quantity scrapped due to QA issues
-	ScrappedQty: Int
-	SetupTimeReal: Int
+	ScrappedQty: BigDecimal
+	SetupTimeReal: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -128,7 +128,7 @@ input PP_Cost_CollectorInput {
 	DocStatus: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
-	DurationReal: Int
+	DurationReal: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	IsBatchTime: Boolean
@@ -144,7 +144,7 @@ input PP_Cost_CollectorInput {
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Quantity of a product moved.
-	MovementQty: Int
+	MovementQty: BigDecimal
 	# Posting status
 	Posted: Boolean
 	ID: ID
@@ -157,16 +157,16 @@ input PP_Cost_CollectorInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
-	QtyReject: Int
+	QtyReject: BigDecimal
 	# ID of document reversal
 	Reversal: ForeignEntityInput
 	# Resource
 	S_Resource: ForeignEntityInput
 	# The Quantity scrapped due to QA issues
-	ScrappedQty: Int
-	SetupTimeReal: Int
+	ScrappedQty: BigDecimal
+	SetupTimeReal: BigDecimal
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2

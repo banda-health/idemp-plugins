@@ -9,8 +9,8 @@ import org.eevolution.model.X_PP_Order_BOM;
  * @version Release 8.2 - $Id$
  */
 public class X_PP_Order_BOMDataLoader extends PODataLoader<X_PP_Order_BOM> {
-	public static String PP_Order_BOM_BY_ID_DATA_LOADER = "PP_Order_BOMByIdDataLoader";
-	public static String PP_Order_BOM_BY_UUID_DATA_LOADER = "PP_Order_BOMByUuidDataLoader";
+	public static String DATALOADER_PP_Order_BOM_BY_ID = "PP_Order_BOMByIdDataLoader";
+	public static String DATALOADER_PP_Order_BOM_BY_UUID = "PP_Order_BOMByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PP_Order_BOMDataLoader extends PODataLoader<X_PP_Order_BOM> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PP_Order_BOM_BY_ID_DATA_LOADER;
+		return DATALOADER_PP_Order_BOM_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PP_Order_BOM_BY_UUID_DATA_LOADER;
+		return DATALOADER_PP_Order_BOM_BY_UUID;
 	}
 }

@@ -37,9 +37,9 @@ type C_ServiceLevel {
 	Processed: Boolean!
 	Processing: Boolean!
 	# Quantity of product or service invoiced
-	ServiceLevelInvoiced: Int!
+	ServiceLevelInvoiced: BigDecimal!
 	# Quantity of service or product provided
-	ServiceLevelProvided: Int!
+	ServiceLevelProvided: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -62,7 +62,7 @@ input C_ServiceLevelInput {
 	Processed: Boolean
 	Processing: Boolean
 	# Quantity of product or service invoiced
-	ServiceLevelInvoiced: Int
+	ServiceLevelInvoiced: BigDecimal
 	# Quantity of service or product provided
-	ServiceLevelProvided: Int
+	ServiceLevelProvided: BigDecimal
 }

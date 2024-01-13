@@ -58,12 +58,12 @@ type T_CashFlow {
 	# This is a Sales Transaction
 	IsSOTrx: Boolean!
 	# Total line amount incl. Tax
-	LineTotalAmt: Int
+	LineTotalAmt: BigDecimal
 	# Product, Service, Item
 	M_Product: M_Product
 	# Alphanumeric identifier of the entity
 	Name: String
-	Probability: Int
+	Probability: BigDecimal
 	ID: ID!
 	# Date this record was updated
 	Updated: Date!
@@ -108,11 +108,11 @@ input T_CashFlowInput {
 	# This is a Sales Transaction
 	IsSOTrx: Boolean
 	# Total line amount incl. Tax
-	LineTotalAmt: Int
+	LineTotalAmt: BigDecimal
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
-	Probability: Int
+	Probability: BigDecimal
 	ID: ID
 }

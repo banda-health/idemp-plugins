@@ -30,13 +30,13 @@ type C_UOM_Conversion {
 	# User who created this records
 	CreatedBy: AD_User!
 	# To convert Source number to Target number, the Source is divided
-	DivideRate: Int!
+	DivideRate: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product
 	# Rate to multiple the source by to calculate the target.
-	MultiplyRate: Int!
+	MultiplyRate: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -52,11 +52,11 @@ input C_UOM_ConversionInput {
 	# Target or destination Unit of Measure
 	C_UOM_To: ForeignEntityInput
 	# To convert Source number to Target number, the Source is divided
-	DivideRate: Int
+	DivideRate: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Rate to multiple the source by to calculate the target.
-	MultiplyRate: Int
+	MultiplyRate: BigDecimal
 }

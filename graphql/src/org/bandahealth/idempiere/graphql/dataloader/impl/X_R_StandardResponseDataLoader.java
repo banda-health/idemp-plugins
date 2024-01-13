@@ -9,8 +9,8 @@ import org.compiere.model.X_R_StandardResponse;
  * @version Release 8.2 - $Id$
  */
 public class X_R_StandardResponseDataLoader extends PODataLoader<X_R_StandardResponse> {
-	public static String R_StandardResponse_BY_ID_DATA_LOADER = "R_StandardResponseByIdDataLoader";
-	public static String R_StandardResponse_BY_UUID_DATA_LOADER = "R_StandardResponseByUuidDataLoader";
+	public static String DATALOADER_R_StandardResponse_BY_ID = "R_StandardResponseByIdDataLoader";
+	public static String DATALOADER_R_StandardResponse_BY_UUID = "R_StandardResponseByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_StandardResponseDataLoader extends PODataLoader<X_R_StandardRes
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_StandardResponse_BY_ID_DATA_LOADER;
+		return DATALOADER_R_StandardResponse_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_StandardResponse_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_StandardResponse_BY_UUID;
 	}
 }

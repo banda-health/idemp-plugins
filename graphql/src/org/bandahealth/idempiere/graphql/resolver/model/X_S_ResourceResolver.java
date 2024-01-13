@@ -38,7 +38,7 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -61,7 +61,7 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
@@ -78,7 +78,7 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(MANUFACTURINGRESOURCETYPE_UUIDS_BY_VALUE.get(entity.getManufacturingResourceType()));
 	}
 
@@ -93,7 +93,7 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MResourceType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceTypeDataLoader.S_ResourceType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceTypeDataLoader.DATALOADER_S_ResourceType_BY_ID);
 		return dataLoader.load(entity.getS_ResourceType_ID());
 	}
 

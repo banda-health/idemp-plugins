@@ -54,7 +54,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.AD_Workflow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.DATALOADER_AD_Workflow_BY_ID);
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, X_DD_NetworkDistribution> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_DD_NetworkDistributionDataLoader.DD_NetworkDistribution_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_DD_NetworkDistributionDataLoader.DATALOADER_DD_NetworkDistribution_BY_ID);
 		return dataLoader.load(entity.getDD_NetworkDistribution_ID());
 	}
 
@@ -115,7 +115,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, MForecast> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastDataLoader.M_Forecast_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastDataLoader.DATALOADER_M_Forecast_BY_ID);
 		return dataLoader.load(entity.getM_Forecast_ID());
 	}
 
@@ -130,7 +130,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, MForecastLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastLineDataLoader.M_ForecastLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastLineDataLoader.DATALOADER_M_ForecastLine_BY_ID);
 		return dataLoader.load(entity.getM_ForecastLine_ID());
 	}
 
@@ -145,7 +145,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -160,7 +160,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
@@ -176,7 +176,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ORDER_POLICY_UUIDS_BY_VALUE.get(entity.getOrder_Policy()));
 	}
 
@@ -191,7 +191,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getPlanner_ID());
 	}
 
@@ -206,7 +206,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMDataLoader.PP_Product_BOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMDataLoader.DATALOADER_PP_Product_BOM_BY_ID);
 		return dataLoader.load(entity.getPP_Product_BOM_ID());
 	}
 
@@ -221,7 +221,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, MPPProductPlanning> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_PlanningDataLoader.PP_Product_Planning_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_PlanningDataLoader.DATALOADER_PP_Product_Planning_BY_ID);
 		return dataLoader.load(entity.getPP_Product_Planning_ID());
 	}
 
@@ -244,7 +244,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.S_Resource_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.DATALOADER_S_Resource_BY_ID);
 		return dataLoader.load(entity.getS_Resource_ID());
 	}
 
@@ -259,7 +259,7 @@ public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning>
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 

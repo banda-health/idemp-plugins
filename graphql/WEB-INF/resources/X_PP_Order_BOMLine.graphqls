@@ -23,7 +23,7 @@ type PP_Order_BOMLine {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	# Indicated the Quantity Assay to use into Quality Order
-	Assay: Int
+	Assay: BigDecimal
 	# The Grouping Components to the Backflush
 	BackflushGroup: String
 	# Unit of Measure
@@ -31,7 +31,7 @@ type PP_Order_BOMLine {
 	# Component Type for a Bill of Material or Formula
 	ComponentType: AD_Ref_List
 	# Cost allocation percent in case of a co-product.
-	CostAllocationPerc: Int
+	CostAllocationPerc: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -43,7 +43,7 @@ type PP_Order_BOMLine {
 	# Indicated the Feature for Product Configure
 	Feature: String
 	# Indicated the % of participation this component into a of the BOM Planning
-	Forecast: Int
+	Forecast: BigDecimal
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -73,22 +73,22 @@ type PP_Order_BOMLine {
 	# Manufacturing Order
 	PP_Order: PP_Order!
 	# Indicate the Quantity % use in this Formula
-	QtyBatch: Int!
+	QtyBatch: BigDecimal!
 	# Indicate the Quantity  use in this BOM
-	QtyBOM: Int!
+	QtyBOM: BigDecimal!
 	# Delivered Quantity
-	QtyDelivered: Int!
+	QtyDelivered: BigDecimal!
 	# The Quantity Entered is based on the selected UoM
-	QtyEntered: Int
-	QtyPost: Int!
-	QtyReject: Int!
-	QtyRequiered: Int!
+	QtyEntered: BigDecimal
+	QtyPost: BigDecimal!
+	QtyReject: BigDecimal!
+	QtyRequiered: BigDecimal!
 	# Reserved Quantity
-	QtyReserved: Int!
+	QtyReserved: BigDecimal!
 	# Scrap % Quantity for this componet
-	QtyScrap: Int!
+	QtyScrap: BigDecimal!
 	# Indicate the Scrap %  for calculate the Scrap Quantity
-	Scrap: Int
+	Scrap: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -105,7 +105,7 @@ input PP_Order_BOMLineInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	# Indicated the Quantity Assay to use into Quality Order
-	Assay: Int
+	Assay: BigDecimal
 	# The Grouping Components to the Backflush
 	BackflushGroup: String
 	# Unit of Measure
@@ -113,7 +113,7 @@ input PP_Order_BOMLineInput {
 	# Component Type for a Bill of Material or Formula
 	ComponentType: AD_Ref_ListInput
 	# Cost allocation percent in case of a co-product.
-	CostAllocationPerc: Int
+	CostAllocationPerc: BigDecimal
 	# Date when the product was delivered
 	DateDelivered: Date
 	# Optional short description of the record
@@ -121,7 +121,7 @@ input PP_Order_BOMLineInput {
 	# Indicated the Feature for Product Configure
 	Feature: String
 	# Indicated the % of participation this component into a of the BOM Planning
-	Forecast: Int
+	Forecast: BigDecimal
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -151,22 +151,22 @@ input PP_Order_BOMLineInput {
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
 	# Indicate the Quantity % use in this Formula
-	QtyBatch: Int
+	QtyBatch: BigDecimal
 	# Indicate the Quantity  use in this BOM
-	QtyBOM: Int
+	QtyBOM: BigDecimal
 	# Delivered Quantity
-	QtyDelivered: Int
+	QtyDelivered: BigDecimal
 	# The Quantity Entered is based on the selected UoM
-	QtyEntered: Int
-	QtyPost: Int
-	QtyReject: Int
-	QtyRequiered: Int
+	QtyEntered: BigDecimal
+	QtyPost: BigDecimal
+	QtyReject: BigDecimal
+	QtyRequiered: BigDecimal
 	# Reserved Quantity
-	QtyReserved: Int
+	QtyReserved: BigDecimal
 	# Scrap % Quantity for this componet
-	QtyScrap: Int
+	QtyScrap: BigDecimal
 	# Indicate the Scrap %  for calculate the Scrap Quantity
-	Scrap: Int
+	Scrap: BigDecimal
 	# Valid from including this date (first day)
 	ValidFrom: Date
 	# Valid to including this date (last day)

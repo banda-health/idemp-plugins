@@ -54,7 +54,7 @@ type C_POSPayment {
 	# Combination of routing no, account and check no
 	Micr: String
 	# Amount being paid
-	PayAmt: Int!
+	PayAmt: BigDecimal!
 	# The document has been processed
 	Processed: Boolean!
 	# Bank Routing Number
@@ -104,7 +104,7 @@ input C_POSPaymentInput {
 	# Combination of routing no, account and check no
 	Micr: String
 	# Amount being paid
-	PayAmt: Int
+	PayAmt: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	# Bank Routing Number

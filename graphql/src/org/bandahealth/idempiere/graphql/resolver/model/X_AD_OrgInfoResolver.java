@@ -43,7 +43,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, X_AD_OrgType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_OrgTypeDataLoader.AD_OrgType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_OrgTypeDataLoader.DATALOADER_AD_OrgType_BY_ID);
 		return dataLoader.load(entity.getAD_OrgType_ID());
 	}
 
@@ -58,7 +58,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CalendarDataLoader.C_Calendar_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CalendarDataLoader.DATALOADER_C_Calendar_BY_ID);
 		return dataLoader.load(entity.getC_Calendar_ID());
 	}
 
@@ -73,7 +73,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_Location_ID());
 	}
 
@@ -88,7 +88,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getDropShip_Warehouse_ID());
 	}
 
@@ -103,7 +103,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.AD_Image_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.DATALOADER_AD_Image_BY_ID);
 		return dataLoader.load(entity.getLogo_ID());
 	}
 
@@ -118,7 +118,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
@@ -133,7 +133,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSupervisor_ID());
 	}
 
@@ -148,7 +148,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MBank> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BankDataLoader.C_Bank_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankDataLoader.DATALOADER_C_Bank_BY_ID);
 		return dataLoader.load(entity.getTransferBank_ID());
 	}
 
@@ -163,7 +163,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.C_CashBook_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.DATALOADER_C_CashBook_BY_ID);
 		return dataLoader.load(entity.getTransferCashBook_ID());
 	}
 

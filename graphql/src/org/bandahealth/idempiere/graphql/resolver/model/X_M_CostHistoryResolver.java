@@ -35,7 +35,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 			return null;
 		}
 		DataLoader<Integer, MCostDetail> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_CostDetailDataLoader.M_CostDetail_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_CostDetailDataLoader.DATALOADER_M_CostDetail_BY_ID);
 		return dataLoader.load(entity.getM_CostDetail_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_CostElementDataLoader.M_CostElement_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_CostElementDataLoader.DATALOADER_M_CostElement_BY_ID);
 		return dataLoader.load(entity.getM_CostElement_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_M_CostHistoryResolver extends POResolver<X_M_CostHistory> impleme
 			return null;
 		}
 		DataLoader<Integer, MCostType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_CostTypeDataLoader.M_CostType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_CostTypeDataLoader.DATALOADER_M_CostType_BY_ID);
 		return dataLoader.load(entity.getM_CostType_ID());
 	}
 

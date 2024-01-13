@@ -9,8 +9,8 @@ import org.compiere.model.MAssetType;
  * @version Release 8.2 - $Id$
  */
 public class X_A_Asset_TypeDataLoader extends PODataLoader<MAssetType> {
-	public static String A_Asset_Type_BY_ID_DATA_LOADER = "A_Asset_TypeByIdDataLoader";
-	public static String A_Asset_Type_BY_UUID_DATA_LOADER = "A_Asset_TypeByUuidDataLoader";
+	public static String DATALOADER_A_Asset_Type_BY_ID = "A_Asset_TypeByIdDataLoader";
+	public static String DATALOADER_A_Asset_Type_BY_UUID = "A_Asset_TypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_A_Asset_TypeDataLoader extends PODataLoader<MAssetType> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return A_Asset_Type_BY_ID_DATA_LOADER;
+		return DATALOADER_A_Asset_Type_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return A_Asset_Type_BY_UUID_DATA_LOADER;
+		return DATALOADER_A_Asset_Type_BY_UUID;
 	}
 }

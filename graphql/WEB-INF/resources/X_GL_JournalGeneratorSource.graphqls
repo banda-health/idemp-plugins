@@ -21,7 +21,7 @@ type GL_JournalGeneratorSource {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Multiplier Amount for generating commissions
-	AmtMultiplier: Int!
+	AmtMultiplier: BigDecimal!
 	# Account Element
 	C_ElementValue: C_ElementValue!
 	# Date this record was created
@@ -47,7 +47,7 @@ input GL_JournalGeneratorSourceInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Multiplier Amount for generating commissions
-	AmtMultiplier: Int
+	AmtMultiplier: BigDecimal
 	# Account Element
 	C_ElementValue: ForeignEntityInput
 	# General Ledger Category

@@ -30,7 +30,7 @@ public class MOrgResolver extends X_AD_OrgResolver {
 
 	public CompletableFuture<MOrgInfo_BH> AD_OrgInfo(MOrg entity, DataFetchingEnvironment environment) {
 		final DataLoader<Integer, MOrgInfo_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(MOrgInfoDataLoader.AD_OrgInfo_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(MOrgInfoDataLoader.DATALOADER_AD_OrgInfo_BY_ID);
 		return dataLoader.load(entity.getAD_Org_ID());
 	}
 }

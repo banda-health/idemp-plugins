@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_ModelValidator;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ModelValidatorDataLoader extends PODataLoader<X_AD_ModelValidator> {
-	public static String AD_ModelValidator_BY_ID_DATA_LOADER = "AD_ModelValidatorByIdDataLoader";
-	public static String AD_ModelValidator_BY_UUID_DATA_LOADER = "AD_ModelValidatorByUuidDataLoader";
+	public static String DATALOADER_AD_ModelValidator_BY_ID = "AD_ModelValidatorByIdDataLoader";
+	public static String DATALOADER_AD_ModelValidator_BY_UUID = "AD_ModelValidatorByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ModelValidatorDataLoader extends PODataLoader<X_AD_ModelValida
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_ModelValidator_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_ModelValidator_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_ModelValidator_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_ModelValidator_BY_UUID;
 	}
 }

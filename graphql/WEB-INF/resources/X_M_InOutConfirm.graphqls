@@ -21,7 +21,7 @@ type M_InOutConfirm {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Document Approval Amount
-	ApprovalAmt: Int
+	ApprovalAmt: BigDecimal
 	# Invoice Identifier
 	C_Invoice: C_Invoice
 	# Confirmation Number
@@ -67,7 +67,7 @@ input M_InOutConfirmInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Document Approval Amount
-	ApprovalAmt: Int
+	ApprovalAmt: BigDecimal
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	# Confirmation Number

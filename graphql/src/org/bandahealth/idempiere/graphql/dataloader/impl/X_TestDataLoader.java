@@ -9,8 +9,8 @@ import org.compiere.model.MTest;
  * @version Release 8.2 - $Id$
  */
 public class X_TestDataLoader extends PODataLoader<MTest> {
-	public static String Test_BY_ID_DATA_LOADER = "TestByIdDataLoader";
-	public static String Test_BY_UUID_DATA_LOADER = "TestByUuidDataLoader";
+	public static String DATALOADER_Test_BY_ID = "TestByIdDataLoader";
+	public static String DATALOADER_Test_BY_UUID = "TestByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_TestDataLoader extends PODataLoader<MTest> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return Test_BY_ID_DATA_LOADER;
+		return DATALOADER_Test_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return Test_BY_UUID_DATA_LOADER;
+		return DATALOADER_Test_BY_UUID;
 	}
 }

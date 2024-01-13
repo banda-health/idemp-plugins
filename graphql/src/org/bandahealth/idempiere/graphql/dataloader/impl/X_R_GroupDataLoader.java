@@ -9,8 +9,8 @@ import org.compiere.model.MGroup;
  * @version Release 8.2 - $Id$
  */
 public class X_R_GroupDataLoader extends PODataLoader<MGroup> {
-	public static String R_Group_BY_ID_DATA_LOADER = "R_GroupByIdDataLoader";
-	public static String R_Group_BY_UUID_DATA_LOADER = "R_GroupByUuidDataLoader";
+	public static String DATALOADER_R_Group_BY_ID = "R_GroupByIdDataLoader";
+	public static String DATALOADER_R_Group_BY_UUID = "R_GroupByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_GroupDataLoader extends PODataLoader<MGroup> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_Group_BY_ID_DATA_LOADER;
+		return DATALOADER_R_Group_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_Group_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_Group_BY_UUID;
 	}
 }

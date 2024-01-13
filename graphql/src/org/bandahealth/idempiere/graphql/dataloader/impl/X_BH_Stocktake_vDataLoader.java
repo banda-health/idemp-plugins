@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.X_BH_Stocktake_v;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_Stocktake_vDataLoader extends PODataLoader<X_BH_Stocktake_v> {
-	public static String BH_Stocktake_v_BY_ID_DATA_LOADER = "BH_Stocktake_vByIdDataLoader";
-	public static String BH_Stocktake_v_BY_UUID_DATA_LOADER = "BH_Stocktake_vByUuidDataLoader";
+	public static String DATALOADER_BH_Stocktake_v_BY_ID = "BH_Stocktake_vByIdDataLoader";
+	public static String DATALOADER_BH_Stocktake_v_BY_UUID = "BH_Stocktake_vByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_Stocktake_vDataLoader extends PODataLoader<X_BH_Stocktake_v> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_Stocktake_v_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_Stocktake_v_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_Stocktake_v_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_Stocktake_v_BY_UUID;
 	}
 }

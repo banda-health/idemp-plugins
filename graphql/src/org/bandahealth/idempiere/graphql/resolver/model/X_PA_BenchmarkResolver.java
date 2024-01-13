@@ -32,7 +32,7 @@ public class X_PA_BenchmarkResolver extends POResolver<X_PA_Benchmark> implement
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ACCUMULATIONTYPE_UUIDS_BY_VALUE.get(entity.getAccumulationType()));
 	}
 

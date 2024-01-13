@@ -33,7 +33,7 @@ public class X_I_InOutLineConfirmResolver extends POResolver<X_I_InOutLineConfir
 			return null;
 		}
 		DataLoader<Integer, MInOutLineConfirm> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineConfirmDataLoader.M_InOutLineConfirm_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineConfirmDataLoader.DATALOADER_M_InOutLineConfirm_BY_ID);
 		return dataLoader.load(entity.getM_InOutLineConfirm_ID());
 	}
 

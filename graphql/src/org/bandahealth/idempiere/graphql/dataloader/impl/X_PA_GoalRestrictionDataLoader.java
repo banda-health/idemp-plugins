@@ -9,8 +9,8 @@ import org.compiere.model.MGoalRestriction;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_GoalRestrictionDataLoader extends PODataLoader<MGoalRestriction> {
-	public static String PA_GoalRestriction_BY_ID_DATA_LOADER = "PA_GoalRestrictionByIdDataLoader";
-	public static String PA_GoalRestriction_BY_UUID_DATA_LOADER = "PA_GoalRestrictionByUuidDataLoader";
+	public static String DATALOADER_PA_GoalRestriction_BY_ID = "PA_GoalRestrictionByIdDataLoader";
+	public static String DATALOADER_PA_GoalRestriction_BY_UUID = "PA_GoalRestrictionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_GoalRestrictionDataLoader extends PODataLoader<MGoalRestrictio
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_GoalRestriction_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_GoalRestriction_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_GoalRestriction_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_GoalRestriction_BY_UUID;
 	}
 }

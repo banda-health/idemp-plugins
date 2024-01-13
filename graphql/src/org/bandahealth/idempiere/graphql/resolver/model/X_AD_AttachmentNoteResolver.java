@@ -31,7 +31,7 @@ public class X_AD_AttachmentNoteResolver extends POResolver<MAttachmentNote> imp
 			return null;
 		}
 		DataLoader<Integer, MAttachment> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_AttachmentDataLoader.AD_Attachment_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_AttachmentDataLoader.DATALOADER_AD_Attachment_BY_ID);
 		return dataLoader.load(entity.getAD_Attachment_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_AttachmentNoteResolver extends POResolver<MAttachmentNote> imp
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 

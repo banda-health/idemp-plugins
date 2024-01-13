@@ -31,7 +31,7 @@ public class X_BH_Encounter_DiagnosisResolver extends POResolver<MBHEncounterDia
 			return null;
 		}
 		DataLoader<Integer, MBHCodedDiagnosis> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_Coded_DiagnosisDataLoader.BH_Coded_Diagnosis_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_Coded_DiagnosisDataLoader.DATALOADER_BH_Coded_Diagnosis_BY_ID);
 		return dataLoader.load(entity.getBH_Coded_Diagnosis_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_BH_Encounter_DiagnosisResolver extends POResolver<MBHEncounterDia
 			return null;
 		}
 		DataLoader<Integer, MBHEncounter> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_EncounterDataLoader.BH_Encounter_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_EncounterDataLoader.DATALOADER_BH_Encounter_BY_ID);
 		return dataLoader.load(entity.getBH_Encounter_ID());
 	}
 

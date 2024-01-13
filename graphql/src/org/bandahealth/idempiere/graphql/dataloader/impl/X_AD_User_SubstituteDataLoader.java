@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_User_Substitute;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_User_SubstituteDataLoader extends PODataLoader<X_AD_User_Substitute> {
-	public static String AD_User_Substitute_BY_ID_DATA_LOADER = "AD_User_SubstituteByIdDataLoader";
-	public static String AD_User_Substitute_BY_UUID_DATA_LOADER = "AD_User_SubstituteByUuidDataLoader";
+	public static String DATALOADER_AD_User_Substitute_BY_ID = "AD_User_SubstituteByIdDataLoader";
+	public static String DATALOADER_AD_User_Substitute_BY_UUID = "AD_User_SubstituteByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_User_SubstituteDataLoader extends PODataLoader<X_AD_User_Subst
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_User_Substitute_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_User_Substitute_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_User_Substitute_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_User_Substitute_BY_UUID;
 	}
 }

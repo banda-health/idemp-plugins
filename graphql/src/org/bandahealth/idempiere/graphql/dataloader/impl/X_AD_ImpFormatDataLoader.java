@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_ImpFormat;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ImpFormatDataLoader extends PODataLoader<X_AD_ImpFormat> {
-	public static String AD_ImpFormat_BY_ID_DATA_LOADER = "AD_ImpFormatByIdDataLoader";
-	public static String AD_ImpFormat_BY_UUID_DATA_LOADER = "AD_ImpFormatByUuidDataLoader";
+	public static String DATALOADER_AD_ImpFormat_BY_ID = "AD_ImpFormatByIdDataLoader";
+	public static String DATALOADER_AD_ImpFormat_BY_UUID = "AD_ImpFormatByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ImpFormatDataLoader extends PODataLoader<X_AD_ImpFormat> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_ImpFormat_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_ImpFormat_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_ImpFormat_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_ImpFormat_BY_UUID;
 	}
 }

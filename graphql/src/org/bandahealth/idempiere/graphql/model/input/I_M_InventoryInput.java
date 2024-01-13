@@ -25,6 +25,25 @@ public interface I_M_InventoryInput extends I_M_Inventory {
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Column name BH_NavButtons
+	 */
+	static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	void setBH_NavButtons(Object BH_NavButtons);
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	Object getBH_NavButtons();
+
+	/**
 	 * Set bh_update_reason.
 	 *
 	 * @param bh_update_reason bh_update_reason

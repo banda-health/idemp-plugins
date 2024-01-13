@@ -33,7 +33,7 @@ public class X_C_PaymentAllocateResolver extends POResolver<MPaymentAllocate> im
 			return null;
 		}
 		DataLoader<Integer, MAllocationLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AllocationLineDataLoader.C_AllocationLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AllocationLineDataLoader.DATALOADER_C_AllocationLine_BY_ID);
 		return dataLoader.load(entity.getC_AllocationLine_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_C_PaymentAllocateResolver extends POResolver<MPaymentAllocate> im
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_C_PaymentAllocateResolver extends POResolver<MPaymentAllocate> im
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.C_Payment_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.DATALOADER_C_Payment_BY_ID);
 		return dataLoader.load(entity.getC_Payment_ID());
 	}
 

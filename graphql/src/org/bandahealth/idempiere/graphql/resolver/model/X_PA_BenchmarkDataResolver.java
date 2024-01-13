@@ -29,7 +29,7 @@ public class X_PA_BenchmarkDataResolver extends POResolver<X_PA_BenchmarkData> i
 			return null;
 		}
 		DataLoader<Integer, X_PA_Benchmark> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_BenchmarkDataLoader.PA_Benchmark_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_BenchmarkDataLoader.DATALOADER_PA_Benchmark_BY_ID);
 		return dataLoader.load(entity.getPA_Benchmark_ID());
 	}
 

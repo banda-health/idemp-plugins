@@ -17,18 +17,18 @@ type A_Depreciation_ExpConnection {
 
 type A_Depreciation_Exp {
 	A_Account_Number_A: C_ValidCombination
-	A_Accumulated_Depr: Int
-	A_Accumulated_Depr_Delta: Int!
-	A_Accumulated_Depr_F: Int
-	A_Accumulated_Depr_F_Delta: Int!
+	A_Accumulated_Depr: BigDecimal
+	A_Accumulated_Depr_Delta: BigDecimal!
+	A_Accumulated_Depr_F: BigDecimal
+	A_Accumulated_Depr_F_Delta: BigDecimal!
 	A_Asset_Addition: A_Asset_Addition
-	A_Asset_Cost: Int
-	A_Asset_Cost_Delta: Int!
+	A_Asset_Cost: BigDecimal
+	A_Asset_Cost_Delta: BigDecimal!
 	A_Asset_Disposed: A_Asset_Disposed
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	A_Asset_Remaining: Int
-	A_Asset_Remaining_F: Int
+	A_Asset_Remaining: BigDecimal
+	A_Asset_Remaining_F: BigDecimal
 	A_Depreciation_Entry: A_Depreciation_Entry
 	ID: ID!
 	A_Entry_Type: AD_Ref_List!
@@ -51,8 +51,8 @@ type A_Depreciation_Exp {
 	Description: String!
 	# Account used
 	DR_Account: C_ValidCombination
-	Expense: Int!
-	Expense_F: Int!
+	Expense: BigDecimal!
+	Expense_F: BigDecimal!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -75,18 +75,18 @@ type A_Depreciation_Exp {
 
 input A_Depreciation_ExpInput {
 	A_Account_Number_A: ForeignEntityInput
-	A_Accumulated_Depr: Int
-	A_Accumulated_Depr_Delta: Int
-	A_Accumulated_Depr_F: Int
-	A_Accumulated_Depr_F_Delta: Int
+	A_Accumulated_Depr: BigDecimal
+	A_Accumulated_Depr_Delta: BigDecimal
+	A_Accumulated_Depr_F: BigDecimal
+	A_Accumulated_Depr_F_Delta: BigDecimal
 	A_Asset_Addition: ForeignEntityInput
-	A_Asset_Cost: Int
-	A_Asset_Cost_Delta: Int
+	A_Asset_Cost: BigDecimal
+	A_Asset_Cost_Delta: BigDecimal
 	A_Asset_Disposed: ForeignEntityInput
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	A_Asset_Remaining: Int
-	A_Asset_Remaining_F: Int
+	A_Asset_Remaining: BigDecimal
+	A_Asset_Remaining_F: BigDecimal
 	A_Depreciation_Entry: ForeignEntityInput
 	ID: ID
 	A_Entry_Type: AD_Ref_ListInput
@@ -103,8 +103,8 @@ input A_Depreciation_ExpInput {
 	Description: String
 	# Account used
 	DR_Account: ForeignEntityInput
-	Expense: Int
-	Expense_F: Int
+	Expense: BigDecimal
+	Expense_F: BigDecimal
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

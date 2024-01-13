@@ -31,7 +31,7 @@ public class X_PA_SLA_MeasureResolver extends POResolver<MSLAMeasure> implements
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_PA_SLA_MeasureResolver extends POResolver<MSLAMeasure> implements
 			return null;
 		}
 		DataLoader<Integer, MSLAGoal> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_SLA_GoalDataLoader.PA_SLA_Goal_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_SLA_GoalDataLoader.DATALOADER_PA_SLA_Goal_BY_ID);
 		return dataLoader.load(entity.getPA_SLA_Goal_ID());
 	}
 

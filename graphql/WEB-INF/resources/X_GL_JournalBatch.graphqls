@@ -27,7 +27,7 @@ type GL_JournalBatch {
 	# Period of the Calendar
 	C_Period: C_Period
 	# If not zero, the Debit amount of the document must be equal this amount
-	ControlAmt: Int
+	ControlAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
@@ -61,9 +61,9 @@ type GL_JournalBatch {
 	# ID of document reversal
 	Reversal: GL_JournalBatch
 	# Total Credit in document currency
-	TotalCr: Int!
+	TotalCr: BigDecimal!
 	# Total debit in document currency
-	TotalDr: Int!
+	TotalDr: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -80,7 +80,7 @@ input GL_JournalBatchInput {
 	# Period of the Calendar
 	C_Period: ForeignEntityInput
 	# If not zero, the Debit amount of the document must be equal this amount
-	ControlAmt: Int
+	ControlAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
 	# Accounting Date
@@ -110,7 +110,7 @@ input GL_JournalBatchInput {
 	# ID of document reversal
 	Reversal: ForeignEntityInput
 	# Total Credit in document currency
-	TotalCr: Int
+	TotalCr: BigDecimal
 	# Total debit in document currency
-	TotalDr: Int
+	TotalDr: BigDecimal
 }

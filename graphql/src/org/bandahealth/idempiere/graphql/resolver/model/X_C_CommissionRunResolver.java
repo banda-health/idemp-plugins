@@ -29,7 +29,7 @@ public class X_C_CommissionRunResolver extends POResolver<MCommissionRun> implem
 			return null;
 		}
 		DataLoader<Integer, MCommission> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CommissionDataLoader.C_Commission_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CommissionDataLoader.DATALOADER_C_Commission_BY_ID);
 		return dataLoader.load(entity.getC_Commission_ID());
 	}
 

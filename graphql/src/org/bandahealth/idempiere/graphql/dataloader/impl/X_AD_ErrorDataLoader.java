@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_Error;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ErrorDataLoader extends PODataLoader<X_AD_Error> {
-	public static String AD_Error_BY_ID_DATA_LOADER = "AD_ErrorByIdDataLoader";
-	public static String AD_Error_BY_UUID_DATA_LOADER = "AD_ErrorByUuidDataLoader";
+	public static String DATALOADER_AD_Error_BY_ID = "AD_ErrorByIdDataLoader";
+	public static String DATALOADER_AD_Error_BY_UUID = "AD_ErrorByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ErrorDataLoader extends PODataLoader<X_AD_Error> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Error_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Error_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Error_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Error_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.MDistributionRun;
  * @version Release 8.2 - $Id$
  */
 public class X_M_DistributionRunDataLoader extends PODataLoader<MDistributionRun> {
-	public static String M_DistributionRun_BY_ID_DATA_LOADER = "M_DistributionRunByIdDataLoader";
-	public static String M_DistributionRun_BY_UUID_DATA_LOADER = "M_DistributionRunByUuidDataLoader";
+	public static String DATALOADER_M_DistributionRun_BY_ID = "M_DistributionRunByIdDataLoader";
+	public static String DATALOADER_M_DistributionRun_BY_UUID = "M_DistributionRunByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_DistributionRunDataLoader extends PODataLoader<MDistributionRun
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_DistributionRun_BY_ID_DATA_LOADER;
+		return DATALOADER_M_DistributionRun_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_DistributionRun_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_DistributionRun_BY_UUID;
 	}
 }

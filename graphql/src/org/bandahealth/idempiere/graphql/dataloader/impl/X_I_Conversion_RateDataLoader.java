@@ -9,8 +9,8 @@ import org.compiere.model.X_I_Conversion_Rate;
  * @version Release 8.2 - $Id$
  */
 public class X_I_Conversion_RateDataLoader extends PODataLoader<X_I_Conversion_Rate> {
-	public static String I_Conversion_Rate_BY_ID_DATA_LOADER = "I_Conversion_RateByIdDataLoader";
-	public static String I_Conversion_Rate_BY_UUID_DATA_LOADER = "I_Conversion_RateByUuidDataLoader";
+	public static String DATALOADER_I_Conversion_Rate_BY_ID = "I_Conversion_RateByIdDataLoader";
+	public static String DATALOADER_I_Conversion_Rate_BY_UUID = "I_Conversion_RateByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_I_Conversion_RateDataLoader extends PODataLoader<X_I_Conversion_R
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return I_Conversion_Rate_BY_ID_DATA_LOADER;
+		return DATALOADER_I_Conversion_Rate_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return I_Conversion_Rate_BY_UUID_DATA_LOADER;
+		return DATALOADER_I_Conversion_Rate_BY_UUID;
 	}
 }

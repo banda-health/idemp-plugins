@@ -39,7 +39,7 @@ public class X_C_BankAccountResolver extends POResolver<MBankAccount_BH> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BANKACCOUNTTYPE_UUIDS_BY_VALUE.get(entity.getBankAccountType()));
 	}
 
@@ -54,7 +54,7 @@ public class X_C_BankAccountResolver extends POResolver<MBankAccount_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MBank> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BankDataLoader.C_Bank_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankDataLoader.DATALOADER_C_Bank_BY_ID);
 		return dataLoader.load(entity.getC_Bank_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_C_BankAccountResolver extends POResolver<MBankAccount_BH> impleme
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 

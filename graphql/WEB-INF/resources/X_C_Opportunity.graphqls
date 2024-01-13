@@ -38,7 +38,7 @@ type C_Opportunity {
 	# Comments or additional information
 	Comments: String
 	# Cost information
-	Cost: Int
+	Cost: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,8 +52,8 @@ type C_Opportunity {
 	# The record is active in the system
 	IsActive: Boolean!
 	# The estimated value of this opportunity.
-	OpportunityAmt: Int!
-	Probability: Int!
+	OpportunityAmt: BigDecimal!
+	Probability: BigDecimal!
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
 	# Date this record was updated
@@ -61,7 +61,7 @@ type C_Opportunity {
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# The amount adjusted by the probability.
-	WeightedAmt: Int
+	WeightedAmt: BigDecimal
 }
 
 input C_OpportunityInput {
@@ -85,7 +85,7 @@ input C_OpportunityInput {
 	# Comments or additional information
 	Comments: String
 	# Cost information
-	Cost: Int
+	Cost: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document
@@ -95,8 +95,8 @@ input C_OpportunityInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# The estimated value of this opportunity.
-	OpportunityAmt: Int
-	Probability: Int
+	OpportunityAmt: BigDecimal
+	Probability: BigDecimal
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
 }

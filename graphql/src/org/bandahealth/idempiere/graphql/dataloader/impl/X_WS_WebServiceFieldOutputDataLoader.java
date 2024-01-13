@@ -9,8 +9,8 @@ import org.compiere.model.X_WS_WebServiceFieldOutput;
  * @version Release 8.2 - $Id$
  */
 public class X_WS_WebServiceFieldOutputDataLoader extends PODataLoader<X_WS_WebServiceFieldOutput> {
-	public static String WS_WebServiceFieldOutput_BY_ID_DATA_LOADER = "WS_WebServiceFieldOutputByIdDataLoader";
-	public static String WS_WebServiceFieldOutput_BY_UUID_DATA_LOADER = "WS_WebServiceFieldOutputByUuidDataLoader";
+	public static String DATALOADER_WS_WebServiceFieldOutput_BY_ID = "WS_WebServiceFieldOutputByIdDataLoader";
+	public static String DATALOADER_WS_WebServiceFieldOutput_BY_UUID = "WS_WebServiceFieldOutputByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_WS_WebServiceFieldOutputDataLoader extends PODataLoader<X_WS_WebS
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return WS_WebServiceFieldOutput_BY_ID_DATA_LOADER;
+		return DATALOADER_WS_WebServiceFieldOutput_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return WS_WebServiceFieldOutput_BY_UUID_DATA_LOADER;
+		return DATALOADER_WS_WebServiceFieldOutput_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.MUserRoles;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_User_RolesDataLoader extends PODataLoader<MUserRoles> {
-	public static String AD_User_Roles_BY_ID_DATA_LOADER = "AD_User_RolesByIdDataLoader";
-	public static String AD_User_Roles_BY_UUID_DATA_LOADER = "AD_User_RolesByUuidDataLoader";
+	public static String DATALOADER_AD_User_Roles_BY_ID = "AD_User_RolesByIdDataLoader";
+	public static String DATALOADER_AD_User_Roles_BY_UUID = "AD_User_RolesByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_User_RolesDataLoader extends PODataLoader<MUserRoles> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_User_Roles_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_User_Roles_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_User_Roles_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_User_Roles_BY_UUID;
 	}
 }

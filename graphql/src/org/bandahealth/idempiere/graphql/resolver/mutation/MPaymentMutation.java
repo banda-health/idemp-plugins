@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
+import org.bandahealth.idempiere.graphql.model.input.I_C_PaymentInput;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.DocumentUtil;
 import org.compiere.model.PO;
@@ -19,15 +20,14 @@ public class MPaymentMutation extends X_C_PaymentMutation {
 	}
 
 	@Override
-	protected PO save(PO entity, DataFetchingEnvironment environment) {
-		MPayment_BH castEntity = (MPayment_BH) entity;
+	public MPayment_BH C_PaymentSave(I_C_PaymentInput input, DataFetchingEnvironment environment) {
 		MDocType_BH documentTypeTarget;
 		if ((documentTypeTarget = Repository.getById(BandaGraphQLContext.getCtx(environment), MDocType_BH.Table_Name, null,
-				castEntity.getC_DocType_ID())) == null) {
+				input.getC_DocType_ID())) == null) {
 			throw new AdempiereException("Document Type is required");
 		}
 		// Override whatever was passed for this property based on the document type target
-		castEntity.setIsReceipt(documentTypeTarget.isSOTrx());
-		return super.save(entity, environment);
+		input.setIsReceipt(documentTypeTarget.isSOTrx());
+		return super.C_PaymentSave(input, environment);
 	}
 }

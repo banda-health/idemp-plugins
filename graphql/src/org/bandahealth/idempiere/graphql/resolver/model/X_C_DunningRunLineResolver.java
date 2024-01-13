@@ -35,7 +35,7 @@ public class X_C_DunningRunLineResolver extends POResolver<MDunningRunLine> impl
 			return null;
 		}
 		DataLoader<Integer, MDunningRunEntry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningRunEntryDataLoader.C_DunningRunEntry_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningRunEntryDataLoader.DATALOADER_C_DunningRunEntry_BY_ID);
 		return dataLoader.load(entity.getC_DunningRunEntry_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_C_DunningRunLineResolver extends POResolver<MDunningRunLine> impl
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_C_DunningRunLineResolver extends POResolver<MDunningRunLine> impl
 			return null;
 		}
 		DataLoader<Integer, MInvoicePaySchedule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoicePayScheduleDataLoader.C_InvoicePaySchedule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoicePayScheduleDataLoader.DATALOADER_C_InvoicePaySchedule_BY_ID);
 		return dataLoader.load(entity.getC_InvoicePaySchedule_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_C_DunningRunLineResolver extends POResolver<MDunningRunLine> impl
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.C_Payment_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.DATALOADER_C_Payment_BY_ID);
 		return dataLoader.load(entity.getC_Payment_ID());
 	}
 

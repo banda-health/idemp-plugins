@@ -33,7 +33,7 @@ public class X_Fact_ReconciliationResolver extends POResolver<MFactReconciliatio
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getAccount_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_Fact_ReconciliationResolver extends POResolver<MFactReconciliatio
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_Fact_ReconciliationResolver extends POResolver<MFactReconciliatio
 			return null;
 		}
 		DataLoader<Integer, MFactAcct> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_Fact_AcctDataLoader.Fact_Acct_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_Fact_AcctDataLoader.DATALOADER_Fact_Acct_BY_ID);
 		return dataLoader.load(entity.getFact_Acct_ID());
 	}
 

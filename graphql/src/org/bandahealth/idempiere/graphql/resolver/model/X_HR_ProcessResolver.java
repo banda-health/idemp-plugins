@@ -55,7 +55,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFormat_ID());
 	}
 
@@ -70,7 +70,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.AD_Workflow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.DATALOADER_AD_Workflow_BY_ID);
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 
@@ -85,7 +85,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -100,7 +100,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.C_Charge_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.DATALOADER_C_Charge_BY_ID);
 		return dataLoader.load(entity.getC_Charge_ID());
 	}
 
@@ -115,7 +115,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
 		return dataLoader.load(entity.getC_DocType_ID());
 	}
 
@@ -130,7 +130,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
 		return dataLoader.load(entity.getC_DocTypeTarget_ID());
 	}
 
@@ -145,7 +145,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MPaySelection> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaySelectionDataLoader.C_PaySelection_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaySelectionDataLoader.DATALOADER_C_PaySelection_BY_ID);
 		return dataLoader.load(entity.getC_PaySelection_ID());
 	}
 
@@ -172,7 +172,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
 
@@ -197,7 +197,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
 	}
 
@@ -212,7 +212,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_HR_Department> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_DepartmentDataLoader.HR_Department_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_DepartmentDataLoader.DATALOADER_HR_Department_BY_ID);
 		return dataLoader.load(entity.getHR_Department_ID());
 	}
 
@@ -227,7 +227,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_HR_Employee> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_EmployeeDataLoader.HR_Employee_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_EmployeeDataLoader.DATALOADER_HR_Employee_BY_ID);
 		return dataLoader.load(entity.getHR_Employee_ID());
 	}
 
@@ -242,7 +242,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_HR_Job> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_JobDataLoader.HR_Job_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_JobDataLoader.DATALOADER_HR_Job_BY_ID);
 		return dataLoader.load(entity.getHR_Job_ID());
 	}
 
@@ -257,7 +257,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.HR_Payroll_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.DATALOADER_HR_Payroll_BY_ID);
 		return dataLoader.load(entity.getHR_Payroll_ID());
 	}
 
@@ -272,7 +272,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_HR_Period> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_PeriodDataLoader.HR_Period_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_PeriodDataLoader.DATALOADER_HR_Period_BY_ID);
 		return dataLoader.load(entity.getHR_Period_ID());
 	}
 
@@ -299,7 +299,7 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_HR_Process> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_ProcessDataLoader.HR_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_ProcessDataLoader.DATALOADER_HR_Process_BY_ID);
 		return dataLoader.load(entity.getReversal_ID());
 	}
 

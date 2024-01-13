@@ -33,7 +33,7 @@ public class X_M_MovementLineConfirmResolver extends POResolver<MMovementLineCon
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.M_InventoryLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_InventoryLine_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_M_MovementLineConfirmResolver extends POResolver<MMovementLineCon
 			return null;
 		}
 		DataLoader<Integer, MMovementConfirm> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementConfirmDataLoader.M_MovementConfirm_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementConfirmDataLoader.DATALOADER_M_MovementConfirm_BY_ID);
 		return dataLoader.load(entity.getM_MovementConfirm_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_M_MovementLineConfirmResolver extends POResolver<MMovementLineCon
 			return null;
 		}
 		DataLoader<Integer, MMovementLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementLineDataLoader.M_MovementLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementLineDataLoader.DATALOADER_M_MovementLine_BY_ID);
 		return dataLoader.load(entity.getM_MovementLine_ID());
 	}
 

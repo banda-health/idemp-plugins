@@ -19,12 +19,12 @@ type A_Asset_Info_Ins {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	ID: ID!
-	A_Ins_Premium: Int
-	A_Ins_Value: Int
+	A_Ins_Premium: BigDecimal
+	A_Ins_Value: BigDecimal
 	A_Insurance_Co: String
 	A_Policy_No: String
 	A_Renewal_Date: Date
-	A_Replace_Cost: Int
+	A_Replace_Cost: BigDecimal
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -46,12 +46,12 @@ input A_Asset_Info_InsInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	ID: ID
-	A_Ins_Premium: Int
-	A_Ins_Value: Int
+	A_Ins_Premium: BigDecimal
+	A_Ins_Value: BigDecimal
 	A_Insurance_Co: String
 	A_Policy_No: String
 	A_Renewal_Date: Date
-	A_Replace_Cost: Int
+	A_Replace_Cost: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# The record is active in the system

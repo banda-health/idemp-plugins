@@ -9,8 +9,8 @@ import org.compiere.model.MCountryGroup;
  * @version Release 8.2 - $Id$
  */
 public class X_C_CountryGroupDataLoader extends PODataLoader<MCountryGroup> {
-	public static String C_CountryGroup_BY_ID_DATA_LOADER = "C_CountryGroupByIdDataLoader";
-	public static String C_CountryGroup_BY_UUID_DATA_LOADER = "C_CountryGroupByUuidDataLoader";
+	public static String DATALOADER_C_CountryGroup_BY_ID = "C_CountryGroupByIdDataLoader";
+	public static String DATALOADER_C_CountryGroup_BY_UUID = "C_CountryGroupByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_CountryGroupDataLoader extends PODataLoader<MCountryGroup> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_CountryGroup_BY_ID_DATA_LOADER;
+		return DATALOADER_C_CountryGroup_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_CountryGroup_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_CountryGroup_BY_UUID;
 	}
 }

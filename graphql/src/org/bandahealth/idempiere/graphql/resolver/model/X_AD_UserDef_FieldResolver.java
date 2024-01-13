@@ -46,7 +46,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<Integer, MField_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.AD_Field_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.DATALOADER_AD_Field_BY_ID);
 		return dataLoader.load(entity.getAD_Field_ID());
 	}
 
@@ -61,7 +61,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<Integer, MFieldGroup_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldGroupDataLoader.AD_FieldGroup_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldGroupDataLoader.DATALOADER_AD_FieldGroup_BY_ID);
 		return dataLoader.load(entity.getAD_FieldGroup_ID());
 	}
 
@@ -76,7 +76,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_StyleDataLoader.AD_Style_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_StyleDataLoader.DATALOADER_AD_Style_BY_ID);
 		return dataLoader.load(entity.getAD_FieldStyle_ID());
 	}
 
@@ -91,7 +91,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_StyleDataLoader.AD_Style_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_StyleDataLoader.DATALOADER_AD_Style_BY_ID);
 		return dataLoader.load(entity.getAD_LabelStyle_ID());
 	}
 
@@ -106,7 +106,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_ID());
 	}
 
@@ -121,7 +121,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_Value_ID());
 	}
 
@@ -136,7 +136,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<Integer, MUserDefTab> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDef_TabDataLoader.AD_UserDef_Tab_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDef_TabDataLoader.DATALOADER_AD_UserDef_Tab_BY_ID);
 		return dataLoader.load(entity.getAD_UserDef_Tab_ID());
 	}
 
@@ -151,7 +151,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.AD_Val_Rule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
 	}
 
@@ -166,7 +166,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.AD_Val_Rule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Val_Rule_Lookup_ID());
 	}
 
@@ -181,7 +181,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISALWAYSUPDATEABLE_UUIDS_BY_VALUE.get(entity.getIsAlwaysUpdateable()));
 	}
 
@@ -196,7 +196,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISAUTOCOMPLETE_UUIDS_BY_VALUE.get(entity.getIsAutocomplete()));
 	}
 
@@ -211,7 +211,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISDISPLAYED_UUIDS_BY_VALUE.get(entity.getIsDisplayed()));
 	}
 
@@ -226,7 +226,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISMANDATORY_UUIDS_BY_VALUE.get(entity.getIsMandatory()));
 	}
 
@@ -241,7 +241,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISREADONLY_UUIDS_BY_VALUE.get(entity.getIsReadOnly()));
 	}
 
@@ -256,7 +256,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISSAMELINE_UUIDS_BY_VALUE.get(entity.getIsSameLine()));
 	}
 
@@ -272,7 +272,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISTOOLBARBUTTON_UUIDS_BY_VALUE.get(entity.getIsToolbarButton()));
 	}
 
@@ -287,7 +287,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISUPDATEABLE_UUIDS_BY_VALUE.get(entity.getIsUpdateable()));
 	}
 
@@ -302,7 +302,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 			return null;
 		}
 		DataLoader<Integer, MDashboardContent> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_DashboardContentDataLoader.PA_DashboardContent_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_DashboardContentDataLoader.DATALOADER_PA_DashboardContent_BY_ID);
 		return dataLoader.load(entity.getPA_DashboardContent_ID());
 	}
 

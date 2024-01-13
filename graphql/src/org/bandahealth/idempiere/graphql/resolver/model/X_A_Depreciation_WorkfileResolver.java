@@ -38,7 +38,7 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 			return null;
 		}
 		DataLoader<Integer, X_A_FundingMode> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_FundingModeDataLoader.A_FundingMode_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_FundingModeDataLoader.DATALOADER_A_FundingMode_BY_ID);
 		return dataLoader.load(entity.getA_FundingMode_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(A_TIP_FINANTARE_UUIDS_BY_VALUE.get(entity.getA_Tip_Finantare()));
 	}
 
@@ -84,7 +84,7 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -106,7 +106,7 @@ public class X_A_Depreciation_WorkfileResolver extends POResolver<MDepreciationW
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
 	}
 

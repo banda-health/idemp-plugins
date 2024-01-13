@@ -31,7 +31,7 @@ public class X_C_CommissionAmtResolver extends POResolver<MCommissionAmt> implem
 			return null;
 		}
 		DataLoader<Integer, MCommissionLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CommissionLineDataLoader.C_CommissionLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CommissionLineDataLoader.DATALOADER_C_CommissionLine_BY_ID);
 		return dataLoader.load(entity.getC_CommissionLine_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_CommissionAmtResolver extends POResolver<MCommissionAmt> implem
 			return null;
 		}
 		DataLoader<Integer, MCommissionRun> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CommissionRunDataLoader.C_CommissionRun_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CommissionRunDataLoader.DATALOADER_C_CommissionRun_BY_ID);
 		return dataLoader.load(entity.getC_CommissionRun_ID());
 	}
 

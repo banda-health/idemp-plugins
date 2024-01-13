@@ -29,7 +29,7 @@ public class X_C_AddressValidationResolver extends POResolver<MAddressValidation
 			return null;
 		}
 		DataLoader<Integer, X_C_AddressValidationCfg> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AddressValidationCfgDataLoader.C_AddressValidationCfg_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AddressValidationCfgDataLoader.DATALOADER_C_AddressValidationCfg_BY_ID);
 		return dataLoader.load(entity.getC_AddressValidationCfg_ID());
 	}
 

@@ -9,8 +9,8 @@ import org.compiere.model.MOrderTax;
  * @version Release 8.2 - $Id$
  */
 public class X_C_OrderTaxDataLoader extends PODataLoader<MOrderTax> {
-	public static String C_OrderTax_BY_ID_DATA_LOADER = "C_OrderTaxByIdDataLoader";
-	public static String C_OrderTax_BY_UUID_DATA_LOADER = "C_OrderTaxByUuidDataLoader";
+	public static String DATALOADER_C_OrderTax_BY_ID = "C_OrderTaxByIdDataLoader";
+	public static String DATALOADER_C_OrderTax_BY_UUID = "C_OrderTaxByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_OrderTaxDataLoader extends PODataLoader<MOrderTax> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_OrderTax_BY_ID_DATA_LOADER;
+		return DATALOADER_C_OrderTax_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_OrderTax_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_OrderTax_BY_UUID;
 	}
 }

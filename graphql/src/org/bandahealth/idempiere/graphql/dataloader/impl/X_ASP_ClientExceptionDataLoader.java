@@ -9,8 +9,8 @@ import org.compiere.model.X_ASP_ClientException;
  * @version Release 8.2 - $Id$
  */
 public class X_ASP_ClientExceptionDataLoader extends PODataLoader<X_ASP_ClientException> {
-	public static String ASP_ClientException_BY_ID_DATA_LOADER = "ASP_ClientExceptionByIdDataLoader";
-	public static String ASP_ClientException_BY_UUID_DATA_LOADER = "ASP_ClientExceptionByUuidDataLoader";
+	public static String DATALOADER_ASP_ClientException_BY_ID = "ASP_ClientExceptionByIdDataLoader";
+	public static String DATALOADER_ASP_ClientException_BY_UUID = "ASP_ClientExceptionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_ASP_ClientExceptionDataLoader extends PODataLoader<X_ASP_ClientEx
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return ASP_ClientException_BY_ID_DATA_LOADER;
+		return DATALOADER_ASP_ClientException_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return ASP_ClientException_BY_UUID_DATA_LOADER;
+		return DATALOADER_ASP_ClientException_BY_UUID;
 	}
 }

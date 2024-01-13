@@ -29,7 +29,7 @@ public class X_EXP_ProcessorParameterResolver extends POResolver<MEXPProcessorPa
 			return null;
 		}
 		DataLoader<Integer, MEXPProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_EXP_ProcessorDataLoader.EXP_Processor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_EXP_ProcessorDataLoader.DATALOADER_EXP_Processor_BY_ID);
 		return dataLoader.load(entity.getEXP_Processor_ID());
 	}
 

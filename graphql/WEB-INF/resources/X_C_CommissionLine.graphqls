@@ -21,9 +21,9 @@ type C_CommissionLine {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Multiplier Amount for generating commissions
-	AmtMultiplier: Int!
+	AmtMultiplier: BigDecimal!
 	# Subtract Amount for generating commissions
-	AmtSubtract: Int!
+	AmtSubtract: BigDecimal!
 	# Business Partner Group
 	C_BP_Group: C_BP_Group
 	# Identifies a Business Partner
@@ -54,9 +54,9 @@ type C_CommissionLine {
 	# How you pay the invoice
 	PaymentRule: AD_Ref_List
 	# Value to multiply quantities by for generating commissions.
-	QtyMultiplier: Int!
+	QtyMultiplier: BigDecimal!
 	# Quantity to subtract when generating commissions
-	QtySubtract: Int!
+	QtySubtract: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -67,9 +67,9 @@ input C_CommissionLineInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Multiplier Amount for generating commissions
-	AmtMultiplier: Int
+	AmtMultiplier: BigDecimal
 	# Subtract Amount for generating commissions
-	AmtSubtract: Int
+	AmtSubtract: BigDecimal
 	# Business Partner Group
 	C_BP_Group: ForeignEntityInput
 	# Identifies a Business Partner
@@ -96,7 +96,7 @@ input C_CommissionLineInput {
 	# How you pay the invoice
 	PaymentRule: AD_Ref_ListInput
 	# Value to multiply quantities by for generating commissions.
-	QtyMultiplier: Int
+	QtyMultiplier: BigDecimal
 	# Quantity to subtract when generating commissions
-	QtySubtract: Int
+	QtySubtract: BigDecimal
 }

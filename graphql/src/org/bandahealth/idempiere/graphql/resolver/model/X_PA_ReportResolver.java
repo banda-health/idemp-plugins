@@ -41,7 +41,7 @@ public class X_PA_ReportResolver extends POResolver<X_PA_Report> implements Grap
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFormat_ID());
 	}
 
@@ -56,7 +56,7 @@ public class X_PA_ReportResolver extends POResolver<X_PA_Report> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -71,7 +71,7 @@ public class X_PA_ReportResolver extends POResolver<X_PA_Report> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CalendarDataLoader.C_Calendar_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CalendarDataLoader.DATALOADER_C_Calendar_BY_ID);
 		return dataLoader.load(entity.getC_Calendar_ID());
 	}
 
@@ -86,7 +86,7 @@ public class X_PA_ReportResolver extends POResolver<X_PA_Report> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.DATALOADER_AD_Process_BY_ID);
 		return dataLoader.load(entity.getJasperProcess_ID());
 	}
 
@@ -113,7 +113,7 @@ public class X_PA_ReportResolver extends POResolver<X_PA_Report> implements Grap
 			return null;
 		}
 		DataLoader<Integer, X_PA_ReportColumnSet> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnSetDataLoader.PA_ReportColumnSet_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnSetDataLoader.DATALOADER_PA_ReportColumnSet_BY_ID);
 		return dataLoader.load(entity.getPA_ReportColumnSet_ID());
 	}
 
@@ -128,7 +128,7 @@ public class X_PA_ReportResolver extends POResolver<X_PA_Report> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MReportCube> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportCubeDataLoader.PA_ReportCube_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportCubeDataLoader.DATALOADER_PA_ReportCube_BY_ID);
 		return dataLoader.load(entity.getPA_ReportCube_ID());
 	}
 
@@ -143,7 +143,7 @@ public class X_PA_ReportResolver extends POResolver<X_PA_Report> implements Grap
 			return null;
 		}
 		DataLoader<Integer, X_PA_ReportLineSet> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineSetDataLoader.PA_ReportLineSet_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineSetDataLoader.DATALOADER_PA_ReportLineSet_BY_ID);
 		return dataLoader.load(entity.getPA_ReportLineSet_ID());
 	}
 

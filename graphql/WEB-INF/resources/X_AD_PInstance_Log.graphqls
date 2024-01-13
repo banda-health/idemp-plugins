@@ -25,7 +25,7 @@ type AD_PInstance_Log {
 	P_Date: Date
 	P_Msg: String
 	# Process Parameter
-	P_Number: Int
+	P_Number: BigDecimal
 	# Direct internal record ID
 	Record_ID: Int
 }
@@ -40,7 +40,7 @@ input AD_PInstance_LogInput {
 	P_Date: Date
 	P_Msg: String
 	# Process Parameter
-	P_Number: Int
+	P_Number: BigDecimal
 	# Direct internal record ID
 	Record_ID: Int
 }

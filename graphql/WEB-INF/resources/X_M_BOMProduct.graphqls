@@ -23,7 +23,7 @@ type M_BOMProduct {
 	# BOM Product Type
 	BOMProductType: AD_Ref_List!
 	# Bill of Materials Quantity
-	BOMQty: Int!
+	BOMQty: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -67,7 +67,7 @@ input M_BOMProductInput {
 	# BOM Product Type
 	BOMProductType: AD_Ref_ListInput
 	# Bill of Materials Quantity
-	BOMQty: Int
+	BOMQty: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

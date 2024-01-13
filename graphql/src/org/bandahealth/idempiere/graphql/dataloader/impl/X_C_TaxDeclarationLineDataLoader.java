@@ -9,8 +9,8 @@ import org.compiere.model.MTaxDeclarationLine;
  * @version Release 8.2 - $Id$
  */
 public class X_C_TaxDeclarationLineDataLoader extends PODataLoader<MTaxDeclarationLine> {
-	public static String C_TaxDeclarationLine_BY_ID_DATA_LOADER = "C_TaxDeclarationLineByIdDataLoader";
-	public static String C_TaxDeclarationLine_BY_UUID_DATA_LOADER = "C_TaxDeclarationLineByUuidDataLoader";
+	public static String DATALOADER_C_TaxDeclarationLine_BY_ID = "C_TaxDeclarationLineByIdDataLoader";
+	public static String DATALOADER_C_TaxDeclarationLine_BY_UUID = "C_TaxDeclarationLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_TaxDeclarationLineDataLoader extends PODataLoader<MTaxDeclarati
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_TaxDeclarationLine_BY_ID_DATA_LOADER;
+		return DATALOADER_C_TaxDeclarationLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_TaxDeclarationLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_TaxDeclarationLine_BY_UUID;
 	}
 }

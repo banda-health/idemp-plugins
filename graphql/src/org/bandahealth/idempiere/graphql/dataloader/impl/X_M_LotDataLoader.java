@@ -9,8 +9,8 @@ import org.compiere.model.MLot;
  * @version Release 8.2 - $Id$
  */
 public class X_M_LotDataLoader extends PODataLoader<MLot> {
-	public static String M_Lot_BY_ID_DATA_LOADER = "M_LotByIdDataLoader";
-	public static String M_Lot_BY_UUID_DATA_LOADER = "M_LotByUuidDataLoader";
+	public static String DATALOADER_M_Lot_BY_ID = "M_LotByIdDataLoader";
+	public static String DATALOADER_M_Lot_BY_UUID = "M_LotByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_LotDataLoader extends PODataLoader<MLot> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_Lot_BY_ID_DATA_LOADER;
+		return DATALOADER_M_Lot_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_Lot_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_Lot_BY_UUID;
 	}
 }

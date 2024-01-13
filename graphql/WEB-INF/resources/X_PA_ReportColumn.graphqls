@@ -105,9 +105,9 @@ type PA_ReportColumn {
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_List!
 	# Period offset (0 is current)
-	RelativePeriod: Int
+	RelativePeriod: BigDecimal
 	# Period offset (0 is current)
-	RelativePeriodTo: Int
+	RelativePeriodTo: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -200,9 +200,9 @@ input PA_ReportColumnInput {
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_ListInput
 	# Period offset (0 is current)
-	RelativePeriod: Int
+	RelativePeriod: BigDecimal
 	# Period offset (0 is current)
-	RelativePeriodTo: Int
+	RelativePeriodTo: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

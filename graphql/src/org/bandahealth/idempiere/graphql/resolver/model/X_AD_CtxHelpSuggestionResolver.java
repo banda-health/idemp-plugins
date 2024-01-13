@@ -40,7 +40,7 @@ public class X_AD_CtxHelpSuggestionResolver extends POResolver<MCtxHelpSuggestio
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.AD_CtxHelp_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.DATALOADER_AD_CtxHelp_BY_ID);
 		return dataLoader.load(entity.getAD_CtxHelp_ID());
 	}
 
@@ -55,7 +55,7 @@ public class X_AD_CtxHelpSuggestionResolver extends POResolver<MCtxHelpSuggestio
 			return null;
 		}
 		DataLoader<Integer, MCtxHelpMsg> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpMsgDataLoader.AD_CtxHelpMsg_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpMsgDataLoader.DATALOADER_AD_CtxHelpMsg_BY_ID);
 		return dataLoader.load(entity.getAD_CtxHelpMsg_ID());
 	}
 
@@ -184,7 +184,7 @@ public class X_AD_CtxHelpSuggestionResolver extends POResolver<MCtxHelpSuggestio
 			return null;
 		}
 		DataLoader<Integer, MLanguage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.AD_Language_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.DATALOADER_AD_Language_BY_ID);
 		return dataLoader.load(AD_LANGUAGE_IDS_BY_LANGUAGE.get(entity.getAD_Language()));
 	}
 
@@ -199,7 +199,7 @@ public class X_AD_CtxHelpSuggestionResolver extends POResolver<MCtxHelpSuggestio
 			return null;
 		}
 		DataLoader<Integer, X_AD_AllUsers_V> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllUsers_VDataLoader.AD_AllUsers_V_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllUsers_VDataLoader.DATALOADER_AD_AllUsers_V_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -214,7 +214,7 @@ public class X_AD_CtxHelpSuggestionResolver extends POResolver<MCtxHelpSuggestio
 			return null;
 		}
 		DataLoader<Integer, X_AD_AllClients_V> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllClients_VDataLoader.AD_AllClients_V_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllClients_VDataLoader.DATALOADER_AD_AllClients_V_BY_ID);
 		return dataLoader.load(entity.getAD_UserClient_ID());
 	}
 

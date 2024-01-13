@@ -21,9 +21,9 @@ type M_DiscountSchemaBreak {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Trade Discount in Percent for the break level
-	BreakDiscount: Int!
+	BreakDiscount: BigDecimal!
 	# Low Value of trade discount break level
-	BreakValue: Int!
+	BreakValue: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -51,9 +51,9 @@ input M_DiscountSchemaBreakInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Trade Discount in Percent for the break level
-	BreakDiscount: Int
+	BreakDiscount: BigDecimal
 	# Low Value of trade discount break level
-	BreakValue: Int
+	BreakValue: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Use flat discount defined on Business Partner Level

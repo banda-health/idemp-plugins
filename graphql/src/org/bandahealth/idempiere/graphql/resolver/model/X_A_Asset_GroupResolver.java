@@ -36,7 +36,7 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 			return null;
 		}
 		DataLoader<Integer, MAssetClass> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_ClassDataLoader.A_Asset_Class_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_ClassDataLoader.DATALOADER_A_Asset_Class_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Class_ID());
 	}
 
@@ -51,7 +51,7 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 			return null;
 		}
 		DataLoader<Integer, MAssetType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_TypeDataLoader.A_Asset_Type_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_TypeDataLoader.DATALOADER_A_Asset_Type_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Type_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_A_Asset_Group_TrlDataLoader.A_Asset_Group_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_A_Asset_Group_TrlDataLoader.DATALOADER_A_Asset_Group_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Description));
 	}
@@ -80,7 +80,7 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_A_Asset_Group_TrlDataLoader.A_Asset_Group_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_A_Asset_Group_TrlDataLoader.DATALOADER_A_Asset_Group_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Help));
 	}
@@ -123,7 +123,7 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_A_Asset_Group_TrlDataLoader.A_Asset_Group_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_A_Asset_Group_TrlDataLoader.DATALOADER_A_Asset_Group_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Name));
 	}

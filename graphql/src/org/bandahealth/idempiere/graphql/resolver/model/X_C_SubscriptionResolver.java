@@ -33,7 +33,7 @@ public class X_C_SubscriptionResolver extends POResolver<X_C_Subscription> imple
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_C_SubscriptionResolver extends POResolver<X_C_Subscription> imple
 			return null;
 		}
 		DataLoader<Integer, X_C_SubscriptionType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_SubscriptionTypeDataLoader.C_SubscriptionType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_SubscriptionTypeDataLoader.DATALOADER_C_SubscriptionType_BY_ID);
 		return dataLoader.load(entity.getC_SubscriptionType_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_C_SubscriptionResolver extends POResolver<X_C_Subscription> imple
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

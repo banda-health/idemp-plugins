@@ -23,7 +23,7 @@ type PA_BenchmarkData {
 	# Benchmark Date
 	BenchmarkDate: Date!
 	# Benchmark Value
-	BenchmarkValue: Int!
+	BenchmarkValue: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -49,7 +49,7 @@ input PA_BenchmarkDataInput {
 	# Benchmark Date
 	BenchmarkDate: Date
 	# Benchmark Value
-	BenchmarkValue: Int
+	BenchmarkValue: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

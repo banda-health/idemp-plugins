@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_Attribute_Value;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Attribute_ValueDataLoader extends PODataLoader<X_AD_Attribute_Value> {
-	public static String AD_Attribute_Value_BY_ID_DATA_LOADER = "AD_Attribute_ValueByIdDataLoader";
-	public static String AD_Attribute_Value_BY_UUID_DATA_LOADER = "AD_Attribute_ValueByUuidDataLoader";
+	public static String DATALOADER_AD_Attribute_Value_BY_ID = "AD_Attribute_ValueByIdDataLoader";
+	public static String DATALOADER_AD_Attribute_Value_BY_UUID = "AD_Attribute_ValueByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Attribute_ValueDataLoader extends PODataLoader<X_AD_Attribute_
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Attribute_Value_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Attribute_Value_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Attribute_Value_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Attribute_Value_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.MZoomCondition;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ZoomConditionDataLoader extends PODataLoader<MZoomCondition> {
-	public static String AD_ZoomCondition_BY_ID_DATA_LOADER = "AD_ZoomConditionByIdDataLoader";
-	public static String AD_ZoomCondition_BY_UUID_DATA_LOADER = "AD_ZoomConditionByUuidDataLoader";
+	public static String DATALOADER_AD_ZoomCondition_BY_ID = "AD_ZoomConditionByIdDataLoader";
+	public static String DATALOADER_AD_ZoomCondition_BY_UUID = "AD_ZoomConditionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ZoomConditionDataLoader extends PODataLoader<MZoomCondition> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_ZoomCondition_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_ZoomCondition_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_ZoomCondition_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_ZoomCondition_BY_UUID;
 	}
 }

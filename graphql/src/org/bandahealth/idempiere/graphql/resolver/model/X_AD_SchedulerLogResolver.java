@@ -29,7 +29,7 @@ public class X_AD_SchedulerLogResolver extends POResolver<MSchedulerLog> impleme
 			return null;
 		}
 		DataLoader<Integer, MScheduler> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_SchedulerDataLoader.AD_Scheduler_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_SchedulerDataLoader.DATALOADER_AD_Scheduler_BY_ID);
 		return dataLoader.load(entity.getAD_Scheduler_ID());
 	}
 

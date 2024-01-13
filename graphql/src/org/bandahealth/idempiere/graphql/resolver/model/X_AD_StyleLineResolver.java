@@ -34,7 +34,7 @@ public class X_AD_StyleLineResolver extends POResolver<MStyleLine> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_StyleDataLoader.AD_Style_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_StyleDataLoader.DATALOADER_AD_Style_BY_ID);
 		return dataLoader.load(entity.getAD_Style_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_AD_StyleLineResolver extends POResolver<MStyleLine> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 

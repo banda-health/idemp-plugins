@@ -37,7 +37,7 @@ public class X_R_IssueKnownResolver extends POResolver<X_R_IssueKnown> implement
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueRecommendation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_IssueRecommendationDataLoader.R_IssueRecommendation_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_IssueRecommendationDataLoader.DATALOADER_R_IssueRecommendation_BY_ID);
 		return dataLoader.load(entity.getR_IssueRecommendation_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_R_IssueKnownResolver extends POResolver<X_R_IssueKnown> implement
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueStatus> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_IssueStatusDataLoader.R_IssueStatus_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_IssueStatusDataLoader.DATALOADER_R_IssueStatus_BY_ID);
 		return dataLoader.load(entity.getR_IssueStatus_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_R_IssueKnownResolver extends POResolver<X_R_IssueKnown> implement
 			return null;
 		}
 		DataLoader<Integer, MRequest> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestDataLoader.R_Request_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestDataLoader.DATALOADER_R_Request_BY_ID);
 		return dataLoader.load(entity.getR_Request_ID());
 	}
 

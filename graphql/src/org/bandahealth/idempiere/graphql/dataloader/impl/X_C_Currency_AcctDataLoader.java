@@ -9,8 +9,8 @@ import org.compiere.model.MCurrencyAcct;
  * @version Release 8.2 - $Id$
  */
 public class X_C_Currency_AcctDataLoader extends PODataLoader<MCurrencyAcct> {
-	public static String C_Currency_Acct_BY_ID_DATA_LOADER = "C_Currency_AcctByIdDataLoader";
-	public static String C_Currency_Acct_BY_UUID_DATA_LOADER = "C_Currency_AcctByUuidDataLoader";
+	public static String DATALOADER_C_Currency_Acct_BY_ID = "C_Currency_AcctByIdDataLoader";
+	public static String DATALOADER_C_Currency_Acct_BY_UUID = "C_Currency_AcctByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_Currency_AcctDataLoader extends PODataLoader<MCurrencyAcct> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Currency_Acct_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Currency_Acct_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Currency_Acct_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Currency_Acct_BY_UUID;
 	}
 }

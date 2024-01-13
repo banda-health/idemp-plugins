@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.sql.Timestamp;
 import org.compiere.model.I_M_Product_PO;
 
 /**
@@ -65,6 +66,25 @@ public interface I_M_Product_POInput extends I_M_Product_PO {
 	 * @return Unit of Measure
 	 */
 	ForeignEntityInput C_UOM();
+
+	/**
+	 * Column name DiscontinuedBy
+	 */
+	static final String COLUMNNAME_DiscontinuedBy = "DiscontinuedBy";
+
+	/**
+	 * Set Discontinued by.
+	 *
+	 * @param DiscontinuedBy Discontinued By
+	 */
+	void setDiscontinuedBy(Timestamp DiscontinuedBy);
+
+	/**
+	 * Get Discontinued by.
+	 *
+	 * @return Discontinued By
+	 */
+	Timestamp getDiscontinuedBy();
 
 	/**
 	 * Set M_Product.

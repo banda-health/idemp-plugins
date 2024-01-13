@@ -9,8 +9,8 @@ import org.compiere.model.MEXPFormat;
  * @version Release 8.2 - $Id$
  */
 public class X_EXP_FormatDataLoader extends PODataLoader<MEXPFormat> {
-	public static String EXP_Format_BY_ID_DATA_LOADER = "EXP_FormatByIdDataLoader";
-	public static String EXP_Format_BY_UUID_DATA_LOADER = "EXP_FormatByUuidDataLoader";
+	public static String DATALOADER_EXP_Format_BY_ID = "EXP_FormatByIdDataLoader";
+	public static String DATALOADER_EXP_Format_BY_UUID = "EXP_FormatByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_EXP_FormatDataLoader extends PODataLoader<MEXPFormat> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return EXP_Format_BY_ID_DATA_LOADER;
+		return DATALOADER_EXP_Format_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return EXP_Format_BY_UUID_DATA_LOADER;
+		return DATALOADER_EXP_Format_BY_UUID;
 	}
 }

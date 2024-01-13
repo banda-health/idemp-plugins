@@ -43,12 +43,12 @@ type M_ShippingTransaction {
 	# Standard Unit of Measure for Weight
 	C_UOM_Weight: C_UOM
 	CashOnDelivery: Boolean!
-	CODAmount: Int
+	CODAmount: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
-	CustomsValue: Int
+	CustomsValue: BigDecimal
 	# Date a product was received
 	DateReceived: Date
 	# EMail Delivery confirmation
@@ -57,20 +57,20 @@ type M_ShippingTransaction {
 	# Optional short description of the record
 	Description: String
 	DotHazardClassOrDivision: AD_Ref_List
-	DryIceWeight: Int
+	DryIceWeight: BigDecimal
 	DutiesShipperAccount: String
 	FOB: AD_Ref_List
 	# Freight Amount 
-	FreightAmt: Int
+	FreightAmt: BigDecimal
 	FreightCharges: AD_Ref_List
-	HandlingCharge: Int
-	Height: Int
+	HandlingCharge: BigDecimal
+	Height: BigDecimal
 	HoldAddress: C_BPartner_Location
 	HomeDeliveryPremiumDate: Date
 	HomeDeliveryPremiumPhone: String
 	HomeDeliveryPremiumType: AD_Ref_List
 	Insurance: AD_Ref_List
-	InsuredAmount: Int
+	InsuredAmount: BigDecimal
 	IsAccessible: Boolean!
 	# The record is active in the system
 	IsActive: Boolean!
@@ -90,7 +90,7 @@ type M_ShippingTransaction {
 	IsSaturdayPickup: Boolean!
 	IsVerbalConfirmation: Boolean!
 	LatestPickupTime: Date
-	Length: Int
+	Length: BigDecimal
 	# Material Shipment Document
 	M_InOut: M_InOut
 	# Shipment Package
@@ -112,9 +112,9 @@ type M_ShippingTransaction {
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Price
-	Price: Int
+	Price: BigDecimal
 	# Actual Price 
-	PriceActual: Int
+	PriceActual: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	# Information of the receipt of the package (acknowledgement)
@@ -128,7 +128,7 @@ type M_ShippingTransaction {
 	ShipDate: Date
 	ShipperAccount: String
 	ShippingRespMessage: String
-	Surcharges: Int
+	Surcharges: BigDecimal
 	TrackingInfo: String
 	# Number to track the shipment
 	TrackingNo: String
@@ -137,8 +137,8 @@ type M_ShippingTransaction {
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Weight of a product
-	Weight: Int
-	Width: Int
+	Weight: BigDecimal
+	Width: BigDecimal
 }
 
 input M_ShippingTransactionInput {
@@ -167,8 +167,8 @@ input M_ShippingTransactionInput {
 	# Standard Unit of Measure for Weight
 	C_UOM_Weight: ForeignEntityInput
 	CashOnDelivery: Boolean
-	CODAmount: Int
-	CustomsValue: Int
+	CODAmount: BigDecimal
+	CustomsValue: BigDecimal
 	# Date a product was received
 	DateReceived: Date
 	# EMail Delivery confirmation
@@ -177,20 +177,20 @@ input M_ShippingTransactionInput {
 	# Optional short description of the record
 	Description: String
 	DotHazardClassOrDivision: AD_Ref_ListInput
-	DryIceWeight: Int
+	DryIceWeight: BigDecimal
 	DutiesShipperAccount: String
 	FOB: AD_Ref_ListInput
 	# Freight Amount 
-	FreightAmt: Int
+	FreightAmt: BigDecimal
 	FreightCharges: AD_Ref_ListInput
-	HandlingCharge: Int
-	Height: Int
+	HandlingCharge: BigDecimal
+	Height: BigDecimal
 	HoldAddress: ForeignEntityInput
 	HomeDeliveryPremiumDate: Date
 	HomeDeliveryPremiumPhone: String
 	HomeDeliveryPremiumType: AD_Ref_ListInput
 	Insurance: AD_Ref_ListInput
-	InsuredAmount: Int
+	InsuredAmount: BigDecimal
 	IsAccessible: Boolean
 	# The record is active in the system
 	IsActive: Boolean
@@ -210,7 +210,7 @@ input M_ShippingTransactionInput {
 	IsSaturdayPickup: Boolean
 	IsVerbalConfirmation: Boolean
 	LatestPickupTime: Date
-	Length: Int
+	Length: BigDecimal
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
 	# Shipment Package
@@ -232,9 +232,9 @@ input M_ShippingTransactionInput {
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Price
-	Price: Int
+	Price: BigDecimal
 	# Actual Price 
-	PriceActual: Int
+	PriceActual: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	# Information of the receipt of the package (acknowledgement)
@@ -248,11 +248,11 @@ input M_ShippingTransactionInput {
 	ShipDate: Date
 	ShipperAccount: String
 	ShippingRespMessage: String
-	Surcharges: Int
+	Surcharges: BigDecimal
 	TrackingInfo: String
 	# Number to track the shipment
 	TrackingNo: String
 	# Weight of a product
-	Weight: Int
-	Width: Int
+	Weight: BigDecimal
+	Width: BigDecimal
 }

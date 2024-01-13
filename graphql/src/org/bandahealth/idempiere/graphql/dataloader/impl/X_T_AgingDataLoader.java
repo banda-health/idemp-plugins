@@ -9,8 +9,8 @@ import org.compiere.model.MAging;
  * @version Release 8.2 - $Id$
  */
 public class X_T_AgingDataLoader extends PODataLoader<MAging> {
-	public static String T_Aging_BY_ID_DATA_LOADER = "T_AgingByIdDataLoader";
-	public static String T_Aging_BY_UUID_DATA_LOADER = "T_AgingByUuidDataLoader";
+	public static String DATALOADER_T_Aging_BY_ID = "T_AgingByIdDataLoader";
+	public static String DATALOADER_T_Aging_BY_UUID = "T_AgingByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_T_AgingDataLoader extends PODataLoader<MAging> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return T_Aging_BY_ID_DATA_LOADER;
+		return DATALOADER_T_Aging_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return T_Aging_BY_UUID_DATA_LOADER;
+		return DATALOADER_T_Aging_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.X_IMP_Processor;
  * @version Release 8.2 - $Id$
  */
 public class X_IMP_ProcessorDataLoader extends PODataLoader<X_IMP_Processor> {
-	public static String IMP_Processor_BY_ID_DATA_LOADER = "IMP_ProcessorByIdDataLoader";
-	public static String IMP_Processor_BY_UUID_DATA_LOADER = "IMP_ProcessorByUuidDataLoader";
+	public static String DATALOADER_IMP_Processor_BY_ID = "IMP_ProcessorByIdDataLoader";
+	public static String DATALOADER_IMP_Processor_BY_UUID = "IMP_ProcessorByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_IMP_ProcessorDataLoader extends PODataLoader<X_IMP_Processor> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return IMP_Processor_BY_ID_DATA_LOADER;
+		return DATALOADER_IMP_Processor_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return IMP_Processor_BY_UUID_DATA_LOADER;
+		return DATALOADER_IMP_Processor_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.X_S_Training;
  * @version Release 8.2 - $Id$
  */
 public class X_S_TrainingDataLoader extends PODataLoader<X_S_Training> {
-	public static String S_Training_BY_ID_DATA_LOADER = "S_TrainingByIdDataLoader";
-	public static String S_Training_BY_UUID_DATA_LOADER = "S_TrainingByUuidDataLoader";
+	public static String DATALOADER_S_Training_BY_ID = "S_TrainingByIdDataLoader";
+	public static String DATALOADER_S_Training_BY_UUID = "S_TrainingByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_S_TrainingDataLoader extends PODataLoader<X_S_Training> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return S_Training_BY_ID_DATA_LOADER;
+		return DATALOADER_S_Training_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return S_Training_BY_UUID_DATA_LOADER;
+		return DATALOADER_S_Training_BY_UUID;
 	}
 }

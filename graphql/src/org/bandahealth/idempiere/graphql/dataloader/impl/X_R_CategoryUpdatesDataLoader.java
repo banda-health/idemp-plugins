@@ -9,8 +9,8 @@ import org.compiere.model.X_R_CategoryUpdates;
  * @version Release 8.2 - $Id$
  */
 public class X_R_CategoryUpdatesDataLoader extends PODataLoader<X_R_CategoryUpdates> {
-	public static String R_CategoryUpdates_BY_ID_DATA_LOADER = "R_CategoryUpdatesByIdDataLoader";
-	public static String R_CategoryUpdates_BY_UUID_DATA_LOADER = "R_CategoryUpdatesByUuidDataLoader";
+	public static String DATALOADER_R_CategoryUpdates_BY_ID = "R_CategoryUpdatesByIdDataLoader";
+	public static String DATALOADER_R_CategoryUpdates_BY_UUID = "R_CategoryUpdatesByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_CategoryUpdatesDataLoader extends PODataLoader<X_R_CategoryUpda
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_CategoryUpdates_BY_ID_DATA_LOADER;
+		return DATALOADER_R_CategoryUpdates_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_CategoryUpdates_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_CategoryUpdates_BY_UUID;
 	}
 }

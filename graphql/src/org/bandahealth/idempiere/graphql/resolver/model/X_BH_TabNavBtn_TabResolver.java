@@ -41,7 +41,7 @@ public class X_BH_TabNavBtn_TabResolver extends POResolver<MTabNavBtnTab> implem
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.AD_Tab_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.DATALOADER_AD_Tab_BY_ID);
 		return dataLoader.load(entity.getAD_Tab_ID());
 	}
 
@@ -56,7 +56,7 @@ public class X_BH_TabNavBtn_TabResolver extends POResolver<MTabNavBtnTab> implem
 			return null;
 		}
 		DataLoader<Integer, MTabNavBtn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_TabNavBtnDataLoader.BH_TabNavBtn_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_TabNavBtnDataLoader.DATALOADER_BH_TabNavBtn_BY_ID);
 		return dataLoader.load(entity.getBH_TabNavBtn_ID());
 	}
 
@@ -70,7 +70,7 @@ public class X_BH_TabNavBtn_TabResolver extends POResolver<MTabNavBtnTab> implem
 			return CompletableFuture.supplyAsync(entity::getButtonHelpText);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_BH_TabNavBtn_Tab_TrlDataLoader.BH_TabNavBtn_Tab_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_BH_TabNavBtn_Tab_TrlDataLoader.DATALOADER_BH_TabNavBtn_Tab_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTabNavBtnTab.COLUMNNAME_ButtonHelpText));
 	}
@@ -88,7 +88,7 @@ public class X_BH_TabNavBtn_TabResolver extends POResolver<MTabNavBtnTab> implem
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BUTTONLOCATION_UUIDS_BY_VALUE.get(entity.getButtonLocation()));
 	}
 
@@ -102,7 +102,7 @@ public class X_BH_TabNavBtn_TabResolver extends POResolver<MTabNavBtnTab> implem
 			return CompletableFuture.supplyAsync(entity::getButtonText);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_BH_TabNavBtn_Tab_TrlDataLoader.BH_TabNavBtn_Tab_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_BH_TabNavBtn_Tab_TrlDataLoader.DATALOADER_BH_TabNavBtn_Tab_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTabNavBtnTab.COLUMNNAME_ButtonText));
 	}
@@ -117,7 +117,7 @@ public class X_BH_TabNavBtn_TabResolver extends POResolver<MTabNavBtnTab> implem
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_BH_TabNavBtn_Tab_TrlDataLoader.BH_TabNavBtn_Tab_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_BH_TabNavBtn_Tab_TrlDataLoader.DATALOADER_BH_TabNavBtn_Tab_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTabNavBtnTab.COLUMNNAME_Description));
 	}
@@ -132,7 +132,7 @@ public class X_BH_TabNavBtn_TabResolver extends POResolver<MTabNavBtnTab> implem
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_BH_TabNavBtn_Tab_TrlDataLoader.BH_TabNavBtn_Tab_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_BH_TabNavBtn_Tab_TrlDataLoader.DATALOADER_BH_TabNavBtn_Tab_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTabNavBtnTab.COLUMNNAME_Name));
 	}

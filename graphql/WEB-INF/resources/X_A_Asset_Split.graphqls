@@ -16,18 +16,18 @@ type A_Asset_SplitConnection {
 }
 
 type A_Asset_Split {
-	A_Amount_Split: Int
+	A_Amount_Split: BigDecimal
 	A_Asset_Acct_ID: Int!
-	A_Asset_Cost: Int
+	A_Asset_Cost: BigDecimal
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Asset_To: A_Asset
 	ID: ID!
 	A_Depreciation_Workfile_ID: Int!
-	A_Percent_Original: Int
-	A_Percent_Split: Int
-	A_QTY_Current: Int!
-	A_QTY_Split: Int
+	A_Percent_Original: BigDecimal
+	A_Percent_Split: BigDecimal
+	A_QTY_Current: BigDecimal!
+	A_QTY_Split: BigDecimal
 	A_Split_Type: AD_Ref_List!
 	A_Transfer_Balance_IS: Boolean!
 	# Client/Tenant for this installation.
@@ -56,18 +56,18 @@ type A_Asset_Split {
 }
 
 input A_Asset_SplitInput {
-	A_Amount_Split: Int
+	A_Amount_Split: BigDecimal
 	A_Asset_Acct_ID: Int
-	A_Asset_Cost: Int
+	A_Asset_Cost: BigDecimal
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Asset_To: ForeignEntityInput
 	ID: ID
 	A_Depreciation_Workfile_ID: Int
-	A_Percent_Original: Int
-	A_Percent_Split: Int
-	A_QTY_Current: Int
-	A_QTY_Split: Int
+	A_Percent_Original: BigDecimal
+	A_Percent_Split: BigDecimal
+	A_QTY_Current: BigDecimal
+	A_QTY_Split: BigDecimal
 	A_Split_Type: AD_Ref_ListInput
 	A_Transfer_Balance_IS: Boolean
 	# Organizational entity within client

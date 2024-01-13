@@ -44,7 +44,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ALLOCATIONSTRATEGYTYPE_UUIDS_BY_VALUE.get(entity.getAllocationStrategyType()));
 	}
 
@@ -67,7 +67,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getM_InOutLine_ID());
 	}
 
@@ -97,7 +97,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.M_InventoryLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_InventoryLine_ID());
 	}
 
@@ -112,7 +112,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -127,7 +127,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 			return null;
 		}
 		DataLoader<Integer, MProductionLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionLineDataLoader.M_ProductionLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionLineDataLoader.DATALOADER_M_ProductionLine_BY_ID);
 		return dataLoader.load(entity.getM_ProductionLine_ID());
 	}
 
@@ -142,7 +142,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 			return null;
 		}
 		DataLoader<Integer, MTransaction> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_TransactionDataLoader.M_Transaction_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_TransactionDataLoader.DATALOADER_M_Transaction_BY_ID);
 		return dataLoader.load(entity.getM_Transaction_ID());
 	}
 
@@ -157,7 +157,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getOut_M_InOutLine_ID());
 	}
 
@@ -172,7 +172,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.M_InventoryLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getOut_M_InventoryLine_ID());
 	}
 
@@ -187,7 +187,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 			return null;
 		}
 		DataLoader<Integer, MProductionLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionLineDataLoader.M_ProductionLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionLineDataLoader.DATALOADER_M_ProductionLine_BY_ID);
 		return dataLoader.load(entity.getOut_M_ProductionLine_ID());
 	}
 
@@ -202,7 +202,7 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 			return null;
 		}
 		DataLoader<Integer, MTransaction> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_TransactionDataLoader.M_Transaction_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_TransactionDataLoader.DATALOADER_M_Transaction_BY_ID);
 		return dataLoader.load(entity.getOut_M_Transaction_ID());
 	}
 

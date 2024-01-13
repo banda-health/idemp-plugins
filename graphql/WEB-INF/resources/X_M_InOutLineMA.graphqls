@@ -35,7 +35,7 @@ type M_InOutLineMA {
 	M_InOutLine: M_InOutLine!
 	ID: ID!
 	# Quantity of a product moved.
-	MovementQty: Int!
+	MovementQty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -56,5 +56,5 @@ input M_InOutLineMAInput {
 	M_InOutLine: ForeignEntityInput
 	ID: ID
 	# Quantity of a product moved.
-	MovementQty: Int
+	MovementQty: BigDecimal
 }

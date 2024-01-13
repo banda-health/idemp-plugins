@@ -41,11 +41,11 @@ type T_DistributionRunDetail {
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Minimum quantity for the business partner
-	MinQty: Int!
+	MinQty: BigDecimal!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Relative Ratio for Distributions
-	Ratio: Int!
+	Ratio: BigDecimal!
 	ID: ID!
 	# Date this record was updated
 	Updated: Date!
@@ -73,10 +73,10 @@ input T_DistributionRunDetailInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Minimum quantity for the business partner
-	MinQty: Int
+	MinQty: BigDecimal
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Relative Ratio for Distributions
-	Ratio: Int
+	Ratio: BigDecimal
 	ID: ID
 }

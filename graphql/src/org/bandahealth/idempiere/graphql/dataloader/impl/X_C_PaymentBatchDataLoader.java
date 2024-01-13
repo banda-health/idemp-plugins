@@ -9,8 +9,8 @@ import org.compiere.model.MPaymentBatch;
  * @version Release 8.2 - $Id$
  */
 public class X_C_PaymentBatchDataLoader extends PODataLoader<MPaymentBatch> {
-	public static String C_PaymentBatch_BY_ID_DATA_LOADER = "C_PaymentBatchByIdDataLoader";
-	public static String C_PaymentBatch_BY_UUID_DATA_LOADER = "C_PaymentBatchByUuidDataLoader";
+	public static String DATALOADER_C_PaymentBatch_BY_ID = "C_PaymentBatchByIdDataLoader";
+	public static String DATALOADER_C_PaymentBatch_BY_UUID = "C_PaymentBatchByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_PaymentBatchDataLoader extends PODataLoader<MPaymentBatch> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_PaymentBatch_BY_ID_DATA_LOADER;
+		return DATALOADER_C_PaymentBatch_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_PaymentBatch_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_PaymentBatch_BY_UUID;
 	}
 }

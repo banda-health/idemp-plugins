@@ -31,7 +31,7 @@ type M_Freight {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Freight Amount 
-	FreightAmt: Int!
+	FreightAmt: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	ID: ID!
@@ -39,8 +39,8 @@ type M_Freight {
 	M_FreightCategory: M_FreightCategory!
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
-	MaxDimension: Int
-	MaxWeight: Int
+	MaxDimension: BigDecimal
+	MaxWeight: BigDecimal
 	# Receiving Region
 	To_Region: C_Region
 	# Date this record was updated
@@ -61,7 +61,7 @@ input M_FreightInput {
 	# Identifies a geographical Region
 	C_Region: ForeignEntityInput
 	# Freight Amount 
-	FreightAmt: Int
+	FreightAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	ID: ID
@@ -69,8 +69,8 @@ input M_FreightInput {
 	M_FreightCategory: ForeignEntityInput
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
-	MaxDimension: Int
-	MaxWeight: Int
+	MaxDimension: BigDecimal
+	MaxWeight: BigDecimal
 	# Receiving Region
 	To_Region: ForeignEntityInput
 	# Valid from including this date (first day)

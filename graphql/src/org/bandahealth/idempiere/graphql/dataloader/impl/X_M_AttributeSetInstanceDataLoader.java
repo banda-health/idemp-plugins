@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_M_AttributeSetInstanceDataLoader extends PODataLoader<MAttributeSetInstance_BH> {
-	public static String M_AttributeSetInstance_BY_ID_DATA_LOADER = "M_AttributeSetInstanceByIdDataLoader";
-	public static String M_AttributeSetInstance_BY_UUID_DATA_LOADER = "M_AttributeSetInstanceByUuidDataLoader";
+	public static String DATALOADER_M_AttributeSetInstance_BY_ID = "M_AttributeSetInstanceByIdDataLoader";
+	public static String DATALOADER_M_AttributeSetInstance_BY_UUID = "M_AttributeSetInstanceByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_AttributeSetInstanceDataLoader extends PODataLoader<MAttributeS
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_AttributeSetInstance_BY_ID_DATA_LOADER;
+		return DATALOADER_M_AttributeSetInstance_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_AttributeSetInstance_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_AttributeSetInstance_BY_UUID;
 	}
 }

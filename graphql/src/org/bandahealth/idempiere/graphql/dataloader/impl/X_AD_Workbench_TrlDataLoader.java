@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Workbench_TrlDataLoader extends PODataLoader<PO> {
-	public static String AD_Workbench_Trl_BY_ID_DATA_LOADER = "AD_Workbench_TrlByIdDataLoader";
-	public static String AD_Workbench_Trl_BY_UUID_DATA_LOADER = "AD_Workbench_TrlByUuidDataLoader";
+	public static String DATALOADER_AD_Workbench_Trl_BY_ID = "AD_Workbench_TrlByIdDataLoader";
+	public static String DATALOADER_AD_Workbench_Trl_BY_UUID = "AD_Workbench_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -37,13 +37,13 @@ public class X_AD_Workbench_TrlDataLoader extends PODataLoader<PO> {
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Workbench_Trl_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Workbench_Trl_BY_UUID;
 	}
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(AD_Workbench_Trl_BY_ID_DATA_LOADER,
+		registry.register(DATALOADER_AD_Workbench_Trl_BY_ID,
 				DataLoader.newMappedDataLoader(getByIdAndLanguageBatchLoader(),
 						getOptionsWithCache(idempiereContext)));
 	}

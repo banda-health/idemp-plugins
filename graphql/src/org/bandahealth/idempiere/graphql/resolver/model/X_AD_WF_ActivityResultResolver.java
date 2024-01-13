@@ -29,7 +29,7 @@ public class X_AD_WF_ActivityResultResolver extends POResolver<X_AD_WF_ActivityR
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Activity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ActivityDataLoader.AD_WF_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ActivityDataLoader.DATALOADER_AD_WF_Activity_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Activity_ID());
 	}
 

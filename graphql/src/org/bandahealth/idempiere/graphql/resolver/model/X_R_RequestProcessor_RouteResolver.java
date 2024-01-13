@@ -33,7 +33,7 @@ public class X_R_RequestProcessor_RouteResolver extends POResolver<MRequestProce
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_R_RequestProcessor_RouteResolver extends POResolver<MRequestProce
 			return null;
 		}
 		DataLoader<Integer, MRequestProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestProcessorDataLoader.R_RequestProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestProcessorDataLoader.DATALOADER_R_RequestProcessor_BY_ID);
 		return dataLoader.load(entity.getR_RequestProcessor_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_R_RequestProcessor_RouteResolver extends POResolver<MRequestProce
 			return null;
 		}
 		DataLoader<Integer, MRequestType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestTypeDataLoader.R_RequestType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestTypeDataLoader.DATALOADER_R_RequestType_BY_ID);
 		return dataLoader.load(entity.getR_RequestType_ID());
 	}
 

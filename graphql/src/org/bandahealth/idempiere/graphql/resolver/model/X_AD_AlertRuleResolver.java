@@ -31,7 +31,7 @@ public class X_AD_AlertRuleResolver extends POResolver<MAlertRule> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAlert> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_AlertDataLoader.AD_Alert_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_AlertDataLoader.DATALOADER_AD_Alert_BY_ID);
 		return dataLoader.load(entity.getAD_Alert_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_AlertRuleResolver extends POResolver<MAlertRule> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 

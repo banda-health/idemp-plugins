@@ -31,7 +31,7 @@ public class X_C_OrderPayScheduleResolver extends POResolver<MOrderPaySchedule> 
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.C_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.DATALOADER_C_Order_BY_ID);
 		return dataLoader.load(entity.getC_Order_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_OrderPayScheduleResolver extends POResolver<MOrderPaySchedule> 
 			return null;
 		}
 		DataLoader<Integer, MPaySchedule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PayScheduleDataLoader.C_PaySchedule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PayScheduleDataLoader.DATALOADER_C_PaySchedule_BY_ID);
 		return dataLoader.load(entity.getC_PaySchedule_ID());
 	}
 

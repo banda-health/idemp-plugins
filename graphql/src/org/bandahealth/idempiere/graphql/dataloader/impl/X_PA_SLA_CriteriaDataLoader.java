@@ -9,8 +9,8 @@ import org.compiere.model.MSLACriteria;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_SLA_CriteriaDataLoader extends PODataLoader<MSLACriteria> {
-	public static String PA_SLA_Criteria_BY_ID_DATA_LOADER = "PA_SLA_CriteriaByIdDataLoader";
-	public static String PA_SLA_Criteria_BY_UUID_DATA_LOADER = "PA_SLA_CriteriaByUuidDataLoader";
+	public static String DATALOADER_PA_SLA_Criteria_BY_ID = "PA_SLA_CriteriaByIdDataLoader";
+	public static String DATALOADER_PA_SLA_Criteria_BY_UUID = "PA_SLA_CriteriaByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_SLA_CriteriaDataLoader extends PODataLoader<MSLACriteria> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_SLA_Criteria_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_SLA_Criteria_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_SLA_Criteria_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_SLA_Criteria_BY_UUID;
 	}
 }

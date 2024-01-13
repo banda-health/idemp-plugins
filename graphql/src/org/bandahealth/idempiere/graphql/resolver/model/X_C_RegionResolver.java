@@ -34,7 +34,7 @@ public class X_C_RegionResolver extends POResolver<MRegion> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.C_Country_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.DATALOADER_C_Country_BY_ID);
 		return dataLoader.load(entity.getC_Country_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_C_RegionResolver extends POResolver<MRegion> implements GraphQLRe
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Region_TrlDataLoader.C_Region_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Region_TrlDataLoader.DATALOADER_C_Region_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MRegion.COLUMNNAME_Name));
 	}

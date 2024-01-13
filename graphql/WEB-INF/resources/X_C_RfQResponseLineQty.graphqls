@@ -30,11 +30,11 @@ type C_RfQResponseLineQty {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Discount in percent
-	Discount: Int
+	Discount: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# Price
-	Price: Int!
+	Price: BigDecimal!
 	# Relative Rank Number
 	Ranking: Int
 	# Date this record was updated
@@ -52,11 +52,11 @@ input C_RfQResponseLineQtyInput {
 	C_RfQResponseLine: ForeignEntityInput
 	ID: ID
 	# Discount in percent
-	Discount: Int
+	Discount: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Price
-	Price: Int
+	Price: BigDecimal
 	# Relative Rank Number
 	Ranking: Int
 }

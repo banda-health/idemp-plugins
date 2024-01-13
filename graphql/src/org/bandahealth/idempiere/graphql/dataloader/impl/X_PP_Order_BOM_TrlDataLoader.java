@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_PP_Order_BOM_TrlDataLoader extends PODataLoader<PO> {
-	public static String PP_Order_BOM_Trl_BY_ID_DATA_LOADER = "PP_Order_BOM_TrlByIdDataLoader";
-	public static String PP_Order_BOM_Trl_BY_UUID_DATA_LOADER = "PP_Order_BOM_TrlByUuidDataLoader";
+	public static String DATALOADER_PP_Order_BOM_Trl_BY_ID = "PP_Order_BOM_TrlByIdDataLoader";
+	public static String DATALOADER_PP_Order_BOM_Trl_BY_UUID = "PP_Order_BOM_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -37,13 +37,13 @@ public class X_PP_Order_BOM_TrlDataLoader extends PODataLoader<PO> {
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PP_Order_BOM_Trl_BY_UUID_DATA_LOADER;
+		return DATALOADER_PP_Order_BOM_Trl_BY_UUID;
 	}
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(PP_Order_BOM_Trl_BY_ID_DATA_LOADER,
+		registry.register(DATALOADER_PP_Order_BOM_Trl_BY_ID,
 				DataLoader.newMappedDataLoader(getByIdAndLanguageBatchLoader(),
 						getOptionsWithCache(idempiereContext)));
 	}

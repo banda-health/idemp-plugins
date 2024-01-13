@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_AllUsers_V;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_AllUsers_VDataLoader extends PODataLoader<X_AD_AllUsers_V> {
-	public static String AD_AllUsers_V_BY_ID_DATA_LOADER = "AD_AllUsers_VByIdDataLoader";
-	public static String AD_AllUsers_V_BY_UUID_DATA_LOADER = "AD_AllUsers_VByUuidDataLoader";
+	public static String DATALOADER_AD_AllUsers_V_BY_ID = "AD_AllUsers_VByIdDataLoader";
+	public static String DATALOADER_AD_AllUsers_V_BY_UUID = "AD_AllUsers_VByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_AllUsers_VDataLoader extends PODataLoader<X_AD_AllUsers_V> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_AllUsers_V_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_AllUsers_V_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_AllUsers_V_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_AllUsers_V_BY_UUID;
 	}
 }

@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.base.model.MProductPO_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MProductPO;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 
@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_M_Product_POInput extends MProductPO implements I_M_Product_POInput {
+public class X_M_Product_POInput extends MProductPO_BH implements I_M_Product_POInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_BPartner;
@@ -33,7 +33,7 @@ public class X_M_Product_POInput extends MProductPO implements I_M_Product_POInp
 	 */
 	@JsonCreator
 	public X_M_Product_POInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MProductPO(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MProductPO_BH(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}

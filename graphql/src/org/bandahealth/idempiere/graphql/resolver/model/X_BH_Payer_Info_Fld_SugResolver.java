@@ -36,7 +36,7 @@ public class X_BH_Payer_Info_Fld_SugResolver extends POResolver<MBHPayerInfoFldS
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_PAYERINFOFIELDDATATYPE_UUIDS_BY_VALUE.get(entity.getBH_PayerInfoFieldDataType()));
 	}
 
@@ -52,7 +52,7 @@ public class X_BH_Payer_Info_Fld_SugResolver extends POResolver<MBHPayerInfoFldS
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_SUBTYPE_UUIDS_BY_VALUE.get(entity.getBH_SubType()));
 	}
 

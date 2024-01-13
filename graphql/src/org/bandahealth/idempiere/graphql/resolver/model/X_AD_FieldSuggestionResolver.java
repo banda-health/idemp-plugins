@@ -44,7 +44,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 			return null;
 		}
 		DataLoader<Integer, MField_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.AD_Field_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.DATALOADER_AD_Field_BY_ID);
 		return dataLoader.load(entity.getAD_Field_ID());
 	}
 
@@ -173,7 +173,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 			return null;
 		}
 		DataLoader<Integer, MLanguage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.AD_Language_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.DATALOADER_AD_Language_BY_ID);
 		return dataLoader.load(AD_LANGUAGE_IDS_BY_LANGUAGE.get(entity.getAD_Language()));
 	}
 
@@ -188,7 +188,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.AD_Tab_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.DATALOADER_AD_Tab_BY_ID);
 		return dataLoader.load(entity.getAD_Tab_ID());
 	}
 
@@ -203,7 +203,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 			return null;
 		}
 		DataLoader<Integer, X_AD_AllUsers_V> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllUsers_VDataLoader.AD_AllUsers_V_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllUsers_VDataLoader.DATALOADER_AD_AllUsers_V_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -218,7 +218,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 			return null;
 		}
 		DataLoader<Integer, X_AD_AllClients_V> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllClients_VDataLoader.AD_AllClients_V_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllClients_VDataLoader.DATALOADER_AD_AllClients_V_BY_ID);
 		return dataLoader.load(entity.getAD_UserClient_ID());
 	}
 
@@ -233,7 +233,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.AD_Window_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
@@ -248,7 +248,7 @@ public class X_AD_FieldSuggestionResolver extends POResolver<MFieldSuggestion> i
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(FIELDSUGGESTIONTARGET_UUIDS_BY_VALUE.get(entity.getFieldSuggestionTarget()));
 	}
 

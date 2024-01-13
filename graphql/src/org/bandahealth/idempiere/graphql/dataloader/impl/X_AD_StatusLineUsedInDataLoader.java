@@ -9,8 +9,8 @@ import org.compiere.model.MStatusLineUsedIn;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_StatusLineUsedInDataLoader extends PODataLoader<MStatusLineUsedIn> {
-	public static String AD_StatusLineUsedIn_BY_ID_DATA_LOADER = "AD_StatusLineUsedInByIdDataLoader";
-	public static String AD_StatusLineUsedIn_BY_UUID_DATA_LOADER = "AD_StatusLineUsedInByUuidDataLoader";
+	public static String DATALOADER_AD_StatusLineUsedIn_BY_ID = "AD_StatusLineUsedInByIdDataLoader";
+	public static String DATALOADER_AD_StatusLineUsedIn_BY_UUID = "AD_StatusLineUsedInByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_StatusLineUsedInDataLoader extends PODataLoader<MStatusLineUse
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_StatusLineUsedIn_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_StatusLineUsedIn_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_StatusLineUsedIn_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_StatusLineUsedIn_BY_UUID;
 	}
 }

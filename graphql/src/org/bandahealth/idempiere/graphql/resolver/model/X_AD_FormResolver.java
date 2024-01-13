@@ -45,7 +45,7 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ACCESSLEVEL_UUIDS_BY_VALUE.get(entity.getAccessLevel()));
 	}
 
@@ -60,7 +60,7 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.AD_CtxHelp_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.DATALOADER_AD_CtxHelp_BY_ID);
 		return dataLoader.load(entity.getAD_CtxHelp_ID());
 	}
 
@@ -74,7 +74,7 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Form_TrlDataLoader.AD_Form_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Form_TrlDataLoader.DATALOADER_AD_Form_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MForm.COLUMNNAME_Description));
 	}
@@ -106,7 +106,7 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -120,7 +120,7 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Form_TrlDataLoader.AD_Form_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Form_TrlDataLoader.DATALOADER_AD_Form_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MForm.COLUMNNAME_Help));
 	}
@@ -139,7 +139,7 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Form_TrlDataLoader.AD_Form_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Form_TrlDataLoader.DATALOADER_AD_Form_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MForm.COLUMNNAME_Name));
 	}

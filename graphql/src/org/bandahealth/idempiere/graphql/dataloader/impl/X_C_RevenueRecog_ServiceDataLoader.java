@@ -9,8 +9,8 @@ import org.compiere.model.MRevenueRecogService;
  * @version Release 8.2 - $Id$
  */
 public class X_C_RevenueRecog_ServiceDataLoader extends PODataLoader<MRevenueRecogService> {
-	public static String C_RevenueRecog_Service_BY_ID_DATA_LOADER = "C_RevenueRecog_ServiceByIdDataLoader";
-	public static String C_RevenueRecog_Service_BY_UUID_DATA_LOADER = "C_RevenueRecog_ServiceByUuidDataLoader";
+	public static String DATALOADER_C_RevenueRecog_Service_BY_ID = "C_RevenueRecog_ServiceByIdDataLoader";
+	public static String DATALOADER_C_RevenueRecog_Service_BY_UUID = "C_RevenueRecog_ServiceByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_RevenueRecog_ServiceDataLoader extends PODataLoader<MRevenueRec
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_RevenueRecog_Service_BY_ID_DATA_LOADER;
+		return DATALOADER_C_RevenueRecog_Service_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_RevenueRecog_Service_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_RevenueRecog_Service_BY_UUID;
 	}
 }

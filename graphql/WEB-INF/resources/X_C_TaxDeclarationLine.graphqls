@@ -50,9 +50,9 @@ type C_TaxDeclarationLine {
 	# Unique line for this document
 	Line: Int!
 	# Tax Amount for a document
-	TaxAmt: Int!
+	TaxAmt: BigDecimal!
 	# Base for calculating the tax amount
-	TaxBaseAmt: Int!
+	TaxBaseAmt: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -88,7 +88,7 @@ input C_TaxDeclarationLineInput {
 	# Unique line for this document
 	Line: Int
 	# Tax Amount for a document
-	TaxAmt: Int
+	TaxAmt: BigDecimal
 	# Base for calculating the tax amount
-	TaxBaseAmt: Int
+	TaxBaseAmt: BigDecimal
 }

@@ -9,8 +9,8 @@ import org.compiere.model.MTree_NodeCMS;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_TreeNodeCMSDataLoader extends PODataLoader<MTree_NodeCMS> {
-	public static String AD_TreeNodeCMS_BY_ID_DATA_LOADER = "AD_TreeNodeCMSByIdDataLoader";
-	public static String AD_TreeNodeCMS_BY_UUID_DATA_LOADER = "AD_TreeNodeCMSByUuidDataLoader";
+	public static String DATALOADER_AD_TreeNodeCMS_BY_ID = "AD_TreeNodeCMSByIdDataLoader";
+	public static String DATALOADER_AD_TreeNodeCMS_BY_UUID = "AD_TreeNodeCMSByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_TreeNodeCMSDataLoader extends PODataLoader<MTree_NodeCMS> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_TreeNodeCMS_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_TreeNodeCMS_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_TreeNodeCMS_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_TreeNodeCMS_BY_UUID;
 	}
 }

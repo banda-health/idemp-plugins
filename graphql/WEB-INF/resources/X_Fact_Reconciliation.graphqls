@@ -23,7 +23,7 @@ type Fact_Reconciliation {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount Balance in Currency of Accounting Schema
-	AmtAcct: Int
+	AmtAcct: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Date this record was created

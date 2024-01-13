@@ -42,7 +42,7 @@ type M_InOut {
 	# Financial Project
 	C_Project: C_Project
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	CreateConfirm: String
 	# Date this record was created
 	Created: Date!
@@ -79,7 +79,7 @@ type M_InOut {
 	DropShip_User: AD_User
 	FOB: AD_Ref_List
 	# Freight Amount 
-	FreightAmt: Int
+	FreightAmt: BigDecimal
 	FreightCharges: AD_Ref_List
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_List!
@@ -125,7 +125,7 @@ type M_InOut {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	ReturnBPartner: C_BPartner
 	ReturnLocation: C_BPartner_Location
@@ -150,9 +150,9 @@ type M_InOut {
 	# User defined list element #2
 	User2: C_ElementValue
 	# Volume of a product
-	Volume: Int
+	Volume: BigDecimal
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 }
 
 input M_InOutInput {
@@ -180,7 +180,7 @@ input M_InOutInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	CreateConfirm: String
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
@@ -213,7 +213,7 @@ input M_InOutInput {
 	DropShip_User: ForeignEntityInput
 	FOB: AD_Ref_ListInput
 	# Freight Amount 
-	FreightAmt: Int
+	FreightAmt: BigDecimal
 	FreightCharges: AD_Ref_ListInput
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_ListInput
@@ -259,7 +259,7 @@ input M_InOutInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	ReturnBPartner: ForeignEntityInput
 	ReturnLocation: ForeignEntityInput
@@ -280,7 +280,7 @@ input M_InOutInput {
 	# User defined list element #2
 	User2: ForeignEntityInput
 	# Volume of a product
-	Volume: Int
+	Volume: BigDecimal
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 }

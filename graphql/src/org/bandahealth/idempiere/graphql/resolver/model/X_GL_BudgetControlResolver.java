@@ -37,7 +37,7 @@ public class X_GL_BudgetControlResolver extends POResolver<X_GL_BudgetControl> i
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BUDGETCONTROLSCOPE_UUIDS_BY_VALUE.get(entity.getBudgetControlScope()));
 	}
 
@@ -52,7 +52,7 @@ public class X_GL_BudgetControlResolver extends POResolver<X_GL_BudgetControl> i
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -71,7 +71,7 @@ public class X_GL_BudgetControlResolver extends POResolver<X_GL_BudgetControl> i
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(COMMITMENTTYPE_UUIDS_BY_VALUE.get(entity.getCommitmentType()));
 	}
 
@@ -86,7 +86,7 @@ public class X_GL_BudgetControlResolver extends POResolver<X_GL_BudgetControl> i
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_BudgetDataLoader.GL_Budget_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_BudgetDataLoader.DATALOADER_GL_Budget_BY_ID);
 		return dataLoader.load(entity.getGL_Budget_ID());
 	}
 

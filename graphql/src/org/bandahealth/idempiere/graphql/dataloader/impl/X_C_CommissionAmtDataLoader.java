@@ -9,8 +9,8 @@ import org.compiere.model.MCommissionAmt;
  * @version Release 8.2 - $Id$
  */
 public class X_C_CommissionAmtDataLoader extends PODataLoader<MCommissionAmt> {
-	public static String C_CommissionAmt_BY_ID_DATA_LOADER = "C_CommissionAmtByIdDataLoader";
-	public static String C_CommissionAmt_BY_UUID_DATA_LOADER = "C_CommissionAmtByUuidDataLoader";
+	public static String DATALOADER_C_CommissionAmt_BY_ID = "C_CommissionAmtByIdDataLoader";
+	public static String DATALOADER_C_CommissionAmt_BY_UUID = "C_CommissionAmtByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_CommissionAmtDataLoader extends PODataLoader<MCommissionAmt> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_CommissionAmt_BY_ID_DATA_LOADER;
+		return DATALOADER_C_CommissionAmt_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_CommissionAmt_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_CommissionAmt_BY_UUID;
 	}
 }

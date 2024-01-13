@@ -9,8 +9,8 @@ import org.compiere.model.X_M_AttributeSearch;
  * @version Release 8.2 - $Id$
  */
 public class X_M_AttributeSearchDataLoader extends PODataLoader<X_M_AttributeSearch> {
-	public static String M_AttributeSearch_BY_ID_DATA_LOADER = "M_AttributeSearchByIdDataLoader";
-	public static String M_AttributeSearch_BY_UUID_DATA_LOADER = "M_AttributeSearchByUuidDataLoader";
+	public static String DATALOADER_M_AttributeSearch_BY_ID = "M_AttributeSearchByIdDataLoader";
+	public static String DATALOADER_M_AttributeSearch_BY_UUID = "M_AttributeSearchByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_AttributeSearchDataLoader extends PODataLoader<X_M_AttributeSea
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_AttributeSearch_BY_ID_DATA_LOADER;
+		return DATALOADER_M_AttributeSearch_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_AttributeSearch_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_AttributeSearch_BY_UUID;
 	}
 }

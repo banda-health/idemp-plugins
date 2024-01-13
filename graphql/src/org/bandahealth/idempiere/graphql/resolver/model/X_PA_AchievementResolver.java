@@ -33,7 +33,7 @@ public class X_PA_AchievementResolver extends POResolver<MAchievement> implement
 			return null;
 		}
 		DataLoader<Integer, MMeasure> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_MeasureDataLoader.PA_Measure_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_MeasureDataLoader.DATALOADER_PA_Measure_BY_ID);
 		return dataLoader.load(entity.getPA_Measure_ID());
 	}
 

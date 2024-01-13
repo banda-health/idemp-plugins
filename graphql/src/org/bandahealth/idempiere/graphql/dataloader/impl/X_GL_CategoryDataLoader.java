@@ -9,8 +9,8 @@ import org.compiere.model.MGLCategory;
  * @version Release 8.2 - $Id$
  */
 public class X_GL_CategoryDataLoader extends PODataLoader<MGLCategory> {
-	public static String GL_Category_BY_ID_DATA_LOADER = "GL_CategoryByIdDataLoader";
-	public static String GL_Category_BY_UUID_DATA_LOADER = "GL_CategoryByUuidDataLoader";
+	public static String DATALOADER_GL_Category_BY_ID = "GL_CategoryByIdDataLoader";
+	public static String DATALOADER_GL_Category_BY_UUID = "GL_CategoryByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_GL_CategoryDataLoader extends PODataLoader<MGLCategory> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return GL_Category_BY_ID_DATA_LOADER;
+		return DATALOADER_GL_Category_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return GL_Category_BY_UUID_DATA_LOADER;
+		return DATALOADER_GL_Category_BY_UUID;
 	}
 }

@@ -23,7 +23,7 @@ type PP_Order {
 	# Workflow or combination of tasks
 	AD_Workflow: AD_Workflow!
 	# Indicated the Quantity Assay to use into Quality Order
-	Assay: Int
+	Assay: BigDecimal
 	# Business Activity
 	C_Activity: C_Activity
 	# Marketing Campaign
@@ -68,8 +68,8 @@ type PP_Order {
 	DocStatus: AD_Ref_List!
 	# Document sequence number of the document
 	DocumentNo: String!
-	FloatAfter: Int
-	FloatBefored: Int
+	FloatAfter: BigDecimal
+	FloatBefored: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this document requires approval
@@ -104,21 +104,21 @@ type PP_Order {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
-	QtyBatchs: Int
-	QtyBatchSize: Int
+	QtyBatchs: BigDecimal
+	QtyBatchSize: BigDecimal
 	# Delivered Quantity
-	QtyDelivered: Int!
+	QtyDelivered: BigDecimal!
 	# The Quantity Entered is based on the selected UoM
-	QtyEntered: Int
+	QtyEntered: BigDecimal
 	# Ordered Quantity
-	QtyOrdered: Int!
-	QtyReject: Int!
+	QtyOrdered: BigDecimal!
+	QtyReject: BigDecimal!
 	# Reserved Quantity
-	QtyReserved: Int
+	QtyReserved: BigDecimal
 	# Scrap % Quantity for this componet
-	QtyScrap: Int!
+	QtyScrap: BigDecimal!
 	# Resource
 	S_Resource: S_Resource!
 	# Type of schedule
@@ -134,7 +134,7 @@ type PP_Order {
 	# User defined list element #2
 	User2: C_ElementValue
 	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
-	Yield: Int!
+	Yield: BigDecimal!
 }
 
 input PP_OrderInput {
@@ -143,7 +143,7 @@ input PP_OrderInput {
 	# Workflow or combination of tasks
 	AD_Workflow: ForeignEntityInput
 	# Indicated the Quantity Assay to use into Quality Order
-	Assay: Int
+	Assay: BigDecimal
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Marketing Campaign
@@ -184,8 +184,8 @@ input PP_OrderInput {
 	DocStatus: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
-	FloatAfter: Int
-	FloatBefored: Int
+	FloatAfter: BigDecimal
+	FloatBefored: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document requires approval
@@ -220,21 +220,21 @@ input PP_OrderInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
-	QtyBatchs: Int
-	QtyBatchSize: Int
+	QtyBatchs: BigDecimal
+	QtyBatchSize: BigDecimal
 	# Delivered Quantity
-	QtyDelivered: Int
+	QtyDelivered: BigDecimal
 	# The Quantity Entered is based on the selected UoM
-	QtyEntered: Int
+	QtyEntered: BigDecimal
 	# Ordered Quantity
-	QtyOrdered: Int
-	QtyReject: Int
+	QtyOrdered: BigDecimal
+	QtyReject: BigDecimal
 	# Reserved Quantity
-	QtyReserved: Int
+	QtyReserved: BigDecimal
 	# Scrap % Quantity for this componet
-	QtyScrap: Int
+	QtyScrap: BigDecimal
 	# Resource
 	S_Resource: ForeignEntityInput
 	# Type of schedule
@@ -246,5 +246,5 @@ input PP_OrderInput {
 	# User defined list element #2
 	User2: ForeignEntityInput
 	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
-	Yield: Int
+	Yield: BigDecimal
 }

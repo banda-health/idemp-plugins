@@ -29,7 +29,7 @@ public class X_AD_Attribute_ValueResolver extends POResolver<X_AD_Attribute_Valu
 			return null;
 		}
 		DataLoader<Integer, X_AD_Attribute> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_AttributeDataLoader.AD_Attribute_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_AttributeDataLoader.DATALOADER_AD_Attribute_BY_ID);
 		return dataLoader.load(entity.getAD_Attribute_ID());
 	}
 

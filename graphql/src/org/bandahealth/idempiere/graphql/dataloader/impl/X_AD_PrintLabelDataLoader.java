@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_PrintLabel;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_PrintLabelDataLoader extends PODataLoader<X_AD_PrintLabel> {
-	public static String AD_PrintLabel_BY_ID_DATA_LOADER = "AD_PrintLabelByIdDataLoader";
-	public static String AD_PrintLabel_BY_UUID_DATA_LOADER = "AD_PrintLabelByUuidDataLoader";
+	public static String DATALOADER_AD_PrintLabel_BY_ID = "AD_PrintLabelByIdDataLoader";
+	public static String DATALOADER_AD_PrintLabel_BY_UUID = "AD_PrintLabelByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_PrintLabelDataLoader extends PODataLoader<X_AD_PrintLabel> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_PrintLabel_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_PrintLabel_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_PrintLabel_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_PrintLabel_BY_UUID;
 	}
 }

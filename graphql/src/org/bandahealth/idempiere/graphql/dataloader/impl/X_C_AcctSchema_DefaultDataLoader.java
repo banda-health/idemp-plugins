@@ -9,8 +9,8 @@ import org.compiere.model.MAcctSchemaDefault;
  * @version Release 8.2 - $Id$
  */
 public class X_C_AcctSchema_DefaultDataLoader extends PODataLoader<MAcctSchemaDefault> {
-	public static String C_AcctSchema_Default_BY_ID_DATA_LOADER = "C_AcctSchema_DefaultByIdDataLoader";
-	public static String C_AcctSchema_Default_BY_UUID_DATA_LOADER = "C_AcctSchema_DefaultByUuidDataLoader";
+	public static String DATALOADER_C_AcctSchema_Default_BY_ID = "C_AcctSchema_DefaultByIdDataLoader";
+	public static String DATALOADER_C_AcctSchema_Default_BY_UUID = "C_AcctSchema_DefaultByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_AcctSchema_DefaultDataLoader extends PODataLoader<MAcctSchemaDe
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_AcctSchema_Default_BY_ID_DATA_LOADER;
+		return DATALOADER_C_AcctSchema_Default_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_AcctSchema_Default_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_AcctSchema_Default_BY_UUID;
 	}
 }

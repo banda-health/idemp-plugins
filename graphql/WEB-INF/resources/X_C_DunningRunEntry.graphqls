@@ -23,7 +23,7 @@ type C_DunningRunEntry {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	# Amount
-	Amt: Int!
+	Amt: BigDecimal!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Identifies the (ship to) address for this Business Partner
@@ -45,7 +45,7 @@ type C_DunningRunEntry {
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Sales Representative or Company Agent
 	SalesRep: AD_User!
 	# Date this record was updated
@@ -60,7 +60,7 @@ input C_DunningRunEntryInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	# Amount
-	Amt: Int
+	Amt: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Identifies the (ship to) address for this Business Partner
@@ -78,7 +78,7 @@ input C_DunningRunEntryInput {
 	# The document has been processed
 	Processed: Boolean
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
 }

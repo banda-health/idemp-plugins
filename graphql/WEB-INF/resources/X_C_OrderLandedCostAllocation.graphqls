@@ -21,9 +21,9 @@ type C_OrderLandedCostAllocation {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount
-	Amt: Int!
+	Amt: BigDecimal!
 	# Calculation Base
-	Base: Int!
+	Base: BigDecimal!
 	C_OrderLandedCost: C_OrderLandedCost!
 	ID: ID!
 	# Sales Order Line
@@ -37,7 +37,7 @@ type C_OrderLandedCostAllocation {
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -48,9 +48,9 @@ input C_OrderLandedCostAllocationInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount
-	Amt: Int
+	Amt: BigDecimal
 	# Calculation Base
-	Base: Int
+	Base: BigDecimal
 	C_OrderLandedCost: ForeignEntityInput
 	ID: ID
 	# Sales Order Line
@@ -60,5 +60,5 @@ input C_OrderLandedCostAllocationInput {
 	# The document has been processed
 	Processed: Boolean
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 }

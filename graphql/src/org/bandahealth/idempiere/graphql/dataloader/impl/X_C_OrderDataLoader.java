@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_C_OrderDataLoader extends PODataLoader<MOrder_BH> {
-	public static String C_Order_BY_ID_DATA_LOADER = "C_OrderByIdDataLoader";
-	public static String C_Order_BY_UUID_DATA_LOADER = "C_OrderByUuidDataLoader";
+	public static String DATALOADER_C_Order_BY_ID = "C_OrderByIdDataLoader";
+	public static String DATALOADER_C_Order_BY_UUID = "C_OrderByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_OrderDataLoader extends PODataLoader<MOrder_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Order_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Order_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Order_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Order_BY_UUID;
 	}
 }

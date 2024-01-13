@@ -9,8 +9,8 @@ import org.compiere.model.MMovementConfirm;
  * @version Release 8.2 - $Id$
  */
 public class X_M_MovementConfirmDataLoader extends PODataLoader<MMovementConfirm> {
-	public static String M_MovementConfirm_BY_ID_DATA_LOADER = "M_MovementConfirmByIdDataLoader";
-	public static String M_MovementConfirm_BY_UUID_DATA_LOADER = "M_MovementConfirmByUuidDataLoader";
+	public static String DATALOADER_M_MovementConfirm_BY_ID = "M_MovementConfirmByIdDataLoader";
+	public static String DATALOADER_M_MovementConfirm_BY_UUID = "M_MovementConfirmByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_MovementConfirmDataLoader extends PODataLoader<MMovementConfirm
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_MovementConfirm_BY_ID_DATA_LOADER;
+		return DATALOADER_M_MovementConfirm_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_MovementConfirm_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_MovementConfirm_BY_UUID;
 	}
 }

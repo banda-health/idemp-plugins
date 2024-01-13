@@ -34,7 +34,7 @@ type C_DepositBatch {
 	DateDeposit: Date!
 	# Date of the Document
 	DateDoc: Date!
-	DepositAmt: Int!
+	DepositAmt: BigDecimal!
 	# Optional short description of the record
 	Description: String
 	# The current status of the document
@@ -65,7 +65,7 @@ input C_DepositBatchInput {
 	DateDeposit: Date
 	# Date of the Document
 	DateDoc: Date
-	DepositAmt: Int
+	DepositAmt: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The current status of the document

@@ -32,7 +32,7 @@ type C_CycleStep {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Relative weight of this step (0 = ignored)
-	RelativeWeight: Int!
+	RelativeWeight: BigDecimal!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -52,7 +52,7 @@ input C_CycleStepInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Relative weight of this step (0 = ignored)
-	RelativeWeight: Int
+	RelativeWeight: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

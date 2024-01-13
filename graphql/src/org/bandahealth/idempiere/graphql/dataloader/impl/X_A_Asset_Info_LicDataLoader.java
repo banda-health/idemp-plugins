@@ -9,8 +9,8 @@ import org.compiere.model.X_A_Asset_Info_Lic;
  * @version Release 8.2 - $Id$
  */
 public class X_A_Asset_Info_LicDataLoader extends PODataLoader<X_A_Asset_Info_Lic> {
-	public static String A_Asset_Info_Lic_BY_ID_DATA_LOADER = "A_Asset_Info_LicByIdDataLoader";
-	public static String A_Asset_Info_Lic_BY_UUID_DATA_LOADER = "A_Asset_Info_LicByUuidDataLoader";
+	public static String DATALOADER_A_Asset_Info_Lic_BY_ID = "A_Asset_Info_LicByIdDataLoader";
+	public static String DATALOADER_A_Asset_Info_Lic_BY_UUID = "A_Asset_Info_LicByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_A_Asset_Info_LicDataLoader extends PODataLoader<X_A_Asset_Info_Li
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return A_Asset_Info_Lic_BY_ID_DATA_LOADER;
+		return DATALOADER_A_Asset_Info_Lic_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return A_Asset_Info_Lic_BY_UUID_DATA_LOADER;
+		return DATALOADER_A_Asset_Info_Lic_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.eevolution.model.MPPProductPlanning;
  * @version Release 8.2 - $Id$
  */
 public class X_PP_Product_PlanningDataLoader extends PODataLoader<MPPProductPlanning> {
-	public static String PP_Product_Planning_BY_ID_DATA_LOADER = "PP_Product_PlanningByIdDataLoader";
-	public static String PP_Product_Planning_BY_UUID_DATA_LOADER = "PP_Product_PlanningByUuidDataLoader";
+	public static String DATALOADER_PP_Product_Planning_BY_ID = "PP_Product_PlanningByIdDataLoader";
+	public static String DATALOADER_PP_Product_Planning_BY_UUID = "PP_Product_PlanningByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PP_Product_PlanningDataLoader extends PODataLoader<MPPProductPlan
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PP_Product_Planning_BY_ID_DATA_LOADER;
+		return DATALOADER_PP_Product_Planning_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PP_Product_Planning_BY_UUID_DATA_LOADER;
+		return DATALOADER_PP_Product_Planning_BY_UUID;
 	}
 }

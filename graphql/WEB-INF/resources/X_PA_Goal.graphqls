@@ -39,19 +39,19 @@ type PA_Goal {
 	# Optional short description of the record
 	Description: String
 	# Target achievement from 0..1
-	GoalPerformance: Int!
+	GoalPerformance: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# This is a summary entity
 	IsSummary: Boolean!
 	# Actual value that has been measured.
-	MeasureActual: Int!
+	MeasureActual: BigDecimal!
 	# Measure Scope initially displayed
 	MeasureDisplay: AD_Ref_List
 	# Performance Measure Scope
 	MeasureScope: AD_Ref_List!
 	# Target value for measure
-	MeasureTarget: Int!
+	MeasureTarget: BigDecimal!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Optional additional user defined information
@@ -64,7 +64,7 @@ type PA_Goal {
 	# Concrete Performance Measurement
 	PA_Measure: PA_Measure
 	# Relative weight of this step (0 = ignored)
-	RelativeWeight: Int!
+	RelativeWeight: BigDecimal!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -91,19 +91,19 @@ input PA_GoalInput {
 	# Optional short description of the record
 	Description: String
 	# Target achievement from 0..1
-	GoalPerformance: Int
+	GoalPerformance: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# This is a summary entity
 	IsSummary: Boolean
 	# Actual value that has been measured.
-	MeasureActual: Int
+	MeasureActual: BigDecimal
 	# Measure Scope initially displayed
 	MeasureDisplay: AD_Ref_ListInput
 	# Performance Measure Scope
 	MeasureScope: AD_Ref_ListInput
 	# Target value for measure
-	MeasureTarget: Int
+	MeasureTarget: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Optional additional user defined information
@@ -116,7 +116,7 @@ input PA_GoalInput {
 	# Concrete Performance Measurement
 	PA_Measure: ForeignEntityInput
 	# Relative weight of this step (0 = ignored)
-	RelativeWeight: Int
+	RelativeWeight: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

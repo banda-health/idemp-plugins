@@ -9,8 +9,8 @@ import org.compiere.model.MPOSKeyLayout;
  * @version Release 8.2 - $Id$
  */
 public class X_C_POSKeyLayoutDataLoader extends PODataLoader<MPOSKeyLayout> {
-	public static String C_POSKeyLayout_BY_ID_DATA_LOADER = "C_POSKeyLayoutByIdDataLoader";
-	public static String C_POSKeyLayout_BY_UUID_DATA_LOADER = "C_POSKeyLayoutByUuidDataLoader";
+	public static String DATALOADER_C_POSKeyLayout_BY_ID = "C_POSKeyLayoutByIdDataLoader";
+	public static String DATALOADER_C_POSKeyLayout_BY_UUID = "C_POSKeyLayoutByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_POSKeyLayoutDataLoader extends PODataLoader<MPOSKeyLayout> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_POSKeyLayout_BY_ID_DATA_LOADER;
+		return DATALOADER_C_POSKeyLayout_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_POSKeyLayout_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_POSKeyLayout_BY_UUID;
 	}
 }

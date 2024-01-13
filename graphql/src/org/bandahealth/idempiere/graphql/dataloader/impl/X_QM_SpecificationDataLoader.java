@@ -9,8 +9,8 @@ import org.eevolution.model.X_QM_Specification;
  * @version Release 8.2 - $Id$
  */
 public class X_QM_SpecificationDataLoader extends PODataLoader<X_QM_Specification> {
-	public static String QM_Specification_BY_ID_DATA_LOADER = "QM_SpecificationByIdDataLoader";
-	public static String QM_Specification_BY_UUID_DATA_LOADER = "QM_SpecificationByUuidDataLoader";
+	public static String DATALOADER_QM_Specification_BY_ID = "QM_SpecificationByIdDataLoader";
+	public static String DATALOADER_QM_Specification_BY_UUID = "QM_SpecificationByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_QM_SpecificationDataLoader extends PODataLoader<X_QM_Specificatio
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return QM_Specification_BY_ID_DATA_LOADER;
+		return DATALOADER_QM_Specification_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return QM_Specification_BY_UUID_DATA_LOADER;
+		return DATALOADER_QM_Specification_BY_UUID;
 	}
 }

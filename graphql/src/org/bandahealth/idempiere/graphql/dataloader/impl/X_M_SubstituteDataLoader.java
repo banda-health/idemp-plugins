@@ -9,8 +9,8 @@ import org.compiere.model.X_M_Substitute;
  * @version Release 8.2 - $Id$
  */
 public class X_M_SubstituteDataLoader extends PODataLoader<X_M_Substitute> {
-	public static String M_Substitute_BY_ID_DATA_LOADER = "M_SubstituteByIdDataLoader";
-	public static String M_Substitute_BY_UUID_DATA_LOADER = "M_SubstituteByUuidDataLoader";
+	public static String DATALOADER_M_Substitute_BY_ID = "M_SubstituteByIdDataLoader";
+	public static String DATALOADER_M_Substitute_BY_UUID = "M_SubstituteByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_SubstituteDataLoader extends PODataLoader<X_M_Substitute> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_Substitute_BY_ID_DATA_LOADER;
+		return DATALOADER_M_Substitute_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_Substitute_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_Substitute_BY_UUID;
 	}
 }

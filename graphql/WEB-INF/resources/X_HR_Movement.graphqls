@@ -24,7 +24,7 @@ type HR_Movement {
 	AD_Org: AD_Org!
 	AD_Rule: AD_Rule
 	# Amount in a defined currency
-	Amount: Int
+	Amount: BigDecimal
 	# Business Activity
 	C_Activity: C_Activity
 	# Bank Account of the Business Partner
@@ -64,7 +64,7 @@ type HR_Movement {
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Date service was provided
 	ServiceDate: Date
 	# Text Message
@@ -90,7 +90,7 @@ input HR_MovementInput {
 	AD_Org: ForeignEntityInput
 	AD_Rule: ForeignEntityInput
 	# Amount in a defined currency
-	Amount: Int
+	Amount: BigDecimal
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Bank Account of the Business Partner
@@ -126,7 +126,7 @@ input HR_MovementInput {
 	# The document has been processed
 	Processed: Boolean
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Date service was provided
 	ServiceDate: Date
 	# Text Message

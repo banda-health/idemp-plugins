@@ -9,8 +9,8 @@ import org.compiere.model.X_ASP_ClientLevel;
  * @version Release 8.2 - $Id$
  */
 public class X_ASP_ClientLevelDataLoader extends PODataLoader<X_ASP_ClientLevel> {
-	public static String ASP_ClientLevel_BY_ID_DATA_LOADER = "ASP_ClientLevelByIdDataLoader";
-	public static String ASP_ClientLevel_BY_UUID_DATA_LOADER = "ASP_ClientLevelByUuidDataLoader";
+	public static String DATALOADER_ASP_ClientLevel_BY_ID = "ASP_ClientLevelByIdDataLoader";
+	public static String DATALOADER_ASP_ClientLevel_BY_UUID = "ASP_ClientLevelByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_ASP_ClientLevelDataLoader extends PODataLoader<X_ASP_ClientLevel>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return ASP_ClientLevel_BY_ID_DATA_LOADER;
+		return DATALOADER_ASP_ClientLevel_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return ASP_ClientLevel_BY_UUID_DATA_LOADER;
+		return DATALOADER_ASP_ClientLevel_BY_UUID;
 	}
 }

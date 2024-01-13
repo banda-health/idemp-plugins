@@ -31,7 +31,7 @@ public class X_R_GroupResolver extends POResolver<MGroup> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.M_ChangeNotice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.DATALOADER_M_ChangeNotice_BY_ID);
 		return dataLoader.load(entity.getM_ChangeNotice_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_R_GroupResolver extends POResolver<MGroup> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMDataLoader.PP_Product_BOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMDataLoader.DATALOADER_PP_Product_BOM_BY_ID);
 		return dataLoader.load(entity.getPP_Product_BOM_ID());
 	}
 

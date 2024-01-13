@@ -29,7 +29,7 @@ public class X_M_AttributeValueResolver extends POResolver<MAttributeValue> impl
 			return null;
 		}
 		DataLoader<Integer, MAttribute> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeDataLoader.M_Attribute_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeDataLoader.DATALOADER_M_Attribute_BY_ID);
 		return dataLoader.load(entity.getM_Attribute_ID());
 	}
 

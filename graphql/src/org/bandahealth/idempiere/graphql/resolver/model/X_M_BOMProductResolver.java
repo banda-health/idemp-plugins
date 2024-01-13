@@ -47,7 +47,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BOMPRODUCTTYPE_UUIDS_BY_VALUE.get(entity.getBOMProductType()));
 	}
 
@@ -66,7 +66,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -81,7 +81,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 			return null;
 		}
 		DataLoader<Integer, MBOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_BOMDataLoader.M_BOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_BOMDataLoader.DATALOADER_M_BOM_BY_ID);
 		return dataLoader.load(entity.getM_BOM_ID());
 	}
 
@@ -96,7 +96,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 			return null;
 		}
 		DataLoader<Integer, X_M_BOMAlternative> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_BOMAlternativeDataLoader.M_BOMAlternative_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_BOMAlternativeDataLoader.DATALOADER_M_BOMAlternative_BY_ID);
 		return dataLoader.load(entity.getM_BOMAlternative_ID());
 	}
 
@@ -111,7 +111,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.M_ChangeNotice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.DATALOADER_M_ChangeNotice_BY_ID);
 		return dataLoader.load(entity.getM_ChangeNotice_ID());
 	}
 
@@ -126,7 +126,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_ProductBOM_ID());
 	}
 
@@ -141,7 +141,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 			return null;
 		}
 		DataLoader<Integer, X_M_ProductOperation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductOperationDataLoader.M_ProductOperation_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductOperationDataLoader.DATALOADER_M_ProductOperation_BY_ID);
 		return dataLoader.load(entity.getM_ProductOperation_ID());
 	}
 

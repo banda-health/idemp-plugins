@@ -9,8 +9,8 @@ import org.compiere.model.MAddressTransaction;
  * @version Release 8.2 - $Id$
  */
 public class X_C_AddressTransactionDataLoader extends PODataLoader<MAddressTransaction> {
-	public static String C_AddressTransaction_BY_ID_DATA_LOADER = "C_AddressTransactionByIdDataLoader";
-	public static String C_AddressTransaction_BY_UUID_DATA_LOADER = "C_AddressTransactionByUuidDataLoader";
+	public static String DATALOADER_C_AddressTransaction_BY_ID = "C_AddressTransactionByIdDataLoader";
+	public static String DATALOADER_C_AddressTransaction_BY_UUID = "C_AddressTransactionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_AddressTransactionDataLoader extends PODataLoader<MAddressTrans
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_AddressTransaction_BY_ID_DATA_LOADER;
+		return DATALOADER_C_AddressTransaction_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_AddressTransaction_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_AddressTransaction_BY_UUID;
 	}
 }

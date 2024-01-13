@@ -65,4 +65,23 @@ public interface I_AD_Window_AccessInput extends I_AD_Window_Access {
 	 * @return Data entry or display window
 	 */
 	ForeignEntityInput AD_Window();
+
+	/**
+	 * Column name BH_CanDeactivate
+	 */
+	static final String COLUMNNAME_BH_CanDeactivate = "BH_CanDeactivate";
+
+	/**
+	 * Set Can Deactivate.
+	 *
+	 * @param BH_CanDeactivate Can Deactivate
+	 */
+	void setBH_CanDeactivate(boolean BH_CanDeactivate);
+
+	/**
+	 * Get Can Deactivate.
+	 *
+	 * @return Can Deactivate
+	 */
+	boolean isBH_CanDeactivate();
 }

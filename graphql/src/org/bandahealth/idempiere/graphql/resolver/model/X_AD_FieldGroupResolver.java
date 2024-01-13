@@ -38,7 +38,7 @@ public class X_AD_FieldGroupResolver extends POResolver<MFieldGroup_BH> implemen
 			return CompletableFuture.supplyAsync(entity::getBH_Abbreviation);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_FieldGroup_TrlDataLoader.AD_FieldGroup_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_FieldGroup_TrlDataLoader.DATALOADER_AD_FieldGroup_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MFieldGroup_BH.COLUMNNAME_BH_Abbreviation));
 	}
@@ -70,7 +70,7 @@ public class X_AD_FieldGroupResolver extends POResolver<MFieldGroup_BH> implemen
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -86,7 +86,7 @@ public class X_AD_FieldGroupResolver extends POResolver<MFieldGroup_BH> implemen
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(FIELDGROUPTYPE_UUIDS_BY_VALUE.get(entity.getFieldGroupType()));
 	}
 
@@ -104,7 +104,7 @@ public class X_AD_FieldGroupResolver extends POResolver<MFieldGroup_BH> implemen
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_FieldGroup_TrlDataLoader.AD_FieldGroup_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_FieldGroup_TrlDataLoader.DATALOADER_AD_FieldGroup_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MFieldGroup_BH.COLUMNNAME_Name));
 	}

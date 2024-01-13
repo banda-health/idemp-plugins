@@ -31,7 +31,7 @@ public class X_WS_WebServiceFieldOutputResolver extends POResolver<X_WS_WebServi
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_WS_WebServiceFieldOutputResolver extends POResolver<X_WS_WebServi
 			return null;
 		}
 		DataLoader<Integer, X_WS_WebServiceType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceTypeDataLoader.WS_WebServiceType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceTypeDataLoader.DATALOADER_WS_WebServiceType_BY_ID);
 		return dataLoader.load(entity.getWS_WebServiceType_ID());
 	}
 

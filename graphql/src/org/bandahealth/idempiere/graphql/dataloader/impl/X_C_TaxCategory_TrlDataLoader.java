@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_C_TaxCategory_TrlDataLoader extends PODataLoader<PO> {
-	public static String C_TaxCategory_Trl_BY_ID_DATA_LOADER = "C_TaxCategory_TrlByIdDataLoader";
-	public static String C_TaxCategory_Trl_BY_UUID_DATA_LOADER = "C_TaxCategory_TrlByUuidDataLoader";
+	public static String DATALOADER_C_TaxCategory_Trl_BY_ID = "C_TaxCategory_TrlByIdDataLoader";
+	public static String DATALOADER_C_TaxCategory_Trl_BY_UUID = "C_TaxCategory_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -37,13 +37,13 @@ public class X_C_TaxCategory_TrlDataLoader extends PODataLoader<PO> {
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_TaxCategory_Trl_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_TaxCategory_Trl_BY_UUID;
 	}
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(C_TaxCategory_Trl_BY_ID_DATA_LOADER,
+		registry.register(DATALOADER_C_TaxCategory_Trl_BY_ID,
 				DataLoader.newMappedDataLoader(getByIdAndLanguageBatchLoader(),
 						getOptionsWithCache(idempiereContext)));
 	}

@@ -29,7 +29,7 @@ public class X_B_TopicCategoryResolver extends POResolver<X_B_TopicCategory> imp
 			return null;
 		}
 		DataLoader<Integer, X_B_TopicType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_B_TopicTypeDataLoader.B_TopicType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_B_TopicTypeDataLoader.DATALOADER_B_TopicType_BY_ID);
 		return dataLoader.load(entity.getB_TopicType_ID());
 	}
 

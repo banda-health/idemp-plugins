@@ -41,7 +41,7 @@ type S_TimeExpenseLine {
 	# Unit of Measure
 	C_UOM: C_UOM
 	# Converted Amount
-	ConvertedAmt: Int
+	ConvertedAmt: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -51,9 +51,9 @@ type S_TimeExpenseLine {
 	# Optional short description of the record
 	Description: String
 	# Amount for this expense
-	ExpenseAmt: Int
+	ExpenseAmt: BigDecimal
 	# Unit price to be invoiced or 0 for default price
-	InvoicePrice: Int
+	InvoicePrice: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# Is this invoiced?
@@ -67,17 +67,17 @@ type S_TimeExpenseLine {
 	# Optional additional user defined information
 	Note: String
 	# The priced invoiced to the customer (in the currency of the customer's AR price list) - 0 for default price
-	PriceInvoiced: Int
+	PriceInvoiced: BigDecimal
 	# The reimbursed price (in currency of the employee's AP price list)
-	PriceReimbursed: Int
+	PriceReimbursed: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Invoiced Quantity
-	QtyInvoiced: Int
+	QtyInvoiced: BigDecimal
 	# The reimbursed quantity
-	QtyReimbursed: Int
+	QtyReimbursed: BigDecimal
 	# Resource Assignment
 	S_ResourceAssignment: S_ResourceAssignment
 	# Time and Expense Report
@@ -115,15 +115,15 @@ input S_TimeExpenseLineInput {
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
 	# Converted Amount
-	ConvertedAmt: Int
+	ConvertedAmt: BigDecimal
 	# Date of expense
 	DateExpense: Date
 	# Optional short description of the record
 	Description: String
 	# Amount for this expense
-	ExpenseAmt: Int
+	ExpenseAmt: BigDecimal
 	# Unit price to be invoiced or 0 for default price
-	InvoicePrice: Int
+	InvoicePrice: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Is this invoiced?
@@ -137,17 +137,17 @@ input S_TimeExpenseLineInput {
 	# Optional additional user defined information
 	Note: String
 	# The priced invoiced to the customer (in the currency of the customer's AR price list) - 0 for default price
-	PriceInvoiced: Int
+	PriceInvoiced: BigDecimal
 	# The reimbursed price (in currency of the employee's AP price list)
-	PriceReimbursed: Int
+	PriceReimbursed: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Invoiced Quantity
-	QtyInvoiced: Int
+	QtyInvoiced: BigDecimal
 	# The reimbursed quantity
-	QtyReimbursed: Int
+	QtyReimbursed: BigDecimal
 	# Resource Assignment
 	S_ResourceAssignment: ForeignEntityInput
 	# Time and Expense Report

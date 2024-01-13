@@ -21,7 +21,7 @@ type C_InvoiceSchedule {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount
-	Amt: Int!
+	Amt: BigDecimal!
 	ID: ID!
 	# Date this record was created
 	Created: Date!
@@ -59,7 +59,7 @@ input C_InvoiceScheduleInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount
-	Amt: Int
+	Amt: BigDecimal
 	ID: ID
 	# Optional short description of the record
 	Description: String

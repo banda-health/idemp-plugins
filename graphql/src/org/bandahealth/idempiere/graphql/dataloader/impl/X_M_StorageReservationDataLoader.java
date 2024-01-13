@@ -9,8 +9,8 @@ import org.compiere.model.MStorageReservation;
  * @version Release 8.2 - $Id$
  */
 public class X_M_StorageReservationDataLoader extends PODataLoader<MStorageReservation> {
-	public static String M_StorageReservation_BY_ID_DATA_LOADER = "M_StorageReservationByIdDataLoader";
-	public static String M_StorageReservation_BY_UUID_DATA_LOADER = "M_StorageReservationByUuidDataLoader";
+	public static String DATALOADER_M_StorageReservation_BY_ID = "M_StorageReservationByIdDataLoader";
+	public static String DATALOADER_M_StorageReservation_BY_UUID = "M_StorageReservationByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_StorageReservationDataLoader extends PODataLoader<MStorageReser
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_StorageReservation_BY_ID_DATA_LOADER;
+		return DATALOADER_M_StorageReservation_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_StorageReservation_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_StorageReservation_BY_UUID;
 	}
 }

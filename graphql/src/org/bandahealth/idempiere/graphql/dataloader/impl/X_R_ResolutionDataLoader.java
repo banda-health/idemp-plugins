@@ -9,8 +9,8 @@ import org.compiere.model.MResolution;
  * @version Release 8.2 - $Id$
  */
 public class X_R_ResolutionDataLoader extends PODataLoader<MResolution> {
-	public static String R_Resolution_BY_ID_DATA_LOADER = "R_ResolutionByIdDataLoader";
-	public static String R_Resolution_BY_UUID_DATA_LOADER = "R_ResolutionByUuidDataLoader";
+	public static String DATALOADER_R_Resolution_BY_ID = "R_ResolutionByIdDataLoader";
+	public static String DATALOADER_R_Resolution_BY_UUID = "R_ResolutionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_ResolutionDataLoader extends PODataLoader<MResolution> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_Resolution_BY_ID_DATA_LOADER;
+		return DATALOADER_R_Resolution_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_Resolution_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_Resolution_BY_UUID;
 	}
 }

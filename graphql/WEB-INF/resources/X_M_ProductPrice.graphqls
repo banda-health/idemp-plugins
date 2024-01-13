@@ -34,11 +34,11 @@ type M_ProductPrice {
 	M_Product: M_Product!
 	ID: ID!
 	# Lowest price for a product
-	PriceLimit: Int!
+	PriceLimit: BigDecimal!
 	# List Price
-	PriceList: Int!
+	PriceList: BigDecimal!
 	# Standard Price
-	PriceStd: Int!
+	PriceStd: BigDecimal!
 	# Name of the Product
 	ProductName: String
 	# Date this record was updated
@@ -60,9 +60,9 @@ input M_ProductPriceInput {
 	M_Product: ForeignEntityInput
 	ID: ID
 	# Lowest price for a product
-	PriceLimit: Int
+	PriceLimit: BigDecimal
 	# List Price
-	PriceList: Int
+	PriceList: BigDecimal
 	# Standard Price
-	PriceStd: Int
+	PriceStd: BigDecimal
 }

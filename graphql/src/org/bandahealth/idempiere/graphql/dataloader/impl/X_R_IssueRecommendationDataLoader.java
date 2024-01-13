@@ -9,8 +9,8 @@ import org.compiere.model.X_R_IssueRecommendation;
  * @version Release 8.2 - $Id$
  */
 public class X_R_IssueRecommendationDataLoader extends PODataLoader<X_R_IssueRecommendation> {
-	public static String R_IssueRecommendation_BY_ID_DATA_LOADER = "R_IssueRecommendationByIdDataLoader";
-	public static String R_IssueRecommendation_BY_UUID_DATA_LOADER = "R_IssueRecommendationByUuidDataLoader";
+	public static String DATALOADER_R_IssueRecommendation_BY_ID = "R_IssueRecommendationByIdDataLoader";
+	public static String DATALOADER_R_IssueRecommendation_BY_UUID = "R_IssueRecommendationByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_IssueRecommendationDataLoader extends PODataLoader<X_R_IssueRec
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_IssueRecommendation_BY_ID_DATA_LOADER;
+		return DATALOADER_R_IssueRecommendation_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_IssueRecommendation_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_IssueRecommendation_BY_UUID;
 	}
 }

@@ -36,21 +36,21 @@ type M_CostHistory {
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: M_CostType!
 	# Accumulated Amt after processing of M_CostDetail
-	NewCAmt: Int
+	NewCAmt: BigDecimal
 	# New current cost price after processing of M_CostDetail
-	NewCostPrice: Int!
+	NewCostPrice: BigDecimal!
 	# New Accumulated Qty after processing of M_CostDetail
-	NewCQty: Int
+	NewCQty: BigDecimal
 	# New current quantity after processing of M_CostDetail
-	NewQty: Int!
+	NewQty: BigDecimal!
 	# Old accumulated amt before the processing of M_CostDetail
-	OldCAmt: Int
+	OldCAmt: BigDecimal
 	# Old current cost price before the processing of M_CostDetail
-	OldCostPrice: Int!
+	OldCostPrice: BigDecimal!
 	# Old accumulated qty before the processing of M_CostDetail
-	OldCQty: Int
+	OldCQty: BigDecimal
 	# Old current quantity before the processing of M_CostDetail
-	OldQty: Int!
+	OldQty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -72,19 +72,19 @@ input M_CostHistoryInput {
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: ForeignEntityInput
 	# Accumulated Amt after processing of M_CostDetail
-	NewCAmt: Int
+	NewCAmt: BigDecimal
 	# New current cost price after processing of M_CostDetail
-	NewCostPrice: Int
+	NewCostPrice: BigDecimal
 	# New Accumulated Qty after processing of M_CostDetail
-	NewCQty: Int
+	NewCQty: BigDecimal
 	# New current quantity after processing of M_CostDetail
-	NewQty: Int
+	NewQty: BigDecimal
 	# Old accumulated amt before the processing of M_CostDetail
-	OldCAmt: Int
+	OldCAmt: BigDecimal
 	# Old current cost price before the processing of M_CostDetail
-	OldCostPrice: Int
+	OldCostPrice: BigDecimal
 	# Old accumulated qty before the processing of M_CostDetail
-	OldCQty: Int
+	OldCQty: BigDecimal
 	# Old current quantity before the processing of M_CostDetail
-	OldQty: Int
+	OldQty: BigDecimal
 }

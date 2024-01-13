@@ -41,31 +41,31 @@ type M_DiscountSchemaLine {
 	# take all PO prices into account
 	IsIgnoreIsCurrentVendor: Boolean!
 	# Amount added to the converted/copied price before multiplying
-	Limit_AddAmt: Int!
+	Limit_AddAmt: BigDecimal!
 	# Base price for calculation of the new price
 	Limit_Base: AD_Ref_List!
 	# Discount in percent to be subtracted from base, if negative it will be added to base price
-	Limit_Discount: Int!
+	Limit_Discount: BigDecimal!
 	# Fixed Limit Price (not calculated)
-	Limit_Fixed: Int
+	Limit_Fixed: BigDecimal
 	# Maximum difference to original limit price; ignored if zero
-	Limit_MaxAmt: Int!
+	Limit_MaxAmt: BigDecimal!
 	# Minimum difference to original limit price; ignored if zero
-	Limit_MinAmt: Int!
+	Limit_MinAmt: BigDecimal!
 	# Rounding of the final result
 	Limit_Rounding: AD_Ref_List!
 	# List Price Surcharge Amount
-	List_AddAmt: Int!
+	List_AddAmt: BigDecimal!
 	# Price used as the basis for price list calculations
 	List_Base: AD_Ref_List!
 	# Discount from list price as a percentage
-	List_Discount: Int!
+	List_Discount: BigDecimal!
 	# Fixes List Price (not calculated)
-	List_Fixed: Int
+	List_Fixed: BigDecimal
 	# Maximum margin for a product
-	List_MaxAmt: Int!
+	List_MaxAmt: BigDecimal!
 	# Minimum margin for a product
-	List_MinAmt: Int!
+	List_MinAmt: BigDecimal!
 	# Rounding rule for final list price
 	List_Rounding: AD_Ref_List!
 	# Schema to calculate the trade discount percentage
@@ -78,17 +78,17 @@ type M_DiscountSchemaLine {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Amount added to a price as a surcharge
-	Std_AddAmt: Int!
+	Std_AddAmt: BigDecimal!
 	# Base price for calculating new standard price
 	Std_Base: AD_Ref_List!
 	# Discount percentage to subtract from base price
-	Std_Discount: Int!
+	Std_Discount: BigDecimal!
 	# Fixed Standard Price (not calculated)
-	Std_Fixed: Int
+	Std_Fixed: BigDecimal
 	# Maximum margin allowed for a product
-	Std_MaxAmt: Int!
+	Std_MaxAmt: BigDecimal!
 	# Minimum margin allowed for a product
-	Std_MinAmt: Int!
+	Std_MinAmt: BigDecimal!
 	# Rounding rule for calculated price
 	Std_Rounding: AD_Ref_List!
 	# Date this record was updated
@@ -119,31 +119,31 @@ input M_DiscountSchemaLineInput {
 	# take all PO prices into account
 	IsIgnoreIsCurrentVendor: Boolean
 	# Amount added to the converted/copied price before multiplying
-	Limit_AddAmt: Int
+	Limit_AddAmt: BigDecimal
 	# Base price for calculation of the new price
 	Limit_Base: AD_Ref_ListInput
 	# Discount in percent to be subtracted from base, if negative it will be added to base price
-	Limit_Discount: Int
+	Limit_Discount: BigDecimal
 	# Fixed Limit Price (not calculated)
-	Limit_Fixed: Int
+	Limit_Fixed: BigDecimal
 	# Maximum difference to original limit price; ignored if zero
-	Limit_MaxAmt: Int
+	Limit_MaxAmt: BigDecimal
 	# Minimum difference to original limit price; ignored if zero
-	Limit_MinAmt: Int
+	Limit_MinAmt: BigDecimal
 	# Rounding of the final result
 	Limit_Rounding: AD_Ref_ListInput
 	# List Price Surcharge Amount
-	List_AddAmt: Int
+	List_AddAmt: BigDecimal
 	# Price used as the basis for price list calculations
 	List_Base: AD_Ref_ListInput
 	# Discount from list price as a percentage
-	List_Discount: Int
+	List_Discount: BigDecimal
 	# Fixes List Price (not calculated)
-	List_Fixed: Int
+	List_Fixed: BigDecimal
 	# Maximum margin for a product
-	List_MaxAmt: Int
+	List_MaxAmt: BigDecimal
 	# Minimum margin for a product
-	List_MinAmt: Int
+	List_MinAmt: BigDecimal
 	# Rounding rule for final list price
 	List_Rounding: AD_Ref_ListInput
 	# Schema to calculate the trade discount percentage
@@ -156,17 +156,17 @@ input M_DiscountSchemaLineInput {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Amount added to a price as a surcharge
-	Std_AddAmt: Int
+	Std_AddAmt: BigDecimal
 	# Base price for calculating new standard price
 	Std_Base: AD_Ref_ListInput
 	# Discount percentage to subtract from base price
-	Std_Discount: Int
+	Std_Discount: BigDecimal
 	# Fixed Standard Price (not calculated)
-	Std_Fixed: Int
+	Std_Fixed: BigDecimal
 	# Maximum margin allowed for a product
-	Std_MaxAmt: Int
+	Std_MaxAmt: BigDecimal
 	# Minimum margin allowed for a product
-	Std_MinAmt: Int
+	Std_MinAmt: BigDecimal
 	# Rounding rule for calculated price
 	Std_Rounding: AD_Ref_ListInput
 	# Product Category of the Business Partner

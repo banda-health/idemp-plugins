@@ -40,7 +40,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 			return null;
 		}
 		DataLoader<Integer, MProcessPara> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Process_ParaDataLoader.AD_Process_Para_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Process_ParaDataLoader.DATALOADER_AD_Process_Para_BY_ID);
 		return dataLoader.load(entity.getAD_Process_Para_ID());
 	}
 
@@ -55,7 +55,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_ID());
 	}
 
@@ -70,7 +70,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_Value_ID());
 	}
 
@@ -85,7 +85,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 			return null;
 		}
 		DataLoader<Integer, MUserDefProc> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDef_ProcDataLoader.AD_UserDef_Proc_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDef_ProcDataLoader.DATALOADER_AD_UserDef_Proc_BY_ID);
 		return dataLoader.load(entity.getAD_UserDef_Proc_ID());
 	}
 
@@ -100,7 +100,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.AD_Val_Rule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
 	}
 
@@ -115,7 +115,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISDISPLAYED_UUIDS_BY_VALUE.get(entity.getIsDisplayed()));
 	}
 
@@ -130,7 +130,7 @@ public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProc
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISMANDATORY_UUIDS_BY_VALUE.get(entity.getIsMandatory()));
 	}
 

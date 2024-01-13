@@ -71,7 +71,7 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(M_ATTRIBUTESET_TYPE_UUIDS_BY_VALUE.get(entity.getM_AttributeSet_Type()));
 	}
 
@@ -86,7 +86,7 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 			return null;
 		}
 		DataLoader<Integer, MLotCtl> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_LotCtlDataLoader.M_LotCtl_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_LotCtlDataLoader.DATALOADER_M_LotCtl_BY_ID);
 		return dataLoader.load(entity.getM_LotCtl_ID());
 	}
 
@@ -101,7 +101,7 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 			return null;
 		}
 		DataLoader<Integer, MSerNoCtl_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_SerNoCtlDataLoader.M_SerNoCtl_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_SerNoCtlDataLoader.DATALOADER_M_SerNoCtl_BY_ID);
 		return dataLoader.load(entity.getM_SerNoCtl_ID());
 	}
 
@@ -117,7 +117,7 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(MANDATORYTYPE_UUIDS_BY_VALUE.get(entity.getMandatoryType()));
 	}
 

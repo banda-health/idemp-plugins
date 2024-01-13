@@ -50,14 +50,14 @@ type M_MatchPO {
 	# Posting status
 	Posted: Boolean!
 	# Difference between Purchase and Invoice Price per matched line
-	PriceMatchDifference: Int
+	PriceMatchDifference: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	Ref_MatchPO: M_MatchPO
 	# ID of document reversal
 	Reversal: M_MatchPO
@@ -96,14 +96,14 @@ input M_MatchPOInput {
 	# Posting status
 	Posted: Boolean
 	# Difference between Purchase and Invoice Price per matched line
-	PriceMatchDifference: Int
+	PriceMatchDifference: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	Ref_MatchPO: ForeignEntityInput
 	# ID of document reversal
 	Reversal: ForeignEntityInput

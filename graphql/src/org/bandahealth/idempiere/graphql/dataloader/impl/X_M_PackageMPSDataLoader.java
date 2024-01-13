@@ -9,8 +9,8 @@ import org.compiere.model.MPackageMPS;
  * @version Release 8.2 - $Id$
  */
 public class X_M_PackageMPSDataLoader extends PODataLoader<MPackageMPS> {
-	public static String M_PackageMPS_BY_ID_DATA_LOADER = "M_PackageMPSByIdDataLoader";
-	public static String M_PackageMPS_BY_UUID_DATA_LOADER = "M_PackageMPSByUuidDataLoader";
+	public static String DATALOADER_M_PackageMPS_BY_ID = "M_PackageMPSByIdDataLoader";
+	public static String DATALOADER_M_PackageMPS_BY_UUID = "M_PackageMPSByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_PackageMPSDataLoader extends PODataLoader<MPackageMPS> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_PackageMPS_BY_ID_DATA_LOADER;
+		return DATALOADER_M_PackageMPS_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_PackageMPS_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_PackageMPS_BY_UUID;
 	}
 }

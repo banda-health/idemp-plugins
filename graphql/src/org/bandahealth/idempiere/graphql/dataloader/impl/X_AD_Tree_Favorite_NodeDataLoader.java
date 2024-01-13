@@ -9,8 +9,8 @@ import org.compiere.model.MTreeFavoriteNode;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Tree_Favorite_NodeDataLoader extends PODataLoader<MTreeFavoriteNode> {
-	public static String AD_Tree_Favorite_Node_BY_ID_DATA_LOADER = "AD_Tree_Favorite_NodeByIdDataLoader";
-	public static String AD_Tree_Favorite_Node_BY_UUID_DATA_LOADER = "AD_Tree_Favorite_NodeByUuidDataLoader";
+	public static String DATALOADER_AD_Tree_Favorite_Node_BY_ID = "AD_Tree_Favorite_NodeByIdDataLoader";
+	public static String DATALOADER_AD_Tree_Favorite_Node_BY_UUID = "AD_Tree_Favorite_NodeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Tree_Favorite_NodeDataLoader extends PODataLoader<MTreeFavorit
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Tree_Favorite_Node_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Tree_Favorite_Node_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Tree_Favorite_Node_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Tree_Favorite_Node_BY_UUID;
 	}
 }

@@ -16,7 +16,7 @@ type A_Depreciation_Table_DetailConnection {
 }
 
 type A_Depreciation_Table_Detail {
-	A_Depreciation_Rate: Int!
+	A_Depreciation_Rate: BigDecimal!
 	A_Depreciation_Table_Code: String!
 	ID: ID!
 	A_Period: Int!
@@ -40,7 +40,7 @@ type A_Depreciation_Table_Detail {
 }
 
 input A_Depreciation_Table_DetailInput {
-	A_Depreciation_Rate: Int
+	A_Depreciation_Rate: BigDecimal
 	A_Depreciation_Table_Code: String
 	ID: ID
 	A_Period: Int

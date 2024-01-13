@@ -9,8 +9,8 @@ import org.compiere.model.X_A_RegistrationProduct;
  * @version Release 8.2 - $Id$
  */
 public class X_A_RegistrationProductDataLoader extends PODataLoader<X_A_RegistrationProduct> {
-	public static String A_RegistrationProduct_BY_ID_DATA_LOADER = "A_RegistrationProductByIdDataLoader";
-	public static String A_RegistrationProduct_BY_UUID_DATA_LOADER = "A_RegistrationProductByUuidDataLoader";
+	public static String DATALOADER_A_RegistrationProduct_BY_ID = "A_RegistrationProductByIdDataLoader";
+	public static String DATALOADER_A_RegistrationProduct_BY_UUID = "A_RegistrationProductByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_A_RegistrationProductDataLoader extends PODataLoader<X_A_Registra
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return A_RegistrationProduct_BY_ID_DATA_LOADER;
+		return DATALOADER_A_RegistrationProduct_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return A_RegistrationProduct_BY_UUID_DATA_LOADER;
+		return DATALOADER_A_RegistrationProduct_BY_UUID;
 	}
 }

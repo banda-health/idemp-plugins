@@ -35,7 +35,7 @@ public class X_M_PackageLineResolver extends POResolver<MPackageLine> implements
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getM_InOutLine_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_M_PackageLineResolver extends POResolver<MPackageLine> implements
 			return null;
 		}
 		DataLoader<Integer, MPackage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PackageDataLoader.M_Package_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PackageDataLoader.DATALOADER_M_Package_BY_ID);
 		return dataLoader.load(entity.getM_Package_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_M_PackageLineResolver extends POResolver<MPackageLine> implements
 			return null;
 		}
 		DataLoader<Integer, MPackageMPS> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PackageMPSDataLoader.M_PackageMPS_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PackageMPSDataLoader.DATALOADER_M_PackageMPS_BY_ID);
 		return dataLoader.load(entity.getM_PackageMPS_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_M_PackageLineResolver extends POResolver<MPackageLine> implements
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

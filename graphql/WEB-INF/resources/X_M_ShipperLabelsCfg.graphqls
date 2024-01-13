@@ -26,7 +26,7 @@ type M_ShipperLabelsCfg {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	Height: Int
+	Height: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# Default value
@@ -42,7 +42,7 @@ type M_ShipperLabelsCfg {
 	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
-	Width: Int
+	Width: BigDecimal
 }
 
 input M_ShipperLabelsCfgInput {
@@ -50,7 +50,7 @@ input M_ShipperLabelsCfgInput {
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	Height: Int
+	Height: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Default value
@@ -62,5 +62,5 @@ input M_ShipperLabelsCfgInput {
 	Name: String
 	# Search key for the record in the format required - must be unique
 	Value: String
-	Width: Int
+	Width: BigDecimal
 }

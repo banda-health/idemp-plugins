@@ -63,7 +63,7 @@ type HR_Process {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# ID of document reversal
 	Reversal: HR_Process
@@ -115,7 +115,7 @@ input HR_ProcessInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# ID of document reversal
 	Reversal: ForeignEntityInput

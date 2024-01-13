@@ -9,8 +9,8 @@ import org.compiere.model.MReplenish;
  * @version Release 8.2 - $Id$
  */
 public class X_M_ReplenishDataLoader extends PODataLoader<MReplenish> {
-	public static String M_Replenish_BY_ID_DATA_LOADER = "M_ReplenishByIdDataLoader";
-	public static String M_Replenish_BY_UUID_DATA_LOADER = "M_ReplenishByUuidDataLoader";
+	public static String DATALOADER_M_Replenish_BY_ID = "M_ReplenishByIdDataLoader";
+	public static String DATALOADER_M_Replenish_BY_UUID = "M_ReplenishByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_ReplenishDataLoader extends PODataLoader<MReplenish> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_Replenish_BY_ID_DATA_LOADER;
+		return DATALOADER_M_Replenish_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_Replenish_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_Replenish_BY_UUID;
 	}
 }

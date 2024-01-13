@@ -9,8 +9,8 @@ import org.compiere.model.MWarehousePrice;
  * @version Release 8.2 - $Id$
  */
 public class X_RV_WarehousePriceDataLoader extends PODataLoader<MWarehousePrice> {
-	public static String RV_WarehousePrice_BY_ID_DATA_LOADER = "RV_WarehousePriceByIdDataLoader";
-	public static String RV_WarehousePrice_BY_UUID_DATA_LOADER = "RV_WarehousePriceByUuidDataLoader";
+	public static String DATALOADER_RV_WarehousePrice_BY_ID = "RV_WarehousePriceByIdDataLoader";
+	public static String DATALOADER_RV_WarehousePrice_BY_UUID = "RV_WarehousePriceByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_RV_WarehousePriceDataLoader extends PODataLoader<MWarehousePrice>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return RV_WarehousePrice_BY_ID_DATA_LOADER;
+		return DATALOADER_RV_WarehousePrice_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return RV_WarehousePrice_BY_UUID_DATA_LOADER;
+		return DATALOADER_RV_WarehousePrice_BY_UUID;
 	}
 }

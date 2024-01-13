@@ -58,10 +58,10 @@ type M_Requisition {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Total of all document lines
-	TotalLines: Int!
+	TotalLines: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -105,8 +105,8 @@ input M_RequisitionInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# Total of all document lines
-	TotalLines: Int
+	TotalLines: BigDecimal
 }

@@ -9,8 +9,8 @@ import org.eevolution.model.X_HR_Employee;
  * @version Release 8.2 - $Id$
  */
 public class X_HR_EmployeeDataLoader extends PODataLoader<X_HR_Employee> {
-	public static String HR_Employee_BY_ID_DATA_LOADER = "HR_EmployeeByIdDataLoader";
-	public static String HR_Employee_BY_UUID_DATA_LOADER = "HR_EmployeeByUuidDataLoader";
+	public static String DATALOADER_HR_Employee_BY_ID = "HR_EmployeeByIdDataLoader";
+	public static String DATALOADER_HR_Employee_BY_UUID = "HR_EmployeeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_HR_EmployeeDataLoader extends PODataLoader<X_HR_Employee> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return HR_Employee_BY_ID_DATA_LOADER;
+		return DATALOADER_HR_Employee_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return HR_Employee_BY_UUID_DATA_LOADER;
+		return DATALOADER_HR_Employee_BY_UUID;
 	}
 }

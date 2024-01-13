@@ -21,7 +21,7 @@ type M_CostDetail {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount
-	Amt: Int!
+	Amt: BigDecimal!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Invoice Detail Line
@@ -35,17 +35,17 @@ type M_CostDetail {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Total Amount
-	CumulatedAmt: Int
+	CumulatedAmt: BigDecimal
 	# Total Quantity
-	CumulatedQty: Int
+	CumulatedQty: BigDecimal
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Current Quantity
-	CurrentQty: Int
+	CurrentQty: BigDecimal
 	# Difference Amount
-	DeltaAmt: Int
+	DeltaAmt: BigDecimal
 	# Quantity Difference
-	DeltaQty: Int
+	DeltaQty: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -71,11 +71,11 @@ type M_CostDetail {
 	M_ProductionLine: M_ProductionLine
 	PP_Cost_Collector: PP_Cost_Collector
 	# Price
-	Price: Int
+	Price: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -86,7 +86,7 @@ input M_CostDetailInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount
-	Amt: Int
+	Amt: BigDecimal
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Invoice Detail Line
@@ -96,17 +96,17 @@ input M_CostDetailInput {
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: ForeignEntityInput
 	# Total Amount
-	CumulatedAmt: Int
+	CumulatedAmt: BigDecimal
 	# Total Quantity
-	CumulatedQty: Int
+	CumulatedQty: BigDecimal
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Current Quantity
-	CurrentQty: Int
+	CurrentQty: BigDecimal
 	# Difference Amount
-	DeltaAmt: Int
+	DeltaAmt: BigDecimal
 	# Quantity Difference
-	DeltaQty: Int
+	DeltaQty: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -134,5 +134,5 @@ input M_CostDetailInput {
 	# The document has been processed
 	Processed: Boolean
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 }

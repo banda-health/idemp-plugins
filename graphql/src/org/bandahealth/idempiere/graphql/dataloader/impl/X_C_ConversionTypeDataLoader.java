@@ -9,8 +9,8 @@ import org.compiere.model.MConversionType;
  * @version Release 8.2 - $Id$
  */
 public class X_C_ConversionTypeDataLoader extends PODataLoader<MConversionType> {
-	public static String C_ConversionType_BY_ID_DATA_LOADER = "C_ConversionTypeByIdDataLoader";
-	public static String C_ConversionType_BY_UUID_DATA_LOADER = "C_ConversionTypeByUuidDataLoader";
+	public static String DATALOADER_C_ConversionType_BY_ID = "C_ConversionTypeByIdDataLoader";
+	public static String DATALOADER_C_ConversionType_BY_UUID = "C_ConversionTypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_ConversionTypeDataLoader extends PODataLoader<MConversionType> 
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_ConversionType_BY_ID_DATA_LOADER;
+		return DATALOADER_C_ConversionType_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_ConversionType_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_ConversionType_BY_UUID;
 	}
 }

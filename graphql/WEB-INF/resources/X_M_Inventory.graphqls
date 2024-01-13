@@ -21,7 +21,7 @@ type M_Inventory {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Document Approval Amount
-	ApprovalAmt: Int
+	ApprovalAmt: BigDecimal
 	# Element to allow buttons to be displayed that trigger tab navigation
 	BH_NavButtons: Object
 	bh_update_reason: AD_Ref_List
@@ -69,7 +69,7 @@ type M_Inventory {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# ID of document reversal
 	Reversal: M_Inventory
@@ -88,7 +88,7 @@ input M_InventoryInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Document Approval Amount
-	ApprovalAmt: Int
+	ApprovalAmt: BigDecimal
 	# Element to allow buttons to be displayed that trigger tab navigation
 	BH_NavButtons: Object
 	bh_update_reason: AD_Ref_ListInput
@@ -132,7 +132,7 @@ input M_InventoryInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# ID of document reversal
 	Reversal: ForeignEntityInput

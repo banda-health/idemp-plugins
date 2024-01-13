@@ -35,7 +35,7 @@ public class X_HR_ListResolver extends POResolver<X_HR_List> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, X_HR_Department> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_DepartmentDataLoader.HR_Department_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_DepartmentDataLoader.DATALOADER_HR_Department_BY_ID);
 		return dataLoader.load(entity.getHR_Department_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_HR_ListResolver extends POResolver<X_HR_List> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, X_HR_Employee> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_EmployeeDataLoader.HR_Employee_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_EmployeeDataLoader.DATALOADER_HR_Employee_BY_ID);
 		return dataLoader.load(entity.getHR_Employee_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_HR_ListResolver extends POResolver<X_HR_List> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, X_HR_ListType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_ListTypeDataLoader.HR_ListType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_ListTypeDataLoader.DATALOADER_HR_ListType_BY_ID);
 		return dataLoader.load(entity.getHR_ListType_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_HR_ListResolver extends POResolver<X_HR_List> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.HR_Payroll_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.DATALOADER_HR_Payroll_BY_ID);
 		return dataLoader.load(entity.getHR_Payroll_ID());
 	}
 

@@ -17,9 +17,9 @@ type C_BPartnerConnection {
 
 type C_BPartner {
 	# The cost of gaining the prospect as a customer
-	AcqusitionCost: Int
+	AcqusitionCost: BigDecimal
 	# Actual Life Time Revenue
-	ActualLifeTimeValue: Int
+	ActualLifeTimeValue: BigDecimal
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Language for this entity
@@ -77,7 +77,7 @@ type C_BPartner {
 	# Date of First Sale
 	FirstSale: Date
 	# Flat discount percentage 
-	FlatDiscount: Int
+	FlatDiscount: BigDecimal
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_List
 	# Print Format for printing Invoices
@@ -138,7 +138,7 @@ type C_BPartner {
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Total Revenue expected
-	PotentialLifeTimeValue: Int
+	PotentialLifeTimeValue: BigDecimal
 	# Classification or Importance
 	Rating: String
 	# Your customer or vendor number at the Business Partner's site
@@ -154,9 +154,9 @@ type C_BPartner {
 	# Minimum Shelf Life in percent based on Product Instance Guarantee Date
 	ShelfLifeMinPct: Int
 	# Total outstanding invoice amounts allowed
-	SO_CreditLimit: Int!
+	SO_CreditLimit: BigDecimal!
 	# Current open balance
-	SO_CreditUsed: Int!
+	SO_CreditUsed: BigDecimal!
 	# Description to be used on orders
 	SO_Description: String
 	# Business Partner Credit Status
@@ -164,7 +164,7 @@ type C_BPartner {
 	# Tax Identification
 	TaxID: String
 	# Total Open Balance Amount in primary Accounting Currency
-	TotalOpenBalance: Int
+	TotalOpenBalance: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -177,9 +177,9 @@ type C_BPartner {
 
 input C_BPartnerInput {
 	# The cost of gaining the prospect as a customer
-	AcqusitionCost: Int
+	AcqusitionCost: BigDecimal
 	# Actual Life Time Revenue
-	ActualLifeTimeValue: Int
+	ActualLifeTimeValue: BigDecimal
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within client
@@ -231,7 +231,7 @@ input C_BPartnerInput {
 	# Date of First Sale
 	FirstSale: Date
 	# Flat discount percentage 
-	FlatDiscount: Int
+	FlatDiscount: BigDecimal
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_ListInput
 	# Print Format for printing Invoices
@@ -292,7 +292,7 @@ input C_BPartnerInput {
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Total Revenue expected
-	PotentialLifeTimeValue: Int
+	PotentialLifeTimeValue: BigDecimal
 	# Classification or Importance
 	Rating: String
 	# Your customer or vendor number at the Business Partner's site
@@ -308,9 +308,9 @@ input C_BPartnerInput {
 	# Minimum Shelf Life in percent based on Product Instance Guarantee Date
 	ShelfLifeMinPct: Int
 	# Total outstanding invoice amounts allowed
-	SO_CreditLimit: Int
+	SO_CreditLimit: BigDecimal
 	# Current open balance
-	SO_CreditUsed: Int
+	SO_CreditUsed: BigDecimal
 	# Description to be used on orders
 	SO_Description: String
 	# Business Partner Credit Status
@@ -318,7 +318,7 @@ input C_BPartnerInput {
 	# Tax Identification
 	TaxID: String
 	# Total Open Balance Amount in primary Accounting Currency
-	TotalOpenBalance: Int
+	TotalOpenBalance: BigDecimal
 	# Full URL address - e.g. http://www.idempiere.org
 	URL: String
 	# Search key for the record in the format required - must be unique

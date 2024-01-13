@@ -29,7 +29,7 @@ type PP_Cost_CollectorMA {
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Quantity of a product moved.
-	MovementQty: Int!
+	MovementQty: BigDecimal!
 	PP_Cost_Collector: PP_Cost_Collector!
 	ID: ID!
 	# Date this record was updated
@@ -46,7 +46,7 @@ input PP_Cost_CollectorMAInput {
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
 	# Quantity of a product moved.
-	MovementQty: Int
+	MovementQty: BigDecimal
 	PP_Cost_Collector: ForeignEntityInput
 	ID: ID
 }

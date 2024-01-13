@@ -38,7 +38,7 @@ public class X_M_AttributeResolver extends POResolver<MAttribute> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_M_AttributeResolver extends POResolver<MAttribute> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_Value_ID());
 	}
 
@@ -68,7 +68,7 @@ public class X_M_AttributeResolver extends POResolver<MAttribute> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.AD_Val_Rule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
 	}
 
@@ -86,7 +86,7 @@ public class X_M_AttributeResolver extends POResolver<MAttribute> implements Gra
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ATTRIBUTEVALUETYPE_UUIDS_BY_VALUE.get(entity.getAttributeValueType()));
 	}
 
@@ -109,7 +109,7 @@ public class X_M_AttributeResolver extends POResolver<MAttribute> implements Gra
 			return null;
 		}
 		DataLoader<Integer, X_M_AttributeSearch> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSearchDataLoader.M_AttributeSearch_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSearchDataLoader.DATALOADER_M_AttributeSearch_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSearch_ID());
 	}
 

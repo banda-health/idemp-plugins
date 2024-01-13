@@ -9,8 +9,8 @@ import org.compiere.model.MRMALine;
  * @version Release 8.2 - $Id$
  */
 public class X_M_RMALineDataLoader extends PODataLoader<MRMALine> {
-	public static String M_RMALine_BY_ID_DATA_LOADER = "M_RMALineByIdDataLoader";
-	public static String M_RMALine_BY_UUID_DATA_LOADER = "M_RMALineByUuidDataLoader";
+	public static String DATALOADER_M_RMALine_BY_ID = "M_RMALineByIdDataLoader";
+	public static String DATALOADER_M_RMALine_BY_UUID = "M_RMALineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_RMALineDataLoader extends PODataLoader<MRMALine> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_RMALine_BY_ID_DATA_LOADER;
+		return DATALOADER_M_RMALine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_RMALine_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_RMALine_BY_UUID;
 	}
 }

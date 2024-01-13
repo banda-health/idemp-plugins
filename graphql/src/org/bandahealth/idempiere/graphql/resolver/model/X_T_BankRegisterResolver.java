@@ -33,7 +33,7 @@ public class X_T_BankRegisterResolver extends POResolver<X_T_BankRegister> imple
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.AD_PInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.DATALOADER_AD_PInstance_BY_ID);
 		return dataLoader.load(entity.getAD_PInstance_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_T_BankRegisterResolver extends POResolver<X_T_BankRegister> imple
 			return null;
 		}
 		DataLoader<Integer, MBank> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BankDataLoader.C_Bank_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankDataLoader.DATALOADER_C_Bank_BY_ID);
 		return dataLoader.load(entity.getC_Bank_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_T_BankRegisterResolver extends POResolver<X_T_BankRegister> imple
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 

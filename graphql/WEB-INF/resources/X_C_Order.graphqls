@@ -22,8 +22,8 @@ type C_Order {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	AmountRefunded: Int
-	AmountTendered: Int
+	AmountRefunded: BigDecimal
+	AmountTendered: BigDecimal
 	BH_Visit: BH_Visit
 	BH_Voided_Reason: BH_Voided_Reason
 	# Business Partner to be invoiced
@@ -65,7 +65,7 @@ type C_Order {
 	# Financial Project
 	C_Project: C_Project
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
@@ -99,11 +99,11 @@ type C_Order {
 	# Business Partner Contact for drop shipment
 	DropShip_User: AD_User
 	# Freight Amount 
-	FreightAmt: Int!
+	FreightAmt: BigDecimal!
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_List!
 	# Total amount of document
-	GrandTotal: Int!
+	GrandTotal: BigDecimal!
 	# Frequency and method of invoicing 
 	InvoiceRule: AD_Ref_List!
 	# The record is active in the system
@@ -154,7 +154,7 @@ type C_Order {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# User entered promotion code at sales time
 	PromotionCode: String
@@ -168,7 +168,7 @@ type C_Order {
 	SendEMail: Boolean!
 	ShippingRateInquiry: String
 	# Total of all document lines
-	TotalLines: Int!
+	TotalLines: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -178,9 +178,9 @@ type C_Order {
 	# User defined list element #2
 	User2: C_ElementValue
 	# Volume of a product
-	Volume: Int
+	Volume: BigDecimal
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 }
 
 input C_OrderInput {
@@ -188,8 +188,8 @@ input C_OrderInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	AmountRefunded: Int
-	AmountTendered: Int
+	AmountRefunded: BigDecimal
+	AmountTendered: BigDecimal
 	BH_Visit: ForeignEntityInput
 	BH_Voided_Reason: ForeignEntityInput
 	# Business Partner to be invoiced
@@ -231,7 +231,7 @@ input C_OrderInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
 	# Accounting Date
@@ -261,11 +261,11 @@ input C_OrderInput {
 	# Business Partner Contact for drop shipment
 	DropShip_User: ForeignEntityInput
 	# Freight Amount 
-	FreightAmt: Int
+	FreightAmt: BigDecimal
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_ListInput
 	# Total amount of document
-	GrandTotal: Int
+	GrandTotal: BigDecimal
 	# Frequency and method of invoicing 
 	InvoiceRule: AD_Ref_ListInput
 	# The record is active in the system
@@ -316,7 +316,7 @@ input C_OrderInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# User entered promotion code at sales time
 	PromotionCode: String
@@ -330,13 +330,13 @@ input C_OrderInput {
 	SendEMail: Boolean
 	ShippingRateInquiry: String
 	# Total of all document lines
-	TotalLines: Int
+	TotalLines: BigDecimal
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2
 	User2: ForeignEntityInput
 	# Volume of a product
-	Volume: Int
+	Volume: BigDecimal
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 }

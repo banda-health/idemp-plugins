@@ -21,7 +21,7 @@ type C_AllocationHdr {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Document Approval Amount
-	ApprovalAmt: Int!
+	ApprovalAmt: BigDecimal!
 	ID: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
@@ -54,7 +54,7 @@ type C_AllocationHdr {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# ID of document reversal
 	Reversal: C_AllocationHdr
@@ -68,7 +68,7 @@ input C_AllocationHdrInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Document Approval Amount
-	ApprovalAmt: Int
+	ApprovalAmt: BigDecimal
 	ID: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
@@ -97,7 +97,7 @@ input C_AllocationHdrInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# ID of document reversal
 	Reversal: ForeignEntityInput

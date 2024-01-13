@@ -31,7 +31,7 @@ public class X_M_LotCtlExcludeResolver extends POResolver<MLotCtlExclude> implem
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_M_LotCtlExcludeResolver extends POResolver<MLotCtlExclude> implem
 			return null;
 		}
 		DataLoader<Integer, MLotCtl> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_LotCtlDataLoader.M_LotCtl_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_LotCtlDataLoader.DATALOADER_M_LotCtl_BY_ID);
 		return dataLoader.load(entity.getM_LotCtl_ID());
 	}
 

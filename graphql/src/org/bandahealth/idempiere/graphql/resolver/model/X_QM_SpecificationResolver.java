@@ -35,7 +35,7 @@ public class X_QM_SpecificationResolver extends POResolver<X_QM_Specification> i
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.AD_Workflow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.DATALOADER_AD_Workflow_BY_ID);
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_QM_SpecificationResolver extends POResolver<X_QM_Specification> i
 			return null;
 		}
 		DataLoader<Integer, MAttributeSet_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetDataLoader.M_AttributeSet_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetDataLoader.DATALOADER_M_AttributeSet_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSet_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_QM_SpecificationResolver extends POResolver<X_QM_Specification> i
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_QM_SpecificationResolver extends POResolver<X_QM_Specification> i
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMDataLoader.PP_Product_BOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMDataLoader.DATALOADER_PP_Product_BOM_BY_ID);
 		return dataLoader.load(entity.getPP_Product_BOM_ID());
 	}
 

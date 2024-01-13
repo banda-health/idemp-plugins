@@ -9,8 +9,8 @@ import org.compiere.model.MAccount;
  * @version Release 8.2 - $Id$
  */
 public class X_C_ValidCombinationDataLoader extends PODataLoader<MAccount> {
-	public static String C_ValidCombination_BY_ID_DATA_LOADER = "C_ValidCombinationByIdDataLoader";
-	public static String C_ValidCombination_BY_UUID_DATA_LOADER = "C_ValidCombinationByUuidDataLoader";
+	public static String DATALOADER_C_ValidCombination_BY_ID = "C_ValidCombinationByIdDataLoader";
+	public static String DATALOADER_C_ValidCombination_BY_UUID = "C_ValidCombinationByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_ValidCombinationDataLoader extends PODataLoader<MAccount> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_ValidCombination_BY_ID_DATA_LOADER;
+		return DATALOADER_C_ValidCombination_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_ValidCombination_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_ValidCombination_BY_UUID;
 	}
 }

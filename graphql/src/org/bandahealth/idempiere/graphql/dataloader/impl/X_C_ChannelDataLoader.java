@@ -9,8 +9,8 @@ import org.compiere.model.X_C_Channel;
  * @version Release 8.2 - $Id$
  */
 public class X_C_ChannelDataLoader extends PODataLoader<X_C_Channel> {
-	public static String C_Channel_BY_ID_DATA_LOADER = "C_ChannelByIdDataLoader";
-	public static String C_Channel_BY_UUID_DATA_LOADER = "C_ChannelByUuidDataLoader";
+	public static String DATALOADER_C_Channel_BY_ID = "C_ChannelByIdDataLoader";
+	public static String DATALOADER_C_Channel_BY_UUID = "C_ChannelByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_ChannelDataLoader extends PODataLoader<X_C_Channel> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Channel_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Channel_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Channel_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Channel_BY_UUID;
 	}
 }

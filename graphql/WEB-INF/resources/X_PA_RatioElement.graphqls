@@ -23,7 +23,7 @@ type PA_RatioElement {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Constant value
-	ConstantValue: Int
+	ConstantValue: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -61,7 +61,7 @@ input PA_RatioElementInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Constant value
-	ConstantValue: Int
+	ConstantValue: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -9,8 +9,8 @@ import org.compiere.model.X_M_Warehouse_Acct;
  * @version Release 8.2 - $Id$
  */
 public class X_M_Warehouse_AcctDataLoader extends PODataLoader<X_M_Warehouse_Acct> {
-	public static String M_Warehouse_Acct_BY_ID_DATA_LOADER = "M_Warehouse_AcctByIdDataLoader";
-	public static String M_Warehouse_Acct_BY_UUID_DATA_LOADER = "M_Warehouse_AcctByUuidDataLoader";
+	public static String DATALOADER_M_Warehouse_Acct_BY_ID = "M_Warehouse_AcctByIdDataLoader";
+	public static String DATALOADER_M_Warehouse_Acct_BY_UUID = "M_Warehouse_AcctByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_Warehouse_AcctDataLoader extends PODataLoader<X_M_Warehouse_Acc
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_Warehouse_Acct_BY_ID_DATA_LOADER;
+		return DATALOADER_M_Warehouse_Acct_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_Warehouse_Acct_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_Warehouse_Acct_BY_UUID;
 	}
 }

@@ -41,7 +41,7 @@ type DD_Order {
 	# Financial Project
 	C_Project: C_Project
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	CreateConfirm: String
 	# Date this record was created
 	Created: Date!
@@ -72,7 +72,7 @@ type DD_Order {
 	# Document sequence number of the document
 	DocumentNo: String!
 	# Freight Amount 
-	FreightAmt: Int
+	FreightAmt: BigDecimal
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_List!
 	# Generate To
@@ -110,7 +110,7 @@ type DD_Order {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Reference to corresponding Sales/Purchase Order
 	Ref_Order: C_Order
@@ -131,9 +131,9 @@ type DD_Order {
 	# User defined list element #2
 	User2: C_ElementValue
 	# Volume of a product
-	Volume: Int
+	Volume: BigDecimal
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 }
 
 input DD_OrderInput {
@@ -160,7 +160,7 @@ input DD_OrderInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	CreateConfirm: String
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
@@ -187,7 +187,7 @@ input DD_OrderInput {
 	# Document sequence number of the document
 	DocumentNo: String
 	# Freight Amount 
-	FreightAmt: Int
+	FreightAmt: BigDecimal
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_ListInput
 	# Generate To
@@ -225,7 +225,7 @@ input DD_OrderInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# Reference to corresponding Sales/Purchase Order
 	Ref_Order: ForeignEntityInput
@@ -242,7 +242,7 @@ input DD_OrderInput {
 	# User defined list element #2
 	User2: ForeignEntityInput
 	# Volume of a product
-	Volume: Int
+	Volume: BigDecimal
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 }

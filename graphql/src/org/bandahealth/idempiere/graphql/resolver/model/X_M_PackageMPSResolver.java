@@ -31,7 +31,7 @@ public class X_M_PackageMPSResolver extends POResolver<MPackageMPS> implements G
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_Length_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_M_PackageMPSResolver extends POResolver<MPackageMPS> implements G
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_Weight_ID());
 	}
 
@@ -61,7 +61,7 @@ public class X_M_PackageMPSResolver extends POResolver<MPackageMPS> implements G
 			return null;
 		}
 		DataLoader<Integer, MPackage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PackageDataLoader.M_Package_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PackageDataLoader.DATALOADER_M_Package_BY_ID);
 		return dataLoader.load(entity.getM_Package_ID());
 	}
 

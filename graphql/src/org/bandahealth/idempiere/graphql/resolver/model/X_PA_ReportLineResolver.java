@@ -44,7 +44,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CALCULATIONTYPE_UUIDS_BY_VALUE.get(entity.getCalculationType()));
 	}
 
@@ -58,7 +58,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_PA_ReportLine_TrlDataLoader.PA_ReportLine_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_PA_ReportLine_TrlDataLoader.DATALOADER_PA_ReportLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportLine.COLUMNNAME_Description));
 	}
@@ -74,7 +74,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_BudgetDataLoader.GL_Budget_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_BudgetDataLoader.DATALOADER_GL_Budget_BY_ID);
 		return dataLoader.load(entity.getGL_Budget_ID());
 	}
 
@@ -102,7 +102,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(LINETYPE_UUIDS_BY_VALUE.get(entity.getLineType()));
 	}
 
@@ -116,7 +116,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_PA_ReportLine_TrlDataLoader.PA_ReportLine_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_PA_ReportLine_TrlDataLoader.DATALOADER_PA_ReportLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportLine.COLUMNNAME_Name));
 	}
@@ -132,7 +132,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return null;
 		}
 		DataLoader<Integer, X_PA_ReportLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineDataLoader.PA_ReportLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineDataLoader.DATALOADER_PA_ReportLine_BY_ID);
 		return dataLoader.load(entity.getOper_1_ID());
 	}
 
@@ -147,7 +147,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return null;
 		}
 		DataLoader<Integer, X_PA_ReportLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineDataLoader.PA_ReportLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineDataLoader.DATALOADER_PA_ReportLine_BY_ID);
 		return dataLoader.load(entity.getOper_2_ID());
 	}
 
@@ -166,7 +166,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(OVERLINESTROKETYPE_UUIDS_BY_VALUE.get(entity.getOverlineStrokeType()));
 	}
 
@@ -181,7 +181,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return null;
 		}
 		DataLoader<Integer, X_PA_ReportLineSet> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineSetDataLoader.PA_ReportLineSet_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineSetDataLoader.DATALOADER_PA_ReportLineSet_BY_ID);
 		return dataLoader.load(entity.getPA_ReportLineSet_ID());
 	}
 
@@ -200,7 +200,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAAMOUNTTYPE_UUIDS_BY_VALUE.get(entity.getPAAmountType()));
 	}
 
@@ -217,7 +217,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAPERIODTYPE_UUIDS_BY_VALUE.get(entity.getPAPeriodType()));
 	}
 
@@ -235,7 +235,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
 	}
 
@@ -254,7 +254,7 @@ public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(UNDERLINESTROKETYPE_UUIDS_BY_VALUE.get(entity.getUnderlineStrokeType()));
 	}
 

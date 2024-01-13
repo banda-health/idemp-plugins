@@ -37,9 +37,9 @@ type C_RevenueRecognition_Plan {
 	IsActive: Boolean!
 	# Account for Product Revenue (Sales Account)
 	P_Revenue_A: C_ValidCombination!
-	RecognizedAmt: Int!
+	RecognizedAmt: BigDecimal!
 	# Total Amount
-	TotalAmt: Int!
+	TotalAmt: BigDecimal!
 	# Account for unearned revenue
 	UnEarnedRevenue_A: C_ValidCombination!
 	# Date this record was updated
@@ -64,9 +64,9 @@ input C_RevenueRecognition_PlanInput {
 	IsActive: Boolean
 	# Account for Product Revenue (Sales Account)
 	P_Revenue_A: ForeignEntityInput
-	RecognizedAmt: Int
+	RecognizedAmt: BigDecimal
 	# Total Amount
-	TotalAmt: Int
+	TotalAmt: BigDecimal
 	# Account for unearned revenue
 	UnEarnedRevenue_A: ForeignEntityInput
 }

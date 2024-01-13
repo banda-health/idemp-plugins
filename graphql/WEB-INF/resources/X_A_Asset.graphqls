@@ -27,8 +27,8 @@ type A_Asset {
 	ID: ID!
 	A_AssetType: String
 	A_Parent_Asset: A_Asset
-	A_QTY_Current: Int
-	A_QTY_Original: Int
+	A_QTY_Current: BigDecimal
+	A_QTY_Original: BigDecimal
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -114,7 +114,7 @@ type A_Asset {
 	Processed: Boolean!
 	Processing: Boolean!
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Product Serial Number 
 	SerNo: String
 	# Date this record was updated
@@ -145,8 +145,8 @@ input A_AssetInput {
 	ID: ID
 	A_AssetType: String
 	A_Parent_Asset: ForeignEntityInput
-	A_QTY_Current: Int
-	A_QTY_Original: Int
+	A_QTY_Current: BigDecimal
+	A_QTY_Original: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
@@ -226,7 +226,7 @@ input A_AssetInput {
 	Processed: Boolean
 	Processing: Boolean
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Product Serial Number 
 	SerNo: String
 	# Months of the usable life of the asset

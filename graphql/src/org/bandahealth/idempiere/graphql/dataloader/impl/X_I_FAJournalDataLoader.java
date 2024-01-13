@@ -9,8 +9,8 @@ import org.compiere.model.MXIFAJournal;
  * @version Release 8.2 - $Id$
  */
 public class X_I_FAJournalDataLoader extends PODataLoader<MXIFAJournal> {
-	public static String I_FAJournal_BY_ID_DATA_LOADER = "I_FAJournalByIdDataLoader";
-	public static String I_FAJournal_BY_UUID_DATA_LOADER = "I_FAJournalByUuidDataLoader";
+	public static String DATALOADER_I_FAJournal_BY_ID = "I_FAJournalByIdDataLoader";
+	public static String DATALOADER_I_FAJournal_BY_UUID = "I_FAJournalByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_I_FAJournalDataLoader extends PODataLoader<MXIFAJournal> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return I_FAJournal_BY_ID_DATA_LOADER;
+		return DATALOADER_I_FAJournal_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return I_FAJournal_BY_UUID_DATA_LOADER;
+		return DATALOADER_I_FAJournal_BY_UUID;
 	}
 }

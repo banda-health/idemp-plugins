@@ -29,7 +29,7 @@ public class X_C_TaxProviderResolver extends POResolver<MTaxProvider> implements
 			return null;
 		}
 		DataLoader<Integer, X_C_TaxProviderCfg> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxProviderCfgDataLoader.C_TaxProviderCfg_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxProviderCfgDataLoader.DATALOADER_C_TaxProviderCfg_BY_ID);
 		return dataLoader.load(entity.getC_TaxProviderCfg_ID());
 	}
 

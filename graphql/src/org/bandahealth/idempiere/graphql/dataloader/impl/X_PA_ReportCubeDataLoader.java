@@ -9,8 +9,8 @@ import org.compiere.model.MReportCube;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_ReportCubeDataLoader extends PODataLoader<MReportCube> {
-	public static String PA_ReportCube_BY_ID_DATA_LOADER = "PA_ReportCubeByIdDataLoader";
-	public static String PA_ReportCube_BY_UUID_DATA_LOADER = "PA_ReportCubeByUuidDataLoader";
+	public static String DATALOADER_PA_ReportCube_BY_ID = "PA_ReportCubeByIdDataLoader";
+	public static String DATALOADER_PA_ReportCube_BY_UUID = "PA_ReportCubeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_ReportCubeDataLoader extends PODataLoader<MReportCube> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_ReportCube_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_ReportCube_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_ReportCube_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_ReportCube_BY_UUID;
 	}
 }

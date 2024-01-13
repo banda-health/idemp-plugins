@@ -31,7 +31,7 @@ public class X_R_CategoryUpdatesResolver extends POResolver<X_R_CategoryUpdates>
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_R_CategoryUpdatesResolver extends POResolver<X_R_CategoryUpdates>
 			return null;
 		}
 		DataLoader<Integer, MRequestCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_CategoryDataLoader.R_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_CategoryDataLoader.DATALOADER_R_Category_BY_ID);
 		return dataLoader.load(entity.getR_Category_ID());
 	}
 

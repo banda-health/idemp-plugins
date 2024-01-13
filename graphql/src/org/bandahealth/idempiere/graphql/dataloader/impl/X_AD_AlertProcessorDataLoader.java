@@ -9,8 +9,8 @@ import org.compiere.model.MAlertProcessor;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_AlertProcessorDataLoader extends PODataLoader<MAlertProcessor> {
-	public static String AD_AlertProcessor_BY_ID_DATA_LOADER = "AD_AlertProcessorByIdDataLoader";
-	public static String AD_AlertProcessor_BY_UUID_DATA_LOADER = "AD_AlertProcessorByUuidDataLoader";
+	public static String DATALOADER_AD_AlertProcessor_BY_ID = "AD_AlertProcessorByIdDataLoader";
+	public static String DATALOADER_AD_AlertProcessor_BY_UUID = "AD_AlertProcessorByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_AlertProcessorDataLoader extends PODataLoader<MAlertProcessor>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_AlertProcessor_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_AlertProcessor_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_AlertProcessor_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_AlertProcessor_BY_UUID;
 	}
 }

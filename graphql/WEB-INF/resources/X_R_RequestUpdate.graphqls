@@ -33,9 +33,9 @@ type R_RequestUpdate {
 	# Product/Resource/Service used in Request
 	M_ProductSpent: M_Product
 	# Invoiced Quantity
-	QtyInvoiced: Int
+	QtyInvoiced: BigDecimal
 	# Quantity used for this event
-	QtySpent: Int
+	QtySpent: BigDecimal
 	# Request from a Business Partner or Prospect
 	R_Request: R_Request!
 	ID: ID!
@@ -61,9 +61,9 @@ input R_RequestUpdateInput {
 	# Product/Resource/Service used in Request
 	M_ProductSpent: ForeignEntityInput
 	# Invoiced Quantity
-	QtyInvoiced: Int
+	QtyInvoiced: BigDecimal
 	# Quantity used for this event
-	QtySpent: Int
+	QtySpent: BigDecimal
 	# Request from a Business Partner or Prospect
 	R_Request: ForeignEntityInput
 	ID: ID

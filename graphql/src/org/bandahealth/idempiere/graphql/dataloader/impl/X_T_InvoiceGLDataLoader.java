@@ -9,8 +9,8 @@ import org.compiere.model.X_T_InvoiceGL;
  * @version Release 8.2 - $Id$
  */
 public class X_T_InvoiceGLDataLoader extends PODataLoader<X_T_InvoiceGL> {
-	public static String T_InvoiceGL_BY_ID_DATA_LOADER = "T_InvoiceGLByIdDataLoader";
-	public static String T_InvoiceGL_BY_UUID_DATA_LOADER = "T_InvoiceGLByUuidDataLoader";
+	public static String DATALOADER_T_InvoiceGL_BY_ID = "T_InvoiceGLByIdDataLoader";
+	public static String DATALOADER_T_InvoiceGL_BY_UUID = "T_InvoiceGLByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_T_InvoiceGLDataLoader extends PODataLoader<X_T_InvoiceGL> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return T_InvoiceGL_BY_ID_DATA_LOADER;
+		return DATALOADER_T_InvoiceGL_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return T_InvoiceGL_BY_UUID_DATA_LOADER;
+		return DATALOADER_T_InvoiceGL_BY_UUID;
 	}
 }

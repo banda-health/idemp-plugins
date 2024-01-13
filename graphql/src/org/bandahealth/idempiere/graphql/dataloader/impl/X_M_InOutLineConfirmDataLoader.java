@@ -9,8 +9,8 @@ import org.compiere.model.MInOutLineConfirm;
  * @version Release 8.2 - $Id$
  */
 public class X_M_InOutLineConfirmDataLoader extends PODataLoader<MInOutLineConfirm> {
-	public static String M_InOutLineConfirm_BY_ID_DATA_LOADER = "M_InOutLineConfirmByIdDataLoader";
-	public static String M_InOutLineConfirm_BY_UUID_DATA_LOADER = "M_InOutLineConfirmByUuidDataLoader";
+	public static String DATALOADER_M_InOutLineConfirm_BY_ID = "M_InOutLineConfirmByIdDataLoader";
+	public static String DATALOADER_M_InOutLineConfirm_BY_UUID = "M_InOutLineConfirmByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_InOutLineConfirmDataLoader extends PODataLoader<MInOutLineConfi
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_InOutLineConfirm_BY_ID_DATA_LOADER;
+		return DATALOADER_M_InOutLineConfirm_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_InOutLineConfirm_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_InOutLineConfirm_BY_UUID;
 	}
 }

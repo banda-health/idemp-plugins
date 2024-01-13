@@ -31,7 +31,7 @@ type C_Charge {
 	# Tax Category
 	C_TaxCategory: C_TaxCategory!
 	# Charge Amount
-	ChargeAmt: Int!
+	ChargeAmt: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -67,7 +67,7 @@ input C_ChargeInput {
 	# Tax Category
 	C_TaxCategory: ForeignEntityInput
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

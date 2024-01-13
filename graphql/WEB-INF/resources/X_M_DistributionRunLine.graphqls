@@ -38,9 +38,9 @@ type M_DistributionRunLine {
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Minimum quantity for the business partner
-	MinQty: Int!
+	MinQty: BigDecimal!
 	# Total Quantity
-	TotalQty: Int!
+	TotalQty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -64,7 +64,7 @@ input M_DistributionRunLineInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Minimum quantity for the business partner
-	MinQty: Int
+	MinQty: BigDecimal
 	# Total Quantity
-	TotalQty: Int
+	TotalQty: BigDecimal
 }

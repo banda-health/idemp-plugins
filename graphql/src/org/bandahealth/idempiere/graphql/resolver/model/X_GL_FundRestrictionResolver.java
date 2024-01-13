@@ -31,7 +31,7 @@ public class X_GL_FundRestrictionResolver extends POResolver<X_GL_FundRestrictio
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getC_ElementValue_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_GL_FundRestrictionResolver extends POResolver<X_GL_FundRestrictio
 			return null;
 		}
 		DataLoader<Integer, X_GL_Fund> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_FundDataLoader.GL_Fund_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_FundDataLoader.DATALOADER_GL_Fund_BY_ID);
 		return dataLoader.load(entity.getGL_Fund_ID());
 	}
 

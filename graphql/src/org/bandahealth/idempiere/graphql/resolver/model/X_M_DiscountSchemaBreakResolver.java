@@ -37,7 +37,7 @@ public class X_M_DiscountSchemaBreakResolver extends POResolver<MDiscountSchemaB
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.M_DiscountSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.DATALOADER_M_DiscountSchema_BY_ID);
 		return dataLoader.load(entity.getM_DiscountSchema_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_M_DiscountSchemaBreakResolver extends POResolver<MDiscountSchemaB
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.M_Product_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.DATALOADER_M_Product_Category_BY_ID);
 		return dataLoader.load(entity.getM_Product_Category_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_M_DiscountSchemaBreakResolver extends POResolver<MDiscountSchemaB
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

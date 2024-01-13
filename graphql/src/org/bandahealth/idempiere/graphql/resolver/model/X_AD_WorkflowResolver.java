@@ -55,7 +55,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ACCESSLEVEL_UUIDS_BY_VALUE.get(entity.getAccessLevel()));
 	}
 
@@ -70,7 +70,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.AD_CtxHelp_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.DATALOADER_AD_CtxHelp_BY_ID);
 		return dataLoader.load(entity.getAD_CtxHelp_ID());
 	}
 
@@ -85,7 +85,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -100,7 +100,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.AD_WF_Node_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.DATALOADER_AD_WF_Node_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Node_ID());
 	}
 
@@ -115,7 +115,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Responsible> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ResponsibleDataLoader.AD_WF_Responsible_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ResponsibleDataLoader.DATALOADER_AD_WF_Responsible_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Responsible_ID());
 	}
 
@@ -130,7 +130,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<Integer, X_AD_WorkflowProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowProcessorDataLoader.AD_WorkflowProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowProcessorDataLoader.DATALOADER_AD_WorkflowProcessor_BY_ID);
 		return dataLoader.load(entity.getAD_WorkflowProcessor_ID());
 	}
 
@@ -144,7 +144,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Workflow_TrlDataLoader.AD_Workflow_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Workflow_TrlDataLoader.DATALOADER_AD_Workflow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_Workflow.COLUMNNAME_Description));
 	}
@@ -164,7 +164,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DURATIONUNIT_UUIDS_BY_VALUE.get(entity.getDurationUnit()));
 	}
 
@@ -195,7 +195,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -209,7 +209,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Workflow_TrlDataLoader.AD_Workflow_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Workflow_TrlDataLoader.DATALOADER_AD_Workflow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_Workflow.COLUMNNAME_Help));
 	}
@@ -236,7 +236,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Workflow_TrlDataLoader.AD_Workflow_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Workflow_TrlDataLoader.DATALOADER_AD_Workflow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_Workflow.COLUMNNAME_Name));
 	}
@@ -256,7 +256,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PROCESSTYPE_UUIDS_BY_VALUE.get(entity.getProcessType()));
 	}
 
@@ -273,7 +273,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PUBLISHSTATUS_UUIDS_BY_VALUE.get(entity.getPublishStatus()));
 	}
 
@@ -288,7 +288,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.S_Resource_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.DATALOADER_S_Resource_BY_ID);
 		return dataLoader.load(entity.getS_Resource_ID());
 	}
 
@@ -307,7 +307,7 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(WORKFLOWTYPE_UUIDS_BY_VALUE.get(entity.getWorkflowType()));
 	}
 

@@ -37,7 +37,7 @@ type M_InOutLine {
 	# Unit of Measure
 	C_UOM: C_UOM!
 	# Confirmation of a received quantity
-	ConfirmedQty: Int
+	ConfirmedQty: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -64,20 +64,20 @@ type M_InOutLine {
 	# Return Material Authorization Line
 	M_RMALine: M_RMALine
 	# Quantity of a product moved.
-	MovementQty: Int!
-	PickedQty: Int
+	MovementQty: BigDecimal!
+	PickedQty: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	# The Quantity Entered is based on the selected UoM
-	QtyEntered: Int!
+	QtyEntered: BigDecimal!
 	# Over Receipt Quantity
-	QtyOverReceipt: Int
+	QtyOverReceipt: BigDecimal
 	# Use to keep the reversal line ID for reversing costing purpose
 	ReversalLine: M_InOutLine
 	# The Quantity scrapped due to QA issues
-	ScrappedQty: Int
+	ScrappedQty: BigDecimal
 	# Target Movement Quantity
-	TargetQty: Int
+	TargetQty: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -108,7 +108,7 @@ input M_InOutLineInput {
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
 	# Confirmation of a received quantity
-	ConfirmedQty: Int
+	ConfirmedQty: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -131,20 +131,20 @@ input M_InOutLineInput {
 	# Return Material Authorization Line
 	M_RMALine: ForeignEntityInput
 	# Quantity of a product moved.
-	MovementQty: Int
-	PickedQty: Int
+	MovementQty: BigDecimal
+	PickedQty: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	# The Quantity Entered is based on the selected UoM
-	QtyEntered: Int
+	QtyEntered: BigDecimal
 	# Over Receipt Quantity
-	QtyOverReceipt: Int
+	QtyOverReceipt: BigDecimal
 	# Use to keep the reversal line ID for reversing costing purpose
 	ReversalLine: ForeignEntityInput
 	# The Quantity scrapped due to QA issues
-	ScrappedQty: Int
+	ScrappedQty: BigDecimal
 	# Target Movement Quantity
-	TargetQty: Int
+	TargetQty: BigDecimal
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2

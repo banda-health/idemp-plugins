@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MProductCategory_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_M_Product_CategoryDataLoader extends PODataLoader<MProductCategory_BH> {
-	public static String M_Product_Category_BY_ID_DATA_LOADER = "M_Product_CategoryByIdDataLoader";
-	public static String M_Product_Category_BY_UUID_DATA_LOADER = "M_Product_CategoryByUuidDataLoader";
+	public static String DATALOADER_M_Product_Category_BY_ID = "M_Product_CategoryByIdDataLoader";
+	public static String DATALOADER_M_Product_Category_BY_UUID = "M_Product_CategoryByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_Product_CategoryDataLoader extends PODataLoader<MProductCategor
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_Product_Category_BY_ID_DATA_LOADER;
+		return DATALOADER_M_Product_Category_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_Product_Category_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_Product_Category_BY_UUID;
 	}
 }

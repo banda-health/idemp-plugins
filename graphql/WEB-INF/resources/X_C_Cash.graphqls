@@ -21,7 +21,7 @@ type C_Cash {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Balance prior to any transactions
-	BeginningBalance: Int!
+	BeginningBalance: BigDecimal!
 	# Business Activity
 	C_Activity: C_Activity
 	# Marketing Campaign
@@ -44,7 +44,7 @@ type C_Cash {
 	# The current status of the document
 	DocStatus: AD_Ref_List!
 	# Ending  or closing balance
-	EndingBalance: Int!
+	EndingBalance: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this document requires approval
@@ -56,12 +56,12 @@ type C_Cash {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Date of the statement
 	StatementDate: Date!
 	# Difference between statement ending balance and actual ending balance
-	StatementDifference: Int
+	StatementDifference: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -76,7 +76,7 @@ input C_CashInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Balance prior to any transactions
-	BeginningBalance: Int
+	BeginningBalance: BigDecimal
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Marketing Campaign
@@ -95,7 +95,7 @@ input C_CashInput {
 	# The current status of the document
 	DocStatus: AD_Ref_ListInput
 	# Ending  or closing balance
-	EndingBalance: Int
+	EndingBalance: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document requires approval
@@ -107,12 +107,12 @@ input C_CashInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# Date of the statement
 	StatementDate: Date
 	# Difference between statement ending balance and actual ending balance
-	StatementDifference: Int
+	StatementDifference: BigDecimal
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2

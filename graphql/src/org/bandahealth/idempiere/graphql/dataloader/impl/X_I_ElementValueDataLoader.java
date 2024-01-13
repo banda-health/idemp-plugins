@@ -9,8 +9,8 @@ import org.compiere.model.X_I_ElementValue;
  * @version Release 8.2 - $Id$
  */
 public class X_I_ElementValueDataLoader extends PODataLoader<X_I_ElementValue> {
-	public static String I_ElementValue_BY_ID_DATA_LOADER = "I_ElementValueByIdDataLoader";
-	public static String I_ElementValue_BY_UUID_DATA_LOADER = "I_ElementValueByUuidDataLoader";
+	public static String DATALOADER_I_ElementValue_BY_ID = "I_ElementValueByIdDataLoader";
+	public static String DATALOADER_I_ElementValue_BY_UUID = "I_ElementValueByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_I_ElementValueDataLoader extends PODataLoader<X_I_ElementValue> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return I_ElementValue_BY_ID_DATA_LOADER;
+		return DATALOADER_I_ElementValue_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return I_ElementValue_BY_UUID_DATA_LOADER;
+		return DATALOADER_I_ElementValue_BY_UUID;
 	}
 }

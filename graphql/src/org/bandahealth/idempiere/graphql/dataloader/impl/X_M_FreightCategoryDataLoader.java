@@ -9,8 +9,8 @@ import org.compiere.model.MFreightCategory;
  * @version Release 8.2 - $Id$
  */
 public class X_M_FreightCategoryDataLoader extends PODataLoader<MFreightCategory> {
-	public static String M_FreightCategory_BY_ID_DATA_LOADER = "M_FreightCategoryByIdDataLoader";
-	public static String M_FreightCategory_BY_UUID_DATA_LOADER = "M_FreightCategoryByUuidDataLoader";
+	public static String DATALOADER_M_FreightCategory_BY_ID = "M_FreightCategoryByIdDataLoader";
+	public static String DATALOADER_M_FreightCategory_BY_UUID = "M_FreightCategoryByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_FreightCategoryDataLoader extends PODataLoader<MFreightCategory
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_FreightCategory_BY_ID_DATA_LOADER;
+		return DATALOADER_M_FreightCategory_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_FreightCategory_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_FreightCategory_BY_UUID;
 	}
 }

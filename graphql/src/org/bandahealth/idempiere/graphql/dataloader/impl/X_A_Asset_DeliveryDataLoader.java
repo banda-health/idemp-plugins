@@ -9,8 +9,8 @@ import org.compiere.model.MAssetDelivery;
  * @version Release 8.2 - $Id$
  */
 public class X_A_Asset_DeliveryDataLoader extends PODataLoader<MAssetDelivery> {
-	public static String A_Asset_Delivery_BY_ID_DATA_LOADER = "A_Asset_DeliveryByIdDataLoader";
-	public static String A_Asset_Delivery_BY_UUID_DATA_LOADER = "A_Asset_DeliveryByUuidDataLoader";
+	public static String DATALOADER_A_Asset_Delivery_BY_ID = "A_Asset_DeliveryByIdDataLoader";
+	public static String DATALOADER_A_Asset_Delivery_BY_UUID = "A_Asset_DeliveryByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_A_Asset_DeliveryDataLoader extends PODataLoader<MAssetDelivery> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return A_Asset_Delivery_BY_ID_DATA_LOADER;
+		return DATALOADER_A_Asset_Delivery_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return A_Asset_Delivery_BY_UUID_DATA_LOADER;
+		return DATALOADER_A_Asset_Delivery_BY_UUID;
 	}
 }

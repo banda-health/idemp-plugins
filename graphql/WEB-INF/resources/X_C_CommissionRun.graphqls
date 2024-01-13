@@ -32,7 +32,7 @@ type C_CommissionRun {
 	# Document sequence number of the document
 	DocumentNo: String!
 	# Total amount of document
-	GrandTotal: Int!
+	GrandTotal: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# The document has been processed
@@ -57,7 +57,7 @@ input C_CommissionRunInput {
 	# Document sequence number of the document
 	DocumentNo: String
 	# Total amount of document
-	GrandTotal: Int
+	GrandTotal: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# The document has been processed

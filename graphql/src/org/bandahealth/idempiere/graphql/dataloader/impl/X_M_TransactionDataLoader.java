@@ -9,8 +9,8 @@ import org.compiere.model.MTransaction;
  * @version Release 8.2 - $Id$
  */
 public class X_M_TransactionDataLoader extends PODataLoader<MTransaction> {
-	public static String M_Transaction_BY_ID_DATA_LOADER = "M_TransactionByIdDataLoader";
-	public static String M_Transaction_BY_UUID_DATA_LOADER = "M_TransactionByUuidDataLoader";
+	public static String DATALOADER_M_Transaction_BY_ID = "M_TransactionByIdDataLoader";
+	public static String DATALOADER_M_Transaction_BY_UUID = "M_TransactionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_TransactionDataLoader extends PODataLoader<MTransaction> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_Transaction_BY_ID_DATA_LOADER;
+		return DATALOADER_M_Transaction_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_Transaction_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_Transaction_BY_UUID;
 	}
 }

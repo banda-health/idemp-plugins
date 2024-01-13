@@ -38,7 +38,7 @@ public class X_C_ProjectTaskResolver extends POResolver<MProjectTask> implements
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectPhaseDataLoader.C_ProjectPhase_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectPhaseDataLoader.DATALOADER_C_ProjectPhase_BY_ID);
 		return dataLoader.load(entity.getC_ProjectPhase_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_C_ProjectTaskResolver extends POResolver<MProjectTask> implements
 			return null;
 		}
 		DataLoader<Integer, MProjectTypeTask> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaskDataLoader.C_Task_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaskDataLoader.DATALOADER_C_Task_BY_ID);
 		return dataLoader.load(entity.getC_Task_ID());
 	}
 
@@ -68,7 +68,7 @@ public class X_C_ProjectTaskResolver extends POResolver<MProjectTask> implements
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -86,7 +86,7 @@ public class X_C_ProjectTaskResolver extends POResolver<MProjectTask> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PROJINVOICERULE_UUIDS_BY_VALUE.get(entity.getProjInvoiceRule()));
 	}
 

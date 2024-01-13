@@ -67,6 +67,25 @@ public interface I_C_InvoiceLineInput extends I_C_InvoiceLine {
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Column name BH_NavButtons
+	 */
+	static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	void setBH_NavButtons(Object BH_NavButtons);
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	Object getBH_NavButtons();
+
+	/**
 	 * Set C_1099Box.
 	 *
 	 * @param C_1099Box C_1099Box

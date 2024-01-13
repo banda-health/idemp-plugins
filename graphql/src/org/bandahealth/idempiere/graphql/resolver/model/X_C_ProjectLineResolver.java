@@ -43,7 +43,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.C_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.DATALOADER_C_Order_BY_ID);
 		return dataLoader.load(entity.getC_Order_ID());
 	}
 
@@ -58,7 +58,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.C_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.DATALOADER_C_Order_BY_ID);
 		return dataLoader.load(entity.getC_OrderPO_ID());
 	}
 
@@ -73,7 +73,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -88,7 +88,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 			return null;
 		}
 		DataLoader<Integer, MProjectIssue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectIssueDataLoader.C_ProjectIssue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectIssueDataLoader.DATALOADER_C_ProjectIssue_BY_ID);
 		return dataLoader.load(entity.getC_ProjectIssue_ID());
 	}
 
@@ -103,7 +103,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectPhaseDataLoader.C_ProjectPhase_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectPhaseDataLoader.DATALOADER_C_ProjectPhase_BY_ID);
 		return dataLoader.load(entity.getC_ProjectPhase_ID());
 	}
 
@@ -118,7 +118,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTaskDataLoader.C_ProjectTask_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTaskDataLoader.DATALOADER_C_ProjectTask_BY_ID);
 		return dataLoader.load(entity.getC_ProjectTask_ID());
 	}
 
@@ -137,7 +137,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.M_Product_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.DATALOADER_M_Product_Category_BY_ID);
 		return dataLoader.load(entity.getM_Product_Category_ID());
 	}
 
@@ -152,7 +152,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -167,7 +167,7 @@ public class X_C_ProjectLineResolver extends POResolver<MProjectLine> implements
 			return null;
 		}
 		DataLoader<Integer, MProduction> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionDataLoader.M_Production_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionDataLoader.DATALOADER_M_Production_BY_ID);
 		return dataLoader.load(entity.getM_Production_ID());
 	}
 

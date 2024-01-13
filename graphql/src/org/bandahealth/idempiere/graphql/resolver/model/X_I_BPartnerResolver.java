@@ -43,7 +43,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -58,7 +58,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.C_BP_Group_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
 		return dataLoader.load(entity.getC_BP_Group_ID());
 	}
 
@@ -73,7 +73,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -88,7 +88,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.C_BPartner_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.DATALOADER_C_BPartner_Location_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_Location_ID());
 	}
 
@@ -103,7 +103,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.C_Country_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.DATALOADER_C_Country_BY_ID);
 		return dataLoader.load(entity.getC_Country_ID());
 	}
 
@@ -118,7 +118,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_C_Greeting> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_GreetingDataLoader.C_Greeting_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_GreetingDataLoader.DATALOADER_C_Greeting_BY_ID);
 		return dataLoader.load(entity.getC_Greeting_ID());
 	}
 
@@ -133,7 +133,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.C_Region_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.DATALOADER_C_Region_BY_ID);
 		return dataLoader.load(entity.getC_Region_ID());
 	}
 
@@ -172,7 +172,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MInterestArea> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_InterestAreaDataLoader.R_InterestArea_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_InterestAreaDataLoader.DATALOADER_R_InterestArea_BY_ID);
 		return dataLoader.load(entity.getR_InterestArea_ID());
 	}
 

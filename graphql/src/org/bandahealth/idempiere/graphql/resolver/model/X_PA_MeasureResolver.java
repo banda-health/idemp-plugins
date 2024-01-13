@@ -44,7 +44,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MProjectType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTypeDataLoader.C_ProjectType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTypeDataLoader.DATALOADER_C_ProjectType_BY_ID);
 		return dataLoader.load(entity.getC_ProjectType_ID());
 	}
 
@@ -59,7 +59,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(MEASUREDATATYPE_UUIDS_BY_VALUE.get(entity.getMeasureDataType()));
 	}
 
@@ -79,7 +79,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(MEASURETYPE_UUIDS_BY_VALUE.get(entity.getMeasureType()));
 	}
 
@@ -94,7 +94,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, X_PA_Benchmark> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_BenchmarkDataLoader.PA_Benchmark_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_BenchmarkDataLoader.DATALOADER_PA_Benchmark_BY_ID);
 		return dataLoader.load(entity.getPA_Benchmark_ID());
 	}
 
@@ -109,7 +109,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MHierarchy> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_HierarchyDataLoader.PA_Hierarchy_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_HierarchyDataLoader.DATALOADER_PA_Hierarchy_BY_ID);
 		return dataLoader.load(entity.getPA_Hierarchy_ID());
 	}
 
@@ -124,7 +124,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MMeasureCalc> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_MeasureCalcDataLoader.PA_MeasureCalc_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_MeasureCalcDataLoader.DATALOADER_PA_MeasureCalc_BY_ID);
 		return dataLoader.load(entity.getPA_MeasureCalc_ID());
 	}
 
@@ -139,7 +139,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, X_PA_Ratio> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_RatioDataLoader.PA_Ratio_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_RatioDataLoader.DATALOADER_PA_Ratio_BY_ID);
 		return dataLoader.load(entity.getPA_Ratio_ID());
 	}
 
@@ -154,7 +154,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MRequestType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestTypeDataLoader.R_RequestType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestTypeDataLoader.DATALOADER_R_RequestType_BY_ID);
 		return dataLoader.load(entity.getR_RequestType_ID());
 	}
 

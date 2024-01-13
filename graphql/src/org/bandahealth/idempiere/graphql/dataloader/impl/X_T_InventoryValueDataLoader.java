@@ -9,8 +9,8 @@ import org.compiere.model.X_T_InventoryValue;
  * @version Release 8.2 - $Id$
  */
 public class X_T_InventoryValueDataLoader extends PODataLoader<X_T_InventoryValue> {
-	public static String T_InventoryValue_BY_ID_DATA_LOADER = "T_InventoryValueByIdDataLoader";
-	public static String T_InventoryValue_BY_UUID_DATA_LOADER = "T_InventoryValueByUuidDataLoader";
+	public static String DATALOADER_T_InventoryValue_BY_ID = "T_InventoryValueByIdDataLoader";
+	public static String DATALOADER_T_InventoryValue_BY_UUID = "T_InventoryValueByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_T_InventoryValueDataLoader extends PODataLoader<X_T_InventoryValu
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return T_InventoryValue_BY_ID_DATA_LOADER;
+		return DATALOADER_T_InventoryValue_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return T_InventoryValue_BY_UUID_DATA_LOADER;
+		return DATALOADER_T_InventoryValue_BY_UUID;
 	}
 }

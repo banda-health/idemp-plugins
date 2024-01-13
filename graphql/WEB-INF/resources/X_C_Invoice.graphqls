@@ -58,7 +58,7 @@ type C_Invoice {
 	# Financial Project
 	C_Project: C_Project
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
@@ -68,7 +68,7 @@ type C_Invoice {
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	# Accounting Date
 	DateAcct: Date!
 	# Date printed on Invoice
@@ -89,7 +89,7 @@ type C_Invoice {
 	# Generate To
 	GenerateTo: String
 	# Total amount of document
-	GrandTotal: Int!
+	GrandTotal: BigDecimal!
 	# Invoice Collection Status
 	InvoiceCollectionType: AD_Ref_List
 	# The record is active in the system
@@ -130,7 +130,7 @@ type C_Invoice {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	RelatedInvoice: C_Invoice
 	# ID of document reversal
@@ -140,7 +140,7 @@ type C_Invoice {
 	# Enable sending Document EMail
 	SendEMail: Boolean!
 	# Total of all document lines
-	TotalLines: Int!
+	TotalLines: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -192,13 +192,13 @@ input C_InvoiceInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	# Accounting Date
 	DateAcct: Date
 	# Date printed on Invoice
@@ -219,7 +219,7 @@ input C_InvoiceInput {
 	# Generate To
 	GenerateTo: String
 	# Total amount of document
-	GrandTotal: Int
+	GrandTotal: BigDecimal
 	# Invoice Collection Status
 	InvoiceCollectionType: AD_Ref_ListInput
 	# The record is active in the system
@@ -260,7 +260,7 @@ input C_InvoiceInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	RelatedInvoice: ForeignEntityInput
 	# ID of document reversal
@@ -270,7 +270,7 @@ input C_InvoiceInput {
 	# Enable sending Document EMail
 	SendEMail: Boolean
 	# Total of all document lines
-	TotalLines: Int
+	TotalLines: BigDecimal
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2

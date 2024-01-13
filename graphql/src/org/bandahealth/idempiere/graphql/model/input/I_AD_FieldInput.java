@@ -165,6 +165,25 @@ public interface I_AD_FieldInput extends I_AD_Field {
 	ForeignEntityInput AD_Val_Rule_Lookup();
 
 	/**
+	 * Column name BH_Abbreviation
+	 */
+	static final String COLUMNNAME_BH_Abbreviation = "BH_Abbreviation";
+
+	/**
+	 * Set BH_Abbreviation.
+	 *
+	 * @param BH_Abbreviation An abbreviation for a given name
+	 */
+	void setBH_Abbreviation(String BH_Abbreviation);
+
+	/**
+	 * Get BH_Abbreviation.
+	 *
+	 * @return An abbreviation for a given name
+	 */
+	String getBH_Abbreviation();
+
+	/**
 	 * Set AD_EntityType.
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization

@@ -9,8 +9,8 @@ import org.compiere.model.MSearchDefinition;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_SearchDefinitionDataLoader extends PODataLoader<MSearchDefinition> {
-	public static String AD_SearchDefinition_BY_ID_DATA_LOADER = "AD_SearchDefinitionByIdDataLoader";
-	public static String AD_SearchDefinition_BY_UUID_DATA_LOADER = "AD_SearchDefinitionByUuidDataLoader";
+	public static String DATALOADER_AD_SearchDefinition_BY_ID = "AD_SearchDefinitionByIdDataLoader";
+	public static String DATALOADER_AD_SearchDefinition_BY_UUID = "AD_SearchDefinitionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_SearchDefinitionDataLoader extends PODataLoader<MSearchDefinit
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_SearchDefinition_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_SearchDefinition_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_SearchDefinition_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_SearchDefinition_BY_UUID;
 	}
 }

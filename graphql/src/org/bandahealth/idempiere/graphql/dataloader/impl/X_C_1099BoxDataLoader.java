@@ -9,8 +9,8 @@ import org.compiere.model.X_C_1099Box;
  * @version Release 8.2 - $Id$
  */
 public class X_C_1099BoxDataLoader extends PODataLoader<X_C_1099Box> {
-	public static String C_1099Box_BY_ID_DATA_LOADER = "C_1099BoxByIdDataLoader";
-	public static String C_1099Box_BY_UUID_DATA_LOADER = "C_1099BoxByUuidDataLoader";
+	public static String DATALOADER_C_1099Box_BY_ID = "C_1099BoxByIdDataLoader";
+	public static String DATALOADER_C_1099Box_BY_UUID = "C_1099BoxByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_1099BoxDataLoader extends PODataLoader<X_C_1099Box> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_1099Box_BY_ID_DATA_LOADER;
+		return DATALOADER_C_1099Box_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_1099Box_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_1099Box_BY_UUID;
 	}
 }

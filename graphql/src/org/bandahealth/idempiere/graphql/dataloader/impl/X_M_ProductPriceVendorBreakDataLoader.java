@@ -9,8 +9,8 @@ import org.compiere.model.X_M_ProductPriceVendorBreak;
  * @version Release 8.2 - $Id$
  */
 public class X_M_ProductPriceVendorBreakDataLoader extends PODataLoader<X_M_ProductPriceVendorBreak> {
-	public static String M_ProductPriceVendorBreak_BY_ID_DATA_LOADER = "M_ProductPriceVendorBreakByIdDataLoader";
-	public static String M_ProductPriceVendorBreak_BY_UUID_DATA_LOADER = "M_ProductPriceVendorBreakByUuidDataLoader";
+	public static String DATALOADER_M_ProductPriceVendorBreak_BY_ID = "M_ProductPriceVendorBreakByIdDataLoader";
+	public static String DATALOADER_M_ProductPriceVendorBreak_BY_UUID = "M_ProductPriceVendorBreakByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_ProductPriceVendorBreakDataLoader extends PODataLoader<X_M_Prod
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_ProductPriceVendorBreak_BY_ID_DATA_LOADER;
+		return DATALOADER_M_ProductPriceVendorBreak_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_ProductPriceVendorBreak_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_ProductPriceVendorBreak_BY_UUID;
 	}
 }

@@ -31,7 +31,7 @@ public class X_AD_ReportView_ColResolver extends POResolver<X_AD_ReportView_Col>
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_ReportView_ColResolver extends POResolver<X_AD_ReportView_Col>
 			return null;
 		}
 		DataLoader<Integer, MReportView> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReportViewDataLoader.AD_ReportView_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReportViewDataLoader.DATALOADER_AD_ReportView_BY_ID);
 		return dataLoader.load(entity.getAD_ReportView_ID());
 	}
 

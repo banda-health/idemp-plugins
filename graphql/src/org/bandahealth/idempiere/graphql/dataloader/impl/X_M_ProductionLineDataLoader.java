@@ -9,8 +9,8 @@ import org.compiere.model.MProductionLine;
  * @version Release 8.2 - $Id$
  */
 public class X_M_ProductionLineDataLoader extends PODataLoader<MProductionLine> {
-	public static String M_ProductionLine_BY_ID_DATA_LOADER = "M_ProductionLineByIdDataLoader";
-	public static String M_ProductionLine_BY_UUID_DATA_LOADER = "M_ProductionLineByUuidDataLoader";
+	public static String DATALOADER_M_ProductionLine_BY_ID = "M_ProductionLineByIdDataLoader";
+	public static String DATALOADER_M_ProductionLine_BY_UUID = "M_ProductionLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_ProductionLineDataLoader extends PODataLoader<MProductionLine> 
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_ProductionLine_BY_ID_DATA_LOADER;
+		return DATALOADER_M_ProductionLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_ProductionLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_ProductionLine_BY_UUID;
 	}
 }
