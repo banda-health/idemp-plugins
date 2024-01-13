@@ -21,7 +21,7 @@ type IMP_ProcessorLog {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Binary Data
-	BinaryData: String
+	BinaryData: Binary
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,7 +52,7 @@ input IMP_ProcessorLogInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Binary Data
-	BinaryData: String
+	BinaryData: Binary
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

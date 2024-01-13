@@ -338,10 +338,15 @@ public class GraphQLSchemaGenerator {
 			generatedColumns.inputModel.append("\t").append(columnName).append(neededPropertySuffix).append(": ");
 		}
 
-		if (clazz.equals(Integer.class) || clazz.equals(BigDecimal.class)) {
+		if (clazz.equals(Integer.class)) {
 			generatedColumns.regularModel.append("Int");
 			if (!shouldSkipInputField) {
 				generatedColumns.inputModel.append("Int");
+			}
+		} else if (clazz.equals(BigDecimal.class)) {
+			generatedColumns.regularModel.append("BigDecimal");
+			if (!shouldSkipInputField) {
+				generatedColumns.inputModel.append("BigDecimal");
 			}
 		} else if (clazz.equals(Boolean.class)) {
 			generatedColumns.regularModel.append("Boolean");
@@ -354,9 +359,9 @@ public class GraphQLSchemaGenerator {
 				generatedColumns.inputModel.append("Date");
 			}
 		} else if (clazz.equals(byte[].class)) {
-			generatedColumns.regularModel.append("String");
+			generatedColumns.regularModel.append("Binary");
 			if (!shouldSkipInputField) {
-				generatedColumns.inputModel.append("String");
+				generatedColumns.inputModel.append("Binary");
 			}
 		} else if (AD_Reference_ID > 0 &&
 				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&

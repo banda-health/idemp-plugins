@@ -21,7 +21,7 @@ type C_AcctProcessorLog {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Binary Data
-	BinaryData: String
+	BinaryData: Binary
 	# Accounting Processor/Server Parameters
 	C_AcctProcessor: C_AcctProcessor!
 	ID: ID!
@@ -51,7 +51,7 @@ input C_AcctProcessorLogInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Binary Data
-	BinaryData: String
+	BinaryData: Binary
 	# Accounting Processor/Server Parameters
 	C_AcctProcessor: ForeignEntityInput
 	ID: ID

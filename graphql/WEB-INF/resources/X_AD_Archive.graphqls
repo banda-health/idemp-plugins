@@ -26,7 +26,7 @@ type AD_Archive {
 	# Database Table information
 	AD_Table: AD_Table
 	# Binary Data
-	BinaryData: String!
+	BinaryData: Binary!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Date this record was created
@@ -60,7 +60,7 @@ input AD_ArchiveInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Binary Data
-	BinaryData: String
+	BinaryData: Binary
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Optional short description of the record

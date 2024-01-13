@@ -1,3 +1,3 @@
-# If you want to add to this file, delete this line and uncomment the file in BandaSchemaFileComposer
 extend type C_InvoiceLine {
+	BH_BP_Specific_Payer_InfoList: [BH_BP_Specific_Payer_Info!]
 }

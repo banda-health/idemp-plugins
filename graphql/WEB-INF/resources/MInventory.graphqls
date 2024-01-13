@@ -1,3 +1,7 @@
-# If you want to add to this file, delete this line and uncomment the file in BandaSchemaFileComposer
+extend type Mutation {
+	M_InventoryProcess(uuid: String!, documentAction: String!): M_Inventory
+}
+
 extend type M_Inventory {
+	M_InventoryLines: [M_InventoryLine!]
 }

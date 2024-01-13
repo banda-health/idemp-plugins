@@ -42,7 +42,7 @@ type AD_MigrationScript {
 	# Internal Release Number
 	ReleaseNo: String!
 	# Dynamic Java Language Script to calculate result
-	Script: String
+	Script: Binary
 	ScriptRoll: String
 	# Status of the currently running check
 	Status: AD_Ref_List!
@@ -75,7 +75,7 @@ input AD_MigrationScriptInput {
 	# Internal Release Number
 	ReleaseNo: String
 	# Dynamic Java Language Script to calculate result
-	Script: String
+	Script: Binary
 	ScriptRoll: String
 	# Status of the currently running check
 	Status: AD_Ref_ListInput

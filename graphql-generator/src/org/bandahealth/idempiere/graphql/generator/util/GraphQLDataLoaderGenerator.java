@@ -56,11 +56,11 @@ public class GraphQLDataLoaderGenerator {
 	private Map<String, ModelMap> modelsForTables;
 
 	public static String getDataLoaderByIdProperty(String tableName) {
-		return tableName + "_BY_ID_DATA_LOADER";
+		return "DATALOADER_" + tableName + "_BY_ID";
 	}
 
 	public static String getDataLoaderByUuidProperty(String tableName) {
-		return tableName + "_BY_UUID_DATA_LOADER";
+		return "DATALOADER_" + tableName + "_BY_UUID";
 	}
 
 	/**
@@ -179,8 +179,8 @@ public class GraphQLDataLoaderGenerator {
 	/**
 	 * Add Header info to buffer
 	 *
-	 * @param translationTableId   table
-	 * @param generatedFile GeneratedColumns
+	 * @param translationTableId table
+	 * @param generatedFile      GeneratedColumns
 	 * @return file name
 	 */
 	private String createTranslationHeader(int translationTableId, int relatedTableId, StringBuilder generatedFile) {
@@ -223,7 +223,8 @@ public class GraphQLDataLoaderGenerator {
 		createImports(generatedClass);
 
 		ModelMap relatedTableModelMap = modelsForTables.get(MTable.get(Env.getCtx(), relatedTableId).getTableName());
-		String regularTableModelAndField = relatedTableModelMap.getClassName() + ".COLUMNNAME_" + relatedTableModelMap.getTableName() + "_ID";
+		String regularTableModelAndField =
+				relatedTableModelMap.getClassName() + ".COLUMNNAME_" + relatedTableModelMap.getTableName() + "_ID";
 		generatedClass
 				.append("/**\n * Data Loader for ").append(tableName).append(" - DO NOT CHANGE\n *\n")
 				.append(" * @author Banda Health (generated)").append("\n")
