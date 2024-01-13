@@ -9,8 +9,8 @@ import org.compiere.model.X_WS_WebService;
  * @version Release 8.2 - $Id$
  */
 public class X_WS_WebServiceDataLoader extends PODataLoader<X_WS_WebService> {
-	public static String WS_WebService_BY_ID_DATA_LOADER = "WS_WebServiceByIdDataLoader";
-	public static String WS_WebService_BY_UUID_DATA_LOADER = "WS_WebServiceByUuidDataLoader";
+	public static String DATALOADER_WS_WebService_BY_ID = "WS_WebServiceByIdDataLoader";
+	public static String DATALOADER_WS_WebService_BY_UUID = "WS_WebServiceByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_WS_WebServiceDataLoader extends PODataLoader<X_WS_WebService> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return WS_WebService_BY_ID_DATA_LOADER;
+		return DATALOADER_WS_WebService_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return WS_WebService_BY_UUID_DATA_LOADER;
+		return DATALOADER_WS_WebService_BY_UUID;
 	}
 }

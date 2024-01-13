@@ -31,7 +31,7 @@ public class X_C_ChargeType_DocTypeResolver extends POResolver<X_C_ChargeType_Do
 			return null;
 		}
 		DataLoader<Integer, MChargeType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeTypeDataLoader.C_ChargeType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeTypeDataLoader.DATALOADER_C_ChargeType_BY_ID);
 		return dataLoader.load(entity.getC_ChargeType_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_ChargeType_DocTypeResolver extends POResolver<X_C_ChargeType_Do
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
 		return dataLoader.load(entity.getC_DocType_ID());
 	}
 

@@ -45,19 +45,19 @@ type M_Package {
 	# Document sequence number of the document
 	DocumentNo: String!
 	DotHazardClassOrDivision: AD_Ref_List
-	DryIceWeight: Int
+	DryIceWeight: BigDecimal
 	DutiesShipperAccount: String
-	EstimatedWeight: Int
+	EstimatedWeight: BigDecimal
 	FOB: AD_Ref_List
 	FreightCharges: AD_Ref_List
-	HandlingCharge: Int
-	Height: Int
+	HandlingCharge: BigDecimal
+	Height: BigDecimal
 	HoldAddress: C_BPartner_Location
 	HomeDeliveryPremiumDate: Date
 	HomeDeliveryPremiumPhone: String
 	HomeDeliveryPremiumType: AD_Ref_List
 	Insurance: AD_Ref_List
-	InsuredAmount: Int
+	InsuredAmount: BigDecimal
 	IsAccessible: Boolean!
 	# The record is active in the system
 	IsActive: Boolean!
@@ -76,7 +76,7 @@ type M_Package {
 	IsVerbalConfirmation: Boolean!
 	LabelPrint: String
 	LatestPickupTime: Date
-	Length: Int
+	Length: BigDecimal
 	# Material Shipment Document
 	M_InOut: M_InOut!
 	ID: ID!
@@ -94,9 +94,9 @@ type M_Package {
 	# How you pay the invoice
 	PaymentRule: AD_Ref_List
 	# Price
-	Price: Int
+	Price: BigDecimal
 	# Actual Price 
-	PriceActual: Int
+	PriceActual: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	RateInquiryMessage: String
@@ -107,8 +107,8 @@ type M_Package {
 	ShipperAccount: String
 	ShippingRateInquiry: String
 	ShippingRespMessage: String
-	Surcharges: Int
-	TotalPrice: Int
+	Surcharges: BigDecimal
+	TotalPrice: BigDecimal
 	TrackingInfo: String
 	# Number to track the shipment
 	TrackingNo: String
@@ -118,8 +118,8 @@ type M_Package {
 	UpdatedBy: AD_User!
 	VoidIt: String
 	# Weight of a product
-	Weight: Int
-	Width: Int
+	Weight: BigDecimal
+	Width: BigDecimal
 }
 
 input M_PackageInput {
@@ -146,15 +146,15 @@ input M_PackageInput {
 	# Document sequence number of the document
 	DocumentNo: String
 	DotHazardClassOrDivision: AD_Ref_ListInput
-	DryIceWeight: Int
+	DryIceWeight: BigDecimal
 	DutiesShipperAccount: String
-	HandlingCharge: Int
-	Height: Int
+	HandlingCharge: BigDecimal
+	Height: BigDecimal
 	HoldAddress: ForeignEntityInput
 	HomeDeliveryPremiumDate: Date
 	HomeDeliveryPremiumPhone: String
 	HomeDeliveryPremiumType: AD_Ref_ListInput
-	InsuredAmount: Int
+	InsuredAmount: BigDecimal
 	IsAccessible: Boolean
 	# The record is active in the system
 	IsActive: Boolean
@@ -173,7 +173,7 @@ input M_PackageInput {
 	IsVerbalConfirmation: Boolean
 	LabelPrint: String
 	LatestPickupTime: Date
-	Length: Int
+	Length: BigDecimal
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
 	ID: ID
@@ -190,9 +190,9 @@ input M_PackageInput {
 	# How you pay the invoice
 	PaymentRule: AD_Ref_ListInput
 	# Price
-	Price: Int
+	Price: BigDecimal
 	# Actual Price 
-	PriceActual: Int
+	PriceActual: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	RateInquiryMessage: String
@@ -203,12 +203,12 @@ input M_PackageInput {
 	ShipperAccount: String
 	ShippingRateInquiry: String
 	ShippingRespMessage: String
-	Surcharges: Int
+	Surcharges: BigDecimal
 	TrackingInfo: String
 	# Number to track the shipment
 	TrackingNo: String
 	VoidIt: String
 	# Weight of a product
-	Weight: Int
-	Width: Int
+	Weight: BigDecimal
+	Width: BigDecimal
 }

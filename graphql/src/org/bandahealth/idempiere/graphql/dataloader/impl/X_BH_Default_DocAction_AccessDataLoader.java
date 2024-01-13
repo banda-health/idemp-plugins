@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBHDefaultDocActionAccess;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_Default_DocAction_AccessDataLoader extends PODataLoader<MBHDefaultDocActionAccess> {
-	public static String BH_Default_DocAction_Access_BY_ID_DATA_LOADER = "BH_Default_DocAction_AccessByIdDataLoader";
-	public static String BH_Default_DocAction_Access_BY_UUID_DATA_LOADER = "BH_Default_DocAction_AccessByUuidDataLoader";
+	public static String DATALOADER_BH_Default_DocAction_Access_BY_ID = "BH_Default_DocAction_AccessByIdDataLoader";
+	public static String DATALOADER_BH_Default_DocAction_Access_BY_UUID = "BH_Default_DocAction_AccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_Default_DocAction_AccessDataLoader extends PODataLoader<MBHDef
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_Default_DocAction_Access_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_Default_DocAction_Access_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_Default_DocAction_Access_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_Default_DocAction_Access_BY_UUID;
 	}
 }

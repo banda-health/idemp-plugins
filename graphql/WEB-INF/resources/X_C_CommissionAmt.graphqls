@@ -17,7 +17,7 @@ type C_CommissionAmtConnection {
 
 type C_CommissionAmt {
 	# The actual quantity
-	ActualQty: Int!
+	ActualQty: BigDecimal!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -28,9 +28,9 @@ type C_CommissionAmt {
 	# Commission Run or Process
 	C_CommissionRun: C_CommissionRun!
 	# Commission Amount
-	CommissionAmt: Int!
+	CommissionAmt: BigDecimal!
 	# Converted Amount
-	ConvertedAmt: Int!
+	ConvertedAmt: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -45,7 +45,7 @@ type C_CommissionAmt {
 
 input C_CommissionAmtInput {
 	# The actual quantity
-	ActualQty: Int
+	ActualQty: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	ID: ID
@@ -54,9 +54,9 @@ input C_CommissionAmtInput {
 	# Commission Run or Process
 	C_CommissionRun: ForeignEntityInput
 	# Commission Amount
-	CommissionAmt: Int
+	CommissionAmt: BigDecimal
 	# Converted Amount
-	ConvertedAmt: Int
+	ConvertedAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 }

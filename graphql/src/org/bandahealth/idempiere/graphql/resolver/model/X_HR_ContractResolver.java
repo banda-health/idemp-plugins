@@ -33,7 +33,7 @@ public class X_HR_ContractResolver extends POResolver<X_HR_Contract> implements 
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_HR_ContractResolver extends POResolver<X_HR_Contract> implements 
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_HR_ContractResolver extends POResolver<X_HR_Contract> implements 
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 

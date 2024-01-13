@@ -36,7 +36,7 @@ public class X_R_RequestTypeResolver extends POResolver<MRequestType> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CONFIDENTIALTYPE_UUIDS_BY_VALUE.get(entity.getConfidentialType()));
 	}
 
@@ -83,7 +83,7 @@ public class X_R_RequestTypeResolver extends POResolver<MRequestType> implements
 			return null;
 		}
 		DataLoader<Integer, MStatusCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_StatusCategoryDataLoader.R_StatusCategory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_StatusCategoryDataLoader.DATALOADER_R_StatusCategory_BY_ID);
 		return dataLoader.load(entity.getR_StatusCategory_ID());
 	}
 

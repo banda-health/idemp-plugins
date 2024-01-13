@@ -35,7 +35,7 @@ public class X_A_RegistrationResolver extends POResolver<MRegistration> implemen
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_A_RegistrationResolver extends POResolver<MRegistration> implemen
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_A_RegistrationResolver extends POResolver<MRegistration> implemen
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -92,7 +92,7 @@ public class X_A_RegistrationResolver extends POResolver<MRegistration> implemen
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

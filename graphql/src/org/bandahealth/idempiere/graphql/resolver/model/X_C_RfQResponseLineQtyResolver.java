@@ -31,7 +31,7 @@ public class X_C_RfQResponseLineQtyResolver extends POResolver<MRfQResponseLineQ
 			return null;
 		}
 		DataLoader<Integer, MRfQLineQty> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RfQLineQtyDataLoader.C_RfQLineQty_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RfQLineQtyDataLoader.DATALOADER_C_RfQLineQty_BY_ID);
 		return dataLoader.load(entity.getC_RfQLineQty_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_RfQResponseLineQtyResolver extends POResolver<MRfQResponseLineQ
 			return null;
 		}
 		DataLoader<Integer, MRfQResponseLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RfQResponseLineDataLoader.C_RfQResponseLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RfQResponseLineDataLoader.DATALOADER_C_RfQResponseLine_BY_ID);
 		return dataLoader.load(entity.getC_RfQResponseLine_ID());
 	}
 

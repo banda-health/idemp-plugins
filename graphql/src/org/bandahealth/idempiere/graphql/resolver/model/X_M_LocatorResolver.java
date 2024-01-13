@@ -35,7 +35,7 @@ public class X_M_LocatorResolver extends POResolver<MLocator> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MLocatorType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorTypeDataLoader.M_LocatorType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorTypeDataLoader.DATALOADER_M_LocatorType_BY_ID);
 		return dataLoader.load(entity.getM_LocatorType_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_M_LocatorResolver extends POResolver<MLocator> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 

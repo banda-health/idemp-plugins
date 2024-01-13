@@ -9,8 +9,8 @@ import org.compiere.model.X_C_POSPayment;
  * @version Release 8.2 - $Id$
  */
 public class X_C_POSPaymentDataLoader extends PODataLoader<X_C_POSPayment> {
-	public static String C_POSPayment_BY_ID_DATA_LOADER = "C_POSPaymentByIdDataLoader";
-	public static String C_POSPayment_BY_UUID_DATA_LOADER = "C_POSPaymentByUuidDataLoader";
+	public static String DATALOADER_C_POSPayment_BY_ID = "C_POSPaymentByIdDataLoader";
+	public static String DATALOADER_C_POSPayment_BY_UUID = "C_POSPaymentByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_POSPaymentDataLoader extends PODataLoader<X_C_POSPayment> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_POSPayment_BY_ID_DATA_LOADER;
+		return DATALOADER_C_POSPayment_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_POSPayment_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_POSPayment_BY_UUID;
 	}
 }

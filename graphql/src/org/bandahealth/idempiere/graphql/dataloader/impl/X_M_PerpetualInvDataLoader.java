@@ -9,8 +9,8 @@ import org.compiere.model.X_M_PerpetualInv;
  * @version Release 8.2 - $Id$
  */
 public class X_M_PerpetualInvDataLoader extends PODataLoader<X_M_PerpetualInv> {
-	public static String M_PerpetualInv_BY_ID_DATA_LOADER = "M_PerpetualInvByIdDataLoader";
-	public static String M_PerpetualInv_BY_UUID_DATA_LOADER = "M_PerpetualInvByUuidDataLoader";
+	public static String DATALOADER_M_PerpetualInv_BY_ID = "M_PerpetualInvByIdDataLoader";
+	public static String DATALOADER_M_PerpetualInv_BY_UUID = "M_PerpetualInvByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_PerpetualInvDataLoader extends PODataLoader<X_M_PerpetualInv> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_PerpetualInv_BY_ID_DATA_LOADER;
+		return DATALOADER_M_PerpetualInv_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_PerpetualInv_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_PerpetualInv_BY_UUID;
 	}
 }

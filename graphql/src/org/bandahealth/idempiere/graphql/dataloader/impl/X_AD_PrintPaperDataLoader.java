@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_PrintPaper;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_PrintPaperDataLoader extends PODataLoader<X_AD_PrintPaper> {
-	public static String AD_PrintPaper_BY_ID_DATA_LOADER = "AD_PrintPaperByIdDataLoader";
-	public static String AD_PrintPaper_BY_UUID_DATA_LOADER = "AD_PrintPaperByUuidDataLoader";
+	public static String DATALOADER_AD_PrintPaper_BY_ID = "AD_PrintPaperByIdDataLoader";
+	public static String DATALOADER_AD_PrintPaper_BY_UUID = "AD_PrintPaperByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_PrintPaperDataLoader extends PODataLoader<X_AD_PrintPaper> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_PrintPaper_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_PrintPaper_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_PrintPaper_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_PrintPaper_BY_UUID;
 	}
 }

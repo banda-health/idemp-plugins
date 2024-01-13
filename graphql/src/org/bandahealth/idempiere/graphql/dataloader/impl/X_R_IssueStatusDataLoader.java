@@ -9,8 +9,8 @@ import org.compiere.model.X_R_IssueStatus;
  * @version Release 8.2 - $Id$
  */
 public class X_R_IssueStatusDataLoader extends PODataLoader<X_R_IssueStatus> {
-	public static String R_IssueStatus_BY_ID_DATA_LOADER = "R_IssueStatusByIdDataLoader";
-	public static String R_IssueStatus_BY_UUID_DATA_LOADER = "R_IssueStatusByUuidDataLoader";
+	public static String DATALOADER_R_IssueStatus_BY_ID = "R_IssueStatusByIdDataLoader";
+	public static String DATALOADER_R_IssueStatus_BY_UUID = "R_IssueStatusByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_IssueStatusDataLoader extends PODataLoader<X_R_IssueStatus> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_IssueStatus_BY_ID_DATA_LOADER;
+		return DATALOADER_R_IssueStatus_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_IssueStatus_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_IssueStatus_BY_UUID;
 	}
 }

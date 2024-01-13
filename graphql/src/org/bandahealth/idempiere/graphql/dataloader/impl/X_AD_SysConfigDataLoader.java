@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MSysConfig_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_SysConfigDataLoader extends PODataLoader<MSysConfig_BH> {
-	public static String AD_SysConfig_BY_ID_DATA_LOADER = "AD_SysConfigByIdDataLoader";
-	public static String AD_SysConfig_BY_UUID_DATA_LOADER = "AD_SysConfigByUuidDataLoader";
+	public static String DATALOADER_AD_SysConfig_BY_ID = "AD_SysConfigByIdDataLoader";
+	public static String DATALOADER_AD_SysConfig_BY_UUID = "AD_SysConfigByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_SysConfigDataLoader extends PODataLoader<MSysConfig_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_SysConfig_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_SysConfig_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_SysConfig_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_SysConfig_BY_UUID;
 	}
 }

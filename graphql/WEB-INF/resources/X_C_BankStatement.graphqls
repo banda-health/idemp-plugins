@@ -21,7 +21,7 @@ type C_BankStatement {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Balance prior to any transactions
-	BeginningBalance: Int
+	BeginningBalance: BigDecimal
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
 	ID: ID!
@@ -47,7 +47,7 @@ type C_BankStatement {
 	# Electronic Funds Transfer Statement Reference
 	EftStatementReference: String
 	# Ending  or closing balance
-	EndingBalance: Int!
+	EndingBalance: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this document requires approval
@@ -62,12 +62,12 @@ type C_BankStatement {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Date of the statement
 	StatementDate: Date!
 	# Difference between statement ending balance and actual ending balance
-	StatementDifference: Int
+	StatementDifference: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -78,7 +78,7 @@ input C_BankStatementInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Balance prior to any transactions
-	BeginningBalance: Int
+	BeginningBalance: BigDecimal
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
 	ID: ID
@@ -100,7 +100,7 @@ input C_BankStatementInput {
 	# Electronic Funds Transfer Statement Reference
 	EftStatementReference: String
 	# Ending  or closing balance
-	EndingBalance: Int
+	EndingBalance: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document requires approval
@@ -115,10 +115,10 @@ input C_BankStatementInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# Date of the statement
 	StatementDate: Date
 	# Difference between statement ending balance and actual ending balance
-	StatementDifference: Int
+	StatementDifference: BigDecimal
 }

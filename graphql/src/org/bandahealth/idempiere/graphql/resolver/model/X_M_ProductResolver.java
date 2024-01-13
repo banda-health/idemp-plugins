@@ -77,7 +77,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MRevenueRecognition> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecognitionDataLoader.C_RevenueRecognition_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecognitionDataLoader.DATALOADER_C_RevenueRecognition_BY_ID);
 		return dataLoader.load(entity.getC_RevenueRecognition_ID());
 	}
 
@@ -92,7 +92,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, X_C_SubscriptionType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_SubscriptionTypeDataLoader.C_SubscriptionType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_SubscriptionTypeDataLoader.DATALOADER_C_SubscriptionType_BY_ID);
 		return dataLoader.load(entity.getC_SubscriptionType_ID());
 	}
 
@@ -107,7 +107,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxCategoryDataLoader.C_TaxCategory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxCategoryDataLoader.DATALOADER_C_TaxCategory_BY_ID);
 		return dataLoader.load(entity.getC_TaxCategory_ID());
 	}
 
@@ -122,7 +122,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -136,7 +136,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_M_Product_TrlDataLoader.M_Product_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_M_Product_TrlDataLoader.DATALOADER_M_Product_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MProduct_BH.COLUMNNAME_Description));
 	}
@@ -155,7 +155,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return CompletableFuture.supplyAsync(entity::getDocumentNote);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_M_Product_TrlDataLoader.M_Product_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_M_Product_TrlDataLoader.DATALOADER_M_Product_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MProduct_BH.COLUMNNAME_DocumentNote));
 	}
@@ -239,7 +239,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MAttributeSet_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetDataLoader.M_AttributeSet_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetDataLoader.DATALOADER_M_AttributeSet_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSet_ID());
 	}
 
@@ -254,7 +254,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -269,7 +269,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MFreightCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_FreightCategoryDataLoader.M_FreightCategory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_FreightCategoryDataLoader.DATALOADER_M_FreightCategory_BY_ID);
 		return dataLoader.load(entity.getM_FreightCategory_ID());
 	}
 
@@ -284,7 +284,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.M_Locator_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.DATALOADER_M_Locator_BY_ID);
 		return dataLoader.load(entity.getM_Locator_ID());
 	}
 
@@ -299,7 +299,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, X_M_PartType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PartTypeDataLoader.M_PartType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PartTypeDataLoader.DATALOADER_M_PartType_BY_ID);
 		return dataLoader.load(entity.getM_PartType_ID());
 	}
 
@@ -314,7 +314,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.M_Product_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.DATALOADER_M_Product_Category_BY_ID);
 		return dataLoader.load(entity.getM_Product_Category_ID());
 	}
 
@@ -328,7 +328,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_M_Product_TrlDataLoader.M_Product_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_M_Product_TrlDataLoader.DATALOADER_M_Product_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MProduct_BH.COLUMNNAME_Name));
 	}
@@ -352,7 +352,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PRODUCTTYPE_UUIDS_BY_VALUE.get(entity.getProductType()));
 	}
 
@@ -367,7 +367,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.R_MailText_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
 		return dataLoader.load(entity.getR_MailText_ID());
 	}
 
@@ -382,7 +382,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MExpenseType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_ExpenseTypeDataLoader.S_ExpenseType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ExpenseTypeDataLoader.DATALOADER_S_ExpenseType_BY_ID);
 		return dataLoader.load(entity.getS_ExpenseType_ID());
 	}
 
@@ -397,7 +397,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.S_Resource_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.DATALOADER_S_Resource_BY_ID);
 		return dataLoader.load(entity.getS_Resource_ID());
 	}
 
@@ -412,7 +412,7 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 

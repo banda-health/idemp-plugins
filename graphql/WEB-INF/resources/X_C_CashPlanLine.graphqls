@@ -49,16 +49,16 @@ type C_CashPlanLine {
 	# Unique line for this document
 	Line: Int!
 	# Total line amount incl. Tax
-	LineTotalAmt: Int
+	LineTotalAmt: BigDecimal
 	# Product, Service, Item
 	M_Product: M_Product
 	# Alphanumeric identifier of the entity
 	Name: String
-	Probability: Int
+	Probability: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	# The Quantity Entered is based on the selected UoM
-	QtyEntered: Int!
+	QtyEntered: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -97,16 +97,16 @@ input C_CashPlanLineInput {
 	# Unique line for this document
 	Line: Int
 	# Total line amount incl. Tax
-	LineTotalAmt: Int
+	LineTotalAmt: BigDecimal
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
-	Probability: Int
+	Probability: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	# The Quantity Entered is based on the selected UoM
-	QtyEntered: Int
+	QtyEntered: BigDecimal
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2

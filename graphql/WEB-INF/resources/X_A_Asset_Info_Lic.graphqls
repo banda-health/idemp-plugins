@@ -20,7 +20,7 @@ type A_Asset_Info_Lic {
 	A_Asset: A_Asset!
 	ID: ID!
 	A_Issuing_Agency: String
-	A_License_Fee: Int
+	A_License_Fee: BigDecimal
 	A_License_No: String
 	A_Renewal_Date: Date
 	# State of the Credit Card or Account holder
@@ -49,7 +49,7 @@ input A_Asset_Info_LicInput {
 	A_Asset: ForeignEntityInput
 	ID: ID
 	A_Issuing_Agency: String
-	A_License_Fee: Int
+	A_License_Fee: BigDecimal
 	A_License_No: String
 	A_Renewal_Date: Date
 	# State of the Credit Card or Account holder

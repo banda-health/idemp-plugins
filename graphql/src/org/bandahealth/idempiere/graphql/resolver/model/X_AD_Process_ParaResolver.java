@@ -45,7 +45,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 			return null;
 		}
 		DataLoader<Integer, M_Element> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ElementDataLoader.AD_Element_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ElementDataLoader.DATALOADER_AD_Element_BY_ID);
 		return dataLoader.load(entity.getAD_Element_ID());
 	}
 
@@ -60,7 +60,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.DATALOADER_AD_Process_BY_ID);
 		return dataLoader.load(entity.getAD_Process_ID());
 	}
 
@@ -75,7 +75,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_ID());
 	}
 
@@ -90,7 +90,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_Value_ID());
 	}
 
@@ -105,7 +105,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.AD_Val_Rule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
 	}
 
@@ -119,7 +119,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Process_Para_TrlDataLoader.AD_Process_Para_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Process_Para_TrlDataLoader.DATALOADER_AD_Process_Para_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MProcessPara.COLUMNNAME_Description));
 	}
@@ -151,7 +151,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -165,7 +165,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Process_Para_TrlDataLoader.AD_Process_Para_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Process_Para_TrlDataLoader.DATALOADER_AD_Process_Para_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MProcessPara.COLUMNNAME_Help));
 	}
@@ -200,7 +200,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Process_Para_TrlDataLoader.AD_Process_Para_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Process_Para_TrlDataLoader.DATALOADER_AD_Process_Para_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MProcessPara.COLUMNNAME_Name));
 	}
@@ -215,7 +215,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 			return CompletableFuture.supplyAsync(entity::getPlaceholder);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Process_Para_TrlDataLoader.AD_Process_Para_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Process_Para_TrlDataLoader.DATALOADER_AD_Process_Para_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MProcessPara.COLUMNNAME_Placeholder));
 	}
@@ -230,7 +230,7 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 			return CompletableFuture.supplyAsync(entity::getPlaceholder2);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Process_Para_TrlDataLoader.AD_Process_Para_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Process_Para_TrlDataLoader.DATALOADER_AD_Process_Para_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MProcessPara.COLUMNNAME_Placeholder2));
 	}

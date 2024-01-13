@@ -36,7 +36,7 @@ public class X_C_BankAccountDocResolver extends POResolver<X_C_BankAccountDoc> i
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.C_BankAccount_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.DATALOADER_C_BankAccount_BY_ID);
 		return dataLoader.load(entity.getC_BankAccount_ID());
 	}
 
@@ -51,7 +51,7 @@ public class X_C_BankAccountDocResolver extends POResolver<X_C_BankAccountDoc> i
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getCheck_PrintFormat_ID());
 	}
 
@@ -73,7 +73,7 @@ public class X_C_BankAccountDocResolver extends POResolver<X_C_BankAccountDoc> i
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAYMENTRULE_UUIDS_BY_VALUE.get(entity.getPaymentRule()));
 	}
 

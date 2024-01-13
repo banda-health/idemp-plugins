@@ -29,7 +29,7 @@ public class X_C_BankResolver extends POResolver<MBank> implements GraphQLResolv
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_Location_ID());
 	}
 

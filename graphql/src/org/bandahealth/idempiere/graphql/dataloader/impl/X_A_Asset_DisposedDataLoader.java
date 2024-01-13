@@ -9,8 +9,8 @@ import org.compiere.model.MAssetDisposed;
  * @version Release 8.2 - $Id$
  */
 public class X_A_Asset_DisposedDataLoader extends PODataLoader<MAssetDisposed> {
-	public static String A_Asset_Disposed_BY_ID_DATA_LOADER = "A_Asset_DisposedByIdDataLoader";
-	public static String A_Asset_Disposed_BY_UUID_DATA_LOADER = "A_Asset_DisposedByUuidDataLoader";
+	public static String DATALOADER_A_Asset_Disposed_BY_ID = "A_Asset_DisposedByIdDataLoader";
+	public static String DATALOADER_A_Asset_Disposed_BY_UUID = "A_Asset_DisposedByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_A_Asset_DisposedDataLoader extends PODataLoader<MAssetDisposed> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return A_Asset_Disposed_BY_ID_DATA_LOADER;
+		return DATALOADER_A_Asset_Disposed_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return A_Asset_Disposed_BY_UUID_DATA_LOADER;
+		return DATALOADER_A_Asset_Disposed_BY_UUID;
 	}
 }

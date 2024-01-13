@@ -46,7 +46,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.AD_Workflow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.DATALOADER_AD_Workflow_BY_ID);
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 
@@ -61,7 +61,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -83,7 +83,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(COSTINGMETHOD_UUIDS_BY_VALUE.get(entity.getCostingMethod()));
 	}
 
@@ -98,7 +98,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -113,7 +113,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_CostElementDataLoader.M_CostElement_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_CostElementDataLoader.DATALOADER_M_CostElement_BY_ID);
 		return dataLoader.load(entity.getM_CostElement_ID());
 	}
 
@@ -128,7 +128,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 			return null;
 		}
 		DataLoader<Integer, MCostType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_CostTypeDataLoader.M_CostType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_CostTypeDataLoader.DATALOADER_M_CostType_BY_ID);
 		return dataLoader.load(entity.getM_CostType_ID());
 	}
 
@@ -143,7 +143,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -158,7 +158,7 @@ public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> impleme
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_OrderDataLoader.PP_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_OrderDataLoader.DATALOADER_PP_Order_BY_ID);
 		return dataLoader.load(entity.getPP_Order_ID());
 	}
 

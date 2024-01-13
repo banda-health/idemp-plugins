@@ -36,7 +36,7 @@ type M_PromotionDistribution {
 	# Compare Operation
 	Operation: AD_Ref_List!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -60,7 +60,7 @@ input M_PromotionDistributionInput {
 	# Compare Operation
 	Operation: AD_Ref_ListInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

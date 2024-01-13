@@ -9,8 +9,8 @@ import org.compiere.model.MRMATax;
  * @version Release 8.2 - $Id$
  */
 public class X_M_RMATaxDataLoader extends PODataLoader<MRMATax> {
-	public static String M_RMATax_BY_ID_DATA_LOADER = "M_RMATaxByIdDataLoader";
-	public static String M_RMATax_BY_UUID_DATA_LOADER = "M_RMATaxByUuidDataLoader";
+	public static String DATALOADER_M_RMATax_BY_ID = "M_RMATaxByIdDataLoader";
+	public static String DATALOADER_M_RMATax_BY_UUID = "M_RMATaxByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_RMATaxDataLoader extends PODataLoader<MRMATax> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_RMATax_BY_ID_DATA_LOADER;
+		return DATALOADER_M_RMATax_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_RMATax_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_RMATax_BY_UUID;
 	}
 }

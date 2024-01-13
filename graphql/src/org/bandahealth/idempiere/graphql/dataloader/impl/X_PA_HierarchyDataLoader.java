@@ -9,8 +9,8 @@ import org.compiere.model.MHierarchy;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_HierarchyDataLoader extends PODataLoader<MHierarchy> {
-	public static String PA_Hierarchy_BY_ID_DATA_LOADER = "PA_HierarchyByIdDataLoader";
-	public static String PA_Hierarchy_BY_UUID_DATA_LOADER = "PA_HierarchyByUuidDataLoader";
+	public static String DATALOADER_PA_Hierarchy_BY_ID = "PA_HierarchyByIdDataLoader";
+	public static String DATALOADER_PA_Hierarchy_BY_UUID = "PA_HierarchyByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_HierarchyDataLoader extends PODataLoader<MHierarchy> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_Hierarchy_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_Hierarchy_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_Hierarchy_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_Hierarchy_BY_UUID;
 	}
 }

@@ -42,7 +42,7 @@ type C_Payment {
 	AD_Org: AD_Org!
 	# Element to allow buttons to be displayed that trigger tab navigation
 	BH_NavButtons: Object
-	BH_tender_amount: Int
+	BH_tender_amount: BigDecimal
 	BH_Visit: BH_Visit
 	# Business Activity
 	C_Activity: C_Activity
@@ -78,11 +78,11 @@ type C_Payment {
 	# Financial Project
 	C_Project: C_Project
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	# Check Number
 	CheckNo: String
 	# Converted Amount
-	ConvertedAmt: Int
+	ConvertedAmt: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -98,7 +98,7 @@ type C_Payment {
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	CustomerAddressID: String
 	CustomerPaymentProfileID: String
 	CustomerProfileID: String
@@ -109,7 +109,7 @@ type C_Payment {
 	# Optional short description of the record
 	Description: String
 	# Calculated amount of discount
-	DiscountAmt: Int
+	DiscountAmt: BigDecimal
 	# The targeted status of the document
 	DocAction: AD_Ref_List!
 	# The current status of the document
@@ -148,9 +148,9 @@ type C_Payment {
 	# Original Transaction ID
 	Orig_TrxID: String
 	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
-	OverUnderAmt: Int
+	OverUnderAmt: BigDecimal
 	# Amount being paid
-	PayAmt: Int!
+	PayAmt: BigDecimal!
 	# Purchase Order Number
 	PONum: String
 	# Posting status
@@ -158,7 +158,7 @@ type C_Payment {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Authorization Code returned
 	R_AuthCode: String
@@ -191,7 +191,7 @@ type C_Payment {
 	# Track 1 and 2 of the Credit Card
 	Swipe: String
 	# Tax Amount for a document
-	TaxAmt: Int
+	TaxAmt: BigDecimal
 	# Method of Payment
 	TenderType: AD_Ref_List!
 	# Type of credit card transaction
@@ -207,7 +207,7 @@ type C_Payment {
 	# Voice Authorization Code from credit card company
 	VoiceAuthCode: String
 	# Amount to write-off
-	WriteOffAmt: Int
+	WriteOffAmt: BigDecimal
 }
 
 input C_PaymentInput {
@@ -235,7 +235,7 @@ input C_PaymentInput {
 	AD_Org: ForeignEntityInput
 	# Element to allow buttons to be displayed that trigger tab navigation
 	BH_NavButtons: Object
-	BH_tender_amount: Int
+	BH_tender_amount: BigDecimal
 	BH_Visit: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
@@ -271,11 +271,11 @@ input C_PaymentInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	# Check Number
 	CheckNo: String
 	# Converted Amount
-	ConvertedAmt: Int
+	ConvertedAmt: BigDecimal
 	# Expiry Month
 	CreditCardExpMM: Int
 	# Expiry Year
@@ -287,7 +287,7 @@ input C_PaymentInput {
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	CustomerAddressID: String
 	CustomerPaymentProfileID: String
 	CustomerProfileID: String
@@ -298,7 +298,7 @@ input C_PaymentInput {
 	# Optional short description of the record
 	Description: String
 	# Calculated amount of discount
-	DiscountAmt: Int
+	DiscountAmt: BigDecimal
 	# The targeted status of the document
 	DocAction: AD_Ref_ListInput
 	# The current status of the document
@@ -337,9 +337,9 @@ input C_PaymentInput {
 	# Original Transaction ID
 	Orig_TrxID: String
 	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
-	OverUnderAmt: Int
+	OverUnderAmt: BigDecimal
 	# Amount being paid
-	PayAmt: Int
+	PayAmt: BigDecimal
 	# Purchase Order Number
 	PONum: String
 	# Posting status
@@ -347,7 +347,7 @@ input C_PaymentInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# Authorization Code returned
 	R_AuthCode: String
@@ -380,7 +380,7 @@ input C_PaymentInput {
 	# Track 1 and 2 of the Credit Card
 	Swipe: String
 	# Tax Amount for a document
-	TaxAmt: Int
+	TaxAmt: BigDecimal
 	# Method of Payment
 	TenderType: AD_Ref_ListInput
 	# Type of credit card transaction
@@ -392,5 +392,5 @@ input C_PaymentInput {
 	# Voice Authorization Code from credit card company
 	VoiceAuthCode: String
 	# Amount to write-off
-	WriteOffAmt: Int
+	WriteOffAmt: BigDecimal
 }

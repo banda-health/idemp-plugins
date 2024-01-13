@@ -33,7 +33,7 @@ public class X_AD_ArchiveResolver extends POResolver<MArchive> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.DATALOADER_AD_Process_BY_ID);
 		return dataLoader.load(entity.getAD_Process_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_AD_ArchiveResolver extends POResolver<MArchive> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_AD_ArchiveResolver extends POResolver<MArchive> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 

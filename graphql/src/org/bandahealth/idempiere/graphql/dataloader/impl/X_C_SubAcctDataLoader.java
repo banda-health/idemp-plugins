@@ -9,8 +9,8 @@ import org.compiere.model.X_C_SubAcct;
  * @version Release 8.2 - $Id$
  */
 public class X_C_SubAcctDataLoader extends PODataLoader<X_C_SubAcct> {
-	public static String C_SubAcct_BY_ID_DATA_LOADER = "C_SubAcctByIdDataLoader";
-	public static String C_SubAcct_BY_UUID_DATA_LOADER = "C_SubAcctByUuidDataLoader";
+	public static String DATALOADER_C_SubAcct_BY_ID = "C_SubAcctByIdDataLoader";
+	public static String DATALOADER_C_SubAcct_BY_UUID = "C_SubAcctByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_SubAcctDataLoader extends PODataLoader<X_C_SubAcct> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_SubAcct_BY_ID_DATA_LOADER;
+		return DATALOADER_C_SubAcct_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_SubAcct_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_SubAcct_BY_UUID;
 	}
 }

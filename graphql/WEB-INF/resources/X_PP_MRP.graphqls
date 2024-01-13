@@ -78,7 +78,7 @@ type PP_MRP {
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Resource
 	S_Resource: S_Resource
 	# MRP Type determines whether a record is demand or supply
@@ -90,7 +90,7 @@ type PP_MRP {
 	# Search key for the record in the format required - must be unique
 	Value: String!
 	# Version of the table definition
-	Version: Int
+	Version: BigDecimal
 }
 
 input PP_MRPInput {
@@ -150,7 +150,7 @@ input PP_MRPInput {
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Resource
 	S_Resource: ForeignEntityInput
 	# MRP Type determines whether a record is demand or supply
@@ -158,5 +158,5 @@ input PP_MRPInput {
 	# Search key for the record in the format required - must be unique
 	Value: String
 	# Version of the table definition
-	Version: Int
+	Version: BigDecimal
 }

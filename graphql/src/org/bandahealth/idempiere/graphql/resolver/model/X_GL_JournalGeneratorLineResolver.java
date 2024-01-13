@@ -39,7 +39,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BPDIMENSIONTYPE_UUIDS_BY_VALUE.get(entity.getBPDimensionType()));
 	}
 
@@ -54,7 +54,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getC_ElementValueCR_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getC_ElementValueDR_ID());
 	}
 
@@ -99,7 +99,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 			return null;
 		}
 		DataLoader<Integer, MJournalGenerator> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalGeneratorDataLoader.GL_JournalGenerator_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalGeneratorDataLoader.DATALOADER_GL_JournalGenerator_BY_ID);
 		return dataLoader.load(entity.getGL_JournalGenerator_ID());
 	}
 

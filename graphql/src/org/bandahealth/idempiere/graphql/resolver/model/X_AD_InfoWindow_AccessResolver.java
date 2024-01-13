@@ -31,7 +31,7 @@ public class X_AD_InfoWindow_AccessResolver extends POResolver<MInfoWindowAccess
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoWindowDataLoader.AD_InfoWindow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoWindowDataLoader.DATALOADER_AD_InfoWindow_BY_ID);
 		return dataLoader.load(entity.getAD_InfoWindow_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_InfoWindow_AccessResolver extends POResolver<MInfoWindowAccess
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 

@@ -33,7 +33,7 @@ public class X_R_RequestProcessorResolver extends POResolver<MRequestProcessor> 
 			return null;
 		}
 		DataLoader<Integer, MSchedule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ScheduleDataLoader.AD_Schedule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ScheduleDataLoader.DATALOADER_AD_Schedule_BY_ID);
 		return dataLoader.load(entity.getAD_Schedule_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_R_RequestProcessorResolver extends POResolver<MRequestProcessor> 
 			return null;
 		}
 		DataLoader<Integer, MRequestType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestTypeDataLoader.R_RequestType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestTypeDataLoader.DATALOADER_R_RequestType_BY_ID);
 		return dataLoader.load(entity.getR_RequestType_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_R_RequestProcessorResolver extends POResolver<MRequestProcessor> 
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSupervisor_ID());
 	}
 

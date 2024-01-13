@@ -86,7 +86,7 @@ type GL_Distribution {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Sum of the Percent details 
-	PercentTotal: Int!
+	PercentTotal: BigDecimal!
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_List
 	Processing: Boolean!
@@ -171,7 +171,7 @@ input GL_DistributionInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Sum of the Percent details 
-	PercentTotal: Int
+	PercentTotal: BigDecimal
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_ListInput
 	Processing: Boolean

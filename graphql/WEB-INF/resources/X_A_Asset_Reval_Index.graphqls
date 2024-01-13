@@ -20,7 +20,7 @@ type A_Asset_Reval_Index {
 	A_Effective_Date: Date!
 	A_Reval_Code: AD_Ref_List!
 	A_Reval_Multiplier: AD_Ref_List!
-	A_Reval_Rate: Int!
+	A_Reval_Rate: BigDecimal!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -42,7 +42,7 @@ input A_Asset_Reval_IndexInput {
 	A_Effective_Date: Date
 	A_Reval_Code: AD_Ref_ListInput
 	A_Reval_Multiplier: AD_Ref_ListInput
-	A_Reval_Rate: Int
+	A_Reval_Rate: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# The record is active in the system

@@ -16,11 +16,11 @@ type I_FixedAssetConnection {
 }
 
 type I_FixedAsset {
-	A_Accumulated_Depr: Int
-	A_Accumulated_Depr_F: Int
+	A_Accumulated_Depr: BigDecimal
+	A_Accumulated_Depr_F: BigDecimal
 	A_Asset_Class: A_Asset_Class
 	A_Asset_Class_Value: String
-	A_Asset_Cost: Int!
+	A_Asset_Cost: BigDecimal!
 	# Group of Assets
 	A_Asset_Group: A_Asset_Group
 	A_Asset_Group_Value: String
@@ -30,21 +30,21 @@ type I_FixedAsset {
 	A_Asset_Type_Value: String
 	A_Current_Period: Int
 	A_Remaining_Period: Int!
-	A_Salvage_Value: Int
+	A_Salvage_Value: BigDecimal
 	# Name of the Accounting Schema
 	AcctSchemaName: String
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	AssetAmtEntered: Int!
+	AssetAmtEntered: BigDecimal!
 	# Date of last depreciation
 	AssetDepreciationDate: Date
 	# Applies to Straight Line depreciation
-	AssetPeriodDepreciationAmt: Int!
+	AssetPeriodDepreciationAmt: BigDecimal!
 	# Date when Asset was put into service
 	AssetServiceDate: Date
-	AssetSourceAmt: Int!
+	AssetSourceAmt: BigDecimal!
 	# The Key of the Business Partner
 	BPartner_Value: String
 	# Rules for accounting
@@ -92,7 +92,7 @@ type I_FixedAsset {
 	# Key of the Product
 	ProductValue: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Symbol for a Unit of Measure
@@ -107,11 +107,11 @@ type I_FixedAsset {
 }
 
 input I_FixedAssetInput {
-	A_Accumulated_Depr: Int
-	A_Accumulated_Depr_F: Int
+	A_Accumulated_Depr: BigDecimal
+	A_Accumulated_Depr_F: BigDecimal
 	A_Asset_Class: ForeignEntityInput
 	A_Asset_Class_Value: String
-	A_Asset_Cost: Int
+	A_Asset_Cost: BigDecimal
 	# Group of Assets
 	A_Asset_Group: ForeignEntityInput
 	A_Asset_Group_Value: String
@@ -121,19 +121,19 @@ input I_FixedAssetInput {
 	A_Asset_Type_Value: String
 	A_Current_Period: Int
 	A_Remaining_Period: Int
-	A_Salvage_Value: Int
+	A_Salvage_Value: BigDecimal
 	# Name of the Accounting Schema
 	AcctSchemaName: String
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	AssetAmtEntered: Int
+	AssetAmtEntered: BigDecimal
 	# Date of last depreciation
 	AssetDepreciationDate: Date
 	# Applies to Straight Line depreciation
-	AssetPeriodDepreciationAmt: Int
+	AssetPeriodDepreciationAmt: BigDecimal
 	# Date when Asset was put into service
 	AssetServiceDate: Date
-	AssetSourceAmt: Int
+	AssetSourceAmt: BigDecimal
 	# The Key of the Business Partner
 	BPartner_Value: String
 	# Rules for accounting
@@ -177,7 +177,7 @@ input I_FixedAssetInput {
 	# Key of the Product
 	ProductValue: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Symbol for a Unit of Measure

@@ -9,8 +9,8 @@ import org.compiere.model.MIFixedAsset;
  * @version Release 8.2 - $Id$
  */
 public class X_I_FixedAssetDataLoader extends PODataLoader<MIFixedAsset> {
-	public static String I_FixedAsset_BY_ID_DATA_LOADER = "I_FixedAssetByIdDataLoader";
-	public static String I_FixedAsset_BY_UUID_DATA_LOADER = "I_FixedAssetByUuidDataLoader";
+	public static String DATALOADER_I_FixedAsset_BY_ID = "I_FixedAssetByIdDataLoader";
+	public static String DATALOADER_I_FixedAsset_BY_UUID = "I_FixedAssetByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_I_FixedAssetDataLoader extends PODataLoader<MIFixedAsset> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return I_FixedAsset_BY_ID_DATA_LOADER;
+		return DATALOADER_I_FixedAsset_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return I_FixedAsset_BY_UUID_DATA_LOADER;
+		return DATALOADER_I_FixedAsset_BY_UUID;
 	}
 }

@@ -29,7 +29,7 @@ public class X_AD_AllUsers_VResolver extends POResolver<X_AD_AllUsers_V> impleme
 			return null;
 		}
 		DataLoader<Integer, X_AD_AllClients_V> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllClients_VDataLoader.AD_AllClients_V_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_AllClients_VDataLoader.DATALOADER_AD_AllClients_V_BY_ID);
 		return dataLoader.load(entity.getAD_AllClients_V_ID());
 	}
 

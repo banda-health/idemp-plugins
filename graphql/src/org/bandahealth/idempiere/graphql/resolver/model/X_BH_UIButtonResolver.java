@@ -31,7 +31,7 @@ public class X_BH_UIButtonResolver extends POResolver<MUIButton> implements Grap
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_BH_UIButton_TrlDataLoader.BH_UIButton_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_BH_UIButton_TrlDataLoader.DATALOADER_BH_UIButton_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MUIButton.COLUMNNAME_Name));
 	}

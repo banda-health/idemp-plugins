@@ -56,7 +56,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.AD_PInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.DATALOADER_AD_PInstance_BY_ID);
 		return dataLoader.load(entity.getAD_PInstance_ID());
 	}
 
@@ -71,7 +71,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -86,7 +86,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -101,7 +101,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -116,7 +116,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -131,7 +131,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MCashPlanLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CashPlanLineDataLoader.C_CashPlanLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CashPlanLineDataLoader.DATALOADER_C_CashPlanLine_BY_ID);
 		return dataLoader.load(entity.getC_CashPlanLine_ID());
 	}
 
@@ -146,7 +146,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.C_Charge_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.DATALOADER_C_Charge_BY_ID);
 		return dataLoader.load(entity.getC_Charge_ID());
 	}
 
@@ -161,7 +161,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getC_ElementValue_ID());
 	}
 
@@ -176,7 +176,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
@@ -191,7 +191,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.C_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.DATALOADER_C_Order_BY_ID);
 		return dataLoader.load(entity.getC_Order_ID());
 	}
 
@@ -206,7 +206,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -223,7 +223,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CASHFLOWSOURCE_UUIDS_BY_VALUE.get(entity.getCashFlowSource()));
 	}
 
@@ -239,7 +239,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CASHFLOWTYPE_UUIDS_BY_VALUE.get(entity.getCashFlowType()));
 	}
 
@@ -258,7 +258,7 @@ public class X_T_CashFlowResolver extends POResolver<X_T_CashFlow> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

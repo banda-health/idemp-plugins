@@ -9,8 +9,8 @@ import org.compiere.model.X_M_BOMAlternative;
  * @version Release 8.2 - $Id$
  */
 public class X_M_BOMAlternativeDataLoader extends PODataLoader<X_M_BOMAlternative> {
-	public static String M_BOMAlternative_BY_ID_DATA_LOADER = "M_BOMAlternativeByIdDataLoader";
-	public static String M_BOMAlternative_BY_UUID_DATA_LOADER = "M_BOMAlternativeByUuidDataLoader";
+	public static String DATALOADER_M_BOMAlternative_BY_ID = "M_BOMAlternativeByIdDataLoader";
+	public static String DATALOADER_M_BOMAlternative_BY_UUID = "M_BOMAlternativeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_BOMAlternativeDataLoader extends PODataLoader<X_M_BOMAlternativ
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_BOMAlternative_BY_ID_DATA_LOADER;
+		return DATALOADER_M_BOMAlternative_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_BOMAlternative_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_BOMAlternative_BY_UUID;
 	}
 }

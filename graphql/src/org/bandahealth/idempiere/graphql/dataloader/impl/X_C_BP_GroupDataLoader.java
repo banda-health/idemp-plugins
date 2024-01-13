@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBPGroup_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_C_BP_GroupDataLoader extends PODataLoader<MBPGroup_BH> {
-	public static String C_BP_Group_BY_ID_DATA_LOADER = "C_BP_GroupByIdDataLoader";
-	public static String C_BP_Group_BY_UUID_DATA_LOADER = "C_BP_GroupByUuidDataLoader";
+	public static String DATALOADER_C_BP_Group_BY_ID = "C_BP_GroupByIdDataLoader";
+	public static String DATALOADER_C_BP_Group_BY_UUID = "C_BP_GroupByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_BP_GroupDataLoader extends PODataLoader<MBPGroup_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_BP_Group_BY_ID_DATA_LOADER;
+		return DATALOADER_C_BP_Group_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_BP_Group_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_BP_Group_BY_UUID;
 	}
 }

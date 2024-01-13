@@ -114,7 +114,7 @@ type AD_Column {
 	# Minimum Value for a field
 	ValueMin: String
 	# Version of the table definition
-	Version: Int!
+	Version: BigDecimal!
 	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
 	VFormat: String
 }
@@ -208,7 +208,7 @@ input AD_ColumnInput {
 	# Minimum Value for a field
 	ValueMin: String
 	# Version of the table definition
-	Version: Int
+	Version: BigDecimal
 	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
 	VFormat: String
 }

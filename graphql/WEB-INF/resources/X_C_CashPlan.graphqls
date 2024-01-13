@@ -44,7 +44,7 @@ type C_CashPlan {
 	DocumentNo: String!
 	GeneratePeriodic: String
 	# Total amount of document
-	GrandTotal: Int!
+	GrandTotal: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this document requires approval
@@ -86,7 +86,7 @@ input C_CashPlanInput {
 	DocumentNo: String
 	GeneratePeriodic: String
 	# Total amount of document
-	GrandTotal: Int
+	GrandTotal: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document requires approval

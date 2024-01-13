@@ -47,22 +47,22 @@ type T_Aging {
 	DateAcct: Boolean!
 	# Number of days due (negative: due in number of days)
 	DaysDue: Int
-	Due0: Int!
-	Due0_30: Int!
-	Due0_7: Int!
-	Due1_7: Int!
-	Due31_60: Int!
-	Due31_Plus: Int!
-	Due61_90: Int!
-	Due61_Plus: Int!
-	Due8_30: Int!
-	Due91_Plus: Int!
+	Due0: BigDecimal!
+	Due0_30: BigDecimal!
+	Due0_7: BigDecimal!
+	Due1_7: BigDecimal!
+	Due31_60: BigDecimal!
+	Due31_Plus: BigDecimal!
+	Due61_90: BigDecimal!
+	Due61_Plus: BigDecimal!
+	Due8_30: BigDecimal!
+	Due91_Plus: BigDecimal!
 	# Amount of the payment due
-	DueAmt: Int!
+	DueAmt: BigDecimal!
 	# Date when the payment is due
 	DueDate: Date!
 	# The amount invoiced
-	InvoicedAmt: Int!
+	InvoicedAmt: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Include List of Invoices
@@ -70,16 +70,16 @@ type T_Aging {
 	# This is a Sales Transaction
 	IsSOTrx: Boolean!
 	# Open item amount
-	OpenAmt: Int!
-	PastDue1_30: Int!
-	PastDue1_7: Int!
-	PastDue31_60: Int!
-	PastDue31_Plus: Int!
-	PastDue61_90: Int!
-	PastDue61_Plus: Int!
-	PastDue8_30: Int!
-	PastDue91_Plus: Int!
-	PastDueAmt: Int!
+	OpenAmt: BigDecimal!
+	PastDue1_30: BigDecimal!
+	PastDue1_7: BigDecimal!
+	PastDue31_60: BigDecimal!
+	PastDue31_Plus: BigDecimal!
+	PastDue61_90: BigDecimal!
+	PastDue61_Plus: BigDecimal!
+	PastDue8_30: BigDecimal!
+	PastDue91_Plus: BigDecimal!
+	PastDueAmt: BigDecimal!
 	# Date of the statement
 	StatementDate: Date!
 	ID: ID!
@@ -115,22 +115,22 @@ input T_AgingInput {
 	DateAcct: Boolean
 	# Number of days due (negative: due in number of days)
 	DaysDue: Int
-	Due0: Int
-	Due0_30: Int
-	Due0_7: Int
-	Due1_7: Int
-	Due31_60: Int
-	Due31_Plus: Int
-	Due61_90: Int
-	Due61_Plus: Int
-	Due8_30: Int
-	Due91_Plus: Int
+	Due0: BigDecimal
+	Due0_30: BigDecimal
+	Due0_7: BigDecimal
+	Due1_7: BigDecimal
+	Due31_60: BigDecimal
+	Due31_Plus: BigDecimal
+	Due61_90: BigDecimal
+	Due61_Plus: BigDecimal
+	Due8_30: BigDecimal
+	Due91_Plus: BigDecimal
 	# Amount of the payment due
-	DueAmt: Int
+	DueAmt: BigDecimal
 	# Date when the payment is due
 	DueDate: Date
 	# The amount invoiced
-	InvoicedAmt: Int
+	InvoicedAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Include List of Invoices
@@ -138,16 +138,16 @@ input T_AgingInput {
 	# This is a Sales Transaction
 	IsSOTrx: Boolean
 	# Open item amount
-	OpenAmt: Int
-	PastDue1_30: Int
-	PastDue1_7: Int
-	PastDue31_60: Int
-	PastDue31_Plus: Int
-	PastDue61_90: Int
-	PastDue61_Plus: Int
-	PastDue8_30: Int
-	PastDue91_Plus: Int
-	PastDueAmt: Int
+	OpenAmt: BigDecimal
+	PastDue1_30: BigDecimal
+	PastDue1_7: BigDecimal
+	PastDue31_60: BigDecimal
+	PastDue31_Plus: BigDecimal
+	PastDue61_90: BigDecimal
+	PastDue61_Plus: BigDecimal
+	PastDue8_30: BigDecimal
+	PastDue91_Plus: BigDecimal
+	PastDueAmt: BigDecimal
 	# Date of the statement
 	StatementDate: Date
 	ID: ID

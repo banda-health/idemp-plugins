@@ -34,7 +34,7 @@ public class X_AD_DesktopResolver extends POResolver<X_AD_Desktop> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.AD_Image_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.DATALOADER_AD_Image_BY_ID);
 		return dataLoader.load(entity.getAD_Image_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_AD_DesktopResolver extends POResolver<X_AD_Desktop> implements Gr
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Desktop_TrlDataLoader.AD_Desktop_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Desktop_TrlDataLoader.DATALOADER_AD_Desktop_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_Desktop.COLUMNNAME_Description));
 	}
@@ -63,7 +63,7 @@ public class X_AD_DesktopResolver extends POResolver<X_AD_Desktop> implements Gr
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Desktop_TrlDataLoader.AD_Desktop_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Desktop_TrlDataLoader.DATALOADER_AD_Desktop_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_Desktop.COLUMNNAME_Help));
 	}
@@ -78,7 +78,7 @@ public class X_AD_DesktopResolver extends POResolver<X_AD_Desktop> implements Gr
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Desktop_TrlDataLoader.AD_Desktop_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Desktop_TrlDataLoader.DATALOADER_AD_Desktop_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_Desktop.COLUMNNAME_Name));
 	}

@@ -48,10 +48,10 @@ type M_MatchInv {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	Ref_MatchInv: M_MatchInv
 	# ID of document reversal
 	Reversal: M_MatchInv
@@ -88,10 +88,10 @@ input M_MatchInvInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	Ref_MatchInv: ForeignEntityInput
 	# ID of document reversal
 	Reversal: ForeignEntityInput

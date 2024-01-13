@@ -9,8 +9,8 @@ import org.compiere.model.X_C_BP_Employee_Acct;
  * @version Release 8.2 - $Id$
  */
 public class X_C_BP_Employee_AcctDataLoader extends PODataLoader<X_C_BP_Employee_Acct> {
-	public static String C_BP_Employee_Acct_BY_ID_DATA_LOADER = "C_BP_Employee_AcctByIdDataLoader";
-	public static String C_BP_Employee_Acct_BY_UUID_DATA_LOADER = "C_BP_Employee_AcctByUuidDataLoader";
+	public static String DATALOADER_C_BP_Employee_Acct_BY_ID = "C_BP_Employee_AcctByIdDataLoader";
+	public static String DATALOADER_C_BP_Employee_Acct_BY_UUID = "C_BP_Employee_AcctByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_BP_Employee_AcctDataLoader extends PODataLoader<X_C_BP_Employee
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_BP_Employee_Acct_BY_ID_DATA_LOADER;
+		return DATALOADER_C_BP_Employee_Acct_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_BP_Employee_Acct_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_BP_Employee_Acct_BY_UUID;
 	}
 }

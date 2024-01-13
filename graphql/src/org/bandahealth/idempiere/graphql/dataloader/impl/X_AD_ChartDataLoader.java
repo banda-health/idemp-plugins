@@ -9,8 +9,8 @@ import org.compiere.model.MChart;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ChartDataLoader extends PODataLoader<MChart> {
-	public static String AD_Chart_BY_ID_DATA_LOADER = "AD_ChartByIdDataLoader";
-	public static String AD_Chart_BY_UUID_DATA_LOADER = "AD_ChartByUuidDataLoader";
+	public static String DATALOADER_AD_Chart_BY_ID = "AD_ChartByIdDataLoader";
+	public static String DATALOADER_AD_Chart_BY_UUID = "AD_ChartByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ChartDataLoader extends PODataLoader<MChart> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Chart_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Chart_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Chart_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Chart_BY_UUID;
 	}
 }

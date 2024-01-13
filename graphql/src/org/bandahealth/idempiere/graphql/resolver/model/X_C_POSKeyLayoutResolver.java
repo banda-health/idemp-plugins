@@ -36,7 +36,7 @@ public class X_C_POSKeyLayoutResolver extends POResolver<MPOSKeyLayout> implemen
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getAD_PrintColor_ID());
 	}
 
@@ -51,7 +51,7 @@ public class X_C_POSKeyLayoutResolver extends POResolver<MPOSKeyLayout> implemen
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.AD_PrintFont_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.DATALOADER_AD_PrintFont_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFont_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_C_POSKeyLayoutResolver extends POResolver<MPOSKeyLayout> implemen
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(POSKEYLAYOUTTYPE_UUIDS_BY_VALUE.get(entity.getPOSKeyLayoutType()));
 	}
 

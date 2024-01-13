@@ -48,7 +48,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getAD_PrintColor_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.AD_PrintFont_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.DATALOADER_AD_PrintFont_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFont_ID());
 	}
 
@@ -78,7 +78,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintPaper> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintPaperDataLoader.AD_PrintPaper_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintPaperDataLoader.DATALOADER_AD_PrintPaper_BY_ID);
 		return dataLoader.load(entity.getAD_PrintPaper_ID());
 	}
 
@@ -93,7 +93,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintTableFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintTableFormatDataLoader.AD_PrintTableFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintTableFormatDataLoader.DATALOADER_AD_PrintTableFormat_BY_ID);
 		return dataLoader.load(entity.getAD_PrintTableFormat_ID());
 	}
 
@@ -108,7 +108,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 			return null;
 		}
 		DataLoader<Integer, MReportView> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReportViewDataLoader.AD_ReportView_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReportViewDataLoader.DATALOADER_AD_ReportView_BY_ID);
 		return dataLoader.load(entity.getAD_ReportView_ID());
 	}
 
@@ -123,7 +123,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -138,7 +138,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.AD_Window_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
@@ -152,7 +152,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_PrintFormat_TrlDataLoader.AD_PrintFormat_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_PrintFormat_TrlDataLoader.DATALOADER_AD_PrintFormat_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_Description));
 	}
@@ -188,7 +188,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.DATALOADER_AD_Process_BY_ID);
 		return dataLoader.load(entity.getJasperProcess_ID());
 	}
 
@@ -202,7 +202,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_PrintFormat_TrlDataLoader.AD_PrintFormat_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_PrintFormat_TrlDataLoader.DATALOADER_AD_PrintFormat_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_Name));
 	}

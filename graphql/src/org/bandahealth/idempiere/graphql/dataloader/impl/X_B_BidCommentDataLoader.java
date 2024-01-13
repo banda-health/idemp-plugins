@@ -9,8 +9,8 @@ import org.compiere.model.X_B_BidComment;
  * @version Release 8.2 - $Id$
  */
 public class X_B_BidCommentDataLoader extends PODataLoader<X_B_BidComment> {
-	public static String B_BidComment_BY_ID_DATA_LOADER = "B_BidCommentByIdDataLoader";
-	public static String B_BidComment_BY_UUID_DATA_LOADER = "B_BidCommentByUuidDataLoader";
+	public static String DATALOADER_B_BidComment_BY_ID = "B_BidCommentByIdDataLoader";
+	public static String DATALOADER_B_BidComment_BY_UUID = "B_BidCommentByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_B_BidCommentDataLoader extends PODataLoader<X_B_BidComment> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return B_BidComment_BY_ID_DATA_LOADER;
+		return DATALOADER_B_BidComment_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return B_BidComment_BY_UUID_DATA_LOADER;
+		return DATALOADER_B_BidComment_BY_UUID;
 	}
 }

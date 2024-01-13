@@ -30,7 +30,7 @@ public class X_A_Asset_Info_OthResolver extends POResolver<X_A_Asset_Info_Oth> i
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -45,7 +45,7 @@ public class X_A_Asset_Info_OthResolver extends POResolver<X_A_Asset_Info_Oth> i
 			return null;
 		}
 		DataLoader<Integer, X_A_Asset_Info_Oth> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_Info_OthDataLoader.A_Asset_Info_Oth_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_Info_OthDataLoader.DATALOADER_A_Asset_Info_Oth_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Info_Oth_ID());
 	}
 

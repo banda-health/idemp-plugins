@@ -37,7 +37,7 @@ public class X_M_StorageReservationResolver extends POResolver<MStorageReservati
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_M_StorageReservationResolver extends POResolver<MStorageReservati
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_M_StorageReservationResolver extends POResolver<MStorageReservati
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 

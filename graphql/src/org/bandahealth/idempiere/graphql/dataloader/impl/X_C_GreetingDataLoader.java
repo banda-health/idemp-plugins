@@ -9,8 +9,8 @@ import org.compiere.model.X_C_Greeting;
  * @version Release 8.2 - $Id$
  */
 public class X_C_GreetingDataLoader extends PODataLoader<X_C_Greeting> {
-	public static String C_Greeting_BY_ID_DATA_LOADER = "C_GreetingByIdDataLoader";
-	public static String C_Greeting_BY_UUID_DATA_LOADER = "C_GreetingByUuidDataLoader";
+	public static String DATALOADER_C_Greeting_BY_ID = "C_GreetingByIdDataLoader";
+	public static String DATALOADER_C_Greeting_BY_UUID = "C_GreetingByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_GreetingDataLoader extends PODataLoader<X_C_Greeting> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Greeting_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Greeting_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Greeting_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Greeting_BY_UUID;
 	}
 }

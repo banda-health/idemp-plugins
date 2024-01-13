@@ -9,8 +9,8 @@ import org.compiere.model.MChangeRequest;
  * @version Release 8.2 - $Id$
  */
 public class X_M_ChangeRequestDataLoader extends PODataLoader<MChangeRequest> {
-	public static String M_ChangeRequest_BY_ID_DATA_LOADER = "M_ChangeRequestByIdDataLoader";
-	public static String M_ChangeRequest_BY_UUID_DATA_LOADER = "M_ChangeRequestByUuidDataLoader";
+	public static String DATALOADER_M_ChangeRequest_BY_ID = "M_ChangeRequestByIdDataLoader";
+	public static String DATALOADER_M_ChangeRequest_BY_UUID = "M_ChangeRequestByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_ChangeRequestDataLoader extends PODataLoader<MChangeRequest> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_ChangeRequest_BY_ID_DATA_LOADER;
+		return DATALOADER_M_ChangeRequest_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_ChangeRequest_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_ChangeRequest_BY_UUID;
 	}
 }

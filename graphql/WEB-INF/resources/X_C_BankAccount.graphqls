@@ -36,9 +36,9 @@ type C_BankAccount {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Amount of Credit allowed
-	CreditLimit: Int!
+	CreditLimit: BigDecimal!
 	# Current Balance
-	CurrentBalance: Int!
+	CurrentBalance: BigDecimal!
 	# Optional short description of the record
 	Description: String
 	# International Bank Account Number
@@ -73,9 +73,9 @@ input C_BankAccountInput {
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Amount of Credit allowed
-	CreditLimit: Int
+	CreditLimit: BigDecimal
 	# Current Balance
-	CurrentBalance: Int
+	CurrentBalance: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# International Bank Account Number

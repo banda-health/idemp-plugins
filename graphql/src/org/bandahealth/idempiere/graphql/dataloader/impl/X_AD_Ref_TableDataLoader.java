@@ -9,8 +9,8 @@ import org.compiere.model.MRefTable;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Ref_TableDataLoader extends PODataLoader<MRefTable> {
-	public static String AD_Ref_Table_BY_ID_DATA_LOADER = "AD_Ref_TableByIdDataLoader";
-	public static String AD_Ref_Table_BY_UUID_DATA_LOADER = "AD_Ref_TableByUuidDataLoader";
+	public static String DATALOADER_AD_Ref_Table_BY_ID = "AD_Ref_TableByIdDataLoader";
+	public static String DATALOADER_AD_Ref_Table_BY_UUID = "AD_Ref_TableByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Ref_TableDataLoader extends PODataLoader<MRefTable> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Ref_Table_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Ref_Table_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Ref_Table_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Ref_Table_BY_UUID;
 	}
 }

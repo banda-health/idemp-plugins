@@ -321,7 +321,7 @@ public class GraphQLModelResolverGenerator {
 					.append("\t\t}\n")
 					.append("\t\tDataLoader<Integer, ").append(modelForForeignEntity).append("> dataLoader =\n")
 					.append("\t\t\t\tenvironment.getDataLoaderRegistry().getDataLoader(").append(dataLoader).append(".")
-					.append(foreignEntityTable).append("_BY_ID_DATA_LOADER);\n")
+					.append(GraphQLDataLoaderGenerator.getDataLoaderByIdProperty(foreignEntityTable)).append(");\n")
 					.append("\t\treturn dataLoader.load(").append(valueMapPrefix).append("entity.get").append(columnName)
 					.append("()").append(valueMapSuffix).append(");\n")
 					.append("\t}\n");
@@ -355,8 +355,8 @@ public class GraphQLModelResolverGenerator {
 					.append("\t\t}\n")
 					.append("\t\tDataLoader<String, ").append(foreignModelMap.getClassName()).append("> dataLoader =\n")
 					.append("\t\t\t\tenvironment.getDataLoaderRegistry().getDataLoader(").append(dataLoader)
-					.append(".").append(foreignModelMap.getTableName())
-					.append("_BY_UUID_DATA_LOADER);\n")
+					.append(".").append(GraphQLDataLoaderGenerator.getDataLoaderByIdProperty(foreignModelMap.getTableName()))
+					.append(");\n")
 					.append("\t\treturn dataLoader.load(").append(referenceListUuidByValuePropertyName).append(".get(entity.get")
 					.append(columnName).append("()));\n")
 					.append("\t}\n");

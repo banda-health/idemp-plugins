@@ -31,7 +31,7 @@ public class X_AD_WF_ActivityApproverResolver extends POResolver<MWFActivityAppr
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_WF_ActivityApproverResolver extends POResolver<MWFActivityAppr
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Activity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ActivityDataLoader.AD_WF_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ActivityDataLoader.DATALOADER_AD_WF_Activity_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Activity_ID());
 	}
 

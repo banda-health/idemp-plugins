@@ -52,7 +52,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, X_C_BP_ShippingAcct> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_ShippingAcctDataLoader.C_BP_ShippingAcct_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_ShippingAcctDataLoader.DATALOADER_C_BP_ShippingAcct_BY_ID);
 		return dataLoader.load(entity.getC_BP_ShippingAcct_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.C_BPartner_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.DATALOADER_C_BPartner_Location_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_Location_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -97,7 +97,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_Length_ID());
 	}
 
@@ -112,7 +112,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_Weight_ID());
 	}
 
@@ -137,7 +137,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DELIVERYCONFIRMATIONTYPE_UUIDS_BY_VALUE.get(entity.getDeliveryConfirmationType()));
 	}
 
@@ -168,7 +168,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOTHAZARDCLASSORDIVISION_UUIDS_BY_VALUE.get(entity.getDotHazardClassOrDivision()));
 	}
 
@@ -197,7 +197,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(FOB_UUIDS_BY_VALUE.get(entity.getFOB()));
 	}
 
@@ -215,7 +215,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(FREIGHTCHARGES_UUIDS_BY_VALUE.get(entity.getFreightCharges()));
 	}
 
@@ -230,7 +230,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.C_BPartner_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.DATALOADER_C_BPartner_Location_BY_ID);
 		return dataLoader.load(entity.getHoldAddress_ID());
 	}
 
@@ -246,7 +246,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(HOMEDELIVERYPREMIUMTYPE_UUIDS_BY_VALUE.get(entity.getHomeDeliveryPremiumType()));
 	}
 
@@ -261,7 +261,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(INSURANCE_UUIDS_BY_VALUE.get(entity.getInsurance()));
 	}
 
@@ -332,7 +332,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MInOut_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutDataLoader.M_InOut_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutDataLoader.DATALOADER_M_InOut_BY_ID);
 		return dataLoader.load(entity.getM_InOut_ID());
 	}
 
@@ -347,7 +347,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperDataLoader.M_Shipper_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperDataLoader.DATALOADER_M_Shipper_BY_ID);
 		return dataLoader.load(entity.getM_Shipper_ID());
 	}
 
@@ -362,7 +362,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MShipperLabels> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperLabelsDataLoader.M_ShipperLabels_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperLabelsDataLoader.DATALOADER_M_ShipperLabels_BY_ID);
 		return dataLoader.load(entity.getM_ShipperLabels_ID());
 	}
 
@@ -377,7 +377,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MShipperPackaging> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperPackagingDataLoader.M_ShipperPackaging_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperPackagingDataLoader.DATALOADER_M_ShipperPackaging_BY_ID);
 		return dataLoader.load(entity.getM_ShipperPackaging_ID());
 	}
 
@@ -392,7 +392,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MShipperPickupTypes> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperPickupTypesDataLoader.M_ShipperPickupTypes_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperPickupTypesDataLoader.DATALOADER_M_ShipperPickupTypes_BY_ID);
 		return dataLoader.load(entity.getM_ShipperPickupTypes_ID());
 	}
 
@@ -407,7 +407,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MShippingProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShippingProcessorDataLoader.M_ShippingProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShippingProcessorDataLoader.DATALOADER_M_ShippingProcessor_BY_ID);
 		return dataLoader.load(entity.getM_ShippingProcessor_ID());
 	}
 
@@ -423,7 +423,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(NOTIFICATIONTYPE_UUIDS_BY_VALUE.get(entity.getNotificationType()));
 	}
 
@@ -445,7 +445,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAYMENTRULE_UUIDS_BY_VALUE.get(entity.getPaymentRule()));
 	}
 

@@ -29,7 +29,7 @@ public class X_BH_PaymentRefResolver extends POResolver<MBHPaymentRef> implement
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_ID());
 	}
 

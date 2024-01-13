@@ -9,8 +9,8 @@ import org.compiere.model.MJournalGeneratorLine;
  * @version Release 8.2 - $Id$
  */
 public class X_GL_JournalGeneratorLineDataLoader extends PODataLoader<MJournalGeneratorLine> {
-	public static String GL_JournalGeneratorLine_BY_ID_DATA_LOADER = "GL_JournalGeneratorLineByIdDataLoader";
-	public static String GL_JournalGeneratorLine_BY_UUID_DATA_LOADER = "GL_JournalGeneratorLineByUuidDataLoader";
+	public static String DATALOADER_GL_JournalGeneratorLine_BY_ID = "GL_JournalGeneratorLineByIdDataLoader";
+	public static String DATALOADER_GL_JournalGeneratorLine_BY_UUID = "GL_JournalGeneratorLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_GL_JournalGeneratorLineDataLoader extends PODataLoader<MJournalGe
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return GL_JournalGeneratorLine_BY_ID_DATA_LOADER;
+		return DATALOADER_GL_JournalGeneratorLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return GL_JournalGeneratorLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_GL_JournalGeneratorLine_BY_UUID;
 	}
 }

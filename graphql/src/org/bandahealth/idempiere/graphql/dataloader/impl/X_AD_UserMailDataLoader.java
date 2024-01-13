@@ -9,8 +9,8 @@ import org.compiere.model.MUserMail;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_UserMailDataLoader extends PODataLoader<MUserMail> {
-	public static String AD_UserMail_BY_ID_DATA_LOADER = "AD_UserMailByIdDataLoader";
-	public static String AD_UserMail_BY_UUID_DATA_LOADER = "AD_UserMailByUuidDataLoader";
+	public static String DATALOADER_AD_UserMail_BY_ID = "AD_UserMailByIdDataLoader";
+	public static String DATALOADER_AD_UserMail_BY_UUID = "AD_UserMailByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_UserMailDataLoader extends PODataLoader<MUserMail> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_UserMail_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_UserMail_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_UserMail_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_UserMail_BY_UUID;
 	}
 }

@@ -31,7 +31,7 @@ type I_Product {
 	# Classification for grouping
 	Classification: String
 	# Fixed Cost Per Order
-	CostPerOrder: Int
+	CostPerOrder: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -80,13 +80,13 @@ type I_Product {
 	# Effective Date of Price
 	PriceEffective: Date
 	# Lowest price for a product
-	PriceLimit: Int
+	PriceLimit: BigDecimal
 	# List Price
-	PriceList: Int
+	PriceList: BigDecimal
 	# Price based on a purchase order
-	PricePO: Int
+	PricePO: BigDecimal
 	# Standard Price
-	PriceStd: Int
+	PriceStd: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -94,11 +94,11 @@ type I_Product {
 	# Type of product
 	ProductType: AD_Ref_List
 	# (Included) Amount for copyright, etc.
-	RoyaltyAmt: Int
+	RoyaltyAmt: BigDecimal
 	# Shelf depth required
 	ShelfDepth: Int
 	# Shelf height required
-	ShelfHeight: Int
+	ShelfHeight: BigDecimal
 	# Shelf width required
 	ShelfWidth: Int
 	# Stock Keeping Unit
@@ -118,9 +118,9 @@ type I_Product {
 	# Product Key of the Business Partner
 	VendorProductNo: String
 	# Volume of a product
-	Volume: Int
+	Volume: BigDecimal
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 	# UOM EDI X12 Code
 	X12DE355: String
 }
@@ -139,7 +139,7 @@ input I_ProductInput {
 	# Classification for grouping
 	Classification: String
 	# Fixed Cost Per Order
-	CostPerOrder: Int
+	CostPerOrder: BigDecimal
 	# Customs Tariff Number, usually the HS-Code
 	CustomsTariffNumber: String
 	# Promised days between order and delivery
@@ -184,13 +184,13 @@ input I_ProductInput {
 	# Effective Date of Price
 	PriceEffective: Date
 	# Lowest price for a product
-	PriceLimit: Int
+	PriceLimit: BigDecimal
 	# List Price
-	PriceList: Int
+	PriceList: BigDecimal
 	# Price based on a purchase order
-	PricePO: Int
+	PricePO: BigDecimal
 	# Standard Price
-	PriceStd: Int
+	PriceStd: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean
@@ -198,11 +198,11 @@ input I_ProductInput {
 	# Type of product
 	ProductType: AD_Ref_ListInput
 	# (Included) Amount for copyright, etc.
-	RoyaltyAmt: Int
+	RoyaltyAmt: BigDecimal
 	# Shelf depth required
 	ShelfDepth: Int
 	# Shelf height required
-	ShelfHeight: Int
+	ShelfHeight: BigDecimal
 	# Shelf width required
 	ShelfWidth: Int
 	# Stock Keeping Unit
@@ -218,9 +218,9 @@ input I_ProductInput {
 	# Product Key of the Business Partner
 	VendorProductNo: String
 	# Volume of a product
-	Volume: Int
+	Volume: BigDecimal
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 	# UOM EDI X12 Code
 	X12DE355: String
 }

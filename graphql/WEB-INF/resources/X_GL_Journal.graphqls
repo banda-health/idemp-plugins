@@ -31,7 +31,7 @@ type GL_Journal {
 	# Period of the Calendar
 	C_Period: C_Period!
 	# If not zero, the Debit amount of the document must be equal this amount
-	ControlAmt: Int
+	ControlAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
@@ -39,7 +39,7 @@ type GL_Journal {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Currency Conversion Rate
-	CurrencyRate: Int!
+	CurrencyRate: BigDecimal!
 	# Accounting Date
 	DateAcct: Date!
 	# Date of the Document
@@ -72,14 +72,14 @@ type GL_Journal {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# ID of document reversal
 	Reversal: GL_Journal
 	# Total Credit in document currency
-	TotalCr: Int!
+	TotalCr: BigDecimal!
 	# Total debit in document currency
-	TotalDr: Int!
+	TotalDr: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -100,11 +100,11 @@ input GL_JournalInput {
 	# Period of the Calendar
 	C_Period: ForeignEntityInput
 	# If not zero, the Debit amount of the document must be equal this amount
-	ControlAmt: Int
+	ControlAmt: BigDecimal
 	# Copy From Record
 	CopyFrom: String
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	# Accounting Date
 	DateAcct: Date
 	# Date of the Document
@@ -137,12 +137,12 @@ input GL_JournalInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# ID of document reversal
 	Reversal: ForeignEntityInput
 	# Total Credit in document currency
-	TotalCr: Int
+	TotalCr: BigDecimal
 	# Total debit in document currency
-	TotalDr: Int
+	TotalDr: BigDecimal
 }

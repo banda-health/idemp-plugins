@@ -37,7 +37,7 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CHATENTRYTYPE_UUIDS_BY_VALUE.get(entity.getChatEntryType()));
 	}
 
@@ -68,7 +68,7 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MChat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_CM_ChatDataLoader.CM_Chat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_CM_ChatDataLoader.DATALOADER_CM_Chat_BY_ID);
 		return dataLoader.load(entity.getCM_Chat_ID());
 	}
 
@@ -83,7 +83,7 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MChatEntry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_CM_ChatEntryDataLoader.CM_ChatEntry_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_CM_ChatEntryDataLoader.DATALOADER_CM_ChatEntry_BY_ID);
 		return dataLoader.load(entity.getCM_ChatEntryGrandParent_ID());
 	}
 
@@ -98,7 +98,7 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MChatEntry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_CM_ChatEntryDataLoader.CM_ChatEntry_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_CM_ChatEntryDataLoader.DATALOADER_CM_ChatEntry_BY_ID);
 		return dataLoader.load(entity.getCM_ChatEntryParent_ID());
 	}
 
@@ -115,7 +115,7 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CONFIDENTIALTYPE_UUIDS_BY_VALUE.get(entity.getConfidentialType()));
 	}
 
@@ -132,7 +132,7 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(MODERATORSTATUS_UUIDS_BY_VALUE.get(entity.getModeratorStatus()));
 	}
 

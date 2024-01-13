@@ -9,8 +9,8 @@ import org.compiere.model.MProductDownload;
  * @version Release 8.2 - $Id$
  */
 public class X_M_ProductDownloadDataLoader extends PODataLoader<MProductDownload> {
-	public static String M_ProductDownload_BY_ID_DATA_LOADER = "M_ProductDownloadByIdDataLoader";
-	public static String M_ProductDownload_BY_UUID_DATA_LOADER = "M_ProductDownloadByUuidDataLoader";
+	public static String DATALOADER_M_ProductDownload_BY_ID = "M_ProductDownloadByIdDataLoader";
+	public static String DATALOADER_M_ProductDownload_BY_UUID = "M_ProductDownloadByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_ProductDownloadDataLoader extends PODataLoader<MProductDownload
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_ProductDownload_BY_ID_DATA_LOADER;
+		return DATALOADER_M_ProductDownload_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_ProductDownload_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_ProductDownload_BY_UUID;
 	}
 }

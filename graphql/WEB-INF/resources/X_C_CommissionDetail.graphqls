@@ -17,9 +17,9 @@ type C_CommissionDetailConnection {
 
 type C_CommissionDetail {
 	# The actual amount
-	ActualAmt: Int!
+	ActualAmt: BigDecimal!
 	# The actual quantity
-	ActualQty: Int!
+	ActualQty: BigDecimal!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -34,7 +34,7 @@ type C_CommissionDetail {
 	# Sales Order Line
 	C_OrderLine: C_OrderLine
 	# Converted Amount
-	ConvertedAmt: Int!
+	ConvertedAmt: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -53,9 +53,9 @@ type C_CommissionDetail {
 
 input C_CommissionDetailInput {
 	# The actual amount
-	ActualAmt: Int
+	ActualAmt: BigDecimal
 	# The actual quantity
-	ActualQty: Int
+	ActualQty: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Generated Commission Amount 
@@ -68,7 +68,7 @@ input C_CommissionDetailInput {
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# Converted Amount
-	ConvertedAmt: Int
+	ConvertedAmt: BigDecimal
 	# Information
 	Info: String
 	# The record is active in the system

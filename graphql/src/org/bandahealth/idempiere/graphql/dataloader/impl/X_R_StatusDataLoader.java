@@ -9,8 +9,8 @@ import org.compiere.model.MStatus;
  * @version Release 8.2 - $Id$
  */
 public class X_R_StatusDataLoader extends PODataLoader<MStatus> {
-	public static String R_Status_BY_ID_DATA_LOADER = "R_StatusByIdDataLoader";
-	public static String R_Status_BY_UUID_DATA_LOADER = "R_StatusByUuidDataLoader";
+	public static String DATALOADER_R_Status_BY_ID = "R_StatusByIdDataLoader";
+	public static String DATALOADER_R_Status_BY_UUID = "R_StatusByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_StatusDataLoader extends PODataLoader<MStatus> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_Status_BY_ID_DATA_LOADER;
+		return DATALOADER_R_Status_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_Status_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_Status_BY_UUID;
 	}
 }

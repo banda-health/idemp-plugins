@@ -49,9 +49,9 @@ type AD_PrintPaper {
 	Name: String!
 	Processing: Boolean!
 	# X (horizontal) dimension size
-	SizeX: Int
+	SizeX: BigDecimal
 	# Y (vertical) dimension size
-	SizeY: Int
+	SizeY: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -86,7 +86,7 @@ input AD_PrintPaperInput {
 	Name: String
 	Processing: Boolean
 	# X (horizontal) dimension size
-	SizeX: Int
+	SizeX: BigDecimal
 	# Y (vertical) dimension size
-	SizeY: Int
+	SizeY: BigDecimal
 }

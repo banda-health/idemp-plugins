@@ -36,7 +36,7 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Element_TrlDataLoader.AD_Element_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_Description));
 	}
@@ -68,7 +68,7 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -82,7 +82,7 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Element_TrlDataLoader.AD_Element_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_Help));
 	}
@@ -97,7 +97,7 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Element_TrlDataLoader.AD_Element_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_Name));
 	}
@@ -112,7 +112,7 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 			return CompletableFuture.supplyAsync(entity::getPlaceholder);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Element_TrlDataLoader.AD_Element_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_Placeholder));
 	}
@@ -127,7 +127,7 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 			return CompletableFuture.supplyAsync(entity::getPO_Description);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Element_TrlDataLoader.AD_Element_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_PO_Description));
 	}
@@ -142,7 +142,7 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 			return CompletableFuture.supplyAsync(entity::getPO_Help);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Element_TrlDataLoader.AD_Element_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_PO_Help));
 	}
@@ -157,7 +157,7 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 			return CompletableFuture.supplyAsync(entity::getPO_Name);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Element_TrlDataLoader.AD_Element_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_PO_Name));
 	}
@@ -172,7 +172,7 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 			return CompletableFuture.supplyAsync(entity::getPO_PrintName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Element_TrlDataLoader.AD_Element_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_PO_PrintName));
 	}
@@ -187,7 +187,7 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 			return CompletableFuture.supplyAsync(entity::getPrintName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Element_TrlDataLoader.AD_Element_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_PrintName));
 	}

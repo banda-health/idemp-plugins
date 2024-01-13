@@ -44,13 +44,13 @@ type C_ProjectIssue {
 	# Date a product was moved in or out of inventory
 	MovementDate: Date!
 	# Quantity of a product moved.
-	MovementQty: Int!
+	MovementQty: BigDecimal!
 	# Posting status
 	Posted: Boolean!
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Time and Expense Report Line
 	S_TimeExpenseLine: S_TimeExpenseLine
@@ -83,13 +83,13 @@ input C_ProjectIssueInput {
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Quantity of a product moved.
-	MovementQty: Int
+	MovementQty: BigDecimal
 	# Posting status
 	Posted: Boolean
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# Time and Expense Report Line
 	S_TimeExpenseLine: ForeignEntityInput

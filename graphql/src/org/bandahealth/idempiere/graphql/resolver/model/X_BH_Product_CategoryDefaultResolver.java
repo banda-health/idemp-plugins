@@ -32,7 +32,7 @@ public class X_BH_Product_CategoryDefaultResolver extends POResolver<MBHProductC
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_PRODUCT_CATEGORY_TYPE_UUIDS_BY_VALUE.get(entity.getBH_Product_Category_Type()));
 	}
 

@@ -29,7 +29,7 @@ public class X_AD_LdapProcessorLogResolver extends POResolver<MLdapProcessorLog>
 			return null;
 		}
 		DataLoader<Integer, MLdapProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_LdapProcessorDataLoader.AD_LdapProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_LdapProcessorDataLoader.DATALOADER_AD_LdapProcessor_BY_ID);
 		return dataLoader.load(entity.getAD_LdapProcessor_ID());
 	}
 

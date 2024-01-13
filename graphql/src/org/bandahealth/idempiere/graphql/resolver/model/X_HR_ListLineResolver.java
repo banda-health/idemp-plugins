@@ -29,7 +29,7 @@ public class X_HR_ListLineResolver extends POResolver<X_HR_ListLine> implements 
 			return null;
 		}
 		DataLoader<Integer, X_HR_ListVersion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_ListVersionDataLoader.HR_ListVersion_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_ListVersionDataLoader.DATALOADER_HR_ListVersion_BY_ID);
 		return dataLoader.load(entity.getHR_ListVersion_ID());
 	}
 

@@ -52,7 +52,7 @@ type PA_DashboardContent {
 	IsShowInDashboard: Boolean!
 	IsShowinLogin: Boolean!
 	# Unique line for this document
-	Line: Int
+	Line: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String!
 	ID: ID!
@@ -99,7 +99,7 @@ input PA_DashboardContentInput {
 	IsShowInDashboard: Boolean
 	IsShowinLogin: Boolean
 	# Unique line for this document
-	Line: Int
+	Line: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 	ID: ID

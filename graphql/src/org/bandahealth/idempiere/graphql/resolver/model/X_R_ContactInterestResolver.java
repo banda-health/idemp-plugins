@@ -31,7 +31,7 @@ public class X_R_ContactInterestResolver extends POResolver<MContactInterest> im
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_R_ContactInterestResolver extends POResolver<MContactInterest> im
 			return null;
 		}
 		DataLoader<Integer, MInterestArea> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_InterestAreaDataLoader.R_InterestArea_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_InterestAreaDataLoader.DATALOADER_R_InterestArea_BY_ID);
 		return dataLoader.load(entity.getR_InterestArea_ID());
 	}
 

@@ -53,6 +53,44 @@ public interface I_AD_Ref_ListInput extends I_AD_Ref_List {
 	ForeignEntityInput AD_Reference();
 
 	/**
+	 * Column name BH_Add_All
+	 */
+	static final String COLUMNNAME_BH_Add_All = "BH_Add_All";
+
+	/**
+	 * Set Add All Access.
+	 *
+	 * @param BH_Add_All Add All Access
+	 */
+	void setBH_Add_All(String BH_Add_All);
+
+	/**
+	 * Get Add All Access.
+	 *
+	 * @return Add All Access
+	 */
+	String getBH_Add_All();
+
+	/**
+	 * Column name BH_Update_Existing
+	 */
+	static final String COLUMNNAME_BH_Update_Existing = "BH_Update_Existing";
+
+	/**
+	 * Set Update Existing.
+	 *
+	 * @param BH_Update_Existing Update Existing
+	 */
+	void setBH_Update_Existing(String BH_Update_Existing);
+
+	/**
+	 * Get Update Existing.
+	 *
+	 * @return Update Existing
+	 */
+	String getBH_Update_Existing();
+
+	/**
 	 * Set AD_EntityType.
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization

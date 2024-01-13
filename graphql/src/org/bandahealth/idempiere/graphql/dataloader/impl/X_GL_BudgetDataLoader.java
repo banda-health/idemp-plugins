@@ -9,8 +9,8 @@ import org.compiere.model.X_GL_Budget;
  * @version Release 8.2 - $Id$
  */
 public class X_GL_BudgetDataLoader extends PODataLoader<X_GL_Budget> {
-	public static String GL_Budget_BY_ID_DATA_LOADER = "GL_BudgetByIdDataLoader";
-	public static String GL_Budget_BY_UUID_DATA_LOADER = "GL_BudgetByUuidDataLoader";
+	public static String DATALOADER_GL_Budget_BY_ID = "GL_BudgetByIdDataLoader";
+	public static String DATALOADER_GL_Budget_BY_UUID = "GL_BudgetByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_GL_BudgetDataLoader extends PODataLoader<X_GL_Budget> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return GL_Budget_BY_ID_DATA_LOADER;
+		return DATALOADER_GL_Budget_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return GL_Budget_BY_UUID_DATA_LOADER;
+		return DATALOADER_GL_Budget_BY_UUID;
 	}
 }

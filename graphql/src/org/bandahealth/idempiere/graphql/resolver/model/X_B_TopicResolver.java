@@ -31,7 +31,7 @@ public class X_B_TopicResolver extends POResolver<X_B_Topic> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, X_B_TopicCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_B_TopicCategoryDataLoader.B_TopicCategory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_B_TopicCategoryDataLoader.DATALOADER_B_TopicCategory_BY_ID);
 		return dataLoader.load(entity.getB_TopicCategory_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_B_TopicResolver extends POResolver<X_B_Topic> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, X_B_TopicType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_B_TopicTypeDataLoader.B_TopicType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_B_TopicTypeDataLoader.DATALOADER_B_TopicType_BY_ID);
 		return dataLoader.load(entity.getB_TopicType_ID());
 	}
 

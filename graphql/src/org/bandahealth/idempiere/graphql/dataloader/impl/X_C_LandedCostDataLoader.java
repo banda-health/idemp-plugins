@@ -9,8 +9,8 @@ import org.compiere.model.MLandedCost;
  * @version Release 8.2 - $Id$
  */
 public class X_C_LandedCostDataLoader extends PODataLoader<MLandedCost> {
-	public static String C_LandedCost_BY_ID_DATA_LOADER = "C_LandedCostByIdDataLoader";
-	public static String C_LandedCost_BY_UUID_DATA_LOADER = "C_LandedCostByUuidDataLoader";
+	public static String DATALOADER_C_LandedCost_BY_ID = "C_LandedCostByIdDataLoader";
+	public static String DATALOADER_C_LandedCost_BY_UUID = "C_LandedCostByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_LandedCostDataLoader extends PODataLoader<MLandedCost> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_LandedCost_BY_ID_DATA_LOADER;
+		return DATALOADER_C_LandedCost_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_LandedCost_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_LandedCost_BY_UUID;
 	}
 }

@@ -32,7 +32,7 @@ public class X_BH_Role_WarehouseAccessResolver extends POResolver<MBHRoleWarehou
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 
@@ -47,7 +47,7 @@ public class X_BH_Role_WarehouseAccessResolver extends POResolver<MBHRoleWarehou
 			return null;
 		}
 		DataLoader<Integer, MBHRoleWarehouseAccess> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_Role_WarehouseAccessDataLoader.BH_Role_WarehouseAccess_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_Role_WarehouseAccessDataLoader.DATALOADER_BH_Role_WarehouseAccess_BY_ID);
 		return dataLoader.load(entity.getBH_Role_WarehouseAccess_ID());
 	}
 
@@ -66,7 +66,7 @@ public class X_BH_Role_WarehouseAccessResolver extends POResolver<MBHRoleWarehou
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 

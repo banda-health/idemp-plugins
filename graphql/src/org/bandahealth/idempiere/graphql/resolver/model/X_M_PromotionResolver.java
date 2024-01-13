@@ -29,7 +29,7 @@ public class X_M_PromotionResolver extends POResolver<X_M_Promotion> implements 
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 

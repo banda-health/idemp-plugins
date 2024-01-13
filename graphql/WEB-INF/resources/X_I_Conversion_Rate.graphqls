@@ -37,7 +37,7 @@ type I_Conversion_Rate {
 	# Create Reciprocal Rate from current information
 	CreateReciprocalRate: Boolean!
 	# To convert Source number to Target number, the Source is divided
-	DivideRate: Int
+	DivideRate: BigDecimal
 	ID: ID!
 	# Messages generated from import process
 	I_ErrorMsg: String
@@ -50,7 +50,7 @@ type I_Conversion_Rate {
 	# Three letter ISO 4217 Code of the To Currency
 	ISO_Code_To: String
 	# Rate to multiple the source by to calculate the target.
-	MultiplyRate: Int
+	MultiplyRate: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -80,7 +80,7 @@ input I_Conversion_RateInput {
 	# Create Reciprocal Rate from current information
 	CreateReciprocalRate: Boolean
 	# To convert Source number to Target number, the Source is divided
-	DivideRate: Int
+	DivideRate: BigDecimal
 	ID: ID
 	# Messages generated from import process
 	I_ErrorMsg: String
@@ -93,7 +93,7 @@ input I_Conversion_RateInput {
 	# Three letter ISO 4217 Code of the To Currency
 	ISO_Code_To: String
 	# Rate to multiple the source by to calculate the target.
-	MultiplyRate: Int
+	MultiplyRate: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

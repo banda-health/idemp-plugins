@@ -26,7 +26,7 @@ type C_ProjectTask {
 	# Standard Project Type Task
 	C_Task: C_Task
 	# The (legal) commitment amount
-	CommittedAmt: Int!
+	CommittedAmt: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -42,11 +42,11 @@ type C_ProjectTask {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Planned amount for this project
-	PlannedAmt: Int!
+	PlannedAmt: BigDecimal!
 	# Invoice Rule for the project
 	ProjInvoiceRule: AD_Ref_List!
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -64,7 +64,7 @@ input C_ProjectTaskInput {
 	# Standard Project Type Task
 	C_Task: ForeignEntityInput
 	# The (legal) commitment amount
-	CommittedAmt: Int
+	CommittedAmt: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint
@@ -76,11 +76,11 @@ input C_ProjectTaskInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Planned amount for this project
-	PlannedAmt: Int
+	PlannedAmt: BigDecimal
 	# Invoice Rule for the project
 	ProjInvoiceRule: AD_Ref_ListInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

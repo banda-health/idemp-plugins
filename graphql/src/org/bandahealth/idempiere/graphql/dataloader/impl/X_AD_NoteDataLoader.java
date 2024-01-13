@@ -9,8 +9,8 @@ import org.compiere.model.MNote;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_NoteDataLoader extends PODataLoader<MNote> {
-	public static String AD_Note_BY_ID_DATA_LOADER = "AD_NoteByIdDataLoader";
-	public static String AD_Note_BY_UUID_DATA_LOADER = "AD_NoteByUuidDataLoader";
+	public static String DATALOADER_AD_Note_BY_ID = "AD_NoteByIdDataLoader";
+	public static String DATALOADER_AD_Note_BY_UUID = "AD_NoteByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_NoteDataLoader extends PODataLoader<MNote> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Note_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Note_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Note_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Note_BY_UUID;
 	}
 }

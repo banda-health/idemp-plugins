@@ -9,8 +9,8 @@ import org.compiere.model.MDiscountSchemaBreak;
  * @version Release 8.2 - $Id$
  */
 public class X_M_DiscountSchemaBreakDataLoader extends PODataLoader<MDiscountSchemaBreak> {
-	public static String M_DiscountSchemaBreak_BY_ID_DATA_LOADER = "M_DiscountSchemaBreakByIdDataLoader";
-	public static String M_DiscountSchemaBreak_BY_UUID_DATA_LOADER = "M_DiscountSchemaBreakByUuidDataLoader";
+	public static String DATALOADER_M_DiscountSchemaBreak_BY_ID = "M_DiscountSchemaBreakByIdDataLoader";
+	public static String DATALOADER_M_DiscountSchemaBreak_BY_UUID = "M_DiscountSchemaBreakByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_DiscountSchemaBreakDataLoader extends PODataLoader<MDiscountSch
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_DiscountSchemaBreak_BY_ID_DATA_LOADER;
+		return DATALOADER_M_DiscountSchemaBreak_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_DiscountSchemaBreak_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_DiscountSchemaBreak_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.eevolution.model.X_HR_Department;
  * @version Release 8.2 - $Id$
  */
 public class X_HR_DepartmentDataLoader extends PODataLoader<X_HR_Department> {
-	public static String HR_Department_BY_ID_DATA_LOADER = "HR_DepartmentByIdDataLoader";
-	public static String HR_Department_BY_UUID_DATA_LOADER = "HR_DepartmentByUuidDataLoader";
+	public static String DATALOADER_HR_Department_BY_ID = "HR_DepartmentByIdDataLoader";
+	public static String DATALOADER_HR_Department_BY_UUID = "HR_DepartmentByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_HR_DepartmentDataLoader extends PODataLoader<X_HR_Department> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return HR_Department_BY_ID_DATA_LOADER;
+		return DATALOADER_HR_Department_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return HR_Department_BY_UUID_DATA_LOADER;
+		return DATALOADER_HR_Department_BY_UUID;
 	}
 }

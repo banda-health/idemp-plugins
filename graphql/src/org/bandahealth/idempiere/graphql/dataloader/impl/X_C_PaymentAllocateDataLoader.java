@@ -9,8 +9,8 @@ import org.compiere.model.MPaymentAllocate;
  * @version Release 8.2 - $Id$
  */
 public class X_C_PaymentAllocateDataLoader extends PODataLoader<MPaymentAllocate> {
-	public static String C_PaymentAllocate_BY_ID_DATA_LOADER = "C_PaymentAllocateByIdDataLoader";
-	public static String C_PaymentAllocate_BY_UUID_DATA_LOADER = "C_PaymentAllocateByUuidDataLoader";
+	public static String DATALOADER_C_PaymentAllocate_BY_ID = "C_PaymentAllocateByIdDataLoader";
+	public static String DATALOADER_C_PaymentAllocate_BY_UUID = "C_PaymentAllocateByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_PaymentAllocateDataLoader extends PODataLoader<MPaymentAllocate
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_PaymentAllocate_BY_ID_DATA_LOADER;
+		return DATALOADER_C_PaymentAllocate_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_PaymentAllocate_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_PaymentAllocate_BY_UUID;
 	}
 }

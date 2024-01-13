@@ -30,11 +30,11 @@ type C_InvoicePaySchedule {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Calculated amount of discount
-	DiscountAmt: Int!
+	DiscountAmt: BigDecimal!
 	# Last Date for payments with discount
 	DiscountDate: Date!
 	# Amount of the payment due
-	DueAmt: Int!
+	DueAmt: BigDecimal!
 	# Date when the payment is due
 	DueDate: Date!
 	# The record is active in the system
@@ -59,11 +59,11 @@ input C_InvoicePayScheduleInput {
 	# Payment Schedule Template
 	C_PaySchedule: ForeignEntityInput
 	# Calculated amount of discount
-	DiscountAmt: Int
+	DiscountAmt: BigDecimal
 	# Last Date for payments with discount
 	DiscountDate: Date
 	# Amount of the payment due
-	DueAmt: Int
+	DueAmt: BigDecimal
 	# Date when the payment is due
 	DueDate: Date
 	# The record is active in the system

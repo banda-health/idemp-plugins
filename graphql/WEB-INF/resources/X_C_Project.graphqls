@@ -42,9 +42,9 @@ type C_Project {
 	# Type of the project
 	C_ProjectType_ID: Int
 	# The (legal) commitment amount
-	CommittedAmt: Int!
+	CommittedAmt: BigDecimal!
 	# The (legal) commitment Quantity
-	CommittedQty: Int!
+	CommittedQty: BigDecimal!
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
@@ -60,9 +60,9 @@ type C_Project {
 	# Generate To
 	GenerateTo: String
 	# The amount invoiced
-	InvoicedAmt: Int!
+	InvoicedAmt: BigDecimal!
 	# The quantity invoiced
-	InvoicedQty: Int!
+	InvoicedQty: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# The commitment amount/quantity is the chargeable ceiling 
@@ -80,18 +80,18 @@ type C_Project {
 	# Optional additional user defined information
 	Note: String
 	# Planned amount for this project
-	PlannedAmt: Int!
+	PlannedAmt: BigDecimal!
 	# Project's planned margin amount
-	PlannedMarginAmt: Int!
+	PlannedMarginAmt: BigDecimal!
 	# Planned quantity for this project
-	PlannedQty: Int!
+	PlannedQty: BigDecimal!
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
 	# Total Project Balance
-	ProjectBalanceAmt: Int!
+	ProjectBalanceAmt: BigDecimal!
 	# Project Category
 	ProjectCategory: AD_Ref_List
 	# Project Line Level
@@ -133,9 +133,9 @@ input C_ProjectInput {
 	# Type of the project
 	C_ProjectType_ID: Int
 	# The (legal) commitment amount
-	CommittedAmt: Int
+	CommittedAmt: BigDecimal
 	# The (legal) commitment Quantity
-	CommittedQty: Int
+	CommittedQty: BigDecimal
 	# Copy From Record
 	CopyFrom: String
 	# The (planned) effective date of this document.
@@ -147,9 +147,9 @@ input C_ProjectInput {
 	# Generate To
 	GenerateTo: String
 	# The amount invoiced
-	InvoicedAmt: Int
+	InvoicedAmt: BigDecimal
 	# The quantity invoiced
-	InvoicedQty: Int
+	InvoicedQty: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# The commitment amount/quantity is the chargeable ceiling 
@@ -167,18 +167,18 @@ input C_ProjectInput {
 	# Optional additional user defined information
 	Note: String
 	# Planned amount for this project
-	PlannedAmt: Int
+	PlannedAmt: BigDecimal
 	# Project's planned margin amount
-	PlannedMarginAmt: Int
+	PlannedMarginAmt: BigDecimal
 	# Planned quantity for this project
-	PlannedQty: Int
+	PlannedQty: BigDecimal
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean
 	# Total Project Balance
-	ProjectBalanceAmt: Int
+	ProjectBalanceAmt: BigDecimal
 	# Project Category
 	ProjectCategory: AD_Ref_ListInput
 	# Project Line Level

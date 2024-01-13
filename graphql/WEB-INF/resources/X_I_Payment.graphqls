@@ -59,7 +59,7 @@ type I_Payment {
 	# Payment identifier
 	C_Payment: C_Payment
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	# Name of the Charge
 	ChargeName: String
 	# Check Number
@@ -83,7 +83,7 @@ type I_Payment {
 	# Transaction Date
 	DateTrx: Date
 	# Calculated amount of discount
-	DiscountAmt: Int
+	DiscountAmt: BigDecimal
 	# Name of the Document Type
 	DocTypeName: String
 	# Document sequence number of the document
@@ -116,9 +116,9 @@ type I_Payment {
 	# Original Transaction ID
 	Orig_TrxID: String
 	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
-	OverUnderAmt: Int
+	OverUnderAmt: BigDecimal
 	# Amount being paid
-	PayAmt: Int
+	PayAmt: BigDecimal
 	# Purchase Order Number
 	PONum: String
 	# The document has been processed
@@ -141,7 +141,7 @@ type I_Payment {
 	# Track 1 and 2 of the Credit Card
 	Swipe: String
 	# Tax Amount for a document
-	TaxAmt: Int
+	TaxAmt: BigDecimal
 	# Method of Payment
 	TenderType: AD_Ref_List
 	# Type of credit card transaction
@@ -153,7 +153,7 @@ type I_Payment {
 	# Voice Authorization Code from credit card company
 	VoiceAuthCode: String
 	# Amount to write-off
-	WriteOffAmt: Int
+	WriteOffAmt: BigDecimal
 }
 
 input I_PaymentInput {
@@ -198,7 +198,7 @@ input I_PaymentInput {
 	# Payment identifier
 	C_Payment: ForeignEntityInput
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	# Name of the Charge
 	ChargeName: String
 	# Check Number
@@ -218,7 +218,7 @@ input I_PaymentInput {
 	# Transaction Date
 	DateTrx: Date
 	# Calculated amount of discount
-	DiscountAmt: Int
+	DiscountAmt: BigDecimal
 	# Name of the Document Type
 	DocTypeName: String
 	# Document sequence number of the document
@@ -251,9 +251,9 @@ input I_PaymentInput {
 	# Original Transaction ID
 	Orig_TrxID: String
 	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
-	OverUnderAmt: Int
+	OverUnderAmt: BigDecimal
 	# Amount being paid
-	PayAmt: Int
+	PayAmt: BigDecimal
 	# Purchase Order Number
 	PONum: String
 	# The document has been processed
@@ -276,7 +276,7 @@ input I_PaymentInput {
 	# Track 1 and 2 of the Credit Card
 	Swipe: String
 	# Tax Amount for a document
-	TaxAmt: Int
+	TaxAmt: BigDecimal
 	# Method of Payment
 	TenderType: AD_Ref_ListInput
 	# Type of credit card transaction
@@ -284,5 +284,5 @@ input I_PaymentInput {
 	# Voice Authorization Code from credit card company
 	VoiceAuthCode: String
 	# Amount to write-off
-	WriteOffAmt: Int
+	WriteOffAmt: BigDecimal
 }

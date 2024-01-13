@@ -38,7 +38,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.C_Charge_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.DATALOADER_C_Charge_BY_ID);
 		return dataLoader.load(entity.getC_Charge_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.C_Tax_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getC_Tax_ID());
 	}
 
@@ -68,7 +68,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getM_InOutLine_ID());
 	}
 
@@ -83,7 +83,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -98,7 +98,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MRMA> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_RMADataLoader.M_RMA_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_RMADataLoader.DATALOADER_M_RMA_BY_ID);
 		return dataLoader.load(entity.getM_RMA_ID());
 	}
 
@@ -117,7 +117,7 @@ public class X_M_RMALineResolver extends POResolver<MRMALine> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MRMALine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_RMALineDataLoader.M_RMALine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_RMALineDataLoader.DATALOADER_M_RMALine_BY_ID);
 		return dataLoader.load(entity.getRef_RMALine_ID());
 	}
 

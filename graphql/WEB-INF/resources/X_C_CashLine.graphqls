@@ -21,7 +21,7 @@ type C_CashLine {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount in a defined currency
-	Amount: Int!
+	Amount: BigDecimal!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount
 	# Cash Journal
@@ -44,7 +44,7 @@ type C_CashLine {
 	# Optional short description of the record
 	Description: String
 	# Calculated amount of discount
-	DiscountAmt: Int
+	DiscountAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# This Line is generated
@@ -58,14 +58,14 @@ type C_CashLine {
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Amount to write-off
-	WriteOffAmt: Int
+	WriteOffAmt: BigDecimal
 }
 
 input C_CashLineInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount in a defined currency
-	Amount: Int
+	Amount: BigDecimal
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
 	# Cash Journal
@@ -84,7 +84,7 @@ input C_CashLineInput {
 	# Optional short description of the record
 	Description: String
 	# Calculated amount of discount
-	DiscountAmt: Int
+	DiscountAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# This Line is generated
@@ -94,5 +94,5 @@ input C_CashLineInput {
 	# The document has been processed
 	Processed: Boolean
 	# Amount to write-off
-	WriteOffAmt: Int
+	WriteOffAmt: BigDecimal
 }

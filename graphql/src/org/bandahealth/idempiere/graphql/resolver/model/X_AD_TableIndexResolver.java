@@ -36,7 +36,7 @@ public class X_AD_TableIndexResolver extends POResolver<MTableIndex> implements 
 			return null;
 		}
 		DataLoader<Integer, MMessage_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_MessageDataLoader.AD_Message_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_MessageDataLoader.DATALOADER_AD_Message_BY_ID);
 		return dataLoader.load(entity.getAD_Message_ID());
 	}
 
@@ -51,7 +51,7 @@ public class X_AD_TableIndexResolver extends POResolver<MTableIndex> implements 
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_AD_TableIndexResolver extends POResolver<MTableIndex> implements 
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 

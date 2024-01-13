@@ -35,7 +35,7 @@ public class X_HR_PeriodResolver extends POResolver<X_HR_Period> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.C_Period_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.DATALOADER_C_Period_BY_ID);
 		return dataLoader.load(entity.getC_Period_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_HR_PeriodResolver extends POResolver<X_HR_Period> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MYear> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_YearDataLoader.C_Year_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_YearDataLoader.DATALOADER_C_Year_BY_ID);
 		return dataLoader.load(entity.getC_Year_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_HR_PeriodResolver extends POResolver<X_HR_Period> implements Grap
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.HR_Payroll_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.DATALOADER_HR_Payroll_BY_ID);
 		return dataLoader.load(entity.getHR_Payroll_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_HR_PeriodResolver extends POResolver<X_HR_Period> implements Grap
 			return null;
 		}
 		DataLoader<Integer, X_HR_Year> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_YearDataLoader.HR_Year_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_YearDataLoader.DATALOADER_HR_Year_BY_ID);
 		return dataLoader.load(entity.getHR_Year_ID());
 	}
 

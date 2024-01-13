@@ -21,7 +21,7 @@ type M_RMA {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount
-	Amt: Int
+	Amt: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# The Currency for this record
@@ -77,7 +77,7 @@ input M_RMAInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount
-	Amt: Int
+	Amt: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# The Currency for this record

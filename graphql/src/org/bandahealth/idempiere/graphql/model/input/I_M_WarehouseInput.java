@@ -25,6 +25,25 @@ public interface I_M_WarehouseInput extends I_M_Warehouse {
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Column name BH_DefaultWarehouse
+	 */
+	static final String COLUMNNAME_BH_DefaultWarehouse = "BH_DefaultWarehouse";
+
+	/**
+	 * Set Default Warehouse.
+	 *
+	 * @param BH_DefaultWarehouse Default Warehouse
+	 */
+	void setBH_DefaultWarehouse(boolean BH_DefaultWarehouse);
+
+	/**
+	 * Get Default Warehouse.
+	 *
+	 * @return Default Warehouse
+	 */
+	boolean isBH_DefaultWarehouse();
+
+	/**
 	 * Set C_Location.
 	 *
 	 * @param C_Location Location or Address

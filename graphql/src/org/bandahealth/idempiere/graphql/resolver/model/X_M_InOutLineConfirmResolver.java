@@ -35,7 +35,7 @@ public class X_M_InOutLineConfirmResolver extends POResolver<MInOutLineConfirm> 
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.C_InvoiceLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_M_InOutLineConfirmResolver extends POResolver<MInOutLineConfirm> 
 			return null;
 		}
 		DataLoader<Integer, MInOutConfirm> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutConfirmDataLoader.M_InOutConfirm_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutConfirmDataLoader.DATALOADER_M_InOutConfirm_BY_ID);
 		return dataLoader.load(entity.getM_InOutConfirm_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_M_InOutLineConfirmResolver extends POResolver<MInOutLineConfirm> 
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getM_InOutLine_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_M_InOutLineConfirmResolver extends POResolver<MInOutLineConfirm> 
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.M_InventoryLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_InventoryLine_ID());
 	}
 

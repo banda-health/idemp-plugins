@@ -48,9 +48,9 @@ type C_PaymentProcessor {
 	C_Currency: C_Currency
 	ID: ID!
 	# Commission stated as a percentage
-	Commission: Int!
+	Commission: BigDecimal!
 	# Fixed cost per transaction
-	CostPerTrx: Int!
+	CostPerTrx: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -64,7 +64,7 @@ type C_PaymentProcessor {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Minimum Amount in Document Currency
-	MinimumAmt: Int
+	MinimumAmt: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Payment Processor Java Class
@@ -118,9 +118,9 @@ input C_PaymentProcessorInput {
 	C_Currency: ForeignEntityInput
 	ID: ID
 	# Commission stated as a percentage
-	Commission: Int
+	Commission: BigDecimal
 	# Fixed cost per transaction
-	CostPerTrx: Int
+	CostPerTrx: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Host Address URL or DNS
@@ -130,7 +130,7 @@ input C_PaymentProcessorInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Minimum Amount in Document Currency
-	MinimumAmt: Int
+	MinimumAmt: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Payment Processor Java Class

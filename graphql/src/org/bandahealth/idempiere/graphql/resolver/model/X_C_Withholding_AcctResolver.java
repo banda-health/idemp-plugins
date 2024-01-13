@@ -33,7 +33,7 @@ public class X_C_Withholding_AcctResolver extends POResolver<X_C_Withholding_Acc
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_C_Withholding_AcctResolver extends POResolver<X_C_Withholding_Acc
 			return null;
 		}
 		DataLoader<Integer, MWithholding> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_WithholdingDataLoader.C_Withholding_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_WithholdingDataLoader.DATALOADER_C_Withholding_BY_ID);
 		return dataLoader.load(entity.getC_Withholding_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_C_Withholding_AcctResolver extends POResolver<X_C_Withholding_Acc
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getWithholding_Acct());
 	}
 

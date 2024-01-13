@@ -38,7 +38,7 @@ type M_StorageReservation {
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -62,5 +62,5 @@ input M_StorageReservationInput {
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 }

@@ -38,7 +38,7 @@ public class X_C_BP_EDIResolver extends POResolver<X_C_BP_EDI> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MSequence_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_SequenceDataLoader.AD_Sequence_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_SequenceDataLoader.DATALOADER_AD_Sequence_BY_ID);
 		return dataLoader.load(entity.getAD_Sequence_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_C_BP_EDIResolver extends POResolver<X_C_BP_EDI> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_C_BP_EDIResolver extends POResolver<X_C_BP_EDI> implements GraphQ
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(EDITYPE_UUIDS_BY_VALUE.get(entity.getEDIType()));
 	}
 
@@ -92,7 +92,7 @@ public class X_C_BP_EDIResolver extends POResolver<X_C_BP_EDI> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 

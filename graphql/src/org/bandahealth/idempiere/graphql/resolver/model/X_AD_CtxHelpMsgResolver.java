@@ -34,7 +34,7 @@ public class X_AD_CtxHelpMsgResolver extends POResolver<MCtxHelpMsg> implements 
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.AD_CtxHelp_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.DATALOADER_AD_CtxHelp_BY_ID);
 		return dataLoader.load(entity.getAD_CtxHelp_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_AD_CtxHelpMsgResolver extends POResolver<MCtxHelpMsg> implements 
 			return CompletableFuture.supplyAsync(entity::getMsgText);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_CtxHelpMsg_TrlDataLoader.AD_CtxHelpMsg_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_CtxHelpMsg_TrlDataLoader.DATALOADER_AD_CtxHelpMsg_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MCtxHelpMsg.COLUMNNAME_MsgText));
 	}

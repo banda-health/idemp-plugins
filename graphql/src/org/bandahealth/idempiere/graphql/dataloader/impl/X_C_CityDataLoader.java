@@ -9,8 +9,8 @@ import org.compiere.model.MCity;
  * @version Release 8.2 - $Id$
  */
 public class X_C_CityDataLoader extends PODataLoader<MCity> {
-	public static String C_City_BY_ID_DATA_LOADER = "C_CityByIdDataLoader";
-	public static String C_City_BY_UUID_DATA_LOADER = "C_CityByUuidDataLoader";
+	public static String DATALOADER_C_City_BY_ID = "C_CityByIdDataLoader";
+	public static String DATALOADER_C_City_BY_UUID = "C_CityByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_CityDataLoader extends PODataLoader<MCity> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_City_BY_ID_DATA_LOADER;
+		return DATALOADER_C_City_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_City_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_City_BY_UUID;
 	}
 }

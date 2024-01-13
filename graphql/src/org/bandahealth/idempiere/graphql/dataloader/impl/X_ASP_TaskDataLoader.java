@@ -9,8 +9,8 @@ import org.compiere.model.X_ASP_Task;
  * @version Release 8.2 - $Id$
  */
 public class X_ASP_TaskDataLoader extends PODataLoader<X_ASP_Task> {
-	public static String ASP_Task_BY_ID_DATA_LOADER = "ASP_TaskByIdDataLoader";
-	public static String ASP_Task_BY_UUID_DATA_LOADER = "ASP_TaskByUuidDataLoader";
+	public static String DATALOADER_ASP_Task_BY_ID = "ASP_TaskByIdDataLoader";
+	public static String DATALOADER_ASP_Task_BY_UUID = "ASP_TaskByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_ASP_TaskDataLoader extends PODataLoader<X_ASP_Task> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return ASP_Task_BY_ID_DATA_LOADER;
+		return DATALOADER_ASP_Task_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return ASP_Task_BY_UUID_DATA_LOADER;
+		return DATALOADER_ASP_Task_BY_UUID;
 	}
 }

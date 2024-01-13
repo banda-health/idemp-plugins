@@ -9,8 +9,8 @@ import org.eevolution.model.X_I_Movement;
  * @version Release 8.2 - $Id$
  */
 public class X_I_MovementDataLoader extends PODataLoader<X_I_Movement> {
-	public static String I_Movement_BY_ID_DATA_LOADER = "I_MovementByIdDataLoader";
-	public static String I_Movement_BY_UUID_DATA_LOADER = "I_MovementByUuidDataLoader";
+	public static String DATALOADER_I_Movement_BY_ID = "I_MovementByIdDataLoader";
+	public static String DATALOADER_I_Movement_BY_UUID = "I_MovementByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_I_MovementDataLoader extends PODataLoader<X_I_Movement> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return I_Movement_BY_ID_DATA_LOADER;
+		return DATALOADER_I_Movement_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return I_Movement_BY_UUID_DATA_LOADER;
+		return DATALOADER_I_Movement_BY_UUID;
 	}
 }

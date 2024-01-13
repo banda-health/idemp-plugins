@@ -29,7 +29,7 @@ public class X_AD_Replication_RunResolver extends POResolver<MReplicationRun> im
 			return null;
 		}
 		DataLoader<Integer, MReplication> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReplicationDataLoader.AD_Replication_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReplicationDataLoader.DATALOADER_AD_Replication_BY_ID);
 		return dataLoader.load(entity.getAD_Replication_ID());
 	}
 

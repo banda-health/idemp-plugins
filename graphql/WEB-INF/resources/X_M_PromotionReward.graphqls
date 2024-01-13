@@ -21,7 +21,7 @@ type M_PromotionReward {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount in a defined currency
-	Amount: Int
+	Amount: BigDecimal
 	# Additional document charges
 	C_Charge: C_Charge!
 	# Date this record was created
@@ -42,7 +42,7 @@ type M_PromotionReward {
 	# Get product from target distribution to apply the promotion reward
 	M_TargetDistribution: M_PromotionDistribution
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Type of reward which consists of percentage discount, flat discount or absolute amount
 	RewardType: AD_Ref_List!
 	# Method of ordering records; lowest number comes first
@@ -57,7 +57,7 @@ input M_PromotionRewardInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount in a defined currency
-	Amount: Int
+	Amount: BigDecimal
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	# Quantity distribution sorting by unit price
@@ -74,7 +74,7 @@ input M_PromotionRewardInput {
 	# Get product from target distribution to apply the promotion reward
 	M_TargetDistribution: ForeignEntityInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Type of reward which consists of percentage discount, flat discount or absolute amount
 	RewardType: AD_Ref_ListInput
 	# Method of ordering records; lowest number comes first

@@ -31,7 +31,7 @@ public class X_AD_Package_Imp_DetailResolver extends POResolver<X_AD_Package_Imp
 			return null;
 		}
 		DataLoader<Integer, X_AD_Package_Imp> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Package_ImpDataLoader.AD_Package_Imp_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Package_ImpDataLoader.DATALOADER_AD_Package_Imp_BY_ID);
 		return dataLoader.load(entity.getAD_Package_Imp_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_Package_Imp_DetailResolver extends POResolver<X_AD_Package_Imp
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 

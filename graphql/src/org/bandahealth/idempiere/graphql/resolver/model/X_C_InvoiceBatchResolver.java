@@ -33,7 +33,7 @@ public class X_C_InvoiceBatchResolver extends POResolver<MInvoiceBatch> implemen
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ConversionTypeDataLoader.C_ConversionType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ConversionTypeDataLoader.DATALOADER_C_ConversionType_BY_ID);
 		return dataLoader.load(entity.getC_ConversionType_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_C_InvoiceBatchResolver extends POResolver<MInvoiceBatch> implemen
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -75,7 +75,7 @@ public class X_C_InvoiceBatchResolver extends POResolver<MInvoiceBatch> implemen
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 

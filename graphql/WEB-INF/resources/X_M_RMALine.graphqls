@@ -21,7 +21,7 @@ type M_RMALine {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount
-	Amt: Int
+	Amt: BigDecimal
 	# Additional document charges
 	C_Charge: C_Charge
 	# Tax identifier
@@ -37,7 +37,7 @@ type M_RMALine {
 	# Unique line for this document
 	Line: Int
 	# Line Extended Amount (Quantity * Actual Price) without Freight and Charges
-	LineNetAmt: Int
+	LineNetAmt: BigDecimal
 	# Line on Shipment or Receipt document
 	M_InOutLine: M_InOutLine
 	# Product, Service, Item
@@ -48,11 +48,11 @@ type M_RMALine {
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Delivered Quantity
-	QtyDelivered: Int
+	QtyDelivered: BigDecimal
 	# Invoiced Quantity
-	QtyInvoiced: Int
+	QtyInvoiced: BigDecimal
 	Ref_RMALine: M_RMALine
 	# Date this record was updated
 	Updated: Date!
@@ -64,7 +64,7 @@ input M_RMALineInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount
-	Amt: Int
+	Amt: BigDecimal
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	# Tax identifier
@@ -76,7 +76,7 @@ input M_RMALineInput {
 	# Unique line for this document
 	Line: Int
 	# Line Extended Amount (Quantity * Actual Price) without Freight and Charges
-	LineNetAmt: Int
+	LineNetAmt: BigDecimal
 	# Line on Shipment or Receipt document
 	M_InOutLine: ForeignEntityInput
 	# Product, Service, Item
@@ -87,10 +87,10 @@ input M_RMALineInput {
 	# The document has been processed
 	Processed: Boolean
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Delivered Quantity
-	QtyDelivered: Int
+	QtyDelivered: BigDecimal
 	# Invoiced Quantity
-	QtyInvoiced: Int
+	QtyInvoiced: BigDecimal
 	Ref_RMALine: ForeignEntityInput
 }

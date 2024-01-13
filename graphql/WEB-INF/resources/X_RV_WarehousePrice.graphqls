@@ -37,23 +37,23 @@ type RV_WarehousePrice {
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Margin for a product as a percentage
-	Margin: Int
+	Margin: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Lowest price for a product
-	PriceLimit: Int
+	PriceLimit: BigDecimal
 	# List Price
-	PriceList: Int
+	PriceList: BigDecimal
 	# Standard Price
-	PriceStd: Int
+	PriceStd: BigDecimal
 	# Available Quantity (On Hand - Reserved)
-	QtyAvailable: Int
+	QtyAvailable: BigDecimal
 	# On Hand Quantity
-	QtyOnHand: Int
+	QtyOnHand: BigDecimal
 	# Ordered Quantity
-	QtyOrdered: Int
+	QtyOrdered: BigDecimal
 	# Reserved Quantity
-	QtyReserved: Int
+	QtyReserved: BigDecimal
 	# Stock Keeping Unit
 	SKU: String
 	# Symbol for a Unit of Measure
@@ -86,23 +86,23 @@ input RV_WarehousePriceInput {
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Margin for a product as a percentage
-	Margin: Int
+	Margin: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Lowest price for a product
-	PriceLimit: Int
+	PriceLimit: BigDecimal
 	# List Price
-	PriceList: Int
+	PriceList: BigDecimal
 	# Standard Price
-	PriceStd: Int
+	PriceStd: BigDecimal
 	# Available Quantity (On Hand - Reserved)
-	QtyAvailable: Int
+	QtyAvailable: BigDecimal
 	# On Hand Quantity
-	QtyOnHand: Int
+	QtyOnHand: BigDecimal
 	# Ordered Quantity
-	QtyOrdered: Int
+	QtyOrdered: BigDecimal
 	# Reserved Quantity
-	QtyReserved: Int
+	QtyReserved: BigDecimal
 	# Stock Keeping Unit
 	SKU: String
 	# Symbol for a Unit of Measure

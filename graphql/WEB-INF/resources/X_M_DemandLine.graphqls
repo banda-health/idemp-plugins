@@ -34,9 +34,9 @@ type M_DemandLine {
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Calculated Quantity
-	QtyCalculated: Int!
+	QtyCalculated: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -56,7 +56,7 @@ input M_DemandLineInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Calculated Quantity
-	QtyCalculated: Int
+	QtyCalculated: BigDecimal
 }

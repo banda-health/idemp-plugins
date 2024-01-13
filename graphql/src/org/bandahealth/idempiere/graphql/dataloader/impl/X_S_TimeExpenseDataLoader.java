@@ -9,8 +9,8 @@ import org.compiere.model.MTimeExpense;
  * @version Release 8.2 - $Id$
  */
 public class X_S_TimeExpenseDataLoader extends PODataLoader<MTimeExpense> {
-	public static String S_TimeExpense_BY_ID_DATA_LOADER = "S_TimeExpenseByIdDataLoader";
-	public static String S_TimeExpense_BY_UUID_DATA_LOADER = "S_TimeExpenseByUuidDataLoader";
+	public static String DATALOADER_S_TimeExpense_BY_ID = "S_TimeExpenseByIdDataLoader";
+	public static String DATALOADER_S_TimeExpense_BY_UUID = "S_TimeExpenseByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_S_TimeExpenseDataLoader extends PODataLoader<MTimeExpense> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return S_TimeExpense_BY_ID_DATA_LOADER;
+		return DATALOADER_S_TimeExpense_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return S_TimeExpense_BY_UUID_DATA_LOADER;
+		return DATALOADER_S_TimeExpense_BY_UUID;
 	}
 }

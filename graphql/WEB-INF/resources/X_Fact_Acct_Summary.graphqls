@@ -23,9 +23,9 @@ type Fact_Acct_Summary {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Accounted Credit Amount
-	AmtAcctCr: Int!
+	AmtAcctCr: BigDecimal!
 	# Accounted Debit Amount
-	AmtAcctDr: Int!
+	AmtAcctDr: BigDecimal!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Business Activity
@@ -68,7 +68,7 @@ type Fact_Acct_Summary {
 	# The type of posted amount for the transaction
 	PostingType: Boolean!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -85,9 +85,9 @@ input Fact_Acct_SummaryInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
+	AmtAcctDr: BigDecimal
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Business Activity
@@ -126,7 +126,7 @@ input Fact_Acct_SummaryInput {
 	# The type of posted amount for the transaction
 	PostingType: Boolean
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2

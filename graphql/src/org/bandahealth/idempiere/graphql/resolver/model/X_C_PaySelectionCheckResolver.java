@@ -40,7 +40,7 @@ public class X_C_PaySelectionCheckResolver extends POResolver<MPaySelectionCheck
 			return null;
 		}
 		DataLoader<Integer, MBPBankAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_BankAccountDataLoader.C_BP_BankAccount_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_BankAccountDataLoader.DATALOADER_C_BP_BankAccount_BY_ID);
 		return dataLoader.load(entity.getC_BP_BankAccount_ID());
 	}
 
@@ -55,7 +55,7 @@ public class X_C_PaySelectionCheckResolver extends POResolver<MPaySelectionCheck
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -70,7 +70,7 @@ public class X_C_PaySelectionCheckResolver extends POResolver<MPaySelectionCheck
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.C_Payment_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.DATALOADER_C_Payment_BY_ID);
 		return dataLoader.load(entity.getC_Payment_ID());
 	}
 
@@ -85,7 +85,7 @@ public class X_C_PaySelectionCheckResolver extends POResolver<MPaySelectionCheck
 			return null;
 		}
 		DataLoader<Integer, MPaySelection> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaySelectionDataLoader.C_PaySelection_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaySelectionDataLoader.DATALOADER_C_PaySelection_BY_ID);
 		return dataLoader.load(entity.getC_PaySelection_ID());
 	}
 
@@ -119,7 +119,7 @@ public class X_C_PaySelectionCheckResolver extends POResolver<MPaySelectionCheck
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAYMENTRULE_UUIDS_BY_VALUE.get(entity.getPaymentRule()));
 	}
 

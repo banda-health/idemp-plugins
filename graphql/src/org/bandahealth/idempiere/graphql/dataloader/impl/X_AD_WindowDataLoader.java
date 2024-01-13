@@ -9,8 +9,8 @@ import org.compiere.model.MWindow;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_WindowDataLoader extends PODataLoader<MWindow> {
-	public static String AD_Window_BY_ID_DATA_LOADER = "AD_WindowByIdDataLoader";
-	public static String AD_Window_BY_UUID_DATA_LOADER = "AD_WindowByUuidDataLoader";
+	public static String DATALOADER_AD_Window_BY_ID = "AD_WindowByIdDataLoader";
+	public static String DATALOADER_AD_Window_BY_UUID = "AD_WindowByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_WindowDataLoader extends PODataLoader<MWindow> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Window_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Window_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Window_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Window_BY_UUID;
 	}
 }

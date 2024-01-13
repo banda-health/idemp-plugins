@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_ReplicationDocument;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ReplicationDocumentDataLoader extends PODataLoader<X_AD_ReplicationDocument> {
-	public static String AD_ReplicationDocument_BY_ID_DATA_LOADER = "AD_ReplicationDocumentByIdDataLoader";
-	public static String AD_ReplicationDocument_BY_UUID_DATA_LOADER = "AD_ReplicationDocumentByUuidDataLoader";
+	public static String DATALOADER_AD_ReplicationDocument_BY_ID = "AD_ReplicationDocumentByIdDataLoader";
+	public static String DATALOADER_AD_ReplicationDocument_BY_UUID = "AD_ReplicationDocumentByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ReplicationDocumentDataLoader extends PODataLoader<X_AD_Replic
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_ReplicationDocument_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_ReplicationDocument_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_ReplicationDocument_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_ReplicationDocument_BY_UUID;
 	}
 }

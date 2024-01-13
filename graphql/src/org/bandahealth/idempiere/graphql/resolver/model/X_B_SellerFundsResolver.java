@@ -33,7 +33,7 @@ public class X_B_SellerFundsResolver extends POResolver<X_B_SellerFunds> impleme
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_B_SellerFundsResolver extends POResolver<X_B_SellerFunds> impleme
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.C_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.DATALOADER_C_Order_BY_ID);
 		return dataLoader.load(entity.getC_Order_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_B_SellerFundsResolver extends POResolver<X_B_SellerFunds> impleme
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.C_Payment_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.DATALOADER_C_Payment_BY_ID);
 		return dataLoader.load(entity.getC_Payment_ID());
 	}
 

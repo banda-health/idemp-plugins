@@ -9,8 +9,8 @@ import org.compiere.model.MDunningRunLine;
  * @version Release 8.2 - $Id$
  */
 public class X_C_DunningRunLineDataLoader extends PODataLoader<MDunningRunLine> {
-	public static String C_DunningRunLine_BY_ID_DATA_LOADER = "C_DunningRunLineByIdDataLoader";
-	public static String C_DunningRunLine_BY_UUID_DATA_LOADER = "C_DunningRunLineByUuidDataLoader";
+	public static String DATALOADER_C_DunningRunLine_BY_ID = "C_DunningRunLineByIdDataLoader";
+	public static String DATALOADER_C_DunningRunLine_BY_UUID = "C_DunningRunLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_DunningRunLineDataLoader extends PODataLoader<MDunningRunLine> 
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_DunningRunLine_BY_ID_DATA_LOADER;
+		return DATALOADER_C_DunningRunLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_DunningRunLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_DunningRunLine_BY_UUID;
 	}
 }

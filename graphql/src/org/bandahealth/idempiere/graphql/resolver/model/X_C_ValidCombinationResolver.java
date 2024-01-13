@@ -47,7 +47,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getAccount_ID());
 	}
 
@@ -62,7 +62,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -77,7 +77,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -92,7 +92,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -107,7 +107,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -122,7 +122,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_LocFrom_ID());
 	}
 
@@ -137,7 +137,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_LocTo_ID());
 	}
 
@@ -152,7 +152,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -167,7 +167,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.C_SalesRegion_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.DATALOADER_C_SalesRegion_BY_ID);
 		return dataLoader.load(entity.getC_SalesRegion_ID());
 	}
 
@@ -182,7 +182,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, X_C_SubAcct> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_SubAcctDataLoader.C_SubAcct_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_SubAcctDataLoader.DATALOADER_C_SubAcct_BY_ID);
 		return dataLoader.load(entity.getC_SubAcct_ID());
 	}
 
@@ -201,7 +201,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -216,7 +216,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getUser1_ID());
 	}
 
@@ -231,7 +231,7 @@ public class X_C_ValidCombinationResolver extends POResolver<MAccount> implement
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getUser2_ID());
 	}
 

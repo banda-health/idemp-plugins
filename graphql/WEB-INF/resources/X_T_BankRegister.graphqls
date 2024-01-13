@@ -24,10 +24,10 @@ type T_BankRegister {
 	# Instance of the process
 	AD_PInstance: AD_PInstance!
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
-	Balance: Int
+	AmtAcctDr: BigDecimal
+	Balance: BigDecimal
 	BankName: String
 	BPartner: String
 	# Bank
@@ -48,10 +48,10 @@ input T_BankRegisterInput {
 	# Instance of the process
 	AD_PInstance: ForeignEntityInput
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
-	Balance: Int
+	AmtAcctDr: BigDecimal
+	Balance: BigDecimal
 	BankName: String
 	BPartner: String
 	# Bank

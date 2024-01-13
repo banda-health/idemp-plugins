@@ -9,8 +9,8 @@ import org.compiere.model.MPeriod;
  * @version Release 8.2 - $Id$
  */
 public class X_C_PeriodDataLoader extends PODataLoader<MPeriod> {
-	public static String C_Period_BY_ID_DATA_LOADER = "C_PeriodByIdDataLoader";
-	public static String C_Period_BY_UUID_DATA_LOADER = "C_PeriodByUuidDataLoader";
+	public static String DATALOADER_C_Period_BY_ID = "C_PeriodByIdDataLoader";
+	public static String DATALOADER_C_Period_BY_UUID = "C_PeriodByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_PeriodDataLoader extends PODataLoader<MPeriod> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Period_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Period_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Period_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Period_BY_UUID;
 	}
 }

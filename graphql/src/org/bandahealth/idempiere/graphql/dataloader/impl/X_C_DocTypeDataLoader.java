@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_C_DocTypeDataLoader extends PODataLoader<MDocType_BH> {
-	public static String C_DocType_BY_ID_DATA_LOADER = "C_DocTypeByIdDataLoader";
-	public static String C_DocType_BY_UUID_DATA_LOADER = "C_DocTypeByUuidDataLoader";
+	public static String DATALOADER_C_DocType_BY_ID = "C_DocTypeByIdDataLoader";
+	public static String DATALOADER_C_DocType_BY_UUID = "C_DocTypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_DocTypeDataLoader extends PODataLoader<MDocType_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_DocType_BY_ID_DATA_LOADER;
+		return DATALOADER_C_DocType_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_DocType_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_DocType_BY_UUID;
 	}
 }

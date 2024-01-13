@@ -29,7 +29,7 @@ public class X_C_CycleStepResolver extends POResolver<X_C_CycleStep> implements 
 			return null;
 		}
 		DataLoader<Integer, X_C_Cycle> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CycleDataLoader.C_Cycle_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CycleDataLoader.DATALOADER_C_Cycle_BY_ID);
 		return dataLoader.load(entity.getC_Cycle_ID());
 	}
 

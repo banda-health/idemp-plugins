@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_Package_Imp_Inst;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Package_Imp_InstDataLoader extends PODataLoader<X_AD_Package_Imp_Inst> {
-	public static String AD_Package_Imp_Inst_BY_ID_DATA_LOADER = "AD_Package_Imp_InstByIdDataLoader";
-	public static String AD_Package_Imp_Inst_BY_UUID_DATA_LOADER = "AD_Package_Imp_InstByUuidDataLoader";
+	public static String DATALOADER_AD_Package_Imp_Inst_BY_ID = "AD_Package_Imp_InstByIdDataLoader";
+	public static String DATALOADER_AD_Package_Imp_Inst_BY_UUID = "AD_Package_Imp_InstByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Package_Imp_InstDataLoader extends PODataLoader<X_AD_Package_I
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Package_Imp_Inst_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Package_Imp_Inst_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Package_Imp_Inst_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Package_Imp_Inst_BY_UUID;
 	}
 }

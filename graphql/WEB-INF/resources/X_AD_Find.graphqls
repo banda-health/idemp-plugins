@@ -29,7 +29,7 @@ type AD_Find {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
-	Find_ID: Int!
+	Find_ID: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Compare Operation
@@ -52,7 +52,7 @@ input AD_FindInput {
 	AD_Org: ForeignEntityInput
 	# Logical operation: AND or OR
 	AndOr: AD_Ref_ListInput
-	Find_ID: Int
+	Find_ID: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Compare Operation

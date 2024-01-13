@@ -35,7 +35,7 @@ public class X_M_PerpetualInvResolver extends POResolver<X_M_PerpetualInv> imple
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.M_Product_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.DATALOADER_M_Product_Category_BY_ID);
 		return dataLoader.load(entity.getM_Product_Category_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_M_PerpetualInvResolver extends POResolver<X_M_PerpetualInv> imple
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 

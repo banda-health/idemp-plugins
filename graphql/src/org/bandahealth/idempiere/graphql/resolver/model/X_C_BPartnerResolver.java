@@ -173,7 +173,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MLanguage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.AD_Language_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.DATALOADER_AD_Language_BY_ID);
 		return dataLoader.load(AD_LANGUAGE_IDS_BY_LANGUAGE.get(entity.getAD_Language()));
 	}
 
@@ -188,7 +188,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_GENDER_UUIDS_BY_VALUE.get(entity.getbh_gender()));
 	}
 
@@ -223,7 +223,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.C_BP_Group_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
 		return dataLoader.load(entity.getC_BP_Group_ID());
 	}
 
@@ -238,7 +238,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MDunning> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningDataLoader.C_Dunning_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningDataLoader.DATALOADER_C_Dunning_BY_ID);
 		return dataLoader.load(entity.getC_Dunning_ID());
 	}
 
@@ -253,7 +253,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_C_Greeting> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_GreetingDataLoader.C_Greeting_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_GreetingDataLoader.DATALOADER_C_Greeting_BY_ID);
 		return dataLoader.load(entity.getC_Greeting_ID());
 	}
 
@@ -268,7 +268,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MInvoiceSchedule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceScheduleDataLoader.C_InvoiceSchedule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceScheduleDataLoader.DATALOADER_C_InvoiceSchedule_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceSchedule_ID());
 	}
 
@@ -283,7 +283,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentTermDataLoader.C_PaymentTerm_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentTermDataLoader.DATALOADER_C_PaymentTerm_BY_ID);
 		return dataLoader.load(entity.getC_PaymentTerm_ID());
 	}
 
@@ -298,7 +298,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_C_TaxGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxGroupDataLoader.C_TaxGroup_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxGroupDataLoader.DATALOADER_C_TaxGroup_BY_ID);
 		return dataLoader.load(entity.getC_TaxGroup_ID());
 	}
 
@@ -313,7 +313,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_C_1099Box> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_1099BoxDataLoader.C_1099Box_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_1099BoxDataLoader.DATALOADER_C_1099Box_BY_ID);
 		return dataLoader.load(entity.getDefault1099Box_ID());
 	}
 
@@ -332,7 +332,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DELIVERYRULE_UUIDS_BY_VALUE.get(entity.getDeliveryRule()));
 	}
 
@@ -348,7 +348,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DELIVERYVIARULE_UUIDS_BY_VALUE.get(entity.getDeliveryViaRule()));
 	}
 
@@ -365,7 +365,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(FREIGHTCOSTRULE_UUIDS_BY_VALUE.get(entity.getFreightCostRule()));
 	}
 
@@ -380,7 +380,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getInvoice_PrintFormat_ID());
 	}
 
@@ -397,7 +397,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(INVOICERULE_UUIDS_BY_VALUE.get(entity.getInvoiceRule()));
 	}
 
@@ -460,7 +460,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.AD_Image_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.DATALOADER_AD_Image_BY_ID);
 		return dataLoader.load(entity.getLogo_ID());
 	}
 
@@ -475,7 +475,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.M_DiscountSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.DATALOADER_M_DiscountSchema_BY_ID);
 		return dataLoader.load(entity.getM_DiscountSchema_ID());
 	}
 
@@ -490,7 +490,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.M_PriceList_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.DATALOADER_M_PriceList_BY_ID);
 		return dataLoader.load(entity.getM_PriceList_ID());
 	}
 
@@ -512,7 +512,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAYMENTRULE_UUIDS_BY_VALUE.get(entity.getPaymentRule()));
 	}
 
@@ -534,7 +534,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAYMENTRULEPO_UUIDS_BY_VALUE.get(entity.getPaymentRulePO()));
 	}
 
@@ -549,7 +549,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.M_DiscountSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.DATALOADER_M_DiscountSchema_BY_ID);
 		return dataLoader.load(entity.getPO_DiscountSchema_ID());
 	}
 
@@ -564,7 +564,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentTermDataLoader.C_PaymentTerm_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentTermDataLoader.DATALOADER_C_PaymentTerm_BY_ID);
 		return dataLoader.load(entity.getPO_PaymentTerm_ID());
 	}
 
@@ -579,7 +579,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.M_PriceList_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.DATALOADER_M_PriceList_BY_ID);
 		return dataLoader.load(entity.getPO_PriceList_ID());
 	}
 
@@ -594,7 +594,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 
@@ -616,7 +616,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(SOCREDITSTATUS_UUIDS_BY_VALUE.get(entity.getSOCreditStatus()));
 	}
 

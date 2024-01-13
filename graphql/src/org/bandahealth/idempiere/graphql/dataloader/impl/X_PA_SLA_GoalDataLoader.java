@@ -9,8 +9,8 @@ import org.compiere.model.MSLAGoal;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_SLA_GoalDataLoader extends PODataLoader<MSLAGoal> {
-	public static String PA_SLA_Goal_BY_ID_DATA_LOADER = "PA_SLA_GoalByIdDataLoader";
-	public static String PA_SLA_Goal_BY_UUID_DATA_LOADER = "PA_SLA_GoalByUuidDataLoader";
+	public static String DATALOADER_PA_SLA_Goal_BY_ID = "PA_SLA_GoalByIdDataLoader";
+	public static String DATALOADER_PA_SLA_Goal_BY_UUID = "PA_SLA_GoalByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_SLA_GoalDataLoader extends PODataLoader<MSLAGoal> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_SLA_Goal_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_SLA_Goal_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_SLA_Goal_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_SLA_Goal_BY_UUID;
 	}
 }

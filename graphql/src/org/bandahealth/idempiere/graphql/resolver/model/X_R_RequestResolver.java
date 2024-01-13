@@ -79,7 +79,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -94,7 +94,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 
@@ -109,7 +109,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -124,7 +124,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -139,7 +139,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -154,7 +154,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -169,7 +169,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -184,7 +184,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
@@ -199,7 +199,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceRequest_ID());
 	}
 
@@ -214,7 +214,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.C_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.DATALOADER_C_Order_BY_ID);
 		return dataLoader.load(entity.getC_Order_ID());
 	}
 
@@ -229,7 +229,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.C_Payment_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.DATALOADER_C_Payment_BY_ID);
 		return dataLoader.load(entity.getC_Payment_ID());
 	}
 
@@ -244,7 +244,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -261,7 +261,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CONFIDENTIALTYPE_UUIDS_BY_VALUE.get(entity.getConfidentialType()));
 	}
 
@@ -278,7 +278,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CONFIDENTIALTYPEENTRY_UUIDS_BY_VALUE.get(entity.getConfidentialTypeEntry()));
 	}
 
@@ -294,7 +294,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DUETYPE_UUIDS_BY_VALUE.get(entity.getDueType()));
 	}
 
@@ -321,7 +321,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MChangeRequest> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeRequestDataLoader.M_ChangeRequest_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeRequestDataLoader.DATALOADER_M_ChangeRequest_BY_ID);
 		return dataLoader.load(entity.getM_ChangeRequest_ID());
 	}
 
@@ -336,7 +336,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.M_ChangeNotice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.DATALOADER_M_ChangeNotice_BY_ID);
 		return dataLoader.load(entity.getM_FixChangeNotice_ID());
 	}
 
@@ -351,7 +351,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MInOut_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutDataLoader.M_InOut_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutDataLoader.DATALOADER_M_InOut_BY_ID);
 		return dataLoader.load(entity.getM_InOut_ID());
 	}
 
@@ -366,7 +366,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -381,7 +381,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_ProductSpent_ID());
 	}
 
@@ -396,7 +396,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MRMA> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_RMADataLoader.M_RMA_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_RMADataLoader.DATALOADER_M_RMA_BY_ID);
 		return dataLoader.load(entity.getM_RMA_ID());
 	}
 
@@ -411,7 +411,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(NEXTACTION_UUIDS_BY_VALUE.get(entity.getNextAction()));
 	}
 
@@ -429,7 +429,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PRIORITY_UUIDS_BY_VALUE.get(entity.getPriority()));
 	}
 
@@ -447,7 +447,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PRIORITYUSER_UUIDS_BY_VALUE.get(entity.getPriorityUser()));
 	}
 
@@ -466,7 +466,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MRequestCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_CategoryDataLoader.R_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_CategoryDataLoader.DATALOADER_R_Category_BY_ID);
 		return dataLoader.load(entity.getR_Category_ID());
 	}
 
@@ -481,7 +481,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_GroupDataLoader.R_Group_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_GroupDataLoader.DATALOADER_R_Group_BY_ID);
 		return dataLoader.load(entity.getR_Group_ID());
 	}
 
@@ -496,7 +496,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.R_MailText_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
 		return dataLoader.load(entity.getR_MailText_ID());
 	}
 
@@ -511,7 +511,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MRequest> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestDataLoader.R_Request_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestDataLoader.DATALOADER_R_Request_BY_ID);
 		return dataLoader.load(entity.getR_RequestRelated_ID());
 	}
 
@@ -526,7 +526,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MRequestType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestTypeDataLoader.R_RequestType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestTypeDataLoader.DATALOADER_R_RequestType_BY_ID);
 		return dataLoader.load(entity.getR_RequestType_ID());
 	}
 
@@ -541,7 +541,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MResolution> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_ResolutionDataLoader.R_Resolution_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_ResolutionDataLoader.DATALOADER_R_Resolution_BY_ID);
 		return dataLoader.load(entity.getR_Resolution_ID());
 	}
 
@@ -556,7 +556,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, X_R_StandardResponse> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_StandardResponseDataLoader.R_StandardResponse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_StandardResponseDataLoader.DATALOADER_R_StandardResponse_BY_ID);
 		return dataLoader.load(entity.getR_StandardResponse_ID());
 	}
 
@@ -571,7 +571,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MStatus> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_StatusDataLoader.R_Status_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_StatusDataLoader.DATALOADER_R_Status_BY_ID);
 		return dataLoader.load(entity.getR_Status_ID());
 	}
 
@@ -586,7 +586,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 
@@ -608,7 +608,7 @@ public class X_R_RequestResolver extends POResolver<MRequest> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(TASKSTATUS_UUIDS_BY_VALUE.get(entity.getTaskStatus()));
 	}
 

@@ -21,7 +21,7 @@ type M_MovementLine {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Confirmation of a received quantity
-	ConfirmedQty: Int
+	ConfirmedQty: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -47,15 +47,15 @@ type M_MovementLine {
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Quantity of a product moved.
-	MovementQty: Int!
+	MovementQty: BigDecimal!
 	# The document has been processed
 	Processed: Boolean!
 	# Use to keep the reversal line ID for reversing costing purpose
 	ReversalLine: M_MovementLine
 	# The Quantity scrapped due to QA issues
-	ScrappedQty: Int
+	ScrappedQty: BigDecimal
 	# Target Movement Quantity
-	TargetQty: Int!
+	TargetQty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -68,7 +68,7 @@ input M_MovementLineInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Confirmation of a received quantity
-	ConfirmedQty: Int
+	ConfirmedQty: BigDecimal
 	DD_OrderLine: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
@@ -90,13 +90,13 @@ input M_MovementLineInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Quantity of a product moved.
-	MovementQty: Int
+	MovementQty: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	# Use to keep the reversal line ID for reversing costing purpose
 	ReversalLine: ForeignEntityInput
 	# The Quantity scrapped due to QA issues
-	ScrappedQty: Int
+	ScrappedQty: BigDecimal
 	# Target Movement Quantity
-	TargetQty: Int
+	TargetQty: BigDecimal
 }

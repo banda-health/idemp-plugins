@@ -33,7 +33,7 @@ public class X_R_RequestProcessorLogResolver extends POResolver<MRequestProcesso
 			return null;
 		}
 		DataLoader<Integer, MRequestProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestProcessorDataLoader.R_RequestProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestProcessorDataLoader.DATALOADER_R_RequestProcessor_BY_ID);
 		return dataLoader.load(entity.getR_RequestProcessor_ID());
 	}
 

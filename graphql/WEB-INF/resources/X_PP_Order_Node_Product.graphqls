@@ -36,7 +36,7 @@ type PP_Order_Node_Product {
 	ID: ID!
 	PP_Order_Workflow: PP_Order_Workflow!
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Date this record was updated
@@ -60,7 +60,7 @@ input PP_Order_Node_ProductInput {
 	ID: ID
 	PP_Order_Workflow: ForeignEntityInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

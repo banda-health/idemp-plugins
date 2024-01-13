@@ -33,7 +33,7 @@ public class X_AD_Column_AccessResolver extends POResolver<MColumnAccess> implem
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_AD_Column_AccessResolver extends POResolver<MColumnAccess> implem
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_AD_Column_AccessResolver extends POResolver<MColumnAccess> implem
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 

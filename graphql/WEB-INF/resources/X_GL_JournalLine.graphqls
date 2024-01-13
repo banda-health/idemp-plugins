@@ -31,13 +31,13 @@ type GL_JournalLine {
 	# Valid Account Alias List
 	Alias_ValidCombination: C_ValidCombination
 	# Accounted Credit Amount
-	AmtAcctCr: Int!
+	AmtAcctCr: BigDecimal!
 	# Accounted Debit Amount
-	AmtAcctDr: Int!
+	AmtAcctDr: BigDecimal!
 	# Source Credit Amount
-	AmtSourceCr: Int!
+	AmtSourceCr: BigDecimal!
 	# Source Debit Amount
-	AmtSourceDr: Int!
+	AmtSourceDr: BigDecimal!
 	# Business Activity
 	C_Activity: C_Activity
 	# Identifies a Business Partner
@@ -67,7 +67,7 @@ type GL_JournalLine {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Currency Conversion Rate
-	CurrencyRate: Int!
+	CurrencyRate: BigDecimal!
 	# Accounting Date
 	DateAcct: Date!
 	# Optional short description of the record
@@ -86,7 +86,7 @@ type GL_JournalLine {
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -111,13 +111,13 @@ input GL_JournalLineInput {
 	# Valid Account Alias List
 	Alias_ValidCombination: ForeignEntityInput
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
+	AmtAcctDr: BigDecimal
 	# Source Credit Amount
-	AmtSourceCr: Int
+	AmtSourceCr: BigDecimal
 	# Source Debit Amount
-	AmtSourceDr: Int
+	AmtSourceDr: BigDecimal
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Identifies a Business Partner
@@ -143,7 +143,7 @@ input GL_JournalLineInput {
 	# Valid Account Combination
 	C_ValidCombination: ForeignEntityInput
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record
@@ -162,7 +162,7 @@ input GL_JournalLineInput {
 	# The document has been processed
 	Processed: Boolean
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2

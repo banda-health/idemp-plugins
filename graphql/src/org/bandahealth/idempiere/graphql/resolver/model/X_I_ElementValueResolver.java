@@ -39,7 +39,7 @@ public class X_I_ElementValueResolver extends POResolver<X_I_ElementValue> imple
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ACCOUNTSIGN_UUIDS_BY_VALUE.get(entity.getAccountSign()));
 	}
 
@@ -58,7 +58,7 @@ public class X_I_ElementValueResolver extends POResolver<X_I_ElementValue> imple
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ACCOUNTTYPE_UUIDS_BY_VALUE.get(entity.getAccountType()));
 	}
 
@@ -73,7 +73,7 @@ public class X_I_ElementValueResolver extends POResolver<X_I_ElementValue> imple
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -88,7 +88,7 @@ public class X_I_ElementValueResolver extends POResolver<X_I_ElementValue> imple
 			return null;
 		}
 		DataLoader<Integer, MElement> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementDataLoader.C_Element_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementDataLoader.DATALOADER_C_Element_BY_ID);
 		return dataLoader.load(entity.getC_Element_ID());
 	}
 
@@ -103,7 +103,7 @@ public class X_I_ElementValueResolver extends POResolver<X_I_ElementValue> imple
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getC_ElementValue_ID());
 	}
 
@@ -130,7 +130,7 @@ public class X_I_ElementValueResolver extends POResolver<X_I_ElementValue> imple
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getParentElementValue_ID());
 	}
 

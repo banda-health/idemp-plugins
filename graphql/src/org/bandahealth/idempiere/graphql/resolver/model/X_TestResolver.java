@@ -43,7 +43,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getAccount_Acct());
 	}
 
@@ -58,7 +58,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -73,7 +73,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -88,7 +88,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_Location_ID());
 	}
 
@@ -103,7 +103,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.C_Payment_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.DATALOADER_C_Payment_BY_ID);
 		return dataLoader.load(entity.getC_Payment_ID());
 	}
 
@@ -118,7 +118,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -133,7 +133,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.M_Locator_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.DATALOADER_M_Locator_BY_ID);
 		return dataLoader.load(entity.getM_Locator_ID());
 	}
 
@@ -148,7 +148,7 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

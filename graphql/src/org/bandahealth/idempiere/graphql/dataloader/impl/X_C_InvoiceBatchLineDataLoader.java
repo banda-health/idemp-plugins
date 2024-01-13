@@ -9,8 +9,8 @@ import org.compiere.model.MInvoiceBatchLine;
  * @version Release 8.2 - $Id$
  */
 public class X_C_InvoiceBatchLineDataLoader extends PODataLoader<MInvoiceBatchLine> {
-	public static String C_InvoiceBatchLine_BY_ID_DATA_LOADER = "C_InvoiceBatchLineByIdDataLoader";
-	public static String C_InvoiceBatchLine_BY_UUID_DATA_LOADER = "C_InvoiceBatchLineByUuidDataLoader";
+	public static String DATALOADER_C_InvoiceBatchLine_BY_ID = "C_InvoiceBatchLineByIdDataLoader";
+	public static String DATALOADER_C_InvoiceBatchLine_BY_UUID = "C_InvoiceBatchLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_InvoiceBatchLineDataLoader extends PODataLoader<MInvoiceBatchLi
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_InvoiceBatchLine_BY_ID_DATA_LOADER;
+		return DATALOADER_C_InvoiceBatchLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_InvoiceBatchLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_InvoiceBatchLine_BY_UUID;
 	}
 }

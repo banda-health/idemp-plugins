@@ -41,7 +41,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 
@@ -56,7 +56,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -75,7 +75,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CHARTTYPE_UUIDS_BY_VALUE.get(entity.getChartType()));
 	}
 
@@ -98,7 +98,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(MEASUREDISPLAY_UUIDS_BY_VALUE.get(entity.getMeasureDisplay()));
 	}
 
@@ -117,7 +117,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(MEASURESCOPE_UUIDS_BY_VALUE.get(entity.getMeasureScope()));
 	}
 
@@ -132,7 +132,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, MColorSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ColorSchemaDataLoader.PA_ColorSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ColorSchemaDataLoader.DATALOADER_PA_ColorSchema_BY_ID);
 		return dataLoader.load(entity.getPA_ColorSchema_ID());
 	}
 
@@ -147,7 +147,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, MGoal> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_GoalDataLoader.PA_Goal_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_GoalDataLoader.DATALOADER_PA_Goal_BY_ID);
 		return dataLoader.load(entity.getPA_GoalParent_ID());
 	}
 
@@ -162,7 +162,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, MMeasure> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_MeasureDataLoader.PA_Measure_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_MeasureDataLoader.DATALOADER_PA_Measure_BY_ID);
 		return dataLoader.load(entity.getPA_Measure_ID());
 	}
 

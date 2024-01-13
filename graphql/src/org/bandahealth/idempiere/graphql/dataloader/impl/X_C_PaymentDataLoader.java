@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_C_PaymentDataLoader extends PODataLoader<MPayment_BH> {
-	public static String C_Payment_BY_ID_DATA_LOADER = "C_PaymentByIdDataLoader";
-	public static String C_Payment_BY_UUID_DATA_LOADER = "C_PaymentByUuidDataLoader";
+	public static String DATALOADER_C_Payment_BY_ID = "C_PaymentByIdDataLoader";
+	public static String DATALOADER_C_Payment_BY_UUID = "C_PaymentByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_PaymentDataLoader extends PODataLoader<MPayment_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Payment_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Payment_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Payment_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Payment_BY_UUID;
 	}
 }

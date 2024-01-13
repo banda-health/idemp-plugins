@@ -33,7 +33,7 @@ public class X_PA_DashboardPreferenceResolver extends POResolver<MDashboardPrefe
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_PA_DashboardPreferenceResolver extends POResolver<MDashboardPrefe
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -71,7 +71,7 @@ public class X_PA_DashboardPreferenceResolver extends POResolver<MDashboardPrefe
 			return null;
 		}
 		DataLoader<Integer, MDashboardContent> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_DashboardContentDataLoader.PA_DashboardContent_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_DashboardContentDataLoader.DATALOADER_PA_DashboardContent_BY_ID);
 		return dataLoader.load(entity.getPA_DashboardContent_ID());
 	}
 

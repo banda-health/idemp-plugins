@@ -43,7 +43,7 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 			return null;
 		}
 		DataLoader<Integer, MDunning> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningDataLoader.C_Dunning_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningDataLoader.DATALOADER_C_Dunning_BY_ID);
 		return dataLoader.load(entity.getC_Dunning_ID());
 	}
 
@@ -58,7 +58,7 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentTermDataLoader.C_PaymentTerm_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentTermDataLoader.DATALOADER_C_PaymentTerm_BY_ID);
 		return dataLoader.load(entity.getC_PaymentTerm_ID());
 	}
 
@@ -81,7 +81,7 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getDunning_PrintFormat_ID());
 	}
 
@@ -98,7 +98,7 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(INVOICECOLLECTIONTYPE_UUIDS_BY_VALUE.get(entity.getInvoiceCollectionType()));
 	}
 
@@ -132,7 +132,7 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 			return CompletableFuture.supplyAsync(entity::getNote);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_DunningLevel_TrlDataLoader.C_DunningLevel_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_DunningLevel_TrlDataLoader.DATALOADER_C_DunningLevel_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MDunningLevel.COLUMNNAME_Note));
 	}
@@ -147,7 +147,7 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 			return CompletableFuture.supplyAsync(entity::getPrintName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_DunningLevel_TrlDataLoader.C_DunningLevel_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_DunningLevel_TrlDataLoader.DATALOADER_C_DunningLevel_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MDunningLevel.COLUMNNAME_PrintName));
 	}

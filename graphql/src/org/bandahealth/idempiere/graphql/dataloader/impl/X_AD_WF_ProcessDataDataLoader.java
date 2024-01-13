@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_WF_ProcessData;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_WF_ProcessDataDataLoader extends PODataLoader<X_AD_WF_ProcessData> {
-	public static String AD_WF_ProcessData_BY_ID_DATA_LOADER = "AD_WF_ProcessDataByIdDataLoader";
-	public static String AD_WF_ProcessData_BY_UUID_DATA_LOADER = "AD_WF_ProcessDataByUuidDataLoader";
+	public static String DATALOADER_AD_WF_ProcessData_BY_ID = "AD_WF_ProcessDataByIdDataLoader";
+	public static String DATALOADER_AD_WF_ProcessData_BY_UUID = "AD_WF_ProcessDataByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_WF_ProcessDataDataLoader extends PODataLoader<X_AD_WF_ProcessD
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_WF_ProcessData_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_WF_ProcessData_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_WF_ProcessData_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_WF_ProcessData_BY_UUID;
 	}
 }

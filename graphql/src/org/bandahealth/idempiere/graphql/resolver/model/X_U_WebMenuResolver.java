@@ -32,7 +32,7 @@ public class X_U_WebMenuResolver extends POResolver<MWebMenu> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MWebMenu> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_U_WebMenuDataLoader.U_WebMenu_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_U_WebMenuDataLoader.DATALOADER_U_WebMenu_BY_ID);
 		return dataLoader.load(entity.getParentMenu_ID());
 	}
 

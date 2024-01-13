@@ -31,7 +31,7 @@ public class X_AD_PInstance_LogResolver extends POResolver<X_AD_PInstance_Log> i
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.AD_PInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.DATALOADER_AD_PInstance_BY_ID);
 		return dataLoader.load(entity.getAD_PInstance_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_PInstance_LogResolver extends POResolver<X_AD_PInstance_Log> i
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 

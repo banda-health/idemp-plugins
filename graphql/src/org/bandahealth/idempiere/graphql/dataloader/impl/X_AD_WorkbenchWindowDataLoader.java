@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_WorkbenchWindow;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_WorkbenchWindowDataLoader extends PODataLoader<X_AD_WorkbenchWindow> {
-	public static String AD_WorkbenchWindow_BY_ID_DATA_LOADER = "AD_WorkbenchWindowByIdDataLoader";
-	public static String AD_WorkbenchWindow_BY_UUID_DATA_LOADER = "AD_WorkbenchWindowByUuidDataLoader";
+	public static String DATALOADER_AD_WorkbenchWindow_BY_ID = "AD_WorkbenchWindowByIdDataLoader";
+	public static String DATALOADER_AD_WorkbenchWindow_BY_UUID = "AD_WorkbenchWindowByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_WorkbenchWindowDataLoader extends PODataLoader<X_AD_WorkbenchW
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_WorkbenchWindow_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_WorkbenchWindow_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_WorkbenchWindow_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_WorkbenchWindow_BY_UUID;
 	}
 }

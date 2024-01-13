@@ -41,7 +41,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -56,7 +56,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.C_BPartner_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.DATALOADER_C_BPartner_Location_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_Location_ID());
 	}
 
@@ -71,7 +71,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 			return null;
 		}
 		DataLoader<Integer, MDistributionList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DistributionListDataLoader.M_DistributionList_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DistributionListDataLoader.DATALOADER_M_DistributionList_BY_ID);
 		return dataLoader.load(entity.getM_DistributionList_ID());
 	}
 
@@ -86,7 +86,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 			return null;
 		}
 		DataLoader<Integer, MDistributionListLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DistributionListLineDataLoader.M_DistributionListLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DistributionListLineDataLoader.DATALOADER_M_DistributionListLine_BY_ID);
 		return dataLoader.load(entity.getM_DistributionListLine_ID());
 	}
 
@@ -101,7 +101,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 			return null;
 		}
 		DataLoader<Integer, MDistributionRun> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DistributionRunDataLoader.M_DistributionRun_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DistributionRunDataLoader.DATALOADER_M_DistributionRun_BY_ID);
 		return dataLoader.load(entity.getM_DistributionRun_ID());
 	}
 
@@ -116,7 +116,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 			return null;
 		}
 		DataLoader<Integer, MDistributionRunLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DistributionRunLineDataLoader.M_DistributionRunLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DistributionRunLineDataLoader.DATALOADER_M_DistributionRunLine_BY_ID);
 		return dataLoader.load(entity.getM_DistributionRunLine_ID());
 	}
 
@@ -131,7 +131,7 @@ public class X_T_DistributionRunDetailResolver extends POResolver<MDistributionR
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

@@ -23,13 +23,13 @@ type C_TaxDeclarationAcct {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
+	AmtAcctDr: BigDecimal
 	# Source Credit Amount
-	AmtSourceCr: Int
+	AmtSourceCr: BigDecimal
 	# Source Debit Amount
-	AmtSourceDr: Int
+	AmtSourceDr: BigDecimal
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Identifies a Business Partner

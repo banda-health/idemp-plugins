@@ -29,7 +29,7 @@ public class X_C_ServiceLevelLineResolver extends POResolver<X_C_ServiceLevelLin
 			return null;
 		}
 		DataLoader<Integer, X_C_ServiceLevel> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ServiceLevelDataLoader.C_ServiceLevel_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ServiceLevelDataLoader.DATALOADER_C_ServiceLevel_BY_ID);
 		return dataLoader.load(entity.getC_ServiceLevel_ID());
 	}
 

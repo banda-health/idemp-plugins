@@ -40,7 +40,7 @@ type M_ProductionPlan {
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity of products to produce
-	ProductionQty: Int!
+	ProductionQty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -66,5 +66,5 @@ input M_ProductionPlanInput {
 	# The document has been processed
 	Processed: Boolean
 	# Quantity of products to produce
-	ProductionQty: Int
+	ProductionQty: BigDecimal
 }

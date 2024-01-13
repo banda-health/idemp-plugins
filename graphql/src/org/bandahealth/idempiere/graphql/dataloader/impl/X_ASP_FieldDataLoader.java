@@ -9,8 +9,8 @@ import org.compiere.model.X_ASP_Field;
  * @version Release 8.2 - $Id$
  */
 public class X_ASP_FieldDataLoader extends PODataLoader<X_ASP_Field> {
-	public static String ASP_Field_BY_ID_DATA_LOADER = "ASP_FieldByIdDataLoader";
-	public static String ASP_Field_BY_UUID_DATA_LOADER = "ASP_FieldByUuidDataLoader";
+	public static String DATALOADER_ASP_Field_BY_ID = "ASP_FieldByIdDataLoader";
+	public static String DATALOADER_ASP_Field_BY_UUID = "ASP_FieldByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_ASP_FieldDataLoader extends PODataLoader<X_ASP_Field> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return ASP_Field_BY_ID_DATA_LOADER;
+		return DATALOADER_ASP_Field_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return ASP_Field_BY_UUID_DATA_LOADER;
+		return DATALOADER_ASP_Field_BY_UUID;
 	}
 }

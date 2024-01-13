@@ -9,8 +9,8 @@ import org.compiere.model.MPasswordHistory;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Password_HistoryDataLoader extends PODataLoader<MPasswordHistory> {
-	public static String AD_Password_History_BY_ID_DATA_LOADER = "AD_Password_HistoryByIdDataLoader";
-	public static String AD_Password_History_BY_UUID_DATA_LOADER = "AD_Password_HistoryByUuidDataLoader";
+	public static String DATALOADER_AD_Password_History_BY_ID = "AD_Password_HistoryByIdDataLoader";
+	public static String DATALOADER_AD_Password_History_BY_UUID = "AD_Password_HistoryByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Password_HistoryDataLoader extends PODataLoader<MPasswordHisto
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Password_History_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Password_History_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Password_History_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Password_History_BY_UUID;
 	}
 }

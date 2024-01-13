@@ -9,8 +9,8 @@ import org.eevolution.model.X_HR_Contract;
  * @version Release 8.2 - $Id$
  */
 public class X_HR_ContractDataLoader extends PODataLoader<X_HR_Contract> {
-	public static String HR_Contract_BY_ID_DATA_LOADER = "HR_ContractByIdDataLoader";
-	public static String HR_Contract_BY_UUID_DATA_LOADER = "HR_ContractByUuidDataLoader";
+	public static String DATALOADER_HR_Contract_BY_ID = "HR_ContractByIdDataLoader";
+	public static String DATALOADER_HR_Contract_BY_UUID = "HR_ContractByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_HR_ContractDataLoader extends PODataLoader<X_HR_Contract> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return HR_Contract_BY_ID_DATA_LOADER;
+		return DATALOADER_HR_Contract_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return HR_Contract_BY_UUID_DATA_LOADER;
+		return DATALOADER_HR_Contract_BY_UUID;
 	}
 }

@@ -39,7 +39,7 @@ type M_ShipperPackaging {
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 }
 
 input M_ShipperPackagingInput {
@@ -56,5 +56,5 @@ input M_ShipperPackagingInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 }

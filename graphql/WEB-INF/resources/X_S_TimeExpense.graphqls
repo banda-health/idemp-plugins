@@ -21,7 +21,7 @@ type S_TimeExpense {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Document Approval Amount
-	ApprovalAmt: Int
+	ApprovalAmt: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Date this record was created
@@ -60,7 +60,7 @@ input S_TimeExpenseInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Document Approval Amount
-	ApprovalAmt: Int
+	ApprovalAmt: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Expense/Time Report Date

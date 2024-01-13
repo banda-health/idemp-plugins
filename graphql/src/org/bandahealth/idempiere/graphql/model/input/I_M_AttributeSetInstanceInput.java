@@ -25,6 +25,25 @@ public interface I_M_AttributeSetInstanceInput extends I_M_AttributeSetInstance 
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Column name BH_GuaranteeDateString
+	 */
+	static final String COLUMNNAME_BH_GuaranteeDateString = "BH_GuaranteeDateString";
+
+	/**
+	 * Set Guarantee Date String.
+	 *
+	 * @param BH_GuaranteeDateString String date when guarantee expires
+	 */
+	void setBH_GuaranteeDateString(String BH_GuaranteeDateString);
+
+	/**
+	 * Get Guarantee Date String.
+	 *
+	 * @return String date when guarantee expires
+	 */
+	String getBH_GuaranteeDateString();
+
+	/**
 	 * Set bh_update_reason.
 	 *
 	 * @param bh_update_reason bh_update_reason

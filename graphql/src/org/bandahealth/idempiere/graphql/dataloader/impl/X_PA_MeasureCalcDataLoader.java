@@ -9,8 +9,8 @@ import org.compiere.model.MMeasureCalc;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_MeasureCalcDataLoader extends PODataLoader<MMeasureCalc> {
-	public static String PA_MeasureCalc_BY_ID_DATA_LOADER = "PA_MeasureCalcByIdDataLoader";
-	public static String PA_MeasureCalc_BY_UUID_DATA_LOADER = "PA_MeasureCalcByUuidDataLoader";
+	public static String DATALOADER_PA_MeasureCalc_BY_ID = "PA_MeasureCalcByIdDataLoader";
+	public static String DATALOADER_PA_MeasureCalc_BY_UUID = "PA_MeasureCalcByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_MeasureCalcDataLoader extends PODataLoader<MMeasureCalc> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_MeasureCalc_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_MeasureCalc_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_MeasureCalc_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_MeasureCalc_BY_UUID;
 	}
 }

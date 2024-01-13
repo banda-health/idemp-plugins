@@ -9,8 +9,8 @@ import org.compiere.model.X_C_BankAccount_Acct;
  * @version Release 8.2 - $Id$
  */
 public class X_C_BankAccount_AcctDataLoader extends PODataLoader<X_C_BankAccount_Acct> {
-	public static String C_BankAccount_Acct_BY_ID_DATA_LOADER = "C_BankAccount_AcctByIdDataLoader";
-	public static String C_BankAccount_Acct_BY_UUID_DATA_LOADER = "C_BankAccount_AcctByUuidDataLoader";
+	public static String DATALOADER_C_BankAccount_Acct_BY_ID = "C_BankAccount_AcctByIdDataLoader";
+	public static String DATALOADER_C_BankAccount_Acct_BY_UUID = "C_BankAccount_AcctByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_BankAccount_AcctDataLoader extends PODataLoader<X_C_BankAccount
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_BankAccount_Acct_BY_ID_DATA_LOADER;
+		return DATALOADER_C_BankAccount_Acct_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_BankAccount_Acct_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_BankAccount_Acct_BY_UUID;
 	}
 }

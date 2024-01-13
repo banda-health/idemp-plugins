@@ -9,8 +9,8 @@ import org.compiere.model.MBlackListCheque;
  * @version Release 8.2 - $Id$
  */
 public class X_U_BlackListChequeDataLoader extends PODataLoader<MBlackListCheque> {
-	public static String U_BlackListCheque_BY_ID_DATA_LOADER = "U_BlackListChequeByIdDataLoader";
-	public static String U_BlackListCheque_BY_UUID_DATA_LOADER = "U_BlackListChequeByUuidDataLoader";
+	public static String DATALOADER_U_BlackListCheque_BY_ID = "U_BlackListChequeByIdDataLoader";
+	public static String DATALOADER_U_BlackListCheque_BY_UUID = "U_BlackListChequeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_U_BlackListChequeDataLoader extends PODataLoader<MBlackListCheque
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return U_BlackListCheque_BY_ID_DATA_LOADER;
+		return DATALOADER_U_BlackListCheque_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return U_BlackListCheque_BY_UUID_DATA_LOADER;
+		return DATALOADER_U_BlackListCheque_BY_UUID;
 	}
 }

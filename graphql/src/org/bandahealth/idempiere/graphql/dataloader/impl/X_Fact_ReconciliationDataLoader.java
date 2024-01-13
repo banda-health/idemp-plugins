@@ -9,8 +9,8 @@ import org.compiere.model.MFactReconciliation;
  * @version Release 8.2 - $Id$
  */
 public class X_Fact_ReconciliationDataLoader extends PODataLoader<MFactReconciliation> {
-	public static String Fact_Reconciliation_BY_ID_DATA_LOADER = "Fact_ReconciliationByIdDataLoader";
-	public static String Fact_Reconciliation_BY_UUID_DATA_LOADER = "Fact_ReconciliationByUuidDataLoader";
+	public static String DATALOADER_Fact_Reconciliation_BY_ID = "Fact_ReconciliationByIdDataLoader";
+	public static String DATALOADER_Fact_Reconciliation_BY_UUID = "Fact_ReconciliationByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_Fact_ReconciliationDataLoader extends PODataLoader<MFactReconcili
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return Fact_Reconciliation_BY_ID_DATA_LOADER;
+		return DATALOADER_Fact_Reconciliation_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return Fact_Reconciliation_BY_UUID_DATA_LOADER;
+		return DATALOADER_Fact_Reconciliation_BY_UUID;
 	}
 }

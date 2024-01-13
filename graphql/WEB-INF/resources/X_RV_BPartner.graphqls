@@ -17,9 +17,9 @@ type RV_BPartnerConnection {
 
 type RV_BPartner {
 	# The cost of gaining the prospect as a customer
-	AcqusitionCost: Int
+	AcqusitionCost: BigDecimal
 	# Actual Life Time Revenue
-	ActualLifeTimeValue: Int
+	ActualLifeTimeValue: BigDecimal
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Language for this entity
@@ -141,7 +141,7 @@ type RV_BPartner {
 	# Date of First Sale
 	FirstSale: Date
 	# Flat discount percentage 
-	FlatDiscount: Int
+	FlatDiscount: BigDecimal
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_List
 	# Print Format for printing Invoices
@@ -210,7 +210,7 @@ type RV_BPartner {
 	# Additional ZIP or Postal code
 	Postal_Add: String
 	# Total Revenue expected
-	PotentialLifeTimeValue: Int
+	PotentialLifeTimeValue: BigDecimal
 	# Classification or Importance
 	Rating: String
 	# Your customer or vendor number at the Business Partner's site
@@ -220,7 +220,7 @@ type RV_BPartner {
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
 	# Total Volume of Sales in Thousands of Currency
-	SalesVolume: Int
+	SalesVolume: BigDecimal
 	# Enable sending Document EMail
 	SendEMail: Boolean!
 	# Share of Customer's business as a percentage
@@ -228,11 +228,11 @@ type RV_BPartner {
 	# Minimum Shelf Life in percent based on Product Instance Guarantee Date
 	ShelfLifeMinPct: Int
 	# Available Credit based on Credit Limit (not Total Open Balance) and Credit Used
-	SO_CreditAvailable: Int
+	SO_CreditAvailable: BigDecimal
 	# Total outstanding invoice amounts allowed
-	SO_CreditLimit: Int
+	SO_CreditLimit: BigDecimal
 	# Current open balance
-	SO_CreditUsed: Int
+	SO_CreditUsed: BigDecimal
 	# Description to be used on orders
 	SO_Description: String
 	# Business Partner Credit Status
@@ -244,7 +244,7 @@ type RV_BPartner {
 	# Name this entity is referred to as
 	Title: String
 	# Total Open Balance Amount in primary Accounting Currency
-	TotalOpenBalance: Int
+	TotalOpenBalance: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -257,9 +257,9 @@ type RV_BPartner {
 
 input RV_BPartnerInput {
 	# The cost of gaining the prospect as a customer
-	AcqusitionCost: Int
+	AcqusitionCost: BigDecimal
 	# Actual Life Time Revenue
-	ActualLifeTimeValue: Int
+	ActualLifeTimeValue: BigDecimal
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within client
@@ -375,7 +375,7 @@ input RV_BPartnerInput {
 	# Date of First Sale
 	FirstSale: Date
 	# Flat discount percentage 
-	FlatDiscount: Int
+	FlatDiscount: BigDecimal
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_ListInput
 	# Print Format for printing Invoices
@@ -444,7 +444,7 @@ input RV_BPartnerInput {
 	# Additional ZIP or Postal code
 	Postal_Add: String
 	# Total Revenue expected
-	PotentialLifeTimeValue: Int
+	PotentialLifeTimeValue: BigDecimal
 	# Classification or Importance
 	Rating: String
 	# Your customer or vendor number at the Business Partner's site
@@ -454,7 +454,7 @@ input RV_BPartnerInput {
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
 	# Total Volume of Sales in Thousands of Currency
-	SalesVolume: Int
+	SalesVolume: BigDecimal
 	# Enable sending Document EMail
 	SendEMail: Boolean
 	# Share of Customer's business as a percentage
@@ -462,11 +462,11 @@ input RV_BPartnerInput {
 	# Minimum Shelf Life in percent based on Product Instance Guarantee Date
 	ShelfLifeMinPct: Int
 	# Available Credit based on Credit Limit (not Total Open Balance) and Credit Used
-	SO_CreditAvailable: Int
+	SO_CreditAvailable: BigDecimal
 	# Total outstanding invoice amounts allowed
-	SO_CreditLimit: Int
+	SO_CreditLimit: BigDecimal
 	# Current open balance
-	SO_CreditUsed: Int
+	SO_CreditUsed: BigDecimal
 	# Description to be used on orders
 	SO_Description: String
 	# Business Partner Credit Status
@@ -478,7 +478,7 @@ input RV_BPartnerInput {
 	# Name this entity is referred to as
 	Title: String
 	# Total Open Balance Amount in primary Accounting Currency
-	TotalOpenBalance: Int
+	TotalOpenBalance: BigDecimal
 	# Full URL address - e.g. http://www.idempiere.org
 	URL: String
 	# Search key for the record in the format required - must be unique

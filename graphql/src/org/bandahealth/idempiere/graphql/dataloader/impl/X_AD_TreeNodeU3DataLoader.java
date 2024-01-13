@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_TreeNodeU3;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_TreeNodeU3DataLoader extends PODataLoader<X_AD_TreeNodeU3> {
-	public static String AD_TreeNodeU3_BY_ID_DATA_LOADER = "AD_TreeNodeU3ByIdDataLoader";
-	public static String AD_TreeNodeU3_BY_UUID_DATA_LOADER = "AD_TreeNodeU3ByUuidDataLoader";
+	public static String DATALOADER_AD_TreeNodeU3_BY_ID = "AD_TreeNodeU3ByIdDataLoader";
+	public static String DATALOADER_AD_TreeNodeU3_BY_UUID = "AD_TreeNodeU3ByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_TreeNodeU3DataLoader extends PODataLoader<X_AD_TreeNodeU3> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_TreeNodeU3_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_TreeNodeU3_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_TreeNodeU3_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_TreeNodeU3_BY_UUID;
 	}
 }

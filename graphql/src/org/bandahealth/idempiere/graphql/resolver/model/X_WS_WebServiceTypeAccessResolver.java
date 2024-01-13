@@ -31,7 +31,7 @@ public class X_WS_WebServiceTypeAccessResolver extends POResolver<X_WS_WebServic
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_WS_WebServiceTypeAccessResolver extends POResolver<X_WS_WebServic
 			return null;
 		}
 		DataLoader<Integer, X_WS_WebServiceType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceTypeDataLoader.WS_WebServiceType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceTypeDataLoader.DATALOADER_WS_WebServiceType_BY_ID);
 		return dataLoader.load(entity.getWS_WebServiceType_ID());
 	}
 

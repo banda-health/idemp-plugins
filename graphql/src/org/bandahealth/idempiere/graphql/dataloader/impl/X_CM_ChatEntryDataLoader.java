@@ -9,8 +9,8 @@ import org.compiere.model.MChatEntry;
  * @version Release 8.2 - $Id$
  */
 public class X_CM_ChatEntryDataLoader extends PODataLoader<MChatEntry> {
-	public static String CM_ChatEntry_BY_ID_DATA_LOADER = "CM_ChatEntryByIdDataLoader";
-	public static String CM_ChatEntry_BY_UUID_DATA_LOADER = "CM_ChatEntryByUuidDataLoader";
+	public static String DATALOADER_CM_ChatEntry_BY_ID = "CM_ChatEntryByIdDataLoader";
+	public static String DATALOADER_CM_ChatEntry_BY_UUID = "CM_ChatEntryByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_CM_ChatEntryDataLoader extends PODataLoader<MChatEntry> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return CM_ChatEntry_BY_ID_DATA_LOADER;
+		return DATALOADER_CM_ChatEntry_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return CM_ChatEntry_BY_UUID_DATA_LOADER;
+		return DATALOADER_CM_ChatEntry_BY_UUID;
 	}
 }

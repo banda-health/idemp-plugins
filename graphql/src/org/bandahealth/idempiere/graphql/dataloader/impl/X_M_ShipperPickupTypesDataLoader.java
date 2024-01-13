@@ -9,8 +9,8 @@ import org.compiere.model.MShipperPickupTypes;
  * @version Release 8.2 - $Id$
  */
 public class X_M_ShipperPickupTypesDataLoader extends PODataLoader<MShipperPickupTypes> {
-	public static String M_ShipperPickupTypes_BY_ID_DATA_LOADER = "M_ShipperPickupTypesByIdDataLoader";
-	public static String M_ShipperPickupTypes_BY_UUID_DATA_LOADER = "M_ShipperPickupTypesByUuidDataLoader";
+	public static String DATALOADER_M_ShipperPickupTypes_BY_ID = "M_ShipperPickupTypesByIdDataLoader";
+	public static String DATALOADER_M_ShipperPickupTypes_BY_UUID = "M_ShipperPickupTypesByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_ShipperPickupTypesDataLoader extends PODataLoader<MShipperPicku
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_ShipperPickupTypes_BY_ID_DATA_LOADER;
+		return DATALOADER_M_ShipperPickupTypes_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_ShipperPickupTypes_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_ShipperPickupTypes_BY_UUID;
 	}
 }

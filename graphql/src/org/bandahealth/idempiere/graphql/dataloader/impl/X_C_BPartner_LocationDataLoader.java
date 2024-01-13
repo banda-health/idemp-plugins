@@ -9,8 +9,8 @@ import org.compiere.model.MBPartnerLocation;
  * @version Release 8.2 - $Id$
  */
 public class X_C_BPartner_LocationDataLoader extends PODataLoader<MBPartnerLocation> {
-	public static String C_BPartner_Location_BY_ID_DATA_LOADER = "C_BPartner_LocationByIdDataLoader";
-	public static String C_BPartner_Location_BY_UUID_DATA_LOADER = "C_BPartner_LocationByUuidDataLoader";
+	public static String DATALOADER_C_BPartner_Location_BY_ID = "C_BPartner_LocationByIdDataLoader";
+	public static String DATALOADER_C_BPartner_Location_BY_UUID = "C_BPartner_LocationByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_BPartner_LocationDataLoader extends PODataLoader<MBPartnerLocat
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_BPartner_Location_BY_ID_DATA_LOADER;
+		return DATALOADER_C_BPartner_Location_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_BPartner_Location_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_BPartner_Location_BY_UUID;
 	}
 }

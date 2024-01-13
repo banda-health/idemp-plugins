@@ -41,7 +41,7 @@ type M_ShipperPackagingCfg {
 	# Search key for the record in the format required - must be unique
 	Value: String!
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 }
 
 input M_ShipperPackagingCfgInput {
@@ -60,5 +60,5 @@ input M_ShipperPackagingCfgInput {
 	# Search key for the record in the format required - must be unique
 	Value: String
 	# Weight of a product
-	Weight: Int
+	Weight: BigDecimal
 }

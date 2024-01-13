@@ -35,7 +35,7 @@ public class X_M_DemandDetailResolver extends POResolver<X_M_DemandDetail> imple
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.C_OrderLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.DATALOADER_C_OrderLine_BY_ID);
 		return dataLoader.load(entity.getC_OrderLine_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_M_DemandDetailResolver extends POResolver<X_M_DemandDetail> imple
 			return null;
 		}
 		DataLoader<Integer, X_M_DemandLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DemandLineDataLoader.M_DemandLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DemandLineDataLoader.DATALOADER_M_DemandLine_BY_ID);
 		return dataLoader.load(entity.getM_DemandLine_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_M_DemandDetailResolver extends POResolver<X_M_DemandDetail> imple
 			return null;
 		}
 		DataLoader<Integer, MForecastLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastLineDataLoader.M_ForecastLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastLineDataLoader.DATALOADER_M_ForecastLine_BY_ID);
 		return dataLoader.load(entity.getM_ForecastLine_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_M_DemandDetailResolver extends POResolver<X_M_DemandDetail> imple
 			return null;
 		}
 		DataLoader<Integer, MRequisitionLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_RequisitionLineDataLoader.M_RequisitionLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_RequisitionLineDataLoader.DATALOADER_M_RequisitionLine_BY_ID);
 		return dataLoader.load(entity.getM_RequisitionLine_ID());
 	}
 

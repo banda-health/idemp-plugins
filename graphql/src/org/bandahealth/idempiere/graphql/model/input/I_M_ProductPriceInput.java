@@ -25,6 +25,25 @@ public interface I_M_ProductPriceInput extends I_M_ProductPrice {
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Column name BH_NavButtons
+	 */
+	static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	void setBH_NavButtons(Object BH_NavButtons);
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	Object getBH_NavButtons();
+
+	/**
 	 * Set M_PriceList_Version.
 	 *
 	 * @param M_PriceList_Version Identifies a unique instance of a Price List
@@ -65,4 +84,23 @@ public interface I_M_ProductPriceInput extends I_M_ProductPrice {
 	 * @return ID
 	 */
 	String getID();
+
+	/**
+	 * Column name ProductName
+	 */
+	static final String COLUMNNAME_ProductName = "ProductName";
+
+	/**
+	 * Set Product Name.
+	 *
+	 * @param ProductName Name of the Product
+	 */
+	void setProductName(String ProductName);
+
+	/**
+	 * Get Product Name.
+	 *
+	 * @return Name of the Product
+	 */
+	String getProductName();
 }

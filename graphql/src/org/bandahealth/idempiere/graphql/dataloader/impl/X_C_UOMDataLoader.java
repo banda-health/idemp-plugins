@@ -9,8 +9,8 @@ import org.compiere.model.MUOM;
  * @version Release 8.2 - $Id$
  */
 public class X_C_UOMDataLoader extends PODataLoader<MUOM> {
-	public static String C_UOM_BY_ID_DATA_LOADER = "C_UOMByIdDataLoader";
-	public static String C_UOM_BY_UUID_DATA_LOADER = "C_UOMByUuidDataLoader";
+	public static String DATALOADER_C_UOM_BY_ID = "C_UOMByIdDataLoader";
+	public static String DATALOADER_C_UOM_BY_UUID = "C_UOMByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_UOMDataLoader extends PODataLoader<MUOM> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_UOM_BY_ID_DATA_LOADER;
+		return DATALOADER_C_UOM_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_UOM_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_UOM_BY_UUID;
 	}
 }

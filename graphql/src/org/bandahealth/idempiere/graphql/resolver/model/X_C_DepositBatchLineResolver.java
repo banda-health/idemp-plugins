@@ -31,7 +31,7 @@ public class X_C_DepositBatchLineResolver extends POResolver<MDepositBatchLine> 
 			return null;
 		}
 		DataLoader<Integer, MDepositBatch> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DepositBatchDataLoader.C_DepositBatch_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DepositBatchDataLoader.DATALOADER_C_DepositBatch_BY_ID);
 		return dataLoader.load(entity.getC_DepositBatch_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_DepositBatchLineResolver extends POResolver<MDepositBatchLine> 
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.C_Payment_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.DATALOADER_C_Payment_BY_ID);
 		return dataLoader.load(entity.getC_Payment_ID());
 	}
 

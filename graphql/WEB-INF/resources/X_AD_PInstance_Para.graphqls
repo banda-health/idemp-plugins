@@ -37,9 +37,9 @@ type AD_PInstance_Para {
 	# Process Parameter
 	P_Date_To: Date
 	# Process Parameter
-	P_Number: Int
+	P_Number: BigDecimal
 	# Process Parameter
-	P_Number_To: Int
+	P_Number_To: BigDecimal
 	# Process Parameter
 	P_String: String
 	# Process Parameter
@@ -67,9 +67,9 @@ input AD_PInstance_ParaInput {
 	# Process Parameter
 	P_Date_To: Date
 	# Process Parameter
-	P_Number: Int
+	P_Number: BigDecimal
 	# Process Parameter
-	P_Number_To: Int
+	P_Number_To: BigDecimal
 	# Process Parameter
 	P_String: String
 	# Process Parameter

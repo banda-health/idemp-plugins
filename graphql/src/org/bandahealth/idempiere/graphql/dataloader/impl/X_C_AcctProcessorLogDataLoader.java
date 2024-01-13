@@ -9,8 +9,8 @@ import org.compiere.model.MAcctProcessorLog;
  * @version Release 8.2 - $Id$
  */
 public class X_C_AcctProcessorLogDataLoader extends PODataLoader<MAcctProcessorLog> {
-	public static String C_AcctProcessorLog_BY_ID_DATA_LOADER = "C_AcctProcessorLogByIdDataLoader";
-	public static String C_AcctProcessorLog_BY_UUID_DATA_LOADER = "C_AcctProcessorLogByUuidDataLoader";
+	public static String DATALOADER_C_AcctProcessorLog_BY_ID = "C_AcctProcessorLogByIdDataLoader";
+	public static String DATALOADER_C_AcctProcessorLog_BY_UUID = "C_AcctProcessorLogByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_AcctProcessorLogDataLoader extends PODataLoader<MAcctProcessorL
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_AcctProcessorLog_BY_ID_DATA_LOADER;
+		return DATALOADER_C_AcctProcessorLog_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_AcctProcessorLog_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_AcctProcessorLog_BY_UUID;
 	}
 }

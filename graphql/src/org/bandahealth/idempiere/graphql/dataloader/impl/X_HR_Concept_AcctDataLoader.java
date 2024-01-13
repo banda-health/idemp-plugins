@@ -9,8 +9,8 @@ import org.eevolution.model.X_HR_Concept_Acct;
  * @version Release 8.2 - $Id$
  */
 public class X_HR_Concept_AcctDataLoader extends PODataLoader<X_HR_Concept_Acct> {
-	public static String HR_Concept_Acct_BY_ID_DATA_LOADER = "HR_Concept_AcctByIdDataLoader";
-	public static String HR_Concept_Acct_BY_UUID_DATA_LOADER = "HR_Concept_AcctByUuidDataLoader";
+	public static String DATALOADER_HR_Concept_Acct_BY_ID = "HR_Concept_AcctByIdDataLoader";
+	public static String DATALOADER_HR_Concept_Acct_BY_UUID = "HR_Concept_AcctByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_HR_Concept_AcctDataLoader extends PODataLoader<X_HR_Concept_Acct>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return HR_Concept_Acct_BY_ID_DATA_LOADER;
+		return DATALOADER_HR_Concept_Acct_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return HR_Concept_Acct_BY_UUID_DATA_LOADER;
+		return DATALOADER_HR_Concept_Acct_BY_UUID;
 	}
 }

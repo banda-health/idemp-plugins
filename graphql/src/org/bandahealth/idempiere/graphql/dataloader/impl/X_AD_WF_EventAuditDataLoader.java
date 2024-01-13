@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_WF_EventAudit;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_WF_EventAuditDataLoader extends PODataLoader<X_AD_WF_EventAudit> {
-	public static String AD_WF_EventAudit_BY_ID_DATA_LOADER = "AD_WF_EventAuditByIdDataLoader";
-	public static String AD_WF_EventAudit_BY_UUID_DATA_LOADER = "AD_WF_EventAuditByUuidDataLoader";
+	public static String DATALOADER_AD_WF_EventAudit_BY_ID = "AD_WF_EventAuditByIdDataLoader";
+	public static String DATALOADER_AD_WF_EventAudit_BY_UUID = "AD_WF_EventAuditByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_WF_EventAuditDataLoader extends PODataLoader<X_AD_WF_EventAudi
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_WF_EventAudit_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_WF_EventAudit_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_WF_EventAudit_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_WF_EventAudit_BY_UUID;
 	}
 }

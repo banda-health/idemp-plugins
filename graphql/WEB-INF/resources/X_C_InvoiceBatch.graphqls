@@ -26,7 +26,7 @@ type C_InvoiceBatch {
 	C_Currency: C_Currency!
 	ID: ID!
 	# If not zero, the Debit amount of the document must be equal this amount
-	ControlAmt: Int!
+	ControlAmt: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -36,7 +36,7 @@ type C_InvoiceBatch {
 	# Optional short description of the record
 	Description: String
 	# Document Amount
-	DocumentAmt: Int!
+	DocumentAmt: BigDecimal!
 	# Document sequence number of the document
 	DocumentNo: String!
 	# The record is active in the system
@@ -63,13 +63,13 @@ input C_InvoiceBatchInput {
 	C_Currency: ForeignEntityInput
 	ID: ID
 	# If not zero, the Debit amount of the document must be equal this amount
-	ControlAmt: Int
+	ControlAmt: BigDecimal
 	# Date of the Document
 	DateDoc: Date
 	# Optional short description of the record
 	Description: String
 	# Document Amount
-	DocumentAmt: Int
+	DocumentAmt: BigDecimal
 	# Document sequence number of the document
 	DocumentNo: String
 	# The record is active in the system

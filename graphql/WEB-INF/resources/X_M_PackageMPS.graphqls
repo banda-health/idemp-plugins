@@ -32,17 +32,17 @@ type M_PackageMPS {
 	CreateFrom: String
 	# Optional short description of the record
 	Description: String
-	EstimatedWeight: Int
-	Height: Int
+	EstimatedWeight: BigDecimal
+	Height: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
-	Length: Int
+	Length: BigDecimal
 	# Shipment Package
 	M_Package: M_Package!
 	ID: ID!
 	MasterTrackingNo: String
 	# Price
-	Price: Int
+	Price: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	# Method of ordering records; lowest number comes first
@@ -54,8 +54,8 @@ type M_PackageMPS {
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Weight of a product
-	Weight: Int
-	Width: Int
+	Weight: BigDecimal
+	Width: BigDecimal
 }
 
 input M_PackageMPSInput {
@@ -69,16 +69,16 @@ input M_PackageMPSInput {
 	CreateFrom: String
 	# Optional short description of the record
 	Description: String
-	Height: Int
+	Height: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
-	Length: Int
+	Length: BigDecimal
 	# Shipment Package
 	M_Package: ForeignEntityInput
 	ID: ID
 	MasterTrackingNo: String
 	# Price
-	Price: Int
+	Price: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	# Method of ordering records; lowest number comes first
@@ -86,6 +86,6 @@ input M_PackageMPSInput {
 	# Number to track the shipment
 	TrackingNo: String
 	# Weight of a product
-	Weight: Int
-	Width: Int
+	Weight: BigDecimal
+	Width: BigDecimal
 }

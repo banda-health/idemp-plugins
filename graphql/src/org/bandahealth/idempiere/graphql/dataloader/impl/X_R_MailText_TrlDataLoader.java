@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_R_MailText_TrlDataLoader extends PODataLoader<PO> {
-	public static String R_MailText_Trl_BY_ID_DATA_LOADER = "R_MailText_TrlByIdDataLoader";
-	public static String R_MailText_Trl_BY_UUID_DATA_LOADER = "R_MailText_TrlByUuidDataLoader";
+	public static String DATALOADER_R_MailText_Trl_BY_ID = "R_MailText_TrlByIdDataLoader";
+	public static String DATALOADER_R_MailText_Trl_BY_UUID = "R_MailText_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -37,13 +37,13 @@ public class X_R_MailText_TrlDataLoader extends PODataLoader<PO> {
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_MailText_Trl_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_MailText_Trl_BY_UUID;
 	}
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(R_MailText_Trl_BY_ID_DATA_LOADER,
+		registry.register(DATALOADER_R_MailText_Trl_BY_ID,
 				DataLoader.newMappedDataLoader(getByIdAndLanguageBatchLoader(),
 						getOptionsWithCache(idempiereContext)));
 	}

@@ -31,7 +31,7 @@ public class X_S_Training_ClassResolver extends POResolver<X_S_Training_Class> i
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_S_Training_ClassResolver extends POResolver<X_S_Training_Class> i
 			return null;
 		}
 		DataLoader<Integer, X_S_Training> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_TrainingDataLoader.S_Training_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_TrainingDataLoader.DATALOADER_S_Training_BY_ID);
 		return dataLoader.load(entity.getS_Training_ID());
 	}
 

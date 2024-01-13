@@ -44,7 +44,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFormat_ID());
 	}
 
@@ -59,7 +59,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.DATALOADER_AD_Process_BY_ID);
 		return dataLoader.load(entity.getAD_Process_ID());
 	}
 
@@ -74,7 +74,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MSchedule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ScheduleDataLoader.AD_Schedule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ScheduleDataLoader.DATALOADER_AD_Schedule_BY_ID);
 		return dataLoader.load(entity.getAD_Schedule_ID());
 	}
 
@@ -89,7 +89,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -108,7 +108,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.R_MailText_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
 		return dataLoader.load(entity.getR_MailText_ID());
 	}
 
@@ -126,7 +126,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(REPORTOUTPUTTYPE_UUIDS_BY_VALUE.get(entity.getReportOutputType()));
 	}
 
@@ -141,7 +141,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSupervisor_ID());
 	}
 

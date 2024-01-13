@@ -42,7 +42,7 @@ public class X_AD_WorkbenchWindowResolver extends POResolver<X_AD_WorkbenchWindo
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_FormDataLoader.AD_Form_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FormDataLoader.DATALOADER_AD_Form_BY_ID);
 		return dataLoader.load(entity.getAD_Form_ID());
 	}
 
@@ -57,7 +57,7 @@ public class X_AD_WorkbenchWindowResolver extends POResolver<X_AD_WorkbenchWindo
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.DATALOADER_AD_Process_BY_ID);
 		return dataLoader.load(entity.getAD_Process_ID());
 	}
 
@@ -72,7 +72,7 @@ public class X_AD_WorkbenchWindowResolver extends POResolver<X_AD_WorkbenchWindo
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TaskDataLoader.AD_Task_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TaskDataLoader.DATALOADER_AD_Task_BY_ID);
 		return dataLoader.load(entity.getAD_Task_ID());
 	}
 
@@ -87,7 +87,7 @@ public class X_AD_WorkbenchWindowResolver extends POResolver<X_AD_WorkbenchWindo
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.AD_Window_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
@@ -102,7 +102,7 @@ public class X_AD_WorkbenchWindowResolver extends POResolver<X_AD_WorkbenchWindo
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workbench> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkbenchDataLoader.AD_Workbench_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkbenchDataLoader.DATALOADER_AD_Workbench_BY_ID);
 		return dataLoader.load(entity.getAD_Workbench_ID());
 	}
 
@@ -133,7 +133,7 @@ public class X_AD_WorkbenchWindowResolver extends POResolver<X_AD_WorkbenchWindo
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 

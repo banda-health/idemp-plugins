@@ -9,8 +9,8 @@ import org.compiere.model.MDiscountSchemaLine;
  * @version Release 8.2 - $Id$
  */
 public class X_M_DiscountSchemaLineDataLoader extends PODataLoader<MDiscountSchemaLine> {
-	public static String M_DiscountSchemaLine_BY_ID_DATA_LOADER = "M_DiscountSchemaLineByIdDataLoader";
-	public static String M_DiscountSchemaLine_BY_UUID_DATA_LOADER = "M_DiscountSchemaLineByUuidDataLoader";
+	public static String DATALOADER_M_DiscountSchemaLine_BY_ID = "M_DiscountSchemaLineByIdDataLoader";
+	public static String DATALOADER_M_DiscountSchemaLine_BY_UUID = "M_DiscountSchemaLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_DiscountSchemaLineDataLoader extends PODataLoader<MDiscountSche
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_DiscountSchemaLine_BY_ID_DATA_LOADER;
+		return DATALOADER_M_DiscountSchemaLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_DiscountSchemaLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_DiscountSchemaLine_BY_UUID;
 	}
 }

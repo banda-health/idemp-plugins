@@ -41,7 +41,7 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.AD_CtxHelp_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_CtxHelpDataLoader.DATALOADER_AD_CtxHelp_BY_ID);
 		return dataLoader.load(entity.getAD_CtxHelp_ID());
 	}
 
@@ -56,7 +56,7 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -70,7 +70,7 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_InfoWindow_TrlDataLoader.AD_InfoWindow_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_InfoWindow_TrlDataLoader.DATALOADER_AD_InfoWindow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MInfoWindow.COLUMNNAME_Description));
 	}
@@ -102,7 +102,7 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -116,7 +116,7 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_InfoWindow_TrlDataLoader.AD_InfoWindow_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_InfoWindow_TrlDataLoader.DATALOADER_AD_InfoWindow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MInfoWindow.COLUMNNAME_Help));
 	}
@@ -151,7 +151,7 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_InfoWindow_TrlDataLoader.AD_InfoWindow_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_InfoWindow_TrlDataLoader.DATALOADER_AD_InfoWindow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MInfoWindow.COLUMNNAME_Name));
 	}

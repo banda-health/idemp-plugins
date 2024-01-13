@@ -55,7 +55,7 @@ public class X_AD_MessageResolver extends POResolver<MMessage_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -69,7 +69,7 @@ public class X_AD_MessageResolver extends POResolver<MMessage_BH> implements Gra
 			return CompletableFuture.supplyAsync(entity::getMsgText);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Message_TrlDataLoader.AD_Message_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Message_TrlDataLoader.DATALOADER_AD_Message_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MMessage_BH.COLUMNNAME_MsgText));
 	}
@@ -84,7 +84,7 @@ public class X_AD_MessageResolver extends POResolver<MMessage_BH> implements Gra
 			return CompletableFuture.supplyAsync(entity::getMsgTip);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Message_TrlDataLoader.AD_Message_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Message_TrlDataLoader.DATALOADER_AD_Message_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MMessage_BH.COLUMNNAME_MsgTip));
 	}
@@ -101,7 +101,7 @@ public class X_AD_MessageResolver extends POResolver<MMessage_BH> implements Gra
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(MSGTYPE_UUIDS_BY_VALUE.get(entity.getMsgType()));
 	}
 

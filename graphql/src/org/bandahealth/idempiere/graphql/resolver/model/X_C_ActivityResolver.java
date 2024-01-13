@@ -31,7 +31,7 @@ public class X_C_ActivityResolver extends POResolver<MActivity> implements Graph
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Activity_TrlDataLoader.C_Activity_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Activity_TrlDataLoader.DATALOADER_C_Activity_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MActivity.COLUMNNAME_Description));
 	}
@@ -46,7 +46,7 @@ public class X_C_ActivityResolver extends POResolver<MActivity> implements Graph
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Activity_TrlDataLoader.C_Activity_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Activity_TrlDataLoader.DATALOADER_C_Activity_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MActivity.COLUMNNAME_Help));
 	}
@@ -65,7 +65,7 @@ public class X_C_ActivityResolver extends POResolver<MActivity> implements Graph
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Activity_TrlDataLoader.C_Activity_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Activity_TrlDataLoader.DATALOADER_C_Activity_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MActivity.COLUMNNAME_Name));
 	}

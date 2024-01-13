@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_DashboardContent_TrlDataLoader extends PODataLoader<PO> {
-	public static String PA_DashboardContent_Trl_BY_ID_DATA_LOADER = "PA_DashboardContent_TrlByIdDataLoader";
-	public static String PA_DashboardContent_Trl_BY_UUID_DATA_LOADER = "PA_DashboardContent_TrlByUuidDataLoader";
+	public static String DATALOADER_PA_DashboardContent_Trl_BY_ID = "PA_DashboardContent_TrlByIdDataLoader";
+	public static String DATALOADER_PA_DashboardContent_Trl_BY_UUID = "PA_DashboardContent_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -37,13 +37,13 @@ public class X_PA_DashboardContent_TrlDataLoader extends PODataLoader<PO> {
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_DashboardContent_Trl_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_DashboardContent_Trl_BY_UUID;
 	}
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(PA_DashboardContent_Trl_BY_ID_DATA_LOADER,
+		registry.register(DATALOADER_PA_DashboardContent_Trl_BY_ID,
 				DataLoader.newMappedDataLoader(getByIdAndLanguageBatchLoader(),
 						getOptionsWithCache(idempiereContext)));
 	}

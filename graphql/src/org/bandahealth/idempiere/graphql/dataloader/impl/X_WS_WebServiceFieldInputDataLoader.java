@@ -9,8 +9,8 @@ import org.compiere.model.X_WS_WebServiceFieldInput;
  * @version Release 8.2 - $Id$
  */
 public class X_WS_WebServiceFieldInputDataLoader extends PODataLoader<X_WS_WebServiceFieldInput> {
-	public static String WS_WebServiceFieldInput_BY_ID_DATA_LOADER = "WS_WebServiceFieldInputByIdDataLoader";
-	public static String WS_WebServiceFieldInput_BY_UUID_DATA_LOADER = "WS_WebServiceFieldInputByUuidDataLoader";
+	public static String DATALOADER_WS_WebServiceFieldInput_BY_ID = "WS_WebServiceFieldInputByIdDataLoader";
+	public static String DATALOADER_WS_WebServiceFieldInput_BY_UUID = "WS_WebServiceFieldInputByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_WS_WebServiceFieldInputDataLoader extends PODataLoader<X_WS_WebSe
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return WS_WebServiceFieldInput_BY_ID_DATA_LOADER;
+		return DATALOADER_WS_WebServiceFieldInput_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return WS_WebServiceFieldInput_BY_UUID_DATA_LOADER;
+		return DATALOADER_WS_WebServiceFieldInput_BY_UUID;
 	}
 }

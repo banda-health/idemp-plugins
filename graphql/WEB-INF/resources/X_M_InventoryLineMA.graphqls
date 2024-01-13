@@ -35,7 +35,7 @@ type M_InventoryLineMA {
 	M_InventoryLine: M_InventoryLine!
 	ID: ID!
 	# Quantity of a product moved.
-	MovementQty: Int!
+	MovementQty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -56,5 +56,5 @@ input M_InventoryLineMAInput {
 	M_InventoryLine: ForeignEntityInput
 	ID: ID
 	# Quantity of a product moved.
-	MovementQty: Int
+	MovementQty: BigDecimal
 }

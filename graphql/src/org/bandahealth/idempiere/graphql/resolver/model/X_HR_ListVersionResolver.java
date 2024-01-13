@@ -29,7 +29,7 @@ public class X_HR_ListVersionResolver extends POResolver<X_HR_ListVersion> imple
 			return null;
 		}
 		DataLoader<Integer, X_HR_List> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_ListDataLoader.HR_List_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_ListDataLoader.DATALOADER_HR_List_BY_ID);
 		return dataLoader.load(entity.getHR_List_ID());
 	}
 
@@ -44,7 +44,7 @@ public class X_HR_ListVersionResolver extends POResolver<X_HR_ListVersion> imple
 			return null;
 		}
 		DataLoader<Integer, X_HR_List> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_ListDataLoader.HR_List_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_ListDataLoader.DATALOADER_HR_List_BY_ID);
 		return dataLoader.load(entity.getHR_ListBase_ID());
 	}
 

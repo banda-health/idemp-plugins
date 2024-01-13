@@ -29,7 +29,7 @@ public class X_HR_DepartmentResolver extends POResolver<X_HR_Department> impleme
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 

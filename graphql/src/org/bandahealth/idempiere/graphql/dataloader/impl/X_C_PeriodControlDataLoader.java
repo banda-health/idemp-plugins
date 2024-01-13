@@ -9,8 +9,8 @@ import org.compiere.model.MPeriodControl;
  * @version Release 8.2 - $Id$
  */
 public class X_C_PeriodControlDataLoader extends PODataLoader<MPeriodControl> {
-	public static String C_PeriodControl_BY_ID_DATA_LOADER = "C_PeriodControlByIdDataLoader";
-	public static String C_PeriodControl_BY_UUID_DATA_LOADER = "C_PeriodControlByUuidDataLoader";
+	public static String DATALOADER_C_PeriodControl_BY_ID = "C_PeriodControlByIdDataLoader";
+	public static String DATALOADER_C_PeriodControl_BY_UUID = "C_PeriodControlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_PeriodControlDataLoader extends PODataLoader<MPeriodControl> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_PeriodControl_BY_ID_DATA_LOADER;
+		return DATALOADER_C_PeriodControl_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_PeriodControl_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_PeriodControl_BY_UUID;
 	}
 }

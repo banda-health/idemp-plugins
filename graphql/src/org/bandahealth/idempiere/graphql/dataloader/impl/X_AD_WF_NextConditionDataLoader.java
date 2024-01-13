@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_WF_NextCondition;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_WF_NextConditionDataLoader extends PODataLoader<X_AD_WF_NextCondition> {
-	public static String AD_WF_NextCondition_BY_ID_DATA_LOADER = "AD_WF_NextConditionByIdDataLoader";
-	public static String AD_WF_NextCondition_BY_UUID_DATA_LOADER = "AD_WF_NextConditionByUuidDataLoader";
+	public static String DATALOADER_AD_WF_NextCondition_BY_ID = "AD_WF_NextConditionByIdDataLoader";
+	public static String DATALOADER_AD_WF_NextCondition_BY_UUID = "AD_WF_NextConditionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_WF_NextConditionDataLoader extends PODataLoader<X_AD_WF_NextCo
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_WF_NextCondition_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_WF_NextCondition_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_WF_NextCondition_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_WF_NextCondition_BY_UUID;
 	}
 }

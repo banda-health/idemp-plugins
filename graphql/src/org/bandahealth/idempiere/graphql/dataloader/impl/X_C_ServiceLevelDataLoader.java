@@ -9,8 +9,8 @@ import org.compiere.model.X_C_ServiceLevel;
  * @version Release 8.2 - $Id$
  */
 public class X_C_ServiceLevelDataLoader extends PODataLoader<X_C_ServiceLevel> {
-	public static String C_ServiceLevel_BY_ID_DATA_LOADER = "C_ServiceLevelByIdDataLoader";
-	public static String C_ServiceLevel_BY_UUID_DATA_LOADER = "C_ServiceLevelByUuidDataLoader";
+	public static String DATALOADER_C_ServiceLevel_BY_ID = "C_ServiceLevelByIdDataLoader";
+	public static String DATALOADER_C_ServiceLevel_BY_UUID = "C_ServiceLevelByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_ServiceLevelDataLoader extends PODataLoader<X_C_ServiceLevel> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_ServiceLevel_BY_ID_DATA_LOADER;
+		return DATALOADER_C_ServiceLevel_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_ServiceLevel_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_ServiceLevel_BY_UUID;
 	}
 }

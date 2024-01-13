@@ -9,8 +9,8 @@ import org.compiere.model.MDashboardContentAccess;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_DashboardContent_AccessDataLoader extends PODataLoader<MDashboardContentAccess> {
-	public static String PA_DashboardContent_Access_BY_ID_DATA_LOADER = "PA_DashboardContent_AccessByIdDataLoader";
-	public static String PA_DashboardContent_Access_BY_UUID_DATA_LOADER = "PA_DashboardContent_AccessByUuidDataLoader";
+	public static String DATALOADER_PA_DashboardContent_Access_BY_ID = "PA_DashboardContent_AccessByIdDataLoader";
+	public static String DATALOADER_PA_DashboardContent_Access_BY_UUID = "PA_DashboardContent_AccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_DashboardContent_AccessDataLoader extends PODataLoader<MDashbo
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_DashboardContent_Access_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_DashboardContent_Access_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_DashboardContent_Access_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_DashboardContent_Access_BY_UUID;
 	}
 }

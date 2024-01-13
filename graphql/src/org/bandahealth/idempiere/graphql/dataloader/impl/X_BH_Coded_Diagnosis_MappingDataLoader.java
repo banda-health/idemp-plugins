@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBHCodedDiagnosisMapping;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_Coded_Diagnosis_MappingDataLoader extends PODataLoader<MBHCodedDiagnosisMapping> {
-	public static String BH_Coded_Diagnosis_Mapping_BY_ID_DATA_LOADER = "BH_Coded_Diagnosis_MappingByIdDataLoader";
-	public static String BH_Coded_Diagnosis_Mapping_BY_UUID_DATA_LOADER = "BH_Coded_Diagnosis_MappingByUuidDataLoader";
+	public static String DATALOADER_BH_Coded_Diagnosis_Mapping_BY_ID = "BH_Coded_Diagnosis_MappingByIdDataLoader";
+	public static String DATALOADER_BH_Coded_Diagnosis_Mapping_BY_UUID = "BH_Coded_Diagnosis_MappingByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_Coded_Diagnosis_MappingDataLoader extends PODataLoader<MBHCode
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_Coded_Diagnosis_Mapping_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_Coded_Diagnosis_Mapping_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_Coded_Diagnosis_Mapping_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_Coded_Diagnosis_Mapping_BY_UUID;
 	}
 }

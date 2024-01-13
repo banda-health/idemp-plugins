@@ -9,8 +9,8 @@ import org.compiere.model.MAttributeValue;
  * @version Release 8.2 - $Id$
  */
 public class X_M_AttributeValueDataLoader extends PODataLoader<MAttributeValue> {
-	public static String M_AttributeValue_BY_ID_DATA_LOADER = "M_AttributeValueByIdDataLoader";
-	public static String M_AttributeValue_BY_UUID_DATA_LOADER = "M_AttributeValueByUuidDataLoader";
+	public static String DATALOADER_M_AttributeValue_BY_ID = "M_AttributeValueByIdDataLoader";
+	public static String DATALOADER_M_AttributeValue_BY_UUID = "M_AttributeValueByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_AttributeValueDataLoader extends PODataLoader<MAttributeValue> 
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_AttributeValue_BY_ID_DATA_LOADER;
+		return DATALOADER_M_AttributeValue_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_AttributeValue_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_AttributeValue_BY_UUID;
 	}
 }

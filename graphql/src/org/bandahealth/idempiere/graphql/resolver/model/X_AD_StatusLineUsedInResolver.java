@@ -40,7 +40,7 @@ public class X_AD_StatusLineUsedInResolver extends POResolver<MStatusLineUsedIn>
 			return null;
 		}
 		DataLoader<Integer, MStatusLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_StatusLineDataLoader.AD_StatusLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_StatusLineDataLoader.DATALOADER_AD_StatusLine_BY_ID);
 		return dataLoader.load(entity.getAD_StatusLine_ID());
 	}
 
@@ -55,7 +55,7 @@ public class X_AD_StatusLineUsedInResolver extends POResolver<MStatusLineUsedIn>
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.AD_Tab_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.DATALOADER_AD_Tab_BY_ID);
 		return dataLoader.load(entity.getAD_Tab_ID());
 	}
 
@@ -70,7 +70,7 @@ public class X_AD_StatusLineUsedInResolver extends POResolver<MStatusLineUsedIn>
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -85,7 +85,7 @@ public class X_AD_StatusLineUsedInResolver extends POResolver<MStatusLineUsedIn>
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.AD_Window_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
@@ -116,7 +116,7 @@ public class X_AD_StatusLineUsedInResolver extends POResolver<MStatusLineUsedIn>
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 

@@ -33,7 +33,7 @@ public class X_T_1099ExtractResolver extends POResolver<X_T_1099Extract> impleme
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.AD_PInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.DATALOADER_AD_PInstance_BY_ID);
 		return dataLoader.load(entity.getAD_PInstance_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_T_1099ExtractResolver extends POResolver<X_T_1099Extract> impleme
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_T_1099ExtractResolver extends POResolver<X_T_1099Extract> impleme
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_Location_ID());
 	}
 

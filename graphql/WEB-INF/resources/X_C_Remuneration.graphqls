@@ -28,9 +28,9 @@ type C_Remuneration {
 	# Optional short description of the record
 	Description: String
 	# Gross Remuneration Amount
-	GrossRAmt: Int!
+	GrossRAmt: BigDecimal!
 	# Gross Remuneration Costs
-	GrossRCost: Int!
+	GrossRCost: BigDecimal!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -38,9 +38,9 @@ type C_Remuneration {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Hourly Overtime Rate
-	OvertimeAmt: Int!
+	OvertimeAmt: BigDecimal!
 	# Hourly Overtime Cost
-	OvertimeCost: Int!
+	OvertimeCost: BigDecimal!
 	# Type of Remuneration
 	RemunerationType: AD_Ref_List!
 	# Standard Work Hours based on Remuneration Type
@@ -58,9 +58,9 @@ input C_RemunerationInput {
 	# Optional short description of the record
 	Description: String
 	# Gross Remuneration Amount
-	GrossRAmt: Int
+	GrossRAmt: BigDecimal
 	# Gross Remuneration Costs
-	GrossRCost: Int
+	GrossRCost: BigDecimal
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -68,9 +68,9 @@ input C_RemunerationInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Hourly Overtime Rate
-	OvertimeAmt: Int
+	OvertimeAmt: BigDecimal
 	# Hourly Overtime Cost
-	OvertimeCost: Int
+	OvertimeCost: BigDecimal
 	# Type of Remuneration
 	RemunerationType: AD_Ref_ListInput
 	# Standard Work Hours based on Remuneration Type

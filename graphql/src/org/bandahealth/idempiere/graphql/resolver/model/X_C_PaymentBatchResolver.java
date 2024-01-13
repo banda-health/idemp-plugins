@@ -29,7 +29,7 @@ public class X_C_PaymentBatchResolver extends POResolver<MPaymentBatch> implemen
 			return null;
 		}
 		DataLoader<Integer, MPaymentProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentProcessorDataLoader.C_PaymentProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentProcessorDataLoader.DATALOADER_C_PaymentProcessor_BY_ID);
 		return dataLoader.load(entity.getC_PaymentProcessor_ID());
 	}
 

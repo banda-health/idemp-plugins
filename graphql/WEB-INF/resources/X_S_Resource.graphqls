@@ -22,12 +22,12 @@ type S_Resource {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	ChargeableQty: Int
+	ChargeableQty: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
-	DailyCapacity: Int
+	DailyCapacity: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -40,11 +40,11 @@ type S_Resource {
 	ManufacturingResourceType: AD_Ref_List
 	# Alphanumeric identifier of the entity
 	Name: String!
-	PercentUtilization: Int!
+	PercentUtilization: BigDecimal!
 	# The planning horizon is the amount of time (Days) an organisation will look into the future when preparing a strategic plan.
 	PlanningHorizon: Int
 	# Queue time is the time a job waits at a work center before begin handled.
-	QueuingTime: Int
+	QueuingTime: BigDecimal
 	ID: ID!
 	S_ResourceType: S_ResourceType!
 	# Date this record was updated
@@ -54,7 +54,7 @@ type S_Resource {
 	# Search key for the record in the format required - must be unique
 	Value: String!
 	# Workflow Simulation Waiting time
-	WaitingTime: Int
+	WaitingTime: BigDecimal
 }
 
 input S_ResourceInput {
@@ -62,8 +62,8 @@ input S_ResourceInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ChargeableQty: Int
-	DailyCapacity: Int
+	ChargeableQty: BigDecimal
+	DailyCapacity: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -76,15 +76,15 @@ input S_ResourceInput {
 	ManufacturingResourceType: AD_Ref_ListInput
 	# Alphanumeric identifier of the entity
 	Name: String
-	PercentUtilization: Int
+	PercentUtilization: BigDecimal
 	# The planning horizon is the amount of time (Days) an organisation will look into the future when preparing a strategic plan.
 	PlanningHorizon: Int
 	# Queue time is the time a job waits at a work center before begin handled.
-	QueuingTime: Int
+	QueuingTime: BigDecimal
 	ID: ID
 	S_ResourceType: ForeignEntityInput
 	# Search key for the record in the format required - must be unique
 	Value: String
 	# Workflow Simulation Waiting time
-	WaitingTime: Int
+	WaitingTime: BigDecimal
 }

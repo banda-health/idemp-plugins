@@ -9,8 +9,8 @@ import org.compiere.model.MRoleIncluded;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Role_IncludedDataLoader extends PODataLoader<MRoleIncluded> {
-	public static String AD_Role_Included_BY_ID_DATA_LOADER = "AD_Role_IncludedByIdDataLoader";
-	public static String AD_Role_Included_BY_UUID_DATA_LOADER = "AD_Role_IncludedByUuidDataLoader";
+	public static String DATALOADER_AD_Role_Included_BY_ID = "AD_Role_IncludedByIdDataLoader";
+	public static String DATALOADER_AD_Role_Included_BY_UUID = "AD_Role_IncludedByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Role_IncludedDataLoader extends PODataLoader<MRoleIncluded> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Role_Included_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Role_Included_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Role_Included_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Role_Included_BY_UUID;
 	}
 }

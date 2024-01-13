@@ -9,8 +9,8 @@ import org.compiere.model.MDocumentStatus;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_DocumentStatusDataLoader extends PODataLoader<MDocumentStatus> {
-	public static String PA_DocumentStatus_BY_ID_DATA_LOADER = "PA_DocumentStatusByIdDataLoader";
-	public static String PA_DocumentStatus_BY_UUID_DATA_LOADER = "PA_DocumentStatusByUuidDataLoader";
+	public static String DATALOADER_PA_DocumentStatus_BY_ID = "PA_DocumentStatusByIdDataLoader";
+	public static String DATALOADER_PA_DocumentStatus_BY_UUID = "PA_DocumentStatusByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_DocumentStatusDataLoader extends PODataLoader<MDocumentStatus>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_DocumentStatus_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_DocumentStatus_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_DocumentStatus_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_DocumentStatus_BY_UUID;
 	}
 }

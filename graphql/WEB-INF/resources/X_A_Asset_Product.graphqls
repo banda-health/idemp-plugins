@@ -19,7 +19,7 @@ type A_Asset_Product {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	ID: ID!
-	A_QTY_Current: Int!
+	A_QTY_Current: BigDecimal!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -48,7 +48,7 @@ input A_Asset_ProductInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	ID: ID
-	A_QTY_Current: Int
+	A_QTY_Current: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

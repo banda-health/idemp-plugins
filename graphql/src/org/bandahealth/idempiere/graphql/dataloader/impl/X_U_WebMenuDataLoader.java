@@ -9,8 +9,8 @@ import org.compiere.model.MWebMenu;
  * @version Release 8.2 - $Id$
  */
 public class X_U_WebMenuDataLoader extends PODataLoader<MWebMenu> {
-	public static String U_WebMenu_BY_ID_DATA_LOADER = "U_WebMenuByIdDataLoader";
-	public static String U_WebMenu_BY_UUID_DATA_LOADER = "U_WebMenuByUuidDataLoader";
+	public static String DATALOADER_U_WebMenu_BY_ID = "U_WebMenuByIdDataLoader";
+	public static String DATALOADER_U_WebMenu_BY_UUID = "U_WebMenuByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_U_WebMenuDataLoader extends PODataLoader<MWebMenu> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return U_WebMenu_BY_ID_DATA_LOADER;
+		return DATALOADER_U_WebMenu_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return U_WebMenu_BY_UUID_DATA_LOADER;
+		return DATALOADER_U_WebMenu_BY_UUID;
 	}
 }

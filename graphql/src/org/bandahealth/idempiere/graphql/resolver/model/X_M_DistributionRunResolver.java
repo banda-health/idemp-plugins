@@ -31,7 +31,7 @@ public class X_M_DistributionRunResolver extends POResolver<MDistributionRun> im
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_M_DistributionRunResolver extends POResolver<MDistributionRun> im
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.C_BPartner_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.DATALOADER_C_BPartner_Location_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_Location_ID());
 	}
 

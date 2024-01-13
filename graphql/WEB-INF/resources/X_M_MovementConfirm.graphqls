@@ -21,7 +21,7 @@ type M_MovementConfirm {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Document Approval Amount
-	ApprovalAmt: Int
+	ApprovalAmt: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,7 +56,7 @@ input M_MovementConfirmInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Document Approval Amount
-	ApprovalAmt: Int
+	ApprovalAmt: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document

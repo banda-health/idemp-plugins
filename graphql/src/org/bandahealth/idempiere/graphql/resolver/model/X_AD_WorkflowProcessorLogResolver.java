@@ -29,7 +29,7 @@ public class X_AD_WorkflowProcessorLogResolver extends POResolver<X_AD_WorkflowP
 			return null;
 		}
 		DataLoader<Integer, X_AD_WorkflowProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowProcessorDataLoader.AD_WorkflowProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowProcessorDataLoader.DATALOADER_AD_WorkflowProcessor_BY_ID);
 		return dataLoader.load(entity.getAD_WorkflowProcessor_ID());
 	}
 

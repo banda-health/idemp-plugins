@@ -9,8 +9,8 @@ import org.compiere.model.MWFActivityApprover;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_WF_ActivityApproverDataLoader extends PODataLoader<MWFActivityApprover> {
-	public static String AD_WF_ActivityApprover_BY_ID_DATA_LOADER = "AD_WF_ActivityApproverByIdDataLoader";
-	public static String AD_WF_ActivityApprover_BY_UUID_DATA_LOADER = "AD_WF_ActivityApproverByUuidDataLoader";
+	public static String DATALOADER_AD_WF_ActivityApprover_BY_ID = "AD_WF_ActivityApproverByIdDataLoader";
+	public static String DATALOADER_AD_WF_ActivityApprover_BY_UUID = "AD_WF_ActivityApproverByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_WF_ActivityApproverDataLoader extends PODataLoader<MWFActivity
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_WF_ActivityApprover_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_WF_ActivityApprover_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_WF_ActivityApprover_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_WF_ActivityApprover_BY_UUID;
 	}
 }

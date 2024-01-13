@@ -33,7 +33,7 @@ public class X_C_OrderTaxResolver extends POResolver<MOrderTax> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.C_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.DATALOADER_C_Order_BY_ID);
 		return dataLoader.load(entity.getC_Order_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_C_OrderTaxResolver extends POResolver<MOrderTax> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.C_Tax_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getC_Tax_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_C_OrderTaxResolver extends POResolver<MOrderTax> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MTaxProvider> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxProviderDataLoader.C_TaxProvider_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxProviderDataLoader.DATALOADER_C_TaxProvider_BY_ID);
 		return dataLoader.load(entity.getC_TaxProvider_ID());
 	}
 

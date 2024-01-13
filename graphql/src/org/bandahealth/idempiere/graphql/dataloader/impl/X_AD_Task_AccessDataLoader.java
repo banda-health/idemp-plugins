@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_Task_Access;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Task_AccessDataLoader extends PODataLoader<X_AD_Task_Access> {
-	public static String AD_Task_Access_BY_ID_DATA_LOADER = "AD_Task_AccessByIdDataLoader";
-	public static String AD_Task_Access_BY_UUID_DATA_LOADER = "AD_Task_AccessByUuidDataLoader";
+	public static String DATALOADER_AD_Task_Access_BY_ID = "AD_Task_AccessByIdDataLoader";
+	public static String DATALOADER_AD_Task_Access_BY_UUID = "AD_Task_AccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Task_AccessDataLoader extends PODataLoader<X_AD_Task_Access> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Task_Access_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Task_Access_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Task_Access_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Task_Access_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.MWithholding;
  * @version Release 8.2 - $Id$
  */
 public class X_C_WithholdingDataLoader extends PODataLoader<MWithholding> {
-	public static String C_Withholding_BY_ID_DATA_LOADER = "C_WithholdingByIdDataLoader";
-	public static String C_Withholding_BY_UUID_DATA_LOADER = "C_WithholdingByUuidDataLoader";
+	public static String DATALOADER_C_Withholding_BY_ID = "C_WithholdingByIdDataLoader";
+	public static String DATALOADER_C_Withholding_BY_UUID = "C_WithholdingByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_WithholdingDataLoader extends PODataLoader<MWithholding> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Withholding_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Withholding_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Withholding_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Withholding_BY_UUID;
 	}
 }

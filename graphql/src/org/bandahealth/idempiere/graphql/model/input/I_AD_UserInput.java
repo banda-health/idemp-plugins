@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.sql.Timestamp;
 import org.compiere.model.I_AD_User;
 
 /**
@@ -51,6 +52,44 @@ public interface I_AD_UserInput extends I_AD_User {
 	 * @return ID
 	 */
 	String getID();
+
+	/**
+	 * Column name BH_HasAcceptedTermsOfUse
+	 */
+	static final String COLUMNNAME_BH_HasAcceptedTermsOfUse = "BH_HasAcceptedTermsOfUse";
+
+	/**
+	 * Set HasAcceptedTermsOfUse.
+	 *
+	 * @param BH_HasAcceptedTermsOfUse HasAcceptedTermsOfUse
+	 */
+	void setBH_HasAcceptedTermsOfUse(boolean BH_HasAcceptedTermsOfUse);
+
+	/**
+	 * Get HasAcceptedTermsOfUse.
+	 *
+	 * @return HasAcceptedTermsOfUse
+	 */
+	boolean isBH_HasAcceptedTermsOfUse();
+
+	/**
+	 * Column name BH_TOS_DATE_ACCEPTED
+	 */
+	static final String COLUMNNAME_BH_TOS_DATE_ACCEPTED = "BH_TOS_DATE_ACCEPTED";
+
+	/**
+	 * Set BH_TOS_DATE_ACCEPTED.
+	 *
+	 * @param BH_TOS_DATE_ACCEPTED BH_TOS_DATE_ACCEPTED
+	 */
+	void setBH_TOS_DATE_ACCEPTED(Timestamp BH_TOS_DATE_ACCEPTED);
+
+	/**
+	 * Get BH_TOS_DATE_ACCEPTED.
+	 *
+	 * @return BH_TOS_DATE_ACCEPTED
+	 */
+	Timestamp getBH_TOS_DATE_ACCEPTED();
 
 	/**
 	 * Set BP_Location.

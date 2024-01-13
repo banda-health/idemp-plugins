@@ -9,8 +9,8 @@ import org.compiere.model.MSchedulerRecipient;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_SchedulerRecipientDataLoader extends PODataLoader<MSchedulerRecipient> {
-	public static String AD_SchedulerRecipient_BY_ID_DATA_LOADER = "AD_SchedulerRecipientByIdDataLoader";
-	public static String AD_SchedulerRecipient_BY_UUID_DATA_LOADER = "AD_SchedulerRecipientByUuidDataLoader";
+	public static String DATALOADER_AD_SchedulerRecipient_BY_ID = "AD_SchedulerRecipientByIdDataLoader";
+	public static String DATALOADER_AD_SchedulerRecipient_BY_UUID = "AD_SchedulerRecipientByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_SchedulerRecipientDataLoader extends PODataLoader<MSchedulerRe
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_SchedulerRecipient_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_SchedulerRecipient_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_SchedulerRecipient_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_SchedulerRecipient_BY_UUID;
 	}
 }

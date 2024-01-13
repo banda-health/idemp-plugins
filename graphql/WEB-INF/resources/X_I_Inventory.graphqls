@@ -31,7 +31,7 @@ type I_Inventory {
 	# User who created this records
 	CreatedBy: AD_User
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Name of the Document Type
@@ -65,11 +65,11 @@ type I_Inventory {
 	Processed: Boolean!
 	Processing: Boolean!
 	# Book Quantity
-	QtyBook: Int
+	QtyBook: BigDecimal
 	# Counted Quantity
-	QtyCount: Int
+	QtyCount: BigDecimal
 	# Internal Use Quantity removed from Inventory
-	QtyInternalUse: Int
+	QtyInternalUse: BigDecimal
 	# Product Serial Number 
 	SerNo: String
 	# Bar Code (Universal Product Code or its superset European Article Number)
@@ -100,7 +100,7 @@ input I_InventoryInput {
 	# Name of the Charge
 	ChargeName: String
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Name of the Document Type
@@ -134,11 +134,11 @@ input I_InventoryInput {
 	Processed: Boolean
 	Processing: Boolean
 	# Book Quantity
-	QtyBook: Int
+	QtyBook: BigDecimal
 	# Counted Quantity
-	QtyCount: Int
+	QtyCount: BigDecimal
 	# Internal Use Quantity removed from Inventory
-	QtyInternalUse: Int
+	QtyInternalUse: BigDecimal
 	# Product Serial Number 
 	SerNo: String
 	# Bar Code (Universal Product Code or its superset European Article Number)

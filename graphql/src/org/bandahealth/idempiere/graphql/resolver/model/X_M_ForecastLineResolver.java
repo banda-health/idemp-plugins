@@ -37,7 +37,7 @@ public class X_M_ForecastLineResolver extends POResolver<MForecastLine> implemen
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.C_Period_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.DATALOADER_C_Period_BY_ID);
 		return dataLoader.load(entity.getC_Period_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_M_ForecastLineResolver extends POResolver<MForecastLine> implemen
 			return null;
 		}
 		DataLoader<Integer, MForecast> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastDataLoader.M_Forecast_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ForecastDataLoader.DATALOADER_M_Forecast_BY_ID);
 		return dataLoader.load(entity.getM_Forecast_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_M_ForecastLineResolver extends POResolver<MForecastLine> implemen
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_M_ForecastLineResolver extends POResolver<MForecastLine> implemen
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
@@ -97,7 +97,7 @@ public class X_M_ForecastLineResolver extends POResolver<MForecastLine> implemen
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 

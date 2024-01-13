@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class MBHBPPayerInfoMutation extends X_BH_BP_Payer_InfoMutation {
 	@Override
-	protected boolean delete(List<String> uuids, DataFetchingEnvironment environment) {
+	public boolean BH_BP_Payer_InfoDelete(List<String> uuids, DataFetchingEnvironment environment) {
 		ModelUtil.getTableAndCheckAccess(BandaGraphQLContext.getCtx(environment), getTableName(), true);
 		Map<String, MBHBPPayerInfo> entitiesByUuid =
 				Repository.getByUuids(BandaGraphQLContext.getCtx(environment), getTableName(), null, new HashSet<>(uuids));
@@ -32,6 +32,6 @@ public class MBHBPPayerInfoMutation extends X_BH_BP_Payer_InfoMutation {
 			throw new AdempiereException("There was an error deleting this business partner's information");
 		}
 		// Now remove the BP payer information
-		return super.delete(uuids, environment);
+		return super.BH_BP_Payer_InfoDelete(uuids, environment);
 	}
 }

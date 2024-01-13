@@ -41,7 +41,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.AD_PInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.DATALOADER_AD_PInstance_BY_ID);
 		return dataLoader.load(entity.getAD_PInstance_ID());
 	}
 
@@ -56,7 +56,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -71,7 +71,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -86,7 +86,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_CostElementDataLoader.M_CostElement_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_CostElementDataLoader.DATALOADER_M_CostElement_BY_ID);
 		return dataLoader.load(entity.getM_CostElement_ID());
 	}
 
@@ -101,7 +101,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 			return null;
 		}
 		DataLoader<Integer, MPriceListVersion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceList_VersionDataLoader.M_PriceList_Version_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceList_VersionDataLoader.DATALOADER_M_PriceList_Version_BY_ID);
 		return dataLoader.load(entity.getM_PriceList_Version_ID());
 	}
 
@@ -116,7 +116,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -131,7 +131,7 @@ public class X_T_InventoryValueResolver extends POResolver<X_T_InventoryValue> i
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 

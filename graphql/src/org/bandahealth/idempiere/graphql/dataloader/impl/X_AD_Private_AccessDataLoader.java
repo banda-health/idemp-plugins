@@ -9,8 +9,8 @@ import org.compiere.model.MPrivateAccess;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Private_AccessDataLoader extends PODataLoader<MPrivateAccess> {
-	public static String AD_Private_Access_BY_ID_DATA_LOADER = "AD_Private_AccessByIdDataLoader";
-	public static String AD_Private_Access_BY_UUID_DATA_LOADER = "AD_Private_AccessByUuidDataLoader";
+	public static String DATALOADER_AD_Private_Access_BY_ID = "AD_Private_AccessByIdDataLoader";
+	public static String DATALOADER_AD_Private_Access_BY_UUID = "AD_Private_AccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Private_AccessDataLoader extends PODataLoader<MPrivateAccess> 
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Private_Access_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Private_Access_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Private_Access_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Private_Access_BY_UUID;
 	}
 }

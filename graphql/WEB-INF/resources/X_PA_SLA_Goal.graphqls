@@ -35,9 +35,9 @@ type PA_SLA_Goal {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Actual value that has been measured.
-	MeasureActual: Int!
+	MeasureActual: BigDecimal!
 	# Target value for measure
-	MeasureTarget: Int!
+	MeasureTarget: BigDecimal!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Service Level Agreement Criteria
@@ -70,9 +70,9 @@ input PA_SLA_GoalInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Actual value that has been measured.
-	MeasureActual: Int
+	MeasureActual: BigDecimal
 	# Target value for measure
-	MeasureTarget: Int
+	MeasureTarget: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Service Level Agreement Criteria

@@ -9,8 +9,8 @@ import org.compiere.model.MProcessAccess;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Process_AccessDataLoader extends PODataLoader<MProcessAccess> {
-	public static String AD_Process_Access_BY_ID_DATA_LOADER = "AD_Process_AccessByIdDataLoader";
-	public static String AD_Process_Access_BY_UUID_DATA_LOADER = "AD_Process_AccessByUuidDataLoader";
+	public static String DATALOADER_AD_Process_Access_BY_ID = "AD_Process_AccessByIdDataLoader";
+	public static String DATALOADER_AD_Process_Access_BY_UUID = "AD_Process_AccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Process_AccessDataLoader extends PODataLoader<MProcessAccess> 
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Process_Access_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Process_Access_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Process_Access_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Process_Access_BY_UUID;
 	}
 }

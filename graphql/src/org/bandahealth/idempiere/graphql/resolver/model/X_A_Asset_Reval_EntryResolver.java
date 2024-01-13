@@ -43,7 +43,7 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(A_REV_CODE_UUIDS_BY_VALUE.get(entity.getA_Rev_Code()));
 	}
 
@@ -59,7 +59,7 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(A_REVAL_CAL_METHOD_UUIDS_BY_VALUE.get(entity.getA_Reval_Cal_Method()));
 	}
 
@@ -75,7 +75,7 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(A_REVAL_EFFECTIVE_DATE_UUIDS_BY_VALUE.get(entity.getA_Reval_Effective_Date()));
 	}
 
@@ -90,7 +90,7 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(A_REVAL_MULTIPLIER_UUIDS_BY_VALUE.get(entity.getA_Reval_Multiplier()));
 	}
 
@@ -105,7 +105,7 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -120,7 +120,7 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -135,7 +135,7 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
 		return dataLoader.load(entity.getC_DocType_ID());
 	}
 
@@ -150,7 +150,7 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.C_Period_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.DATALOADER_C_Period_BY_ID);
 		return dataLoader.load(entity.getC_Period_ID());
 	}
 
@@ -165,7 +165,7 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_CategoryDataLoader.GL_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_CategoryDataLoader.DATALOADER_GL_Category_BY_ID);
 		return dataLoader.load(entity.getGL_Category_ID());
 	}
 
@@ -183,7 +183,7 @@ public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_En
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
 	}
 

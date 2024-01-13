@@ -36,7 +36,7 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_Source_ID());
 	}
 
@@ -51,7 +51,7 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_Target_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -101,7 +101,7 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ROLE_SOURCE_UUIDS_BY_VALUE.get(entity.getRole_Source()));
 	}
 
@@ -116,7 +116,7 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ROLE_TARGET_UUIDS_BY_VALUE.get(entity.getRole_Target()));
 	}
 
@@ -131,7 +131,7 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(TYPE_UUIDS_BY_VALUE.get(entity.getType()));
 	}
 

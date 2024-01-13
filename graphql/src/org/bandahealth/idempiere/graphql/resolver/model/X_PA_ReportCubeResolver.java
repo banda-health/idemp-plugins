@@ -29,7 +29,7 @@ public class X_PA_ReportCubeResolver extends POResolver<MReportCube> implements 
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CalendarDataLoader.C_Calendar_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CalendarDataLoader.DATALOADER_C_Calendar_BY_ID);
 		return dataLoader.load(entity.getC_Calendar_ID());
 	}
 

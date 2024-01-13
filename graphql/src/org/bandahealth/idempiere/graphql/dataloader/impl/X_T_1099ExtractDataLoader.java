@@ -9,8 +9,8 @@ import org.compiere.model.X_T_1099Extract;
  * @version Release 8.2 - $Id$
  */
 public class X_T_1099ExtractDataLoader extends PODataLoader<X_T_1099Extract> {
-	public static String T_1099Extract_BY_ID_DATA_LOADER = "T_1099ExtractByIdDataLoader";
-	public static String T_1099Extract_BY_UUID_DATA_LOADER = "T_1099ExtractByUuidDataLoader";
+	public static String DATALOADER_T_1099Extract_BY_ID = "T_1099ExtractByIdDataLoader";
+	public static String DATALOADER_T_1099Extract_BY_UUID = "T_1099ExtractByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_T_1099ExtractDataLoader extends PODataLoader<X_T_1099Extract> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return T_1099Extract_BY_ID_DATA_LOADER;
+		return DATALOADER_T_1099Extract_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return T_1099Extract_BY_UUID_DATA_LOADER;
+		return DATALOADER_T_1099Extract_BY_UUID;
 	}
 }

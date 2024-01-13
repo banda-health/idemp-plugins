@@ -31,7 +31,7 @@ public class X_U_RoleMenuResolver extends POResolver<MRoleMenu> implements Graph
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_U_RoleMenuResolver extends POResolver<MRoleMenu> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MWebMenu> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_U_WebMenuDataLoader.U_WebMenu_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_U_WebMenuDataLoader.DATALOADER_U_WebMenu_BY_ID);
 		return dataLoader.load(entity.getU_WebMenu_ID());
 	}
 

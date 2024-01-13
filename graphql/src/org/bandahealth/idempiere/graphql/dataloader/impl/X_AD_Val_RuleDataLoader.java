@@ -9,8 +9,8 @@ import org.compiere.model.MValRule;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Val_RuleDataLoader extends PODataLoader<MValRule> {
-	public static String AD_Val_Rule_BY_ID_DATA_LOADER = "AD_Val_RuleByIdDataLoader";
-	public static String AD_Val_Rule_BY_UUID_DATA_LOADER = "AD_Val_RuleByUuidDataLoader";
+	public static String DATALOADER_AD_Val_Rule_BY_ID = "AD_Val_RuleByIdDataLoader";
+	public static String DATALOADER_AD_Val_Rule_BY_UUID = "AD_Val_RuleByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Val_RuleDataLoader extends PODataLoader<MValRule> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Val_Rule_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Val_Rule_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Val_Rule_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Val_Rule_BY_UUID;
 	}
 }

@@ -32,7 +32,7 @@ public class X_A_Depreciation_Table_HeaderResolver extends POResolver<X_A_Deprec
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(A_TABLE_RATE_TYPE_UUIDS_BY_VALUE.get(entity.getA_Table_Rate_Type()));
 	}
 
@@ -47,7 +47,7 @@ public class X_A_Depreciation_Table_HeaderResolver extends POResolver<X_A_Deprec
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(A_TERM_UUIDS_BY_VALUE.get(entity.getA_Term()));
 	}
 

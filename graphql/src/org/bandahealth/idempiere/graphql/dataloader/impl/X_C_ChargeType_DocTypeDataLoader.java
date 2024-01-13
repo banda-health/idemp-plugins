@@ -9,8 +9,8 @@ import org.compiere.model.X_C_ChargeType_DocType;
  * @version Release 8.2 - $Id$
  */
 public class X_C_ChargeType_DocTypeDataLoader extends PODataLoader<X_C_ChargeType_DocType> {
-	public static String C_ChargeType_DocType_BY_ID_DATA_LOADER = "C_ChargeType_DocTypeByIdDataLoader";
-	public static String C_ChargeType_DocType_BY_UUID_DATA_LOADER = "C_ChargeType_DocTypeByUuidDataLoader";
+	public static String DATALOADER_C_ChargeType_DocType_BY_ID = "C_ChargeType_DocTypeByIdDataLoader";
+	public static String DATALOADER_C_ChargeType_DocType_BY_UUID = "C_ChargeType_DocTypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_ChargeType_DocTypeDataLoader extends PODataLoader<X_C_ChargeTyp
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_ChargeType_DocType_BY_ID_DATA_LOADER;
+		return DATALOADER_C_ChargeType_DocType_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_ChargeType_DocType_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_ChargeType_DocType_BY_UUID;
 	}
 }

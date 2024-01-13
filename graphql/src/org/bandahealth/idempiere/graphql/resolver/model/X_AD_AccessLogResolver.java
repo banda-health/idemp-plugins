@@ -31,7 +31,7 @@ public class X_AD_AccessLogResolver extends POResolver<MAccessLog> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_AccessLogResolver extends POResolver<MAccessLog> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 

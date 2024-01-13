@@ -9,8 +9,8 @@ import org.compiere.model.MDepositBatch;
  * @version Release 8.2 - $Id$
  */
 public class X_C_DepositBatchDataLoader extends PODataLoader<MDepositBatch> {
-	public static String C_DepositBatch_BY_ID_DATA_LOADER = "C_DepositBatchByIdDataLoader";
-	public static String C_DepositBatch_BY_UUID_DATA_LOADER = "C_DepositBatchByUuidDataLoader";
+	public static String DATALOADER_C_DepositBatch_BY_ID = "C_DepositBatchByIdDataLoader";
+	public static String DATALOADER_C_DepositBatch_BY_UUID = "C_DepositBatchByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_DepositBatchDataLoader extends PODataLoader<MDepositBatch> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_DepositBatch_BY_ID_DATA_LOADER;
+		return DATALOADER_C_DepositBatch_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_DepositBatch_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_DepositBatch_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_Role_WarehouseAccessDataLoader extends PODataLoader<MBHRoleWarehouseAccess> {
-	public static String BH_Role_WarehouseAccess_BY_ID_DATA_LOADER = "BH_Role_WarehouseAccessByIdDataLoader";
-	public static String BH_Role_WarehouseAccess_BY_UUID_DATA_LOADER = "BH_Role_WarehouseAccessByUuidDataLoader";
+	public static String DATALOADER_BH_Role_WarehouseAccess_BY_ID = "BH_Role_WarehouseAccessByIdDataLoader";
+	public static String DATALOADER_BH_Role_WarehouseAccess_BY_UUID = "BH_Role_WarehouseAccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_Role_WarehouseAccessDataLoader extends PODataLoader<MBHRoleWar
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_Role_WarehouseAccess_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_Role_WarehouseAccess_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_Role_WarehouseAccess_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_Role_WarehouseAccess_BY_UUID;
 	}
 }

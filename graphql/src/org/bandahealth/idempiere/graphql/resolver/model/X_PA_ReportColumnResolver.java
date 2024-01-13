@@ -60,7 +60,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -75,7 +75,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -90,7 +90,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -105,7 +105,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -120,7 +120,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getC_ElementValue_ID());
 	}
 
@@ -135,7 +135,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_Location_ID());
 	}
 
@@ -150,7 +150,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -165,7 +165,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.C_SalesRegion_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.DATALOADER_C_SalesRegion_BY_ID);
 		return dataLoader.load(entity.getC_SalesRegion_ID());
 	}
 
@@ -182,7 +182,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CALCULATIONTYPE_UUIDS_BY_VALUE.get(entity.getCalculationType()));
 	}
 
@@ -198,7 +198,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(COLUMNTYPE_UUIDS_BY_VALUE.get(entity.getColumnType()));
 	}
 
@@ -213,7 +213,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CURRENCYTYPE_UUIDS_BY_VALUE.get(entity.getCurrencyType()));
 	}
 
@@ -227,7 +227,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_PA_ReportColumn_TrlDataLoader.PA_ReportColumn_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_PA_ReportColumn_TrlDataLoader.DATALOADER_PA_ReportColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportColumn.COLUMNNAME_Description));
 	}
@@ -258,7 +258,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ELEMENTTYPE_UUIDS_BY_VALUE.get(entity.getElementType()));
 	}
 
@@ -273,7 +273,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(FACTOR_UUIDS_BY_VALUE.get(entity.getFactor()));
 	}
 
@@ -288,7 +288,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_BudgetDataLoader.GL_Budget_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_BudgetDataLoader.DATALOADER_GL_Budget_BY_ID);
 		return dataLoader.load(entity.getGL_Budget_ID());
 	}
 
@@ -363,7 +363,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -377,7 +377,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_PA_ReportColumn_TrlDataLoader.PA_ReportColumn_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_PA_ReportColumn_TrlDataLoader.DATALOADER_PA_ReportColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportColumn.COLUMNNAME_Name));
 	}
@@ -393,7 +393,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, X_PA_ReportColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnDataLoader.PA_ReportColumn_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnDataLoader.DATALOADER_PA_ReportColumn_BY_ID);
 		return dataLoader.load(entity.getOper_1_ID());
 	}
 
@@ -408,7 +408,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, X_PA_ReportColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnDataLoader.PA_ReportColumn_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnDataLoader.DATALOADER_PA_ReportColumn_BY_ID);
 		return dataLoader.load(entity.getOper_2_ID());
 	}
 
@@ -423,7 +423,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<Integer, X_PA_ReportColumnSet> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnSetDataLoader.PA_ReportColumnSet_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnSetDataLoader.DATALOADER_PA_ReportColumnSet_BY_ID);
 		return dataLoader.load(entity.getPA_ReportColumnSet_ID());
 	}
 
@@ -442,7 +442,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAAMOUNTTYPE_UUIDS_BY_VALUE.get(entity.getPAAmountType()));
 	}
 
@@ -459,7 +459,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAPERIODTYPE_UUIDS_BY_VALUE.get(entity.getPAPeriodType()));
 	}
 
@@ -477,7 +477,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
 	}
 

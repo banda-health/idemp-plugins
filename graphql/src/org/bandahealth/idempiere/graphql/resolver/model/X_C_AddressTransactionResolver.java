@@ -31,7 +31,7 @@ public class X_C_AddressTransactionResolver extends POResolver<MAddressTransacti
 			return null;
 		}
 		DataLoader<Integer, MAddressValidation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AddressValidationDataLoader.C_AddressValidation_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AddressValidationDataLoader.DATALOADER_C_AddressValidation_BY_ID);
 		return dataLoader.load(entity.getC_AddressValidation_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_AddressTransactionResolver extends POResolver<MAddressTransacti
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_Location_ID());
 	}
 

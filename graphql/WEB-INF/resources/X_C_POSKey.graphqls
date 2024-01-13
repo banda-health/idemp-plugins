@@ -42,7 +42,7 @@ type C_POSKey {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Number of columns spanned
@@ -79,7 +79,7 @@ input C_POSKeyInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Number of columns spanned

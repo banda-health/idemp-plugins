@@ -38,9 +38,9 @@ type AD_Replication {
 	# Host Communication Port
 	HostPort: Int!
 	# End if the ID Range used
-	IDRangeEnd: Int
+	IDRangeEnd: BigDecimal
 	# Start of the ID Range used
-	IDRangeStart: Int
+	IDRangeStart: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# Connect to Server via HTTP Tunnel
@@ -75,9 +75,9 @@ input AD_ReplicationInput {
 	# Host Communication Port
 	HostPort: Int
 	# End if the ID Range used
-	IDRangeEnd: Int
+	IDRangeEnd: BigDecimal
 	# Start of the ID Range used
-	IDRangeStart: Int
+	IDRangeStart: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Connect to Server via HTTP Tunnel

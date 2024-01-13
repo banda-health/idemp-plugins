@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_OrgInfoDataLoader extends PODataLoader<MOrgInfo_BH> {
-	public static String AD_OrgInfo_BY_ID_DATA_LOADER = "AD_OrgInfoByIdDataLoader";
-	public static String AD_OrgInfo_BY_UUID_DATA_LOADER = "AD_OrgInfoByUuidDataLoader";
+	public static String DATALOADER_AD_OrgInfo_BY_ID = "AD_OrgInfoByIdDataLoader";
+	public static String DATALOADER_AD_OrgInfo_BY_UUID = "AD_OrgInfoByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_OrgInfoDataLoader extends PODataLoader<MOrgInfo_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_OrgInfo_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_OrgInfo_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_OrgInfo_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_OrgInfo_BY_UUID;
 	}
 }

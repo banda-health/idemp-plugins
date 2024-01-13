@@ -35,7 +35,7 @@ public class X_M_InOutLineMAResolver extends POResolver<MInOutLineMA> implements
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_M_InOutLineMAResolver extends POResolver<MInOutLineMA> implements
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getM_InOutLine_ID());
 	}
 

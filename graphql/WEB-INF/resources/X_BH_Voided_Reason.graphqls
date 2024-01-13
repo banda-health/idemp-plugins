@@ -21,7 +21,7 @@ type BH_Voided_Reason {
 	# Organizational entity within client
 	AD_Org: AD_Org
 	ID: ID!
-	bh_window_id: Int
+	bh_window_id: BigDecimal
 	# Date this record was created
 	Created: Date
 	# User who created this records
@@ -44,7 +44,7 @@ input BH_Voided_ReasonInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	ID: ID
-	bh_window_id: Int
+	bh_window_id: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

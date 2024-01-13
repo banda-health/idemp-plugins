@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBankAccount_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_C_BankAccountDataLoader extends PODataLoader<MBankAccount_BH> {
-	public static String C_BankAccount_BY_ID_DATA_LOADER = "C_BankAccountByIdDataLoader";
-	public static String C_BankAccount_BY_UUID_DATA_LOADER = "C_BankAccountByUuidDataLoader";
+	public static String DATALOADER_C_BankAccount_BY_ID = "C_BankAccountByIdDataLoader";
+	public static String DATALOADER_C_BankAccount_BY_UUID = "C_BankAccountByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_BankAccountDataLoader extends PODataLoader<MBankAccount_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_BankAccount_BY_ID_DATA_LOADER;
+		return DATALOADER_C_BankAccount_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_BankAccount_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_BankAccount_BY_UUID;
 	}
 }

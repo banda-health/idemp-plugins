@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
+import org.bandahealth.idempiere.graphql.model.input.I_C_InvoiceInput;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.DocumentUtil;
 import org.compiere.model.PO;
@@ -19,15 +20,14 @@ public class MInvoiceMutation extends X_C_InvoiceMutation {
 	}
 
 	@Override
-	protected PO save(PO entity, DataFetchingEnvironment environment) {
-		MInvoice_BH castEntity = (MInvoice_BH) entity;
+	public MInvoice_BH C_InvoiceSave(I_C_InvoiceInput input, DataFetchingEnvironment environment) {
 		MDocType_BH documentTypeTarget;
 		if ((documentTypeTarget = Repository.getById(BandaGraphQLContext.getCtx(environment), MDocType_BH.Table_Name, null,
-				castEntity.getC_DocTypeTarget_ID())) == null) {
+				input.getC_DocTypeTarget_ID())) == null) {
 			throw new AdempiereException("Document Type is required");
 		}
 		// Override whatever was passed for this property based on the document type target
-		castEntity.setIsSOTrx(documentTypeTarget.isSOTrx());
-		return super.save(entity, environment);
+		input.setIsSOTrx(documentTypeTarget.isSOTrx());
+		return super.C_InvoiceSave(input, environment);
 	}
 }

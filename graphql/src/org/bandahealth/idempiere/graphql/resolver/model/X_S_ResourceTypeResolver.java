@@ -37,7 +37,7 @@ public class X_S_ResourceTypeResolver extends POResolver<MResourceType> implemen
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxCategoryDataLoader.C_TaxCategory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxCategoryDataLoader.DATALOADER_C_TaxCategory_BY_ID);
 		return dataLoader.load(entity.getC_TaxCategory_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_S_ResourceTypeResolver extends POResolver<MResourceType> implemen
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -79,7 +79,7 @@ public class X_S_ResourceTypeResolver extends POResolver<MResourceType> implemen
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.M_Product_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.DATALOADER_M_Product_Category_BY_ID);
 		return dataLoader.load(entity.getM_Product_Category_ID());
 	}
 

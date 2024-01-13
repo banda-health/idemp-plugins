@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_GL_Category_TrlDataLoader extends PODataLoader<PO> {
-	public static String GL_Category_Trl_BY_ID_DATA_LOADER = "GL_Category_TrlByIdDataLoader";
-	public static String GL_Category_Trl_BY_UUID_DATA_LOADER = "GL_Category_TrlByUuidDataLoader";
+	public static String DATALOADER_GL_Category_Trl_BY_ID = "GL_Category_TrlByIdDataLoader";
+	public static String DATALOADER_GL_Category_Trl_BY_UUID = "GL_Category_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -37,13 +37,13 @@ public class X_GL_Category_TrlDataLoader extends PODataLoader<PO> {
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return GL_Category_Trl_BY_UUID_DATA_LOADER;
+		return DATALOADER_GL_Category_Trl_BY_UUID;
 	}
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(GL_Category_Trl_BY_ID_DATA_LOADER,
+		registry.register(DATALOADER_GL_Category_Trl_BY_ID,
 				DataLoader.newMappedDataLoader(getByIdAndLanguageBatchLoader(),
 						getOptionsWithCache(idempiereContext)));
 	}

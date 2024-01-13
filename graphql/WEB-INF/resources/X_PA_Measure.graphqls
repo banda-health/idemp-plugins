@@ -33,7 +33,7 @@ type PA_Measure {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Manually entered actual value
-	ManualActual: Int
+	ManualActual: BigDecimal
 	# Note for manual entry
 	ManualNote: String
 	# Type of data - Status or in Time
@@ -71,7 +71,7 @@ input PA_MeasureInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Manually entered actual value
-	ManualActual: Int
+	ManualActual: BigDecimal
 	# Note for manual entry
 	ManualNote: String
 	# Type of data - Status or in Time

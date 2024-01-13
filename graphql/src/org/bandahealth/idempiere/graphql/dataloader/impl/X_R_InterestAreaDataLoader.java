@@ -9,8 +9,8 @@ import org.compiere.model.MInterestArea;
  * @version Release 8.2 - $Id$
  */
 public class X_R_InterestAreaDataLoader extends PODataLoader<MInterestArea> {
-	public static String R_InterestArea_BY_ID_DATA_LOADER = "R_InterestAreaByIdDataLoader";
-	public static String R_InterestArea_BY_UUID_DATA_LOADER = "R_InterestAreaByUuidDataLoader";
+	public static String DATALOADER_R_InterestArea_BY_ID = "R_InterestAreaByIdDataLoader";
+	public static String DATALOADER_R_InterestArea_BY_UUID = "R_InterestAreaByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_InterestAreaDataLoader extends PODataLoader<MInterestArea> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_InterestArea_BY_ID_DATA_LOADER;
+		return DATALOADER_R_InterestArea_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_InterestArea_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_InterestArea_BY_UUID;
 	}
 }

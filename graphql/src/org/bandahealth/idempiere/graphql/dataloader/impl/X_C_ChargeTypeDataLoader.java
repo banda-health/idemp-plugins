@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MChargeType_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_C_ChargeTypeDataLoader extends PODataLoader<MChargeType_BH> {
-	public static String C_ChargeType_BY_ID_DATA_LOADER = "C_ChargeTypeByIdDataLoader";
-	public static String C_ChargeType_BY_UUID_DATA_LOADER = "C_ChargeTypeByUuidDataLoader";
+	public static String DATALOADER_C_ChargeType_BY_ID = "C_ChargeTypeByIdDataLoader";
+	public static String DATALOADER_C_ChargeType_BY_UUID = "C_ChargeTypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_ChargeTypeDataLoader extends PODataLoader<MChargeType_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_ChargeType_BY_ID_DATA_LOADER;
+		return DATALOADER_C_ChargeType_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_ChargeType_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_ChargeType_BY_UUID;
 	}
 }

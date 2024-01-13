@@ -42,7 +42,7 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_GroupDataLoader.A_Asset_Group_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_GroupDataLoader.DATALOADER_A_Asset_Group_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Group_ID());
 	}
 
@@ -57,7 +57,7 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getAD_PrintColor_ID());
 	}
 
@@ -72,7 +72,7 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_PRODUCT_CATEGORY_TYPE_UUIDS_BY_VALUE.get(entity.getBH_Product_Category_Type()));
 	}
 
@@ -86,7 +86,7 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_M_Product_Category_TrlDataLoader.M_Product_Category_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_M_Product_Category_TrlDataLoader.DATALOADER_M_Product_Category_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MProductCategory_BH.COLUMNNAME_Description));
 	}
@@ -110,7 +110,7 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.M_Product_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.DATALOADER_M_Product_Category_BY_ID);
 		return dataLoader.load(entity.getM_Product_Category_Parent_ID());
 	}
 
@@ -125,7 +125,7 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(MMPOLICY_UUIDS_BY_VALUE.get(entity.getMMPolicy()));
 	}
 
@@ -139,7 +139,7 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_M_Product_Category_TrlDataLoader.M_Product_Category_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_M_Product_Category_TrlDataLoader.DATALOADER_M_Product_Category_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MProductCategory_BH.COLUMNNAME_Name));
 	}

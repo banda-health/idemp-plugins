@@ -51,7 +51,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_PATIENTTYPE_UUIDS_BY_VALUE.get(entity.getBH_PatientType()));
 	}
 
@@ -68,7 +68,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_PROCESS_STAGE_UUIDS_BY_VALUE.get(entity.getBH_Process_Stage()));
 	}
 
@@ -85,7 +85,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_REFERRAL_UUIDS_BY_VALUE.get(entity.getbh_referral()));
 	}
 
@@ -100,7 +100,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, MBHVoidedReason> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_Voided_ReasonDataLoader.BH_Voided_Reason_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_Voided_ReasonDataLoader.DATALOADER_BH_Voided_Reason_BY_ID);
 		return dataLoader.load(entity.getBH_Voided_Reason_ID());
 	}
 
@@ -115,7 +115,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getPatient_ID());
 	}
 

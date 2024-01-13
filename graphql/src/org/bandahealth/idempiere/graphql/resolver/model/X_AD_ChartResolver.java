@@ -39,7 +39,7 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CHARTORIENTATION_UUIDS_BY_VALUE.get(entity.getChartOrientation()));
 	}
 
@@ -64,7 +64,7 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CHARTTYPE_UUIDS_BY_VALUE.get(entity.getChartType()));
 	}
 
@@ -78,7 +78,7 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Chart_TrlDataLoader.AD_Chart_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Chart_TrlDataLoader.DATALOADER_AD_Chart_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MChart.COLUMNNAME_Description));
 	}
@@ -93,7 +93,7 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 			return CompletableFuture.supplyAsync(entity::getDomainLabel);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Chart_TrlDataLoader.AD_Chart_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Chart_TrlDataLoader.DATALOADER_AD_Chart_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MChart.COLUMNNAME_DomainLabel));
 	}
@@ -125,7 +125,7 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -147,7 +147,7 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Chart_TrlDataLoader.AD_Chart_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Chart_TrlDataLoader.DATALOADER_AD_Chart_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MChart.COLUMNNAME_Name));
 	}
@@ -162,7 +162,7 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 			return CompletableFuture.supplyAsync(entity::getRangeLabel);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Chart_TrlDataLoader.AD_Chart_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Chart_TrlDataLoader.DATALOADER_AD_Chart_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MChart.COLUMNNAME_RangeLabel));
 	}
@@ -181,7 +181,7 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(TIMEUNIT_UUIDS_BY_VALUE.get(entity.getTimeUnit()));
 	}
 

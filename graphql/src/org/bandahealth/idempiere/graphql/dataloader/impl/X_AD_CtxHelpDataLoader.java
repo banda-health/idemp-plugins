@@ -9,8 +9,8 @@ import org.compiere.model.MCtxHelp;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_CtxHelpDataLoader extends PODataLoader<MCtxHelp> {
-	public static String AD_CtxHelp_BY_ID_DATA_LOADER = "AD_CtxHelpByIdDataLoader";
-	public static String AD_CtxHelp_BY_UUID_DATA_LOADER = "AD_CtxHelpByUuidDataLoader";
+	public static String DATALOADER_AD_CtxHelp_BY_ID = "AD_CtxHelpByIdDataLoader";
+	public static String DATALOADER_AD_CtxHelp_BY_UUID = "AD_CtxHelpByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_CtxHelpDataLoader extends PODataLoader<MCtxHelp> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_CtxHelp_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_CtxHelp_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_CtxHelp_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_CtxHelp_BY_UUID;
 	}
 }

@@ -33,7 +33,7 @@ type PA_SLA_Measure {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Actual value that has been measured.
-	MeasureActual: Int!
+	MeasureActual: BigDecimal!
 	# Service Level Agreement Goal
 	PA_SLA_Goal: PA_SLA_Goal!
 	ID: ID!
@@ -60,7 +60,7 @@ input PA_SLA_MeasureInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Actual value that has been measured.
-	MeasureActual: Int
+	MeasureActual: BigDecimal
 	# Service Level Agreement Goal
 	PA_SLA_Goal: ForeignEntityInput
 	ID: ID

@@ -29,7 +29,7 @@ public class X_AD_PInstance_ParaResolver extends POResolver<MPInstancePara> impl
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.AD_PInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.DATALOADER_AD_PInstance_BY_ID);
 		return dataLoader.load(entity.getAD_PInstance_ID());
 	}
 

@@ -32,7 +32,7 @@ type C_Withholding {
 	# Optional short description of the record
 	Description: String
 	# Fix amounted amount to be levied or paid
-	FixAmt: Int
+	FixAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# Amount paid to someone other than the Business Partner
@@ -44,17 +44,17 @@ type C_Withholding {
 	# This is a tax related withholding
 	IsTaxWithholding: Boolean!
 	# Maximum Amount in invoice currency
-	MaxAmt: Int
+	MaxAmt: BigDecimal
 	# Minimum Amount in invoice currency
-	MinAmt: Int
+	MinAmt: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Percentage
-	Percent: Int
+	Percent: BigDecimal
 	# Maximum gross amount for withholding calculation  (0=no limit)
-	ThresholdMax: Int
+	ThresholdMax: BigDecimal
 	# Minimum gross amount for withholding calculation
-	Thresholdmin: Int
+	Thresholdmin: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -72,7 +72,7 @@ input C_WithholdingInput {
 	# Optional short description of the record
 	Description: String
 	# Fix amounted amount to be levied or paid
-	FixAmt: Int
+	FixAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Amount paid to someone other than the Business Partner
@@ -84,15 +84,15 @@ input C_WithholdingInput {
 	# This is a tax related withholding
 	IsTaxWithholding: Boolean
 	# Maximum Amount in invoice currency
-	MaxAmt: Int
+	MaxAmt: BigDecimal
 	# Minimum Amount in invoice currency
-	MinAmt: Int
+	MinAmt: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Percentage
-	Percent: Int
+	Percent: BigDecimal
 	# Maximum gross amount for withholding calculation  (0=no limit)
-	ThresholdMax: Int
+	ThresholdMax: BigDecimal
 	# Minimum gross amount for withholding calculation
-	Thresholdmin: Int
+	Thresholdmin: BigDecimal
 }

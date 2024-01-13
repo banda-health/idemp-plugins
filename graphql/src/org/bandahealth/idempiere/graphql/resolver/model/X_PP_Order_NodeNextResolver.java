@@ -38,7 +38,7 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.AD_WF_Node_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.DATALOADER_AD_WF_Node_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Next_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.AD_WF_Node_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeDataLoader.DATALOADER_AD_WF_Node_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Node_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -103,7 +103,7 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_OrderDataLoader.PP_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_OrderDataLoader.DATALOADER_PP_Order_BY_ID);
 		return dataLoader.load(entity.getPP_Order_ID());
 	}
 
@@ -118,7 +118,7 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Node> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_Order_NodeDataLoader.PP_Order_Node_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Order_NodeDataLoader.DATALOADER_PP_Order_Node_BY_ID);
 		return dataLoader.load(entity.getPP_Order_Next_ID());
 	}
 
@@ -133,7 +133,7 @@ public class X_PP_Order_NodeNextResolver extends POResolver<X_PP_Order_NodeNext>
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Node> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_Order_NodeDataLoader.PP_Order_Node_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Order_NodeDataLoader.DATALOADER_PP_Order_Node_BY_ID);
 		return dataLoader.load(entity.getPP_Order_Node_ID());
 	}
 

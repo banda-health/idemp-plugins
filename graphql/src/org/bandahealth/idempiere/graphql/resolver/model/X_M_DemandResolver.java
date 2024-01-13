@@ -31,7 +31,7 @@ public class X_M_DemandResolver extends POResolver<X_M_Demand> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CalendarDataLoader.C_Calendar_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CalendarDataLoader.DATALOADER_C_Calendar_BY_ID);
 		return dataLoader.load(entity.getC_Calendar_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_M_DemandResolver extends POResolver<X_M_Demand> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MYear> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_YearDataLoader.C_Year_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_YearDataLoader.DATALOADER_C_Year_BY_ID);
 		return dataLoader.load(entity.getC_Year_ID());
 	}
 

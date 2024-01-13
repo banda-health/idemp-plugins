@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBHVisit;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_VisitDataLoader extends PODataLoader<MBHVisit> {
-	public static String BH_Visit_BY_ID_DATA_LOADER = "BH_VisitByIdDataLoader";
-	public static String BH_Visit_BY_UUID_DATA_LOADER = "BH_VisitByUuidDataLoader";
+	public static String DATALOADER_BH_Visit_BY_ID = "BH_VisitByIdDataLoader";
+	public static String DATALOADER_BH_Visit_BY_UUID = "BH_VisitByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_VisitDataLoader extends PODataLoader<MBHVisit> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_Visit_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_Visit_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_Visit_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_Visit_BY_UUID;
 	}
 }

@@ -16,13 +16,13 @@ type A_Asset_RevalConnection {
 }
 
 type A_Asset_Reval {
-	A_Accumulated_Depr: Int
-	A_Asset_Cost: Int
-	A_Asset_Cost_Change: Int!
+	A_Accumulated_Depr: BigDecimal
+	A_Asset_Cost: BigDecimal
+	A_Asset_Cost_Change: BigDecimal!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	ID: ID!
-	A_Change_Acumulated_Depr: Int!
+	A_Change_Acumulated_Depr: BigDecimal!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -50,7 +50,7 @@ type A_Asset_Reval {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
@@ -59,13 +59,13 @@ type A_Asset_Reval {
 }
 
 input A_Asset_RevalInput {
-	A_Accumulated_Depr: Int
-	A_Asset_Cost: Int
-	A_Asset_Cost_Change: Int
+	A_Accumulated_Depr: BigDecimal
+	A_Asset_Cost: BigDecimal
+	A_Asset_Cost_Change: BigDecimal
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	ID: ID
-	A_Change_Acumulated_Depr: Int
+	A_Change_Acumulated_Depr: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Accounting Date
@@ -87,6 +87,6 @@ input A_Asset_RevalInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 }

@@ -31,7 +31,7 @@ type M_DiscountSchema {
 	# Type of trade discount calculation
 	DiscountType: AD_Ref_List!
 	# Flat discount percentage 
-	FlatDiscount: Int
+	FlatDiscount: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# Use flat discount defined on Business Partner Level
@@ -62,7 +62,7 @@ input M_DiscountSchemaInput {
 	# Type of trade discount calculation
 	DiscountType: AD_Ref_ListInput
 	# Flat discount percentage 
-	FlatDiscount: Int
+	FlatDiscount: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Use flat discount defined on Business Partner Level

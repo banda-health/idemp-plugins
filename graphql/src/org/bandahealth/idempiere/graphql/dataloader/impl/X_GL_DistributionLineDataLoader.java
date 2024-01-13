@@ -9,8 +9,8 @@ import org.compiere.model.MDistributionLine;
  * @version Release 8.2 - $Id$
  */
 public class X_GL_DistributionLineDataLoader extends PODataLoader<MDistributionLine> {
-	public static String GL_DistributionLine_BY_ID_DATA_LOADER = "GL_DistributionLineByIdDataLoader";
-	public static String GL_DistributionLine_BY_UUID_DATA_LOADER = "GL_DistributionLineByUuidDataLoader";
+	public static String DATALOADER_GL_DistributionLine_BY_ID = "GL_DistributionLineByIdDataLoader";
+	public static String DATALOADER_GL_DistributionLine_BY_UUID = "GL_DistributionLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_GL_DistributionLineDataLoader extends PODataLoader<MDistributionL
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return GL_DistributionLine_BY_ID_DATA_LOADER;
+		return DATALOADER_GL_DistributionLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return GL_DistributionLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_GL_DistributionLine_BY_UUID;
 	}
 }

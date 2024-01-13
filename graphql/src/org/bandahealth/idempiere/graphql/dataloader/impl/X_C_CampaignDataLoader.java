@@ -9,8 +9,8 @@ import org.compiere.model.MCampaign;
  * @version Release 8.2 - $Id$
  */
 public class X_C_CampaignDataLoader extends PODataLoader<MCampaign> {
-	public static String C_Campaign_BY_ID_DATA_LOADER = "C_CampaignByIdDataLoader";
-	public static String C_Campaign_BY_UUID_DATA_LOADER = "C_CampaignByUuidDataLoader";
+	public static String DATALOADER_C_Campaign_BY_ID = "C_CampaignByIdDataLoader";
+	public static String DATALOADER_C_Campaign_BY_UUID = "C_CampaignByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_CampaignDataLoader extends PODataLoader<MCampaign> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Campaign_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Campaign_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Campaign_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Campaign_BY_UUID;
 	}
 }

@@ -36,7 +36,7 @@ public class X_C_UOMResolver extends POResolver<MUOM> implements GraphQLResolver
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_UOM_TrlDataLoader.C_UOM_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_UOM_TrlDataLoader.DATALOADER_C_UOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MUOM.COLUMNNAME_Description));
 	}
@@ -55,7 +55,7 @@ public class X_C_UOMResolver extends POResolver<MUOM> implements GraphQLResolver
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_UOM_TrlDataLoader.C_UOM_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_UOM_TrlDataLoader.DATALOADER_C_UOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MUOM.COLUMNNAME_Name));
 	}
@@ -70,7 +70,7 @@ public class X_C_UOMResolver extends POResolver<MUOM> implements GraphQLResolver
 			return CompletableFuture.supplyAsync(entity::getUOMSymbol);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_UOM_TrlDataLoader.C_UOM_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_UOM_TrlDataLoader.DATALOADER_C_UOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MUOM.COLUMNNAME_UOMSymbol));
 	}
@@ -105,7 +105,7 @@ public class X_C_UOMResolver extends POResolver<MUOM> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(UOMTYPE_UUIDS_BY_VALUE.get(entity.getUOMType()));
 	}
 

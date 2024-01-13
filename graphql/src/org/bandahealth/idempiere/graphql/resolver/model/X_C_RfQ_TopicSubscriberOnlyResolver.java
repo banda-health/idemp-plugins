@@ -33,7 +33,7 @@ public class X_C_RfQ_TopicSubscriberOnlyResolver extends POResolver<MRfQTopicSub
 			return null;
 		}
 		DataLoader<Integer, MRfQTopicSubscriber> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RfQ_TopicSubscriberDataLoader.C_RfQ_TopicSubscriber_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RfQ_TopicSubscriberDataLoader.DATALOADER_C_RfQ_TopicSubscriber_BY_ID);
 		return dataLoader.load(entity.getC_RfQ_TopicSubscriber_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_C_RfQ_TopicSubscriberOnlyResolver extends POResolver<MRfQTopicSub
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.M_Product_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_Product_CategoryDataLoader.DATALOADER_M_Product_Category_BY_ID);
 		return dataLoader.load(entity.getM_Product_Category_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_C_RfQ_TopicSubscriberOnlyResolver extends POResolver<MRfQTopicSub
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

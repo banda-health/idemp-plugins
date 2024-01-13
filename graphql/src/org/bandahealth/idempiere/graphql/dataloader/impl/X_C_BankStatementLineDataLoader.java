@@ -9,8 +9,8 @@ import org.compiere.model.MBankStatementLine;
  * @version Release 8.2 - $Id$
  */
 public class X_C_BankStatementLineDataLoader extends PODataLoader<MBankStatementLine> {
-	public static String C_BankStatementLine_BY_ID_DATA_LOADER = "C_BankStatementLineByIdDataLoader";
-	public static String C_BankStatementLine_BY_UUID_DATA_LOADER = "C_BankStatementLineByUuidDataLoader";
+	public static String DATALOADER_C_BankStatementLine_BY_ID = "C_BankStatementLineByIdDataLoader";
+	public static String DATALOADER_C_BankStatementLine_BY_UUID = "C_BankStatementLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_BankStatementLineDataLoader extends PODataLoader<MBankStatement
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_BankStatementLine_BY_ID_DATA_LOADER;
+		return DATALOADER_C_BankStatementLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_BankStatementLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_BankStatementLine_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_TabNavBtn_TabDataLoader extends PODataLoader<MTabNavBtnTab> {
-	public static String BH_TabNavBtn_Tab_BY_ID_DATA_LOADER = "BH_TabNavBtn_TabByIdDataLoader";
-	public static String BH_TabNavBtn_Tab_BY_UUID_DATA_LOADER = "BH_TabNavBtn_TabByUuidDataLoader";
+	public static String DATALOADER_BH_TabNavBtn_Tab_BY_ID = "BH_TabNavBtn_TabByIdDataLoader";
+	public static String DATALOADER_BH_TabNavBtn_Tab_BY_UUID = "BH_TabNavBtn_TabByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_TabNavBtn_TabDataLoader extends PODataLoader<MTabNavBtnTab> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_TabNavBtn_Tab_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_TabNavBtn_Tab_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_TabNavBtn_Tab_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_TabNavBtn_Tab_BY_UUID;
 	}
 }

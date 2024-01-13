@@ -29,13 +29,13 @@ type I_GLJournal {
 	# Organizational entity within client
 	AD_Org: AD_Org
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
+	AmtAcctDr: BigDecimal
 	# Source Credit Amount
-	AmtSourceCr: Int
+	AmtSourceCr: BigDecimal
 	# Source Debit Amount
-	AmtSourceDr: Int
+	AmtSourceDr: BigDecimal
 	# Description of the Batch
 	BatchDescription: String
 	# Document Number of the Batch
@@ -83,7 +83,7 @@ type I_GLJournal {
 	# User who created this records
 	CreatedBy: AD_User
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record
@@ -133,7 +133,7 @@ type I_GLJournal {
 	# Key of the Project
 	ProjectValue: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Text key of the Sales Region
 	SalesRegionValue: String
 	# Stock Keeping Unit
@@ -162,13 +162,13 @@ input I_GLJournalInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
+	AmtAcctDr: BigDecimal
 	# Source Credit Amount
-	AmtSourceCr: Int
+	AmtSourceCr: BigDecimal
 	# Source Debit Amount
-	AmtSourceDr: Int
+	AmtSourceDr: BigDecimal
 	# Description of the Batch
 	BatchDescription: String
 	# Document Number of the Batch
@@ -212,7 +212,7 @@ input I_GLJournalInput {
 	# Key value for the Currency Conversion Rate Type
 	ConversionTypeValue: String
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record
@@ -262,7 +262,7 @@ input I_GLJournalInput {
 	# Key of the Project
 	ProjectValue: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Text key of the Sales Region
 	SalesRegionValue: String
 	# Stock Keeping Unit

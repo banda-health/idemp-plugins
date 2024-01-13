@@ -9,8 +9,8 @@ import org.compiere.model.MJournalBatch;
  * @version Release 8.2 - $Id$
  */
 public class X_GL_JournalBatchDataLoader extends PODataLoader<MJournalBatch> {
-	public static String GL_JournalBatch_BY_ID_DATA_LOADER = "GL_JournalBatchByIdDataLoader";
-	public static String GL_JournalBatch_BY_UUID_DATA_LOADER = "GL_JournalBatchByUuidDataLoader";
+	public static String DATALOADER_GL_JournalBatch_BY_ID = "GL_JournalBatchByIdDataLoader";
+	public static String DATALOADER_GL_JournalBatch_BY_UUID = "GL_JournalBatchByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_GL_JournalBatchDataLoader extends PODataLoader<MJournalBatch> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return GL_JournalBatch_BY_ID_DATA_LOADER;
+		return DATALOADER_GL_JournalBatch_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return GL_JournalBatch_BY_UUID_DATA_LOADER;
+		return DATALOADER_GL_JournalBatch_BY_UUID;
 	}
 }

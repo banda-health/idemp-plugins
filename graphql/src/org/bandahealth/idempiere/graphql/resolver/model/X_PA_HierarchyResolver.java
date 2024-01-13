@@ -29,7 +29,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.DATALOADER_AD_Tree_BY_ID);
 		return dataLoader.load(entity.getAD_Tree_Account_ID());
 	}
 
@@ -44,7 +44,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.DATALOADER_AD_Tree_BY_ID);
 		return dataLoader.load(entity.getAD_Tree_Activity_ID());
 	}
 
@@ -59,7 +59,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.DATALOADER_AD_Tree_BY_ID);
 		return dataLoader.load(entity.getAD_Tree_BPartner_ID());
 	}
 
@@ -74,7 +74,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.DATALOADER_AD_Tree_BY_ID);
 		return dataLoader.load(entity.getAD_Tree_Campaign_ID());
 	}
 
@@ -89,7 +89,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.DATALOADER_AD_Tree_BY_ID);
 		return dataLoader.load(entity.getAD_Tree_Org_ID());
 	}
 
@@ -104,7 +104,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.DATALOADER_AD_Tree_BY_ID);
 		return dataLoader.load(entity.getAD_Tree_Product_ID());
 	}
 
@@ -119,7 +119,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.DATALOADER_AD_Tree_BY_ID);
 		return dataLoader.load(entity.getAD_Tree_Project_ID());
 	}
 
@@ -134,7 +134,7 @@ public class X_PA_HierarchyResolver extends POResolver<MHierarchy> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.DATALOADER_AD_Tree_BY_ID);
 		return dataLoader.load(entity.getAD_Tree_SalesRegion_ID());
 	}
 

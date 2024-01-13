@@ -33,7 +33,7 @@ public class X_M_RMATaxResolver extends POResolver<MRMATax> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.C_Tax_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getC_Tax_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_M_RMATaxResolver extends POResolver<MRMATax> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MTaxProvider> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxProviderDataLoader.C_TaxProvider_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxProviderDataLoader.DATALOADER_C_TaxProvider_BY_ID);
 		return dataLoader.load(entity.getC_TaxProvider_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_M_RMATaxResolver extends POResolver<MRMATax> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MRMA> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_RMADataLoader.M_RMA_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_RMADataLoader.DATALOADER_M_RMA_BY_ID);
 		return dataLoader.load(entity.getM_RMA_ID());
 	}
 

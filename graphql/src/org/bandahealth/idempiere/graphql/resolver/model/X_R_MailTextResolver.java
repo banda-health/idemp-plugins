@@ -35,7 +35,7 @@ public class X_R_MailTextResolver extends POResolver<MMailText> implements Graph
 			return CompletableFuture.supplyAsync(entity::getMailHeader);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_R_MailText_TrlDataLoader.R_MailText_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_R_MailText_TrlDataLoader.DATALOADER_R_MailText_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MMailText.COLUMNNAME_MailHeader));
 	}
@@ -50,7 +50,7 @@ public class X_R_MailTextResolver extends POResolver<MMailText> implements Graph
 			return CompletableFuture.supplyAsync(entity::getMailText);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_R_MailText_TrlDataLoader.R_MailText_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_R_MailText_TrlDataLoader.DATALOADER_R_MailText_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MMailText.COLUMNNAME_MailText));
 	}
@@ -65,7 +65,7 @@ public class X_R_MailTextResolver extends POResolver<MMailText> implements Graph
 			return CompletableFuture.supplyAsync(entity::getMailText2);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_R_MailText_TrlDataLoader.R_MailText_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_R_MailText_TrlDataLoader.DATALOADER_R_MailText_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MMailText.COLUMNNAME_MailText2));
 	}
@@ -80,7 +80,7 @@ public class X_R_MailTextResolver extends POResolver<MMailText> implements Graph
 			return CompletableFuture.supplyAsync(entity::getMailText3);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_R_MailText_TrlDataLoader.R_MailText_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_R_MailText_TrlDataLoader.DATALOADER_R_MailText_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MMailText.COLUMNNAME_MailText3));
 	}
@@ -95,7 +95,7 @@ public class X_R_MailTextResolver extends POResolver<MMailText> implements Graph
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_R_MailText_TrlDataLoader.R_MailText_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_R_MailText_TrlDataLoader.DATALOADER_R_MailText_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MMailText.COLUMNNAME_Name));
 	}

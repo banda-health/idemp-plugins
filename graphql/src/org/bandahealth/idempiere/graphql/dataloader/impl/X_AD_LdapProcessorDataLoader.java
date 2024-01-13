@@ -9,8 +9,8 @@ import org.compiere.model.MLdapProcessor;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_LdapProcessorDataLoader extends PODataLoader<MLdapProcessor> {
-	public static String AD_LdapProcessor_BY_ID_DATA_LOADER = "AD_LdapProcessorByIdDataLoader";
-	public static String AD_LdapProcessor_BY_UUID_DATA_LOADER = "AD_LdapProcessorByUuidDataLoader";
+	public static String DATALOADER_AD_LdapProcessor_BY_ID = "AD_LdapProcessorByIdDataLoader";
+	public static String DATALOADER_AD_LdapProcessor_BY_UUID = "AD_LdapProcessorByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_LdapProcessorDataLoader extends PODataLoader<MLdapProcessor> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_LdapProcessor_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_LdapProcessor_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_LdapProcessor_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_LdapProcessor_BY_UUID;
 	}
 }

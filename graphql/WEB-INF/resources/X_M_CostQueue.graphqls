@@ -27,9 +27,9 @@ type M_CostQueue {
 	# User who created this records
 	CreatedBy: AD_User!
 	# The currently used cost price
-	CurrentCostPrice: Int!
+	CurrentCostPrice: BigDecimal!
 	# Current Quantity
-	CurrentQty: Int!
+	CurrentQty: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Product Attribute Set Instance
@@ -53,9 +53,9 @@ input M_CostQueueInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# The currently used cost price
-	CurrentCostPrice: Int
+	CurrentCostPrice: BigDecimal
 	# Current Quantity
-	CurrentQty: Int
+	CurrentQty: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Product Attribute Set Instance

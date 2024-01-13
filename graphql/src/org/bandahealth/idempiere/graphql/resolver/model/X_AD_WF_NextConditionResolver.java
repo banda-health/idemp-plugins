@@ -38,7 +38,7 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_NodeNext> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeNextDataLoader.AD_WF_NodeNext_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_NodeNextDataLoader.DATALOADER_AD_WF_NodeNext_BY_ID);
 		return dataLoader.load(entity.getAD_WF_NodeNext_ID());
 	}
 
@@ -68,7 +68,7 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ANDOR_UUIDS_BY_VALUE.get(entity.getAndOr()));
 	}
 
@@ -99,7 +99,7 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -121,7 +121,7 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(OPERATION_UUIDS_BY_VALUE.get(entity.getOperation()));
 	}
 

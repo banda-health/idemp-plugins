@@ -35,7 +35,7 @@ public class X_IMP_ProcessorResolver extends POResolver<X_IMP_Processor> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(FREQUENCYTYPE_UUIDS_BY_VALUE.get(entity.getFrequencyType()));
 	}
 
@@ -50,7 +50,7 @@ public class X_IMP_ProcessorResolver extends POResolver<X_IMP_Processor> impleme
 			return null;
 		}
 		DataLoader<Integer, X_IMP_Processor_Type> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_IMP_Processor_TypeDataLoader.IMP_Processor_Type_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_IMP_Processor_TypeDataLoader.DATALOADER_IMP_Processor_Type_BY_ID);
 		return dataLoader.load(entity.getIMP_Processor_Type_ID());
 	}
 

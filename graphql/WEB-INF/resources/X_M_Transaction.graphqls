@@ -46,7 +46,7 @@ type M_Transaction {
 	# Date a product was moved in or out of inventory
 	MovementDate: Date!
 	# Quantity of a product moved.
-	MovementQty: Int!
+	MovementQty: BigDecimal!
 	# Method of moving the inventory
 	MovementType: AD_Ref_List!
 	PP_Cost_Collector: PP_Cost_Collector
@@ -81,7 +81,7 @@ input M_TransactionInput {
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Quantity of a product moved.
-	MovementQty: Int
+	MovementQty: BigDecimal
 	# Method of moving the inventory
 	MovementType: AD_Ref_ListInput
 	PP_Cost_Collector: ForeignEntityInput

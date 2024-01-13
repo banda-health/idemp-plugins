@@ -9,8 +9,8 @@ import org.compiere.model.X_ASP_Workflow;
  * @version Release 8.2 - $Id$
  */
 public class X_ASP_WorkflowDataLoader extends PODataLoader<X_ASP_Workflow> {
-	public static String ASP_Workflow_BY_ID_DATA_LOADER = "ASP_WorkflowByIdDataLoader";
-	public static String ASP_Workflow_BY_UUID_DATA_LOADER = "ASP_WorkflowByUuidDataLoader";
+	public static String DATALOADER_ASP_Workflow_BY_ID = "ASP_WorkflowByIdDataLoader";
+	public static String DATALOADER_ASP_Workflow_BY_UUID = "ASP_WorkflowByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_ASP_WorkflowDataLoader extends PODataLoader<X_ASP_Workflow> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return ASP_Workflow_BY_ID_DATA_LOADER;
+		return DATALOADER_ASP_Workflow_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return ASP_Workflow_BY_UUID_DATA_LOADER;
+		return DATALOADER_ASP_Workflow_BY_UUID;
 	}
 }

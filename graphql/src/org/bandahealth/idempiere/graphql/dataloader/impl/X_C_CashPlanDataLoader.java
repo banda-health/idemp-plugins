@@ -9,8 +9,8 @@ import org.compiere.model.MCashPlan;
  * @version Release 8.2 - $Id$
  */
 public class X_C_CashPlanDataLoader extends PODataLoader<MCashPlan> {
-	public static String C_CashPlan_BY_ID_DATA_LOADER = "C_CashPlanByIdDataLoader";
-	public static String C_CashPlan_BY_UUID_DATA_LOADER = "C_CashPlanByUuidDataLoader";
+	public static String DATALOADER_C_CashPlan_BY_ID = "C_CashPlanByIdDataLoader";
+	public static String DATALOADER_C_CashPlan_BY_UUID = "C_CashPlanByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_CashPlanDataLoader extends PODataLoader<MCashPlan> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_CashPlan_BY_ID_DATA_LOADER;
+		return DATALOADER_C_CashPlan_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_CashPlan_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_CashPlan_BY_UUID;
 	}
 }

@@ -19,10 +19,10 @@ type T_ReportStatement {
 	# Instance of the process
 	AD_PInstance: AD_PInstance!
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
-	Balance: Int
+	AmtAcctDr: BigDecimal
+	Balance: BigDecimal
 	# Accounting Date
 	DateAcct: Date!
 	# Optional short description of the record
@@ -32,7 +32,7 @@ type T_ReportStatement {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	ID: ID!
 }
 
@@ -40,10 +40,10 @@ input T_ReportStatementInput {
 	# Instance of the process
 	AD_PInstance: ForeignEntityInput
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
-	Balance: Int
+	AmtAcctDr: BigDecimal
+	Balance: BigDecimal
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record
@@ -53,6 +53,6 @@ input T_ReportStatementInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	ID: ID
 }

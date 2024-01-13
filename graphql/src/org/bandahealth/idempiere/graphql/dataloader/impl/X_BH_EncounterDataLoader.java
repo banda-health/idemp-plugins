@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBHEncounter;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_EncounterDataLoader extends PODataLoader<MBHEncounter> {
-	public static String BH_Encounter_BY_ID_DATA_LOADER = "BH_EncounterByIdDataLoader";
-	public static String BH_Encounter_BY_UUID_DATA_LOADER = "BH_EncounterByUuidDataLoader";
+	public static String DATALOADER_BH_Encounter_BY_ID = "BH_EncounterByIdDataLoader";
+	public static String DATALOADER_BH_Encounter_BY_UUID = "BH_EncounterByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_EncounterDataLoader extends PODataLoader<MBHEncounter> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_Encounter_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_Encounter_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_Encounter_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_Encounter_BY_UUID;
 	}
 }

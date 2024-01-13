@@ -9,8 +9,8 @@ import org.compiere.model.MMatchInv;
  * @version Release 8.2 - $Id$
  */
 public class X_M_MatchInvDataLoader extends PODataLoader<MMatchInv> {
-	public static String M_MatchInv_BY_ID_DATA_LOADER = "M_MatchInvByIdDataLoader";
-	public static String M_MatchInv_BY_UUID_DATA_LOADER = "M_MatchInvByUuidDataLoader";
+	public static String DATALOADER_M_MatchInv_BY_ID = "M_MatchInvByIdDataLoader";
+	public static String DATALOADER_M_MatchInv_BY_UUID = "M_MatchInvByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_MatchInvDataLoader extends PODataLoader<MMatchInv> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_MatchInv_BY_ID_DATA_LOADER;
+		return DATALOADER_M_MatchInv_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_MatchInv_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_MatchInv_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.eevolution.model.X_C_TaxGroup;
  * @version Release 8.2 - $Id$
  */
 public class X_C_TaxGroupDataLoader extends PODataLoader<X_C_TaxGroup> {
-	public static String C_TaxGroup_BY_ID_DATA_LOADER = "C_TaxGroupByIdDataLoader";
-	public static String C_TaxGroup_BY_UUID_DATA_LOADER = "C_TaxGroupByUuidDataLoader";
+	public static String DATALOADER_C_TaxGroup_BY_ID = "C_TaxGroupByIdDataLoader";
+	public static String DATALOADER_C_TaxGroup_BY_UUID = "C_TaxGroupByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_TaxGroupDataLoader extends PODataLoader<X_C_TaxGroup> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_TaxGroup_BY_ID_DATA_LOADER;
+		return DATALOADER_C_TaxGroup_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_TaxGroup_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_TaxGroup_BY_UUID;
 	}
 }

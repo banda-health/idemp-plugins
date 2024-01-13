@@ -51,7 +51,7 @@ type AD_WF_Node {
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Cost information
-	Cost: Int!
+	Cost: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -63,7 +63,7 @@ type AD_WF_Node {
 	# Normal Duration in Duration Unit
 	Duration: Int!
 	# Change of priority when Activity is suspended waiting for user
-	DynPriorityChange: Int
+	DynPriorityChange: BigDecimal
 	# Change of priority when Activity is suspended waiting for user
 	DynPriorityUnit: AD_Ref_List
 	# Electronic Mail Address
@@ -108,7 +108,7 @@ type AD_WF_Node {
 	# Mode how the sub-workflow is executed
 	SubflowExecution: AD_Ref_List
 	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
-	UnitsCycles: Int
+	UnitsCycles: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -169,7 +169,7 @@ input AD_WF_NodeInput {
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Cost information
-	Cost: Int
+	Cost: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
@@ -177,7 +177,7 @@ input AD_WF_NodeInput {
 	# Normal Duration in Duration Unit
 	Duration: Int
 	# Change of priority when Activity is suspended waiting for user
-	DynPriorityChange: Int
+	DynPriorityChange: BigDecimal
 	# Change of priority when Activity is suspended waiting for user
 	DynPriorityUnit: AD_Ref_ListInput
 	# Electronic Mail Address
@@ -222,7 +222,7 @@ input AD_WF_NodeInput {
 	# Mode how the sub-workflow is executed
 	SubflowExecution: AD_Ref_ListInput
 	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
-	UnitsCycles: Int
+	UnitsCycles: BigDecimal
 	# Valid from including this date (first day)
 	ValidFrom: Date
 	# Valid to including this date (last day)

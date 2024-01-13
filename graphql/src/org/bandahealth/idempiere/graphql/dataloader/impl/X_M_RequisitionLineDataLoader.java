@@ -9,8 +9,8 @@ import org.compiere.model.MRequisitionLine;
  * @version Release 8.2 - $Id$
  */
 public class X_M_RequisitionLineDataLoader extends PODataLoader<MRequisitionLine> {
-	public static String M_RequisitionLine_BY_ID_DATA_LOADER = "M_RequisitionLineByIdDataLoader";
-	public static String M_RequisitionLine_BY_UUID_DATA_LOADER = "M_RequisitionLineByUuidDataLoader";
+	public static String DATALOADER_M_RequisitionLine_BY_ID = "M_RequisitionLineByIdDataLoader";
+	public static String DATALOADER_M_RequisitionLine_BY_UUID = "M_RequisitionLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_RequisitionLineDataLoader extends PODataLoader<MRequisitionLine
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_RequisitionLine_BY_ID_DATA_LOADER;
+		return DATALOADER_M_RequisitionLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_RequisitionLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_RequisitionLine_BY_UUID;
 	}
 }

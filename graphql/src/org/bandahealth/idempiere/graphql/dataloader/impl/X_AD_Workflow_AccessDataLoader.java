@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_Workflow_Access;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Workflow_AccessDataLoader extends PODataLoader<X_AD_Workflow_Access> {
-	public static String AD_Workflow_Access_BY_ID_DATA_LOADER = "AD_Workflow_AccessByIdDataLoader";
-	public static String AD_Workflow_Access_BY_UUID_DATA_LOADER = "AD_Workflow_AccessByUuidDataLoader";
+	public static String DATALOADER_AD_Workflow_Access_BY_ID = "AD_Workflow_AccessByIdDataLoader";
+	public static String DATALOADER_AD_Workflow_Access_BY_UUID = "AD_Workflow_AccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Workflow_AccessDataLoader extends PODataLoader<X_AD_Workflow_A
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Workflow_Access_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Workflow_Access_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Workflow_Access_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Workflow_Access_BY_UUID;
 	}
 }

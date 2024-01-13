@@ -9,8 +9,8 @@ import org.eevolution.model.X_HR_ListLine;
  * @version Release 8.2 - $Id$
  */
 public class X_HR_ListLineDataLoader extends PODataLoader<X_HR_ListLine> {
-	public static String HR_ListLine_BY_ID_DATA_LOADER = "HR_ListLineByIdDataLoader";
-	public static String HR_ListLine_BY_UUID_DATA_LOADER = "HR_ListLineByUuidDataLoader";
+	public static String DATALOADER_HR_ListLine_BY_ID = "HR_ListLineByIdDataLoader";
+	public static String DATALOADER_HR_ListLine_BY_UUID = "HR_ListLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_HR_ListLineDataLoader extends PODataLoader<X_HR_ListLine> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return HR_ListLine_BY_ID_DATA_LOADER;
+		return DATALOADER_HR_ListLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return HR_ListLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_HR_ListLine_BY_UUID;
 	}
 }

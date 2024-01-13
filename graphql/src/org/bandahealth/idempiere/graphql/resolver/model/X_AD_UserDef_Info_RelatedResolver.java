@@ -31,7 +31,7 @@ public class X_AD_UserDef_Info_RelatedResolver extends POResolver<MUserDefInfoRe
 			return null;
 		}
 		DataLoader<Integer, X_AD_InfoRelated> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoRelatedDataLoader.AD_InfoRelated_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoRelatedDataLoader.DATALOADER_AD_InfoRelated_BY_ID);
 		return dataLoader.load(entity.getAD_InfoRelated_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_UserDef_Info_RelatedResolver extends POResolver<MUserDefInfoRe
 			return null;
 		}
 		DataLoader<Integer, MUserDefInfo> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDef_InfoDataLoader.AD_UserDef_Info_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDef_InfoDataLoader.DATALOADER_AD_UserDef_Info_BY_ID);
 		return dataLoader.load(entity.getAD_UserDef_Info_ID());
 	}
 

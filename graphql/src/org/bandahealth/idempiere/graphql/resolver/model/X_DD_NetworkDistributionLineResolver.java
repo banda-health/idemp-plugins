@@ -33,7 +33,7 @@ public class X_DD_NetworkDistributionLineResolver extends POResolver<X_DD_Networ
 			return null;
 		}
 		DataLoader<Integer, X_DD_NetworkDistribution> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_DD_NetworkDistributionDataLoader.DD_NetworkDistribution_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_DD_NetworkDistributionDataLoader.DATALOADER_DD_NetworkDistribution_BY_ID);
 		return dataLoader.load(entity.getDD_NetworkDistribution_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_DD_NetworkDistributionLineResolver extends POResolver<X_DD_Networ
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperDataLoader.M_Shipper_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperDataLoader.DATALOADER_M_Shipper_BY_ID);
 		return dataLoader.load(entity.getM_Shipper_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_DD_NetworkDistributionLineResolver extends POResolver<X_DD_Networ
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
@@ -78,7 +78,7 @@ public class X_DD_NetworkDistributionLineResolver extends POResolver<X_DD_Networ
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_WarehouseSource_ID());
 	}
 

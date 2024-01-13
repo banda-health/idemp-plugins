@@ -53,7 +53,7 @@ type M_TransactionAllocation {
 	# Outgoing Transaction
 	Out_M_Transaction: M_Transaction
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -92,5 +92,5 @@ input M_TransactionAllocationInput {
 	# Outgoing Transaction
 	Out_M_Transaction: ForeignEntityInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 }

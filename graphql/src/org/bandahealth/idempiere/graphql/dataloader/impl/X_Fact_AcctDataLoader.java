@@ -9,8 +9,8 @@ import org.compiere.model.MFactAcct;
  * @version Release 8.2 - $Id$
  */
 public class X_Fact_AcctDataLoader extends PODataLoader<MFactAcct> {
-	public static String Fact_Acct_BY_ID_DATA_LOADER = "Fact_AcctByIdDataLoader";
-	public static String Fact_Acct_BY_UUID_DATA_LOADER = "Fact_AcctByUuidDataLoader";
+	public static String DATALOADER_Fact_Acct_BY_ID = "Fact_AcctByIdDataLoader";
+	public static String DATALOADER_Fact_Acct_BY_UUID = "Fact_AcctByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_Fact_AcctDataLoader extends PODataLoader<MFactAcct> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return Fact_Acct_BY_ID_DATA_LOADER;
+		return DATALOADER_Fact_Acct_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return Fact_Acct_BY_UUID_DATA_LOADER;
+		return DATALOADER_Fact_Acct_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.MAddressValidation;
  * @version Release 8.2 - $Id$
  */
 public class X_C_AddressValidationDataLoader extends PODataLoader<MAddressValidation> {
-	public static String C_AddressValidation_BY_ID_DATA_LOADER = "C_AddressValidationByIdDataLoader";
-	public static String C_AddressValidation_BY_UUID_DATA_LOADER = "C_AddressValidationByUuidDataLoader";
+	public static String DATALOADER_C_AddressValidation_BY_ID = "C_AddressValidationByIdDataLoader";
+	public static String DATALOADER_C_AddressValidation_BY_UUID = "C_AddressValidationByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_AddressValidationDataLoader extends PODataLoader<MAddressValida
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_AddressValidation_BY_ID_DATA_LOADER;
+		return DATALOADER_C_AddressValidation_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_AddressValidation_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_AddressValidation_BY_UUID;
 	}
 }

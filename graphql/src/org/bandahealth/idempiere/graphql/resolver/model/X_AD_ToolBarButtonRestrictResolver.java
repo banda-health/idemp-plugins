@@ -49,7 +49,7 @@ public class X_AD_ToolBarButtonRestrictResolver extends POResolver<MToolBarButto
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ACTION_UUIDS_BY_VALUE.get(entity.getAction()));
 	}
 
@@ -64,7 +64,7 @@ public class X_AD_ToolBarButtonRestrictResolver extends POResolver<MToolBarButto
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.DATALOADER_AD_Process_BY_ID);
 		return dataLoader.load(entity.getAD_Process_ID());
 	}
 
@@ -79,7 +79,7 @@ public class X_AD_ToolBarButtonRestrictResolver extends POResolver<MToolBarButto
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 
@@ -94,7 +94,7 @@ public class X_AD_ToolBarButtonRestrictResolver extends POResolver<MToolBarButto
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.AD_Tab_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.DATALOADER_AD_Tab_BY_ID);
 		return dataLoader.load(entity.getAD_Tab_ID());
 	}
 
@@ -109,7 +109,7 @@ public class X_AD_ToolBarButtonRestrictResolver extends POResolver<MToolBarButto
 			return null;
 		}
 		DataLoader<Integer, MToolBarButton> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ToolBarButtonDataLoader.AD_ToolBarButton_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ToolBarButtonDataLoader.DATALOADER_AD_ToolBarButton_BY_ID);
 		return dataLoader.load(entity.getAD_ToolBarButton_ID());
 	}
 
@@ -124,7 +124,7 @@ public class X_AD_ToolBarButtonRestrictResolver extends POResolver<MToolBarButto
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.AD_Window_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 

@@ -16,20 +16,20 @@ type A_Asset_DisposedConnection {
 }
 
 type A_Asset_Disposed {
-	A_Accumulated_Depr: Int!
-	A_Accumulated_Depr_Delta: Int!
+	A_Accumulated_Depr: BigDecimal!
+	A_Accumulated_Depr_Delta: BigDecimal!
 	A_Activation_Method: AD_Ref_List!
-	A_Asset_Cost: Int
+	A_Asset_Cost: BigDecimal
 	ID: ID!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Asset_Status: AD_Ref_List
 	A_Asset_Trade: A_Asset
-	A_Disposal_Amt: Int!
+	A_Disposal_Amt: BigDecimal!
 	A_Disposed_Date: Date!
 	A_Disposed_Method: AD_Ref_List!
 	A_Disposed_Reason: AD_Ref_List
-	A_Proceeds: Int
+	A_Proceeds: BigDecimal
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -58,7 +58,7 @@ type A_Asset_Disposed {
 	DocStatus: AD_Ref_List
 	# Document sequence number of the document
 	DocumentNo: String!
-	Expense: Int!
+	Expense: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this document requires approval
@@ -72,7 +72,7 @@ type A_Asset_Disposed {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
@@ -81,20 +81,20 @@ type A_Asset_Disposed {
 }
 
 input A_Asset_DisposedInput {
-	A_Accumulated_Depr: Int
-	A_Accumulated_Depr_Delta: Int
+	A_Accumulated_Depr: BigDecimal
+	A_Accumulated_Depr_Delta: BigDecimal
 	A_Activation_Method: AD_Ref_ListInput
-	A_Asset_Cost: Int
+	A_Asset_Cost: BigDecimal
 	ID: ID
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Asset_Status: AD_Ref_ListInput
 	A_Asset_Trade: ForeignEntityInput
-	A_Disposal_Amt: Int
+	A_Disposal_Amt: BigDecimal
 	A_Disposed_Date: Date
 	A_Disposed_Method: AD_Ref_ListInput
 	A_Disposed_Reason: AD_Ref_ListInput
-	A_Proceeds: Int
+	A_Proceeds: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Document type or rules
@@ -117,7 +117,7 @@ input A_Asset_DisposedInput {
 	DocStatus: AD_Ref_ListInput
 	# Document sequence number of the document
 	DocumentNo: String
-	Expense: Int
+	Expense: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document requires approval
@@ -131,6 +131,6 @@ input A_Asset_DisposedInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 }

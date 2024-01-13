@@ -9,8 +9,8 @@ import org.compiere.model.X_PA_RatioElement;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_RatioElementDataLoader extends PODataLoader<X_PA_RatioElement> {
-	public static String PA_RatioElement_BY_ID_DATA_LOADER = "PA_RatioElementByIdDataLoader";
-	public static String PA_RatioElement_BY_UUID_DATA_LOADER = "PA_RatioElementByUuidDataLoader";
+	public static String DATALOADER_PA_RatioElement_BY_ID = "PA_RatioElementByIdDataLoader";
+	public static String DATALOADER_PA_RatioElement_BY_UUID = "PA_RatioElementByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_RatioElementDataLoader extends PODataLoader<X_PA_RatioElement>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_RatioElement_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_RatioElement_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_RatioElement_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_RatioElement_BY_UUID;
 	}
 }

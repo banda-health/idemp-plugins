@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_WF_ActivityResult;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_WF_ActivityResultDataLoader extends PODataLoader<X_AD_WF_ActivityResult> {
-	public static String AD_WF_ActivityResult_BY_ID_DATA_LOADER = "AD_WF_ActivityResultByIdDataLoader";
-	public static String AD_WF_ActivityResult_BY_UUID_DATA_LOADER = "AD_WF_ActivityResultByUuidDataLoader";
+	public static String DATALOADER_AD_WF_ActivityResult_BY_ID = "AD_WF_ActivityResultByIdDataLoader";
+	public static String DATALOADER_AD_WF_ActivityResult_BY_UUID = "AD_WF_ActivityResultByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_WF_ActivityResultDataLoader extends PODataLoader<X_AD_WF_Activ
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_WF_ActivityResult_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_WF_ActivityResult_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_WF_ActivityResult_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_WF_ActivityResult_BY_UUID;
 	}
 }

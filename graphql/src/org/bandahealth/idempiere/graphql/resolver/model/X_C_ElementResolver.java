@@ -34,7 +34,7 @@ public class X_C_ElementResolver extends POResolver<MElement> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.AD_Tree_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TreeDataLoader.DATALOADER_AD_Tree_BY_ID);
 		return dataLoader.load(entity.getAD_Tree_ID());
 	}
 
@@ -49,7 +49,7 @@ public class X_C_ElementResolver extends POResolver<MElement> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ELEMENTTYPE_UUIDS_BY_VALUE.get(entity.getElementType()));
 	}
 

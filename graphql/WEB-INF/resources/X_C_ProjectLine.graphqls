@@ -34,9 +34,9 @@ type C_ProjectLine {
 	# Actual Project Task in a Phase
 	C_ProjectTask: C_ProjectTask
 	# The (legal) commitment amount
-	CommittedAmt: Int
+	CommittedAmt: BigDecimal
 	# The (legal) commitment Quantity
-	CommittedQty: Int
+	CommittedQty: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -45,9 +45,9 @@ type C_ProjectLine {
 	Description: String
 	DoPricing: String
 	# The amount invoiced
-	InvoicedAmt: Int!
+	InvoicedAmt: BigDecimal!
 	# The quantity invoiced
-	InvoicedQty: Int!
+	InvoicedQty: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this document / line is printed
@@ -61,13 +61,13 @@ type C_ProjectLine {
 	# Plan for producing a product
 	M_Production: M_Production
 	# Planned amount for this project
-	PlannedAmt: Int!
+	PlannedAmt: BigDecimal!
 	# Project's planned margin amount
-	PlannedMarginAmt: Int!
+	PlannedMarginAmt: BigDecimal!
 	# Planned price for this project line
-	PlannedPrice: Int!
+	PlannedPrice: BigDecimal!
 	# Planned quantity for this project
-	PlannedQty: Int!
+	PlannedQty: BigDecimal!
 	# The document has been processed
 	Processed: Boolean!
 	# Date this record was updated
@@ -93,16 +93,16 @@ input C_ProjectLineInput {
 	# Actual Project Task in a Phase
 	C_ProjectTask: ForeignEntityInput
 	# The (legal) commitment amount
-	CommittedAmt: Int
+	CommittedAmt: BigDecimal
 	# The (legal) commitment Quantity
-	CommittedQty: Int
+	CommittedQty: BigDecimal
 	# Optional short description of the record
 	Description: String
 	DoPricing: String
 	# The amount invoiced
-	InvoicedAmt: Int
+	InvoicedAmt: BigDecimal
 	# The quantity invoiced
-	InvoicedQty: Int
+	InvoicedQty: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document / line is printed
@@ -116,13 +116,13 @@ input C_ProjectLineInput {
 	# Plan for producing a product
 	M_Production: ForeignEntityInput
 	# Planned amount for this project
-	PlannedAmt: Int
+	PlannedAmt: BigDecimal
 	# Project's planned margin amount
-	PlannedMarginAmt: Int
+	PlannedMarginAmt: BigDecimal
 	# Planned price for this project line
-	PlannedPrice: Int
+	PlannedPrice: BigDecimal
 	# Planned quantity for this project
-	PlannedQty: Int
+	PlannedQty: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 }

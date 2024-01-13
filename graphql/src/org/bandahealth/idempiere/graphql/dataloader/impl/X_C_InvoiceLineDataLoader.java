@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_C_InvoiceLineDataLoader extends PODataLoader<MInvoiceLine_BH> {
-	public static String C_InvoiceLine_BY_ID_DATA_LOADER = "C_InvoiceLineByIdDataLoader";
-	public static String C_InvoiceLine_BY_UUID_DATA_LOADER = "C_InvoiceLineByUuidDataLoader";
+	public static String DATALOADER_C_InvoiceLine_BY_ID = "C_InvoiceLineByIdDataLoader";
+	public static String DATALOADER_C_InvoiceLine_BY_UUID = "C_InvoiceLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_InvoiceLineDataLoader extends PODataLoader<MInvoiceLine_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_InvoiceLine_BY_ID_DATA_LOADER;
+		return DATALOADER_C_InvoiceLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_InvoiceLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_InvoiceLine_BY_UUID;
 	}
 }

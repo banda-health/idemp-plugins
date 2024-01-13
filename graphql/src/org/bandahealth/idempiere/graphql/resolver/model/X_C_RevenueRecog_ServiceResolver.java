@@ -29,7 +29,7 @@ public class X_C_RevenueRecog_ServiceResolver extends POResolver<MRevenueRecogSe
 			return null;
 		}
 		DataLoader<Integer, MRevenueRecognition> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecognitionDataLoader.C_RevenueRecognition_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RevenueRecognitionDataLoader.DATALOADER_C_RevenueRecognition_BY_ID);
 		return dataLoader.load(entity.getC_RevenueRecognition_ID());
 	}
 

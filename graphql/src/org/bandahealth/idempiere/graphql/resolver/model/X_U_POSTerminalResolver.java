@@ -48,7 +48,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.C_CashBook_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.DATALOADER_C_CashBook_BY_ID);
 		return dataLoader.load(entity.getC_CashBook_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_CashBPartner_ID());
 	}
 
@@ -78,7 +78,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_TemplateBPartner_ID());
 	}
 
@@ -93,7 +93,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.C_BankAccount_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.DATALOADER_C_BankAccount_BY_ID);
 		return dataLoader.load(entity.getCard_BankAccount_ID());
 	}
 
@@ -108,7 +108,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.C_BankAccount_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.DATALOADER_C_BankAccount_BY_ID);
 		return dataLoader.load(entity.getCardTransferBankAccount_ID());
 	}
 
@@ -123,7 +123,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.C_CashBook_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.DATALOADER_C_CashBook_BY_ID);
 		return dataLoader.load(entity.getCardTransferCashBook_ID());
 	}
 
@@ -138,7 +138,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CARDTRANSFERTYPE_UUIDS_BY_VALUE.get(entity.getCardTransferType()));
 	}
 
@@ -153,7 +153,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CASHBOOKTRANSFERTYPE_UUIDS_BY_VALUE.get(entity.getCashBookTransferType()));
 	}
 
@@ -168,7 +168,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.C_BankAccount_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.DATALOADER_C_BankAccount_BY_ID);
 		return dataLoader.load(entity.getCashTransferBankAccount_ID());
 	}
 
@@ -183,7 +183,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.C_CashBook_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.DATALOADER_C_CashBook_BY_ID);
 		return dataLoader.load(entity.getCashTransferCashBook_ID());
 	}
 
@@ -198,7 +198,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.C_BankAccount_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.DATALOADER_C_BankAccount_BY_ID);
 		return dataLoader.load(entity.getCheck_BankAccount_ID());
 	}
 
@@ -213,7 +213,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.C_BankAccount_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.DATALOADER_C_BankAccount_BY_ID);
 		return dataLoader.load(entity.getCheckTransferBankAccount_ID());
 	}
 
@@ -228,7 +228,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.C_CashBook_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CashBookDataLoader.DATALOADER_C_CashBook_BY_ID);
 		return dataLoader.load(entity.getCheckTransferCashBook_ID());
 	}
 
@@ -243,7 +243,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(CHECKTRANSFERTYPE_UUIDS_BY_VALUE.get(entity.getCheckTransferType()));
 	}
 
@@ -262,7 +262,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
@@ -277,7 +277,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.M_PriceList_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.DATALOADER_M_PriceList_BY_ID);
 		return dataLoader.load(entity.getPO_PriceList_ID());
 	}
 
@@ -292,7 +292,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 
@@ -307,7 +307,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.M_PriceList_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.DATALOADER_M_PriceList_BY_ID);
 		return dataLoader.load(entity.getSO_PriceList_ID());
 	}
 

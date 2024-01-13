@@ -31,7 +31,7 @@ public class X_M_ProductionLineMAResolver extends POResolver<MProductionLineMA> 
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_M_ProductionLineMAResolver extends POResolver<MProductionLineMA> 
 			return null;
 		}
 		DataLoader<Integer, MProductionLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionLineDataLoader.M_ProductionLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionLineDataLoader.DATALOADER_M_ProductionLine_BY_ID);
 		return dataLoader.load(entity.getM_ProductionLine_ID());
 	}
 

@@ -29,7 +29,7 @@ public class X_C_TaxPostalResolver extends POResolver<MTaxPostal> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.C_Tax_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getC_Tax_ID());
 	}
 

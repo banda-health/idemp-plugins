@@ -21,7 +21,7 @@ type GL_JournalGeneratorLine {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Multiplier Amount for generating commissions
-	AmtMultiplier: Int
+	AmtMultiplier: BigDecimal
 	BPColumn: String
 	BPDimensionType: AD_Ref_List
 	# Identifies a Business Partner
@@ -55,7 +55,7 @@ input GL_JournalGeneratorLineInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Multiplier Amount for generating commissions
-	AmtMultiplier: Int
+	AmtMultiplier: BigDecimal
 	BPColumn: String
 	BPDimensionType: AD_Ref_ListInput
 	# Identifies a Business Partner

@@ -31,7 +31,7 @@ public class X_A_RegistrationValueResolver extends POResolver<MRegistrationValue
 			return null;
 		}
 		DataLoader<Integer, MRegistration> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_RegistrationDataLoader.A_Registration_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_RegistrationDataLoader.DATALOADER_A_Registration_BY_ID);
 		return dataLoader.load(entity.getA_Registration_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_A_RegistrationValueResolver extends POResolver<MRegistrationValue
 			return null;
 		}
 		DataLoader<Integer, MRegistrationAttribute> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_RegistrationAttributeDataLoader.A_RegistrationAttribute_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_RegistrationAttributeDataLoader.DATALOADER_A_RegistrationAttribute_BY_ID);
 		return dataLoader.load(entity.getA_RegistrationAttribute_ID());
 	}
 

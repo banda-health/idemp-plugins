@@ -29,7 +29,7 @@ public class X_BH_Coded_Diagnosis_MappingResolver extends POResolver<MBHCodedDia
 			return null;
 		}
 		DataLoader<Integer, MBHCodedDiagnosis> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_Coded_DiagnosisDataLoader.BH_Coded_Diagnosis_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_Coded_DiagnosisDataLoader.DATALOADER_BH_Coded_Diagnosis_BY_ID);
 		return dataLoader.load(entity.getBH_Coded_Diagnosis_ID());
 	}
 

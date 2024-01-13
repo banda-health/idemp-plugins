@@ -9,8 +9,8 @@ import org.compiere.model.MForecast;
  * @version Release 8.2 - $Id$
  */
 public class X_M_ForecastDataLoader extends PODataLoader<MForecast> {
-	public static String M_Forecast_BY_ID_DATA_LOADER = "M_ForecastByIdDataLoader";
-	public static String M_Forecast_BY_UUID_DATA_LOADER = "M_ForecastByUuidDataLoader";
+	public static String DATALOADER_M_Forecast_BY_ID = "M_ForecastByIdDataLoader";
+	public static String DATALOADER_M_Forecast_BY_UUID = "M_ForecastByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_ForecastDataLoader extends PODataLoader<MForecast> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_Forecast_BY_ID_DATA_LOADER;
+		return DATALOADER_M_Forecast_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_Forecast_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_Forecast_BY_UUID;
 	}
 }

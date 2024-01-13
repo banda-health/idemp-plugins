@@ -47,7 +47,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -62,7 +62,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getAD_PrintColor_ID());
 	}
 
@@ -77,7 +77,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.AD_PrintFont_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.DATALOADER_AD_PrintFont_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFont_ID());
 	}
 
@@ -92,7 +92,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFormat_ID());
 	}
 
@@ -107,7 +107,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFormatChild_ID());
 	}
 
@@ -122,7 +122,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintGraph> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintGraphDataLoader.AD_PrintGraph_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintGraphDataLoader.DATALOADER_AD_PrintGraph_BY_ID);
 		return dataLoader.load(entity.getAD_PrintGraph_ID());
 	}
 
@@ -163,7 +163,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BARCODETYPE_UUIDS_BY_VALUE.get(entity.getBarcodeType()));
 	}
 
@@ -181,7 +181,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(FIELDALIGNMENTTYPE_UUIDS_BY_VALUE.get(entity.getFieldAlignmentType()));
 	}
 
@@ -302,7 +302,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(LINEALIGNMENTTYPE_UUIDS_BY_VALUE.get(entity.getLineAlignmentType()));
 	}
 
@@ -316,7 +316,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_PrintFormatItem_TrlDataLoader.AD_PrintFormatItem_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_PrintFormatItem_TrlDataLoader.DATALOADER_AD_PrintFormatItem_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormatItem.COLUMNNAME_Name));
 	}
@@ -333,7 +333,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PRINTAREATYPE_UUIDS_BY_VALUE.get(entity.getPrintAreaType()));
 	}
 
@@ -352,7 +352,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PRINTFORMATTYPE_UUIDS_BY_VALUE.get(entity.getPrintFormatType()));
 	}
 
@@ -366,7 +366,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return CompletableFuture.supplyAsync(entity::getPrintName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_PrintFormatItem_TrlDataLoader.AD_PrintFormatItem_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_PrintFormatItem_TrlDataLoader.DATALOADER_AD_PrintFormatItem_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormatItem.COLUMNNAME_PrintName));
 	}
@@ -381,7 +381,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return CompletableFuture.supplyAsync(entity::getPrintNameSuffix);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_PrintFormatItem_TrlDataLoader.AD_PrintFormatItem_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_PrintFormatItem_TrlDataLoader.DATALOADER_AD_PrintFormatItem_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormatItem.COLUMNNAME_PrintNameSuffix));
 	}
@@ -399,7 +399,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(SHAPETYPE_UUIDS_BY_VALUE.get(entity.getShapeType()));
 	}
 

@@ -9,8 +9,8 @@ import org.compiere.model.X_ASP_Form;
  * @version Release 8.2 - $Id$
  */
 public class X_ASP_FormDataLoader extends PODataLoader<X_ASP_Form> {
-	public static String ASP_Form_BY_ID_DATA_LOADER = "ASP_FormByIdDataLoader";
-	public static String ASP_Form_BY_UUID_DATA_LOADER = "ASP_FormByUuidDataLoader";
+	public static String DATALOADER_ASP_Form_BY_ID = "ASP_FormByIdDataLoader";
+	public static String DATALOADER_ASP_Form_BY_UUID = "ASP_FormByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_ASP_FormDataLoader extends PODataLoader<X_ASP_Form> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return ASP_Form_BY_ID_DATA_LOADER;
+		return DATALOADER_ASP_Form_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return ASP_Form_BY_UUID_DATA_LOADER;
+		return DATALOADER_ASP_Form_BY_UUID;
 	}
 }

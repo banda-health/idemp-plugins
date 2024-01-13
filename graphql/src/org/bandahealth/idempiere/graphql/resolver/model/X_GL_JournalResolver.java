@@ -49,7 +49,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -64,7 +64,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ConversionTypeDataLoader.C_ConversionType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ConversionTypeDataLoader.DATALOADER_C_ConversionType_BY_ID);
 		return dataLoader.load(entity.getC_ConversionType_ID());
 	}
 
@@ -79,7 +79,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -94,7 +94,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
 		return dataLoader.load(entity.getC_DocType_ID());
 	}
 
@@ -109,7 +109,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.C_Period_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.DATALOADER_C_Period_BY_ID);
 		return dataLoader.load(entity.getC_Period_ID());
 	}
 
@@ -136,7 +136,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
 
@@ -161,7 +161,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
 	}
 
@@ -176,7 +176,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_BudgetDataLoader.GL_Budget_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_BudgetDataLoader.DATALOADER_GL_Budget_BY_ID);
 		return dataLoader.load(entity.getGL_Budget_ID());
 	}
 
@@ -191,7 +191,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_CategoryDataLoader.GL_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_CategoryDataLoader.DATALOADER_GL_Category_BY_ID);
 		return dataLoader.load(entity.getGL_Category_ID());
 	}
 
@@ -206,7 +206,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MJournalBatch> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalBatchDataLoader.GL_JournalBatch_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalBatchDataLoader.DATALOADER_GL_JournalBatch_BY_ID);
 		return dataLoader.load(entity.getGL_JournalBatch_ID());
 	}
 
@@ -236,7 +236,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
 	}
 
@@ -259,7 +259,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MJournal> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalDataLoader.GL_Journal_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalDataLoader.DATALOADER_GL_Journal_BY_ID);
 		return dataLoader.load(entity.getReversal_ID());
 	}
 

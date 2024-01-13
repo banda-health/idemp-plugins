@@ -39,7 +39,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MChangeLog> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ChangeLogDataLoader.AD_ChangeLog_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ChangeLogDataLoader.DATALOADER_AD_ChangeLog_BY_ID);
 		return dataLoader.load(entity.getAD_ChangeLog_ID());
 	}
 
@@ -54,7 +54,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MSession> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_SessionDataLoader.AD_Session_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_SessionDataLoader.DATALOADER_AD_Session_BY_ID);
 		return dataLoader.load(entity.getAD_Session_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -100,7 +100,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(EVENTCHANGELOG_UUIDS_BY_VALUE.get(entity.getEventChangeLog()));
 	}
 

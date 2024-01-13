@@ -38,7 +38,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.AD_Image_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.DATALOADER_AD_Image_BY_ID);
 		return dataLoader.load(entity.getAD_Image_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.AD_PrintFont_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.DATALOADER_AD_PrintFont_BY_ID);
 		return dataLoader.load(entity.getFunct_PrintFont_ID());
 	}
 
@@ -68,7 +68,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getFunctBG_PrintColor_ID());
 	}
 
@@ -83,7 +83,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getFunctFG_PrintColor_ID());
 	}
 
@@ -98,7 +98,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.AD_PrintFont_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.DATALOADER_AD_PrintFont_BY_ID);
 		return dataLoader.load(entity.getHdr_PrintFont_ID());
 	}
 
@@ -113,7 +113,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getHdrLine_PrintColor_ID());
 	}
 
@@ -130,7 +130,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(HDRSTROKETYPE_UUIDS_BY_VALUE.get(entity.getHdrStrokeType()));
 	}
 
@@ -145,7 +145,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getHdrTextBG_PrintColor_ID());
 	}
 
@@ -160,7 +160,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getHdrTextFG_PrintColor_ID());
 	}
 
@@ -207,7 +207,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getLine_PrintColor_ID());
 	}
 
@@ -224,7 +224,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(LINESTROKETYPE_UUIDS_BY_VALUE.get(entity.getLineStrokeType()));
 	}
 

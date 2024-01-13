@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.sql.Timestamp;
 import org.compiere.model.I_C_BPartner;
 
 /**
@@ -39,6 +40,44 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Column name BH_Birthday
+	 */
+	static final String COLUMNNAME_BH_Birthday = "BH_Birthday";
+
+	/**
+	 * Set Birthday.
+	 *
+	 * @param BH_Birthday Birthday or Anniversary day
+	 */
+	void setBH_Birthday(Timestamp BH_Birthday);
+
+	/**
+	 * Get Birthday.
+	 *
+	 * @return Birthday or Anniversary day
+	 */
+	Timestamp getBH_Birthday();
+
+	/**
+	 * Column name BH_EMail
+	 */
+	static final String COLUMNNAME_BH_EMail = "BH_EMail";
+
+	/**
+	 * Set EMail Address.
+	 *
+	 * @param BH_EMail Electronic Mail Address
+	 */
+	void setBH_EMail(String BH_EMail);
+
+	/**
+	 * Get EMail Address.
+	 *
+	 * @return Electronic Mail Address
+	 */
+	String getBH_EMail();
+
+	/**
 	 * Set bh_gender.
 	 *
 	 * @param bh_gender bh_gender
@@ -51,6 +90,158 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 * @return bh_gender
 	 */
 	I_AD_Ref_ListInput bh_gender();
+
+	/**
+	 * Column name BH_IsApproximateDateOfBirth
+	 */
+	static final String COLUMNNAME_BH_IsApproximateDateOfBirth = "BH_IsApproximateDateOfBirth";
+
+	/**
+	 * Set Is Approximate Date Of Birth.
+	 *
+	 * @param BH_IsApproximateDateOfBirth Is Approximate Date Of Birth
+	 */
+	void setBH_IsApproximateDateOfBirth(boolean BH_IsApproximateDateOfBirth);
+
+	/**
+	 * Get Is Approximate Date Of Birth.
+	 *
+	 * @return Is Approximate Date Of Birth
+	 */
+	boolean isBH_IsApproximateDateOfBirth();
+
+	/**
+	 * Column name BH_Local_PatientID
+	 */
+	static final String COLUMNNAME_BH_Local_PatientID = "BH_Local_PatientID";
+
+	/**
+	 * Set Local Patient ID.
+	 *
+	 * @param BH_Local_PatientID Local Patient ID
+	 */
+	void setBH_Local_PatientID(String BH_Local_PatientID);
+
+	/**
+	 * Get Local Patient ID.
+	 *
+	 * @return Local Patient ID
+	 */
+	String getBH_Local_PatientID();
+
+	/**
+	 * Column name BH_Locked
+	 */
+	static final String COLUMNNAME_BH_Locked = "BH_Locked";
+
+	/**
+	 * Set BH_Locked.
+	 *
+	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	void setBH_Locked(boolean BH_Locked);
+
+	/**
+	 * Get BH_Locked.
+	 *
+	 * @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	 */
+	boolean isBH_Locked();
+
+	/**
+	 * Column name BH_NeedAdditionalVisitInfo
+	 */
+	static final String COLUMNNAME_BH_NeedAdditionalVisitInfo = "BH_NeedAdditionalVisitInfo";
+
+	/**
+	 * Set Need Additional Visit Info.
+	 *
+	 * @param BH_NeedAdditionalVisitInfo Need Additional Visit Info
+	 */
+	void setBH_NeedAdditionalVisitInfo(boolean BH_NeedAdditionalVisitInfo);
+
+	/**
+	 * Get Need Additional Visit Info.
+	 *
+	 * @return Need Additional Visit Info
+	 */
+	boolean isBH_NeedAdditionalVisitInfo();
+
+	/**
+	 * Column name bh_nextappointmentdate
+	 */
+	static final String COLUMNNAME_bh_nextappointmentdate = "bh_nextappointmentdate";
+
+	/**
+	 * Set Next Appointment Date.
+	 *
+	 * @param bh_nextappointmentdate Next Appointment Date
+	 */
+	void setbh_nextappointmentdate(Timestamp bh_nextappointmentdate);
+
+	/**
+	 * Get Next Appointment Date.
+	 *
+	 * @return Next Appointment Date
+	 */
+	Timestamp getbh_nextappointmentdate();
+
+	/**
+	 * Column name bh_occupation
+	 */
+	static final String COLUMNNAME_bh_occupation = "bh_occupation";
+
+	/**
+	 * Set Occupation.
+	 *
+	 * @param bh_occupation Occupation
+	 */
+	void setbh_occupation(String bh_occupation);
+
+	/**
+	 * Get Occupation.
+	 *
+	 * @return Occupation
+	 */
+	String getbh_occupation();
+
+	/**
+	 * Column name BH_PatientID
+	 */
+	static final String COLUMNNAME_BH_PatientID = "BH_PatientID";
+
+	/**
+	 * Set Patient ID.
+	 *
+	 * @param BH_PatientID A unique identifier for users to manually enter
+	 */
+	void setBH_PatientID(String BH_PatientID);
+
+	/**
+	 * Get Patient ID.
+	 *
+	 * @return A unique identifier for users to manually enter
+	 */
+	String getBH_PatientID();
+
+	/**
+	 * Column name BH_Phone
+	 */
+	static final String COLUMNNAME_BH_Phone = "BH_Phone";
+
+	/**
+	 * Set Phone.
+	 *
+	 * @param BH_Phone Identifies a telephone number
+	 */
+	void setBH_Phone(String BH_Phone);
+
+	/**
+	 * Get Phone.
+	 *
+	 * @return Identifies a telephone number
+	 */
+	String getBH_Phone();
 
 	/**
 	 * Set C_BP_Group.
@@ -275,6 +466,63 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 * @return Unique identifier of a Price List
 	 */
 	ForeignEntityInput M_PriceList();
+
+	/**
+	 * Column name NationalID
+	 */
+	static final String COLUMNNAME_NationalID = "NationalID";
+
+	/**
+	 * Set NationalID.
+	 *
+	 * @param NationalID Patient Identity number
+	 */
+	void setNationalID(String NationalID);
+
+	/**
+	 * Get NationalID.
+	 *
+	 * @return Patient Identity number
+	 */
+	String getNationalID();
+
+	/**
+	 * Column name NextOfKin_Contact
+	 */
+	static final String COLUMNNAME_NextOfKin_Contact = "NextOfKin_Contact";
+
+	/**
+	 * Set Next of Kin Contact.
+	 *
+	 * @param NextOfKin_Contact Next of Kin Contact
+	 */
+	void setNextOfKin_Contact(String NextOfKin_Contact);
+
+	/**
+	 * Get Next of Kin Contact.
+	 *
+	 * @return Next of Kin Contact
+	 */
+	String getNextOfKin_Contact();
+
+	/**
+	 * Column name NextOfKin_Name
+	 */
+	static final String COLUMNNAME_NextOfKin_Name = "NextOfKin_Name";
+
+	/**
+	 * Set Next of Kin Name.
+	 *
+	 * @param NextOfKin_Name Next of Kin Name
+	 */
+	void setNextOfKin_Name(String NextOfKin_Name);
+
+	/**
+	 * Get Next of Kin Name.
+	 *
+	 * @return Next of Kin Name
+	 */
+	String getNextOfKin_Name();
 
 	/**
 	 * Set PaymentRule.

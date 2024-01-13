@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import java.math.BigDecimal;
 import org.compiere.model.I_C_Payment;
 
 /**
@@ -23,6 +24,44 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	 * @return Organizational entity within client
 	 */
 	ForeignEntityInput AD_Org();
+
+	/**
+	 * Column name BH_NavButtons
+	 */
+	static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	void setBH_NavButtons(Object BH_NavButtons);
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	Object getBH_NavButtons();
+
+	/**
+	 * Column name BH_tender_amount
+	 */
+	static final String COLUMNNAME_BH_tender_amount = "BH_tender_amount";
+
+	/**
+	 * Set Tender Amount.
+	 *
+	 * @param BH_tender_amount Tender Amount
+	 */
+	void setBH_tender_amount(BigDecimal BH_tender_amount);
+
+	/**
+	 * Get Tender Amount.
+	 *
+	 * @return Tender Amount
+	 */
+	BigDecimal getBH_tender_amount();
 
 	/**
 	 * Set BH_Visit.

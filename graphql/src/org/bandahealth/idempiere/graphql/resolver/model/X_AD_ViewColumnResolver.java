@@ -36,7 +36,7 @@ public class X_AD_ViewColumnResolver extends POResolver<MViewColumn> implements 
 			return null;
 		}
 		DataLoader<Integer, MViewComponent> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ViewComponentDataLoader.AD_ViewComponent_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ViewComponentDataLoader.DATALOADER_AD_ViewComponent_BY_ID);
 		return dataLoader.load(entity.getAD_ViewComponent_ID());
 	}
 
@@ -57,7 +57,7 @@ public class X_AD_ViewColumnResolver extends POResolver<MViewColumn> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DBDATATYPE_UUIDS_BY_VALUE.get(entity.getDBDataType()));
 	}
 
@@ -88,7 +88,7 @@ public class X_AD_ViewColumnResolver extends POResolver<MViewColumn> implements 
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 

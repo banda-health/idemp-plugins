@@ -35,7 +35,7 @@ public class X_M_ShipperPackagingResolver extends POResolver<MShipperPackaging> 
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperDataLoader.M_Shipper_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperDataLoader.DATALOADER_M_Shipper_BY_ID);
 		return dataLoader.load(entity.getM_Shipper_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_M_ShipperPackagingResolver extends POResolver<MShipperPackaging> 
 			return null;
 		}
 		DataLoader<Integer, X_M_ShipperPackagingCfg> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperPackagingCfgDataLoader.M_ShipperPackagingCfg_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperPackagingCfgDataLoader.DATALOADER_M_ShipperPackagingCfg_BY_ID);
 		return dataLoader.load(entity.getM_ShipperPackagingCfg_ID());
 	}
 

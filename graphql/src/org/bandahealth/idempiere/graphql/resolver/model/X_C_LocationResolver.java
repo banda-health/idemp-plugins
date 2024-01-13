@@ -35,7 +35,7 @@ public class X_C_LocationResolver extends POResolver<MLocation> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MAddressValidation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AddressValidationDataLoader.C_AddressValidation_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AddressValidationDataLoader.DATALOADER_C_AddressValidation_BY_ID);
 		return dataLoader.load(entity.getC_AddressValidation_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_C_LocationResolver extends POResolver<MLocation> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MCity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CityDataLoader.C_City_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CityDataLoader.DATALOADER_C_City_BY_ID);
 		return dataLoader.load(entity.getC_City_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_C_LocationResolver extends POResolver<MLocation> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.C_Country_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.DATALOADER_C_Country_BY_ID);
 		return dataLoader.load(entity.getC_Country_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_C_LocationResolver extends POResolver<MLocation> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.C_Region_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.DATALOADER_C_Region_BY_ID);
 		return dataLoader.load(entity.getC_Region_ID());
 	}
 

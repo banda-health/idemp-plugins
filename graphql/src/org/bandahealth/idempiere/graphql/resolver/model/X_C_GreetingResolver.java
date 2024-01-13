@@ -31,7 +31,7 @@ public class X_C_GreetingResolver extends POResolver<X_C_Greeting> implements Gr
 			return CompletableFuture.supplyAsync(entity::getGreeting);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Greeting_TrlDataLoader.C_Greeting_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Greeting_TrlDataLoader.DATALOADER_C_Greeting_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_C_Greeting.COLUMNNAME_Greeting));
 	}
@@ -54,7 +54,7 @@ public class X_C_GreetingResolver extends POResolver<X_C_Greeting> implements Gr
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_Greeting_TrlDataLoader.C_Greeting_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_Greeting_TrlDataLoader.DATALOADER_C_Greeting_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_C_Greeting.COLUMNNAME_Name));
 	}

@@ -9,8 +9,8 @@ import org.compiere.model.X_C_JobAssignment;
  * @version Release 8.2 - $Id$
  */
 public class X_C_JobAssignmentDataLoader extends PODataLoader<X_C_JobAssignment> {
-	public static String C_JobAssignment_BY_ID_DATA_LOADER = "C_JobAssignmentByIdDataLoader";
-	public static String C_JobAssignment_BY_UUID_DATA_LOADER = "C_JobAssignmentByUuidDataLoader";
+	public static String DATALOADER_C_JobAssignment_BY_ID = "C_JobAssignmentByIdDataLoader";
+	public static String DATALOADER_C_JobAssignment_BY_UUID = "C_JobAssignmentByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_JobAssignmentDataLoader extends PODataLoader<X_C_JobAssignment>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_JobAssignment_BY_ID_DATA_LOADER;
+		return DATALOADER_C_JobAssignment_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_JobAssignment_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_JobAssignment_BY_UUID;
 	}
 }

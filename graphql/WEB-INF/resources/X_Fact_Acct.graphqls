@@ -25,13 +25,13 @@ type Fact_Acct {
 	# Database Table information
 	AD_Table: AD_Table!
 	# Accounted Credit Amount
-	AmtAcctCr: Int!
+	AmtAcctCr: BigDecimal!
 	# Accounted Debit Amount
-	AmtAcctDr: Int!
+	AmtAcctDr: BigDecimal!
 	# Source Credit Amount
-	AmtSourceCr: Int!
+	AmtSourceCr: BigDecimal!
 	# Source Debit Amount
-	AmtSourceDr: Int!
+	AmtSourceDr: BigDecimal!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Business Activity
@@ -86,7 +86,7 @@ type Fact_Acct {
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_List!
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Direct internal record ID
 	Record_ID: Int!
 	# Date this record was updated
@@ -107,13 +107,13 @@ input Fact_AcctInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Accounted Credit Amount
-	AmtAcctCr: Int
+	AmtAcctCr: BigDecimal
 	# Accounted Debit Amount
-	AmtAcctDr: Int
+	AmtAcctDr: BigDecimal
 	# Source Credit Amount
-	AmtSourceCr: Int
+	AmtSourceCr: BigDecimal
 	# Source Debit Amount
-	AmtSourceDr: Int
+	AmtSourceDr: BigDecimal
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Business Activity
@@ -164,7 +164,7 @@ input Fact_AcctInput {
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_ListInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Direct internal record ID
 	Record_ID: Int
 	# User defined list element #1

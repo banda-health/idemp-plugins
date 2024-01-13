@@ -33,7 +33,7 @@ public class X_AD_LdapAccessResolver extends POResolver<MLdapAccess> implements 
 			return null;
 		}
 		DataLoader<Integer, MLdapProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_LdapProcessorDataLoader.AD_LdapProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_LdapProcessorDataLoader.DATALOADER_AD_LdapProcessor_BY_ID);
 		return dataLoader.load(entity.getAD_LdapProcessor_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_AD_LdapAccessResolver extends POResolver<MLdapAccess> implements 
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_AD_LdapAccessResolver extends POResolver<MLdapAccess> implements 
 			return null;
 		}
 		DataLoader<Integer, MInterestArea> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_InterestAreaDataLoader.R_InterestArea_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_InterestAreaDataLoader.DATALOADER_R_InterestArea_BY_ID);
 		return dataLoader.load(entity.getR_InterestArea_ID());
 	}
 

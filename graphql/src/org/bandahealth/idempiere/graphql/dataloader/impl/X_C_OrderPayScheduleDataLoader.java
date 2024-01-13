@@ -9,8 +9,8 @@ import org.compiere.model.MOrderPaySchedule;
  * @version Release 8.2 - $Id$
  */
 public class X_C_OrderPayScheduleDataLoader extends PODataLoader<MOrderPaySchedule> {
-	public static String C_OrderPaySchedule_BY_ID_DATA_LOADER = "C_OrderPayScheduleByIdDataLoader";
-	public static String C_OrderPaySchedule_BY_UUID_DATA_LOADER = "C_OrderPayScheduleByUuidDataLoader";
+	public static String DATALOADER_C_OrderPaySchedule_BY_ID = "C_OrderPayScheduleByIdDataLoader";
+	public static String DATALOADER_C_OrderPaySchedule_BY_UUID = "C_OrderPayScheduleByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_OrderPayScheduleDataLoader extends PODataLoader<MOrderPaySchedu
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_OrderPaySchedule_BY_ID_DATA_LOADER;
+		return DATALOADER_C_OrderPaySchedule_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_OrderPaySchedule_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_OrderPaySchedule_BY_UUID;
 	}
 }

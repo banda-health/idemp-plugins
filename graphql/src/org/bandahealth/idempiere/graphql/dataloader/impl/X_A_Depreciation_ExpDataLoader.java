@@ -9,8 +9,8 @@ import org.compiere.model.MDepreciationExp;
  * @version Release 8.2 - $Id$
  */
 public class X_A_Depreciation_ExpDataLoader extends PODataLoader<MDepreciationExp> {
-	public static String A_Depreciation_Exp_BY_ID_DATA_LOADER = "A_Depreciation_ExpByIdDataLoader";
-	public static String A_Depreciation_Exp_BY_UUID_DATA_LOADER = "A_Depreciation_ExpByUuidDataLoader";
+	public static String DATALOADER_A_Depreciation_Exp_BY_ID = "A_Depreciation_ExpByIdDataLoader";
+	public static String DATALOADER_A_Depreciation_Exp_BY_UUID = "A_Depreciation_ExpByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_A_Depreciation_ExpDataLoader extends PODataLoader<MDepreciationEx
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return A_Depreciation_Exp_BY_ID_DATA_LOADER;
+		return DATALOADER_A_Depreciation_Exp_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return A_Depreciation_Exp_BY_UUID_DATA_LOADER;
+		return DATALOADER_A_Depreciation_Exp_BY_UUID;
 	}
 }

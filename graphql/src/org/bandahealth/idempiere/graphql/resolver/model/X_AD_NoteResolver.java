@@ -37,7 +37,7 @@ public class X_AD_NoteResolver extends POResolver<MNote> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, X_AD_BroadcastMessage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_BroadcastMessageDataLoader.AD_BroadcastMessage_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_BroadcastMessageDataLoader.DATALOADER_AD_BroadcastMessage_BY_ID);
 		return dataLoader.load(entity.getAD_BroadcastMessage_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_AD_NoteResolver extends POResolver<MNote> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, MMessage_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_MessageDataLoader.AD_Message_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_MessageDataLoader.DATALOADER_AD_Message_BY_ID);
 		return dataLoader.load(entity.getAD_Message_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_AD_NoteResolver extends POResolver<MNote> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_AD_NoteResolver extends POResolver<MNote> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -97,7 +97,7 @@ public class X_AD_NoteResolver extends POResolver<MNote> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Activity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ActivityDataLoader.AD_WF_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WF_ActivityDataLoader.DATALOADER_AD_WF_Activity_BY_ID);
 		return dataLoader.load(entity.getAD_WF_Activity_ID());
 	}
 

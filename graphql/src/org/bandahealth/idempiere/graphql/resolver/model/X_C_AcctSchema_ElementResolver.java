@@ -54,7 +54,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -99,7 +99,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -114,7 +114,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -129,7 +129,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<Integer, MElement> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementDataLoader.C_Element_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementDataLoader.DATALOADER_C_Element_BY_ID);
 		return dataLoader.load(entity.getC_Element_ID());
 	}
 
@@ -144,7 +144,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getC_ElementValue_ID());
 	}
 
@@ -159,7 +159,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_Location_ID());
 	}
 
@@ -174,7 +174,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -189,7 +189,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.C_SalesRegion_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.DATALOADER_C_SalesRegion_BY_ID);
 		return dataLoader.load(entity.getC_SalesRegion_ID());
 	}
 
@@ -218,7 +218,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ELEMENTTYPE_UUIDS_BY_VALUE.get(entity.getElementType()));
 	}
 
@@ -241,7 +241,7 @@ public class X_C_AcctSchema_ElementResolver extends POResolver<MAcctSchemaElemen
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

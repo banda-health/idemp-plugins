@@ -9,8 +9,8 @@ import org.compiere.model.X_Fact_Acct_Summary;
  * @version Release 8.2 - $Id$
  */
 public class X_Fact_Acct_SummaryDataLoader extends PODataLoader<X_Fact_Acct_Summary> {
-	public static String Fact_Acct_Summary_BY_ID_DATA_LOADER = "Fact_Acct_SummaryByIdDataLoader";
-	public static String Fact_Acct_Summary_BY_UUID_DATA_LOADER = "Fact_Acct_SummaryByUuidDataLoader";
+	public static String DATALOADER_Fact_Acct_Summary_BY_ID = "Fact_Acct_SummaryByIdDataLoader";
+	public static String DATALOADER_Fact_Acct_Summary_BY_UUID = "Fact_Acct_SummaryByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_Fact_Acct_SummaryDataLoader extends PODataLoader<X_Fact_Acct_Summ
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return Fact_Acct_Summary_BY_ID_DATA_LOADER;
+		return DATALOADER_Fact_Acct_Summary_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return Fact_Acct_Summary_BY_UUID_DATA_LOADER;
+		return DATALOADER_Fact_Acct_Summary_BY_UUID;
 	}
 }

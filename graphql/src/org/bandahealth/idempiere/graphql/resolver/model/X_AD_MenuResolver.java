@@ -58,7 +58,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ACTION_UUIDS_BY_VALUE.get(entity.getAction()));
 	}
 
@@ -73,7 +73,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_FormDataLoader.AD_Form_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FormDataLoader.DATALOADER_AD_Form_BY_ID);
 		return dataLoader.load(entity.getAD_Form_ID());
 	}
 
@@ -88,7 +88,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoWindowDataLoader.AD_InfoWindow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoWindowDataLoader.DATALOADER_AD_InfoWindow_BY_ID);
 		return dataLoader.load(entity.getAD_InfoWindow_ID());
 	}
 
@@ -103,7 +103,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.DATALOADER_AD_Process_BY_ID);
 		return dataLoader.load(entity.getAD_Process_ID());
 	}
 
@@ -118,7 +118,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TaskDataLoader.AD_Task_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TaskDataLoader.DATALOADER_AD_Task_BY_ID);
 		return dataLoader.load(entity.getAD_Task_ID());
 	}
 
@@ -133,7 +133,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.AD_Window_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
@@ -148,7 +148,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.AD_Workflow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.DATALOADER_AD_Workflow_BY_ID);
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 
@@ -162,7 +162,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Menu_TrlDataLoader.AD_Menu_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Menu_TrlDataLoader.DATALOADER_AD_Menu_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MMenu_BH.COLUMNNAME_Description));
 	}
@@ -194,7 +194,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -224,7 +224,7 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_Menu_TrlDataLoader.AD_Menu_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_Menu_TrlDataLoader.DATALOADER_AD_Menu_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MMenu_BH.COLUMNNAME_Name));
 	}

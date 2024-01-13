@@ -35,7 +35,7 @@ type PP_Order_Workflow {
 	# Author/Creator of the Entity
 	Author: String!
 	# Cost information
-	Cost: Int!
+	Cost: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -62,7 +62,7 @@ type PP_Order_Workflow {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Overlap Units are number of units that must be completed before they are moved the next activity
-	OverlapUnits: Int
+	OverlapUnits: BigDecimal
 	# Manufacturing Order
 	PP_Order: PP_Order!
 	# Workflow Node (activity), step or process
@@ -73,7 +73,7 @@ type PP_Order_Workflow {
 	ProcessType: AD_Ref_List
 	# Status of Publication
 	PublishStatus: AD_Ref_List!
-	QtyBatchSize: Int
+	QtyBatchSize: BigDecimal
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
 	# Resource
@@ -81,7 +81,7 @@ type PP_Order_Workflow {
 	# Setup time before starting Production
 	SetupTime: Int
 	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
-	UnitsCycles: Int
+	UnitsCycles: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -123,7 +123,7 @@ input PP_Order_WorkflowInput {
 	# Author/Creator of the Entity
 	Author: String
 	# Cost information
-	Cost: Int
+	Cost: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document
@@ -146,7 +146,7 @@ input PP_Order_WorkflowInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Overlap Units are number of units that must be completed before they are moved the next activity
-	OverlapUnits: Int
+	OverlapUnits: BigDecimal
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
 	# Workflow Node (activity), step or process
@@ -157,7 +157,7 @@ input PP_Order_WorkflowInput {
 	ProcessType: AD_Ref_ListInput
 	# Status of Publication
 	PublishStatus: AD_Ref_ListInput
-	QtyBatchSize: Int
+	QtyBatchSize: BigDecimal
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
 	# Resource
@@ -165,7 +165,7 @@ input PP_Order_WorkflowInput {
 	# Setup time before starting Production
 	SetupTime: Int
 	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
-	UnitsCycles: Int
+	UnitsCycles: BigDecimal
 	ValidateWorkflow: String
 	# Valid from including this date (first day)
 	ValidFrom: Date

@@ -23,7 +23,7 @@ type M_Movement {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	# Document Approval Amount
-	ApprovalAmt: Int
+	ApprovalAmt: BigDecimal
 	# Business Activity
 	C_Activity: C_Activity
 	# Identifies a Business Partner
@@ -39,7 +39,7 @@ type M_Movement {
 	# Financial Project
 	C_Project: C_Project
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -62,7 +62,7 @@ type M_Movement {
 	# Document sequence number of the document
 	DocumentNo: String!
 	# Freight Amount 
-	FreightAmt: Int
+	FreightAmt: BigDecimal
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_List
 	# The record is active in the system
@@ -85,7 +85,7 @@ type M_Movement {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# ID of document reversal
 	Reversal: M_Movement
@@ -107,7 +107,7 @@ input M_MovementInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	# Document Approval Amount
-	ApprovalAmt: Int
+	ApprovalAmt: BigDecimal
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Identifies a Business Partner
@@ -123,7 +123,7 @@ input M_MovementInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Charge Amount
-	ChargeAmt: Int
+	ChargeAmt: BigDecimal
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Date a product was received
@@ -142,7 +142,7 @@ input M_MovementInput {
 	# Document sequence number of the document
 	DocumentNo: String
 	# Freight Amount 
-	FreightAmt: Int
+	FreightAmt: BigDecimal
 	# Method for charging Freight
 	FreightCostRule: AD_Ref_ListInput
 	# The record is active in the system
@@ -165,7 +165,7 @@ input M_MovementInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# ID of document reversal
 	Reversal: ForeignEntityInput

@@ -9,8 +9,8 @@ import org.compiere.model.MAcctSchemaGL;
  * @version Release 8.2 - $Id$
  */
 public class X_C_AcctSchema_GLDataLoader extends PODataLoader<MAcctSchemaGL> {
-	public static String C_AcctSchema_GL_BY_ID_DATA_LOADER = "C_AcctSchema_GLByIdDataLoader";
-	public static String C_AcctSchema_GL_BY_UUID_DATA_LOADER = "C_AcctSchema_GLByUuidDataLoader";
+	public static String DATALOADER_C_AcctSchema_GL_BY_ID = "C_AcctSchema_GLByIdDataLoader";
+	public static String DATALOADER_C_AcctSchema_GL_BY_UUID = "C_AcctSchema_GLByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_AcctSchema_GLDataLoader extends PODataLoader<MAcctSchemaGL> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_AcctSchema_GL_BY_ID_DATA_LOADER;
+		return DATALOADER_C_AcctSchema_GL_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_AcctSchema_GL_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_AcctSchema_GL_BY_UUID;
 	}
 }

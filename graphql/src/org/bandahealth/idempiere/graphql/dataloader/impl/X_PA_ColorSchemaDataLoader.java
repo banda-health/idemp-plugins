@@ -9,8 +9,8 @@ import org.compiere.model.MColorSchema;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_ColorSchemaDataLoader extends PODataLoader<MColorSchema> {
-	public static String PA_ColorSchema_BY_ID_DATA_LOADER = "PA_ColorSchemaByIdDataLoader";
-	public static String PA_ColorSchema_BY_UUID_DATA_LOADER = "PA_ColorSchemaByUuidDataLoader";
+	public static String DATALOADER_PA_ColorSchema_BY_ID = "PA_ColorSchemaByIdDataLoader";
+	public static String DATALOADER_PA_ColorSchema_BY_UUID = "PA_ColorSchemaByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_ColorSchemaDataLoader extends PODataLoader<MColorSchema> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_ColorSchema_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_ColorSchema_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_ColorSchema_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_ColorSchema_BY_UUID;
 	}
 }

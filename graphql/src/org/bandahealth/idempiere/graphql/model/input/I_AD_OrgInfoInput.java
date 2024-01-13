@@ -53,6 +53,82 @@ public interface I_AD_OrgInfoInput extends I_AD_OrgInfo {
 	ForeignEntityInput AD_OrgType();
 
 	/**
+	 * Column name BH_ExtraInfo
+	 */
+	static final String COLUMNNAME_BH_ExtraInfo = "BH_ExtraInfo";
+
+	/**
+	 * Set Extra Information.
+	 *
+	 * @param BH_ExtraInfo Enter additional information for this organization
+	 */
+	void setBH_ExtraInfo(String BH_ExtraInfo);
+
+	/**
+	 * Get Extra Information.
+	 *
+	 * @return Enter additional information for this organization
+	 */
+	String getBH_ExtraInfo();
+
+	/**
+	 * Column name BH_FacilityNumber
+	 */
+	static final String COLUMNNAME_BH_FacilityNumber = "BH_FacilityNumber";
+
+	/**
+	 * Set Facility Number.
+	 *
+	 * @param BH_FacilityNumber Facility Number (MFL No.)
+	 */
+	void setBH_FacilityNumber(String BH_FacilityNumber);
+
+	/**
+	 * Get Facility Number.
+	 *
+	 * @return Facility Number (MFL No.)
+	 */
+	String getBH_FacilityNumber();
+
+	/**
+	 * Column name BH_Header
+	 */
+	static final String COLUMNNAME_BH_Header = "BH_Header";
+
+	/**
+	 * Set Header.
+	 *
+	 * @param BH_Header Header information e.g address, phone number etc.
+	 */
+	void setBH_Header(String BH_Header);
+
+	/**
+	 * Get Header.
+	 *
+	 * @return Header information e.g address, phone number etc.
+	 */
+	String getBH_Header();
+
+	/**
+	 * Column name BH_PaymentInformation
+	 */
+	static final String COLUMNNAME_BH_PaymentInformation = "BH_PaymentInformation";
+
+	/**
+	 * Set Payment Information.
+	 *
+	 * @param BH_PaymentInformation Payment Information
+	 */
+	void setBH_PaymentInformation(String BH_PaymentInformation);
+
+	/**
+	 * Get Payment Information.
+	 *
+	 * @return Payment Information
+	 */
+	String getBH_PaymentInformation();
+
+	/**
 	 * Set C_Calendar.
 	 *
 	 * @param C_Calendar Accounting Calendar Name

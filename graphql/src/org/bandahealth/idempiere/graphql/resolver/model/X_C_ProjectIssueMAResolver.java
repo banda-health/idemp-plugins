@@ -31,7 +31,7 @@ public class X_C_ProjectIssueMAResolver extends POResolver<X_C_ProjectIssueMA> i
 			return null;
 		}
 		DataLoader<Integer, MProjectIssue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectIssueDataLoader.C_ProjectIssue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectIssueDataLoader.DATALOADER_C_ProjectIssue_BY_ID);
 		return dataLoader.load(entity.getC_ProjectIssue_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_ProjectIssueMAResolver extends POResolver<X_C_ProjectIssueMA> i
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 

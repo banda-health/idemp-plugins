@@ -9,8 +9,8 @@ import org.eevolution.model.X_PP_Order_Workflow;
  * @version Release 8.2 - $Id$
  */
 public class X_PP_Order_WorkflowDataLoader extends PODataLoader<X_PP_Order_Workflow> {
-	public static String PP_Order_Workflow_BY_ID_DATA_LOADER = "PP_Order_WorkflowByIdDataLoader";
-	public static String PP_Order_Workflow_BY_UUID_DATA_LOADER = "PP_Order_WorkflowByUuidDataLoader";
+	public static String DATALOADER_PP_Order_Workflow_BY_ID = "PP_Order_WorkflowByIdDataLoader";
+	public static String DATALOADER_PP_Order_Workflow_BY_UUID = "PP_Order_WorkflowByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PP_Order_WorkflowDataLoader extends PODataLoader<X_PP_Order_Workf
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PP_Order_Workflow_BY_ID_DATA_LOADER;
+		return DATALOADER_PP_Order_Workflow_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PP_Order_Workflow_BY_UUID_DATA_LOADER;
+		return DATALOADER_PP_Order_Workflow_BY_UUID;
 	}
 }

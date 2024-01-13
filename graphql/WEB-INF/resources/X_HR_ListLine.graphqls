@@ -20,14 +20,14 @@ type HR_ListLine {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	Col_1: Int
-	Col_2: Int
-	Col_3: Int
-	Col_4: Int
-	Col_5: Int
-	Col_6: Int
-	Col_7: Int
-	Col_8: Int
+	Col_1: BigDecimal
+	Col_2: BigDecimal
+	Col_3: BigDecimal
+	Col_4: BigDecimal
+	Col_5: BigDecimal
+	Col_6: BigDecimal
+	Col_7: BigDecimal
+	Col_8: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -36,8 +36,8 @@ type HR_ListLine {
 	HR_ListVersion: HR_ListVersion
 	# The record is active in the system
 	IsActive: Boolean!
-	MaxValue: Int!
-	MinValue: Int!
+	MaxValue: BigDecimal!
+	MinValue: BigDecimal!
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Date this record was updated
@@ -49,20 +49,20 @@ type HR_ListLine {
 input HR_ListLineInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	Col_1: Int
-	Col_2: Int
-	Col_3: Int
-	Col_4: Int
-	Col_5: Int
-	Col_6: Int
-	Col_7: Int
-	Col_8: Int
+	Col_1: BigDecimal
+	Col_2: BigDecimal
+	Col_3: BigDecimal
+	Col_4: BigDecimal
+	Col_5: BigDecimal
+	Col_6: BigDecimal
+	Col_7: BigDecimal
+	Col_8: BigDecimal
 	ID: ID
 	HR_ListVersion: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	MaxValue: Int
-	MinValue: Int
+	MaxValue: BigDecimal
+	MinValue: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 }

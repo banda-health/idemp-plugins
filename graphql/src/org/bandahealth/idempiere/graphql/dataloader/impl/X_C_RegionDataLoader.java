@@ -9,8 +9,8 @@ import org.compiere.model.MRegion;
  * @version Release 8.2 - $Id$
  */
 public class X_C_RegionDataLoader extends PODataLoader<MRegion> {
-	public static String C_Region_BY_ID_DATA_LOADER = "C_RegionByIdDataLoader";
-	public static String C_Region_BY_UUID_DATA_LOADER = "C_RegionByUuidDataLoader";
+	public static String DATALOADER_C_Region_BY_ID = "C_RegionByIdDataLoader";
+	public static String DATALOADER_C_Region_BY_UUID = "C_RegionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_RegionDataLoader extends PODataLoader<MRegion> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Region_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Region_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Region_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Region_BY_UUID;
 	}
 }

@@ -37,4 +37,23 @@ public interface I_C_CurrencyInput extends I_C_Currency {
 	 * @return ID
 	 */
 	String getID();
+
+	/**
+	 * Column name CurrencyName
+	 */
+	static final String COLUMNNAME_CurrencyName = "CurrencyName";
+
+	/**
+	 * Set Currency Name.
+	 *
+	 * @param CurrencyName The name of the currency
+	 */
+	void setCurrencyName(String CurrencyName);
+
+	/**
+	 * Get Currency Name.
+	 *
+	 * @return The name of the currency
+	 */
+	String getCurrencyName();
 }

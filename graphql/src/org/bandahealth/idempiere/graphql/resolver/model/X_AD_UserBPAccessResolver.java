@@ -36,7 +36,7 @@ public class X_AD_UserBPAccessResolver extends POResolver<MUserBPAccess> impleme
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_AD_UserBPAccessResolver extends POResolver<MUserBPAccess> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BPACCESSTYPE_UUIDS_BY_VALUE.get(entity.getBPAccessType()));
 	}
 
@@ -97,7 +97,7 @@ public class X_AD_UserBPAccessResolver extends POResolver<MUserBPAccess> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCBASETYPE_UUIDS_BY_VALUE.get(entity.getDocBaseType()));
 	}
 
@@ -112,7 +112,7 @@ public class X_AD_UserBPAccessResolver extends POResolver<MUserBPAccess> impleme
 			return null;
 		}
 		DataLoader<Integer, MRequestType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestTypeDataLoader.R_RequestType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_RequestTypeDataLoader.DATALOADER_R_RequestType_BY_ID);
 		return dataLoader.load(entity.getR_RequestType_ID());
 	}
 

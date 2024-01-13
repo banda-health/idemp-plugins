@@ -31,7 +31,7 @@ public class X_C_UserRemunerationResolver extends POResolver<X_C_UserRemuneratio
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_UserRemunerationResolver extends POResolver<X_C_UserRemuneratio
 			return null;
 		}
 		DataLoader<Integer, X_C_Remuneration> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RemunerationDataLoader.C_Remuneration_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RemunerationDataLoader.DATALOADER_C_Remuneration_BY_ID);
 		return dataLoader.load(entity.getC_Remuneration_ID());
 	}
 

@@ -146,7 +146,7 @@ public class X_AD_AllClients_VResolver extends POResolver<X_AD_AllClients_V> imp
 			return null;
 		}
 		DataLoader<Integer, MLanguage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.AD_Language_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.DATALOADER_AD_Language_BY_ID);
 		return dataLoader.load(AD_LANGUAGE_IDS_BY_LANGUAGE.get(entity.getAD_Language()));
 	}
 

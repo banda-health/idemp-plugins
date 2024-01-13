@@ -73,7 +73,7 @@ type I_Movement {
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Quantity of a product moved.
-	MovementQty: Int
+	MovementQty: BigDecimal
 	# Key of the Transaction Organization
 	OrgTrxValue: String
 	# Key of the Organization
@@ -150,7 +150,7 @@ input I_MovementInput {
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Quantity of a product moved.
-	MovementQty: Int
+	MovementQty: BigDecimal
 	# Key of the Transaction Organization
 	OrgTrxValue: String
 	# Key of the Organization

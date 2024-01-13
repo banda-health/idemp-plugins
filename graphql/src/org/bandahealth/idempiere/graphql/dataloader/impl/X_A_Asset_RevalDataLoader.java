@@ -9,8 +9,8 @@ import org.compiere.model.MAssetReval;
  * @version Release 8.2 - $Id$
  */
 public class X_A_Asset_RevalDataLoader extends PODataLoader<MAssetReval> {
-	public static String A_Asset_Reval_BY_ID_DATA_LOADER = "A_Asset_RevalByIdDataLoader";
-	public static String A_Asset_Reval_BY_UUID_DATA_LOADER = "A_Asset_RevalByUuidDataLoader";
+	public static String DATALOADER_A_Asset_Reval_BY_ID = "A_Asset_RevalByIdDataLoader";
+	public static String DATALOADER_A_Asset_Reval_BY_UUID = "A_Asset_RevalByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_A_Asset_RevalDataLoader extends PODataLoader<MAssetReval> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return A_Asset_Reval_BY_ID_DATA_LOADER;
+		return DATALOADER_A_Asset_Reval_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return A_Asset_Reval_BY_UUID_DATA_LOADER;
+		return DATALOADER_A_Asset_Reval_BY_UUID;
 	}
 }

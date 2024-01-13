@@ -41,7 +41,7 @@ public class X_M_AttributeSetInstanceResolver extends POResolver<MAttributeSetIn
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_UPDATE_REASON_UUIDS_BY_VALUE.get(entity.getbh_update_reason()));
 	}
 
@@ -56,7 +56,7 @@ public class X_M_AttributeSetInstanceResolver extends POResolver<MAttributeSetIn
 			return null;
 		}
 		DataLoader<Integer, MAttributeSet_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetDataLoader.M_AttributeSet_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetDataLoader.DATALOADER_M_AttributeSet_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSet_ID());
 	}
 
@@ -71,7 +71,7 @@ public class X_M_AttributeSetInstanceResolver extends POResolver<MAttributeSetIn
 			return null;
 		}
 		DataLoader<Integer, MLot> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_LotDataLoader.M_Lot_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_LotDataLoader.DATALOADER_M_Lot_BY_ID);
 		return dataLoader.load(entity.getM_Lot_ID());
 	}
 

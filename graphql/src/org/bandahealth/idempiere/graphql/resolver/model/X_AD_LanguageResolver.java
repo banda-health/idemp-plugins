@@ -29,7 +29,7 @@ public class X_AD_LanguageResolver extends POResolver<MLanguage> implements Grap
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintPaper> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintPaperDataLoader.AD_PrintPaper_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintPaperDataLoader.DATALOADER_AD_PrintPaper_BY_ID);
 		return dataLoader.load(entity.getAD_PrintPaper_ID());
 	}
 

@@ -40,7 +40,7 @@ type C_Phase {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Standard Quantity
-	StandardQty: Int!
+	StandardQty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -66,5 +66,5 @@ input C_PhaseInput {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Standard Quantity
-	StandardQty: Int
+	StandardQty: BigDecimal
 }

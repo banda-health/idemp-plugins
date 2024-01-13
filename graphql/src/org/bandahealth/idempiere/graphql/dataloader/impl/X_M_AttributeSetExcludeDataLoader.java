@@ -9,8 +9,8 @@ import org.compiere.model.MAttributeSetExclude;
  * @version Release 8.2 - $Id$
  */
 public class X_M_AttributeSetExcludeDataLoader extends PODataLoader<MAttributeSetExclude> {
-	public static String M_AttributeSetExclude_BY_ID_DATA_LOADER = "M_AttributeSetExcludeByIdDataLoader";
-	public static String M_AttributeSetExclude_BY_UUID_DATA_LOADER = "M_AttributeSetExcludeByUuidDataLoader";
+	public static String DATALOADER_M_AttributeSetExclude_BY_ID = "M_AttributeSetExcludeByIdDataLoader";
+	public static String DATALOADER_M_AttributeSetExclude_BY_UUID = "M_AttributeSetExcludeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_AttributeSetExcludeDataLoader extends PODataLoader<MAttributeSe
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_AttributeSetExclude_BY_ID_DATA_LOADER;
+		return DATALOADER_M_AttributeSetExclude_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_AttributeSetExclude_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_AttributeSetExclude_BY_UUID;
 	}
 }

@@ -31,7 +31,7 @@ public class X_AD_ImportTemplateResolver extends POResolver<MImportTemplate> imp
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.AD_Tab_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.DATALOADER_AD_Tab_BY_ID);
 		return dataLoader.load(entity.getAD_Tab_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_ImportTemplateResolver extends POResolver<MImportTemplate> imp
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.AD_Window_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 

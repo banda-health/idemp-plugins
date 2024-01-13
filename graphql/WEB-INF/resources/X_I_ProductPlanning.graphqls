@@ -34,7 +34,7 @@ type I_ProductPlanning {
 	DatePromised: Date
 	DD_NetworkDistribution: DD_NetworkDistribution
 	# Promised days between order and delivery
-	DeliveryTime_Promised: Int
+	DeliveryTime_Promised: BigDecimal
 	# Key of the Forecast
 	ForecastValue: String
 	# Messages generated from import process
@@ -60,14 +60,14 @@ type I_ProductPlanning {
 	# Key of the Network Distribution
 	NetworkDistributionValue: String
 	# Maximum order quantity in UOM
-	Order_Max: Int
+	Order_Max: BigDecimal
 	# Minimum order quantity in UOM
-	Order_Min: Int
+	Order_Min: BigDecimal
 	# Package order size in UOM (e.g. order set of 5 units)
-	Order_Pack: Int
-	Order_Period: Int
+	Order_Pack: BigDecimal
+	Order_Period: BigDecimal
 	Order_Policy: AD_Ref_List
-	Order_Qty: Int
+	Order_Qty: BigDecimal
 	# Key of the Organization
 	OrgValue: String
 	Planner: AD_User
@@ -84,17 +84,17 @@ type I_ProductPlanning {
 	# Key of the Product
 	ProductValue: String
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Key of the Resource
 	ResourceValue: String
 	# Resource
 	S_Resource: S_Resource
 	# Safety stock is a term used to describe a level of stock that is maintained below the cycle stock to buffer against stock-outs
-	SafetyStock: Int
+	SafetyStock: BigDecimal
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
-	TimeFence: Int
-	TransfertTime: Int
+	TimeFence: BigDecimal
+	TransfertTime: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -104,7 +104,7 @@ type I_ProductPlanning {
 	# Key of the Warehouse
 	WarehouseValue: String
 	# Workflow Simulation Execution Time
-	WorkingTime: Int
+	WorkingTime: BigDecimal
 	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
 	Yield: Int
 }
@@ -122,7 +122,7 @@ input I_ProductPlanningInput {
 	DatePromised: Date
 	DD_NetworkDistribution: ForeignEntityInput
 	# Promised days between order and delivery
-	DeliveryTime_Promised: Int
+	DeliveryTime_Promised: BigDecimal
 	# Key of the Forecast
 	ForecastValue: String
 	# Messages generated from import process
@@ -148,14 +148,14 @@ input I_ProductPlanningInput {
 	# Key of the Network Distribution
 	NetworkDistributionValue: String
 	# Maximum order quantity in UOM
-	Order_Max: Int
+	Order_Max: BigDecimal
 	# Minimum order quantity in UOM
-	Order_Min: Int
+	Order_Min: BigDecimal
 	# Package order size in UOM (e.g. order set of 5 units)
-	Order_Pack: Int
-	Order_Period: Int
+	Order_Pack: BigDecimal
+	Order_Period: BigDecimal
 	Order_Policy: AD_Ref_ListInput
-	Order_Qty: Int
+	Order_Qty: BigDecimal
 	# Key of the Organization
 	OrgValue: String
 	Planner: ForeignEntityInput
@@ -172,23 +172,23 @@ input I_ProductPlanningInput {
 	# Key of the Product
 	ProductValue: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Key of the Resource
 	ResourceValue: String
 	# Resource
 	S_Resource: ForeignEntityInput
 	# Safety stock is a term used to describe a level of stock that is maintained below the cycle stock to buffer against stock-outs
-	SafetyStock: Int
+	SafetyStock: BigDecimal
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
-	TimeFence: Int
-	TransfertTime: Int
+	TimeFence: BigDecimal
+	TransfertTime: BigDecimal
 	# Product Key of the Business Partner
 	VendorProductNo: String
 	# Key of the Warehouse
 	WarehouseValue: String
 	# Workflow Simulation Execution Time
-	WorkingTime: Int
+	WorkingTime: BigDecimal
 	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
 	Yield: Int
 }

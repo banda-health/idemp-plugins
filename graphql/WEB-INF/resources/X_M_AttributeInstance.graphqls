@@ -41,7 +41,7 @@ type M_AttributeInstance {
 	Value: String
 	ValueDate: Date
 	# Numeric Value
-	ValueNumber: Int
+	ValueNumber: BigDecimal
 }
 
 input M_AttributeInstanceInput {
@@ -60,5 +60,5 @@ input M_AttributeInstanceInput {
 	Value: String
 	ValueDate: Date
 	# Numeric Value
-	ValueNumber: Int
+	ValueNumber: BigDecimal
 }

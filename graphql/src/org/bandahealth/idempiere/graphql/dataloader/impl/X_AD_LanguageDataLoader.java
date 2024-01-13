@@ -9,8 +9,8 @@ import org.compiere.model.MLanguage;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_LanguageDataLoader extends PODataLoader<MLanguage> {
-	public static String AD_Language_BY_ID_DATA_LOADER = "AD_LanguageByIdDataLoader";
-	public static String AD_Language_BY_UUID_DATA_LOADER = "AD_LanguageByUuidDataLoader";
+	public static String DATALOADER_AD_Language_BY_ID = "AD_LanguageByIdDataLoader";
+	public static String DATALOADER_AD_Language_BY_UUID = "AD_LanguageByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_LanguageDataLoader extends PODataLoader<MLanguage> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Language_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Language_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Language_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Language_BY_UUID;
 	}
 }

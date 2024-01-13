@@ -59,7 +59,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_GroupDataLoader.A_Asset_Group_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_GroupDataLoader.DATALOADER_A_Asset_Group_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Group_ID());
 	}
 
@@ -74,7 +74,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -97,7 +97,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getAccount_ID());
 	}
 
@@ -112,7 +112,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getAlias_ValidCombination_ID());
 	}
 
@@ -127,7 +127,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -142,7 +142,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -157,7 +157,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -172,7 +172,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ConversionTypeDataLoader.C_ConversionType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ConversionTypeDataLoader.DATALOADER_C_ConversionType_BY_ID);
 		return dataLoader.load(entity.getC_ConversionType_ID());
 	}
 
@@ -187,7 +187,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -202,7 +202,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_LocFrom_ID());
 	}
 
@@ -217,7 +217,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_LocTo_ID());
 	}
 
@@ -232,7 +232,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -247,7 +247,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.C_SalesRegion_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.DATALOADER_C_SalesRegion_BY_ID);
 		return dataLoader.load(entity.getC_SalesRegion_ID());
 	}
 
@@ -262,7 +262,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, X_C_SubAcct> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_SubAcctDataLoader.C_SubAcct_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_SubAcctDataLoader.DATALOADER_C_SubAcct_BY_ID);
 		return dataLoader.load(entity.getC_SubAcct_ID());
 	}
 
@@ -277,7 +277,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -292,7 +292,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getC_ValidCombination_ID());
 	}
 
@@ -307,7 +307,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MJournal> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalDataLoader.GL_Journal_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalDataLoader.DATALOADER_GL_Journal_BY_ID);
 		return dataLoader.load(entity.getGL_Journal_ID());
 	}
 
@@ -326,7 +326,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -345,7 +345,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getUser1_ID());
 	}
 
@@ -360,7 +360,7 @@ public class X_GL_JournalLineResolver extends POResolver<MJournalLine> implement
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getUser2_ID());
 	}
 

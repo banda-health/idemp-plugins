@@ -56,7 +56,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_UPDATE_REASON_UUIDS_BY_VALUE.get(entity.getbh_update_reason()));
 	}
 
@@ -71,7 +71,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -86,7 +86,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -101,7 +101,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ConversionTypeDataLoader.C_ConversionType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ConversionTypeDataLoader.DATALOADER_C_ConversionType_BY_ID);
 		return dataLoader.load(entity.getC_ConversionType_ID());
 	}
 
@@ -116,7 +116,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -131,7 +131,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
 		return dataLoader.load(entity.getC_DocType_ID());
 	}
 
@@ -146,7 +146,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -168,7 +168,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(COSTINGMETHOD_UUIDS_BY_VALUE.get(entity.getCostingMethod()));
 	}
 
@@ -195,7 +195,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
 
@@ -220,7 +220,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCSTATUS_UUIDS_BY_VALUE.get(entity.getDocStatus()));
 	}
 
@@ -239,7 +239,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<Integer, X_M_PerpetualInv> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PerpetualInvDataLoader.M_PerpetualInv_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PerpetualInvDataLoader.DATALOADER_M_PerpetualInv_BY_ID);
 		return dataLoader.load(entity.getM_PerpetualInv_ID());
 	}
 
@@ -254,7 +254,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
@@ -281,7 +281,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<Integer, MInventory_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryDataLoader.M_Inventory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryDataLoader.DATALOADER_M_Inventory_BY_ID);
 		return dataLoader.load(entity.getReversal_ID());
 	}
 
@@ -296,7 +296,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getUser1_ID());
 	}
 
@@ -311,7 +311,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getUser2_ID());
 	}
 

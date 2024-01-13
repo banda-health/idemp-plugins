@@ -52,7 +52,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -97,7 +97,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.C_BPartner_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.DATALOADER_C_BPartner_Location_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_Location_ID());
 	}
 
@@ -112,7 +112,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartnerSR_ID());
 	}
 
@@ -127,7 +127,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -142,7 +142,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -157,7 +157,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentTermDataLoader.C_PaymentTerm_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentTermDataLoader.DATALOADER_C_PaymentTerm_BY_ID);
 		return dataLoader.load(entity.getC_PaymentTerm_ID());
 	}
 
@@ -172,7 +172,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MProjectTypePhase> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PhaseDataLoader.C_Phase_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PhaseDataLoader.DATALOADER_C_Phase_BY_ID);
 		return dataLoader.load(entity.getC_Phase_ID());
 	}
 
@@ -199,7 +199,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MPriceListVersion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceList_VersionDataLoader.M_PriceList_Version_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceList_VersionDataLoader.DATALOADER_M_PriceList_Version_BY_ID);
 		return dataLoader.load(entity.getM_PriceList_Version_ID());
 	}
 
@@ -214,7 +214,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 
@@ -239,7 +239,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PROJECTCATEGORY_UUIDS_BY_VALUE.get(entity.getProjectCategory()));
 	}
 
@@ -255,7 +255,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PROJECTLINELEVEL_UUIDS_BY_VALUE.get(entity.getProjectLineLevel()));
 	}
 
@@ -273,7 +273,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PROJINVOICERULE_UUIDS_BY_VALUE.get(entity.getProjInvoiceRule()));
 	}
 
@@ -288,7 +288,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 

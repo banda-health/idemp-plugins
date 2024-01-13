@@ -9,8 +9,8 @@ import org.compiere.model.MCostElement;
  * @version Release 8.2 - $Id$
  */
 public class X_M_CostElementDataLoader extends PODataLoader<MCostElement> {
-	public static String M_CostElement_BY_ID_DATA_LOADER = "M_CostElementByIdDataLoader";
-	public static String M_CostElement_BY_UUID_DATA_LOADER = "M_CostElementByUuidDataLoader";
+	public static String DATALOADER_M_CostElement_BY_ID = "M_CostElementByIdDataLoader";
+	public static String DATALOADER_M_CostElement_BY_UUID = "M_CostElementByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_CostElementDataLoader extends PODataLoader<MCostElement> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_CostElement_BY_ID_DATA_LOADER;
+		return DATALOADER_M_CostElement_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_CostElement_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_CostElement_BY_UUID;
 	}
 }

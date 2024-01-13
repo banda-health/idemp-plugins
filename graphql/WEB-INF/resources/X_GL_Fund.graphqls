@@ -21,7 +21,7 @@ type GL_Fund {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount
-	Amt: Int!
+	Amt: BigDecimal!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Date this record was created
@@ -51,7 +51,7 @@ input GL_FundInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount
-	Amt: Int
+	Amt: BigDecimal
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Starting date for a range

@@ -52,7 +52,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BOMTYPE_UUIDS_BY_VALUE.get(entity.getBOMType()));
 	}
 
@@ -70,7 +70,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BOMUSE_UUIDS_BY_VALUE.get(entity.getBOMUse()));
 	}
 
@@ -85,7 +85,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -99,7 +99,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_PP_Product_BOM_TrlDataLoader.PP_Product_BOM_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_PP_Product_BOM_TrlDataLoader.DATALOADER_PP_Product_BOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MPPProductBOM.COLUMNNAME_Description));
 	}
@@ -114,7 +114,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 			return CompletableFuture.supplyAsync(entity::getHelp);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_PP_Product_BOM_TrlDataLoader.PP_Product_BOM_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_PP_Product_BOM_TrlDataLoader.DATALOADER_PP_Product_BOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MPPProductBOM.COLUMNNAME_Help));
 	}
@@ -130,7 +130,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -145,7 +145,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.M_ChangeNotice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.DATALOADER_M_ChangeNotice_BY_ID);
 		return dataLoader.load(entity.getM_ChangeNotice_ID());
 	}
 
@@ -160,7 +160,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -174,7 +174,7 @@ public class X_PP_Product_BOMResolver extends POResolver<MPPProductBOM> implemen
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_PP_Product_BOM_TrlDataLoader.PP_Product_BOM_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_PP_Product_BOM_TrlDataLoader.DATALOADER_PP_Product_BOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MPPProductBOM.COLUMNNAME_Name));
 	}

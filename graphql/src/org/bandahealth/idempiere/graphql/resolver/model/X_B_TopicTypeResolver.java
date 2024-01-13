@@ -31,7 +31,7 @@ public class X_B_TopicTypeResolver extends POResolver<X_B_TopicType> implements 
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.M_PriceList_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.DATALOADER_M_PriceList_BY_ID);
 		return dataLoader.load(entity.getM_PriceList_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_B_TopicTypeResolver extends POResolver<X_B_TopicType> implements 
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -61,7 +61,7 @@ public class X_B_TopicTypeResolver extends POResolver<X_B_TopicType> implements 
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_ProductMember_ID());
 	}
 

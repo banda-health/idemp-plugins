@@ -9,8 +9,8 @@ import org.compiere.model.MAttachmentNote;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_AttachmentNoteDataLoader extends PODataLoader<MAttachmentNote> {
-	public static String AD_AttachmentNote_BY_ID_DATA_LOADER = "AD_AttachmentNoteByIdDataLoader";
-	public static String AD_AttachmentNote_BY_UUID_DATA_LOADER = "AD_AttachmentNoteByUuidDataLoader";
+	public static String DATALOADER_AD_AttachmentNote_BY_ID = "AD_AttachmentNoteByIdDataLoader";
+	public static String DATALOADER_AD_AttachmentNote_BY_UUID = "AD_AttachmentNoteByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_AttachmentNoteDataLoader extends PODataLoader<MAttachmentNote>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_AttachmentNote_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_AttachmentNote_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_AttachmentNote_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_AttachmentNote_BY_UUID;
 	}
 }

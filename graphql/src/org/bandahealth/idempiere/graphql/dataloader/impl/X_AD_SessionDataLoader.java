@@ -9,8 +9,8 @@ import org.compiere.model.MSession;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_SessionDataLoader extends PODataLoader<MSession> {
-	public static String AD_Session_BY_ID_DATA_LOADER = "AD_SessionByIdDataLoader";
-	public static String AD_Session_BY_UUID_DATA_LOADER = "AD_SessionByUuidDataLoader";
+	public static String DATALOADER_AD_Session_BY_ID = "AD_SessionByIdDataLoader";
+	public static String DATALOADER_AD_Session_BY_UUID = "AD_SessionByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_SessionDataLoader extends PODataLoader<MSession> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Session_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Session_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Session_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Session_BY_UUID;
 	}
 }

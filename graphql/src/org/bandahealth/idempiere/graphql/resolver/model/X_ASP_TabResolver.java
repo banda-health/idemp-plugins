@@ -36,7 +36,7 @@ public class X_ASP_TabResolver extends POResolver<X_ASP_Tab> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.AD_Tab_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TabDataLoader.DATALOADER_AD_Tab_BY_ID);
 		return dataLoader.load(entity.getAD_Tab_ID());
 	}
 
@@ -56,7 +56,7 @@ public class X_ASP_TabResolver extends POResolver<X_ASP_Tab> implements GraphQLR
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ASP_STATUS_UUIDS_BY_VALUE.get(entity.getASP_Status()));
 	}
 
@@ -71,7 +71,7 @@ public class X_ASP_TabResolver extends POResolver<X_ASP_Tab> implements GraphQLR
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Window> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_ASP_WindowDataLoader.ASP_Window_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_ASP_WindowDataLoader.DATALOADER_ASP_Window_BY_ID);
 		return dataLoader.load(entity.getASP_Window_ID());
 	}
 

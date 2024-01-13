@@ -33,7 +33,7 @@ public class X_HR_PayrollConceptResolver extends POResolver<X_HR_PayrollConcept>
 			return null;
 		}
 		DataLoader<Integer, MRule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RuleDataLoader.AD_Rule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RuleDataLoader.DATALOADER_AD_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Rule_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_HR_PayrollConceptResolver extends POResolver<X_HR_PayrollConcept>
 			return null;
 		}
 		DataLoader<Integer, X_HR_Concept> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_ConceptDataLoader.HR_Concept_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_ConceptDataLoader.DATALOADER_HR_Concept_BY_ID);
 		return dataLoader.load(entity.getHR_Concept_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_HR_PayrollConceptResolver extends POResolver<X_HR_PayrollConcept>
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.HR_Payroll_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.DATALOADER_HR_Payroll_BY_ID);
 		return dataLoader.load(entity.getHR_Payroll_ID());
 	}
 

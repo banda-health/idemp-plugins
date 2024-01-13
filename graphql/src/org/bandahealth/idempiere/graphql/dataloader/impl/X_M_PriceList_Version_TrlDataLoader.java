@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * @version Release 8.2 - $Id$
  */
 public class X_M_PriceList_Version_TrlDataLoader extends PODataLoader<PO> {
-	public static String M_PriceList_Version_Trl_BY_ID_DATA_LOADER = "M_PriceList_Version_TrlByIdDataLoader";
-	public static String M_PriceList_Version_Trl_BY_UUID_DATA_LOADER = "M_PriceList_Version_TrlByUuidDataLoader";
+	public static String DATALOADER_M_PriceList_Version_Trl_BY_ID = "M_PriceList_Version_TrlByIdDataLoader";
+	public static String DATALOADER_M_PriceList_Version_Trl_BY_UUID = "M_PriceList_Version_TrlByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -37,13 +37,13 @@ public class X_M_PriceList_Version_TrlDataLoader extends PODataLoader<PO> {
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_PriceList_Version_Trl_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_PriceList_Version_Trl_BY_UUID;
 	}
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(M_PriceList_Version_Trl_BY_ID_DATA_LOADER,
+		registry.register(DATALOADER_M_PriceList_Version_Trl_BY_ID,
 				DataLoader.newMappedDataLoader(getByIdAndLanguageBatchLoader(),
 						getOptionsWithCache(idempiereContext)));
 	}

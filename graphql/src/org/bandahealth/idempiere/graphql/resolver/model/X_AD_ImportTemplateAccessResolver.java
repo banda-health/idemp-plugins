@@ -31,7 +31,7 @@ public class X_AD_ImportTemplateAccessResolver extends POResolver<X_AD_ImportTem
 			return null;
 		}
 		DataLoader<Integer, MImportTemplate> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImportTemplateDataLoader.AD_ImportTemplate_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImportTemplateDataLoader.DATALOADER_AD_ImportTemplate_BY_ID);
 		return dataLoader.load(entity.getAD_ImportTemplate_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_ImportTemplateAccessResolver extends POResolver<X_AD_ImportTem
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 

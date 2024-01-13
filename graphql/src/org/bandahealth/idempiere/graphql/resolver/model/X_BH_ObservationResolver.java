@@ -31,7 +31,7 @@ public class X_BH_ObservationResolver extends POResolver<MBHObservation> impleme
 			return null;
 		}
 		DataLoader<Integer, MField_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.AD_Field_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.DATALOADER_AD_Field_BY_ID);
 		return dataLoader.load(entity.getAD_Field_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_BH_ObservationResolver extends POResolver<MBHObservation> impleme
 			return null;
 		}
 		DataLoader<Integer, MBHEncounter> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_EncounterDataLoader.BH_Encounter_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_EncounterDataLoader.DATALOADER_BH_Encounter_BY_ID);
 		return dataLoader.load(entity.getBH_Encounter_ID());
 	}
 

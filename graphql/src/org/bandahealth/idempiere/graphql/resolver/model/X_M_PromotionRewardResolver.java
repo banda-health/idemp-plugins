@@ -38,7 +38,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.C_Charge_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ChargeDataLoader.DATALOADER_C_Charge_BY_ID);
 		return dataLoader.load(entity.getC_Charge_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DISTRIBUTIONSORTING_UUIDS_BY_VALUE.get(entity.getDistributionSorting()));
 	}
 
@@ -76,7 +76,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 			return null;
 		}
 		DataLoader<Integer, X_M_Promotion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionDataLoader.M_Promotion_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionDataLoader.DATALOADER_M_Promotion_BY_ID);
 		return dataLoader.load(entity.getM_Promotion_ID());
 	}
 
@@ -91,7 +91,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 			return null;
 		}
 		DataLoader<Integer, X_M_PromotionDistribution> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionDistributionDataLoader.M_PromotionDistribution_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionDistributionDataLoader.DATALOADER_M_PromotionDistribution_BY_ID);
 		return dataLoader.load(entity.getM_PromotionDistribution_ID());
 	}
 
@@ -106,7 +106,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 			return null;
 		}
 		DataLoader<Integer, X_M_PromotionDistribution> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionDistributionDataLoader.M_PromotionDistribution_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PromotionDistributionDataLoader.DATALOADER_M_PromotionDistribution_BY_ID);
 		return dataLoader.load(entity.getM_TargetDistribution_ID());
 	}
 
@@ -122,7 +122,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(REWARDTYPE_UUIDS_BY_VALUE.get(entity.getRewardType()));
 	}
 

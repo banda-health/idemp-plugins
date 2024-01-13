@@ -19,7 +19,7 @@ type A_Asset_Transfer {
 	A_Accumdepreciation_A: C_ValidCombination
 	A_Accumdepreciation_Acct_Str: String
 	A_Accumdepreciation_New_A: C_ValidCombination!
-	A_Accumulated_Depr_F: Int
+	A_Accumulated_Depr_F: BigDecimal
 	A_Asset_A: C_ValidCombination
 	A_Asset_Acct_Str: String
 	# Asset used internally or by customers
@@ -40,7 +40,7 @@ type A_Asset_Transfer {
 	A_Disposal_Revenue_Str: String
 	A_Period_End: Int!
 	A_Period_Start: Int!
-	A_Split_Percent: Int!
+	A_Split_Percent: BigDecimal!
 	A_Transfer_Balance: Boolean!
 	A_Transfer_Balance_IS: Boolean!
 	# Client/Tenant for this installation.
@@ -74,7 +74,7 @@ type A_Asset_Transfer {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
@@ -86,7 +86,7 @@ input A_Asset_TransferInput {
 	A_Accumdepreciation_A: ForeignEntityInput
 	A_Accumdepreciation_Acct_Str: String
 	A_Accumdepreciation_New_A: ForeignEntityInput
-	A_Accumulated_Depr_F: Int
+	A_Accumulated_Depr_F: BigDecimal
 	A_Asset_A: ForeignEntityInput
 	A_Asset_Acct_Str: String
 	# Asset used internally or by customers
@@ -107,7 +107,7 @@ input A_Asset_TransferInput {
 	A_Disposal_Revenue_Str: String
 	A_Period_End: Int
 	A_Period_Start: Int
-	A_Split_Percent: Int
+	A_Split_Percent: BigDecimal
 	A_Transfer_Balance: Boolean
 	A_Transfer_Balance_IS: Boolean
 	# Organizational entity within client
@@ -135,6 +135,6 @@ input A_Asset_TransferInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 }

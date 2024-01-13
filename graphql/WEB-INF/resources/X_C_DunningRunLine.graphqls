@@ -21,7 +21,7 @@ type C_DunningRunLine {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount
-	Amt: Int!
+	Amt: BigDecimal!
 	# Dunning Run Entry
 	C_DunningRunEntry: C_DunningRunEntry!
 	ID: ID!
@@ -32,7 +32,7 @@ type C_DunningRunLine {
 	# Payment identifier
 	C_Payment: C_Payment
 	# Converted Amount
-	ConvertedAmt: Int!
+	ConvertedAmt: BigDecimal!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -40,21 +40,21 @@ type C_DunningRunLine {
 	# Number of days due (negative: due in number of days)
 	DaysDue: Int!
 	# Fee amount in invoice currency
-	FeeAmt: Int!
+	FeeAmt: BigDecimal!
 	# Interest Amount
-	InterestAmt: Int!
+	InterestAmt: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Document is in dispute
 	IsInDispute: Boolean!
 	# Open item amount
-	OpenAmt: Int!
+	OpenAmt: BigDecimal!
 	# The document has been processed
 	Processed: Boolean!
 	# Number of times dunned previously
 	TimesDunned: Int!
 	# Total Amount
-	TotalAmt: Int!
+	TotalAmt: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -65,7 +65,7 @@ input C_DunningRunLineInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount
-	Amt: Int
+	Amt: BigDecimal
 	# Dunning Run Entry
 	C_DunningRunEntry: ForeignEntityInput
 	ID: ID
@@ -76,23 +76,23 @@ input C_DunningRunLineInput {
 	# Payment identifier
 	C_Payment: ForeignEntityInput
 	# Converted Amount
-	ConvertedAmt: Int
+	ConvertedAmt: BigDecimal
 	# Number of days due (negative: due in number of days)
 	DaysDue: Int
 	# Fee amount in invoice currency
-	FeeAmt: Int
+	FeeAmt: BigDecimal
 	# Interest Amount
-	InterestAmt: Int
+	InterestAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Document is in dispute
 	IsInDispute: Boolean
 	# Open item amount
-	OpenAmt: Int
+	OpenAmt: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	# Number of times dunned previously
 	TimesDunned: Int
 	# Total Amount
-	TotalAmt: Int
+	TotalAmt: BigDecimal
 }

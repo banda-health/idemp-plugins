@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBHObservation;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_ObservationDataLoader extends PODataLoader<MBHObservation> {
-	public static String BH_Observation_BY_ID_DATA_LOADER = "BH_ObservationByIdDataLoader";
-	public static String BH_Observation_BY_UUID_DATA_LOADER = "BH_ObservationByUuidDataLoader";
+	public static String DATALOADER_BH_Observation_BY_ID = "BH_ObservationByIdDataLoader";
+	public static String DATALOADER_BH_Observation_BY_UUID = "BH_ObservationByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_ObservationDataLoader extends PODataLoader<MBHObservation> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_Observation_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_Observation_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_Observation_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_Observation_BY_UUID;
 	}
 }

@@ -31,7 +31,7 @@ public class X_AD_Scheduler_ParaResolver extends POResolver<MSchedulerPara> impl
 			return null;
 		}
 		DataLoader<Integer, MProcessPara> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Process_ParaDataLoader.AD_Process_Para_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Process_ParaDataLoader.DATALOADER_AD_Process_Para_BY_ID);
 		return dataLoader.load(entity.getAD_Process_Para_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_Scheduler_ParaResolver extends POResolver<MSchedulerPara> impl
 			return null;
 		}
 		DataLoader<Integer, MScheduler> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_SchedulerDataLoader.AD_Scheduler_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_SchedulerDataLoader.DATALOADER_AD_Scheduler_BY_ID);
 		return dataLoader.load(entity.getAD_Scheduler_ID());
 	}
 

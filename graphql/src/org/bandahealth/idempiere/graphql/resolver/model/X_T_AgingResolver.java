@@ -45,7 +45,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.AD_PInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.DATALOADER_AD_PInstance_BY_ID);
 		return dataLoader.load(entity.getAD_PInstance_ID());
 	}
 
@@ -60,7 +60,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -75,7 +75,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.C_BP_Group_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BP_GroupDataLoader.DATALOADER_C_BP_Group_BY_ID);
 		return dataLoader.load(entity.getC_BP_Group_ID());
 	}
 
@@ -90,7 +90,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -105,7 +105,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -120,7 +120,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -135,7 +135,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
@@ -150,7 +150,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MInvoicePaySchedule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoicePayScheduleDataLoader.C_InvoicePaySchedule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoicePayScheduleDataLoader.DATALOADER_C_InvoicePaySchedule_BY_ID);
 		return dataLoader.load(entity.getC_InvoicePaySchedule_ID());
 	}
 
@@ -165,7 +165,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -180,7 +180,7 @@ public class X_T_AgingResolver extends POResolver<MAging> implements GraphQLReso
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getConvertAmountsInCurrency_ID());
 	}
 

@@ -40,7 +40,7 @@ type AD_WF_EventAudit {
 	# Optional short description of the record
 	Description: String
 	# Elapsed Time in milli seconds
-	ElapsedTimeMS: Int!
+	ElapsedTimeMS: BigDecimal!
 	# Type of Event
 	EventType: AD_Ref_List!
 	# The record is active in the system
@@ -80,7 +80,7 @@ input AD_WF_EventAuditInput {
 	# Optional short description of the record
 	Description: String
 	# Elapsed Time in milli seconds
-	ElapsedTimeMS: Int
+	ElapsedTimeMS: BigDecimal
 	# Type of Event
 	EventType: AD_Ref_ListInput
 	# The record is active in the system

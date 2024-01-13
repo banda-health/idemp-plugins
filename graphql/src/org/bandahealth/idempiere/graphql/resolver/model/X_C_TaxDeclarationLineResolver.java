@@ -41,7 +41,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 			return null;
 		}
 		DataLoader<Integer, MAllocationLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AllocationLineDataLoader.C_AllocationLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AllocationLineDataLoader.DATALOADER_C_AllocationLine_BY_ID);
 		return dataLoader.load(entity.getC_AllocationLine_ID());
 	}
 
@@ -56,7 +56,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -71,7 +71,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -86,7 +86,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
@@ -101,7 +101,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.C_InvoiceLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}
 
@@ -116,7 +116,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.C_Tax_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getC_Tax_ID());
 	}
 
@@ -131,7 +131,7 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 			return null;
 		}
 		DataLoader<Integer, MTaxDeclaration> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDeclarationDataLoader.C_TaxDeclaration_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDeclarationDataLoader.DATALOADER_C_TaxDeclaration_BY_ID);
 		return dataLoader.load(entity.getC_TaxDeclaration_ID());
 	}
 

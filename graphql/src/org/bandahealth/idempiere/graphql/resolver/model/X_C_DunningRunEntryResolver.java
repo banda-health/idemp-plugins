@@ -39,7 +39,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -54,7 +54,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.C_BPartner_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.DATALOADER_C_BPartner_Location_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_Location_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -99,7 +99,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 			return null;
 		}
 		DataLoader<Integer, MDunningLevel> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningLevelDataLoader.C_DunningLevel_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningLevelDataLoader.DATALOADER_C_DunningLevel_BY_ID);
 		return dataLoader.load(entity.getC_DunningLevel_ID());
 	}
 
@@ -114,7 +114,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 			return null;
 		}
 		DataLoader<Integer, MDunningRun> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningRunDataLoader.C_DunningRun_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningRunDataLoader.DATALOADER_C_DunningRun_BY_ID);
 		return dataLoader.load(entity.getC_DunningRun_ID());
 	}
 
@@ -133,7 +133,7 @@ public class X_C_DunningRunEntryResolver extends POResolver<MDunningRunEntry> im
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSalesRep_ID());
 	}
 

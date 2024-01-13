@@ -34,7 +34,7 @@ type C_DunningLevel {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Days after due date to dun (if negative days until due)
-	DaysAfterDue: Int!
+	DaysAfterDue: BigDecimal!
 	# Days between sending dunning notices
 	DaysBetweenDunning: Int!
 	# Optional short description of the record
@@ -42,9 +42,9 @@ type C_DunningLevel {
 	# Print Format for printing Dunning Letters
 	Dunning_PrintFormat: AD_PrintFormat
 	# Fee amount in invoice currency
-	FeeAmt: Int
+	FeeAmt: BigDecimal
 	# Percentage interest to charge on overdue invoices
-	InterestPercent: Int
+	InterestPercent: BigDecimal
 	# Invoice Collection Status
 	InvoiceCollectionType: AD_Ref_List
 	# The record is active in the system
@@ -84,7 +84,7 @@ input C_DunningLevelInput {
 	# Indicates if interest will be charged on overdue invoices
 	ChargeInterest: Boolean
 	# Days after due date to dun (if negative days until due)
-	DaysAfterDue: Int
+	DaysAfterDue: BigDecimal
 	# Days between sending dunning notices
 	DaysBetweenDunning: Int
 	# Optional short description of the record
@@ -92,9 +92,9 @@ input C_DunningLevelInput {
 	# Print Format for printing Dunning Letters
 	Dunning_PrintFormat: ForeignEntityInput
 	# Fee amount in invoice currency
-	FeeAmt: Int
+	FeeAmt: BigDecimal
 	# Percentage interest to charge on overdue invoices
-	InterestPercent: Int
+	InterestPercent: BigDecimal
 	# Invoice Collection Status
 	InvoiceCollectionType: AD_Ref_ListInput
 	# The record is active in the system

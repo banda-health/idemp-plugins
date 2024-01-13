@@ -33,7 +33,7 @@ public class X_M_ShippingTransactionLineResolver extends POResolver<MShippingTra
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_Length_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_M_ShippingTransactionLineResolver extends POResolver<MShippingTra
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_Weight_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_M_ShippingTransactionLineResolver extends POResolver<MShippingTra
 			return null;
 		}
 		DataLoader<Integer, MPackageMPS> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PackageMPSDataLoader.M_PackageMPS_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PackageMPSDataLoader.DATALOADER_M_PackageMPS_BY_ID);
 		return dataLoader.load(entity.getM_PackageMPS_ID());
 	}
 
@@ -78,7 +78,7 @@ public class X_M_ShippingTransactionLineResolver extends POResolver<MShippingTra
 			return null;
 		}
 		DataLoader<Integer, MShippingTransaction> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShippingTransactionDataLoader.M_ShippingTransaction_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShippingTransactionDataLoader.DATALOADER_M_ShippingTransaction_BY_ID);
 		return dataLoader.load(entity.getM_ShippingTransaction_ID());
 	}
 

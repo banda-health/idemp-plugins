@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MUIButton;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_UIButtonDataLoader extends PODataLoader<MUIButton> {
-	public static String BH_UIButton_BY_ID_DATA_LOADER = "BH_UIButtonByIdDataLoader";
-	public static String BH_UIButton_BY_UUID_DATA_LOADER = "BH_UIButtonByUuidDataLoader";
+	public static String DATALOADER_BH_UIButton_BY_ID = "BH_UIButtonByIdDataLoader";
+	public static String DATALOADER_BH_UIButton_BY_UUID = "BH_UIButtonByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_UIButtonDataLoader extends PODataLoader<MUIButton> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_UIButton_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_UIButton_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_UIButton_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_UIButton_BY_UUID;
 	}
 }

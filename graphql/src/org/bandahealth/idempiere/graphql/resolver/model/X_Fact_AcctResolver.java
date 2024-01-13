@@ -74,7 +74,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -89,7 +89,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -104,7 +104,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -119,7 +119,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -134,7 +134,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -149,7 +149,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.C_Campaign_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
 	}
 
@@ -164,7 +164,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -179,7 +179,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_LocFrom_ID());
 	}
 
@@ -194,7 +194,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.C_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_LocationDataLoader.DATALOADER_C_Location_BY_ID);
 		return dataLoader.load(entity.getC_LocTo_ID());
 	}
 
@@ -209,7 +209,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.C_Period_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PeriodDataLoader.DATALOADER_C_Period_BY_ID);
 		return dataLoader.load(entity.getC_Period_ID());
 	}
 
@@ -224,7 +224,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -239,7 +239,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectPhaseDataLoader.C_ProjectPhase_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectPhaseDataLoader.DATALOADER_C_ProjectPhase_BY_ID);
 		return dataLoader.load(entity.getC_ProjectPhase_ID());
 	}
 
@@ -254,7 +254,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTaskDataLoader.C_ProjectTask_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectTaskDataLoader.DATALOADER_C_ProjectTask_BY_ID);
 		return dataLoader.load(entity.getC_ProjectTask_ID());
 	}
 
@@ -269,7 +269,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.C_SalesRegion_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_SalesRegionDataLoader.DATALOADER_C_SalesRegion_BY_ID);
 		return dataLoader.load(entity.getC_SalesRegion_ID());
 	}
 
@@ -284,7 +284,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, X_C_SubAcct> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_SubAcctDataLoader.C_SubAcct_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_SubAcctDataLoader.DATALOADER_C_SubAcct_BY_ID);
 		return dataLoader.load(entity.getC_SubAcct_ID());
 	}
 
@@ -299,7 +299,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.C_Tax_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_TaxDataLoader.DATALOADER_C_Tax_BY_ID);
 		return dataLoader.load(entity.getC_Tax_ID());
 	}
 
@@ -314,7 +314,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -329,7 +329,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_BudgetDataLoader.GL_Budget_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_BudgetDataLoader.DATALOADER_GL_Budget_BY_ID);
 		return dataLoader.load(entity.getGL_Budget_ID());
 	}
 
@@ -344,7 +344,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_CategoryDataLoader.GL_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_CategoryDataLoader.DATALOADER_GL_Category_BY_ID);
 		return dataLoader.load(entity.getGL_Category_ID());
 	}
 
@@ -359,7 +359,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.M_Locator_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.DATALOADER_M_Locator_BY_ID);
 		return dataLoader.load(entity.getM_Locator_ID());
 	}
 
@@ -374,7 +374,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -392,7 +392,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
 	}
 
@@ -407,7 +407,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getUser1_ID());
 	}
 
@@ -422,7 +422,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getUser2_ID());
 	}
 

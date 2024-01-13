@@ -33,7 +33,7 @@ public class X_C_BP_ShippingAcctResolver extends POResolver<X_C_BP_ShippingAcct>
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_C_BP_ShippingAcctResolver extends POResolver<X_C_BP_ShippingAcct>
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.C_BPartner_Location_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartner_LocationDataLoader.DATALOADER_C_BPartner_Location_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_Location_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_C_BP_ShippingAcctResolver extends POResolver<X_C_BP_ShippingAcct>
 			return null;
 		}
 		DataLoader<Integer, MShippingProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShippingProcessorDataLoader.M_ShippingProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShippingProcessorDataLoader.DATALOADER_M_ShippingProcessor_BY_ID);
 		return dataLoader.load(entity.getM_ShippingProcessor_ID());
 	}
 

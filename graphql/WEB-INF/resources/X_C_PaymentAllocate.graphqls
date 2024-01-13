@@ -21,7 +21,7 @@ type C_PaymentAllocate {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount in a defined currency
-	Amount: Int!
+	Amount: BigDecimal!
 	# Allocation Line
 	C_AllocationLine: C_AllocationLine
 	# Invoice Identifier
@@ -34,27 +34,27 @@ type C_PaymentAllocate {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Calculated amount of discount
-	DiscountAmt: Int!
-	InvoiceAmt: Int
+	DiscountAmt: BigDecimal!
+	InvoiceAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
-	OverUnderAmt: Int!
+	OverUnderAmt: BigDecimal!
 	# Remaining Amount
-	RemainingAmt: Int
+	RemainingAmt: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Amount to write-off
-	WriteOffAmt: Int!
+	WriteOffAmt: BigDecimal!
 }
 
 input C_PaymentAllocateInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount in a defined currency
-	Amount: Int
+	Amount: BigDecimal
 	# Allocation Line
 	C_AllocationLine: ForeignEntityInput
 	# Invoice Identifier
@@ -63,12 +63,12 @@ input C_PaymentAllocateInput {
 	C_Payment: ForeignEntityInput
 	ID: ID
 	# Calculated amount of discount
-	DiscountAmt: Int
-	InvoiceAmt: Int
+	DiscountAmt: BigDecimal
+	InvoiceAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
-	OverUnderAmt: Int
+	OverUnderAmt: BigDecimal
 	# Amount to write-off
-	WriteOffAmt: Int
+	WriteOffAmt: BigDecimal
 }

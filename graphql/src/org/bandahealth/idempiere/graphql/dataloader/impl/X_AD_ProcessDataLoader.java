@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MProcess_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ProcessDataLoader extends PODataLoader<MProcess_BH> {
-	public static String AD_Process_BY_ID_DATA_LOADER = "AD_ProcessByIdDataLoader";
-	public static String AD_Process_BY_UUID_DATA_LOADER = "AD_ProcessByUuidDataLoader";
+	public static String DATALOADER_AD_Process_BY_ID = "AD_ProcessByIdDataLoader";
+	public static String DATALOADER_AD_Process_BY_UUID = "AD_ProcessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ProcessDataLoader extends PODataLoader<MProcess_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Process_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Process_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Process_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Process_BY_UUID;
 	}
 }

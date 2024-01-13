@@ -36,7 +36,7 @@ public class X_AD_UserMailResolver extends POResolver<MUserMail> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -51,7 +51,7 @@ public class X_AD_UserMailResolver extends POResolver<MUserMail> implements Grap
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ISDELIVERED_UUIDS_BY_VALUE.get(entity.getIsDelivered()));
 	}
 
@@ -66,7 +66,7 @@ public class X_AD_UserMailResolver extends POResolver<MUserMail> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.R_MailText_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_R_MailTextDataLoader.DATALOADER_R_MailText_BY_ID);
 		return dataLoader.load(entity.getR_MailText_ID());
 	}
 

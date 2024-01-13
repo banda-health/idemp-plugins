@@ -9,8 +9,8 @@ import org.compiere.model.X_M_ShipperLabelsCfg;
  * @version Release 8.2 - $Id$
  */
 public class X_M_ShipperLabelsCfgDataLoader extends PODataLoader<X_M_ShipperLabelsCfg> {
-	public static String M_ShipperLabelsCfg_BY_ID_DATA_LOADER = "M_ShipperLabelsCfgByIdDataLoader";
-	public static String M_ShipperLabelsCfg_BY_UUID_DATA_LOADER = "M_ShipperLabelsCfgByUuidDataLoader";
+	public static String DATALOADER_M_ShipperLabelsCfg_BY_ID = "M_ShipperLabelsCfgByIdDataLoader";
+	public static String DATALOADER_M_ShipperLabelsCfg_BY_UUID = "M_ShipperLabelsCfgByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_ShipperLabelsCfgDataLoader extends PODataLoader<X_M_ShipperLabe
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_ShipperLabelsCfg_BY_ID_DATA_LOADER;
+		return DATALOADER_M_ShipperLabelsCfg_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_ShipperLabelsCfg_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_ShipperLabelsCfg_BY_UUID;
 	}
 }

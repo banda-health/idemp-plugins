@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_WizardProcess;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_WizardProcessDataLoader extends PODataLoader<X_AD_WizardProcess> {
-	public static String AD_WizardProcess_BY_ID_DATA_LOADER = "AD_WizardProcessByIdDataLoader";
-	public static String AD_WizardProcess_BY_UUID_DATA_LOADER = "AD_WizardProcessByUuidDataLoader";
+	public static String DATALOADER_AD_WizardProcess_BY_ID = "AD_WizardProcessByIdDataLoader";
+	public static String DATALOADER_AD_WizardProcess_BY_UUID = "AD_WizardProcessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_WizardProcessDataLoader extends PODataLoader<X_AD_WizardProces
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_WizardProcess_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_WizardProcess_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_WizardProcess_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_WizardProcess_BY_UUID;
 	}
 }

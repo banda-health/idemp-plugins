@@ -38,7 +38,7 @@ public class X_AD_ReplicationTableResolver extends POResolver<X_AD_ReplicationTa
 			return null;
 		}
 		DataLoader<Integer, MReplicationStrategy> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReplicationStrategyDataLoader.AD_ReplicationStrategy_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReplicationStrategyDataLoader.DATALOADER_AD_ReplicationStrategy_BY_ID);
 		return dataLoader.load(entity.getAD_ReplicationStrategy_ID());
 	}
 
@@ -53,7 +53,7 @@ public class X_AD_ReplicationTableResolver extends POResolver<X_AD_ReplicationTa
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_AD_ReplicationTableResolver extends POResolver<X_AD_ReplicationTa
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
@@ -101,7 +101,7 @@ public class X_AD_ReplicationTableResolver extends POResolver<X_AD_ReplicationTa
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(REPLICATIONTYPE_UUIDS_BY_VALUE.get(entity.getReplicationType()));
 	}
 

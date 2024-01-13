@@ -54,7 +54,7 @@ type C_Tax {
 	# Parent Tax indicates a tax that is made up of multiple taxes
 	Parent_Tax: C_Tax
 	# Rate or Tax or Exchange
-	Rate: Int!
+	Rate: BigDecimal!
 	# This tax rate requires the Business Partner to be tax exempt
 	RequiresTaxCertificate: Boolean!
 	# Sales Tax applies to sales situations, Purchase Tax to purchase situations
@@ -104,7 +104,7 @@ input C_TaxInput {
 	# Parent Tax indicates a tax that is made up of multiple taxes
 	Parent_Tax: ForeignEntityInput
 	# Rate or Tax or Exchange
-	Rate: Int
+	Rate: BigDecimal
 	# This tax rate requires the Business Partner to be tax exempt
 	RequiresTaxCertificate: Boolean
 	# Sales Tax applies to sales situations, Purchase Tax to purchase situations

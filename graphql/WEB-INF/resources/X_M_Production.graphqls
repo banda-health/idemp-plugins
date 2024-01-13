@@ -70,10 +70,10 @@ type M_Production {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Quantity of products to produce
-	ProductionQty: Int!
+	ProductionQty: BigDecimal!
 	# ID of document reversal
 	Reversal: M_Production
 	# Date this record was updated
@@ -135,10 +135,10 @@ input M_ProductionInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 	# Quantity of products to produce
-	ProductionQty: Int
+	ProductionQty: BigDecimal
 	# ID of document reversal
 	Reversal: ForeignEntityInput
 	# User defined list element #1

@@ -44,7 +44,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Account_Number_Acct());
 	}
 
@@ -59,7 +59,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			return null;
 		}
 		DataLoader<Integer, MAssetAddition> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_AdditionDataLoader.A_Asset_Addition_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_AdditionDataLoader.DATALOADER_A_Asset_Addition_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Addition_ID());
 	}
 
@@ -74,7 +74,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			return null;
 		}
 		DataLoader<Integer, MAssetDisposed> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_DisposedDataLoader.A_Asset_Disposed_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_DisposedDataLoader.DATALOADER_A_Asset_Disposed_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Disposed_ID());
 	}
 
@@ -89,7 +89,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -104,7 +104,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			return null;
 		}
 		DataLoader<Integer, MDepreciationEntry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_EntryDataLoader.A_Depreciation_Entry_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_EntryDataLoader.DATALOADER_A_Depreciation_Entry_BY_ID);
 		return dataLoader.load(entity.getA_Depreciation_Entry_ID());
 	}
 
@@ -123,7 +123,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(A_ENTRY_TYPE_UUIDS_BY_VALUE.get(entity.getA_Entry_Type()));
 	}
 
@@ -138,7 +138,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -153,7 +153,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getCR_Account_ID());
 	}
 
@@ -168,7 +168,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getDR_Account_ID());
 	}
 
@@ -190,7 +190,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
 	}
 

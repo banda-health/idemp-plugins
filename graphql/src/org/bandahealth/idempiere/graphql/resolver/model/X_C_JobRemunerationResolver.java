@@ -31,7 +31,7 @@ public class X_C_JobRemunerationResolver extends POResolver<X_C_JobRemuneration>
 			return null;
 		}
 		DataLoader<Integer, X_C_Job> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_JobDataLoader.C_Job_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_JobDataLoader.DATALOADER_C_Job_BY_ID);
 		return dataLoader.load(entity.getC_Job_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_JobRemunerationResolver extends POResolver<X_C_JobRemuneration>
 			return null;
 		}
 		DataLoader<Integer, X_C_Remuneration> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RemunerationDataLoader.C_Remuneration_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RemunerationDataLoader.DATALOADER_C_Remuneration_BY_ID);
 		return dataLoader.load(entity.getC_Remuneration_ID());
 	}
 

@@ -44,7 +44,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getC_Invoice_ID());
 	}
 
@@ -59,7 +59,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.C_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.DATALOADER_C_Order_BY_ID);
 		return dataLoader.load(entity.getC_Order_ID());
 	}
 
@@ -74,7 +74,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.C_Payment_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_PaymentDataLoader.DATALOADER_C_Payment_BY_ID);
 		return dataLoader.load(entity.getC_Payment_ID());
 	}
 
@@ -89,7 +89,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -104,7 +104,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 			return null;
 		}
 		DataLoader<Integer, X_C_RecurringGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RecurringGroupDataLoader.C_RecurringGroup_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RecurringGroupDataLoader.DATALOADER_C_RecurringGroup_BY_ID);
 		return dataLoader.load(entity.getC_RecurringGroup_ID());
 	}
 
@@ -121,7 +121,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(FREQUENCYTYPE_UUIDS_BY_VALUE.get(entity.getFrequencyType()));
 	}
 
@@ -136,7 +136,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MJournalBatch> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalBatchDataLoader.GL_JournalBatch_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalBatchDataLoader.DATALOADER_GL_JournalBatch_BY_ID);
 		return dataLoader.load(entity.getGL_JournalBatch_ID());
 	}
 
@@ -158,7 +158,7 @@ public class X_C_RecurringResolver extends POResolver<MRecurring> implements Gra
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(RECURRINGTYPE_UUIDS_BY_VALUE.get(entity.getRecurringType()));
 	}
 

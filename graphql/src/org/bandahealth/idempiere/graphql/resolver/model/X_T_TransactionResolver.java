@@ -66,7 +66,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.AD_PInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.DATALOADER_AD_PInstance_BY_ID);
 		return dataLoader.load(entity.getAD_PInstance_ID());
 	}
 
@@ -81,7 +81,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -96,7 +96,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MProjectIssue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectIssueDataLoader.C_ProjectIssue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectIssueDataLoader.DATALOADER_C_ProjectIssue_BY_ID);
 		return dataLoader.load(entity.getC_ProjectIssue_ID());
 	}
 
@@ -111,7 +111,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -126,7 +126,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MInOut_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutDataLoader.M_InOut_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutDataLoader.DATALOADER_M_InOut_BY_ID);
 		return dataLoader.load(entity.getM_InOut_ID());
 	}
 
@@ -141,7 +141,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getM_InOutLine_ID());
 	}
 
@@ -156,7 +156,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MInventory_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryDataLoader.M_Inventory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryDataLoader.DATALOADER_M_Inventory_BY_ID);
 		return dataLoader.load(entity.getM_Inventory_ID());
 	}
 
@@ -171,7 +171,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.M_InventoryLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_InventoryLine_ID());
 	}
 
@@ -186,7 +186,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.M_Locator_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.DATALOADER_M_Locator_BY_ID);
 		return dataLoader.load(entity.getM_Locator_ID());
 	}
 
@@ -201,7 +201,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MMovement_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementDataLoader.M_Movement_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementDataLoader.DATALOADER_M_Movement_BY_ID);
 		return dataLoader.load(entity.getM_Movement_ID());
 	}
 
@@ -216,7 +216,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MMovementLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementLineDataLoader.M_MovementLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementLineDataLoader.DATALOADER_M_MovementLine_BY_ID);
 		return dataLoader.load(entity.getM_MovementLine_ID());
 	}
 
@@ -231,7 +231,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -246,7 +246,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MProduction> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionDataLoader.M_Production_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionDataLoader.DATALOADER_M_Production_BY_ID);
 		return dataLoader.load(entity.getM_Production_ID());
 	}
 
@@ -261,7 +261,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MProductionLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionLineDataLoader.M_ProductionLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductionLineDataLoader.DATALOADER_M_ProductionLine_BY_ID);
 		return dataLoader.load(entity.getM_ProductionLine_ID());
 	}
 
@@ -276,7 +276,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MTransaction> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_TransactionDataLoader.M_Transaction_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_TransactionDataLoader.DATALOADER_M_Transaction_BY_ID);
 		return dataLoader.load(entity.getM_Transaction_ID());
 	}
 
@@ -301,7 +301,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(MOVEMENTTYPE_UUIDS_BY_VALUE.get(entity.getMovementType()));
 	}
 
@@ -316,7 +316,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getSearch_InOut_ID());
 	}
 
@@ -331,7 +331,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.C_Invoice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceDataLoader.DATALOADER_C_Invoice_BY_ID);
 		return dataLoader.load(entity.getSearch_Invoice_ID());
 	}
 
@@ -346,7 +346,7 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.C_Order_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderDataLoader.DATALOADER_C_Order_BY_ID);
 		return dataLoader.load(entity.getSearch_Order_ID());
 	}
 

@@ -9,8 +9,8 @@ import org.compiere.model.MAllocationHdr;
  * @version Release 8.2 - $Id$
  */
 public class X_C_AllocationHdrDataLoader extends PODataLoader<MAllocationHdr> {
-	public static String C_AllocationHdr_BY_ID_DATA_LOADER = "C_AllocationHdrByIdDataLoader";
-	public static String C_AllocationHdr_BY_UUID_DATA_LOADER = "C_AllocationHdrByUuidDataLoader";
+	public static String DATALOADER_C_AllocationHdr_BY_ID = "C_AllocationHdrByIdDataLoader";
+	public static String DATALOADER_C_AllocationHdr_BY_UUID = "C_AllocationHdrByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_AllocationHdrDataLoader extends PODataLoader<MAllocationHdr> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_AllocationHdr_BY_ID_DATA_LOADER;
+		return DATALOADER_C_AllocationHdr_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_AllocationHdr_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_AllocationHdr_BY_UUID;
 	}
 }

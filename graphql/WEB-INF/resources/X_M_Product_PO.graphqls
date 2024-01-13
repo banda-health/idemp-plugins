@@ -27,7 +27,7 @@ type M_Product_PO {
 	# Unit of Measure
 	C_UOM: C_UOM
 	# Fixed Cost Per Order
-	CostPerOrder: Int
+	CostPerOrder: BigDecimal
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,23 +52,23 @@ type M_Product_PO {
 	# Manufacturer of the Product
 	Manufacturer: String
 	# Minimum order quantity in UOM
-	Order_Min: Int
+	Order_Min: BigDecimal
 	# Package order size in UOM (e.g. order set of 5 units)
-	Order_Pack: Int
+	Order_Pack: BigDecimal
 	# Effective Date of Price
 	PriceEffective: Date
 	# Price of the last invoice for the product
-	PriceLastInv: Int
+	PriceLastInv: BigDecimal
 	# Price of the last purchase order for the product
-	PriceLastPO: Int
+	PriceLastPO: BigDecimal
 	# List Price
-	PriceList: Int
+	PriceList: BigDecimal
 	# Price based on a purchase order
-	PricePO: Int
+	PricePO: BigDecimal
 	# Method for rating vendors
 	QualityRating: Int
 	# (Included) Amount for copyright, etc.
-	RoyaltyAmt: Int
+	RoyaltyAmt: BigDecimal
 	# Bar Code (Universal Product Code or its superset European Article Number)
 	UPC: String
 	# Date this record was updated
@@ -91,7 +91,7 @@ input M_Product_POInput {
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
 	# Fixed Cost Per Order
-	CostPerOrder: Int
+	CostPerOrder: BigDecimal
 	# Actual days between order and delivery
 	DeliveryTime_Actual: Int
 	# Promised days between order and delivery
@@ -112,23 +112,23 @@ input M_Product_POInput {
 	# Manufacturer of the Product
 	Manufacturer: String
 	# Minimum order quantity in UOM
-	Order_Min: Int
+	Order_Min: BigDecimal
 	# Package order size in UOM (e.g. order set of 5 units)
-	Order_Pack: Int
+	Order_Pack: BigDecimal
 	# Effective Date of Price
 	PriceEffective: Date
 	# Price of the last invoice for the product
-	PriceLastInv: Int
+	PriceLastInv: BigDecimal
 	# Price of the last purchase order for the product
-	PriceLastPO: Int
+	PriceLastPO: BigDecimal
 	# List Price
-	PriceList: Int
+	PriceList: BigDecimal
 	# Price based on a purchase order
-	PricePO: Int
+	PricePO: BigDecimal
 	# Method for rating vendors
 	QualityRating: Int
 	# (Included) Amount for copyright, etc.
-	RoyaltyAmt: Int
+	RoyaltyAmt: BigDecimal
 	# Bar Code (Universal Product Code or its superset European Article Number)
 	UPC: String
 	# Product Category of the Business Partner

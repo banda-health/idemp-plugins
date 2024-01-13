@@ -28,7 +28,7 @@ type C_PaySchedule {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Discount in percent
-	Discount: Int!
+	Discount: BigDecimal!
 	# Number of days from invoice date to be eligible for discount
 	DiscountDays: Int!
 	# Days after due date to send first dunning letter
@@ -42,7 +42,7 @@ type C_PaySchedule {
 	# Net Days in which payment is due
 	NetDays: Int!
 	# Percent of the entire amount
-	Percentage: Int!
+	Percentage: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -56,7 +56,7 @@ input C_PayScheduleInput {
 	C_PaymentTerm: ForeignEntityInput
 	ID: ID
 	# Discount in percent
-	Discount: Int
+	Discount: BigDecimal
 	# Number of days from invoice date to be eligible for discount
 	DiscountDays: Int
 	# Days after due date to send first dunning letter
@@ -70,5 +70,5 @@ input C_PayScheduleInput {
 	# Net Days in which payment is due
 	NetDays: Int
 	# Percent of the entire amount
-	Percentage: Int
+	Percentage: BigDecimal
 }

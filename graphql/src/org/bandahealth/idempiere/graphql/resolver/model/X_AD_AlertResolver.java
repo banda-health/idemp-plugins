@@ -29,7 +29,7 @@ public class X_AD_AlertResolver extends POResolver<MAlert> implements GraphQLRes
 			return null;
 		}
 		DataLoader<Integer, MAlertProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_AlertProcessorDataLoader.AD_AlertProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_AlertProcessorDataLoader.DATALOADER_AD_AlertProcessor_BY_ID);
 		return dataLoader.load(entity.getAD_AlertProcessor_ID());
 	}
 

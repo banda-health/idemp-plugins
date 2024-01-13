@@ -46,7 +46,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Accumdepreciation_Acct());
 	}
 
@@ -61,7 +61,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Acct());
 	}
 
@@ -76,7 +76,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -91,7 +91,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Depreciation_Acct());
 	}
 
@@ -106,7 +106,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MDepreciationConvention> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_ConventionDataLoader.A_Depreciation_Convention_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_ConventionDataLoader.DATALOADER_A_Depreciation_Convention_BY_ID);
 		return dataLoader.load(entity.getA_Depreciation_Conv_F_ID());
 	}
 
@@ -121,7 +121,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MDepreciationConvention> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_ConventionDataLoader.A_Depreciation_Convention_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_ConventionDataLoader.DATALOADER_A_Depreciation_Convention_BY_ID);
 		return dataLoader.load(entity.getA_Depreciation_Conv_ID());
 	}
 
@@ -136,7 +136,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MDepreciation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_DepreciationDataLoader.A_Depreciation_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_DepreciationDataLoader.DATALOADER_A_Depreciation_BY_ID);
 		return dataLoader.load(entity.getA_Depreciation_F_ID());
 	}
 
@@ -151,7 +151,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MDepreciation> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_DepreciationDataLoader.A_Depreciation_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_DepreciationDataLoader.DATALOADER_A_Depreciation_BY_ID);
 		return dataLoader.load(entity.getA_Depreciation_ID());
 	}
 
@@ -166,7 +166,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(A_DEPRECIATION_MANUAL_PERIOD_UUIDS_BY_VALUE.get(entity.getA_Depreciation_Manual_Period()));
 	}
 
@@ -181,7 +181,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MDepreciationMethod> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_MethodDataLoader.A_Depreciation_Method_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_MethodDataLoader.DATALOADER_A_Depreciation_Method_BY_ID);
 		return dataLoader.load(entity.getA_Depreciation_Method_F_ID());
 	}
 
@@ -196,7 +196,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MDepreciationMethod> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_MethodDataLoader.A_Depreciation_Method_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_MethodDataLoader.DATALOADER_A_Depreciation_Method_BY_ID);
 		return dataLoader.load(entity.getA_Depreciation_Method_ID());
 	}
 
@@ -211,7 +211,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, X_A_Depreciation_Table_Header> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_Table_HeaderDataLoader.A_Depreciation_Table_Header_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Depreciation_Table_HeaderDataLoader.DATALOADER_A_Depreciation_Table_Header_BY_ID);
 		return dataLoader.load(entity.getA_Depreciation_Table_Header_ID());
 	}
 
@@ -226,7 +226,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Disposal_Gain_Acct());
 	}
 
@@ -241,7 +241,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Disposal_Loss_Acct());
 	}
 
@@ -256,7 +256,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Disposal_Revenue_Acct());
 	}
 
@@ -271,7 +271,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Reval_Adep_Offset_Cur_Acct());
 	}
 
@@ -286,7 +286,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Reval_Adep_Offset_Prior_Acct());
 	}
 
@@ -302,7 +302,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(A_REVAL_CAL_METHOD_UUIDS_BY_VALUE.get(entity.getA_Reval_Cal_Method()));
 	}
 
@@ -317,7 +317,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Reval_Cost_Offset_Acct());
 	}
 
@@ -332,7 +332,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Reval_Cost_Offset_Prior_Acct());
 	}
 
@@ -347,7 +347,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.C_ValidCombination_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ValidCombinationDataLoader.DATALOADER_C_ValidCombination_BY_ID);
 		return dataLoader.load(entity.getA_Reval_Depexp_Offset_Acct());
 	}
 
@@ -362,7 +362,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -380,7 +380,7 @@ public class X_A_Asset_AcctResolver extends POResolver<MAssetAcct> implements Gr
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
 	}
 

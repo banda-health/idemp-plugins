@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MMessage_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_MessageDataLoader extends PODataLoader<MMessage_BH> {
-	public static String AD_Message_BY_ID_DATA_LOADER = "AD_MessageByIdDataLoader";
-	public static String AD_Message_BY_UUID_DATA_LOADER = "AD_MessageByUuidDataLoader";
+	public static String DATALOADER_AD_Message_BY_ID = "AD_MessageByIdDataLoader";
+	public static String DATALOADER_AD_Message_BY_UUID = "AD_MessageByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_MessageDataLoader extends PODataLoader<MMessage_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Message_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Message_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Message_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Message_BY_UUID;
 	}
 }

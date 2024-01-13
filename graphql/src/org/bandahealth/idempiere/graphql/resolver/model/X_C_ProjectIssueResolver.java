@@ -39,7 +39,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.C_Project_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
 	}
 
@@ -54,7 +54,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.M_AttributeSetInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetInstanceDataLoader.DATALOADER_M_AttributeSetInstance_BY_ID);
 		return dataLoader.load(entity.getM_AttributeSetInstance_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getM_InOutLine_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.M_Locator_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.DATALOADER_M_Locator_BY_ID);
 		return dataLoader.load(entity.getM_Locator_ID());
 	}
 
@@ -99,7 +99,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -126,7 +126,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 			return null;
 		}
 		DataLoader<Integer, MTimeExpenseLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_TimeExpenseLineDataLoader.S_TimeExpenseLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_TimeExpenseLineDataLoader.DATALOADER_S_TimeExpenseLine_BY_ID);
 		return dataLoader.load(entity.getS_TimeExpenseLine_ID());
 	}
 

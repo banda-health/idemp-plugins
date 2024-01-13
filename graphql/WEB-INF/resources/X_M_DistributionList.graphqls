@@ -35,7 +35,7 @@ type M_DistributionList {
 	Name: String!
 	Processing: Boolean!
 	# Total of relative weight in a distribution
-	RatioTotal: Int
+	RatioTotal: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -56,5 +56,5 @@ input M_DistributionListInput {
 	Name: String
 	Processing: Boolean
 	# Total of relative weight in a distribution
-	RatioTotal: Int
+	RatioTotal: BigDecimal
 }

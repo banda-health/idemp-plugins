@@ -29,7 +29,7 @@ public class X_C_Subscription_DeliveryResolver extends POResolver<X_C_Subscripti
 			return null;
 		}
 		DataLoader<Integer, X_C_Subscription> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_SubscriptionDataLoader.C_Subscription_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_SubscriptionDataLoader.DATALOADER_C_Subscription_BY_ID);
 		return dataLoader.load(entity.getC_Subscription_ID());
 	}
 

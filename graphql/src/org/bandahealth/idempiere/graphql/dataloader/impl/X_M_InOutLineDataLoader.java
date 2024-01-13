@@ -9,8 +9,8 @@ import org.compiere.model.MInOutLine;
  * @version Release 8.2 - $Id$
  */
 public class X_M_InOutLineDataLoader extends PODataLoader<MInOutLine> {
-	public static String M_InOutLine_BY_ID_DATA_LOADER = "M_InOutLineByIdDataLoader";
-	public static String M_InOutLine_BY_UUID_DATA_LOADER = "M_InOutLineByUuidDataLoader";
+	public static String DATALOADER_M_InOutLine_BY_ID = "M_InOutLineByIdDataLoader";
+	public static String DATALOADER_M_InOutLine_BY_UUID = "M_InOutLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_M_InOutLineDataLoader extends PODataLoader<MInOutLine> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return M_InOutLine_BY_ID_DATA_LOADER;
+		return DATALOADER_M_InOutLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return M_InOutLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_M_InOutLine_BY_UUID;
 	}
 }

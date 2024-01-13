@@ -9,8 +9,8 @@ import org.compiere.model.X_PA_Benchmark;
  * @version Release 8.2 - $Id$
  */
 public class X_PA_BenchmarkDataLoader extends PODataLoader<X_PA_Benchmark> {
-	public static String PA_Benchmark_BY_ID_DATA_LOADER = "PA_BenchmarkByIdDataLoader";
-	public static String PA_Benchmark_BY_UUID_DATA_LOADER = "PA_BenchmarkByUuidDataLoader";
+	public static String DATALOADER_PA_Benchmark_BY_ID = "PA_BenchmarkByIdDataLoader";
+	public static String DATALOADER_PA_Benchmark_BY_UUID = "PA_BenchmarkByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PA_BenchmarkDataLoader extends PODataLoader<X_PA_Benchmark> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PA_Benchmark_BY_ID_DATA_LOADER;
+		return DATALOADER_PA_Benchmark_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PA_Benchmark_BY_UUID_DATA_LOADER;
+		return DATALOADER_PA_Benchmark_BY_UUID;
 	}
 }

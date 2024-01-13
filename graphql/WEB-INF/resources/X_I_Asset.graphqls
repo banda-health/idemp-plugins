@@ -17,35 +17,35 @@ type I_AssetConnection {
 
 type I_Asset {
 	A_Accumdepreciation_A: C_ValidCombination
-	A_Accumulated_Depr: Int
+	A_Accumulated_Depr: BigDecimal
 	A_Asset_A: C_ValidCombination
-	A_Asset_Cost: Int
+	A_Asset_Cost: BigDecimal
 	# Group of Assets
 	A_Asset_Group: A_Asset_Group
 	# Asset used internally or by customers
 	A_Asset: A_Asset
 	A_Asset_Life_Current_Year: Int
 	A_Asset_Life_Years: Int
-	A_Base_Amount: Int
-	A_Calc_Accumulated_Depr: Int
-	A_Curr_Dep_Exp: Int
+	A_Base_Amount: BigDecimal
+	A_Calc_Accumulated_Depr: BigDecimal
+	A_Curr_Dep_Exp: BigDecimal
 	A_Current_Period: Int
 	A_Depreciation_A: C_ValidCombination
-	A_Depreciation_Manual_Amount: Int
+	A_Depreciation_Manual_Amount: BigDecimal
 	A_Depreciation_Manual_Period: AD_Ref_List
 	A_Depreciation_Table_Header: A_Depreciation_Table_Header
-	A_Depreciation_Variable_Perc: Int
+	A_Depreciation_Variable_Perc: BigDecimal
 	A_Life_Period: Int
 	A_Parent_Asset_ID: Int
 	A_Period_End: Int
 	A_Period_Posted: Int
 	A_Period_Start: Int
-	A_Prior_Year_Accumulated_Depr: Int
+	A_Prior_Year_Accumulated_Depr: BigDecimal
 	A_QTY_Current: Int
 	A_QTY_Original: Int
 	A_Reval_Cal_Method: AD_Ref_List
-	A_Salvage_Value: Int
-	A_Split_Percent: Int
+	A_Salvage_Value: BigDecimal
+	A_Split_Percent: BigDecimal
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -57,7 +57,7 @@ type I_Asset {
 	# Date when the asset is/was disposed
 	AssetDisposalDate: Date
 	# Market value of the asset
-	AssetMarketValueAmt: Int
+	AssetMarketValueAmt: BigDecimal
 	# Date when Asset was put into service
 	AssetServiceDate: Date
 	# Rules for accounting
@@ -134,35 +134,35 @@ type I_Asset {
 
 input I_AssetInput {
 	A_Accumdepreciation_A: ForeignEntityInput
-	A_Accumulated_Depr: Int
+	A_Accumulated_Depr: BigDecimal
 	A_Asset_A: ForeignEntityInput
-	A_Asset_Cost: Int
+	A_Asset_Cost: BigDecimal
 	# Group of Assets
 	A_Asset_Group: ForeignEntityInput
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Asset_Life_Current_Year: Int
 	A_Asset_Life_Years: Int
-	A_Base_Amount: Int
-	A_Calc_Accumulated_Depr: Int
-	A_Curr_Dep_Exp: Int
+	A_Base_Amount: BigDecimal
+	A_Calc_Accumulated_Depr: BigDecimal
+	A_Curr_Dep_Exp: BigDecimal
 	A_Current_Period: Int
 	A_Depreciation_A: ForeignEntityInput
-	A_Depreciation_Manual_Amount: Int
+	A_Depreciation_Manual_Amount: BigDecimal
 	A_Depreciation_Manual_Period: AD_Ref_ListInput
 	A_Depreciation_Table_Header: ForeignEntityInput
-	A_Depreciation_Variable_Perc: Int
+	A_Depreciation_Variable_Perc: BigDecimal
 	A_Life_Period: Int
 	A_Parent_Asset_ID: Int
 	A_Period_End: Int
 	A_Period_Posted: Int
 	A_Period_Start: Int
-	A_Prior_Year_Accumulated_Depr: Int
+	A_Prior_Year_Accumulated_Depr: BigDecimal
 	A_QTY_Current: Int
 	A_QTY_Original: Int
 	A_Reval_Cal_Method: AD_Ref_ListInput
-	A_Salvage_Value: Int
-	A_Split_Percent: Int
+	A_Salvage_Value: BigDecimal
+	A_Split_Percent: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
@@ -172,7 +172,7 @@ input I_AssetInput {
 	# Date when the asset is/was disposed
 	AssetDisposalDate: Date
 	# Market value of the asset
-	AssetMarketValueAmt: Int
+	AssetMarketValueAmt: BigDecimal
 	# Date when Asset was put into service
 	AssetServiceDate: Date
 	# Rules for accounting

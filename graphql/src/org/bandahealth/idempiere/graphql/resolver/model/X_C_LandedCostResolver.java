@@ -42,7 +42,7 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.C_InvoiceLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}
 
@@ -60,7 +60,7 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(LANDEDCOSTDISTRIBUTION_UUIDS_BY_VALUE.get(entity.getLandedCostDistribution()));
 	}
 
@@ -75,7 +75,7 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_CostElementDataLoader.M_CostElement_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_CostElementDataLoader.DATALOADER_M_CostElement_BY_ID);
 		return dataLoader.load(entity.getM_CostElement_ID());
 	}
 
@@ -90,7 +90,7 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 			return null;
 		}
 		DataLoader<Integer, MInOut_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutDataLoader.M_InOut_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutDataLoader.DATALOADER_M_InOut_BY_ID);
 		return dataLoader.load(entity.getM_InOut_ID());
 	}
 
@@ -105,7 +105,7 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.M_InOutLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
 		return dataLoader.load(entity.getM_InOutLine_ID());
 	}
 
@@ -120,7 +120,7 @@ public class X_C_LandedCostResolver extends POResolver<MLandedCost> implements G
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

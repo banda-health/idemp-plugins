@@ -9,8 +9,8 @@ import org.compiere.model.X_C_Cycle;
  * @version Release 8.2 - $Id$
  */
 public class X_C_CycleDataLoader extends PODataLoader<X_C_Cycle> {
-	public static String C_Cycle_BY_ID_DATA_LOADER = "C_CycleByIdDataLoader";
-	public static String C_Cycle_BY_UUID_DATA_LOADER = "C_CycleByUuidDataLoader";
+	public static String DATALOADER_C_Cycle_BY_ID = "C_CycleByIdDataLoader";
+	public static String DATALOADER_C_Cycle_BY_UUID = "C_CycleByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_CycleDataLoader extends PODataLoader<X_C_Cycle> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Cycle_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Cycle_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Cycle_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Cycle_BY_UUID;
 	}
 }

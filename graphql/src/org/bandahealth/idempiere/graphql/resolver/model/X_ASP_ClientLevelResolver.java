@@ -31,7 +31,7 @@ public class X_ASP_ClientLevelResolver extends POResolver<X_ASP_ClientLevel> imp
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Level> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_ASP_LevelDataLoader.ASP_Level_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_ASP_LevelDataLoader.DATALOADER_ASP_Level_BY_ID);
 		return dataLoader.load(entity.getASP_Level_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_ASP_ClientLevelResolver extends POResolver<X_ASP_ClientLevel> imp
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Module> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_ASP_ModuleDataLoader.ASP_Module_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_ASP_ModuleDataLoader.DATALOADER_ASP_Module_BY_ID);
 		return dataLoader.load(entity.getASP_Module_ID());
 	}
 

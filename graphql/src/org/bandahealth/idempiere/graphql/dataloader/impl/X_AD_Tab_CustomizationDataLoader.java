@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_Tab_Customization;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Tab_CustomizationDataLoader extends PODataLoader<X_AD_Tab_Customization> {
-	public static String AD_Tab_Customization_BY_ID_DATA_LOADER = "AD_Tab_CustomizationByIdDataLoader";
-	public static String AD_Tab_Customization_BY_UUID_DATA_LOADER = "AD_Tab_CustomizationByUuidDataLoader";
+	public static String DATALOADER_AD_Tab_Customization_BY_ID = "AD_Tab_CustomizationByIdDataLoader";
+	public static String DATALOADER_AD_Tab_Customization_BY_UUID = "AD_Tab_CustomizationByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Tab_CustomizationDataLoader extends PODataLoader<X_AD_Tab_Cust
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Tab_Customization_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Tab_Customization_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Tab_Customization_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Tab_Customization_BY_UUID;
 	}
 }

@@ -54,7 +54,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<Integer, MAssetClass> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_ClassDataLoader.A_Asset_Class_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_ClassDataLoader.DATALOADER_A_Asset_Class_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Class_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_GroupDataLoader.A_Asset_Group_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_GroupDataLoader.DATALOADER_A_Asset_Group_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Group_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.A_Asset_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_AssetDataLoader.DATALOADER_A_Asset_BY_ID);
 		return dataLoader.load(entity.getA_Asset_ID());
 	}
 
@@ -99,7 +99,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<Integer, MAssetType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_TypeDataLoader.A_Asset_Type_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_A_Asset_TypeDataLoader.DATALOADER_A_Asset_Type_BY_ID);
 		return dataLoader.load(entity.getA_Asset_Type_ID());
 	}
 
@@ -114,7 +114,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -129,7 +129,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartnerSR_ID());
 	}
 
@@ -144,7 +144,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<Integer, MCity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CityDataLoader.C_City_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CityDataLoader.DATALOADER_C_City_BY_ID);
 		return dataLoader.load(entity.getC_City_ID());
 	}
 
@@ -159,7 +159,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -174,7 +174,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -201,7 +201,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCACTION_UUIDS_BY_VALUE.get(entity.getDocAction()));
 	}
 
@@ -220,7 +220,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.M_Locator_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_LocatorDataLoader.DATALOADER_M_Locator_BY_ID);
 		return dataLoader.load(entity.getM_Locator_ID());
 	}
 
@@ -235,7 +235,7 @@ public class X_I_FixedAssetResolver extends POResolver<MIFixedAsset> implements 
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

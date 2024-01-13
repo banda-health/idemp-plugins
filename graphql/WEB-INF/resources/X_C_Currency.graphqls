@@ -36,7 +36,7 @@ type C_Currency {
 	# Date when the currency joined / will join the EMU
 	EMUEntryDate: Date
 	# Official rate to the Euro
-	EMURate: Int
+	EMURate: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# This currency is member if the European Monetary Union
@@ -46,7 +46,7 @@ type C_Currency {
 	# Three letter ISO 4217 Code of the Currency
 	ISO_Code: String!
 	# Used to Round Off Payment Amount
-	RoundOffFactor: Int!
+	RoundOffFactor: BigDecimal!
 	# Rule for rounding  calculated amounts
 	StdPrecision: Int!
 	# Date this record was updated
@@ -70,7 +70,7 @@ input C_CurrencyInput {
 	# Date when the currency joined / will join the EMU
 	EMUEntryDate: Date
 	# Official rate to the Euro
-	EMURate: Int
+	EMURate: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# This currency is member if the European Monetary Union
@@ -80,7 +80,7 @@ input C_CurrencyInput {
 	# Three letter ISO 4217 Code of the Currency
 	ISO_Code: String
 	# Used to Round Off Payment Amount
-	RoundOffFactor: Int
+	RoundOffFactor: BigDecimal
 	# Rule for rounding  calculated amounts
 	StdPrecision: Int
 }

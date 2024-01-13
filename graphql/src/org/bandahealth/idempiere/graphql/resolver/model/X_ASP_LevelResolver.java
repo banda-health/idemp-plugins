@@ -29,7 +29,7 @@ public class X_ASP_LevelResolver extends POResolver<X_ASP_Level> implements Grap
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Module> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_ASP_ModuleDataLoader.ASP_Module_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_ASP_ModuleDataLoader.DATALOADER_ASP_Module_BY_ID);
 		return dataLoader.load(entity.getASP_Module_ID());
 	}
 

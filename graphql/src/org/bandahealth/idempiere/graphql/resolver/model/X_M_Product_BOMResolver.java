@@ -45,7 +45,7 @@ public class X_M_Product_BOMResolver extends POResolver<MProductBOM> implements 
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BOMTYPE_UUIDS_BY_VALUE.get(entity.getBOMType()));
 	}
 
@@ -64,7 +64,7 @@ public class X_M_Product_BOMResolver extends POResolver<MProductBOM> implements 
 			return null;
 		}
 		DataLoader<Integer, X_M_PartType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PartTypeDataLoader.M_PartType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PartTypeDataLoader.DATALOADER_M_PartType_BY_ID);
 		return dataLoader.load(entity.getM_PartType_ID());
 	}
 
@@ -79,7 +79,7 @@ public class X_M_Product_BOMResolver extends POResolver<MProductBOM> implements 
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -94,7 +94,7 @@ public class X_M_Product_BOMResolver extends POResolver<MProductBOM> implements 
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_ProductBOM_ID());
 	}
 

@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MBHPayerInfoFldSug;
  * @version Release 8.2 - $Id$
  */
 public class X_BH_Payer_Info_Fld_SugDataLoader extends PODataLoader<MBHPayerInfoFldSug> {
-	public static String BH_Payer_Info_Fld_Sug_BY_ID_DATA_LOADER = "BH_Payer_Info_Fld_SugByIdDataLoader";
-	public static String BH_Payer_Info_Fld_Sug_BY_UUID_DATA_LOADER = "BH_Payer_Info_Fld_SugByUuidDataLoader";
+	public static String DATALOADER_BH_Payer_Info_Fld_Sug_BY_ID = "BH_Payer_Info_Fld_SugByIdDataLoader";
+	public static String DATALOADER_BH_Payer_Info_Fld_Sug_BY_UUID = "BH_Payer_Info_Fld_SugByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_BH_Payer_Info_Fld_SugDataLoader extends PODataLoader<MBHPayerInfo
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return BH_Payer_Info_Fld_Sug_BY_ID_DATA_LOADER;
+		return DATALOADER_BH_Payer_Info_Fld_Sug_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return BH_Payer_Info_Fld_Sug_BY_UUID_DATA_LOADER;
+		return DATALOADER_BH_Payer_Info_Fld_Sug_BY_UUID;
 	}
 }

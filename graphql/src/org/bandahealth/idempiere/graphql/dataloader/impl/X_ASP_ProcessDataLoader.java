@@ -9,8 +9,8 @@ import org.compiere.model.X_ASP_Process;
  * @version Release 8.2 - $Id$
  */
 public class X_ASP_ProcessDataLoader extends PODataLoader<X_ASP_Process> {
-	public static String ASP_Process_BY_ID_DATA_LOADER = "ASP_ProcessByIdDataLoader";
-	public static String ASP_Process_BY_UUID_DATA_LOADER = "ASP_ProcessByUuidDataLoader";
+	public static String DATALOADER_ASP_Process_BY_ID = "ASP_ProcessByIdDataLoader";
+	public static String DATALOADER_ASP_Process_BY_UUID = "ASP_ProcessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_ASP_ProcessDataLoader extends PODataLoader<X_ASP_Process> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return ASP_Process_BY_ID_DATA_LOADER;
+		return DATALOADER_ASP_Process_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return ASP_Process_BY_UUID_DATA_LOADER;
+		return DATALOADER_ASP_Process_BY_UUID;
 	}
 }

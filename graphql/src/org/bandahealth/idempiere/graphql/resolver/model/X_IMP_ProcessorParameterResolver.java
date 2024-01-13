@@ -29,7 +29,7 @@ public class X_IMP_ProcessorParameterResolver extends POResolver<X_IMP_Processor
 			return null;
 		}
 		DataLoader<Integer, X_IMP_Processor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_IMP_ProcessorDataLoader.IMP_Processor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_IMP_ProcessorDataLoader.DATALOADER_IMP_Processor_BY_ID);
 		return dataLoader.load(entity.getIMP_Processor_ID());
 	}
 

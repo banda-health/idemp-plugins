@@ -29,7 +29,7 @@ public class X_S_ResourceUnAvailableResolver extends POResolver<MResourceUnAvail
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.S_Resource_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_S_ResourceDataLoader.DATALOADER_S_Resource_BY_ID);
 		return dataLoader.load(entity.getS_Resource_ID());
 	}
 

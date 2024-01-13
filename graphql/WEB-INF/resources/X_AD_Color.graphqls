@@ -42,7 +42,7 @@ type AD_Color {
 	# RGB value for second color
 	Green_1: Int
 	# Image Texture Composite Alpha
-	ImageAlpha: Int!
+	ImageAlpha: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Default value
@@ -88,7 +88,7 @@ input AD_ColorInput {
 	# RGB value for second color
 	Green_1: Int
 	# Image Texture Composite Alpha
-	ImageAlpha: Int
+	ImageAlpha: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Default value

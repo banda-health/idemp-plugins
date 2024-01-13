@@ -37,7 +37,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.C_Activity_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ActivityDataLoader.DATALOADER_C_Activity_BY_ID);
 		return dataLoader.load(entity.getC_Activity_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 			return null;
 		}
 		DataLoader<Integer, X_HR_Department> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_DepartmentDataLoader.HR_Department_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_DepartmentDataLoader.DATALOADER_HR_Department_BY_ID);
 		return dataLoader.load(entity.getHR_Department_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 			return null;
 		}
 		DataLoader<Integer, X_HR_Job> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_JobDataLoader.HR_Job_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_JobDataLoader.DATALOADER_HR_Job_BY_ID);
 		return dataLoader.load(entity.getHR_Job_ID());
 	}
 
@@ -97,7 +97,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.HR_Payroll_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_HR_PayrollDataLoader.DATALOADER_HR_Payroll_BY_ID);
 		return dataLoader.load(entity.getHR_Payroll_ID());
 	}
 

@@ -36,7 +36,7 @@ public class X_QM_SpecificationLineResolver extends POResolver<X_QM_Specificatio
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ANDOR_UUIDS_BY_VALUE.get(entity.getAndOr()));
 	}
 
@@ -51,7 +51,7 @@ public class X_QM_SpecificationLineResolver extends POResolver<X_QM_Specificatio
 			return null;
 		}
 		DataLoader<Integer, MAttribute> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeDataLoader.M_Attribute_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeDataLoader.DATALOADER_M_Attribute_BY_ID);
 		return dataLoader.load(entity.getM_Attribute_ID());
 	}
 
@@ -73,7 +73,7 @@ public class X_QM_SpecificationLineResolver extends POResolver<X_QM_Specificatio
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(OPERATION_UUIDS_BY_VALUE.get(entity.getOperation()));
 	}
 
@@ -88,7 +88,7 @@ public class X_QM_SpecificationLineResolver extends POResolver<X_QM_Specificatio
 			return null;
 		}
 		DataLoader<Integer, X_QM_Specification> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_QM_SpecificationDataLoader.QM_Specification_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_QM_SpecificationDataLoader.DATALOADER_QM_Specification_BY_ID);
 		return dataLoader.load(entity.getQM_Specification_ID());
 	}
 

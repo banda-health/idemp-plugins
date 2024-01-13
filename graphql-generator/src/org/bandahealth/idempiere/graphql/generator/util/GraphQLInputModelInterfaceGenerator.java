@@ -22,6 +22,7 @@ package org.bandahealth.idempiere.graphql.generator.util;
 import org.adempiere.exceptions.DBException;
 import org.adempiere.util.ModelInterfaceGenerator;
 import org.compiere.Adempiere;
+import org.compiere.model.MEntityType;
 import org.compiere.model.MReference;
 import org.compiere.model.MTable;
 import org.compiere.util.CLogger;
@@ -270,7 +271,8 @@ public class GraphQLInputModelInterfaceGenerator {
 			generateJavaSetComment(entityName, entityName, Description, columnBuilder);
 			columnBuilder
 //					.append("\tvoid set").append(entityName).append("Input(").append(returnType).append(" ")
-					.append("\tvoid set").append(entityName).append("Input(ForeignEntityInput ").append(entityName).append(");\n");
+					.append("\tvoid set").append(entityName).append("Input(ForeignEntityInput ").append(entityName)
+					.append(");\n");
 
 			generateJavaGetComment(entityName, Description, columnBuilder);
 			columnBuilder
@@ -287,43 +289,6 @@ public class GraphQLInputModelInterfaceGenerator {
 			return columnBuilder.toString();
 		}
 
-//		// If the column is user-maintained and the table isn't, we need to generate
-//		boolean wereColumnMethodsGeneratedElsewhere = !(entityType.equals(MEntityType.ENTITYTYPE_UserMaintained) &&
-//				!MTable.get(AD_Table_ID).getEntityType().equals(MEntityType.ENTITYTYPE_UserMaintained));
-//		if (!wereColumnMethodsGeneratedElsewhere) {
-//			columnBuilder
-//					.append("\n\n")
-//					.append("\t/**\n")
-//					.append("\t * Column name ").append(columnName).append("\n")
-//					.append("\t */\n")
-//					.append("\tpublic static final String COLUMNNAME_").append(columnName)
-//					.append(" = \"").append(columnName).append("\";\n");
-//
-//			// Create Java Comment
-//			generateJavaSetComment(columnName, Name, Description, columnBuilder);
-//			// public void setColumn(xxx variable)
-//			columnBuilder.append("\tpublic void set").append(columnName).append("(")
-//					.append(dataType).append(" ").append(columnName).append(");\n");
-//
-//			// ****** Get Comment ******
-//			generateJavaGetComment(Name, Description, columnBuilder);
-//
-//			columnBuilder.append("\tpublic ").append(dataType);
-//			if (clazz.equals(Boolean.class)) {
-//				columnBuilder.append(" is");
-//				if (columnName.toLowerCase().startsWith("is")) {
-//					columnBuilder.append(columnName.substring(2));
-//				} else {
-//					columnBuilder.append(columnName);
-//				}
-//			} else {
-//				columnBuilder.append(" get").append(columnName);
-//			}
-//			columnBuilder.append("();");
-//			//
-//			addImportClass(clazz);
-//		}
-
 		if (AD_Reference_ID > 0 &&
 				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
 				clazz.equals(String.class)) {
@@ -334,6 +299,45 @@ public class GraphQLInputModelInterfaceGenerator {
 					.append(");\n");
 			generateJavaGetComment(columnName, Description, columnBuilder);
 			columnBuilder.append("\tI_AD_Ref_ListInput ").append(columnName).append("();");
+			return columnBuilder.toString();
+		}
+
+		// If the column is user-maintained and the table isn't, we need to generate
+		boolean areColumnMethodsStoredOnAManualClassExtendingAnotherManualClass =
+				entityType.equals(MEntityType.ENTITYTYPE_UserMaintained) &&
+						!MTable.get(AD_Table_ID).getEntityType().equals(MEntityType.ENTITYTYPE_UserMaintained);
+		if (areColumnMethodsStoredOnAManualClassExtendingAnotherManualClass) {
+			columnBuilder
+					.append("\n\n")
+					.append("\t/**\n")
+					.append("\t * Column name ").append(columnName).append("\n")
+					.append("\t */\n")
+					.append("\tstatic final String COLUMNNAME_").append(columnName)
+					.append(" = \"").append(columnName).append("\";\n");
+
+			// Create Java Comment
+			generateJavaSetComment(columnName, Name, Description, columnBuilder);
+			// public void setColumn(xxx variable)
+			columnBuilder.append("\tvoid set").append(columnName).append("(")
+					.append(dataType).append(" ").append(columnName).append(");\n");
+
+			// ****** Get Comment ******
+			generateJavaGetComment(Name, Description, columnBuilder);
+
+			columnBuilder.append("\t").append(dataType);
+			if (clazz.equals(Boolean.class)) {
+				columnBuilder.append(" is");
+				if (columnName.toLowerCase().startsWith("is")) {
+					columnBuilder.append(columnName.substring(2));
+				} else {
+					columnBuilder.append(columnName);
+				}
+			} else {
+				columnBuilder.append(" get").append(columnName);
+			}
+			columnBuilder.append("();");
+			//
+			addImportClass(clazz);
 			return columnBuilder.toString();
 		}
 

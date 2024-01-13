@@ -31,7 +31,7 @@ public class X_AD_DesktopWorkbenchResolver extends POResolver<X_AD_DesktopWorkbe
 			return null;
 		}
 		DataLoader<Integer, X_AD_Desktop> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_DesktopDataLoader.AD_Desktop_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_DesktopDataLoader.DATALOADER_AD_Desktop_BY_ID);
 		return dataLoader.load(entity.getAD_Desktop_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_AD_DesktopWorkbenchResolver extends POResolver<X_AD_DesktopWorkbe
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workbench> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkbenchDataLoader.AD_Workbench_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkbenchDataLoader.DATALOADER_AD_Workbench_BY_ID);
 		return dataLoader.load(entity.getAD_Workbench_ID());
 	}
 

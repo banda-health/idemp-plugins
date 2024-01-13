@@ -44,7 +44,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFormat_ID());
 	}
 
@@ -59,7 +59,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
 		return dataLoader.load(entity.getC_DocTypeDifference_ID());
 	}
 
@@ -74,7 +74,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
 		return dataLoader.load(entity.getC_DocTypeInvoice_ID());
 	}
 
@@ -89,7 +89,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
 		return dataLoader.load(entity.getC_DocTypeProforma_ID());
 	}
 
@@ -104,7 +104,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.C_DocType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
 		return dataLoader.load(entity.getC_DocTypeShipment_ID());
 	}
 
@@ -119,7 +119,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MSequence_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_SequenceDataLoader.AD_Sequence_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_SequenceDataLoader.DATALOADER_AD_Sequence_BY_ID);
 		return dataLoader.load(entity.getDefiniteSequence_ID());
 	}
 
@@ -164,7 +164,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCBASETYPE_UUIDS_BY_VALUE.get(entity.getDocBaseType()));
 	}
 
@@ -179,7 +179,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MSequence_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_SequenceDataLoader.AD_Sequence_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_SequenceDataLoader.DATALOADER_AD_Sequence_BY_ID);
 		return dataLoader.load(entity.getDocNoSequence_ID());
 	}
 
@@ -195,7 +195,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCSUBTYPEINV_UUIDS_BY_VALUE.get(entity.getDocSubTypeInv()));
 	}
 
@@ -216,7 +216,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DOCSUBTYPESO_UUIDS_BY_VALUE.get(entity.getDocSubTypeSO()));
 	}
 
@@ -230,7 +230,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return CompletableFuture.supplyAsync(entity::getDocumentNote);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_DocType_TrlDataLoader.C_DocType_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_DocType_TrlDataLoader.DATALOADER_C_DocType_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MDocType_BH.COLUMNNAME_DocumentNote));
 	}
@@ -246,7 +246,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_CategoryDataLoader.GL_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_CategoryDataLoader.DATALOADER_GL_Category_BY_ID);
 		return dataLoader.load(entity.getGL_Category_ID());
 	}
 
@@ -324,7 +324,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_DocType_TrlDataLoader.C_DocType_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_DocType_TrlDataLoader.DATALOADER_C_DocType_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MDocType_BH.COLUMNNAME_Name));
 	}
@@ -339,7 +339,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 			return CompletableFuture.supplyAsync(entity::getPrintName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_DocType_TrlDataLoader.C_DocType_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_DocType_TrlDataLoader.DATALOADER_C_DocType_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MDocType_BH.COLUMNNAME_PrintName));
 	}

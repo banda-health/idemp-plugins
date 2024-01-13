@@ -9,8 +9,8 @@ import org.eevolution.model.X_T_BOMLine;
  * @version Release 8.2 - $Id$
  */
 public class X_T_BOMLineDataLoader extends PODataLoader<X_T_BOMLine> {
-	public static String T_BOMLine_BY_ID_DATA_LOADER = "T_BOMLineByIdDataLoader";
-	public static String T_BOMLine_BY_UUID_DATA_LOADER = "T_BOMLineByUuidDataLoader";
+	public static String DATALOADER_T_BOMLine_BY_ID = "T_BOMLineByIdDataLoader";
+	public static String DATALOADER_T_BOMLine_BY_UUID = "T_BOMLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_T_BOMLineDataLoader extends PODataLoader<X_T_BOMLine> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return T_BOMLine_BY_ID_DATA_LOADER;
+		return DATALOADER_T_BOMLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return T_BOMLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_T_BOMLine_BY_UUID;
 	}
 }

@@ -35,7 +35,7 @@ public class X_RV_WarehousePriceResolver extends POResolver<MWarehousePrice> imp
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.C_UOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
@@ -54,7 +54,7 @@ public class X_RV_WarehousePriceResolver extends POResolver<MWarehousePrice> imp
 			return null;
 		}
 		DataLoader<Integer, MPriceListVersion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceList_VersionDataLoader.M_PriceList_Version_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceList_VersionDataLoader.DATALOADER_M_PriceList_Version_BY_ID);
 		return dataLoader.load(entity.getM_PriceList_Version_ID());
 	}
 
@@ -69,7 +69,7 @@ public class X_RV_WarehousePriceResolver extends POResolver<MWarehousePrice> imp
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_RV_WarehousePriceResolver extends POResolver<MWarehousePrice> imp
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.M_Warehouse_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
 		return dataLoader.load(entity.getM_Warehouse_ID());
 	}
 

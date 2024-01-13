@@ -35,7 +35,7 @@ public class X_C_AcctProcessorResolver extends POResolver<MAcctProcessor> implem
 			return null;
 		}
 		DataLoader<Integer, MSchedule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ScheduleDataLoader.AD_Schedule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ScheduleDataLoader.DATALOADER_AD_Schedule_BY_ID);
 		return dataLoader.load(entity.getAD_Schedule_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_C_AcctProcessorResolver extends POResolver<MAcctProcessor> implem
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_C_AcctProcessorResolver extends POResolver<MAcctProcessor> implem
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -84,7 +84,7 @@ public class X_C_AcctProcessorResolver extends POResolver<MAcctProcessor> implem
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getSupervisor_ID());
 	}
 

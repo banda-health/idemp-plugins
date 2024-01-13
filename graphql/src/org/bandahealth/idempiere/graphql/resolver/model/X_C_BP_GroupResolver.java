@@ -40,7 +40,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.AD_PrintColor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintColorDataLoader.DATALOADER_AD_PrintColor_BY_ID);
 		return dataLoader.load(entity.getAD_PrintColor_ID());
 	}
 
@@ -60,7 +60,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BH_SUBTYPE_UUIDS_BY_VALUE.get(entity.getBH_SubType()));
 	}
 
@@ -75,7 +75,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MDunning> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningDataLoader.C_Dunning_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DunningDataLoader.DATALOADER_C_Dunning_BY_ID);
 		return dataLoader.load(entity.getC_Dunning_ID());
 	}
 
@@ -98,7 +98,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.M_DiscountSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.DATALOADER_M_DiscountSchema_BY_ID);
 		return dataLoader.load(entity.getM_DiscountSchema_ID());
 	}
 
@@ -113,7 +113,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.M_PriceList_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.DATALOADER_M_PriceList_BY_ID);
 		return dataLoader.load(entity.getM_PriceList_ID());
 	}
 
@@ -128,7 +128,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.M_DiscountSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_DiscountSchemaDataLoader.DATALOADER_M_DiscountSchema_BY_ID);
 		return dataLoader.load(entity.getPO_DiscountSchema_ID());
 	}
 
@@ -143,7 +143,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.M_PriceList_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_PriceListDataLoader.DATALOADER_M_PriceList_BY_ID);
 		return dataLoader.load(entity.getPO_PriceList_ID());
 	}
 
@@ -159,7 +159,7 @@ public class X_C_BP_GroupResolver extends POResolver<MBPGroup_BH> implements Gra
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PRIORITYBASE_UUIDS_BY_VALUE.get(entity.getPriorityBase()));
 	}
 

@@ -40,7 +40,7 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.C_PaymentTerm_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.DATALOADER_C_PaymentTerm_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_Description));
 	}
@@ -55,7 +55,7 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 			return CompletableFuture.supplyAsync(entity::getDocumentNote);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.C_PaymentTerm_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.DATALOADER_C_PaymentTerm_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_DocumentNote));
 	}
@@ -86,7 +86,7 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.C_PaymentTerm_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.DATALOADER_C_PaymentTerm_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_Name));
 	}
@@ -107,7 +107,7 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(NETDAY_UUIDS_BY_VALUE.get(entity.getNetDay()));
 	}
 
@@ -123,7 +123,7 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PAYMENTTERMUSAGE_UUIDS_BY_VALUE.get(entity.getPaymentTermUsage()));
 	}
 

@@ -9,8 +9,8 @@ import org.compiere.model.MLdapAccess;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_LdapAccessDataLoader extends PODataLoader<MLdapAccess> {
-	public static String AD_LdapAccess_BY_ID_DATA_LOADER = "AD_LdapAccessByIdDataLoader";
-	public static String AD_LdapAccess_BY_UUID_DATA_LOADER = "AD_LdapAccessByUuidDataLoader";
+	public static String DATALOADER_AD_LdapAccess_BY_ID = "AD_LdapAccessByIdDataLoader";
+	public static String DATALOADER_AD_LdapAccess_BY_UUID = "AD_LdapAccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_LdapAccessDataLoader extends PODataLoader<MLdapAccess> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_LdapAccess_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_LdapAccess_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_LdapAccess_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_LdapAccess_BY_UUID;
 	}
 }

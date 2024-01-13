@@ -46,7 +46,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.AD_PInstance_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.DATALOADER_AD_PInstance_BY_ID);
 		return dataLoader.load(entity.getAD_PInstance_ID());
 	}
 
@@ -61,7 +61,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.C_AcctSchema_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctSchemaDataLoader.DATALOADER_C_AcctSchema_BY_ID);
 		return dataLoader.load(entity.getC_AcctSchema_ID());
 	}
 
@@ -83,7 +83,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(COSTINGMETHOD_UUIDS_BY_VALUE.get(entity.getCostingMethod()));
 	}
 
@@ -106,7 +106,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_CostElementDataLoader.M_CostElement_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_CostElementDataLoader.DATALOADER_M_CostElement_BY_ID);
 		return dataLoader.load(entity.getM_CostElement_ID());
 	}
 
@@ -121,7 +121,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MCostType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_CostTypeDataLoader.M_CostType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_CostTypeDataLoader.DATALOADER_M_CostType_BY_ID);
 		return dataLoader.load(entity.getM_CostType_ID());
 	}
 
@@ -136,7 +136,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
@@ -151,7 +151,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMDataLoader.PP_Product_BOM_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMDataLoader.DATALOADER_PP_Product_BOM_BY_ID);
 		return dataLoader.load(entity.getPP_Product_BOM_ID());
 	}
 
@@ -166,7 +166,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOMLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMLineDataLoader.PP_Product_BOMLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMLineDataLoader.DATALOADER_PP_Product_BOMLine_BY_ID);
 		return dataLoader.load(entity.getPP_Product_BOMLine_ID());
 	}
 

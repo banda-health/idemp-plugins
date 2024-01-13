@@ -110,7 +110,7 @@ type I_Invoice {
 	# Postal code
 	Postal: String
 	# Actual Price 
-	PriceActual: Int
+	PriceActual: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -119,7 +119,7 @@ type I_Invoice {
 	# Key of the Project
 	ProjectValue: String
 	# Ordered Quantity
-	QtyOrdered: Int
+	QtyOrdered: BigDecimal
 	# Name of the Region
 	RegionName: String
 	# Sales Representative or Company Agent
@@ -127,7 +127,7 @@ type I_Invoice {
 	# Stock Keeping Unit
 	SKU: String
 	# Tax Amount for a document
-	TaxAmt: Int
+	TaxAmt: BigDecimal
 	# Short form for Tax to be printed on documents
 	TaxIndicator: String
 	# Bar Code (Universal Product Code or its superset European Article Number)
@@ -227,7 +227,7 @@ input I_InvoiceInput {
 	# Postal code
 	Postal: String
 	# Actual Price 
-	PriceActual: Int
+	PriceActual: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean
@@ -236,7 +236,7 @@ input I_InvoiceInput {
 	# Key of the Project
 	ProjectValue: String
 	# Ordered Quantity
-	QtyOrdered: Int
+	QtyOrdered: BigDecimal
 	# Name of the Region
 	RegionName: String
 	# Sales Representative or Company Agent
@@ -244,7 +244,7 @@ input I_InvoiceInput {
 	# Stock Keeping Unit
 	SKU: String
 	# Tax Amount for a document
-	TaxAmt: Int
+	TaxAmt: BigDecimal
 	# Short form for Tax to be printed on documents
 	TaxIndicator: String
 	# Bar Code (Universal Product Code or its superset European Article Number)

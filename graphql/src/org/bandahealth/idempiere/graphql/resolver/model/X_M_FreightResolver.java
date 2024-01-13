@@ -37,7 +37,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.C_Country_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.DATALOADER_C_Country_BY_ID);
 		return dataLoader.load(entity.getC_Country_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -67,7 +67,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.C_Region_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.DATALOADER_C_Region_BY_ID);
 		return dataLoader.load(entity.getC_Region_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MFreightCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_FreightCategoryDataLoader.M_FreightCategory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_FreightCategoryDataLoader.DATALOADER_M_FreightCategory_BY_ID);
 		return dataLoader.load(entity.getM_FreightCategory_ID());
 	}
 
@@ -97,7 +97,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperDataLoader.M_Shipper_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperDataLoader.DATALOADER_M_Shipper_BY_ID);
 		return dataLoader.load(entity.getM_Shipper_ID());
 	}
 
@@ -112,7 +112,7 @@ public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQL
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.C_Region_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_RegionDataLoader.DATALOADER_C_Region_BY_ID);
 		return dataLoader.load(entity.getTo_Region_ID());
 	}
 

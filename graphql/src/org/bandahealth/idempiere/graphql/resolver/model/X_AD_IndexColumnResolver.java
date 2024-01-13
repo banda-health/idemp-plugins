@@ -36,7 +36,7 @@ public class X_AD_IndexColumnResolver extends POResolver<MIndexColumn> implement
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -51,7 +51,7 @@ public class X_AD_IndexColumnResolver extends POResolver<MIndexColumn> implement
 			return null;
 		}
 		DataLoader<Integer, MTableIndex> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableIndexDataLoader.AD_TableIndex_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableIndexDataLoader.DATALOADER_AD_TableIndex_BY_ID);
 		return dataLoader.load(entity.getAD_TableIndex_ID());
 	}
 
@@ -82,7 +82,7 @@ public class X_AD_IndexColumnResolver extends POResolver<MIndexColumn> implement
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 

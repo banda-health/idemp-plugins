@@ -27,9 +27,9 @@ type M_Replenish {
 	# The record is active in the system
 	IsActive: Boolean!
 	# Maximum Inventory level for this product
-	Level_Max: Int!
+	Level_Max: BigDecimal!
 	# Minimum Inventory level for this product
-	Level_Min: Int!
+	Level_Min: BigDecimal!
 	# Warehouse Locator
 	M_Locator: M_Locator
 	# Product, Service, Item
@@ -39,7 +39,7 @@ type M_Replenish {
 	M_Warehouse: M_Warehouse!
 	# Optional Warehouse to replenish from
 	M_WarehouseSource: M_Warehouse
-	QtyBatchSize: Int
+	QtyBatchSize: BigDecimal
 	# Method for re-ordering a product
 	ReplenishType: AD_Ref_List!
 	# Date this record was updated
@@ -54,9 +54,9 @@ input M_ReplenishInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Maximum Inventory level for this product
-	Level_Max: Int
+	Level_Max: BigDecimal
 	# Minimum Inventory level for this product
-	Level_Min: Int
+	Level_Min: BigDecimal
 	# Warehouse Locator
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item
@@ -66,7 +66,7 @@ input M_ReplenishInput {
 	M_Warehouse: ForeignEntityInput
 	# Optional Warehouse to replenish from
 	M_WarehouseSource: ForeignEntityInput
-	QtyBatchSize: Int
+	QtyBatchSize: BigDecimal
 	# Method for re-ordering a product
 	ReplenishType: AD_Ref_ListInput
 }

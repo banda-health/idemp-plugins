@@ -30,16 +30,16 @@ type M_ShippingTransactionLine {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	Height: Int
+	Height: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
-	Length: Int
+	Length: BigDecimal
 	M_PackageMPS: M_PackageMPS
 	M_ShippingTransaction: M_ShippingTransaction!
 	ID: ID!
 	MasterTrackingNo: String
 	# Price
-	Price: Int
+	Price: BigDecimal
 	# The document has been processed
 	Processed: Boolean!
 	# Method of ordering records; lowest number comes first
@@ -51,8 +51,8 @@ type M_ShippingTransactionLine {
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Weight of a product
-	Weight: Int
-	Width: Int
+	Weight: BigDecimal
+	Width: BigDecimal
 }
 
 input M_ShippingTransactionLineInput {
@@ -64,16 +64,16 @@ input M_ShippingTransactionLineInput {
 	C_UOM_Weight: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	Height: Int
+	Height: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
-	Length: Int
+	Length: BigDecimal
 	M_PackageMPS: ForeignEntityInput
 	M_ShippingTransaction: ForeignEntityInput
 	ID: ID
 	MasterTrackingNo: String
 	# Price
-	Price: Int
+	Price: BigDecimal
 	# The document has been processed
 	Processed: Boolean
 	# Method of ordering records; lowest number comes first
@@ -81,6 +81,6 @@ input M_ShippingTransactionLineInput {
 	# Number to track the shipment
 	TrackingNo: String
 	# Weight of a product
-	Weight: Int
-	Width: Int
+	Weight: BigDecimal
+	Width: BigDecimal
 }

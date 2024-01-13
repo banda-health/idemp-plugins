@@ -23,17 +23,17 @@ type A_Asset_Addition {
 	A_CreateAsset: Boolean!
 	A_Life_Period_Max: Int
 	A_Life_Period_Min: Int
-	A_QTY_Current: Int!
-	A_Salvage_Value: Int
+	A_QTY_Current: BigDecimal!
+	A_Salvage_Value: BigDecimal
 	A_SourceType: AD_Ref_List!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	AssetAmtEntered: Int!
-	AssetSourceAmt: Int
+	AssetAmtEntered: BigDecimal!
+	AssetSourceAmt: BigDecimal
 	# Book Value of the asset
-	AssetValueAmt: Int!
+	AssetValueAmt: BigDecimal!
 	# Additional document charges
 	C_Charge: C_Charge
 	# Currency Conversion Rate Type
@@ -53,7 +53,7 @@ type A_Asset_Addition {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	# Accounting Date
 	DateAcct: Date
 	# Date of the Document
@@ -92,7 +92,7 @@ type A_Asset_Addition {
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
@@ -106,15 +106,15 @@ input A_Asset_AdditionInput {
 	A_Asset: ForeignEntityInput
 	A_CapvsExp: AD_Ref_ListInput
 	A_CreateAsset: Boolean
-	A_QTY_Current: Int
-	A_Salvage_Value: Int
+	A_QTY_Current: BigDecimal
+	A_Salvage_Value: BigDecimal
 	A_SourceType: AD_Ref_ListInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	AssetAmtEntered: Int
-	AssetSourceAmt: Int
+	AssetAmtEntered: BigDecimal
+	AssetSourceAmt: BigDecimal
 	# Book Value of the asset
-	AssetValueAmt: Int
+	AssetValueAmt: BigDecimal
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	# Currency Conversion Rate Type
@@ -130,7 +130,7 @@ input A_Asset_AdditionInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Currency Conversion Rate
-	CurrencyRate: Int
+	CurrencyRate: BigDecimal
 	# Accounting Date
 	DateAcct: Date
 	# Date of the Document
@@ -169,6 +169,6 @@ input A_Asset_AdditionInput {
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed
-	ProcessedOn: Int
+	ProcessedOn: BigDecimal
 	Processing: Boolean
 }

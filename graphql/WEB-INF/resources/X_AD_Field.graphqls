@@ -109,7 +109,7 @@ type AD_Field {
 	SeqNo: Int
 	SeqNoGrid: Int
 	# Determines in what order the records are displayed
-	SortNo: Int
+	SortNo: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -208,7 +208,7 @@ input AD_FieldInput {
 	SeqNo: Int
 	SeqNoGrid: Int
 	# Determines in what order the records are displayed
-	SortNo: Int
+	SortNo: BigDecimal
 	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
 	VFormat: String
 	# Absolute X (horizontal) position in 1/72 of an inch

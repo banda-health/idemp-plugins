@@ -31,7 +31,7 @@ public class X_PA_SLA_GoalResolver extends POResolver<MSLAGoal> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.C_BPartner_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BPartnerDataLoader.DATALOADER_C_BPartner_BY_ID);
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_PA_SLA_GoalResolver extends POResolver<MSLAGoal> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MSLACriteria> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_PA_SLA_CriteriaDataLoader.PA_SLA_Criteria_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_PA_SLA_CriteriaDataLoader.DATALOADER_PA_SLA_Criteria_BY_ID);
 		return dataLoader.load(entity.getPA_SLA_Criteria_ID());
 	}
 

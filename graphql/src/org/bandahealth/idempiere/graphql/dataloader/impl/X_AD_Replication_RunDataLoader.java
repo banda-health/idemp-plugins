@@ -9,8 +9,8 @@ import org.compiere.model.MReplicationRun;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Replication_RunDataLoader extends PODataLoader<MReplicationRun> {
-	public static String AD_Replication_Run_BY_ID_DATA_LOADER = "AD_Replication_RunByIdDataLoader";
-	public static String AD_Replication_Run_BY_UUID_DATA_LOADER = "AD_Replication_RunByUuidDataLoader";
+	public static String DATALOADER_AD_Replication_Run_BY_ID = "AD_Replication_RunByIdDataLoader";
+	public static String DATALOADER_AD_Replication_Run_BY_UUID = "AD_Replication_RunByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Replication_RunDataLoader extends PODataLoader<MReplicationRun
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Replication_Run_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Replication_Run_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Replication_Run_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Replication_Run_BY_UUID;
 	}
 }

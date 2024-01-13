@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_PrintColor;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_PrintColorDataLoader extends PODataLoader<X_AD_PrintColor> {
-	public static String AD_PrintColor_BY_ID_DATA_LOADER = "AD_PrintColorByIdDataLoader";
-	public static String AD_PrintColor_BY_UUID_DATA_LOADER = "AD_PrintColorByUuidDataLoader";
+	public static String DATALOADER_AD_PrintColor_BY_ID = "AD_PrintColorByIdDataLoader";
+	public static String DATALOADER_AD_PrintColor_BY_UUID = "AD_PrintColorByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_PrintColorDataLoader extends PODataLoader<X_AD_PrintColor> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_PrintColor_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_PrintColor_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_PrintColor_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_PrintColor_BY_UUID;
 	}
 }

@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_RelationType;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_RelationTypeDataLoader extends PODataLoader<X_AD_RelationType> {
-	public static String AD_RelationType_BY_ID_DATA_LOADER = "AD_RelationTypeByIdDataLoader";
-	public static String AD_RelationType_BY_UUID_DATA_LOADER = "AD_RelationTypeByUuidDataLoader";
+	public static String DATALOADER_AD_RelationType_BY_ID = "AD_RelationTypeByIdDataLoader";
+	public static String DATALOADER_AD_RelationType_BY_UUID = "AD_RelationTypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_RelationTypeDataLoader extends PODataLoader<X_AD_RelationType>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_RelationType_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_RelationType_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_RelationType_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_RelationType_BY_UUID;
 	}
 }

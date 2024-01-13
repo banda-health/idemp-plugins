@@ -9,8 +9,8 @@ import org.compiere.model.X_C_CashBook_Acct;
  * @version Release 8.2 - $Id$
  */
 public class X_C_CashBook_AcctDataLoader extends PODataLoader<X_C_CashBook_Acct> {
-	public static String C_CashBook_Acct_BY_ID_DATA_LOADER = "C_CashBook_AcctByIdDataLoader";
-	public static String C_CashBook_Acct_BY_UUID_DATA_LOADER = "C_CashBook_AcctByUuidDataLoader";
+	public static String DATALOADER_C_CashBook_Acct_BY_ID = "C_CashBook_AcctByIdDataLoader";
+	public static String DATALOADER_C_CashBook_Acct_BY_UUID = "C_CashBook_AcctByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_CashBook_AcctDataLoader extends PODataLoader<X_C_CashBook_Acct>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_CashBook_Acct_BY_ID_DATA_LOADER;
+		return DATALOADER_C_CashBook_Acct_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_CashBook_Acct_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_CashBook_Acct_BY_UUID;
 	}
 }

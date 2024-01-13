@@ -34,7 +34,7 @@ public class X_WS_WebService_ParaResolver extends POResolver<X_WS_WebService_Par
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(PARAMETERTYPE_UUIDS_BY_VALUE.get(entity.getParameterType()));
 	}
 
@@ -49,7 +49,7 @@ public class X_WS_WebService_ParaResolver extends POResolver<X_WS_WebService_Par
 			return null;
 		}
 		DataLoader<Integer, X_WS_WebServiceType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceTypeDataLoader.WS_WebServiceType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_WS_WebServiceTypeDataLoader.DATALOADER_WS_WebServiceType_BY_ID);
 		return dataLoader.load(entity.getWS_WebServiceType_ID());
 	}
 

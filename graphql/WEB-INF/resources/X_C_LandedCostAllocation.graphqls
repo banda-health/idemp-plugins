@@ -21,9 +21,9 @@ type C_LandedCostAllocation {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Amount
-	Amt: Int!
+	Amt: BigDecimal!
 	# Calculation Base
-	Base: Int!
+	Base: BigDecimal!
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine!
 	ID: ID!
@@ -40,7 +40,7 @@ type C_LandedCostAllocation {
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Quantity
-	Qty: Int!
+	Qty: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -51,9 +51,9 @@ input C_LandedCostAllocationInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount
-	Amt: Int
+	Amt: BigDecimal
 	# Calculation Base
-	Base: Int
+	Base: BigDecimal
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
 	ID: ID
@@ -66,5 +66,5 @@ input C_LandedCostAllocationInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 }

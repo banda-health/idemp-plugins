@@ -40,11 +40,11 @@ type M_OperationResource {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Setup time before starting Production
-	SetupTime: Int!
+	SetupTime: BigDecimal!
 	# Time at the end of the operation
-	TeardownTime: Int!
+	TeardownTime: BigDecimal!
 	# Time to produce one unit
-	UnitRuntime: Int!
+	UnitRuntime: BigDecimal!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -70,9 +70,9 @@ input M_OperationResourceInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Setup time before starting Production
-	SetupTime: Int
+	SetupTime: BigDecimal
 	# Time at the end of the operation
-	TeardownTime: Int
+	TeardownTime: BigDecimal
 	# Time to produce one unit
-	UnitRuntime: Int
+	UnitRuntime: BigDecimal
 }

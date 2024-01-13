@@ -45,7 +45,7 @@ public class X_M_ShipperCfgResolver extends POResolver<X_M_ShipperCfg> implement
 			return null;
 		}
 		DataLoader<Integer, X_M_ShippingProcessorCfg> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ShippingProcessorCfgDataLoader.M_ShippingProcessorCfg_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ShippingProcessorCfgDataLoader.DATALOADER_M_ShippingProcessorCfg_BY_ID);
 		return dataLoader.load(entity.getM_ShippingProcessorCfg_ID());
 	}
 

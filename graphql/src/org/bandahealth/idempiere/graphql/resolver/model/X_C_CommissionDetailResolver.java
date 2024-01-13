@@ -35,7 +35,7 @@ public class X_C_CommissionDetailResolver extends POResolver<MCommissionDetail> 
 			return null;
 		}
 		DataLoader<Integer, MCommissionAmt> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CommissionAmtDataLoader.C_CommissionAmt_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CommissionAmtDataLoader.DATALOADER_C_CommissionAmt_BY_ID);
 		return dataLoader.load(entity.getC_CommissionAmt_ID());
 	}
 
@@ -50,7 +50,7 @@ public class X_C_CommissionDetailResolver extends POResolver<MCommissionDetail> 
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.C_Currency_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CurrencyDataLoader.DATALOADER_C_Currency_BY_ID);
 		return dataLoader.load(entity.getC_Currency_ID());
 	}
 
@@ -65,7 +65,7 @@ public class X_C_CommissionDetailResolver extends POResolver<MCommissionDetail> 
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.C_InvoiceLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}
 
@@ -80,7 +80,7 @@ public class X_C_CommissionDetailResolver extends POResolver<MCommissionDetail> 
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.C_OrderLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_OrderLineDataLoader.DATALOADER_C_OrderLine_BY_ID);
 		return dataLoader.load(entity.getC_OrderLine_ID());
 	}
 

@@ -9,8 +9,8 @@ import org.compiere.model.MEXPProcessor;
  * @version Release 8.2 - $Id$
  */
 public class X_EXP_ProcessorDataLoader extends PODataLoader<MEXPProcessor> {
-	public static String EXP_Processor_BY_ID_DATA_LOADER = "EXP_ProcessorByIdDataLoader";
-	public static String EXP_Processor_BY_UUID_DATA_LOADER = "EXP_ProcessorByUuidDataLoader";
+	public static String DATALOADER_EXP_Processor_BY_ID = "EXP_ProcessorByIdDataLoader";
+	public static String DATALOADER_EXP_Processor_BY_UUID = "EXP_ProcessorByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_EXP_ProcessorDataLoader extends PODataLoader<MEXPProcessor> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return EXP_Processor_BY_ID_DATA_LOADER;
+		return DATALOADER_EXP_Processor_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return EXP_Processor_BY_UUID_DATA_LOADER;
+		return DATALOADER_EXP_Processor_BY_UUID;
 	}
 }

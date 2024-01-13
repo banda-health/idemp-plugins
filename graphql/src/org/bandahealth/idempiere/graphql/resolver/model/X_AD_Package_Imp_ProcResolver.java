@@ -36,7 +36,7 @@ public class X_AD_Package_Imp_ProcResolver extends POResolver<X_AD_Package_Imp_P
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(AD_PACKAGE_SOURCE_TYPE_UUIDS_BY_VALUE.get(entity.getAD_Package_Source_Type()));
 	}
 

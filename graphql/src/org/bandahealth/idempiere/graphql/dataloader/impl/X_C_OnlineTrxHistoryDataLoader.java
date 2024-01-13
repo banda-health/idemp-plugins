@@ -9,8 +9,8 @@ import org.compiere.model.MOnlineTrxHistory;
  * @version Release 8.2 - $Id$
  */
 public class X_C_OnlineTrxHistoryDataLoader extends PODataLoader<MOnlineTrxHistory> {
-	public static String C_OnlineTrxHistory_BY_ID_DATA_LOADER = "C_OnlineTrxHistoryByIdDataLoader";
-	public static String C_OnlineTrxHistory_BY_UUID_DATA_LOADER = "C_OnlineTrxHistoryByUuidDataLoader";
+	public static String DATALOADER_C_OnlineTrxHistory_BY_ID = "C_OnlineTrxHistoryByIdDataLoader";
+	public static String DATALOADER_C_OnlineTrxHistory_BY_UUID = "C_OnlineTrxHistoryByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_OnlineTrxHistoryDataLoader extends PODataLoader<MOnlineTrxHisto
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_OnlineTrxHistory_BY_ID_DATA_LOADER;
+		return DATALOADER_C_OnlineTrxHistory_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_OnlineTrxHistory_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_OnlineTrxHistory_BY_UUID;
 	}
 }

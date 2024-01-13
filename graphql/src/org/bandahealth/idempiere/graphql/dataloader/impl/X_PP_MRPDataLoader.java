@@ -9,8 +9,8 @@ import org.eevolution.model.X_PP_MRP;
  * @version Release 8.2 - $Id$
  */
 public class X_PP_MRPDataLoader extends PODataLoader<X_PP_MRP> {
-	public static String PP_MRP_BY_ID_DATA_LOADER = "PP_MRPByIdDataLoader";
-	public static String PP_MRP_BY_UUID_DATA_LOADER = "PP_MRPByUuidDataLoader";
+	public static String DATALOADER_PP_MRP_BY_ID = "PP_MRPByIdDataLoader";
+	public static String DATALOADER_PP_MRP_BY_UUID = "PP_MRPByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_PP_MRPDataLoader extends PODataLoader<X_PP_MRP> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return PP_MRP_BY_ID_DATA_LOADER;
+		return DATALOADER_PP_MRP_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return PP_MRP_BY_UUID_DATA_LOADER;
+		return DATALOADER_PP_MRP_BY_UUID;
 	}
 }

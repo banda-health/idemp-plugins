@@ -36,9 +36,9 @@ type M_DistributionListLine {
 	M_DistributionList: M_DistributionList!
 	ID: ID!
 	# Minimum quantity for the business partner
-	MinQty: Int!
+	MinQty: BigDecimal!
 	# Relative Ratio for Distributions
-	Ratio: Int
+	Ratio: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -60,7 +60,7 @@ input M_DistributionListLineInput {
 	M_DistributionList: ForeignEntityInput
 	ID: ID
 	# Minimum quantity for the business partner
-	MinQty: Int
+	MinQty: BigDecimal
 	# Relative Ratio for Distributions
-	Ratio: Int
+	Ratio: BigDecimal
 }

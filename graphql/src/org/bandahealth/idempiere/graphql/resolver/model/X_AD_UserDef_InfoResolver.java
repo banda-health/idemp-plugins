@@ -38,7 +38,7 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoWindowDataLoader.AD_InfoWindow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoWindowDataLoader.DATALOADER_AD_InfoWindow_BY_ID);
 		return dataLoader.load(entity.getAD_InfoWindow_ID());
 	}
 
@@ -167,7 +167,7 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 			return null;
 		}
 		DataLoader<Integer, MLanguage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.AD_Language_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.DATALOADER_AD_Language_BY_ID);
 		return dataLoader.load(AD_LANGUAGE_IDS_BY_LANGUAGE.get(entity.getAD_Language()));
 	}
 
@@ -182,7 +182,7 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 
@@ -197,7 +197,7 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 

@@ -33,7 +33,7 @@ public class X_B_BidResolver extends POResolver<X_B_Bid> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_B_BidResolver extends POResolver<X_B_Bid> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, X_B_BuyerFunds> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_B_BuyerFundsDataLoader.B_BuyerFunds_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_B_BuyerFundsDataLoader.DATALOADER_B_BuyerFunds_BY_ID);
 		return dataLoader.load(entity.getB_BuyerFunds_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_B_BidResolver extends POResolver<X_B_Bid> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, X_B_Topic> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_B_TopicDataLoader.B_Topic_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_B_TopicDataLoader.DATALOADER_B_Topic_BY_ID);
 		return dataLoader.load(entity.getB_Topic_ID());
 	}
 

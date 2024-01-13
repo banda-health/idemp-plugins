@@ -9,8 +9,8 @@ import org.compiere.model.MMailText;
  * @version Release 8.2 - $Id$
  */
 public class X_R_MailTextDataLoader extends PODataLoader<MMailText> {
-	public static String R_MailText_BY_ID_DATA_LOADER = "R_MailTextByIdDataLoader";
-	public static String R_MailText_BY_UUID_DATA_LOADER = "R_MailTextByUuidDataLoader";
+	public static String DATALOADER_R_MailText_BY_ID = "R_MailTextByIdDataLoader";
+	public static String DATALOADER_R_MailText_BY_UUID = "R_MailTextByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_R_MailTextDataLoader extends PODataLoader<MMailText> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return R_MailText_BY_ID_DATA_LOADER;
+		return DATALOADER_R_MailText_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return R_MailText_BY_UUID_DATA_LOADER;
+		return DATALOADER_R_MailText_BY_UUID;
 	}
 }

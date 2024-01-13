@@ -9,8 +9,8 @@ import org.compiere.model.MReplicationStrategy;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ReplicationStrategyDataLoader extends PODataLoader<MReplicationStrategy> {
-	public static String AD_ReplicationStrategy_BY_ID_DATA_LOADER = "AD_ReplicationStrategyByIdDataLoader";
-	public static String AD_ReplicationStrategy_BY_UUID_DATA_LOADER = "AD_ReplicationStrategyByUuidDataLoader";
+	public static String DATALOADER_AD_ReplicationStrategy_BY_ID = "AD_ReplicationStrategyByIdDataLoader";
+	public static String DATALOADER_AD_ReplicationStrategy_BY_UUID = "AD_ReplicationStrategyByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ReplicationStrategyDataLoader extends PODataLoader<MReplicatio
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_ReplicationStrategy_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_ReplicationStrategy_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_ReplicationStrategy_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_ReplicationStrategy_BY_UUID;
 	}
 }

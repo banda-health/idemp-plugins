@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_PrintFormat;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_PrintFormatDataLoader extends PODataLoader<X_AD_PrintFormat> {
-	public static String AD_PrintFormat_BY_ID_DATA_LOADER = "AD_PrintFormatByIdDataLoader";
-	public static String AD_PrintFormat_BY_UUID_DATA_LOADER = "AD_PrintFormatByUuidDataLoader";
+	public static String DATALOADER_AD_PrintFormat_BY_ID = "AD_PrintFormatByIdDataLoader";
+	public static String DATALOADER_AD_PrintFormat_BY_UUID = "AD_PrintFormatByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_PrintFormatDataLoader extends PODataLoader<X_AD_PrintFormat> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_PrintFormat_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_PrintFormat_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_PrintFormat_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_PrintFormat_BY_UUID;
 	}
 }

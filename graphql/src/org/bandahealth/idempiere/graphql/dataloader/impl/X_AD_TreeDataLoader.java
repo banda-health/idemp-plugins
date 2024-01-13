@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MTree_BH;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_TreeDataLoader extends PODataLoader<MTree_BH> {
-	public static String AD_Tree_BY_ID_DATA_LOADER = "AD_TreeByIdDataLoader";
-	public static String AD_Tree_BY_UUID_DATA_LOADER = "AD_TreeByUuidDataLoader";
+	public static String DATALOADER_AD_Tree_BY_ID = "AD_TreeByIdDataLoader";
+	public static String DATALOADER_AD_Tree_BY_UUID = "AD_TreeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_TreeDataLoader extends PODataLoader<MTree_BH> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Tree_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Tree_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Tree_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Tree_BY_UUID;
 	}
 }

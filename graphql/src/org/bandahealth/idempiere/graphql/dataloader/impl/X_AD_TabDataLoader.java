@@ -9,8 +9,8 @@ import org.compiere.model.MTab;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_TabDataLoader extends PODataLoader<MTab> {
-	public static String AD_Tab_BY_ID_DATA_LOADER = "AD_TabByIdDataLoader";
-	public static String AD_Tab_BY_UUID_DATA_LOADER = "AD_TabByUuidDataLoader";
+	public static String DATALOADER_AD_Tab_BY_ID = "AD_TabByIdDataLoader";
+	public static String DATALOADER_AD_Tab_BY_UUID = "AD_TabByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_TabDataLoader extends PODataLoader<MTab> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Tab_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Tab_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Tab_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Tab_BY_UUID;
 	}
 }

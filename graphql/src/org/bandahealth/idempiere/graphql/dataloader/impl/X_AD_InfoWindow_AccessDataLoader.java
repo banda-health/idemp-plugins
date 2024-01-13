@@ -9,8 +9,8 @@ import org.compiere.model.MInfoWindowAccess;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_InfoWindow_AccessDataLoader extends PODataLoader<MInfoWindowAccess> {
-	public static String AD_InfoWindow_Access_BY_ID_DATA_LOADER = "AD_InfoWindow_AccessByIdDataLoader";
-	public static String AD_InfoWindow_Access_BY_UUID_DATA_LOADER = "AD_InfoWindow_AccessByUuidDataLoader";
+	public static String DATALOADER_AD_InfoWindow_Access_BY_ID = "AD_InfoWindow_AccessByIdDataLoader";
+	public static String DATALOADER_AD_InfoWindow_Access_BY_UUID = "AD_InfoWindow_AccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_InfoWindow_AccessDataLoader extends PODataLoader<MInfoWindowAc
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_InfoWindow_Access_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_InfoWindow_Access_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_InfoWindow_Access_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_InfoWindow_Access_BY_UUID;
 	}
 }

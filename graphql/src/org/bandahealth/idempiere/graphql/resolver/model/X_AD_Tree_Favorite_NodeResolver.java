@@ -32,7 +32,7 @@ public class X_AD_Tree_Favorite_NodeResolver extends POResolver<MTreeFavoriteNod
 			return null;
 		}
 		DataLoader<Integer, MMenu_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_MenuDataLoader.AD_Menu_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_MenuDataLoader.DATALOADER_AD_Menu_BY_ID);
 		return dataLoader.load(entity.getAD_Menu_ID());
 	}
 
@@ -47,7 +47,7 @@ public class X_AD_Tree_Favorite_NodeResolver extends POResolver<MTreeFavoriteNod
 			return null;
 		}
 		DataLoader<Integer, MTreeFavorite> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Tree_FavoriteDataLoader.AD_Tree_Favorite_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Tree_FavoriteDataLoader.DATALOADER_AD_Tree_Favorite_BY_ID);
 		return dataLoader.load(entity.getAD_Tree_Favorite_ID());
 	}
 
@@ -74,7 +74,7 @@ public class X_AD_Tree_Favorite_NodeResolver extends POResolver<MTreeFavoriteNod
 			return null;
 		}
 		DataLoader<Integer, MTreeFavoriteNode> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Tree_Favorite_NodeDataLoader.AD_Tree_Favorite_Node_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Tree_Favorite_NodeDataLoader.DATALOADER_AD_Tree_Favorite_Node_BY_ID);
 		return dataLoader.load(entity.getParent_ID());
 	}
 

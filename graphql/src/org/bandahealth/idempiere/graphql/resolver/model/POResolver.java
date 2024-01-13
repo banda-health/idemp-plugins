@@ -25,7 +25,7 @@ public class POResolver<T extends PO> {
 	 */
 	public CompletableFuture<MClient_BH> AD_Client(T entity, DataFetchingEnvironment environment) {
 		final DataLoader<Integer, MClient_BH> clientDataloader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ClientDataLoader.AD_Client_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ClientDataLoader.DATALOADER_AD_Client_BY_ID);
 		return clientDataloader.load(entity.getAD_Client_ID());
 	}
 
@@ -58,7 +58,7 @@ public class POResolver<T extends PO> {
 	 */
 	public CompletableFuture<MOrg> AD_Org(T entity, DataFetchingEnvironment environment) {
 		final DataLoader<Integer, MOrg> organizationDataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_OrgDataLoader.AD_Org_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_OrgDataLoader.DATALOADER_AD_Org_BY_ID);
 		return organizationDataLoader.load(entity.getAD_Org_ID());
 	}
 
@@ -71,7 +71,7 @@ public class POResolver<T extends PO> {
 	 */
 	public CompletableFuture<MUser_BH> CreatedBy(T entity, DataFetchingEnvironment environment) {
 		final DataLoader<Integer, MUser_BH> userDataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return userDataLoader.load(entity.getCreatedBy());
 	}
 
@@ -84,7 +84,7 @@ public class POResolver<T extends PO> {
 	 */
 	public CompletableFuture<MUser_BH> UpdatedBy(T entity, DataFetchingEnvironment environment) {
 		final DataLoader<Integer, MUser_BH> userDataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.AD_User_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return userDataLoader.load(entity.getUpdatedBy());
 	}
 }

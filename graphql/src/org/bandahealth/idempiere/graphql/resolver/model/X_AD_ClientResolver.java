@@ -152,7 +152,7 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MLanguage> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.AD_Language_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_LanguageDataLoader.DATALOADER_AD_Language_BY_ID);
 		return dataLoader.load(AD_LANGUAGE_IDS_BY_LANGUAGE.get(entity.getAD_Language()));
 	}
 
@@ -167,7 +167,7 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MPasswordRule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PasswordRuleDataLoader.AD_PasswordRule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PasswordRuleDataLoader.DATALOADER_AD_PasswordRule_BY_ID);
 		return dataLoader.load(entity.getAD_PasswordRule_ID());
 	}
 
@@ -182,7 +182,7 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 			return null;
 		}
 		DataLoader<Integer, MReplicationStrategy> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReplicationStrategyDataLoader.AD_ReplicationStrategy_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReplicationStrategyDataLoader.DATALOADER_AD_ReplicationStrategy_BY_ID);
 		return dataLoader.load(entity.getAD_ReplicationStrategy_ID());
 	}
 
@@ -199,7 +199,7 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(AUTOARCHIVE_UUIDS_BY_VALUE.get(entity.getAutoArchive()));
 	}
 
@@ -238,7 +238,7 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(MMPOLICY_UUIDS_BY_VALUE.get(entity.getMMPolicy()));
 	}
 

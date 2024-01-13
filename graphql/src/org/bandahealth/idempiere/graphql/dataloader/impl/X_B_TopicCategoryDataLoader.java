@@ -9,8 +9,8 @@ import org.compiere.model.X_B_TopicCategory;
  * @version Release 8.2 - $Id$
  */
 public class X_B_TopicCategoryDataLoader extends PODataLoader<X_B_TopicCategory> {
-	public static String B_TopicCategory_BY_ID_DATA_LOADER = "B_TopicCategoryByIdDataLoader";
-	public static String B_TopicCategory_BY_UUID_DATA_LOADER = "B_TopicCategoryByUuidDataLoader";
+	public static String DATALOADER_B_TopicCategory_BY_ID = "B_TopicCategoryByIdDataLoader";
+	public static String DATALOADER_B_TopicCategory_BY_UUID = "B_TopicCategoryByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_B_TopicCategoryDataLoader extends PODataLoader<X_B_TopicCategory>
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return B_TopicCategory_BY_ID_DATA_LOADER;
+		return DATALOADER_B_TopicCategory_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return B_TopicCategory_BY_UUID_DATA_LOADER;
+		return DATALOADER_B_TopicCategory_BY_UUID;
 	}
 }

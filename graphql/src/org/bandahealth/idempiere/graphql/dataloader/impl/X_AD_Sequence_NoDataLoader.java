@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_Sequence_No;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_Sequence_NoDataLoader extends PODataLoader<X_AD_Sequence_No> {
-	public static String AD_Sequence_No_BY_ID_DATA_LOADER = "AD_Sequence_NoByIdDataLoader";
-	public static String AD_Sequence_No_BY_UUID_DATA_LOADER = "AD_Sequence_NoByUuidDataLoader";
+	public static String DATALOADER_AD_Sequence_No_BY_ID = "AD_Sequence_NoByIdDataLoader";
+	public static String DATALOADER_AD_Sequence_No_BY_UUID = "AD_Sequence_NoByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_Sequence_NoDataLoader extends PODataLoader<X_AD_Sequence_No> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_Sequence_No_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_Sequence_No_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_Sequence_No_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_Sequence_No_BY_UUID;
 	}
 }

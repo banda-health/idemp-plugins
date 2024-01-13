@@ -64,7 +64,7 @@ type C_BankAccount_Processor {
 	IsPPAcceptMC: Boolean!
 	IsPPAcceptVisa: Boolean!
 	# Minimum Amount in Document Currency
-	MinimumAmt: Int
+	MinimumAmt: BigDecimal
 	# Partner ID or Account for the Payment Processor
 	PartnerID: String
 	# Password of any length (case sensitive)
@@ -114,7 +114,7 @@ input C_BankAccount_ProcessorInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Minimum Amount in Document Currency
-	MinimumAmt: Int
+	MinimumAmt: BigDecimal
 	# Partner ID or Account for the Payment Processor
 	PartnerID: String
 	# Password of any length (case sensitive)

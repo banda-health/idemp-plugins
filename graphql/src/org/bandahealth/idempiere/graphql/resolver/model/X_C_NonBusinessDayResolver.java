@@ -31,7 +31,7 @@ public class X_C_NonBusinessDayResolver extends POResolver<X_C_NonBusinessDay> i
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CalendarDataLoader.C_Calendar_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CalendarDataLoader.DATALOADER_C_Calendar_BY_ID);
 		return dataLoader.load(entity.getC_Calendar_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_NonBusinessDayResolver extends POResolver<X_C_NonBusinessDay> i
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.C_Country_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.DATALOADER_C_Country_BY_ID);
 		return dataLoader.load(entity.getC_Country_ID());
 	}
 

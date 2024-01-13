@@ -33,7 +33,7 @@ public class X_GL_JournalGeneratorSourceResolver extends POResolver<MJournalGene
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.C_ElementValue_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_ElementValueDataLoader.DATALOADER_C_ElementValue_BY_ID);
 		return dataLoader.load(entity.getC_ElementValue_ID());
 	}
 
@@ -48,7 +48,7 @@ public class X_GL_JournalGeneratorSourceResolver extends POResolver<MJournalGene
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_CategoryDataLoader.GL_Category_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_CategoryDataLoader.DATALOADER_GL_Category_BY_ID);
 		return dataLoader.load(entity.getGL_Category_ID());
 	}
 
@@ -63,7 +63,7 @@ public class X_GL_JournalGeneratorSourceResolver extends POResolver<MJournalGene
 			return null;
 		}
 		DataLoader<Integer, MJournalGeneratorLine> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalGeneratorLineDataLoader.GL_JournalGeneratorLine_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_GL_JournalGeneratorLineDataLoader.DATALOADER_GL_JournalGeneratorLine_BY_ID);
 		return dataLoader.load(entity.getGL_JournalGeneratorLine_ID());
 	}
 

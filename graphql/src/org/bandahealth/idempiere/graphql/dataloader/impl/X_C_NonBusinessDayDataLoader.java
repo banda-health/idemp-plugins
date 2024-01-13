@@ -9,8 +9,8 @@ import org.compiere.model.X_C_NonBusinessDay;
  * @version Release 8.2 - $Id$
  */
 public class X_C_NonBusinessDayDataLoader extends PODataLoader<X_C_NonBusinessDay> {
-	public static String C_NonBusinessDay_BY_ID_DATA_LOADER = "C_NonBusinessDayByIdDataLoader";
-	public static String C_NonBusinessDay_BY_UUID_DATA_LOADER = "C_NonBusinessDayByUuidDataLoader";
+	public static String DATALOADER_C_NonBusinessDay_BY_ID = "C_NonBusinessDayByIdDataLoader";
+	public static String DATALOADER_C_NonBusinessDay_BY_UUID = "C_NonBusinessDayByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_NonBusinessDayDataLoader extends PODataLoader<X_C_NonBusinessDa
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_NonBusinessDay_BY_ID_DATA_LOADER;
+		return DATALOADER_C_NonBusinessDay_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_NonBusinessDay_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_NonBusinessDay_BY_UUID;
 	}
 }

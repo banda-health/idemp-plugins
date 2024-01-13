@@ -9,8 +9,8 @@ import org.compiere.model.MEntityType;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_EntityTypeDataLoader extends PODataLoader<MEntityType> {
-	public static String AD_EntityType_BY_ID_DATA_LOADER = "AD_EntityTypeByIdDataLoader";
-	public static String AD_EntityType_BY_UUID_DATA_LOADER = "AD_EntityTypeByUuidDataLoader";
+	public static String DATALOADER_AD_EntityType_BY_ID = "AD_EntityTypeByIdDataLoader";
+	public static String DATALOADER_AD_EntityType_BY_UUID = "AD_EntityTypeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_EntityTypeDataLoader extends PODataLoader<MEntityType> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_EntityType_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_EntityType_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_EntityType_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_EntityType_BY_UUID;
 	}
 }

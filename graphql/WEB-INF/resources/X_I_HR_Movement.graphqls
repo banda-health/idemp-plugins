@@ -21,7 +21,7 @@ type I_HR_Movement {
 	# Organizational entity within client
 	AD_Org: AD_Org
 	# Amount in a defined currency
-	Amount: Int
+	Amount: BigDecimal
 	# The Key of the Business Partner
 	BPartner_Value: String
 	# Identifies a Business Partner
@@ -50,7 +50,7 @@ type I_HR_Movement {
 	# Name of the Process
 	ProcessName: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Date service was provided
 	ServiceDate: Date
 	# Text Message
@@ -67,7 +67,7 @@ input I_HR_MovementInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Amount in a defined currency
-	Amount: Int
+	Amount: BigDecimal
 	# The Key of the Business Partner
 	BPartner_Value: String
 	# Identifies a Business Partner
@@ -92,7 +92,7 @@ input I_HR_MovementInput {
 	# Name of the Process
 	ProcessName: String
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Date service was provided
 	ServiceDate: Date
 	# Text Message

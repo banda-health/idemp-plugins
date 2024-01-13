@@ -43,7 +43,7 @@ public class X_AD_PrintLabelLineResolver extends POResolver<X_AD_PrintLabelLine>
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.AD_Column_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
 	}
 
@@ -58,7 +58,7 @@ public class X_AD_PrintLabelLineResolver extends POResolver<X_AD_PrintLabelLine>
 			return null;
 		}
 		DataLoader<Integer, X_AD_LabelPrinterFunction> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_LabelPrinterFunctionDataLoader.AD_LabelPrinterFunction_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_LabelPrinterFunctionDataLoader.DATALOADER_AD_LabelPrinterFunction_BY_ID);
 		return dataLoader.load(entity.getAD_LabelPrinterFunction_ID());
 	}
 
@@ -73,7 +73,7 @@ public class X_AD_PrintLabelLineResolver extends POResolver<X_AD_PrintLabelLine>
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintLabel> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintLabelDataLoader.AD_PrintLabel_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintLabelDataLoader.DATALOADER_AD_PrintLabel_BY_ID);
 		return dataLoader.load(entity.getAD_PrintLabel_ID());
 	}
 
@@ -88,7 +88,7 @@ public class X_AD_PrintLabelLineResolver extends POResolver<X_AD_PrintLabelLine>
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(LABELFORMATTYPE_UUIDS_BY_VALUE.get(entity.getLabelFormatType()));
 	}
 
@@ -102,7 +102,7 @@ public class X_AD_PrintLabelLineResolver extends POResolver<X_AD_PrintLabelLine>
 			return CompletableFuture.supplyAsync(entity::getPrintName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(X_AD_PrintLabelLine_TrlDataLoader.AD_PrintLabelLine_Trl_BY_ID_DATA_LOADER);
+				.getDataLoader(X_AD_PrintLabelLine_TrlDataLoader.DATALOADER_AD_PrintLabelLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintLabelLine.COLUMNNAME_PrintName));
 	}

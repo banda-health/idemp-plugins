@@ -9,8 +9,8 @@ import org.compiere.model.X_AD_ReportView_Col;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_ReportView_ColDataLoader extends PODataLoader<X_AD_ReportView_Col> {
-	public static String AD_ReportView_Col_BY_ID_DATA_LOADER = "AD_ReportView_ColByIdDataLoader";
-	public static String AD_ReportView_Col_BY_UUID_DATA_LOADER = "AD_ReportView_ColByUuidDataLoader";
+	public static String DATALOADER_AD_ReportView_Col_BY_ID = "AD_ReportView_ColByIdDataLoader";
+	public static String DATALOADER_AD_ReportView_Col_BY_UUID = "AD_ReportView_ColByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_ReportView_ColDataLoader extends PODataLoader<X_AD_ReportView_
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_ReportView_Col_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_ReportView_Col_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_ReportView_Col_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_ReportView_Col_BY_UUID;
 	}
 }

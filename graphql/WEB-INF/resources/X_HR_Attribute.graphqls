@@ -22,7 +22,7 @@ type HR_Attribute {
 	AD_Org: AD_Org!
 	AD_Rule: AD_Rule
 	# Amount in a defined currency
-	Amount: Int
+	Amount: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	ColumnType: AD_Ref_List
@@ -46,7 +46,7 @@ type HR_Attribute {
 	MaxValue: Int
 	MinValue: Int
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Date service was provided
 	ServiceDate: Date
 	# Text Message
@@ -66,7 +66,7 @@ input HR_AttributeInput {
 	AD_Org: ForeignEntityInput
 	AD_Rule: ForeignEntityInput
 	# Amount in a defined currency
-	Amount: Int
+	Amount: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	ColumnType: AD_Ref_ListInput
@@ -86,7 +86,7 @@ input HR_AttributeInput {
 	MaxValue: Int
 	MinValue: Int
 	# Quantity
-	Qty: Int
+	Qty: BigDecimal
 	# Date service was provided
 	ServiceDate: Date
 	# Text Message

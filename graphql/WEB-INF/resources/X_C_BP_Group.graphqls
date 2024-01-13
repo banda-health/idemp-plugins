@@ -34,7 +34,7 @@ type C_BP_Group {
 	# User who created this records
 	CreatedBy: AD_User!
 	# Credit Watch - Percent of Credit Limit when OK switches to Watch
-	CreditWatchPercent: Int
+	CreditWatchPercent: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -54,7 +54,7 @@ type C_BP_Group {
 	# Price List used by this Business Partner
 	PO_PriceList: M_PriceList
 	# PO-Invoice Match Price Tolerance in percent of the purchase price
-	PriceMatchTolerance: Int
+	PriceMatchTolerance: BigDecimal
 	# Base of Priority
 	PriorityBase: AD_Ref_List
 	# Date this record was updated
@@ -78,7 +78,7 @@ input C_BP_GroupInput {
 	# Dunning Rules for overdue invoices
 	C_Dunning: ForeignEntityInput
 	# Credit Watch - Percent of Credit Limit when OK switches to Watch
-	CreditWatchPercent: Int
+	CreditWatchPercent: BigDecimal
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
@@ -98,7 +98,7 @@ input C_BP_GroupInput {
 	# Price List used by this Business Partner
 	PO_PriceList: ForeignEntityInput
 	# PO-Invoice Match Price Tolerance in percent of the purchase price
-	PriceMatchTolerance: Int
+	PriceMatchTolerance: BigDecimal
 	# Base of Priority
 	PriorityBase: AD_Ref_ListInput
 	# Search key for the record in the format required - must be unique

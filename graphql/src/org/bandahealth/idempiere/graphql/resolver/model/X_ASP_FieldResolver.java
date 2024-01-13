@@ -36,7 +36,7 @@ public class X_ASP_FieldResolver extends POResolver<X_ASP_Field> implements Grap
 			return null;
 		}
 		DataLoader<Integer, MField_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.AD_Field_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.DATALOADER_AD_Field_BY_ID);
 		return dataLoader.load(entity.getAD_Field_ID());
 	}
 
@@ -52,7 +52,7 @@ public class X_ASP_FieldResolver extends POResolver<X_ASP_Field> implements Grap
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(ASP_STATUS_UUIDS_BY_VALUE.get(entity.getASP_Status()));
 	}
 
@@ -67,7 +67,7 @@ public class X_ASP_FieldResolver extends POResolver<X_ASP_Field> implements Grap
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Tab> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_ASP_TabDataLoader.ASP_Tab_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_ASP_TabDataLoader.DATALOADER_ASP_Tab_BY_ID);
 		return dataLoader.load(entity.getASP_Tab_ID());
 	}
 

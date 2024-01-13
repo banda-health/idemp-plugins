@@ -9,8 +9,8 @@ import org.compiere.model.MProjectTypePhase;
  * @version Release 8.2 - $Id$
  */
 public class X_C_PhaseDataLoader extends PODataLoader<MProjectTypePhase> {
-	public static String C_Phase_BY_ID_DATA_LOADER = "C_PhaseByIdDataLoader";
-	public static String C_Phase_BY_UUID_DATA_LOADER = "C_PhaseByUuidDataLoader";
+	public static String DATALOADER_C_Phase_BY_ID = "C_PhaseByIdDataLoader";
+	public static String DATALOADER_C_Phase_BY_UUID = "C_PhaseByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_PhaseDataLoader extends PODataLoader<MProjectTypePhase> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_Phase_BY_ID_DATA_LOADER;
+		return DATALOADER_C_Phase_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_Phase_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_Phase_BY_UUID;
 	}
 }

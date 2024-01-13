@@ -25,13 +25,13 @@ type T_InventoryValue {
 	# The Currency for this record
 	C_Currency: C_Currency
 	# Cost information
-	Cost: Int
+	Cost: BigDecimal
 	# Value with Cost
-	CostAmt: Int
+	CostAmt: BigDecimal
 	# Standard Costs
-	CostStandard: Int
+	CostStandard: BigDecimal
 	# Value in Standard Costs
-	CostStandardAmt: Int
+	CostStandardAmt: BigDecimal
 	# Date of valuation
 	DateValue: Date
 	# Product Attribute Set Instance
@@ -45,23 +45,23 @@ type T_InventoryValue {
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Lowest price for a product
-	PriceLimit: Int
+	PriceLimit: BigDecimal
 	# Value with limit price
-	PriceLimitAmt: Int
+	PriceLimitAmt: BigDecimal
 	# List Price
-	PriceList: Int
+	PriceList: BigDecimal
 	# Valuation with List Price
-	PriceListAmt: Int
+	PriceListAmt: BigDecimal
 	# Price based on a purchase order
-	PricePO: Int
+	PricePO: BigDecimal
 	# Valuation with PO Price
-	PricePOAmt: Int
+	PricePOAmt: BigDecimal
 	# Standard Price
-	PriceStd: Int
+	PriceStd: BigDecimal
 	# Valuation with standard price
-	PriceStdAmt: Int
+	PriceStdAmt: BigDecimal
 	# On Hand Quantity
-	QtyOnHand: Int
+	QtyOnHand: BigDecimal
 	ID: ID!
 }
 
@@ -73,13 +73,13 @@ input T_InventoryValueInput {
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Cost information
-	Cost: Int
+	Cost: BigDecimal
 	# Value with Cost
-	CostAmt: Int
+	CostAmt: BigDecimal
 	# Standard Costs
-	CostStandard: Int
+	CostStandard: BigDecimal
 	# Value in Standard Costs
-	CostStandardAmt: Int
+	CostStandardAmt: BigDecimal
 	# Date of valuation
 	DateValue: Date
 	# Product Attribute Set Instance
@@ -93,22 +93,22 @@ input T_InventoryValueInput {
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Lowest price for a product
-	PriceLimit: Int
+	PriceLimit: BigDecimal
 	# Value with limit price
-	PriceLimitAmt: Int
+	PriceLimitAmt: BigDecimal
 	# List Price
-	PriceList: Int
+	PriceList: BigDecimal
 	# Valuation with List Price
-	PriceListAmt: Int
+	PriceListAmt: BigDecimal
 	# Price based on a purchase order
-	PricePO: Int
+	PricePO: BigDecimal
 	# Valuation with PO Price
-	PricePOAmt: Int
+	PricePOAmt: BigDecimal
 	# Standard Price
-	PriceStd: Int
+	PriceStd: BigDecimal
 	# Valuation with standard price
-	PriceStdAmt: Int
+	PriceStdAmt: BigDecimal
 	# On Hand Quantity
-	QtyOnHand: Int
+	QtyOnHand: BigDecimal
 	ID: ID
 }

@@ -9,8 +9,8 @@ import org.compiere.model.MIndexColumn;
  * @version Release 8.2 - $Id$
  */
 public class X_AD_IndexColumnDataLoader extends PODataLoader<MIndexColumn> {
-	public static String AD_IndexColumn_BY_ID_DATA_LOADER = "AD_IndexColumnByIdDataLoader";
-	public static String AD_IndexColumn_BY_UUID_DATA_LOADER = "AD_IndexColumnByUuidDataLoader";
+	public static String DATALOADER_AD_IndexColumn_BY_ID = "AD_IndexColumnByIdDataLoader";
+	public static String DATALOADER_AD_IndexColumn_BY_UUID = "AD_IndexColumnByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_AD_IndexColumnDataLoader extends PODataLoader<MIndexColumn> {
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return AD_IndexColumn_BY_ID_DATA_LOADER;
+		return DATALOADER_AD_IndexColumn_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return AD_IndexColumn_BY_UUID_DATA_LOADER;
+		return DATALOADER_AD_IndexColumn_BY_UUID;
 	}
 }

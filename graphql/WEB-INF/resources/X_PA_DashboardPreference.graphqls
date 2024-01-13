@@ -37,7 +37,7 @@ type PA_DashboardPreference {
 	# Show the dashlet in the dashboard
 	IsShowInDashboard: Boolean!
 	# Unique line for this document
-	Line: Int
+	Line: BigDecimal
 	PA_DashboardContent: PA_DashboardContent!
 	ID: ID!
 	# Date this record was updated
@@ -62,7 +62,7 @@ input PA_DashboardPreferenceInput {
 	# Show the dashlet in the dashboard
 	IsShowInDashboard: Boolean
 	# Unique line for this document
-	Line: Int
+	Line: BigDecimal
 	PA_DashboardContent: ForeignEntityInput
 	ID: ID
 }

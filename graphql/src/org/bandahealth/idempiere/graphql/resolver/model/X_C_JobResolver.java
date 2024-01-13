@@ -29,7 +29,7 @@ public class X_C_JobResolver extends POResolver<X_C_Job> implements GraphQLResol
 			return null;
 		}
 		DataLoader<Integer, X_C_JobCategory> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_JobCategoryDataLoader.C_JobCategory_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_JobCategoryDataLoader.DATALOADER_C_JobCategory_BY_ID);
 		return dataLoader.load(entity.getC_JobCategory_ID());
 	}
 

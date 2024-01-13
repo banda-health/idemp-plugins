@@ -43,7 +43,7 @@ public class X_M_BOMResolver extends POResolver<MBOM> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BOMTYPE_UUIDS_BY_VALUE.get(entity.getBOMType()));
 	}
 
@@ -61,7 +61,7 @@ public class X_M_BOMResolver extends POResolver<MBOM> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(BOMUSE_UUIDS_BY_VALUE.get(entity.getBOMUse()));
 	}
 
@@ -76,7 +76,7 @@ public class X_M_BOMResolver extends POResolver<MBOM> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.M_ChangeNotice_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ChangeNoticeDataLoader.DATALOADER_M_ChangeNotice_BY_ID);
 		return dataLoader.load(entity.getM_ChangeNotice_ID());
 	}
 
@@ -91,7 +91,7 @@ public class X_M_BOMResolver extends POResolver<MBOM> implements GraphQLResolver
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.M_Product_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 

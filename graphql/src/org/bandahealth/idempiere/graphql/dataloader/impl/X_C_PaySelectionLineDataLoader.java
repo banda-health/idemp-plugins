@@ -9,8 +9,8 @@ import org.compiere.model.MPaySelectionLine;
  * @version Release 8.2 - $Id$
  */
 public class X_C_PaySelectionLineDataLoader extends PODataLoader<MPaySelectionLine> {
-	public static String C_PaySelectionLine_BY_ID_DATA_LOADER = "C_PaySelectionLineByIdDataLoader";
-	public static String C_PaySelectionLine_BY_UUID_DATA_LOADER = "C_PaySelectionLineByUuidDataLoader";
+	public static String DATALOADER_C_PaySelectionLine_BY_ID = "C_PaySelectionLineByIdDataLoader";
+	public static String DATALOADER_C_PaySelectionLine_BY_UUID = "C_PaySelectionLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_C_PaySelectionLineDataLoader extends PODataLoader<MPaySelectionLi
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return C_PaySelectionLine_BY_ID_DATA_LOADER;
+		return DATALOADER_C_PaySelectionLine_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return C_PaySelectionLine_BY_UUID_DATA_LOADER;
+		return DATALOADER_C_PaySelectionLine_BY_UUID;
 	}
 }

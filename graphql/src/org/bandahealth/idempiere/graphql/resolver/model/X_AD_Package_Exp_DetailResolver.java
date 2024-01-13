@@ -68,7 +68,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MEntityType> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.AD_EntityType_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(entity.getAD_EntityType_ID());
 	}
 
@@ -83,7 +83,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_FormDataLoader.AD_Form_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FormDataLoader.DATALOADER_AD_Form_BY_ID);
 		return dataLoader.load(entity.getAD_Form_ID());
 	}
 
@@ -98,7 +98,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, X_AD_ImpFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImpFormatDataLoader.AD_ImpFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImpFormatDataLoader.DATALOADER_AD_ImpFormat_BY_ID);
 		return dataLoader.load(entity.getAD_ImpFormat_ID());
 	}
 
@@ -113,7 +113,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoWindowDataLoader.AD_InfoWindow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoWindowDataLoader.DATALOADER_AD_InfoWindow_BY_ID);
 		return dataLoader.load(entity.getAD_InfoWindow_ID());
 	}
 
@@ -128,7 +128,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MMenu_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_MenuDataLoader.AD_Menu_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_MenuDataLoader.DATALOADER_AD_Menu_BY_ID);
 		return dataLoader.load(entity.getAD_Menu_ID());
 	}
 
@@ -143,7 +143,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MMessage_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_MessageDataLoader.AD_Message_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_MessageDataLoader.DATALOADER_AD_Message_BY_ID);
 		return dataLoader.load(entity.getAD_Message_ID());
 	}
 
@@ -158,7 +158,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, X_AD_ModelValidator> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ModelValidatorDataLoader.AD_ModelValidator_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ModelValidatorDataLoader.DATALOADER_AD_ModelValidator_BY_ID);
 		return dataLoader.load(entity.getAD_ModelValidator_ID());
 	}
 
@@ -173,7 +173,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MPackageExp> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Package_ExpDataLoader.AD_Package_Exp_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Package_ExpDataLoader.DATALOADER_AD_Package_Exp_BY_ID);
 		return dataLoader.load(entity.getAD_Package_Exp_ID());
 	}
 
@@ -188,7 +188,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.AD_PrintFormat_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFormat_ID());
 	}
 
@@ -203,7 +203,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.AD_Process_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ProcessDataLoader.DATALOADER_AD_Process_BY_ID);
 		return dataLoader.load(entity.getAD_Process_ID());
 	}
 
@@ -218,7 +218,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.AD_Reference_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_ID());
 	}
 
@@ -233,7 +233,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MReportView> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReportViewDataLoader.AD_ReportView_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReportViewDataLoader.DATALOADER_AD_ReportView_BY_ID);
 		return dataLoader.load(entity.getAD_ReportView_ID());
 	}
 
@@ -248,7 +248,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.AD_Role_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
 	}
 
@@ -263,7 +263,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.AD_Table_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
 
@@ -278,7 +278,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.AD_Val_Rule_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
 	}
 
@@ -293,7 +293,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.AD_Window_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
 		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
@@ -308,7 +308,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workbench> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkbenchDataLoader.AD_Workbench_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkbenchDataLoader.DATALOADER_AD_Workbench_BY_ID);
 		return dataLoader.load(entity.getAD_Workbench_ID());
 	}
 
@@ -323,7 +323,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.AD_Workflow_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkflowDataLoader.DATALOADER_AD_Workflow_BY_ID);
 		return dataLoader.load(entity.getAD_Workflow_ID());
 	}
 
@@ -344,7 +344,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(DBTYPE_UUIDS_BY_VALUE.get(entity.getDBType()));
 	}
 
@@ -376,7 +376,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(RELEASENO_UUIDS_BY_VALUE.get(entity.getReleaseNo()));
 	}
 
@@ -412,7 +412,7 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.AD_Ref_List_BY_UUID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
 		return dataLoader.load(TYPE_UUIDS_BY_VALUE.get(entity.getType()));
 	}
 

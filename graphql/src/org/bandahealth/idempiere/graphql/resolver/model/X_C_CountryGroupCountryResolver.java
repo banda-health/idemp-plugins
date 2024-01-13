@@ -31,7 +31,7 @@ public class X_C_CountryGroupCountryResolver extends POResolver<MCountryGroupCou
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.C_Country_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryDataLoader.DATALOADER_C_Country_BY_ID);
 		return dataLoader.load(entity.getC_Country_ID());
 	}
 
@@ -46,7 +46,7 @@ public class X_C_CountryGroupCountryResolver extends POResolver<MCountryGroupCou
 			return null;
 		}
 		DataLoader<Integer, MCountryGroup> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryGroupDataLoader.C_CountryGroup_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_CountryGroupDataLoader.DATALOADER_C_CountryGroup_BY_ID);
 		return dataLoader.load(entity.getC_CountryGroup_ID());
 	}
 

@@ -29,7 +29,7 @@ public class X_C_AcctProcessorLogResolver extends POResolver<MAcctProcessorLog> 
 			return null;
 		}
 		DataLoader<Integer, MAcctProcessor> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctProcessorDataLoader.C_AcctProcessor_BY_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(X_C_AcctProcessorDataLoader.DATALOADER_C_AcctProcessor_BY_ID);
 		return dataLoader.load(entity.getC_AcctProcessor_ID());
 	}
 

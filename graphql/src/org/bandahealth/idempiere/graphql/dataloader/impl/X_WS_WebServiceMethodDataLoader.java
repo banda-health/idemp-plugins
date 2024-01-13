@@ -9,8 +9,8 @@ import org.compiere.model.X_WS_WebServiceMethod;
  * @version Release 8.2 - $Id$
  */
 public class X_WS_WebServiceMethodDataLoader extends PODataLoader<X_WS_WebServiceMethod> {
-	public static String WS_WebServiceMethod_BY_ID_DATA_LOADER = "WS_WebServiceMethodByIdDataLoader";
-	public static String WS_WebServiceMethod_BY_UUID_DATA_LOADER = "WS_WebServiceMethodByUuidDataLoader";
+	public static String DATALOADER_WS_WebServiceMethod_BY_ID = "WS_WebServiceMethodByIdDataLoader";
+	public static String DATALOADER_WS_WebServiceMethod_BY_UUID = "WS_WebServiceMethodByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
@@ -19,11 +19,11 @@ public class X_WS_WebServiceMethodDataLoader extends PODataLoader<X_WS_WebServic
 
 	@Override
 	protected String getByIdDataLoaderName() {
-		return WS_WebServiceMethod_BY_ID_DATA_LOADER;
+		return DATALOADER_WS_WebServiceMethod_BY_ID;
 	}
 
 	@Override
 	protected String getByUuidDataLoaderName() {
-		return WS_WebServiceMethod_BY_UUID_DATA_LOADER;
+		return DATALOADER_WS_WebServiceMethod_BY_UUID;
 	}
 }
