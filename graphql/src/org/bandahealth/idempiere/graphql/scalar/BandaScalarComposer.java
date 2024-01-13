@@ -13,6 +13,8 @@ public class BandaScalarComposer {
 	 */
 	public static void addAll(SchemaParserBuilder builder) {
 		builder.scalars(
+				BigDecimalScalar.BigDecimal,
+				BinaryScalar.Binary,
 				DateScalar.Date,
 				ObjectScalar.Object
 		);

@@ -1,5 +1,4 @@
 extend type Mutation {
-	C_OrderSaveAndProcess(entity: C_OrderInput!, documentAction: String): C_Order
 	C_OrderProcess(uuid: String!, documentAction: String): C_Order
 }
 

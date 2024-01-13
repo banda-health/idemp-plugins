@@ -3,6 +3,8 @@ directive @dateFormat on FIELD_DEFINITION
 directive @fixed on INPUT_FIELD_DEFINITION
 scalar Object
 scalar Date
+scalar Binary
+scalar BigDecimal
 
 # Per the GraphQL standard, Query types cannot be split amongst files, so all are defined here
 type Query {

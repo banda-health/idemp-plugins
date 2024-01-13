@@ -98,7 +98,7 @@ public abstract class PODataLoader<T extends PO> implements DataLoaderRegisterer
 	 *
 	 * @return A batch loader for loading entities by their DB IDs
 	 */
-	private MappedBatchLoaderWithContext<Integer, T> getByIdBatchLoader() {
+	protected MappedBatchLoaderWithContext<Integer, T> getByIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> Repository.getByIdsCompletableFuture(batchLoaderEnvironment.getContext(),
 				getTableName(), null, keys);
 	}
@@ -108,7 +108,7 @@ public abstract class PODataLoader<T extends PO> implements DataLoaderRegisterer
 	 *
 	 * @return A batch loader for loading entities by UUIDs
 	 */
-	private MappedBatchLoaderWithContext<String, T> getByUuidBatchLoader() {
+	protected MappedBatchLoaderWithContext<String, T> getByUuidBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> Repository.getByUuidsCompletableFuture(batchLoaderEnvironment.getContext(),
 				getTableName(), null, keys);
 	}

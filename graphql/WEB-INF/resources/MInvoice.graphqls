@@ -1,3 +1,8 @@
-# If you want to add to this file, delete this line and uncomment the file in BandaSchemaFileComposer
 extend type C_Invoice {
+	C_InvoiceProcess(uuid: String!, documentAction: String!): C_Invoice
+}
+
+extend type C_Invoice {
+	C_AllocationLines: [C_AllocationLine!]
+	M_InvoiceLines: [M_InventoryLine!]
 }

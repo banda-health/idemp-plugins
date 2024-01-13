@@ -24,7 +24,7 @@ type AD_Attachment {
 	# Database Table information
 	AD_Table: AD_Table!
 	# Binary Data
-	BinaryData: String
+	BinaryData: Binary
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,7 +50,7 @@ input AD_AttachmentInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Binary Data
-	BinaryData: String
+	BinaryData: Binary
 	# The record is active in the system
 	IsActive: Boolean
 	# Direct internal record ID

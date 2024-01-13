@@ -6,12 +6,15 @@ import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRole;
+import org.compiere.model.MUserRoles;
 import org.compiere.model.PO;
+import org.compiere.model.X_AD_Role;
 import org.compiere.util.Env;
 import org.dataloader.DataLoader;
 import org.dataloader.DataLoaderRegistry;
 import org.dataloader.MappedBatchLoaderWithContext;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,21 +25,19 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public class MRoleDataLoader extends X_AD_RoleDataLoader {
-	public static String AD_Role_BY_ORGANIZATION_ID_DATA_LOADER = "AD_RoleByOrganizationIdDataLoader";
+	public static String DATALOADER_AD_Role_BY_AD_Organization_ID = "AD_RoleByOrganizationIdDataLoader";
+	public static String DATALOADER_AD_Role_BY_AD_User_ID = "AD_RoleByUserIdDataLoader";
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(AD_Role_BY_ORGANIZATION_ID_DATA_LOADER,
+		registry.register(DATALOADER_AD_Role_BY_AD_Organization_ID,
 				DataLoader.newMappedDataLoader(getByOrganizationIdBatchLoader(), getOptionsWithCache(idempiereContext)));
+		registry.register(DATALOADER_AD_Role_BY_AD_User_ID,
+				DataLoader.newMappedDataLoader(getByUserIdBatchLoader(), getOptionsWithCache(idempiereContext)));
 	}
 
-	/**
-	 * Copied from {@link org.compiere.model.MUser#getRoles(int)}
-	 *
-	 * @return
-	 */
-	private MappedBatchLoaderWithContext<String, List<MRole>> getByOrganizationIdBatchLoader() {
+	private MappedBatchLoaderWithContext<String, List<X_AD_Role>> getByOrganizationIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {
 			ServerContext.setCurrentInstance(batchLoaderEnvironment.getContext());
 			Set<Integer> organizationIds = keys.stream().map(ModelUtil::getIdFromKey).collect(Collectors.toSet());
@@ -55,11 +56,12 @@ public class MRoleDataLoader extends X_AD_RoleDataLoader {
 					new MUser_BH(batchLoaderEnvironment.getContext(), Env.getAD_User_ID(batchLoaderEnvironment.getContext()),
 							null);
 
-			Map<String, List<MRole>> rolesByOrganizationModelKey = new HashMap<>();
+			Map<String, List<X_AD_Role>> rolesByOrganizationModelKey = new HashMap<>();
 			for (String key : keys) {
 				int organizationId = ModelUtil.getIdFromKey(key);
 				// We need to set the client ID for following method
-				Env.setContext(batchLoaderEnvironment.getContext(), Env.AD_CLIENT_ID, clientIdsByOrganizationId.get(organizationId));
+				Env.setContext(batchLoaderEnvironment.getContext(), Env.AD_CLIENT_ID,
+						clientIdsByOrganizationId.get(organizationId));
 				rolesByOrganizationModelKey.put(key,
 						Arrays.stream(currentUser.getRoles(organizationId)).collect(Collectors.toList()));
 			}
@@ -67,6 +69,30 @@ public class MRoleDataLoader extends X_AD_RoleDataLoader {
 			Repository.clearApplyAccessFilterNotNeeded();
 			PO.clearCrossTenantSafe();
 			return rolesByOrganizationModelKey;
+		});
+	}
+
+	private MappedBatchLoaderWithContext<String, List<X_AD_Role>> getByUserIdBatchLoader() {
+		return (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {
+			String modelName = ModelUtil.getModelFromKey(keys.iterator().next());
+			// Batch call to get user roles
+			Set<Integer> userIds = keys.stream().map(ModelUtil::getIdFromKey).collect(Collectors.toSet());
+
+			Map<Integer, List<MUserRoles>> userRoleAssignmentsByUserId =
+					Repository.getGroupsByIds(batchLoaderEnvironment.getContext(), MUserRoles.Table_Name, null,
+							MUserRoles::getAD_User_ID, MUserRoles.COLUMNNAME_AD_User_ID, userIds);
+
+			// batch call to get roles
+			Set<Integer> roleIds = userRoleAssignmentsByUserId.values().stream()
+					.flatMap(roleByUserId -> roleByUserId.stream().map(MUserRoles::getAD_Role_ID))
+					.collect(Collectors.toSet());
+			Map<Integer, X_AD_Role> rolesById =
+					Repository.getByIds(batchLoaderEnvironment.getContext(), X_AD_Role.Table_Name, null, roleIds);
+
+			return userRoleAssignmentsByUserId.entrySet().stream().collect(
+					Collectors.toMap(entry -> ModelUtil.getModelKey(modelName, entry.getKey()),
+							entry -> entry.getValue().stream().map(userRole -> rolesById.get(userRole.getAD_Role_ID()))
+									.collect(Collectors.toList())));
 		});
 	}
 }

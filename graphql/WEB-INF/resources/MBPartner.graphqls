@@ -1,3 +1,6 @@
-# If you want to add to this file, delete this line and uncomment the file in BandaSchemaFileComposer
 extend type C_BPartner {
+	BH_Payer_Info_FldList: [BH_Payer_Info_Fld!]
+	C_BPartner_Locations: [C_BPartner_Location!]
+	LastVisitDate: Date
+	TotalVisits: Int!
 }

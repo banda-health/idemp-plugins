@@ -459,6 +459,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MWithholdingDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MXIFAJournalDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MYearDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MZoomConditionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.ProductCostCalculationDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Group_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Info_FinDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_Info_InsDataLoader;
@@ -1306,6 +1307,7 @@ public class BandaDataLoaderComposer {
 				new MXIFAJournalDataLoader(),
 				new MYearDataLoader(),
 				new MZoomConditionDataLoader(),
+				new ProductCostCalculationDataLoader(),
 				new X_A_Asset_Group_TrlDataLoader(),
 				new X_A_Asset_Info_FinDataLoader(),
 				new X_A_Asset_Info_InsDataLoader(),

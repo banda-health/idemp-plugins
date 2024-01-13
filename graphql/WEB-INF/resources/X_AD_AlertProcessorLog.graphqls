@@ -24,7 +24,7 @@ type AD_AlertProcessorLog {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Binary Data
-	BinaryData: String
+	BinaryData: Binary
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,7 +54,7 @@ input AD_AlertProcessorLogInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Binary Data
-	BinaryData: String
+	BinaryData: Binary
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

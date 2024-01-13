@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Properties;
 
 public class MOrderLineDataLoader extends X_C_OrderLineDataLoader {
-	public static String C_OrderLine_C_ORDER_ID_DATA_LOADER = "C_OrderLineByOrderIdDataLoader";
+	public static String DATALOADER_C_OrderLine_By_C_Order_ID = "C_OrderLineByOrderIdDataLoader";
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(C_OrderLine_C_ORDER_ID_DATA_LOADER,
+		registry.register(DATALOADER_C_OrderLine_By_C_Order_ID,
 				DataLoader.newMappedDataLoader(getByOrderIdBatchLoader(), getOptionsWithCache(idempiereContext)));
 	}
 
