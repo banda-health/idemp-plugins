@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InsuranceInvoice" pageWidth="595" pageHeight="842" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="57" bottomMargin="36" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere UAT PostgreSQL 5552"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Docker PostgreSQL"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="515"/>
@@ -440,6 +440,9 @@ WHERE
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<variable name="Total" class="java.math.BigDecimal" calculation="Sum"/>
+	<group name="Insurer" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{insurer_uu}]]></groupExpression>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -1145,7 +1148,6 @@ WHERE
 	</detail>
 	<pageFooter>
 		<band height="21">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
 				<reportElement x="0" y="1" width="259" height="20" uuid="aac9248b-b0c4-4242-8281-90f0b70ea9ae"/>
 				<textElement>
@@ -1153,12 +1155,22 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA["Invoice Generated at " + new SimpleDateFormat("dd-MM-YYYY HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
-			<textField evaluationTime="Master">
-				<reportElement x="360" y="0" width="120" height="20" uuid="03c55b05-88e6-4659-8967-cf404c94249a">
+			<textField>
+				<reportElement x="370" y="0" width="90" height="20" uuid="03c55b05-88e6-4659-8967-cf404c94249a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page " + $V{MASTER_CURRENT_PAGE} + " of " + $V{MASTER_TOTAL_PAGES}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="Insurer">
+				<reportElement x="460" y="0" width="20" height="20" uuid="f6a22d1e-a219-452f-b548-40c77d6f7cb7">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
