@@ -29,6 +29,8 @@ public class MProcess_BH extends MProcess {
 	public static final int PROCESSID_PROCESS_DEPRECIATION_ENTRY = 53214;
 	public static final int PROCESSID_PROCESS_SHIPMENT_ONLINE = 200024;
 	public static final int PROCESSID_PROCESS_PRODUCTION = 200068;
+	public static final String PROCESSUUID_THERMAL_RECEIPT_REPORT = "30dd7243-11c1-4584-af26-5d977d117c84";
+	public static final String PROCESSUUID_DEBT_PAYMENT_RECEIPT = "173a691b-ba89-4987-9216-9b3f0a60c864";
 
 	public MProcess_BH(Properties ctx, int AD_Process_ID, String trxName) {
 		super(ctx, AD_Process_ID, trxName);

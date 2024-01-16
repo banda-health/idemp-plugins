@@ -13,6 +13,8 @@ public class DateUtil {
 	public final static String DATE_FORMAT = "yyyy-MM-dd";
 	private final static String DEFAULT_FORMAT = "yyyy-MM-dd hh:mm:ss";
 	private final static String QUEUE_DATE_FORMAT = "E, dd MMMM - HH:mm";
+	private final static String REPORT_FORMAT = "yyyy-MM-dd hh:mm a";
+	private final static String REPORT_FORMAT_2 = "yyyy-MM-dd'T'hh:mm:ss.SSSX";
 
 	private static SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_FORMAT);
 	private static CLogger log = CLogger.getCLogger(DateUtil.class);
@@ -63,12 +65,16 @@ public class DateUtil {
 	 * @return
 	 */
 	public static Timestamp getTimestamp(String date) {
+		return getTimestamp(date, DATE_FORMAT);
+	}
+
+	public static Timestamp getTimestamp(String date, String dateFormat) {
 		if (date != null) {
 			try {
 				return new Timestamp(sdf.parse(date).getTime());
 			} catch (ParseException e) {
 				try {
-					return new Timestamp(new SimpleDateFormat(DATE_FORMAT).parse(date).getTime());
+					return new Timestamp(new SimpleDateFormat(dateFormat).parse(date).getTime());
 				} catch (ParseException e1) {
 					log.severe(e.getMessage());
 				}
@@ -101,5 +107,13 @@ public class DateUtil {
 		endDateCalendar.setTime(currentDay);
 		endDateCalendar.add(Calendar.DATE, 1);
 		return new Timestamp(endDateCalendar.getTimeInMillis());
+	}
+
+	public static Timestamp getTimestampReportParameter(String date) {
+		Timestamp parsedDate = getTimestamp(date, REPORT_FORMAT);
+		if (parsedDate == null) {
+			return getTimestamp(date, REPORT_FORMAT_2);
+		}
+		return parsedDate;
 	}
 }

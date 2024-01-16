@@ -468,6 +468,7 @@ public class BandaSchemaFileComposer {
 //						"WEB-INF/resources/M_Element.graphqls",
 //						"WEB-INF/resources/M_Registration.graphqls",
 						"WEB-INF/resources/paging-info.graphqls",
+						"WEB-INF/resources/ProcessInfoParameter.graphqls",
 						"WEB-INF/resources/report-output.graphqls",
 						"WEB-INF/resources/schema.graphqls",
 						"WEB-INF/resources/X_AD_AccessLog.graphqls",
