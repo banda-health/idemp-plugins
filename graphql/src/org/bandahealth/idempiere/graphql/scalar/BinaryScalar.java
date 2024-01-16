@@ -19,6 +19,9 @@ public class BinaryScalar {
 			.coercing(new Coercing() {
 				@Override
 				public Object serialize(Object dataFetcherResult) throws CoercingSerializeException {
+					if (dataFetcherResult == null) {
+						return null;
+					}
 					if (dataFetcherResult instanceof byte[]) {
 						return Base64.getEncoder().encodeToString((byte[]) dataFetcherResult);
 					}
