@@ -49,7 +49,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for I_Invoice - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_I_InvoiceResolver extends POResolver<X_I_Invoice> implements GraphQLResolver<X_I_Invoice> {
 

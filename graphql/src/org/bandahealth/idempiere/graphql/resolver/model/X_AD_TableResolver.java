@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -11,7 +12,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Val_RuleDataLoader
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
-import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.MWindow;
 import org.compiere.model.PO;
@@ -27,9 +27,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Table - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLResolver<MTable> {
+public class X_AD_TableResolver extends POResolver<MTable_BH> implements GraphQLResolver<MTable_BH> {
 
 
 	static Map<String, String> ACCESSLEVEL_UUIDS_BY_VALUE = new HashMap<>() {
@@ -42,7 +42,7 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 			put("2", "391e2c9a-b8e5-43b0-895b-eea914023e59");
 		}
 	};
-	public CompletableFuture<MRefList_BH> AccessLevel(MTable entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> AccessLevel(MTable_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getAccessLevel())) {
 			return null;
 		}
@@ -57,7 +57,7 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 	 *
 	 * @return Dynamic Validation Rule
 	 */
-	public CompletableFuture<MValRule> AD_Val_Rule(MTable entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MValRule> AD_Val_Rule(MTable_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Val_Rule_ID() <= 0) {
 			return null;
 		}
@@ -72,7 +72,7 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 	 *
 	 * @return Data entry or display window
 	 */
-	public CompletableFuture<MWindow> AD_Window(MTable entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MWindow> AD_Window(MTable_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Window_ID() <= 0) {
 			return null;
 		}
@@ -103,7 +103,7 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public CompletableFuture<MEntityType> AD_EntityType(MTable entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MEntityType> AD_EntityType(MTable_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
 			return null;
 		}
@@ -112,27 +112,27 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
-	public Boolean IsCentrallyMaintained(MTable entity, DataFetchingEnvironment environment) {
+	public Boolean IsCentrallyMaintained(MTable_BH entity, DataFetchingEnvironment environment) {
 		return entity.isCentrallyMaintained();
 	}
 
-	public Boolean IsChangeLog(MTable entity, DataFetchingEnvironment environment) {
+	public Boolean IsChangeLog(MTable_BH entity, DataFetchingEnvironment environment) {
 		return entity.isChangeLog();
 	}
 
-	public Boolean IsDeleteable(MTable entity, DataFetchingEnvironment environment) {
+	public Boolean IsDeleteable(MTable_BH entity, DataFetchingEnvironment environment) {
 		return entity.isDeleteable();
 	}
 
-	public Boolean IsHighVolume(MTable entity, DataFetchingEnvironment environment) {
+	public Boolean IsHighVolume(MTable_BH entity, DataFetchingEnvironment environment) {
 		return entity.isHighVolume();
 	}
 
-	public Boolean IsSecurityEnabled(MTable entity, DataFetchingEnvironment environment) {
+	public Boolean IsSecurityEnabled(MTable_BH entity, DataFetchingEnvironment environment) {
 		return entity.isSecurityEnabled();
 	}
 
-	public Boolean IsView(MTable entity, DataFetchingEnvironment environment) {
+	public Boolean IsView(MTable_BH entity, DataFetchingEnvironment environment) {
 		return entity.isView();
 	}
 
@@ -141,14 +141,14 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 	 *
 	 * @return Alphanumeric identifier of the entity
 	 */
-	public CompletableFuture<String> Name(MTable entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<String> Name(MTable_BH entity, DataFetchingEnvironment environment) {
 		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Table_TrlDataLoader.DATALOADER_AD_Table_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MTable.COLUMNNAME_Name));
+				.thenApply(translation -> translation.get_ValueAsString(MTable_BH.COLUMNNAME_Name));
 	}
 
 
@@ -157,7 +157,7 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 	 *
 	 * @return Purchase Order Window
 	 */
-	public CompletableFuture<MWindow> PO_Window(MTable entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MWindow> PO_Window(MTable_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getPO_Window_ID() <= 0) {
 			return null;
 		}
@@ -166,7 +166,7 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 		return dataLoader.load(entity.getPO_Window_ID());
 	}
 
-	public Boolean Processing(MTable entity, DataFetchingEnvironment environment) {
+	public Boolean Processing(MTable_BH entity, DataFetchingEnvironment environment) {
 		return entity.isProcessing();
 	}
 
@@ -178,7 +178,7 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 			put("B", "1be8a931-6954-4fd9-bc76-e67c6f73fc00");
 		}
 	};
-	public CompletableFuture<MRefList_BH> ReplicationType(MTable entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ReplicationType(MTable_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getReplicationType())) {
 			return null;
 		}

@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  * Generated Model for IMP_ProcessorParameter - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_IMP_ProcessorParameterInput extends X_IMP_ProcessorParameter implements I_IMP_ProcessorParameterInput {
 

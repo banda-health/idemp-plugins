@@ -6,7 +6,7 @@ import org.compiere.model.I_I_FixedAsset;
  * Generated Interface for I_FixedAsset - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_I_FixedAssetInput extends I_I_FixedAsset {
 

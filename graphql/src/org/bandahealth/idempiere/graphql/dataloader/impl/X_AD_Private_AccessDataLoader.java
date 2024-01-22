@@ -6,7 +6,7 @@ import org.compiere.model.MPrivateAccess;
  * Data Loader for AD_Private_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_Private_AccessDataLoader extends PODataLoader<MPrivateAccess> {
 	public static String DATALOADER_AD_Private_Access_BY_ID = "AD_Private_AccessByIdDataLoader";

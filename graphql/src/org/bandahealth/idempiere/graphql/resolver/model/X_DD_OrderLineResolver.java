@@ -33,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for DD_OrderLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements GraphQLResolver<MDDOrderLine> {
 

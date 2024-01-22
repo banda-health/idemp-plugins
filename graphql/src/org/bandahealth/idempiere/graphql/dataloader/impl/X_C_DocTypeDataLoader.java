@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
  * Data Loader for C_DocType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_DocTypeDataLoader extends PODataLoader<MDocType_BH> {
 	public static String DATALOADER_C_DocType_BY_ID = "C_DocTypeByIdDataLoader";

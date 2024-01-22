@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.base.factory;
 import org.adempiere.base.IModelFactory;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.base.model.MAttribute_BH;
 import org.bandahealth.idempiere.base.model.MBHBPGeneralPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHBPPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
@@ -30,6 +31,7 @@ import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.base.model.MDiscountSchemaLine_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MFieldGroup;
 import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
@@ -53,13 +55,18 @@ import org.bandahealth.idempiere.base.model.MProductPrice_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.base.model.MReportColumn_BH;
+import org.bandahealth.idempiere.base.model.MReportLine_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MTabNavBtn;
 import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.base.model.MTree_BH;
 import org.bandahealth.idempiere.base.model.MUIButton;
+import org.bandahealth.idempiere.base.model.MUserDefTab_BH;
+import org.bandahealth.idempiere.base.model.MUserPreference_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.model.MWindowAccess_BH;
@@ -194,6 +201,20 @@ public class BHModelFactory implements IModelFactory {
 			return MField_BH.class;
 		} else if (tableName.equalsIgnoreCase(MFieldGroup_BH.Table_Name)) {
 			return MFieldGroup_BH.class;
+		} else if (tableName.equalsIgnoreCase(MUserDefTab_BH.Table_Name)) {
+			return MUserDefTab_BH.class;
+		} else if (tableName.equalsIgnoreCase(MAttribute_BH.Table_Name)) {
+			return MAttribute_BH.class;
+		} else if (tableName.equalsIgnoreCase(MReportLine_BH.Table_Name)) {
+			return MReportLine_BH.class;
+		} else if (tableName.equalsIgnoreCase(MTable_BH.Table_Name)) {
+			return MTable_BH.class;
+		} else if (tableName.equalsIgnoreCase(MUserPreference_BH.Table_Name)) {
+			return MUserPreference_BH.class;
+		} else if (tableName.equalsIgnoreCase(MDiscountSchemaLine_BH.Table_Name)) {
+			return MDiscountSchemaLine_BH.class;
+		} else if (tableName.equalsIgnoreCase(MReportColumn_BH.Table_Name)) {
+			return MReportColumn_BH.class;
 		}
 
 		return null;
@@ -321,6 +342,20 @@ public class BHModelFactory implements IModelFactory {
 			return new MField_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MFieldGroup_BH.Table_Name)) {
 			return new MFieldGroup_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MUserDefTab_BH.Table_Name)) {
+			return new MUserDefTab_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MAttribute_BH.Table_Name)) {
+			return new MAttribute_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MReportLine_BH.Table_Name)) {
+			return new MReportLine_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MTable_BH.Table_Name)) {
+			return new MTable_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MUserPreference_BH.Table_Name)) {
+			return new MUserPreference_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MDiscountSchemaLine_BH.Table_Name)) {
+			return new MDiscountSchemaLine_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MReportColumn_BH.Table_Name)) {
+			return new MReportColumn_BH(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -450,6 +485,20 @@ public class BHModelFactory implements IModelFactory {
 			return new MField_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MFieldGroup_BH.Table_Name)) {
 			return new MFieldGroup_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MUserDefTab_BH.Table_Name)) {
+			return new MUserDefTab_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MAttribute_BH.Table_Name)) {
+			return new MAttribute_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MReportLine_BH.Table_Name)) {
+			return new MReportLine_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MTable_BH.Table_Name)) {
+			return new MTable_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MUserPreference_BH.Table_Name)) {
+			return new MUserPreference_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MDiscountSchemaLine_BH.Table_Name)) {
+			return new MDiscountSchemaLine_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MReportColumn_BH.Table_Name)) {
+			return new MReportColumn_BH(Env.getCtx(), rs, trxName);
 		}
 
 		return null;

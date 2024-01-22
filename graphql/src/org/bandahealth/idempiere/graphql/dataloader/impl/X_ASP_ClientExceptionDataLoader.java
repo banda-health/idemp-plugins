@@ -6,7 +6,7 @@ import org.compiere.model.X_ASP_ClientException;
  * Data Loader for ASP_ClientException - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_ASP_ClientExceptionDataLoader extends PODataLoader<X_ASP_ClientException> {
 	public static String DATALOADER_ASP_ClientException_BY_ID = "ASP_ClientExceptionByIdDataLoader";

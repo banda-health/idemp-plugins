@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
@@ -19,7 +20,6 @@ import org.compiere.model.MDocumentStatus;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MForm;
 import org.compiere.model.MProject;
-import org.compiere.model.MTable;
 import org.compiere.model.MWindow;
 import org.compiere.model.PO;
 import org.compiere.model.X_AD_PrintColor;
@@ -37,7 +37,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PA_DocumentStatus - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> implements GraphQLResolver<MDocumentStatus> {
 
@@ -78,11 +78,11 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable> AD_Table(MDocumentStatus entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable_BH> AD_Table(MDocumentStatus entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTable> dataLoader =
+		DataLoader<Integer, MTable_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}

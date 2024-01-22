@@ -9,7 +9,7 @@ import org.compiere.model.MInOutLine;
  * Generated Query Resolver for M_InOutLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_InOutLineQuery extends POQuery<MInOutLine> implements GraphQLQueryResolver {
 	@Override

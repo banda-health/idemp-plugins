@@ -6,7 +6,7 @@ import org.compiere.model.MMatchInv;
  * Data Loader for M_MatchInv - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_MatchInvDataLoader extends PODataLoader<MMatchInv> {
 	public static String DATALOADER_M_MatchInv_BY_ID = "M_MatchInvByIdDataLoader";

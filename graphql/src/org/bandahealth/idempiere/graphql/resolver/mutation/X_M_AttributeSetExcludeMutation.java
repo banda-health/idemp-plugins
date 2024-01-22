@@ -4,7 +4,7 @@ import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.model.input.I_M_AttributeSetExcludeInput;
 import org.bandahealth.idempiere.graphql.model.input.X_M_AttributeSetExcludeInput;
-import org.compiere.model.MAttributeSetExclude;
+import org.compiere.model.X_M_AttributeSetExclude;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * Generated Query Resolver for M_AttributeSetExclude - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_AttributeSetExcludeMutation extends POMutation implements GraphQLMutationResolver {
 	@Override
@@ -20,8 +20,8 @@ public class X_M_AttributeSetExcludeMutation extends POMutation implements Graph
 		return X_M_AttributeSetExcludeInput.Table_Name;
 	}
 
-	public MAttributeSetExclude M_AttributeSetExcludeSave(I_M_AttributeSetExcludeInput input, DataFetchingEnvironment environment) {
-		return (MAttributeSetExclude) super.save((X_M_AttributeSetExcludeInput) input, environment);
+	public X_M_AttributeSetExclude M_AttributeSetExcludeSave(I_M_AttributeSetExcludeInput input, DataFetchingEnvironment environment) {
+		return (X_M_AttributeSetExclude) super.save((X_M_AttributeSetExcludeInput) input, environment);
 	}
 
 	public boolean M_AttributeSetExcludeDelete(List<String> uuids, DataFetchingEnvironment environment) {

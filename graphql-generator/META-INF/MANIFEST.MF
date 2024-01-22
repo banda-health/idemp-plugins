@@ -69,5 +69,5 @@ Require-Bundle: org.eclipse.equinox.app;bundle-version="0.0.0",
  org.apache.xmlbeans;bundle-version="3.1.0",
  org.jfree.chart;bundle-version="1.0.19",
  org.jfree.jcommon;bundle-version="1.0.23",
- org.adempiere.base;bundle-version="8.2.0"
+ org.adempiere.base;bundle-version="7.1.0"
 Bundle-Vendor: Banda Health

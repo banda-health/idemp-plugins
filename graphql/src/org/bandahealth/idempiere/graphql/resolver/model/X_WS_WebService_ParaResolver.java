@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for WS_WebService_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_WS_WebService_ParaResolver extends POResolver<X_WS_WebService_Para> implements GraphQLResolver<X_WS_WebService_Para> {
 

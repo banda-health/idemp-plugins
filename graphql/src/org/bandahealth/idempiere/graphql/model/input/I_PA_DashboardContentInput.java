@@ -6,7 +6,7 @@ import org.compiere.model.I_PA_DashboardContent;
  * Generated Interface for PA_DashboardContent - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_PA_DashboardContentInput extends I_PA_DashboardContent {
 

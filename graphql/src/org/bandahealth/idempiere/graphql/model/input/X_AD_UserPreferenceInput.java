@@ -3,11 +3,11 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MUserPreference_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_UserPreference;
 
 import java.sql.ResultSet;
 
@@ -15,9 +15,9 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserPreference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_AD_UserPreferenceInput extends X_AD_UserPreference implements I_AD_UserPreferenceInput {
+public class X_AD_UserPreferenceInput extends MUserPreference_BH implements I_AD_UserPreferenceInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
@@ -28,7 +28,7 @@ public class X_AD_UserPreferenceInput extends X_AD_UserPreference implements I_A
 	 */
 	@JsonCreator
 	public X_AD_UserPreferenceInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_AD_UserPreference(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MUserPreference_BH(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}

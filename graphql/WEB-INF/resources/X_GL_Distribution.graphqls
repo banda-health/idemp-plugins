@@ -1,6 +1,6 @@
 # Generated Schema for GL_Distribution - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 7.1 - $Id$
 extend type Query {
 	GL_DistributionGet(page: Int, size: Int, sort: String, filter: String): GL_DistributionConnection!
 }
@@ -90,8 +90,6 @@ type GL_Distribution {
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_List
 	Processing: Boolean!
-	# Method of ordering records; lowest number comes first
-	SeqNo: Int!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -100,10 +98,6 @@ type GL_Distribution {
 	User1: C_ElementValue
 	# User defined list element #2
 	User2: C_ElementValue
-	# Valid from including this date (first day)
-	ValidFrom: Date
-	# Valid to including this date (last day)
-	ValidTo: Date
 }
 
 input GL_DistributionInput {
@@ -175,14 +169,8 @@ input GL_DistributionInput {
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_ListInput
 	Processing: Boolean
-	# Method of ordering records; lowest number comes first
-	SeqNo: Int
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2
 	User2: ForeignEntityInput
-	# Valid from including this date (first day)
-	ValidFrom: Date
-	# Valid to including this date (last day)
-	ValidTo: Date
 }

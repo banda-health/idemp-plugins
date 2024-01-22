@@ -6,7 +6,7 @@ import org.compiere.model.X_C_Tax_Acct;
  * Data Loader for C_Tax_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_Tax_AcctDataLoader extends PODataLoader<X_C_Tax_Acct> {
 	public static String DATALOADER_C_Tax_Acct_BY_ID = "C_Tax_AcctByIdDataLoader";

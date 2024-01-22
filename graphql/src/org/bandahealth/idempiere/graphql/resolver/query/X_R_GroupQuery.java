@@ -9,7 +9,7 @@ import org.compiere.model.MGroup;
  * Generated Query Resolver for R_Group - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_R_GroupQuery extends POQuery<MGroup> implements GraphQLQueryResolver {
 	@Override

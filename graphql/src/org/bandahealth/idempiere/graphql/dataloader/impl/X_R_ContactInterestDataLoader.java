@@ -6,7 +6,7 @@ import org.compiere.model.MContactInterest;
  * Data Loader for R_ContactInterest - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_R_ContactInterestDataLoader extends PODataLoader<MContactInterest> {
 	public static String DATALOADER_R_ContactInterest_BY_ID = "R_ContactInterestByIdDataLoader";

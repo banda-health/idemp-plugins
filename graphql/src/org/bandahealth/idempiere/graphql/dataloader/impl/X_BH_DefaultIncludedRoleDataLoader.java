@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHDefaultIncludedRole;
  * Data Loader for BH_DefaultIncludedRole - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_BH_DefaultIncludedRoleDataLoader extends PODataLoader<MBHDefaultIncludedRole> {
 	public static String DATALOADER_BH_DefaultIncludedRole_BY_ID = "BH_DefaultIncludedRoleByIdDataLoader";

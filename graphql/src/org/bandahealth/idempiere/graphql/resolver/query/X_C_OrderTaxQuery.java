@@ -9,7 +9,7 @@ import org.compiere.model.MOrderTax;
  * Generated Query Resolver for C_OrderTax - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_OrderTaxQuery extends POQuery<MOrderTax> implements GraphQLQueryResolver {
 	@Override

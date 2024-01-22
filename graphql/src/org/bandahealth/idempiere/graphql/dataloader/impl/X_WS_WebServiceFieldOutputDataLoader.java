@@ -6,7 +6,7 @@ import org.compiere.model.X_WS_WebServiceFieldOutput;
  * Data Loader for WS_WebServiceFieldOutput - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_WS_WebServiceFieldOutputDataLoader extends PODataLoader<X_WS_WebServiceFieldOutput> {
 	public static String DATALOADER_WS_WebServiceFieldOutput_BY_ID = "WS_WebServiceFieldOutputByIdDataLoader";

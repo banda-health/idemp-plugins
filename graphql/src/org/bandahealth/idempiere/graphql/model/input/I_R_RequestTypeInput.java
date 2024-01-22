@@ -6,7 +6,7 @@ import org.compiere.model.I_R_RequestType;
  * Generated Interface for R_RequestType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_R_RequestTypeInput extends I_R_RequestType {
 

@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_TaxDeclarationLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLine> implements GraphQLResolver<MTaxDeclarationLine> {
 

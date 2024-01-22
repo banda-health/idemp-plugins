@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MSequence_BH;
  * Data Loader for AD_Sequence - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_SequenceDataLoader extends PODataLoader<MSequence_BH> {
 	public static String DATALOADER_AD_Sequence_BY_ID = "AD_SequenceByIdDataLoader";

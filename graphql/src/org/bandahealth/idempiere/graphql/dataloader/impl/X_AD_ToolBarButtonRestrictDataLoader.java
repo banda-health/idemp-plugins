@@ -6,7 +6,7 @@ import org.compiere.model.MToolBarButtonRestrict;
  * Data Loader for AD_ToolBarButtonRestrict - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_ToolBarButtonRestrictDataLoader extends PODataLoader<MToolBarButtonRestrict> {
 	public static String DATALOADER_AD_ToolBarButtonRestrict_BY_ID = "AD_ToolBarButtonRestrictByIdDataLoader";

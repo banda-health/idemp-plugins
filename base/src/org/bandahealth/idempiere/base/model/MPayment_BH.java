@@ -56,6 +56,12 @@ public class MPayment_BH extends MPayment {
 	 * Column name BH_Visit_ID
 	 */
 	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
+    /** Column name IsOverrideCurrencyRate */
+    public static final String COLUMNNAME_IsOverrideCurrencyRate = "IsOverrideCurrencyRate";	
+    /** Column name ConvertedAmt */
+    public static final String COLUMNNAME_ConvertedAmt = "ConvertedAmt";
+    /** Column name CurrencyRate */
+    public static final String COLUMNNAME_CurrencyRate = "CurrencyRate";	
 
 	private static final long serialVersionUID = 1L;
 
@@ -294,5 +300,69 @@ public class MPayment_BH extends MPayment {
 	 */
 	public Object getBH_NavButtons() {
 		return get_Value(COLUMNNAME_BH_NavButtons);
+	}
+	
+	/** Set Override Currency Conversion Rate.
+	@param IsOverrideCurrencyRate 
+	Override Currency Conversion Rate
+	  */
+	public void setIsOverrideCurrencyRate (boolean IsOverrideCurrencyRate)
+	{
+		set_Value (COLUMNNAME_IsOverrideCurrencyRate, Boolean.valueOf(IsOverrideCurrencyRate));
+	}
+	
+	/** Get Override Currency Conversion Rate.
+		@return Override Currency Conversion Rate
+	  */
+	public boolean isOverrideCurrencyRate () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsOverrideCurrencyRate);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+	
+	/** Set Converted Amount.
+	@param ConvertedAmt 
+	Converted Amount
+	  */
+	public void setConvertedAmt (BigDecimal ConvertedAmt)
+	{
+		set_Value (COLUMNNAME_ConvertedAmt, ConvertedAmt);
+	}
+	
+	/** Get Converted Amount.
+		@return Converted Amount
+	  */
+	public BigDecimal getConvertedAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_ConvertedAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
+
+	/** Set Rate.
+	@param CurrencyRate 
+	Currency Conversion Rate
+	  */
+	public void setCurrencyRate (BigDecimal CurrencyRate)
+	{
+		set_Value (COLUMNNAME_CurrencyRate, CurrencyRate);
+	}
+	
+	/** Get Rate.
+		@return Currency Conversion Rate
+	  */
+	public BigDecimal getCurrencyRate () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_CurrencyRate);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 }

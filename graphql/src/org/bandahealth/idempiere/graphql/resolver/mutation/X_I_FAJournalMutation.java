@@ -12,7 +12,7 @@ import java.util.List;
  * Generated Query Resolver for I_FAJournal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_I_FAJournalMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

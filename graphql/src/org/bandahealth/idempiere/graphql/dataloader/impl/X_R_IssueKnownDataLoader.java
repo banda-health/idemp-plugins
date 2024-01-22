@@ -6,7 +6,7 @@ import org.compiere.model.X_R_IssueKnown;
  * Data Loader for R_IssueKnown - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_R_IssueKnownDataLoader extends PODataLoader<X_R_IssueKnown> {
 	public static String DATALOADER_R_IssueKnown_BY_ID = "R_IssueKnownByIdDataLoader";

@@ -3,10 +3,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
-import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
@@ -17,9 +17,9 @@ import java.sql.ResultSet;
  * Generated Model for AD_Table - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_AD_TableInput extends MTable implements I_AD_TableInput {
+public class X_AD_TableInput extends MTable_BH implements I_AD_TableInput {
 
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
@@ -34,7 +34,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 */
 	@JsonCreator
 	public X_AD_TableInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MTable(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MTable_BH(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}

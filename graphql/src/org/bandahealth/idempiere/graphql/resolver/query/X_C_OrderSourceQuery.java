@@ -9,7 +9,7 @@ import org.compiere.model.X_C_OrderSource;
  * Generated Query Resolver for C_OrderSource - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_OrderSourceQuery extends POQuery<X_C_OrderSource> implements GraphQLQueryResolver {
 	@Override

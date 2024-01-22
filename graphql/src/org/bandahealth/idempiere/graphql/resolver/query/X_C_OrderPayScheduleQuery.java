@@ -9,7 +9,7 @@ import org.compiere.model.MOrderPaySchedule;
  * Generated Query Resolver for C_OrderPaySchedule - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_OrderPayScheduleQuery extends POQuery<MOrderPaySchedule> implements GraphQLQueryResolver {
 	@Override

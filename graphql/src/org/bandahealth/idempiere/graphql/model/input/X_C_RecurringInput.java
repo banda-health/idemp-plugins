@@ -21,7 +21,7 @@ import java.sql.Timestamp;
  * Generated Model for C_Recurring - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput {
 

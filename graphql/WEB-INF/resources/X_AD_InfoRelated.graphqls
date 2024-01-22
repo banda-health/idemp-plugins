@@ -1,6 +1,6 @@
 # Generated Schema for AD_InfoRelated - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 7.1 - $Id$
 extend type Query {
 	AD_InfoRelatedGet(page: Int, size: Int, sort: String, filter: String): AD_InfoRelatedConnection!
 }
@@ -29,8 +29,6 @@ type AD_InfoRelated {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	# If the Field is displayed, the result determines if the field is actually displayed
-	DisplayLogic: String
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: AD_EntityType!
 	# Comment or Hint
@@ -59,8 +57,6 @@ input AD_InfoRelatedInput {
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	# If the Field is displayed, the result determines if the field is actually displayed
-	DisplayLogic: String
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# Comment or Hint

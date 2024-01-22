@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PP_WF_Node_Asset - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_PP_WF_Node_AssetResolver extends POResolver<X_PP_WF_Node_Asset> implements GraphQLResolver<X_PP_WF_Node_Asset> {
 

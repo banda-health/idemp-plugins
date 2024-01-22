@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MReportLine_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MFactAcct;
 import org.compiere.model.MPInstance;
 import org.compiere.model.Query;
-import org.compiere.model.X_PA_ReportLine;
 import org.compiere.model.X_T_Report;
 
 import java.math.BigDecimal;
@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for T_Report - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 
@@ -470,7 +470,7 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	@JsonProperty("PA_ReportLine")
 	public void setPA_ReportLineInput(ForeignEntityInput PA_ReportLine) {
 		this.mPA_ReportLine = PA_ReportLine;
-		X_PA_ReportLine foreignEntity;
+		MReportLine_BH foreignEntity;
 		if (get_ID() == 0 && PA_ReportLine != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
 						.setParameters(PA_ReportLine.getID())

@@ -9,7 +9,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_R_RequestTypeDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MRequestType;
-import org.compiere.model.MUserBPAccess;
+import org.compiere.model.X_AD_UserBPAccess;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -20,9 +20,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_UserBPAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_AD_UserBPAccessResolver extends POResolver<MUserBPAccess> implements GraphQLResolver<MUserBPAccess> {
+public class X_AD_UserBPAccessResolver extends POResolver<X_AD_UserBPAccess> implements GraphQLResolver<X_AD_UserBPAccess> {
 
 
 
@@ -31,7 +31,7 @@ public class X_AD_UserBPAccessResolver extends POResolver<MUserBPAccess> impleme
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	public CompletableFuture<MUser_BH> AD_User(MUserBPAccess entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MUser_BH> AD_User(X_AD_UserBPAccess entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_User_ID() <= 0) {
 			return null;
 		}
@@ -47,7 +47,7 @@ public class X_AD_UserBPAccessResolver extends POResolver<MUserBPAccess> impleme
 			put("A", "0be3d84e-b922-48a6-946d-0e9fa151810b");
 		}
 	};
-	public CompletableFuture<MRefList_BH> BPAccessType(MUserBPAccess entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> BPAccessType(X_AD_UserBPAccess entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getBPAccessType())) {
 			return null;
 		}
@@ -92,7 +92,7 @@ public class X_AD_UserBPAccessResolver extends POResolver<MUserBPAccess> impleme
 			put("FDP", "68763ab2-7781-4d0a-88d4-1d70e3f885e7");
 		}
 	};
-	public CompletableFuture<MRefList_BH> DocBaseType(MUserBPAccess entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> DocBaseType(X_AD_UserBPAccess entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getDocBaseType())) {
 			return null;
 		}
@@ -107,7 +107,7 @@ public class X_AD_UserBPAccessResolver extends POResolver<MUserBPAccess> impleme
 	 *
 	 * @return Type of request (e.g. Inquiry, Complaint, ..)
 	 */
-	public CompletableFuture<MRequestType> R_RequestType(MUserBPAccess entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRequestType> R_RequestType(X_AD_UserBPAccess entity, DataFetchingEnvironment environment) {
 		if (entity.getR_RequestType_ID() <= 0) {
 			return null;
 		}

@@ -9,7 +9,7 @@ import org.compiere.model.MWarehousePrice;
  * Generated Query Resolver for RV_WarehousePrice - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_RV_WarehousePriceQuery extends POQuery<MWarehousePrice> implements GraphQLQueryResolver {
 	@Override

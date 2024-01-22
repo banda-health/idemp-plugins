@@ -6,7 +6,7 @@ import org.compiere.model.X_T_InventoryValue;
  * Data Loader for T_InventoryValue - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_T_InventoryValueDataLoader extends PODataLoader<X_T_InventoryValue> {
 	public static String DATALOADER_T_InventoryValue_BY_ID = "T_InventoryValueByIdDataLoader";

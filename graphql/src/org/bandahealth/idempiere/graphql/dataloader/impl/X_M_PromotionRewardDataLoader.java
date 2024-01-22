@@ -6,7 +6,7 @@ import org.compiere.model.X_M_PromotionReward;
  * Data Loader for M_PromotionReward - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_PromotionRewardDataLoader extends PODataLoader<X_M_PromotionReward> {
 	public static String DATALOADER_M_PromotionReward_BY_ID = "M_PromotionRewardByIdDataLoader";

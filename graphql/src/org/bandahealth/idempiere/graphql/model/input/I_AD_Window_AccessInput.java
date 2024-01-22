@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Window_Access;
  * Generated Interface for AD_Window_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_AD_Window_AccessInput extends I_AD_Window_Access {
 

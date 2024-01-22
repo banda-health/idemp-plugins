@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_UserDef_Field;
  * Generated Interface for AD_UserDef_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 
@@ -23,20 +23,6 @@ public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 	 * @return Field on a database table
 	 */
 	ForeignEntityInput AD_Field();
-
-	/**
-	 * Set AD_FieldGroup.
-	 *
-	 * @param AD_FieldGroup Logical grouping of fields
-	 */
-	void setAD_FieldGroupInput(ForeignEntityInput AD_FieldGroup);
-
-	/**
-	 * Get AD_FieldGroup.
-	 *
-	 * @return Logical grouping of fields
-	 */
-	ForeignEntityInput AD_FieldGroup();
 
 	/**
 	 * Set AD_FieldStyle.
@@ -149,20 +135,6 @@ public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 	 * @return Dynamic Validation Rule
 	 */
 	ForeignEntityInput AD_Val_Rule();
-
-	/**
-	 * Set AD_Val_Rule_Lookup.
-	 *
-	 * @param AD_Val_Rule_Lookup Override Dynamic Validation Rule for Lookup Window
-	 */
-	void setAD_Val_Rule_LookupInput(ForeignEntityInput AD_Val_Rule_Lookup);
-
-	/**
-	 * Get AD_Val_Rule_Lookup.
-	 *
-	 * @return Override Dynamic Validation Rule for Lookup Window
-	 */
-	ForeignEntityInput AD_Val_Rule_Lookup();
 
 	/**
 	 * Set IsAlwaysUpdateable.

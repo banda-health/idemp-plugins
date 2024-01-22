@@ -3,11 +3,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MUserPreference_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.X_AD_UserPreference;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -18,9 +18,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_UserPreference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_AD_UserPreferenceResolver extends POResolver<X_AD_UserPreference> implements GraphQLResolver<X_AD_UserPreference> {
+public class X_AD_UserPreferenceResolver extends POResolver<MUserPreference_BH> implements GraphQLResolver<MUserPreference_BH> {
 
 
 
@@ -29,7 +29,7 @@ public class X_AD_UserPreferenceResolver extends POResolver<X_AD_UserPreference>
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	public CompletableFuture<MUser_BH> AD_User(X_AD_UserPreference entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MUser_BH> AD_User(MUserPreference_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_User_ID() <= 0) {
 			return null;
 		}
@@ -38,23 +38,23 @@ public class X_AD_UserPreferenceResolver extends POResolver<X_AD_UserPreference>
 		return dataLoader.load(entity.getAD_User_ID());
 	}
 
-	public Boolean AutoCommit(X_AD_UserPreference entity, DataFetchingEnvironment environment) {
+	public Boolean AutoCommit(MUserPreference_BH entity, DataFetchingEnvironment environment) {
 		return entity.isAutoCommit();
 	}
 
-	public Boolean AutoNew(X_AD_UserPreference entity, DataFetchingEnvironment environment) {
+	public Boolean AutoNew(MUserPreference_BH entity, DataFetchingEnvironment environment) {
 		return entity.isAutoNew();
 	}
 
-	public Boolean IsDetailedZoomAcross(X_AD_UserPreference entity, DataFetchingEnvironment environment) {
+	public Boolean IsDetailedZoomAcross(MUserPreference_BH entity, DataFetchingEnvironment environment) {
 		return entity.isDetailedZoomAcross();
 	}
 
-	public Boolean IsUseSimilarTo(X_AD_UserPreference entity, DataFetchingEnvironment environment) {
+	public Boolean IsUseSimilarTo(MUserPreference_BH entity, DataFetchingEnvironment environment) {
 		return entity.isUseSimilarTo();
 	}
 
-	public Boolean ToggleOnDoubleClick(X_AD_UserPreference entity, DataFetchingEnvironment environment) {
+	public Boolean ToggleOnDoubleClick(MUserPreference_BH entity, DataFetchingEnvironment environment) {
 		return entity.isToggleOnDoubleClick();
 	}
 
@@ -65,7 +65,7 @@ public class X_AD_UserPreferenceResolver extends POResolver<X_AD_UserPreference>
 			put("2", "a81e98ac-ddae-410c-8a20-d447ceed5486");
 		}
 	};
-	public CompletableFuture<MRefList_BH> ViewFindResult(X_AD_UserPreference entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ViewFindResult(MUserPreference_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getViewFindResult())) {
 			return null;
 		}

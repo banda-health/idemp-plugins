@@ -6,7 +6,7 @@ import org.compiere.model.MCampaign;
  * Data Loader for C_Campaign - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_CampaignDataLoader extends PODataLoader<MCampaign> {
 	public static String DATALOADER_C_Campaign_BY_ID = "C_CampaignByIdDataLoader";

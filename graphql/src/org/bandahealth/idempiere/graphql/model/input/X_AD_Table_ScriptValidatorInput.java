@@ -3,10 +3,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRule;
-import org.compiere.model.MTable;
 import org.compiere.model.MTableScriptValidator;
 import org.compiere.model.Query;
 
@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Table_ScriptValidator - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator implements I_AD_Table_ScriptValidatorInput {
 
@@ -99,7 +99,7 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
+		MTable_BH foreignEntity;
 		if (get_ID() == 0 && AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())

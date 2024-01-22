@@ -9,7 +9,7 @@ import org.compiere.model.X_I_Payment;
  * Generated Query Resolver for I_Payment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_I_PaymentQuery extends POQuery<X_I_Payment> implements GraphQLQueryResolver {
 	@Override

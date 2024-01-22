@@ -6,7 +6,7 @@ import org.compiere.model.I_Fact_Acct_Summary;
  * Generated Interface for Fact_Acct_Summary - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_Fact_Acct_SummaryInput extends I_Fact_Acct_Summary {
 

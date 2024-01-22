@@ -4,6 +4,7 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_CtxHelpDataLoader;
@@ -21,7 +22,6 @@ import org.compiere.model.MCtxHelp;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MImage;
 import org.compiere.model.MTab;
-import org.compiere.model.MTable;
 import org.compiere.model.MWindow;
 import org.compiere.model.PO;
 import org.compiere.util.Env;
@@ -36,7 +36,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolver<MTab> {
 
@@ -137,11 +137,11 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable> AD_Table(MTab entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable_BH> AD_Table(MTab entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTable> dataLoader =
+		DataLoader<Integer, MTable_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
@@ -260,20 +260,12 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 		return entity.isAdvancedTab();
 	}
 
-	public Boolean IsAllowAdvancedLookup(MTab entity, DataFetchingEnvironment environment) {
-		return entity.isAllowAdvancedLookup();
-	}
-
 	public Boolean IsInfoTab(MTab entity, DataFetchingEnvironment environment) {
 		return entity.isInfoTab();
 	}
 
 	public Boolean IsInsertRecord(MTab entity, DataFetchingEnvironment environment) {
 		return entity.isInsertRecord();
-	}
-
-	public Boolean IsLookupOnlySelection(MTab entity, DataFetchingEnvironment environment) {
-		return entity.isLookupOnlySelection();
 	}
 
 	public Boolean IsReadOnly(MTab entity, DataFetchingEnvironment environment) {

@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MReportColumn_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
@@ -16,8 +17,7 @@ import org.compiere.model.MProject;
 import org.compiere.model.MSalesRegion;
 import org.compiere.model.Query;
 import org.compiere.model.X_GL_Budget;
-import org.compiere.model.X_PA_ReportColumn;
-import org.compiere.model.X_PA_ReportColumnSet;
+import org.compiere.report.MReportColumnSet;
 
 import java.sql.ResultSet;
 
@@ -25,9 +25,9 @@ import java.sql.ResultSet;
  * Generated Model for PA_ReportColumn - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_ReportColumnInput {
+public class X_PA_ReportColumnInput extends MReportColumn_BH implements I_PA_ReportColumnInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Activity;
@@ -57,7 +57,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	 */
 	@JsonCreator
 	public X_PA_ReportColumnInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_PA_ReportColumn(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MReportColumn_BH(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}
@@ -532,7 +532,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	@JsonProperty("Oper_1")
 	public void setOper_1Input(ForeignEntityInput Oper_1) {
 		this.mOper_1 = Oper_1;
-		X_PA_ReportColumn foreignEntity;
+		MReportColumn_BH foreignEntity;
 		if (Oper_1 != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportColumn", "PA_ReportColumn_UU=?", get_TrxName())
 						.setParameters(Oper_1.getID())
@@ -561,7 +561,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	@JsonProperty("Oper_2")
 	public void setOper_2Input(ForeignEntityInput Oper_2) {
 		this.mOper_2 = Oper_2;
-		X_PA_ReportColumn foreignEntity;
+		MReportColumn_BH foreignEntity;
 		if (Oper_2 != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportColumn", "PA_ReportColumn_UU=?", get_TrxName())
 						.setParameters(Oper_2.getID())
@@ -619,7 +619,7 @@ public class X_PA_ReportColumnInput extends X_PA_ReportColumn implements I_PA_Re
 	@JsonProperty("PA_ReportColumnSet")
 	public void setPA_ReportColumnSetInput(ForeignEntityInput PA_ReportColumnSet) {
 		this.mPA_ReportColumnSet = PA_ReportColumnSet;
-		X_PA_ReportColumnSet foreignEntity;
+		MReportColumnSet foreignEntity;
 		if (get_ID() == 0 && PA_ReportColumnSet != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportColumnSet", "PA_ReportColumnSet_UU=?", get_TrxName())
 						.setParameters(PA_ReportColumnSet.getID())

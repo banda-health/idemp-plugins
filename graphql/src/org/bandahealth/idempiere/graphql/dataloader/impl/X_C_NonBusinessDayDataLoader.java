@@ -6,7 +6,7 @@ import org.compiere.model.X_C_NonBusinessDay;
  * Data Loader for C_NonBusinessDay - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_NonBusinessDayDataLoader extends PODataLoader<X_C_NonBusinessDay> {
 	public static String DATALOADER_C_NonBusinessDay_BY_ID = "C_NonBusinessDayByIdDataLoader";

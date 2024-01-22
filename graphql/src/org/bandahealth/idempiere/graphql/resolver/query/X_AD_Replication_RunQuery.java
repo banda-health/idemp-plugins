@@ -9,7 +9,7 @@ import org.compiere.model.MReplicationRun;
  * Generated Query Resolver for AD_Replication_Run - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_Replication_RunQuery extends POQuery<MReplicationRun> implements GraphQLQueryResolver {
 	@Override

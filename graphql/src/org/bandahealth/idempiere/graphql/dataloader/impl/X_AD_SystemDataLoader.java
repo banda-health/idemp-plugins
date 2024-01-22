@@ -6,7 +6,7 @@ import org.compiere.model.MSystem;
  * Data Loader for AD_System - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_SystemDataLoader extends PODataLoader<MSystem> {
 	public static String DATALOADER_AD_System_BY_ID = "AD_SystemByIdDataLoader";

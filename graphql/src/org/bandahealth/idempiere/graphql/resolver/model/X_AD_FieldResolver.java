@@ -35,7 +35,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQLResolver<MField_BH> {
 
@@ -158,21 +158,6 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		DataLoader<Integer, MValRule> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
-	}
-
-
-	/**
-	 * Get Dynamic Validation (Lookup).
-	 *
-	 * @return Override Dynamic Validation Rule for Lookup Window
-	 */
-	public CompletableFuture<MValRule> AD_Val_Rule_Lookup(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_Lookup_ID() <= 0) {
-			return null;
-		}
-		DataLoader<Integer, MValRule> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
-		return dataLoader.load(entity.getAD_Val_Rule_Lookup_ID());
 	}
 
 	/**
@@ -357,21 +342,6 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 
 	public Boolean IsSameLine(MField_BH entity, DataFetchingEnvironment environment) {
 		return entity.isSameLine();
-	}
-
-	static Map<String, String> ISSELECTIONCOLUMN_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
-		}
-	};
-	public CompletableFuture<MRefList_BH> IsSelectionColumn(MField_BH entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getIsSelectionColumn())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
-		return dataLoader.load(ISSELECTIONCOLUMN_UUIDS_BY_VALUE.get(entity.getIsSelectionColumn()));
 	}
 
 	static Map<String, String> ISTOOLBARBUTTON_UUIDS_BY_VALUE = new HashMap<>() {

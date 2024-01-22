@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PA_Benchmark - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_PA_BenchmarkResolver extends POResolver<X_PA_Benchmark> implements GraphQLResolver<X_PA_Benchmark> {
 

@@ -6,7 +6,7 @@ import org.eevolution.model.X_C_TaxType;
  * Data Loader for C_TaxType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_TaxTypeDataLoader extends PODataLoader<X_C_TaxType> {
 	public static String DATALOADER_C_TaxType_BY_ID = "C_TaxTypeByIdDataLoader";

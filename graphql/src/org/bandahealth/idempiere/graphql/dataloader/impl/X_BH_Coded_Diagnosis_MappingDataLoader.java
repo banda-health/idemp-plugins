@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHCodedDiagnosisMapping;
  * Data Loader for BH_Coded_Diagnosis_Mapping - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_BH_Coded_Diagnosis_MappingDataLoader extends PODataLoader<MBHCodedDiagnosisMapping> {
 	public static String DATALOADER_BH_Coded_Diagnosis_Mapping_BY_ID = "BH_Coded_Diagnosis_MappingByIdDataLoader";

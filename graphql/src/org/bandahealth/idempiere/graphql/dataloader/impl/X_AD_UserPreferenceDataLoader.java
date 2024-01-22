@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.X_AD_UserPreference;
+import org.bandahealth.idempiere.base.model.MUserPreference_BH;
 
 /**
  * Data Loader for AD_UserPreference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_AD_UserPreferenceDataLoader extends PODataLoader<X_AD_UserPreference> {
+public class X_AD_UserPreferenceDataLoader extends PODataLoader<MUserPreference_BH> {
 	public static String DATALOADER_AD_UserPreference_BY_ID = "AD_UserPreferenceByIdDataLoader";
 	public static String DATALOADER_AD_UserPreference_BY_UUID = "AD_UserPreferenceByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return X_AD_UserPreference.Table_Name;
+		return MUserPreference_BH.Table_Name;
 	}
 
 	@Override

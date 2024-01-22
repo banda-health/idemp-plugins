@@ -3,12 +3,12 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MReportLine_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_GL_Budget;
-import org.compiere.model.X_PA_ReportLine;
-import org.compiere.model.X_PA_ReportLineSet;
+import org.compiere.report.MReportLineSet;
 
 import java.sql.ResultSet;
 
@@ -16,9 +16,9 @@ import java.sql.ResultSet;
  * Generated Model for PA_ReportLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_ReportLineInput {
+public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportLineInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mGL_Budget;
@@ -38,7 +38,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	 */
 	@JsonCreator
 	public X_PA_ReportLineInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_PA_ReportLine(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MReportLine_BH(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}
@@ -165,7 +165,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	@JsonProperty("Oper_1")
 	public void setOper_1Input(ForeignEntityInput Oper_1) {
 		this.mOper_1 = Oper_1;
-		X_PA_ReportLine foreignEntity;
+		MReportLine_BH foreignEntity;
 		if (Oper_1 != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
 						.setParameters(Oper_1.getID())
@@ -194,7 +194,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	@JsonProperty("Oper_2")
 	public void setOper_2Input(ForeignEntityInput Oper_2) {
 		this.mOper_2 = Oper_2;
-		X_PA_ReportLine foreignEntity;
+		MReportLine_BH foreignEntity;
 		if (Oper_2 != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
 						.setParameters(Oper_2.getID())
@@ -281,7 +281,7 @@ public class X_PA_ReportLineInput extends X_PA_ReportLine implements I_PA_Report
 	@JsonProperty("PA_ReportLineSet")
 	public void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet) {
 		this.mPA_ReportLineSet = PA_ReportLineSet;
-		X_PA_ReportLineSet foreignEntity;
+		MReportLineSet foreignEntity;
 		if (get_ID() == 0 && PA_ReportLineSet != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
 						.setParameters(PA_ReportLineSet.getID())

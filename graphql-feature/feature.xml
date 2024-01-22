@@ -362,7 +362,7 @@
          unpack="false"/>
 
    <plugin
-         id="jakarta.annotation-api"
+         id="javax.annotation-api"
          download-size="0"
          install-size="0"
          version="0.0.0"

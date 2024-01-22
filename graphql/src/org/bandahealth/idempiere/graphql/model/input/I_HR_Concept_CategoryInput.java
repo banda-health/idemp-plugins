@@ -6,7 +6,7 @@ import org.eevolution.model.I_HR_Concept_Category;
  * Generated Interface for HR_Concept_Category - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_HR_Concept_CategoryInput extends I_HR_Concept_Category {
 

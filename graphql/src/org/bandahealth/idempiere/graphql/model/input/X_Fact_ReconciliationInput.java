@@ -18,7 +18,7 @@ import java.sql.Timestamp;
  * Generated Model for Fact_Reconciliation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_Fact_ReconciliationInput extends MFactReconciliation implements I_Fact_ReconciliationInput {
 

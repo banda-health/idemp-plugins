@@ -6,7 +6,7 @@ import org.compiere.model.I_Fact_Reconciliation;
  * Generated Interface for Fact_Reconciliation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_Fact_ReconciliationInput extends I_Fact_Reconciliation {
 

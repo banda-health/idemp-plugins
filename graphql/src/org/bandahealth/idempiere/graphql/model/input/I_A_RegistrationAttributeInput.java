@@ -6,7 +6,7 @@ import org.compiere.model.I_A_RegistrationAttribute;
  * Generated Interface for A_RegistrationAttribute - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_A_RegistrationAttributeInput extends I_A_RegistrationAttribute {
 

@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for M_BP_Price - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_BP_PriceInput extends X_M_BP_Price implements I_M_BP_PriceInput {
 

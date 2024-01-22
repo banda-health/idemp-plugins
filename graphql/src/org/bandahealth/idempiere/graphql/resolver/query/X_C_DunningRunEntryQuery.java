@@ -9,7 +9,7 @@ import org.compiere.model.MDunningRunEntry;
  * Generated Query Resolver for C_DunningRunEntry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_DunningRunEntryQuery extends POQuery<MDunningRunEntry> implements GraphQLQueryResolver {
 	@Override

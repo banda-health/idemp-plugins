@@ -364,7 +364,7 @@ public class GraphQLSchemaGenerator {
 				generatedColumns.inputModel.append("Binary");
 			}
 		} else if (AD_Reference_ID > 0 &&
-				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
+				MReference.get(Env.getCtx(), AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
 				clazz.equals(String.class)) {
 			generatedColumns.regularModel.append("AD_Ref_List");
 			if (!shouldSkipInputField) {

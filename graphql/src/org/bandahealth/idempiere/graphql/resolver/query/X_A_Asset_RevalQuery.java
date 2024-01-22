@@ -9,7 +9,7 @@ import org.compiere.model.MAssetReval;
  * Generated Query Resolver for A_Asset_Reval - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_A_Asset_RevalQuery extends POQuery<MAssetReval> implements GraphQLQueryResolver {
 	@Override

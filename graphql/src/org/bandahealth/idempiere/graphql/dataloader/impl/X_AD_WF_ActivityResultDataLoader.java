@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_WF_ActivityResult;
  * Data Loader for AD_WF_ActivityResult - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_WF_ActivityResultDataLoader extends PODataLoader<X_AD_WF_ActivityResult> {
 	public static String DATALOADER_AD_WF_ActivityResult_BY_ID = "AD_WF_ActivityResultByIdDataLoader";

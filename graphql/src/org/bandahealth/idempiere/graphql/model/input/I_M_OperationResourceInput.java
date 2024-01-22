@@ -6,7 +6,7 @@ import org.compiere.model.I_M_OperationResource;
  * Generated Interface for M_OperationResource - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_M_OperationResourceInput extends I_M_OperationResource {
 

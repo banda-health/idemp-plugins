@@ -6,7 +6,7 @@ import org.compiere.model.I_C_CountryGroup;
  * Generated Interface for C_CountryGroup - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_C_CountryGroupInput extends I_C_CountryGroup {
 

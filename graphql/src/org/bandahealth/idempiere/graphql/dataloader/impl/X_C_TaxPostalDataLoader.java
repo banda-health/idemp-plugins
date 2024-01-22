@@ -6,7 +6,7 @@ import org.compiere.model.MTaxPostal;
  * Data Loader for C_TaxPostal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_TaxPostalDataLoader extends PODataLoader<MTaxPostal> {
 	public static String DATALOADER_C_TaxPostal_BY_ID = "C_TaxPostalByIdDataLoader";

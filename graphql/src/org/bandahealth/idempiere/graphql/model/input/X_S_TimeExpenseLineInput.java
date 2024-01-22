@@ -27,7 +27,7 @@ import java.sql.ResultSet;
  * Generated Model for S_TimeExpenseLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_TimeExpenseLineInput {
 

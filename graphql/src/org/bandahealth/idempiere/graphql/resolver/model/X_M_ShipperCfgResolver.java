@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_ShipperCfg - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_ShipperCfgResolver extends POResolver<X_M_ShipperCfg> implements GraphQLResolver<X_M_ShipperCfg> {
 

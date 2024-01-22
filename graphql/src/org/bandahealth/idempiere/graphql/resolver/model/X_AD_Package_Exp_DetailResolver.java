@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_FormDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImpFormatDataLoader;
@@ -33,7 +34,6 @@ import org.compiere.model.MInfoWindow;
 import org.compiere.model.MPackageExp;
 import org.compiere.model.MPackageExpDetail;
 import org.compiere.model.MReportView;
-import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.MWindow;
 import org.compiere.model.X_AD_ImpFormat;
@@ -52,7 +52,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Package_Exp_Detail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetail> implements GraphQLResolver<MPackageExpDetail> {
 
@@ -258,11 +258,11 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable> AD_Table(MPackageExpDetail entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable_BH> AD_Table(MPackageExpDetail entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTable> dataLoader =
+		DataLoader<Integer, MTable_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}

@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_WF_Block - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_WF_BlockResolver extends POResolver<X_AD_WF_Block> implements GraphQLResolver<X_AD_WF_Block> {
 

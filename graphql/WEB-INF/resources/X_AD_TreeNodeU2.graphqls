@@ -1,6 +1,6 @@
 # Generated Schema for AD_TreeNodeU2 - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 7.1 - $Id$
 extend type Query {
 	AD_TreeNodeU2Get(page: Int, size: Int, sort: String, filter: String): AD_TreeNodeU2Connection!
 }

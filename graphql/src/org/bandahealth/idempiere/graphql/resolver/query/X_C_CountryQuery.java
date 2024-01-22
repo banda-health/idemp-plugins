@@ -9,7 +9,7 @@ import org.compiere.model.MCountry;
  * Generated Query Resolver for C_Country - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_CountryQuery extends POQuery<MCountry> implements GraphQLQueryResolver {
 	@Override

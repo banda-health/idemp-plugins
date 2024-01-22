@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_UserDef_Tab;
  * Generated Interface for AD_UserDef_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_AD_UserDef_TabInput extends I_AD_UserDef_Tab {
 
@@ -79,34 +79,6 @@ public interface I_AD_UserDef_TabInput extends I_AD_UserDef_Tab {
 	 * @return AD_UserDef_Win
 	 */
 	ForeignEntityInput AD_UserDef_Win();
-
-	/**
-	 * Set IsAllowAdvancedLookup.
-	 *
-	 * @param IsAllowAdvancedLookup IsAllowAdvancedLookup
-	 */
-	void setIsAllowAdvancedLookupInput(I_AD_Ref_ListInput IsAllowAdvancedLookup);
-
-	/**
-	 * Get IsAllowAdvancedLookup.
-	 *
-	 * @return IsAllowAdvancedLookup
-	 */
-	I_AD_Ref_ListInput IsAllowAdvancedLookup();
-
-	/**
-	 * Set IsLookupOnlySelection.
-	 *
-	 * @param IsLookupOnlySelection When defined to true Lookup panel will display only selection columns. Default to false.
-	 */
-	void setIsLookupOnlySelectionInput(I_AD_Ref_ListInput IsLookupOnlySelection);
-
-	/**
-	 * Get IsLookupOnlySelection.
-	 *
-	 * @return When defined to true Lookup panel will display only selection columns. Default to false.
-	 */
-	I_AD_Ref_ListInput IsLookupOnlySelection();
 
 	/**
 	 * Set IsReadOnly.

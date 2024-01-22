@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for PP_WF_Node_Product - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I_PP_WF_Node_ProductInput {
 

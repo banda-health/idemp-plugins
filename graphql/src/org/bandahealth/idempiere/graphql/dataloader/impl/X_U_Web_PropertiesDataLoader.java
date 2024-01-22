@@ -6,7 +6,7 @@ import org.compiere.model.MWebProperties;
  * Data Loader for U_Web_Properties - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_U_Web_PropertiesDataLoader extends PODataLoader<MWebProperties> {
 	public static String DATALOADER_U_Web_Properties_BY_ID = "U_Web_PropertiesByIdDataLoader";

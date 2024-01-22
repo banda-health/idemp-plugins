@@ -1,6 +1,6 @@
 # Generated Schema for AD_Task - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 7.1 - $Id$
 extend type Query {
 	AD_TaskGet(page: Int, size: Int, sort: String, filter: String): AD_TaskConnection!
 }
@@ -36,6 +36,8 @@ type AD_Task {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
+	# Run this Process on Server only
+	IsServerProcess: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Operating System Command
@@ -61,6 +63,8 @@ input AD_TaskInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
+	# Run this Process on Server only
+	IsServerProcess: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Operating System Command

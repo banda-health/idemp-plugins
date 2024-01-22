@@ -6,7 +6,7 @@ import org.compiere.model.I_WS_WebService;
  * Generated Interface for WS_WebService - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_WS_WebServiceInput extends I_WS_WebService {
 

@@ -9,7 +9,7 @@ import org.compiere.model.MSLAGoal;
  * Generated Query Resolver for PA_SLA_Goal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_PA_SLA_GoalQuery extends POQuery<MSLAGoal> implements GraphQLQueryResolver {
 	@Override

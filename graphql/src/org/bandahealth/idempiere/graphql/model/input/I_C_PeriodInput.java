@@ -6,7 +6,7 @@ import org.compiere.model.I_C_Period;
  * Generated Interface for C_Period - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_C_PeriodInput extends I_C_Period {
 

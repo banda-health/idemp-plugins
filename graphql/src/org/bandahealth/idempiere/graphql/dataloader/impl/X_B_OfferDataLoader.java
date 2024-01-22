@@ -6,7 +6,7 @@ import org.compiere.model.X_B_Offer;
  * Data Loader for B_Offer - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_B_OfferDataLoader extends PODataLoader<X_B_Offer> {
 	public static String DATALOADER_B_Offer_BY_ID = "B_OfferByIdDataLoader";

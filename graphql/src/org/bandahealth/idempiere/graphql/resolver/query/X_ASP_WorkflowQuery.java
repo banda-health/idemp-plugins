@@ -9,7 +9,7 @@ import org.compiere.model.X_ASP_Workflow;
  * Generated Query Resolver for ASP_Workflow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_ASP_WorkflowQuery extends POQuery<X_ASP_Workflow> implements GraphQLQueryResolver {
 	@Override

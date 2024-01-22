@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MReportColumn_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ActivityDataLoader;
@@ -30,8 +31,7 @@ import org.compiere.model.MProject;
 import org.compiere.model.MSalesRegion;
 import org.compiere.model.PO;
 import org.compiere.model.X_GL_Budget;
-import org.compiere.model.X_PA_ReportColumn;
-import org.compiere.model.X_PA_ReportColumnSet;
+import org.compiere.report.MReportColumnSet;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
 import org.dataloader.DataLoader;
@@ -44,9 +44,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PA_ReportColumn - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> implements GraphQLResolver<X_PA_ReportColumn> {
+public class X_PA_ReportColumnResolver extends POResolver<MReportColumn_BH> implements GraphQLResolver<MReportColumn_BH> {
 
 
 
@@ -55,7 +55,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Business Activity
 	 */
-	public CompletableFuture<MActivity> C_Activity(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MActivity> C_Activity(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Activity_ID() <= 0) {
 			return null;
 		}
@@ -70,7 +70,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public CompletableFuture<MBPartner_BH> C_BPartner(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MBPartner_BH> C_BPartner(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_BPartner_ID() <= 0) {
 			return null;
 		}
@@ -85,7 +85,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Marketing Campaign
 	 */
-	public CompletableFuture<MCampaign> C_Campaign(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCampaign> C_Campaign(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Campaign_ID() <= 0) {
 			return null;
 		}
@@ -100,7 +100,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency_BH> C_Currency(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
@@ -115,7 +115,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Account Element
 	 */
-	public CompletableFuture<MElementValue> C_ElementValue(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MElementValue> C_ElementValue(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_ElementValue_ID() <= 0) {
 			return null;
 		}
@@ -130,7 +130,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Location or Address
 	 */
-	public CompletableFuture<MLocation> C_Location(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MLocation> C_Location(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Location_ID() <= 0) {
 			return null;
 		}
@@ -145,7 +145,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Financial Project
 	 */
-	public CompletableFuture<MProject> C_Project(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProject> C_Project(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Project_ID() <= 0) {
 			return null;
 		}
@@ -160,7 +160,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Sales coverage region
 	 */
-	public CompletableFuture<MSalesRegion> C_SalesRegion(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MSalesRegion> C_SalesRegion(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_SalesRegion_ID() <= 0) {
 			return null;
 		}
@@ -177,7 +177,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			put("R", "1455fb91-3bd5-4f0f-b156-03bb03073ff9");
 		}
 	};
-	public CompletableFuture<MRefList_BH> CalculationType(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CalculationType(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCalculationType())) {
 			return null;
 		}
@@ -193,7 +193,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			put("S", "f2a870a8-c5c5-4e9a-afdf-e08770b9758f");
 		}
 	};
-	public CompletableFuture<MRefList_BH> ColumnType(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ColumnType(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getColumnType())) {
 			return null;
 		}
@@ -208,7 +208,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			put("A", "7d2055f8-02e9-46f1-8217-2340028c7723");
 		}
 	};
-	public CompletableFuture<MRefList_BH> CurrencyType(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CurrencyType(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCurrencyType())) {
 			return null;
 		}
@@ -222,14 +222,14 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Optional short description of the record
 	 */
-	public CompletableFuture<String> Description(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<String> Description(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_ReportColumn_TrlDataLoader.DATALOADER_PA_ReportColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportColumn.COLUMNNAME_Description));
+				.thenApply(translation -> translation.get_ValueAsString(MReportColumn_BH.COLUMNNAME_Description));
 	}
 
 	static Map<String, String> ELEMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -253,7 +253,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			put("CO", "a852a154-ddbe-43a6-b753-c247521d6bf7");
 		}
 	};
-	public CompletableFuture<MRefList_BH> ElementType(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ElementType(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getElementType())) {
 			return null;
 		}
@@ -268,7 +268,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			put("M", "89f20031-b524-4cd4-a6a1-6c21fe46335a");
 		}
 	};
-	public CompletableFuture<MRefList_BH> Factor(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> Factor(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFactor())) {
 			return null;
 		}
@@ -283,7 +283,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return General Ledger Budget
 	 */
-	public CompletableFuture<X_GL_Budget> GL_Budget(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_GL_Budget> GL_Budget(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getGL_Budget_ID() <= 0) {
 			return null;
 		}
@@ -292,63 +292,63 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 		return dataLoader.load(entity.getGL_Budget_ID());
 	}
 
-	public Boolean IsAdhocConversion(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsAdhocConversion(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isAdhocConversion();
 	}
 
-	public Boolean IsAllowOppositeSign(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsAllowOppositeSign(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isAllowOppositeSign();
 	}
 
-	public Boolean IsIncludeNullsActivity(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsActivity(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsActivity();
 	}
 
-	public Boolean IsIncludeNullsBPartner(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsBPartner(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsBPartner();
 	}
 
-	public Boolean IsIncludeNullsCampaign(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsCampaign(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsCampaign();
 	}
 
-	public Boolean IsIncludeNullsElementValue(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsElementValue(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsElementValue();
 	}
 
-	public Boolean IsIncludeNullsLocation(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsLocation(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsLocation();
 	}
 
-	public Boolean IsIncludeNullsOrg(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsOrg(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsOrg();
 	}
 
-	public Boolean IsIncludeNullsOrgTrx(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsOrgTrx(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsOrgTrx();
 	}
 
-	public Boolean IsIncludeNullsProduct(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsProduct(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsProduct();
 	}
 
-	public Boolean IsIncludeNullsProject(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsProject(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsProject();
 	}
 
-	public Boolean IsIncludeNullsSalesRegion(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsSalesRegion(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsSalesRegion();
 	}
 
-	public Boolean IsIncludeNullsUserElement1(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsUserElement1(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsUserElement1();
 	}
 
-	public Boolean IsIncludeNullsUserElement2(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsUserElement2(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsUserElement2();
 	}
 
-	public Boolean IsPrinted(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public Boolean IsPrinted(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		return entity.isPrinted();
 	}
 
@@ -358,7 +358,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Product, Service, Item
 	 */
-	public CompletableFuture<MProduct_BH> M_Product(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProduct_BH> M_Product(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Product_ID() <= 0) {
 			return null;
 		}
@@ -372,14 +372,14 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Alphanumeric identifier of the entity
 	 */
-	public CompletableFuture<String> Name(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<String> Name(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_ReportColumn_TrlDataLoader.DATALOADER_PA_ReportColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportColumn.COLUMNNAME_Name));
+				.thenApply(translation -> translation.get_ValueAsString(MReportColumn_BH.COLUMNNAME_Name));
 	}
 
 
@@ -388,11 +388,11 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return First operand for calculation
 	 */
-	public CompletableFuture<X_PA_ReportColumn> Oper_1(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportColumn_BH> Oper_1(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getOper_1_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, X_PA_ReportColumn> dataLoader =
+		DataLoader<Integer, MReportColumn_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnDataLoader.DATALOADER_PA_ReportColumn_BY_ID);
 		return dataLoader.load(entity.getOper_1_ID());
 	}
@@ -403,11 +403,11 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Second operand for calculation
 	 */
-	public CompletableFuture<X_PA_ReportColumn> Oper_2(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportColumn_BH> Oper_2(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getOper_2_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, X_PA_ReportColumn> dataLoader =
+		DataLoader<Integer, MReportColumn_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnDataLoader.DATALOADER_PA_ReportColumn_BY_ID);
 		return dataLoader.load(entity.getOper_2_ID());
 	}
@@ -418,11 +418,11 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 	 *
 	 * @return Collection of Columns for Report
 	 */
-	public CompletableFuture<X_PA_ReportColumnSet> PA_ReportColumnSet(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportColumnSet> PA_ReportColumnSet(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportColumnSet_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, X_PA_ReportColumnSet> dataLoader =
+		DataLoader<Integer, MReportColumnSet> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnSetDataLoader.DATALOADER_PA_ReportColumnSet_BY_ID);
 		return dataLoader.load(entity.getPA_ReportColumnSet_ID());
 	}
@@ -437,7 +437,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			put("R", "f6d19951-ac66-4c69-8626-6252daff15ae");
 		}
 	};
-	public CompletableFuture<MRefList_BH> PAAmountType(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PAAmountType(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPAAmountType())) {
 			return null;
 		}
@@ -454,7 +454,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			put("N", "aec483ce-9299-4786-a0cb-a1a851362950");
 		}
 	};
-	public CompletableFuture<MRefList_BH> PAPeriodType(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PAPeriodType(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPAPeriodType())) {
 			return null;
 		}
@@ -472,7 +472,7 @@ public class X_PA_ReportColumnResolver extends POResolver<X_PA_ReportColumn> imp
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList_BH> PostingType(X_PA_ReportColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(MReportColumn_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}

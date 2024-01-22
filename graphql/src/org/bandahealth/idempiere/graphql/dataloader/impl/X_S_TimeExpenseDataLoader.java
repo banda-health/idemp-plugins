@@ -6,7 +6,7 @@ import org.compiere.model.MTimeExpense;
  * Data Loader for S_TimeExpense - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_S_TimeExpenseDataLoader extends PODataLoader<MTimeExpense> {
 	public static String DATALOADER_S_TimeExpense_BY_ID = "S_TimeExpenseByIdDataLoader";

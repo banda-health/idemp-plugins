@@ -25,7 +25,7 @@ import java.sql.ResultSet;
  * Generated Model for M_Package - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 

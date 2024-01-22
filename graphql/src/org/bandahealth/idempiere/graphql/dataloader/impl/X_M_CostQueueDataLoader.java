@@ -6,7 +6,7 @@ import org.compiere.model.MCostQueue;
  * Data Loader for M_CostQueue - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_CostQueueDataLoader extends PODataLoader<MCostQueue> {
 	public static String DATALOADER_M_CostQueue_BY_ID = "M_CostQueueByIdDataLoader";

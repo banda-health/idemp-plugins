@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 
@@ -35,12 +35,10 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	private ForeignEntityInput mAD_Reference_Value;
 	private ForeignEntityInput mAD_Tab;
 	private ForeignEntityInput mAD_Val_Rule;
-	private ForeignEntityInput mAD_Val_Rule_Lookup;
 	private ForeignEntityInput mIncluded_Tab;
 	private I_AD_Ref_ListInput mIsAllowCopy;
 	private I_AD_Ref_ListInput mIsAlwaysUpdateable;
 	private I_AD_Ref_ListInput mIsMandatory;
-	private I_AD_Ref_ListInput mIsSelectionColumn;
 	private I_AD_Ref_ListInput mIsToolbarButton;
 	private I_AD_Ref_ListInput mIsUpdateable;
 	private I_AD_Ref_ListInput mObscureType;
@@ -342,35 +340,6 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	}
 
 	/**
-	 * Set Dynamic Validation (Lookup).
-	 *
-	 * @param AD_Val_Rule_Lookup Override Dynamic Validation Rule for Lookup Window
-	 */
-	@JsonProperty("AD_Val_Rule_Lookup")
-	public void setAD_Val_Rule_LookupInput(ForeignEntityInput AD_Val_Rule_Lookup) {
-		this.mAD_Val_Rule_Lookup = AD_Val_Rule_Lookup;
-		MValRule foreignEntity;
-		if (AD_Val_Rule_Lookup != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-						.setParameters(AD_Val_Rule_Lookup.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Val_Rule_Lookup_ID(foreignEntity.get_ID());
-		} else {
-			super.setAD_Val_Rule_Lookup_ID(0);
-		}
-	}
-
-	/**
-	 * Get Dynamic Validation (Lookup).
-	 *
-	 * @return Override Dynamic Validation Rule for Lookup Window
-	 */
-	@JsonProperty("AD_Val_Rule_Lookup")
-	public ForeignEntityInput AD_Val_Rule_Lookup() {
-		return mAD_Val_Rule_Lookup;
-	}
-
-	/**
 	 * Set Entity Type.
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
@@ -513,35 +482,6 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	@JsonProperty("IsMandatory")
 	public I_AD_Ref_ListInput IsMandatory() {
 		return mIsMandatory;
-	}
-
-	/**
-	 * Set Selection Column.
-	 *
-	 * @param IsSelectionColumn Is this column used for finding rows in windows
-	 */
-	@JsonProperty("IsSelectionColumn")
-	public void setIsSelectionColumnInput(I_AD_Ref_ListInput IsSelectionColumn) {
-		this.mIsSelectionColumn = IsSelectionColumn;
-		MRefList_BH foreignEntity;
-		if (IsSelectionColumn != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsSelectionColumn.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setIsSelectionColumn(foreignEntity.getValue());
-		} else {
-			this.setIsSelectionColumn(null);
-		}
-	}
-
-	/**
-	 * Get Selection Column.
-	 *
-	 * @return Is this column used for finding rows in windows
-	 */
-	@JsonProperty("IsSelectionColumn")
-	public I_AD_Ref_ListInput IsSelectionColumn() {
-		return mIsSelectionColumn;
 	}
 
 	/**

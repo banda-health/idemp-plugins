@@ -195,7 +195,7 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 					+ MRoleOrgAccess.COLUMNNAME_AD_Role_ID + " = " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_Role_ID;
 
-			PO.setCrossTenantSafe();
+			//PO.setCrossTenantSafe();
 			MUserRoles userRoles = new Query(idempiereContext, MUserRoles.Table_Name, whereClause, null)
 					.addJoinClause(joinClause).setParameters(parameters).first();
 			if (userRoles == null) {
@@ -228,7 +228,7 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 					throw new AdempiereException("Unauthorized");
 				}
 			}
-			PO.clearCrossTenantSafe();
+			//PO.clearCrossTenantSafe();
 
 			JWTCreator.Builder builder = JWT.create().withSubject(credentials.getUsername());
 			Timestamp expiresAt = TokenUtils.getTokeExpiresAt();
@@ -383,7 +383,7 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 	private void setDefaultLoginProperties(KeyNamePair[] clients, MUser user, JWTCreator.Builder builder,
 			AuthenticationResponse response, Properties idempiereContext) {
 		// parse all clients that the user has access to.
-		PO.setCrossTenantSafe();
+		//PO.setCrossTenantSafe();
 		Repository.setApplyAccessFilterNotNeeded();
 		Map<Integer, MClient_BH> clientsById = Repository.getByIds(idempiereContext, MClient_BH.Table_Name, null,
 				Arrays.stream(clients).map(KeyNamePair::getKey).collect(Collectors.toSet()));
@@ -421,6 +421,6 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 			}
 		}
 		Repository.clearApplyAccessFilterNotNeeded();
-		PO.clearCrossTenantSafe();
+		//PO.clearCrossTenantSafe();
 	}
 }

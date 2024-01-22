@@ -23,7 +23,7 @@ import java.sql.ResultSet;
  * Generated Model for M_Inventory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryInput {
 

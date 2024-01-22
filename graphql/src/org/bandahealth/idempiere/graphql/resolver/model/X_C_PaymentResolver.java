@@ -55,7 +55,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_Payment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements GraphQLResolver<MPayment_BH> {
 

@@ -6,7 +6,7 @@ import org.compiere.model.X_Fact_Acct_Summary;
  * Data Loader for Fact_Acct_Summary - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_Fact_Acct_SummaryDataLoader extends PODataLoader<X_Fact_Acct_Summary> {
 	public static String DATALOADER_Fact_Acct_Summary_BY_ID = "Fact_Acct_SummaryByIdDataLoader";
