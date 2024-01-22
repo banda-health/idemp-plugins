@@ -152,50 +152,53 @@ WHERE
 	</subDataset>
 	<subDataset name="PayerDataSet" uuid="a787df6e-9121-4802-bbcf-ec7c1ed889a9">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Docker PostgreSQL"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Local PostgreSQL"/>
 		<parameter name="BH_Visit_UU" class="java.lang.String"/>
-		<parameter name="Payer_UU" class="java.lang.String"/>
+		<parameter name="Payer_ID" class="java.math.BigDecimal"/>
 		<queryString language="SQL">
-			<![CDATA[SELECT
-    bp.name      AS payer_name,
-    i.grandtotal AS amount,
-    c.iso_code   AS currency_code,
-    i.ispaid,
-    CASE WHEN bp.c_bpartner_uu = $P{Payer_UU} THEN 1 ELSE 0 END AS is_main_payer
-FROM bh_visit v
+			<![CDATA[WITH visit AS (
+        SELECT bh_visit_id, ad_client_id, patient_id FROM bh_visit WHERE bh_visit_uu = $P{BH_Visit_UU} 
+    )
+SELECT
+    p.chargetype_name AS payer_name,
+    -p.linenetamt AS line_amount,
+    c.iso_code AS currency,
+    CASE WHEN i.c_bpartner_id = $P{Payer_ID} THEN 1 ELSE 0 END AS is_main_payer
+FROM visit v
+    JOIN bh_get_visit_non_patient_payments(v.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) p
+    ON v.bh_visit_id = p.bh_visit_id
     JOIN c_invoice i
-		ON v.bh_visit_id = i.bh_visit_id
-        JOIN c_bpartner bp
-        ON i.c_bpartner_id = bp.c_bpartner_id
-        JOIN c_currency c
-        ON i.c_currency_id = c.c_currency_id
-WHERE v.bh_visit_uu = $P{BH_Visit_UU}
-  AND i.docstatus = 'CO'
-  AND COALESCE(i.grandtotal, 0) <> 0
-ORDER BY is_main_payer, ispaid DESC;]]>
+    ON i.c_invoice_id = p.c_invoice_id
+    LEFT JOIN c_currency c
+    ON c.c_currency_id = i.c_currency_id
+UNION ALL
+SELECT bp.name AS payer_name,
+    i.grandtotal AS line_amount,
+    c.iso_code AS currency,
+    CASE WHEN i.c_bpartner_id = $P{Payer_ID} THEN 1 ELSE 0 END AS is_main_payer
+FROM visit v
+    JOIN c_invoice i
+    ON i.bh_visit_id = v.bh_visit_id
+    AND i.c_bpartner_id = v.patient_id
+    JOIN c_bpartner bp
+    ON bp.c_bpartner_id = v.patient_id
+    LEFT JOIN c_currency c
+    ON c.c_currency_id = i.c_currency_id
+ORDER BY is_main_payer;]]>
 		</queryString>
 		<field name="payer_name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="payer_name"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 		</field>
-		<field name="amount" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="amount"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_invoice"/>
+		<field name="line_amount" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="line_amount"/>
 		</field>
-		<field name="currency_code" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="currency_code"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_currency"/>
-		</field>
-		<field name="ispaid" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="ispaid"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_invoice"/>
+		<field name="currency" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="currency"/>
 		</field>
 		<field name="is_main_payer" class="java.lang.Integer">
 			<property name="com.jaspersoft.studio.field.label" value="is_main_payer"/>
 		</field>
-		<group name="ispaid">
-			<groupExpression><![CDATA[$F{ispaid}]]></groupExpression>
-		</group>
 	</subDataset>
 	<subDataset name="InsurerSpecificFields" uuid="143228f5-5dd5-49c5-85c1-3c4b94f3b367">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -240,78 +243,59 @@ LIMIT 5]]>
 	</subDataset>
 	<subDataset name="PaymentDetails" uuid="d4575100-aca9-492c-b71f-f6d8455745ca">
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Docker PostgreSQL"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Local PostgreSQL"/>
 		<parameter name="BH_Visit_UU" class="java.lang.String"/>
 		<parameter name="OpenBalance" class="java.math.BigDecimal"/>
 		<queryString language="SQL">
 			<![CDATA[WITH visit AS (
-	    SELECT bh_visit_id, patient_id FROM bh_visit WHERE bh_visit_uu = $P{BH_Visit_UU}  
-    ),
-    payments AS (SELECT
-			p.bh_visit_id,
-			p.c_bpartner_id,
-			SUM(p.payamt) AS paid,
-			rl.name       AS tender_type,
-			iso_code      AS payment_currency
-		FROM c_payment p
-            JOIN visit v
-            ON v.bh_visit_id = p.bh_visit_id
-            LEFT JOIN ad_ref_list rl
-            ON p.tendertype = rl.value AND ad_reference_id = 214
-            LEFT JOIN c_currency c
-            ON p.c_currency_id = c.c_currency_id
-		GROUP BY
-			p.bh_visit_id, p.c_bpartner_id, rl.name, iso_code
+        SELECT bh_visit_id, ad_client_id FROM bh_visit WHERE bh_visit_uu = $P{BH_Visit_UU} 
     )
-SELECT i.grandtotal  AS invoice_amount,
-       bp.name,
-       c.iso_code    AS invoice_currency,
-       p.paid        AS paid_amount,
-       p.tender_type,
-       p.payment_currency,
-       COALESCE(p.paid, i.grandtotal) AS line_amount,
-       CASE WHEN bp.c_bpartner_id = v.patient_id THEN 1 ELSE 0 END AS is_patient
+SELECT
+    p.chargetype_name AS name,
+    '' AS tender_type,
+    -p.linenetamt AS line_amount,
+    c.iso_code AS currency,
+    0 AS is_patient_payment
 FROM visit v
-    JOIN c_invoice i
-    ON i.bh_visit_id = v.bh_visit_id
-    AND i.docstatus = 'CO'
-    JOIN c_currency c
-	ON i.c_currency_id = c.c_currency_id
-    LEFT JOIN c_bpartner bp
-    ON i.c_bpartner_id = bp.c_bpartner_id
-    LEFT JOIN payments p
+    JOIN bh_get_visit_non_patient_payments(v.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) p
     ON v.bh_visit_id = p.bh_visit_id
-    AND i.c_bpartner_id = p.c_bpartner_id
-WHERE
-    -- Exclude rows for the patient where there is no payment, as that indicates an open (unpaid) balance
-    NOT (bp.c_bpartner_id = v.patient_id AND p.bh_visit_id IS NULL)    
- ORDER BY is_patient]]>
+    JOIN c_invoice i
+    ON i.c_invoice_id = p.c_invoice_id
+    LEFT JOIN c_currency c
+    ON c.c_currency_id = i.c_currency_id
+UNION ALL
+SELECT
+    patient_name AS name,
+    payment_mode_name AS tender_type,
+    SUM(p.payamt) AS line_amount,
+    c.iso_code AS currency,
+    1 AS is_patient_payment
+FROM visit v
+    JOIN bh_get_visit_payments(v.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) p
+    ON v.bh_visit_id = p.bh_visit_id
+    LEFT JOIN c_payment pa
+    ON pa.c_payment_id = p.c_payment_id
+    LEFT JOIN c_currency c
+    ON c.c_currency_id = pa.c_currency_id
+GROUP BY name, tender_type, currency, is_patient_payment
+ORDER BY is_patient_payment;]]>
 		</queryString>
-		<field name="invoice_amount" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="invoice_amount"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_invoice"/>
-		</field>
 		<field name="name" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="name"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-		</field>
-		<field name="invoice_currency" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="invoice_currency"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_currency"/>
-		</field>
-		<field name="paid_amount" class="java.math.BigDecimal">
-			<property name="com.jaspersoft.studio.field.label" value="paid_amount"/>
 		</field>
 		<field name="tender_type" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="tender_type"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
 		</field>
-		<field name="payment_currency" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.label" value="payment_currency"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="c_currency"/>
-		</field>
 		<field name="line_amount" class="java.math.BigDecimal">
 			<property name="com.jaspersoft.studio.field.label" value="line_amount"/>
+		</field>
+		<field name="currency" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="currency"/>
+		</field>
+		<field name="is_patient_payment" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.label" value="is_patient_payment"/>
 		</field>
 		<variable name="TotalPayment" class="java.lang.Double" calculation="Sum">
 			<variableExpression><![CDATA[$F{line_amount}]]></variableExpression>
@@ -373,6 +357,7 @@ WHERE
     payer AS (
         SELECT
             v.bh_visit_id,
+            bpins.c_bpartner_id AS insurer_id,
             bpins.c_bpartner_uu AS insurer_uu,
             bpins.name          AS insurer_name,
             i.documentno        AS invoice_id,
@@ -402,6 +387,7 @@ SELECT
    	COALESCE(ps.payment_type, 'None') AS payment_type,
    	ps.payment_amount,
 	oi.bh_paymentinformation,
+	p.insurer_id,
 	p.insurer_uu,
 	p.insurer_name
 FROM
@@ -460,6 +446,10 @@ FROM
 	<field name="bh_paymentinformation" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="bh_paymentinformation"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="ad_orginfo"/>
+	</field>
+	<field name="insurer_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="insurer_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<field name="insurer_uu" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="insurer_uu"/>
@@ -908,12 +898,12 @@ FROM
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="PayerDataSet" uuid="acd494c0-6cf4-47f6-bf67-73b565513119">
+					<datasetRun subDataset="PayerDataSet" uuid="25006ac8-2e11-4fde-af83-42d8a1e80318">
 						<datasetParameter name="BH_Visit_UU">
 							<datasetParameterExpression><![CDATA[$P{BH_Visit_UU}]]></datasetParameterExpression>
 						</datasetParameter>
-						<datasetParameter name="Payer_UU">
-							<datasetParameterExpression><![CDATA[$F{insurer_uu}]]></datasetParameterExpression>
+						<datasetParameter name="Payer_ID">
+							<datasetParameterExpression><![CDATA[$F{insurer_id}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -1000,7 +990,7 @@ FROM
 								<textElement textAlignment="Right">
 									<paragraph rightIndent="3"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{currency_code}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{currency}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -1030,7 +1020,7 @@ FROM
 								<textElement textAlignment="Right">
 									<paragraph rightIndent="3"/>
 								</textElement>
-								<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{amount})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{line_amount})]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -1119,8 +1109,7 @@ FROM
 								<textElement>
 									<paragraph leftIndent="3" rightIndent="0"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$F{payment_currency} != null ? $F{payment_currency} : 
-   ($F{invoice_currency} != null ? $F{invoice_currency} : "")]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{currency}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -1287,18 +1276,15 @@ FROM
 				<textFieldExpression><![CDATA["Invoice Generated at " + new SimpleDateFormat("dd-MM-YYYY HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="370" y="0" width="90" height="20" uuid="03c55b05-88e6-4659-8967-cf404c94249a">
+				<reportElement x="367" y="0" width="90" height="20" uuid="03c55b05-88e6-4659-8967-cf404c94249a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Group" evaluationGroup="Insurer">
-				<reportElement x="460" y="0" width="20" height="20" uuid="f6a22d1e-a219-452f-b548-40c77d6f7cb7">
+				<reportElement x="457" y="0" width="23" height="20" uuid="f6a22d1e-a219-452f-b548-40c77d6f7cb7">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
