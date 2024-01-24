@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_R_CategoryUpdatesInput;
 import org.compiere.model.X_R_CategoryUpdates;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for R_CategoryUpdates - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_R_CategoryUpdatesMutation extends POMutation implements GraphQLMu
 		return X_R_CategoryUpdatesInput.Table_Name;
 	}
 
-	public X_R_CategoryUpdates R_CategoryUpdatesSave(I_R_CategoryUpdatesInput input, DataFetchingEnvironment environment) {
-		return (X_R_CategoryUpdates) super.save((X_R_CategoryUpdatesInput) input, environment);
+	public X_R_CategoryUpdates R_CategoryUpdatesSave(I_R_CategoryUpdatesInput entity, DataFetchingEnvironment environment) {
+		return (X_R_CategoryUpdates) super.save((X_R_CategoryUpdatesInput) entity, environment);
+	}
+
+	public List<X_R_CategoryUpdates> R_CategoryUpdatesSaveMany(List<I_R_CategoryUpdatesInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_R_CategoryUpdatesInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_R_CategoryUpdates) entity).collect(Collectors.toList());
 	}
 
 	public boolean R_CategoryUpdatesDelete(List<String> uuids, DataFetchingEnvironment environment) {

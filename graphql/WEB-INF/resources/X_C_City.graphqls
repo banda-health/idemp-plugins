@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CitySave(entity: C_CityInput!): C_City!
+	C_CitySaveMany(entities: [C_CityInput!]!): [C_City!]!
 	C_CityDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_City {
 	AD_Org: AD_Org!
 	# Phone Area Code
 	AreaCode: String
-	ID: ID!
+	UUID: ID!
 	# Country 
 	C_Country: C_Country
 	# Identifies a geographical Region
@@ -52,7 +53,7 @@ input C_CityInput {
 	AD_Org: ForeignEntityInput
 	# Phone Area Code
 	AreaCode: String
-	ID: ID
+	UUID: ID
 	# Country 
 	C_Country: ForeignEntityInput
 	# Identifies a geographical Region

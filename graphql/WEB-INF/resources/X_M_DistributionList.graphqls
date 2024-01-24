@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_DistributionListSave(entity: M_DistributionListInput!): M_DistributionList!
+	M_DistributionListSaveMany(entities: [M_DistributionListInput!]!): [M_DistributionList!]!
 	M_DistributionListDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_DistributionList {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
@@ -51,7 +52,7 @@ input M_DistributionListInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean

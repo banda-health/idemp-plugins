@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttribute_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -9,6 +10,7 @@ import org.compiere.model.MAttributeInstance;
 import org.compiere.model.MAttributeValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -26,13 +28,16 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	private ForeignEntityInput mM_AttributeValue;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_AttributeInstance_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_AttributeInstanceInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MAttributeInstance(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_AttributeInstanceInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAttributeInstance(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -44,11 +49,16 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -71,11 +81,16 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	public void setM_AttributeInput(ForeignEntityInput M_Attribute) {
 		this.mM_Attribute = M_Attribute;
 		MAttribute_BH foreignEntity;
-		if (get_ID() == 0 && M_Attribute != null &&
-				(foreignEntity = new Query(getCtx(), "M_Attribute", "M_Attribute_UU=?", get_TrxName())
-						.setParameters(M_Attribute.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Attribute_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_Attribute != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Attribute", "M_Attribute_UU=?", get_TrxName())
+							.setParameters(M_Attribute.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Attribute_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Attribute with UUID " + M_Attribute.getUUID());
+			}
 		}
 	}
 
@@ -90,20 +105,20 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_AttributeInstance_UU(ID);
+	public void setUUID(String UUID) {
+		setM_AttributeInstance_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_AttributeInstance_UU();
 	}
 
@@ -116,11 +131,16 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
-		if (get_ID() == 0 && M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-						.setParameters(M_AttributeSetInstance.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_AttributeSetInstance != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
+							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
+			}
 		}
 	}
 
@@ -143,11 +163,16 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	public void setM_AttributeValueInput(ForeignEntityInput M_AttributeValue) {
 		this.mM_AttributeValue = M_AttributeValue;
 		MAttributeValue foreignEntity;
-		if (M_AttributeValue != null &&
-				(foreignEntity = new Query(getCtx(), "M_AttributeValue", "M_AttributeValue_UU=?", get_TrxName())
-						.setParameters(M_AttributeValue.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_AttributeValue_ID(foreignEntity.get_ID());
+		if (M_AttributeValue != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_AttributeValue", "M_AttributeValue_UU=?", get_TrxName())
+							.setParameters(M_AttributeValue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_AttributeValue_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_AttributeValue with UUID " + M_AttributeValue.getUUID());
+			}
 		} else {
 			super.setM_AttributeValue_ID(0);
 		}

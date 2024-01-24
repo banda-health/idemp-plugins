@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_ASP_ProcessInput;
 import org.compiere.model.X_ASP_Process;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for ASP_Process - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_ASP_ProcessMutation extends POMutation implements GraphQLMutation
 		return X_ASP_ProcessInput.Table_Name;
 	}
 
-	public X_ASP_Process ASP_ProcessSave(I_ASP_ProcessInput input, DataFetchingEnvironment environment) {
-		return (X_ASP_Process) super.save((X_ASP_ProcessInput) input, environment);
+	public X_ASP_Process ASP_ProcessSave(I_ASP_ProcessInput entity, DataFetchingEnvironment environment) {
+		return (X_ASP_Process) super.save((X_ASP_ProcessInput) entity, environment);
+	}
+
+	public List<X_ASP_Process> ASP_ProcessSaveMany(List<I_ASP_ProcessInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_ASP_ProcessInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_ASP_Process) entity).collect(Collectors.toList());
 	}
 
 	public boolean ASP_ProcessDelete(List<String> uuids, DataFetchingEnvironment environment) {

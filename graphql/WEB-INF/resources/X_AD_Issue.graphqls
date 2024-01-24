@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_IssueSave(entity: AD_IssueInput!): AD_Issue!
+	AD_IssueSaveMany(entities: [AD_IssueInput!]!): [AD_Issue!]!
 	AD_IssueDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Issue {
 	AD_Client: AD_Client!
 	# Special Form
 	AD_Form: AD_Form
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Process or Report
@@ -118,7 +119,7 @@ input AD_IssueInput {
 	A_Asset: ForeignEntityInput
 	# Special Form
 	AD_Form: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Process or Report

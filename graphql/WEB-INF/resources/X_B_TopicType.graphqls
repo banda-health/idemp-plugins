@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	B_TopicTypeSave(entity: B_TopicTypeInput!): B_TopicType!
+	B_TopicTypeSaveMany(entities: [B_TopicTypeInput!]!): [B_TopicType!]!
 	B_TopicTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type B_TopicType {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	AuctionType: String!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,7 +51,7 @@ input B_TopicTypeInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	AuctionType: String
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

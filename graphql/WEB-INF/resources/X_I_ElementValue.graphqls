@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	I_ElementValueSave(entity: I_ElementValueInput!): I_ElementValue!
+	I_ElementValueSaveMany(entities: [I_ElementValueInput!]!): [I_ElementValue!]!
 	I_ElementValueDelete(uuids: [String!]!): Boolean!
 }
 
@@ -40,7 +41,7 @@ type I_ElementValue {
 	Description: String
 	# Name of the Element
 	ElementName: String
-	ID: ID!
+	UUID: ID!
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -95,7 +96,7 @@ input I_ElementValueInput {
 	Description: String
 	# Name of the Element
 	ElementName: String
-	ID: ID
+	UUID: ID
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

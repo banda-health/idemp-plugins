@@ -39,18 +39,18 @@ public interface I_A_Asset_SplitInput extends I_A_Asset_Split {
 	ForeignEntityInput A_Asset_To();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set A_Split_Type.

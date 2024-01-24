@@ -53,18 +53,18 @@ public interface I_AD_WF_Node_ParaInput extends I_AD_WF_Node_Para {
 	ForeignEntityInput AD_WF_Node();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set AD_EntityType.

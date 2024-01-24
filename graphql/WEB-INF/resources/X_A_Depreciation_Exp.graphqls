@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Depreciation_ExpSave(entity: A_Depreciation_ExpInput!): A_Depreciation_Exp!
+	A_Depreciation_ExpSaveMany(entities: [A_Depreciation_ExpInput!]!): [A_Depreciation_Exp!]!
 	A_Depreciation_ExpDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type A_Depreciation_Exp {
 	A_Asset_Remaining: BigDecimal
 	A_Asset_Remaining_F: BigDecimal
 	A_Depreciation_Entry: A_Depreciation_Entry
-	ID: ID!
+	UUID: ID!
 	A_Entry_Type: AD_Ref_List!
 	A_Period: Int!
 	# Client/Tenant for this installation.
@@ -88,7 +89,7 @@ input A_Depreciation_ExpInput {
 	A_Asset_Remaining: BigDecimal
 	A_Asset_Remaining_F: BigDecimal
 	A_Depreciation_Entry: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	A_Entry_Type: AD_Ref_ListInput
 	A_Period: Int
 	# Organizational entity within client

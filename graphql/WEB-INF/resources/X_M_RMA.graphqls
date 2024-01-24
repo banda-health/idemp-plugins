@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_RMASave(entity: M_RMAInput!): M_RMA!
+	M_RMASaveMany(entities: [M_RMAInput!]!): [M_RMA!]!
 	M_RMADelete(uuids: [String!]!): Boolean!
 }
 
@@ -56,7 +57,7 @@ type M_RMA {
 	IsApproved: Boolean!
 	# This is a Sales Transaction
 	IsSOTrx: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Return Material Authorization Type
 	M_RMAType: M_RMAType!
 	# Alphanumeric identifier of the entity
@@ -108,7 +109,7 @@ input M_RMAInput {
 	IsApproved: Boolean
 	# This is a Sales Transaction
 	IsSOTrx: Boolean
-	ID: ID
+	UUID: ID
 	# Return Material Authorization Type
 	M_RMAType: ForeignEntityInput
 	# Alphanumeric identifier of the entity

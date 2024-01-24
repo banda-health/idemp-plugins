@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_RequestActionSave(entity: R_RequestActionInput!): R_RequestAction!
+	R_RequestActionSaveMany(entities: [R_RequestActionInput!]!): [R_RequestAction!]!
 	R_RequestActionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -86,7 +87,7 @@ type R_RequestAction {
 	R_Group: R_Group
 	# Request from a Business Partner or Prospect
 	R_Request: R_Request!
-	ID: ID!
+	UUID: ID!
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType
 	# Request Resolution
@@ -172,7 +173,7 @@ input R_RequestActionInput {
 	R_Group: ForeignEntityInput
 	# Request from a Business Partner or Prospect
 	R_Request: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: ForeignEntityInput
 	# Request Resolution

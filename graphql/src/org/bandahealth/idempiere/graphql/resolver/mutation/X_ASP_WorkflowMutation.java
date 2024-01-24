@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_ASP_WorkflowInput;
 import org.compiere.model.X_ASP_Workflow;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for ASP_Workflow - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_ASP_WorkflowMutation extends POMutation implements GraphQLMutatio
 		return X_ASP_WorkflowInput.Table_Name;
 	}
 
-	public X_ASP_Workflow ASP_WorkflowSave(I_ASP_WorkflowInput input, DataFetchingEnvironment environment) {
-		return (X_ASP_Workflow) super.save((X_ASP_WorkflowInput) input, environment);
+	public X_ASP_Workflow ASP_WorkflowSave(I_ASP_WorkflowInput entity, DataFetchingEnvironment environment) {
+		return (X_ASP_Workflow) super.save((X_ASP_WorkflowInput) entity, environment);
+	}
+
+	public List<X_ASP_Workflow> ASP_WorkflowSaveMany(List<I_ASP_WorkflowInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_ASP_WorkflowInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_ASP_Workflow) entity).collect(Collectors.toList());
 	}
 
 	public boolean ASP_WorkflowDelete(List<String> uuids, DataFetchingEnvironment environment) {

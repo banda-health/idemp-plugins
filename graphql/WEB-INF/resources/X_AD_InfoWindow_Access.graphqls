@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_InfoWindow_AccessSave(entity: AD_InfoWindow_AccessInput!): AD_InfoWindow_Access!
+	AD_InfoWindow_AccessSaveMany(entities: [AD_InfoWindow_AccessInput!]!): [AD_InfoWindow_Access!]!
 	AD_InfoWindow_AccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_InfoWindow_AccessConnection {
 type AD_InfoWindow_Access {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow!
 	# Organizational entity within client
@@ -38,7 +39,7 @@ type AD_InfoWindow_Access {
 }
 
 input AD_InfoWindow_AccessInput {
-	ID: ID
+	UUID: ID
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
 	# Organizational entity within client

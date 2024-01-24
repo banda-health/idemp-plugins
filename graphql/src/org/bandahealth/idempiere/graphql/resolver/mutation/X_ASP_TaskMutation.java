@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_ASP_TaskInput;
 import org.compiere.model.X_ASP_Task;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for ASP_Task - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_ASP_TaskMutation extends POMutation implements GraphQLMutationRes
 		return X_ASP_TaskInput.Table_Name;
 	}
 
-	public X_ASP_Task ASP_TaskSave(I_ASP_TaskInput input, DataFetchingEnvironment environment) {
-		return (X_ASP_Task) super.save((X_ASP_TaskInput) input, environment);
+	public X_ASP_Task ASP_TaskSave(I_ASP_TaskInput entity, DataFetchingEnvironment environment) {
+		return (X_ASP_Task) super.save((X_ASP_TaskInput) entity, environment);
+	}
+
+	public List<X_ASP_Task> ASP_TaskSaveMany(List<I_ASP_TaskInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_ASP_TaskInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_ASP_Task) entity).collect(Collectors.toList());
 	}
 
 	public boolean ASP_TaskDelete(List<String> uuids, DataFetchingEnvironment environment) {

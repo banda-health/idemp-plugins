@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_PaymentTermSave(entity: C_PaymentTermInput!): C_PaymentTerm!
+	C_PaymentTermSaveMany(entities: [C_PaymentTermInput!]!): [C_PaymentTerm!]!
 	C_PaymentTermDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_PaymentTerm {
 	AD_Org: AD_Org!
 	# Due after delivery rather than after invoicing
 	AfterDelivery: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -79,7 +80,7 @@ input C_PaymentTermInput {
 	AD_Org: ForeignEntityInput
 	# Due after delivery rather than after invoicing
 	AfterDelivery: Boolean
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Discount in percent

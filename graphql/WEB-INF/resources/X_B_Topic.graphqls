@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	B_TopicSave(entity: B_TopicInput!): B_Topic!
+	B_TopicSaveMany(entities: [B_TopicInput!]!): [B_Topic!]!
 	B_TopicDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type B_Topic {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Auction Topic Category
 	B_TopicCategory: B_TopicCategory!
 	# Auction Topic Type
@@ -57,7 +58,7 @@ type B_Topic {
 input B_TopicInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Auction Topic Category
 	B_TopicCategory: ForeignEntityInput
 	# Auction Topic Type

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_AD_SequenceInput;
 import org.bandahealth.idempiere.graphql.model.input.X_AD_SequenceInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Sequence - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_SequenceMutation extends POMutation implements GraphQLMutation
 		return X_AD_SequenceInput.Table_Name;
 	}
 
-	public MSequence_BH AD_SequenceSave(I_AD_SequenceInput input, DataFetchingEnvironment environment) {
-		return (MSequence_BH) super.save((X_AD_SequenceInput) input, environment);
+	public MSequence_BH AD_SequenceSave(I_AD_SequenceInput entity, DataFetchingEnvironment environment) {
+		return (MSequence_BH) super.save((X_AD_SequenceInput) entity, environment);
+	}
+
+	public List<MSequence_BH> AD_SequenceSaveMany(List<I_AD_SequenceInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_SequenceInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MSequence_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_SequenceDelete(List<String> uuids, DataFetchingEnvironment environment) {

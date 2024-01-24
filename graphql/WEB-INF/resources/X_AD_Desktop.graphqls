@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_DesktopSave(entity: AD_DesktopInput!): AD_Desktop!
+	AD_DesktopSaveMany(entities: [AD_DesktopInput!]!): [AD_Desktop!]!
 	AD_DesktopDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Desktop {
 	AD_Client: AD_Client!
 	# Color for backgrounds or indicators
 	AD_Color_ID: String
-	ID: ID!
+	UUID: ID!
 	# Image or Icon
 	AD_Image: AD_Image
 	# Organizational entity within client
@@ -46,7 +47,7 @@ type AD_Desktop {
 input AD_DesktopInput {
 	# Color for backgrounds or indicators
 	AD_Color_ID: String
-	ID: ID
+	UUID: ID
 	# Image or Icon
 	AD_Image: ForeignEntityInput
 	# Organizational entity within client

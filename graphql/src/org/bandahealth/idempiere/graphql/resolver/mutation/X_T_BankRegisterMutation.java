@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_T_BankRegisterInput;
 import org.compiere.model.X_T_BankRegister;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for T_BankRegister - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_T_BankRegisterMutation extends POMutation implements GraphQLMutat
 		return X_T_BankRegisterInput.Table_Name;
 	}
 
-	public X_T_BankRegister T_BankRegisterSave(I_T_BankRegisterInput input, DataFetchingEnvironment environment) {
-		return (X_T_BankRegister) super.save((X_T_BankRegisterInput) input, environment);
+	public X_T_BankRegister T_BankRegisterSave(I_T_BankRegisterInput entity, DataFetchingEnvironment environment) {
+		return (X_T_BankRegister) super.save((X_T_BankRegisterInput) entity, environment);
+	}
+
+	public List<X_T_BankRegister> T_BankRegisterSaveMany(List<I_T_BankRegisterInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_T_BankRegisterInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_T_BankRegister) entity).collect(Collectors.toList());
 	}
 
 	public boolean T_BankRegisterDelete(List<String> uuids, DataFetchingEnvironment environment) {

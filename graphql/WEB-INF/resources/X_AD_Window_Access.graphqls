@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Window_AccessSave(entity: AD_Window_AccessInput!): AD_Window_Access!
+	AD_Window_AccessSaveMany(entities: [AD_Window_AccessInput!]!): [AD_Window_Access!]!
 	AD_Window_AccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Window_Access {
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
-	ID: ID!
+	UUID: ID!
 	# Data entry or display window
 	AD_Window: AD_Window!
 	BH_CanDeactivate: Boolean!
@@ -45,7 +46,7 @@ input AD_Window_AccessInput {
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	BH_CanDeactivate: Boolean

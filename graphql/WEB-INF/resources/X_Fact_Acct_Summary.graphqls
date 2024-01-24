@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	Fact_Acct_SummarySave(entity: Fact_Acct_SummaryInput!): Fact_Acct_Summary!
+	Fact_Acct_SummarySaveMany(entities: [Fact_Acct_SummaryInput!]!): [Fact_Acct_Summary!]!
 	Fact_Acct_SummaryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -56,7 +57,7 @@ type Fact_Acct_Summary {
 	CreatedBy: AD_User!
 	# Accounting Date
 	DateAcct: Date
-	ID: ID!
+	UUID: ID!
 	# General Ledger Budget
 	GL_Budget: GL_Budget
 	# The record is active in the system
@@ -114,7 +115,7 @@ input Fact_Acct_SummaryInput {
 	C_SubAcct: ForeignEntityInput
 	# Accounting Date
 	DateAcct: Date
-	ID: ID
+	UUID: ID
 	# General Ledger Budget
 	GL_Budget: ForeignEntityInput
 	# The record is active in the system

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_WorkbenchWindowInput;
 import org.compiere.model.X_AD_WorkbenchWindow;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_WorkbenchWindow - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_WorkbenchWindowMutation extends POMutation implements GraphQLM
 		return X_AD_WorkbenchWindowInput.Table_Name;
 	}
 
-	public X_AD_WorkbenchWindow AD_WorkbenchWindowSave(I_AD_WorkbenchWindowInput input, DataFetchingEnvironment environment) {
-		return (X_AD_WorkbenchWindow) super.save((X_AD_WorkbenchWindowInput) input, environment);
+	public X_AD_WorkbenchWindow AD_WorkbenchWindowSave(I_AD_WorkbenchWindowInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_WorkbenchWindow) super.save((X_AD_WorkbenchWindowInput) entity, environment);
+	}
+
+	public List<X_AD_WorkbenchWindow> AD_WorkbenchWindowSaveMany(List<I_AD_WorkbenchWindowInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_WorkbenchWindowInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_WorkbenchWindow) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_WorkbenchWindowDelete(List<String> uuids, DataFetchingEnvironment environment) {

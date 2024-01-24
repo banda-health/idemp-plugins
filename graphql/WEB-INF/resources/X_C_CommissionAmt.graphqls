@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CommissionAmtSave(entity: C_CommissionAmtInput!): C_CommissionAmt!
+	C_CommissionAmtSaveMany(entities: [C_CommissionAmtInput!]!): [C_CommissionAmt!]!
 	C_CommissionAmtDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_CommissionAmt {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Commission Line
 	C_CommissionLine: C_CommissionLine!
 	# Commission Run or Process
@@ -48,7 +49,7 @@ input C_CommissionAmtInput {
 	ActualQty: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Commission Line
 	C_CommissionLine: ForeignEntityInput
 	# Commission Run or Process

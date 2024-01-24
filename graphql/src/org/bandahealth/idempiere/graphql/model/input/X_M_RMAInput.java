@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
@@ -14,6 +15,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MRMA;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_RMAType;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -38,13 +40,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	private I_AD_Ref_ListInput mDocStatus;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_RMA_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_RMAInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MRMA(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_RMAInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRMA(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -56,11 +61,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -83,11 +93,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_ID(foreignEntity.get_ID());
+		if (C_BPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+			}
 		} else {
 			super.setC_BPartner_ID(0);
 		}
@@ -112,11 +127,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
-		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-						.setParameters(C_Currency.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Currency_ID(foreignEntity.get_ID());
+		if (C_Currency != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Currency_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+			}
 		} else {
 			super.setC_Currency_ID(0);
 		}
@@ -141,11 +161,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
-		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocType_ID(foreignEntity.get_ID());
+		if (C_DocType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+			}
 		} else {
 			super.setC_DocType_ID(0);
 		}
@@ -170,11 +195,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
-		if (get_ID() == 0 && C_Order != null &&
-				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-						.setParameters(C_Order.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Order_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_Order != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
+							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Order_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
+			}
 		}
 	}
 
@@ -197,11 +227,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
 		this.mDocAction = DocAction;
 		MRefList_BH foreignEntity;
-		if (DocAction != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocAction(foreignEntity.getValue());
+		if (DocAction != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocAction(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocAction.getUUID());
+			}
 		} else {
 			this.setDocAction(null);
 		}
@@ -226,11 +261,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		MRefList_BH foreignEntity;
-		if (DocStatus != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocStatus(foreignEntity.getValue());
+		if (DocStatus != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocStatus(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocStatus.getUUID());
+			}
 		} else {
 			this.setDocStatus(null);
 		}
@@ -255,11 +295,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setInOutInput(ForeignEntityInput InOut) {
 		this.mInOut = InOut;
 		MInOut_BH foreignEntity;
-		if (get_ID() == 0 && InOut != null &&
-				(foreignEntity = new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
-						.setParameters(InOut.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setInOut_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && InOut != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
+							.setParameters(InOut.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setInOut_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_InOut with UUID " + InOut.getUUID());
+			}
 		}
 	}
 
@@ -285,20 +330,20 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_RMA_UU(ID);
+	public void setUUID(String UUID) {
+		setM_RMA_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_RMA_UU();
 	}
 
@@ -311,11 +356,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setM_RMATypeInput(ForeignEntityInput M_RMAType) {
 		this.mM_RMAType = M_RMAType;
 		X_M_RMAType foreignEntity;
-		if (M_RMAType != null &&
-				(foreignEntity = new Query(getCtx(), "M_RMAType", "M_RMAType_UU=?", get_TrxName())
-						.setParameters(M_RMAType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_RMAType_ID(foreignEntity.get_ID());
+		if (M_RMAType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_RMAType", "M_RMAType_UU=?", get_TrxName())
+							.setParameters(M_RMAType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_RMAType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_RMAType with UUID " + M_RMAType.getUUID());
+			}
 		} else {
 			super.setM_RMAType_ID(0);
 		}
@@ -340,11 +390,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setRef_RMAInput(ForeignEntityInput Ref_RMA) {
 		this.mRef_RMA = Ref_RMA;
 		MRMA foreignEntity;
-		if (Ref_RMA != null &&
-				(foreignEntity = new Query(getCtx(), "M_RMA", "M_RMA_UU=?", get_TrxName())
-						.setParameters(Ref_RMA.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setRef_RMA_ID(foreignEntity.get_ID());
+		if (Ref_RMA != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_RMA", "M_RMA_UU=?", get_TrxName())
+							.setParameters(Ref_RMA.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setRef_RMA_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_RMA with UUID " + Ref_RMA.getUUID());
+			}
 		} else {
 			super.setRef_RMA_ID(0);
 		}
@@ -369,11 +424,16 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
-		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(SalesRep.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setSalesRep_ID(foreignEntity.get_ID());
+		if (SalesRep != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setSalesRep_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
+			}
 		} else {
 			super.setSalesRep_ID(0);
 		}

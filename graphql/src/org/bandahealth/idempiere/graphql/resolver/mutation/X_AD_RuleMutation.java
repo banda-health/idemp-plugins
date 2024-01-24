@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_RuleInput;
 import org.compiere.model.MRule;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Rule - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_RuleMutation extends POMutation implements GraphQLMutationReso
 		return X_AD_RuleInput.Table_Name;
 	}
 
-	public MRule AD_RuleSave(I_AD_RuleInput input, DataFetchingEnvironment environment) {
-		return (MRule) super.save((X_AD_RuleInput) input, environment);
+	public MRule AD_RuleSave(I_AD_RuleInput entity, DataFetchingEnvironment environment) {
+		return (MRule) super.save((X_AD_RuleInput) entity, environment);
+	}
+
+	public List<MRule> AD_RuleSaveMany(List<I_AD_RuleInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_RuleInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRule) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_RuleDelete(List<String> uuids, DataFetchingEnvironment environment) {

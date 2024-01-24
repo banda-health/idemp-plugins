@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_ASP_TabInput;
 import org.compiere.model.X_ASP_Tab;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for ASP_Tab - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_ASP_TabMutation extends POMutation implements GraphQLMutationReso
 		return X_ASP_TabInput.Table_Name;
 	}
 
-	public X_ASP_Tab ASP_TabSave(I_ASP_TabInput input, DataFetchingEnvironment environment) {
-		return (X_ASP_Tab) super.save((X_ASP_TabInput) input, environment);
+	public X_ASP_Tab ASP_TabSave(I_ASP_TabInput entity, DataFetchingEnvironment environment) {
+		return (X_ASP_Tab) super.save((X_ASP_TabInput) entity, environment);
+	}
+
+	public List<X_ASP_Tab> ASP_TabSaveMany(List<I_ASP_TabInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_ASP_TabInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_ASP_Tab) entity).collect(Collectors.toList());
 	}
 
 	public boolean ASP_TabDelete(List<String> uuids, DataFetchingEnvironment environment) {

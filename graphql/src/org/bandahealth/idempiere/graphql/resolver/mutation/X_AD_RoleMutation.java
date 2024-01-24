@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_RoleInput;
 import org.compiere.model.X_AD_Role;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Role - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_RoleMutation extends POMutation implements GraphQLMutationReso
 		return X_AD_RoleInput.Table_Name;
 	}
 
-	public X_AD_Role AD_RoleSave(I_AD_RoleInput input, DataFetchingEnvironment environment) {
-		return (X_AD_Role) super.save((X_AD_RoleInput) input, environment);
+	public X_AD_Role AD_RoleSave(I_AD_RoleInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_Role) super.save((X_AD_RoleInput) entity, environment);
+	}
+
+	public List<X_AD_Role> AD_RoleSaveMany(List<I_AD_RoleInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_RoleInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_Role) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_RoleDelete(List<String> uuids, DataFetchingEnvironment environment) {

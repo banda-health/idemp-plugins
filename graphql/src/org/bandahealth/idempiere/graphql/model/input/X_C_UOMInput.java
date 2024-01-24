@@ -2,11 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -22,13 +24,16 @@ public class X_C_UOMInput extends MUOM implements I_C_UOMInput {
 	private I_AD_Ref_ListInput mUOMType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_UOM_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_UOMInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MUOM(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_UOMInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MUOM(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -40,11 +45,16 @@ public class X_C_UOMInput extends MUOM implements I_C_UOMInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -70,20 +80,20 @@ public class X_C_UOMInput extends MUOM implements I_C_UOMInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_UOM_UU(ID);
+	public void setUUID(String UUID) {
+		setC_UOM_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_UOM_UU();
 	}
 
@@ -96,11 +106,16 @@ public class X_C_UOMInput extends MUOM implements I_C_UOMInput {
 	public void setUOMTypeInput(I_AD_Ref_ListInput UOMType) {
 		this.mUOMType = UOMType;
 		MRefList_BH foreignEntity;
-		if (UOMType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(UOMType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setUOMType(foreignEntity.getValue());
+		if (UOMType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(UOMType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setUOMType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + UOMType.getUUID());
+			}
 		} else {
 			this.setUOMType(null);
 		}

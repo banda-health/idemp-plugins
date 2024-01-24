@@ -67,18 +67,18 @@ public interface I_ASP_Ref_ListInput extends I_ASP_Ref_List {
 	ForeignEntityInput ASP_Level();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set ASP_Status.

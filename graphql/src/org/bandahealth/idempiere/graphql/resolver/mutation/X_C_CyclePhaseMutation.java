@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_CyclePhaseInput;
 import org.compiere.model.X_C_CyclePhase;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_CyclePhase - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_CyclePhaseMutation extends POMutation implements GraphQLMutatio
 		return X_C_CyclePhaseInput.Table_Name;
 	}
 
-	public X_C_CyclePhase C_CyclePhaseSave(I_C_CyclePhaseInput input, DataFetchingEnvironment environment) {
-		return (X_C_CyclePhase) super.save((X_C_CyclePhaseInput) input, environment);
+	public X_C_CyclePhase C_CyclePhaseSave(I_C_CyclePhaseInput entity, DataFetchingEnvironment environment) {
+		return (X_C_CyclePhase) super.save((X_C_CyclePhaseInput) entity, environment);
+	}
+
+	public List<X_C_CyclePhase> C_CyclePhaseSaveMany(List<I_C_CyclePhaseInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_CyclePhaseInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_C_CyclePhase) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_CyclePhaseDelete(List<String> uuids, DataFetchingEnvironment environment) {

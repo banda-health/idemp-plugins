@@ -2,12 +2,14 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MQualityTest;
 import org.compiere.model.MQualityTestResult;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -24,13 +26,16 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	private ForeignEntityInput mM_QualityTest;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_QualityTestResult_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_QualityTestResultInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MQualityTestResult(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_QualityTestResultInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MQualityTestResult(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -42,11 +47,16 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -91,11 +101,16 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
-		if (get_ID() == 0 && M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-						.setParameters(M_AttributeSetInstance.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_AttributeSetInstance != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
+							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
+			}
 		}
 	}
 
@@ -118,11 +133,16 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	public void setM_QualityTestInput(ForeignEntityInput M_QualityTest) {
 		this.mM_QualityTest = M_QualityTest;
 		MQualityTest foreignEntity;
-		if (get_ID() == 0 && M_QualityTest != null &&
-				(foreignEntity = new Query(getCtx(), "M_QualityTest", "M_QualityTest_UU=?", get_TrxName())
-						.setParameters(M_QualityTest.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_QualityTest_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_QualityTest != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_QualityTest", "M_QualityTest_UU=?", get_TrxName())
+							.setParameters(M_QualityTest.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_QualityTest_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_QualityTest with UUID " + M_QualityTest.getUUID());
+			}
 		}
 	}
 
@@ -148,20 +168,20 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_QualityTestResult_UU(ID);
+	public void setUUID(String UUID) {
+		setM_QualityTestResult_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_QualityTestResult_UU();
 	}
 }

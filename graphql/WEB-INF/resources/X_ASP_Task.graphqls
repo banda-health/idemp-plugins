@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	ASP_TaskSave(entity: ASP_TaskInput!): ASP_Task!
+	ASP_TaskSaveMany(entities: [ASP_TaskInput!]!): [ASP_Task!]!
 	ASP_TaskDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type ASP_Task {
 	AD_Task: AD_Task!
 	ASP_Level: ASP_Level!
 	ASP_Status: AD_Ref_List!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,7 +45,7 @@ input ASP_TaskInput {
 	AD_Task: ForeignEntityInput
 	ASP_Level: ForeignEntityInput
 	ASP_Status: AD_Ref_ListInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 }

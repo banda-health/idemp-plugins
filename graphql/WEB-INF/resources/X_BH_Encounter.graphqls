@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_EncounterSave(entity: BH_EncounterInput!): BH_Encounter!
+	BH_EncounterSaveMany(entities: [BH_EncounterInput!]!): [BH_Encounter!]!
 	BH_EncounterDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type BH_Encounter {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	BH_Encounter_Type: AD_Ref_List!
-	ID: ID!
+	UUID: ID!
 	BH_Visit: BH_Visit!
 	# Date this record was created
 	Created: Date!
@@ -39,7 +40,7 @@ input BH_EncounterInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	BH_Encounter_Type: AD_Ref_ListInput
-	ID: ID
+	UUID: ID
 	BH_Visit: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

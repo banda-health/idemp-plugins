@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_PromotionPreConditionIn
 import org.compiere.model.X_M_PromotionPreCondition;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_PromotionPreCondition - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_PromotionPreConditionMutation extends POMutation implements Gra
 		return X_M_PromotionPreConditionInput.Table_Name;
 	}
 
-	public X_M_PromotionPreCondition M_PromotionPreConditionSave(I_M_PromotionPreConditionInput input, DataFetchingEnvironment environment) {
-		return (X_M_PromotionPreCondition) super.save((X_M_PromotionPreConditionInput) input, environment);
+	public X_M_PromotionPreCondition M_PromotionPreConditionSave(I_M_PromotionPreConditionInput entity, DataFetchingEnvironment environment) {
+		return (X_M_PromotionPreCondition) super.save((X_M_PromotionPreConditionInput) entity, environment);
+	}
+
+	public List<X_M_PromotionPreCondition> M_PromotionPreConditionSaveMany(List<I_M_PromotionPreConditionInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_PromotionPreConditionInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_M_PromotionPreCondition) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_PromotionPreConditionDelete(List<String> uuids, DataFetchingEnvironment environment) {

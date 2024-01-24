@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader;
 
+import org.bandahealth.idempiere.graphql.dataloader.impl.MChargeAcctDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.M_ElementDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.M_RegistrationDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MAccessLogDataLoader;
@@ -936,6 +937,7 @@ public class BandaDataLoaderComposer {
 				new MChangeLogDataLoader(),
 				new MChangeNoticeDataLoader(),
 				new MChangeRequestDataLoader(),
+				new MChargeAcctDataLoader(),
 				new MChargeDataLoader(),
 				new MChargeTypeDataLoader(),
 				new MChartDataLoader(),

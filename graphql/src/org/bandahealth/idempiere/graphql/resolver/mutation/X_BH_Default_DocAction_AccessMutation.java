@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_BH_Default_DocAction_Acce
 import org.bandahealth.idempiere.graphql.model.input.X_BH_Default_DocAction_AccessInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for BH_Default_DocAction_Access - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_BH_Default_DocAction_AccessMutation extends POMutation implements
 		return X_BH_Default_DocAction_AccessInput.Table_Name;
 	}
 
-	public MBHDefaultDocActionAccess BH_Default_DocAction_AccessSave(I_BH_Default_DocAction_AccessInput input, DataFetchingEnvironment environment) {
-		return (MBHDefaultDocActionAccess) super.save((X_BH_Default_DocAction_AccessInput) input, environment);
+	public MBHDefaultDocActionAccess BH_Default_DocAction_AccessSave(I_BH_Default_DocAction_AccessInput entity, DataFetchingEnvironment environment) {
+		return (MBHDefaultDocActionAccess) super.save((X_BH_Default_DocAction_AccessInput) entity, environment);
+	}
+
+	public List<MBHDefaultDocActionAccess> BH_Default_DocAction_AccessSaveMany(List<I_BH_Default_DocAction_AccessInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_BH_Default_DocAction_AccessInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MBHDefaultDocActionAccess) entity).collect(Collectors.toList());
 	}
 
 	public boolean BH_Default_DocAction_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {

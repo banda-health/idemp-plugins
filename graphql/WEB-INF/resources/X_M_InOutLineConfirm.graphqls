@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_InOutLineConfirmSave(entity: M_InOutLineConfirmInput!): M_InOutLineConfirm!
+	M_InOutLineConfirmSaveMany(entities: [M_InOutLineConfirmInput!]!): [M_InOutLineConfirm!]!
 	M_InOutLineConfirmDelete(uuids: [String!]!): Boolean!
 }
 
@@ -40,7 +41,7 @@ type M_InOutLineConfirm {
 	M_InOutConfirm: M_InOutConfirm!
 	# Line on Shipment or Receipt document
 	M_InOutLine: M_InOutLine!
-	ID: ID!
+	UUID: ID!
 	# Unique line in an Inventory document
 	M_InventoryLine: M_InventoryLine
 	# The document has been processed
@@ -74,7 +75,7 @@ input M_InOutLineConfirmInput {
 	M_InOutConfirm: ForeignEntityInput
 	# Line on Shipment or Receipt document
 	M_InOutLine: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Unique line in an Inventory document
 	M_InventoryLine: ForeignEntityInput
 	# The document has been processed

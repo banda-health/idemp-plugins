@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_POSInput;
 import org.compiere.model.MPOS;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_POS - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_POSMutation extends POMutation implements GraphQLMutationResolv
 		return X_C_POSInput.Table_Name;
 	}
 
-	public MPOS C_POSSave(I_C_POSInput input, DataFetchingEnvironment environment) {
-		return (MPOS) super.save((X_C_POSInput) input, environment);
+	public MPOS C_POSSave(I_C_POSInput entity, DataFetchingEnvironment environment) {
+		return (MPOS) super.save((X_C_POSInput) entity, environment);
+	}
+
+	public List<MPOS> C_POSSaveMany(List<I_C_POSInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_POSInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MPOS) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_POSDelete(List<String> uuids, DataFetchingEnvironment environment) {

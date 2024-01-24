@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_U_WebMenuInput;
 import org.compiere.model.MWebMenu;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for U_WebMenu - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_U_WebMenuMutation extends POMutation implements GraphQLMutationRe
 		return X_U_WebMenuInput.Table_Name;
 	}
 
-	public MWebMenu U_WebMenuSave(I_U_WebMenuInput input, DataFetchingEnvironment environment) {
-		return (MWebMenu) super.save((X_U_WebMenuInput) input, environment);
+	public MWebMenu U_WebMenuSave(I_U_WebMenuInput entity, DataFetchingEnvironment environment) {
+		return (MWebMenu) super.save((X_U_WebMenuInput) entity, environment);
+	}
+
+	public List<MWebMenu> U_WebMenuSaveMany(List<I_U_WebMenuInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_U_WebMenuInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MWebMenu) entity).collect(Collectors.toList());
 	}
 
 	public boolean U_WebMenuDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -15,6 +16,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MStorageProvider;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -50,30 +52,33 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	private ForeignEntityInput mStorageImage;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_ClientInfo_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_ClientInfoInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MClientInfo(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_ClientInfoInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MClientInfo(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_ClientInfo_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_ClientInfo_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_ClientInfo_UU();
 	}
 
@@ -86,11 +91,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -113,11 +123,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setAD_StorageProviderInput(ForeignEntityInput AD_StorageProvider) {
 		this.mAD_StorageProvider = AD_StorageProvider;
 		MStorageProvider foreignEntity;
-		if (AD_StorageProvider != null &&
-				(foreignEntity = new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
-						.setParameters(AD_StorageProvider.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_StorageProvider_ID(foreignEntity.get_ID());
+		if (AD_StorageProvider != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
+							.setParameters(AD_StorageProvider.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_StorageProvider_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_StorageProvider with UUID " + AD_StorageProvider.getUUID());
+			}
 		} else {
 			super.setAD_StorageProvider_ID(0);
 		}
@@ -142,11 +157,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setAD_Tree_ActivityInput(ForeignEntityInput AD_Tree_Activity) {
 		this.mAD_Tree_Activity = AD_Tree_Activity;
 		MTree_BH foreignEntity;
-		if (get_ID() == 0 && AD_Tree_Activity != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-						.setParameters(AD_Tree_Activity.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Tree_Activity_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Tree_Activity != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
+							.setParameters(AD_Tree_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Tree_Activity_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Activity.getUUID());
+			}
 		}
 	}
 
@@ -169,11 +189,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setAD_Tree_BPartnerInput(ForeignEntityInput AD_Tree_BPartner) {
 		this.mAD_Tree_BPartner = AD_Tree_BPartner;
 		MTree_BH foreignEntity;
-		if (get_ID() == 0 && AD_Tree_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-						.setParameters(AD_Tree_BPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Tree_BPartner_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Tree_BPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
+							.setParameters(AD_Tree_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Tree_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Tree with UUID " + AD_Tree_BPartner.getUUID());
+			}
 		}
 	}
 
@@ -196,11 +221,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setAD_Tree_CampaignInput(ForeignEntityInput AD_Tree_Campaign) {
 		this.mAD_Tree_Campaign = AD_Tree_Campaign;
 		MTree_BH foreignEntity;
-		if (get_ID() == 0 && AD_Tree_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-						.setParameters(AD_Tree_Campaign.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Tree_Campaign_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Tree_Campaign != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
+							.setParameters(AD_Tree_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Tree_Campaign_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Campaign.getUUID());
+			}
 		}
 	}
 
@@ -223,11 +253,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setAD_Tree_MenuInput(ForeignEntityInput AD_Tree_Menu) {
 		this.mAD_Tree_Menu = AD_Tree_Menu;
 		MTree_BH foreignEntity;
-		if (get_ID() == 0 && AD_Tree_Menu != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-						.setParameters(AD_Tree_Menu.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Tree_Menu_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Tree_Menu != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
+							.setParameters(AD_Tree_Menu.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Tree_Menu_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Menu.getUUID());
+			}
 		}
 	}
 
@@ -250,11 +285,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setAD_Tree_OrgInput(ForeignEntityInput AD_Tree_Org) {
 		this.mAD_Tree_Org = AD_Tree_Org;
 		MTree_BH foreignEntity;
-		if (get_ID() == 0 && AD_Tree_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-						.setParameters(AD_Tree_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Tree_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Tree_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
+							.setParameters(AD_Tree_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Tree_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Org.getUUID());
+			}
 		}
 	}
 
@@ -277,11 +317,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setAD_Tree_ProductInput(ForeignEntityInput AD_Tree_Product) {
 		this.mAD_Tree_Product = AD_Tree_Product;
 		MTree_BH foreignEntity;
-		if (get_ID() == 0 && AD_Tree_Product != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-						.setParameters(AD_Tree_Product.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Tree_Product_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Tree_Product != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
+							.setParameters(AD_Tree_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Tree_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Product.getUUID());
+			}
 		}
 	}
 
@@ -304,11 +349,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setAD_Tree_ProjectInput(ForeignEntityInput AD_Tree_Project) {
 		this.mAD_Tree_Project = AD_Tree_Project;
 		MTree_BH foreignEntity;
-		if (get_ID() == 0 && AD_Tree_Project != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-						.setParameters(AD_Tree_Project.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Tree_Project_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Tree_Project != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
+							.setParameters(AD_Tree_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Tree_Project_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Project.getUUID());
+			}
 		}
 	}
 
@@ -331,11 +381,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setAD_Tree_SalesRegionInput(ForeignEntityInput AD_Tree_SalesRegion) {
 		this.mAD_Tree_SalesRegion = AD_Tree_SalesRegion;
 		MTree_BH foreignEntity;
-		if (get_ID() == 0 && AD_Tree_SalesRegion != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-						.setParameters(AD_Tree_SalesRegion.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Tree_SalesRegion_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Tree_SalesRegion != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
+							.setParameters(AD_Tree_SalesRegion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Tree_SalesRegion_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Tree with UUID " + AD_Tree_SalesRegion.getUUID());
+			}
 		}
 	}
 
@@ -358,11 +413,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setC_AcctSchema1Input(ForeignEntityInput C_AcctSchema1) {
 		this.mC_AcctSchema1 = C_AcctSchema1;
 		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema1 != null &&
-				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-						.setParameters(C_AcctSchema1.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_AcctSchema1_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_AcctSchema1 != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
+							.setParameters(C_AcctSchema1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_AcctSchema1_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema1.getUUID());
+			}
 		}
 	}
 
@@ -385,11 +445,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setC_BPartnerCashTrxInput(ForeignEntityInput C_BPartnerCashTrx) {
 		this.mC_BPartnerCashTrx = C_BPartnerCashTrx;
 		MBPartner_BH foreignEntity;
-		if (C_BPartnerCashTrx != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartnerCashTrx.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartnerCashTrx_ID(foreignEntity.get_ID());
+		if (C_BPartnerCashTrx != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartnerCashTrx.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartnerCashTrx_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartnerCashTrx.getUUID());
+			}
 		} else {
 			super.setC_BPartnerCashTrx_ID(0);
 		}
@@ -414,11 +479,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setC_CalendarInput(ForeignEntityInput C_Calendar) {
 		this.mC_Calendar = C_Calendar;
 		MCalendar foreignEntity;
-		if (C_Calendar != null &&
-				(foreignEntity = new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
-						.setParameters(C_Calendar.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Calendar_ID(foreignEntity.get_ID());
+		if (C_Calendar != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
+							.setParameters(C_Calendar.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Calendar_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Calendar with UUID " + C_Calendar.getUUID());
+			}
 		} else {
 			super.setC_Calendar_ID(0);
 		}
@@ -443,11 +513,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setC_ChargeFreightInput(ForeignEntityInput C_ChargeFreight) {
 		this.mC_ChargeFreight = C_ChargeFreight;
 		MCharge_BH foreignEntity;
-		if (C_ChargeFreight != null &&
-				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-						.setParameters(C_ChargeFreight.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_ChargeFreight_ID(foreignEntity.get_ID());
+		if (C_ChargeFreight != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
+							.setParameters(C_ChargeFreight.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_ChargeFreight_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Charge with UUID " + C_ChargeFreight.getUUID());
+			}
 		} else {
 			super.setC_ChargeFreight_ID(0);
 		}
@@ -472,11 +547,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setC_UOM_LengthInput(ForeignEntityInput C_UOM_Length) {
 		this.mC_UOM_Length = C_UOM_Length;
 		MUOM foreignEntity;
-		if (C_UOM_Length != null &&
-				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-						.setParameters(C_UOM_Length.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_UOM_Length_ID(foreignEntity.get_ID());
+		if (C_UOM_Length != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
+							.setParameters(C_UOM_Length.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_UOM_Length_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_UOM with UUID " + C_UOM_Length.getUUID());
+			}
 		} else {
 			super.setC_UOM_Length_ID(0);
 		}
@@ -501,11 +581,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setC_UOM_TimeInput(ForeignEntityInput C_UOM_Time) {
 		this.mC_UOM_Time = C_UOM_Time;
 		MUOM foreignEntity;
-		if (C_UOM_Time != null &&
-				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-						.setParameters(C_UOM_Time.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_UOM_Time_ID(foreignEntity.get_ID());
+		if (C_UOM_Time != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
+							.setParameters(C_UOM_Time.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_UOM_Time_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_UOM with UUID " + C_UOM_Time.getUUID());
+			}
 		} else {
 			super.setC_UOM_Time_ID(0);
 		}
@@ -530,11 +615,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setC_UOM_VolumeInput(ForeignEntityInput C_UOM_Volume) {
 		this.mC_UOM_Volume = C_UOM_Volume;
 		MUOM foreignEntity;
-		if (C_UOM_Volume != null &&
-				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-						.setParameters(C_UOM_Volume.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_UOM_Volume_ID(foreignEntity.get_ID());
+		if (C_UOM_Volume != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
+							.setParameters(C_UOM_Volume.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_UOM_Volume_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_UOM with UUID " + C_UOM_Volume.getUUID());
+			}
 		} else {
 			super.setC_UOM_Volume_ID(0);
 		}
@@ -559,11 +649,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setC_UOM_WeightInput(ForeignEntityInput C_UOM_Weight) {
 		this.mC_UOM_Weight = C_UOM_Weight;
 		MUOM foreignEntity;
-		if (C_UOM_Weight != null &&
-				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-						.setParameters(C_UOM_Weight.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_UOM_Weight_ID(foreignEntity.get_ID());
+		if (C_UOM_Weight != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
+							.setParameters(C_UOM_Weight.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_UOM_Weight_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_UOM with UUID " + C_UOM_Weight.getUUID());
+			}
 		} else {
 			super.setC_UOM_Weight_ID(0);
 		}
@@ -588,11 +683,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
-		if (AD_Image != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-						.setParameters(AD_Image.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setLogo_ID(foreignEntity.get_ID());
+		if (AD_Image != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
+							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setLogo_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
+			}
 		} else {
 			super.setLogo_ID(0);
 		}
@@ -617,11 +717,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setM_ProductFreightInput(ForeignEntityInput M_ProductFreight) {
 		this.mM_ProductFreight = M_ProductFreight;
 		MProduct_BH foreignEntity;
-		if (M_ProductFreight != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-						.setParameters(M_ProductFreight.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_ProductFreight_ID(foreignEntity.get_ID());
+		if (M_ProductFreight != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_ProductFreight.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_ProductFreight_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_ProductFreight.getUUID());
+			}
 		} else {
 			super.setM_ProductFreight_ID(0);
 		}
@@ -646,11 +751,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setStorageArchiveInput(ForeignEntityInput StorageArchive) {
 		this.mStorageArchive = StorageArchive;
 		MStorageProvider foreignEntity;
-		if (StorageArchive != null &&
-				(foreignEntity = new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
-						.setParameters(StorageArchive.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setStorageArchive_ID(foreignEntity.get_ID());
+		if (StorageArchive != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
+							.setParameters(StorageArchive.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setStorageArchive_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_StorageProvider with UUID " + StorageArchive.getUUID());
+			}
 		} else {
 			super.setStorageArchive_ID(0);
 		}
@@ -675,11 +785,16 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	public void setStorageImageInput(ForeignEntityInput StorageImage) {
 		this.mStorageImage = StorageImage;
 		MStorageProvider foreignEntity;
-		if (StorageImage != null &&
-				(foreignEntity = new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
-						.setParameters(StorageImage.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setStorageImage_ID(foreignEntity.get_ID());
+		if (StorageImage != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
+							.setParameters(StorageImage.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setStorageImage_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_StorageProvider with UUID " + StorageImage.getUUID());
+			}
 		} else {
 			super.setStorageImage_ID(0);
 		}

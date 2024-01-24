@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WF_ActivitySave(entity: AD_WF_ActivityInput!): AD_WF_Activity!
+	AD_WF_ActivitySaveMany(entities: [AD_WF_ActivityInput!]!): [AD_WF_Activity!]!
 	AD_WF_ActivityDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type AD_WF_Activity {
 	AD_Table: AD_Table!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	ID: ID!
+	UUID: ID!
 	# Workflow Node (activity), step or process
 	AD_WF_Node: AD_WF_Node!
 	# Actual Workflow Process Instance
@@ -73,7 +74,7 @@ input AD_WF_ActivityInput {
 	AD_Table: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Workflow Node (activity), step or process
 	AD_WF_Node: ForeignEntityInput
 	# Actual Workflow Process Instance

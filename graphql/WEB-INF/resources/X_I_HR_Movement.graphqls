@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	I_HR_MovementSave(entity: I_HR_MovementInput!): I_HR_Movement!
+	I_HR_MovementSaveMany(entities: [I_HR_MovementInput!]!): [I_HR_Movement!]!
 	I_HR_MovementDelete(uuids: [String!]!): Boolean!
 }
 
@@ -39,7 +40,7 @@ type I_HR_Movement {
 	HR_Process: HR_Process
 	# Messages generated from import process
 	I_ErrorMsg: String
-	ID: ID!
+	UUID: ID!
 	# Has this import been processed
 	I_IsImported: String!
 	# The record is active in the system
@@ -81,7 +82,7 @@ input I_HR_MovementInput {
 	HR_Process: ForeignEntityInput
 	# Messages generated from import process
 	I_ErrorMsg: String
-	ID: ID
+	UUID: ID
 	# Has this import been processed
 	I_IsImported: String
 	# The record is active in the system

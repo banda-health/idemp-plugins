@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_Fact_AcctInput;
 import org.compiere.model.MFactAcct;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for Fact_Acct - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_Fact_AcctMutation extends POMutation implements GraphQLMutationRe
 		return X_Fact_AcctInput.Table_Name;
 	}
 
-	public MFactAcct Fact_AcctSave(I_Fact_AcctInput input, DataFetchingEnvironment environment) {
-		return (MFactAcct) super.save((X_Fact_AcctInput) input, environment);
+	public MFactAcct Fact_AcctSave(I_Fact_AcctInput entity, DataFetchingEnvironment environment) {
+		return (MFactAcct) super.save((X_Fact_AcctInput) entity, environment);
+	}
+
+	public List<MFactAcct> Fact_AcctSaveMany(List<I_Fact_AcctInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_Fact_AcctInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MFactAcct) entity).collect(Collectors.toList());
 	}
 
 	public boolean Fact_AcctDelete(List<String> uuids, DataFetchingEnvironment environment) {

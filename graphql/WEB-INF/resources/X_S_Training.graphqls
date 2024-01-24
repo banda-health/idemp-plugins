@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	S_TrainingSave(entity: S_TrainingInput!): S_Training!
+	S_TrainingSaveMany(entities: [S_TrainingInput!]!): [S_Training!]!
 	S_TrainingDelete(uuids: [String!]!): Boolean!
 }
 
@@ -45,7 +46,7 @@ type S_Training {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -76,5 +77,5 @@ input S_TrainingInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean
-	ID: ID
+	UUID: ID
 }

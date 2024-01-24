@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_RequestProcessor_RouteSave(entity: R_RequestProcessor_RouteInput!): R_RequestProcessor_Route!
+	R_RequestProcessor_RouteSaveMany(entities: [R_RequestProcessor_RouteInput!]!): [R_RequestProcessor_Route!]!
 	R_RequestProcessor_RouteDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type R_RequestProcessor_Route {
 	Keyword: String
 	# Processor for Requests
 	R_RequestProcessor: R_RequestProcessor!
-	ID: ID!
+	UUID: ID!
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType
 	# Method of ordering records; lowest number comes first
@@ -54,7 +55,7 @@ input R_RequestProcessor_RouteInput {
 	Keyword: String
 	# Processor for Requests
 	R_RequestProcessor: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: ForeignEntityInput
 	# Method of ordering records; lowest number comes first

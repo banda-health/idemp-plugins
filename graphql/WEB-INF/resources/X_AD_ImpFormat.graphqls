@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ImpFormatSave(entity: AD_ImpFormatInput!): AD_ImpFormat!
+	AD_ImpFormatSaveMany(entities: [AD_ImpFormatInput!]!): [AD_ImpFormat!]!
 	AD_ImpFormatDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_ImpFormatConnection {
 type AD_ImpFormat {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Database Table information
@@ -44,7 +45,7 @@ type AD_ImpFormat {
 }
 
 input AD_ImpFormatInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Database Table information

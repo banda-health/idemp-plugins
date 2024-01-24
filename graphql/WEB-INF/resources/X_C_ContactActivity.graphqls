@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_ContactActivitySave(entity: C_ContactActivityInput!): C_ContactActivity!
+	C_ContactActivitySaveMany(entities: [C_ContactActivityInput!]!): [C_ContactActivity!]!
 	C_ContactActivityDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_ContactActivity {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	ID: ID!
+	UUID: ID!
 	C_Opportunity: C_Opportunity
 	# Comments or additional information
 	Comments: String
@@ -55,7 +56,7 @@ input C_ContactActivityInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	C_Opportunity: ForeignEntityInput
 	# Comments or additional information
 	Comments: String

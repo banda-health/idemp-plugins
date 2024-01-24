@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	GL_JournalSave(entity: GL_JournalInput!): GL_Journal!
+	GL_JournalSaveMany(entities: [GL_JournalInput!]!): [GL_Journal!]!
 	GL_JournalDelete(uuids: [String!]!): Boolean!
 }
 
@@ -56,7 +57,7 @@ type GL_Journal {
 	GL_Budget: GL_Budget
 	# General Ledger Category
 	GL_Category: GL_Category!
-	ID: ID!
+	UUID: ID!
 	# General Ledger Journal Batch
 	GL_JournalBatch: GL_JournalBatch
 	# The record is active in the system
@@ -121,7 +122,7 @@ input GL_JournalInput {
 	GL_Budget: ForeignEntityInput
 	# General Ledger Category
 	GL_Category: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# General Ledger Journal Batch
 	GL_JournalBatch: ForeignEntityInput
 	# The record is active in the system

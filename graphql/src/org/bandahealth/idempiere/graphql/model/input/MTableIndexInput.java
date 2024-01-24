@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MTableIndexInput extends X_AD_TableIndexInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_TableIndex_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTableIndexInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MTableIndexInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

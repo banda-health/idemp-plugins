@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	B_BidSave(entity: B_BidInput!): B_Bid!
+	B_BidSaveMany(entities: [B_BidInput!]!): [B_Bid!]!
 	B_BidDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type B_Bid {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	ID: ID!
+	UUID: ID!
 	# Buyer Funds for Bids on Topics
 	B_BuyerFunds: B_BuyerFunds!
 	# Auction Topic
@@ -51,7 +52,7 @@ input B_BidInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Buyer Funds for Bids on Topics
 	B_BuyerFunds: ForeignEntityInput
 	# Auction Topic

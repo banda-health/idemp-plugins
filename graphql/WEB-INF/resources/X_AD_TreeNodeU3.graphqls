@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_TreeNodeU3Save(entity: AD_TreeNodeU3Input!): AD_TreeNodeU3!
+	AD_TreeNodeU3SaveMany(entities: [AD_TreeNodeU3Input!]!): [AD_TreeNodeU3!]!
 	AD_TreeNodeU3Delete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_TreeNodeU3 {
 	AD_Org: AD_Org!
 	# Identifies a Tree
 	AD_Tree: AD_Tree!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -42,7 +43,7 @@ input AD_TreeNodeU3Input {
 	AD_Org: ForeignEntityInput
 	# Identifies a Tree
 	AD_Tree: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Method of ordering records; lowest number comes first

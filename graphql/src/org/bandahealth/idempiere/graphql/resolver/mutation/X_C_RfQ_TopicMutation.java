@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_RfQ_TopicInput;
 import org.compiere.model.MRfQTopic;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_RfQ_Topic - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_RfQ_TopicMutation extends POMutation implements GraphQLMutation
 		return X_C_RfQ_TopicInput.Table_Name;
 	}
 
-	public MRfQTopic C_RfQ_TopicSave(I_C_RfQ_TopicInput input, DataFetchingEnvironment environment) {
-		return (MRfQTopic) super.save((X_C_RfQ_TopicInput) input, environment);
+	public MRfQTopic C_RfQ_TopicSave(I_C_RfQ_TopicInput entity, DataFetchingEnvironment environment) {
+		return (MRfQTopic) super.save((X_C_RfQ_TopicInput) entity, environment);
+	}
+
+	public List<MRfQTopic> C_RfQ_TopicSaveMany(List<I_C_RfQ_TopicInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_RfQ_TopicInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRfQTopic) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_RfQ_TopicDelete(List<String> uuids, DataFetchingEnvironment environment) {

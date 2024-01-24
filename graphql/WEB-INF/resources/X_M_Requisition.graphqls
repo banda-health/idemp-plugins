@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_RequisitionSave(entity: M_RequisitionInput!): M_Requisition!
+	M_RequisitionSaveMany(entities: [M_RequisitionInput!]!): [M_Requisition!]!
 	M_RequisitionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -48,7 +49,7 @@ type M_Requisition {
 	IsApproved: Boolean!
 	# Unique identifier of a Price List
 	M_PriceList: M_PriceList!
-	ID: ID!
+	UUID: ID!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Posting status
@@ -95,7 +96,7 @@ input M_RequisitionInput {
 	IsApproved: Boolean
 	# Unique identifier of a Price List
 	M_PriceList: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Posting status

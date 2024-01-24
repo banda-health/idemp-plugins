@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	S_ResourceTypeSave(entity: S_ResourceTypeInput!): S_ResourceType!
+	S_ResourceTypeSaveMany(entities: [S_ResourceTypeInput!]!): [S_ResourceType!]!
 	S_ResourceTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -59,7 +60,7 @@ type S_ResourceType {
 	OnTuesday: Boolean!
 	# Available on Wednesdays
 	OnWednesday: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Time when timeslot ends
 	TimeSlotEnd: Date
 	# Time when timeslot starts
@@ -110,7 +111,7 @@ input S_ResourceTypeInput {
 	OnTuesday: Boolean
 	# Available on Wednesdays
 	OnWednesday: Boolean
-	ID: ID
+	UUID: ID
 	# Time when timeslot ends
 	TimeSlotEnd: Date
 	# Time when timeslot starts

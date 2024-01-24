@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Role_IncludedSave(entity: AD_Role_IncludedInput!): AD_Role_Included!
+	AD_Role_IncludedSaveMany(entities: [AD_Role_IncludedInput!]!): [AD_Role_Included!]!
 	AD_Role_IncludedDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Role_Included {
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -43,7 +44,7 @@ input AD_Role_IncludedInput {
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	Included_Role: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_PaymentTransactionInput
 import org.compiere.model.MPaymentTransaction;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_PaymentTransaction - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_PaymentTransactionMutation extends POMutation implements GraphQ
 		return X_C_PaymentTransactionInput.Table_Name;
 	}
 
-	public MPaymentTransaction C_PaymentTransactionSave(I_C_PaymentTransactionInput input, DataFetchingEnvironment environment) {
-		return (MPaymentTransaction) super.save((X_C_PaymentTransactionInput) input, environment);
+	public MPaymentTransaction C_PaymentTransactionSave(I_C_PaymentTransactionInput entity, DataFetchingEnvironment environment) {
+		return (MPaymentTransaction) super.save((X_C_PaymentTransactionInput) entity, environment);
+	}
+
+	public List<MPaymentTransaction> C_PaymentTransactionSaveMany(List<I_C_PaymentTransactionInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_PaymentTransactionInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MPaymentTransaction) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_PaymentTransactionDelete(List<String> uuids, DataFetchingEnvironment environment) {

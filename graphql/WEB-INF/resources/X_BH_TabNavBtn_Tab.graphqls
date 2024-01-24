@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_TabNavBtn_TabSave(entity: BH_TabNavBtn_TabInput!): BH_TabNavBtn_Tab!
+	BH_TabNavBtn_TabSaveMany(entities: [BH_TabNavBtn_TabInput!]!): [BH_TabNavBtn_Tab!]!
 	BH_TabNavBtn_TabDelete(uuids: [String!]!): Boolean!
 }
 
@@ -23,7 +24,7 @@ type BH_TabNavBtn_Tab {
 	# Tab within a Window
 	AD_Tab: AD_Tab!
 	BH_TabNavBtn: BH_TabNavBtn!
-	ID: ID!
+	UUID: ID!
 	# The class(es) the button will have
 	ButtonClassName: String
 	# The text displayed when a user hovers over the button
@@ -58,7 +59,7 @@ input BH_TabNavBtn_TabInput {
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput
 	BH_TabNavBtn: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The class(es) the button will have
 	ButtonClassName: String
 	# The text displayed when a user hovers over the button

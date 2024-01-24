@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_R_GroupInput;
 import org.compiere.model.MGroup;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for R_Group - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_R_GroupMutation extends POMutation implements GraphQLMutationReso
 		return X_R_GroupInput.Table_Name;
 	}
 
-	public MGroup R_GroupSave(I_R_GroupInput input, DataFetchingEnvironment environment) {
-		return (MGroup) super.save((X_R_GroupInput) input, environment);
+	public MGroup R_GroupSave(I_R_GroupInput entity, DataFetchingEnvironment environment) {
+		return (MGroup) super.save((X_R_GroupInput) entity, environment);
+	}
+
+	public List<MGroup> R_GroupSaveMany(List<I_R_GroupInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_R_GroupInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MGroup) entity).collect(Collectors.toList());
 	}
 
 	public boolean R_GroupDelete(List<String> uuids, DataFetchingEnvironment environment) {

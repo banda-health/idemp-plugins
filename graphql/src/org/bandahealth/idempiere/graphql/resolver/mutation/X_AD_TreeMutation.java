@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_AD_TreeInput;
 import org.bandahealth.idempiere.graphql.model.input.X_AD_TreeInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Tree - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_TreeMutation extends POMutation implements GraphQLMutationReso
 		return X_AD_TreeInput.Table_Name;
 	}
 
-	public MTree_BH AD_TreeSave(I_AD_TreeInput input, DataFetchingEnvironment environment) {
-		return (MTree_BH) super.save((X_AD_TreeInput) input, environment);
+	public MTree_BH AD_TreeSave(I_AD_TreeInput entity, DataFetchingEnvironment environment) {
+		return (MTree_BH) super.save((X_AD_TreeInput) entity, environment);
+	}
+
+	public List<MTree_BH> AD_TreeSaveMany(List<I_AD_TreeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_TreeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MTree_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_TreeDelete(List<String> uuids, DataFetchingEnvironment environment) {

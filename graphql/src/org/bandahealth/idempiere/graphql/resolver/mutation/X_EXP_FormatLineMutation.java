@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_EXP_FormatLineInput;
 import org.compiere.model.MEXPFormatLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for EXP_FormatLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_EXP_FormatLineMutation extends POMutation implements GraphQLMutat
 		return X_EXP_FormatLineInput.Table_Name;
 	}
 
-	public MEXPFormatLine EXP_FormatLineSave(I_EXP_FormatLineInput input, DataFetchingEnvironment environment) {
-		return (MEXPFormatLine) super.save((X_EXP_FormatLineInput) input, environment);
+	public MEXPFormatLine EXP_FormatLineSave(I_EXP_FormatLineInput entity, DataFetchingEnvironment environment) {
+		return (MEXPFormatLine) super.save((X_EXP_FormatLineInput) entity, environment);
+	}
+
+	public List<MEXPFormatLine> EXP_FormatLineSaveMany(List<I_EXP_FormatLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_EXP_FormatLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MEXPFormatLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean EXP_FormatLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

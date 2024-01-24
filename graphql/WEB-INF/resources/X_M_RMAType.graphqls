@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_RMATypeSave(entity: M_RMATypeInput!): M_RMAType!
+	M_RMATypeSaveMany(entities: [M_RMATypeInput!]!): [M_RMAType!]!
 	M_RMATypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_RMAType {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -48,7 +49,7 @@ input M_RMATypeInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_RfQResponseSave(entity: C_RfQResponseInput!): C_RfQResponse!
+	C_RfQResponseSaveMany(entities: [C_RfQResponseInput!]!): [C_RfQResponse!]!
 	C_RfQResponseDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type C_RfQResponse {
 	C_Order: C_Order
 	# Request for Quotation
 	C_RfQ: C_RfQ!
-	ID: ID!
+	UUID: ID!
 	CheckComplete: String
 	# Date this record was created
 	Created: Date!
@@ -90,7 +91,7 @@ input C_RfQResponseInput {
 	C_Order: ForeignEntityInput
 	# Request for Quotation
 	C_RfQ: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	CheckComplete: String
 	# Date when (last) invitation was sent
 	DateInvited: Date

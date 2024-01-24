@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
@@ -9,6 +10,7 @@ import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -28,13 +30,16 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	private I_AD_Ref_ListInput mbh_referral;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The BH_Visit_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_BH_VisitInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MBHVisit(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_BH_VisitInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBHVisit(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -46,11 +51,16 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -73,11 +83,16 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	public void setBH_PatientTypeInput(I_AD_Ref_ListInput BH_PatientType) {
 		this.mBH_PatientType = BH_PatientType;
 		MRefList_BH foreignEntity;
-		if (BH_PatientType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BH_PatientType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBH_PatientType(foreignEntity.getValue());
+		if (BH_PatientType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BH_PatientType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBH_PatientType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BH_PatientType.getUUID());
+			}
 		} else {
 			this.setBH_PatientType(null);
 		}
@@ -102,11 +117,16 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	public void setBH_Process_StageInput(I_AD_Ref_ListInput BH_Process_Stage) {
 		this.mBH_Process_Stage = BH_Process_Stage;
 		MRefList_BH foreignEntity;
-		if (BH_Process_Stage != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BH_Process_Stage.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBH_Process_Stage(foreignEntity.getValue());
+		if (BH_Process_Stage != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BH_Process_Stage.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBH_Process_Stage(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BH_Process_Stage.getUUID());
+			}
 		} else {
 			this.setBH_Process_Stage(null);
 		}
@@ -131,11 +151,16 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	public void setbh_referralInput(I_AD_Ref_ListInput bh_referral) {
 		this.mbh_referral = bh_referral;
 		MRefList_BH foreignEntity;
-		if (bh_referral != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(bh_referral.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setbh_referral(foreignEntity.getValue());
+		if (bh_referral != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(bh_referral.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setbh_referral(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + bh_referral.getUUID());
+			}
 		} else {
 			this.setbh_referral(null);
 		}
@@ -163,20 +188,20 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setBH_Visit_UU(ID);
+	public void setUUID(String UUID) {
+		setBH_Visit_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getBH_Visit_UU();
 	}
 
@@ -189,11 +214,16 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	public void setBH_Voided_ReasonInput(ForeignEntityInput BH_Voided_Reason) {
 		this.mBH_Voided_Reason = BH_Voided_Reason;
 		MBHVoidedReason foreignEntity;
-		if (BH_Voided_Reason != null &&
-				(foreignEntity = new Query(getCtx(), "BH_Voided_Reason", "BH_Voided_Reason_UU=?", get_TrxName())
-						.setParameters(BH_Voided_Reason.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setBH_Voided_Reason_ID(foreignEntity.get_ID());
+		if (BH_Voided_Reason != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "BH_Voided_Reason", "BH_Voided_Reason_UU=?", get_TrxName())
+							.setParameters(BH_Voided_Reason.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBH_Voided_Reason_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table BH_Voided_Reason with UUID " + BH_Voided_Reason.getUUID());
+			}
 		} else {
 			super.setBH_Voided_Reason_ID(0);
 		}
@@ -229,11 +259,16 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	public void setPatientInput(ForeignEntityInput Patient) {
 		this.mPatient = Patient;
 		MBPartner_BH foreignEntity;
-		if (Patient != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(Patient.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPatient_ID(foreignEntity.get_ID());
+		if (Patient != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(Patient.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPatient_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + Patient.getUUID());
+			}
 		} else {
 			super.setPatient_ID(0);
 		}

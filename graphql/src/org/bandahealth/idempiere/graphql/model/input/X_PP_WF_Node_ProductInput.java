@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -9,6 +10,7 @@ import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_WF_Node;
+import org.compiere.util.Env;
 import org.eevolution.model.X_PP_WF_Node_Product;
 
 import java.sql.ResultSet;
@@ -28,13 +30,16 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	private I_AD_Ref_ListInput mConfigurationLevel;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The PP_WF_Node_Product_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PP_WF_Node_ProductInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_PP_WF_Node_Product(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_PP_WF_Node_ProductInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_PP_WF_Node_Product(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -46,11 +51,16 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		} else {
 			super.setAD_Org_ID(0);
 		}
@@ -75,11 +85,16 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	public void setAD_WF_NodeInput(ForeignEntityInput AD_WF_Node) {
 		this.mAD_WF_Node = AD_WF_Node;
 		X_AD_WF_Node foreignEntity;
-		if (get_ID() == 0 && AD_WF_Node != null &&
-				(foreignEntity = new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
-						.setParameters(AD_WF_Node.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_WF_Node_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_WF_Node != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
+							.setParameters(AD_WF_Node.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_WF_Node_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_WF_Node with UUID " + AD_WF_Node.getUUID());
+			}
 		}
 	}
 
@@ -102,11 +117,16 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	public void setConfigurationLevelInput(I_AD_Ref_ListInput ConfigurationLevel) {
 		this.mConfigurationLevel = ConfigurationLevel;
 		MRefList_BH foreignEntity;
-		if (ConfigurationLevel != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ConfigurationLevel.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setConfigurationLevel(foreignEntity.getValue());
+		if (ConfigurationLevel != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ConfigurationLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setConfigurationLevel(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ConfigurationLevel.getUUID());
+			}
 		} else {
 			this.setConfigurationLevel(null);
 		}
@@ -131,11 +151,16 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
-		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-						.setParameters(AD_EntityType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setEntityType(foreignEntity.getEntityType());
+		if (AD_EntityType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setEntityType(foreignEntity.getEntityType());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+			}
 		} else {
 			super.setEntityType(null);
 		}
@@ -160,11 +185,16 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-						.setParameters(M_Product.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_ID(foreignEntity.get_ID());
+		if (M_Product != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
 		} else {
 			super.setM_Product_ID(0);
 		}
@@ -192,20 +222,20 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setPP_WF_Node_Product_UU(ID);
+	public void setUUID(String UUID) {
+		setPP_WF_Node_Product_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getPP_WF_Node_Product_UU();
 	}
 }

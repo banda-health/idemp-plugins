@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_PaymentAllocateSave(entity: C_PaymentAllocateInput!): C_PaymentAllocate!
+	C_PaymentAllocateSaveMany(entities: [C_PaymentAllocateInput!]!): [C_PaymentAllocate!]!
 	C_PaymentAllocateDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type C_PaymentAllocate {
 	C_Invoice: C_Invoice!
 	# Payment identifier
 	C_Payment: C_Payment!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -61,7 +62,7 @@ input C_PaymentAllocateInput {
 	C_Invoice: ForeignEntityInput
 	# Payment identifier
 	C_Payment: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Calculated amount of discount
 	DiscountAmt: BigDecimal
 	InvoiceAmt: BigDecimal

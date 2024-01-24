@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_GL_JournalBatchInput;
 import org.compiere.model.MJournalBatch;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for GL_JournalBatch - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_GL_JournalBatchMutation extends POMutation implements GraphQLMuta
 		return X_GL_JournalBatchInput.Table_Name;
 	}
 
-	public MJournalBatch GL_JournalBatchSave(I_GL_JournalBatchInput input, DataFetchingEnvironment environment) {
-		return (MJournalBatch) super.save((X_GL_JournalBatchInput) input, environment);
+	public MJournalBatch GL_JournalBatchSave(I_GL_JournalBatchInput entity, DataFetchingEnvironment environment) {
+		return (MJournalBatch) super.save((X_GL_JournalBatchInput) entity, environment);
+	}
+
+	public List<MJournalBatch> GL_JournalBatchSaveMany(List<I_GL_JournalBatchInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_GL_JournalBatchInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MJournalBatch) entity).collect(Collectors.toList());
 	}
 
 	public boolean GL_JournalBatchDelete(List<String> uuids, DataFetchingEnvironment environment) {

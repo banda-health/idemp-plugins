@@ -67,18 +67,18 @@ public interface I_I_ProductInput extends I_I_Product {
 	ForeignEntityInput C_UOM();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set M_Product_Category.

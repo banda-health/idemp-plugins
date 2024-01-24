@@ -2,12 +2,14 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_WS_WebServiceFieldOutput;
 import org.compiere.model.X_WS_WebServiceType;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -24,13 +26,16 @@ public class X_WS_WebServiceFieldOutputInput extends X_WS_WebServiceFieldOutput 
 	private ForeignEntityInput mWS_WebServiceType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The WS_WebServiceFieldOutput_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_WS_WebServiceFieldOutputInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_WS_WebServiceFieldOutput(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_WS_WebServiceFieldOutputInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_WS_WebServiceFieldOutput(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -42,11 +47,16 @@ public class X_WS_WebServiceFieldOutputInput extends X_WS_WebServiceFieldOutput 
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
 		MColumn foreignEntity;
-		if (AD_Column != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-						.setParameters(AD_Column.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Column_ID(foreignEntity.get_ID());
+		if (AD_Column != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
+							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Column_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
+			}
 		} else {
 			super.setAD_Column_ID(0);
 		}
@@ -71,11 +81,16 @@ public class X_WS_WebServiceFieldOutputInput extends X_WS_WebServiceFieldOutput 
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -101,20 +116,20 @@ public class X_WS_WebServiceFieldOutputInput extends X_WS_WebServiceFieldOutput 
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setWS_WebServiceFieldOutput_UU(ID);
+	public void setUUID(String UUID) {
+		setWS_WebServiceFieldOutput_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getWS_WebServiceFieldOutput_UU();
 	}
 
@@ -127,11 +142,16 @@ public class X_WS_WebServiceFieldOutputInput extends X_WS_WebServiceFieldOutput 
 	public void setWS_WebServiceTypeInput(ForeignEntityInput WS_WebServiceType) {
 		this.mWS_WebServiceType = WS_WebServiceType;
 		X_WS_WebServiceType foreignEntity;
-		if (WS_WebServiceType != null &&
-				(foreignEntity = new Query(getCtx(), "WS_WebServiceType", "WS_WebServiceType_UU=?", get_TrxName())
-						.setParameters(WS_WebServiceType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setWS_WebServiceType_ID(foreignEntity.get_ID());
+		if (WS_WebServiceType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "WS_WebServiceType", "WS_WebServiceType_UU=?", get_TrxName())
+							.setParameters(WS_WebServiceType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setWS_WebServiceType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table WS_WebServiceType with UUID " + WS_WebServiceType.getUUID());
+			}
 		} else {
 			super.setWS_WebServiceType_ID(0);
 		}

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	EXP_FormatLineSave(entity: EXP_FormatLineInput!): EXP_FormatLine!
+	EXP_FormatLineSaveMany(entities: [EXP_FormatLineInput!]!): [EXP_FormatLine!]!
 	EXP_FormatLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type EXP_FormatLine {
 	Description: String
 	EXP_EmbeddedFormat: EXP_Format
 	EXP_Format: EXP_Format
-	ID: ID!
+	UUID: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -66,7 +67,7 @@ input EXP_FormatLineInput {
 	Description: String
 	EXP_EmbeddedFormat: ForeignEntityInput
 	EXP_Format: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CampaignSave(entity: C_CampaignInput!): C_Campaign!
+	C_CampaignSaveMany(entities: [C_CampaignInput!]!): [C_Campaign!]!
 	C_CampaignDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_Campaign {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Sales Channel
 	C_Channel: C_Channel
 	# Costs in accounting currency
@@ -52,7 +53,7 @@ type C_Campaign {
 input C_CampaignInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Sales Channel
 	C_Channel: ForeignEntityInput
 	# Costs in accounting currency

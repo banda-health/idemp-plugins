@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_DunningRunLineSave(entity: C_DunningRunLineInput!): C_DunningRunLine!
+	C_DunningRunLineSaveMany(entities: [C_DunningRunLineInput!]!): [C_DunningRunLine!]!
 	C_DunningRunLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_DunningRunLine {
 	Amt: BigDecimal!
 	# Dunning Run Entry
 	C_DunningRunEntry: C_DunningRunEntry!
-	ID: ID!
+	UUID: ID!
 	# Invoice Identifier
 	C_Invoice: C_Invoice
 	# Invoice Payment Schedule
@@ -68,7 +69,7 @@ input C_DunningRunLineInput {
 	Amt: BigDecimal
 	# Dunning Run Entry
 	C_DunningRunEntry: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	# Invoice Payment Schedule

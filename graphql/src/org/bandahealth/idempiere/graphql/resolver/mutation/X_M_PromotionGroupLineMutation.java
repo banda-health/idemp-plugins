@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_PromotionGroupLineInput
 import org.compiere.model.X_M_PromotionGroupLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_PromotionGroupLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_PromotionGroupLineMutation extends POMutation implements GraphQ
 		return X_M_PromotionGroupLineInput.Table_Name;
 	}
 
-	public X_M_PromotionGroupLine M_PromotionGroupLineSave(I_M_PromotionGroupLineInput input, DataFetchingEnvironment environment) {
-		return (X_M_PromotionGroupLine) super.save((X_M_PromotionGroupLineInput) input, environment);
+	public X_M_PromotionGroupLine M_PromotionGroupLineSave(I_M_PromotionGroupLineInput entity, DataFetchingEnvironment environment) {
+		return (X_M_PromotionGroupLine) super.save((X_M_PromotionGroupLineInput) entity, environment);
+	}
+
+	public List<X_M_PromotionGroupLine> M_PromotionGroupLineSaveMany(List<I_M_PromotionGroupLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_PromotionGroupLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_M_PromotionGroupLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_PromotionGroupLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

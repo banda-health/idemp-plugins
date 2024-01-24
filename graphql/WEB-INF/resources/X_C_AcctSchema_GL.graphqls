@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_AcctSchema_GLSave(entity: C_AcctSchema_GLInput!): C_AcctSchema_GL!
+	C_AcctSchema_GLSaveMany(entities: [C_AcctSchema_GLInput!]!): [C_AcctSchema_GL!]!
 	C_AcctSchema_GLDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_AcctSchema_GL {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Budgetary Commitment Offset Account
@@ -54,7 +55,7 @@ type C_AcctSchema_GL {
 input C_AcctSchema_GLInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Budgetary Commitment Offset Account

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_ChannelSave(entity: C_ChannelInput!): C_Channel!
+	C_ChannelSaveMany(entities: [C_ChannelInput!]!): [C_Channel!]!
 	C_ChannelDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_Channel {
 	AD_Org: AD_Org!
 	# Color used for printing and display
 	AD_PrintColor: AD_PrintColor
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,7 +45,7 @@ input C_ChannelInput {
 	AD_Org: ForeignEntityInput
 	# Color used for printing and display
 	AD_PrintColor: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

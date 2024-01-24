@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_ProductSave(entity: A_Asset_ProductInput!): A_Asset_Product!
+	A_Asset_ProductSaveMany(entities: [A_Asset_ProductInput!]!): [A_Asset_Product!]!
 	A_Asset_ProductDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type A_Asset_ProductConnection {
 type A_Asset_Product {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	ID: ID!
+	UUID: ID!
 	A_QTY_Current: BigDecimal!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
@@ -47,7 +48,7 @@ type A_Asset_Product {
 input A_Asset_ProductInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	A_QTY_Current: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput

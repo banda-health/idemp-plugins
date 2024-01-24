@@ -137,18 +137,18 @@ public interface I_I_BankStatementInput extends I_I_BankStatement {
 	ForeignEntityInput C_Payment();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set TrxType.

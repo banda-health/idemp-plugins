@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ProductionLineSave(entity: M_ProductionLineInput!): M_ProductionLine!
+	M_ProductionLineSaveMany(entities: [M_ProductionLineInput!]!): [M_ProductionLine!]!
 	M_ProductionLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -40,7 +41,7 @@ type M_ProductionLine {
 	M_Product: M_Product!
 	# Plan for producing a product
 	M_Production: M_Production
-	ID: ID!
+	UUID: ID!
 	# Plan for how a product is produced
 	M_ProductionPlan: M_ProductionPlan
 	# Quantity of a product moved.
@@ -79,7 +80,7 @@ input M_ProductionLineInput {
 	M_Product: ForeignEntityInput
 	# Plan for producing a product
 	M_Production: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Plan for how a product is produced
 	M_ProductionPlan: ForeignEntityInput
 	# Quantity of a product moved.

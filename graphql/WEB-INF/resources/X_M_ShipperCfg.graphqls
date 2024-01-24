@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ShipperCfgSave(entity: M_ShipperCfgInput!): M_ShipperCfg!
+	M_ShipperCfgSaveMany(entities: [M_ShipperCfgInput!]!): [M_ShipperCfg!]!
 	M_ShipperCfgDelete(uuids: [String!]!): Boolean!
 }
 
@@ -35,7 +36,7 @@ type M_ShipperCfg {
 	IsOnline: Boolean!
 	IsResidential: Boolean!
 	IsSaturdayDelivery: Boolean!
-	ID: ID!
+	UUID: ID!
 	M_ShippingProcessorCfg: M_ShippingProcessorCfg
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -62,7 +63,7 @@ input M_ShipperCfgInput {
 	IsOnline: Boolean
 	IsResidential: Boolean
 	IsSaturdayDelivery: Boolean
-	ID: ID
+	UUID: ID
 	M_ShippingProcessorCfg: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String

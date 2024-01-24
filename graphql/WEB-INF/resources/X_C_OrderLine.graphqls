@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_OrderLineSave(entity: C_OrderLineInput!): C_OrderLine!
+	C_OrderLineSaveMany(entities: [C_OrderLineInput!]!): [C_OrderLine!]!
 	C_OrderLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -44,7 +45,7 @@ type C_OrderLine {
 	C_Currency: C_Currency!
 	# Order
 	C_Order: C_Order!
-	ID: ID!
+	UUID: ID!
 	# Financial Project
 	C_Project: C_Project
 	# Phase of a Project
@@ -161,7 +162,7 @@ input C_OrderLineInput {
 	C_Currency: ForeignEntityInput
 	# Order
 	C_Order: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Phase of a Project

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_AcctSchema_ElementSave(entity: C_AcctSchema_ElementInput!): C_AcctSchema_Element!
+	C_AcctSchema_ElementSaveMany(entities: [C_AcctSchema_ElementInput!]!): [C_AcctSchema_Element!]!
 	C_AcctSchema_ElementDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_AcctSchema_Element {
 	AD_Column: AD_Column
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Business Activity
@@ -69,7 +70,7 @@ input C_AcctSchema_ElementInput {
 	AD_Column: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Business Activity

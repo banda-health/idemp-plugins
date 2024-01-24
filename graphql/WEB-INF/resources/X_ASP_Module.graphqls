@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	ASP_ModuleSave(entity: ASP_ModuleInput!): ASP_Module!
+	ASP_ModuleSaveMany(entities: [ASP_ModuleInput!]!): [ASP_Module!]!
 	ASP_ModuleDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type ASP_Module {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,7 +45,7 @@ type ASP_Module {
 input ASP_ModuleInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

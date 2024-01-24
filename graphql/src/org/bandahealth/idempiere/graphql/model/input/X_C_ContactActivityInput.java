@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -9,6 +10,7 @@ import org.compiere.model.MOpportunity;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_ContactActivity;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -27,13 +29,16 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	private I_AD_Ref_ListInput mContactActivityType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_ContactActivity_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_ContactActivityInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_C_ContactActivity(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_ContactActivityInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_ContactActivity(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -45,11 +50,16 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -72,11 +82,16 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
-		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(AD_User.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_User_ID(foreignEntity.get_ID());
+		if (AD_User != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_User_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+			}
 		} else {
 			super.setAD_User_ID(0);
 		}
@@ -104,20 +119,20 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_ContactActivity_UU(ID);
+	public void setUUID(String UUID) {
+		setC_ContactActivity_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_ContactActivity_UU();
 	}
 
@@ -130,11 +145,16 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	public void setC_OpportunityInput(ForeignEntityInput C_Opportunity) {
 		this.mC_Opportunity = C_Opportunity;
 		MOpportunity foreignEntity;
-		if (C_Opportunity != null &&
-				(foreignEntity = new Query(getCtx(), "C_Opportunity", "C_Opportunity_UU=?", get_TrxName())
-						.setParameters(C_Opportunity.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Opportunity_ID(foreignEntity.get_ID());
+		if (C_Opportunity != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Opportunity", "C_Opportunity_UU=?", get_TrxName())
+							.setParameters(C_Opportunity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Opportunity_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Opportunity with UUID " + C_Opportunity.getUUID());
+			}
 		} else {
 			super.setC_Opportunity_ID(0);
 		}
@@ -159,11 +179,16 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	public void setContactActivityTypeInput(I_AD_Ref_ListInput ContactActivityType) {
 		this.mContactActivityType = ContactActivityType;
 		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&ContactActivityType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ContactActivityType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setContactActivityType(foreignEntity.getValue());
+		if (get_ID() == 0 &&ContactActivityType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ContactActivityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setContactActivityType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ContactActivityType.getUUID());
+			}
 		}
 	}
 
@@ -186,11 +211,16 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
-		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(SalesRep.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setSalesRep_ID(foreignEntity.get_ID());
+		if (SalesRep != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setSalesRep_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
+			}
 		} else {
 			super.setSalesRep_ID(0);
 		}

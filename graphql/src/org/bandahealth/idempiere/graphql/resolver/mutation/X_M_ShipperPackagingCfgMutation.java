@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_ShipperPackagingCfgInpu
 import org.compiere.model.X_M_ShipperPackagingCfg;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_ShipperPackagingCfg - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_ShipperPackagingCfgMutation extends POMutation implements Graph
 		return X_M_ShipperPackagingCfgInput.Table_Name;
 	}
 
-	public X_M_ShipperPackagingCfg M_ShipperPackagingCfgSave(I_M_ShipperPackagingCfgInput input, DataFetchingEnvironment environment) {
-		return (X_M_ShipperPackagingCfg) super.save((X_M_ShipperPackagingCfgInput) input, environment);
+	public X_M_ShipperPackagingCfg M_ShipperPackagingCfgSave(I_M_ShipperPackagingCfgInput entity, DataFetchingEnvironment environment) {
+		return (X_M_ShipperPackagingCfg) super.save((X_M_ShipperPackagingCfgInput) entity, environment);
+	}
+
+	public List<X_M_ShipperPackagingCfg> M_ShipperPackagingCfgSaveMany(List<I_M_ShipperPackagingCfgInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_ShipperPackagingCfgInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_M_ShipperPackagingCfg) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_ShipperPackagingCfgDelete(List<String> uuids, DataFetchingEnvironment environment) {

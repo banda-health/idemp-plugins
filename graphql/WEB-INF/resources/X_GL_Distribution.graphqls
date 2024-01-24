@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	GL_DistributionSave(entity: GL_DistributionInput!): GL_Distribution!
+	GL_DistributionSaveMany(entities: [GL_DistributionInput!]!): [GL_Distribution!]!
 	GL_DistributionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -72,7 +73,7 @@ type GL_Distribution {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	ID: ID!
+	UUID: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -151,7 +152,7 @@ input GL_DistributionInput {
 	C_SalesRegion: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	ID: ID
+	UUID: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

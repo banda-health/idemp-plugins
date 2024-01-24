@@ -56,7 +56,7 @@ public class X_AD_ColorResolver extends POResolver<MColor> implements GraphQLRes
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(COLORTYPE_UUIDS_BY_VALUE.get(entity.getColorType()));
 	}
 
@@ -96,7 +96,7 @@ public class X_AD_ColorResolver extends POResolver<MColor> implements GraphQLRes
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(STARTPOINT_UUIDS_BY_VALUE.get(entity.getStartPoint()));
 	}
 

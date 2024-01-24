@@ -2,11 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MShipper;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 import org.eevolution.model.X_DD_NetworkDistribution;
 import org.eevolution.model.X_DD_NetworkDistributionLine;
 
@@ -27,13 +29,16 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 	private ForeignEntityInput mM_WarehouseSource;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The DD_NetworkDistributionLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_DD_NetworkDistributionLineInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_DD_NetworkDistributionLine(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_DD_NetworkDistributionLineInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_DD_NetworkDistributionLine(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -45,11 +50,16 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -72,11 +82,16 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 	public void setDD_NetworkDistributionInput(ForeignEntityInput DD_NetworkDistribution) {
 		this.mDD_NetworkDistribution = DD_NetworkDistribution;
 		X_DD_NetworkDistribution foreignEntity;
-		if (get_ID() == 0 && DD_NetworkDistribution != null &&
-				(foreignEntity = new Query(getCtx(), "DD_NetworkDistribution", "DD_NetworkDistribution_UU=?", get_TrxName())
-						.setParameters(DD_NetworkDistribution.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setDD_NetworkDistribution_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && DD_NetworkDistribution != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "DD_NetworkDistribution", "DD_NetworkDistribution_UU=?", get_TrxName())
+							.setParameters(DD_NetworkDistribution.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDD_NetworkDistribution_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table DD_NetworkDistribution with UUID " + DD_NetworkDistribution.getUUID());
+			}
 		}
 	}
 
@@ -102,20 +117,20 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setDD_NetworkDistributionLine_UU(ID);
+	public void setUUID(String UUID) {
+		setDD_NetworkDistributionLine_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getDD_NetworkDistributionLine_UU();
 	}
 
@@ -128,11 +143,16 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
-		if (M_Shipper != null &&
-				(foreignEntity = new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
-						.setParameters(M_Shipper.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Shipper_ID(foreignEntity.get_ID());
+		if (M_Shipper != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
+							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Shipper_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Shipper with UUID " + M_Shipper.getUUID());
+			}
 		} else {
 			super.setM_Shipper_ID(0);
 		}
@@ -157,11 +177,16 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
-		if (M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-						.setParameters(M_Warehouse.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Warehouse_ID(foreignEntity.get_ID());
+		if (M_Warehouse != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+			}
 		} else {
 			super.setM_Warehouse_ID(0);
 		}
@@ -186,11 +211,16 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 	public void setM_WarehouseSourceInput(ForeignEntityInput M_WarehouseSource) {
 		this.mM_WarehouseSource = M_WarehouseSource;
 		MWarehouse_BH foreignEntity;
-		if (M_WarehouseSource != null &&
-				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-						.setParameters(M_WarehouseSource.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_WarehouseSource_ID(foreignEntity.get_ID());
+		if (M_WarehouseSource != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_WarehouseSource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_WarehouseSource_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + M_WarehouseSource.getUUID());
+			}
 		} else {
 			super.setM_WarehouseSource_ID(0);
 		}

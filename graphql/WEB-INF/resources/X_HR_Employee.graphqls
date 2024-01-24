@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_EmployeeSave(entity: HR_EmployeeInput!): HR_Employee!
+	HR_EmployeeSaveMany(entities: [HR_EmployeeInput!]!): [HR_Employee!]!
 	HR_EmployeeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -33,7 +34,7 @@ type HR_Employee {
 	# Last effective date (inclusive)
 	EndDate: Date
 	HR_Department: HR_Department!
-	ID: ID!
+	UUID: ID!
 	HR_Job: HR_Job!
 	HR_Payroll: HR_Payroll
 	# URL of  image
@@ -66,7 +67,7 @@ input HR_EmployeeInput {
 	# Last effective date (inclusive)
 	EndDate: Date
 	HR_Department: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	HR_Job: ForeignEntityInput
 	HR_Payroll: ForeignEntityInput
 	# URL of  image

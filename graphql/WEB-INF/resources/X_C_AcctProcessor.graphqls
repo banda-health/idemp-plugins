@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_AcctProcessorSave(entity: C_AcctProcessorInput!): C_AcctProcessor!
+	C_AcctProcessorSaveMany(entities: [C_AcctProcessorInput!]!): [C_AcctProcessor!]!
 	C_AcctProcessorDelete(uuids: [String!]!): Boolean!
 }
 
@@ -23,7 +24,7 @@ type C_AcctProcessor {
 	AD_Schedule: AD_Schedule!
 	# Database Table information
 	AD_Table: AD_Table
-	ID: ID!
+	UUID: ID!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema
 	# Date this record was created
@@ -57,7 +58,7 @@ input C_AcctProcessorInput {
 	AD_Schedule: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Date the process was last run.

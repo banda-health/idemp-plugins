@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_PA_ReportColumnSetInput;
 import org.compiere.report.MReportColumnSet;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for PA_ReportColumnSet - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_PA_ReportColumnSetMutation extends POMutation implements GraphQLM
 		return X_PA_ReportColumnSetInput.Table_Name;
 	}
 
-	public MReportColumnSet PA_ReportColumnSetSave(I_PA_ReportColumnSetInput input, DataFetchingEnvironment environment) {
-		return (MReportColumnSet) super.save((X_PA_ReportColumnSetInput) input, environment);
+	public MReportColumnSet PA_ReportColumnSetSave(I_PA_ReportColumnSetInput entity, DataFetchingEnvironment environment) {
+		return (MReportColumnSet) super.save((X_PA_ReportColumnSetInput) entity, environment);
+	}
+
+	public List<MReportColumnSet> PA_ReportColumnSetSaveMany(List<I_PA_ReportColumnSetInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_PA_ReportColumnSetInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MReportColumnSet) entity).collect(Collectors.toList());
 	}
 
 	public boolean PA_ReportColumnSetDelete(List<String> uuids, DataFetchingEnvironment environment) {

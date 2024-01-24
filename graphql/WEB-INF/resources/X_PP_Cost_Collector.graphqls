@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_Cost_CollectorSave(entity: PP_Cost_CollectorInput!): PP_Cost_Collector!
+	PP_Cost_CollectorSaveMany(entities: [PP_Cost_CollectorInput!]!): [PP_Cost_Collector!]!
 	PP_Cost_CollectorDelete(uuids: [String!]!): Boolean!
 }
 
@@ -69,7 +70,7 @@ type PP_Cost_Collector {
 	MovementQty: BigDecimal!
 	# Posting status
 	Posted: Boolean!
-	ID: ID!
+	UUID: ID!
 	PP_Order_BOMLine: PP_Order_BOMLine
 	# Manufacturing Order
 	PP_Order: PP_Order!
@@ -147,7 +148,7 @@ input PP_Cost_CollectorInput {
 	MovementQty: BigDecimal
 	# Posting status
 	Posted: Boolean
-	ID: ID
+	UUID: ID
 	PP_Order_BOMLine: ForeignEntityInput
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput

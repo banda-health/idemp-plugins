@@ -25,18 +25,18 @@ public interface I_A_Asset_DisposedInput extends I_A_Asset_Disposed {
 	I_AD_Ref_ListInput A_Activation_Method();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set A_Asset.

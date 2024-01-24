@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
@@ -9,6 +10,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_ImpFormat;
 import org.compiere.model.X_AD_ImpFormat_Row;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -26,13 +28,16 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	private I_AD_Ref_ListInput mDataType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_ImpFormat_Row_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_ImpFormat_RowInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_AD_ImpFormat_Row(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_ImpFormat_RowInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_ImpFormat_Row(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -44,11 +49,16 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
 		MColumn foreignEntity;
-		if (AD_Column != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-						.setParameters(AD_Column.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Column_ID(foreignEntity.get_ID());
+		if (AD_Column != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
+							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Column_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
+			}
 		} else {
 			super.setAD_Column_ID(0);
 		}
@@ -73,11 +83,16 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	public void setAD_ImpFormatInput(ForeignEntityInput AD_ImpFormat) {
 		this.mAD_ImpFormat = AD_ImpFormat;
 		X_AD_ImpFormat foreignEntity;
-		if (get_ID() == 0 && AD_ImpFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_ImpFormat", "AD_ImpFormat_UU=?", get_TrxName())
-						.setParameters(AD_ImpFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_ImpFormat_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_ImpFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_ImpFormat", "AD_ImpFormat_UU=?", get_TrxName())
+							.setParameters(AD_ImpFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_ImpFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_ImpFormat with UUID " + AD_ImpFormat.getUUID());
+			}
 		}
 	}
 
@@ -103,20 +118,20 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_ImpFormat_Row_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_ImpFormat_Row_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_ImpFormat_Row_UU();
 	}
 
@@ -129,11 +144,16 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -156,11 +176,16 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	public void setDataTypeInput(I_AD_Ref_ListInput DataType) {
 		this.mDataType = DataType;
 		MRefList_BH foreignEntity;
-		if (DataType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DataType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDataType(foreignEntity.getValue());
+		if (DataType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DataType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDataType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DataType.getUUID());
+			}
 		} else {
 			this.setDataType(null);
 		}

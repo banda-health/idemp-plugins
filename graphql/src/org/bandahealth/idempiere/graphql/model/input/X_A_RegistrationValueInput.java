@@ -2,12 +2,14 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRegistration;
 import org.compiere.model.MRegistrationAttribute;
 import org.compiere.model.MRegistrationValue;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -24,13 +26,16 @@ public class X_A_RegistrationValueInput extends MRegistrationValue implements I_
 	private ForeignEntityInput mA_RegistrationAttribute;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The A_RegistrationValue_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_A_RegistrationValueInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MRegistrationValue(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_A_RegistrationValueInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRegistrationValue(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -42,11 +47,16 @@ public class X_A_RegistrationValueInput extends MRegistrationValue implements I_
 	public void setA_RegistrationInput(ForeignEntityInput A_Registration) {
 		this.mA_Registration = A_Registration;
 		MRegistration foreignEntity;
-		if (get_ID() == 0 && A_Registration != null &&
-				(foreignEntity = new Query(getCtx(), "A_Registration", "A_Registration_UU=?", get_TrxName())
-						.setParameters(A_Registration.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Registration_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && A_Registration != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "A_Registration", "A_Registration_UU=?", get_TrxName())
+							.setParameters(A_Registration.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Registration_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table A_Registration with UUID " + A_Registration.getUUID());
+			}
 		}
 	}
 
@@ -69,11 +79,16 @@ public class X_A_RegistrationValueInput extends MRegistrationValue implements I_
 	public void setA_RegistrationAttributeInput(ForeignEntityInput A_RegistrationAttribute) {
 		this.mA_RegistrationAttribute = A_RegistrationAttribute;
 		MRegistrationAttribute foreignEntity;
-		if (get_ID() == 0 && A_RegistrationAttribute != null &&
-				(foreignEntity = new Query(getCtx(), "A_RegistrationAttribute", "A_RegistrationAttribute_UU=?", get_TrxName())
-						.setParameters(A_RegistrationAttribute.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_RegistrationAttribute_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && A_RegistrationAttribute != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "A_RegistrationAttribute", "A_RegistrationAttribute_UU=?", get_TrxName())
+							.setParameters(A_RegistrationAttribute.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_RegistrationAttribute_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table A_RegistrationAttribute with UUID " + A_RegistrationAttribute.getUUID());
+			}
 		}
 	}
 
@@ -88,20 +103,20 @@ public class X_A_RegistrationValueInput extends MRegistrationValue implements I_
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setA_RegistrationValue_UU(ID);
+	public void setUUID(String UUID) {
+		setA_RegistrationValue_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getA_RegistrationValue_UU();
 	}
 
@@ -114,11 +129,16 @@ public class X_A_RegistrationValueInput extends MRegistrationValue implements I_
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 

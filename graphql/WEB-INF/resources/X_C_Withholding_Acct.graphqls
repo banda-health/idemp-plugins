@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_Withholding_AcctSave(entity: C_Withholding_AcctInput!): C_Withholding_Acct!
+	C_Withholding_AcctSaveMany(entities: [C_Withholding_AcctInput!]!): [C_Withholding_Acct!]!
 	C_Withholding_AcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_Withholding_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	ID: ID!
+	UUID: ID!
 	# Withholding type defined
 	C_Withholding: C_Withholding!
 	# Date this record was created
@@ -44,7 +45,7 @@ input C_Withholding_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Withholding type defined
 	C_Withholding: ForeignEntityInput
 	# The record is active in the system

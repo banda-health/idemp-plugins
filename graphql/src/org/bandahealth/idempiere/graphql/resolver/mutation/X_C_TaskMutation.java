@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_TaskInput;
 import org.compiere.model.MProjectTypeTask;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_Task - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_TaskMutation extends POMutation implements GraphQLMutationResol
 		return X_C_TaskInput.Table_Name;
 	}
 
-	public MProjectTypeTask C_TaskSave(I_C_TaskInput input, DataFetchingEnvironment environment) {
-		return (MProjectTypeTask) super.save((X_C_TaskInput) input, environment);
+	public MProjectTypeTask C_TaskSave(I_C_TaskInput entity, DataFetchingEnvironment environment) {
+		return (MProjectTypeTask) super.save((X_C_TaskInput) entity, environment);
+	}
+
+	public List<MProjectTypeTask> C_TaskSaveMany(List<I_C_TaskInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_TaskInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MProjectTypeTask) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_TaskDelete(List<String> uuids, DataFetchingEnvironment environment) {

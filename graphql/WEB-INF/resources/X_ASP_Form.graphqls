@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	ASP_FormSave(entity: ASP_FormInput!): ASP_Form!
+	ASP_FormSaveMany(entities: [ASP_FormInput!]!): [ASP_Form!]!
 	ASP_FormDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type ASP_Form {
 	AD_Form: AD_Form!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	ASP_Level: ASP_Level!
 	ASP_Status: AD_Ref_List!
 	# Date this record was created
@@ -42,7 +43,7 @@ input ASP_FormInput {
 	AD_Form: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	ASP_Level: ForeignEntityInput
 	ASP_Status: AD_Ref_ListInput
 	# The record is active in the system

@@ -120,6 +120,7 @@ public class GraphQLMutationResolverGenerator {
 		classesToImport.add(inputModelPackageName + "." + generatedInterfaceInputName);
 		classesToImport.add(inputModelPackageName + "." + generatedClassInputName);
 		classesToImport.add("java.util.List");
+		classesToImport.add("java.util.stream.Collectors");
 		createImports(generatedClass);
 
 		generatedClass
@@ -137,12 +138,24 @@ public class GraphQLMutationResolverGenerator {
 				.append("\t}\n\n")
 
 				// Default Mutations from the Schema
+				// Save
 				.append("\tpublic ").append(tableStructureExtensions.getClassName()).append(" ")
 				.append(tableStructureExtensions.getTableName())
-				.append("Save(").append(generatedInterfaceInputName).append(" input, DataFetchingEnvironment environment) {\n")
+				.append("Save(").append(generatedInterfaceInputName)
+				.append(" entity, DataFetchingEnvironment environment) {\n")
 				.append("\t\treturn (").append(tableStructureExtensions.getClassName()).append(") super.save((")
-				.append(generatedClassInputName).append(") input, environment);\n")
+				.append(generatedClassInputName).append(") entity, environment);\n")
 				.append("\t}\n\n")
+				// SaveMany
+				.append("\tpublic List<").append(tableStructureExtensions.getClassName()).append("> ")
+				.append(tableStructureExtensions.getTableName()).append("SaveMany(List<").append(generatedInterfaceInputName)
+				.append("> entities, DataFetchingEnvironment environment) {\n")
+				.append("\t\treturn super.saveMany(entities.stream().map(entity -> (").append(generatedClassInputName)
+				.append(") entity).collect(Collectors.toList()),\n")
+				.append("\t\t\t\tenvironment).stream().map(entity -> (").append(tableStructureExtensions.getClassName())
+				.append(") entity).collect(Collectors.toList());\n")
+				.append("\t}\n\n")
+				// Delete
 				.append("\tpublic boolean ").append(tableStructureExtensions.getTableName())
 				.append("Delete(List<String> uuids, DataFetchingEnvironment environment) {\n")
 				.append("\t\treturn super.delete(uuids, environment);\n")

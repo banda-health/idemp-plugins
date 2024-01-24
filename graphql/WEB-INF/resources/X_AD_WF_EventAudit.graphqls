@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WF_EventAuditSave(entity: AD_WF_EventAuditInput!): AD_WF_EventAudit!
+	AD_WF_EventAuditSaveMany(entities: [AD_WF_EventAuditInput!]!): [AD_WF_EventAudit!]!
 	AD_WF_EventAuditDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type AD_WF_EventAudit {
 	AD_Table: AD_Table!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	ID: ID!
+	UUID: ID!
 	# Workflow Node (activity), step or process
 	AD_WF_Node: AD_WF_Node!
 	# Actual Workflow Process Instance
@@ -68,7 +69,7 @@ input AD_WF_EventAuditInput {
 	AD_Table: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Workflow Node (activity), step or process
 	AD_WF_Node: ForeignEntityInput
 	# Actual Workflow Process Instance

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_ClientShareInput;
 import org.compiere.model.MClientShare;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_ClientShare - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_ClientShareMutation extends POMutation implements GraphQLMutat
 		return X_AD_ClientShareInput.Table_Name;
 	}
 
-	public MClientShare AD_ClientShareSave(I_AD_ClientShareInput input, DataFetchingEnvironment environment) {
-		return (MClientShare) super.save((X_AD_ClientShareInput) input, environment);
+	public MClientShare AD_ClientShareSave(I_AD_ClientShareInput entity, DataFetchingEnvironment environment) {
+		return (MClientShare) super.save((X_AD_ClientShareInput) entity, environment);
+	}
+
+	public List<MClientShare> AD_ClientShareSaveMany(List<I_AD_ClientShareInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_ClientShareInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MClientShare) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_ClientShareDelete(List<String> uuids, DataFetchingEnvironment environment) {

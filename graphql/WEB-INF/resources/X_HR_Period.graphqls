@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_PeriodSave(entity: HR_PeriodInput!): HR_Period!
+	HR_PeriodSaveMany(entities: [HR_PeriodInput!]!): [HR_Period!]!
 	HR_PeriodDelete(uuids: [String!]!): Boolean!
 }
 
@@ -35,7 +36,7 @@ type HR_Period {
 	# Last effective date (inclusive)
 	EndDate: Date
 	HR_Payroll: HR_Payroll!
-	ID: ID!
+	UUID: ID!
 	HR_Year: HR_Year
 	# The record is active in the system
 	IsActive: Boolean!
@@ -72,7 +73,7 @@ input HR_PeriodInput {
 	# Last effective date (inclusive)
 	EndDate: Date
 	HR_Payroll: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	HR_Year: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PrintLabelSave(entity: AD_PrintLabelInput!): AD_PrintLabel!
+	AD_PrintLabelSaveMany(entities: [AD_PrintLabelInput!]!): [AD_PrintLabel!]!
 	AD_PrintLabelDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_PrintLabel {
 	AD_LabelPrinter: AD_LabelPrinter!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Date this record was created
@@ -54,7 +55,7 @@ input AD_PrintLabelInput {
 	AD_LabelPrinter: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Optional short description of the record

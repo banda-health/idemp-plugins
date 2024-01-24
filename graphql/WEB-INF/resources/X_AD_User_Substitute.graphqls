@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_User_SubstituteSave(entity: AD_User_SubstituteInput!): AD_User_Substitute!
+	AD_User_SubstituteSaveMany(entities: [AD_User_SubstituteInput!]!): [AD_User_Substitute!]!
 	AD_User_SubstituteDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_User_Substitute {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,7 +51,7 @@ input AD_User_SubstituteInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

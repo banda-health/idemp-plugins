@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	GL_JournalLineSave(entity: GL_JournalLineInput!): GL_JournalLine!
+	GL_JournalLineSaveMany(entities: [GL_JournalLineInput!]!): [GL_JournalLine!]!
 	GL_JournalLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -74,7 +75,7 @@ type GL_JournalLine {
 	Description: String
 	# General Ledger Journal
 	GL_Journal: GL_Journal!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# This Line is generated
@@ -150,7 +151,7 @@ input GL_JournalLineInput {
 	Description: String
 	# General Ledger Journal
 	GL_Journal: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# This Line is generated

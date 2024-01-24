@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_AccessLogSave(entity: AD_AccessLogInput!): AD_AccessLog!
+	AD_AccessLogSaveMany(entities: [AD_AccessLogInput!]!): [AD_AccessLog!]!
 	AD_AccessLogDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type AD_AccessLogConnection {
 }
 
 type AD_AccessLog {
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
@@ -50,7 +51,7 @@ type AD_AccessLog {
 }
 
 input AD_AccessLogInput {
-	ID: ID
+	UUID: ID
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	# Organizational entity within client

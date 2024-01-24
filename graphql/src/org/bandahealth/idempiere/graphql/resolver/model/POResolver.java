@@ -30,12 +30,12 @@ public class POResolver<T extends PO> {
 	}
 
 	/**
-	 * By default, map UUIDs to the ID field
+	 * By default, map UUIDs to the UUID field
 	 *
 	 * @param entity The entity to fetch data for
-	 * @return An external ID for consumers
+	 * @return An external UUID for consumers
 	 */
-	public String ID(T entity) {
+	public String UUID(T entity) {
 		return (String) entity.get_Value(entity.getUUIDColumnName());
 	}
 

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_A_RegistrationProductInpu
 import org.compiere.model.X_A_RegistrationProduct;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for A_RegistrationProduct - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_A_RegistrationProductMutation extends POMutation implements Graph
 		return X_A_RegistrationProductInput.Table_Name;
 	}
 
-	public X_A_RegistrationProduct A_RegistrationProductSave(I_A_RegistrationProductInput input, DataFetchingEnvironment environment) {
-		return (X_A_RegistrationProduct) super.save((X_A_RegistrationProductInput) input, environment);
+	public X_A_RegistrationProduct A_RegistrationProductSave(I_A_RegistrationProductInput entity, DataFetchingEnvironment environment) {
+		return (X_A_RegistrationProduct) super.save((X_A_RegistrationProductInput) entity, environment);
+	}
+
+	public List<X_A_RegistrationProduct> A_RegistrationProductSaveMany(List<I_A_RegistrationProductInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_A_RegistrationProductInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_A_RegistrationProduct) entity).collect(Collectors.toList());
 	}
 
 	public boolean A_RegistrationProductDelete(List<String> uuids, DataFetchingEnvironment environment) {

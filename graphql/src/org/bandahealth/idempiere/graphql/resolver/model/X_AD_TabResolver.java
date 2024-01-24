@@ -330,7 +330,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(TREEDISPLAYEDON_UUIDS_BY_VALUE.get(entity.getTreeDisplayedOn()));
 	}
 

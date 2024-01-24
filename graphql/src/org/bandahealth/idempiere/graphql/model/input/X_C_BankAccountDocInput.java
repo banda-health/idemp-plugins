@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -9,6 +10,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_C_BankAccountDoc;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -26,13 +28,16 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	private I_AD_Ref_ListInput mPaymentRule;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_BankAccountDoc_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_BankAccountDocInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_C_BankAccountDoc(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_BankAccountDocInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_BankAccountDoc(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -44,11 +49,16 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -71,11 +81,16 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
-		if (get_ID() == 0 && C_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-						.setParameters(C_BankAccount.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BankAccount_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_BankAccount != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BankAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
+			}
 		}
 	}
 
@@ -101,20 +116,20 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_BankAccountDoc_UU(ID);
+	public void setUUID(String UUID) {
+		setC_BankAccountDoc_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_BankAccountDoc_UU();
 	}
 
@@ -127,11 +142,16 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	public void setCheck_PrintFormatInput(ForeignEntityInput Check_PrintFormat) {
 		this.mCheck_PrintFormat = Check_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (Check_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(Check_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCheck_PrintFormat_ID(foreignEntity.get_ID());
+		if (Check_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(Check_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCheck_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + Check_PrintFormat.getUUID());
+			}
 		} else {
 			super.setCheck_PrintFormat_ID(0);
 		}
@@ -156,11 +176,16 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
 		MRefList_BH foreignEntity;
-		if (PaymentRule != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PaymentRule.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPaymentRule(foreignEntity.getValue());
+		if (PaymentRule != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PaymentRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPaymentRule(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PaymentRule.getUUID());
+			}
 		} else {
 			this.setPaymentRule(null);
 		}

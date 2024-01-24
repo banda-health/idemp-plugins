@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_RegistrationInput;
 import org.compiere.model.M_Registration;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Registration - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_RegistrationMutation extends POMutation implements GraphQLMuta
 		return X_AD_RegistrationInput.Table_Name;
 	}
 
-	public M_Registration AD_RegistrationSave(I_AD_RegistrationInput input, DataFetchingEnvironment environment) {
-		return (M_Registration) super.save((X_AD_RegistrationInput) input, environment);
+	public M_Registration AD_RegistrationSave(I_AD_RegistrationInput entity, DataFetchingEnvironment environment) {
+		return (M_Registration) super.save((X_AD_RegistrationInput) entity, environment);
+	}
+
+	public List<M_Registration> AD_RegistrationSaveMany(List<I_AD_RegistrationInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_RegistrationInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (M_Registration) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_RegistrationDelete(List<String> uuids, DataFetchingEnvironment environment) {

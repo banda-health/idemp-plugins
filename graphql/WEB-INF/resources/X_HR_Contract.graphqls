@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_ContractSave(entity: HR_ContractInput!): HR_Contract!
+	HR_ContractSaveMany(entities: [HR_ContractInput!]!): [HR_Contract!]!
 	HR_ContractDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type HR_Contract {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -62,7 +63,7 @@ input HR_ContractInput {
 	C_Project: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

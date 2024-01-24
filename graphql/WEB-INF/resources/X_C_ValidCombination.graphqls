@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_ValidCombinationSave(entity: C_ValidCombinationInput!): C_ValidCombination!
+	C_ValidCombinationSaveMany(entities: [C_ValidCombinationInput!]!): [C_ValidCombination!]!
 	C_ValidCombinationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -42,7 +43,7 @@ type C_ValidCombination {
 	C_SalesRegion: C_SalesRegion
 	# Sub account for Element Value
 	C_SubAcct: C_SubAcct
-	ID: ID!
+	UUID: ID!
 	# Unique combination of account elements
 	Combination: String
 	# Date this record was created
@@ -92,7 +93,7 @@ input C_ValidCombinationInput {
 	C_SalesRegion: ForeignEntityInput
 	# Sub account for Element Value
 	C_SubAcct: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Unique combination of account elements
 	Combination: String
 	# Optional short description of the record

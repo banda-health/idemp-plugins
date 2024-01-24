@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_LanguageSave(entity: AD_LanguageInput!): AD_Language!
+	AD_LanguageSaveMany(entities: [AD_LanguageInput!]!): [AD_Language!]!
 	AD_LanguageDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Language {
 	AD_Client: AD_Client!
 	# Language for this entity
 	AD_Language: String!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Printer paper definition
@@ -60,7 +61,7 @@ type AD_Language {
 input AD_LanguageInput {
 	# Language for this entity
 	AD_Language: String
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Printer paper definition

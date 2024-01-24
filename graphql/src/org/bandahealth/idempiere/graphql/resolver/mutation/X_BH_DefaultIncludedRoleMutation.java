@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_BH_DefaultIncludedRoleInp
 import org.bandahealth.idempiere.graphql.model.input.X_BH_DefaultIncludedRoleInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for BH_DefaultIncludedRole - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_BH_DefaultIncludedRoleMutation extends POMutation implements Grap
 		return X_BH_DefaultIncludedRoleInput.Table_Name;
 	}
 
-	public MBHDefaultIncludedRole BH_DefaultIncludedRoleSave(I_BH_DefaultIncludedRoleInput input, DataFetchingEnvironment environment) {
-		return (MBHDefaultIncludedRole) super.save((X_BH_DefaultIncludedRoleInput) input, environment);
+	public MBHDefaultIncludedRole BH_DefaultIncludedRoleSave(I_BH_DefaultIncludedRoleInput entity, DataFetchingEnvironment environment) {
+		return (MBHDefaultIncludedRole) super.save((X_BH_DefaultIncludedRoleInput) entity, environment);
+	}
+
+	public List<MBHDefaultIncludedRole> BH_DefaultIncludedRoleSaveMany(List<I_BH_DefaultIncludedRoleInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_BH_DefaultIncludedRoleInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MBHDefaultIncludedRole) entity).collect(Collectors.toList());
 	}
 
 	public boolean BH_DefaultIncludedRoleDelete(List<String> uuids, DataFetchingEnvironment environment) {

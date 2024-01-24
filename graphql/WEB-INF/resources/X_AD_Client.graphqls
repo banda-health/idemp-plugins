@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ClientSave(entity: AD_ClientInput!): AD_Client!
+	AD_ClientSaveMany(entities: [AD_ClientInput!]!): [AD_Client!]!
 	AD_ClientDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type AD_ClientConnection {
 }
 
 type AD_Client {
-	ID: ID!
+	UUID: ID!
 	# Language for this entity
 	AD_Language: AD_Language
 	# Organizational entity within client
@@ -78,7 +79,7 @@ type AD_Client {
 }
 
 input AD_ClientInput {
-	ID: ID
+	UUID: ID
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within client

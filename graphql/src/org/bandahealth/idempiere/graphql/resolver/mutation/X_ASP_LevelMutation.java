@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_ASP_LevelInput;
 import org.compiere.model.X_ASP_Level;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for ASP_Level - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_ASP_LevelMutation extends POMutation implements GraphQLMutationRe
 		return X_ASP_LevelInput.Table_Name;
 	}
 
-	public X_ASP_Level ASP_LevelSave(I_ASP_LevelInput input, DataFetchingEnvironment environment) {
-		return (X_ASP_Level) super.save((X_ASP_LevelInput) input, environment);
+	public X_ASP_Level ASP_LevelSave(I_ASP_LevelInput entity, DataFetchingEnvironment environment) {
+		return (X_ASP_Level) super.save((X_ASP_LevelInput) entity, environment);
+	}
+
+	public List<X_ASP_Level> ASP_LevelSaveMany(List<I_ASP_LevelInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_ASP_LevelInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_ASP_Level) entity).collect(Collectors.toList());
 	}
 
 	public boolean ASP_LevelDelete(List<String> uuids, DataFetchingEnvironment environment) {

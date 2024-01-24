@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BankStatementSave(entity: C_BankStatementInput!): C_BankStatement!
+	C_BankStatementSaveMany(entities: [C_BankStatementInput!]!): [C_BankStatement!]!
 	C_BankStatementDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_BankStatement {
 	BeginningBalance: BigDecimal
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
-	ID: ID!
+	UUID: ID!
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
@@ -81,7 +82,7 @@ input C_BankStatementInput {
 	BeginningBalance: BigDecimal
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Copy From Record
 	CopyFrom: String
 	# Process which will generate a new document lines based on an existing document

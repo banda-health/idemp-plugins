@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -10,6 +11,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MReplicationStrategy;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_ReplicationTable;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -28,13 +30,16 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	private I_AD_Ref_ListInput mReplicationType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_ReplicationTable_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_ReplicationTableInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_AD_ReplicationTable(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_ReplicationTableInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_ReplicationTable(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -46,11 +51,16 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -73,11 +83,16 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	public void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy) {
 		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
 		MReplicationStrategy foreignEntity;
-		if (get_ID() == 0 && AD_ReplicationStrategy != null &&
-				(foreignEntity = new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
-						.setParameters(AD_ReplicationStrategy.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_ReplicationStrategy != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
+							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_ReplicationStrategy with UUID " + AD_ReplicationStrategy.getUUID());
+			}
 		}
 	}
 
@@ -103,20 +118,20 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_ReplicationTable_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_ReplicationTable_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_ReplicationTable_UU();
 	}
 
@@ -129,11 +144,16 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable_BH foreignEntity;
-		if (get_ID() == 0 && AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-						.setParameters(AD_Table.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Table_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Table != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Table_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+			}
 		}
 	}
 
@@ -156,11 +176,16 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
-		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-						.setParameters(AD_EntityType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setEntityType(foreignEntity.getEntityType());
+		if (AD_EntityType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setEntityType(foreignEntity.getEntityType());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+			}
 		} else {
 			super.setEntityType(null);
 		}
@@ -185,11 +210,16 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	public void setReplicationTypeInput(I_AD_Ref_ListInput ReplicationType) {
 		this.mReplicationType = ReplicationType;
 		MRefList_BH foreignEntity;
-		if (ReplicationType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ReplicationType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setReplicationType(foreignEntity.getValue());
+		if (ReplicationType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ReplicationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setReplicationType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ReplicationType.getUUID());
+			}
 		} else {
 			this.setReplicationType(null);
 		}

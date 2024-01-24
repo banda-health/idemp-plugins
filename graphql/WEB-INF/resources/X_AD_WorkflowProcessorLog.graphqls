@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WorkflowProcessorLogSave(entity: AD_WorkflowProcessorLogInput!): AD_WorkflowProcessorLog!
+	AD_WorkflowProcessorLogSaveMany(entities: [AD_WorkflowProcessorLogInput!]!): [AD_WorkflowProcessorLog!]!
 	AD_WorkflowProcessorLogDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_WorkflowProcessorLog {
 	AD_Org: AD_Org!
 	# Workflow Processor Server
 	AD_WorkflowProcessor: AD_WorkflowProcessor!
-	ID: ID!
+	UUID: ID!
 	# Binary Data
 	BinaryData: Binary
 	# Date this record was created
@@ -52,7 +53,7 @@ input AD_WorkflowProcessorLogInput {
 	AD_Org: ForeignEntityInput
 	# Workflow Processor Server
 	AD_WorkflowProcessor: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Binary Data
 	BinaryData: Binary
 	# Optional short description of the record

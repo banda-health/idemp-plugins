@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_PrintFontInput;
 import org.compiere.model.X_AD_PrintFont;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_PrintFont - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_PrintFontMutation extends POMutation implements GraphQLMutatio
 		return X_AD_PrintFontInput.Table_Name;
 	}
 
-	public X_AD_PrintFont AD_PrintFontSave(I_AD_PrintFontInput input, DataFetchingEnvironment environment) {
-		return (X_AD_PrintFont) super.save((X_AD_PrintFontInput) input, environment);
+	public X_AD_PrintFont AD_PrintFontSave(I_AD_PrintFontInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_PrintFont) super.save((X_AD_PrintFontInput) entity, environment);
+	}
+
+	public List<X_AD_PrintFont> AD_PrintFontSaveMany(List<I_AD_PrintFontInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_PrintFontInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_PrintFont) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_PrintFontDelete(List<String> uuids, DataFetchingEnvironment environment) {

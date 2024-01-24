@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_TaxGroupSave(entity: C_TaxGroupInput!): C_TaxGroup!
+	C_TaxGroupSaveMany(entities: [C_TaxGroupInput!]!): [C_TaxGroup!]!
 	C_TaxGroupDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_TaxGroup {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,7 +45,7 @@ type C_TaxGroup {
 input C_TaxGroupInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

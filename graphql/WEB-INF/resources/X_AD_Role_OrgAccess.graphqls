@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Role_OrgAccessSave(entity: AD_Role_OrgAccessInput!): AD_Role_OrgAccess!
+	AD_Role_OrgAccessSaveMany(entities: [AD_Role_OrgAccessInput!]!): [AD_Role_OrgAccess!]!
 	AD_Role_OrgAccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Role_OrgAccess {
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -42,7 +43,7 @@ input AD_Role_OrgAccessInput {
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Field is read only

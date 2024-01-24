@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_DunningRunSave(entity: C_DunningRunInput!): C_DunningRun!
+	C_DunningRunSaveMany(entities: [C_DunningRunInput!]!): [C_DunningRun!]!
 	C_DunningRunDelete(uuids: [String!]!): Boolean!
 }
 
@@ -23,7 +24,7 @@ type C_DunningRun {
 	# Dunning Rules for overdue invoices
 	C_Dunning: C_Dunning!
 	C_DunningLevel: C_DunningLevel
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,7 +51,7 @@ input C_DunningRunInput {
 	# Dunning Rules for overdue invoices
 	C_Dunning: ForeignEntityInput
 	C_DunningLevel: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Date of Dunning

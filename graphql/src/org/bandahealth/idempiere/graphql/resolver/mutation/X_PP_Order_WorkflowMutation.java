@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_PP_Order_WorkflowInput;
 import org.eevolution.model.X_PP_Order_Workflow;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for PP_Order_Workflow - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_PP_Order_WorkflowMutation extends POMutation implements GraphQLMu
 		return X_PP_Order_WorkflowInput.Table_Name;
 	}
 
-	public X_PP_Order_Workflow PP_Order_WorkflowSave(I_PP_Order_WorkflowInput input, DataFetchingEnvironment environment) {
-		return (X_PP_Order_Workflow) super.save((X_PP_Order_WorkflowInput) input, environment);
+	public X_PP_Order_Workflow PP_Order_WorkflowSave(I_PP_Order_WorkflowInput entity, DataFetchingEnvironment environment) {
+		return (X_PP_Order_Workflow) super.save((X_PP_Order_WorkflowInput) entity, environment);
+	}
+
+	public List<X_PP_Order_Workflow> PP_Order_WorkflowSaveMany(List<I_PP_Order_WorkflowInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_PP_Order_WorkflowInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_PP_Order_Workflow) entity).collect(Collectors.toList());
 	}
 
 	public boolean PP_Order_WorkflowDelete(List<String> uuids, DataFetchingEnvironment environment) {

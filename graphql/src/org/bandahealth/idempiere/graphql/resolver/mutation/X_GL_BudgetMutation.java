@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_GL_BudgetInput;
 import org.compiere.model.X_GL_Budget;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for GL_Budget - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_GL_BudgetMutation extends POMutation implements GraphQLMutationRe
 		return X_GL_BudgetInput.Table_Name;
 	}
 
-	public X_GL_Budget GL_BudgetSave(I_GL_BudgetInput input, DataFetchingEnvironment environment) {
-		return (X_GL_Budget) super.save((X_GL_BudgetInput) input, environment);
+	public X_GL_Budget GL_BudgetSave(I_GL_BudgetInput entity, DataFetchingEnvironment environment) {
+		return (X_GL_Budget) super.save((X_GL_BudgetInput) entity, environment);
+	}
+
+	public List<X_GL_Budget> GL_BudgetSaveMany(List<I_GL_BudgetInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_GL_BudgetInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_GL_Budget) entity).collect(Collectors.toList());
 	}
 
 	public boolean GL_BudgetDelete(List<String> uuids, DataFetchingEnvironment environment) {

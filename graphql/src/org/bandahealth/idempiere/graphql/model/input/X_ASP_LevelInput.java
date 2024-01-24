@@ -2,11 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_ASP_Level;
 import org.compiere.model.X_ASP_Module;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -22,13 +24,16 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 	private ForeignEntityInput mASP_Module;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The ASP_Level_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_ASP_LevelInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_ASP_Level(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_ASP_LevelInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_ASP_Level(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -40,11 +45,16 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -70,20 +80,20 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setASP_Level_UU(ID);
+	public void setUUID(String UUID) {
+		setASP_Level_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getASP_Level_UU();
 	}
 
@@ -96,11 +106,16 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 	public void setASP_ModuleInput(ForeignEntityInput ASP_Module) {
 		this.mASP_Module = ASP_Module;
 		X_ASP_Module foreignEntity;
-		if (get_ID() == 0 && ASP_Module != null &&
-				(foreignEntity = new Query(getCtx(), "ASP_Module", "ASP_Module_UU=?", get_TrxName())
-						.setParameters(ASP_Module.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setASP_Module_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && ASP_Module != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "ASP_Module", "ASP_Module_UU=?", get_TrxName())
+							.setParameters(ASP_Module.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setASP_Module_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table ASP_Module with UUID " + ASP_Module.getUUID());
+			}
 		}
 	}
 

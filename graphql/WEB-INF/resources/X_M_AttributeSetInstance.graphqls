@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_AttributeSetInstanceSave(entity: M_AttributeSetInstanceInput!): M_AttributeSetInstance!
+	M_AttributeSetInstanceSaveMany(entities: [M_AttributeSetInstanceInput!]!): [M_AttributeSetInstance!]!
 	M_AttributeSetInstanceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -37,7 +38,7 @@ type M_AttributeSetInstance {
 	Lot: String
 	# Product Attribute Set
 	M_AttributeSet: M_AttributeSet!
-	ID: ID!
+	UUID: ID!
 	# Product Lot Definition
 	M_Lot: M_Lot
 	# Product Serial Number 
@@ -62,7 +63,7 @@ input M_AttributeSetInstanceInput {
 	Lot: String
 	# Product Attribute Set
 	M_AttributeSet: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Product Lot Definition
 	M_Lot: ForeignEntityInput
 	# Product Serial Number 

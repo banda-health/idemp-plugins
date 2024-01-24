@@ -39,16 +39,16 @@ public interface I_C_RfQ_TopicInput extends I_C_RfQ_Topic {
 	ForeignEntityInput AD_PrintFormat();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 }

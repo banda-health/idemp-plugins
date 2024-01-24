@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_ToolBarButtonInput;
 import org.compiere.model.MToolBarButton;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_ToolBarButton - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_ToolBarButtonMutation extends POMutation implements GraphQLMut
 		return X_AD_ToolBarButtonInput.Table_Name;
 	}
 
-	public MToolBarButton AD_ToolBarButtonSave(I_AD_ToolBarButtonInput input, DataFetchingEnvironment environment) {
-		return (MToolBarButton) super.save((X_AD_ToolBarButtonInput) input, environment);
+	public MToolBarButton AD_ToolBarButtonSave(I_AD_ToolBarButtonInput entity, DataFetchingEnvironment environment) {
+		return (MToolBarButton) super.save((X_AD_ToolBarButtonInput) entity, environment);
+	}
+
+	public List<MToolBarButton> AD_ToolBarButtonSaveMany(List<I_AD_ToolBarButtonInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_ToolBarButtonInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MToolBarButton) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_ToolBarButtonDelete(List<String> uuids, DataFetchingEnvironment environment) {

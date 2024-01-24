@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MInfoColumn;
@@ -9,6 +10,7 @@ import org.compiere.model.MInfoWindow;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_InfoRelated;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -28,13 +30,16 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	private ForeignEntityInput mRelatedInfo;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_InfoRelated_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_InfoRelatedInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_AD_InfoRelated(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_InfoRelatedInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_InfoRelated(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 	/**
 	 * Set InfoRelated.
@@ -49,20 +54,20 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_InfoRelated_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_InfoRelated_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_InfoRelated_UU();
 	}
 
@@ -75,11 +80,16 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	public void setAD_InfoWindowInput(ForeignEntityInput AD_InfoWindow) {
 		this.mAD_InfoWindow = AD_InfoWindow;
 		MInfoWindow foreignEntity;
-		if (AD_InfoWindow != null &&
-				(foreignEntity = new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-						.setParameters(AD_InfoWindow.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_InfoWindow_ID(foreignEntity.get_ID());
+		if (AD_InfoWindow != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
+							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_InfoWindow with UUID " + AD_InfoWindow.getUUID());
+			}
 		} else {
 			super.setAD_InfoWindow_ID(0);
 		}
@@ -104,11 +114,16 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -131,11 +146,16 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
-		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-						.setParameters(AD_EntityType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setEntityType(foreignEntity.getEntityType());
+		if (AD_EntityType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setEntityType(foreignEntity.getEntityType());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+			}
 		} else {
 			super.setEntityType(null);
 		}
@@ -160,11 +180,16 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	public void setParentRelatedColumnInput(ForeignEntityInput ParentRelatedColumn) {
 		this.mParentRelatedColumn = ParentRelatedColumn;
 		MInfoColumn foreignEntity;
-		if (ParentRelatedColumn != null &&
-				(foreignEntity = new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
-						.setParameters(ParentRelatedColumn.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setParentRelatedColumn_ID(foreignEntity.get_ID());
+		if (ParentRelatedColumn != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
+							.setParameters(ParentRelatedColumn.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setParentRelatedColumn_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_InfoColumn with UUID " + ParentRelatedColumn.getUUID());
+			}
 		} else {
 			super.setParentRelatedColumn_ID(0);
 		}
@@ -189,11 +214,16 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	public void setRelatedColumnInput(ForeignEntityInput RelatedColumn) {
 		this.mRelatedColumn = RelatedColumn;
 		MInfoColumn foreignEntity;
-		if (RelatedColumn != null &&
-				(foreignEntity = new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
-						.setParameters(RelatedColumn.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setRelatedColumn_ID(foreignEntity.get_ID());
+		if (RelatedColumn != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
+							.setParameters(RelatedColumn.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setRelatedColumn_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_InfoColumn with UUID " + RelatedColumn.getUUID());
+			}
 		} else {
 			super.setRelatedColumn_ID(0);
 		}
@@ -218,11 +248,16 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	public void setRelatedInfoInput(ForeignEntityInput RelatedInfo) {
 		this.mRelatedInfo = RelatedInfo;
 		MInfoWindow foreignEntity;
-		if (RelatedInfo != null &&
-				(foreignEntity = new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-						.setParameters(RelatedInfo.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setRelatedInfo_ID(foreignEntity.get_ID());
+		if (RelatedInfo != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
+							.setParameters(RelatedInfo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setRelatedInfo_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_InfoWindow with UUID " + RelatedInfo.getUUID());
+			}
 		} else {
 			super.setRelatedInfo_ID(0);
 		}

@@ -2,12 +2,14 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLocator;
 import org.compiere.model.MLocatorType;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -24,13 +26,16 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	private ForeignEntityInput mM_Warehouse;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_Locator_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_LocatorInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MLocator(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_LocatorInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MLocator(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -42,11 +47,16 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -72,20 +82,20 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_Locator_UU(ID);
+	public void setUUID(String UUID) {
+		setM_Locator_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_Locator_UU();
 	}
 
@@ -98,11 +108,16 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	public void setM_LocatorTypeInput(ForeignEntityInput M_LocatorType) {
 		this.mM_LocatorType = M_LocatorType;
 		MLocatorType foreignEntity;
-		if (M_LocatorType != null &&
-				(foreignEntity = new Query(getCtx(), "M_LocatorType", "M_LocatorType_UU=?", get_TrxName())
-						.setParameters(M_LocatorType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_LocatorType_ID(foreignEntity.get_ID());
+		if (M_LocatorType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_LocatorType", "M_LocatorType_UU=?", get_TrxName())
+							.setParameters(M_LocatorType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_LocatorType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_LocatorType with UUID " + M_LocatorType.getUUID());
+			}
 		} else {
 			super.setM_LocatorType_ID(0);
 		}
@@ -127,11 +142,16 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
-		if (get_ID() == 0 && M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-						.setParameters(M_Warehouse.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Warehouse_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_Warehouse != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+			}
 		}
 	}
 

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_BOMAlternativeInput;
 import org.compiere.model.X_M_BOMAlternative;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_BOMAlternative - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_BOMAlternativeMutation extends POMutation implements GraphQLMut
 		return X_M_BOMAlternativeInput.Table_Name;
 	}
 
-	public X_M_BOMAlternative M_BOMAlternativeSave(I_M_BOMAlternativeInput input, DataFetchingEnvironment environment) {
-		return (X_M_BOMAlternative) super.save((X_M_BOMAlternativeInput) input, environment);
+	public X_M_BOMAlternative M_BOMAlternativeSave(I_M_BOMAlternativeInput entity, DataFetchingEnvironment environment) {
+		return (X_M_BOMAlternative) super.save((X_M_BOMAlternativeInput) entity, environment);
+	}
+
+	public List<X_M_BOMAlternative> M_BOMAlternativeSaveMany(List<I_M_BOMAlternativeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_BOMAlternativeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_M_BOMAlternative) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_BOMAlternativeDelete(List<String> uuids, DataFetchingEnvironment environment) {

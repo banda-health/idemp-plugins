@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CashPlanLineSave(entity: C_CashPlanLineInput!): C_CashPlanLine!
+	C_CashPlanLineSaveMany(entities: [C_CashPlanLineInput!]!): [C_CashPlanLine!]!
 	C_CashPlanLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -27,7 +28,7 @@ type C_CashPlanLine {
 	# Marketing Campaign
 	C_Campaign: C_Campaign
 	C_CashPlan: C_CashPlan!
-	ID: ID!
+	UUID: ID!
 	# Additional document charges
 	C_Charge: C_Charge
 	# Financial Project
@@ -79,7 +80,7 @@ input C_CashPlanLineInput {
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
 	C_CashPlan: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	# Financial Project

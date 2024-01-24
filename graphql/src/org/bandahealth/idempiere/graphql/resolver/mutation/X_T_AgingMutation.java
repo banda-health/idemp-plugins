@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_T_AgingInput;
 import org.compiere.model.MAging;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for T_Aging - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_T_AgingMutation extends POMutation implements GraphQLMutationReso
 		return X_T_AgingInput.Table_Name;
 	}
 
-	public MAging T_AgingSave(I_T_AgingInput input, DataFetchingEnvironment environment) {
-		return (MAging) super.save((X_T_AgingInput) input, environment);
+	public MAging T_AgingSave(I_T_AgingInput entity, DataFetchingEnvironment environment) {
+		return (MAging) super.save((X_T_AgingInput) entity, environment);
+	}
+
+	public List<MAging> T_AgingSaveMany(List<I_T_AgingInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_T_AgingInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAging) entity).collect(Collectors.toList());
 	}
 
 	public boolean T_AgingDelete(List<String> uuids, DataFetchingEnvironment environment) {

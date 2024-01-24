@@ -2,9 +2,11 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 import org.eevolution.model.X_HR_List;
 import org.eevolution.model.X_HR_ListVersion;
 
@@ -23,13 +25,16 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	private ForeignEntityInput mHR_ListBase;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The HR_ListVersion_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_HR_ListVersionInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_HR_ListVersion(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_HR_ListVersionInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_HR_ListVersion(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -41,11 +46,16 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -68,11 +78,16 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	public void setHR_ListInput(ForeignEntityInput HR_List) {
 		this.mHR_List = HR_List;
 		X_HR_List foreignEntity;
-		if (get_ID() == 0 && HR_List != null &&
-				(foreignEntity = new Query(getCtx(), "HR_List", "HR_List_UU=?", get_TrxName())
-						.setParameters(HR_List.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_List_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && HR_List != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_List", "HR_List_UU=?", get_TrxName())
+							.setParameters(HR_List.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_List_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_List with UUID " + HR_List.getUUID());
+			}
 		}
 	}
 
@@ -95,11 +110,16 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	public void setHR_ListBaseInput(ForeignEntityInput HR_ListBase) {
 		this.mHR_ListBase = HR_ListBase;
 		X_HR_List foreignEntity;
-		if (HR_ListBase != null &&
-				(foreignEntity = new Query(getCtx(), "HR_List", "HR_List_UU=?", get_TrxName())
-						.setParameters(HR_ListBase.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_ListBase_ID(foreignEntity.get_ID());
+		if (HR_ListBase != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_List", "HR_List_UU=?", get_TrxName())
+							.setParameters(HR_ListBase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_ListBase_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_List with UUID " + HR_ListBase.getUUID());
+			}
 		} else {
 			super.setHR_ListBase_ID(0);
 		}
@@ -127,20 +147,20 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setHR_ListVersion_UU(ID);
+	public void setUUID(String UUID) {
+		setHR_ListVersion_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getHR_ListVersion_UU();
 	}
 }

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ArchiveSave(entity: AD_ArchiveInput!): AD_Archive!
+	AD_ArchiveSaveMany(entities: [AD_ArchiveInput!]!): [AD_Archive!]!
 	AD_ArchiveDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type AD_ArchiveConnection {
 }
 
 type AD_Archive {
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -52,7 +53,7 @@ type AD_Archive {
 }
 
 input AD_ArchiveInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Process or Report

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_RecurringInput;
 import org.compiere.model.MRecurring;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_Recurring - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_RecurringMutation extends POMutation implements GraphQLMutation
 		return X_C_RecurringInput.Table_Name;
 	}
 
-	public MRecurring C_RecurringSave(I_C_RecurringInput input, DataFetchingEnvironment environment) {
-		return (MRecurring) super.save((X_C_RecurringInput) input, environment);
+	public MRecurring C_RecurringSave(I_C_RecurringInput entity, DataFetchingEnvironment environment) {
+		return (MRecurring) super.save((X_C_RecurringInput) entity, environment);
+	}
+
+	public List<MRecurring> C_RecurringSaveMany(List<I_C_RecurringInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_RecurringInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRecurring) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_RecurringDelete(List<String> uuids, DataFetchingEnvironment environment) {

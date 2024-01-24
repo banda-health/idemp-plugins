@@ -67,16 +67,16 @@ public interface I_GL_JournalGeneratorSourceInput extends I_GL_JournalGeneratorS
 	ForeignEntityInput GL_JournalGeneratorLine();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 }

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_User_OrgAccessSave(entity: AD_User_OrgAccessInput!): AD_User_OrgAccess!
+	AD_User_OrgAccessSaveMany(entities: [AD_User_OrgAccessInput!]!): [AD_User_OrgAccess!]!
 	AD_User_OrgAccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_User_OrgAccess {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -42,7 +43,7 @@ input AD_User_OrgAccessInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Field is read only

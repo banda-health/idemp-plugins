@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -13,6 +14,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPOSTerminal;
 import org.compiere.model.MPriceList;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -45,13 +47,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	private I_AD_Ref_ListInput mCheckTransferType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The U_POSTerminal_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_U_POSTerminalInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MPOSTerminal(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_U_POSTerminalInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPOSTerminal(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -63,11 +68,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -90,11 +100,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
 		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
-		if (C_CashBook != null &&
-				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-						.setParameters(C_CashBook.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_CashBook_ID(foreignEntity.get_ID());
+		if (C_CashBook != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+							.setParameters(C_CashBook.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_CashBook_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_CashBook with UUID " + C_CashBook.getUUID());
+			}
 		} else {
 			super.setC_CashBook_ID(0);
 		}
@@ -119,11 +134,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setC_CashBPartnerInput(ForeignEntityInput C_CashBPartner) {
 		this.mC_CashBPartner = C_CashBPartner;
 		MBPartner_BH foreignEntity;
-		if (C_CashBPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_CashBPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_CashBPartner_ID(foreignEntity.get_ID());
+		if (C_CashBPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_CashBPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_CashBPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_CashBPartner.getUUID());
+			}
 		} else {
 			super.setC_CashBPartner_ID(0);
 		}
@@ -148,11 +168,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setC_TemplateBPartnerInput(ForeignEntityInput C_TemplateBPartner) {
 		this.mC_TemplateBPartner = C_TemplateBPartner;
 		MBPartner_BH foreignEntity;
-		if (C_TemplateBPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_TemplateBPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_TemplateBPartner_ID(foreignEntity.get_ID());
+		if (C_TemplateBPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_TemplateBPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_TemplateBPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_TemplateBPartner.getUUID());
+			}
 		} else {
 			super.setC_TemplateBPartner_ID(0);
 		}
@@ -177,11 +202,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCard_BankAccountInput(ForeignEntityInput Card_BankAccount) {
 		this.mCard_BankAccount = Card_BankAccount;
 		MBankAccount_BH foreignEntity;
-		if (Card_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-						.setParameters(Card_BankAccount.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCard_BankAccount_ID(foreignEntity.get_ID());
+		if (Card_BankAccount != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+							.setParameters(Card_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCard_BankAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BankAccount with UUID " + Card_BankAccount.getUUID());
+			}
 		} else {
 			super.setCard_BankAccount_ID(0);
 		}
@@ -206,11 +236,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCardTransferBankAccountInput(ForeignEntityInput CardTransferBankAccount) {
 		this.mCardTransferBankAccount = CardTransferBankAccount;
 		MBankAccount_BH foreignEntity;
-		if (CardTransferBankAccount != null &&
-				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-						.setParameters(CardTransferBankAccount.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCardTransferBankAccount_ID(foreignEntity.get_ID());
+		if (CardTransferBankAccount != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+							.setParameters(CardTransferBankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCardTransferBankAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BankAccount with UUID " + CardTransferBankAccount.getUUID());
+			}
 		} else {
 			super.setCardTransferBankAccount_ID(0);
 		}
@@ -235,11 +270,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCardTransferCashBookInput(ForeignEntityInput CardTransferCashBook) {
 		this.mCardTransferCashBook = CardTransferCashBook;
 		MCashBook foreignEntity;
-		if (CardTransferCashBook != null &&
-				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-						.setParameters(CardTransferCashBook.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCardTransferCashBook_ID(foreignEntity.get_ID());
+		if (CardTransferCashBook != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+							.setParameters(CardTransferCashBook.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCardTransferCashBook_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_CashBook with UUID " + CardTransferCashBook.getUUID());
+			}
 		} else {
 			super.setCardTransferCashBook_ID(0);
 		}
@@ -264,11 +304,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCardTransferTypeInput(I_AD_Ref_ListInput CardTransferType) {
 		this.mCardTransferType = CardTransferType;
 		MRefList_BH foreignEntity;
-		if (CardTransferType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(CardTransferType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setCardTransferType(foreignEntity.getValue());
+		if (CardTransferType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CardTransferType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCardTransferType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CardTransferType.getUUID());
+			}
 		} else {
 			this.setCardTransferType(null);
 		}
@@ -293,11 +338,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCashBookTransferTypeInput(I_AD_Ref_ListInput CashBookTransferType) {
 		this.mCashBookTransferType = CashBookTransferType;
 		MRefList_BH foreignEntity;
-		if (CashBookTransferType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(CashBookTransferType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setCashBookTransferType(foreignEntity.getValue());
+		if (CashBookTransferType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CashBookTransferType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCashBookTransferType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CashBookTransferType.getUUID());
+			}
 		} else {
 			this.setCashBookTransferType(null);
 		}
@@ -322,11 +372,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCashTransferBankAccountInput(ForeignEntityInput CashTransferBankAccount) {
 		this.mCashTransferBankAccount = CashTransferBankAccount;
 		MBankAccount_BH foreignEntity;
-		if (CashTransferBankAccount != null &&
-				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-						.setParameters(CashTransferBankAccount.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCashTransferBankAccount_ID(foreignEntity.get_ID());
+		if (CashTransferBankAccount != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+							.setParameters(CashTransferBankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCashTransferBankAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BankAccount with UUID " + CashTransferBankAccount.getUUID());
+			}
 		} else {
 			super.setCashTransferBankAccount_ID(0);
 		}
@@ -351,11 +406,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCashTransferCashBookInput(ForeignEntityInput CashTransferCashBook) {
 		this.mCashTransferCashBook = CashTransferCashBook;
 		MCashBook foreignEntity;
-		if (CashTransferCashBook != null &&
-				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-						.setParameters(CashTransferCashBook.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCashTransferCashBook_ID(foreignEntity.get_ID());
+		if (CashTransferCashBook != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+							.setParameters(CashTransferCashBook.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCashTransferCashBook_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_CashBook with UUID " + CashTransferCashBook.getUUID());
+			}
 		} else {
 			super.setCashTransferCashBook_ID(0);
 		}
@@ -380,11 +440,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCheck_BankAccountInput(ForeignEntityInput Check_BankAccount) {
 		this.mCheck_BankAccount = Check_BankAccount;
 		MBankAccount_BH foreignEntity;
-		if (Check_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-						.setParameters(Check_BankAccount.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCheck_BankAccount_ID(foreignEntity.get_ID());
+		if (Check_BankAccount != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+							.setParameters(Check_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCheck_BankAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BankAccount with UUID " + Check_BankAccount.getUUID());
+			}
 		} else {
 			super.setCheck_BankAccount_ID(0);
 		}
@@ -409,11 +474,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCheckTransferBankAccountInput(ForeignEntityInput CheckTransferBankAccount) {
 		this.mCheckTransferBankAccount = CheckTransferBankAccount;
 		MBankAccount_BH foreignEntity;
-		if (CheckTransferBankAccount != null &&
-				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-						.setParameters(CheckTransferBankAccount.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCheckTransferBankAccount_ID(foreignEntity.get_ID());
+		if (CheckTransferBankAccount != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+							.setParameters(CheckTransferBankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCheckTransferBankAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BankAccount with UUID " + CheckTransferBankAccount.getUUID());
+			}
 		} else {
 			super.setCheckTransferBankAccount_ID(0);
 		}
@@ -438,11 +508,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCheckTransferCashBookInput(ForeignEntityInput CheckTransferCashBook) {
 		this.mCheckTransferCashBook = CheckTransferCashBook;
 		MCashBook foreignEntity;
-		if (CheckTransferCashBook != null &&
-				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-						.setParameters(CheckTransferCashBook.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCheckTransferCashBook_ID(foreignEntity.get_ID());
+		if (CheckTransferCashBook != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+							.setParameters(CheckTransferCashBook.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCheckTransferCashBook_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_CashBook with UUID " + CheckTransferCashBook.getUUID());
+			}
 		} else {
 			super.setCheckTransferCashBook_ID(0);
 		}
@@ -467,11 +542,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setCheckTransferTypeInput(I_AD_Ref_ListInput CheckTransferType) {
 		this.mCheckTransferType = CheckTransferType;
 		MRefList_BH foreignEntity;
-		if (CheckTransferType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(CheckTransferType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setCheckTransferType(foreignEntity.getValue());
+		if (CheckTransferType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CheckTransferType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCheckTransferType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CheckTransferType.getUUID());
+			}
 		} else {
 			this.setCheckTransferType(null);
 		}
@@ -496,11 +576,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
-		if (M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-						.setParameters(M_Warehouse.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Warehouse_ID(foreignEntity.get_ID());
+		if (M_Warehouse != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+			}
 		} else {
 			super.setM_Warehouse_ID(0);
 		}
@@ -525,11 +610,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setPO_PriceListInput(ForeignEntityInput PO_PriceList) {
 		this.mPO_PriceList = PO_PriceList;
 		MPriceList foreignEntity;
-		if (PO_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-						.setParameters(PO_PriceList.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPO_PriceList_ID(foreignEntity.get_ID());
+		if (PO_PriceList != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
+							.setParameters(PO_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPO_PriceList_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PriceList with UUID " + PO_PriceList.getUUID());
+			}
 		} else {
 			super.setPO_PriceList_ID(0);
 		}
@@ -554,11 +644,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
-		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(SalesRep.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setSalesRep_ID(foreignEntity.get_ID());
+		if (SalesRep != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setSalesRep_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
+			}
 		} else {
 			super.setSalesRep_ID(0);
 		}
@@ -583,11 +678,16 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	public void setSO_PriceListInput(ForeignEntityInput SO_PriceList) {
 		this.mSO_PriceList = SO_PriceList;
 		MPriceList foreignEntity;
-		if (SO_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-						.setParameters(SO_PriceList.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setSO_PriceList_ID(foreignEntity.get_ID());
+		if (SO_PriceList != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
+							.setParameters(SO_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setSO_PriceList_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PriceList with UUID " + SO_PriceList.getUUID());
+			}
 		} else {
 			super.setSO_PriceList_ID(0);
 		}
@@ -615,20 +715,20 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setU_POSTerminal_UU(ID);
+	public void setUUID(String UUID) {
+		setU_POSTerminal_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getU_POSTerminal_UU();
 	}
 }

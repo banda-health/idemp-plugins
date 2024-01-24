@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CashSave(entity: C_CashInput!): C_Cash!
+	C_CashSaveMany(entities: [C_CashInput!]!): [C_Cash!]!
 	C_CashDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type C_Cash {
 	C_Activity: C_Activity
 	# Marketing Campaign
 	C_Campaign: C_Campaign
-	ID: ID!
+	UUID: ID!
 	# Cash Book for recording petty cash transactions
 	C_CashBook: C_CashBook!
 	# Financial Project
@@ -81,7 +82,7 @@ input C_CashInput {
 	C_Activity: ForeignEntityInput
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Cash Book for recording petty cash transactions
 	C_CashBook: ForeignEntityInput
 	# Financial Project

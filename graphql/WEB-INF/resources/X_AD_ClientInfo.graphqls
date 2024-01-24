@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ClientInfoSave(entity: AD_ClientInfoInput!): AD_ClientInfo!
+	AD_ClientInfoSaveMany(entities: [AD_ClientInfoInput!]!): [AD_ClientInfo!]!
 	AD_ClientInfoDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_ClientInfoConnection {
 type AD_ClientInfo {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	AD_StorageProvider: AD_StorageProvider
@@ -78,7 +79,7 @@ type AD_ClientInfo {
 }
 
 input AD_ClientInfoInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	AD_StorageProvider: ForeignEntityInput

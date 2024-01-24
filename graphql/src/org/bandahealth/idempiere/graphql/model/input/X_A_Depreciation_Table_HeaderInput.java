@@ -2,11 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_A_Depreciation_Table_Header;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -23,13 +25,16 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	private I_AD_Ref_ListInput mA_Term;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The A_Depreciation_Table_Header_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_A_Depreciation_Table_HeaderInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_A_Depreciation_Table_Header(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_A_Depreciation_Table_HeaderInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_A_Depreciation_Table_Header(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 	/**
 	 * Set A_Depreciation_Table_Header_ID.
@@ -44,20 +49,20 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setA_Depreciation_Table_Header_UU(ID);
+	public void setUUID(String UUID) {
+		setA_Depreciation_Table_Header_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getA_Depreciation_Table_Header_UU();
 	}
 
@@ -70,11 +75,16 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	public void setA_Table_Rate_TypeInput(I_AD_Ref_ListInput A_Table_Rate_Type) {
 		this.mA_Table_Rate_Type = A_Table_Rate_Type;
 		MRefList_BH foreignEntity;
-		if (A_Table_Rate_Type != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Table_Rate_Type.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Table_Rate_Type(foreignEntity.getValue());
+		if (A_Table_Rate_Type != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(A_Table_Rate_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Table_Rate_Type(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + A_Table_Rate_Type.getUUID());
+			}
 		} else {
 			this.setA_Table_Rate_Type(null);
 		}
@@ -99,11 +109,16 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	public void setA_TermInput(I_AD_Ref_ListInput A_Term) {
 		this.mA_Term = A_Term;
 		MRefList_BH foreignEntity;
-		if (A_Term != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Term.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Term(foreignEntity.getValue());
+		if (A_Term != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(A_Term.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Term(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + A_Term.getUUID());
+			}
 		} else {
 			this.setA_Term(null);
 		}
@@ -128,11 +143,16 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		} else {
 			super.setAD_Org_ID(0);
 		}

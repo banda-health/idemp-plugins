@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PInstance_LogSave(entity: AD_PInstance_LogInput!): AD_PInstance_Log!
+	AD_PInstance_LogSaveMany(entities: [AD_PInstance_LogInput!]!): [AD_PInstance_Log!]!
 	AD_PInstance_LogDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_PInstance_LogConnection {
 type AD_PInstance_Log {
 	# Instance of the process
 	AD_PInstance: AD_PInstance!
-	ID: ID!
+	UUID: ID!
 	# Database Table information
 	AD_Table: AD_Table
 	# Process Parameter
@@ -33,7 +34,7 @@ type AD_PInstance_Log {
 input AD_PInstance_LogInput {
 	# Instance of the process
 	AD_PInstance: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Process Parameter

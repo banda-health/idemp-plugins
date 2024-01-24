@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BankAccount_AcctSave(entity: C_BankAccount_AcctInput!): C_BankAccount_Acct!
+	C_BankAccount_AcctSaveMany(entities: [C_BankAccount_AcctInput!]!): [C_BankAccount_Acct!]!
 	C_BankAccount_AcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type C_BankAccount_Acct {
 	B_UnallocatedCash_A: C_ValidCombination!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	ID: ID!
+	UUID: ID!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
 	# Date this record was created
@@ -66,7 +67,7 @@ input C_BankAccount_AcctInput {
 	B_UnallocatedCash_A: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
 	# The record is active in the system

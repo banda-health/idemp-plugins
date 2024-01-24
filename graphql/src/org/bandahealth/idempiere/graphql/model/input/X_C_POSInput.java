@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
@@ -14,6 +15,7 @@ import org.compiere.model.MPOS;
 import org.compiere.model.MPOSKeyLayout;
 import org.compiere.model.MPriceList;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -38,13 +40,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	private ForeignEntityInput mSalesRep;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_POS_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_POSInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MPOS(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_POSInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPOS(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -56,11 +61,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -83,11 +93,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
-		if (C_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-						.setParameters(C_BankAccount.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BankAccount_ID(foreignEntity.get_ID());
+		if (C_BankAccount != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BankAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
+			}
 		} else {
 			super.setC_BankAccount_ID(0);
 		}
@@ -112,11 +127,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setC_BPartnerCashTrxInput(ForeignEntityInput C_BPartnerCashTrx) {
 		this.mC_BPartnerCashTrx = C_BPartnerCashTrx;
 		MBPartner_BH foreignEntity;
-		if (C_BPartnerCashTrx != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartnerCashTrx.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartnerCashTrx_ID(foreignEntity.get_ID());
+		if (C_BPartnerCashTrx != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartnerCashTrx.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartnerCashTrx_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartnerCashTrx.getUUID());
+			}
 		} else {
 			super.setC_BPartnerCashTrx_ID(0);
 		}
@@ -141,11 +161,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
 		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
-		if (C_CashBook != null &&
-				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-						.setParameters(C_CashBook.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_CashBook_ID(foreignEntity.get_ID());
+		if (C_CashBook != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+							.setParameters(C_CashBook.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_CashBook_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_CashBook with UUID " + C_CashBook.getUUID());
+			}
 		} else {
 			super.setC_CashBook_ID(0);
 		}
@@ -170,11 +195,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
-		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocType_ID(foreignEntity.get_ID());
+		if (C_DocType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+			}
 		} else {
 			super.setC_DocType_ID(0);
 		}
@@ -202,20 +232,20 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_POS_UU(ID);
+	public void setUUID(String UUID) {
+		setC_POS_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_POS_UU();
 	}
 
@@ -228,11 +258,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setC_POSKeyLayoutInput(ForeignEntityInput C_POSKeyLayout) {
 		this.mC_POSKeyLayout = C_POSKeyLayout;
 		MPOSKeyLayout foreignEntity;
-		if (C_POSKeyLayout != null &&
-				(foreignEntity = new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
-						.setParameters(C_POSKeyLayout.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_POSKeyLayout_ID(foreignEntity.get_ID());
+		if (C_POSKeyLayout != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
+							.setParameters(C_POSKeyLayout.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_POSKeyLayout_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_POSKeyLayout with UUID " + C_POSKeyLayout.getUUID());
+			}
 		} else {
 			super.setC_POSKeyLayout_ID(0);
 		}
@@ -257,11 +292,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
-		if (M_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-						.setParameters(M_PriceList.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_PriceList_ID(foreignEntity.get_ID());
+		if (M_PriceList != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
+							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_PriceList_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
+			}
 		} else {
 			super.setM_PriceList_ID(0);
 		}
@@ -286,11 +326,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
-		if (M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-						.setParameters(M_Warehouse.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Warehouse_ID(foreignEntity.get_ID());
+		if (M_Warehouse != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+			}
 		} else {
 			super.setM_Warehouse_ID(0);
 		}
@@ -315,11 +360,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setOSK_KeyLayoutInput(ForeignEntityInput OSK_KeyLayout) {
 		this.mOSK_KeyLayout = OSK_KeyLayout;
 		MPOSKeyLayout foreignEntity;
-		if (OSK_KeyLayout != null &&
-				(foreignEntity = new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
-						.setParameters(OSK_KeyLayout.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setOSK_KeyLayout_ID(foreignEntity.get_ID());
+		if (OSK_KeyLayout != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
+							.setParameters(OSK_KeyLayout.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setOSK_KeyLayout_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_POSKeyLayout with UUID " + OSK_KeyLayout.getUUID());
+			}
 		} else {
 			super.setOSK_KeyLayout_ID(0);
 		}
@@ -344,11 +394,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setOSNP_KeyLayoutInput(ForeignEntityInput OSNP_KeyLayout) {
 		this.mOSNP_KeyLayout = OSNP_KeyLayout;
 		MPOSKeyLayout foreignEntity;
-		if (OSNP_KeyLayout != null &&
-				(foreignEntity = new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
-						.setParameters(OSNP_KeyLayout.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setOSNP_KeyLayout_ID(foreignEntity.get_ID());
+		if (OSNP_KeyLayout != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
+							.setParameters(OSNP_KeyLayout.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setOSNP_KeyLayout_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_POSKeyLayout with UUID " + OSNP_KeyLayout.getUUID());
+			}
 		} else {
 			super.setOSNP_KeyLayout_ID(0);
 		}
@@ -373,11 +428,16 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
-		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(SalesRep.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setSalesRep_ID(foreignEntity.get_ID());
+		if (SalesRep != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setSalesRep_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
+			}
 		} else {
 			super.setSalesRep_ID(0);
 		}

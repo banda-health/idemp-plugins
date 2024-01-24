@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_TableIndexInput;
 import org.compiere.model.MTableIndex;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_TableIndex - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_TableIndexMutation extends POMutation implements GraphQLMutati
 		return X_AD_TableIndexInput.Table_Name;
 	}
 
-	public MTableIndex AD_TableIndexSave(I_AD_TableIndexInput input, DataFetchingEnvironment environment) {
-		return (MTableIndex) super.save((X_AD_TableIndexInput) input, environment);
+	public MTableIndex AD_TableIndexSave(I_AD_TableIndexInput entity, DataFetchingEnvironment environment) {
+		return (MTableIndex) super.save((X_AD_TableIndexInput) entity, environment);
+	}
+
+	public List<MTableIndex> AD_TableIndexSaveMany(List<I_AD_TableIndexInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_TableIndexInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MTableIndex) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_TableIndexDelete(List<String> uuids, DataFetchingEnvironment environment) {

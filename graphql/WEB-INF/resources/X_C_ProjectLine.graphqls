@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_ProjectLineSave(entity: C_ProjectLineInput!): C_ProjectLine!
+	C_ProjectLineSaveMany(entities: [C_ProjectLineInput!]!): [C_ProjectLine!]!
 	C_ProjectLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type C_ProjectLine {
 	C_Project: C_Project!
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: C_ProjectIssue
-	ID: ID!
+	UUID: ID!
 	# Phase of a Project
 	C_ProjectPhase: C_ProjectPhase
 	# Actual Project Task in a Phase
@@ -87,7 +88,7 @@ input C_ProjectLineInput {
 	C_Project: ForeignEntityInput
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Phase of a Project
 	C_ProjectPhase: ForeignEntityInput
 	# Actual Project Task in a Phase

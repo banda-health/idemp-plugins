@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_AttributeSave(entity: HR_AttributeInput!): HR_Attribute!
+	HR_AttributeSaveMany(entities: [HR_AttributeInput!]!): [HR_Attribute!]!
 	HR_AttributeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -33,7 +34,7 @@ type HR_Attribute {
 	# Optional short description of the record
 	Description: String
 	HR_Attribute_A: C_ValidCombination
-	ID: ID!
+	UUID: ID!
 	HR_Concept: HR_Concept!
 	HR_Department: HR_Department
 	HR_Employee: HR_Employee
@@ -73,7 +74,7 @@ input HR_AttributeInput {
 	# Optional short description of the record
 	Description: String
 	HR_Attribute_A: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	HR_Concept: ForeignEntityInput
 	HR_Department: ForeignEntityInput
 	HR_Employee: ForeignEntityInput

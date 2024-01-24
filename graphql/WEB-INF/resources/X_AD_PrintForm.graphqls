@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PrintFormSave(entity: AD_PrintFormInput!): AD_PrintForm!
+	AD_PrintFormSaveMany(entities: [AD_PrintFormInput!]!): [AD_PrintForm!]!
 	AD_PrintFormDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_PrintForm {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -68,7 +69,7 @@ type AD_PrintForm {
 input AD_PrintFormInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Email text used for sending Distribution Order

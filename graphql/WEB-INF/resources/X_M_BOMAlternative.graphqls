@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_BOMAlternativeSave(entity: M_BOMAlternativeInput!): M_BOMAlternative!
+	M_BOMAlternativeSaveMany(entities: [M_BOMAlternativeInput!]!): [M_BOMAlternative!]!
 	M_BOMAlternativeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type M_BOMAlternative {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Alphanumeric identifier of the entity
@@ -46,7 +47,7 @@ input M_BOMAlternativeInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Alphanumeric identifier of the entity

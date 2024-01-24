@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_Warehouse_AcctInput;
 import org.compiere.model.X_M_Warehouse_Acct;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_Warehouse_Acct - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_Warehouse_AcctMutation extends POMutation implements GraphQLMut
 		return X_M_Warehouse_AcctInput.Table_Name;
 	}
 
-	public X_M_Warehouse_Acct M_Warehouse_AcctSave(I_M_Warehouse_AcctInput input, DataFetchingEnvironment environment) {
-		return (X_M_Warehouse_Acct) super.save((X_M_Warehouse_AcctInput) input, environment);
+	public X_M_Warehouse_Acct M_Warehouse_AcctSave(I_M_Warehouse_AcctInput entity, DataFetchingEnvironment environment) {
+		return (X_M_Warehouse_Acct) super.save((X_M_Warehouse_AcctInput) entity, environment);
+	}
+
+	public List<X_M_Warehouse_Acct> M_Warehouse_AcctSaveMany(List<I_M_Warehouse_AcctInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_Warehouse_AcctInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_M_Warehouse_Acct) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_Warehouse_AcctDelete(List<String> uuids, DataFetchingEnvironment environment) {

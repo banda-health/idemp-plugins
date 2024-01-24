@@ -39,16 +39,16 @@ public interface I_AD_WF_ProcessDataInput extends I_AD_WF_ProcessData {
 	ForeignEntityInput AD_WF_Process();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 }

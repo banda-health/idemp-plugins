@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_AcctSave(entity: A_Asset_AcctInput!): A_Asset_Acct!
+	A_Asset_AcctSaveMany(entities: [A_Asset_AcctInput!]!): [A_Asset_Acct!]!
 	A_Asset_AcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type A_Asset_AcctConnection {
 type A_Asset_Acct {
 	A_Accumdepreciation_A: C_ValidCombination!
 	A_Asset_A: C_ValidCombination!
-	ID: ID!
+	UUID: ID!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Depreciation_A: C_ValidCombination!
@@ -72,7 +73,7 @@ type A_Asset_Acct {
 input A_Asset_AcctInput {
 	A_Accumdepreciation_A: ForeignEntityInput
 	A_Asset_A: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Depreciation_A: ForeignEntityInput

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	EXP_Processor_TypeSave(entity: EXP_Processor_TypeInput!): EXP_Processor_Type!
+	EXP_Processor_TypeSaveMany(entities: [EXP_Processor_TypeInput!]!): [EXP_Processor_Type!]!
 	EXP_Processor_TypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type EXP_Processor_Type {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	ID: ID!
+	UUID: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -47,7 +48,7 @@ input EXP_Processor_TypeInput {
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	ID: ID
+	UUID: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

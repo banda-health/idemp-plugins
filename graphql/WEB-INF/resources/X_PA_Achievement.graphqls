@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_AchievementSave(entity: PA_AchievementInput!): PA_Achievement!
+	PA_AchievementSaveMany(entities: [PA_AchievementInput!]!): [PA_Achievement!]!
 	PA_AchievementDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type PA_Achievement {
 	Name: String!
 	# Optional additional user defined information
 	Note: String
-	ID: ID!
+	UUID: ID!
 	# Concrete Performance Measurement
 	PA_Measure: PA_Measure!
 	# Method of ordering records; lowest number comes first
@@ -66,7 +67,7 @@ input PA_AchievementInput {
 	Name: String
 	# Optional additional user defined information
 	Note: String
-	ID: ID
+	UUID: ID
 	# Concrete Performance Measurement
 	PA_Measure: ForeignEntityInput
 	# Method of ordering records; lowest number comes first

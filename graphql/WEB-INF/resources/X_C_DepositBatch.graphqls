@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_DepositBatchSave(entity: C_DepositBatchInput!): C_DepositBatch!
+	C_DepositBatchSaveMany(entities: [C_DepositBatchInput!]!): [C_DepositBatch!]!
 	C_DepositBatchDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_DepositBatch {
 	AD_Org: AD_Org!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
-	ID: ID!
+	UUID: ID!
 	# Document type or rules
 	C_DocType: C_DocType!
 	# Date this record was created
@@ -57,7 +58,7 @@ input C_DepositBatchInput {
 	AD_Org: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Document type or rules
 	C_DocType: ForeignEntityInput
 	# Process which will generate a new document lines based on an existing document

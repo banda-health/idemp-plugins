@@ -25,14 +25,12 @@ public class GraphQLUtil {
 	public static Map<String, ModelMap> getModelsForTables(String customModelDirectory) throws IOException {
 		// Look through all files and find the generated class
 		String currentPath = Path.of("").toAbsolutePath().toString();
-		List<File> modelFiles = Stream.concat(Stream.concat(
-				Arrays.stream(
-						Objects.requireNonNull(new File(currentPath + "/org.adempiere.base/src/org/compiere/model").listFiles())),
-				Arrays.stream(
-						Objects.requireNonNull(new File(currentPath + "/org.adempiere.base/src/org/compiere/report").listFiles()))),
-				Arrays.stream(
-						Objects.requireNonNull(new File(currentPath + "/org.adempiere.base/src/org/eevolution/model").listFiles()))
-		).collect(Collectors.toList());
+		List<File> modelFiles = Stream.concat(Stream.concat(Arrays.stream(
+								Objects.requireNonNull(new File(currentPath + "/org.adempiere.base/src/org/compiere/model").listFiles())),
+						Arrays.stream(Objects.requireNonNull(
+								new File(currentPath + "/org.adempiere.base/src/org/compiere/report").listFiles()))), Arrays.stream(
+						Objects.requireNonNull(new File(currentPath + "/org.adempiere.base/src/org/eevolution/model").listFiles())))
+				.collect(Collectors.toList());
 		File file;
 		if (customModelDirectory != null && !customModelDirectory.isEmpty() &&
 				(file = new File(customModelDirectory)).exists() && file.isDirectory()) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_StatusLineSave(entity: AD_StatusLineInput!): AD_StatusLine!
+	AD_StatusLineSaveMany(entities: [AD_StatusLineInput!]!): [AD_StatusLine!]!
 	AD_StatusLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_StatusLine {
 	AD_Message: AD_Message!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -45,7 +46,7 @@ input AD_StatusLineInput {
 	AD_Message: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# The record is active in the system

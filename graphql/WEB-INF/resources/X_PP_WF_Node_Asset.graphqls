@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_WF_Node_AssetSave(entity: PP_WF_Node_AssetInput!): PP_WF_Node_Asset!
+	PP_WF_Node_AssetSaveMany(entities: [PP_WF_Node_AssetInput!]!): [PP_WF_Node_Asset!]!
 	PP_WF_Node_AssetDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type PP_WF_Node_Asset {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -48,7 +49,7 @@ input PP_WF_Node_AssetInput {
 	AD_WF_Node: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

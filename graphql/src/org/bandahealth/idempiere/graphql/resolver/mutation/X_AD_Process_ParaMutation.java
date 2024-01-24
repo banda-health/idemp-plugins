@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_Process_ParaInput;
 import org.compiere.model.MProcessPara;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Process_Para - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_Process_ParaMutation extends POMutation implements GraphQLMuta
 		return X_AD_Process_ParaInput.Table_Name;
 	}
 
-	public MProcessPara AD_Process_ParaSave(I_AD_Process_ParaInput input, DataFetchingEnvironment environment) {
-		return (MProcessPara) super.save((X_AD_Process_ParaInput) input, environment);
+	public MProcessPara AD_Process_ParaSave(I_AD_Process_ParaInput entity, DataFetchingEnvironment environment) {
+		return (MProcessPara) super.save((X_AD_Process_ParaInput) entity, environment);
+	}
+
+	public List<MProcessPara> AD_Process_ParaSaveMany(List<I_AD_Process_ParaInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_Process_ParaInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MProcessPara) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_Process_ParaDelete(List<String> uuids, DataFetchingEnvironment environment) {

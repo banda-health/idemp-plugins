@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
@@ -10,6 +11,7 @@ import org.compiere.model.Query;
 import org.compiere.model.X_AD_LabelPrinterFunction;
 import org.compiere.model.X_AD_PrintLabel;
 import org.compiere.model.X_AD_PrintLabelLine;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -28,13 +30,16 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 	private I_AD_Ref_ListInput mLabelFormatType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_PrintLabelLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_PrintLabelLineInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_AD_PrintLabelLine(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_PrintLabelLineInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_PrintLabelLine(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -46,11 +51,16 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
 		MColumn foreignEntity;
-		if (AD_Column != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-						.setParameters(AD_Column.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Column_ID(foreignEntity.get_ID());
+		if (AD_Column != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
+							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Column_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
+			}
 		} else {
 			super.setAD_Column_ID(0);
 		}
@@ -75,11 +85,16 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 	public void setAD_LabelPrinterFunctionInput(ForeignEntityInput AD_LabelPrinterFunction) {
 		this.mAD_LabelPrinterFunction = AD_LabelPrinterFunction;
 		X_AD_LabelPrinterFunction foreignEntity;
-		if (AD_LabelPrinterFunction != null &&
-				(foreignEntity = new Query(getCtx(), "AD_LabelPrinterFunction", "AD_LabelPrinterFunction_UU=?", get_TrxName())
-						.setParameters(AD_LabelPrinterFunction.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_LabelPrinterFunction_ID(foreignEntity.get_ID());
+		if (AD_LabelPrinterFunction != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_LabelPrinterFunction", "AD_LabelPrinterFunction_UU=?", get_TrxName())
+							.setParameters(AD_LabelPrinterFunction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_LabelPrinterFunction_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_LabelPrinterFunction with UUID " + AD_LabelPrinterFunction.getUUID());
+			}
 		} else {
 			super.setAD_LabelPrinterFunction_ID(0);
 		}
@@ -104,11 +119,16 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -131,11 +151,16 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 	public void setAD_PrintLabelInput(ForeignEntityInput AD_PrintLabel) {
 		this.mAD_PrintLabel = AD_PrintLabel;
 		X_AD_PrintLabel foreignEntity;
-		if (get_ID() == 0 && AD_PrintLabel != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintLabel", "AD_PrintLabel_UU=?", get_TrxName())
-						.setParameters(AD_PrintLabel.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_PrintLabel_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_PrintLabel != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintLabel", "AD_PrintLabel_UU=?", get_TrxName())
+							.setParameters(AD_PrintLabel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_PrintLabel_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintLabel with UUID " + AD_PrintLabel.getUUID());
+			}
 		}
 	}
 
@@ -161,20 +186,20 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_PrintLabelLine_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_PrintLabelLine_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_PrintLabelLine_UU();
 	}
 
@@ -187,11 +212,16 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 	public void setLabelFormatTypeInput(I_AD_Ref_ListInput LabelFormatType) {
 		this.mLabelFormatType = LabelFormatType;
 		MRefList_BH foreignEntity;
-		if (LabelFormatType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(LabelFormatType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setLabelFormatType(foreignEntity.getValue());
+		if (LabelFormatType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(LabelFormatType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setLabelFormatType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + LabelFormatType.getUUID());
+			}
 		} else {
 			this.setLabelFormatType(null);
 		}

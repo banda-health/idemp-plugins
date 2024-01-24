@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -12,6 +13,7 @@ import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -34,13 +36,16 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	private I_AD_Ref_ListInput mCashFlowType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_CashPlan_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_CashPlanInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MCashPlan(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_CashPlanInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MCashPlan(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -52,11 +57,16 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		} else {
 			super.setAD_Org_ID(0);
 		}
@@ -81,11 +91,16 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
-		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-						.setParameters(C_Activity.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Activity_ID(foreignEntity.get_ID());
+		if (C_Activity != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
+							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Activity_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
+			}
 		} else {
 			super.setC_Activity_ID(0);
 		}
@@ -110,11 +125,16 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_ID(foreignEntity.get_ID());
+		if (C_BPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+			}
 		} else {
 			super.setC_BPartner_ID(0);
 		}
@@ -139,11 +159,16 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
-		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-						.setParameters(C_Campaign.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Campaign_ID(foreignEntity.get_ID());
+		if (C_Campaign != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
+							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Campaign_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
+			}
 		} else {
 			super.setC_Campaign_ID(0);
 		}
@@ -171,20 +196,20 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_CashPlan_UU(ID);
+	public void setUUID(String UUID) {
+		setC_CashPlan_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_CashPlan_UU();
 	}
 
@@ -197,11 +222,16 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
-		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-						.setParameters(C_Project.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Project_ID(foreignEntity.get_ID());
+		if (C_Project != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Project_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
+			}
 		} else {
 			super.setC_Project_ID(0);
 		}
@@ -226,11 +256,16 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	public void setCashFlowTypeInput(I_AD_Ref_ListInput CashFlowType) {
 		this.mCashFlowType = CashFlowType;
 		MRefList_BH foreignEntity;
-		if (CashFlowType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(CashFlowType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setCashFlowType(foreignEntity.getValue());
+		if (CashFlowType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CashFlowType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCashFlowType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CashFlowType.getUUID());
+			}
 		} else {
 			this.setCashFlowType(null);
 		}
@@ -288,11 +323,16 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
-		if (User1 != null &&
-				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-						.setParameters(User1.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setUser1_ID(foreignEntity.get_ID());
+		if (User1 != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
+							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setUser1_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
+			}
 		} else {
 			super.setUser1_ID(0);
 		}
@@ -317,11 +357,16 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
-		if (User2 != null &&
-				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-						.setParameters(User2.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setUser2_ID(foreignEntity.get_ID());
+		if (User2 != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
+							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setUser2_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ElementValue with UUID " + User2.getUUID());
+			}
 		} else {
 			super.setUser2_ID(0);
 		}

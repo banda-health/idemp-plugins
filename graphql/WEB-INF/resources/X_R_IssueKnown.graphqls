@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_IssueKnownSave(entity: R_IssueKnownInput!): R_IssueKnown!
+	R_IssueKnownSaveMany(entities: [R_IssueKnownInput!]!): [R_IssueKnown!]!
 	R_IssueKnownDelete(uuids: [String!]!): Boolean!
 }
 
@@ -37,7 +38,7 @@ type R_IssueKnown {
 	# Logger Name
 	LoggerName: String
 	Processing: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Recommendations how to fix an Issue
 	R_IssueRecommendation: R_IssueRecommendation
 	# Status of an Issue
@@ -72,7 +73,7 @@ input R_IssueKnownInput {
 	# Logger Name
 	LoggerName: String
 	Processing: Boolean
-	ID: ID
+	UUID: ID
 	# Recommendations how to fix an Issue
 	R_IssueRecommendation: ForeignEntityInput
 	# Status of an Issue

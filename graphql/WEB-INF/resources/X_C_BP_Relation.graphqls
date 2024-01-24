@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BP_RelationSave(entity: C_BP_RelationInput!): C_BP_Relation!
+	C_BP_RelationSaveMany(entities: [C_BP_RelationInput!]!): [C_BP_Relation!]!
 	C_BP_RelationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_BP_Relation {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Identifies the (ship to) address for this Business Partner
@@ -56,7 +57,7 @@ type C_BP_Relation {
 input C_BP_RelationInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Identifies the (ship to) address for this Business Partner

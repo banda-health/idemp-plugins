@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Val_RuleSave(entity: AD_Val_RuleInput!): AD_Val_Rule!
+	AD_Val_RuleSaveMany(entities: [AD_Val_RuleInput!]!): [AD_Val_Rule!]!
 	AD_Val_RuleDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Val_Rule {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Validation Code
 	Code: String
 	# Date this record was created
@@ -46,7 +47,7 @@ type AD_Val_Rule {
 input AD_Val_RuleInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Validation Code
 	Code: String
 	# Optional short description of the record

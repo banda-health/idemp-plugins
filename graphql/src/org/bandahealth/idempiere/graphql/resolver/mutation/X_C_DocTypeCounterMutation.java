@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_DocTypeCounterInput;
 import org.compiere.model.MDocTypeCounter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_DocTypeCounter - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_DocTypeCounterMutation extends POMutation implements GraphQLMut
 		return X_C_DocTypeCounterInput.Table_Name;
 	}
 
-	public MDocTypeCounter C_DocTypeCounterSave(I_C_DocTypeCounterInput input, DataFetchingEnvironment environment) {
-		return (MDocTypeCounter) super.save((X_C_DocTypeCounterInput) input, environment);
+	public MDocTypeCounter C_DocTypeCounterSave(I_C_DocTypeCounterInput entity, DataFetchingEnvironment environment) {
+		return (MDocTypeCounter) super.save((X_C_DocTypeCounterInput) entity, environment);
+	}
+
+	public List<MDocTypeCounter> C_DocTypeCounterSaveMany(List<I_C_DocTypeCounterInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_DocTypeCounterInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDocTypeCounter) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_DocTypeCounterDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ErrorSave(entity: AD_ErrorInput!): AD_Error!
+	AD_ErrorSaveMany(entities: [AD_ErrorInput!]!): [AD_Error!]!
 	AD_ErrorDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_ErrorConnection {
 type AD_Error {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Language for this entity
 	AD_Language: AD_Language
 	# Organizational entity within client
@@ -40,7 +41,7 @@ type AD_Error {
 }
 
 input AD_ErrorInput {
-	ID: ID
+	UUID: ID
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within client

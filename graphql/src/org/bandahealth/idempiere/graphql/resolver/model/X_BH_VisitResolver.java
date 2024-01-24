@@ -51,7 +51,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(BH_PATIENTTYPE_UUIDS_BY_VALUE.get(entity.getBH_PatientType()));
 	}
 
@@ -68,7 +68,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(BH_PROCESS_STAGE_UUIDS_BY_VALUE.get(entity.getBH_Process_Stage()));
 	}
 
@@ -85,7 +85,7 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(BH_REFERRAL_UUIDS_BY_VALUE.get(entity.getbh_referral()));
 	}
 

@@ -25,18 +25,18 @@ public interface I_AD_InfoProcessInput extends I_AD_InfoProcess {
 	ForeignEntityInput AD_InfoColumn();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set AD_InfoWindow.

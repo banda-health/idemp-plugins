@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_LdapAccessSave(entity: AD_LdapAccessInput!): AD_LdapAccess!
+	AD_LdapAccessSaveMany(entities: [AD_LdapAccessInput!]!): [AD_LdapAccess!]!
 	AD_LdapAccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_LdapAccessConnection {
 type AD_LdapAccess {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# LDAP Server to authenticate and authorize external systems based on iDempiere
 	AD_LdapProcessor: AD_LdapProcessor!
 	# Organizational entity within client
@@ -46,7 +47,7 @@ type AD_LdapAccess {
 }
 
 input AD_LdapAccessInput {
-	ID: ID
+	UUID: ID
 	# LDAP Server to authenticate and authorize external systems based on iDempiere
 	AD_LdapProcessor: ForeignEntityInput
 	# Organizational entity within client

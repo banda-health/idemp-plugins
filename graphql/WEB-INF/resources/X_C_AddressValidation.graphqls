@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_AddressValidationSave(entity: C_AddressValidationInput!): C_AddressValidation!
+	C_AddressValidationSaveMany(entities: [C_AddressValidationInput!]!): [C_AddressValidation!]!
 	C_AddressValidationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_AddressValidation {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	C_AddressValidationCfg: C_AddressValidationCfg!
 	ConnectionKey: String
 	ConnectionPassword: String!
@@ -47,7 +48,7 @@ type C_AddressValidation {
 input C_AddressValidationInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	C_AddressValidationCfg: ForeignEntityInput
 	ConnectionKey: String
 	ConnectionPassword: String

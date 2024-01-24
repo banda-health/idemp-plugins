@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	U_POSTerminalSave(entity: U_POSTerminalInput!): U_POSTerminal!
+	U_POSTerminalSaveMany(entities: [U_POSTerminalInput!]!): [U_POSTerminal!]!
 	U_POSTerminalDelete(uuids: [String!]!): Boolean!
 }
 
@@ -75,7 +76,7 @@ type U_POSTerminal {
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
 	SO_PriceList: M_PriceList
-	ID: ID!
+	UUID: ID!
 	# Time at which the terminal should be unlocked
 	UnlockingTime: Date
 	# Date this record was updated
@@ -140,7 +141,7 @@ input U_POSTerminalInput {
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
 	SO_PriceList: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Time at which the terminal should be unlocked
 	UnlockingTime: Date
 	# Search key for the record in the format required - must be unique

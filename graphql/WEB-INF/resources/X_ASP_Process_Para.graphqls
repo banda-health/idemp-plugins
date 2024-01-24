@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	ASP_Process_ParaSave(entity: ASP_Process_ParaInput!): ASP_Process_Para!
+	ASP_Process_ParaSaveMany(entities: [ASP_Process_ParaInput!]!): [ASP_Process_Para!]!
 	ASP_Process_ParaDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type ASP_Process_Para {
 	AD_Org: AD_Org!
 	AD_Process_Para: AD_Process_Para
 	ASP_Process: ASP_Process
-	ID: ID!
+	UUID: ID!
 	ASP_Status: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
@@ -41,7 +42,7 @@ input ASP_Process_ParaInput {
 	AD_Org: ForeignEntityInput
 	AD_Process_Para: ForeignEntityInput
 	ASP_Process: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	ASP_Status: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean

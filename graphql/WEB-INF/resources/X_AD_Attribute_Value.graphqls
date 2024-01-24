@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Attribute_ValueSave(entity: AD_Attribute_ValueInput!): AD_Attribute_Value!
+	AD_Attribute_ValueSaveMany(entities: [AD_Attribute_ValueInput!]!): [AD_Attribute_Value!]!
 	AD_Attribute_ValueDelete(uuids: [String!]!): Boolean!
 }
 
@@ -17,7 +18,7 @@ type AD_Attribute_ValueConnection {
 
 type AD_Attribute_Value {
 	AD_Attribute: AD_Attribute!
-	ID: ID!
+	UUID: ID!
 	# Direct internal record ID
 	Record_ID: Int!
 	V_Date: Date
@@ -27,7 +28,7 @@ type AD_Attribute_Value {
 
 input AD_Attribute_ValueInput {
 	AD_Attribute: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Direct internal record ID
 	Record_ID: Int
 	V_Date: Date

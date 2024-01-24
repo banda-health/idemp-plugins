@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Private_AccessSave(entity: AD_Private_AccessInput!): AD_Private_Access!
+	AD_Private_AccessSaveMany(entities: [AD_Private_AccessInput!]!): [AD_Private_Access!]!
 	AD_Private_AccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Private_Access {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# User within the system - Internal or Business Partner Contact
@@ -42,7 +43,7 @@ type AD_Private_Access {
 input AD_Private_AccessInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

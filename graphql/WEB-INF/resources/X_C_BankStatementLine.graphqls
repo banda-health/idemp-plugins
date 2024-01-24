@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BankStatementLineSave(entity: C_BankStatementLineInput!): C_BankStatementLine!
+	C_BankStatementLineSaveMany(entities: [C_BankStatementLineInput!]!): [C_BankStatementLine!]!
 	C_BankStatementLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_BankStatementLine {
 	AD_Org: AD_Org!
 	# Bank Statement of account
 	C_BankStatement: C_BankStatement!
-	ID: ID!
+	UUID: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Additional document charges
@@ -102,7 +103,7 @@ input C_BankStatementLineInput {
 	AD_Org: ForeignEntityInput
 	# Bank Statement of account
 	C_BankStatement: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Additional document charges

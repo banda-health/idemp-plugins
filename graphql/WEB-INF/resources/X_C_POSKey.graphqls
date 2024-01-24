@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_POSKeySave(entity: C_POSKeyInput!): C_POSKey!
+	C_POSKeySaveMany(entities: [C_POSKeyInput!]!): [C_POSKey!]!
 	C_POSKeyDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type C_POSKey {
 	AD_PrintColor: AD_PrintColor
 	# Maintain Print Font
 	AD_PrintFont: AD_PrintFont
-	ID: ID!
+	UUID: ID!
 	# POS Function Key Layout
 	C_POSKeyLayout: C_POSKeyLayout!
 	# Date this record was created
@@ -67,7 +68,7 @@ input C_POSKeyInput {
 	AD_PrintColor: ForeignEntityInput
 	# Maintain Print Font
 	AD_PrintFont: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# POS Function Key Layout
 	C_POSKeyLayout: ForeignEntityInput
 	# Optional short description of the record

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Document_Action_AccessSave(entity: AD_Document_Action_AccessInput!): AD_Document_Action_Access!
+	AD_Document_Action_AccessSaveMany(entities: [AD_Document_Action_AccessInput!]!): [AD_Document_Action_Access!]!
 	AD_Document_Action_AccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_Document_Action_AccessConnection {
 type AD_Document_Action_Access {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Reference List based on Table
@@ -40,7 +41,7 @@ type AD_Document_Action_Access {
 }
 
 input AD_Document_Action_AccessInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Reference List based on Table

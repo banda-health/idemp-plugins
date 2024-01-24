@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_MeasureCalcSave(entity: PA_MeasureCalcInput!): PA_MeasureCalc!
+	PA_MeasureCalcSaveMany(entities: [PA_MeasureCalcInput!]!): [PA_MeasureCalc!]!
 	PA_MeasureCalcDelete(uuids: [String!]!): Boolean!
 }
 
@@ -42,7 +43,7 @@ type PA_MeasureCalc {
 	Name: String!
 	# Fully qualified Organization column (AD_Org_ID)
 	OrgColumn: String!
-	ID: ID!
+	UUID: ID!
 	# Fully qualified Product column (M_Product_ID)
 	ProductColumn: String
 	# SQL SELECT clause
@@ -76,7 +77,7 @@ input PA_MeasureCalcInput {
 	Name: String
 	# Fully qualified Organization column (AD_Org_ID)
 	OrgColumn: String
-	ID: ID
+	UUID: ID
 	# Fully qualified Product column (M_Product_ID)
 	ProductColumn: String
 	# SQL SELECT clause

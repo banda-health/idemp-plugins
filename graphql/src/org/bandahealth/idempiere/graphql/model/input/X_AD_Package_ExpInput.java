@@ -2,11 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPackageExp;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -23,13 +25,16 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	private I_AD_Ref_ListInput mReleaseNo;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Package_Exp_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_Package_ExpInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MPackageExp(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_Package_ExpInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPackageExp(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -41,11 +46,16 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		} else {
 			super.setAD_Org_ID(0);
 		}
@@ -73,20 +83,20 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_Package_Exp_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_Package_Exp_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_Package_Exp_UU();
 	}
 
@@ -99,11 +109,16 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	public void setAD_Package_TypeInput(I_AD_Ref_ListInput AD_Package_Type) {
 		this.mAD_Package_Type = AD_Package_Type;
 		MRefList_BH foreignEntity;
-		if (AD_Package_Type != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(AD_Package_Type.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAD_Package_Type(foreignEntity.getValue());
+		if (AD_Package_Type != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(AD_Package_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Package_Type(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + AD_Package_Type.getUUID());
+			}
 		} else {
 			this.setAD_Package_Type(null);
 		}
@@ -128,11 +143,16 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	public void setReleaseNoInput(I_AD_Ref_ListInput ReleaseNo) {
 		this.mReleaseNo = ReleaseNo;
 		MRefList_BH foreignEntity;
-		if (ReleaseNo != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ReleaseNo.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setReleaseNo(foreignEntity.getValue());
+		if (ReleaseNo != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ReleaseNo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setReleaseNo(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ReleaseNo.getUUID());
+			}
 		} else {
 			this.setReleaseNo(null);
 		}

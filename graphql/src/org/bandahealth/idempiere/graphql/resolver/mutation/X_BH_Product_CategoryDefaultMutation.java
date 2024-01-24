@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_BH_Product_CategoryDefaul
 import org.bandahealth.idempiere.graphql.model.input.X_BH_Product_CategoryDefaultInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for BH_Product_CategoryDefault - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_BH_Product_CategoryDefaultMutation extends POMutation implements 
 		return X_BH_Product_CategoryDefaultInput.Table_Name;
 	}
 
-	public MBHProductCategoryDefault BH_Product_CategoryDefaultSave(I_BH_Product_CategoryDefaultInput input, DataFetchingEnvironment environment) {
-		return (MBHProductCategoryDefault) super.save((X_BH_Product_CategoryDefaultInput) input, environment);
+	public MBHProductCategoryDefault BH_Product_CategoryDefaultSave(I_BH_Product_CategoryDefaultInput entity, DataFetchingEnvironment environment) {
+		return (MBHProductCategoryDefault) super.save((X_BH_Product_CategoryDefaultInput) entity, environment);
+	}
+
+	public List<MBHProductCategoryDefault> BH_Product_CategoryDefaultSaveMany(List<I_BH_Product_CategoryDefaultInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_BH_Product_CategoryDefaultInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MBHProductCategoryDefault) entity).collect(Collectors.toList());
 	}
 
 	public boolean BH_Product_CategoryDefaultDelete(List<String> uuids, DataFetchingEnvironment environment) {

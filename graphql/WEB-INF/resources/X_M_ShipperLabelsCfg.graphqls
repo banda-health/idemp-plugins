@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ShipperLabelsCfgSave(entity: M_ShipperLabelsCfgInput!): M_ShipperLabelsCfg!
+	M_ShipperLabelsCfgSaveMany(entities: [M_ShipperLabelsCfgInput!]!): [M_ShipperLabelsCfg!]!
 	M_ShipperLabelsCfgDelete(uuids: [String!]!): Boolean!
 }
 
@@ -33,7 +34,7 @@ type M_ShipperLabelsCfg {
 	IsDefault: Boolean!
 	LabelPrintMethod: AD_Ref_List
 	M_ShipperCfg: M_ShipperCfg!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -57,7 +58,7 @@ input M_ShipperLabelsCfgInput {
 	IsDefault: Boolean
 	LabelPrintMethod: AD_Ref_ListInput
 	M_ShipperCfg: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Search key for the record in the format required - must be unique

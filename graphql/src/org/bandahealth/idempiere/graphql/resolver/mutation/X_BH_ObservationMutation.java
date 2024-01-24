@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_BH_ObservationInput;
 import org.bandahealth.idempiere.graphql.model.input.X_BH_ObservationInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for BH_Observation - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_BH_ObservationMutation extends POMutation implements GraphQLMutat
 		return X_BH_ObservationInput.Table_Name;
 	}
 
-	public MBHObservation BH_ObservationSave(I_BH_ObservationInput input, DataFetchingEnvironment environment) {
-		return (MBHObservation) super.save((X_BH_ObservationInput) input, environment);
+	public MBHObservation BH_ObservationSave(I_BH_ObservationInput entity, DataFetchingEnvironment environment) {
+		return (MBHObservation) super.save((X_BH_ObservationInput) entity, environment);
+	}
+
+	public List<MBHObservation> BH_ObservationSaveMany(List<I_BH_ObservationInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_BH_ObservationInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MBHObservation) entity).collect(Collectors.toList());
 	}
 
 	public boolean BH_ObservationDelete(List<String> uuids, DataFetchingEnvironment environment) {

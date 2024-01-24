@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_TreeNodeU1Input;
 import org.compiere.model.X_AD_TreeNodeU1;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_TreeNodeU1 - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_TreeNodeU1Mutation extends POMutation implements GraphQLMutati
 		return X_AD_TreeNodeU1Input.Table_Name;
 	}
 
-	public X_AD_TreeNodeU1 AD_TreeNodeU1Save(I_AD_TreeNodeU1Input input, DataFetchingEnvironment environment) {
-		return (X_AD_TreeNodeU1) super.save((X_AD_TreeNodeU1Input) input, environment);
+	public X_AD_TreeNodeU1 AD_TreeNodeU1Save(I_AD_TreeNodeU1Input entity, DataFetchingEnvironment environment) {
+		return (X_AD_TreeNodeU1) super.save((X_AD_TreeNodeU1Input) entity, environment);
+	}
+
+	public List<X_AD_TreeNodeU1> AD_TreeNodeU1SaveMany(List<I_AD_TreeNodeU1Input> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_TreeNodeU1Input) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_TreeNodeU1) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_TreeNodeU1Delete(List<String> uuids, DataFetchingEnvironment environment) {

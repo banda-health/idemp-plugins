@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_R_ResolutionInput;
 import org.compiere.model.MResolution;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for R_Resolution - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_R_ResolutionMutation extends POMutation implements GraphQLMutatio
 		return X_R_ResolutionInput.Table_Name;
 	}
 
-	public MResolution R_ResolutionSave(I_R_ResolutionInput input, DataFetchingEnvironment environment) {
-		return (MResolution) super.save((X_R_ResolutionInput) input, environment);
+	public MResolution R_ResolutionSave(I_R_ResolutionInput entity, DataFetchingEnvironment environment) {
+		return (MResolution) super.save((X_R_ResolutionInput) entity, environment);
+	}
+
+	public List<MResolution> R_ResolutionSaveMany(List<I_R_ResolutionInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_R_ResolutionInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MResolution) entity).collect(Collectors.toList());
 	}
 
 	public boolean R_ResolutionDelete(List<String> uuids, DataFetchingEnvironment environment) {

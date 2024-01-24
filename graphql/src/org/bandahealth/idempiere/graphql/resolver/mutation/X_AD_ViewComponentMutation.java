@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_ViewComponentInput;
 import org.compiere.model.MViewComponent;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_ViewComponent - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_ViewComponentMutation extends POMutation implements GraphQLMut
 		return X_AD_ViewComponentInput.Table_Name;
 	}
 
-	public MViewComponent AD_ViewComponentSave(I_AD_ViewComponentInput input, DataFetchingEnvironment environment) {
-		return (MViewComponent) super.save((X_AD_ViewComponentInput) input, environment);
+	public MViewComponent AD_ViewComponentSave(I_AD_ViewComponentInput entity, DataFetchingEnvironment environment) {
+		return (MViewComponent) super.save((X_AD_ViewComponentInput) entity, environment);
+	}
+
+	public List<MViewComponent> AD_ViewComponentSaveMany(List<I_AD_ViewComponentInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_ViewComponentInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MViewComponent) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_ViewComponentDelete(List<String> uuids, DataFetchingEnvironment environment) {

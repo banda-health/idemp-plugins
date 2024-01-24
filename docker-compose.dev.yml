@@ -15,11 +15,14 @@ services:
     volumes:
       - ./rest-test/testing:/app/rest-test
       - /app/rest-test/node_modules
+      - ./graphql-test/testing:/app/graphql-test
+      - /app/graphql-test/node_modules
     environment:
       - IDEMPIERE_USER=${IDEMPIERE_USER}
       - IDEMPIERE_USER_PASSWORD=${IDEMPIERE_USER_PASSWORD}
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
       - IDEMPIERE_REST_TEST_CLIENT=${IDEMPIERE_REST_TEST_CLIENT}
+      - IDEMPIERE_GRAPHQL_TEST_CLIENT=${IDEMPIERE_GRAPHQL_TEST_CLIENT}
       - PGHOST=${POSTGRES_HOST}
       - PGPORT=${POSTGRES_PORT}
       - PGDATABASE=${DB_NAME}

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_YearSave(entity: C_YearInput!): C_Year!
+	C_YearSaveMany(entities: [C_YearInput!]!): [C_Year!]!
 	C_YearDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_Year {
 	AD_Org: AD_Org!
 	# Accounting Calendar Name
 	C_Calendar: C_Calendar!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -45,7 +46,7 @@ input C_YearInput {
 	AD_Org: ForeignEntityInput
 	# Accounting Calendar Name
 	C_Calendar: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The Fiscal Year

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -10,6 +11,7 @@ import org.compiere.model.MAssetProduct;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -28,13 +30,16 @@ public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_P
 	private ForeignEntityInput mM_Product;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The A_Asset_Product_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_A_Asset_ProductInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MAssetProduct(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_A_Asset_ProductInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAssetProduct(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -46,11 +51,16 @@ public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_P
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
-		if (get_ID() == 0 && A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-						.setParameters(A_Asset.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Asset_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && A_Asset != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
+							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Asset_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
+			}
 		}
 	}
 
@@ -76,20 +86,20 @@ public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_P
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setA_Asset_Product_UU(ID);
+	public void setUUID(String UUID) {
+		setA_Asset_Product_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getA_Asset_Product_UU();
 	}
 
@@ -102,11 +112,16 @@ public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_P
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -129,11 +144,16 @@ public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_P
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
-		if (M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-						.setParameters(M_AttributeSetInstance.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+		if (M_AttributeSetInstance != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
+							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
+			}
 		} else {
 			super.setM_AttributeSetInstance_ID(0);
 		}
@@ -158,11 +178,16 @@ public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_P
 	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
-		if (M_Locator != null &&
-				(foreignEntity = new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-						.setParameters(M_Locator.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Locator_ID(foreignEntity.get_ID());
+		if (M_Locator != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
+							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Locator_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Locator with UUID " + M_Locator.getUUID());
+			}
 		} else {
 			super.setM_Locator_ID(0);
 		}
@@ -187,11 +212,16 @@ public class X_A_Asset_ProductInput extends MAssetProduct implements I_A_Asset_P
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-						.setParameters(M_Product.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_ID(foreignEntity.get_ID());
+		if (M_Product != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
 		} else {
 			super.setM_Product_ID(0);
 		}

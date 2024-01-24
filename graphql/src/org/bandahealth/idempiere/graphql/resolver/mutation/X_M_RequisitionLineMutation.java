@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_RequisitionLineInput;
 import org.compiere.model.MRequisitionLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_RequisitionLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_RequisitionLineMutation extends POMutation implements GraphQLMu
 		return X_M_RequisitionLineInput.Table_Name;
 	}
 
-	public MRequisitionLine M_RequisitionLineSave(I_M_RequisitionLineInput input, DataFetchingEnvironment environment) {
-		return (MRequisitionLine) super.save((X_M_RequisitionLineInput) input, environment);
+	public MRequisitionLine M_RequisitionLineSave(I_M_RequisitionLineInput entity, DataFetchingEnvironment environment) {
+		return (MRequisitionLine) super.save((X_M_RequisitionLineInput) entity, environment);
+	}
+
+	public List<MRequisitionLine> M_RequisitionLineSaveMany(List<I_M_RequisitionLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_RequisitionLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRequisitionLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_RequisitionLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_AlertRuleInput;
 import org.compiere.model.MAlertRule;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_AlertRule - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_AlertRuleMutation extends POMutation implements GraphQLMutatio
 		return X_AD_AlertRuleInput.Table_Name;
 	}
 
-	public MAlertRule AD_AlertRuleSave(I_AD_AlertRuleInput input, DataFetchingEnvironment environment) {
-		return (MAlertRule) super.save((X_AD_AlertRuleInput) input, environment);
+	public MAlertRule AD_AlertRuleSave(I_AD_AlertRuleInput entity, DataFetchingEnvironment environment) {
+		return (MAlertRule) super.save((X_AD_AlertRuleInput) entity, environment);
+	}
+
+	public List<MAlertRule> AD_AlertRuleSaveMany(List<I_AD_AlertRuleInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_AlertRuleInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAlertRule) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_AlertRuleDelete(List<String> uuids, DataFetchingEnvironment environment) {

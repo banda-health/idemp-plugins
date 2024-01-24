@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_RMALineSave(entity: M_RMALineInput!): M_RMALine!
+	M_RMALineSaveMany(entities: [M_RMALineInput!]!): [M_RMALine!]!
 	M_RMALineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -44,7 +45,7 @@ type M_RMALine {
 	M_Product: M_Product
 	# Return Material Authorization
 	M_RMA: M_RMA!
-	ID: ID!
+	UUID: ID!
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity
@@ -83,7 +84,7 @@ input M_RMALineInput {
 	M_Product: ForeignEntityInput
 	# Return Material Authorization
 	M_RMA: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The document has been processed
 	Processed: Boolean
 	# Quantity

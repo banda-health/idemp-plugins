@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_GL_JournalGeneratorLineIn
 import org.compiere.model.MJournalGeneratorLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for GL_JournalGeneratorLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_GL_JournalGeneratorLineMutation extends POMutation implements Gra
 		return X_GL_JournalGeneratorLineInput.Table_Name;
 	}
 
-	public MJournalGeneratorLine GL_JournalGeneratorLineSave(I_GL_JournalGeneratorLineInput input, DataFetchingEnvironment environment) {
-		return (MJournalGeneratorLine) super.save((X_GL_JournalGeneratorLineInput) input, environment);
+	public MJournalGeneratorLine GL_JournalGeneratorLineSave(I_GL_JournalGeneratorLineInput entity, DataFetchingEnvironment environment) {
+		return (MJournalGeneratorLine) super.save((X_GL_JournalGeneratorLineInput) entity, environment);
+	}
+
+	public List<MJournalGeneratorLine> GL_JournalGeneratorLineSaveMany(List<I_GL_JournalGeneratorLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_GL_JournalGeneratorLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MJournalGeneratorLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean GL_JournalGeneratorLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

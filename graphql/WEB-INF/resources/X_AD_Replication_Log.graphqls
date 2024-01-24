@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Replication_LogSave(entity: AD_Replication_LogInput!): AD_Replication_Log!
+	AD_Replication_LogSaveMany(entities: [AD_Replication_LogInput!]!): [AD_Replication_Log!]!
 	AD_Replication_LogDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Replication_Log {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Data Replication Run
 	AD_Replication_Run: AD_Replication_Run!
 	# Data Replication Strategy Table Info
@@ -43,7 +44,7 @@ type AD_Replication_Log {
 input AD_Replication_LogInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Data Replication Run
 	AD_Replication_Run: ForeignEntityInput
 	# Data Replication Strategy Table Info

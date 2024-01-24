@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Package_Imp_InstSave(entity: AD_Package_Imp_InstInput!): AD_Package_Imp_Inst!
+	AD_Package_Imp_InstSaveMany(entities: [AD_Package_Imp_InstInput!]!): [AD_Package_Imp_Inst!]!
 	AD_Package_Imp_InstDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Package_Imp_Inst {
 	AD_Client: AD_Client
 	# Organizational entity within client
 	AD_Org: AD_Org
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,7 +57,7 @@ type AD_Package_Imp_Inst {
 input AD_Package_Imp_InstInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	CreatedDate: String
 	Creator: String
 	CreatorContact: String

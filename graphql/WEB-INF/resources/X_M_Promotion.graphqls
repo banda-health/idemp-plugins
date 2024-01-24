@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_PromotionSave(entity: M_PromotionInput!): M_Promotion!
+	M_PromotionSaveMany(entities: [M_PromotionInput!]!): [M_Promotion!]!
 	M_PromotionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_Promotion {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Which promotion should be apply to a product
@@ -50,7 +51,7 @@ input M_PromotionInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Which promotion should be apply to a product

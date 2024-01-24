@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_SubscriptionInput;
 import org.compiere.model.X_C_Subscription;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_Subscription - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_SubscriptionMutation extends POMutation implements GraphQLMutat
 		return X_C_SubscriptionInput.Table_Name;
 	}
 
-	public X_C_Subscription C_SubscriptionSave(I_C_SubscriptionInput input, DataFetchingEnvironment environment) {
-		return (X_C_Subscription) super.save((X_C_SubscriptionInput) input, environment);
+	public X_C_Subscription C_SubscriptionSave(I_C_SubscriptionInput entity, DataFetchingEnvironment environment) {
+		return (X_C_Subscription) super.save((X_C_SubscriptionInput) entity, environment);
+	}
+
+	public List<X_C_Subscription> C_SubscriptionSaveMany(List<I_C_SubscriptionInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_SubscriptionInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_C_Subscription) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_SubscriptionDelete(List<String> uuids, DataFetchingEnvironment environment) {

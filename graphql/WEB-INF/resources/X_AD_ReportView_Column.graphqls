@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ReportView_ColumnSave(entity: AD_ReportView_ColumnInput!): AD_ReportView_Column!
+	AD_ReportView_ColumnSaveMany(entities: [AD_ReportView_ColumnInput!]!): [AD_ReportView_Column!]!
 	AD_ReportView_ColumnDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_ReportView_Column {
 	AD_Column: AD_Column!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# View used to generate this report
 	AD_ReportView: AD_ReportView!
 	# Date this record was created
@@ -42,7 +43,7 @@ input AD_ReportView_ColumnInput {
 	AD_Column: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# View used to generate this report
 	AD_ReportView: ForeignEntityInput
 	# The record is active in the system

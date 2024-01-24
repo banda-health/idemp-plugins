@@ -2,12 +2,14 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -24,13 +26,16 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	private I_AD_Ref_ListInput mBH_Encounter_Type;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The BH_Encounter_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_BH_EncounterInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MBHEncounter(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_BH_EncounterInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBHEncounter(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -42,11 +47,16 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -80,11 +90,16 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	public void setBH_Encounter_TypeInput(I_AD_Ref_ListInput BH_Encounter_Type) {
 		this.mBH_Encounter_Type = BH_Encounter_Type;
 		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&BH_Encounter_Type != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BH_Encounter_Type.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBH_Encounter_Type(foreignEntity.getValue());
+		if (get_ID() == 0 &&BH_Encounter_Type != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BH_Encounter_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBH_Encounter_Type(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BH_Encounter_Type.getUUID());
+			}
 		}
 	}
 
@@ -99,20 +114,20 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setBH_Encounter_UU(ID);
+	public void setUUID(String UUID) {
+		setBH_Encounter_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getBH_Encounter_UU();
 	}
 
@@ -125,11 +140,16 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	public void setBH_VisitInput(ForeignEntityInput BH_Visit) {
 		this.mBH_Visit = BH_Visit;
 		MBHVisit foreignEntity;
-		if (BH_Visit != null &&
-				(foreignEntity = new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
-						.setParameters(BH_Visit.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setBH_Visit_ID(foreignEntity.get_ID());
+		if (BH_Visit != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
+							.setParameters(BH_Visit.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBH_Visit_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table BH_Visit with UUID " + BH_Visit.getUUID());
+			}
 		} else {
 			super.setBH_Visit_ID(0);
 		}

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ChangeLogSave(entity: AD_ChangeLogInput!): AD_ChangeLog!
+	AD_ChangeLogSaveMany(entities: [AD_ChangeLogInput!]!): [AD_ChangeLog!]!
 	AD_ChangeLogDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_ChangeLogConnection {
 type AD_ChangeLog {
 	# Log of data changes
 	AD_ChangeLog: AD_ChangeLog!
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
@@ -60,7 +61,7 @@ type AD_ChangeLog {
 input AD_ChangeLogInput {
 	# Log of data changes
 	AD_ChangeLog: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	# Organizational entity within client

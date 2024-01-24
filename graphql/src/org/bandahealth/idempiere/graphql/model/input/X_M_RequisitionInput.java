@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
@@ -11,6 +12,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MRequisition;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -32,13 +34,16 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	private I_AD_Ref_ListInput mPriorityRule;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_Requisition_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_RequisitionInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MRequisition(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_RequisitionInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRequisition(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -50,11 +55,16 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -77,11 +87,16 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
-		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(AD_User.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_User_ID(foreignEntity.get_ID());
+		if (AD_User != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_User_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+			}
 		} else {
 			super.setAD_User_ID(0);
 		}
@@ -106,11 +121,16 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
-		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocType_ID(foreignEntity.get_ID());
+		if (C_DocType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+			}
 		} else {
 			super.setC_DocType_ID(0);
 		}
@@ -135,11 +155,16 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
 		this.mDocAction = DocAction;
 		MRefList_BH foreignEntity;
-		if (DocAction != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocAction(foreignEntity.getValue());
+		if (DocAction != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocAction(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocAction.getUUID());
+			}
 		} else {
 			this.setDocAction(null);
 		}
@@ -164,11 +189,16 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		MRefList_BH foreignEntity;
-		if (DocStatus != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocStatus(foreignEntity.getValue());
+		if (DocStatus != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocStatus(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocStatus.getUUID());
+			}
 		} else {
 			this.setDocStatus(null);
 		}
@@ -204,11 +234,16 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
-		if (M_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-						.setParameters(M_PriceList.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_PriceList_ID(foreignEntity.get_ID());
+		if (M_PriceList != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
+							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_PriceList_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
+			}
 		} else {
 			super.setM_PriceList_ID(0);
 		}
@@ -236,20 +271,20 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_Requisition_UU(ID);
+	public void setUUID(String UUID) {
+		setM_Requisition_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_Requisition_UU();
 	}
 
@@ -262,11 +297,16 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
-		if (M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-						.setParameters(M_Warehouse.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Warehouse_ID(foreignEntity.get_ID());
+		if (M_Warehouse != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+			}
 		} else {
 			super.setM_Warehouse_ID(0);
 		}
@@ -302,11 +342,16 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	public void setPriorityRuleInput(I_AD_Ref_ListInput PriorityRule) {
 		this.mPriorityRule = PriorityRule;
 		MRefList_BH foreignEntity;
-		if (PriorityRule != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PriorityRule.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPriorityRule(foreignEntity.getValue());
+		if (PriorityRule != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PriorityRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPriorityRule(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PriorityRule.getUUID());
+			}
 		} else {
 			this.setPriorityRule(null);
 		}

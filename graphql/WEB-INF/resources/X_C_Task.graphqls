@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_TaskSave(entity: C_TaskInput!): C_Task!
+	C_TaskSaveMany(entities: [C_TaskInput!]!): [C_Task!]!
 	C_TaskDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_Task {
 	AD_Org: AD_Org!
 	# Standard Phase of the Project Type
 	C_Phase: C_Phase!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,7 +53,7 @@ input C_TaskInput {
 	AD_Org: ForeignEntityInput
 	# Standard Phase of the Project Type
 	C_Phase: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

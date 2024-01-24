@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_LdapAccessInput;
 import org.compiere.model.MLdapAccess;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_LdapAccess - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_LdapAccessMutation extends POMutation implements GraphQLMutati
 		return X_AD_LdapAccessInput.Table_Name;
 	}
 
-	public MLdapAccess AD_LdapAccessSave(I_AD_LdapAccessInput input, DataFetchingEnvironment environment) {
-		return (MLdapAccess) super.save((X_AD_LdapAccessInput) input, environment);
+	public MLdapAccess AD_LdapAccessSave(I_AD_LdapAccessInput entity, DataFetchingEnvironment environment) {
+		return (MLdapAccess) super.save((X_AD_LdapAccessInput) entity, environment);
+	}
+
+	public List<MLdapAccess> AD_LdapAccessSaveMany(List<I_AD_LdapAccessInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_LdapAccessInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MLdapAccess) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_LdapAccessDelete(List<String> uuids, DataFetchingEnvironment environment) {

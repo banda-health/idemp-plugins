@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_DemandDetailInput;
 import org.compiere.model.X_M_DemandDetail;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_DemandDetail - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_DemandDetailMutation extends POMutation implements GraphQLMutat
 		return X_M_DemandDetailInput.Table_Name;
 	}
 
-	public X_M_DemandDetail M_DemandDetailSave(I_M_DemandDetailInput input, DataFetchingEnvironment environment) {
-		return (X_M_DemandDetail) super.save((X_M_DemandDetailInput) input, environment);
+	public X_M_DemandDetail M_DemandDetailSave(I_M_DemandDetailInput entity, DataFetchingEnvironment environment) {
+		return (X_M_DemandDetail) super.save((X_M_DemandDetailInput) entity, environment);
+	}
+
+	public List<X_M_DemandDetail> M_DemandDetailSaveMany(List<I_M_DemandDetailInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_DemandDetailInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_M_DemandDetail) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_DemandDetailDelete(List<String> uuids, DataFetchingEnvironment environment) {

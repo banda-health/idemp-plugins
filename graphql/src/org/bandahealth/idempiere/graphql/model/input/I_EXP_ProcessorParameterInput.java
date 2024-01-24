@@ -39,16 +39,16 @@ public interface I_EXP_ProcessorParameterInput extends I_EXP_ProcessorParameter 
 	ForeignEntityInput EXP_Processor();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 }

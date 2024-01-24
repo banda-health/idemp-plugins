@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_PaySelectionSave(entity: C_PaySelectionInput!): C_PaySelection!
+	C_PaySelectionSaveMany(entities: [C_PaySelectionInput!]!): [C_PaySelection!]!
 	C_PaySelectionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_PaySelection {
 	AD_Org: AD_Org!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,7 +57,7 @@ input C_PaySelectionInput {
 	AD_Org: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Optional short description of the record

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_OrderSave(entity: C_OrderInput!): C_Order!
+	C_OrderSaveMany(entities: [C_OrderInput!]!): [C_Order!]!
 	C_OrderDelete(uuids: [String!]!): Boolean!
 }
 
@@ -54,7 +55,7 @@ type C_Order {
 	# Target document type for conversing documents
 	C_DocTypeTarget: C_DocType!
 	C_Opportunity: C_Opportunity
-	ID: ID!
+	UUID: ID!
 	C_OrderSource: C_OrderSource
 	# Payment identifier
 	C_Payment: C_Payment
@@ -220,7 +221,7 @@ input C_OrderInput {
 	# Target document type for conversing documents
 	C_DocTypeTarget: ForeignEntityInput
 	C_Opportunity: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	C_OrderSource: ForeignEntityInput
 	# Payment identifier
 	C_Payment: ForeignEntityInput

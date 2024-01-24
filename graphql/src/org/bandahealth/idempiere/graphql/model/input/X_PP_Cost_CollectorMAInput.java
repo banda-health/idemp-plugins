@@ -2,10 +2,12 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 import org.eevolution.model.X_PP_Cost_Collector;
 import org.eevolution.model.X_PP_Cost_CollectorMA;
 
@@ -24,13 +26,16 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 	private ForeignEntityInput mPP_Cost_Collector;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The PP_Cost_CollectorMA_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PP_Cost_CollectorMAInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_PP_Cost_CollectorMA(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_PP_Cost_CollectorMAInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_PP_Cost_CollectorMA(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -42,11 +47,16 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -69,11 +79,16 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
-		if (M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-						.setParameters(M_AttributeSetInstance.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+		if (M_AttributeSetInstance != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
+							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
+			}
 		} else {
 			super.setM_AttributeSetInstance_ID(0);
 		}
@@ -98,11 +113,16 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 	public void setPP_Cost_CollectorInput(ForeignEntityInput PP_Cost_Collector) {
 		this.mPP_Cost_Collector = PP_Cost_Collector;
 		X_PP_Cost_Collector foreignEntity;
-		if (PP_Cost_Collector != null &&
-				(foreignEntity = new Query(getCtx(), "PP_Cost_Collector", "PP_Cost_Collector_UU=?", get_TrxName())
-						.setParameters(PP_Cost_Collector.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPP_Cost_Collector_ID(foreignEntity.get_ID());
+		if (PP_Cost_Collector != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "PP_Cost_Collector", "PP_Cost_Collector_UU=?", get_TrxName())
+							.setParameters(PP_Cost_Collector.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPP_Cost_Collector_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PP_Cost_Collector with UUID " + PP_Cost_Collector.getUUID());
+			}
 		} else {
 			super.setPP_Cost_Collector_ID(0);
 		}
@@ -130,20 +150,20 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setPP_Cost_CollectorMA_UU(ID);
+	public void setUUID(String UUID) {
+		setPP_Cost_CollectorMA_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getPP_Cost_CollectorMA_UU();
 	}
 }

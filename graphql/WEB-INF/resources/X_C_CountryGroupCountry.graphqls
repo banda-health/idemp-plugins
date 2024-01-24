@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CountryGroupCountrySave(entity: C_CountryGroupCountryInput!): C_CountryGroupCountry!
+	C_CountryGroupCountrySaveMany(entities: [C_CountryGroupCountryInput!]!): [C_CountryGroupCountry!]!
 	C_CountryGroupCountryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -23,7 +24,7 @@ type C_CountryGroupCountry {
 	# Country 
 	C_Country: C_Country
 	C_CountryGroup: C_CountryGroup
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,7 +47,7 @@ input C_CountryGroupCountryInput {
 	# Country 
 	C_Country: ForeignEntityInput
 	C_CountryGroup: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Starting date for a range
 	DateFrom: Date
 	# End date of a date range

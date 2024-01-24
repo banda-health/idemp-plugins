@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_RevenueRecognition_PlanSave(entity: C_RevenueRecognition_PlanInput!): C_RevenueRecognition_Plan!
+	C_RevenueRecognition_PlanSaveMany(entities: [C_RevenueRecognition_PlanInput!]!): [C_RevenueRecognition_Plan!]!
 	C_RevenueRecognition_PlanDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type C_RevenueRecognition_Plan {
 	C_InvoiceLine: C_InvoiceLine!
 	# Method for recording revenue
 	C_RevenueRecognition: C_RevenueRecognition!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -59,7 +60,7 @@ input C_RevenueRecognition_PlanInput {
 	C_InvoiceLine: ForeignEntityInput
 	# Method for recording revenue
 	C_RevenueRecognition: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Account for Product Revenue (Sales Account)

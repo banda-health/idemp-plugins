@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_AcctProcessorLogSave(entity: C_AcctProcessorLogInput!): C_AcctProcessorLog!
+	C_AcctProcessorLogSaveMany(entities: [C_AcctProcessorLogInput!]!): [C_AcctProcessorLog!]!
 	C_AcctProcessorLogDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_AcctProcessorLog {
 	BinaryData: Binary
 	# Accounting Processor/Server Parameters
 	C_AcctProcessor: C_AcctProcessor!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,7 +55,7 @@ input C_AcctProcessorLogInput {
 	BinaryData: Binary
 	# Accounting Processor/Server Parameters
 	C_AcctProcessor: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

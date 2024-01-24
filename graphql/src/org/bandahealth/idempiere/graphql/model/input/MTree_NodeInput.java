@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MTree_NodeInput extends X_AD_TreeNodeInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_TreeNode_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTree_NodeInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MTree_NodeInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

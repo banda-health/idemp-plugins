@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	T_TransactionSave(entity: T_TransactionInput!): T_Transaction!
+	T_TransactionSaveMany(entities: [T_TransactionInput!]!): [T_Transaction!]!
 	T_TransactionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -67,7 +68,7 @@ type T_Transaction {
 	Search_Invoice: C_Invoice
 	# Order Identifier
 	Search_Order: C_Order
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -120,5 +121,5 @@ input T_TransactionInput {
 	Search_Invoice: ForeignEntityInput
 	# Order Identifier
 	Search_Order: ForeignEntityInput
-	ID: ID
+	UUID: ID
 }

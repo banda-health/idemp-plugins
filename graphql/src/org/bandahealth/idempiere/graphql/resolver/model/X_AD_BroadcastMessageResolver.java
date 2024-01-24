@@ -73,7 +73,7 @@ public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMess
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(BROADCASTFREQUENCY_UUIDS_BY_VALUE.get(entity.getBroadcastFrequency()));
 	}
 
@@ -104,7 +104,7 @@ public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMess
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(BROADCASTTYPE_UUIDS_BY_VALUE.get(entity.getBroadcastType()));
 	}
 
@@ -137,7 +137,7 @@ public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMess
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(TARGET_UUIDS_BY_VALUE.get(entity.getTarget()));
 	}
 

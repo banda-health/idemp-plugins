@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_DashboardContent_AccessSave(entity: PA_DashboardContent_AccessInput!): PA_DashboardContent_Access!
+	PA_DashboardContent_AccessSaveMany(entities: [PA_DashboardContent_AccessInput!]!): [PA_DashboardContent_Access!]!
 	PA_DashboardContent_AccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type PA_DashboardContent_Access {
 	CreatedBy: AD_User
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	PA_DashboardContent: PA_DashboardContent
 	# Date this record was updated
 	Updated: Date!
@@ -47,6 +48,6 @@ input PA_DashboardContent_AccessInput {
 	AD_User: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	PA_DashboardContent: ForeignEntityInput
 }

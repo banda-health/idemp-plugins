@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_TaxPostalSave(entity: C_TaxPostalInput!): C_TaxPostal!
+	C_TaxPostalSaveMany(entities: [C_TaxPostalInput!]!): [C_TaxPostal!]!
 	C_TaxPostalDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_TaxPostal {
 	AD_Org: AD_Org!
 	# Tax identifier
 	C_Tax: C_Tax!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,7 +45,7 @@ input C_TaxPostalInput {
 	AD_Org: ForeignEntityInput
 	# Tax identifier
 	C_Tax: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Postal code

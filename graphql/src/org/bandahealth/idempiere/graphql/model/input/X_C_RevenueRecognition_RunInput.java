@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MJournal;
 import org.compiere.model.MOrg;
@@ -9,6 +10,7 @@ import org.compiere.model.MRevenueRecogService;
 import org.compiere.model.MRevenueRecognitionPlan;
 import org.compiere.model.MRevenueRecognitionRun;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -27,13 +29,16 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	private ForeignEntityInput mGL_Journal;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_RevenueRecognition_Run_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_RevenueRecognition_RunInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MRevenueRecognitionRun(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_RevenueRecognition_RunInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRevenueRecognitionRun(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -45,11 +50,16 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -72,11 +82,16 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	public void setC_RevenueRecog_ServiceInput(ForeignEntityInput C_RevenueRecog_Service) {
 		this.mC_RevenueRecog_Service = C_RevenueRecog_Service;
 		MRevenueRecogService foreignEntity;
-		if (C_RevenueRecog_Service != null &&
-				(foreignEntity = new Query(getCtx(), "C_RevenueRecog_Service", "C_RevenueRecog_Service_UU=?", get_TrxName())
-						.setParameters(C_RevenueRecog_Service.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_RevenueRecog_Service_ID(foreignEntity.get_ID());
+		if (C_RevenueRecog_Service != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_RevenueRecog_Service", "C_RevenueRecog_Service_UU=?", get_TrxName())
+							.setParameters(C_RevenueRecog_Service.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_RevenueRecog_Service_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_RevenueRecog_Service with UUID " + C_RevenueRecog_Service.getUUID());
+			}
 		} else {
 			super.setC_RevenueRecog_Service_ID(0);
 		}
@@ -101,11 +116,16 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	public void setC_RevenueRecognition_PlanInput(ForeignEntityInput C_RevenueRecognition_Plan) {
 		this.mC_RevenueRecognition_Plan = C_RevenueRecognition_Plan;
 		MRevenueRecognitionPlan foreignEntity;
-		if (get_ID() == 0 && C_RevenueRecognition_Plan != null &&
-				(foreignEntity = new Query(getCtx(), "C_RevenueRecognition_Plan", "C_RevenueRecognition_Plan_UU=?", get_TrxName())
-						.setParameters(C_RevenueRecognition_Plan.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_RevenueRecognition_Plan_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_RevenueRecognition_Plan != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_RevenueRecognition_Plan", "C_RevenueRecognition_Plan_UU=?", get_TrxName())
+							.setParameters(C_RevenueRecognition_Plan.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_RevenueRecognition_Plan_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_RevenueRecognition_Plan with UUID " + C_RevenueRecognition_Plan.getUUID());
+			}
 		}
 	}
 
@@ -131,20 +151,20 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_RevenueRecognition_Run_UU(ID);
+	public void setUUID(String UUID) {
+		setC_RevenueRecognition_Run_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_RevenueRecognition_Run_UU();
 	}
 
@@ -157,11 +177,16 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	public void setGL_JournalInput(ForeignEntityInput GL_Journal) {
 		this.mGL_Journal = GL_Journal;
 		MJournal foreignEntity;
-		if (get_ID() == 0 && GL_Journal != null &&
-				(foreignEntity = new Query(getCtx(), "GL_Journal", "GL_Journal_UU=?", get_TrxName())
-						.setParameters(GL_Journal.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setGL_Journal_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && GL_Journal != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "GL_Journal", "GL_Journal_UU=?", get_TrxName())
+							.setParameters(GL_Journal.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setGL_Journal_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table GL_Journal with UUID " + GL_Journal.getUUID());
+			}
 		}
 	}
 

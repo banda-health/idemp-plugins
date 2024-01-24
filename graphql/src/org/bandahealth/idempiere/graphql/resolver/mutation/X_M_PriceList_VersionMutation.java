@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_PriceList_VersionInput;
 import org.compiere.model.MPriceListVersion;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_PriceList_Version - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_PriceList_VersionMutation extends POMutation implements GraphQL
 		return X_M_PriceList_VersionInput.Table_Name;
 	}
 
-	public MPriceListVersion M_PriceList_VersionSave(I_M_PriceList_VersionInput input, DataFetchingEnvironment environment) {
-		return (MPriceListVersion) super.save((X_M_PriceList_VersionInput) input, environment);
+	public MPriceListVersion M_PriceList_VersionSave(I_M_PriceList_VersionInput entity, DataFetchingEnvironment environment) {
+		return (MPriceListVersion) super.save((X_M_PriceList_VersionInput) entity, environment);
+	}
+
+	public List<MPriceListVersion> M_PriceList_VersionSaveMany(List<I_M_PriceList_VersionInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_PriceList_VersionInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MPriceListVersion) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_PriceList_VersionDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_NonBusinessDaySave(entity: C_NonBusinessDayInput!): C_NonBusinessDay!
+	C_NonBusinessDaySaveMany(entities: [C_NonBusinessDayInput!]!): [C_NonBusinessDay!]!
 	C_NonBusinessDayDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_NonBusinessDay {
 	C_Calendar: C_Calendar!
 	# Country 
 	C_Country: C_Country
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,7 +49,7 @@ input C_NonBusinessDayInput {
 	C_Calendar: ForeignEntityInput
 	# Country 
 	C_Country: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Date when business is not conducted
 	Date1: Date
 	# The record is active in the system

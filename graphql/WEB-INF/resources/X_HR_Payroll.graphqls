@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_PayrollSave(entity: HR_PayrollInput!): HR_Payroll!
+	HR_PayrollSaveMany(entities: [HR_PayrollInput!]!): [HR_Payroll!]!
 	HR_PayrollDelete(uuids: [String!]!): Boolean!
 }
 
@@ -31,7 +32,7 @@ type HR_Payroll {
 	# Optional short description of the record
 	Description: String
 	HR_Contract: HR_Contract!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -59,7 +60,7 @@ input HR_PayrollInput {
 	# Optional short description of the record
 	Description: String
 	HR_Contract: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

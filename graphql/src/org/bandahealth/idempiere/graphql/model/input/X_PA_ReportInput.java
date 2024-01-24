@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
@@ -13,6 +14,7 @@ import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.report.MReport;
 import org.compiere.report.MReportColumnSet;
 import org.compiere.report.MReportLineSet;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -34,13 +36,16 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	private ForeignEntityInput mPA_ReportLineSet;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The PA_Report_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_ReportInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MReport(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_PA_ReportInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MReport(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -52,11 +57,16 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -79,11 +89,16 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (AD_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(AD_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_PrintFormat_ID(foreignEntity.get_ID());
+		if (AD_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
+			}
 		} else {
 			super.setAD_PrintFormat_ID(0);
 		}
@@ -108,11 +123,16 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-						.setParameters(C_AcctSchema.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_AcctSchema_ID(foreignEntity.get_ID());
+		if (C_AcctSchema != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+			}
 		} else {
 			super.setC_AcctSchema_ID(0);
 		}
@@ -137,11 +157,16 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	public void setC_CalendarInput(ForeignEntityInput C_Calendar) {
 		this.mC_Calendar = C_Calendar;
 		MCalendar foreignEntity;
-		if (C_Calendar != null &&
-				(foreignEntity = new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
-						.setParameters(C_Calendar.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Calendar_ID(foreignEntity.get_ID());
+		if (C_Calendar != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
+							.setParameters(C_Calendar.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Calendar_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Calendar with UUID " + C_Calendar.getUUID());
+			}
 		} else {
 			super.setC_Calendar_ID(0);
 		}
@@ -166,11 +191,16 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	public void setJasperProcessInput(ForeignEntityInput JasperProcess) {
 		this.mJasperProcess = JasperProcess;
 		MProcess_BH foreignEntity;
-		if (JasperProcess != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-						.setParameters(JasperProcess.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setJasperProcess_ID(foreignEntity.get_ID());
+		if (JasperProcess != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
+							.setParameters(JasperProcess.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setJasperProcess_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Process with UUID " + JasperProcess.getUUID());
+			}
 		} else {
 			super.setJasperProcess_ID(0);
 		}
@@ -198,20 +228,20 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setPA_Report_UU(ID);
+	public void setUUID(String UUID) {
+		setPA_Report_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getPA_Report_UU();
 	}
 
@@ -224,11 +254,16 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	public void setPA_ReportColumnSetInput(ForeignEntityInput PA_ReportColumnSet) {
 		this.mPA_ReportColumnSet = PA_ReportColumnSet;
 		MReportColumnSet foreignEntity;
-		if (PA_ReportColumnSet != null &&
-				(foreignEntity = new Query(getCtx(), "PA_ReportColumnSet", "PA_ReportColumnSet_UU=?", get_TrxName())
-						.setParameters(PA_ReportColumnSet.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPA_ReportColumnSet_ID(foreignEntity.get_ID());
+		if (PA_ReportColumnSet != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "PA_ReportColumnSet", "PA_ReportColumnSet_UU=?", get_TrxName())
+							.setParameters(PA_ReportColumnSet.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPA_ReportColumnSet_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PA_ReportColumnSet with UUID " + PA_ReportColumnSet.getUUID());
+			}
 		} else {
 			super.setPA_ReportColumnSet_ID(0);
 		}
@@ -253,11 +288,16 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	public void setPA_ReportCubeInput(ForeignEntityInput PA_ReportCube) {
 		this.mPA_ReportCube = PA_ReportCube;
 		MReportCube foreignEntity;
-		if (PA_ReportCube != null &&
-				(foreignEntity = new Query(getCtx(), "PA_ReportCube", "PA_ReportCube_UU=?", get_TrxName())
-						.setParameters(PA_ReportCube.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPA_ReportCube_ID(foreignEntity.get_ID());
+		if (PA_ReportCube != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "PA_ReportCube", "PA_ReportCube_UU=?", get_TrxName())
+							.setParameters(PA_ReportCube.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPA_ReportCube_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PA_ReportCube with UUID " + PA_ReportCube.getUUID());
+			}
 		} else {
 			super.setPA_ReportCube_ID(0);
 		}
@@ -282,11 +322,16 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	public void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet) {
 		this.mPA_ReportLineSet = PA_ReportLineSet;
 		MReportLineSet foreignEntity;
-		if (PA_ReportLineSet != null &&
-				(foreignEntity = new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
-						.setParameters(PA_ReportLineSet.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPA_ReportLineSet_ID(foreignEntity.get_ID());
+		if (PA_ReportLineSet != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
+							.setParameters(PA_ReportLineSet.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPA_ReportLineSet_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PA_ReportLineSet with UUID " + PA_ReportLineSet.getUUID());
+			}
 		} else {
 			super.setPA_ReportLineSet_ID(0);
 		}

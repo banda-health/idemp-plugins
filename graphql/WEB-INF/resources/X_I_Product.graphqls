@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	I_ProductSave(entity: I_ProductInput!): I_Product!
+	I_ProductSaveMany(entities: [I_ProductInput!]!): [I_Product!]!
 	I_ProductDelete(uuids: [String!]!): Boolean!
 }
 
@@ -54,7 +55,7 @@ type I_Product {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean!
-	ID: ID!
+	UUID: ID!
 	# URL of  image
 	ImageURL: String
 	# The record is active in the system
@@ -154,7 +155,7 @@ input I_ProductInput {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean
-	ID: ID
+	UUID: ID
 	# URL of  image
 	ImageURL: String
 	# The record is active in the system

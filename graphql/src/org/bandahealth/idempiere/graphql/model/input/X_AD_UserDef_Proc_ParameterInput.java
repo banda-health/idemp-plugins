@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -11,6 +12,7 @@ import org.compiere.model.MUserDefProc;
 import org.compiere.model.MUserDefProcParameter;
 import org.compiere.model.MValRule;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -32,13 +34,16 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	private I_AD_Ref_ListInput mIsMandatory;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_UserDef_Proc_Parameter_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_UserDef_Proc_ParameterInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MUserDefProcParameter(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_UserDef_Proc_ParameterInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MUserDefProcParameter(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -50,11 +55,16 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -77,11 +87,16 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	public void setAD_Process_ParaInput(ForeignEntityInput AD_Process_Para) {
 		this.mAD_Process_Para = AD_Process_Para;
 		MProcessPara foreignEntity;
-		if (AD_Process_Para != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Process_Para", "AD_Process_Para_UU=?", get_TrxName())
-						.setParameters(AD_Process_Para.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Process_Para_ID(foreignEntity.get_ID());
+		if (AD_Process_Para != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Process_Para", "AD_Process_Para_UU=?", get_TrxName())
+							.setParameters(AD_Process_Para.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Process_Para_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Process_Para with UUID " + AD_Process_Para.getUUID());
+			}
 		} else {
 			super.setAD_Process_Para_ID(0);
 		}
@@ -106,11 +121,16 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
 		MReference_BH foreignEntity;
-		if (AD_Reference != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-						.setParameters(AD_Reference.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Reference_ID(foreignEntity.get_ID());
+		if (AD_Reference != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
+							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Reference_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
+			}
 		} else {
 			super.setAD_Reference_ID(0);
 		}
@@ -135,11 +155,16 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	public void setAD_Reference_ValueInput(ForeignEntityInput AD_Reference_Value) {
 		this.mAD_Reference_Value = AD_Reference_Value;
 		MReference_BH foreignEntity;
-		if (AD_Reference_Value != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-						.setParameters(AD_Reference_Value.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Reference_Value_ID(foreignEntity.get_ID());
+		if (AD_Reference_Value != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
+							.setParameters(AD_Reference_Value.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Reference_Value_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Reference with UUID " + AD_Reference_Value.getUUID());
+			}
 		} else {
 			super.setAD_Reference_Value_ID(0);
 		}
@@ -164,11 +189,16 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	public void setAD_UserDef_ProcInput(ForeignEntityInput AD_UserDef_Proc) {
 		this.mAD_UserDef_Proc = AD_UserDef_Proc;
 		MUserDefProc foreignEntity;
-		if (get_ID() == 0 && AD_UserDef_Proc != null &&
-				(foreignEntity = new Query(getCtx(), "AD_UserDef_Proc", "AD_UserDef_Proc_UU=?", get_TrxName())
-						.setParameters(AD_UserDef_Proc.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_UserDef_Proc_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_UserDef_Proc != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_UserDef_Proc", "AD_UserDef_Proc_UU=?", get_TrxName())
+							.setParameters(AD_UserDef_Proc.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_UserDef_Proc_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_UserDef_Proc with UUID " + AD_UserDef_Proc.getUUID());
+			}
 		}
 	}
 
@@ -194,20 +224,20 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_UserDef_Proc_Parameter_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_UserDef_Proc_Parameter_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_UserDef_Proc_Parameter_UU();
 	}
 
@@ -220,11 +250,16 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	public void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule) {
 		this.mAD_Val_Rule = AD_Val_Rule;
 		MValRule foreignEntity;
-		if (AD_Val_Rule != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-						.setParameters(AD_Val_Rule.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Val_Rule_ID(foreignEntity.get_ID());
+		if (AD_Val_Rule != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
+							.setParameters(AD_Val_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Val_Rule with UUID " + AD_Val_Rule.getUUID());
+			}
 		} else {
 			super.setAD_Val_Rule_ID(0);
 		}
@@ -249,11 +284,16 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	public void setIsDisplayedInput(I_AD_Ref_ListInput IsDisplayed) {
 		this.mIsDisplayed = IsDisplayed;
 		MRefList_BH foreignEntity;
-		if (IsDisplayed != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsDisplayed.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setIsDisplayed(foreignEntity.getValue());
+		if (IsDisplayed != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsDisplayed.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setIsDisplayed(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsDisplayed.getUUID());
+			}
 		} else {
 			this.setIsDisplayed(null);
 		}
@@ -278,11 +318,16 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	public void setIsMandatoryInput(I_AD_Ref_ListInput IsMandatory) {
 		this.mIsMandatory = IsMandatory;
 		MRefList_BH foreignEntity;
-		if (IsMandatory != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsMandatory.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setIsMandatory(foreignEntity.getValue());
+		if (IsMandatory != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsMandatory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setIsMandatory(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsMandatory.getUUID());
+			}
 		} else {
 			this.setIsMandatory(null);
 		}

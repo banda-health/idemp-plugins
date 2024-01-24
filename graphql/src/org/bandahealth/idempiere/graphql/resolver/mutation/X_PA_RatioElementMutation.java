@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_PA_RatioElementInput;
 import org.compiere.model.X_PA_RatioElement;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for PA_RatioElement - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_PA_RatioElementMutation extends POMutation implements GraphQLMuta
 		return X_PA_RatioElementInput.Table_Name;
 	}
 
-	public X_PA_RatioElement PA_RatioElementSave(I_PA_RatioElementInput input, DataFetchingEnvironment environment) {
-		return (X_PA_RatioElement) super.save((X_PA_RatioElementInput) input, environment);
+	public X_PA_RatioElement PA_RatioElementSave(I_PA_RatioElementInput entity, DataFetchingEnvironment environment) {
+		return (X_PA_RatioElement) super.save((X_PA_RatioElementInput) entity, environment);
+	}
+
+	public List<X_PA_RatioElement> PA_RatioElementSaveMany(List<I_PA_RatioElementInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_PA_RatioElementInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_PA_RatioElement) entity).collect(Collectors.toList());
 	}
 
 	public boolean PA_RatioElementDelete(List<String> uuids, DataFetchingEnvironment environment) {

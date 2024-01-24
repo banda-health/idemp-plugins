@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_InvoiceBatchLineSave(entity: C_InvoiceBatchLineInput!): C_InvoiceBatchLine!
+	C_InvoiceBatchLineSaveMany(entities: [C_InvoiceBatchLineInput!]!): [C_InvoiceBatchLine!]!
 	C_InvoiceBatchLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -36,7 +37,7 @@ type C_InvoiceBatchLine {
 	C_Invoice: C_Invoice
 	# Expense Invoice Batch Header
 	C_InvoiceBatch: C_InvoiceBatch!
-	ID: ID!
+	UUID: ID!
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine
 	# Financial Project
@@ -102,7 +103,7 @@ input C_InvoiceBatchLineInput {
 	C_Invoice: ForeignEntityInput
 	# Expense Invoice Batch Header
 	C_InvoiceBatch: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
 	# Financial Project

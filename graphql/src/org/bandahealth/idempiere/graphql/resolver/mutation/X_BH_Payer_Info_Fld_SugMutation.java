@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_BH_Payer_Info_Fld_SugInpu
 import org.bandahealth.idempiere.graphql.model.input.X_BH_Payer_Info_Fld_SugInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for BH_Payer_Info_Fld_Sug - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_BH_Payer_Info_Fld_SugMutation extends POMutation implements Graph
 		return X_BH_Payer_Info_Fld_SugInput.Table_Name;
 	}
 
-	public MBHPayerInfoFldSug BH_Payer_Info_Fld_SugSave(I_BH_Payer_Info_Fld_SugInput input, DataFetchingEnvironment environment) {
-		return (MBHPayerInfoFldSug) super.save((X_BH_Payer_Info_Fld_SugInput) input, environment);
+	public MBHPayerInfoFldSug BH_Payer_Info_Fld_SugSave(I_BH_Payer_Info_Fld_SugInput entity, DataFetchingEnvironment environment) {
+		return (MBHPayerInfoFldSug) super.save((X_BH_Payer_Info_Fld_SugInput) entity, environment);
+	}
+
+	public List<MBHPayerInfoFldSug> BH_Payer_Info_Fld_SugSaveMany(List<I_BH_Payer_Info_Fld_SugInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_BH_Payer_Info_Fld_SugInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MBHPayerInfoFldSug) entity).collect(Collectors.toList());
 	}
 
 	public boolean BH_Payer_Info_Fld_SugDelete(List<String> uuids, DataFetchingEnvironment environment) {

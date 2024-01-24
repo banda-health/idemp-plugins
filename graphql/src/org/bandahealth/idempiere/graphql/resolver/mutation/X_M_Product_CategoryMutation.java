@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_M_Product_CategoryInput;
 import org.bandahealth.idempiere.graphql.model.input.X_M_Product_CategoryInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_Product_Category - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_Product_CategoryMutation extends POMutation implements GraphQLM
 		return X_M_Product_CategoryInput.Table_Name;
 	}
 
-	public MProductCategory_BH M_Product_CategorySave(I_M_Product_CategoryInput input, DataFetchingEnvironment environment) {
-		return (MProductCategory_BH) super.save((X_M_Product_CategoryInput) input, environment);
+	public MProductCategory_BH M_Product_CategorySave(I_M_Product_CategoryInput entity, DataFetchingEnvironment environment) {
+		return (MProductCategory_BH) super.save((X_M_Product_CategoryInput) entity, environment);
+	}
+
+	public List<MProductCategory_BH> M_Product_CategorySaveMany(List<I_M_Product_CategoryInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_Product_CategoryInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MProductCategory_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_Product_CategoryDelete(List<String> uuids, DataFetchingEnvironment environment) {

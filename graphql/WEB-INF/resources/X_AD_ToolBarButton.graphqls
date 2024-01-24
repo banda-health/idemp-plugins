@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ToolBarButtonSave(entity: AD_ToolBarButtonInput!): AD_ToolBarButton!
+	AD_ToolBarButtonSaveMany(entities: [AD_ToolBarButtonInput!]!): [AD_ToolBarButton!]!
 	AD_ToolBarButtonDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type AD_ToolBarButton {
 	AD_Process: AD_Process
 	# Tab within a Window
 	AD_Tab: AD_Tab
-	ID: ID!
+	UUID: ID!
 	ComponentName: String!
 	# Date this record was created
 	Created: Date!
@@ -75,7 +76,7 @@ input AD_ToolBarButtonInput {
 	AD_Process: ForeignEntityInput
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	ComponentName: String
 	# If the Field is displayed, the result determines if the field is actually displayed
 	DisplayLogic: String

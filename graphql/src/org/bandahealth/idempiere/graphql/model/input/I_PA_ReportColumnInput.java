@@ -263,18 +263,18 @@ public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 	ForeignEntityInput Oper_2();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set PA_ReportColumnSet.

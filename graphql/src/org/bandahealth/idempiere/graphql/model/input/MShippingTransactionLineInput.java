@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MShippingTransactionLineInput extends X_M_ShippingTransactionLineInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_ShippingTransactionLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MShippingTransactionLineInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MShippingTransactionLineInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

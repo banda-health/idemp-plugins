@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ScheduleSave(entity: AD_ScheduleInput!): AD_Schedule!
+	AD_ScheduleSaveMany(entities: [AD_ScheduleInput!]!): [AD_Schedule!]!
 	AD_ScheduleDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Schedule {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -57,7 +58,7 @@ type AD_Schedule {
 input AD_ScheduleInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Cron pattern to define when the process should be invoked.
 	CronPattern: String
 	# Optional short description of the record

@@ -53,18 +53,18 @@ public interface I_C_POSKeyLayoutInput extends I_C_POSKeyLayout {
 	ForeignEntityInput AD_PrintFont();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set POSKeyLayoutType.

@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MMenuInput extends X_AD_MenuInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Menu_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MMenuInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MMenuInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

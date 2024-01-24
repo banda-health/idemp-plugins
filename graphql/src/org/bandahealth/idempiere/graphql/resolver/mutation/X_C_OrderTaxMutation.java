@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_OrderTaxInput;
 import org.compiere.model.MOrderTax;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_OrderTax - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_OrderTaxMutation extends POMutation implements GraphQLMutationR
 		return X_C_OrderTaxInput.Table_Name;
 	}
 
-	public MOrderTax C_OrderTaxSave(I_C_OrderTaxInput input, DataFetchingEnvironment environment) {
-		return (MOrderTax) super.save((X_C_OrderTaxInput) input, environment);
+	public MOrderTax C_OrderTaxSave(I_C_OrderTaxInput entity, DataFetchingEnvironment environment) {
+		return (MOrderTax) super.save((X_C_OrderTaxInput) entity, environment);
+	}
+
+	public List<MOrderTax> C_OrderTaxSaveMany(List<I_C_OrderTaxInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_OrderTaxInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MOrderTax) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_OrderTaxDelete(List<String> uuids, DataFetchingEnvironment environment) {

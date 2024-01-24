@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_Package_ExpInput;
 import org.compiere.model.MPackageExp;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Package_Exp - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_Package_ExpMutation extends POMutation implements GraphQLMutat
 		return X_AD_Package_ExpInput.Table_Name;
 	}
 
-	public MPackageExp AD_Package_ExpSave(I_AD_Package_ExpInput input, DataFetchingEnvironment environment) {
-		return (MPackageExp) super.save((X_AD_Package_ExpInput) input, environment);
+	public MPackageExp AD_Package_ExpSave(I_AD_Package_ExpInput entity, DataFetchingEnvironment environment) {
+		return (MPackageExp) super.save((X_AD_Package_ExpInput) entity, environment);
+	}
+
+	public List<MPackageExp> AD_Package_ExpSaveMany(List<I_AD_Package_ExpInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_Package_ExpInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MPackageExp) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_Package_ExpDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ShipperPackagingSave(entity: M_ShipperPackagingInput!): M_ShipperPackaging!
+	M_ShipperPackagingSaveMany(entities: [M_ShipperPackagingInput!]!): [M_ShipperPackaging!]!
 	M_ShipperPackagingDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_ShipperPackaging {
 	IsDefault: Boolean!
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
-	ID: ID!
+	UUID: ID!
 	M_ShipperPackagingCfg: M_ShipperPackagingCfg!
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -51,7 +52,7 @@ input M_ShipperPackagingInput {
 	IsDefault: Boolean
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	M_ShipperPackagingCfg: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String

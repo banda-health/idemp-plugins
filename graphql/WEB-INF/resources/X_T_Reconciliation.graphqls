@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	T_ReconciliationSave(entity: T_ReconciliationInput!): T_Reconciliation!
+	T_ReconciliationSaveMany(entities: [T_ReconciliationInput!]!): [T_Reconciliation!]!
 	T_ReconciliationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -31,7 +32,7 @@ type T_Reconciliation {
 	IsActive: Boolean!
 	# String identifying related accounting facts
 	MatchCode: String
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -48,5 +49,5 @@ input T_ReconciliationInput {
 	IsActive: Boolean
 	# String identifying related accounting facts
 	MatchCode: String
-	ID: ID
+	UUID: ID
 }

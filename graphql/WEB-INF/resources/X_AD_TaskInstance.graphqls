@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_TaskInstanceSave(entity: AD_TaskInstanceInput!): AD_TaskInstance!
+	AD_TaskInstanceSaveMany(entities: [AD_TaskInstanceInput!]!): [AD_TaskInstance!]!
 	AD_TaskInstanceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_TaskInstance {
 	AD_Org: AD_Org!
 	# Operation System Task
 	AD_Task: AD_Task!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -40,7 +41,7 @@ input AD_TaskInstanceInput {
 	AD_Org: ForeignEntityInput
 	# Operation System Task
 	AD_Task: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 }

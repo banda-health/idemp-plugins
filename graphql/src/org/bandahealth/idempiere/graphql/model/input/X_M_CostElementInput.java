@@ -2,11 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCostElement;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -23,13 +25,16 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	private I_AD_Ref_ListInput mCostingMethod;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_CostElement_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_CostElementInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MCostElement(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_CostElementInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MCostElement(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -41,11 +46,16 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -68,11 +78,16 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	public void setCostElementTypeInput(I_AD_Ref_ListInput CostElementType) {
 		this.mCostElementType = CostElementType;
 		MRefList_BH foreignEntity;
-		if (CostElementType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(CostElementType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setCostElementType(foreignEntity.getValue());
+		if (CostElementType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CostElementType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCostElementType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CostElementType.getUUID());
+			}
 		} else {
 			this.setCostElementType(null);
 		}
@@ -97,11 +112,16 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	public void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
 		MRefList_BH foreignEntity;
-		if (CostingMethod != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(CostingMethod.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setCostingMethod(foreignEntity.getValue());
+		if (CostingMethod != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CostingMethod.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCostingMethod(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CostingMethod.getUUID());
+			}
 		} else {
 			this.setCostingMethod(null);
 		}
@@ -129,20 +149,20 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_CostElement_UU(ID);
+	public void setUUID(String UUID) {
+		setM_CostElement_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_CostElement_UU();
 	}
 }

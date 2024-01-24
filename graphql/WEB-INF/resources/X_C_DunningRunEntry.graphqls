@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_DunningRunEntrySave(entity: C_DunningRunEntryInput!): C_DunningRunEntry!
+	C_DunningRunEntrySaveMany(entities: [C_DunningRunEntryInput!]!): [C_DunningRunEntry!]!
 	C_DunningRunEntryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -33,7 +34,7 @@ type C_DunningRunEntry {
 	C_DunningLevel: C_DunningLevel!
 	# Dunning Run
 	C_DunningRun: C_DunningRun!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -70,7 +71,7 @@ input C_DunningRunEntryInput {
 	C_DunningLevel: ForeignEntityInput
 	# Dunning Run
 	C_DunningRun: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Optional additional user defined information

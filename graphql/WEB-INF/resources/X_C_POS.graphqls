@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_POSSave(entity: C_POSInput!): C_POS!
+	C_POSSaveMany(entities: [C_POSInput!]!): [C_POS!]!
 	C_POSDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type C_POS {
 	C_CashBook: C_CashBook
 	# Document type or rules
 	C_DocType: C_DocType
-	ID: ID!
+	UUID: ID!
 	# POS Function Key Layout
 	C_POSKeyLayout: C_POSKeyLayout
 	CashDrawer: String
@@ -79,7 +80,7 @@ input C_POSInput {
 	C_CashBook: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# POS Function Key Layout
 	C_POSKeyLayout: ForeignEntityInput
 	CashDrawer: String

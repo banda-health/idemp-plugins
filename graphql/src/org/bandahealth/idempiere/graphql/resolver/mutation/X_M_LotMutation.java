@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_LotInput;
 import org.compiere.model.MLot;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_Lot - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_LotMutation extends POMutation implements GraphQLMutationResolv
 		return X_M_LotInput.Table_Name;
 	}
 
-	public MLot M_LotSave(I_M_LotInput input, DataFetchingEnvironment environment) {
-		return (MLot) super.save((X_M_LotInput) input, environment);
+	public MLot M_LotSave(I_M_LotInput entity, DataFetchingEnvironment environment) {
+		return (MLot) super.save((X_M_LotInput) entity, environment);
+	}
+
+	public List<MLot> M_LotSaveMany(List<I_M_LotInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_LotInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MLot) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_LotDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_ObservationSave(entity: BH_ObservationInput!): BH_Observation!
+	BH_ObservationSaveMany(entities: [BH_ObservationInput!]!): [BH_Observation!]!
 	BH_ObservationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -23,7 +24,7 @@ type BH_Observation {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	BH_Encounter: BH_Encounter!
-	ID: ID!
+	UUID: ID!
 	# BH_Value
 	BH_Value: String!
 	# Date this record was created
@@ -44,7 +45,7 @@ input BH_ObservationInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	BH_Encounter: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# BH_Value
 	BH_Value: String
 	# The record is active in the system

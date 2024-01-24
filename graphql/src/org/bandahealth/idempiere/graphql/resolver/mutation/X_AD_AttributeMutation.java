@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_AttributeInput;
 import org.compiere.model.X_AD_Attribute;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Attribute - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_AttributeMutation extends POMutation implements GraphQLMutatio
 		return X_AD_AttributeInput.Table_Name;
 	}
 
-	public X_AD_Attribute AD_AttributeSave(I_AD_AttributeInput input, DataFetchingEnvironment environment) {
-		return (X_AD_Attribute) super.save((X_AD_AttributeInput) input, environment);
+	public X_AD_Attribute AD_AttributeSave(I_AD_AttributeInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_Attribute) super.save((X_AD_AttributeInput) entity, environment);
+	}
+
+	public List<X_AD_Attribute> AD_AttributeSaveMany(List<I_AD_AttributeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_AttributeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_Attribute) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_AttributeDelete(List<String> uuids, DataFetchingEnvironment environment) {

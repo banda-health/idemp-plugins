@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ZoomConditionSave(entity: AD_ZoomConditionInput!): AD_ZoomCondition!
+	AD_ZoomConditionSaveMany(entities: [AD_ZoomConditionInput!]!): [AD_ZoomCondition!]!
 	AD_ZoomConditionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type AD_ZoomCondition {
 	AD_Table: AD_Table!
 	# Data entry or display window
 	AD_Window: AD_Window!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,7 +57,7 @@ input AD_ZoomConditionInput {
 	AD_Table: ForeignEntityInput
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

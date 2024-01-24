@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ReplicationDocumentSave(entity: AD_ReplicationDocumentInput!): AD_ReplicationDocument!
+	AD_ReplicationDocumentSaveMany(entities: [AD_ReplicationDocumentInput!]!): [AD_ReplicationDocument!]!
 	AD_ReplicationDocumentDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_ReplicationDocument {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Data Replication Strategy
 	AD_ReplicationStrategy: AD_ReplicationStrategy!
 	# Database Table information
@@ -46,7 +47,7 @@ type AD_ReplicationDocument {
 input AD_ReplicationDocumentInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Data Replication Strategy
 	AD_ReplicationStrategy: ForeignEntityInput
 	# Database Table information

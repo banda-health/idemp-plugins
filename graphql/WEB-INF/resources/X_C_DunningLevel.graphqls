@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_DunningLevelSave(entity: C_DunningLevelInput!): C_DunningLevel!
+	C_DunningLevelSaveMany(entities: [C_DunningLevelInput!]!): [C_DunningLevel!]!
 	C_DunningLevelDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_DunningLevel {
 	AD_Org: AD_Org!
 	# Dunning Rules for overdue invoices
 	C_Dunning: C_Dunning!
-	ID: ID!
+	UUID: ID!
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: C_PaymentTerm
 	# Indicates if fees will be charged for overdue invoices
@@ -76,7 +77,7 @@ input C_DunningLevelInput {
 	AD_Org: ForeignEntityInput
 	# Dunning Rules for overdue invoices
 	C_Dunning: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: ForeignEntityInput
 	# Indicates if fees will be charged for overdue invoices

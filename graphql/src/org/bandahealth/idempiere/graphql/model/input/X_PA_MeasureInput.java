@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MHierarchy;
@@ -13,6 +14,7 @@ import org.compiere.model.MRequestType;
 import org.compiere.model.Query;
 import org.compiere.model.X_PA_Benchmark;
 import org.compiere.model.X_PA_Ratio;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -35,13 +37,16 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	private I_AD_Ref_ListInput mMeasureType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The PA_Measure_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_MeasureInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MMeasure(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_PA_MeasureInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MMeasure(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -53,11 +58,16 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -80,11 +90,16 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setC_ProjectTypeInput(ForeignEntityInput C_ProjectType) {
 		this.mC_ProjectType = C_ProjectType;
 		MProjectType foreignEntity;
-		if (C_ProjectType != null &&
-				(foreignEntity = new Query(getCtx(), "C_ProjectType", "C_ProjectType_UU=?", get_TrxName())
-						.setParameters(C_ProjectType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_ProjectType_ID(foreignEntity.get_ID());
+		if (C_ProjectType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ProjectType", "C_ProjectType_UU=?", get_TrxName())
+							.setParameters(C_ProjectType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_ProjectType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ProjectType with UUID " + C_ProjectType.getUUID());
+			}
 		} else {
 			super.setC_ProjectType_ID(0);
 		}
@@ -109,11 +124,16 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setMeasureDataTypeInput(I_AD_Ref_ListInput MeasureDataType) {
 		this.mMeasureDataType = MeasureDataType;
 		MRefList_BH foreignEntity;
-		if (MeasureDataType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(MeasureDataType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setMeasureDataType(foreignEntity.getValue());
+		if (MeasureDataType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(MeasureDataType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setMeasureDataType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + MeasureDataType.getUUID());
+			}
 		} else {
 			this.setMeasureDataType(null);
 		}
@@ -138,11 +158,16 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setMeasureTypeInput(I_AD_Ref_ListInput MeasureType) {
 		this.mMeasureType = MeasureType;
 		MRefList_BH foreignEntity;
-		if (MeasureType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(MeasureType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setMeasureType(foreignEntity.getValue());
+		if (MeasureType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(MeasureType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setMeasureType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + MeasureType.getUUID());
+			}
 		} else {
 			this.setMeasureType(null);
 		}
@@ -167,11 +192,16 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setPA_BenchmarkInput(ForeignEntityInput PA_Benchmark) {
 		this.mPA_Benchmark = PA_Benchmark;
 		X_PA_Benchmark foreignEntity;
-		if (PA_Benchmark != null &&
-				(foreignEntity = new Query(getCtx(), "PA_Benchmark", "PA_Benchmark_UU=?", get_TrxName())
-						.setParameters(PA_Benchmark.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPA_Benchmark_ID(foreignEntity.get_ID());
+		if (PA_Benchmark != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "PA_Benchmark", "PA_Benchmark_UU=?", get_TrxName())
+							.setParameters(PA_Benchmark.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPA_Benchmark_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PA_Benchmark with UUID " + PA_Benchmark.getUUID());
+			}
 		} else {
 			super.setPA_Benchmark_ID(0);
 		}
@@ -196,11 +226,16 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setPA_HierarchyInput(ForeignEntityInput PA_Hierarchy) {
 		this.mPA_Hierarchy = PA_Hierarchy;
 		MHierarchy foreignEntity;
-		if (PA_Hierarchy != null &&
-				(foreignEntity = new Query(getCtx(), "PA_Hierarchy", "PA_Hierarchy_UU=?", get_TrxName())
-						.setParameters(PA_Hierarchy.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPA_Hierarchy_ID(foreignEntity.get_ID());
+		if (PA_Hierarchy != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "PA_Hierarchy", "PA_Hierarchy_UU=?", get_TrxName())
+							.setParameters(PA_Hierarchy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPA_Hierarchy_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PA_Hierarchy with UUID " + PA_Hierarchy.getUUID());
+			}
 		} else {
 			super.setPA_Hierarchy_ID(0);
 		}
@@ -228,20 +263,20 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setPA_Measure_UU(ID);
+	public void setUUID(String UUID) {
+		setPA_Measure_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getPA_Measure_UU();
 	}
 
@@ -254,11 +289,16 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setPA_MeasureCalcInput(ForeignEntityInput PA_MeasureCalc) {
 		this.mPA_MeasureCalc = PA_MeasureCalc;
 		MMeasureCalc foreignEntity;
-		if (PA_MeasureCalc != null &&
-				(foreignEntity = new Query(getCtx(), "PA_MeasureCalc", "PA_MeasureCalc_UU=?", get_TrxName())
-						.setParameters(PA_MeasureCalc.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPA_MeasureCalc_ID(foreignEntity.get_ID());
+		if (PA_MeasureCalc != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "PA_MeasureCalc", "PA_MeasureCalc_UU=?", get_TrxName())
+							.setParameters(PA_MeasureCalc.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPA_MeasureCalc_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PA_MeasureCalc with UUID " + PA_MeasureCalc.getUUID());
+			}
 		} else {
 			super.setPA_MeasureCalc_ID(0);
 		}
@@ -283,11 +323,16 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setPA_RatioInput(ForeignEntityInput PA_Ratio) {
 		this.mPA_Ratio = PA_Ratio;
 		X_PA_Ratio foreignEntity;
-		if (PA_Ratio != null &&
-				(foreignEntity = new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
-						.setParameters(PA_Ratio.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPA_Ratio_ID(foreignEntity.get_ID());
+		if (PA_Ratio != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
+							.setParameters(PA_Ratio.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPA_Ratio_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PA_Ratio with UUID " + PA_Ratio.getUUID());
+			}
 		} else {
 			super.setPA_Ratio_ID(0);
 		}
@@ -312,11 +357,16 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	public void setR_RequestTypeInput(ForeignEntityInput R_RequestType) {
 		this.mR_RequestType = R_RequestType;
 		MRequestType foreignEntity;
-		if (R_RequestType != null &&
-				(foreignEntity = new Query(getCtx(), "R_RequestType", "R_RequestType_UU=?", get_TrxName())
-						.setParameters(R_RequestType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setR_RequestType_ID(foreignEntity.get_ID());
+		if (R_RequestType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_RequestType", "R_RequestType_UU=?", get_TrxName())
+							.setParameters(R_RequestType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setR_RequestType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_RequestType with UUID " + R_RequestType.getUUID());
+			}
 		} else {
 			super.setR_RequestType_ID(0);
 		}

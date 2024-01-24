@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_RegistrationSave(entity: A_RegistrationInput!): A_Registration!
+	A_RegistrationSaveMany(entities: [A_RegistrationInput!]!): [A_Registration!]!
 	A_RegistrationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type A_RegistrationConnection {
 type A_Registration {
 	# Asset used internally or by customers
 	A_Asset: A_Asset
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -65,7 +66,7 @@ type A_Registration {
 input A_RegistrationInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

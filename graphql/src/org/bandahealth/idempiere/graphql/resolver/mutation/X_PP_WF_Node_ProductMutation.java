@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_PP_WF_Node_ProductInput;
 import org.eevolution.model.X_PP_WF_Node_Product;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for PP_WF_Node_Product - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_PP_WF_Node_ProductMutation extends POMutation implements GraphQLM
 		return X_PP_WF_Node_ProductInput.Table_Name;
 	}
 
-	public X_PP_WF_Node_Product PP_WF_Node_ProductSave(I_PP_WF_Node_ProductInput input, DataFetchingEnvironment environment) {
-		return (X_PP_WF_Node_Product) super.save((X_PP_WF_Node_ProductInput) input, environment);
+	public X_PP_WF_Node_Product PP_WF_Node_ProductSave(I_PP_WF_Node_ProductInput entity, DataFetchingEnvironment environment) {
+		return (X_PP_WF_Node_Product) super.save((X_PP_WF_Node_ProductInput) entity, environment);
+	}
+
+	public List<X_PP_WF_Node_Product> PP_WF_Node_ProductSaveMany(List<I_PP_WF_Node_ProductInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_PP_WF_Node_ProductInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_PP_WF_Node_Product) entity).collect(Collectors.toList());
 	}
 
 	public boolean PP_WF_Node_ProductDelete(List<String> uuids, DataFetchingEnvironment environment) {

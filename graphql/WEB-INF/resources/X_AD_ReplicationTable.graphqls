@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ReplicationTableSave(entity: AD_ReplicationTableInput!): AD_ReplicationTable!
+	AD_ReplicationTableSaveMany(entities: [AD_ReplicationTableInput!]!): [AD_ReplicationTable!]!
 	AD_ReplicationTableDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_ReplicationTable {
 	AD_Org: AD_Org!
 	# Data Replication Strategy
 	AD_ReplicationStrategy: AD_ReplicationStrategy!
-	ID: ID!
+	UUID: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Date this record was created
@@ -48,7 +49,7 @@ input AD_ReplicationTableInput {
 	AD_Org: ForeignEntityInput
 	# Data Replication Strategy
 	AD_ReplicationStrategy: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Optional short description of the record

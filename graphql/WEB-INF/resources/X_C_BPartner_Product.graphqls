@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BPartner_ProductSave(entity: C_BPartner_ProductInput!): C_BPartner_Product!
+	C_BPartner_ProductSaveMany(entities: [C_BPartner_ProductInput!]!): [C_BPartner_Product!]!
 	C_BPartner_ProductDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_BPartner_Product {
 	AD_Org: AD_Org!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,7 +59,7 @@ input C_BPartner_ProductInput {
 	AD_Org: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

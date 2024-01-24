@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Depreciation_WorkfileSave(entity: A_Depreciation_WorkfileInput!): A_Depreciation_Workfile!
+	A_Depreciation_WorkfileSaveMany(entities: [A_Depreciation_WorkfileInput!]!): [A_Depreciation_Workfile!]!
 	A_Depreciation_WorkfileDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type A_Depreciation_Workfile {
 	A_Calc_Accumulated_Depr: BigDecimal
 	A_Curr_Dep_Exp: BigDecimal!
 	A_Current_Period: Int
-	ID: ID!
+	UUID: ID!
 	A_Expense_SL: BigDecimal
 	A_Expense_SL_F: BigDecimal
 	A_FundingMode: A_FundingMode
@@ -99,7 +100,7 @@ input A_Depreciation_WorkfileInput {
 	A_Calc_Accumulated_Depr: BigDecimal
 	A_Curr_Dep_Exp: BigDecimal
 	A_Current_Period: Int
-	ID: ID
+	UUID: ID
 	A_FundingMode: ForeignEntityInput
 	A_Life_Period: Int
 	A_Life_Period_F: Int

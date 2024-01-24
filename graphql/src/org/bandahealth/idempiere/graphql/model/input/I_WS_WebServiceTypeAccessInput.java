@@ -53,16 +53,16 @@ public interface I_WS_WebServiceTypeAccessInput extends I_WS_WebServiceTypeAcces
 	ForeignEntityInput WS_WebServiceType();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 }

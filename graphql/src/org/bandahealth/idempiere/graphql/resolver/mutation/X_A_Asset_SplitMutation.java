@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_A_Asset_SplitInput;
 import org.compiere.model.X_A_Asset_Split;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for A_Asset_Split - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_A_Asset_SplitMutation extends POMutation implements GraphQLMutati
 		return X_A_Asset_SplitInput.Table_Name;
 	}
 
-	public X_A_Asset_Split A_Asset_SplitSave(I_A_Asset_SplitInput input, DataFetchingEnvironment environment) {
-		return (X_A_Asset_Split) super.save((X_A_Asset_SplitInput) input, environment);
+	public X_A_Asset_Split A_Asset_SplitSave(I_A_Asset_SplitInput entity, DataFetchingEnvironment environment) {
+		return (X_A_Asset_Split) super.save((X_A_Asset_SplitInput) entity, environment);
+	}
+
+	public List<X_A_Asset_Split> A_Asset_SplitSaveMany(List<I_A_Asset_SplitInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_SplitInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_A_Asset_Split) entity).collect(Collectors.toList());
 	}
 
 	public boolean A_Asset_SplitDelete(List<String> uuids, DataFetchingEnvironment environment) {

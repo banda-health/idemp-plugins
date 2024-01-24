@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MInventoryLineInput extends X_M_InventoryLineInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_InventoryLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInventoryLineInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MInventoryLineInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

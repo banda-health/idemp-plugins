@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ForecastLineSave(entity: M_ForecastLineInput!): M_ForecastLine!
+	M_ForecastLineSaveMany(entities: [M_ForecastLineInput!]!): [M_ForecastLine!]!
 	M_ForecastLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type M_ForecastLine {
 	IsActive: Boolean!
 	# Material Forecast
 	M_Forecast: M_Forecast!
-	ID: ID!
+	UUID: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Storage Warehouse and Service Point
@@ -60,7 +61,7 @@ input M_ForecastLineInput {
 	IsActive: Boolean
 	# Material Forecast
 	M_Forecast: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Storage Warehouse and Service Point

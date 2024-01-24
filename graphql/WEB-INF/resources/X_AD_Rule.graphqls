@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_RuleSave(entity: AD_RuleInput!): AD_Rule!
+	AD_RuleSaveMany(entities: [AD_RuleInput!]!): [AD_Rule!]!
 	AD_RuleDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Rule {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -55,7 +56,7 @@ input AD_RuleInput {
 	AccessLevel: AD_Ref_ListInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

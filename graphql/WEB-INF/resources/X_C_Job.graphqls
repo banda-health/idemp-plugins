@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_JobSave(entity: C_JobInput!): C_Job!
+	C_JobSaveMany(entities: [C_JobInput!]!): [C_Job!]!
 	C_JobDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_Job {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Job Position Category
 	C_JobCategory: C_JobCategory!
 	# Date this record was created
@@ -46,7 +47,7 @@ type C_Job {
 input C_JobInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Job Position Category
 	C_JobCategory: ForeignEntityInput
 	# Optional short description of the record

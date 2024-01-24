@@ -53,16 +53,16 @@ public interface I_PA_SLA_MeasureInput extends I_PA_SLA_Measure {
 	ForeignEntityInput PA_SLA_Goal();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 }

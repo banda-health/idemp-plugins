@@ -7,11 +7,15 @@ import org.bandahealth.idempiere.graphql.model.input.I_M_ProductInput;
 import org.bandahealth.idempiere.graphql.model.input.X_M_ProductInput;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.MProductUtil;
+import org.compiere.model.MUOM;
 import org.compiere.model.PO;
+
+import java.util.Properties;
 
 public class MProductMutation extends X_M_ProductMutation {
 	@Override
 	public MProduct_BH M_ProductSave(I_M_ProductInput input, DataFetchingEnvironment environment) {
+		Properties idempiereProperties = BandaGraphQLContext.getCtx(environment);
 		// If the product is existing and it already has a PO, make sure the purchase price can't be overridden
 		if (input.getM_Product_ID() != 0 &&
 				!MProductUtil.getProductIdsWithNoFinishedPurchaseOrders().contains(input.getM_Product_ID())) {

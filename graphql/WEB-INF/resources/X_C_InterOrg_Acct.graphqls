@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_InterOrg_AcctSave(entity: C_InterOrg_AcctInput!): C_InterOrg_Acct!
+	C_InterOrg_AcctSaveMany(entities: [C_InterOrg_AcctInput!]!): [C_InterOrg_Acct!]!
 	C_InterOrg_AcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_InterOrg_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,7 +45,7 @@ input C_InterOrg_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Intercompany Due From / Receivables Account
 	IntercompanyDueFrom_A: ForeignEntityInput
 	# Intercompany Due To / Payable Account

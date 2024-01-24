@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_StorageProviderSave(entity: AD_StorageProviderInput!): AD_StorageProvider!
+	AD_StorageProviderSaveMany(entities: [AD_StorageProviderInput!]!): [AD_StorageProvider!]!
 	AD_StorageProviderDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_StorageProvider {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,7 +47,7 @@ type AD_StorageProvider {
 input AD_StorageProviderInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# A folder on a local or remote system to store data into
 	Folder: String
 	# The record is active in the system

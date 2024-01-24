@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	T_1099ExtractSave(entity: T_1099ExtractInput!): T_1099Extract!
+	T_1099ExtractSaveMany(entities: [T_1099ExtractInput!]!): [T_1099Extract!]!
 	T_1099ExtractDelete(uuids: [String!]!): Boolean!
 }
 
@@ -52,7 +53,7 @@ type T_1099Extract {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	# Tax Identification
 	TaxID: String
 	# Date this record was updated
@@ -94,7 +95,7 @@ input T_1099ExtractInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 	# Tax Identification
 	TaxID: String
 	# Search key for the record in the format required - must be unique

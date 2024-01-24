@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	WS_WebServiceTypeSave(entity: WS_WebServiceTypeInput!): WS_WebServiceType!
+	WS_WebServiceTypeSaveMany(entities: [WS_WebServiceTypeInput!]!): [WS_WebServiceType!]!
 	WS_WebServiceTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -43,7 +44,7 @@ type WS_WebServiceType {
 	Value: String!
 	WS_WebService: WS_WebService!
 	WS_WebServiceMethod: WS_WebServiceMethod!
-	ID: ID!
+	UUID: ID!
 }
 
 input WS_WebServiceTypeInput {
@@ -64,5 +65,5 @@ input WS_WebServiceTypeInput {
 	Value: String
 	WS_WebService: ForeignEntityInput
 	WS_WebServiceMethod: ForeignEntityInput
-	ID: ID
+	UUID: ID
 }

@@ -11,20 +11,11 @@ import java.util.List;
 /**
  * The authentication response returned from the methods that are for signing in.
  */
-public class AuthenticationResponse {
-	private String token;
+public class AuthenticationResponse extends ChangeAccessResponse {
 	private MUser_BH user;
 	private List<MClient_BH> AD_Clients = new ArrayList<>();
 	private X_AD_Role AD_Role;
 	private List<String> securityQuestions;
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 	public MUser_BH getUser() {
 		return user;

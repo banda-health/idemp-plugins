@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MDashboardContentInput extends X_PA_DashboardContentInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The PA_DashboardContent_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDashboardContentInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MDashboardContentInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

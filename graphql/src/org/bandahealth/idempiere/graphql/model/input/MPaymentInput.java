@@ -7,12 +7,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(value = {"C_DocType_ID"})
 public class MPaymentInput extends X_C_PaymentInput {
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param ID
+	 * @param UUID The C_Payment_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPaymentInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MPaymentInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

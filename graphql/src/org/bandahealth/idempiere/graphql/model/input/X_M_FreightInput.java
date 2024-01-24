@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCountry;
@@ -11,6 +12,7 @@ import org.compiere.model.MRegion;
 import org.compiere.model.MShipper;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_Freight;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -31,13 +33,16 @@ public class X_M_FreightInput extends X_M_Freight implements I_M_FreightInput {
 	private ForeignEntityInput mTo_Region;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_Freight_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_FreightInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_M_Freight(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_FreightInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_Freight(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -49,11 +54,16 @@ public class X_M_FreightInput extends X_M_Freight implements I_M_FreightInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -76,11 +86,16 @@ public class X_M_FreightInput extends X_M_Freight implements I_M_FreightInput {
 	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
 		MCountry foreignEntity;
-		if (C_Country != null &&
-				(foreignEntity = new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-						.setParameters(C_Country.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Country_ID(foreignEntity.get_ID());
+		if (C_Country != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
+							.setParameters(C_Country.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Country_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Country with UUID " + C_Country.getUUID());
+			}
 		} else {
 			super.setC_Country_ID(0);
 		}
@@ -105,11 +120,16 @@ public class X_M_FreightInput extends X_M_Freight implements I_M_FreightInput {
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
-		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-						.setParameters(C_Currency.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Currency_ID(foreignEntity.get_ID());
+		if (C_Currency != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Currency_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+			}
 		} else {
 			super.setC_Currency_ID(0);
 		}
@@ -134,11 +154,16 @@ public class X_M_FreightInput extends X_M_Freight implements I_M_FreightInput {
 	public void setC_RegionInput(ForeignEntityInput C_Region) {
 		this.mC_Region = C_Region;
 		MRegion foreignEntity;
-		if (C_Region != null &&
-				(foreignEntity = new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-						.setParameters(C_Region.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Region_ID(foreignEntity.get_ID());
+		if (C_Region != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
+							.setParameters(C_Region.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Region_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Region with UUID " + C_Region.getUUID());
+			}
 		} else {
 			super.setC_Region_ID(0);
 		}
@@ -166,20 +191,20 @@ public class X_M_FreightInput extends X_M_Freight implements I_M_FreightInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_Freight_UU(ID);
+	public void setUUID(String UUID) {
+		setM_Freight_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_Freight_UU();
 	}
 
@@ -192,11 +217,16 @@ public class X_M_FreightInput extends X_M_Freight implements I_M_FreightInput {
 	public void setM_FreightCategoryInput(ForeignEntityInput M_FreightCategory) {
 		this.mM_FreightCategory = M_FreightCategory;
 		MFreightCategory foreignEntity;
-		if (M_FreightCategory != null &&
-				(foreignEntity = new Query(getCtx(), "M_FreightCategory", "M_FreightCategory_UU=?", get_TrxName())
-						.setParameters(M_FreightCategory.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_FreightCategory_ID(foreignEntity.get_ID());
+		if (M_FreightCategory != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_FreightCategory", "M_FreightCategory_UU=?", get_TrxName())
+							.setParameters(M_FreightCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_FreightCategory_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_FreightCategory with UUID " + M_FreightCategory.getUUID());
+			}
 		} else {
 			super.setM_FreightCategory_ID(0);
 		}
@@ -221,11 +251,16 @@ public class X_M_FreightInput extends X_M_Freight implements I_M_FreightInput {
 	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
 		MShipper foreignEntity;
-		if (get_ID() == 0 && M_Shipper != null &&
-				(foreignEntity = new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
-						.setParameters(M_Shipper.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Shipper_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_Shipper != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
+							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Shipper_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Shipper with UUID " + M_Shipper.getUUID());
+			}
 		}
 	}
 
@@ -248,11 +283,16 @@ public class X_M_FreightInput extends X_M_Freight implements I_M_FreightInput {
 	public void setTo_RegionInput(ForeignEntityInput To_Region) {
 		this.mTo_Region = To_Region;
 		MRegion foreignEntity;
-		if (To_Region != null &&
-				(foreignEntity = new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-						.setParameters(To_Region.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setTo_Region_ID(foreignEntity.get_ID());
+		if (To_Region != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
+							.setParameters(To_Region.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setTo_Region_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Region with UUID " + To_Region.getUUID());
+			}
 		} else {
 			super.setTo_Region_ID(0);
 		}

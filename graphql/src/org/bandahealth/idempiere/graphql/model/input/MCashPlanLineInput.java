@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MCashPlanLineInput extends X_C_CashPlanLineInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_CashPlanLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCashPlanLineInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MCashPlanLineInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

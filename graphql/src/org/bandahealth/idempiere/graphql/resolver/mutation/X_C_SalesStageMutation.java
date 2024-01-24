@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_SalesStageInput;
 import org.compiere.model.X_C_SalesStage;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_SalesStage - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_SalesStageMutation extends POMutation implements GraphQLMutatio
 		return X_C_SalesStageInput.Table_Name;
 	}
 
-	public X_C_SalesStage C_SalesStageSave(I_C_SalesStageInput input, DataFetchingEnvironment environment) {
-		return (X_C_SalesStage) super.save((X_C_SalesStageInput) input, environment);
+	public X_C_SalesStage C_SalesStageSave(I_C_SalesStageInput entity, DataFetchingEnvironment environment) {
+		return (X_C_SalesStage) super.save((X_C_SalesStageInput) entity, environment);
+	}
+
+	public List<X_C_SalesStage> C_SalesStageSaveMany(List<I_C_SalesStageInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_SalesStageInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_C_SalesStage) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_SalesStageDelete(List<String> uuids, DataFetchingEnvironment environment) {

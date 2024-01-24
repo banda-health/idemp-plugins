@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MQualityTestInput extends X_M_QualityTestInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_QualityTest_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MQualityTestInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MQualityTestInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

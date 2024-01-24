@@ -2,12 +2,14 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_M_Promotion;
 import org.compiere.model.X_M_PromotionGroup;
 import org.compiere.model.X_M_PromotionLine;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -24,13 +26,16 @@ public class X_M_PromotionLineInput extends X_M_PromotionLine implements I_M_Pro
 	private ForeignEntityInput mM_PromotionGroup;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_PromotionLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_PromotionLineInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_M_PromotionLine(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_PromotionLineInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_PromotionLine(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -42,11 +47,16 @@ public class X_M_PromotionLineInput extends X_M_PromotionLine implements I_M_Pro
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -69,11 +79,16 @@ public class X_M_PromotionLineInput extends X_M_PromotionLine implements I_M_Pro
 	public void setM_PromotionInput(ForeignEntityInput M_Promotion) {
 		this.mM_Promotion = M_Promotion;
 		X_M_Promotion foreignEntity;
-		if (get_ID() == 0 && M_Promotion != null &&
-				(foreignEntity = new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
-						.setParameters(M_Promotion.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Promotion_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_Promotion != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
+							.setParameters(M_Promotion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Promotion_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Promotion with UUID " + M_Promotion.getUUID());
+			}
 		}
 	}
 
@@ -96,11 +111,16 @@ public class X_M_PromotionLineInput extends X_M_PromotionLine implements I_M_Pro
 	public void setM_PromotionGroupInput(ForeignEntityInput M_PromotionGroup) {
 		this.mM_PromotionGroup = M_PromotionGroup;
 		X_M_PromotionGroup foreignEntity;
-		if (M_PromotionGroup != null &&
-				(foreignEntity = new Query(getCtx(), "M_PromotionGroup", "M_PromotionGroup_UU=?", get_TrxName())
-						.setParameters(M_PromotionGroup.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_PromotionGroup_ID(foreignEntity.get_ID());
+		if (M_PromotionGroup != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PromotionGroup", "M_PromotionGroup_UU=?", get_TrxName())
+							.setParameters(M_PromotionGroup.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_PromotionGroup_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PromotionGroup with UUID " + M_PromotionGroup.getUUID());
+			}
 		} else {
 			super.setM_PromotionGroup_ID(0);
 		}
@@ -128,20 +148,20 @@ public class X_M_PromotionLineInput extends X_M_PromotionLine implements I_M_Pro
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_PromotionLine_UU(ID);
+	public void setUUID(String UUID) {
+		setM_PromotionLine_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_PromotionLine_UU();
 	}
 }

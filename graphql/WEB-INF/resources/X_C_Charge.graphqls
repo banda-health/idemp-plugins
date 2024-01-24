@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_ChargeSave(entity: C_ChargeInput!): C_Charge!
+	C_ChargeSaveMany(entities: [C_ChargeInput!]!): [C_Charge!]!
 	C_ChargeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type C_Charge {
 	BH_SubType: AD_Ref_List
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
-	ID: ID!
+	UUID: ID!
 	C_ChargeType: C_ChargeType
 	# Tax Category
 	C_TaxCategory: C_TaxCategory!
@@ -62,7 +63,7 @@ input C_ChargeInput {
 	BH_SubType: AD_Ref_ListInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	C_ChargeType: ForeignEntityInput
 	# Tax Category
 	C_TaxCategory: ForeignEntityInput

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_PaymentBatchSave(entity: C_PaymentBatchInput!): C_PaymentBatch!
+	C_PaymentBatchSaveMany(entities: [C_PaymentBatchInput!]!): [C_PaymentBatch!]!
 	C_PaymentBatchDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_PaymentBatch {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Payment processor for electronic payments
 	C_PaymentProcessor: C_PaymentProcessor!
 	# Date this record was created
@@ -46,7 +47,7 @@ type C_PaymentBatch {
 input C_PaymentBatchInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Payment processor for electronic payments
 	C_PaymentProcessor: ForeignEntityInput
 	# Document sequence number of the document

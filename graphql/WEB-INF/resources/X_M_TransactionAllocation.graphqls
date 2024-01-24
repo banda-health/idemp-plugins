@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_TransactionAllocationSave(entity: M_TransactionAllocationInput!): M_TransactionAllocation!
+	M_TransactionAllocationSaveMany(entities: [M_TransactionAllocationInput!]!): [M_TransactionAllocation!]!
 	M_TransactionAllocationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -43,7 +44,7 @@ type M_TransactionAllocation {
 	# Document Line representing a production
 	M_ProductionLine: M_ProductionLine
 	M_Transaction: M_Transaction!
-	ID: ID!
+	UUID: ID!
 	# Outgoing Shipment/Receipt
 	Out_M_InOutLine: M_InOutLine
 	# Outgoing Inventory Line
@@ -82,7 +83,7 @@ input M_TransactionAllocationInput {
 	# Document Line representing a production
 	M_ProductionLine: ForeignEntityInput
 	M_Transaction: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Outgoing Shipment/Receipt
 	Out_M_InOutLine: ForeignEntityInput
 	# Outgoing Inventory Line

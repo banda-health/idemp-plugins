@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	T_ReportSave(entity: T_ReportInput!): T_Report!
+	T_ReportSaveMany(entities: [T_ReportInput!]!): [T_Report!]!
 	T_ReportDelete(uuids: [String!]!): Boolean!
 }
 
@@ -60,7 +61,7 @@ type T_Report {
 	Record_ID: Int!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
-	ID: ID!
+	UUID: ID!
 }
 
 input T_ReportInput {
@@ -108,5 +109,5 @@ input T_ReportInput {
 	Record_ID: Int
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
-	ID: ID
+	UUID: ID
 }

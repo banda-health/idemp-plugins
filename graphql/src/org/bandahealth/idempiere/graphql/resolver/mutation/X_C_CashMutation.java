@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_CashInput;
 import org.compiere.model.MCash;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_Cash - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_CashMutation extends POMutation implements GraphQLMutationResol
 		return X_C_CashInput.Table_Name;
 	}
 
-	public MCash C_CashSave(I_C_CashInput input, DataFetchingEnvironment environment) {
-		return (MCash) super.save((X_C_CashInput) input, environment);
+	public MCash C_CashSave(I_C_CashInput entity, DataFetchingEnvironment environment) {
+		return (MCash) super.save((X_C_CashInput) entity, environment);
+	}
+
+	public List<MCash> C_CashSaveMany(List<I_C_CashInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_CashInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MCash) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_CashDelete(List<String> uuids, DataFetchingEnvironment environment) {

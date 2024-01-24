@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_RecurringSave(entity: C_RecurringInput!): C_Recurring!
+	C_RecurringSaveMany(entities: [C_RecurringInput!]!): [C_Recurring!]!
 	C_RecurringDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type C_Recurring {
 	C_Payment: C_Payment
 	# Financial Project
 	C_Project: C_Project
-	ID: ID!
+	UUID: ID!
 	C_RecurringGroup: C_RecurringGroup
 	# Date this record was created
 	Created: Date!
@@ -76,7 +77,7 @@ input C_RecurringInput {
 	C_Payment: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	C_RecurringGroup: ForeignEntityInput
 	# Date the process was last run.
 	DateLastRun: Date

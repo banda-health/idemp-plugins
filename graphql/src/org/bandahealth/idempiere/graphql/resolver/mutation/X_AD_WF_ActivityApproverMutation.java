@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_WF_ActivityApproverInp
 import org.compiere.model.MWFActivityApprover;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_WF_ActivityApprover - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_WF_ActivityApproverMutation extends POMutation implements Grap
 		return X_AD_WF_ActivityApproverInput.Table_Name;
 	}
 
-	public MWFActivityApprover AD_WF_ActivityApproverSave(I_AD_WF_ActivityApproverInput input, DataFetchingEnvironment environment) {
-		return (MWFActivityApprover) super.save((X_AD_WF_ActivityApproverInput) input, environment);
+	public MWFActivityApprover AD_WF_ActivityApproverSave(I_AD_WF_ActivityApproverInput entity, DataFetchingEnvironment environment) {
+		return (MWFActivityApprover) super.save((X_AD_WF_ActivityApproverInput) entity, environment);
+	}
+
+	public List<MWFActivityApprover> AD_WF_ActivityApproverSaveMany(List<I_AD_WF_ActivityApproverInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_WF_ActivityApproverInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MWFActivityApprover) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_WF_ActivityApproverDelete(List<String> uuids, DataFetchingEnvironment environment) {

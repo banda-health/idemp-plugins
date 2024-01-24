@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_HR_MovementInput;
 import org.eevolution.model.X_HR_Movement;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for HR_Movement - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_HR_MovementMutation extends POMutation implements GraphQLMutation
 		return X_HR_MovementInput.Table_Name;
 	}
 
-	public X_HR_Movement HR_MovementSave(I_HR_MovementInput input, DataFetchingEnvironment environment) {
-		return (X_HR_Movement) super.save((X_HR_MovementInput) input, environment);
+	public X_HR_Movement HR_MovementSave(I_HR_MovementInput entity, DataFetchingEnvironment environment) {
+		return (X_HR_Movement) super.save((X_HR_MovementInput) entity, environment);
+	}
+
+	public List<X_HR_Movement> HR_MovementSaveMany(List<I_HR_MovementInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_HR_MovementInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_HR_Movement) entity).collect(Collectors.toList());
 	}
 
 	public boolean HR_MovementDelete(List<String> uuids, DataFetchingEnvironment environment) {

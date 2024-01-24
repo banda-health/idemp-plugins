@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_AllocationHdrInput;
 import org.compiere.model.MAllocationHdr;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_AllocationHdr - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_AllocationHdrMutation extends POMutation implements GraphQLMuta
 		return X_C_AllocationHdrInput.Table_Name;
 	}
 
-	public MAllocationHdr C_AllocationHdrSave(I_C_AllocationHdrInput input, DataFetchingEnvironment environment) {
-		return (MAllocationHdr) super.save((X_C_AllocationHdrInput) input, environment);
+	public MAllocationHdr C_AllocationHdrSave(I_C_AllocationHdrInput entity, DataFetchingEnvironment environment) {
+		return (MAllocationHdr) super.save((X_C_AllocationHdrInput) entity, environment);
+	}
+
+	public List<MAllocationHdr> C_AllocationHdrSaveMany(List<I_C_AllocationHdrInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_AllocationHdrInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAllocationHdr) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_AllocationHdrDelete(List<String> uuids, DataFetchingEnvironment environment) {

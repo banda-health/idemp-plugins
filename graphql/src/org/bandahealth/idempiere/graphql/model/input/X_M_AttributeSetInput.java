@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
@@ -9,6 +10,7 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLotCtl;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -27,13 +29,16 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	private I_AD_Ref_ListInput mMandatoryType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_AttributeSet_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_AttributeSetInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MAttributeSet_BH(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_AttributeSetInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAttributeSet_BH(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -45,11 +50,16 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -83,11 +93,16 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	public void setM_AttributeSet_TypeInput(I_AD_Ref_ListInput M_AttributeSet_Type) {
 		this.mM_AttributeSet_Type = M_AttributeSet_Type;
 		MRefList_BH foreignEntity;
-		if (M_AttributeSet_Type != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(M_AttributeSet_Type.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setM_AttributeSet_Type(foreignEntity.getValue());
+		if (M_AttributeSet_Type != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(M_AttributeSet_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_AttributeSet_Type(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + M_AttributeSet_Type.getUUID());
+			}
 		} else {
 			this.setM_AttributeSet_Type(null);
 		}
@@ -104,20 +119,20 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_AttributeSet_UU(ID);
+	public void setUUID(String UUID) {
+		setM_AttributeSet_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_AttributeSet_UU();
 	}
 
@@ -130,11 +145,16 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	public void setM_LotCtlInput(ForeignEntityInput M_LotCtl) {
 		this.mM_LotCtl = M_LotCtl;
 		MLotCtl foreignEntity;
-		if (M_LotCtl != null &&
-				(foreignEntity = new Query(getCtx(), "M_LotCtl", "M_LotCtl_UU=?", get_TrxName())
-						.setParameters(M_LotCtl.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_LotCtl_ID(foreignEntity.get_ID());
+		if (M_LotCtl != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_LotCtl", "M_LotCtl_UU=?", get_TrxName())
+							.setParameters(M_LotCtl.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_LotCtl_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_LotCtl with UUID " + M_LotCtl.getUUID());
+			}
 		} else {
 			super.setM_LotCtl_ID(0);
 		}
@@ -159,11 +179,16 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	public void setM_SerNoCtlInput(ForeignEntityInput M_SerNoCtl) {
 		this.mM_SerNoCtl = M_SerNoCtl;
 		MSerNoCtl_BH foreignEntity;
-		if (M_SerNoCtl != null &&
-				(foreignEntity = new Query(getCtx(), "M_SerNoCtl", "M_SerNoCtl_UU=?", get_TrxName())
-						.setParameters(M_SerNoCtl.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_SerNoCtl_ID(foreignEntity.get_ID());
+		if (M_SerNoCtl != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_SerNoCtl", "M_SerNoCtl_UU=?", get_TrxName())
+							.setParameters(M_SerNoCtl.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_SerNoCtl_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_SerNoCtl with UUID " + M_SerNoCtl.getUUID());
+			}
 		} else {
 			super.setM_SerNoCtl_ID(0);
 		}
@@ -188,11 +213,16 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	public void setMandatoryTypeInput(I_AD_Ref_ListInput MandatoryType) {
 		this.mMandatoryType = MandatoryType;
 		MRefList_BH foreignEntity;
-		if (MandatoryType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(MandatoryType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setMandatoryType(foreignEntity.getValue());
+		if (MandatoryType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(MandatoryType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setMandatoryType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + MandatoryType.getUUID());
+			}
 		} else {
 			this.setMandatoryType(null);
 		}

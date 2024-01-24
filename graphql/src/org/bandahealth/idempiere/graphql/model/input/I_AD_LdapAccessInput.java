@@ -11,18 +11,18 @@ import org.compiere.model.I_AD_LdapAccess;
 public interface I_AD_LdapAccessInput extends I_AD_LdapAccess {
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set AD_LdapProcessor.

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_AcctSchemaSave(entity: C_AcctSchemaInput!): C_AcctSchema!
+	C_AcctSchemaSaveMany(entities: [C_AcctSchemaInput!]!): [C_AcctSchema!]!
 	C_AcctSchemaDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_AcctSchema {
 	AD_Org: AD_Org!
 	# If selected, the periods are automatically opened and closed
 	AutoPeriodControl: Boolean!
-	ID: ID!
+	UUID: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Period of the Calendar
@@ -87,7 +88,7 @@ input C_AcctSchemaInput {
 	AD_Org: ForeignEntityInput
 	# If selected, the periods are automatically opened and closed
 	AutoPeriodControl: Boolean
-	ID: ID
+	UUID: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Period of the Calendar

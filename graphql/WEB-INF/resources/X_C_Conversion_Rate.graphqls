@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_Conversion_RateSave(entity: C_Conversion_RateInput!): C_Conversion_Rate!
+	C_Conversion_RateSaveMany(entities: [C_Conversion_RateInput!]!): [C_Conversion_Rate!]!
 	C_Conversion_RateDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_Conversion_Rate {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Currency Conversion Rate Type
 	C_ConversionType: C_ConversionType!
 	# The Currency for this record
@@ -50,7 +51,7 @@ type C_Conversion_Rate {
 input C_Conversion_RateInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Currency Conversion Rate Type
 	C_ConversionType: ForeignEntityInput
 	# The Currency for this record

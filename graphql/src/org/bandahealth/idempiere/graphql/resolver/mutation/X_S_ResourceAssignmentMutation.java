@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_S_ResourceAssignmentInput
 import org.compiere.model.MResourceAssignment;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for S_ResourceAssignment - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_S_ResourceAssignmentMutation extends POMutation implements GraphQ
 		return X_S_ResourceAssignmentInput.Table_Name;
 	}
 
-	public MResourceAssignment S_ResourceAssignmentSave(I_S_ResourceAssignmentInput input, DataFetchingEnvironment environment) {
-		return (MResourceAssignment) super.save((X_S_ResourceAssignmentInput) input, environment);
+	public MResourceAssignment S_ResourceAssignmentSave(I_S_ResourceAssignmentInput entity, DataFetchingEnvironment environment) {
+		return (MResourceAssignment) super.save((X_S_ResourceAssignmentInput) entity, environment);
+	}
+
+	public List<MResourceAssignment> S_ResourceAssignmentSaveMany(List<I_S_ResourceAssignmentInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_S_ResourceAssignmentInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MResourceAssignment) entity).collect(Collectors.toList());
 	}
 
 	public boolean S_ResourceAssignmentDelete(List<String> uuids, DataFetchingEnvironment environment) {

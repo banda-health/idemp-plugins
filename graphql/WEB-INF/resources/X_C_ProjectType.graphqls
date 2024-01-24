@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_ProjectTypeSave(entity: C_ProjectTypeInput!): C_ProjectType!
+	C_ProjectTypeSaveMany(entities: [C_ProjectTypeInput!]!): [C_ProjectType!]!
 	C_ProjectTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_ProjectType {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,7 +45,7 @@ type C_ProjectType {
 input C_ProjectTypeInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

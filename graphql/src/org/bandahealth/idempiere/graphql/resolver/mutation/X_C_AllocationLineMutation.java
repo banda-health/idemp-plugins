@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_AllocationLineInput;
 import org.compiere.model.MAllocationLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_AllocationLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_AllocationLineMutation extends POMutation implements GraphQLMut
 		return X_C_AllocationLineInput.Table_Name;
 	}
 
-	public MAllocationLine C_AllocationLineSave(I_C_AllocationLineInput input, DataFetchingEnvironment environment) {
-		return (MAllocationLine) super.save((X_C_AllocationLineInput) input, environment);
+	public MAllocationLine C_AllocationLineSave(I_C_AllocationLineInput entity, DataFetchingEnvironment environment) {
+		return (MAllocationLine) super.save((X_C_AllocationLineInput) entity, environment);
+	}
+
+	public List<MAllocationLine> C_AllocationLineSaveMany(List<I_C_AllocationLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_AllocationLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAllocationLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_AllocationLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

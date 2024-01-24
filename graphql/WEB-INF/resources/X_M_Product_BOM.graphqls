@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_Product_BOMSave(entity: M_Product_BOMInput!): M_Product_BOM!
+	M_Product_BOMSaveMany(entities: [M_Product_BOMInput!]!): [M_Product_BOM!]!
 	M_Product_BOMDelete(uuids: [String!]!): Boolean!
 }
 
@@ -41,7 +42,7 @@ type M_Product_BOM {
 	# Unique line for this document
 	Line: Int!
 	M_PartType: M_PartType
-	ID: ID!
+	UUID: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Bill of Material Component Product
@@ -67,7 +68,7 @@ input M_Product_BOMInput {
 	IsActive: Boolean
 	# Unique line for this document
 	Line: Int
-	ID: ID
+	UUID: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Bill of Material Component Product

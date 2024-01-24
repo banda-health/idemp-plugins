@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_Order_CostSave(entity: PP_Order_CostInput!): PP_Order_Cost!
+	PP_Order_CostSaveMany(entities: [PP_Order_CostInput!]!): [PP_Order_Cost!]!
 	PP_Order_CostDelete(uuids: [String!]!): Boolean!
 }
 
@@ -52,7 +53,7 @@ type PP_Order_Cost {
 	M_CostType: M_CostType!
 	# Product, Service, Item
 	M_Product: M_Product!
-	ID: ID!
+	UUID: ID!
 	# Manufacturing Order
 	PP_Order: PP_Order!
 	# Date this record was updated
@@ -92,7 +93,7 @@ input PP_Order_CostInput {
 	M_CostType: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
 }

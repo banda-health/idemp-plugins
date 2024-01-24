@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_B_BidInput;
 import org.compiere.model.X_B_Bid;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for B_Bid - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_B_BidMutation extends POMutation implements GraphQLMutationResolv
 		return X_B_BidInput.Table_Name;
 	}
 
-	public X_B_Bid B_BidSave(I_B_BidInput input, DataFetchingEnvironment environment) {
-		return (X_B_Bid) super.save((X_B_BidInput) input, environment);
+	public X_B_Bid B_BidSave(I_B_BidInput entity, DataFetchingEnvironment environment) {
+		return (X_B_Bid) super.save((X_B_BidInput) entity, environment);
+	}
+
+	public List<X_B_Bid> B_BidSaveMany(List<I_B_BidInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_B_BidInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_B_Bid) entity).collect(Collectors.toList());
 	}
 
 	public boolean B_BidDelete(List<String> uuids, DataFetchingEnvironment environment) {

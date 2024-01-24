@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_WarehouseSave(entity: M_WarehouseInput!): M_Warehouse!
+	M_WarehouseSaveMany(entities: [M_WarehouseInput!]!): [M_Warehouse!]!
 	M_WarehouseDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type M_Warehouse {
 	IsInTransit: Boolean!
 	# Reservation Locator (just for reporting purposes)
 	M_ReserveLocator: M_Locator
-	ID: ID!
+	UUID: ID!
 	# Optional Warehouse to replenish from
 	M_WarehouseSource: M_Warehouse
 	# Alphanumeric identifier of the entity
@@ -72,7 +73,7 @@ input M_WarehouseInput {
 	IsInTransit: Boolean
 	# Reservation Locator (just for reporting purposes)
 	M_ReserveLocator: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional Warehouse to replenish from
 	M_WarehouseSource: ForeignEntityInput
 	# Alphanumeric identifier of the entity

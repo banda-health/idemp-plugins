@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_ProjectTaskInput;
 import org.compiere.model.MProjectTask;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_ProjectTask - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_ProjectTaskMutation extends POMutation implements GraphQLMutati
 		return X_C_ProjectTaskInput.Table_Name;
 	}
 
-	public MProjectTask C_ProjectTaskSave(I_C_ProjectTaskInput input, DataFetchingEnvironment environment) {
-		return (MProjectTask) super.save((X_C_ProjectTaskInput) input, environment);
+	public MProjectTask C_ProjectTaskSave(I_C_ProjectTaskInput entity, DataFetchingEnvironment environment) {
+		return (MProjectTask) super.save((X_C_ProjectTaskInput) entity, environment);
+	}
+
+	public List<MProjectTask> C_ProjectTaskSaveMany(List<I_C_ProjectTaskInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_ProjectTaskInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MProjectTask) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_ProjectTaskDelete(List<String> uuids, DataFetchingEnvironment environment) {

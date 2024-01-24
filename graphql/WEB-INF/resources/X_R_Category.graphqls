@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_CategorySave(entity: R_CategoryInput!): R_Category!
+	R_CategorySaveMany(entities: [R_CategoryInput!]!): [R_Category!]!
 	R_CategoryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type R_Category {
 	M_Product: M_Product
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -54,5 +55,5 @@ input R_CategoryInput {
 	M_Product: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 }

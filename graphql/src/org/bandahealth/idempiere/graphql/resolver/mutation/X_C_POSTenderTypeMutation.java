@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_POSTenderTypeInput;
 import org.compiere.model.X_C_POSTenderType;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_POSTenderType - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_POSTenderTypeMutation extends POMutation implements GraphQLMuta
 		return X_C_POSTenderTypeInput.Table_Name;
 	}
 
-	public X_C_POSTenderType C_POSTenderTypeSave(I_C_POSTenderTypeInput input, DataFetchingEnvironment environment) {
-		return (X_C_POSTenderType) super.save((X_C_POSTenderTypeInput) input, environment);
+	public X_C_POSTenderType C_POSTenderTypeSave(I_C_POSTenderTypeInput entity, DataFetchingEnvironment environment) {
+		return (X_C_POSTenderType) super.save((X_C_POSTenderTypeInput) entity, environment);
+	}
+
+	public List<X_C_POSTenderType> C_POSTenderTypeSaveMany(List<I_C_POSTenderTypeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_POSTenderTypeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_C_POSTenderType) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_POSTenderTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {

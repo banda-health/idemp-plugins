@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
@@ -9,6 +10,7 @@ import org.compiere.model.MPOSKeyLayout;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -26,13 +28,16 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	private I_AD_Ref_ListInput mPOSKeyLayoutType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_POSKeyLayout_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_POSKeyLayoutInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MPOSKeyLayout(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_POSKeyLayoutInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPOSKeyLayout(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -44,11 +49,16 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -71,11 +81,16 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	public void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor) {
 		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
-		if (AD_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-						.setParameters(AD_PrintColor.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_PrintColor_ID(foreignEntity.get_ID());
+		if (AD_PrintColor != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
+							.setParameters(AD_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_PrintColor_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintColor with UUID " + AD_PrintColor.getUUID());
+			}
 		} else {
 			super.setAD_PrintColor_ID(0);
 		}
@@ -100,11 +115,16 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	public void setAD_PrintFontInput(ForeignEntityInput AD_PrintFont) {
 		this.mAD_PrintFont = AD_PrintFont;
 		X_AD_PrintFont foreignEntity;
-		if (AD_PrintFont != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-						.setParameters(AD_PrintFont.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_PrintFont_ID(foreignEntity.get_ID());
+		if (AD_PrintFont != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
+							.setParameters(AD_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_PrintFont_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFont with UUID " + AD_PrintFont.getUUID());
+			}
 		} else {
 			super.setAD_PrintFont_ID(0);
 		}
@@ -132,20 +152,20 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_POSKeyLayout_UU(ID);
+	public void setUUID(String UUID) {
+		setC_POSKeyLayout_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_POSKeyLayout_UU();
 	}
 
@@ -158,11 +178,16 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	public void setPOSKeyLayoutTypeInput(I_AD_Ref_ListInput POSKeyLayoutType) {
 		this.mPOSKeyLayoutType = POSKeyLayoutType;
 		MRefList_BH foreignEntity;
-		if (POSKeyLayoutType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(POSKeyLayoutType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPOSKeyLayoutType(foreignEntity.getValue());
+		if (POSKeyLayoutType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(POSKeyLayoutType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPOSKeyLayoutType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + POSKeyLayoutType.getUUID());
+			}
 		} else {
 			this.setPOSKeyLayoutType(null);
 		}

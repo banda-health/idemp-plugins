@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_SearchDefinitionInput;
 import org.compiere.model.MSearchDefinition;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_SearchDefinition - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_SearchDefinitionMutation extends POMutation implements GraphQL
 		return X_AD_SearchDefinitionInput.Table_Name;
 	}
 
-	public MSearchDefinition AD_SearchDefinitionSave(I_AD_SearchDefinitionInput input, DataFetchingEnvironment environment) {
-		return (MSearchDefinition) super.save((X_AD_SearchDefinitionInput) input, environment);
+	public MSearchDefinition AD_SearchDefinitionSave(I_AD_SearchDefinitionInput entity, DataFetchingEnvironment environment) {
+		return (MSearchDefinition) super.save((X_AD_SearchDefinitionInput) entity, environment);
+	}
+
+	public List<MSearchDefinition> AD_SearchDefinitionSaveMany(List<I_AD_SearchDefinitionInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_SearchDefinitionInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MSearchDefinition) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_SearchDefinitionDelete(List<String> uuids, DataFetchingEnvironment environment) {

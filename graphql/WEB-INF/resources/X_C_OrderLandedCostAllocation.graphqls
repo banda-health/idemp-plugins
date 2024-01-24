@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_OrderLandedCostAllocationSave(entity: C_OrderLandedCostAllocationInput!): C_OrderLandedCostAllocation!
+	C_OrderLandedCostAllocationSaveMany(entities: [C_OrderLandedCostAllocationInput!]!): [C_OrderLandedCostAllocation!]!
 	C_OrderLandedCostAllocationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -25,7 +26,7 @@ type C_OrderLandedCostAllocation {
 	# Calculation Base
 	Base: BigDecimal!
 	C_OrderLandedCost: C_OrderLandedCost!
-	ID: ID!
+	UUID: ID!
 	# Sales Order Line
 	C_OrderLine: C_OrderLine!
 	# Date this record was created
@@ -52,7 +53,7 @@ input C_OrderLandedCostAllocationInput {
 	# Calculation Base
 	Base: BigDecimal
 	C_OrderLandedCost: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# The record is active in the system

@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MPackageMPSInput extends X_M_PackageMPSInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_PackageMPS_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPackageMPSInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MPackageMPSInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

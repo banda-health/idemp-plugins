@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -10,6 +11,7 @@ import org.compiere.model.MChangeNotice;
 import org.compiere.model.MOrg;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 import org.eevolution.model.MPPProductBOM;
 
 import java.sql.ResultSet;
@@ -31,13 +33,16 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	private I_AD_Ref_ListInput mBOMUse;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The PP_Product_BOM_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PP_Product_BOMInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MPPProductBOM(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_PP_Product_BOMInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPPProductBOM(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -49,11 +54,16 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -76,11 +86,16 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	public void setBOMTypeInput(I_AD_Ref_ListInput BOMType) {
 		this.mBOMType = BOMType;
 		MRefList_BH foreignEntity;
-		if (BOMType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BOMType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBOMType(foreignEntity.getValue());
+		if (BOMType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BOMType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBOMType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BOMType.getUUID());
+			}
 		} else {
 			this.setBOMType(null);
 		}
@@ -105,11 +120,16 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	public void setBOMUseInput(I_AD_Ref_ListInput BOMUse) {
 		this.mBOMUse = BOMUse;
 		MRefList_BH foreignEntity;
-		if (BOMUse != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BOMUse.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBOMUse(foreignEntity.getValue());
+		if (BOMUse != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BOMUse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBOMUse(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BOMUse.getUUID());
+			}
 		} else {
 			this.setBOMUse(null);
 		}
@@ -134,11 +154,16 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
 		MUOM foreignEntity;
-		if (C_UOM != null &&
-				(foreignEntity = new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-						.setParameters(C_UOM.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_UOM_ID(foreignEntity.get_ID());
+		if (C_UOM != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
+							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_UOM_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
+			}
 		} else {
 			super.setC_UOM_ID(0);
 		}
@@ -163,11 +188,16 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
-		if (M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-						.setParameters(M_AttributeSetInstance.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+		if (M_AttributeSetInstance != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
+							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
+			}
 		} else {
 			super.setM_AttributeSetInstance_ID(0);
 		}
@@ -192,11 +222,16 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	public void setM_ChangeNoticeInput(ForeignEntityInput M_ChangeNotice) {
 		this.mM_ChangeNotice = M_ChangeNotice;
 		MChangeNotice foreignEntity;
-		if (M_ChangeNotice != null &&
-				(foreignEntity = new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
-						.setParameters(M_ChangeNotice.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_ChangeNotice_ID(foreignEntity.get_ID());
+		if (M_ChangeNotice != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
+							.setParameters(M_ChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_ChangeNotice_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_ChangeNotice with UUID " + M_ChangeNotice.getUUID());
+			}
 		} else {
 			super.setM_ChangeNotice_ID(0);
 		}
@@ -221,11 +256,16 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-						.setParameters(M_Product.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_ID(foreignEntity.get_ID());
+		if (M_Product != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
 		} else {
 			super.setM_Product_ID(0);
 		}
@@ -253,20 +293,20 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setPP_Product_BOM_UU(ID);
+	public void setUUID(String UUID) {
+		setPP_Product_BOM_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getPP_Product_BOM_UU();
 	}
 }

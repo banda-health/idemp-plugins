@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_DistributionListLineInp
 import org.compiere.model.MDistributionListLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_DistributionListLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_DistributionListLineMutation extends POMutation implements Grap
 		return X_M_DistributionListLineInput.Table_Name;
 	}
 
-	public MDistributionListLine M_DistributionListLineSave(I_M_DistributionListLineInput input, DataFetchingEnvironment environment) {
-		return (MDistributionListLine) super.save((X_M_DistributionListLineInput) input, environment);
+	public MDistributionListLine M_DistributionListLineSave(I_M_DistributionListLineInput entity, DataFetchingEnvironment environment) {
+		return (MDistributionListLine) super.save((X_M_DistributionListLineInput) entity, environment);
+	}
+
+	public List<MDistributionListLine> M_DistributionListLineSaveMany(List<I_M_DistributionListLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_DistributionListLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDistributionListLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_DistributionListLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

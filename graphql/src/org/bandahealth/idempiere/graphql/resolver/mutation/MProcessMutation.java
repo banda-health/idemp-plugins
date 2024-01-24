@@ -165,7 +165,7 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 		processInformationParameterInputList.forEach(processInfoParameterInput -> {
 			// Get the process parameter
 			MProcessPara processParameter =
-					processParametersByUuidMap.get(processInfoParameterInput.getAD_Process().getID());
+					processParametersByUuidMap.get(processInfoParameterInput.getAD_Process().getUUID());
 
 			// Get the reference to help determine what type of parameter this is
 			MReference referenceForParameter = referencesByIdMap.get(processParameter.getAD_Reference_ID());
@@ -200,7 +200,7 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 
 			// Create a new process info parameter with the name fetched from MProcessParam
 			processInformationParameters.add(new ProcessInfoParameter(
-					processParametersByUuidMap.get(processInfoParameterInput.getAD_Process().getID()).getName(),
+					processParametersByUuidMap.get(processInfoParameterInput.getAD_Process().getUUID()).getName(),
 					parameter,
 					processInfoParameterInput.getParameter_To(),
 					processInfoParameterInput.getInfo(),
@@ -209,7 +209,7 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 			// Also add a parameter matching the column name so either can be used
 			// TODO: migrate all parameters to do this in the future
 			processInformationParameters.add(new ProcessInfoParameter(
-					processParametersByUuidMap.get(processInfoParameterInput.getAD_Process().getID()).getColumnName(),
+					processParametersByUuidMap.get(processInfoParameterInput.getAD_Process().getUUID()).getColumnName(),
 					parameter,
 					processInfoParameterInput.getParameter_To(),
 					processInfoParameterInput.getInfo(),

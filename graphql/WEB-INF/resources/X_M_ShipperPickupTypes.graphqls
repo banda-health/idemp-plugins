@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ShipperPickupTypesSave(entity: M_ShipperPickupTypesInput!): M_ShipperPickupTypes!
+	M_ShipperPickupTypesSaveMany(entities: [M_ShipperPickupTypesInput!]!): [M_ShipperPickupTypes!]!
 	M_ShipperPickupTypesDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_ShipperPickupTypes {
 	IsDefault: Boolean!
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
-	ID: ID!
+	UUID: ID!
 	M_ShipperPickupTypesCfg: M_ShipperPickupTypesCfg!
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -49,7 +50,7 @@ input M_ShipperPickupTypesInput {
 	IsDefault: Boolean
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	M_ShipperPickupTypesCfg: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String

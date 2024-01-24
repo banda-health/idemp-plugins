@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WorkflowSave(entity: AD_WorkflowInput!): AD_Workflow!
+	AD_WorkflowSaveMany(entities: [AD_WorkflowInput!]!): [AD_Workflow!]!
 	AD_WorkflowDelete(uuids: [String!]!): Boolean!
 }
 
@@ -29,7 +30,7 @@ type AD_Workflow {
 	AD_WF_Node: AD_WF_Node
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: AD_WF_Responsible
-	ID: ID!
+	UUID: ID!
 	# Workflow Processor Server
 	AD_WorkflowProcessor: AD_WorkflowProcessor
 	# Author/Creator of the Entity
@@ -118,7 +119,7 @@ input AD_WorkflowInput {
 	AD_WF_Node: ForeignEntityInput
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Workflow Processor Server
 	AD_WorkflowProcessor: ForeignEntityInput
 	# Author/Creator of the Entity

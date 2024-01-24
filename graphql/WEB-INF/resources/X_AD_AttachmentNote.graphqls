@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_AttachmentNoteSave(entity: AD_AttachmentNoteInput!): AD_AttachmentNote!
+	AD_AttachmentNoteSaveMany(entities: [AD_AttachmentNoteInput!]!): [AD_AttachmentNote!]!
 	AD_AttachmentNoteDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_AttachmentNoteConnection {
 type AD_AttachmentNote {
 	# Attachment for the document
 	AD_Attachment: AD_Attachment!
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -44,7 +45,7 @@ type AD_AttachmentNote {
 input AD_AttachmentNoteInput {
 	# Attachment for the document
 	AD_Attachment: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

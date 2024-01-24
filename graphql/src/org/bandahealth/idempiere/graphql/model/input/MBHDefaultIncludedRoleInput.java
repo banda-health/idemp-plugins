@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MBHDefaultIncludedRoleInput extends X_BH_DefaultIncludedRoleInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The BH_DefaultIncludedRole_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHDefaultIncludedRoleInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MBHDefaultIncludedRoleInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

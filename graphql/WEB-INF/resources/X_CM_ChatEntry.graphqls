@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	CM_ChatEntrySave(entity: CM_ChatEntryInput!): CM_ChatEntry!
+	CM_ChatEntrySaveMany(entities: [CM_ChatEntryInput!]!): [CM_ChatEntry!]!
 	CM_ChatEntryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type CM_ChatEntry {
 	ChatEntryType: AD_Ref_List!
 	# Chat or discussion thread
 	CM_Chat: CM_Chat!
-	ID: ID!
+	UUID: ID!
 	# Link to Grand Parent (root level)
 	CM_ChatEntryGrandParent: CM_ChatEntry
 	# Link to direct Parent
@@ -62,7 +63,7 @@ input CM_ChatEntryInput {
 	ChatEntryType: AD_Ref_ListInput
 	# Chat or discussion thread
 	CM_Chat: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Link to Grand Parent (root level)
 	CM_ChatEntryGrandParent: ForeignEntityInput
 	# Link to direct Parent

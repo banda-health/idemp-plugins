@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_AddressTransactionSave(entity: C_AddressTransactionInput!): C_AddressTransaction!
+	C_AddressTransactionSaveMany(entities: [C_AddressTransactionInput!]!): [C_AddressTransaction!]!
 	C_AddressTransactionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type C_AddressTransaction {
 	Address4: String
 	# Address Line 5 for the location
 	Address5: String
-	ID: ID!
+	UUID: ID!
 	C_AddressValidation: C_AddressValidation!
 	# Location or Address
 	C_Location: C_Location
@@ -73,7 +74,7 @@ input C_AddressTransactionInput {
 	Address4: String
 	# Address Line 5 for the location
 	Address5: String
-	ID: ID
+	UUID: ID
 	C_AddressValidation: ForeignEntityInput
 	# Location or Address
 	C_Location: ForeignEntityInput

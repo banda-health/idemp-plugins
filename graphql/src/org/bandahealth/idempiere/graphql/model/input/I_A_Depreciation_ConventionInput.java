@@ -11,18 +11,18 @@ import org.compiere.model.I_A_Depreciation_Convention;
 public interface I_A_Depreciation_ConventionInput extends I_A_Depreciation_Convention {
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set AD_Org.

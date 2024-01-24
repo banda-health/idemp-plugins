@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_M_MovementLineInput;
 import org.bandahealth.idempiere.graphql.model.input.X_M_MovementLineInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_MovementLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_MovementLineMutation extends POMutation implements GraphQLMutat
 		return X_M_MovementLineInput.Table_Name;
 	}
 
-	public MMovementLine_BH M_MovementLineSave(I_M_MovementLineInput input, DataFetchingEnvironment environment) {
-		return (MMovementLine_BH) super.save((X_M_MovementLineInput) input, environment);
+	public MMovementLine_BH M_MovementLineSave(I_M_MovementLineInput entity, DataFetchingEnvironment environment) {
+		return (MMovementLine_BH) super.save((X_M_MovementLineInput) entity, environment);
+	}
+
+	public List<MMovementLine_BH> M_MovementLineSaveMany(List<I_M_MovementLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_MovementLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MMovementLine_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_MovementLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

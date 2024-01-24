@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class M_ElementInput extends X_AD_ElementInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Element_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public M_ElementInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public M_ElementInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

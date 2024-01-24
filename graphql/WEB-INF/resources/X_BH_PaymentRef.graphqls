@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_PaymentRefSave(entity: BH_PaymentRefInput!): BH_PaymentRef!
+	BH_PaymentRefSaveMany(entities: [BH_PaymentRefInput!]!): [BH_PaymentRef!]!
 	BH_PaymentRefDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type BH_PaymentRef {
 	AD_Reference: AD_Reference!
 	# Represents an action the can be performed for the payment reference
 	BH_PaymentRef_Action: String
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,7 +49,7 @@ input BH_PaymentRefInput {
 	AD_Reference: ForeignEntityInput
 	# Represents an action the can be performed for the payment reference
 	BH_PaymentRef_Action: String
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

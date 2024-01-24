@@ -2,11 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInvoiceSchedule;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -24,13 +26,16 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	private I_AD_Ref_ListInput mInvoiceWeekDayCutoff;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_InvoiceSchedule_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_InvoiceScheduleInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MInvoiceSchedule(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_InvoiceScheduleInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MInvoiceSchedule(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -42,11 +47,16 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -72,20 +82,20 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_InvoiceSchedule_UU(ID);
+	public void setUUID(String UUID) {
+		setC_InvoiceSchedule_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_InvoiceSchedule_UU();
 	}
 
@@ -98,11 +108,16 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	public void setInvoiceFrequencyInput(I_AD_Ref_ListInput InvoiceFrequency) {
 		this.mInvoiceFrequency = InvoiceFrequency;
 		MRefList_BH foreignEntity;
-		if (InvoiceFrequency != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(InvoiceFrequency.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setInvoiceFrequency(foreignEntity.getValue());
+		if (InvoiceFrequency != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(InvoiceFrequency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setInvoiceFrequency(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + InvoiceFrequency.getUUID());
+			}
 		} else {
 			this.setInvoiceFrequency(null);
 		}
@@ -127,11 +142,16 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	public void setInvoiceWeekDayInput(I_AD_Ref_ListInput InvoiceWeekDay) {
 		this.mInvoiceWeekDay = InvoiceWeekDay;
 		MRefList_BH foreignEntity;
-		if (InvoiceWeekDay != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(InvoiceWeekDay.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setInvoiceWeekDay(foreignEntity.getValue());
+		if (InvoiceWeekDay != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(InvoiceWeekDay.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setInvoiceWeekDay(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + InvoiceWeekDay.getUUID());
+			}
 		} else {
 			this.setInvoiceWeekDay(null);
 		}
@@ -156,11 +176,16 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	public void setInvoiceWeekDayCutoffInput(I_AD_Ref_ListInput InvoiceWeekDayCutoff) {
 		this.mInvoiceWeekDayCutoff = InvoiceWeekDayCutoff;
 		MRefList_BH foreignEntity;
-		if (InvoiceWeekDayCutoff != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(InvoiceWeekDayCutoff.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setInvoiceWeekDayCutoff(foreignEntity.getValue());
+		if (InvoiceWeekDayCutoff != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(InvoiceWeekDayCutoff.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setInvoiceWeekDayCutoff(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + InvoiceWeekDayCutoff.getUUID());
+			}
 		} else {
 			this.setInvoiceWeekDayCutoff(null);
 		}

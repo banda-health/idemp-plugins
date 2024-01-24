@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BPartnerSave(entity: C_BPartnerInput!): C_BPartner!
+	C_BPartnerSaveMany(entities: [C_BPartnerInput!]!): [C_BPartner!]!
 	C_BPartnerDelete(uuids: [String!]!): Boolean!
 }
 
@@ -47,7 +48,7 @@ type C_BPartner {
 	BH_Phone: String
 	# Business Partner Group
 	C_BP_Group: C_BP_Group!
-	ID: ID!
+	UUID: ID!
 	# Dunning Rules for overdue invoices
 	C_Dunning: C_Dunning
 	# Greeting to print on correspondence
@@ -205,7 +206,7 @@ input C_BPartnerInput {
 	BH_Phone: String
 	# Business Partner Group
 	C_BP_Group: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Dunning Rules for overdue invoices
 	C_Dunning: ForeignEntityInput
 	# Greeting to print on correspondence

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_UserMailSave(entity: AD_UserMailInput!): AD_UserMail!
+	AD_UserMailSaveMany(entities: [AD_UserMailInput!]!): [AD_UserMail!]!
 	AD_UserMailDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_UserMail {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -55,7 +56,7 @@ input AD_UserMailInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# EMail Delivery confirmation
 	DeliveryConfirmation: String
 	EMailFrom: String

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_RevalSave(entity: A_Asset_RevalInput!): A_Asset_Reval!
+	A_Asset_RevalSaveMany(entities: [A_Asset_RevalInput!]!): [A_Asset_Reval!]!
 	A_Asset_RevalDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type A_Asset_Reval {
 	A_Asset_Cost_Change: BigDecimal!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	ID: ID!
+	UUID: ID!
 	A_Change_Acumulated_Depr: BigDecimal!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
@@ -64,7 +65,7 @@ input A_Asset_RevalInput {
 	A_Asset_Cost_Change: BigDecimal
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	A_Change_Acumulated_Depr: BigDecimal
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput

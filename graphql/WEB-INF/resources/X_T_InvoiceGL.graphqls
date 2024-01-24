@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	T_InvoiceGLSave(entity: T_InvoiceGLInput!): T_InvoiceGL!
+	T_InvoiceGLSaveMany(entities: [T_InvoiceGLInput!]!): [T_InvoiceGL!]!
 	T_InvoiceGLDelete(uuids: [String!]!): Boolean!
 }
 
@@ -58,7 +59,7 @@ type T_InvoiceGL {
 	OpenAmt: BigDecimal!
 	# Percentage
 	Percent: BigDecimal
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -102,5 +103,5 @@ input T_InvoiceGLInput {
 	OpenAmt: BigDecimal
 	# Percentage
 	Percent: BigDecimal
-	ID: ID
+	UUID: ID
 }

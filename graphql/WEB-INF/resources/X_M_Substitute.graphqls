@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_SubstituteSave(entity: M_SubstituteInput!): M_Substitute!
+	M_SubstituteSaveMany(entities: [M_SubstituteInput!]!): [M_Substitute!]!
 	M_SubstituteDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_Substitute {
 	IsActive: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Entity which can be used in place of this entity
@@ -50,7 +51,7 @@ input M_SubstituteInput {
 	IsActive: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Entity which can be used in place of this entity

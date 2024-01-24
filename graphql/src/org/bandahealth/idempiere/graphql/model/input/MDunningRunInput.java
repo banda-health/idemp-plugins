@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MDunningRunInput extends X_C_DunningRunInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_DunningRun_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDunningRunInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MDunningRunInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

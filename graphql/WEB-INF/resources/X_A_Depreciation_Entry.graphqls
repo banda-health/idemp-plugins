@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Depreciation_EntrySave(entity: A_Depreciation_EntryInput!): A_Depreciation_Entry!
+	A_Depreciation_EntrySaveMany(entities: [A_Depreciation_EntryInput!]!): [A_Depreciation_Entry!]!
 	A_Depreciation_EntryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type A_Depreciation_EntryConnection {
 }
 
 type A_Depreciation_Entry {
-	ID: ID!
+	UUID: ID!
 	A_Entry_Type: AD_Ref_List
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
@@ -66,7 +67,7 @@ type A_Depreciation_Entry {
 }
 
 input A_Depreciation_EntryInput {
-	ID: ID
+	UUID: ID
 	A_Entry_Type: AD_Ref_ListInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput

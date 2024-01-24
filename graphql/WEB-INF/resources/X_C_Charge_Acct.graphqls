@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_Charge_AcctSave(entity: C_Charge_AcctInput!): C_Charge_Acct!
+	C_Charge_AcctSaveMany(entities: [C_Charge_AcctInput!]!): [C_Charge_Acct!]!
 	C_Charge_AcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_Charge_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	ID: ID!
+	UUID: ID!
 	# Additional document charges
 	C_Charge: C_Charge!
 	# Charge Account
@@ -44,7 +45,7 @@ input C_Charge_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	# Charge Account

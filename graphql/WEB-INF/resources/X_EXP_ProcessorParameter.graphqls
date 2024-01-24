@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	EXP_ProcessorParameterSave(entity: EXP_ProcessorParameterInput!): EXP_ProcessorParameter!
+	EXP_ProcessorParameterSaveMany(entities: [EXP_ProcessorParameterInput!]!): [EXP_ProcessorParameter!]!
 	EXP_ProcessorParameterDelete(uuids: [String!]!): Boolean!
 }
 
@@ -27,7 +28,7 @@ type EXP_ProcessorParameter {
 	# Optional short description of the record
 	Description: String
 	EXP_Processor: EXP_Processor!
-	ID: ID!
+	UUID: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -49,7 +50,7 @@ input EXP_ProcessorParameterInput {
 	# Optional short description of the record
 	Description: String
 	EXP_Processor: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_ContactActivityInput;
 import org.compiere.model.X_C_ContactActivity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_ContactActivity - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_ContactActivityMutation extends POMutation implements GraphQLMu
 		return X_C_ContactActivityInput.Table_Name;
 	}
 
-	public X_C_ContactActivity C_ContactActivitySave(I_C_ContactActivityInput input, DataFetchingEnvironment environment) {
-		return (X_C_ContactActivity) super.save((X_C_ContactActivityInput) input, environment);
+	public X_C_ContactActivity C_ContactActivitySave(I_C_ContactActivityInput entity, DataFetchingEnvironment environment) {
+		return (X_C_ContactActivity) super.save((X_C_ContactActivityInput) entity, environment);
+	}
+
+	public List<X_C_ContactActivity> C_ContactActivitySaveMany(List<I_C_ContactActivityInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_ContactActivityInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_C_ContactActivity) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_ContactActivityDelete(List<String> uuids, DataFetchingEnvironment environment) {

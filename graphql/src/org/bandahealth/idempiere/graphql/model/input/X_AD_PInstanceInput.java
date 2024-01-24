@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
@@ -11,6 +12,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPInstance;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -30,13 +32,16 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	private I_AD_Ref_ListInput mNotificationType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_PInstance_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_PInstanceInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MPInstance(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_PInstanceInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPInstance(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -48,11 +53,16 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
 		MLanguage foreignEntity;
-		if (AD_Language != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-						.setParameters(AD_Language.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Language_ID(foreignEntity.get_ID());
+		if (AD_Language != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
+							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Language_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
+			}
 		} else {
 			super.setAD_Language_ID(0);
 		}
@@ -77,11 +87,16 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -107,20 +122,20 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_PInstance_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_PInstance_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_PInstance_UU();
 	}
 
@@ -133,11 +148,16 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (AD_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(AD_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_PrintFormat_ID(foreignEntity.get_ID());
+		if (AD_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
+			}
 		} else {
 			super.setAD_PrintFormat_ID(0);
 		}
@@ -162,11 +182,16 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
-		if (AD_Process != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-						.setParameters(AD_Process.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Process_ID(foreignEntity.get_ID());
+		if (AD_Process != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
+							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Process_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
+			}
 		} else {
 			super.setAD_Process_ID(0);
 		}
@@ -191,11 +216,16 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
-		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(AD_User.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_User_ID(foreignEntity.get_ID());
+		if (AD_User != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_User_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+			}
 		} else {
 			super.setAD_User_ID(0);
 		}
@@ -220,11 +250,16 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
 		this.mNotificationType = NotificationType;
 		MRefList_BH foreignEntity;
-		if (NotificationType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(NotificationType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setNotificationType(foreignEntity.getValue());
+		if (NotificationType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(NotificationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setNotificationType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + NotificationType.getUUID());
+			}
 		} else {
 			this.setNotificationType(null);
 		}

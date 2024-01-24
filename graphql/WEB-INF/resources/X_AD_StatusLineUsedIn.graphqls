@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_StatusLineUsedInSave(entity: AD_StatusLineUsedInInput!): AD_StatusLineUsedIn!
+	AD_StatusLineUsedInSaveMany(entities: [AD_StatusLineUsedInInput!]!): [AD_StatusLineUsedIn!]!
 	AD_StatusLineUsedInDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type AD_StatusLineUsedIn {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	AD_StatusLine: AD_StatusLine!
-	ID: ID!
+	UUID: ID!
 	# Tab within a Window
 	AD_Tab: AD_Tab
 	# Database Table information
@@ -48,7 +49,7 @@ input AD_StatusLineUsedInInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	AD_StatusLine: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput
 	# Database Table information

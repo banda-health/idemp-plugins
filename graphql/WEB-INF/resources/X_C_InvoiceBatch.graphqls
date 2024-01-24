@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_InvoiceBatchSave(entity: C_InvoiceBatchInput!): C_InvoiceBatch!
+	C_InvoiceBatchSaveMany(entities: [C_InvoiceBatchInput!]!): [C_InvoiceBatch!]!
 	C_InvoiceBatchDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_InvoiceBatch {
 	C_ConversionType: C_ConversionType
 	# The Currency for this record
 	C_Currency: C_Currency!
-	ID: ID!
+	UUID: ID!
 	# If not zero, the Debit amount of the document must be equal this amount
 	ControlAmt: BigDecimal!
 	# Date this record was created
@@ -61,7 +62,7 @@ input C_InvoiceBatchInput {
 	C_ConversionType: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# If not zero, the Debit amount of the document must be equal this amount
 	ControlAmt: BigDecimal
 	# Date of the Document

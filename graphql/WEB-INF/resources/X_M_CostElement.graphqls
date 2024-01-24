@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_CostElementSave(entity: M_CostElementInput!): M_CostElement!
+	M_CostElementSaveMany(entities: [M_CostElementInput!]!): [M_CostElement!]!
 	M_CostElementDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_CostElement {
 	IsActive: Boolean!
 	# The value is calculated by the system
 	IsCalculated: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -56,7 +57,7 @@ input M_CostElementInput {
 	IsActive: Boolean
 	# The value is calculated by the system
 	IsCalculated: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

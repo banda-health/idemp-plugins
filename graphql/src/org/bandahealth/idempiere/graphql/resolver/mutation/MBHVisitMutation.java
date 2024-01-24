@@ -71,8 +71,8 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 						!MDocType.DOCSUBTYPESO_PrepayOrder.equals(documentType.getDocSubTypeSO())) {
 					//
 					List<MInvoice_BH> existingInvoices = Repository.getGroupsByIds(idempiereProperties, MInvoice_BH.Table_Name,
-							processVisitTransaction.getTrxName(), MInvoice_BH::getBH_Visit_ID,
-							MInvoice_BH.COLUMNNAME_BH_Visit_ID, Collections.singleton(visit.get_ID())).get(visit.get_ID());
+							processVisitTransaction.getTrxName(), MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
+							Collections.singleton(visit.get_ID())).getOrDefault(visit.get_ID(), new ArrayList<>());
 					//
 					Collection<MInvoice_BH> existingUnfinalizedInvoices = existingInvoices.stream()
 							.filter(
@@ -107,7 +107,7 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 										processVisitTransaction.getTrxName(),
 										MPayment_BH::getBH_Visit_ID, MPayment_BH.COLUMNNAME_BH_Visit_ID,
 										Collections.singleton(visit.get_ID()))
-								.get(visit.get_ID());
+								.getOrDefault(visit.get_ID(), new ArrayList<>());
 				//
 				Collection<MPayment_BH> existingUnfinalizedPayments = existingPayments.stream()
 						.filter(payment -> !payment.isComplete() || payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))
@@ -211,10 +211,10 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 
 				// If this visit has any completed orders, shipments, invoices, or payments, we
 				// can't delete it
-				List<MOrder_BH> visitsOrders = ordersByVisitId.get(visit.get_ID());
-				List<MInOut_BH> visitsInOuts = inOutsByVisitId.get(visit.get_ID());
-				List<MInvoice_BH> visitsInvoices = invoicesByVisitId.get(visit.get_ID());
-				List<MPayment_BH> visitsPayments = paymentsByVisitId.get(visit.get_ID());
+				List<MOrder_BH> visitsOrders = ordersByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>());
+				List<MInOut_BH> visitsInOuts = inOutsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>());
+				List<MInvoice_BH> visitsInvoices = invoicesByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>());
+				List<MPayment_BH> visitsPayments = paymentsByVisitId.getOrDefault(visit.get_ID(), new ArrayList<>());
 
 				Predicate<DocAction> isNotDrafted = (
 						DocAction entity) -> !DocumentEngine.STATUS_Drafted.equals(entity.getDocStatus());

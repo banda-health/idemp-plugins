@@ -107,7 +107,7 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(NETDAY_UUIDS_BY_VALUE.get(entity.getNetDay()));
 	}
 
@@ -123,7 +123,7 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(PAYMENTTERMUSAGE_UUIDS_BY_VALUE.get(entity.getPaymentTermUsage()));
 	}
 

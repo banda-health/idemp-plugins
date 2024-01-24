@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WF_Node_ParaSave(entity: AD_WF_Node_ParaInput!): AD_WF_Node_Para!
+	AD_WF_Node_ParaSaveMany(entities: [AD_WF_Node_ParaInput!]!): [AD_WF_Node_Para!]!
 	AD_WF_Node_ParaDelete(uuids: [String!]!): Boolean!
 }
 
@@ -23,7 +24,7 @@ type AD_WF_Node_Para {
 	AD_Process_Para: AD_Process_Para
 	# Workflow Node (activity), step or process
 	AD_WF_Node: AD_WF_Node!
-	ID: ID!
+	UUID: ID!
 	# Name of the Attribute
 	AttributeName: String
 	# Value of the Attribute
@@ -50,7 +51,7 @@ input AD_WF_Node_ParaInput {
 	AD_Process_Para: ForeignEntityInput
 	# Workflow Node (activity), step or process
 	AD_WF_Node: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Name of the Attribute
 	AttributeName: String
 	# Value of the Attribute

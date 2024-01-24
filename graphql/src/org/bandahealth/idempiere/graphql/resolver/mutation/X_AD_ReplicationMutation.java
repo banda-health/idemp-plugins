@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_ReplicationInput;
 import org.compiere.model.MReplication;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Replication - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_ReplicationMutation extends POMutation implements GraphQLMutat
 		return X_AD_ReplicationInput.Table_Name;
 	}
 
-	public MReplication AD_ReplicationSave(I_AD_ReplicationInput input, DataFetchingEnvironment environment) {
-		return (MReplication) super.save((X_AD_ReplicationInput) input, environment);
+	public MReplication AD_ReplicationSave(I_AD_ReplicationInput entity, DataFetchingEnvironment environment) {
+		return (MReplication) super.save((X_AD_ReplicationInput) entity, environment);
+	}
+
+	public List<MReplication> AD_ReplicationSaveMany(List<I_AD_ReplicationInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_ReplicationInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MReplication) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_ReplicationDelete(List<String> uuids, DataFetchingEnvironment environment) {

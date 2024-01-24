@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_AttributeSave(entity: M_AttributeInput!): M_Attribute!
+	M_AttributeSaveMany(entities: [M_AttributeInput!]!): [M_Attribute!]!
 	M_AttributeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -42,7 +43,7 @@ type M_Attribute {
 	IsInstanceAttribute: Boolean!
 	# Data entry is required in this column
 	IsMandatory: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Common Search Attribute 
 	M_AttributeSearch: M_AttributeSearch
 	# Alphanumeric identifier of the entity
@@ -74,7 +75,7 @@ input M_AttributeInput {
 	IsInstanceAttribute: Boolean
 	# Data entry is required in this column
 	IsMandatory: Boolean
-	ID: ID
+	UUID: ID
 	# Common Search Attribute 
 	M_AttributeSearch: ForeignEntityInput
 	# Alphanumeric identifier of the entity

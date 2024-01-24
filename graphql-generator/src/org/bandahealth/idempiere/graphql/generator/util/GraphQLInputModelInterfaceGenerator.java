@@ -282,10 +282,10 @@ public class GraphQLInputModelInterfaceGenerator {
 			return columnBuilder.toString();
 		} else if (columnName.endsWith("_UU")) {
 			columnBuilder.append("\n");
-			generateJavaSetComment("ID", "ID", Description, columnBuilder);
-			columnBuilder.append("\tvoid setID(String ID);\n");
-			generateJavaGetComment("ID", Description, columnBuilder);
-			columnBuilder.append("\tString getID();");
+			generateJavaSetComment("UUID", "UUID", Description, columnBuilder);
+			columnBuilder.append("\tvoid setUUID(String UUID);\n");
+			generateJavaGetComment("UUID", Description, columnBuilder);
+			columnBuilder.append("\tString getUUID();");
 			return columnBuilder.toString();
 		}
 

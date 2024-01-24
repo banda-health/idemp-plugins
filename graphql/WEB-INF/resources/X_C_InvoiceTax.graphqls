@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_InvoiceTaxSave(entity: C_InvoiceTaxInput!): C_InvoiceTax!
+	C_InvoiceTaxSaveMany(entities: [C_InvoiceTaxInput!]!): [C_InvoiceTax!]!
 	C_InvoiceTaxDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_InvoiceTax {
 	AD_Org: AD_Org!
 	# Invoice Identifier
 	C_Invoice: C_Invoice!
-	ID: ID!
+	UUID: ID!
 	# Tax identifier
 	C_Tax: C_Tax!
 	C_TaxProvider: C_TaxProvider
@@ -51,7 +52,7 @@ input C_InvoiceTaxInput {
 	AD_Org: ForeignEntityInput
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Tax identifier
 	C_Tax: ForeignEntityInput
 	C_TaxProvider: ForeignEntityInput

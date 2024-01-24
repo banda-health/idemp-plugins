@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	I_AssetSave(entity: I_AssetInput!): I_Asset!
+	I_AssetSaveMany(entities: [I_AssetInput!]!): [I_Asset!]!
 	I_AssetDelete(uuids: [String!]!): Boolean!
 }
 
@@ -78,7 +79,7 @@ type I_Asset {
 	GuaranteeDate: Date
 	# Comment or Hint
 	Help: String
-	ID: ID!
+	UUID: ID!
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -189,7 +190,7 @@ input I_AssetInput {
 	GuaranteeDate: Date
 	# Comment or Hint
 	Help: String
-	ID: ID
+	UUID: ID
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

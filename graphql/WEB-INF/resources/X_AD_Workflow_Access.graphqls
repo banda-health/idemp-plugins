@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Workflow_AccessSave(entity: AD_Workflow_AccessInput!): AD_Workflow_Access!
+	AD_Workflow_AccessSaveMany(entities: [AD_Workflow_AccessInput!]!): [AD_Workflow_Access!]!
 	AD_Workflow_AccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Workflow_Access {
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
-	ID: ID!
+	UUID: ID!
 	# Workflow or combination of tasks
 	AD_Workflow: AD_Workflow!
 	# Date this record was created
@@ -44,7 +45,7 @@ input AD_Workflow_AccessInput {
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Workflow or combination of tasks
 	AD_Workflow: ForeignEntityInput
 	# The record is active in the system

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_GoalRestrictionSave(entity: PA_GoalRestrictionInput!): PA_GoalRestriction!
+	PA_GoalRestrictionSaveMany(entities: [PA_GoalRestrictionInput!]!): [PA_GoalRestriction!]!
 	PA_GoalRestrictionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -40,7 +41,7 @@ type PA_GoalRestriction {
 	Name: String!
 	# Performance Goal
 	PA_Goal: PA_Goal!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -66,5 +67,5 @@ input PA_GoalRestrictionInput {
 	Name: String
 	# Performance Goal
 	PA_Goal: ForeignEntityInput
-	ID: ID
+	UUID: ID
 }

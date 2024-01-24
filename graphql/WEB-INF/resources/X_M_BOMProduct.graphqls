@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_BOMProductSave(entity: M_BOMProductInput!): M_BOMProduct!
+	M_BOMProductSaveMany(entities: [M_BOMProductInput!]!): [M_BOMProduct!]!
 	M_BOMProductDelete(uuids: [String!]!): Boolean!
 }
 
@@ -46,7 +47,7 @@ type M_BOMProduct {
 	M_BOM: M_BOM!
 	# Product BOM Alternative Group
 	M_BOMAlternative: M_BOMAlternative
-	ID: ID!
+	UUID: ID!
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: M_ChangeNotice
 	# Bill of Material Component Product
@@ -86,7 +87,7 @@ input M_BOMProductInput {
 	M_BOM: ForeignEntityInput
 	# Product BOM Alternative Group
 	M_BOMAlternative: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: ForeignEntityInput
 	# Bill of Material Component Product

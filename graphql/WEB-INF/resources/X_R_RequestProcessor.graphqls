@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_RequestProcessorSave(entity: R_RequestProcessorInput!): R_RequestProcessor!
+	R_RequestProcessorSaveMany(entities: [R_RequestProcessorInput!]!): [R_RequestProcessor!]!
 	R_RequestProcessorDelete(uuids: [String!]!): Boolean!
 }
 
@@ -44,7 +45,7 @@ type R_RequestProcessor {
 	# Escalation to superior after number of due days (0 = no)
 	OverdueAssignDays: Int!
 	Processing: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType
 	# Days between sending Reminder Emails for a due or inactive Document
@@ -80,7 +81,7 @@ input R_RequestProcessorInput {
 	# Escalation to superior after number of due days (0 = no)
 	OverdueAssignDays: Int
 	Processing: Boolean
-	ID: ID
+	UUID: ID
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: ForeignEntityInput
 	# Days between sending Reminder Emails for a due or inactive Document

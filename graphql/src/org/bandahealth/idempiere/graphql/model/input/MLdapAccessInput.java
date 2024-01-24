@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MLdapAccessInput extends X_AD_LdapAccessInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_LdapAccess_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MLdapAccessInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MLdapAccessInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

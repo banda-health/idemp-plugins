@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLineDataLoad
 import org.compiere.model.MFactAcct;
 import org.compiere.model.MPInstance;
 import org.compiere.model.X_T_Report;
+import org.compiere.report.MReportLine;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_DemandLineSave(entity: M_DemandLineInput!): M_DemandLine!
+	M_DemandLineSaveMany(entities: [M_DemandLineInput!]!): [M_DemandLine!]!
 	M_DemandLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_DemandLine {
 	IsActive: Boolean!
 	# Material Demand
 	M_Demand: M_Demand!
-	ID: ID!
+	UUID: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Quantity
@@ -52,7 +53,7 @@ input M_DemandLineInput {
 	IsActive: Boolean
 	# Material Demand
 	M_Demand: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Quantity

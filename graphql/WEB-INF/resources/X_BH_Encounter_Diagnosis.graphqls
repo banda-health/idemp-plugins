@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_Encounter_DiagnosisSave(entity: BH_Encounter_DiagnosisInput!): BH_Encounter_Diagnosis!
+	BH_Encounter_DiagnosisSaveMany(entities: [BH_Encounter_DiagnosisInput!]!): [BH_Encounter_Diagnosis!]!
 	BH_Encounter_DiagnosisDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type BH_Encounter_Diagnosis {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	BH_Coded_Diagnosis: BH_Coded_Diagnosis!
-	ID: ID!
+	UUID: ID!
 	BH_Encounter: BH_Encounter!
 	# uncoded diagnosis
 	BH_Uncoded_Diagnosis: String
@@ -43,7 +44,7 @@ input BH_Encounter_DiagnosisInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	BH_Coded_Diagnosis: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	BH_Encounter: ForeignEntityInput
 	# uncoded diagnosis
 	BH_Uncoded_Diagnosis: String

@@ -193,7 +193,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(ISMENUAUTOEXPAND_UUIDS_BY_VALUE.get(entity.getIsMenuAutoExpand()));
 	}
 
@@ -231,7 +231,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(LEADSOURCE_UUIDS_BY_VALUE.get(entity.getLeadSource()));
 	}
 
@@ -249,7 +249,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(LEADSTATUS_UUIDS_BY_VALUE.get(entity.getLeadStatus()));
 	}
 
@@ -266,7 +266,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(NOTIFICATIONTYPE_UUIDS_BY_VALUE.get(entity.getNotificationType()));
 	}
 

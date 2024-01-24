@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Process_AccessSave(entity: AD_Process_AccessInput!): AD_Process_Access!
+	AD_Process_AccessSaveMany(entities: [AD_Process_AccessInput!]!): [AD_Process_Access!]!
 	AD_Process_AccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Process_Access {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Process or Report
 	AD_Process: AD_Process!
 	# Responsibility Role
@@ -42,7 +43,7 @@ type AD_Process_Access {
 input AD_Process_AccessInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	# Responsibility Role

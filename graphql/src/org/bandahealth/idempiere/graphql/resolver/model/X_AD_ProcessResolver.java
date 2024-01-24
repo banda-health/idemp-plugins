@@ -53,7 +53,7 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(ACCESSLEVEL_UUIDS_BY_VALUE.get(entity.getAccessLevel()));
 	}
 
@@ -143,7 +143,7 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(ALLOWMULTIPLEEXECUTION_UUIDS_BY_VALUE.get(entity.getAllowMultipleExecution()));
 	}
 
@@ -204,7 +204,7 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(EXECUTIONTYPE_UUIDS_BY_VALUE.get(entity.getExecutionType()));
 	}
 
@@ -267,7 +267,7 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(SHOWHELP_UUIDS_BY_VALUE.get(entity.getShowHelp()));
 	}
 

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_Column_AccessInput;
 import org.compiere.model.MColumnAccess;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Column_Access - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_Column_AccessMutation extends POMutation implements GraphQLMut
 		return X_AD_Column_AccessInput.Table_Name;
 	}
 
-	public MColumnAccess AD_Column_AccessSave(I_AD_Column_AccessInput input, DataFetchingEnvironment environment) {
-		return (MColumnAccess) super.save((X_AD_Column_AccessInput) input, environment);
+	public MColumnAccess AD_Column_AccessSave(I_AD_Column_AccessInput entity, DataFetchingEnvironment environment) {
+		return (MColumnAccess) super.save((X_AD_Column_AccessInput) entity, environment);
+	}
+
+	public List<MColumnAccess> AD_Column_AccessSaveMany(List<I_AD_Column_AccessInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_Column_AccessInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MColumnAccess) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_Column_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {

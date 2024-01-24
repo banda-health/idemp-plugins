@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
@@ -10,6 +11,7 @@ import org.compiere.model.MGLCategory;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -35,13 +37,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	private I_AD_Ref_ListInput mDocSubTypeSO;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_DocType_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_DocTypeInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MDocType_BH(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_DocTypeInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDocType_BH(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -53,11 +58,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -80,11 +90,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (AD_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(AD_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_PrintFormat_ID(foreignEntity.get_ID());
+		if (AD_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
+			}
 		} else {
 			super.setAD_PrintFormat_ID(0);
 		}
@@ -112,20 +127,20 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_DocType_UU(ID);
+	public void setUUID(String UUID) {
+		setC_DocType_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_DocType_UU();
 	}
 
@@ -138,11 +153,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setC_DocTypeDifferenceInput(ForeignEntityInput C_DocTypeDifference) {
 		this.mC_DocTypeDifference = C_DocTypeDifference;
 		MDocType_BH foreignEntity;
-		if (C_DocTypeDifference != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocTypeDifference.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocTypeDifference_ID(foreignEntity.get_ID());
+		if (C_DocTypeDifference != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocTypeDifference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocTypeDifference_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocTypeDifference.getUUID());
+			}
 		} else {
 			super.setC_DocTypeDifference_ID(0);
 		}
@@ -167,11 +187,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setC_DocTypeInvoiceInput(ForeignEntityInput C_DocTypeInvoice) {
 		this.mC_DocTypeInvoice = C_DocTypeInvoice;
 		MDocType_BH foreignEntity;
-		if (C_DocTypeInvoice != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocTypeInvoice.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocTypeInvoice_ID(foreignEntity.get_ID());
+		if (C_DocTypeInvoice != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocTypeInvoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocTypeInvoice_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocTypeInvoice.getUUID());
+			}
 		} else {
 			super.setC_DocTypeInvoice_ID(0);
 		}
@@ -196,11 +221,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setC_DocTypeProformaInput(ForeignEntityInput C_DocTypeProforma) {
 		this.mC_DocTypeProforma = C_DocTypeProforma;
 		MDocType_BH foreignEntity;
-		if (C_DocTypeProforma != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocTypeProforma.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocTypeProforma_ID(foreignEntity.get_ID());
+		if (C_DocTypeProforma != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocTypeProforma.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocTypeProforma_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocTypeProforma.getUUID());
+			}
 		} else {
 			super.setC_DocTypeProforma_ID(0);
 		}
@@ -225,11 +255,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setC_DocTypeShipmentInput(ForeignEntityInput C_DocTypeShipment) {
 		this.mC_DocTypeShipment = C_DocTypeShipment;
 		MDocType_BH foreignEntity;
-		if (C_DocTypeShipment != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocTypeShipment.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocTypeShipment_ID(foreignEntity.get_ID());
+		if (C_DocTypeShipment != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocTypeShipment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocTypeShipment_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocTypeShipment.getUUID());
+			}
 		} else {
 			super.setC_DocTypeShipment_ID(0);
 		}
@@ -254,11 +289,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setDefiniteSequenceInput(ForeignEntityInput DefiniteSequence) {
 		this.mDefiniteSequence = DefiniteSequence;
 		MSequence_BH foreignEntity;
-		if (DefiniteSequence != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
-						.setParameters(DefiniteSequence.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setDefiniteSequence_ID(foreignEntity.get_ID());
+		if (DefiniteSequence != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
+							.setParameters(DefiniteSequence.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDefiniteSequence_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Sequence with UUID " + DefiniteSequence.getUUID());
+			}
 		} else {
 			super.setDefiniteSequence_ID(0);
 		}
@@ -283,11 +323,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setDocBaseTypeInput(I_AD_Ref_ListInput DocBaseType) {
 		this.mDocBaseType = DocBaseType;
 		MRefList_BH foreignEntity;
-		if (DocBaseType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocBaseType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocBaseType(foreignEntity.getValue());
+		if (DocBaseType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocBaseType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocBaseType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocBaseType.getUUID());
+			}
 		} else {
 			this.setDocBaseType(null);
 		}
@@ -312,11 +357,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setDocNoSequenceInput(ForeignEntityInput DocNoSequence) {
 		this.mDocNoSequence = DocNoSequence;
 		MSequence_BH foreignEntity;
-		if (DocNoSequence != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
-						.setParameters(DocNoSequence.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setDocNoSequence_ID(foreignEntity.get_ID());
+		if (DocNoSequence != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
+							.setParameters(DocNoSequence.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocNoSequence_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Sequence with UUID " + DocNoSequence.getUUID());
+			}
 		} else {
 			super.setDocNoSequence_ID(0);
 		}
@@ -341,11 +391,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setDocSubTypeInvInput(I_AD_Ref_ListInput DocSubTypeInv) {
 		this.mDocSubTypeInv = DocSubTypeInv;
 		MRefList_BH foreignEntity;
-		if (DocSubTypeInv != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocSubTypeInv.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocSubTypeInv(foreignEntity.getValue());
+		if (DocSubTypeInv != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocSubTypeInv.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocSubTypeInv(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocSubTypeInv.getUUID());
+			}
 		} else {
 			this.setDocSubTypeInv(null);
 		}
@@ -370,11 +425,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setDocSubTypeSOInput(I_AD_Ref_ListInput DocSubTypeSO) {
 		this.mDocSubTypeSO = DocSubTypeSO;
 		MRefList_BH foreignEntity;
-		if (DocSubTypeSO != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocSubTypeSO.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocSubTypeSO(foreignEntity.getValue());
+		if (DocSubTypeSO != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocSubTypeSO.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocSubTypeSO(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocSubTypeSO.getUUID());
+			}
 		} else {
 			this.setDocSubTypeSO(null);
 		}
@@ -399,11 +459,16 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	public void setGL_CategoryInput(ForeignEntityInput GL_Category) {
 		this.mGL_Category = GL_Category;
 		MGLCategory foreignEntity;
-		if (GL_Category != null &&
-				(foreignEntity = new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
-						.setParameters(GL_Category.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setGL_Category_ID(foreignEntity.get_ID());
+		if (GL_Category != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
+							.setParameters(GL_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setGL_Category_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table GL_Category with UUID " + GL_Category.getUUID());
+			}
 		} else {
 			super.setGL_Category_ID(0);
 		}

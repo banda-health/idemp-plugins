@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_InOutConfirmSave(entity: M_InOutConfirmInput!): M_InOutConfirm!
+	M_InOutConfirmSaveMany(entities: [M_InOutConfirmInput!]!): [M_InOutConfirm!]!
 	M_InOutConfirmDelete(uuids: [String!]!): Boolean!
 }
 
@@ -51,7 +52,7 @@ type M_InOutConfirm {
 	IsInDispute: Boolean!
 	# Material Shipment Document
 	M_InOut: M_InOut!
-	ID: ID!
+	UUID: ID!
 	# Parameters for a Physical Inventory
 	M_Inventory: M_Inventory
 	# The document has been processed
@@ -93,7 +94,7 @@ input M_InOutConfirmInput {
 	IsInDispute: Boolean
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Parameters for a Physical Inventory
 	M_Inventory: ForeignEntityInput
 	# The document has been processed

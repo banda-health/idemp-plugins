@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_BroadcastMessageSave(entity: AD_BroadcastMessageInput!): AD_BroadcastMessage!
+	AD_BroadcastMessageSaveMany(entities: [AD_BroadcastMessageInput!]!): [AD_BroadcastMessage!]!
 	AD_BroadcastMessageDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type AD_BroadcastMessageConnection {
 }
 
 type AD_BroadcastMessage {
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -61,7 +62,7 @@ type AD_BroadcastMessage {
 }
 
 input AD_BroadcastMessageInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Responsibility Role

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_1099BoxInput;
 import org.compiere.model.X_C_1099Box;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_1099Box - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_1099BoxMutation extends POMutation implements GraphQLMutationRe
 		return X_C_1099BoxInput.Table_Name;
 	}
 
-	public X_C_1099Box C_1099BoxSave(I_C_1099BoxInput input, DataFetchingEnvironment environment) {
-		return (X_C_1099Box) super.save((X_C_1099BoxInput) input, environment);
+	public X_C_1099Box C_1099BoxSave(I_C_1099BoxInput entity, DataFetchingEnvironment environment) {
+		return (X_C_1099Box) super.save((X_C_1099BoxInput) entity, environment);
+	}
+
+	public List<X_C_1099Box> C_1099BoxSaveMany(List<I_C_1099BoxInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_1099BoxInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_C_1099Box) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_1099BoxDelete(List<String> uuids, DataFetchingEnvironment environment) {

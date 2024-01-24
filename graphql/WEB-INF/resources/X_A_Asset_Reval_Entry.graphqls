@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_Reval_EntrySave(entity: A_Asset_Reval_EntryInput!): A_Asset_Reval_Entry!
+	A_Asset_Reval_EntrySaveMany(entities: [A_Asset_Reval_EntryInput!]!): [A_Asset_Reval_Entry!]!
 	A_Asset_Reval_EntryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type A_Asset_Reval_EntryConnection {
 }
 
 type A_Asset_Reval_Entry {
-	ID: ID!
+	UUID: ID!
 	A_Effective_Date: Date!
 	A_Rev_Code: AD_Ref_List!
 	A_Reval_Cal_Method: AD_Ref_List!
@@ -62,7 +63,7 @@ type A_Asset_Reval_Entry {
 }
 
 input A_Asset_Reval_EntryInput {
-	ID: ID
+	UUID: ID
 	A_Effective_Date: Date
 	A_Rev_Code: AD_Ref_ListInput
 	A_Reval_Cal_Method: AD_Ref_ListInput

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_AttributeValueSave(entity: M_AttributeValueInput!): M_AttributeValue!
+	M_AttributeValueSaveMany(entities: [M_AttributeValueInput!]!): [M_AttributeValue!]!
 	M_AttributeValueDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_AttributeValue {
 	IsActive: Boolean!
 	# Product Attribute
 	M_Attribute: M_Attribute!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -50,7 +51,7 @@ input M_AttributeValueInput {
 	IsActive: Boolean
 	# Product Attribute
 	M_Attribute: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Search key for the record in the format required - must be unique

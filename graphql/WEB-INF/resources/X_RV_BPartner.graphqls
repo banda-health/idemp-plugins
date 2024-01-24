@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	RV_BPartnerSave(entity: RV_BPartnerInput!): RV_BPartner!
+	RV_BPartnerSaveMany(entities: [RV_BPartnerInput!]!): [RV_BPartner!]!
 	RV_BPartnerDelete(uuids: [String!]!): Boolean!
 }
 

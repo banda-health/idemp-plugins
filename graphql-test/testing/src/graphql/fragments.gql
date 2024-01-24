@@ -1,0 +1,58 @@
+fragment BH_VisitFields on BH_Visit {
+	BH_VisitDate
+	Description
+	UUID
+	Patient {
+		UUID
+		Name
+	}
+}
+
+fragment C_BPartnerFields on C_BPartner {
+	BH_Birthday
+	bh_gender {
+		UUID
+		Value
+	}
+	bh_occupation
+	C_BP_Group {
+		Name
+		UUID
+	}
+	C_BPartner_Locations {
+		UUID
+		C_Location {
+			Address1
+		}
+	}
+	Description
+	UUID
+	IsCustomer
+	IsVendor
+	LastVisitDate
+	Name
+	NationalID
+	NextOfKin_Contact
+	NextOfKin_Name
+	TotalOpenBalance
+	TotalVisits
+}
+
+fragment C_LocationFields on C_Location {
+	C_Country {
+		UUID
+	}
+	C_Region {
+		UUID
+		Name
+	}
+	UUID
+}
+
+fragment C_OrderFields on C_Order {
+	DocStatus {
+		Value
+	}
+	GrandTotal
+	UUID
+}

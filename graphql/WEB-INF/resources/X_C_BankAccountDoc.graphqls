@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BankAccountDocSave(entity: C_BankAccountDocInput!): C_BankAccountDoc!
+	C_BankAccountDocSaveMany(entities: [C_BankAccountDocInput!]!): [C_BankAccountDoc!]!
 	C_BankAccountDocDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_BankAccountDoc {
 	AD_Org: AD_Org!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
-	ID: ID!
+	UUID: ID!
 	# Print Format for printing Checks
 	Check_PrintFormat: AD_PrintFormat
 	# Date this record was created
@@ -50,7 +51,7 @@ input C_BankAccountDocInput {
 	AD_Org: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Print Format for printing Checks
 	Check_PrintFormat: ForeignEntityInput
 	# The next number to be used

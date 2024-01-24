@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MTree_BH;
@@ -10,6 +11,7 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -31,13 +33,16 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	private I_AD_Ref_ListInput mUserLevel;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Role_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_RoleInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_AD_Role(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_RoleInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_Role(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -49,11 +54,16 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -79,20 +89,20 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_Role_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_Role_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_Role_UU();
 	}
 
@@ -105,11 +115,16 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setAD_Tree_MenuInput(ForeignEntityInput AD_Tree_Menu) {
 		this.mAD_Tree_Menu = AD_Tree_Menu;
 		MTree_BH foreignEntity;
-		if (AD_Tree_Menu != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-						.setParameters(AD_Tree_Menu.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Tree_Menu_ID(foreignEntity.get_ID());
+		if (AD_Tree_Menu != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
+							.setParameters(AD_Tree_Menu.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Tree_Menu_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Menu.getUUID());
+			}
 		} else {
 			super.setAD_Tree_Menu_ID(0);
 		}
@@ -134,11 +149,16 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setAD_Tree_OrgInput(ForeignEntityInput AD_Tree_Org) {
 		this.mAD_Tree_Org = AD_Tree_Org;
 		MTree_BH foreignEntity;
-		if (AD_Tree_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-						.setParameters(AD_Tree_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Tree_Org_ID(foreignEntity.get_ID());
+		if (AD_Tree_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
+							.setParameters(AD_Tree_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Tree_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Org.getUUID());
+			}
 		} else {
 			super.setAD_Tree_Org_ID(0);
 		}
@@ -163,11 +183,16 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
-		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-						.setParameters(C_Currency.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Currency_ID(foreignEntity.get_ID());
+		if (C_Currency != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Currency_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+			}
 		} else {
 			super.setC_Currency_ID(0);
 		}
@@ -192,11 +217,16 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setPreferenceTypeInput(I_AD_Ref_ListInput PreferenceType) {
 		this.mPreferenceType = PreferenceType;
 		MRefList_BH foreignEntity;
-		if (PreferenceType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PreferenceType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPreferenceType(foreignEntity.getValue());
+		if (PreferenceType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PreferenceType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPreferenceType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PreferenceType.getUUID());
+			}
 		} else {
 			this.setPreferenceType(null);
 		}
@@ -221,11 +251,16 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setRoleTypeInput(I_AD_Ref_ListInput RoleType) {
 		this.mRoleType = RoleType;
 		MRefList_BH foreignEntity;
-		if (RoleType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(RoleType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setRoleType(foreignEntity.getValue());
+		if (RoleType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(RoleType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setRoleType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + RoleType.getUUID());
+			}
 		} else {
 			this.setRoleType(null);
 		}
@@ -250,11 +285,16 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
 		MUser_BH foreignEntity;
-		if (Supervisor != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(Supervisor.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setSupervisor_ID(foreignEntity.get_ID());
+		if (Supervisor != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setSupervisor_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
+			}
 		} else {
 			super.setSupervisor_ID(0);
 		}
@@ -279,11 +319,16 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	public void setUserLevelInput(I_AD_Ref_ListInput UserLevel) {
 		this.mUserLevel = UserLevel;
 		MRefList_BH foreignEntity;
-		if (UserLevel != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(UserLevel.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setUserLevel(foreignEntity.getValue());
+		if (UserLevel != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(UserLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setUserLevel(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + UserLevel.getUUID());
+			}
 		} else {
 			this.setUserLevel(null);
 		}

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CycleSave(entity: C_CycleInput!): C_Cycle!
+	C_CycleSaveMany(entities: [C_CycleInput!]!): [C_Cycle!]!
 	C_CycleDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_Cycle {
 	AD_Org: AD_Org!
 	# The Currency for this record
 	C_Currency: C_Currency!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,7 +45,7 @@ input C_CycleInput {
 	AD_Org: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

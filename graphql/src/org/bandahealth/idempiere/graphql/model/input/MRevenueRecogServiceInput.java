@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MRevenueRecogServiceInput extends X_C_RevenueRecog_ServiceInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_RevenueRecog_Service_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRevenueRecogServiceInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MRevenueRecogServiceInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_InOutLineSave(entity: M_InOutLineInput!): M_InOutLine!
+	M_InOutLineSaveMany(entities: [M_InOutLineInput!]!): [M_InOutLine!]!
 	M_InOutLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -56,7 +57,7 @@ type M_InOutLine {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Material Shipment Document
 	M_InOut: M_InOut!
-	ID: ID!
+	UUID: ID!
 	# Warehouse Locator
 	M_Locator: M_Locator
 	# Product, Service, Item
@@ -123,7 +124,7 @@ input M_InOutLineInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Warehouse Locator
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item

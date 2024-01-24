@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_RMALineInput;
 import org.compiere.model.MRMALine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_RMALine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_RMALineMutation extends POMutation implements GraphQLMutationRe
 		return X_M_RMALineInput.Table_Name;
 	}
 
-	public MRMALine M_RMALineSave(I_M_RMALineInput input, DataFetchingEnvironment environment) {
-		return (MRMALine) super.save((X_M_RMALineInput) input, environment);
+	public MRMALine M_RMALineSave(I_M_RMALineInput entity, DataFetchingEnvironment environment) {
+		return (MRMALine) super.save((X_M_RMALineInput) entity, environment);
+	}
+
+	public List<MRMALine> M_RMALineSaveMany(List<I_M_RMALineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_RMALineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRMALine) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_RMALineDelete(List<String> uuids, DataFetchingEnvironment environment) {

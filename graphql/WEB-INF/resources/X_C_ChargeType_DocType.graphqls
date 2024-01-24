@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_ChargeType_DocTypeSave(entity: C_ChargeType_DocTypeInput!): C_ChargeType_DocType!
+	C_ChargeType_DocTypeSaveMany(entities: [C_ChargeType_DocTypeInput!]!): [C_ChargeType_DocType!]!
 	C_ChargeType_DocTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_ChargeType_DocType {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	C_ChargeType: C_ChargeType!
 	# Document type or rules
 	C_DocType: C_DocType!
@@ -41,7 +42,7 @@ type C_ChargeType_DocType {
 input C_ChargeType_DocTypeInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	C_ChargeType: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_MatchInvSave(entity: M_MatchInvInput!): M_MatchInv!
+	M_MatchInvSaveMany(entities: [M_MatchInvInput!]!): [M_MatchInv!]!
 	M_MatchInvDelete(uuids: [String!]!): Boolean!
 }
 
@@ -40,7 +41,7 @@ type M_MatchInv {
 	M_AttributeSetInstance: M_AttributeSetInstance
 	# Line on Shipment or Receipt document
 	M_InOutLine: M_InOutLine
-	ID: ID!
+	UUID: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Posting status
@@ -80,7 +81,7 @@ input M_MatchInvInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Line on Shipment or Receipt document
 	M_InOutLine: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Posting status

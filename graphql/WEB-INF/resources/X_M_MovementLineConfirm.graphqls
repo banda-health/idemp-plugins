@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_MovementLineConfirmSave(entity: M_MovementLineConfirmInput!): M_MovementLineConfirm!
+	M_MovementLineConfirmSaveMany(entities: [M_MovementLineConfirmInput!]!): [M_MovementLineConfirm!]!
 	M_MovementLineConfirmDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type M_MovementLineConfirm {
 	M_MovementConfirm: M_MovementConfirm!
 	# Inventory Move document Line
 	M_MovementLine: M_MovementLine!
-	ID: ID!
+	UUID: ID!
 	# The document has been processed
 	Processed: Boolean!
 	# The Quantity scrapped due to QA issues
@@ -68,7 +69,7 @@ input M_MovementLineConfirmInput {
 	M_MovementConfirm: ForeignEntityInput
 	# Inventory Move document Line
 	M_MovementLine: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The document has been processed
 	Processed: Boolean
 	# The Quantity scrapped due to QA issues

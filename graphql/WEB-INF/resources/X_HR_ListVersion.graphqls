@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_ListVersionSave(entity: HR_ListVersionInput!): HR_ListVersion!
+	HR_ListVersionSaveMany(entities: [HR_ListVersionInput!]!): [HR_ListVersion!]!
 	HR_ListVersionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type HR_ListVersion {
 	Description: String
 	HR_List: HR_List!
 	HR_ListBase: HR_List
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -50,7 +51,7 @@ input HR_ListVersionInput {
 	Description: String
 	HR_List: ForeignEntityInput
 	HR_ListBase: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

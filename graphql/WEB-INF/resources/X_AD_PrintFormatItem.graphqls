@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PrintFormatItemSave(entity: AD_PrintFormatItemInput!): AD_PrintFormatItem!
+	AD_PrintFormatItemSaveMany(entities: [AD_PrintFormatItemInput!]!): [AD_PrintFormatItem!]!
 	AD_PrintFormatItemDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type AD_PrintFormatItem {
 	AD_PrintFormat: AD_PrintFormat!
 	# Print format that is included here.
 	AD_PrintFormatChild: AD_PrintFormat!
-	ID: ID!
+	UUID: ID!
 	# Graph included in Reports
 	AD_PrintGraph: AD_PrintGraph
 	# Arc Diameter for rounded Rectangles
@@ -158,7 +159,7 @@ input AD_PrintFormatItemInput {
 	AD_PrintFormat: ForeignEntityInput
 	# Print format that is included here.
 	AD_PrintFormatChild: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Graph included in Reports
 	AD_PrintGraph: ForeignEntityInput
 	# Arc Diameter for rounded Rectangles

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_QualityTestSave(entity: M_QualityTestInput!): M_QualityTest!
+	M_QualityTestSaveMany(entities: [M_QualityTestInput!]!): [M_QualityTest!]!
 	M_QualityTestDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_QualityTest {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -48,7 +49,7 @@ input M_QualityTestInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

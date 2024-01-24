@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_C_PaymentInput;
 import org.bandahealth.idempiere.graphql.model.input.X_C_PaymentInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_Payment - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_PaymentMutation extends POMutation implements GraphQLMutationRe
 		return X_C_PaymentInput.Table_Name;
 	}
 
-	public MPayment_BH C_PaymentSave(I_C_PaymentInput input, DataFetchingEnvironment environment) {
-		return (MPayment_BH) super.save((X_C_PaymentInput) input, environment);
+	public MPayment_BH C_PaymentSave(I_C_PaymentInput entity, DataFetchingEnvironment environment) {
+		return (MPayment_BH) super.save((X_C_PaymentInput) entity, environment);
+	}
+
+	public List<MPayment_BH> C_PaymentSaveMany(List<I_C_PaymentInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_PaymentInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MPayment_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_PaymentDelete(List<String> uuids, DataFetchingEnvironment environment) {

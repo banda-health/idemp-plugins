@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_TransactionAllocationIn
 import org.compiere.model.X_M_TransactionAllocation;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_TransactionAllocation - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_TransactionAllocationMutation extends POMutation implements Gra
 		return X_M_TransactionAllocationInput.Table_Name;
 	}
 
-	public X_M_TransactionAllocation M_TransactionAllocationSave(I_M_TransactionAllocationInput input, DataFetchingEnvironment environment) {
-		return (X_M_TransactionAllocation) super.save((X_M_TransactionAllocationInput) input, environment);
+	public X_M_TransactionAllocation M_TransactionAllocationSave(I_M_TransactionAllocationInput entity, DataFetchingEnvironment environment) {
+		return (X_M_TransactionAllocation) super.save((X_M_TransactionAllocationInput) entity, environment);
+	}
+
+	public List<X_M_TransactionAllocation> M_TransactionAllocationSaveMany(List<I_M_TransactionAllocationInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_TransactionAllocationInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_M_TransactionAllocation) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_TransactionAllocationDelete(List<String> uuids, DataFetchingEnvironment environment) {

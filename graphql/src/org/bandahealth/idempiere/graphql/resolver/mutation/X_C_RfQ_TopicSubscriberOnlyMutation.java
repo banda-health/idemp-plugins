@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_RfQ_TopicSubscriberOnly
 import org.compiere.model.MRfQTopicSubscriberOnly;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_RfQ_TopicSubscriberOnly - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_RfQ_TopicSubscriberOnlyMutation extends POMutation implements G
 		return X_C_RfQ_TopicSubscriberOnlyInput.Table_Name;
 	}
 
-	public MRfQTopicSubscriberOnly C_RfQ_TopicSubscriberOnlySave(I_C_RfQ_TopicSubscriberOnlyInput input, DataFetchingEnvironment environment) {
-		return (MRfQTopicSubscriberOnly) super.save((X_C_RfQ_TopicSubscriberOnlyInput) input, environment);
+	public MRfQTopicSubscriberOnly C_RfQ_TopicSubscriberOnlySave(I_C_RfQ_TopicSubscriberOnlyInput entity, DataFetchingEnvironment environment) {
+		return (MRfQTopicSubscriberOnly) super.save((X_C_RfQ_TopicSubscriberOnlyInput) entity, environment);
+	}
+
+	public List<MRfQTopicSubscriberOnly> C_RfQ_TopicSubscriberOnlySaveMany(List<I_C_RfQ_TopicSubscriberOnlyInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_RfQ_TopicSubscriberOnlyInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRfQTopicSubscriberOnly) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_RfQ_TopicSubscriberOnlyDelete(List<String> uuids, DataFetchingEnvironment environment) {

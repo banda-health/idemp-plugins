@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_RelatedProductSave(entity: M_RelatedProductInput!): M_RelatedProduct!
+	M_RelatedProductSaveMany(entities: [M_RelatedProductInput!]!): [M_RelatedProduct!]!
 	M_RelatedProductDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_RelatedProduct {
 	IsActive: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Related Product
@@ -51,7 +52,7 @@ input M_RelatedProductInput {
 	IsActive: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Related Product

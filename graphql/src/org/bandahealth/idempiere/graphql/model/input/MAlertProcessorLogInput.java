@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MAlertProcessorLogInput extends X_AD_AlertProcessorLogInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_AlertProcessorLog_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAlertProcessorLogInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MAlertProcessorLogInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

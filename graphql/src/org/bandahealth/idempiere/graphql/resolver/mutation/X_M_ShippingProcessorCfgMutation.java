@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_ShippingProcessorCfgInp
 import org.compiere.model.X_M_ShippingProcessorCfg;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_ShippingProcessorCfg - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_ShippingProcessorCfgMutation extends POMutation implements Grap
 		return X_M_ShippingProcessorCfgInput.Table_Name;
 	}
 
-	public X_M_ShippingProcessorCfg M_ShippingProcessorCfgSave(I_M_ShippingProcessorCfgInput input, DataFetchingEnvironment environment) {
-		return (X_M_ShippingProcessorCfg) super.save((X_M_ShippingProcessorCfgInput) input, environment);
+	public X_M_ShippingProcessorCfg M_ShippingProcessorCfgSave(I_M_ShippingProcessorCfgInput entity, DataFetchingEnvironment environment) {
+		return (X_M_ShippingProcessorCfg) super.save((X_M_ShippingProcessorCfgInput) entity, environment);
+	}
+
+	public List<X_M_ShippingProcessorCfg> M_ShippingProcessorCfgSaveMany(List<I_M_ShippingProcessorCfgInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_ShippingProcessorCfgInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_M_ShippingProcessorCfg) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_ShippingProcessorCfgDelete(List<String> uuids, DataFetchingEnvironment environment) {

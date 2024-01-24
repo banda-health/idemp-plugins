@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_TaxBaseInput;
 import org.eevolution.model.X_C_TaxBase;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_TaxBase - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_TaxBaseMutation extends POMutation implements GraphQLMutationRe
 		return X_C_TaxBaseInput.Table_Name;
 	}
 
-	public X_C_TaxBase C_TaxBaseSave(I_C_TaxBaseInput input, DataFetchingEnvironment environment) {
-		return (X_C_TaxBase) super.save((X_C_TaxBaseInput) input, environment);
+	public X_C_TaxBase C_TaxBaseSave(I_C_TaxBaseInput entity, DataFetchingEnvironment environment) {
+		return (X_C_TaxBase) super.save((X_C_TaxBaseInput) entity, environment);
+	}
+
+	public List<X_C_TaxBase> C_TaxBaseSaveMany(List<I_C_TaxBaseInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_TaxBaseInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_C_TaxBase) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_TaxBaseDelete(List<String> uuids, DataFetchingEnvironment environment) {

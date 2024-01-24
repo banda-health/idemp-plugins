@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ImageSave(entity: AD_ImageInput!): AD_Image!
+	AD_ImageSaveMany(entities: [AD_ImageInput!]!): [AD_Image!]!
 	AD_ImageDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_ImageConnection {
 type AD_Image {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Binary Data
@@ -44,7 +45,7 @@ type AD_Image {
 }
 
 input AD_ImageInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Binary Data

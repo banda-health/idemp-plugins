@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_ProductionLineMAInput;
 import org.compiere.model.MProductionLineMA;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_ProductionLineMA - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_ProductionLineMAMutation extends POMutation implements GraphQLM
 		return X_M_ProductionLineMAInput.Table_Name;
 	}
 
-	public MProductionLineMA M_ProductionLineMASave(I_M_ProductionLineMAInput input, DataFetchingEnvironment environment) {
-		return (MProductionLineMA) super.save((X_M_ProductionLineMAInput) input, environment);
+	public MProductionLineMA M_ProductionLineMASave(I_M_ProductionLineMAInput entity, DataFetchingEnvironment environment) {
+		return (MProductionLineMA) super.save((X_M_ProductionLineMAInput) entity, environment);
+	}
+
+	public List<MProductionLineMA> M_ProductionLineMASaveMany(List<I_M_ProductionLineMAInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_ProductionLineMAInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MProductionLineMA) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_ProductionLineMADelete(List<String> uuids, DataFetchingEnvironment environment) {

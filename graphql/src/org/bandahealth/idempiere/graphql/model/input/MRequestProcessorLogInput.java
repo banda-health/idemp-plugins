@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MRequestProcessorLogInput extends X_R_RequestProcessorLogInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The R_RequestProcessorLog_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRequestProcessorLogInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MRequestProcessorLogInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

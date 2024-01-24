@@ -25,18 +25,18 @@ public interface I_BH_I_Product_QuantityInput extends I_BH_I_Product_Quantity {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set M_Product.

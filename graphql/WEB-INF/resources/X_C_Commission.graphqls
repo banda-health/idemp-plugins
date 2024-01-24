@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CommissionSave(entity: C_CommissionInput!): C_Commission!
+	C_CommissionSaveMany(entities: [C_CommissionInput!]!): [C_Commission!]!
 	C_CommissionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_Commission {
 	C_BPartner: C_BPartner!
 	# Additional document charges
 	C_Charge: C_Charge!
-	ID: ID!
+	UUID: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -61,7 +62,7 @@ input C_CommissionInput {
 	C_BPartner: ForeignEntityInput
 	# Additional document charges
 	C_Charge: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Process which will generate a new document lines based on an existing document

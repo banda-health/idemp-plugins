@@ -2,11 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_IMP_Processor;
 import org.compiere.model.X_IMP_ProcessorParameter;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -22,13 +24,16 @@ public class X_IMP_ProcessorParameterInput extends X_IMP_ProcessorParameter impl
 	private ForeignEntityInput mIMP_Processor;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The IMP_ProcessorParameter_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_IMP_ProcessorParameterInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_IMP_ProcessorParameter(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_IMP_ProcessorParameterInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_IMP_ProcessorParameter(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -40,11 +45,16 @@ public class X_IMP_ProcessorParameterInput extends X_IMP_ProcessorParameter impl
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -67,11 +77,16 @@ public class X_IMP_ProcessorParameterInput extends X_IMP_ProcessorParameter impl
 	public void setIMP_ProcessorInput(ForeignEntityInput IMP_Processor) {
 		this.mIMP_Processor = IMP_Processor;
 		X_IMP_Processor foreignEntity;
-		if (get_ID() == 0 && IMP_Processor != null &&
-				(foreignEntity = new Query(getCtx(), "IMP_Processor", "IMP_Processor_UU=?", get_TrxName())
-						.setParameters(IMP_Processor.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setIMP_Processor_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && IMP_Processor != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "IMP_Processor", "IMP_Processor_UU=?", get_TrxName())
+							.setParameters(IMP_Processor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setIMP_Processor_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table IMP_Processor with UUID " + IMP_Processor.getUUID());
+			}
 		}
 	}
 
@@ -97,20 +112,20 @@ public class X_IMP_ProcessorParameterInput extends X_IMP_ProcessorParameter impl
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setIMP_ProcessorParameter_UU(ID);
+	public void setUUID(String UUID) {
+		setIMP_ProcessorParameter_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getIMP_ProcessorParameter_UU();
 	}
 }

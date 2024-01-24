@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Table_ScriptValidatorSave(entity: AD_Table_ScriptValidatorInput!): AD_Table_ScriptValidator!
+	AD_Table_ScriptValidatorSaveMany(entities: [AD_Table_ScriptValidatorInput!]!): [AD_Table_ScriptValidator!]!
 	AD_Table_ScriptValidatorDelete(uuids: [String!]!): Boolean!
 }
 
@@ -23,7 +24,7 @@ type AD_Table_ScriptValidator {
 	AD_Rule: AD_Rule!
 	# Database Table information
 	AD_Table: AD_Table!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -45,7 +46,7 @@ input AD_Table_ScriptValidatorInput {
 	AD_Rule: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	EventModelValidator: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean

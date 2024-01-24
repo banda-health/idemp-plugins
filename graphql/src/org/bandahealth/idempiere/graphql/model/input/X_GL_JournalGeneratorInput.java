@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -11,6 +12,7 @@ import org.compiere.model.MGLCategory;
 import org.compiere.model.MJournalGenerator;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -31,13 +33,16 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	private I_AD_Ref_ListInput mPostingType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The GL_JournalGenerator_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_GL_JournalGeneratorInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MJournalGenerator(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_GL_JournalGeneratorInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MJournalGenerator(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -49,11 +54,16 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -76,11 +86,16 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-						.setParameters(C_AcctSchema.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_AcctSchema_ID(foreignEntity.get_ID());
+		if (C_AcctSchema != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+			}
 		} else {
 			super.setC_AcctSchema_ID(0);
 		}
@@ -105,11 +120,16 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
-		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocType_ID(foreignEntity.get_ID());
+		if (C_DocType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+			}
 		} else {
 			super.setC_DocType_ID(0);
 		}
@@ -134,11 +154,16 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	public void setC_ElementValueAdjustCRInput(ForeignEntityInput C_ElementValueAdjustCR) {
 		this.mC_ElementValueAdjustCR = C_ElementValueAdjustCR;
 		MElementValue foreignEntity;
-		if (C_ElementValueAdjustCR != null &&
-				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-						.setParameters(C_ElementValueAdjustCR.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_ElementValueAdjustCR_ID(foreignEntity.get_ID());
+		if (C_ElementValueAdjustCR != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
+							.setParameters(C_ElementValueAdjustCR.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_ElementValueAdjustCR_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ElementValue with UUID " + C_ElementValueAdjustCR.getUUID());
+			}
 		} else {
 			super.setC_ElementValueAdjustCR_ID(0);
 		}
@@ -163,11 +188,16 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	public void setC_ElementValueAdjustDRInput(ForeignEntityInput C_ElementValueAdjustDR) {
 		this.mC_ElementValueAdjustDR = C_ElementValueAdjustDR;
 		MElementValue foreignEntity;
-		if (C_ElementValueAdjustDR != null &&
-				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-						.setParameters(C_ElementValueAdjustDR.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_ElementValueAdjustDR_ID(foreignEntity.get_ID());
+		if (C_ElementValueAdjustDR != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
+							.setParameters(C_ElementValueAdjustDR.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_ElementValueAdjustDR_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ElementValue with UUID " + C_ElementValueAdjustDR.getUUID());
+			}
 		} else {
 			super.setC_ElementValueAdjustDR_ID(0);
 		}
@@ -192,11 +222,16 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	public void setGL_CategoryInput(ForeignEntityInput GL_Category) {
 		this.mGL_Category = GL_Category;
 		MGLCategory foreignEntity;
-		if (GL_Category != null &&
-				(foreignEntity = new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
-						.setParameters(GL_Category.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setGL_Category_ID(foreignEntity.get_ID());
+		if (GL_Category != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
+							.setParameters(GL_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setGL_Category_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table GL_Category with UUID " + GL_Category.getUUID());
+			}
 		} else {
 			super.setGL_Category_ID(0);
 		}
@@ -224,20 +259,20 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setGL_JournalGenerator_UU(ID);
+	public void setUUID(String UUID) {
+		setGL_JournalGenerator_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getGL_JournalGenerator_UU();
 	}
 
@@ -250,11 +285,16 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
 		this.mPostingType = PostingType;
 		MRefList_BH foreignEntity;
-		if (PostingType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPostingType(foreignEntity.getValue());
+		if (PostingType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPostingType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PostingType.getUUID());
+			}
 		} else {
 			this.setPostingType(null);
 		}

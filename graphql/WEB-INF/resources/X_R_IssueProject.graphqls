@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_IssueProjectSave(entity: R_IssueProjectInput!): R_IssueProject!
+	R_IssueProjectSaveMany(entities: [R_IssueProjectInput!]!): [R_IssueProject!]!
 	R_IssueProjectDelete(uuids: [String!]!): Boolean!
 }
 
@@ -36,7 +37,7 @@ type R_IssueProject {
 	Name: String!
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
-	ID: ID!
+	UUID: ID!
 	# Information to help profiling the system for solving support issues
 	StatisticsInfo: String
 	# Status of the system - Support priority depends on system status
@@ -62,7 +63,7 @@ input R_IssueProjectInput {
 	Name: String
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
-	ID: ID
+	UUID: ID
 	# Information to help profiling the system for solving support issues
 	StatisticsInfo: String
 	# Status of the system - Support priority depends on system status

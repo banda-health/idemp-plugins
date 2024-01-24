@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CycleStepSave(entity: C_CycleStepInput!): C_CycleStep!
+	C_CycleStepSaveMany(entities: [C_CycleStepInput!]!): [C_CycleStep!]!
 	C_CycleStepDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_CycleStep {
 	AD_Org: AD_Org!
 	# Identifier for this Project Reporting Cycle
 	C_Cycle: C_Cycle!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,7 +47,7 @@ input C_CycleStepInput {
 	AD_Org: ForeignEntityInput
 	# Identifier for this Project Reporting Cycle
 	C_Cycle: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

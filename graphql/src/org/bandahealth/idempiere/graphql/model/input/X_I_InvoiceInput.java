@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
@@ -25,6 +26,7 @@ import org.compiere.model.MTax;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_1099Box;
 import org.compiere.model.X_I_Invoice;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -59,13 +61,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	private ForeignEntityInput mSalesRep;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The I_Invoice_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_I_InvoiceInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_I_Invoice(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_I_InvoiceInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_I_Invoice(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -77,11 +82,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -104,11 +114,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
-		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(AD_User.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_User_ID(foreignEntity.get_ID());
+		if (AD_User != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_User_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+			}
 		} else {
 			super.setAD_User_ID(0);
 		}
@@ -133,11 +148,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_1099BoxInput(ForeignEntityInput C_1099Box) {
 		this.mC_1099Box = C_1099Box;
 		X_C_1099Box foreignEntity;
-		if (C_1099Box != null &&
-				(foreignEntity = new Query(getCtx(), "C_1099Box", "C_1099Box_UU=?", get_TrxName())
-						.setParameters(C_1099Box.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_1099Box_ID(foreignEntity.get_ID());
+		if (C_1099Box != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_1099Box", "C_1099Box_UU=?", get_TrxName())
+							.setParameters(C_1099Box.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_1099Box_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_1099Box with UUID " + C_1099Box.getUUID());
+			}
 		} else {
 			super.setC_1099Box_ID(0);
 		}
@@ -162,11 +182,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
-		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-						.setParameters(C_Activity.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Activity_ID(foreignEntity.get_ID());
+		if (C_Activity != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
+							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Activity_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
+			}
 		} else {
 			super.setC_Activity_ID(0);
 		}
@@ -191,11 +216,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_ID(foreignEntity.get_ID());
+		if (C_BPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+			}
 		} else {
 			super.setC_BPartner_ID(0);
 		}
@@ -220,11 +250,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
-		if (C_BPartner_Location != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-						.setParameters(C_BPartner_Location.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_Location_ID(foreignEntity.get_ID());
+		if (C_BPartner_Location != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
+							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
+			}
 		} else {
 			super.setC_BPartner_Location_ID(0);
 		}
@@ -249,11 +284,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
-		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-						.setParameters(C_Campaign.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Campaign_ID(foreignEntity.get_ID());
+		if (C_Campaign != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
+							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Campaign_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
+			}
 		} else {
 			super.setC_Campaign_ID(0);
 		}
@@ -278,11 +318,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
-		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-						.setParameters(C_Charge.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Charge_ID(foreignEntity.get_ID());
+		if (C_Charge != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
+							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Charge_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
+			}
 		} else {
 			super.setC_Charge_ID(0);
 		}
@@ -307,11 +352,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
 		MCountry foreignEntity;
-		if (C_Country != null &&
-				(foreignEntity = new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-						.setParameters(C_Country.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Country_ID(foreignEntity.get_ID());
+		if (C_Country != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
+							.setParameters(C_Country.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Country_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Country with UUID " + C_Country.getUUID());
+			}
 		} else {
 			super.setC_Country_ID(0);
 		}
@@ -336,11 +386,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
-		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-						.setParameters(C_Currency.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Currency_ID(foreignEntity.get_ID());
+		if (C_Currency != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Currency_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+			}
 		} else {
 			super.setC_Currency_ID(0);
 		}
@@ -365,11 +420,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
-		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocType_ID(foreignEntity.get_ID());
+		if (C_DocType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+			}
 		} else {
 			super.setC_DocType_ID(0);
 		}
@@ -394,11 +454,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
-		if (C_Invoice != null &&
-				(foreignEntity = new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-						.setParameters(C_Invoice.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Invoice_ID(foreignEntity.get_ID());
+		if (C_Invoice != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
+							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Invoice_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
+			}
 		} else {
 			super.setC_Invoice_ID(0);
 		}
@@ -423,11 +488,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
 		MInvoiceLine_BH foreignEntity;
-		if (C_InvoiceLine != null &&
-				(foreignEntity = new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-						.setParameters(C_InvoiceLine.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_InvoiceLine_ID(foreignEntity.get_ID());
+		if (C_InvoiceLine != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
+							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
+			}
 		} else {
 			super.setC_InvoiceLine_ID(0);
 		}
@@ -452,11 +522,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
-		if (C_Location != null &&
-				(foreignEntity = new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-						.setParameters(C_Location.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Location_ID(foreignEntity.get_ID());
+		if (C_Location != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
+							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Location_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
+			}
 		} else {
 			super.setC_Location_ID(0);
 		}
@@ -481,11 +556,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
 		MPaymentTerm foreignEntity;
-		if (C_PaymentTerm != null &&
-				(foreignEntity = new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
-						.setParameters(C_PaymentTerm.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_PaymentTerm_ID(foreignEntity.get_ID());
+		if (C_PaymentTerm != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
+							.setParameters(C_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_PaymentTerm_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_PaymentTerm with UUID " + C_PaymentTerm.getUUID());
+			}
 		} else {
 			super.setC_PaymentTerm_ID(0);
 		}
@@ -510,11 +590,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
-		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-						.setParameters(C_Project.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Project_ID(foreignEntity.get_ID());
+		if (C_Project != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Project_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
+			}
 		} else {
 			super.setC_Project_ID(0);
 		}
@@ -539,11 +624,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_RegionInput(ForeignEntityInput C_Region) {
 		this.mC_Region = C_Region;
 		MRegion foreignEntity;
-		if (C_Region != null &&
-				(foreignEntity = new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-						.setParameters(C_Region.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Region_ID(foreignEntity.get_ID());
+		if (C_Region != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
+							.setParameters(C_Region.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Region_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Region with UUID " + C_Region.getUUID());
+			}
 		} else {
 			super.setC_Region_ID(0);
 		}
@@ -568,11 +658,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
 		MTax foreignEntity;
-		if (C_Tax != null &&
-				(foreignEntity = new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-						.setParameters(C_Tax.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Tax_ID(foreignEntity.get_ID());
+		if (C_Tax != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
+							.setParameters(C_Tax.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Tax_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Tax with UUID " + C_Tax.getUUID());
+			}
 		} else {
 			super.setC_Tax_ID(0);
 		}
@@ -600,20 +695,20 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setI_Invoice_UU(ID);
+	public void setUUID(String UUID) {
+		setI_Invoice_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getI_Invoice_UU();
 	}
 
@@ -626,11 +721,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
-		if (M_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-						.setParameters(M_PriceList.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_PriceList_ID(foreignEntity.get_ID());
+		if (M_PriceList != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
+							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_PriceList_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
+			}
 		} else {
 			super.setM_PriceList_ID(0);
 		}
@@ -655,11 +755,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-						.setParameters(M_Product.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_ID(foreignEntity.get_ID());
+		if (M_Product != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
 		} else {
 			super.setM_Product_ID(0);
 		}
@@ -684,11 +789,16 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
 		MUser_BH foreignEntity;
-		if (SalesRep != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(SalesRep.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setSalesRep_ID(foreignEntity.get_ID());
+		if (SalesRep != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setSalesRep_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
+			}
 		} else {
 			super.setSalesRep_ID(0);
 		}

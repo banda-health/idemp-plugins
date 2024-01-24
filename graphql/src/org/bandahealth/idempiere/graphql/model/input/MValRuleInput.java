@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MValRuleInput extends X_AD_Val_RuleInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Val_Rule_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MValRuleInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MValRuleInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

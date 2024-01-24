@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_PA_DashboardPreferenceInp
 import org.compiere.model.MDashboardPreference;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for PA_DashboardPreference - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_PA_DashboardPreferenceMutation extends POMutation implements Grap
 		return X_PA_DashboardPreferenceInput.Table_Name;
 	}
 
-	public MDashboardPreference PA_DashboardPreferenceSave(I_PA_DashboardPreferenceInput input, DataFetchingEnvironment environment) {
-		return (MDashboardPreference) super.save((X_PA_DashboardPreferenceInput) input, environment);
+	public MDashboardPreference PA_DashboardPreferenceSave(I_PA_DashboardPreferenceInput entity, DataFetchingEnvironment environment) {
+		return (MDashboardPreference) super.save((X_PA_DashboardPreferenceInput) entity, environment);
+	}
+
+	public List<MDashboardPreference> PA_DashboardPreferenceSaveMany(List<I_PA_DashboardPreferenceInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_PA_DashboardPreferenceInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDashboardPreference) entity).collect(Collectors.toList());
 	}
 
 	public boolean PA_DashboardPreferenceDelete(List<String> uuids, DataFetchingEnvironment environment) {

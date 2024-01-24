@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
@@ -9,6 +10,7 @@ import org.compiere.model.MColumnAccess;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -26,30 +28,33 @@ public class X_AD_Column_AccessInput extends MColumnAccess implements I_AD_Colum
 	private ForeignEntityInput mAD_Table;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Column_Access_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_Column_AccessInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MColumnAccess(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_Column_AccessInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MColumnAccess(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_Column_Access_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_Column_Access_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_Column_Access_UU();
 	}
 
@@ -62,11 +67,16 @@ public class X_AD_Column_AccessInput extends MColumnAccess implements I_AD_Colum
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
 		MColumn foreignEntity;
-		if (get_ID() == 0 && AD_Column != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-						.setParameters(AD_Column.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Column_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Column != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
+							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Column_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
+			}
 		}
 	}
 
@@ -89,11 +99,16 @@ public class X_AD_Column_AccessInput extends MColumnAccess implements I_AD_Colum
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -116,11 +131,16 @@ public class X_AD_Column_AccessInput extends MColumnAccess implements I_AD_Colum
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
-		if (get_ID() == 0 && AD_Role != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-						.setParameters(AD_Role.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Role_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Role != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
+							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Role_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
+			}
 		}
 	}
 
@@ -143,11 +163,16 @@ public class X_AD_Column_AccessInput extends MColumnAccess implements I_AD_Colum
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable_BH foreignEntity;
-		if (AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-						.setParameters(AD_Table.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Table_ID(foreignEntity.get_ID());
+		if (AD_Table != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Table_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+			}
 		} else {
 			super.setAD_Table_ID(0);
 		}

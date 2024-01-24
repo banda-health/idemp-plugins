@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_UserPreferenceSave(entity: AD_UserPreferenceInput!): AD_UserPreference!
+	AD_UserPreferenceSaveMany(entities: [AD_UserPreferenceInput!]!): [AD_UserPreference!]!
 	AD_UserPreferenceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_UserPreference {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	ID: ID!
+	UUID: ID!
 	AutoCommit: Boolean!
 	# Automatically insert a decimal point
 	AutomaticDecimalPlacesForAmoun: Int
@@ -53,7 +54,7 @@ input AD_UserPreferenceInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	AutoCommit: Boolean
 	# Automatically insert a decimal point
 	AutomaticDecimalPlacesForAmoun: Int

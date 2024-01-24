@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_WithholdingSave(entity: C_WithholdingInput!): C_Withholding!
+	C_WithholdingSaveMany(entities: [C_WithholdingInput!]!): [C_Withholding!]!
 	C_WithholdingDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_Withholding {
 	Benefici: C_BPartner!
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: C_PaymentTerm!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -68,7 +69,7 @@ input C_WithholdingInput {
 	Benefici: ForeignEntityInput
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Fix amounted amount to be levied or paid

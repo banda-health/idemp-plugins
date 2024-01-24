@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_ReplicationDocumentInp
 import org.compiere.model.X_AD_ReplicationDocument;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_ReplicationDocument - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_ReplicationDocumentMutation extends POMutation implements Grap
 		return X_AD_ReplicationDocumentInput.Table_Name;
 	}
 
-	public X_AD_ReplicationDocument AD_ReplicationDocumentSave(I_AD_ReplicationDocumentInput input, DataFetchingEnvironment environment) {
-		return (X_AD_ReplicationDocument) super.save((X_AD_ReplicationDocumentInput) input, environment);
+	public X_AD_ReplicationDocument AD_ReplicationDocumentSave(I_AD_ReplicationDocumentInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_ReplicationDocument) super.save((X_AD_ReplicationDocumentInput) entity, environment);
+	}
+
+	public List<X_AD_ReplicationDocument> AD_ReplicationDocumentSaveMany(List<I_AD_ReplicationDocumentInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_ReplicationDocumentInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_ReplicationDocument) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_ReplicationDocumentDelete(List<String> uuids, DataFetchingEnvironment environment) {

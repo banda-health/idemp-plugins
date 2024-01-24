@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	GL_DistributionLineSave(entity: GL_DistributionLineInput!): GL_DistributionLine!
+	GL_DistributionLineSaveMany(entities: [GL_DistributionLineInput!]!): [GL_DistributionLine!]!
 	GL_DistributionLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -42,7 +43,7 @@ type GL_DistributionLine {
 	Description: String
 	# General Ledger Distribution
 	GL_Distribution: GL_Distribution!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Unique line for this document
@@ -108,7 +109,7 @@ input GL_DistributionLineInput {
 	Description: String
 	# General Ledger Distribution
 	GL_Distribution: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Unique line for this document

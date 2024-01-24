@@ -67,18 +67,18 @@ public interface I_PA_RatioElementInput extends I_PA_RatioElement {
 	ForeignEntityInput PA_Ratio();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set PA_RatioUsed.

@@ -2,11 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRegistrationAttribute;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -23,13 +25,16 @@ public class X_A_RegistrationAttributeInput extends MRegistrationAttribute imple
 	private ForeignEntityInput mAD_Reference_Value;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The A_RegistrationAttribute_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_A_RegistrationAttributeInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MRegistrationAttribute(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_A_RegistrationAttributeInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRegistrationAttribute(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 	/**
 	 * Set Registration Attribute.
@@ -44,20 +49,20 @@ public class X_A_RegistrationAttributeInput extends MRegistrationAttribute imple
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setA_RegistrationAttribute_UU(ID);
+	public void setUUID(String UUID) {
+		setA_RegistrationAttribute_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getA_RegistrationAttribute_UU();
 	}
 
@@ -70,11 +75,16 @@ public class X_A_RegistrationAttributeInput extends MRegistrationAttribute imple
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -97,11 +107,16 @@ public class X_A_RegistrationAttributeInput extends MRegistrationAttribute imple
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
 		MReference_BH foreignEntity;
-		if (AD_Reference != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-						.setParameters(AD_Reference.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Reference_ID(foreignEntity.get_ID());
+		if (AD_Reference != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
+							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Reference_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
+			}
 		} else {
 			super.setAD_Reference_ID(0);
 		}
@@ -126,11 +141,16 @@ public class X_A_RegistrationAttributeInput extends MRegistrationAttribute imple
 	public void setAD_Reference_ValueInput(ForeignEntityInput AD_Reference_Value) {
 		this.mAD_Reference_Value = AD_Reference_Value;
 		MReference_BH foreignEntity;
-		if (AD_Reference_Value != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-						.setParameters(AD_Reference_Value.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Reference_Value_ID(foreignEntity.get_ID());
+		if (AD_Reference_Value != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
+							.setParameters(AD_Reference_Value.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Reference_Value_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Reference with UUID " + AD_Reference_Value.getUUID());
+			}
 		} else {
 			super.setAD_Reference_Value_ID(0);
 		}

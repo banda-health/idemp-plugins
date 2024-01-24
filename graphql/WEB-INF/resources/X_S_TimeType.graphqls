@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	S_TimeTypeSave(entity: S_TimeTypeInput!): S_TimeType!
+	S_TimeTypeSaveMany(entities: [S_TimeTypeInput!]!): [S_TimeType!]!
 	S_TimeTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type S_TimeType {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -50,5 +51,5 @@ input S_TimeTypeInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 }

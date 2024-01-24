@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_Payer_Info_Fld_SugSave(entity: BH_Payer_Info_Fld_SugInput!): BH_Payer_Info_Fld_Sug!
+	BH_Payer_Info_Fld_SugSaveMany(entities: [BH_Payer_Info_Fld_SugInput!]!): [BH_Payer_Info_Fld_Sug!]!
 	BH_Payer_Info_Fld_SugDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type BH_Payer_Info_Fld_Sug {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	BH_FillFromPatient: Boolean!
-	ID: ID!
+	UUID: ID!
 	BH_PayerInfoFieldDataType: AD_Ref_List!
 	# Meant to be a sub-type of the charge type
 	BH_SubType: AD_Ref_List!
@@ -47,7 +48,7 @@ input BH_Payer_Info_Fld_SugInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	BH_FillFromPatient: Boolean
-	ID: ID
+	UUID: ID
 	BH_PayerInfoFieldDataType: AD_Ref_ListInput
 	# Meant to be a sub-type of the charge type
 	BH_SubType: AD_Ref_ListInput

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PrintPaperSave(entity: AD_PrintPaperInput!): AD_PrintPaper!
+	AD_PrintPaperSaveMany(entities: [AD_PrintPaperInput!]!): [AD_PrintPaper!]!
 	AD_PrintPaperDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_PrintPaper {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Validation Code
 	Code: String!
 	# Date this record was created
@@ -61,7 +62,7 @@ type AD_PrintPaper {
 input AD_PrintPaperInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Validation Code
 	Code: String
 	# Optional short description of the record

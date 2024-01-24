@@ -189,7 +189,7 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(PREFERENCETYPE_UUIDS_BY_VALUE.get(entity.getPreferenceType()));
 	}
 
@@ -212,7 +212,7 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(ROLETYPE_UUIDS_BY_VALUE.get(entity.getRoleType()));
 	}
 
@@ -244,7 +244,7 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(USERLEVEL_UUIDS_BY_VALUE.get(entity.getUserLevel()));
 	}
 

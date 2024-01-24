@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_TaxBaseSave(entity: C_TaxBaseInput!): C_TaxBase!
+	C_TaxBaseSaveMany(entities: [C_TaxBaseInput!]!): [C_TaxBase!]!
 	C_TaxBaseDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_TaxBase {
 	AD_Org: AD_Org!
 	# Calculation Base
 	Base: AD_Ref_List
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,7 +51,7 @@ input C_TaxBaseInput {
 	AD_Org: ForeignEntityInput
 	# Calculation Base
 	Base: AD_Ref_ListInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

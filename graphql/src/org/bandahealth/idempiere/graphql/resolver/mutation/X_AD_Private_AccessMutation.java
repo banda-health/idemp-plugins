@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_Private_AccessInput;
 import org.compiere.model.MPrivateAccess;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Private_Access - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_Private_AccessMutation extends POMutation implements GraphQLMu
 		return X_AD_Private_AccessInput.Table_Name;
 	}
 
-	public MPrivateAccess AD_Private_AccessSave(I_AD_Private_AccessInput input, DataFetchingEnvironment environment) {
-		return (MPrivateAccess) super.save((X_AD_Private_AccessInput) input, environment);
+	public MPrivateAccess AD_Private_AccessSave(I_AD_Private_AccessInput entity, DataFetchingEnvironment environment) {
+		return (MPrivateAccess) super.save((X_AD_Private_AccessInput) entity, environment);
+	}
+
+	public List<MPrivateAccess> AD_Private_AccessSaveMany(List<I_AD_Private_AccessInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_Private_AccessInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MPrivateAccess) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_Private_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {

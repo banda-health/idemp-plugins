@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	WS_WebServiceFieldInputSave(entity: WS_WebServiceFieldInputInput!): WS_WebServiceFieldInput!
+	WS_WebServiceFieldInputSaveMany(entities: [WS_WebServiceFieldInputInput!]!): [WS_WebServiceFieldInput!]!
 	WS_WebServiceFieldInputDelete(uuids: [String!]!): Boolean!
 }
 
@@ -43,7 +44,7 @@ type WS_WebServiceFieldInput {
 	Updated: Date!
 	# User who updated this records
 	UpdatedBy: AD_User
-	ID: ID!
+	UUID: ID!
 	WS_WebServiceType: WS_WebServiceType!
 }
 
@@ -65,6 +66,6 @@ input WS_WebServiceFieldInputInput {
 	IsIdentifier: Boolean
 	# Should allow null value for identifiere field
 	IsNullIdentifier: Boolean
-	ID: ID
+	UUID: ID
 	WS_WebServiceType: ForeignEntityInput
 }

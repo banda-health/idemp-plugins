@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_ChangeNoticeInput;
 import org.compiere.model.MChangeNotice;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_ChangeNotice - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_ChangeNoticeMutation extends POMutation implements GraphQLMutat
 		return X_M_ChangeNoticeInput.Table_Name;
 	}
 
-	public MChangeNotice M_ChangeNoticeSave(I_M_ChangeNoticeInput input, DataFetchingEnvironment environment) {
-		return (MChangeNotice) super.save((X_M_ChangeNoticeInput) input, environment);
+	public MChangeNotice M_ChangeNoticeSave(I_M_ChangeNoticeInput entity, DataFetchingEnvironment environment) {
+		return (MChangeNotice) super.save((X_M_ChangeNoticeInput) entity, environment);
+	}
+
+	public List<MChangeNotice> M_ChangeNoticeSaveMany(List<I_M_ChangeNoticeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_ChangeNoticeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MChangeNotice) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_ChangeNoticeDelete(List<String> uuids, DataFetchingEnvironment environment) {

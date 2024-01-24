@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_WF_ActivityResultInput
 import org.compiere.model.X_AD_WF_ActivityResult;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_WF_ActivityResult - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_WF_ActivityResultMutation extends POMutation implements GraphQ
 		return X_AD_WF_ActivityResultInput.Table_Name;
 	}
 
-	public X_AD_WF_ActivityResult AD_WF_ActivityResultSave(I_AD_WF_ActivityResultInput input, DataFetchingEnvironment environment) {
-		return (X_AD_WF_ActivityResult) super.save((X_AD_WF_ActivityResultInput) input, environment);
+	public X_AD_WF_ActivityResult AD_WF_ActivityResultSave(I_AD_WF_ActivityResultInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_WF_ActivityResult) super.save((X_AD_WF_ActivityResultInput) entity, environment);
+	}
+
+	public List<X_AD_WF_ActivityResult> AD_WF_ActivityResultSaveMany(List<I_AD_WF_ActivityResultInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_WF_ActivityResultInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_WF_ActivityResult) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_WF_ActivityResultDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_ColorInput;
 import org.compiere.model.MColor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Color - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_ColorMutation extends POMutation implements GraphQLMutationRes
 		return X_AD_ColorInput.Table_Name;
 	}
 
-	public MColor AD_ColorSave(I_AD_ColorInput input, DataFetchingEnvironment environment) {
-		return (MColor) super.save((X_AD_ColorInput) input, environment);
+	public MColor AD_ColorSave(I_AD_ColorInput entity, DataFetchingEnvironment environment) {
+		return (MColor) super.save((X_AD_ColorInput) entity, environment);
+	}
+
+	public List<MColor> AD_ColorSaveMany(List<I_AD_ColorInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_ColorInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MColor) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_ColorDelete(List<String> uuids, DataFetchingEnvironment environment) {

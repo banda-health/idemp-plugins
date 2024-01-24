@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_InvoiceLineSave(entity: C_InvoiceLineInput!): C_InvoiceLine!
+	C_InvoiceLineSaveMany(entities: [C_InvoiceLineInput!]!): [C_InvoiceLine!]!
 	C_InvoiceLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type C_InvoiceLine {
 	C_Charge: C_Charge
 	# Invoice Identifier
 	C_Invoice: C_Invoice!
-	ID: ID!
+	UUID: ID!
 	# Sales Order Line
 	C_OrderLine: C_OrderLine
 	# Financial Project
@@ -131,7 +132,7 @@ input C_InvoiceLineInput {
 	C_Charge: ForeignEntityInput
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# Financial Project

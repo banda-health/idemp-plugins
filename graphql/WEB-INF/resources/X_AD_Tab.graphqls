@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_TabSave(entity: AD_TabInput!): AD_Tab!
+	AD_TabSaveMany(entities: [AD_TabInput!]!): [AD_Tab!]!
 	AD_TabDelete(uuids: [String!]!): Boolean!
 }
 
@@ -31,7 +32,7 @@ type AD_Tab {
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process
-	ID: ID!
+	UUID: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Data entry or display window
@@ -111,7 +112,7 @@ input AD_TabInput {
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Data entry or display window

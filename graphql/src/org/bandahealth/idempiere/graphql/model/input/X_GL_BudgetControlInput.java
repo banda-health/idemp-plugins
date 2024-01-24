@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
@@ -9,6 +10,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_GL_Budget;
 import org.compiere.model.X_GL_BudgetControl;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -27,13 +29,16 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	private I_AD_Ref_ListInput mCommitmentType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The GL_BudgetControl_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_GL_BudgetControlInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_GL_BudgetControl(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_GL_BudgetControlInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_GL_BudgetControl(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -45,11 +50,16 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		} else {
 			super.setAD_Org_ID(0);
 		}
@@ -74,11 +84,16 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	public void setBudgetControlScopeInput(I_AD_Ref_ListInput BudgetControlScope) {
 		this.mBudgetControlScope = BudgetControlScope;
 		MRefList_BH foreignEntity;
-		if (BudgetControlScope != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BudgetControlScope.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBudgetControlScope(foreignEntity.getValue());
+		if (BudgetControlScope != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BudgetControlScope.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBudgetControlScope(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BudgetControlScope.getUUID());
+			}
 		} else {
 			this.setBudgetControlScope(null);
 		}
@@ -103,11 +118,16 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-						.setParameters(C_AcctSchema.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_AcctSchema_ID(foreignEntity.get_ID());
+		if (C_AcctSchema != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+			}
 		} else {
 			super.setC_AcctSchema_ID(0);
 		}
@@ -132,11 +152,16 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	public void setCommitmentTypeInput(I_AD_Ref_ListInput CommitmentType) {
 		this.mCommitmentType = CommitmentType;
 		MRefList_BH foreignEntity;
-		if (CommitmentType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(CommitmentType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setCommitmentType(foreignEntity.getValue());
+		if (CommitmentType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CommitmentType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCommitmentType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CommitmentType.getUUID());
+			}
 		} else {
 			this.setCommitmentType(null);
 		}
@@ -161,11 +186,16 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	public void setGL_BudgetInput(ForeignEntityInput GL_Budget) {
 		this.mGL_Budget = GL_Budget;
 		X_GL_Budget foreignEntity;
-		if (GL_Budget != null &&
-				(foreignEntity = new Query(getCtx(), "GL_Budget", "GL_Budget_UU=?", get_TrxName())
-						.setParameters(GL_Budget.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setGL_Budget_ID(foreignEntity.get_ID());
+		if (GL_Budget != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "GL_Budget", "GL_Budget_UU=?", get_TrxName())
+							.setParameters(GL_Budget.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setGL_Budget_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table GL_Budget with UUID " + GL_Budget.getUUID());
+			}
 		} else {
 			super.setGL_Budget_ID(0);
 		}
@@ -193,20 +223,20 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setGL_BudgetControl_UU(ID);
+	public void setUUID(String UUID) {
+		setGL_BudgetControl_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getGL_BudgetControl_UU();
 	}
 }

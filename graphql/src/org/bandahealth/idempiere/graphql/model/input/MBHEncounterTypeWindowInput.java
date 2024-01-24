@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MBHEncounterTypeWindowInput extends X_BH_Encounter_Type_WindowInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The BH_Encounter_Type_Window_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHEncounterTypeWindowInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MBHEncounterTypeWindowInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

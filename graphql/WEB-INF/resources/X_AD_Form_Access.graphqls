@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Form_AccessSave(entity: AD_Form_AccessInput!): AD_Form_Access!
+	AD_Form_AccessSaveMany(entities: [AD_Form_AccessInput!]!): [AD_Form_Access!]!
 	AD_Form_AccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_Form_AccessConnection {
 type AD_Form_Access {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Special Form
 	AD_Form: AD_Form!
 	# Organizational entity within client
@@ -40,7 +41,7 @@ type AD_Form_Access {
 }
 
 input AD_Form_AccessInput {
-	ID: ID
+	UUID: ID
 	# Special Form
 	AD_Form: ForeignEntityInput
 	# Organizational entity within client

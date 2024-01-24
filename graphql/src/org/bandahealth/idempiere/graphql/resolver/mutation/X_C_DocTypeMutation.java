@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_C_DocTypeInput;
 import org.bandahealth.idempiere.graphql.model.input.X_C_DocTypeInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_DocType - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_DocTypeMutation extends POMutation implements GraphQLMutationRe
 		return X_C_DocTypeInput.Table_Name;
 	}
 
-	public MDocType_BH C_DocTypeSave(I_C_DocTypeInput input, DataFetchingEnvironment environment) {
-		return (MDocType_BH) super.save((X_C_DocTypeInput) input, environment);
+	public MDocType_BH C_DocTypeSave(I_C_DocTypeInput entity, DataFetchingEnvironment environment) {
+		return (MDocType_BH) super.save((X_C_DocTypeInput) entity, environment);
+	}
+
+	public List<MDocType_BH> C_DocTypeSaveMany(List<I_C_DocTypeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_DocTypeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDocType_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_DocTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {

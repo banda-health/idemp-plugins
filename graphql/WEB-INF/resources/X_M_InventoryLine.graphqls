@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_InventoryLineSave(entity: M_InventoryLineInput!): M_InventoryLine!
+	M_InventoryLineSaveMany(entities: [M_InventoryLineInput!]!): [M_InventoryLine!]!
 	M_InventoryLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -49,7 +50,7 @@ type M_InventoryLine {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Parameters for a Physical Inventory
 	M_Inventory: M_Inventory!
-	ID: ID!
+	UUID: ID!
 	# Warehouse Locator
 	M_Locator: M_Locator
 	# Product, Service, Item
@@ -100,7 +101,7 @@ input M_InventoryLineInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Parameters for a Physical Inventory
 	M_Inventory: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Warehouse Locator
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item

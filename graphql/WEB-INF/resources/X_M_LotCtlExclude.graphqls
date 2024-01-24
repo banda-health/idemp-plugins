@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_LotCtlExcludeSave(entity: M_LotCtlExcludeInput!): M_LotCtlExclude!
+	M_LotCtlExcludeSaveMany(entities: [M_LotCtlExcludeInput!]!): [M_LotCtlExclude!]!
 	M_LotCtlExcludeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type M_LotCtlExclude {
 	IsSOTrx: Boolean!
 	# Product Lot Control
 	M_LotCtl: M_LotCtl!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -50,5 +51,5 @@ input M_LotCtlExcludeInput {
 	IsSOTrx: Boolean
 	# Product Lot Control
 	M_LotCtl: ForeignEntityInput
-	ID: ID
+	UUID: ID
 }

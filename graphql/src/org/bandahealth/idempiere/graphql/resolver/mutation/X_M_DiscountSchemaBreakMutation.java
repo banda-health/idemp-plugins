@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_DiscountSchemaBreakInpu
 import org.compiere.model.MDiscountSchemaBreak;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_DiscountSchemaBreak - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_DiscountSchemaBreakMutation extends POMutation implements Graph
 		return X_M_DiscountSchemaBreakInput.Table_Name;
 	}
 
-	public MDiscountSchemaBreak M_DiscountSchemaBreakSave(I_M_DiscountSchemaBreakInput input, DataFetchingEnvironment environment) {
-		return (MDiscountSchemaBreak) super.save((X_M_DiscountSchemaBreakInput) input, environment);
+	public MDiscountSchemaBreak M_DiscountSchemaBreakSave(I_M_DiscountSchemaBreakInput entity, DataFetchingEnvironment environment) {
+		return (MDiscountSchemaBreak) super.save((X_M_DiscountSchemaBreakInput) entity, environment);
+	}
+
+	public List<MDiscountSchemaBreak> M_DiscountSchemaBreakSaveMany(List<I_M_DiscountSchemaBreakInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_DiscountSchemaBreakInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDiscountSchemaBreak) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_DiscountSchemaBreakDelete(List<String> uuids, DataFetchingEnvironment environment) {

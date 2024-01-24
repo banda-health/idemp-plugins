@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_RfQ_TopicSave(entity: C_RfQ_TopicInput!): C_RfQ_Topic!
+	C_RfQ_TopicSaveMany(entities: [C_RfQ_TopicInput!]!): [C_RfQ_Topic!]!
 	C_RfQ_TopicDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_RfQ_Topic {
 	AD_Org: AD_Org!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,7 +47,7 @@ input C_RfQ_TopicInput {
 	AD_Org: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

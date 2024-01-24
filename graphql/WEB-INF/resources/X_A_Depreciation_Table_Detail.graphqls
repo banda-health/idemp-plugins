@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Depreciation_Table_DetailSave(entity: A_Depreciation_Table_DetailInput!): A_Depreciation_Table_Detail!
+	A_Depreciation_Table_DetailSaveMany(entities: [A_Depreciation_Table_DetailInput!]!): [A_Depreciation_Table_Detail!]!
 	A_Depreciation_Table_DetailDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type A_Depreciation_Table_DetailConnection {
 type A_Depreciation_Table_Detail {
 	A_Depreciation_Rate: BigDecimal!
 	A_Depreciation_Table_Code: String!
-	ID: ID!
+	UUID: ID!
 	A_Period: Int!
 	A_Table_Rate_Type: AD_Ref_List
 	# Client/Tenant for this installation.
@@ -42,7 +43,7 @@ type A_Depreciation_Table_Detail {
 input A_Depreciation_Table_DetailInput {
 	A_Depreciation_Rate: BigDecimal
 	A_Depreciation_Table_Code: String
-	ID: ID
+	UUID: ID
 	A_Period: Int
 	A_Table_Rate_Type: AD_Ref_ListInput
 	# Organizational entity within client

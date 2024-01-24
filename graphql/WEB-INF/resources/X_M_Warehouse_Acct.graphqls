@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_Warehouse_AcctSave(entity: M_Warehouse_AcctInput!): M_Warehouse_Acct!
+	M_Warehouse_AcctSaveMany(entities: [M_Warehouse_AcctInput!]!): [M_Warehouse_Acct!]!
 	M_Warehouse_AcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type M_Warehouse_Acct {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Date this record was updated
@@ -46,7 +47,7 @@ input M_Warehouse_AcctInput {
 	C_AcctSchema: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Warehouse Differences Account

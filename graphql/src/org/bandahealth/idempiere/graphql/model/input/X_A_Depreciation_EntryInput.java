@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -11,6 +12,7 @@ import org.compiere.model.MDepreciationEntry;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -33,13 +35,16 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	private I_AD_Ref_ListInput mPostingType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The A_Depreciation_Entry_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_A_Depreciation_EntryInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MDepreciationEntry(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_A_Depreciation_EntryInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDepreciationEntry(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 	/**
 	 * Set Depreciation Entry.
@@ -54,20 +59,20 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setA_Depreciation_Entry_UU(ID);
+	public void setUUID(String UUID) {
+		setA_Depreciation_Entry_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getA_Depreciation_Entry_UU();
 	}
 
@@ -80,11 +85,16 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public void setA_Entry_TypeInput(I_AD_Ref_ListInput A_Entry_Type) {
 		this.mA_Entry_Type = A_Entry_Type;
 		MRefList_BH foreignEntity;
-		if (A_Entry_Type != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_Entry_Type.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_Entry_Type(foreignEntity.getValue());
+		if (A_Entry_Type != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(A_Entry_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Entry_Type(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + A_Entry_Type.getUUID());
+			}
 		} else {
 			this.setA_Entry_Type(null);
 		}
@@ -109,11 +119,16 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		} else {
 			super.setAD_Org_ID(0);
 		}
@@ -138,11 +153,16 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-						.setParameters(C_AcctSchema.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_AcctSchema_ID(foreignEntity.get_ID());
+		if (C_AcctSchema != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+			}
 		} else {
 			super.setC_AcctSchema_ID(0);
 		}
@@ -167,11 +187,16 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
-		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-						.setParameters(C_Currency.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Currency_ID(foreignEntity.get_ID());
+		if (C_Currency != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Currency_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+			}
 		} else {
 			super.setC_Currency_ID(0);
 		}
@@ -196,11 +221,16 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
-		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocType_ID(foreignEntity.get_ID());
+		if (C_DocType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+			}
 		} else {
 			super.setC_DocType_ID(0);
 		}
@@ -225,11 +255,16 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
-		if (C_Period != null &&
-				(foreignEntity = new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-						.setParameters(C_Period.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Period_ID(foreignEntity.get_ID());
+		if (C_Period != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
+							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Period_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
+			}
 		} else {
 			super.setC_Period_ID(0);
 		}
@@ -254,11 +289,16 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
 		this.mDocAction = DocAction;
 		MRefList_BH foreignEntity;
-		if (DocAction != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocAction(foreignEntity.getValue());
+		if (DocAction != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocAction(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocAction.getUUID());
+			}
 		} else {
 			this.setDocAction(null);
 		}
@@ -283,11 +323,16 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		MRefList_BH foreignEntity;
-		if (DocStatus != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocStatus(foreignEntity.getValue());
+		if (DocStatus != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocStatus(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocStatus.getUUID());
+			}
 		} else {
 			this.setDocStatus(null);
 		}
@@ -323,11 +368,16 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
 		this.mPostingType = PostingType;
 		MRefList_BH foreignEntity;
-		if (PostingType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPostingType(foreignEntity.getValue());
+		if (PostingType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPostingType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PostingType.getUUID());
+			}
 		} else {
 			this.setPostingType(null);
 		}

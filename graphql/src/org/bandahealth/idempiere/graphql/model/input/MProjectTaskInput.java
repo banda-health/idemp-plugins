@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MProjectTaskInput extends X_C_ProjectTaskInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_ProjectTask_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProjectTaskInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MProjectTaskInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

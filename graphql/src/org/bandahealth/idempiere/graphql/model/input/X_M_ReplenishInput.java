@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
@@ -10,6 +11,7 @@ import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MReplenish;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -29,13 +31,16 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	private I_AD_Ref_ListInput mReplenishType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_Replenish_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_ReplenishInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MReplenish(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_ReplenishInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MReplenish(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -47,11 +52,16 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -74,11 +84,16 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
 		MLocator foreignEntity;
-		if (M_Locator != null &&
-				(foreignEntity = new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-						.setParameters(M_Locator.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Locator_ID(foreignEntity.get_ID());
+		if (M_Locator != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
+							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Locator_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Locator with UUID " + M_Locator.getUUID());
+			}
 		} else {
 			super.setM_Locator_ID(0);
 		}
@@ -103,11 +118,16 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && M_Product != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-						.setParameters(M_Product.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_Product != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
 		}
 	}
 
@@ -122,20 +142,20 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_Replenish_UU(ID);
+	public void setUUID(String UUID) {
+		setM_Replenish_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_Replenish_UU();
 	}
 
@@ -148,11 +168,16 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
-		if (get_ID() == 0 && M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-						.setParameters(M_Warehouse.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Warehouse_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_Warehouse != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+			}
 		}
 	}
 
@@ -175,11 +200,16 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	public void setM_WarehouseSourceInput(ForeignEntityInput M_WarehouseSource) {
 		this.mM_WarehouseSource = M_WarehouseSource;
 		MWarehouse_BH foreignEntity;
-		if (M_WarehouseSource != null &&
-				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-						.setParameters(M_WarehouseSource.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_WarehouseSource_ID(foreignEntity.get_ID());
+		if (M_WarehouseSource != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_WarehouseSource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_WarehouseSource_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + M_WarehouseSource.getUUID());
+			}
 		} else {
 			super.setM_WarehouseSource_ID(0);
 		}
@@ -204,11 +234,16 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	public void setReplenishTypeInput(I_AD_Ref_ListInput ReplenishType) {
 		this.mReplenishType = ReplenishType;
 		MRefList_BH foreignEntity;
-		if (ReplenishType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ReplenishType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setReplenishType(foreignEntity.getValue());
+		if (ReplenishType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ReplenishType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setReplenishType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ReplenishType.getUUID());
+			}
 		} else {
 			this.setReplenishType(null);
 		}

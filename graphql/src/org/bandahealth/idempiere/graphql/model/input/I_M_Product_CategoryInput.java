@@ -81,18 +81,18 @@ public interface I_M_Product_CategoryInput extends I_M_Product_Category {
 	ForeignEntityInput M_Product_Category_Parent();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set MMPolicy.

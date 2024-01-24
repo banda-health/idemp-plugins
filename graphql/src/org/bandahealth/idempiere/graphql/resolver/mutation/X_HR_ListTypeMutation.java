@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_HR_ListTypeInput;
 import org.eevolution.model.X_HR_ListType;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for HR_ListType - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_HR_ListTypeMutation extends POMutation implements GraphQLMutation
 		return X_HR_ListTypeInput.Table_Name;
 	}
 
-	public X_HR_ListType HR_ListTypeSave(I_HR_ListTypeInput input, DataFetchingEnvironment environment) {
-		return (X_HR_ListType) super.save((X_HR_ListTypeInput) input, environment);
+	public X_HR_ListType HR_ListTypeSave(I_HR_ListTypeInput entity, DataFetchingEnvironment environment) {
+		return (X_HR_ListType) super.save((X_HR_ListTypeInput) entity, environment);
+	}
+
+	public List<X_HR_ListType> HR_ListTypeSaveMany(List<I_HR_ListTypeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_HR_ListTypeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_HR_ListType) entity).collect(Collectors.toList());
 	}
 
 	public boolean HR_ListTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {

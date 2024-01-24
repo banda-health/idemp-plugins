@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_M_InOutInput;
 import org.bandahealth.idempiere.graphql.model.input.X_M_InOutInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_InOut - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_InOutMutation extends POMutation implements GraphQLMutationReso
 		return X_M_InOutInput.Table_Name;
 	}
 
-	public MInOut_BH M_InOutSave(I_M_InOutInput input, DataFetchingEnvironment environment) {
-		return (MInOut_BH) super.save((X_M_InOutInput) input, environment);
+	public MInOut_BH M_InOutSave(I_M_InOutInput entity, DataFetchingEnvironment environment) {
+		return (MInOut_BH) super.save((X_M_InOutInput) entity, environment);
+	}
+
+	public List<MInOut_BH> M_InOutSaveMany(List<I_M_InOutInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_InOutInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MInOut_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_InOutDelete(List<String> uuids, DataFetchingEnvironment environment) {

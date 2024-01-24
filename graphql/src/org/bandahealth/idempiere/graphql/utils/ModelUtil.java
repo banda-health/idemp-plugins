@@ -97,7 +97,7 @@ public class ModelUtil {
 
 	/**
 	 * A method to get the result set for the given entity based on the passed-in UUID. This is largely copied from
-	 * iDempiere 8.2's PO.load(String, String) method to load an entity by it's UUID.
+	 * iDempiere 8.2's PO.load(String, String) method to load an entity by its UUID.
 	 *
 	 * @param modelTemplate
 	 * @param idempiereContext
@@ -142,12 +142,12 @@ public class ModelUtil {
 			preparedStatement.setString(1, uuid);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				return resultSet;
+				return new PostConnectionResultSet(POInfo.getPOInfo(idempiereContext, table.getAD_Table_ID()), resultSet);
 			} else {
-				log.log(Level.SEVERE, "NO Data found for " + modelTemplate.getUUIDColumnName() + "=" + DB.TO_STRING(uuid), new Exception());
+				log.log(Level.INFO, "NO Data found for " + modelTemplate.getUUIDColumnName() + "=" + DB.TO_STRING(uuid), new Exception());
 			}
 		} catch (Exception e) {
-			String msg = modelTemplate.getUUIDColumnName() + "=" + DB.TO_STRING(uuid) + ", SQL=" + sql.toString();
+			String msg = modelTemplate.get_WhereClause(true, uuid) + ", SQL=" + sql.toString();
 			log.log(Level.SEVERE, msg, e);
 		}
 		return null;
@@ -164,24 +164,34 @@ public class ModelUtil {
 	 */
 	public static int getEntityIDFromUuidOrError(Properties idempiereContext, String tableName, String uuid)
 			throws AdempiereException {
+		MTable table;
 		// First check that the user has access to this table, if we can
 		if (idempiereContext != null) {
-			getTableAndCheckAccess(idempiereContext, tableName, true);
+			table = getTableAndCheckAccess(idempiereContext, tableName, true);
+		} else {
+			table = MTable.get(null, tableName, null);
 		}
 		int entityId = 0;
 		if (StringUtil.isNullOrEmpty(uuid)) {
 			return entityId;
 		}
+		String keyColumn = tableName + "_ID";
+		if (table.getColumnIndex(keyColumn) < 0) {
+			if (table.getIdentifierColumns().length > 0) {
+				keyColumn = table.getIdentifierColumns()[0];
+			} else {
+				keyColumn = table.get_ColumnName(0);
+			}
+		}
 		try (PreparedStatement preparedStatement = DB.prepareStatement(
-				"SELECT " + tableName + "_ID FROM " + tableName + " WHERE " + tableName + "_UU=?", null)) {
+				"SELECT " + keyColumn + " FROM " + tableName + " WHERE " + tableName + "_UU=?", null)) {
 			DB.setParameters(preparedStatement, Collections.singletonList(uuid));
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				entityId = resultSet.getInt(1);
 			}
 		} catch (SQLException e) {
-//			log.log(Level.SEVERE, sql, e);
-//			throw new DBException(e, sql);
+			log.log(Level.INFO, "NO data found for " + tableName + " with UUID " + uuid, new Exception());
 		}
 		return entityId;
 	}

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ForecastSave(entity: M_ForecastInput!): M_Forecast!
+	M_ForecastSaveMany(entities: [M_ForecastInput!]!): [M_Forecast!]!
 	M_ForecastDelete(uuids: [String!]!): Boolean!
 }
 
@@ -36,7 +37,7 @@ type M_Forecast {
 	IsActive: Boolean!
 	# Default value
 	IsDefault: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Unique identifier of a Price List
 	M_PriceList: M_PriceList
 	# Alphanumeric identifier of the entity
@@ -63,7 +64,7 @@ input M_ForecastInput {
 	IsActive: Boolean
 	# Default value
 	IsDefault: Boolean
-	ID: ID
+	UUID: ID
 	# Unique identifier of a Price List
 	M_PriceList: ForeignEntityInput
 	# Alphanumeric identifier of the entity

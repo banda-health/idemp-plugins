@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_Order_NodeSave(entity: PP_Order_NodeInput!): PP_Order_Node!
+	PP_Order_NodeSaveMany(entities: [PP_Order_NodeInput!]!): [PP_Order_Node!]!
 	PP_Order_NodeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -95,7 +96,7 @@ type PP_Order_Node {
 	OverlapUnits: Int
 	# Manufacturing Order
 	PP_Order: PP_Order!
-	ID: ID!
+	UUID: ID!
 	PP_Order_Workflow: PP_Order_Workflow!
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: Int!
@@ -219,7 +220,7 @@ input PP_Order_NodeInput {
 	OverlapUnits: Int
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	PP_Order_Workflow: ForeignEntityInput
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: Int

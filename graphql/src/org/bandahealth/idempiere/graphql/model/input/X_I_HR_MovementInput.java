@@ -2,10 +2,12 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 import org.eevolution.model.X_HR_Concept;
 import org.eevolution.model.X_HR_Movement;
 import org.eevolution.model.X_HR_Process;
@@ -28,13 +30,16 @@ public class X_I_HR_MovementInput extends X_I_HR_Movement implements I_I_HR_Move
 	private ForeignEntityInput mHR_Process;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The I_HR_Movement_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_I_HR_MovementInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_I_HR_Movement(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_I_HR_MovementInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_I_HR_Movement(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -46,11 +51,16 @@ public class X_I_HR_MovementInput extends X_I_HR_Movement implements I_I_HR_Move
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -73,11 +83,16 @@ public class X_I_HR_MovementInput extends X_I_HR_Movement implements I_I_HR_Move
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_ID(foreignEntity.get_ID());
+		if (C_BPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+			}
 		} else {
 			super.setC_BPartner_ID(0);
 		}
@@ -102,11 +117,16 @@ public class X_I_HR_MovementInput extends X_I_HR_Movement implements I_I_HR_Move
 	public void setHR_ConceptInput(ForeignEntityInput HR_Concept) {
 		this.mHR_Concept = HR_Concept;
 		X_HR_Concept foreignEntity;
-		if (HR_Concept != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Concept", "HR_Concept_UU=?", get_TrxName())
-						.setParameters(HR_Concept.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_Concept_ID(foreignEntity.get_ID());
+		if (HR_Concept != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Concept", "HR_Concept_UU=?", get_TrxName())
+							.setParameters(HR_Concept.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_Concept_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Concept with UUID " + HR_Concept.getUUID());
+			}
 		} else {
 			super.setHR_Concept_ID(0);
 		}
@@ -131,11 +151,16 @@ public class X_I_HR_MovementInput extends X_I_HR_Movement implements I_I_HR_Move
 	public void setHR_MovementInput(ForeignEntityInput HR_Movement) {
 		this.mHR_Movement = HR_Movement;
 		X_HR_Movement foreignEntity;
-		if (HR_Movement != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Movement", "HR_Movement_UU=?", get_TrxName())
-						.setParameters(HR_Movement.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_Movement_ID(foreignEntity.get_ID());
+		if (HR_Movement != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Movement", "HR_Movement_UU=?", get_TrxName())
+							.setParameters(HR_Movement.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_Movement_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Movement with UUID " + HR_Movement.getUUID());
+			}
 		} else {
 			super.setHR_Movement_ID(0);
 		}
@@ -160,11 +185,16 @@ public class X_I_HR_MovementInput extends X_I_HR_Movement implements I_I_HR_Move
 	public void setHR_ProcessInput(ForeignEntityInput HR_Process) {
 		this.mHR_Process = HR_Process;
 		X_HR_Process foreignEntity;
-		if (HR_Process != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Process", "HR_Process_UU=?", get_TrxName())
-						.setParameters(HR_Process.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_Process_ID(foreignEntity.get_ID());
+		if (HR_Process != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Process", "HR_Process_UU=?", get_TrxName())
+							.setParameters(HR_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_Process_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Process with UUID " + HR_Process.getUUID());
+			}
 		} else {
 			super.setHR_Process_ID(0);
 		}
@@ -192,20 +222,20 @@ public class X_I_HR_MovementInput extends X_I_HR_Movement implements I_I_HR_Move
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setI_HR_Movement_UU(ID);
+	public void setUUID(String UUID) {
+		setI_HR_Movement_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getI_HR_Movement_UU();
 	}
 }

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUserDefTab_BH;
@@ -10,6 +11,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MTab;
 import org.compiere.model.MUserDefWin;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -29,13 +31,16 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	private I_AD_Ref_ListInput mIsSingleRow;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_UserDef_Tab_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_UserDef_TabInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MUserDefTab_BH(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_UserDef_TabInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MUserDefTab_BH(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -47,11 +52,16 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -74,11 +84,16 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
-		if (AD_Process != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-						.setParameters(AD_Process.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Process_ID(foreignEntity.get_ID());
+		if (AD_Process != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
+							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Process_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
+			}
 		} else {
 			super.setAD_Process_ID(0);
 		}
@@ -103,11 +118,16 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	public void setAD_TabInput(ForeignEntityInput AD_Tab) {
 		this.mAD_Tab = AD_Tab;
 		MTab foreignEntity;
-		if (AD_Tab != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-						.setParameters(AD_Tab.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Tab_ID(foreignEntity.get_ID());
+		if (AD_Tab != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
+							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Tab_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Tab with UUID " + AD_Tab.getUUID());
+			}
 		} else {
 			super.setAD_Tab_ID(0);
 		}
@@ -135,20 +155,20 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_UserDef_Tab_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_UserDef_Tab_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_UserDef_Tab_UU();
 	}
 
@@ -161,11 +181,16 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	public void setAD_UserDef_WinInput(ForeignEntityInput AD_UserDef_Win) {
 		this.mAD_UserDef_Win = AD_UserDef_Win;
 		MUserDefWin foreignEntity;
-		if (get_ID() == 0 && AD_UserDef_Win != null &&
-				(foreignEntity = new Query(getCtx(), "AD_UserDef_Win", "AD_UserDef_Win_UU=?", get_TrxName())
-						.setParameters(AD_UserDef_Win.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_UserDef_Win_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_UserDef_Win != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_UserDef_Win", "AD_UserDef_Win_UU=?", get_TrxName())
+							.setParameters(AD_UserDef_Win.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_UserDef_Win_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_UserDef_Win with UUID " + AD_UserDef_Win.getUUID());
+			}
 		}
 	}
 
@@ -188,11 +213,16 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	public void setIsReadOnlyInput(I_AD_Ref_ListInput IsReadOnly) {
 		this.mIsReadOnly = IsReadOnly;
 		MRefList_BH foreignEntity;
-		if (IsReadOnly != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsReadOnly.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setIsReadOnly(foreignEntity.getValue());
+		if (IsReadOnly != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsReadOnly.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setIsReadOnly(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsReadOnly.getUUID());
+			}
 		} else {
 			this.setIsReadOnly(null);
 		}
@@ -217,11 +247,16 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	public void setIsSingleRowInput(I_AD_Ref_ListInput IsSingleRow) {
 		this.mIsSingleRow = IsSingleRow;
 		MRefList_BH foreignEntity;
-		if (IsSingleRow != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsSingleRow.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setIsSingleRow(foreignEntity.getValue());
+		if (IsSingleRow != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsSingleRow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setIsSingleRow(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsSingleRow.getUUID());
+			}
 		} else {
 			this.setIsSingleRow(null);
 		}

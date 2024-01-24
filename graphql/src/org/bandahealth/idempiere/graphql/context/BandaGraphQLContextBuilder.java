@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.context;
 import graphql.kickstart.execution.context.GraphQLContext;
 import graphql.kickstart.servlet.context.DefaultGraphQLServletContext;
 import graphql.kickstart.servlet.context.GraphQLServletContextBuilder;
+import org.adempiere.util.ServerContext;
 import org.bandahealth.idempiere.graphql.dataloader.BandaDataLoaderComposer;
 import org.bandahealth.idempiere.graphql.utils.AuthenticationUtil;
 import org.compiere.util.CLogger;
@@ -44,6 +45,7 @@ public class BandaGraphQLContextBuilder implements GraphQLServletContextBuilder 
 	public GraphQLContext build(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
 		// If we wanted to read any data from the auth token, we'd do it here
 		String authHeaderVal = httpServletRequest.getHeader("Authorization");
+		// Don't instantiate a properties variable via Env.getCtx() - it breaks the app
 		Properties idempiereContext = new Properties();
 		try {
 			AuthenticationUtil.validate(authHeaderVal.split(" ")[1], idempiereContext);

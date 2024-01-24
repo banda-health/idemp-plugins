@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_AcctSchema_DefaultSave(entity: C_AcctSchema_DefaultInput!): C_AcctSchema_Default!
+	C_AcctSchema_DefaultSaveMany(entities: [C_AcctSchema_DefaultInput!]!): [C_AcctSchema_Default!]!
 	C_AcctSchema_DefaultDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type C_AcctSchema_Default {
 	B_PaymentSelect_A: C_ValidCombination!
 	# Unallocated Cash Clearing Account
 	B_UnallocatedCash_A: C_ValidCombination!
-	ID: ID!
+	UUID: ID!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Account for customer prepayments
@@ -143,7 +144,7 @@ input C_AcctSchema_DefaultInput {
 	B_PaymentSelect_A: ForeignEntityInput
 	# Unallocated Cash Clearing Account
 	B_UnallocatedCash_A: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Account for customer prepayments

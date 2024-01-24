@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_SLA_GoalSave(entity: PA_SLA_GoalInput!): PA_SLA_Goal!
+	PA_SLA_GoalSaveMany(entities: [PA_SLA_GoalInput!]!): [PA_SLA_Goal!]!
 	PA_SLA_GoalDelete(uuids: [String!]!): Boolean!
 }
 
@@ -42,7 +43,7 @@ type PA_SLA_Goal {
 	Name: String!
 	# Service Level Agreement Criteria
 	PA_SLA_Criteria: PA_SLA_Criteria!
-	ID: ID!
+	UUID: ID!
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -77,7 +78,7 @@ input PA_SLA_GoalInput {
 	Name: String
 	# Service Level Agreement Criteria
 	PA_SLA_Criteria: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

@@ -2,11 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHPaymentRef;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -22,13 +24,16 @@ public class X_BH_PaymentRefInput extends MBHPaymentRef implements I_BH_PaymentR
 	private ForeignEntityInput mAD_Reference;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The BH_PaymentRef_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_BH_PaymentRefInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MBHPaymentRef(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_BH_PaymentRefInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBHPaymentRef(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -40,11 +45,16 @@ public class X_BH_PaymentRefInput extends MBHPaymentRef implements I_BH_PaymentR
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -67,11 +77,16 @@ public class X_BH_PaymentRefInput extends MBHPaymentRef implements I_BH_PaymentR
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
 		MReference_BH foreignEntity;
-		if (AD_Reference != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-						.setParameters(AD_Reference.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Reference_ID(foreignEntity.get_ID());
+		if (AD_Reference != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
+							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Reference_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
+			}
 		} else {
 			super.setAD_Reference_ID(0);
 		}
@@ -99,20 +114,20 @@ public class X_BH_PaymentRefInput extends MBHPaymentRef implements I_BH_PaymentR
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setBH_PaymentRef_UU(ID);
+	public void setUUID(String UUID) {
+		setBH_PaymentRef_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getBH_PaymentRef_UU();
 	}
 }

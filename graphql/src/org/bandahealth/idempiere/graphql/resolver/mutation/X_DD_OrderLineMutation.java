@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_DD_OrderLineInput;
 import org.eevolution.model.MDDOrderLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for DD_OrderLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_DD_OrderLineMutation extends POMutation implements GraphQLMutatio
 		return X_DD_OrderLineInput.Table_Name;
 	}
 
-	public MDDOrderLine DD_OrderLineSave(I_DD_OrderLineInput input, DataFetchingEnvironment environment) {
-		return (MDDOrderLine) super.save((X_DD_OrderLineInput) input, environment);
+	public MDDOrderLine DD_OrderLineSave(I_DD_OrderLineInput entity, DataFetchingEnvironment environment) {
+		return (MDDOrderLine) super.save((X_DD_OrderLineInput) entity, environment);
+	}
+
+	public List<MDDOrderLine> DD_OrderLineSaveMany(List<I_DD_OrderLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_DD_OrderLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDDOrderLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean DD_OrderLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

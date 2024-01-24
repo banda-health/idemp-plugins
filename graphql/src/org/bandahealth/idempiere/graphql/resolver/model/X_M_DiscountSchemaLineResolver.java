@@ -75,7 +75,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(LIMIT_BASE_UUIDS_BY_VALUE.get(entity.getLimit_Base()));
 	}
 
@@ -98,7 +98,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(LIMIT_ROUNDING_UUIDS_BY_VALUE.get(entity.getLimit_Rounding()));
 	}
 
@@ -116,7 +116,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(LIST_BASE_UUIDS_BY_VALUE.get(entity.getList_Base()));
 	}
 
@@ -139,7 +139,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(LIST_ROUNDING_UUIDS_BY_VALUE.get(entity.getList_Rounding()));
 	}
 
@@ -202,7 +202,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(STD_BASE_UUIDS_BY_VALUE.get(entity.getStd_Base()));
 	}
 
@@ -225,7 +225,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(STD_ROUNDING_UUIDS_BY_VALUE.get(entity.getStd_Rounding()));
 	}
 

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_TaxDeclarationLineSave(entity: C_TaxDeclarationLineInput!): C_TaxDeclarationLine!
+	C_TaxDeclarationLineSaveMany(entities: [C_TaxDeclarationLineInput!]!): [C_TaxDeclarationLine!]!
 	C_TaxDeclarationLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type C_TaxDeclarationLine {
 	C_Tax: C_Tax!
 	# Define the declaration to the tax authorities
 	C_TaxDeclaration: C_TaxDeclaration!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -76,7 +77,7 @@ input C_TaxDeclarationLineInput {
 	C_Tax: ForeignEntityInput
 	# Define the declaration to the tax authorities
 	C_TaxDeclaration: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
@@ -12,6 +13,7 @@ import org.compiere.model.MTax;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_OrgType;
+import org.compiere.util.Env;
 import org.eevolution.model.X_C_TaxBase;
 import org.eevolution.model.X_C_TaxDefinition;
 import org.eevolution.model.X_C_TaxGroup;
@@ -40,13 +42,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	private ForeignEntityInput mM_Product_Category;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_TaxDefinition_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_TaxDefinitionInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_C_TaxDefinition(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_TaxDefinitionInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_TaxDefinition(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -58,11 +63,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -85,11 +95,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	public void setAD_OrgTypeInput(ForeignEntityInput AD_OrgType) {
 		this.mAD_OrgType = AD_OrgType;
 		X_AD_OrgType foreignEntity;
-		if (AD_OrgType != null &&
-				(foreignEntity = new Query(getCtx(), "AD_OrgType", "AD_OrgType_UU=?", get_TrxName())
-						.setParameters(AD_OrgType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_OrgType_ID(foreignEntity.get_ID());
+		if (AD_OrgType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_OrgType", "AD_OrgType_UU=?", get_TrxName())
+							.setParameters(AD_OrgType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_OrgType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_OrgType with UUID " + AD_OrgType.getUUID());
+			}
 		} else {
 			super.setAD_OrgType_ID(0);
 		}
@@ -114,11 +129,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
 		this.mC_BP_Group = C_BP_Group;
 		MBPGroup_BH foreignEntity;
-		if (C_BP_Group != null &&
-				(foreignEntity = new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
-						.setParameters(C_BP_Group.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BP_Group_ID(foreignEntity.get_ID());
+		if (C_BP_Group != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
+							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BP_Group_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
+			}
 		} else {
 			super.setC_BP_Group_ID(0);
 		}
@@ -143,11 +163,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_ID(foreignEntity.get_ID());
+		if (C_BPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+			}
 		} else {
 			super.setC_BPartner_ID(0);
 		}
@@ -172,11 +197,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
 		MTax foreignEntity;
-		if (C_Tax != null &&
-				(foreignEntity = new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-						.setParameters(C_Tax.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Tax_ID(foreignEntity.get_ID());
+		if (C_Tax != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
+							.setParameters(C_Tax.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Tax_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Tax with UUID " + C_Tax.getUUID());
+			}
 		} else {
 			super.setC_Tax_ID(0);
 		}
@@ -201,11 +231,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	public void setC_TaxBaseInput(ForeignEntityInput C_TaxBase) {
 		this.mC_TaxBase = C_TaxBase;
 		X_C_TaxBase foreignEntity;
-		if (C_TaxBase != null &&
-				(foreignEntity = new Query(getCtx(), "C_TaxBase", "C_TaxBase_UU=?", get_TrxName())
-						.setParameters(C_TaxBase.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_TaxBase_ID(foreignEntity.get_ID());
+		if (C_TaxBase != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_TaxBase", "C_TaxBase_UU=?", get_TrxName())
+							.setParameters(C_TaxBase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_TaxBase_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_TaxBase with UUID " + C_TaxBase.getUUID());
+			}
 		} else {
 			super.setC_TaxBase_ID(0);
 		}
@@ -230,11 +265,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	public void setC_TaxCategoryInput(ForeignEntityInput C_TaxCategory) {
 		this.mC_TaxCategory = C_TaxCategory;
 		MTaxCategory foreignEntity;
-		if (C_TaxCategory != null &&
-				(foreignEntity = new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
-						.setParameters(C_TaxCategory.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_TaxCategory_ID(foreignEntity.get_ID());
+		if (C_TaxCategory != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
+							.setParameters(C_TaxCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_TaxCategory_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_TaxCategory with UUID " + C_TaxCategory.getUUID());
+			}
 		} else {
 			super.setC_TaxCategory_ID(0);
 		}
@@ -262,20 +302,20 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_TaxDefinition_UU(ID);
+	public void setUUID(String UUID) {
+		setC_TaxDefinition_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_TaxDefinition_UU();
 	}
 
@@ -288,11 +328,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	public void setC_TaxGroupInput(ForeignEntityInput C_TaxGroup) {
 		this.mC_TaxGroup = C_TaxGroup;
 		X_C_TaxGroup foreignEntity;
-		if (C_TaxGroup != null &&
-				(foreignEntity = new Query(getCtx(), "C_TaxGroup", "C_TaxGroup_UU=?", get_TrxName())
-						.setParameters(C_TaxGroup.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_TaxGroup_ID(foreignEntity.get_ID());
+		if (C_TaxGroup != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_TaxGroup", "C_TaxGroup_UU=?", get_TrxName())
+							.setParameters(C_TaxGroup.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_TaxGroup_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_TaxGroup with UUID " + C_TaxGroup.getUUID());
+			}
 		} else {
 			super.setC_TaxGroup_ID(0);
 		}
@@ -317,11 +362,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	public void setC_TaxTypeInput(ForeignEntityInput C_TaxType) {
 		this.mC_TaxType = C_TaxType;
 		X_C_TaxType foreignEntity;
-		if (C_TaxType != null &&
-				(foreignEntity = new Query(getCtx(), "C_TaxType", "C_TaxType_UU=?", get_TrxName())
-						.setParameters(C_TaxType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_TaxType_ID(foreignEntity.get_ID());
+		if (C_TaxType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_TaxType", "C_TaxType_UU=?", get_TrxName())
+							.setParameters(C_TaxType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_TaxType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_TaxType with UUID " + C_TaxType.getUUID());
+			}
 		} else {
 			super.setC_TaxType_ID(0);
 		}
@@ -346,11 +396,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	public void setM_Product_CategoryInput(ForeignEntityInput M_Product_Category) {
 		this.mM_Product_Category = M_Product_Category;
 		MProductCategory_BH foreignEntity;
-		if (M_Product_Category != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
-						.setParameters(M_Product_Category.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_Category_ID(foreignEntity.get_ID());
+		if (M_Product_Category != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
+							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_Category_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product_Category with UUID " + M_Product_Category.getUUID());
+			}
 		} else {
 			super.setM_Product_Category_ID(0);
 		}
@@ -375,11 +430,16 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-						.setParameters(M_Product.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_ID(foreignEntity.get_ID());
+		if (M_Product != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
 		} else {
 			super.setM_Product_ID(0);
 		}

@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MTaxProviderInput extends X_C_TaxProviderInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_TaxProvider_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTaxProviderInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MTaxProviderInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

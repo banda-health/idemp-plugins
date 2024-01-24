@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -9,6 +10,7 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLot;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -26,13 +28,16 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	private I_AD_Ref_ListInput mbh_update_reason;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_AttributeSetInstance_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_AttributeSetInstanceInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MAttributeSetInstance_BH(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_AttributeSetInstanceInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAttributeSetInstance_BH(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -44,11 +49,16 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -82,11 +92,16 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	public void setbh_update_reasonInput(I_AD_Ref_ListInput bh_update_reason) {
 		this.mbh_update_reason = bh_update_reason;
 		MRefList_BH foreignEntity;
-		if (bh_update_reason != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(bh_update_reason.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setbh_update_reason(foreignEntity.getValue());
+		if (bh_update_reason != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(bh_update_reason.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setbh_update_reason(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + bh_update_reason.getUUID());
+			}
 		} else {
 			this.setbh_update_reason(null);
 		}
@@ -111,11 +126,16 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	public void setM_AttributeSetInput(ForeignEntityInput M_AttributeSet) {
 		this.mM_AttributeSet = M_AttributeSet;
 		MAttributeSet_BH foreignEntity;
-		if (M_AttributeSet != null &&
-				(foreignEntity = new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
-						.setParameters(M_AttributeSet.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_AttributeSet_ID(foreignEntity.get_ID());
+		if (M_AttributeSet != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
+							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_AttributeSet_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_AttributeSet with UUID " + M_AttributeSet.getUUID());
+			}
 		} else {
 			super.setM_AttributeSet_ID(0);
 		}
@@ -143,20 +163,20 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_AttributeSetInstance_UU(ID);
+	public void setUUID(String UUID) {
+		setM_AttributeSetInstance_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_AttributeSetInstance_UU();
 	}
 
@@ -169,11 +189,16 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	public void setM_LotInput(ForeignEntityInput M_Lot) {
 		this.mM_Lot = M_Lot;
 		MLot foreignEntity;
-		if (M_Lot != null &&
-				(foreignEntity = new Query(getCtx(), "M_Lot", "M_Lot_UU=?", get_TrxName())
-						.setParameters(M_Lot.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Lot_ID(foreignEntity.get_ID());
+		if (M_Lot != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Lot", "M_Lot_UU=?", get_TrxName())
+							.setParameters(M_Lot.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Lot_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Lot with UUID " + M_Lot.getUUID());
+			}
 		} else {
 			super.setM_Lot_ID(0);
 		}

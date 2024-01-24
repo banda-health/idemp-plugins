@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
@@ -12,6 +13,7 @@ import org.compiere.model.MPaySelection;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_Workflow;
+import org.compiere.util.Env;
 import org.eevolution.model.X_HR_Department;
 import org.eevolution.model.X_HR_Employee;
 import org.eevolution.model.X_HR_Job;
@@ -48,13 +50,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	private I_AD_Ref_ListInput mDocStatus;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The HR_Process_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_HR_ProcessInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_HR_Process(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_HR_ProcessInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_HR_Process(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -66,11 +71,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -93,11 +103,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (AD_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(AD_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_PrintFormat_ID(foreignEntity.get_ID());
+		if (AD_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
+			}
 		} else {
 			super.setAD_PrintFormat_ID(0);
 		}
@@ -122,11 +137,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
-		if (AD_Workflow != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-						.setParameters(AD_Workflow.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Workflow_ID(foreignEntity.get_ID());
+		if (AD_Workflow != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
+							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Workflow_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Workflow with UUID " + AD_Workflow.getUUID());
+			}
 		} else {
 			super.setAD_Workflow_ID(0);
 		}
@@ -151,11 +171,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_ID(foreignEntity.get_ID());
+		if (C_BPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+			}
 		} else {
 			super.setC_BPartner_ID(0);
 		}
@@ -180,11 +205,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
-		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-						.setParameters(C_Charge.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Charge_ID(foreignEntity.get_ID());
+		if (C_Charge != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
+							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Charge_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
+			}
 		} else {
 			super.setC_Charge_ID(0);
 		}
@@ -209,11 +239,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
-		if (get_ID() == 0 && C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocType_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_DocType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+			}
 		}
 	}
 
@@ -236,11 +271,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setC_DocTypeTargetInput(ForeignEntityInput C_DocTypeTarget) {
 		this.mC_DocTypeTarget = C_DocTypeTarget;
 		MDocType_BH foreignEntity;
-		if (C_DocTypeTarget != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocTypeTarget.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocTypeTarget_ID(foreignEntity.get_ID());
+		if (C_DocTypeTarget != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocTypeTarget.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocTypeTarget_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocTypeTarget.getUUID());
+			}
 		} else {
 			super.setC_DocTypeTarget_ID(0);
 		}
@@ -265,11 +305,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setC_PaySelectionInput(ForeignEntityInput C_PaySelection) {
 		this.mC_PaySelection = C_PaySelection;
 		MPaySelection foreignEntity;
-		if (C_PaySelection != null &&
-				(foreignEntity = new Query(getCtx(), "C_PaySelection", "C_PaySelection_UU=?", get_TrxName())
-						.setParameters(C_PaySelection.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_PaySelection_ID(foreignEntity.get_ID());
+		if (C_PaySelection != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_PaySelection", "C_PaySelection_UU=?", get_TrxName())
+							.setParameters(C_PaySelection.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_PaySelection_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_PaySelection with UUID " + C_PaySelection.getUUID());
+			}
 		} else {
 			super.setC_PaySelection_ID(0);
 		}
@@ -305,11 +350,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
 		this.mDocAction = DocAction;
 		MRefList_BH foreignEntity;
-		if (DocAction != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocAction(foreignEntity.getValue());
+		if (DocAction != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocAction(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocAction.getUUID());
+			}
 		} else {
 			this.setDocAction(null);
 		}
@@ -334,11 +384,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		MRefList_BH foreignEntity;
-		if (DocStatus != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocStatus(foreignEntity.getValue());
+		if (DocStatus != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocStatus(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocStatus.getUUID());
+			}
 		} else {
 			this.setDocStatus(null);
 		}
@@ -374,11 +429,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setHR_DepartmentInput(ForeignEntityInput HR_Department) {
 		this.mHR_Department = HR_Department;
 		X_HR_Department foreignEntity;
-		if (HR_Department != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Department", "HR_Department_UU=?", get_TrxName())
-						.setParameters(HR_Department.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_Department_ID(foreignEntity.get_ID());
+		if (HR_Department != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Department", "HR_Department_UU=?", get_TrxName())
+							.setParameters(HR_Department.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_Department_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Department with UUID " + HR_Department.getUUID());
+			}
 		} else {
 			super.setHR_Department_ID(0);
 		}
@@ -403,11 +463,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setHR_EmployeeInput(ForeignEntityInput HR_Employee) {
 		this.mHR_Employee = HR_Employee;
 		X_HR_Employee foreignEntity;
-		if (HR_Employee != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Employee", "HR_Employee_UU=?", get_TrxName())
-						.setParameters(HR_Employee.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_Employee_ID(foreignEntity.get_ID());
+		if (HR_Employee != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Employee", "HR_Employee_UU=?", get_TrxName())
+							.setParameters(HR_Employee.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_Employee_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Employee with UUID " + HR_Employee.getUUID());
+			}
 		} else {
 			super.setHR_Employee_ID(0);
 		}
@@ -432,11 +497,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setHR_JobInput(ForeignEntityInput HR_Job) {
 		this.mHR_Job = HR_Job;
 		X_HR_Job foreignEntity;
-		if (HR_Job != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Job", "HR_Job_UU=?", get_TrxName())
-						.setParameters(HR_Job.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_Job_ID(foreignEntity.get_ID());
+		if (HR_Job != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Job", "HR_Job_UU=?", get_TrxName())
+							.setParameters(HR_Job.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_Job_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Job with UUID " + HR_Job.getUUID());
+			}
 		} else {
 			super.setHR_Job_ID(0);
 		}
@@ -461,11 +531,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setHR_PayrollInput(ForeignEntityInput HR_Payroll) {
 		this.mHR_Payroll = HR_Payroll;
 		X_HR_Payroll foreignEntity;
-		if (get_ID() == 0 && HR_Payroll != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
-						.setParameters(HR_Payroll.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_Payroll_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && HR_Payroll != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
+							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_Payroll_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Payroll with UUID " + HR_Payroll.getUUID());
+			}
 		}
 	}
 
@@ -488,11 +563,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setHR_PeriodInput(ForeignEntityInput HR_Period) {
 		this.mHR_Period = HR_Period;
 		X_HR_Period foreignEntity;
-		if (get_ID() == 0 && HR_Period != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Period", "HR_Period_UU=?", get_TrxName())
-						.setParameters(HR_Period.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_Period_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && HR_Period != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Period", "HR_Period_UU=?", get_TrxName())
+							.setParameters(HR_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_Period_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Period with UUID " + HR_Period.getUUID());
+			}
 		}
 	}
 
@@ -518,20 +598,20 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setHR_Process_UU(ID);
+	public void setUUID(String UUID) {
+		setHR_Process_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getHR_Process_UU();
 	}
 	/**
@@ -555,11 +635,16 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
 		X_HR_Process foreignEntity;
-		if (Reversal != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Process", "HR_Process_UU=?", get_TrxName())
-						.setParameters(Reversal.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setReversal_ID(foreignEntity.get_ID());
+		if (Reversal != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Process", "HR_Process_UU=?", get_TrxName())
+							.setParameters(Reversal.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setReversal_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Process with UUID " + Reversal.getUUID());
+			}
 		} else {
 			super.setReversal_ID(0);
 		}

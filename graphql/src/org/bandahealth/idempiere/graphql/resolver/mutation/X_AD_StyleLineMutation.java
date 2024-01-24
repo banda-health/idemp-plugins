@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_StyleLineInput;
 import org.compiere.model.X_AD_StyleLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_StyleLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_StyleLineMutation extends POMutation implements GraphQLMutatio
 		return X_AD_StyleLineInput.Table_Name;
 	}
 
-	public X_AD_StyleLine AD_StyleLineSave(I_AD_StyleLineInput input, DataFetchingEnvironment environment) {
-		return (X_AD_StyleLine) super.save((X_AD_StyleLineInput) input, environment);
+	public X_AD_StyleLine AD_StyleLineSave(I_AD_StyleLineInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_StyleLine) super.save((X_AD_StyleLineInput) entity, environment);
+	}
+
+	public List<X_AD_StyleLine> AD_StyleLineSaveMany(List<I_AD_StyleLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_StyleLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_StyleLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_StyleLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

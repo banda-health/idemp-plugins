@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -10,6 +11,7 @@ import org.compiere.model.MColumn;
 import org.compiere.model.MOrg;
 import org.compiere.model.MSession;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -29,13 +31,16 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	private I_AD_Ref_ListInput mEventChangeLog;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_ChangeLog_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_ChangeLogInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MChangeLog(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_ChangeLogInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MChangeLog(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -47,11 +52,16 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	public void setAD_ChangeLogInput(ForeignEntityInput AD_ChangeLog) {
 		this.mAD_ChangeLog = AD_ChangeLog;
 		MChangeLog foreignEntity;
-		if (get_ID() == 0 && AD_ChangeLog != null &&
-				(foreignEntity = new Query(getCtx(), "AD_ChangeLog", "AD_ChangeLog_UU=?", get_TrxName())
-						.setParameters(AD_ChangeLog.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_ChangeLog_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_ChangeLog != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_ChangeLog", "AD_ChangeLog_UU=?", get_TrxName())
+							.setParameters(AD_ChangeLog.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_ChangeLog_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_ChangeLog with UUID " + AD_ChangeLog.getUUID());
+			}
 		}
 	}
 
@@ -66,20 +76,20 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_ChangeLog_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_ChangeLog_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_ChangeLog_UU();
 	}
 
@@ -92,11 +102,16 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
 		MColumn foreignEntity;
-		if (get_ID() == 0 && AD_Column != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-						.setParameters(AD_Column.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Column_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Column != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
+							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Column_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
+			}
 		}
 	}
 
@@ -119,11 +134,16 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -146,11 +166,16 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	public void setAD_SessionInput(ForeignEntityInput AD_Session) {
 		this.mAD_Session = AD_Session;
 		MSession foreignEntity;
-		if (get_ID() == 0 && AD_Session != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Session", "AD_Session_UU=?", get_TrxName())
-						.setParameters(AD_Session.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Session_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Session != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Session", "AD_Session_UU=?", get_TrxName())
+							.setParameters(AD_Session.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Session_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Session with UUID " + AD_Session.getUUID());
+			}
 		}
 	}
 
@@ -173,11 +198,16 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable_BH foreignEntity;
-		if (get_ID() == 0 && AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-						.setParameters(AD_Table.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Table_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Table != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Table_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+			}
 		}
 	}
 
@@ -200,11 +230,16 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	public void setEventChangeLogInput(I_AD_Ref_ListInput EventChangeLog) {
 		this.mEventChangeLog = EventChangeLog;
 		MRefList_BH foreignEntity;
-		if (EventChangeLog != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(EventChangeLog.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setEventChangeLog(foreignEntity.getValue());
+		if (EventChangeLog != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(EventChangeLog.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setEventChangeLog(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + EventChangeLog.getUUID());
+			}
 		} else {
 			this.setEventChangeLog(null);
 		}

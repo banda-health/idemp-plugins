@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ShipperPackagingCfgSave(entity: M_ShipperPackagingCfgInput!): M_ShipperPackagingCfg!
+	M_ShipperPackagingCfgSaveMany(entities: [M_ShipperPackagingCfgInput!]!): [M_ShipperPackagingCfg!]!
 	M_ShipperPackagingCfgDelete(uuids: [String!]!): Boolean!
 }
 
@@ -31,7 +32,7 @@ type M_ShipperPackagingCfg {
 	# Default value
 	IsDefault: Boolean!
 	M_ShipperCfg: M_ShipperCfg!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -54,7 +55,7 @@ input M_ShipperPackagingCfgInput {
 	# Default value
 	IsDefault: Boolean
 	M_ShipperCfg: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Search key for the record in the format required - must be unique

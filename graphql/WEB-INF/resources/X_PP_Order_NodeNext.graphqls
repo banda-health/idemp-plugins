@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_Order_NodeNextSave(entity: PP_Order_NodeNextInput!): PP_Order_NodeNext!
+	PP_Order_NodeNextSaveMany(entities: [PP_Order_NodeNextInput!]!): [PP_Order_NodeNext!]!
 	PP_Order_NodeNextDelete(uuids: [String!]!): Boolean!
 }
 
@@ -41,7 +42,7 @@ type PP_Order_NodeNext {
 	PP_Order_Next: PP_Order_Node
 	# Workflow Node (activity), step or process
 	PP_Order_Node: PP_Order_Node!
-	ID: ID!
+	UUID: ID!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Code resulting in TRUE of FALSE
@@ -72,7 +73,7 @@ input PP_Order_NodeNextInput {
 	PP_Order_Next: ForeignEntityInput
 	# Workflow Node (activity), step or process
 	PP_Order_Node: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Code resulting in TRUE of FALSE

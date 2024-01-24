@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_ProjectSave(entity: C_ProjectInput!): C_Project!
+	C_ProjectSaveMany(entities: [C_ProjectInput!]!): [C_Project!]!
 	C_ProjectDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type C_Project {
 	C_PaymentTerm: C_PaymentTerm
 	# Standard Phase of the Project Type
 	C_Phase: C_Phase
-	ID: ID!
+	UUID: ID!
 	# Type of the project
 	C_ProjectType_ID: Int
 	# The (legal) commitment amount
@@ -129,7 +130,7 @@ input C_ProjectInput {
 	C_PaymentTerm: ForeignEntityInput
 	# Standard Phase of the Project Type
 	C_Phase: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Type of the project
 	C_ProjectType_ID: Int
 	# The (legal) commitment amount

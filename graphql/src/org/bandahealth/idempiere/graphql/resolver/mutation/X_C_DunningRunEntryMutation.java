@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_DunningRunEntryInput;
 import org.compiere.model.MDunningRunEntry;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_DunningRunEntry - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_DunningRunEntryMutation extends POMutation implements GraphQLMu
 		return X_C_DunningRunEntryInput.Table_Name;
 	}
 
-	public MDunningRunEntry C_DunningRunEntrySave(I_C_DunningRunEntryInput input, DataFetchingEnvironment environment) {
-		return (MDunningRunEntry) super.save((X_C_DunningRunEntryInput) input, environment);
+	public MDunningRunEntry C_DunningRunEntrySave(I_C_DunningRunEntryInput entity, DataFetchingEnvironment environment) {
+		return (MDunningRunEntry) super.save((X_C_DunningRunEntryInput) entity, environment);
+	}
+
+	public List<MDunningRunEntry> C_DunningRunEntrySaveMany(List<I_C_DunningRunEntryInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_DunningRunEntryInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDunningRunEntry) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_DunningRunEntryDelete(List<String> uuids, DataFetchingEnvironment environment) {

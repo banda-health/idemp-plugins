@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ShippingProcessorCfgSave(entity: M_ShippingProcessorCfgInput!): M_ShippingProcessorCfg!
+	M_ShippingProcessorCfgSaveMany(entities: [M_ShippingProcessorCfgInput!]!): [M_ShippingProcessorCfg!]!
 	M_ShippingProcessorCfgDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type M_ShippingProcessorCfg {
 	HostPort: Int!
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	#  Address of your proxy server
@@ -62,7 +63,7 @@ input M_ShippingProcessorCfgInput {
 	HostPort: Int
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	#  Address of your proxy server

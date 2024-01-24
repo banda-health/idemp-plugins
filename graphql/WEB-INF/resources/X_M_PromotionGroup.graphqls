@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_PromotionGroupSave(entity: M_PromotionGroupInput!): M_PromotionGroup!
+	M_PromotionGroupSaveMany(entities: [M_PromotionGroupInput!]!): [M_PromotionGroup!]!
 	M_PromotionGroupDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type M_PromotionGroup {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -44,7 +45,7 @@ input M_PromotionGroupInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

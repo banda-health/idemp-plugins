@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_EntityTypeSave(entity: AD_EntityTypeInput!): AD_EntityType!
+	AD_EntityTypeSaveMany(entities: [AD_EntityTypeInput!]!): [AD_EntityType!]!
 	AD_EntityTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_EntityTypeConnection {
 type AD_EntityType {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Extension Classpath
@@ -49,7 +50,7 @@ type AD_EntityType {
 }
 
 input AD_EntityTypeInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Extension Classpath

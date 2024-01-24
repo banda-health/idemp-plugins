@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_DemandDetailSave(entity: M_DemandDetailInput!): M_DemandDetail!
+	M_DemandDetailSaveMany(entities: [M_DemandDetailInput!]!): [M_DemandDetail!]!
 	M_DemandDetailDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type M_DemandDetail {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Material Demand Line
 	M_DemandLine: M_DemandLine!
 	# Forecast Line
@@ -48,7 +49,7 @@ input M_DemandDetailInput {
 	C_OrderLine: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Material Demand Line
 	M_DemandLine: ForeignEntityInput
 	# Forecast Line

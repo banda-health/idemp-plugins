@@ -38,6 +38,7 @@ public class MBPartnerResolver extends X_C_BPartnerResolver {
 	public CompletableFuture<Integer> TotalVisits(MBPartner_BH entity, DataFetchingEnvironment environment) {
 		DataLoader<String, Integer> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(MBHVisitDataLoader.BH_Visit_COUNT_BY_Patient_ID_DATA_LOADER);
-		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getC_BPartner_ID()));
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getC_BPartner_ID()))
+				.thenApply(totalVisits -> totalVisits == null ? 0 : totalVisits);
 	}
 }

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_FieldSave(entity: AD_FieldInput!): AD_Field!
+	AD_FieldSaveMany(entities: [AD_FieldInput!]!): [AD_Field!]!
 	AD_FieldDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Field {
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column!
-	ID: ID!
+	UUID: ID!
 	# Logical grouping of fields
 	AD_FieldGroup: AD_FieldGroup
 	# Field CSS Style 
@@ -119,7 +120,7 @@ type AD_Field {
 input AD_FieldInput {
 	# Column in the table
 	AD_Column: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Logical grouping of fields
 	AD_FieldGroup: ForeignEntityInput
 	# Field CSS Style 

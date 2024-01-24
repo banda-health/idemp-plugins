@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_RelationTypeSave(entity: AD_RelationTypeInput!): AD_RelationType!
+	AD_RelationTypeSaveMany(entities: [AD_RelationTypeInput!]!): [AD_RelationType!]!
 	AD_RelationTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_RelationType {
 	AD_Org: AD_Org!
 	AD_Reference_Source: AD_Reference
 	AD_Reference_Target: AD_Reference
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,7 +53,7 @@ input AD_RelationTypeInput {
 	AD_Org: ForeignEntityInput
 	AD_Reference_Source: ForeignEntityInput
 	AD_Reference_Target: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

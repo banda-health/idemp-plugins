@@ -28,7 +28,9 @@ import org.bandahealth.idempiere.graphql.resolver.model.BandaResolverComposer;
 import org.bandahealth.idempiere.graphql.resolver.mutation.BandaMutationComposer;
 import org.bandahealth.idempiere.graphql.resolver.query.BandaQueryComposer;
 import org.bandahealth.idempiere.graphql.scalar.BandaScalarComposer;
+import org.compiere.model.MSystem;
 import org.compiere.util.CLogger;
+import org.compiere.util.Env;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +91,9 @@ public class GraphQLEndpoint extends GraphQLHttpServlet {
 		Instrumentation dispatcherInstrumentation
 				= new DataLoaderDispatcherInstrumentation(options);
 		List<Instrumentation> instrumentationList = new ArrayList<>();
-		instrumentationList.add(new MaxQueryDepthInstrumentation(13));
+		if (MSystem.get(Env.getCtx()).getSystemStatus().equals(MSystem.SYSTEMSTATUS_Production)) {
+			instrumentationList.add(new MaxQueryDepthInstrumentation(8));
+		}
 		instrumentationList.add(new LoggingInstrumentation());
 		// TODO: Uncomment for localized instrumentation figures
 //		instrumentationList.add(new TracingInstrumentation());

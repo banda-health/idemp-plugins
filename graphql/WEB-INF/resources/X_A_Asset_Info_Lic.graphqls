@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_Info_LicSave(entity: A_Asset_Info_LicInput!): A_Asset_Info_Lic!
+	A_Asset_Info_LicSaveMany(entities: [A_Asset_Info_LicInput!]!): [A_Asset_Info_Lic!]!
 	A_Asset_Info_LicDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type A_Asset_Info_LicConnection {
 type A_Asset_Info_Lic {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	ID: ID!
+	UUID: ID!
 	A_Issuing_Agency: String
 	A_License_Fee: BigDecimal
 	A_License_No: String
@@ -47,7 +48,7 @@ type A_Asset_Info_Lic {
 input A_Asset_Info_LicInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	A_Issuing_Agency: String
 	A_License_Fee: BigDecimal
 	A_License_No: String

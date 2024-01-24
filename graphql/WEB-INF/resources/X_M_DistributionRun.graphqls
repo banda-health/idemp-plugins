@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_DistributionRunSave(entity: M_DistributionRunInput!): M_DistributionRun!
+	M_DistributionRunSaveMany(entities: [M_DistributionRunInput!]!): [M_DistributionRun!]!
 	M_DistributionRunDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_DistributionRun {
 	IsActive: Boolean!
 	# For all shipments create one Order
 	IsCreateSingleOrder: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
@@ -57,7 +58,7 @@ input M_DistributionRunInput {
 	IsActive: Boolean
 	# For all shipments create one Order
 	IsCreateSingleOrder: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean

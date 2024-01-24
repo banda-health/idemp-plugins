@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_M_SerNoCtlInput;
 import org.bandahealth.idempiere.graphql.model.input.X_M_SerNoCtlInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_SerNoCtl - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_SerNoCtlMutation extends POMutation implements GraphQLMutationR
 		return X_M_SerNoCtlInput.Table_Name;
 	}
 
-	public MSerNoCtl_BH M_SerNoCtlSave(I_M_SerNoCtlInput input, DataFetchingEnvironment environment) {
-		return (MSerNoCtl_BH) super.save((X_M_SerNoCtlInput) input, environment);
+	public MSerNoCtl_BH M_SerNoCtlSave(I_M_SerNoCtlInput entity, DataFetchingEnvironment environment) {
+		return (MSerNoCtl_BH) super.save((X_M_SerNoCtlInput) entity, environment);
+	}
+
+	public List<MSerNoCtl_BH> M_SerNoCtlSaveMany(List<I_M_SerNoCtlInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_SerNoCtlInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MSerNoCtl_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_SerNoCtlDelete(List<String> uuids, DataFetchingEnvironment environment) {

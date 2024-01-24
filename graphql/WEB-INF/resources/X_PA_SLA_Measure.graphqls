@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_SLA_MeasureSave(entity: PA_SLA_MeasureInput!): PA_SLA_Measure!
+	PA_SLA_MeasureSaveMany(entities: [PA_SLA_MeasureInput!]!): [PA_SLA_Measure!]!
 	PA_SLA_MeasureDelete(uuids: [String!]!): Boolean!
 }
 
@@ -36,7 +37,7 @@ type PA_SLA_Measure {
 	MeasureActual: BigDecimal!
 	# Service Level Agreement Goal
 	PA_SLA_Goal: PA_SLA_Goal!
-	ID: ID!
+	UUID: ID!
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -63,7 +64,7 @@ input PA_SLA_MeasureInput {
 	MeasureActual: BigDecimal
 	# Service Level Agreement Goal
 	PA_SLA_Goal: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

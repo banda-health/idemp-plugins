@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_Currency_AcctSave(entity: C_Currency_AcctInput!): C_Currency_Acct!
+	C_Currency_AcctSaveMany(entities: [C_Currency_AcctInput!]!): [C_Currency_Acct!]!
 	C_Currency_AcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_Currency_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	ID: ID!
+	UUID: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -42,7 +43,7 @@ input C_Currency_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# The record is active in the system

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_AD_ProcessInput;
 import org.bandahealth.idempiere.graphql.model.input.X_AD_ProcessInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Process - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_ProcessMutation extends POMutation implements GraphQLMutationR
 		return X_AD_ProcessInput.Table_Name;
 	}
 
-	public MProcess_BH AD_ProcessSave(I_AD_ProcessInput input, DataFetchingEnvironment environment) {
-		return (MProcess_BH) super.save((X_AD_ProcessInput) input, environment);
+	public MProcess_BH AD_ProcessSave(I_AD_ProcessInput entity, DataFetchingEnvironment environment) {
+		return (MProcess_BH) super.save((X_AD_ProcessInput) entity, environment);
+	}
+
+	public List<MProcess_BH> AD_ProcessSaveMany(List<I_AD_ProcessInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_ProcessInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MProcess_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_ProcessDelete(List<String> uuids, DataFetchingEnvironment environment) {
