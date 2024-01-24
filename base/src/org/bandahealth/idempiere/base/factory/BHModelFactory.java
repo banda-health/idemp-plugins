@@ -29,7 +29,6 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
-import org.bandahealth.idempiere.base.model.MCurrencyAcct_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MFieldGroup;
@@ -54,20 +53,12 @@ import org.bandahealth.idempiere.base.model.MProductPrice_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
-import org.bandahealth.idempiere.base.model.MReplicationLog_BH;
-import org.bandahealth.idempiere.base.model.MReplicationRun_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
 import org.bandahealth.idempiere.base.model.MTabNavBtn;
 import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
 import org.bandahealth.idempiere.base.model.MTree_BH;
-import org.bandahealth.idempiere.base.model.MTree_NodeBP_BH;
-import org.bandahealth.idempiere.base.model.MTree_NodeCMC_BH;
-import org.bandahealth.idempiere.base.model.MTree_NodeCMS_BH;
-import org.bandahealth.idempiere.base.model.MTree_NodeMM_BH;
-import org.bandahealth.idempiere.base.model.MTree_NodePR_BH;
-import org.bandahealth.idempiere.base.model.MTree_Node_BH;
 import org.bandahealth.idempiere.base.model.MUIButton;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
@@ -183,24 +174,6 @@ public class BHModelFactory implements IModelFactory {
 			return MBHEncounter.class;
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return MBHObservation.class;
-		} else if (tableName.equalsIgnoreCase(MCurrencyAcct_BH.Table_Name)) {
-			return MCurrencyAcct_BH.class;
-		} else if (tableName.equalsIgnoreCase(MTree_NodePR_BH.Table_Name)) {
-			return MTree_NodePR_BH.class;
-		} else if (tableName.equalsIgnoreCase(MTree_NodeMM_BH.Table_Name)) {
-			return MTree_NodeMM_BH.class;
-		} else if (tableName.equalsIgnoreCase(MTree_Node_BH.Table_Name)) {
-			return MTree_Node_BH.class;
-		} else if (tableName.equalsIgnoreCase(MTree_NodeCMS_BH.Table_Name)) {
-			return MTree_NodeCMS_BH.class;
-		} else if (tableName.equalsIgnoreCase(MTree_NodeCMC_BH.Table_Name)) {
-			return MTree_NodeCMC_BH.class;
-		} else if (tableName.equalsIgnoreCase(MTree_NodeBP_BH.Table_Name)) {
-			return MTree_NodeBP_BH.class;
-		} else if (tableName.equalsIgnoreCase(MReplicationRun_BH.Table_Name)) {
-			return MReplicationRun_BH.class;
-		} else if (tableName.equalsIgnoreCase(MReplicationLog_BH.Table_Name)) {
-			return MReplicationLog_BH.class;
 		} else if (tableName.equalsIgnoreCase(MProductPO_BH.Table_Name)) {
 			return MProductPO_BH.class;
 		} else if (tableName.equalsIgnoreCase(MProductPrice_BH.Table_Name)) {
@@ -324,30 +297,10 @@ public class BHModelFactory implements IModelFactory {
 			return new MDocType_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MSequence_BH.Table_Name)) {
 			return new MSequence_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MOrgInfo_BH.Table_Name)) {
-			return new MOrgInfo_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHEncounter.Table_Name)) {
 			return new MBHEncounter(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return new MBHObservation(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MCurrencyAcct_BH.Table_Name)) {
-			return new MCurrencyAcct_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_NodePR_BH.Table_Name)) {
-			return new MTree_NodePR_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_NodeMM_BH.Table_Name)) {
-			return new MTree_NodeMM_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_Node_BH.Table_Name)) {
-			return new MTree_Node_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_NodeCMS_BH.Table_Name)) {
-			return new MTree_NodeCMS_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_NodeCMC_BH.Table_Name)) {
-			return new MTree_NodeCMC_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_NodeBP_BH.Table_Name)) {
-			return new MTree_NodeBP_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MReplicationRun_BH.Table_Name)) {
-			return new MReplicationRun_BH(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MReplicationLog_BH.Table_Name)) {
-			return new MReplicationLog_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductPO_BH.Table_Name)) {
 			return new MProductPO_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductPrice_BH.Table_Name)) {
@@ -477,24 +430,6 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHEncounter(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return new MBHObservation(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MCurrencyAcct_BH.Table_Name)) {
-			return new MCurrencyAcct_BH(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_NodePR_BH.Table_Name)) {
-			return new MTree_NodePR_BH(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_NodeMM_BH.Table_Name)) {
-			return new MTree_NodeMM_BH(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_Node_BH.Table_Name)) {
-			return new MTree_Node_BH(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_NodeCMS_BH.Table_Name)) {
-			return new MTree_NodeCMS_BH(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_NodeCMC_BH.Table_Name)) {
-			return new MTree_NodeCMC_BH(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MTree_NodeBP_BH.Table_Name)) {
-			return new MTree_NodeBP_BH(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MReplicationRun_BH.Table_Name)) {
-			return new MReplicationRun_BH(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MReplicationLog_BH.Table_Name)) {
-			return new MReplicationLog_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductPO_BH.Table_Name)) {
 			return new MProductPO_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductPrice_BH.Table_Name)) {
