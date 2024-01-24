@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_PaymentTransactionSave(entity: C_PaymentTransactionInput!): C_PaymentTransaction!
+	C_PaymentTransactionSaveMany(entities: [C_PaymentTransactionInput!]!): [C_PaymentTransaction!]!
 	C_PaymentTransactionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -68,7 +69,7 @@ type C_PaymentTransaction {
 	C_PaymentBatch: C_PaymentBatch
 	# Payment processor for electronic payments
 	C_PaymentProcessor: C_PaymentProcessor
-	ID: ID!
+	UUID: ID!
 	C_POSTenderType: C_POSTenderType
 	# Financial Project
 	C_Project: C_Project
@@ -212,7 +213,7 @@ input C_PaymentTransactionInput {
 	C_PaymentBatch: ForeignEntityInput
 	# Payment processor for electronic payments
 	C_PaymentProcessor: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	C_POSTenderType: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput

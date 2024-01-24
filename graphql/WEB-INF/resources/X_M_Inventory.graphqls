@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_InventorySave(entity: M_InventoryInput!): M_Inventory!
+	M_InventorySaveMany(entities: [M_InventoryInput!]!): [M_Inventory!]!
 	M_InventoryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -57,7 +58,7 @@ type M_Inventory {
 	IsActive: Boolean!
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Rules for generating physical inventory
 	M_PerpetualInv: M_PerpetualInv
 	# Storage Warehouse and Service Point
@@ -120,7 +121,7 @@ input M_InventoryInput {
 	IsActive: Boolean
 	# Indicates if this document requires approval
 	IsApproved: Boolean
-	ID: ID
+	UUID: ID
 	# Rules for generating physical inventory
 	M_PerpetualInv: ForeignEntityInput
 	# Storage Warehouse and Service Point

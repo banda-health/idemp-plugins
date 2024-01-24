@@ -15,7 +15,7 @@ public class MOrderMutation extends X_C_OrderMutation {
 	public MOrder_BH C_OrderProcess(String uuid, String documentAction, DataFetchingEnvironment environment) {
 		MOrder_BH entity =
 				Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MOrder_BH.Table_Name, null, uuid);
-		return DocumentUtil.Process(entity, documentAction, entity.getC_DocType_ID(),
+		return DocumentUtil.Process(entity, documentAction, entity.getC_DocTypeTarget_ID(),
 				MProcess_BH.PROCESSID_PROCESS_ORDERS);
 	}
 

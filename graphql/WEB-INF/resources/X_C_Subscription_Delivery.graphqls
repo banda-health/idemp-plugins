@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_Subscription_DeliverySave(entity: C_Subscription_DeliveryInput!): C_Subscription_Delivery!
+	C_Subscription_DeliverySaveMany(entities: [C_Subscription_DeliveryInput!]!): [C_Subscription_Delivery!]!
 	C_Subscription_DeliveryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_Subscription_Delivery {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Subscription of a Business Partner of a Product to renew
 	C_Subscription: C_Subscription!
 	# Date this record was created
@@ -38,7 +39,7 @@ type C_Subscription_Delivery {
 input C_Subscription_DeliveryInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Subscription of a Business Partner of a Product to renew
 	C_Subscription: ForeignEntityInput
 	# The record is active in the system

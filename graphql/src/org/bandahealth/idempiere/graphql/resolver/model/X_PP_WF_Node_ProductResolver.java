@@ -54,7 +54,7 @@ public class X_PP_WF_Node_ProductResolver extends POResolver<X_PP_WF_Node_Produc
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(CONFIGURATIONLEVEL_UUIDS_BY_VALUE.get(entity.getConfigurationLevel()));
 	}
 

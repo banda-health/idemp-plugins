@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WF_ProcessDataSave(entity: AD_WF_ProcessDataInput!): AD_WF_ProcessData!
+	AD_WF_ProcessDataSaveMany(entities: [AD_WF_ProcessDataInput!]!): [AD_WF_ProcessData!]!
 	AD_WF_ProcessDataDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_WF_ProcessData {
 	AD_Org: AD_Org!
 	# Actual Workflow Process Instance
 	AD_WF_Process: AD_WF_Process!
-	ID: ID!
+	UUID: ID!
 	# Name of the Attribute
 	AttributeName: String!
 	# Value of the Attribute
@@ -44,7 +45,7 @@ input AD_WF_ProcessDataInput {
 	AD_Org: ForeignEntityInput
 	# Actual Workflow Process Instance
 	AD_WF_Process: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Name of the Attribute
 	AttributeName: String
 	# Value of the Attribute

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_MigrationScriptSave(entity: AD_MigrationScriptInput!): AD_MigrationScript!
+	AD_MigrationScriptSaveMany(entities: [AD_MigrationScriptInput!]!): [AD_MigrationScript!]!
 	AD_MigrationScriptDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_MigrationScriptConnection {
 type AD_MigrationScript {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -55,7 +56,7 @@ type AD_MigrationScript {
 }
 
 input AD_MigrationScriptInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

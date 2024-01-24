@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_BenchmarkSave(entity: PA_BenchmarkInput!): PA_Benchmark!
+	PA_BenchmarkSaveMany(entities: [PA_BenchmarkInput!]!): [PA_Benchmark!]!
 	PA_BenchmarkDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type PA_Benchmark {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -54,5 +55,5 @@ input PA_BenchmarkInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 }

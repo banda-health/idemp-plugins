@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_RfQ_TopicSubscriberInpu
 import org.compiere.model.MRfQTopicSubscriber;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_RfQ_TopicSubscriber - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_RfQ_TopicSubscriberMutation extends POMutation implements Graph
 		return X_C_RfQ_TopicSubscriberInput.Table_Name;
 	}
 
-	public MRfQTopicSubscriber C_RfQ_TopicSubscriberSave(I_C_RfQ_TopicSubscriberInput input, DataFetchingEnvironment environment) {
-		return (MRfQTopicSubscriber) super.save((X_C_RfQ_TopicSubscriberInput) input, environment);
+	public MRfQTopicSubscriber C_RfQ_TopicSubscriberSave(I_C_RfQ_TopicSubscriberInput entity, DataFetchingEnvironment environment) {
+		return (MRfQTopicSubscriber) super.save((X_C_RfQ_TopicSubscriberInput) entity, environment);
+	}
+
+	public List<MRfQTopicSubscriber> C_RfQ_TopicSubscriberSaveMany(List<I_C_RfQ_TopicSubscriberInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_RfQ_TopicSubscriberInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRfQTopicSubscriber) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_RfQ_TopicSubscriberDelete(List<String> uuids, DataFetchingEnvironment environment) {

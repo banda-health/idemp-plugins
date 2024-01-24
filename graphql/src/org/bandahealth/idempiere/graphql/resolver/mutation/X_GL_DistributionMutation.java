@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_GL_DistributionInput;
 import org.compiere.model.MDistribution;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for GL_Distribution - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_GL_DistributionMutation extends POMutation implements GraphQLMuta
 		return X_GL_DistributionInput.Table_Name;
 	}
 
-	public MDistribution GL_DistributionSave(I_GL_DistributionInput input, DataFetchingEnvironment environment) {
-		return (MDistribution) super.save((X_GL_DistributionInput) input, environment);
+	public MDistribution GL_DistributionSave(I_GL_DistributionInput entity, DataFetchingEnvironment environment) {
+		return (MDistribution) super.save((X_GL_DistributionInput) entity, environment);
+	}
+
+	public List<MDistribution> GL_DistributionSaveMany(List<I_GL_DistributionInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_GL_DistributionInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDistribution) entity).collect(Collectors.toList());
 	}
 
 	public boolean GL_DistributionDelete(List<String> uuids, DataFetchingEnvironment environment) {

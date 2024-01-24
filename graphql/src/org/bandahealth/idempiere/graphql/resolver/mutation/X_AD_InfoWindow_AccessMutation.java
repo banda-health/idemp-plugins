@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_InfoWindow_AccessInput
 import org.compiere.model.MInfoWindowAccess;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_InfoWindow_Access - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_InfoWindow_AccessMutation extends POMutation implements GraphQ
 		return X_AD_InfoWindow_AccessInput.Table_Name;
 	}
 
-	public MInfoWindowAccess AD_InfoWindow_AccessSave(I_AD_InfoWindow_AccessInput input, DataFetchingEnvironment environment) {
-		return (MInfoWindowAccess) super.save((X_AD_InfoWindow_AccessInput) input, environment);
+	public MInfoWindowAccess AD_InfoWindow_AccessSave(I_AD_InfoWindow_AccessInput entity, DataFetchingEnvironment environment) {
+		return (MInfoWindowAccess) super.save((X_AD_InfoWindow_AccessInput) entity, environment);
+	}
+
+	public List<MInfoWindowAccess> AD_InfoWindow_AccessSaveMany(List<I_AD_InfoWindow_AccessInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_InfoWindow_AccessInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MInfoWindowAccess) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_InfoWindow_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {

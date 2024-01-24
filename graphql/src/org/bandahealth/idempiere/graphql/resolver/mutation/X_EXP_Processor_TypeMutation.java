@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_EXP_Processor_TypeInput;
 import org.compiere.model.MEXPProcessorType;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for EXP_Processor_Type - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_EXP_Processor_TypeMutation extends POMutation implements GraphQLM
 		return X_EXP_Processor_TypeInput.Table_Name;
 	}
 
-	public MEXPProcessorType EXP_Processor_TypeSave(I_EXP_Processor_TypeInput input, DataFetchingEnvironment environment) {
-		return (MEXPProcessorType) super.save((X_EXP_Processor_TypeInput) input, environment);
+	public MEXPProcessorType EXP_Processor_TypeSave(I_EXP_Processor_TypeInput entity, DataFetchingEnvironment environment) {
+		return (MEXPProcessorType) super.save((X_EXP_Processor_TypeInput) entity, environment);
+	}
+
+	public List<MEXPProcessorType> EXP_Processor_TypeSaveMany(List<I_EXP_Processor_TypeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_EXP_Processor_TypeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MEXPProcessorType) entity).collect(Collectors.toList());
 	}
 
 	public boolean EXP_Processor_TypeDelete(List<String> uuids, DataFetchingEnvironment environment) {

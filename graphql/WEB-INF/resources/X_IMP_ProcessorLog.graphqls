@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	IMP_ProcessorLogSave(entity: IMP_ProcessorLogInput!): IMP_ProcessorLog!
+	IMP_ProcessorLogSaveMany(entities: [IMP_ProcessorLogInput!]!): [IMP_ProcessorLog!]!
 	IMP_ProcessorLogDelete(uuids: [String!]!): Boolean!
 }
 
@@ -31,7 +32,7 @@ type IMP_ProcessorLog {
 	# Comment or Hint
 	Help: String
 	IMP_Processor: IMP_Processor!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# An Error occurred in the execution
@@ -58,7 +59,7 @@ input IMP_ProcessorLogInput {
 	# Comment or Hint
 	Help: String
 	IMP_Processor: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# An Error occurred in the execution

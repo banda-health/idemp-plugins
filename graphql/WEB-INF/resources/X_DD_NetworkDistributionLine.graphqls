@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	DD_NetworkDistributionLineSave(entity: DD_NetworkDistributionLineInput!): DD_NetworkDistributionLine!
+	DD_NetworkDistributionLineSaveMany(entities: [DD_NetworkDistributionLineInput!]!): [DD_NetworkDistributionLine!]!
 	DD_NetworkDistributionLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -25,7 +26,7 @@ type DD_NetworkDistributionLine {
 	# User who created this records
 	CreatedBy: AD_User!
 	DD_NetworkDistribution: DD_NetworkDistribution!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Method or manner of product delivery
@@ -53,7 +54,7 @@ input DD_NetworkDistributionLineInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	DD_NetworkDistribution: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Method or manner of product delivery

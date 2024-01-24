@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_InfoColumnSave(entity: AD_InfoColumnInput!): AD_InfoColumn!
+	AD_InfoColumnSaveMany(entities: [AD_InfoColumnInput!]!): [AD_InfoColumn!]!
 	AD_InfoColumnDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_InfoColumn {
 	AD_Element: AD_Element
 	# Field CSS Style 
 	AD_FieldStyle: AD_Style
-	ID: ID!
+	UUID: ID!
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow!
 	# Organizational entity within client
@@ -93,7 +94,7 @@ input AD_InfoColumnInput {
 	AD_Element: ForeignEntityInput
 	# Field CSS Style 
 	AD_FieldStyle: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
 	# Organizational entity within client

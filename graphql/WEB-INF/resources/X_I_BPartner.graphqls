@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	I_BPartnerSave(entity: I_BPartnerInput!): I_BPartner!
+	I_BPartnerSaveMany(entities: [I_BPartnerInput!]!): [I_BPartner!]!
 	I_BPartnerDelete(uuids: [String!]!): Boolean!
 }
 
@@ -66,7 +67,7 @@ type I_BPartner {
 	Fax: String
 	# Business Partner Group Key
 	GroupValue: String
-	ID: ID!
+	UUID: ID!
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -161,7 +162,7 @@ input I_BPartnerInput {
 	Fax: String
 	# Business Partner Group Key
 	GroupValue: String
-	ID: ID
+	UUID: ID
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

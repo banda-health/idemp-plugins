@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_RfQLineQtySave(entity: C_RfQLineQtyInput!): C_RfQLineQty!
+	C_RfQLineQtySaveMany(entities: [C_RfQLineQtyInput!]!): [C_RfQLineQty!]!
 	C_RfQLineQtyDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type C_RfQLineQty {
 	BestResponseAmt: BigDecimal
 	# Request for Quotation Line
 	C_RfQLine: C_RfQLine!
-	ID: ID!
+	UUID: ID!
 	# Unit of Measure
 	C_UOM: C_UOM!
 	# Date this record was created
@@ -62,7 +63,7 @@ input C_RfQLineQtyInput {
 	BestResponseAmt: BigDecimal
 	# Request for Quotation Line
 	C_RfQLine: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
 	# The record is active in the system

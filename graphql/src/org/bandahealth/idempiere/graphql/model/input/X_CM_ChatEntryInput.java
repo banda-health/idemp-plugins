@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -9,6 +10,7 @@ import org.compiere.model.MChat;
 import org.compiere.model.MChatEntry;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -30,13 +32,16 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	private I_AD_Ref_ListInput mModeratorStatus;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The CM_ChatEntry_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_CM_ChatEntryInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MChatEntry(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_CM_ChatEntryInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MChatEntry(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -48,11 +53,16 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -75,11 +85,16 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
-		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(AD_User.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_User_ID(foreignEntity.get_ID());
+		if (AD_User != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_User_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+			}
 		} else {
 			super.setAD_User_ID(0);
 		}
@@ -115,11 +130,16 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	public void setChatEntryTypeInput(I_AD_Ref_ListInput ChatEntryType) {
 		this.mChatEntryType = ChatEntryType;
 		MRefList_BH foreignEntity;
-		if (ChatEntryType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ChatEntryType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setChatEntryType(foreignEntity.getValue());
+		if (ChatEntryType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ChatEntryType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setChatEntryType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ChatEntryType.getUUID());
+			}
 		} else {
 			this.setChatEntryType(null);
 		}
@@ -144,11 +164,16 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	public void setCM_ChatInput(ForeignEntityInput CM_Chat) {
 		this.mCM_Chat = CM_Chat;
 		MChat foreignEntity;
-		if (get_ID() == 0 && CM_Chat != null &&
-				(foreignEntity = new Query(getCtx(), "CM_Chat", "CM_Chat_UU=?", get_TrxName())
-						.setParameters(CM_Chat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCM_Chat_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && CM_Chat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "CM_Chat", "CM_Chat_UU=?", get_TrxName())
+							.setParameters(CM_Chat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCM_Chat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table CM_Chat with UUID " + CM_Chat.getUUID());
+			}
 		}
 	}
 
@@ -174,20 +199,20 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setCM_ChatEntry_UU(ID);
+	public void setUUID(String UUID) {
+		setCM_ChatEntry_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getCM_ChatEntry_UU();
 	}
 
@@ -200,11 +225,16 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	public void setCM_ChatEntryGrandParentInput(ForeignEntityInput CM_ChatEntryGrandParent) {
 		this.mCM_ChatEntryGrandParent = CM_ChatEntryGrandParent;
 		MChatEntry foreignEntity;
-		if (CM_ChatEntryGrandParent != null &&
-				(foreignEntity = new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
-						.setParameters(CM_ChatEntryGrandParent.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCM_ChatEntryGrandParent_ID(foreignEntity.get_ID());
+		if (CM_ChatEntryGrandParent != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
+							.setParameters(CM_ChatEntryGrandParent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCM_ChatEntryGrandParent_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table CM_ChatEntry with UUID " + CM_ChatEntryGrandParent.getUUID());
+			}
 		} else {
 			super.setCM_ChatEntryGrandParent_ID(0);
 		}
@@ -229,11 +259,16 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	public void setCM_ChatEntryParentInput(ForeignEntityInput CM_ChatEntryParent) {
 		this.mCM_ChatEntryParent = CM_ChatEntryParent;
 		MChatEntry foreignEntity;
-		if (CM_ChatEntryParent != null &&
-				(foreignEntity = new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
-						.setParameters(CM_ChatEntryParent.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setCM_ChatEntryParent_ID(foreignEntity.get_ID());
+		if (CM_ChatEntryParent != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
+							.setParameters(CM_ChatEntryParent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCM_ChatEntryParent_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table CM_ChatEntry with UUID " + CM_ChatEntryParent.getUUID());
+			}
 		} else {
 			super.setCM_ChatEntryParent_ID(0);
 		}
@@ -258,11 +293,16 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	public void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType) {
 		this.mConfidentialType = ConfidentialType;
 		MRefList_BH foreignEntity;
-		if (ConfidentialType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ConfidentialType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setConfidentialType(foreignEntity.getValue());
+		if (ConfidentialType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ConfidentialType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setConfidentialType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ConfidentialType.getUUID());
+			}
 		} else {
 			this.setConfidentialType(null);
 		}
@@ -287,11 +327,16 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	public void setModeratorStatusInput(I_AD_Ref_ListInput ModeratorStatus) {
 		this.mModeratorStatus = ModeratorStatus;
 		MRefList_BH foreignEntity;
-		if (ModeratorStatus != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ModeratorStatus.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setModeratorStatus(foreignEntity.getValue());
+		if (ModeratorStatus != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ModeratorStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setModeratorStatus(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ModeratorStatus.getUUID());
+			}
 		} else {
 			this.setModeratorStatus(null);
 		}

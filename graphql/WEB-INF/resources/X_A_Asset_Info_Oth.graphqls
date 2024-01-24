@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_Info_OthSave(entity: A_Asset_Info_OthInput!): A_Asset_Info_Oth!
+	A_Asset_Info_OthSaveMany(entities: [A_Asset_Info_OthInput!]!): [A_Asset_Info_Oth!]!
 	A_Asset_Info_OthDelete(uuids: [String!]!): Boolean!
 }
 
@@ -19,7 +20,7 @@ type A_Asset_Info_Oth {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Asset_Info_Oth: A_Asset_Info_Oth!
-	ID: ID!
+	UUID: ID!
 	A_User1: String
 	A_User10: String
 	A_User11: String
@@ -56,7 +57,7 @@ input A_Asset_Info_OthInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Asset_Info_Oth: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	A_User1: String
 	A_User10: String
 	A_User11: String

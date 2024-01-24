@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	I_BankStatementSave(entity: I_BankStatementInput!): I_BankStatement!
+	I_BankStatementSaveMany(entities: [I_BankStatementInput!]!): [I_BankStatement!]!
 	I_BankStatementDelete(uuids: [String!]!): Boolean!
 }
 
@@ -79,7 +80,7 @@ type I_BankStatement {
 	EftTrxType: String
 	# Electronic Funds Transfer Valuta (effective) Date
 	EftValutaDate: Date
-	ID: ID!
+	UUID: ID!
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -190,7 +191,7 @@ input I_BankStatementInput {
 	EftTrxType: String
 	# Electronic Funds Transfer Valuta (effective) Date
 	EftValutaDate: Date
-	ID: ID
+	UUID: ID
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

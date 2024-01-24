@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MProductDownloadInput extends X_M_ProductDownloadInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_ProductDownload_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProductDownloadInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MProductDownloadInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

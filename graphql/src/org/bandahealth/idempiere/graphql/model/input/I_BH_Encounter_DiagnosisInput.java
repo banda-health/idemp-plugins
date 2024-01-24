@@ -39,18 +39,18 @@ public interface I_BH_Encounter_DiagnosisInput extends I_BH_Encounter_Diagnosis 
 	ForeignEntityInput BH_Coded_Diagnosis();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set BH_Encounter.

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_A_Asset_Group_AcctInput;
 import org.compiere.model.MAssetGroupAcct;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for A_Asset_Group_Acct - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_A_Asset_Group_AcctMutation extends POMutation implements GraphQLM
 		return X_A_Asset_Group_AcctInput.Table_Name;
 	}
 
-	public MAssetGroupAcct A_Asset_Group_AcctSave(I_A_Asset_Group_AcctInput input, DataFetchingEnvironment environment) {
-		return (MAssetGroupAcct) super.save((X_A_Asset_Group_AcctInput) input, environment);
+	public MAssetGroupAcct A_Asset_Group_AcctSave(I_A_Asset_Group_AcctInput entity, DataFetchingEnvironment environment) {
+		return (MAssetGroupAcct) super.save((X_A_Asset_Group_AcctInput) entity, environment);
+	}
+
+	public List<MAssetGroupAcct> A_Asset_Group_AcctSaveMany(List<I_A_Asset_Group_AcctInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_Group_AcctInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAssetGroupAcct) entity).collect(Collectors.toList());
 	}
 
 	public boolean A_Asset_Group_AcctDelete(List<String> uuids, DataFetchingEnvironment environment) {

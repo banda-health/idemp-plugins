@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_DocTypeSave(entity: C_DocTypeInput!): C_DocType!
+	C_DocTypeSaveMany(entities: [C_DocTypeInput!]!): [C_DocType!]!
 	C_DocTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_DocType {
 	AD_Org: AD_Org!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
-	ID: ID!
+	UUID: ID!
 	# Document type for generating in dispute Shipments
 	C_DocTypeDifference: C_DocType
 	# Document type used for invoices generated from this sales document
@@ -98,7 +99,7 @@ input C_DocTypeInput {
 	AD_Org: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Document type for generating in dispute Shipments
 	C_DocTypeDifference: ForeignEntityInput
 	# Document type used for invoices generated from this sales document

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_NonBusinessDayInput;
 import org.compiere.model.X_C_NonBusinessDay;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_NonBusinessDay - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_NonBusinessDayMutation extends POMutation implements GraphQLMut
 		return X_C_NonBusinessDayInput.Table_Name;
 	}
 
-	public X_C_NonBusinessDay C_NonBusinessDaySave(I_C_NonBusinessDayInput input, DataFetchingEnvironment environment) {
-		return (X_C_NonBusinessDay) super.save((X_C_NonBusinessDayInput) input, environment);
+	public X_C_NonBusinessDay C_NonBusinessDaySave(I_C_NonBusinessDayInput entity, DataFetchingEnvironment environment) {
+		return (X_C_NonBusinessDay) super.save((X_C_NonBusinessDayInput) entity, environment);
+	}
+
+	public List<X_C_NonBusinessDay> C_NonBusinessDaySaveMany(List<I_C_NonBusinessDayInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_NonBusinessDayInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_C_NonBusinessDay) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_NonBusinessDayDelete(List<String> uuids, DataFetchingEnvironment environment) {

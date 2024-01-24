@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MBOMInput extends X_M_BOMInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_BOM_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBOMInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MBOMInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

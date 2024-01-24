@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_UserDef_InfoInput;
 import org.compiere.model.MUserDefInfo;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_UserDef_Info - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_UserDef_InfoMutation extends POMutation implements GraphQLMuta
 		return X_AD_UserDef_InfoInput.Table_Name;
 	}
 
-	public MUserDefInfo AD_UserDef_InfoSave(I_AD_UserDef_InfoInput input, DataFetchingEnvironment environment) {
-		return (MUserDefInfo) super.save((X_AD_UserDef_InfoInput) input, environment);
+	public MUserDefInfo AD_UserDef_InfoSave(I_AD_UserDef_InfoInput entity, DataFetchingEnvironment environment) {
+		return (MUserDefInfo) super.save((X_AD_UserDef_InfoInput) entity, environment);
+	}
+
+	public List<MUserDefInfo> AD_UserDef_InfoSaveMany(List<I_AD_UserDef_InfoInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_UserDef_InfoInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MUserDefInfo) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_UserDef_InfoDelete(List<String> uuids, DataFetchingEnvironment environment) {

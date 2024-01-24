@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_LotSave(entity: M_LotInput!): M_Lot!
+	M_LotSaveMany(entities: [M_LotInput!]!): [M_Lot!]!
 	M_LotDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_Lot {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Product Lot Control
 	M_LotCtl: M_LotCtl
 	# Product, Service, Item
@@ -60,7 +61,7 @@ input M_LotInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Product Lot Control
 	M_LotCtl: ForeignEntityInput
 	# Product, Service, Item

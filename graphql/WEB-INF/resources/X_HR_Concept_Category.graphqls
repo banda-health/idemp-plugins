@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_Concept_CategorySave(entity: HR_Concept_CategoryInput!): HR_Concept_Category!
+	HR_Concept_CategorySaveMany(entities: [HR_Concept_CategoryInput!]!): [HR_Concept_Category!]!
 	HR_Concept_CategoryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -27,7 +28,7 @@ type HR_Concept_Category {
 	# Optional short description of the record
 	Description: String
 	HR_Concept_A: C_ValidCombination
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Default value
@@ -48,7 +49,7 @@ input HR_Concept_CategoryInput {
 	# Optional short description of the record
 	Description: String
 	HR_Concept_A: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Default value

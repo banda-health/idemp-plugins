@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MJournalGeneratorSourceInput extends X_GL_JournalGeneratorSourceInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The GL_JournalGeneratorSource_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MJournalGeneratorSourceInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MJournalGeneratorSourceInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

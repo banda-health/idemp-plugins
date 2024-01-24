@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ShippingTransactionSave(entity: M_ShippingTransactionInput!): M_ShippingTransaction!
+	M_ShippingTransactionSaveMany(entities: [M_ShippingTransactionInput!]!): [M_ShippingTransaction!]!
 	M_ShippingTransactionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -101,7 +102,7 @@ type M_ShippingTransaction {
 	M_ShipperPackaging: M_ShipperPackaging
 	M_ShipperPickupTypes: M_ShipperPickupTypes
 	M_ShippingProcessor: M_ShippingProcessor
-	ID: ID!
+	UUID: ID!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse
 	NotificationMessage: String
@@ -221,7 +222,7 @@ input M_ShippingTransactionInput {
 	M_ShipperPackaging: ForeignEntityInput
 	M_ShipperPickupTypes: ForeignEntityInput
 	M_ShippingProcessor: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	NotificationMessage: String

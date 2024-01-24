@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_ValidCombinationInput;
 import org.compiere.model.MAccount;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_ValidCombination - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_ValidCombinationMutation extends POMutation implements GraphQLM
 		return X_C_ValidCombinationInput.Table_Name;
 	}
 
-	public MAccount C_ValidCombinationSave(I_C_ValidCombinationInput input, DataFetchingEnvironment environment) {
-		return (MAccount) super.save((X_C_ValidCombinationInput) input, environment);
+	public MAccount C_ValidCombinationSave(I_C_ValidCombinationInput entity, DataFetchingEnvironment environment) {
+		return (MAccount) super.save((X_C_ValidCombinationInput) entity, environment);
+	}
+
+	public List<MAccount> C_ValidCombinationSaveMany(List<I_C_ValidCombinationInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_ValidCombinationInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAccount) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_ValidCombinationDelete(List<String> uuids, DataFetchingEnvironment environment) {

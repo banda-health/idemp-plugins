@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_FundingModeSave(entity: A_FundingModeInput!): A_FundingMode!
+	A_FundingModeSaveMany(entities: [A_FundingModeInput!]!): [A_FundingMode!]!
 	A_FundingModeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type A_FundingModeConnection {
 }
 
 type A_FundingMode {
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -40,7 +41,7 @@ type A_FundingMode {
 }
 
 input A_FundingModeInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

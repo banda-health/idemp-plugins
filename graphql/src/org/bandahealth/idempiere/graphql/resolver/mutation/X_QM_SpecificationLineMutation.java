@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_QM_SpecificationLineInput
 import org.eevolution.model.X_QM_SpecificationLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for QM_SpecificationLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_QM_SpecificationLineMutation extends POMutation implements GraphQ
 		return X_QM_SpecificationLineInput.Table_Name;
 	}
 
-	public X_QM_SpecificationLine QM_SpecificationLineSave(I_QM_SpecificationLineInput input, DataFetchingEnvironment environment) {
-		return (X_QM_SpecificationLine) super.save((X_QM_SpecificationLineInput) input, environment);
+	public X_QM_SpecificationLine QM_SpecificationLineSave(I_QM_SpecificationLineInput entity, DataFetchingEnvironment environment) {
+		return (X_QM_SpecificationLine) super.save((X_QM_SpecificationLineInput) entity, environment);
+	}
+
+	public List<X_QM_SpecificationLine> QM_SpecificationLineSaveMany(List<I_QM_SpecificationLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_QM_SpecificationLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_QM_SpecificationLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean QM_SpecificationLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

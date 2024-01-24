@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ProcessSave(entity: AD_ProcessInput!): AD_Process!
+	AD_ProcessSaveMany(entities: [AD_ProcessInput!]!): [AD_Process!]!
 	AD_ProcessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -27,7 +28,7 @@ type AD_Process {
 	AD_Org: AD_Org!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
-	ID: ID!
+	UUID: ID!
 	# View used to generate this report
 	AD_ReportView: AD_ReportView
 	# Workflow or combination of tasks
@@ -88,7 +89,7 @@ input AD_ProcessInput {
 	AD_Org: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# View used to generate this report
 	AD_ReportView: ForeignEntityInput
 	# Workflow or combination of tasks

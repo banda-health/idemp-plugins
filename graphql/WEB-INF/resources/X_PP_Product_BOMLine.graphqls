@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_Product_BOMLineSave(entity: PP_Product_BOMLineInput!): PP_Product_BOMLine!
+	PP_Product_BOMLineSaveMany(entities: [PP_Product_BOMLineInput!]!): [PP_Product_BOMLine!]!
 	PP_Product_BOMLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -62,7 +63,7 @@ type PP_Product_BOMLine {
 	M_Product: M_Product!
 	# BOM & Formula
 	PP_Product_BOM: PP_Product_BOM!
-	ID: ID!
+	UUID: ID!
 	# Indicate the Quantity % use in this Formula
 	QtyBatch: BigDecimal
 	# Indicate the Quantity  use in this BOM
@@ -120,7 +121,7 @@ input PP_Product_BOMLineInput {
 	M_Product: ForeignEntityInput
 	# BOM & Formula
 	PP_Product_BOM: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Indicate the Quantity % use in this Formula
 	QtyBatch: BigDecimal
 	# Indicate the Quantity  use in this BOM

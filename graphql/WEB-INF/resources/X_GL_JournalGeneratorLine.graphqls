@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	GL_JournalGeneratorLineSave(entity: GL_JournalGeneratorLineInput!): GL_JournalGeneratorLine!
+	GL_JournalGeneratorLineSaveMany(entities: [GL_JournalGeneratorLineInput!]!): [GL_JournalGeneratorLine!]!
 	GL_JournalGeneratorLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -35,7 +36,7 @@ type GL_JournalGeneratorLine {
 	# Optional short description of the record
 	Description: String
 	GL_JournalGenerator: GL_JournalGenerator!
-	ID: ID!
+	UUID: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -65,7 +66,7 @@ input GL_JournalGeneratorLineInput {
 	# Optional short description of the record
 	Description: String
 	GL_JournalGenerator: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

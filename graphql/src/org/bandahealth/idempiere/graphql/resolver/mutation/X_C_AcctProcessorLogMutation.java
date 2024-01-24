@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_AcctProcessorLogInput;
 import org.compiere.model.MAcctProcessorLog;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_AcctProcessorLog - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_AcctProcessorLogMutation extends POMutation implements GraphQLM
 		return X_C_AcctProcessorLogInput.Table_Name;
 	}
 
-	public MAcctProcessorLog C_AcctProcessorLogSave(I_C_AcctProcessorLogInput input, DataFetchingEnvironment environment) {
-		return (MAcctProcessorLog) super.save((X_C_AcctProcessorLogInput) input, environment);
+	public MAcctProcessorLog C_AcctProcessorLogSave(I_C_AcctProcessorLogInput entity, DataFetchingEnvironment environment) {
+		return (MAcctProcessorLog) super.save((X_C_AcctProcessorLogInput) entity, environment);
+	}
+
+	public List<MAcctProcessorLog> C_AcctProcessorLogSaveMany(List<I_C_AcctProcessorLogInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_AcctProcessorLogInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAcctProcessorLog) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_AcctProcessorLogDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MElementValue;
@@ -9,6 +10,7 @@ import org.compiere.model.MFactAcct;
 import org.compiere.model.MFactReconciliation;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -28,13 +30,16 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	private ForeignEntityInput mFact_Acct;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The Fact_Reconciliation_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_Fact_ReconciliationInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MFactReconciliation(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_Fact_ReconciliationInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MFactReconciliation(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -46,11 +51,16 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	public void setAccountInput(ForeignEntityInput Account) {
 		this.mAccount = Account;
 		MElementValue foreignEntity;
-		if (get_ID() == 0 && Account != null &&
-				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-						.setParameters(Account.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAccount_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && Account != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
+							.setParameters(Account.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ElementValue with UUID " + Account.getUUID());
+			}
 		}
 	}
 
@@ -73,11 +83,16 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -111,11 +126,16 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 && C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_BPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+			}
 		}
 	}
 
@@ -149,11 +169,16 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	public void setFact_AcctInput(ForeignEntityInput Fact_Acct) {
 		this.mFact_Acct = Fact_Acct;
 		MFactAcct foreignEntity;
-		if (get_ID() == 0 && Fact_Acct != null &&
-				(foreignEntity = new Query(getCtx(), "Fact_Acct", "Fact_Acct_UU=?", get_TrxName())
-						.setParameters(Fact_Acct.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setFact_Acct_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && Fact_Acct != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "Fact_Acct", "Fact_Acct_UU=?", get_TrxName())
+							.setParameters(Fact_Acct.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setFact_Acct_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table Fact_Acct with UUID " + Fact_Acct.getUUID());
+			}
 		}
 	}
 
@@ -179,20 +204,20 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setFact_Reconciliation_UU(ID);
+	public void setUUID(String UUID) {
+		setFact_Reconciliation_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getFact_Reconciliation_UU();
 	}
 }

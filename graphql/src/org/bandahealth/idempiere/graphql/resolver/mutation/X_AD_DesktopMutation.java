@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_DesktopInput;
 import org.compiere.model.X_AD_Desktop;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Desktop - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_DesktopMutation extends POMutation implements GraphQLMutationR
 		return X_AD_DesktopInput.Table_Name;
 	}
 
-	public X_AD_Desktop AD_DesktopSave(I_AD_DesktopInput input, DataFetchingEnvironment environment) {
-		return (X_AD_Desktop) super.save((X_AD_DesktopInput) input, environment);
+	public X_AD_Desktop AD_DesktopSave(I_AD_DesktopInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_Desktop) super.save((X_AD_DesktopInput) entity, environment);
+	}
+
+	public List<X_AD_Desktop> AD_DesktopSaveMany(List<I_AD_DesktopInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_DesktopInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_Desktop) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_DesktopDelete(List<String> uuids, DataFetchingEnvironment environment) {

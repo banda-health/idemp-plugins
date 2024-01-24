@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_CM_ChatTypeUpdateInput;
 import org.compiere.model.X_CM_ChatTypeUpdate;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for CM_ChatTypeUpdate - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_CM_ChatTypeUpdateMutation extends POMutation implements GraphQLMu
 		return X_CM_ChatTypeUpdateInput.Table_Name;
 	}
 
-	public X_CM_ChatTypeUpdate CM_ChatTypeUpdateSave(I_CM_ChatTypeUpdateInput input, DataFetchingEnvironment environment) {
-		return (X_CM_ChatTypeUpdate) super.save((X_CM_ChatTypeUpdateInput) input, environment);
+	public X_CM_ChatTypeUpdate CM_ChatTypeUpdateSave(I_CM_ChatTypeUpdateInput entity, DataFetchingEnvironment environment) {
+		return (X_CM_ChatTypeUpdate) super.save((X_CM_ChatTypeUpdateInput) entity, environment);
+	}
+
+	public List<X_CM_ChatTypeUpdate> CM_ChatTypeUpdateSaveMany(List<I_CM_ChatTypeUpdateInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_CM_ChatTypeUpdateInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_CM_ChatTypeUpdate) entity).collect(Collectors.toList());
 	}
 
 	public boolean CM_ChatTypeUpdateDelete(List<String> uuids, DataFetchingEnvironment environment) {

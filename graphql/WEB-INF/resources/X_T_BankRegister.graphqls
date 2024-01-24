@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	T_BankRegisterSave(entity: T_BankRegisterInput!): T_BankRegister!
+	T_BankRegisterSaveMany(entities: [T_BankRegisterInput!]!): [T_BankRegister!]!
 	T_BankRegisterDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type T_BankRegister {
 	DateAcct: Date
 	# Document sequence number of the document
 	DocumentNo: String
-	ID: ID!
+	UUID: ID!
 }
 
 input T_BankRegisterInput {
@@ -62,5 +63,5 @@ input T_BankRegisterInput {
 	DateAcct: Date
 	# Document sequence number of the document
 	DocumentNo: String
-	ID: ID
+	UUID: ID
 }

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_RegionSave(entity: C_RegionInput!): C_Region!
+	C_RegionSaveMany(entities: [C_RegionInput!]!): [C_Region!]!
 	C_RegionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_Region {
 	AD_Org: AD_Org!
 	# Country 
 	C_Country: C_Country!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,7 +47,7 @@ input C_RegionInput {
 	AD_Org: ForeignEntityInput
 	# Country 
 	C_Country: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

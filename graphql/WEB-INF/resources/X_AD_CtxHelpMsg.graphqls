@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_CtxHelpMsgSave(entity: AD_CtxHelpMsgInput!): AD_CtxHelpMsg!
+	AD_CtxHelpMsgSaveMany(entities: [AD_CtxHelpMsgInput!]!): [AD_CtxHelpMsg!]!
 	AD_CtxHelpMsgDelete(uuids: [String!]!): Boolean!
 }
 
@@ -19,7 +20,7 @@ type AD_CtxHelpMsg {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -38,7 +39,7 @@ type AD_CtxHelpMsg {
 
 input AD_CtxHelpMsgInput {
 	AD_CtxHelp: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# The record is active in the system

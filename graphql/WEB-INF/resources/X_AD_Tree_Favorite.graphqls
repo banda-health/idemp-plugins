@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Tree_FavoriteSave(entity: AD_Tree_FavoriteInput!): AD_Tree_Favorite!
+	AD_Tree_FavoriteSaveMany(entities: [AD_Tree_FavoriteInput!]!): [AD_Tree_Favorite!]!
 	AD_Tree_FavoriteDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Tree_Favorite {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	# Date this record was created
@@ -38,7 +39,7 @@ type AD_Tree_Favorite {
 input AD_Tree_FavoriteInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	# The record is active in the system

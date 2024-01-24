@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_RatioSave(entity: PA_RatioInput!): PA_Ratio!
+	PA_RatioSaveMany(entities: [PA_RatioInput!]!): [PA_Ratio!]!
 	PA_RatioDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type PA_Ratio {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -54,5 +55,5 @@ input PA_RatioInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 }

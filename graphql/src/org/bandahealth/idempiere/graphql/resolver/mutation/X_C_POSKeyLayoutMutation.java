@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_POSKeyLayoutInput;
 import org.compiere.model.MPOSKeyLayout;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_POSKeyLayout - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_POSKeyLayoutMutation extends POMutation implements GraphQLMutat
 		return X_C_POSKeyLayoutInput.Table_Name;
 	}
 
-	public MPOSKeyLayout C_POSKeyLayoutSave(I_C_POSKeyLayoutInput input, DataFetchingEnvironment environment) {
-		return (MPOSKeyLayout) super.save((X_C_POSKeyLayoutInput) input, environment);
+	public MPOSKeyLayout C_POSKeyLayoutSave(I_C_POSKeyLayoutInput entity, DataFetchingEnvironment environment) {
+		return (MPOSKeyLayout) super.save((X_C_POSKeyLayoutInput) entity, environment);
+	}
+
+	public List<MPOSKeyLayout> C_POSKeyLayoutSaveMany(List<I_C_POSKeyLayoutInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_POSKeyLayoutInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MPOSKeyLayout) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_POSKeyLayoutDelete(List<String> uuids, DataFetchingEnvironment environment) {

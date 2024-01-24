@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_AllUsers_VSave(entity: AD_AllUsers_VInput!): AD_AllUsers_V!
+	AD_AllUsers_VSaveMany(entities: [AD_AllUsers_VInput!]!): [AD_AllUsers_V!]!
 	AD_AllUsers_VDelete(uuids: [String!]!): Boolean!
 }
 
@@ -17,7 +18,7 @@ type AD_AllUsers_VConnection {
 
 type AD_AllUsers_V {
 	AD_AllClients_V: AD_AllClients_V
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client
 	# Organizational entity within client
@@ -60,7 +61,7 @@ type AD_AllUsers_V {
 
 input AD_AllUsers_VInput {
 	AD_AllClients_V: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	DateAccountLocked: Date

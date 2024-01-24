@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ColumnSave(entity: AD_ColumnInput!): AD_Column!
+	AD_ColumnSaveMany(entities: [AD_ColumnInput!]!): [AD_Column!]!
 	AD_ColumnDelete(uuids: [String!]!): Boolean!
 }
 
@@ -19,7 +20,7 @@ type AD_Column {
 	AD_Chart: AD_Chart
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# System Element enables the central maintenance of column description and help.
 	AD_Element: AD_Element!
 	# Organizational entity within client
@@ -121,7 +122,7 @@ type AD_Column {
 
 input AD_ColumnInput {
 	AD_Chart: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# System Element enables the central maintenance of column description and help.
 	AD_Element: ForeignEntityInput
 	# Organizational entity within client

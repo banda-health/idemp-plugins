@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PreferenceSave(entity: AD_PreferenceInput!): AD_Preference!
+	AD_PreferenceSaveMany(entities: [AD_PreferenceInput!]!): [AD_Preference!]!
 	AD_PreferenceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Preference {
 	AD_InfoWindow: AD_InfoWindow
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Process or Report
 	AD_Process: AD_Process
 	# User within the system - Internal or Business Partner Contact
@@ -51,7 +52,7 @@ input AD_PreferenceInput {
 	AD_InfoWindow: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

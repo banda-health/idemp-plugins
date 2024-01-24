@@ -81,18 +81,18 @@ public interface I_C_RevenueRecognition_PlanInput extends I_C_RevenueRecognition
 	ForeignEntityInput C_RevenueRecognition();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set P_Revenue_A.

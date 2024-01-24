@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_ChartDatasourceInput;
 import org.compiere.model.MChartDatasource;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_ChartDatasource - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_ChartDatasourceMutation extends POMutation implements GraphQLM
 		return X_AD_ChartDatasourceInput.Table_Name;
 	}
 
-	public MChartDatasource AD_ChartDatasourceSave(I_AD_ChartDatasourceInput input, DataFetchingEnvironment environment) {
-		return (MChartDatasource) super.save((X_AD_ChartDatasourceInput) input, environment);
+	public MChartDatasource AD_ChartDatasourceSave(I_AD_ChartDatasourceInput entity, DataFetchingEnvironment environment) {
+		return (MChartDatasource) super.save((X_AD_ChartDatasourceInput) entity, environment);
+	}
+
+	public List<MChartDatasource> AD_ChartDatasourceSaveMany(List<I_AD_ChartDatasourceInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_ChartDatasourceInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MChartDatasource) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_ChartDatasourceDelete(List<String> uuids, DataFetchingEnvironment environment) {

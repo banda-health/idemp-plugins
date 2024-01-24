@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PrintTableFormatSave(entity: AD_PrintTableFormatInput!): AD_PrintTableFormat!
+	AD_PrintTableFormatSaveMany(entities: [AD_PrintTableFormatInput!]!): [AD_PrintTableFormat!]!
 	AD_PrintTableFormatDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_PrintTableFormat {
 	AD_Image: AD_Image
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -98,7 +99,7 @@ input AD_PrintTableFormatInput {
 	AD_Image: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Content of the center portion of the footer.

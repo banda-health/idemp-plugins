@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ProductionLineMASave(entity: M_ProductionLineMAInput!): M_ProductionLineMA!
+	M_ProductionLineMASaveMany(entities: [M_ProductionLineMAInput!]!): [M_ProductionLineMA!]!
 	M_ProductionLineMADelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type M_ProductionLineMA {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Document Line representing a production
 	M_ProductionLine: M_ProductionLine!
-	ID: ID!
+	UUID: ID!
 	# Quantity of a product moved.
 	MovementQty: BigDecimal!
 	# Date this record was updated
@@ -52,7 +53,7 @@ input M_ProductionLineMAInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Document Line representing a production
 	M_ProductionLine: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
 }

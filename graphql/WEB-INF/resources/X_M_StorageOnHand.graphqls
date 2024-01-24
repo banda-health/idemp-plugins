@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_StorageOnHandSave(entity: M_StorageOnHandInput!): M_StorageOnHand!
+	M_StorageOnHandSaveMany(entities: [M_StorageOnHandInput!]!): [M_StorageOnHand!]!
 	M_StorageOnHandDelete(uuids: [String!]!): Boolean!
 }
 
@@ -36,7 +37,7 @@ type M_StorageOnHand {
 	M_Locator: M_Locator!
 	# Product, Service, Item
 	M_Product: M_Product!
-	ID: ID!
+	UUID: ID!
 	# On Hand Quantity
 	QtyOnHand: BigDecimal!
 	# Date this record was updated
@@ -60,7 +61,7 @@ input M_StorageOnHandInput {
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# On Hand Quantity
 	QtyOnHand: BigDecimal
 }

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_Tax_AcctSave(entity: C_Tax_AcctInput!): C_Tax_Acct!
+	C_Tax_AcctSaveMany(entities: [C_Tax_AcctInput!]!): [C_Tax_Acct!]!
 	C_Tax_AcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_Tax_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	ID: ID!
+	UUID: ID!
 	# Tax identifier
 	C_Tax: C_Tax!
 	# Date this record was created
@@ -48,7 +49,7 @@ input C_Tax_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Tax identifier
 	C_Tax: ForeignEntityInput
 	# The record is active in the system

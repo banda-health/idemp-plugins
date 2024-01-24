@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_AllocationLineSave(entity: C_AllocationLineInput!): C_AllocationLine!
+	C_AllocationLineSaveMany(entities: [C_AllocationLineInput!]!): [C_AllocationLine!]!
 	C_AllocationLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_AllocationLine {
 	Amount: BigDecimal!
 	# Payment allocation
 	C_AllocationHdr: C_AllocationHdr!
-	ID: ID!
+	UUID: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Cash Journal Line
@@ -66,7 +67,7 @@ input C_AllocationLineInput {
 	Amount: BigDecimal
 	# Payment allocation
 	C_AllocationHdr: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Cash Journal Line

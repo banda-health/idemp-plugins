@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_GroupUpdatesSave(entity: R_GroupUpdatesInput!): R_GroupUpdates!
+	R_GroupUpdatesSaveMany(entities: [R_GroupUpdatesInput!]!): [R_GroupUpdates!]!
 	R_GroupUpdatesDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type R_GroupUpdates {
 	IsSelfService: Boolean!
 	# Request Group
 	R_Group: R_Group!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -50,5 +51,5 @@ input R_GroupUpdatesInput {
 	IsSelfService: Boolean
 	# Request Group
 	R_Group: ForeignEntityInput
-	ID: ID
+	UUID: ID
 }

@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MUserDefInfoRelatedInput extends X_AD_UserDef_Info_RelatedInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_UserDef_Info_Related_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUserDefInfoRelatedInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MUserDefInfoRelatedInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

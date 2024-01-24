@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ChartDatasourceSave(entity: AD_ChartDatasourceInput!): AD_ChartDatasource!
+	AD_ChartDatasourceSaveMany(entities: [AD_ChartDatasourceInput!]!): [AD_ChartDatasource!]!
 	AD_ChartDatasourceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -17,7 +18,7 @@ type AD_ChartDatasourceConnection {
 
 type AD_ChartDatasource {
 	AD_Chart: AD_Chart!
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -59,7 +60,7 @@ type AD_ChartDatasource {
 
 input AD_ChartDatasourceInput {
 	AD_Chart: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Database Table information

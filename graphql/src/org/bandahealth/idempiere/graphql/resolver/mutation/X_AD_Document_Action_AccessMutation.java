@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_Document_Action_Access
 import org.compiere.model.X_AD_Document_Action_Access;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Document_Action_Access - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_Document_Action_AccessMutation extends POMutation implements G
 		return X_AD_Document_Action_AccessInput.Table_Name;
 	}
 
-	public X_AD_Document_Action_Access AD_Document_Action_AccessSave(I_AD_Document_Action_AccessInput input, DataFetchingEnvironment environment) {
-		return (X_AD_Document_Action_Access) super.save((X_AD_Document_Action_AccessInput) input, environment);
+	public X_AD_Document_Action_Access AD_Document_Action_AccessSave(I_AD_Document_Action_AccessInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_Document_Action_Access) super.save((X_AD_Document_Action_AccessInput) entity, environment);
+	}
+
+	public List<X_AD_Document_Action_Access> AD_Document_Action_AccessSaveMany(List<I_AD_Document_Action_AccessInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_Document_Action_AccessInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_Document_Action_Access) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_Document_Action_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {

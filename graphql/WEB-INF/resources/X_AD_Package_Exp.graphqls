@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Package_ExpSave(entity: AD_Package_ExpInput!): AD_Package_Exp!
+	AD_Package_ExpSaveMany(entities: [AD_Package_ExpInput!]!): [AD_Package_Exp!]!
 	AD_Package_ExpDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Package_Exp {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	AD_Package_Type: AD_Ref_List
 	# Date this record was created
 	Created: Date!
@@ -57,7 +58,7 @@ type AD_Package_Exp {
 input AD_Package_ExpInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	AD_Package_Type: AD_Ref_ListInput
 	# Starting date for a range
 	DateFrom: Date

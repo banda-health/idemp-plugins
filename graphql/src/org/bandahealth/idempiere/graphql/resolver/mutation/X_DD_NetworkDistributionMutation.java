@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_DD_NetworkDistributionInp
 import org.eevolution.model.X_DD_NetworkDistribution;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for DD_NetworkDistribution - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_DD_NetworkDistributionMutation extends POMutation implements Grap
 		return X_DD_NetworkDistributionInput.Table_Name;
 	}
 
-	public X_DD_NetworkDistribution DD_NetworkDistributionSave(I_DD_NetworkDistributionInput input, DataFetchingEnvironment environment) {
-		return (X_DD_NetworkDistribution) super.save((X_DD_NetworkDistributionInput) input, environment);
+	public X_DD_NetworkDistribution DD_NetworkDistributionSave(I_DD_NetworkDistributionInput entity, DataFetchingEnvironment environment) {
+		return (X_DD_NetworkDistribution) super.save((X_DD_NetworkDistributionInput) entity, environment);
+	}
+
+	public List<X_DD_NetworkDistribution> DD_NetworkDistributionSaveMany(List<I_DD_NetworkDistributionInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_DD_NetworkDistributionInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_DD_NetworkDistribution) entity).collect(Collectors.toList());
 	}
 
 	public boolean DD_NetworkDistributionDelete(List<String> uuids, DataFetchingEnvironment environment) {

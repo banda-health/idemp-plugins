@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ProductionPlanSave(entity: M_ProductionPlanInput!): M_ProductionPlan!
+	M_ProductionPlanSaveMany(entities: [M_ProductionPlanInput!]!): [M_ProductionPlan!]!
 	M_ProductionPlanDelete(uuids: [String!]!): Boolean!
 }
 
@@ -36,7 +37,7 @@ type M_ProductionPlan {
 	M_Product: M_Product!
 	# Plan for producing a product
 	M_Production: M_Production!
-	ID: ID!
+	UUID: ID!
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity of products to produce
@@ -62,7 +63,7 @@ input M_ProductionPlanInput {
 	M_Product: ForeignEntityInput
 	# Plan for producing a product
 	M_Production: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The document has been processed
 	Processed: Boolean
 	# Quantity of products to produce

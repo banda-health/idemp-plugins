@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -13,6 +14,7 @@ import org.compiere.model.MDistributionRunDetail;
 import org.compiere.model.MDistributionRunLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -34,13 +36,16 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	private ForeignEntityInput mM_Product;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The T_DistributionRunDetail_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_T_DistributionRunDetailInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MDistributionRunDetail(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_T_DistributionRunDetailInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDistributionRunDetail(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -52,11 +57,16 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -79,11 +89,16 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_ID(foreignEntity.get_ID());
+		if (C_BPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+			}
 		} else {
 			super.setC_BPartner_ID(0);
 		}
@@ -108,11 +123,16 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
 		MBPartnerLocation foreignEntity;
-		if (C_BPartner_Location != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-						.setParameters(C_BPartner_Location.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_Location_ID(foreignEntity.get_ID());
+		if (C_BPartner_Location != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
+							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
+			}
 		} else {
 			super.setC_BPartner_Location_ID(0);
 		}
@@ -137,11 +157,16 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	public void setM_DistributionListInput(ForeignEntityInput M_DistributionList) {
 		this.mM_DistributionList = M_DistributionList;
 		MDistributionList foreignEntity;
-		if (get_ID() == 0 && M_DistributionList != null &&
-				(foreignEntity = new Query(getCtx(), "M_DistributionList", "M_DistributionList_UU=?", get_TrxName())
-						.setParameters(M_DistributionList.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_DistributionList_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_DistributionList != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_DistributionList", "M_DistributionList_UU=?", get_TrxName())
+							.setParameters(M_DistributionList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_DistributionList_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_DistributionList with UUID " + M_DistributionList.getUUID());
+			}
 		}
 	}
 
@@ -164,11 +189,16 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	public void setM_DistributionListLineInput(ForeignEntityInput M_DistributionListLine) {
 		this.mM_DistributionListLine = M_DistributionListLine;
 		MDistributionListLine foreignEntity;
-		if (get_ID() == 0 && M_DistributionListLine != null &&
-				(foreignEntity = new Query(getCtx(), "M_DistributionListLine", "M_DistributionListLine_UU=?", get_TrxName())
-						.setParameters(M_DistributionListLine.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_DistributionListLine_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_DistributionListLine != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_DistributionListLine", "M_DistributionListLine_UU=?", get_TrxName())
+							.setParameters(M_DistributionListLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_DistributionListLine_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_DistributionListLine with UUID " + M_DistributionListLine.getUUID());
+			}
 		}
 	}
 
@@ -191,11 +221,16 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	public void setM_DistributionRunInput(ForeignEntityInput M_DistributionRun) {
 		this.mM_DistributionRun = M_DistributionRun;
 		MDistributionRun foreignEntity;
-		if (get_ID() == 0 && M_DistributionRun != null &&
-				(foreignEntity = new Query(getCtx(), "M_DistributionRun", "M_DistributionRun_UU=?", get_TrxName())
-						.setParameters(M_DistributionRun.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_DistributionRun_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_DistributionRun != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_DistributionRun", "M_DistributionRun_UU=?", get_TrxName())
+							.setParameters(M_DistributionRun.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_DistributionRun_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_DistributionRun with UUID " + M_DistributionRun.getUUID());
+			}
 		}
 	}
 
@@ -218,11 +253,16 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	public void setM_DistributionRunLineInput(ForeignEntityInput M_DistributionRunLine) {
 		this.mM_DistributionRunLine = M_DistributionRunLine;
 		MDistributionRunLine foreignEntity;
-		if (get_ID() == 0 && M_DistributionRunLine != null &&
-				(foreignEntity = new Query(getCtx(), "M_DistributionRunLine", "M_DistributionRunLine_UU=?", get_TrxName())
-						.setParameters(M_DistributionRunLine.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_DistributionRunLine_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_DistributionRunLine != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_DistributionRunLine", "M_DistributionRunLine_UU=?", get_TrxName())
+							.setParameters(M_DistributionRunLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_DistributionRunLine_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_DistributionRunLine with UUID " + M_DistributionRunLine.getUUID());
+			}
 		}
 	}
 
@@ -245,11 +285,16 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-						.setParameters(M_Product.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_ID(foreignEntity.get_ID());
+		if (M_Product != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
 		} else {
 			super.setM_Product_ID(0);
 		}
@@ -266,20 +311,20 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setT_DistributionRunDetail_UU(ID);
+	public void setUUID(String UUID) {
+		setT_DistributionRunDetail_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getT_DistributionRunDetail_UU();
 	}
 }

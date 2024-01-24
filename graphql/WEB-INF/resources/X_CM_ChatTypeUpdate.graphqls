@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	CM_ChatTypeUpdateSave(entity: CM_ChatTypeUpdateInput!): CM_ChatTypeUpdate!
+	CM_ChatTypeUpdateSaveMany(entities: [CM_ChatTypeUpdateInput!]!): [CM_ChatTypeUpdate!]!
 	CM_ChatTypeUpdateDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type CM_ChatTypeUpdate {
 	AD_User: AD_User!
 	# Type of discussion / chat
 	CM_ChatType: CM_ChatType!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,7 +47,7 @@ input CM_ChatTypeUpdateInput {
 	AD_User: ForeignEntityInput
 	# Type of discussion / chat
 	CM_ChatType: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# This is a Self-Service entry or this entry can be changed via Self-Service

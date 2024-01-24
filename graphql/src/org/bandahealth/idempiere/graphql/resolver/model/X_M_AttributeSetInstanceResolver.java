@@ -41,7 +41,7 @@ public class X_M_AttributeSetInstanceResolver extends POResolver<MAttributeSetIn
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(BH_UPDATE_REASON_UUIDS_BY_VALUE.get(entity.getbh_update_reason()));
 	}
 

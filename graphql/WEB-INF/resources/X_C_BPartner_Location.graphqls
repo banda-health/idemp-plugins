@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BPartner_LocationSave(entity: C_BPartner_LocationInput!): C_BPartner_Location!
+	C_BPartner_LocationSaveMany(entities: [C_BPartner_LocationInput!]!): [C_BPartner_Location!]!
 	C_BPartner_LocationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_BPartner_Location {
 	AD_Org: AD_Org!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
-	ID: ID!
+	UUID: ID!
 	# Location or Address
 	C_Location: C_Location!
 	# Sales coverage region
@@ -64,7 +65,7 @@ input C_BPartner_LocationInput {
 	AD_Org: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Location or Address
 	C_Location: ForeignEntityInput
 	# Sales coverage region

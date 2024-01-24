@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CashBook_AcctSave(entity: C_CashBook_AcctInput!): C_CashBook_Acct!
+	C_CashBook_AcctSaveMany(entities: [C_CashBook_AcctInput!]!): [C_CashBook_Acct!]!
 	C_CashBook_AcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_CashBook_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	ID: ID!
+	UUID: ID!
 	# Cash Book for recording petty cash transactions
 	C_CashBook: C_CashBook!
 	# Cash Book Asset Account
@@ -52,7 +53,7 @@ input C_CashBook_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Cash Book for recording petty cash transactions
 	C_CashBook: ForeignEntityInput
 	# Cash Book Asset Account

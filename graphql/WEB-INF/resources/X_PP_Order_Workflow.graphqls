@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_Order_WorkflowSave(entity: PP_Order_WorkflowInput!): PP_Order_Workflow!
+	PP_Order_WorkflowSaveMany(entities: [PP_Order_WorkflowInput!]!): [PP_Order_Workflow!]!
 	PP_Order_WorkflowDelete(uuids: [String!]!): Boolean!
 }
 
@@ -67,7 +68,7 @@ type PP_Order_Workflow {
 	PP_Order: PP_Order!
 	# Workflow Node (activity), step or process
 	PP_Order_Node: PP_Order_Node
-	ID: ID!
+	UUID: ID!
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: Int!
 	ProcessType: AD_Ref_List
@@ -151,7 +152,7 @@ input PP_Order_WorkflowInput {
 	PP_Order: ForeignEntityInput
 	# Workflow Node (activity), step or process
 	PP_Order_Node: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: Int
 	ProcessType: AD_Ref_ListInput

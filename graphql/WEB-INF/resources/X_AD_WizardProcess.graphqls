@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WizardProcessSave(entity: AD_WizardProcessInput!): AD_WizardProcess!
+	AD_WizardProcessSaveMany(entities: [AD_WizardProcessInput!]!): [AD_WizardProcess!]!
 	AD_WizardProcessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type AD_WizardProcess {
 	AD_User: AD_User
 	# Workflow Node (activity), step or process
 	AD_WF_Node: AD_WF_Node!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -47,7 +48,7 @@ input AD_WizardProcessInput {
 	AD_User: ForeignEntityInput
 	# Workflow Node (activity), step or process
 	AD_WF_Node: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Optional additional user defined information

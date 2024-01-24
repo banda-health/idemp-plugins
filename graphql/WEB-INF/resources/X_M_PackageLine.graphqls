@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_PackageLineSave(entity: M_PackageLineInput!): M_PackageLine!
+	M_PackageLineSaveMany(entities: [M_PackageLineInput!]!): [M_PackageLine!]!
 	M_PackageLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type M_PackageLine {
 	M_InOutLine: M_InOutLine!
 	# Shipment Package
 	M_Package: M_Package!
-	ID: ID!
+	UUID: ID!
 	M_PackageMPS: M_PackageMPS
 	# Product, Service, Item
 	M_Product: M_Product
@@ -55,7 +56,7 @@ input M_PackageLineInput {
 	M_InOutLine: ForeignEntityInput
 	# Shipment Package
 	M_Package: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	M_PackageMPS: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput

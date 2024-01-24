@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	GL_FundRestrictionSave(entity: GL_FundRestrictionInput!): GL_FundRestriction!
+	GL_FundRestrictionSaveMany(entities: [GL_FundRestrictionInput!]!): [GL_FundRestriction!]!
 	GL_FundRestrictionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type GL_FundRestriction {
 	Description: String
 	# General Ledger Funds Control
 	GL_Fund: GL_Fund!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -50,7 +51,7 @@ input GL_FundRestrictionInput {
 	Description: String
 	# General Ledger Funds Control
 	GL_Fund: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

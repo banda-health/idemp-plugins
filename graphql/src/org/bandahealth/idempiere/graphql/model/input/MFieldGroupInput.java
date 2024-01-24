@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MFieldGroupInput extends X_AD_FieldGroupInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_FieldGroup_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MFieldGroupInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MFieldGroupInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

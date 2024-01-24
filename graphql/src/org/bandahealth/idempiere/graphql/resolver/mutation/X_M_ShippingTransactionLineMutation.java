@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_ShippingTransactionLine
 import org.compiere.model.MShippingTransactionLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_ShippingTransactionLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_ShippingTransactionLineMutation extends POMutation implements G
 		return X_M_ShippingTransactionLineInput.Table_Name;
 	}
 
-	public MShippingTransactionLine M_ShippingTransactionLineSave(I_M_ShippingTransactionLineInput input, DataFetchingEnvironment environment) {
-		return (MShippingTransactionLine) super.save((X_M_ShippingTransactionLineInput) input, environment);
+	public MShippingTransactionLine M_ShippingTransactionLineSave(I_M_ShippingTransactionLineInput entity, DataFetchingEnvironment environment) {
+		return (MShippingTransactionLine) super.save((X_M_ShippingTransactionLineInput) entity, environment);
+	}
+
+	public List<MShippingTransactionLine> M_ShippingTransactionLineSaveMany(List<I_M_ShippingTransactionLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_ShippingTransactionLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MShippingTransactionLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_ShippingTransactionLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

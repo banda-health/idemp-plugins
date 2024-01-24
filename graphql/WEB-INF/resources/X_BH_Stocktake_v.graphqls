@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_Stocktake_vSave(entity: BH_Stocktake_vInput!): BH_Stocktake_v!
+	BH_Stocktake_vSaveMany(entities: [BH_Stocktake_vInput!]!): [BH_Stocktake_v!]!
 	BH_Stocktake_vDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type BH_Stocktake_v {
 	M_AttributeSetInstance: M_AttributeSetInstance
 	# Product, Service, Item
 	M_Product: M_Product
-	ID: ID!
+	UUID: ID!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse
 	# The document has been processed
@@ -70,7 +71,7 @@ input BH_Stocktake_vInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# The document has been processed

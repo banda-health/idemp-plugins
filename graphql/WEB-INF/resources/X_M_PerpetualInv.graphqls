@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_PerpetualInvSave(entity: M_PerpetualInvInput!): M_PerpetualInv!
+	M_PerpetualInvSaveMany(entities: [M_PerpetualInvInput!]!): [M_PerpetualInv!]!
 	M_PerpetualInvDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_PerpetualInv {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Category of a Product
 	M_Product_Category: M_Product_Category
 	# Storage Warehouse and Service Point
@@ -67,7 +68,7 @@ input M_PerpetualInvInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Category of a Product
 	M_Product_Category: ForeignEntityInput
 	# Storage Warehouse and Service Point

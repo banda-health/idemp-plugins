@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_TaxSave(entity: C_TaxInput!): C_Tax!
+	C_TaxSaveMany(entities: [C_TaxInput!]!): [C_Tax!]!
 	C_TaxDelete(uuids: [String!]!): Boolean!
 }
 
@@ -27,7 +28,7 @@ type C_Tax {
 	C_CountryGroupTo: C_CountryGroup
 	# Identifies a geographical Region
 	C_Region: C_Region
-	ID: ID!
+	UUID: ID!
 	# Tax Category
 	C_TaxCategory: C_TaxCategory!
 	C_TaxProvider: C_TaxProvider
@@ -81,7 +82,7 @@ input C_TaxInput {
 	C_CountryGroupTo: ForeignEntityInput
 	# Identifies a geographical Region
 	C_Region: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Tax Category
 	C_TaxCategory: ForeignEntityInput
 	C_TaxProvider: ForeignEntityInput

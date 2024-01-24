@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_Voided_ReasonSave(entity: BH_Voided_ReasonInput!): BH_Voided_Reason!
+	BH_Voided_ReasonSaveMany(entities: [BH_Voided_ReasonInput!]!): [BH_Voided_Reason!]!
 	BH_Voided_ReasonDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type BH_Voided_Reason {
 	AD_Client: AD_Client
 	# Organizational entity within client
 	AD_Org: AD_Org
-	ID: ID!
+	UUID: ID!
 	bh_window_id: BigDecimal
 	# Date this record was created
 	Created: Date
@@ -43,7 +44,7 @@ type BH_Voided_Reason {
 input BH_Voided_ReasonInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	bh_window_id: BigDecimal
 	# Optional short description of the record
 	Description: String

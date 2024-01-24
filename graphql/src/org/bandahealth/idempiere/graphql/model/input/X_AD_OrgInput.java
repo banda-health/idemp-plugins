@@ -2,10 +2,12 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MReplicationStrategy;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -20,30 +22,33 @@ public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 	private ForeignEntityInput mAD_ReplicationStrategy;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Org_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_OrgInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MOrg(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_OrgInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MOrg(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_Org_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_Org_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_Org_UU();
 	}
 
@@ -56,11 +61,16 @@ public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 	public void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy) {
 		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
 		MReplicationStrategy foreignEntity;
-		if (AD_ReplicationStrategy != null &&
-				(foreignEntity = new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
-						.setParameters(AD_ReplicationStrategy.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
+		if (AD_ReplicationStrategy != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
+							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_ReplicationStrategy with UUID " + AD_ReplicationStrategy.getUUID());
+			}
 		} else {
 			super.setAD_ReplicationStrategy_ID(0);
 		}

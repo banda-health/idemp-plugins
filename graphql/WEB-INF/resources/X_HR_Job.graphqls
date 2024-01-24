@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_JobSave(entity: HR_JobInput!): HR_Job!
+	HR_JobSaveMany(entities: [HR_JobInput!]!): [HR_Job!]!
 	HR_JobDelete(uuids: [String!]!): Boolean!
 }
 
@@ -27,7 +28,7 @@ type HR_Job {
 	# Optional short description of the record
 	Description: String
 	HR_Department: HR_Department
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# This column is a link to the parent table (e.g. header from lines) - incl. Association key columns
@@ -52,7 +53,7 @@ input HR_JobInput {
 	# Optional short description of the record
 	Description: String
 	HR_Department: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# This column is a link to the parent table (e.g. header from lines) - incl. Association key columns

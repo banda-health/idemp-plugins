@@ -11,18 +11,18 @@ import org.compiere.model.I_A_Asset_Addition;
 public interface I_A_Asset_AdditionInput extends I_A_Asset_Addition {
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set A_Asset.

@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MOpportunityInput extends X_C_OpportunityInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_Opportunity_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MOpportunityInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MOpportunityInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

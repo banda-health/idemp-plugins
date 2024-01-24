@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_AlertRecipientSave(entity: AD_AlertRecipientInput!): AD_AlertRecipient!
+	AD_AlertRecipientSaveMany(entities: [AD_AlertRecipientInput!]!): [AD_AlertRecipient!]!
 	AD_AlertRecipientDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_AlertRecipientConnection {
 type AD_AlertRecipient {
 	# iDempiere Alert
 	AD_Alert: AD_Alert!
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -42,7 +43,7 @@ type AD_AlertRecipient {
 input AD_AlertRecipientInput {
 	# iDempiere Alert
 	AD_Alert: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Responsibility Role

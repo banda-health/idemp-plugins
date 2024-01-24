@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_WF_Node_ParaInput;
 import org.compiere.model.X_AD_WF_Node_Para;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_WF_Node_Para - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_WF_Node_ParaMutation extends POMutation implements GraphQLMuta
 		return X_AD_WF_Node_ParaInput.Table_Name;
 	}
 
-	public X_AD_WF_Node_Para AD_WF_Node_ParaSave(I_AD_WF_Node_ParaInput input, DataFetchingEnvironment environment) {
-		return (X_AD_WF_Node_Para) super.save((X_AD_WF_Node_ParaInput) input, environment);
+	public X_AD_WF_Node_Para AD_WF_Node_ParaSave(I_AD_WF_Node_ParaInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_WF_Node_Para) super.save((X_AD_WF_Node_ParaInput) entity, environment);
+	}
+
+	public List<X_AD_WF_Node_Para> AD_WF_Node_ParaSaveMany(List<I_AD_WF_Node_ParaInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_WF_Node_ParaInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_WF_Node_Para) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_WF_Node_ParaDelete(List<String> uuids, DataFetchingEnvironment environment) {

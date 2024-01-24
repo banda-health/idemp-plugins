@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_ElementSave(entity: C_ElementInput!): C_Element!
+	C_ElementSaveMany(entities: [C_ElementInput!]!): [C_Element!]!
 	C_ElementDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_Element {
 	AD_Org: AD_Org!
 	# Identifies a Tree
 	AD_Tree: AD_Tree!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,7 +53,7 @@ input C_ElementInput {
 	AD_Org: ForeignEntityInput
 	# Identifies a Tree
 	AD_Tree: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Element Type (account or user defined)

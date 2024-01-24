@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_InvoiceBatchInput;
 import org.compiere.model.MInvoiceBatch;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_InvoiceBatch - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_InvoiceBatchMutation extends POMutation implements GraphQLMutat
 		return X_C_InvoiceBatchInput.Table_Name;
 	}
 
-	public MInvoiceBatch C_InvoiceBatchSave(I_C_InvoiceBatchInput input, DataFetchingEnvironment environment) {
-		return (MInvoiceBatch) super.save((X_C_InvoiceBatchInput) input, environment);
+	public MInvoiceBatch C_InvoiceBatchSave(I_C_InvoiceBatchInput entity, DataFetchingEnvironment environment) {
+		return (MInvoiceBatch) super.save((X_C_InvoiceBatchInput) entity, environment);
+	}
+
+	public List<MInvoiceBatch> C_InvoiceBatchSaveMany(List<I_C_InvoiceBatchInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_InvoiceBatchInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MInvoiceBatch) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_InvoiceBatchDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Depreciation_ForecastSave(entity: A_Depreciation_ForecastInput!): A_Depreciation_Forecast!
+	A_Depreciation_ForecastSaveMany(entities: [A_Depreciation_ForecastInput!]!): [A_Depreciation_Forecast!]!
 	A_Depreciation_ForecastDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type A_Depreciation_ForecastConnection {
 }
 
 type A_Depreciation_Forecast {
-	ID: ID!
+	UUID: ID!
 	A_End_Asset: A_Asset!
 	A_Start_Asset: A_Asset!
 	# Client/Tenant for this installation.
@@ -43,7 +44,7 @@ type A_Depreciation_Forecast {
 }
 
 input A_Depreciation_ForecastInput {
-	ID: ID
+	UUID: ID
 	A_End_Asset: ForeignEntityInput
 	A_Start_Asset: ForeignEntityInput
 	# Organizational entity within client

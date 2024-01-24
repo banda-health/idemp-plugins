@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	ASP_ClientExceptionSave(entity: ASP_ClientExceptionInput!): ASP_ClientException!
+	ASP_ClientExceptionSaveMany(entities: [ASP_ClientExceptionInput!]!): [ASP_ClientException!]!
 	ASP_ClientExceptionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -37,7 +38,7 @@ type ASP_ClientException {
 	AD_Window: AD_Window
 	# Workflow or combination of tasks
 	AD_Workflow: AD_Workflow
-	ID: ID!
+	UUID: ID!
 	ASP_Status: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
@@ -71,7 +72,7 @@ input ASP_ClientExceptionInput {
 	AD_Window: ForeignEntityInput
 	# Workflow or combination of tasks
 	AD_Workflow: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	ASP_Status: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean

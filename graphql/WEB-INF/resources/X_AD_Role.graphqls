@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_RoleSave(entity: AD_RoleInput!): AD_Role!
+	AD_RoleSaveMany(entities: [AD_RoleInput!]!): [AD_Role!]!
 	AD_RoleDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Role {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Tree of the menu
 	AD_Tree_Menu: AD_Tree
 	# Trees are used for (financial) reporting and security access (via role)
@@ -103,7 +104,7 @@ type AD_Role {
 input AD_RoleInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Tree of the menu
 	AD_Tree_Menu: ForeignEntityInput
 	# Trees are used for (financial) reporting and security access (via role)

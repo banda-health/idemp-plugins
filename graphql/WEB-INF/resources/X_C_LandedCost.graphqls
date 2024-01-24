@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_LandedCostSave(entity: C_LandedCostInput!): C_LandedCost!
+	C_LandedCostSaveMany(entities: [C_LandedCostInput!]!): [C_LandedCost!]!
 	C_LandedCostDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_LandedCost {
 	AD_Org: AD_Org!
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -51,7 +52,7 @@ input C_LandedCostInput {
 	AD_Org: ForeignEntityInput
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Landed Cost Distribution

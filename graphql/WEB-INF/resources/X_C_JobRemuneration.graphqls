@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_JobRemunerationSave(entity: C_JobRemunerationInput!): C_JobRemuneration!
+	C_JobRemunerationSaveMany(entities: [C_JobRemunerationInput!]!): [C_JobRemuneration!]!
 	C_JobRemunerationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_JobRemuneration {
 	AD_Org: AD_Org!
 	# Job Position
 	C_Job: C_Job!
-	ID: ID!
+	UUID: ID!
 	# Wage or Salary
 	C_Remuneration: C_Remuneration!
 	# Date this record was created
@@ -48,7 +49,7 @@ input C_JobRemunerationInput {
 	AD_Org: ForeignEntityInput
 	# Job Position
 	C_Job: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Wage or Salary
 	C_Remuneration: ForeignEntityInput
 	# Optional short description of the record

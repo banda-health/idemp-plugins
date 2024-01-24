@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_OpportunityInput;
 import org.compiere.model.MOpportunity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_Opportunity - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_OpportunityMutation extends POMutation implements GraphQLMutati
 		return X_C_OpportunityInput.Table_Name;
 	}
 
-	public MOpportunity C_OpportunitySave(I_C_OpportunityInput input, DataFetchingEnvironment environment) {
-		return (MOpportunity) super.save((X_C_OpportunityInput) input, environment);
+	public MOpportunity C_OpportunitySave(I_C_OpportunityInput entity, DataFetchingEnvironment environment) {
+		return (MOpportunity) super.save((X_C_OpportunityInput) entity, environment);
+	}
+
+	public List<MOpportunity> C_OpportunitySaveMany(List<I_C_OpportunityInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_OpportunityInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MOpportunity) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_OpportunityDelete(List<String> uuids, DataFetchingEnvironment environment) {

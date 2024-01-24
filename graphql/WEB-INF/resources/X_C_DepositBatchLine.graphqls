@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_DepositBatchLineSave(entity: C_DepositBatchLineInput!): C_DepositBatchLine!
+	C_DepositBatchLineSaveMany(entities: [C_DepositBatchLineInput!]!): [C_DepositBatchLine!]!
 	C_DepositBatchLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type C_DepositBatchLine {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	C_DepositBatch: C_DepositBatch!
-	ID: ID!
+	UUID: ID!
 	# Payment identifier
 	C_Payment: C_Payment!
 	# Date this record was created
@@ -47,7 +48,7 @@ input C_DepositBatchLineInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	C_DepositBatch: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Payment identifier
 	C_Payment: ForeignEntityInput
 	# The record is active in the system

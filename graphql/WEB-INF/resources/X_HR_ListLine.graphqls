@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_ListLineSave(entity: HR_ListLineInput!): HR_ListLine!
+	HR_ListLineSaveMany(entities: [HR_ListLineInput!]!): [HR_ListLine!]!
 	HR_ListLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type HR_ListLine {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
-	ID: ID!
+	UUID: ID!
 	HR_ListVersion: HR_ListVersion
 	# The record is active in the system
 	IsActive: Boolean!
@@ -57,7 +58,7 @@ input HR_ListLineInput {
 	Col_6: BigDecimal
 	Col_7: BigDecimal
 	Col_8: BigDecimal
-	ID: ID
+	UUID: ID
 	HR_ListVersion: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

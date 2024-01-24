@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_InvoiceBatchLineInput;
 import org.compiere.model.MInvoiceBatchLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_InvoiceBatchLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_InvoiceBatchLineMutation extends POMutation implements GraphQLM
 		return X_C_InvoiceBatchLineInput.Table_Name;
 	}
 
-	public MInvoiceBatchLine C_InvoiceBatchLineSave(I_C_InvoiceBatchLineInput input, DataFetchingEnvironment environment) {
-		return (MInvoiceBatchLine) super.save((X_C_InvoiceBatchLineInput) input, environment);
+	public MInvoiceBatchLine C_InvoiceBatchLineSave(I_C_InvoiceBatchLineInput entity, DataFetchingEnvironment environment) {
+		return (MInvoiceBatchLine) super.save((X_C_InvoiceBatchLineInput) entity, environment);
+	}
+
+	public List<MInvoiceBatchLine> C_InvoiceBatchLineSaveMany(List<I_C_InvoiceBatchLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_InvoiceBatchLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MInvoiceBatchLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_InvoiceBatchLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_C_CurrencyInput;
 import org.bandahealth.idempiere.graphql.model.input.X_C_CurrencyInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_Currency - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_CurrencyMutation extends POMutation implements GraphQLMutationR
 		return X_C_CurrencyInput.Table_Name;
 	}
 
-	public MCurrency_BH C_CurrencySave(I_C_CurrencyInput input, DataFetchingEnvironment environment) {
-		return (MCurrency_BH) super.save((X_C_CurrencyInput) input, environment);
+	public MCurrency_BH C_CurrencySave(I_C_CurrencyInput entity, DataFetchingEnvironment environment) {
+		return (MCurrency_BH) super.save((X_C_CurrencyInput) entity, environment);
+	}
+
+	public List<MCurrency_BH> C_CurrencySaveMany(List<I_C_CurrencyInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_CurrencyInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MCurrency_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_CurrencyDelete(List<String> uuids, DataFetchingEnvironment environment) {

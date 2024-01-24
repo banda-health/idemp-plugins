@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_A_Asset_ChangeInput;
 import org.compiere.model.MAssetChange;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for A_Asset_Change - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_A_Asset_ChangeMutation extends POMutation implements GraphQLMutat
 		return X_A_Asset_ChangeInput.Table_Name;
 	}
 
-	public MAssetChange A_Asset_ChangeSave(I_A_Asset_ChangeInput input, DataFetchingEnvironment environment) {
-		return (MAssetChange) super.save((X_A_Asset_ChangeInput) input, environment);
+	public MAssetChange A_Asset_ChangeSave(I_A_Asset_ChangeInput entity, DataFetchingEnvironment environment) {
+		return (MAssetChange) super.save((X_A_Asset_ChangeInput) entity, environment);
+	}
+
+	public List<MAssetChange> A_Asset_ChangeSaveMany(List<I_A_Asset_ChangeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_ChangeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAssetChange) entity).collect(Collectors.toList());
 	}
 
 	public boolean A_Asset_ChangeDelete(List<String> uuids, DataFetchingEnvironment environment) {

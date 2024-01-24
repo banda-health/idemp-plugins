@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	RV_WarehousePriceSave(entity: RV_WarehousePriceInput!): RV_WarehousePrice!
+	RV_WarehousePriceSaveMany(entities: [RV_WarehousePriceInput!]!): [RV_WarehousePrice!]!
 	RV_WarehousePriceDelete(uuids: [String!]!): Boolean!
 }
 

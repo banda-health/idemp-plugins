@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MUOMInput extends X_C_UOMInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_UOM_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUOMInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MUOMInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

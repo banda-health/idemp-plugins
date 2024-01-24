@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	B_BidCommentSave(entity: B_BidCommentInput!): B_BidComment!
+	B_BidCommentSaveMany(entities: [B_BidCommentInput!]!): [B_BidComment!]!
 	B_BidCommentDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type B_BidComment {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	ID: ID!
+	UUID: ID!
 	# Auction Topic
 	B_Topic: B_Topic!
 	# Date this record was created
@@ -44,7 +45,7 @@ input B_BidCommentInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Auction Topic
 	B_Topic: ForeignEntityInput
 	# The record is active in the system

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_DistributionListLineSave(entity: M_DistributionListLineInput!): M_DistributionListLine!
+	M_DistributionListLineSaveMany(entities: [M_DistributionListLineInput!]!): [M_DistributionListLine!]!
 	M_DistributionListLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_DistributionListLine {
 	IsActive: Boolean!
 	# Distribution Lists allow to distribute products to a selected list of partners
 	M_DistributionList: M_DistributionList!
-	ID: ID!
+	UUID: ID!
 	# Minimum quantity for the business partner
 	MinQty: BigDecimal!
 	# Relative Ratio for Distributions
@@ -58,7 +59,7 @@ input M_DistributionListLineInput {
 	IsActive: Boolean
 	# Distribution Lists allow to distribute products to a selected list of partners
 	M_DistributionList: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Minimum quantity for the business partner
 	MinQty: BigDecimal
 	# Relative Ratio for Distributions

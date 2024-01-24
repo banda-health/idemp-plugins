@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	T_ReplenishSave(entity: T_ReplenishInput!): T_Replenish!
+	T_ReplenishSaveMany(entities: [T_ReplenishInput!]!): [T_Replenish!]!
 	T_ReplenishDelete(uuids: [String!]!): Boolean!
 }
 
@@ -51,7 +52,7 @@ type T_Replenish {
 	ReplenishmentCreate: AD_Ref_List
 	# Method for re-ordering a product
 	ReplenishType: AD_Ref_List!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -92,5 +93,5 @@ input T_ReplenishInput {
 	ReplenishmentCreate: AD_Ref_ListInput
 	# Method for re-ordering a product
 	ReplenishType: AD_Ref_ListInput
-	ID: ID
+	UUID: ID
 }

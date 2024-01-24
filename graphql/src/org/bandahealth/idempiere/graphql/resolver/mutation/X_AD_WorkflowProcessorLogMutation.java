@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_WorkflowProcessorLogIn
 import org.compiere.model.X_AD_WorkflowProcessorLog;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_WorkflowProcessorLog - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_WorkflowProcessorLogMutation extends POMutation implements Gra
 		return X_AD_WorkflowProcessorLogInput.Table_Name;
 	}
 
-	public X_AD_WorkflowProcessorLog AD_WorkflowProcessorLogSave(I_AD_WorkflowProcessorLogInput input, DataFetchingEnvironment environment) {
-		return (X_AD_WorkflowProcessorLog) super.save((X_AD_WorkflowProcessorLogInput) input, environment);
+	public X_AD_WorkflowProcessorLog AD_WorkflowProcessorLogSave(I_AD_WorkflowProcessorLogInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_WorkflowProcessorLog) super.save((X_AD_WorkflowProcessorLogInput) entity, environment);
+	}
+
+	public List<X_AD_WorkflowProcessorLog> AD_WorkflowProcessorLogSaveMany(List<I_AD_WorkflowProcessorLogInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_WorkflowProcessorLogInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_WorkflowProcessorLog) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_WorkflowProcessorLogDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_RequestSave(entity: R_RequestInput!): R_Request!
+	R_RequestSaveMany(entities: [R_RequestInput!]!): [R_Request!]!
 	R_RequestDelete(uuids: [String!]!): Boolean!
 }
 
@@ -112,7 +113,7 @@ type R_Request {
 	R_Group: R_Group
 	# Text templates for mailings
 	R_MailText: R_MailText
-	ID: ID!
+	UUID: ID!
 	# Related Request (Master Issue, ..)
 	R_RequestRelated: R_Request
 	# Type of request (e.g. Inquiry, Complaint, ..)
@@ -236,7 +237,7 @@ input R_RequestInput {
 	R_Group: ForeignEntityInput
 	# Text templates for mailings
 	R_MailText: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Related Request (Master Issue, ..)
 	R_RequestRelated: ForeignEntityInput
 	# Type of request (e.g. Inquiry, Complaint, ..)

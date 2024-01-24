@@ -355,7 +355,7 @@ public class GraphQLModelResolverGenerator {
 					.append("\t\t}\n")
 					.append("\t\tDataLoader<String, ").append(foreignModelMap.getClassName()).append("> dataLoader =\n")
 					.append("\t\t\t\tenvironment.getDataLoaderRegistry().getDataLoader(").append(dataLoader)
-					.append(".").append(GraphQLDataLoaderGenerator.getDataLoaderByIdProperty(foreignModelMap.getTableName()))
+					.append(".").append(GraphQLDataLoaderGenerator.getDataLoaderByUuidProperty(foreignModelMap.getTableName()))
 					.append(");\n")
 					.append("\t\treturn dataLoader.load(").append(referenceListUuidByValuePropertyName).append(".get(entity.get")
 					.append(columnName).append("()));\n")

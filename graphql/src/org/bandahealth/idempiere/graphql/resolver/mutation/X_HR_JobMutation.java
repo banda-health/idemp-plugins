@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_HR_JobInput;
 import org.eevolution.model.X_HR_Job;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for HR_Job - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_HR_JobMutation extends POMutation implements GraphQLMutationResol
 		return X_HR_JobInput.Table_Name;
 	}
 
-	public X_HR_Job HR_JobSave(I_HR_JobInput input, DataFetchingEnvironment environment) {
-		return (X_HR_Job) super.save((X_HR_JobInput) input, environment);
+	public X_HR_Job HR_JobSave(I_HR_JobInput entity, DataFetchingEnvironment environment) {
+		return (X_HR_Job) super.save((X_HR_JobInput) entity, environment);
+	}
+
+	public List<X_HR_Job> HR_JobSaveMany(List<I_HR_JobInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_HR_JobInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_HR_Job) entity).collect(Collectors.toList());
 	}
 
 	public boolean HR_JobDelete(List<String> uuids, DataFetchingEnvironment environment) {

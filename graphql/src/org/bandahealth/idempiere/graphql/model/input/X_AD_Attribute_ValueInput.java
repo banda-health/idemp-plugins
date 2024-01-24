@@ -2,10 +2,12 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Attribute;
 import org.compiere.model.X_AD_Attribute_Value;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -20,13 +22,16 @@ public class X_AD_Attribute_ValueInput extends X_AD_Attribute_Value implements I
 	private ForeignEntityInput mAD_Attribute;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Attribute_Value_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_Attribute_ValueInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_AD_Attribute_Value(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_Attribute_ValueInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_Attribute_Value(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -38,11 +43,16 @@ public class X_AD_Attribute_ValueInput extends X_AD_Attribute_Value implements I
 	public void setAD_AttributeInput(ForeignEntityInput AD_Attribute) {
 		this.mAD_Attribute = AD_Attribute;
 		X_AD_Attribute foreignEntity;
-		if (get_ID() == 0 && AD_Attribute != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Attribute", "AD_Attribute_UU=?", get_TrxName())
-						.setParameters(AD_Attribute.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Attribute_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Attribute != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Attribute", "AD_Attribute_UU=?", get_TrxName())
+							.setParameters(AD_Attribute.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Attribute_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Attribute with UUID " + AD_Attribute.getUUID());
+			}
 		}
 	}
 
@@ -57,20 +67,20 @@ public class X_AD_Attribute_ValueInput extends X_AD_Attribute_Value implements I
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_Attribute_Value_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_Attribute_Value_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_Attribute_Value_UU();
 	}
 	/**

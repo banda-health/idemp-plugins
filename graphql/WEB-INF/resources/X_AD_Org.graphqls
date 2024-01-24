@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_OrgSave(entity: AD_OrgInput!): AD_Org!
+	AD_OrgSaveMany(entities: [AD_OrgInput!]!): [AD_Org!]!
 	AD_OrgDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_OrgConnection {
 type AD_Org {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Data Replication Strategy
 	AD_ReplicationStrategy: AD_ReplicationStrategy
 	# Date this record was created
@@ -42,7 +43,7 @@ type AD_Org {
 }
 
 input AD_OrgInput {
-	ID: ID
+	UUID: ID
 	# Data Replication Strategy
 	AD_ReplicationStrategy: ForeignEntityInput
 	# Optional short description of the record

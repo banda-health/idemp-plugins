@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	B_SellerFundsSave(entity: B_SellerFundsInput!): B_SellerFunds!
+	B_SellerFundsSaveMany(entities: [B_SellerFundsInput!]!): [B_SellerFunds!]!
 	B_SellerFundsDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type B_SellerFunds {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	ID: ID!
+	UUID: ID!
 	# Order
 	C_Order: C_Order
 	# Payment identifier
@@ -48,7 +49,7 @@ input B_SellerFundsInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Order
 	C_Order: ForeignEntityInput
 	# Payment identifier

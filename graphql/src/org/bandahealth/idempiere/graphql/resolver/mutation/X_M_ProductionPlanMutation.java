@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_ProductionPlanInput;
 import org.compiere.model.MProductionPlan;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_ProductionPlan - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_ProductionPlanMutation extends POMutation implements GraphQLMut
 		return X_M_ProductionPlanInput.Table_Name;
 	}
 
-	public MProductionPlan M_ProductionPlanSave(I_M_ProductionPlanInput input, DataFetchingEnvironment environment) {
-		return (MProductionPlan) super.save((X_M_ProductionPlanInput) input, environment);
+	public MProductionPlan M_ProductionPlanSave(I_M_ProductionPlanInput entity, DataFetchingEnvironment environment) {
+		return (MProductionPlan) super.save((X_M_ProductionPlanInput) entity, environment);
+	}
+
+	public List<MProductionPlan> M_ProductionPlanSaveMany(List<I_M_ProductionPlanInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_ProductionPlanInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MProductionPlan) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_ProductionPlanDelete(List<String> uuids, DataFetchingEnvironment environment) {

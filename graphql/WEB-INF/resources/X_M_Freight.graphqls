@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_FreightSave(entity: M_FreightInput!): M_Freight!
+	M_FreightSaveMany(entities: [M_FreightInput!]!): [M_Freight!]!
 	M_FreightDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_Freight {
 	FreightAmt: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Category of the Freight
 	M_FreightCategory: M_FreightCategory!
 	# Method or manner of product delivery
@@ -64,7 +65,7 @@ input M_FreightInput {
 	FreightAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Category of the Freight
 	M_FreightCategory: ForeignEntityInput
 	# Method or manner of product delivery

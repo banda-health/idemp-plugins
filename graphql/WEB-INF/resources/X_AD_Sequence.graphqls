@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_SequenceSave(entity: AD_SequenceInput!): AD_Sequence!
+	AD_SequenceSaveMany(entities: [AD_SequenceInput!]!): [AD_Sequence!]!
 	AD_SequenceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Sequence {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -71,7 +72,7 @@ type AD_Sequence {
 input AD_SequenceInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The next number to be used
 	CurrentNext: Int
 	# Next sequence for system use

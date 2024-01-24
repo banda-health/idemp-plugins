@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	CM_ChatSave(entity: CM_ChatInput!): CM_Chat!
+	CM_ChatSaveMany(entities: [CM_ChatInput!]!): [CM_Chat!]!
 	CM_ChatDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type CM_Chat {
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
-	ID: ID!
+	UUID: ID!
 	# Type of discussion / chat
 	CM_ChatType: CM_ChatType
 	# Type of Confidentiality
@@ -50,7 +51,7 @@ input CM_ChatInput {
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Type of discussion / chat
 	CM_ChatType: ForeignEntityInput
 	# Type of Confidentiality

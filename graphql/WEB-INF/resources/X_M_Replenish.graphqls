@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ReplenishSave(entity: M_ReplenishInput!): M_Replenish!
+	M_ReplenishSaveMany(entities: [M_ReplenishInput!]!): [M_Replenish!]!
 	M_ReplenishDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_Replenish {
 	M_Locator: M_Locator
 	# Product, Service, Item
 	M_Product: M_Product!
-	ID: ID!
+	UUID: ID!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Optional Warehouse to replenish from
@@ -61,7 +62,7 @@ input M_ReplenishInput {
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Optional Warehouse to replenish from

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMenu_BH;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
@@ -25,6 +26,7 @@ import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_Role;
 import org.compiere.model.X_AD_Workbench;
 import org.compiere.model.X_AD_Workflow;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -60,13 +62,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	private I_AD_Ref_ListInput mType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Package_Exp_Detail_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_Package_Exp_DetailInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MPackageExpDetail(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_Package_Exp_DetailInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPackageExpDetail(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -78,11 +83,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
-		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-						.setParameters(AD_EntityType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_EntityType_ID(foreignEntity.get_ID());
+		if (AD_EntityType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_EntityType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+			}
 		} else {
 			super.setAD_EntityType_ID(0);
 		}
@@ -107,11 +117,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_FormInput(ForeignEntityInput AD_Form) {
 		this.mAD_Form = AD_Form;
 		MForm foreignEntity;
-		if (AD_Form != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-						.setParameters(AD_Form.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Form_ID(foreignEntity.get_ID());
+		if (AD_Form != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
+							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Form_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Form with UUID " + AD_Form.getUUID());
+			}
 		} else {
 			super.setAD_Form_ID(0);
 		}
@@ -136,11 +151,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_ImpFormatInput(ForeignEntityInput AD_ImpFormat) {
 		this.mAD_ImpFormat = AD_ImpFormat;
 		X_AD_ImpFormat foreignEntity;
-		if (AD_ImpFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_ImpFormat", "AD_ImpFormat_UU=?", get_TrxName())
-						.setParameters(AD_ImpFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_ImpFormat_ID(foreignEntity.get_ID());
+		if (AD_ImpFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_ImpFormat", "AD_ImpFormat_UU=?", get_TrxName())
+							.setParameters(AD_ImpFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_ImpFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_ImpFormat with UUID " + AD_ImpFormat.getUUID());
+			}
 		} else {
 			super.setAD_ImpFormat_ID(0);
 		}
@@ -165,11 +185,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_InfoWindowInput(ForeignEntityInput AD_InfoWindow) {
 		this.mAD_InfoWindow = AD_InfoWindow;
 		MInfoWindow foreignEntity;
-		if (AD_InfoWindow != null &&
-				(foreignEntity = new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-						.setParameters(AD_InfoWindow.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_InfoWindow_ID(foreignEntity.get_ID());
+		if (AD_InfoWindow != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
+							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_InfoWindow with UUID " + AD_InfoWindow.getUUID());
+			}
 		} else {
 			super.setAD_InfoWindow_ID(0);
 		}
@@ -194,11 +219,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_MenuInput(ForeignEntityInput AD_Menu) {
 		this.mAD_Menu = AD_Menu;
 		MMenu_BH foreignEntity;
-		if (AD_Menu != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Menu", "AD_Menu_UU=?", get_TrxName())
-						.setParameters(AD_Menu.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Menu_ID(foreignEntity.get_ID());
+		if (AD_Menu != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Menu", "AD_Menu_UU=?", get_TrxName())
+							.setParameters(AD_Menu.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Menu_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Menu with UUID " + AD_Menu.getUUID());
+			}
 		} else {
 			super.setAD_Menu_ID(0);
 		}
@@ -223,11 +253,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_MessageInput(ForeignEntityInput AD_Message) {
 		this.mAD_Message = AD_Message;
 		MMessage_BH foreignEntity;
-		if (AD_Message != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
-						.setParameters(AD_Message.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Message_ID(foreignEntity.get_ID());
+		if (AD_Message != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
+							.setParameters(AD_Message.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Message_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Message with UUID " + AD_Message.getUUID());
+			}
 		} else {
 			super.setAD_Message_ID(0);
 		}
@@ -252,11 +287,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_ModelValidatorInput(ForeignEntityInput AD_ModelValidator) {
 		this.mAD_ModelValidator = AD_ModelValidator;
 		X_AD_ModelValidator foreignEntity;
-		if (AD_ModelValidator != null &&
-				(foreignEntity = new Query(getCtx(), "AD_ModelValidator", "AD_ModelValidator_UU=?", get_TrxName())
-						.setParameters(AD_ModelValidator.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_ModelValidator_ID(foreignEntity.get_ID());
+		if (AD_ModelValidator != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_ModelValidator", "AD_ModelValidator_UU=?", get_TrxName())
+							.setParameters(AD_ModelValidator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_ModelValidator_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_ModelValidator with UUID " + AD_ModelValidator.getUUID());
+			}
 		} else {
 			super.setAD_ModelValidator_ID(0);
 		}
@@ -281,11 +321,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -300,20 +345,20 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_Package_Exp_Detail_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_Package_Exp_Detail_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_Package_Exp_Detail_UU();
 	}
 
@@ -326,11 +371,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_Package_ExpInput(ForeignEntityInput AD_Package_Exp) {
 		this.mAD_Package_Exp = AD_Package_Exp;
 		MPackageExp foreignEntity;
-		if (get_ID() == 0 && AD_Package_Exp != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Package_Exp", "AD_Package_Exp_UU=?", get_TrxName())
-						.setParameters(AD_Package_Exp.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Package_Exp_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Package_Exp != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Package_Exp", "AD_Package_Exp_UU=?", get_TrxName())
+							.setParameters(AD_Package_Exp.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Package_Exp_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Package_Exp with UUID " + AD_Package_Exp.getUUID());
+			}
 		}
 	}
 
@@ -353,11 +403,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (AD_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(AD_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_PrintFormat_ID(foreignEntity.get_ID());
+		if (AD_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
+			}
 		} else {
 			super.setAD_PrintFormat_ID(0);
 		}
@@ -382,11 +437,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
-		if (AD_Process != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-						.setParameters(AD_Process.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Process_ID(foreignEntity.get_ID());
+		if (AD_Process != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
+							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Process_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
+			}
 		} else {
 			super.setAD_Process_ID(0);
 		}
@@ -411,11 +471,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
 		MReference_BH foreignEntity;
-		if (AD_Reference != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-						.setParameters(AD_Reference.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Reference_ID(foreignEntity.get_ID());
+		if (AD_Reference != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
+							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Reference_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
+			}
 		} else {
 			super.setAD_Reference_ID(0);
 		}
@@ -440,11 +505,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_ReportViewInput(ForeignEntityInput AD_ReportView) {
 		this.mAD_ReportView = AD_ReportView;
 		MReportView foreignEntity;
-		if (AD_ReportView != null &&
-				(foreignEntity = new Query(getCtx(), "AD_ReportView", "AD_ReportView_UU=?", get_TrxName())
-						.setParameters(AD_ReportView.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_ReportView_ID(foreignEntity.get_ID());
+		if (AD_ReportView != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_ReportView", "AD_ReportView_UU=?", get_TrxName())
+							.setParameters(AD_ReportView.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_ReportView_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_ReportView with UUID " + AD_ReportView.getUUID());
+			}
 		} else {
 			super.setAD_ReportView_ID(0);
 		}
@@ -469,11 +539,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
-		if (AD_Role != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-						.setParameters(AD_Role.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Role_ID(foreignEntity.get_ID());
+		if (AD_Role != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
+							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Role_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
+			}
 		} else {
 			super.setAD_Role_ID(0);
 		}
@@ -498,11 +573,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
-		if (AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-						.setParameters(AD_Table.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Table_ID(foreignEntity.get_ID());
+		if (AD_Table != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Table_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+			}
 		} else {
 			super.setAD_Table_ID(0);
 		}
@@ -527,11 +607,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule) {
 		this.mAD_Val_Rule = AD_Val_Rule;
 		MValRule foreignEntity;
-		if (AD_Val_Rule != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-						.setParameters(AD_Val_Rule.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Val_Rule_ID(foreignEntity.get_ID());
+		if (AD_Val_Rule != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
+							.setParameters(AD_Val_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Val_Rule with UUID " + AD_Val_Rule.getUUID());
+			}
 		} else {
 			super.setAD_Val_Rule_ID(0);
 		}
@@ -556,11 +641,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
-		if (AD_Window != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-						.setParameters(AD_Window.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Window_ID(foreignEntity.get_ID());
+		if (AD_Window != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
+							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Window_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+			}
 		} else {
 			super.setAD_Window_ID(0);
 		}
@@ -585,11 +675,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_WorkbenchInput(ForeignEntityInput AD_Workbench) {
 		this.mAD_Workbench = AD_Workbench;
 		X_AD_Workbench foreignEntity;
-		if (AD_Workbench != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Workbench", "AD_Workbench_UU=?", get_TrxName())
-						.setParameters(AD_Workbench.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Workbench_ID(foreignEntity.get_ID());
+		if (AD_Workbench != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Workbench", "AD_Workbench_UU=?", get_TrxName())
+							.setParameters(AD_Workbench.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Workbench_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Workbench with UUID " + AD_Workbench.getUUID());
+			}
 		} else {
 			super.setAD_Workbench_ID(0);
 		}
@@ -614,11 +709,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
-		if (AD_Workflow != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-						.setParameters(AD_Workflow.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Workflow_ID(foreignEntity.get_ID());
+		if (AD_Workflow != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
+							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Workflow_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Workflow with UUID " + AD_Workflow.getUUID());
+			}
 		} else {
 			super.setAD_Workflow_ID(0);
 		}
@@ -643,11 +743,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setDBTypeInput(I_AD_Ref_ListInput DBType) {
 		this.mDBType = DBType;
 		MRefList_BH foreignEntity;
-		if (DBType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DBType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDBType(foreignEntity.getValue());
+		if (DBType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DBType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDBType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DBType.getUUID());
+			}
 		} else {
 			this.setDBType(null);
 		}
@@ -672,11 +777,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setReleaseNoInput(I_AD_Ref_ListInput ReleaseNo) {
 		this.mReleaseNo = ReleaseNo;
 		MRefList_BH foreignEntity;
-		if (ReleaseNo != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ReleaseNo.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setReleaseNo(foreignEntity.getValue());
+		if (ReleaseNo != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ReleaseNo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setReleaseNo(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ReleaseNo.getUUID());
+			}
 		} else {
 			this.setReleaseNo(null);
 		}
@@ -701,11 +811,16 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	public void setTypeInput(I_AD_Ref_ListInput Type) {
 		this.mType = Type;
 		MRefList_BH foreignEntity;
-		if (Type != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Type.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setType(foreignEntity.getValue());
+		if (Type != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Type.getUUID());
+			}
 		} else {
 			this.setType(null);
 		}

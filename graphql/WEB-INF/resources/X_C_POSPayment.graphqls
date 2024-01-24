@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_POSPaymentSave(entity: C_POSPaymentInput!): C_POSPayment!
+	C_POSPaymentSaveMany(entities: [C_POSPaymentInput!]!): [C_POSPayment!]!
 	C_POSPaymentDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type C_POSPayment {
 	C_Order: C_Order!
 	# Payment identifier
 	C_Payment: C_Payment
-	ID: ID!
+	UUID: ID!
 	C_POSTenderType: C_POSTenderType!
 	# Check Number
 	CheckNo: String
@@ -82,7 +83,7 @@ input C_POSPaymentInput {
 	C_Order: ForeignEntityInput
 	# Payment identifier
 	C_Payment: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	C_POSTenderType: ForeignEntityInput
 	# Check Number
 	CheckNo: String

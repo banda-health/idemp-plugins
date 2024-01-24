@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Sequence_AuditSave(entity: AD_Sequence_AuditInput!): AD_Sequence_Audit!
+	AD_Sequence_AuditSaveMany(entities: [AD_Sequence_AuditInput!]!): [AD_Sequence_Audit!]!
 	AD_Sequence_AuditDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Sequence_Audit {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Document Sequence
 	AD_Sequence: AD_Sequence!
 	# Database Table information
@@ -44,7 +45,7 @@ type AD_Sequence_Audit {
 input AD_Sequence_AuditInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Document Sequence
 	AD_Sequence: ForeignEntityInput
 	# Database Table information

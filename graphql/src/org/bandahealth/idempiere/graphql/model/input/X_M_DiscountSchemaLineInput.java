@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -12,6 +13,7 @@ import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDiscountSchemaLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -37,13 +39,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	private I_AD_Ref_ListInput mStd_Rounding;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_DiscountSchemaLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_DiscountSchemaLineInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MDiscountSchemaLine(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_DiscountSchemaLineInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDiscountSchemaLine(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -55,11 +60,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -82,11 +92,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_ID(foreignEntity.get_ID());
+		if (C_BPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+			}
 		} else {
 			super.setC_BPartner_ID(0);
 		}
@@ -111,11 +126,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
 		MConversionType foreignEntity;
-		if (C_ConversionType != null &&
-				(foreignEntity = new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
-						.setParameters(C_ConversionType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_ConversionType_ID(foreignEntity.get_ID());
+		if (C_ConversionType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
+							.setParameters(C_ConversionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_ConversionType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ConversionType with UUID " + C_ConversionType.getUUID());
+			}
 		} else {
 			super.setC_ConversionType_ID(0);
 		}
@@ -140,11 +160,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setLimit_BaseInput(I_AD_Ref_ListInput Limit_Base) {
 		this.mLimit_Base = Limit_Base;
 		MRefList_BH foreignEntity;
-		if (Limit_Base != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Limit_Base.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setLimit_Base(foreignEntity.getValue());
+		if (Limit_Base != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(Limit_Base.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setLimit_Base(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Limit_Base.getUUID());
+			}
 		} else {
 			this.setLimit_Base(null);
 		}
@@ -169,11 +194,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setLimit_RoundingInput(I_AD_Ref_ListInput Limit_Rounding) {
 		this.mLimit_Rounding = Limit_Rounding;
 		MRefList_BH foreignEntity;
-		if (Limit_Rounding != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Limit_Rounding.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setLimit_Rounding(foreignEntity.getValue());
+		if (Limit_Rounding != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(Limit_Rounding.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setLimit_Rounding(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Limit_Rounding.getUUID());
+			}
 		} else {
 			this.setLimit_Rounding(null);
 		}
@@ -198,11 +228,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setList_BaseInput(I_AD_Ref_ListInput List_Base) {
 		this.mList_Base = List_Base;
 		MRefList_BH foreignEntity;
-		if (List_Base != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(List_Base.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setList_Base(foreignEntity.getValue());
+		if (List_Base != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(List_Base.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setList_Base(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + List_Base.getUUID());
+			}
 		} else {
 			this.setList_Base(null);
 		}
@@ -227,11 +262,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setList_RoundingInput(I_AD_Ref_ListInput List_Rounding) {
 		this.mList_Rounding = List_Rounding;
 		MRefList_BH foreignEntity;
-		if (List_Rounding != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(List_Rounding.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setList_Rounding(foreignEntity.getValue());
+		if (List_Rounding != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(List_Rounding.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setList_Rounding(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + List_Rounding.getUUID());
+			}
 		} else {
 			this.setList_Rounding(null);
 		}
@@ -256,11 +296,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
 		MDiscountSchema foreignEntity;
-		if (get_ID() == 0 && M_DiscountSchema != null &&
-				(foreignEntity = new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-						.setParameters(M_DiscountSchema.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_DiscountSchema_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_DiscountSchema != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
+							.setParameters(M_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_DiscountSchema_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_DiscountSchema with UUID " + M_DiscountSchema.getUUID());
+			}
 		}
 	}
 
@@ -286,20 +331,20 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_DiscountSchemaLine_UU(ID);
+	public void setUUID(String UUID) {
+		setM_DiscountSchemaLine_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_DiscountSchemaLine_UU();
 	}
 
@@ -312,11 +357,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setM_Product_CategoryInput(ForeignEntityInput M_Product_Category) {
 		this.mM_Product_Category = M_Product_Category;
 		MProductCategory_BH foreignEntity;
-		if (M_Product_Category != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
-						.setParameters(M_Product_Category.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_Category_ID(foreignEntity.get_ID());
+		if (M_Product_Category != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
+							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_Category_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product_Category with UUID " + M_Product_Category.getUUID());
+			}
 		} else {
 			super.setM_Product_Category_ID(0);
 		}
@@ -341,11 +391,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (M_Product != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-						.setParameters(M_Product.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_ID(foreignEntity.get_ID());
+		if (M_Product != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
 		} else {
 			super.setM_Product_ID(0);
 		}
@@ -370,11 +425,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setStd_BaseInput(I_AD_Ref_ListInput Std_Base) {
 		this.mStd_Base = Std_Base;
 		MRefList_BH foreignEntity;
-		if (Std_Base != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Std_Base.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setStd_Base(foreignEntity.getValue());
+		if (Std_Base != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(Std_Base.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setStd_Base(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Std_Base.getUUID());
+			}
 		} else {
 			this.setStd_Base(null);
 		}
@@ -399,11 +459,16 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	public void setStd_RoundingInput(I_AD_Ref_ListInput Std_Rounding) {
 		this.mStd_Rounding = Std_Rounding;
 		MRefList_BH foreignEntity;
-		if (Std_Rounding != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(Std_Rounding.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setStd_Rounding(foreignEntity.getValue());
+		if (Std_Rounding != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(Std_Rounding.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setStd_Rounding(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Std_Rounding.getUUID());
+			}
 		} else {
 			this.setStd_Rounding(null);
 		}

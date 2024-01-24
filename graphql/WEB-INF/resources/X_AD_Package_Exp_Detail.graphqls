@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Package_Exp_DetailSave(entity: AD_Package_Exp_DetailInput!): AD_Package_Exp_Detail!
+	AD_Package_Exp_DetailSaveMany(entities: [AD_Package_Exp_DetailInput!]!): [AD_Package_Exp_Detail!]!
 	AD_Package_Exp_DetailDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type AD_Package_Exp_Detail {
 	AD_Org: AD_Org!
 	AD_Package_Code_New: String
 	AD_Package_Code_Old: String
-	ID: ID!
+	UUID: ID!
 	AD_Package_Exp: AD_Package_Exp!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
@@ -106,7 +107,7 @@ input AD_Package_Exp_DetailInput {
 	AD_Org: ForeignEntityInput
 	AD_Package_Code_New: String
 	AD_Package_Code_Old: String
-	ID: ID
+	UUID: ID
 	AD_Package_Exp: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Replication_RunSave(entity: AD_Replication_RunInput!): AD_Replication_Run!
+	AD_Replication_RunSaveMany(entities: [AD_Replication_RunInput!]!): [AD_Replication_Run!]!
 	AD_Replication_RunDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Replication_Run {
 	AD_Org: AD_Org!
 	# Data Replication Target
 	AD_Replication: AD_Replication!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,7 +47,7 @@ input AD_Replication_RunInput {
 	AD_Org: ForeignEntityInput
 	# Data Replication Target
 	AD_Replication: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

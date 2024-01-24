@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_InfoProcessSave(entity: AD_InfoProcessInput!): AD_InfoProcess!
+	AD_InfoProcessSaveMany(entities: [AD_InfoProcessInput!]!): [AD_InfoProcess!]!
 	AD_InfoProcessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_InfoProcess {
 	AD_Client: AD_Client!
 	# Info Window Column
 	AD_InfoColumn: AD_InfoColumn
-	ID: ID!
+	UUID: ID!
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow
 	# Organizational entity within client
@@ -52,7 +53,7 @@ type AD_InfoProcess {
 input AD_InfoProcessInput {
 	# Info Window Column
 	AD_InfoColumn: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
 	# Organizational entity within client

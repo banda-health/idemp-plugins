@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	ASP_LevelSave(entity: ASP_LevelInput!): ASP_Level!
+	ASP_LevelSaveMany(entities: [ASP_LevelInput!]!): [ASP_Level!]!
 	ASP_LevelDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type ASP_Level {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	ASP_Module: ASP_Module!
 	# Date this record was created
 	Created: Date!
@@ -46,7 +47,7 @@ type ASP_Level {
 input ASP_LevelInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	ASP_Module: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

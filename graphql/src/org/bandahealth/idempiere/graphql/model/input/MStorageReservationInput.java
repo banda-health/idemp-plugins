@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MStorageReservationInput extends X_M_StorageReservationInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_StorageReservation_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MStorageReservationInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MStorageReservationInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

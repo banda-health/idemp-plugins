@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_ReportLineSave(entity: PA_ReportLineInput!): PA_ReportLine!
+	PA_ReportLineSaveMany(entities: [PA_ReportLineInput!]!): [PA_ReportLine!]!
 	PA_ReportLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -45,7 +46,7 @@ type PA_ReportLine {
 	# Second operand for calculation
 	Oper_2: PA_ReportLine
 	OverlineStrokeType: AD_Ref_List
-	ID: ID!
+	UUID: ID!
 	PA_ReportLineSet: PA_ReportLineSet!
 	# PA Amount Type for reporting
 	PAAmountType: AD_Ref_List
@@ -86,7 +87,7 @@ input PA_ReportLineInput {
 	# Second operand for calculation
 	Oper_2: ForeignEntityInput
 	OverlineStrokeType: AD_Ref_ListInput
-	ID: ID
+	UUID: ID
 	PA_ReportLineSet: ForeignEntityInput
 	# PA Amount Type for reporting
 	PAAmountType: AD_Ref_ListInput

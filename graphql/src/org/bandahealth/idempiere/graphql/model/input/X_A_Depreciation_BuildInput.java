@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
@@ -9,6 +10,7 @@ import org.compiere.model.MDepreciationBuild;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -27,13 +29,16 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	private I_AD_Ref_ListInput mPostingType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The A_Depreciation_Build_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_A_Depreciation_BuildInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MDepreciationBuild(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_A_Depreciation_BuildInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDepreciationBuild(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 	/**
 	 * Set Build Depreciation.
@@ -48,20 +53,20 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setA_Depreciation_Build_UU(ID);
+	public void setUUID(String UUID) {
+		setA_Depreciation_Build_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getA_Depreciation_Build_UU();
 	}
 
@@ -74,11 +79,16 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	public void setA_End_AssetInput(ForeignEntityInput A_End_Asset) {
 		this.mA_End_Asset = A_End_Asset;
 		MAsset foreignEntity;
-		if (A_End_Asset != null &&
-				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-						.setParameters(A_End_Asset.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_End_Asset_ID(foreignEntity.get_ID());
+		if (A_End_Asset != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
+							.setParameters(A_End_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_End_Asset_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table A_Asset with UUID " + A_End_Asset.getUUID());
+			}
 		} else {
 			super.setA_End_Asset_ID(0);
 		}
@@ -103,11 +113,16 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	public void setA_Start_AssetInput(ForeignEntityInput A_Start_Asset) {
 		this.mA_Start_Asset = A_Start_Asset;
 		MAsset foreignEntity;
-		if (A_Start_Asset != null &&
-				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-						.setParameters(A_Start_Asset.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Start_Asset_ID(foreignEntity.get_ID());
+		if (A_Start_Asset != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
+							.setParameters(A_Start_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Start_Asset_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table A_Asset with UUID " + A_Start_Asset.getUUID());
+			}
 		} else {
 			super.setA_Start_Asset_ID(0);
 		}
@@ -132,11 +147,16 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		} else {
 			super.setAD_Org_ID(0);
 		}
@@ -161,11 +181,16 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
-		if (C_Period != null &&
-				(foreignEntity = new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-						.setParameters(C_Period.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Period_ID(foreignEntity.get_ID());
+		if (C_Period != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
+							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Period_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
+			}
 		} else {
 			super.setC_Period_ID(0);
 		}
@@ -190,11 +215,16 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
 		this.mPostingType = PostingType;
 		MRefList_BH foreignEntity;
-		if (PostingType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPostingType(foreignEntity.getValue());
+		if (PostingType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPostingType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PostingType.getUUID());
+			}
 		} else {
 			this.setPostingType(null);
 		}

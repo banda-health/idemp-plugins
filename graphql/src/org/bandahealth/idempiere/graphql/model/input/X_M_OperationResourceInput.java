@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MOrg;
@@ -9,6 +10,7 @@ import org.compiere.model.Query;
 import org.compiere.model.X_C_Job;
 import org.compiere.model.X_M_OperationResource;
 import org.compiere.model.X_M_ProductOperation;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -26,13 +28,16 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	private ForeignEntityInput mM_ProductOperation;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_OperationResource_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_OperationResourceInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_M_OperationResource(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_OperationResourceInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_OperationResource(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -44,11 +49,16 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
-		if (A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-						.setParameters(A_Asset.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Asset_ID(foreignEntity.get_ID());
+		if (A_Asset != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
+							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Asset_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
+			}
 		} else {
 			super.setA_Asset_ID(0);
 		}
@@ -73,11 +83,16 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -100,11 +115,16 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	public void setC_JobInput(ForeignEntityInput C_Job) {
 		this.mC_Job = C_Job;
 		X_C_Job foreignEntity;
-		if (C_Job != null &&
-				(foreignEntity = new Query(getCtx(), "C_Job", "C_Job_UU=?", get_TrxName())
-						.setParameters(C_Job.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Job_ID(foreignEntity.get_ID());
+		if (C_Job != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Job", "C_Job_UU=?", get_TrxName())
+							.setParameters(C_Job.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Job_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Job with UUID " + C_Job.getUUID());
+			}
 		} else {
 			super.setC_Job_ID(0);
 		}
@@ -132,20 +152,20 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_OperationResource_UU(ID);
+	public void setUUID(String UUID) {
+		setM_OperationResource_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_OperationResource_UU();
 	}
 
@@ -158,11 +178,16 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	public void setM_ProductOperationInput(ForeignEntityInput M_ProductOperation) {
 		this.mM_ProductOperation = M_ProductOperation;
 		X_M_ProductOperation foreignEntity;
-		if (get_ID() == 0 && M_ProductOperation != null &&
-				(foreignEntity = new Query(getCtx(), "M_ProductOperation", "M_ProductOperation_UU=?", get_TrxName())
-						.setParameters(M_ProductOperation.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_ProductOperation_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_ProductOperation != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_ProductOperation", "M_ProductOperation_UU=?", get_TrxName())
+							.setParameters(M_ProductOperation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_ProductOperation_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_ProductOperation with UUID " + M_ProductOperation.getUUID());
+			}
 		}
 	}
 

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	I_ReportLineSave(entity: I_ReportLineInput!): I_ReportLine!
+	I_ReportLineSaveMany(entities: [I_ReportLineInput!]!): [I_ReportLine!]!
 	I_ReportLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -35,7 +36,7 @@ type I_ReportLine {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this document / line is printed
@@ -82,7 +83,7 @@ input I_ReportLineInput {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document / line is printed

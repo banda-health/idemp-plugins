@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_DunningSave(entity: C_DunningInput!): C_Dunning!
+	C_DunningSaveMany(entities: [C_DunningInput!]!): [C_Dunning!]!
 	C_DunningDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_Dunning {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,7 +47,7 @@ type C_Dunning {
 input C_DunningInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Create Dunning Letter by level sequentially
 	CreateLevelsSequentially: Boolean
 	# Optional short description of the record

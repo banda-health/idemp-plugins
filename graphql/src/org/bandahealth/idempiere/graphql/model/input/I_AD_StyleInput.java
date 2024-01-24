@@ -25,18 +25,18 @@ public interface I_AD_StyleInput extends I_AD_Style {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID CSS Style for field and label
+	 * @param UUID CSS Style for field and label
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
 	 * @return CSS Style for field and label
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set AD_EntityType.

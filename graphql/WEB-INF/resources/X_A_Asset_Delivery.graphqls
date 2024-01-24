@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_DeliverySave(entity: A_Asset_DeliveryInput!): A_Asset_Delivery!
+	A_Asset_DeliverySaveMany(entities: [A_Asset_DeliveryInput!]!): [A_Asset_Delivery!]!
 	A_Asset_DeliveryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type A_Asset_DeliveryConnection {
 }
 
 type A_Asset_Delivery {
-	ID: ID!
+	UUID: ID!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	# Client/Tenant for this installation.
@@ -66,7 +67,7 @@ type A_Asset_Delivery {
 }
 
 input A_Asset_DeliveryInput {
-	ID: ID
+	UUID: ID
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	# Organizational entity within client

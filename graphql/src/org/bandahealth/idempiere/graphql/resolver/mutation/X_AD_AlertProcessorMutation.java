@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_AlertProcessorInput;
 import org.compiere.model.MAlertProcessor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_AlertProcessor - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_AlertProcessorMutation extends POMutation implements GraphQLMu
 		return X_AD_AlertProcessorInput.Table_Name;
 	}
 
-	public MAlertProcessor AD_AlertProcessorSave(I_AD_AlertProcessorInput input, DataFetchingEnvironment environment) {
-		return (MAlertProcessor) super.save((X_AD_AlertProcessorInput) input, environment);
+	public MAlertProcessor AD_AlertProcessorSave(I_AD_AlertProcessorInput entity, DataFetchingEnvironment environment) {
+		return (MAlertProcessor) super.save((X_AD_AlertProcessorInput) entity, environment);
+	}
+
+	public List<MAlertProcessor> AD_AlertProcessorSaveMany(List<I_AD_AlertProcessorInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_AlertProcessorInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAlertProcessor) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_AlertProcessorDelete(List<String> uuids, DataFetchingEnvironment environment) {

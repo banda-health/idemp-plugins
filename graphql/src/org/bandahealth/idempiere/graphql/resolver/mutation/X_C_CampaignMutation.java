@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_CampaignInput;
 import org.compiere.model.MCampaign;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_Campaign - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_CampaignMutation extends POMutation implements GraphQLMutationR
 		return X_C_CampaignInput.Table_Name;
 	}
 
-	public MCampaign C_CampaignSave(I_C_CampaignInput input, DataFetchingEnvironment environment) {
-		return (MCampaign) super.save((X_C_CampaignInput) input, environment);
+	public MCampaign C_CampaignSave(I_C_CampaignInput entity, DataFetchingEnvironment environment) {
+		return (MCampaign) super.save((X_C_CampaignInput) entity, environment);
+	}
+
+	public List<MCampaign> C_CampaignSaveMany(List<I_C_CampaignInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_CampaignInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MCampaign) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_CampaignDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BP_EDISave(entity: C_BP_EDIInput!): C_BP_EDI!
+	C_BP_EDISaveMany(entities: [C_BP_EDIInput!]!): [C_BP_EDI!]!
 	C_BP_EDIDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_BP_EDI {
 	AD_Org: AD_Org!
 	# Document Sequence
 	AD_Sequence: AD_Sequence!
-	ID: ID!
+	UUID: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Date this record was created
@@ -72,7 +73,7 @@ input C_BP_EDIInput {
 	AD_Org: ForeignEntityInput
 	# Document Sequence
 	AD_Sequence: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# EDI Identification Number 

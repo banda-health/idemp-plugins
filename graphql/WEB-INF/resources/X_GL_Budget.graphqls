@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	GL_BudgetSave(entity: GL_BudgetInput!): GL_Budget!
+	GL_BudgetSaveMany(entities: [GL_BudgetInput!]!): [GL_Budget!]!
 	GL_BudgetDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type GL_Budget {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this is the primary budget
@@ -48,7 +49,7 @@ input GL_BudgetInput {
 	BudgetStatus: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this is the primary budget

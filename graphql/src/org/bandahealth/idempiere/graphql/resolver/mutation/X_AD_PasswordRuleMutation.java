@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_PasswordRuleInput;
 import org.compiere.model.MPasswordRule;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_PasswordRule - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_PasswordRuleMutation extends POMutation implements GraphQLMuta
 		return X_AD_PasswordRuleInput.Table_Name;
 	}
 
-	public MPasswordRule AD_PasswordRuleSave(I_AD_PasswordRuleInput input, DataFetchingEnvironment environment) {
-		return (MPasswordRule) super.save((X_AD_PasswordRuleInput) input, environment);
+	public MPasswordRule AD_PasswordRuleSave(I_AD_PasswordRuleInput entity, DataFetchingEnvironment environment) {
+		return (MPasswordRule) super.save((X_AD_PasswordRuleInput) entity, environment);
+	}
+
+	public List<MPasswordRule> AD_PasswordRuleSaveMany(List<I_AD_PasswordRuleInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_PasswordRuleInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MPasswordRule) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_PasswordRuleDelete(List<String> uuids, DataFetchingEnvironment environment) {

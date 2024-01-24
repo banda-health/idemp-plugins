@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_ColorSchemaSave(entity: PA_ColorSchemaInput!): PA_ColorSchema!
+	PA_ColorSchemaSaveMany(entities: [PA_ColorSchemaInput!]!): [PA_ColorSchema!]!
 	PA_ColorSchemaDelete(uuids: [String!]!): Boolean!
 }
 
@@ -48,7 +49,7 @@ type PA_ColorSchema {
 	Mark4Percent: Int
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -82,5 +83,5 @@ input PA_ColorSchemaInput {
 	Mark4Percent: Int
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 }

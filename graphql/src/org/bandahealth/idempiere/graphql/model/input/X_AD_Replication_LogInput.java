@@ -2,12 +2,14 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MReplicationLog;
 import org.compiere.model.MReplicationRun;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_ReplicationTable;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -24,13 +26,16 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	private ForeignEntityInput mAD_Replication_Run;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Replication_Log_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_Replication_LogInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MReplicationLog(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_Replication_LogInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MReplicationLog(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -42,11 +47,16 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -72,20 +82,20 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_Replication_Log_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_Replication_Log_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_Replication_Log_UU();
 	}
 
@@ -98,11 +108,16 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	public void setAD_Replication_RunInput(ForeignEntityInput AD_Replication_Run) {
 		this.mAD_Replication_Run = AD_Replication_Run;
 		MReplicationRun foreignEntity;
-		if (get_ID() == 0 && AD_Replication_Run != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Replication_Run", "AD_Replication_Run_UU=?", get_TrxName())
-						.setParameters(AD_Replication_Run.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Replication_Run_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Replication_Run != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Replication_Run", "AD_Replication_Run_UU=?", get_TrxName())
+							.setParameters(AD_Replication_Run.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Replication_Run_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Replication_Run with UUID " + AD_Replication_Run.getUUID());
+			}
 		}
 	}
 
@@ -125,11 +140,16 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	public void setAD_ReplicationTableInput(ForeignEntityInput AD_ReplicationTable) {
 		this.mAD_ReplicationTable = AD_ReplicationTable;
 		X_AD_ReplicationTable foreignEntity;
-		if (AD_ReplicationTable != null &&
-				(foreignEntity = new Query(getCtx(), "AD_ReplicationTable", "AD_ReplicationTable_UU=?", get_TrxName())
-						.setParameters(AD_ReplicationTable.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_ReplicationTable_ID(foreignEntity.get_ID());
+		if (AD_ReplicationTable != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_ReplicationTable", "AD_ReplicationTable_UU=?", get_TrxName())
+							.setParameters(AD_ReplicationTable.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_ReplicationTable_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_ReplicationTable with UUID " + AD_ReplicationTable.getUUID());
+			}
 		} else {
 			super.setAD_ReplicationTable_ID(0);
 		}

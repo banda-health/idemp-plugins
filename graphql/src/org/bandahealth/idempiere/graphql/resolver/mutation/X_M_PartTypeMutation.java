@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_PartTypeInput;
 import org.compiere.model.X_M_PartType;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_PartType - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_PartTypeMutation extends POMutation implements GraphQLMutationR
 		return X_M_PartTypeInput.Table_Name;
 	}
 
-	public X_M_PartType M_PartTypeSave(I_M_PartTypeInput input, DataFetchingEnvironment environment) {
-		return (X_M_PartType) super.save((X_M_PartTypeInput) input, environment);
+	public X_M_PartType M_PartTypeSave(I_M_PartTypeInput entity, DataFetchingEnvironment environment) {
+		return (X_M_PartType) super.save((X_M_PartTypeInput) entity, environment);
+	}
+
+	public List<X_M_PartType> M_PartTypeSaveMany(List<I_M_PartTypeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_PartTypeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_M_PartType) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_PartTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {

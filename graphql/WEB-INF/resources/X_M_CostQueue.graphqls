@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_CostQueueSave(entity: M_CostQueueInput!): M_CostQueue!
+	M_CostQueueSaveMany(entities: [M_CostQueueInput!]!): [M_CostQueue!]!
 	M_CostQueueDelete(uuids: [String!]!): Boolean!
 }
 
@@ -36,7 +37,7 @@ type M_CostQueue {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Product Cost Element
 	M_CostElement: M_CostElement!
-	ID: ID!
+	UUID: ID!
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: M_CostType!
 	# Product, Service, Item
@@ -62,7 +63,7 @@ input M_CostQueueInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Product Cost Element
 	M_CostElement: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: ForeignEntityInput
 	# Product, Service, Item

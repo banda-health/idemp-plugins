@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_CostDetailSave(entity: M_CostDetailInput!): M_CostDetail!
+	M_CostDetailSaveMany(entities: [M_CostDetailInput!]!): [M_CostDetail!]!
 	M_CostDetailDelete(uuids: [String!]!): Boolean!
 }
 
@@ -54,7 +55,7 @@ type M_CostDetail {
 	IsSOTrx: Boolean!
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
-	ID: ID!
+	UUID: ID!
 	# Product Cost Element
 	M_CostElement: M_CostElement
 	# Line on Shipment or Receipt document
@@ -115,7 +116,7 @@ input M_CostDetailInput {
 	IsSOTrx: Boolean
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Product Cost Element
 	M_CostElement: ForeignEntityInput
 	# Line on Shipment or Receipt document

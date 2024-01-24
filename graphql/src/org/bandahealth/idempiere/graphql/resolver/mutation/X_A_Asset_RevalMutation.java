@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_A_Asset_RevalInput;
 import org.compiere.model.MAssetReval;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for A_Asset_Reval - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_A_Asset_RevalMutation extends POMutation implements GraphQLMutati
 		return X_A_Asset_RevalInput.Table_Name;
 	}
 
-	public MAssetReval A_Asset_RevalSave(I_A_Asset_RevalInput input, DataFetchingEnvironment environment) {
-		return (MAssetReval) super.save((X_A_Asset_RevalInput) input, environment);
+	public MAssetReval A_Asset_RevalSave(I_A_Asset_RevalInput entity, DataFetchingEnvironment environment) {
+		return (MAssetReval) super.save((X_A_Asset_RevalInput) entity, environment);
+	}
+
+	public List<MAssetReval> A_Asset_RevalSaveMany(List<I_A_Asset_RevalInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_RevalInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAssetReval) entity).collect(Collectors.toList());
 	}
 
 	public boolean A_Asset_RevalDelete(List<String> uuids, DataFetchingEnvironment environment) {

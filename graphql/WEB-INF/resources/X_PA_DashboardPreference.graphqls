@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_DashboardPreferenceSave(entity: PA_DashboardPreferenceInput!): PA_DashboardPreference!
+	PA_DashboardPreferenceSaveMany(entities: [PA_DashboardPreferenceInput!]!): [PA_DashboardPreference!]!
 	PA_DashboardPreferenceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -39,7 +40,7 @@ type PA_DashboardPreference {
 	# Unique line for this document
 	Line: BigDecimal
 	PA_DashboardContent: PA_DashboardContent!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -64,5 +65,5 @@ input PA_DashboardPreferenceInput {
 	# Unique line for this document
 	Line: BigDecimal
 	PA_DashboardContent: ForeignEntityInput
-	ID: ID
+	UUID: ID
 }

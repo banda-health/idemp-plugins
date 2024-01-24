@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_Info_FinSave(entity: A_Asset_Info_FinInput!): A_Asset_Info_Fin!
+	A_Asset_Info_FinSaveMany(entities: [A_Asset_Info_FinInput!]!): [A_Asset_Info_Fin!]!
 	A_Asset_Info_FinDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type A_Asset_Info_FinConnection {
 type A_Asset_Info_Fin {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	ID: ID!
+	UUID: ID!
 	A_Contract_Date: Date
 	A_Due_On: AD_Ref_List
 	A_Expired_Date: Date
@@ -53,7 +54,7 @@ type A_Asset_Info_Fin {
 input A_Asset_Info_FinInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	A_Contract_Date: Date
 	A_Due_On: AD_Ref_ListInput
 	A_Expired_Date: Date

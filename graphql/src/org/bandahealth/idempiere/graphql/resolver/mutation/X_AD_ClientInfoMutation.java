@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_ClientInfoInput;
 import org.compiere.model.MClientInfo;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_ClientInfo - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_ClientInfoMutation extends POMutation implements GraphQLMutati
 		return X_AD_ClientInfoInput.Table_Name;
 	}
 
-	public MClientInfo AD_ClientInfoSave(I_AD_ClientInfoInput input, DataFetchingEnvironment environment) {
-		return (MClientInfo) super.save((X_AD_ClientInfoInput) input, environment);
+	public MClientInfo AD_ClientInfoSave(I_AD_ClientInfoInput entity, DataFetchingEnvironment environment) {
+		return (MClientInfo) super.save((X_AD_ClientInfoInput) entity, environment);
+	}
+
+	public List<MClientInfo> AD_ClientInfoSaveMany(List<I_AD_ClientInfoInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_ClientInfoInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MClientInfo) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_ClientInfoDelete(List<String> uuids, DataFetchingEnvironment environment) {

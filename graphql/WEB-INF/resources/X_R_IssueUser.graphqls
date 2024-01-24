@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_IssueUserSave(entity: R_IssueUserInput!): R_IssueUser!
+	R_IssueUserSaveMany(entities: [R_IssueUserInput!]!): [R_IssueUser!]!
 	R_IssueUserDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type R_IssueUser {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -47,6 +48,6 @@ input R_IssueUserInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	UserName: String
 }

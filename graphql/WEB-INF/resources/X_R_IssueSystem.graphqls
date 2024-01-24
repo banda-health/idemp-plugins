@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_IssueSystemSave(entity: R_IssueSystemInput!): R_IssueSystem!
+	R_IssueSystemSaveMany(entities: [R_IssueSystemInput!]!): [R_IssueSystem!]!
 	R_IssueSystemDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type R_IssueSystem {
 	IsActive: Boolean!
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
-	ID: ID!
+	UUID: ID!
 	# Information to help profiling the system for solving support issues
 	StatisticsInfo: String
 	# Status of the system - Support priority depends on system status
@@ -54,7 +55,7 @@ input R_IssueSystemInput {
 	IsActive: Boolean
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
-	ID: ID
+	UUID: ID
 	# Information to help profiling the system for solving support issues
 	StatisticsInfo: String
 	# Status of the system - Support priority depends on system status

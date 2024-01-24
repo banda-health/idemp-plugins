@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	GL_BudgetControlSave(entity: GL_BudgetControlInput!): GL_BudgetControl!
+	GL_BudgetControlSaveMany(entities: [GL_BudgetControlInput!]!): [GL_BudgetControl!]!
 	GL_BudgetControlDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type GL_BudgetControl {
 	Description: String
 	# General Ledger Budget
 	GL_Budget: GL_Budget!
-	ID: ID!
+	UUID: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -62,7 +63,7 @@ input GL_BudgetControlInput {
 	Description: String
 	# General Ledger Budget
 	GL_Budget: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

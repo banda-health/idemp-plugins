@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_RfQSave(entity: C_RfQInput!): C_RfQ!
+	C_RfQSaveMany(entities: [C_RfQInput!]!): [C_RfQ!]!
 	C_RfQDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type C_RfQ {
 	C_Order: C_Order
 	# Topic for Request for Quotations
 	C_RfQ_Topic: C_RfQ_Topic!
-	ID: ID!
+	UUID: ID!
 	CopyLines: String
 	# Date this record was created
 	Created: Date!
@@ -101,7 +102,7 @@ input C_RfQInput {
 	C_Order: ForeignEntityInput
 	# Topic for Request for Quotations
 	C_RfQ_Topic: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	CopyLines: String
 	# Create Purchase Order
 	CreatePO: String

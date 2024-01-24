@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_OrderSave(entity: PP_OrderInput!): PP_Order!
+	PP_OrderSaveMany(entities: [PP_OrderInput!]!): [PP_Order!]!
 	PP_OrderDelete(uuids: [String!]!): Boolean!
 }
 
@@ -96,7 +97,7 @@ type PP_Order {
 	Planner: AD_User
 	# Posting status
 	Posted: Boolean!
-	ID: ID!
+	UUID: ID!
 	# BOM & Formula
 	PP_Product_BOM: PP_Product_BOM!
 	# Priority of a document
@@ -212,7 +213,7 @@ input PP_OrderInput {
 	Planner: ForeignEntityInput
 	# Posting status
 	Posted: Boolean
-	ID: ID
+	UUID: ID
 	# BOM & Formula
 	PP_Product_BOM: ForeignEntityInput
 	# Priority of a document

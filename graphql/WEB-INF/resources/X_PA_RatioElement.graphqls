@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_RatioElementSave(entity: PA_RatioElementInput!): PA_RatioElement!
+	PA_RatioElementSaveMany(entities: [PA_RatioElementInput!]!): [PA_RatioElement!]!
 	PA_RatioElementDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type PA_RatioElement {
 	PA_MeasureCalc: PA_MeasureCalc
 	# Performance Ratio
 	PA_Ratio: PA_Ratio!
-	ID: ID!
+	UUID: ID!
 	# Performance Ratio Used
 	PA_RatioUsed: PA_Ratio
 	# The type of posted amount for the transaction
@@ -72,7 +73,7 @@ input PA_RatioElementInput {
 	PA_MeasureCalc: ForeignEntityInput
 	# Performance Ratio
 	PA_Ratio: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Performance Ratio Used
 	PA_RatioUsed: ForeignEntityInput
 	# The type of posted amount for the transaction

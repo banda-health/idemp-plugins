@@ -11,9 +11,9 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportSourceDataLo
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MElementValue;
 import org.compiere.model.X_I_ReportLine;
-import org.compiere.model.X_PA_ReportLine;
-import org.compiere.model.X_PA_ReportLineSet;
-import org.compiere.model.X_PA_ReportSource;
+import org.compiere.report.MReportLine;
+import org.compiere.report.MReportLineSet;
+import org.compiere.report.MReportSource;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -57,7 +57,7 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(CALCULATIONTYPE_UUIDS_BY_VALUE.get(entity.getCalculationType()));
 	}
 
@@ -85,7 +85,7 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(LINETYPE_UUIDS_BY_VALUE.get(entity.getLineType()));
 	}
 
@@ -95,11 +95,11 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 	 *
 	 * @return Report Line
 	 */
-	public CompletableFuture<X_PA_ReportLine> PA_ReportLine(X_I_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportLine> PA_ReportLine(X_I_ReportLine entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, X_PA_ReportLine> dataLoader =
+		DataLoader<Integer, MReportLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineDataLoader.DATALOADER_PA_ReportLine_BY_ID);
 		return dataLoader.load(entity.getPA_ReportLine_ID());
 	}
@@ -110,11 +110,11 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 	 *
 	 * @return Report Line Set
 	 */
-	public CompletableFuture<X_PA_ReportLineSet> PA_ReportLineSet(X_I_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportLineSet> PA_ReportLineSet(X_I_ReportLine entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportLineSet_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, X_PA_ReportLineSet> dataLoader =
+		DataLoader<Integer, MReportLineSet> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineSetDataLoader.DATALOADER_PA_ReportLineSet_BY_ID);
 		return dataLoader.load(entity.getPA_ReportLineSet_ID());
 	}
@@ -125,11 +125,11 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 	 *
 	 * @return Restriction of what will be shown in Report Line
 	 */
-	public CompletableFuture<X_PA_ReportSource> PA_ReportSource(X_I_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportSource> PA_ReportSource(X_I_ReportLine entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportSource_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, X_PA_ReportSource> dataLoader =
+		DataLoader<Integer, MReportSource> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportSourceDataLoader.DATALOADER_PA_ReportSource_BY_ID);
 		return dataLoader.load(entity.getPA_ReportSource_ID());
 	}
@@ -149,7 +149,7 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(PAAMOUNTTYPE_UUIDS_BY_VALUE.get(entity.getPAAmountType()));
 	}
 
@@ -166,7 +166,7 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(PAPERIODTYPE_UUIDS_BY_VALUE.get(entity.getPAPeriodType()));
 	}
 
@@ -184,7 +184,7 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(POSTINGTYPE_UUIDS_BY_VALUE.get(entity.getPostingType()));
 	}
 

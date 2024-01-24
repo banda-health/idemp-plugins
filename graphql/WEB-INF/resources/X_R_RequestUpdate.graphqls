@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_RequestUpdateSave(entity: R_RequestUpdateInput!): R_RequestUpdate!
+	R_RequestUpdateSaveMany(entities: [R_RequestUpdateInput!]!): [R_RequestUpdate!]!
 	R_RequestUpdateDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type R_RequestUpdate {
 	QtySpent: BigDecimal
 	# Request from a Business Partner or Prospect
 	R_Request: R_Request!
-	ID: ID!
+	UUID: ID!
 	# Result of the action taken
 	Result: String
 	# Time started
@@ -66,7 +67,7 @@ input R_RequestUpdateInput {
 	QtySpent: BigDecimal
 	# Request from a Business Partner or Prospect
 	R_Request: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Result of the action taken
 	Result: String
 	# Time started

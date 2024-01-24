@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_IMP_Processor_TypeInput;
 import org.compiere.model.X_IMP_Processor_Type;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for IMP_Processor_Type - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_IMP_Processor_TypeMutation extends POMutation implements GraphQLM
 		return X_IMP_Processor_TypeInput.Table_Name;
 	}
 
-	public X_IMP_Processor_Type IMP_Processor_TypeSave(I_IMP_Processor_TypeInput input, DataFetchingEnvironment environment) {
-		return (X_IMP_Processor_Type) super.save((X_IMP_Processor_TypeInput) input, environment);
+	public X_IMP_Processor_Type IMP_Processor_TypeSave(I_IMP_Processor_TypeInput entity, DataFetchingEnvironment environment) {
+		return (X_IMP_Processor_Type) super.save((X_IMP_Processor_TypeInput) entity, environment);
+	}
+
+	public List<X_IMP_Processor_Type> IMP_Processor_TypeSaveMany(List<I_IMP_Processor_TypeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_IMP_Processor_TypeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_IMP_Processor_Type) entity).collect(Collectors.toList());
 	}
 
 	public boolean IMP_Processor_TypeDelete(List<String> uuids, DataFetchingEnvironment environment) {

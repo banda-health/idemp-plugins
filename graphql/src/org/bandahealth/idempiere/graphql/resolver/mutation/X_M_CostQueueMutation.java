@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_CostQueueInput;
 import org.compiere.model.MCostQueue;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_CostQueue - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_CostQueueMutation extends POMutation implements GraphQLMutation
 		return X_M_CostQueueInput.Table_Name;
 	}
 
-	public MCostQueue M_CostQueueSave(I_M_CostQueueInput input, DataFetchingEnvironment environment) {
-		return (MCostQueue) super.save((X_M_CostQueueInput) input, environment);
+	public MCostQueue M_CostQueueSave(I_M_CostQueueInput entity, DataFetchingEnvironment environment) {
+		return (MCostQueue) super.save((X_M_CostQueueInput) entity, environment);
+	}
+
+	public List<MCostQueue> M_CostQueueSaveMany(List<I_M_CostQueueInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_CostQueueInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MCostQueue) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_CostQueueDelete(List<String> uuids, DataFetchingEnvironment environment) {

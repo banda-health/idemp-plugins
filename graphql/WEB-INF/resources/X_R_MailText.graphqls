@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_MailTextSave(entity: R_MailTextInput!): R_MailText!
+	R_MailTextSaveMany(entities: [R_MailTextInput!]!): [R_MailText!]!
 	R_MailTextDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type R_MailText {
 	MailText3: String
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -62,5 +63,5 @@ input R_MailTextInput {
 	MailText3: String
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 }

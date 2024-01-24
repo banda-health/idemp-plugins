@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_OperationResourceSave(entity: M_OperationResourceInput!): M_OperationResource!
+	M_OperationResourceSaveMany(entities: [M_OperationResourceInput!]!): [M_OperationResource!]!
 	M_OperationResourceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_OperationResource {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Product Manufacturing Operation
 	M_ProductOperation: M_ProductOperation!
 	# Alphanumeric identifier of the entity
@@ -64,7 +65,7 @@ input M_OperationResourceInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Product Manufacturing Operation
 	M_ProductOperation: ForeignEntityInput
 	# Alphanumeric identifier of the entity

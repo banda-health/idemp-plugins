@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_Project_AcctInput;
 import org.compiere.model.X_C_Project_Acct;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_Project_Acct - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_Project_AcctMutation extends POMutation implements GraphQLMutat
 		return X_C_Project_AcctInput.Table_Name;
 	}
 
-	public X_C_Project_Acct C_Project_AcctSave(I_C_Project_AcctInput input, DataFetchingEnvironment environment) {
-		return (X_C_Project_Acct) super.save((X_C_Project_AcctInput) input, environment);
+	public X_C_Project_Acct C_Project_AcctSave(I_C_Project_AcctInput entity, DataFetchingEnvironment environment) {
+		return (X_C_Project_Acct) super.save((X_C_Project_AcctInput) entity, environment);
+	}
+
+	public List<X_C_Project_Acct> C_Project_AcctSaveMany(List<I_C_Project_AcctInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_Project_AcctInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_C_Project_Acct) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_Project_AcctDelete(List<String> uuids, DataFetchingEnvironment environment) {

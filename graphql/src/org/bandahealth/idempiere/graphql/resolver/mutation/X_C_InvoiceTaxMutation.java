@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_InvoiceTaxInput;
 import org.compiere.model.MInvoiceTax;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_InvoiceTax - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_InvoiceTaxMutation extends POMutation implements GraphQLMutatio
 		return X_C_InvoiceTaxInput.Table_Name;
 	}
 
-	public MInvoiceTax C_InvoiceTaxSave(I_C_InvoiceTaxInput input, DataFetchingEnvironment environment) {
-		return (MInvoiceTax) super.save((X_C_InvoiceTaxInput) input, environment);
+	public MInvoiceTax C_InvoiceTaxSave(I_C_InvoiceTaxInput entity, DataFetchingEnvironment environment) {
+		return (MInvoiceTax) super.save((X_C_InvoiceTaxInput) entity, environment);
+	}
+
+	public List<MInvoiceTax> C_InvoiceTaxSaveMany(List<I_C_InvoiceTaxInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_InvoiceTaxInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MInvoiceTax) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_InvoiceTaxDelete(List<String> uuids, DataFetchingEnvironment environment) {

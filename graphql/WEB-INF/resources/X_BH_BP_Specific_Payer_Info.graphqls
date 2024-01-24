@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_BP_Specific_Payer_InfoSave(entity: BH_BP_Specific_Payer_InfoInput!): BH_BP_Specific_Payer_Info!
+	BH_BP_Specific_Payer_InfoSaveMany(entities: [BH_BP_Specific_Payer_InfoInput!]!): [BH_BP_Specific_Payer_Info!]!
 	BH_BP_Specific_Payer_InfoDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type BH_BP_Specific_Payer_Info {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	BH_Payer_Info_Fld: BH_Payer_Info_Fld!
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine!
@@ -43,7 +44,7 @@ type BH_BP_Specific_Payer_Info {
 input BH_BP_Specific_Payer_InfoInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	BH_Payer_Info_Fld: ForeignEntityInput
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput

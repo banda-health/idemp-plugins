@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCtxHelp;
 import org.compiere.model.MCtxHelpMsg;
@@ -11,6 +12,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_AllClients_V;
 import org.compiere.model.X_AD_AllUsers_V;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -30,13 +32,16 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	private ForeignEntityInput mAD_UserClient;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_CtxHelpSuggestion_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_CtxHelpSuggestionInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MCtxHelpSuggestion(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_CtxHelpSuggestionInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MCtxHelpSuggestion(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -48,11 +53,16 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	public void setAD_CtxHelpInput(ForeignEntityInput AD_CtxHelp) {
 		this.mAD_CtxHelp = AD_CtxHelp;
 		MCtxHelp foreignEntity;
-		if (get_ID() == 0 && AD_CtxHelp != null &&
-				(foreignEntity = new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
-						.setParameters(AD_CtxHelp.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_CtxHelp_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_CtxHelp != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
+							.setParameters(AD_CtxHelp.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_CtxHelp_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_CtxHelp with UUID " + AD_CtxHelp.getUUID());
+			}
 		}
 	}
 
@@ -75,11 +85,16 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	public void setAD_CtxHelpMsgInput(ForeignEntityInput AD_CtxHelpMsg) {
 		this.mAD_CtxHelpMsg = AD_CtxHelpMsg;
 		MCtxHelpMsg foreignEntity;
-		if (get_ID() == 0 && AD_CtxHelpMsg != null &&
-				(foreignEntity = new Query(getCtx(), "AD_CtxHelpMsg", "AD_CtxHelpMsg_UU=?", get_TrxName())
-						.setParameters(AD_CtxHelpMsg.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_CtxHelpMsg_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_CtxHelpMsg != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_CtxHelpMsg", "AD_CtxHelpMsg_UU=?", get_TrxName())
+							.setParameters(AD_CtxHelpMsg.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_CtxHelpMsg_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_CtxHelpMsg with UUID " + AD_CtxHelpMsg.getUUID());
+			}
 		}
 	}
 
@@ -105,20 +120,20 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_CtxHelpSuggestion_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_CtxHelpSuggestion_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_CtxHelpSuggestion_UU();
 	}
 
@@ -131,11 +146,16 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
 		MLanguage foreignEntity;
-		if (get_ID() == 0 && AD_Language != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-						.setParameters(AD_Language.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Language(foreignEntity.getAD_Language());
+		if (get_ID() == 0 && AD_Language != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
+							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Language(foreignEntity.getAD_Language());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
+			}
 		}
 	}
 
@@ -158,11 +178,16 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -185,11 +210,16 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		X_AD_AllUsers_V foreignEntity;
-		if (get_ID() == 0 && AD_User != null &&
-				(foreignEntity = new Query(getCtx(), "AD_AllUsers_V", "AD_AllUsers_V_UU=?", get_TrxName())
-						.setParameters(AD_User.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_User_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_User != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_AllUsers_V", "AD_AllUsers_V_UU=?", get_TrxName())
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_User_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_AllUsers_V with UUID " + AD_User.getUUID());
+			}
 		}
 	}
 
@@ -212,11 +242,16 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	public void setAD_UserClientInput(ForeignEntityInput AD_UserClient) {
 		this.mAD_UserClient = AD_UserClient;
 		X_AD_AllClients_V foreignEntity;
-		if (get_ID() == 0 && AD_UserClient != null &&
-				(foreignEntity = new Query(getCtx(), "AD_AllClients_V", "AD_AllClients_V_UU=?", get_TrxName())
-						.setParameters(AD_UserClient.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_UserClient_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_UserClient != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_AllClients_V", "AD_AllClients_V_UU=?", get_TrxName())
+							.setParameters(AD_UserClient.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_UserClient_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_AllClients_V with UUID " + AD_UserClient.getUUID());
+			}
 		}
 	}
 

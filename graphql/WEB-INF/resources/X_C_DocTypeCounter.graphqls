@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_DocTypeCounterSave(entity: C_DocTypeCounterInput!): C_DocTypeCounter!
+	C_DocTypeCounterSaveMany(entities: [C_DocTypeCounterInput!]!): [C_DocTypeCounter!]!
 	C_DocTypeCounterDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_DocTypeCounter {
 	AD_Org: AD_Org!
 	# Document type or rules
 	C_DocType: C_DocType!
-	ID: ID!
+	UUID: ID!
 	# Generated Counter Document Type (To)
 	Counter_C_DocType: C_DocType!
 	# Date this record was created
@@ -53,7 +54,7 @@ input C_DocTypeCounterInput {
 	AD_Org: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Generated Counter Document Type (To)
 	Counter_C_DocType: ForeignEntityInput
 	# Optional short description of the record

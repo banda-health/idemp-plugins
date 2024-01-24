@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ToolBarButtonRestrictSave(entity: AD_ToolBarButtonRestrictInput!): AD_ToolBarButtonRestrict!
+	AD_ToolBarButtonRestrictSaveMany(entities: [AD_ToolBarButtonRestrictInput!]!): [AD_ToolBarButtonRestrict!]!
 	AD_ToolBarButtonRestrictDelete(uuids: [String!]!): Boolean!
 }
 
@@ -29,7 +30,7 @@ type AD_ToolBarButtonRestrict {
 	# Tab within a Window
 	AD_Tab: AD_Tab
 	AD_ToolBarButton: AD_ToolBarButton
-	ID: ID!
+	UUID: ID!
 	# Data entry or display window
 	AD_Window: AD_Window
 	# Date this record was created
@@ -58,7 +59,7 @@ input AD_ToolBarButtonRestrictInput {
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput
 	AD_ToolBarButton: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	# The record is active in the system

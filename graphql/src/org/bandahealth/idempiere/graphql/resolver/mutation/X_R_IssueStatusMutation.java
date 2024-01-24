@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_R_IssueStatusInput;
 import org.compiere.model.X_R_IssueStatus;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for R_IssueStatus - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_R_IssueStatusMutation extends POMutation implements GraphQLMutati
 		return X_R_IssueStatusInput.Table_Name;
 	}
 
-	public X_R_IssueStatus R_IssueStatusSave(I_R_IssueStatusInput input, DataFetchingEnvironment environment) {
-		return (X_R_IssueStatus) super.save((X_R_IssueStatusInput) input, environment);
+	public X_R_IssueStatus R_IssueStatusSave(I_R_IssueStatusInput entity, DataFetchingEnvironment environment) {
+		return (X_R_IssueStatus) super.save((X_R_IssueStatusInput) entity, environment);
+	}
+
+	public List<X_R_IssueStatus> R_IssueStatusSaveMany(List<I_R_IssueStatusInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_R_IssueStatusInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_R_IssueStatus) entity).collect(Collectors.toList());
 	}
 
 	public boolean R_IssueStatusDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_I_OrderInput;
 import org.compiere.model.X_I_Order;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for I_Order - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_I_OrderMutation extends POMutation implements GraphQLMutationReso
 		return X_I_OrderInput.Table_Name;
 	}
 
-	public X_I_Order I_OrderSave(I_I_OrderInput input, DataFetchingEnvironment environment) {
-		return (X_I_Order) super.save((X_I_OrderInput) input, environment);
+	public X_I_Order I_OrderSave(I_I_OrderInput entity, DataFetchingEnvironment environment) {
+		return (X_I_Order) super.save((X_I_OrderInput) entity, environment);
+	}
+
+	public List<X_I_Order> I_OrderSaveMany(List<I_I_OrderInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_I_OrderInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_I_Order) entity).collect(Collectors.toList());
 	}
 
 	public boolean I_OrderDelete(List<String> uuids, DataFetchingEnvironment environment) {

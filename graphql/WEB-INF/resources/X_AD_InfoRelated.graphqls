@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_InfoRelatedSave(entity: AD_InfoRelatedInput!): AD_InfoRelated!
+	AD_InfoRelatedSaveMany(entities: [AD_InfoRelatedInput!]!): [AD_InfoRelated!]!
 	AD_InfoRelatedDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_InfoRelatedConnection {
 type AD_InfoRelated {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow!
 	# Organizational entity within client
@@ -52,7 +53,7 @@ type AD_InfoRelated {
 }
 
 input AD_InfoRelatedInput {
-	ID: ID
+	UUID: ID
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
 	# Organizational entity within client

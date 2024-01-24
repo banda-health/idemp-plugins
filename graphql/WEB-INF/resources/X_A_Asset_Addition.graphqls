@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_AdditionSave(entity: A_Asset_AdditionInput!): A_Asset_Addition!
+	A_Asset_AdditionSaveMany(entities: [A_Asset_AdditionInput!]!): [A_Asset_Addition!]!
 	A_Asset_AdditionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type A_Asset_AdditionConnection {
 }
 
 type A_Asset_Addition {
-	ID: ID!
+	UUID: ID!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_CapvsExp: AD_Ref_List!
@@ -101,7 +102,7 @@ type A_Asset_Addition {
 }
 
 input A_Asset_AdditionInput {
-	ID: ID
+	UUID: ID
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_CapvsExp: AD_Ref_ListInput

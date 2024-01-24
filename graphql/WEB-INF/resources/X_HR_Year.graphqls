@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_YearSave(entity: HR_YearInput!): HR_Year!
+	HR_YearSaveMany(entities: [HR_YearInput!]!): [HR_Year!]!
 	HR_YearDelete(uuids: [String!]!): Boolean!
 }
 
@@ -27,7 +28,7 @@ type HR_Year {
 	# User who created this records
 	CreatedBy: AD_User!
 	HR_Payroll: HR_Payroll!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Net Days in which payment is due
@@ -51,7 +52,7 @@ input HR_YearInput {
 	# Calendar Year
 	C_Year: ForeignEntityInput
 	HR_Payroll: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Net Days in which payment is due

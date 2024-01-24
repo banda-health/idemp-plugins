@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	ASP_Ref_ListSave(entity: ASP_Ref_ListInput!): ASP_Ref_List!
+	ASP_Ref_ListSaveMany(entities: [ASP_Ref_ListInput!]!): [ASP_Ref_List!]!
 	ASP_Ref_ListDelete(uuids: [String!]!): Boolean!
 }
 
@@ -25,7 +26,7 @@ type ASP_Ref_List {
 	# System Reference and Validation
 	AD_Reference: AD_Reference!
 	ASP_Level: ASP_Level!
-	ID: ID!
+	UUID: ID!
 	ASP_Status: AD_Ref_List
 	# Date this record was created
 	Created: Date!
@@ -47,7 +48,7 @@ input ASP_Ref_ListInput {
 	# System Reference and Validation
 	AD_Reference: ForeignEntityInput
 	ASP_Level: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	ASP_Status: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean

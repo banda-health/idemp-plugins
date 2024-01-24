@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	S_Training_ClassSave(entity: S_Training_ClassInput!): S_Training_Class!
+	S_Training_ClassSaveMany(entities: [S_Training_ClassInput!]!): [S_Training_Class!]!
 	S_Training_ClassDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type S_Training_Class {
 	IsActive: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
-	ID: ID!
+	UUID: ID!
 	# Repeated Training
 	S_Training: S_Training!
 	# First effective day (inclusive)
@@ -50,7 +51,7 @@ input S_Training_ClassInput {
 	IsActive: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Repeated Training
 	S_Training: ForeignEntityInput
 	# First effective day (inclusive)

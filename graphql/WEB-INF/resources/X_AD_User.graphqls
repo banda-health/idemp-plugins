@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_UserSave(entity: AD_UserInput!): AD_User!
+	AD_UserSaveMany(entities: [AD_UserInput!]!): [AD_User!]!
 	AD_UserDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_User {
 	AD_Image: AD_Image
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	Answer: String
 	BH_HasAcceptedTermsOfUse: Boolean!
 	BH_TOS_DATE_ACCEPTED: Date
@@ -139,7 +140,7 @@ input AD_UserInput {
 	AD_Image: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	Answer: String
 	BH_HasAcceptedTermsOfUse: Boolean
 	BH_TOS_DATE_ACCEPTED: Date

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Tab_CustomizationSave(entity: AD_Tab_CustomizationInput!): AD_Tab_Customization!
+	AD_Tab_CustomizationSaveMany(entities: [AD_Tab_CustomizationInput!]!): [AD_Tab_Customization!]!
 	AD_Tab_CustomizationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Tab_Customization {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Tab within a Window
 	AD_Tab: AD_Tab
 	# User within the system - Internal or Business Partner Contact
@@ -44,7 +45,7 @@ type AD_Tab_Customization {
 input AD_Tab_CustomizationInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

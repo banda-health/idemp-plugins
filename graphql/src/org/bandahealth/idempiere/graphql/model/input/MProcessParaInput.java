@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MProcessParaInput extends X_AD_Process_ParaInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Process_Para_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProcessParaInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MProcessParaInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

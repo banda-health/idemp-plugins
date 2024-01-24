@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_ListTypeSave(entity: HR_ListTypeInput!): HR_ListType!
+	HR_ListTypeSaveMany(entities: [HR_ListTypeInput!]!): [HR_ListType!]!
 	HR_ListTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type HR_ListType {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -44,7 +45,7 @@ input HR_ListTypeInput {
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

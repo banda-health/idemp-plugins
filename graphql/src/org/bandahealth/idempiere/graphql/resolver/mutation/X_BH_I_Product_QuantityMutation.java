@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_BH_I_Product_QuantityInpu
 import org.bandahealth.idempiere.graphql.model.input.X_BH_I_Product_QuantityInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for BH_I_Product_Quantity - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_BH_I_Product_QuantityMutation extends POMutation implements Graph
 		return X_BH_I_Product_QuantityInput.Table_Name;
 	}
 
-	public X_BH_I_Product_Quantity BH_I_Product_QuantitySave(I_BH_I_Product_QuantityInput input, DataFetchingEnvironment environment) {
-		return (X_BH_I_Product_Quantity) super.save((X_BH_I_Product_QuantityInput) input, environment);
+	public X_BH_I_Product_Quantity BH_I_Product_QuantitySave(I_BH_I_Product_QuantityInput entity, DataFetchingEnvironment environment) {
+		return (X_BH_I_Product_Quantity) super.save((X_BH_I_Product_QuantityInput) entity, environment);
+	}
+
+	public List<X_BH_I_Product_Quantity> BH_I_Product_QuantitySaveMany(List<I_BH_I_Product_QuantityInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_BH_I_Product_QuantityInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_BH_I_Product_Quantity) entity).collect(Collectors.toList());
 	}
 
 	public boolean BH_I_Product_QuantityDelete(List<String> uuids, DataFetchingEnvironment environment) {

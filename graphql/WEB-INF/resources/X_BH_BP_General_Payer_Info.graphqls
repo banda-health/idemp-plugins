@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_BP_General_Payer_InfoSave(entity: BH_BP_General_Payer_InfoInput!): BH_BP_General_Payer_Info!
+	BH_BP_General_Payer_InfoSaveMany(entities: [BH_BP_General_Payer_InfoInput!]!): [BH_BP_General_Payer_Info!]!
 	BH_BP_General_Payer_InfoDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type BH_BP_General_Payer_Info {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	BH_BP_Payer_Info: BH_BP_Payer_Info!
 	BH_Payer_Info_Fld: BH_Payer_Info_Fld!
 	# Date this record was created
@@ -42,7 +43,7 @@ type BH_BP_General_Payer_Info {
 input BH_BP_General_Payer_InfoInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	BH_BP_Payer_Info: ForeignEntityInput
 	BH_Payer_Info_Fld: ForeignEntityInput
 	# Optional short description of the record

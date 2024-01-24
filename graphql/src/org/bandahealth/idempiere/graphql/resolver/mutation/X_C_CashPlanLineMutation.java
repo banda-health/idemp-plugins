@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_CashPlanLineInput;
 import org.compiere.model.MCashPlanLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_CashPlanLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_CashPlanLineMutation extends POMutation implements GraphQLMutat
 		return X_C_CashPlanLineInput.Table_Name;
 	}
 
-	public MCashPlanLine C_CashPlanLineSave(I_C_CashPlanLineInput input, DataFetchingEnvironment environment) {
-		return (MCashPlanLine) super.save((X_C_CashPlanLineInput) input, environment);
+	public MCashPlanLine C_CashPlanLineSave(I_C_CashPlanLineInput entity, DataFetchingEnvironment environment) {
+		return (MCashPlanLine) super.save((X_C_CashPlanLineInput) entity, environment);
+	}
+
+	public List<MCashPlanLine> C_CashPlanLineSaveMany(List<I_C_CashPlanLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_CashPlanLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MCashPlanLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_CashPlanLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

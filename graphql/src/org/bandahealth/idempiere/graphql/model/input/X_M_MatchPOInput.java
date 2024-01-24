@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
@@ -11,6 +12,7 @@ import org.compiere.model.MInOutLine;
 import org.compiere.model.MMatchPO;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -34,13 +36,16 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	private ForeignEntityInput mReversal;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_MatchPO_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_MatchPOInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MMatchPO(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_MatchPOInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MMatchPO(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -52,11 +57,16 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -79,11 +89,16 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
 		MInvoiceLine_BH foreignEntity;
-		if (get_ID() == 0 && C_InvoiceLine != null &&
-				(foreignEntity = new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-						.setParameters(C_InvoiceLine.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_InvoiceLine_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_InvoiceLine != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
+							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
+			}
 		}
 	}
 
@@ -106,11 +121,16 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
 		MOrderLine_BH foreignEntity;
-		if (get_ID() == 0 && C_OrderLine != null &&
-				(foreignEntity = new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
-						.setParameters(C_OrderLine.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_OrderLine_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_OrderLine != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
+							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_OrderLine_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_OrderLine with UUID " + C_OrderLine.getUUID());
+			}
 		}
 	}
 
@@ -144,11 +164,16 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
 		MAttributeSetInstance_BH foreignEntity;
-		if (get_ID() == 0 && M_AttributeSetInstance != null &&
-				(foreignEntity = new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-						.setParameters(M_AttributeSetInstance.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_AttributeSetInstance != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
+							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
+			}
 		}
 	}
 
@@ -171,11 +196,16 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
 		MInOutLine foreignEntity;
-		if (get_ID() == 0 && M_InOutLine != null &&
-				(foreignEntity = new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-						.setParameters(M_InOutLine.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_InOutLine_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_InOutLine != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
+							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_InOutLine_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
+			}
 		}
 	}
 
@@ -201,20 +231,20 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_MatchPO_UU(ID);
+	public void setUUID(String UUID) {
+		setM_MatchPO_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_MatchPO_UU();
 	}
 
@@ -227,11 +257,16 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && M_Product != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-						.setParameters(M_Product.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_Product != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
 		}
 	}
 
@@ -287,11 +322,16 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	public void setRef_MatchPOInput(ForeignEntityInput Ref_MatchPO) {
 		this.mRef_MatchPO = Ref_MatchPO;
 		MMatchPO foreignEntity;
-		if (Ref_MatchPO != null &&
-				(foreignEntity = new Query(getCtx(), "M_MatchPO", "M_MatchPO_UU=?", get_TrxName())
-						.setParameters(Ref_MatchPO.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setRef_MatchPO_ID(foreignEntity.get_ID());
+		if (Ref_MatchPO != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_MatchPO", "M_MatchPO_UU=?", get_TrxName())
+							.setParameters(Ref_MatchPO.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setRef_MatchPO_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_MatchPO with UUID " + Ref_MatchPO.getUUID());
+			}
 		} else {
 			super.setRef_MatchPO_ID(0);
 		}
@@ -316,11 +356,16 @@ public class X_M_MatchPOInput extends MMatchPO implements I_M_MatchPOInput {
 	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
 		MMatchPO foreignEntity;
-		if (Reversal != null &&
-				(foreignEntity = new Query(getCtx(), "M_MatchPO", "M_MatchPO_UU=?", get_TrxName())
-						.setParameters(Reversal.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setReversal_ID(foreignEntity.get_ID());
+		if (Reversal != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_MatchPO", "M_MatchPO_UU=?", get_TrxName())
+							.setParameters(Reversal.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setReversal_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_MatchPO with UUID " + Reversal.getUUID());
+			}
 		} else {
 			super.setReversal_ID(0);
 		}

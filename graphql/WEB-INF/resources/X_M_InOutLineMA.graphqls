@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_InOutLineMASave(entity: M_InOutLineMAInput!): M_InOutLineMA!
+	M_InOutLineMASaveMany(entities: [M_InOutLineMAInput!]!): [M_InOutLineMA!]!
 	M_InOutLineMADelete(uuids: [String!]!): Boolean!
 }
 
@@ -33,7 +34,7 @@ type M_InOutLineMA {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Line on Shipment or Receipt document
 	M_InOutLine: M_InOutLine!
-	ID: ID!
+	UUID: ID!
 	# Quantity of a product moved.
 	MovementQty: BigDecimal!
 	# Date this record was updated
@@ -54,7 +55,7 @@ input M_InOutLineMAInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Line on Shipment or Receipt document
 	M_InOutLine: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
 }

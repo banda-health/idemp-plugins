@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_PaySelectionCheckInput;
 import org.compiere.model.MPaySelectionCheck;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_PaySelectionCheck - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_PaySelectionCheckMutation extends POMutation implements GraphQL
 		return X_C_PaySelectionCheckInput.Table_Name;
 	}
 
-	public MPaySelectionCheck C_PaySelectionCheckSave(I_C_PaySelectionCheckInput input, DataFetchingEnvironment environment) {
-		return (MPaySelectionCheck) super.save((X_C_PaySelectionCheckInput) input, environment);
+	public MPaySelectionCheck C_PaySelectionCheckSave(I_C_PaySelectionCheckInput entity, DataFetchingEnvironment environment) {
+		return (MPaySelectionCheck) super.save((X_C_PaySelectionCheckInput) entity, environment);
+	}
+
+	public List<MPaySelectionCheck> C_PaySelectionCheckSaveMany(List<I_C_PaySelectionCheckInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_PaySelectionCheckInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MPaySelectionCheck) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_PaySelectionCheckDelete(List<String> uuids, DataFetchingEnvironment environment) {

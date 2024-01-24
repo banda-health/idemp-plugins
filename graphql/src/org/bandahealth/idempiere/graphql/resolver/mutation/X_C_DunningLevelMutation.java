@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_DunningLevelInput;
 import org.compiere.model.MDunningLevel;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_DunningLevel - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_DunningLevelMutation extends POMutation implements GraphQLMutat
 		return X_C_DunningLevelInput.Table_Name;
 	}
 
-	public MDunningLevel C_DunningLevelSave(I_C_DunningLevelInput input, DataFetchingEnvironment environment) {
-		return (MDunningLevel) super.save((X_C_DunningLevelInput) input, environment);
+	public MDunningLevel C_DunningLevelSave(I_C_DunningLevelInput entity, DataFetchingEnvironment environment) {
+		return (MDunningLevel) super.save((X_C_DunningLevelInput) entity, environment);
+	}
+
+	public List<MDunningLevel> C_DunningLevelSaveMany(List<I_C_DunningLevelInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_DunningLevelInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDunningLevel) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_DunningLevelDelete(List<String> uuids, DataFetchingEnvironment environment) {

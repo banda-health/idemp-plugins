@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WF_NodeSave(entity: AD_WF_NodeInput!): AD_WF_Node!
+	AD_WF_NodeSaveMany(entities: [AD_WF_NodeInput!]!): [AD_WF_Node!]!
 	AD_WF_NodeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -37,7 +38,7 @@ type AD_WF_Node {
 	AD_Task: AD_Task
 	# Workflow Transaction Execution Block
 	AD_WF_Block: AD_WF_Block
-	ID: ID!
+	UUID: ID!
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: AD_WF_Responsible
 	# Data entry or display window
@@ -155,7 +156,7 @@ input AD_WF_NodeInput {
 	AD_Task: ForeignEntityInput
 	# Workflow Transaction Execution Block
 	AD_WF_Block: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: ForeignEntityInput
 	# Data entry or display window

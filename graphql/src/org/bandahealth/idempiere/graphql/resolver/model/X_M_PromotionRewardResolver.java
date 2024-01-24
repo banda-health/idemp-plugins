@@ -53,7 +53,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(DISTRIBUTIONSORTING_UUIDS_BY_VALUE.get(entity.getDistributionSorting()));
 	}
 
@@ -122,7 +122,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(REWARDTYPE_UUIDS_BY_VALUE.get(entity.getRewardType()));
 	}
 

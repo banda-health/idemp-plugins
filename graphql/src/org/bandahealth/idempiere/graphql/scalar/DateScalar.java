@@ -18,6 +18,9 @@ public class DateScalar {
 			.coercing(new Coercing() {
 				@Override
 				public Object serialize(Object dataFetcherResult) throws CoercingSerializeException {
+					if (dataFetcherResult == null) {
+						return null;
+					}
 					if (dataFetcherResult instanceof Date) {
 						return ((Date) dataFetcherResult).getTime();
 					} else if (dataFetcherResult instanceof Timestamp) {
@@ -44,6 +47,9 @@ public class DateScalar {
 	 * @return A Timestamp or an error if the input is unable to be parsed
 	 */
 	private static Timestamp parseInput(Object input) {
+		if (input == null) {
+			return null;
+		}
 		if (input instanceof Integer || input instanceof Long) {
 			return new Timestamp(Long.parseLong(input.toString()));
 		} else if (input instanceof String) {

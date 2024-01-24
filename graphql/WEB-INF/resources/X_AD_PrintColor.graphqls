@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PrintColorSave(entity: AD_PrintColorInput!): AD_PrintColor!
+	AD_PrintColorSaveMany(entities: [AD_PrintColorInput!]!): [AD_PrintColor!]!
 	AD_PrintColorDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_PrintColor {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Validation Code
 	Code: String!
 	# Date this record was created
@@ -42,7 +43,7 @@ type AD_PrintColor {
 input AD_PrintColorInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Validation Code
 	Code: String
 	# The record is active in the system

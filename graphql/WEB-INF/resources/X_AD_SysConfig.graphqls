@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_SysConfigSave(entity: AD_SysConfigInput!): AD_SysConfig!
+	AD_SysConfigSaveMany(entities: [AD_SysConfigInput!]!): [AD_SysConfig!]!
 	AD_SysConfigDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_SysConfig {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Configuration Level for this parameter
 	ConfigurationLevel: AD_Ref_List
 	# Date this record was created
@@ -46,7 +47,7 @@ type AD_SysConfig {
 input AD_SysConfigInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Configuration Level for this parameter
 	ConfigurationLevel: AD_Ref_ListInput
 	# Optional short description of the record

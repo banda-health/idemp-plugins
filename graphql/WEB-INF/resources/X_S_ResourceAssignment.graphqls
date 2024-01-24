@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	S_ResourceAssignmentSave(entity: S_ResourceAssignmentInput!): S_ResourceAssignment!
+	S_ResourceAssignmentSaveMany(entities: [S_ResourceAssignmentInput!]!): [S_ResourceAssignment!]!
 	S_ResourceAssignmentDelete(uuids: [String!]!): Boolean!
 }
 
@@ -40,7 +41,7 @@ type S_ResourceAssignment {
 	Qty: BigDecimal
 	# Resource
 	S_Resource: S_Resource!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -66,5 +67,5 @@ input S_ResourceAssignmentInput {
 	Qty: BigDecimal
 	# Resource
 	S_Resource: ForeignEntityInput
-	ID: ID
+	UUID: ID
 }

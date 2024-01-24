@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_GroupSave(entity: A_Asset_GroupInput!): A_Asset_Group!
+	A_Asset_GroupSaveMany(entities: [A_Asset_GroupInput!]!): [A_Asset_Group!]!
 	A_Asset_GroupDelete(uuids: [String!]!): Boolean!
 }
 
@@ -17,7 +18,7 @@ type A_Asset_GroupConnection {
 
 type A_Asset_Group {
 	A_Asset_Class: A_Asset_Class
-	ID: ID!
+	UUID: ID!
 	A_Asset_Type: A_Asset_Type
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
@@ -56,7 +57,7 @@ type A_Asset_Group {
 
 input A_Asset_GroupInput {
 	A_Asset_Class: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	A_Asset_Type: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput

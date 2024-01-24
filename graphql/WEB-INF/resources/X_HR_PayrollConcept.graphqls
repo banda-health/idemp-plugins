@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_PayrollConceptSave(entity: HR_PayrollConceptInput!): HR_PayrollConcept!
+	HR_PayrollConceptSaveMany(entities: [HR_PayrollConceptInput!]!): [HR_PayrollConcept!]!
 	HR_PayrollConceptDelete(uuids: [String!]!): Boolean!
 }
 
@@ -27,7 +28,7 @@ type HR_PayrollConcept {
 	CreatedBy: AD_User!
 	HR_Concept: HR_Concept!
 	HR_Payroll: HR_Payroll!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Determines, if this field is displayed
@@ -52,7 +53,7 @@ input HR_PayrollConceptInput {
 	AD_Rule: ForeignEntityInput
 	HR_Concept: ForeignEntityInput
 	HR_Payroll: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Determines, if this field is displayed

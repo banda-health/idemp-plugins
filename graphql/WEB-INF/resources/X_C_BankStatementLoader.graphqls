@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BankStatementLoaderSave(entity: C_BankStatementLoaderInput!): C_BankStatementLoader!
+	C_BankStatementLoaderSaveMany(entities: [C_BankStatementLoaderInput!]!): [C_BankStatementLoader!]!
 	C_BankStatementLoaderDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type C_BankStatementLoader {
 	BranchID: String
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -80,7 +81,7 @@ input C_BankStatementLoaderInput {
 	BranchID: String
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Date format used in the input format
 	DateFormat: String
 	# Date the process was last run.

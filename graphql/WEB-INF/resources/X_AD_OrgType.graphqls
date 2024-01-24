@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_OrgTypeSave(entity: AD_OrgTypeInput!): AD_OrgType!
+	AD_OrgTypeSaveMany(entities: [AD_OrgTypeInput!]!): [AD_OrgType!]!
 	AD_OrgTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_OrgType {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Color used for printing and display
 	AD_PrintColor: AD_PrintColor
 	# Date this record was created
@@ -42,7 +43,7 @@ type AD_OrgType {
 input AD_OrgTypeInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Color used for printing and display
 	AD_PrintColor: ForeignEntityInput
 	# Optional short description of the record

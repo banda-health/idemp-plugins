@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_RequisitionLineSave(entity: M_RequisitionLineInput!): M_RequisitionLine!
+	M_RequisitionLineSaveMany(entities: [M_RequisitionLineInput!]!): [M_RequisitionLine!]!
 	M_RequisitionLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -46,7 +47,7 @@ type M_RequisitionLine {
 	M_Product: M_Product
 	# Material Requisition
 	M_Requisition: M_Requisition!
-	ID: ID!
+	UUID: ID!
 	# Actual Price 
 	PriceActual: BigDecimal!
 	# Quantity
@@ -82,7 +83,7 @@ input M_RequisitionLineInput {
 	M_Product: ForeignEntityInput
 	# Material Requisition
 	M_Requisition: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Actual Price 
 	PriceActual: BigDecimal
 	# Quantity

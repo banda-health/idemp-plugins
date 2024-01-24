@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MForm;
@@ -9,6 +10,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_ASP_Form;
 import org.compiere.model.X_ASP_Level;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -26,13 +28,16 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	private I_AD_Ref_ListInput mASP_Status;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The ASP_Form_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_ASP_FormInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_ASP_Form(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_ASP_FormInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_ASP_Form(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -44,11 +49,16 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	public void setAD_FormInput(ForeignEntityInput AD_Form) {
 		this.mAD_Form = AD_Form;
 		MForm foreignEntity;
-		if (get_ID() == 0 && AD_Form != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-						.setParameters(AD_Form.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Form_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Form != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
+							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Form_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Form with UUID " + AD_Form.getUUID());
+			}
 		}
 	}
 
@@ -71,11 +81,16 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -101,20 +116,20 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setASP_Form_UU(ID);
+	public void setUUID(String UUID) {
+		setASP_Form_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getASP_Form_UU();
 	}
 
@@ -127,11 +142,16 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	public void setASP_LevelInput(ForeignEntityInput ASP_Level) {
 		this.mASP_Level = ASP_Level;
 		X_ASP_Level foreignEntity;
-		if (get_ID() == 0 && ASP_Level != null &&
-				(foreignEntity = new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
-						.setParameters(ASP_Level.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setASP_Level_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && ASP_Level != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
+							.setParameters(ASP_Level.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setASP_Level_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table ASP_Level with UUID " + ASP_Level.getUUID());
+			}
 		}
 	}
 
@@ -154,11 +174,16 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	public void setASP_StatusInput(I_AD_Ref_ListInput ASP_Status) {
 		this.mASP_Status = ASP_Status;
 		MRefList_BH foreignEntity;
-		if (ASP_Status != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ASP_Status.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setASP_Status(foreignEntity.getValue());
+		if (ASP_Status != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setASP_Status(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ASP_Status.getUUID());
+			}
 		} else {
 			this.setASP_Status(null);
 		}

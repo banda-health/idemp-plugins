@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ReferenceSave(entity: AD_ReferenceInput!): AD_Reference!
+	AD_ReferenceSaveMany(entities: [AD_ReferenceInput!]!): [AD_Reference!]!
 	AD_ReferenceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Reference {
 	AD_Element: AD_Element
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,7 +55,7 @@ input AD_ReferenceInput {
 	AD_Element: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

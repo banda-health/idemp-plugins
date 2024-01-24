@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_ReplicationStrategyInp
 import org.compiere.model.MReplicationStrategy;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_ReplicationStrategy - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_ReplicationStrategyMutation extends POMutation implements Grap
 		return X_AD_ReplicationStrategyInput.Table_Name;
 	}
 
-	public MReplicationStrategy AD_ReplicationStrategySave(I_AD_ReplicationStrategyInput input, DataFetchingEnvironment environment) {
-		return (MReplicationStrategy) super.save((X_AD_ReplicationStrategyInput) input, environment);
+	public MReplicationStrategy AD_ReplicationStrategySave(I_AD_ReplicationStrategyInput entity, DataFetchingEnvironment environment) {
+		return (MReplicationStrategy) super.save((X_AD_ReplicationStrategyInput) entity, environment);
+	}
+
+	public List<MReplicationStrategy> AD_ReplicationStrategySaveMany(List<I_AD_ReplicationStrategyInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_ReplicationStrategyInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MReplicationStrategy) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_ReplicationStrategyDelete(List<String> uuids, DataFetchingEnvironment environment) {

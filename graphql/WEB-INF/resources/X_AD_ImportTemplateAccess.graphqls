@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ImportTemplateAccessSave(entity: AD_ImportTemplateAccessInput!): AD_ImportTemplateAccess!
+	AD_ImportTemplateAccessSaveMany(entities: [AD_ImportTemplateAccessInput!]!): [AD_ImportTemplateAccess!]!
 	AD_ImportTemplateAccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -19,7 +20,7 @@ type AD_ImportTemplateAccess {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client
 	AD_ImportTemplate: AD_ImportTemplate
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org
 	# Responsibility Role
@@ -41,7 +42,7 @@ type AD_ImportTemplateAccess {
 
 input AD_ImportTemplateAccessInput {
 	AD_ImportTemplate: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Responsibility Role

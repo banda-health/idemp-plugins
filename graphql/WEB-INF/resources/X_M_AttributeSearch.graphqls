@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_AttributeSearchSave(entity: M_AttributeSearchInput!): M_AttributeSearch!
+	M_AttributeSearchSaveMany(entities: [M_AttributeSearchInput!]!): [M_AttributeSearch!]!
 	M_AttributeSearchDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type M_AttributeSearch {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -44,7 +45,7 @@ input M_AttributeSearchInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

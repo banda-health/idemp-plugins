@@ -120,6 +120,8 @@ public class GraphQLSchemaGenerator {
 				.append("extend type Mutation {\n")
 				.append("\t").append(tableName).append("Save(entity: ").append(tableName).append("Input!): ").append(tableName)
 				.append("!\n")
+				.append("\t").append(tableName).append("SaveMany(entities: [").append(tableName).append("Input!]!): [")
+				.append(tableName).append("!]!\n")
 				.append("\t").append(tableName).append("Delete(uuids: [String!]!): Boolean!\n}\n\n")
 
 				// Connection Type
@@ -314,8 +316,8 @@ public class GraphQLSchemaGenerator {
 			}
 			return;
 		} else if (columnName.endsWith("_UU")) {
-			generatedColumns.regularModel.append("\tID: ID!\n");
-			generatedColumns.inputModel.append("\tID: ID\n");
+			generatedColumns.regularModel.append("\tUUID: ID!\n");
+			generatedColumns.inputModel.append("\tUUID: ID\n");
 			return;
 		} else if (IsKey) {
 			return;

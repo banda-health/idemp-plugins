@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_ContactInterestSave(entity: R_ContactInterestInput!): R_ContactInterest!
+	R_ContactInterestSaveMany(entities: [R_ContactInterestInput!]!): [R_ContactInterest!]!
 	R_ContactInterestDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type R_ContactInterest {
 	IsActive: Boolean!
 	# Date the contact opted out
 	OptOutDate: Date
-	ID: ID!
+	UUID: ID!
 	# Interest Area or Topic
 	R_InterestArea: R_InterestArea!
 	# Date the contact actively subscribed
@@ -50,7 +51,7 @@ input R_ContactInterestInput {
 	IsActive: Boolean
 	# Date the contact opted out
 	OptOutDate: Date
-	ID: ID
+	UUID: ID
 	# Interest Area or Topic
 	R_InterestArea: ForeignEntityInput
 	# Date the contact actively subscribed

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_FieldGroupSave(entity: AD_FieldGroupInput!): AD_FieldGroup!
+	AD_FieldGroupSaveMany(entities: [AD_FieldGroupInput!]!): [AD_FieldGroup!]!
 	AD_FieldGroupDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_FieldGroupConnection {
 type AD_FieldGroup {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# An abbreviation for a given name
@@ -43,7 +44,7 @@ type AD_FieldGroup {
 }
 
 input AD_FieldGroupInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# An abbreviation for a given name

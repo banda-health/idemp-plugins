@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_PayScheduleSave(entity: C_PayScheduleInput!): C_PaySchedule!
+	C_PayScheduleSaveMany(entities: [C_PayScheduleInput!]!): [C_PaySchedule!]!
 	C_PayScheduleDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_PaySchedule {
 	AD_Org: AD_Org!
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: C_PaymentTerm!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,7 +55,7 @@ input C_PayScheduleInput {
 	AD_Org: ForeignEntityInput
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Discount in percent
 	Discount: BigDecimal
 	# Number of days from invoice date to be eligible for discount

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_R_RequestProcessorInput;
 import org.compiere.model.MRequestProcessor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for R_RequestProcessor - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_R_RequestProcessorMutation extends POMutation implements GraphQLM
 		return X_R_RequestProcessorInput.Table_Name;
 	}
 
-	public MRequestProcessor R_RequestProcessorSave(I_R_RequestProcessorInput input, DataFetchingEnvironment environment) {
-		return (MRequestProcessor) super.save((X_R_RequestProcessorInput) input, environment);
+	public MRequestProcessor R_RequestProcessorSave(I_R_RequestProcessorInput entity, DataFetchingEnvironment environment) {
+		return (MRequestProcessor) super.save((X_R_RequestProcessorInput) entity, environment);
+	}
+
+	public List<MRequestProcessor> R_RequestProcessorSaveMany(List<I_R_RequestProcessorInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_R_RequestProcessorInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRequestProcessor) entity).collect(Collectors.toList());
 	}
 
 	public boolean R_RequestProcessorDelete(List<String> uuids, DataFetchingEnvironment environment) {

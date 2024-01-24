@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_ReplenishInput;
 import org.compiere.model.MReplenish;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_Replenish - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_ReplenishMutation extends POMutation implements GraphQLMutation
 		return X_M_ReplenishInput.Table_Name;
 	}
 
-	public MReplenish M_ReplenishSave(I_M_ReplenishInput input, DataFetchingEnvironment environment) {
-		return (MReplenish) super.save((X_M_ReplenishInput) input, environment);
+	public MReplenish M_ReplenishSave(I_M_ReplenishInput entity, DataFetchingEnvironment environment) {
+		return (MReplenish) super.save((X_M_ReplenishInput) entity, environment);
+	}
+
+	public List<MReplenish> M_ReplenishSaveMany(List<I_M_ReplenishInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_ReplenishInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MReplenish) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_ReplenishDelete(List<String> uuids, DataFetchingEnvironment environment) {

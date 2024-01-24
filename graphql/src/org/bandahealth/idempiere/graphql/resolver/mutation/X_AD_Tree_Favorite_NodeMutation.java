@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_Tree_Favorite_NodeInpu
 import org.compiere.model.MTreeFavoriteNode;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Tree_Favorite_Node - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_Tree_Favorite_NodeMutation extends POMutation implements Graph
 		return X_AD_Tree_Favorite_NodeInput.Table_Name;
 	}
 
-	public MTreeFavoriteNode AD_Tree_Favorite_NodeSave(I_AD_Tree_Favorite_NodeInput input, DataFetchingEnvironment environment) {
-		return (MTreeFavoriteNode) super.save((X_AD_Tree_Favorite_NodeInput) input, environment);
+	public MTreeFavoriteNode AD_Tree_Favorite_NodeSave(I_AD_Tree_Favorite_NodeInput entity, DataFetchingEnvironment environment) {
+		return (MTreeFavoriteNode) super.save((X_AD_Tree_Favorite_NodeInput) entity, environment);
+	}
+
+	public List<MTreeFavoriteNode> AD_Tree_Favorite_NodeSaveMany(List<I_AD_Tree_Favorite_NodeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_Tree_Favorite_NodeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MTreeFavoriteNode) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_Tree_Favorite_NodeDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ViewComponentSave(entity: AD_ViewComponentInput!): AD_ViewComponent!
+	AD_ViewComponentSaveMany(entities: [AD_ViewComponentInput!]!): [AD_ViewComponent!]!
 	AD_ViewComponentDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_ViewComponent {
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -57,7 +58,7 @@ input AD_ViewComponentInput {
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

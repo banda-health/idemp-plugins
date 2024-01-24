@@ -7,8 +7,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_Fact_AcctDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLineDataLoader;
 import org.compiere.model.MFactAcct;
 import org.compiere.model.MPInstance;
-import org.compiere.model.X_PA_ReportLine;
 import org.compiere.model.X_T_Report;
+import org.compiere.report.MReportLine;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -58,11 +58,11 @@ public class X_T_ReportResolver extends POResolver<X_T_Report> implements GraphQ
 	 *
 	 * @return Report Line
 	 */
-	public CompletableFuture<X_PA_ReportLine> PA_ReportLine(X_T_Report entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportLine> PA_ReportLine(X_T_Report entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, X_PA_ReportLine> dataLoader =
+		DataLoader<Integer, MReportLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineDataLoader.DATALOADER_PA_ReportLine_BY_ID);
 		return dataLoader.load(entity.getPA_ReportLine_ID());
 	}

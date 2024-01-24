@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
@@ -26,6 +27,7 @@ import org.compiere.model.MPaymentProcessor;
 import org.compiere.model.MProject;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_POSTenderType;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -69,13 +71,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	private I_AD_Ref_ListInput mTrxType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_Payment_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_PaymentInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MPayment_BH(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_PaymentInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPayment_BH(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -87,11 +92,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -114,11 +124,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setBH_VisitInput(ForeignEntityInput BH_Visit) {
 		this.mBH_Visit = BH_Visit;
 		MBHVisit foreignEntity;
-		if (BH_Visit != null &&
-				(foreignEntity = new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
-						.setParameters(BH_Visit.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setBH_Visit_ID(foreignEntity.get_ID());
+		if (BH_Visit != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
+							.setParameters(BH_Visit.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBH_Visit_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table BH_Visit with UUID " + BH_Visit.getUUID());
+			}
 		} else {
 			super.setBH_Visit_ID(0);
 		}
@@ -143,11 +158,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
 		MActivity foreignEntity;
-		if (C_Activity != null &&
-				(foreignEntity = new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-						.setParameters(C_Activity.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Activity_ID(foreignEntity.get_ID());
+		if (C_Activity != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
+							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Activity_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
+			}
 		} else {
 			super.setC_Activity_ID(0);
 		}
@@ -172,11 +192,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
 		MBankAccount_BH foreignEntity;
-		if (C_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-						.setParameters(C_BankAccount.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BankAccount_ID(foreignEntity.get_ID());
+		if (C_BankAccount != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
+							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BankAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
+			}
 		} else {
 			super.setC_BankAccount_ID(0);
 		}
@@ -201,11 +226,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount) {
 		this.mC_BP_BankAccount = C_BP_BankAccount;
 		MBPBankAccount foreignEntity;
-		if (C_BP_BankAccount != null &&
-				(foreignEntity = new Query(getCtx(), "C_BP_BankAccount", "C_BP_BankAccount_UU=?", get_TrxName())
-						.setParameters(C_BP_BankAccount.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BP_BankAccount_ID(foreignEntity.get_ID());
+		if (C_BP_BankAccount != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BP_BankAccount", "C_BP_BankAccount_UU=?", get_TrxName())
+							.setParameters(C_BP_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BP_BankAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BP_BankAccount with UUID " + C_BP_BankAccount.getUUID());
+			}
 		} else {
 			super.setC_BP_BankAccount_ID(0);
 		}
@@ -230,11 +260,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
 		MBPartner_BH foreignEntity;
-		if (C_BPartner != null &&
-				(foreignEntity = new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-						.setParameters(C_BPartner.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_BPartner_ID(foreignEntity.get_ID());
+		if (C_BPartner != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_BPartner_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+			}
 		} else {
 			super.setC_BPartner_ID(0);
 		}
@@ -259,11 +294,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
 		MCampaign foreignEntity;
-		if (C_Campaign != null &&
-				(foreignEntity = new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-						.setParameters(C_Campaign.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Campaign_ID(foreignEntity.get_ID());
+		if (C_Campaign != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
+							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Campaign_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
+			}
 		} else {
 			super.setC_Campaign_ID(0);
 		}
@@ -288,11 +328,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
 		this.mC_CashBook = C_CashBook;
 		MCashBook foreignEntity;
-		if (C_CashBook != null &&
-				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-						.setParameters(C_CashBook.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_CashBook_ID(foreignEntity.get_ID());
+		if (C_CashBook != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+							.setParameters(C_CashBook.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_CashBook_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_CashBook with UUID " + C_CashBook.getUUID());
+			}
 		} else {
 			super.setC_CashBook_ID(0);
 		}
@@ -317,11 +362,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
-		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-						.setParameters(C_Charge.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Charge_ID(foreignEntity.get_ID());
+		if (C_Charge != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
+							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Charge_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
+			}
 		} else {
 			super.setC_Charge_ID(0);
 		}
@@ -346,11 +396,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
 		MConversionType foreignEntity;
-		if (C_ConversionType != null &&
-				(foreignEntity = new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
-						.setParameters(C_ConversionType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_ConversionType_ID(foreignEntity.get_ID());
+		if (C_ConversionType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
+							.setParameters(C_ConversionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_ConversionType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ConversionType with UUID " + C_ConversionType.getUUID());
+			}
 		} else {
 			super.setC_ConversionType_ID(0);
 		}
@@ -375,11 +430,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
 		MCurrency_BH foreignEntity;
-		if (C_Currency != null &&
-				(foreignEntity = new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-						.setParameters(C_Currency.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Currency_ID(foreignEntity.get_ID());
+		if (C_Currency != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Currency_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+			}
 		} else {
 			super.setC_Currency_ID(0);
 		}
@@ -404,11 +464,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_DepositBatchInput(ForeignEntityInput C_DepositBatch) {
 		this.mC_DepositBatch = C_DepositBatch;
 		MDepositBatch foreignEntity;
-		if (get_ID() == 0 && C_DepositBatch != null &&
-				(foreignEntity = new Query(getCtx(), "C_DepositBatch", "C_DepositBatch_UU=?", get_TrxName())
-						.setParameters(C_DepositBatch.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DepositBatch_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_DepositBatch != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DepositBatch", "C_DepositBatch_UU=?", get_TrxName())
+							.setParameters(C_DepositBatch.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DepositBatch_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DepositBatch with UUID " + C_DepositBatch.getUUID());
+			}
 		}
 	}
 
@@ -431,11 +496,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
 		MDocType_BH foreignEntity;
-		if (C_DocType != null &&
-				(foreignEntity = new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-						.setParameters(C_DocType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_DocType_ID(foreignEntity.get_ID());
+		if (C_DocType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_DocType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+			}
 		} else {
 			super.setC_DocType_ID(0);
 		}
@@ -460,11 +530,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
-		if (C_Invoice != null &&
-				(foreignEntity = new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-						.setParameters(C_Invoice.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Invoice_ID(foreignEntity.get_ID());
+		if (C_Invoice != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
+							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Invoice_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
+			}
 		} else {
 			super.setC_Invoice_ID(0);
 		}
@@ -489,11 +564,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
-		if (C_Order != null &&
-				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-						.setParameters(C_Order.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Order_ID(foreignEntity.get_ID());
+		if (C_Order != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
+							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Order_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
+			}
 		} else {
 			super.setC_Order_ID(0);
 		}
@@ -521,20 +601,20 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_Payment_UU(ID);
+	public void setUUID(String UUID) {
+		setC_Payment_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_Payment_UU();
 	}
 
@@ -547,11 +627,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_PaymentBatchInput(ForeignEntityInput C_PaymentBatch) {
 		this.mC_PaymentBatch = C_PaymentBatch;
 		MPaymentBatch foreignEntity;
-		if (C_PaymentBatch != null &&
-				(foreignEntity = new Query(getCtx(), "C_PaymentBatch", "C_PaymentBatch_UU=?", get_TrxName())
-						.setParameters(C_PaymentBatch.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_PaymentBatch_ID(foreignEntity.get_ID());
+		if (C_PaymentBatch != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_PaymentBatch", "C_PaymentBatch_UU=?", get_TrxName())
+							.setParameters(C_PaymentBatch.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_PaymentBatch_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_PaymentBatch with UUID " + C_PaymentBatch.getUUID());
+			}
 		} else {
 			super.setC_PaymentBatch_ID(0);
 		}
@@ -576,11 +661,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_PaymentProcessorInput(ForeignEntityInput C_PaymentProcessor) {
 		this.mC_PaymentProcessor = C_PaymentProcessor;
 		MPaymentProcessor foreignEntity;
-		if (C_PaymentProcessor != null &&
-				(foreignEntity = new Query(getCtx(), "C_PaymentProcessor", "C_PaymentProcessor_UU=?", get_TrxName())
-						.setParameters(C_PaymentProcessor.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_PaymentProcessor_ID(foreignEntity.get_ID());
+		if (C_PaymentProcessor != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_PaymentProcessor", "C_PaymentProcessor_UU=?", get_TrxName())
+							.setParameters(C_PaymentProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_PaymentProcessor_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_PaymentProcessor with UUID " + C_PaymentProcessor.getUUID());
+			}
 		} else {
 			super.setC_PaymentProcessor_ID(0);
 		}
@@ -605,11 +695,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_POSTenderTypeInput(ForeignEntityInput C_POSTenderType) {
 		this.mC_POSTenderType = C_POSTenderType;
 		X_C_POSTenderType foreignEntity;
-		if (C_POSTenderType != null &&
-				(foreignEntity = new Query(getCtx(), "C_POSTenderType", "C_POSTenderType_UU=?", get_TrxName())
-						.setParameters(C_POSTenderType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_POSTenderType_ID(foreignEntity.get_ID());
+		if (C_POSTenderType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_POSTenderType", "C_POSTenderType_UU=?", get_TrxName())
+							.setParameters(C_POSTenderType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_POSTenderType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_POSTenderType with UUID " + C_POSTenderType.getUUID());
+			}
 		} else {
 			super.setC_POSTenderType_ID(0);
 		}
@@ -634,11 +729,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
-		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-						.setParameters(C_Project.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Project_ID(foreignEntity.get_ID());
+		if (C_Project != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Project_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
+			}
 		} else {
 			super.setC_Project_ID(0);
 		}
@@ -663,11 +763,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType) {
 		this.mCreditCardType = CreditCardType;
 		MRefList_BH foreignEntity;
-		if (CreditCardType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(CreditCardType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setCreditCardType(foreignEntity.getValue());
+		if (CreditCardType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(CreditCardType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setCreditCardType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CreditCardType.getUUID());
+			}
 		} else {
 			this.setCreditCardType(null);
 		}
@@ -692,11 +797,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
 		this.mDocAction = DocAction;
 		MRefList_BH foreignEntity;
-		if (DocAction != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocAction(foreignEntity.getValue());
+		if (DocAction != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocAction(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocAction.getUUID());
+			}
 		} else {
 			this.setDocAction(null);
 		}
@@ -721,11 +831,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		MRefList_BH foreignEntity;
-		if (DocStatus != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocStatus(foreignEntity.getValue());
+		if (DocStatus != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocStatus(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocStatus.getUUID());
+			}
 		} else {
 			this.setDocStatus(null);
 		}
@@ -794,11 +909,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setR_AvsAddrInput(I_AD_Ref_ListInput R_AvsAddr) {
 		this.mR_AvsAddr = R_AvsAddr;
 		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&R_AvsAddr != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(R_AvsAddr.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setR_AvsAddr(foreignEntity.getValue());
+		if (get_ID() == 0 &&R_AvsAddr != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(R_AvsAddr.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setR_AvsAddr(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + R_AvsAddr.getUUID());
+			}
 		}
 	}
 
@@ -821,11 +941,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setR_AvsZipInput(I_AD_Ref_ListInput R_AvsZip) {
 		this.mR_AvsZip = R_AvsZip;
 		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&R_AvsZip != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(R_AvsZip.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setR_AvsZip(foreignEntity.getValue());
+		if (get_ID() == 0 &&R_AvsZip != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(R_AvsZip.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setR_AvsZip(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + R_AvsZip.getUUID());
+			}
 		}
 	}
 
@@ -914,11 +1039,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setRef_PaymentInput(ForeignEntityInput Ref_Payment) {
 		this.mRef_Payment = Ref_Payment;
 		MPayment_BH foreignEntity;
-		if (get_ID() == 0 && Ref_Payment != null &&
-				(foreignEntity = new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-						.setParameters(Ref_Payment.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setRef_Payment_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && Ref_Payment != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
+							.setParameters(Ref_Payment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setRef_Payment_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Payment with UUID " + Ref_Payment.getUUID());
+			}
 		}
 	}
 
@@ -941,11 +1071,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
 		MPayment_BH foreignEntity;
-		if (Reversal != null &&
-				(foreignEntity = new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-						.setParameters(Reversal.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setReversal_ID(foreignEntity.get_ID());
+		if (Reversal != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
+							.setParameters(Reversal.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setReversal_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Payment with UUID " + Reversal.getUUID());
+			}
 		} else {
 			super.setReversal_ID(0);
 		}
@@ -981,11 +1116,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setTenderTypeInput(I_AD_Ref_ListInput TenderType) {
 		this.mTenderType = TenderType;
 		MRefList_BH foreignEntity;
-		if (TenderType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(TenderType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setTenderType(foreignEntity.getValue());
+		if (TenderType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(TenderType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setTenderType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + TenderType.getUUID());
+			}
 		} else {
 			this.setTenderType(null);
 		}
@@ -1010,11 +1150,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setTrxTypeInput(I_AD_Ref_ListInput TrxType) {
 		this.mTrxType = TrxType;
 		MRefList_BH foreignEntity;
-		if (TrxType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(TrxType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setTrxType(foreignEntity.getValue());
+		if (TrxType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(TrxType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setTrxType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + TrxType.getUUID());
+			}
 		} else {
 			this.setTrxType(null);
 		}
@@ -1039,11 +1184,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
 		MElementValue foreignEntity;
-		if (User1 != null &&
-				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-						.setParameters(User1.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setUser1_ID(foreignEntity.get_ID());
+		if (User1 != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
+							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setUser1_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
+			}
 		} else {
 			super.setUser1_ID(0);
 		}
@@ -1068,11 +1218,16 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
 		MElementValue foreignEntity;
-		if (User2 != null &&
-				(foreignEntity = new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-						.setParameters(User2.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setUser2_ID(foreignEntity.get_ID());
+		if (User2 != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
+							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setUser2_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ElementValue with UUID " + User2.getUUID());
+			}
 		} else {
 			super.setUser2_ID(0);
 		}

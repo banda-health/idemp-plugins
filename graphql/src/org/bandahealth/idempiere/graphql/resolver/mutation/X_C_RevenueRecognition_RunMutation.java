@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_RevenueRecognition_RunI
 import org.compiere.model.MRevenueRecognitionRun;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_RevenueRecognition_Run - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_RevenueRecognition_RunMutation extends POMutation implements Gr
 		return X_C_RevenueRecognition_RunInput.Table_Name;
 	}
 
-	public MRevenueRecognitionRun C_RevenueRecognition_RunSave(I_C_RevenueRecognition_RunInput input, DataFetchingEnvironment environment) {
-		return (MRevenueRecognitionRun) super.save((X_C_RevenueRecognition_RunInput) input, environment);
+	public MRevenueRecognitionRun C_RevenueRecognition_RunSave(I_C_RevenueRecognition_RunInput entity, DataFetchingEnvironment environment) {
+		return (MRevenueRecognitionRun) super.save((X_C_RevenueRecognition_RunInput) entity, environment);
+	}
+
+	public List<MRevenueRecognitionRun> C_RevenueRecognition_RunSaveMany(List<I_C_RevenueRecognition_RunInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_RevenueRecognition_RunInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRevenueRecognitionRun) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_RevenueRecognition_RunDelete(List<String> uuids, DataFetchingEnvironment environment) {

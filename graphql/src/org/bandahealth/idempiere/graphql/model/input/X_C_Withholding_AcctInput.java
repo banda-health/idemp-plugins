@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAccount;
 import org.compiere.model.MAcctSchema;
@@ -9,6 +10,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MWithholding;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_Withholding_Acct;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -26,13 +28,16 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 	private ForeignEntityInput mWithholding_A;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_Withholding_Acct_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_Withholding_AcctInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_C_Withholding_Acct(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_Withholding_AcctInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_Withholding_Acct(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -44,11 +49,16 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -71,11 +81,16 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-						.setParameters(C_AcctSchema.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_AcctSchema_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_AcctSchema != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+			}
 		}
 	}
 
@@ -90,20 +105,20 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_Withholding_Acct_UU(ID);
+	public void setUUID(String UUID) {
+		setC_Withholding_Acct_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_Withholding_Acct_UU();
 	}
 
@@ -116,11 +131,16 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 	public void setC_WithholdingInput(ForeignEntityInput C_Withholding) {
 		this.mC_Withholding = C_Withholding;
 		MWithholding foreignEntity;
-		if (get_ID() == 0 && C_Withholding != null &&
-				(foreignEntity = new Query(getCtx(), "C_Withholding", "C_Withholding_UU=?", get_TrxName())
-						.setParameters(C_Withholding.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Withholding_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_Withholding != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Withholding", "C_Withholding_UU=?", get_TrxName())
+							.setParameters(C_Withholding.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Withholding_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Withholding with UUID " + C_Withholding.getUUID());
+			}
 		}
 	}
 
@@ -143,11 +163,16 @@ public class X_C_Withholding_AcctInput extends X_C_Withholding_Acct implements I
 	public void setWithholding_AInput(ForeignEntityInput Withholding_A) {
 		this.mWithholding_A = Withholding_A;
 		MAccount foreignEntity;
-		if (Withholding_A != null &&
-				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-						.setParameters(Withholding_A.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setWithholding_Acct(foreignEntity.get_ID());
+		if (Withholding_A != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(Withholding_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setWithholding_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UUID " + Withholding_A.getUUID());
+			}
 		} else {
 			super.setWithholding_Acct(0);
 		}

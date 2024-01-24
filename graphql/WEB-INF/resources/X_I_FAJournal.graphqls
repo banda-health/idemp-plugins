@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	I_FAJournalSave(entity: I_FAJournalInput!): I_FAJournal!
+	I_FAJournalSaveMany(entities: [I_FAJournalInput!]!): [I_FAJournal!]!
 	I_FAJournalDelete(uuids: [String!]!): Boolean!
 }
 
@@ -104,7 +105,7 @@ type I_FAJournal {
 	GL_JournalLine: GL_JournalLine
 	# Messages generated from import process
 	I_ErrorMsg: String
-	ID: ID!
+	UUID: ID!
 	# Has this import been processed
 	I_IsImported: Boolean!
 	# The record is active in the system
@@ -231,7 +232,7 @@ input I_FAJournalInput {
 	GL_JournalLine: ForeignEntityInput
 	# Messages generated from import process
 	I_ErrorMsg: String
-	ID: ID
+	UUID: ID
 	# Has this import been processed
 	I_IsImported: Boolean
 	# The record is active in the system

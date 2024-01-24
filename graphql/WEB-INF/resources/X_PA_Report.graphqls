@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_ReportSave(entity: PA_ReportInput!): PA_Report!
+	PA_ReportSaveMany(entities: [PA_ReportInput!]!): [PA_Report!]!
 	PA_ReportDelete(uuids: [String!]!): Boolean!
 }
 
@@ -45,7 +46,7 @@ type PA_Report {
 	ListTrx: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	# Collection of Columns for Report
 	PA_ReportColumnSet: PA_ReportColumnSet!
 	# Define reporting cube for pre-calculation of summary accounting data.
@@ -82,7 +83,7 @@ input PA_ReportInput {
 	ListTrx: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 	# Collection of Columns for Report
 	PA_ReportColumnSet: ForeignEntityInput
 	# Define reporting cube for pre-calculation of summary accounting data.

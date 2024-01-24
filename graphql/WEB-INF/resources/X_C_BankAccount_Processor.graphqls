@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BankAccount_ProcessorSave(entity: C_BankAccount_ProcessorInput!): C_BankAccount_Processor!
+	C_BankAccount_ProcessorSaveMany(entities: [C_BankAccount_ProcessorInput!]!): [C_BankAccount_Processor!]!
 	C_BankAccount_ProcessorDelete(uuids: [String!]!): Boolean!
 }
 
@@ -42,7 +43,7 @@ type C_BankAccount_Processor {
 	AD_Org: AD_Org!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
-	ID: ID!
+	UUID: ID!
 	# The Currency for this record
 	C_Currency: C_Currency
 	# Payment processor for electronic payments
@@ -106,7 +107,7 @@ input C_BankAccount_ProcessorInput {
 	AD_Org: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Payment processor for electronic payments

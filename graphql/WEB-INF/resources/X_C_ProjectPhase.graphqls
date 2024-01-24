@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_ProjectPhaseSave(entity: C_ProjectPhaseInput!): C_ProjectPhase!
+	C_ProjectPhaseSaveMany(entities: [C_ProjectPhaseInput!]!): [C_ProjectPhase!]!
 	C_ProjectPhaseDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type C_ProjectPhase {
 	C_Phase: C_Phase
 	# Financial Project
 	C_Project: C_Project!
-	ID: ID!
+	UUID: ID!
 	# The (legal) commitment amount
 	CommittedAmt: BigDecimal!
 	# Date this record was created
@@ -78,7 +79,7 @@ input C_ProjectPhaseInput {
 	C_Phase: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The (legal) commitment amount
 	CommittedAmt: BigDecimal
 	# Optional short description of the record

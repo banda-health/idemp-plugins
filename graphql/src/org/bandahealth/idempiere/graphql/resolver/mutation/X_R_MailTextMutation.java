@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_R_MailTextInput;
 import org.compiere.model.MMailText;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for R_MailText - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_R_MailTextMutation extends POMutation implements GraphQLMutationR
 		return X_R_MailTextInput.Table_Name;
 	}
 
-	public MMailText R_MailTextSave(I_R_MailTextInput input, DataFetchingEnvironment environment) {
-		return (MMailText) super.save((X_R_MailTextInput) input, environment);
+	public MMailText R_MailTextSave(I_R_MailTextInput entity, DataFetchingEnvironment environment) {
+		return (MMailText) super.save((X_R_MailTextInput) entity, environment);
+	}
+
+	public List<MMailText> R_MailTextSaveMany(List<I_R_MailTextInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_R_MailTextInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MMailText) entity).collect(Collectors.toList());
 	}
 
 	public boolean R_MailTextDelete(List<String> uuids, DataFetchingEnvironment environment) {

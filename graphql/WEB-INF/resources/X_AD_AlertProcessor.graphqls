@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_AlertProcessorSave(entity: AD_AlertProcessorInput!): AD_AlertProcessor!
+	AD_AlertProcessorSaveMany(entities: [AD_AlertProcessorInput!]!): [AD_AlertProcessor!]!
 	AD_AlertProcessorDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type AD_AlertProcessorConnection {
 }
 
 type AD_AlertProcessor {
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -48,7 +49,7 @@ type AD_AlertProcessor {
 }
 
 input AD_AlertProcessorInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	AD_Schedule: ForeignEntityInput

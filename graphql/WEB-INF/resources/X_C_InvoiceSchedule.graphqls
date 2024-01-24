@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_InvoiceScheduleSave(entity: C_InvoiceScheduleInput!): C_InvoiceSchedule!
+	C_InvoiceScheduleSaveMany(entities: [C_InvoiceScheduleInput!]!): [C_InvoiceSchedule!]!
 	C_InvoiceScheduleDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_InvoiceSchedule {
 	AD_Org: AD_Org!
 	# Amount
 	Amt: BigDecimal!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,7 +61,7 @@ input C_InvoiceScheduleInput {
 	AD_Org: ForeignEntityInput
 	# Amount
 	Amt: BigDecimal
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Send invoices on even weeks

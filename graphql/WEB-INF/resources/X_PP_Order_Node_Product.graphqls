@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_Order_Node_ProductSave(entity: PP_Order_Node_ProductInput!): PP_Order_Node_Product!
+	PP_Order_Node_ProductSaveMany(entities: [PP_Order_Node_ProductInput!]!): [PP_Order_Node_Product!]!
 	PP_Order_Node_ProductDelete(uuids: [String!]!): Boolean!
 }
 
@@ -33,7 +34,7 @@ type PP_Order_Node_Product {
 	PP_Order: PP_Order!
 	# Workflow Node (activity), step or process
 	PP_Order_Node: PP_Order_Node!
-	ID: ID!
+	UUID: ID!
 	PP_Order_Workflow: PP_Order_Workflow!
 	# Quantity
 	Qty: BigDecimal
@@ -57,7 +58,7 @@ input PP_Order_Node_ProductInput {
 	PP_Order: ForeignEntityInput
 	# Workflow Node (activity), step or process
 	PP_Order_Node: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	PP_Order_Workflow: ForeignEntityInput
 	# Quantity
 	Qty: BigDecimal

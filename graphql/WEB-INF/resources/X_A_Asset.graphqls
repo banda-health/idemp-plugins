@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_AssetSave(entity: A_AssetInput!): A_Asset!
+	A_AssetSaveMany(entities: [A_AssetInput!]!): [A_Asset!]!
 	A_AssetDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type A_Asset {
 	A_Asset_RevalDate: Date
 	A_Asset_Status: AD_Ref_List!
 	A_Asset_Type: A_Asset_Type
-	ID: ID!
+	UUID: ID!
 	A_AssetType: String
 	A_Parent_Asset: A_Asset
 	A_QTY_Current: BigDecimal
@@ -142,7 +143,7 @@ input A_AssetInput {
 	A_Asset_RevalDate: Date
 	A_Asset_Status: AD_Ref_ListInput
 	A_Asset_Type: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	A_AssetType: String
 	A_Parent_Asset: ForeignEntityInput
 	A_QTY_Current: BigDecimal

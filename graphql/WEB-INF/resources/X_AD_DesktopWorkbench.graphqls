@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_DesktopWorkbenchSave(entity: AD_DesktopWorkbenchInput!): AD_DesktopWorkbench!
+	AD_DesktopWorkbenchSaveMany(entities: [AD_DesktopWorkbenchInput!]!): [AD_DesktopWorkbench!]!
 	AD_DesktopWorkbenchDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_DesktopWorkbench {
 	AD_Client: AD_Client!
 	# Collection of Workbenches
 	AD_Desktop: AD_Desktop!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Collection of windows, reports
@@ -42,7 +43,7 @@ type AD_DesktopWorkbench {
 input AD_DesktopWorkbenchInput {
 	# Collection of Workbenches
 	AD_Desktop: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Collection of windows, reports

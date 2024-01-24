@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_MovementSave(entity: HR_MovementInput!): HR_Movement!
+	HR_MovementSaveMany(entities: [HR_MovementInput!]!): [HR_Movement!]!
 	HR_MovementDelete(uuids: [String!]!): Boolean!
 }
 
@@ -52,7 +53,7 @@ type HR_Movement {
 	HR_Concept: HR_Concept!
 	HR_Department: HR_Department
 	HR_Job: HR_Job
-	ID: ID!
+	UUID: ID!
 	HR_Process: HR_Process
 	# The record is active in the system
 	IsActive: Boolean!
@@ -114,7 +115,7 @@ input HR_MovementInput {
 	HR_Concept: ForeignEntityInput
 	HR_Department: ForeignEntityInput
 	HR_Job: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	HR_Process: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_SubscriptionSave(entity: C_SubscriptionInput!): C_Subscription!
+	C_SubscriptionSaveMany(entities: [C_SubscriptionInput!]!): [C_Subscription!]!
 	C_SubscriptionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_Subscription {
 	AD_Org: AD_Org!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
-	ID: ID!
+	UUID: ID!
 	# Type of subscription
 	C_SubscriptionType: C_SubscriptionType!
 	# Date this record was created
@@ -53,7 +54,7 @@ input C_SubscriptionInput {
 	AD_Org: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Type of subscription
 	C_SubscriptionType: ForeignEntityInput
 	# The record is active in the system

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
@@ -14,6 +15,7 @@ import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_OrgType;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -37,13 +39,16 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	private ForeignEntityInput mTransferCashBook;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_OrgInfo_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_OrgInfoInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MOrgInfo_BH(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_OrgInfoInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MOrgInfo_BH(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -55,11 +60,16 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -74,20 +84,20 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_OrgInfo_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_OrgInfo_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_OrgInfo_UU();
 	}
 
@@ -100,11 +110,16 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	public void setAD_OrgTypeInput(ForeignEntityInput AD_OrgType) {
 		this.mAD_OrgType = AD_OrgType;
 		X_AD_OrgType foreignEntity;
-		if (AD_OrgType != null &&
-				(foreignEntity = new Query(getCtx(), "AD_OrgType", "AD_OrgType_UU=?", get_TrxName())
-						.setParameters(AD_OrgType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_OrgType_ID(foreignEntity.get_ID());
+		if (AD_OrgType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_OrgType", "AD_OrgType_UU=?", get_TrxName())
+							.setParameters(AD_OrgType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_OrgType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_OrgType with UUID " + AD_OrgType.getUUID());
+			}
 		} else {
 			super.setAD_OrgType_ID(0);
 		}
@@ -129,11 +144,16 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	public void setC_CalendarInput(ForeignEntityInput C_Calendar) {
 		this.mC_Calendar = C_Calendar;
 		MCalendar foreignEntity;
-		if (C_Calendar != null &&
-				(foreignEntity = new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
-						.setParameters(C_Calendar.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Calendar_ID(foreignEntity.get_ID());
+		if (C_Calendar != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
+							.setParameters(C_Calendar.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Calendar_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Calendar with UUID " + C_Calendar.getUUID());
+			}
 		} else {
 			super.setC_Calendar_ID(0);
 		}
@@ -158,11 +178,16 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
 		MLocation foreignEntity;
-		if (C_Location != null &&
-				(foreignEntity = new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-						.setParameters(C_Location.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Location_ID(foreignEntity.get_ID());
+		if (C_Location != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
+							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Location_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
+			}
 		} else {
 			super.setC_Location_ID(0);
 		}
@@ -187,11 +212,16 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	public void setDropShip_WarehouseInput(ForeignEntityInput DropShip_Warehouse) {
 		this.mDropShip_Warehouse = DropShip_Warehouse;
 		MWarehouse_BH foreignEntity;
-		if (DropShip_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-						.setParameters(DropShip_Warehouse.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setDropShip_Warehouse_ID(foreignEntity.get_ID());
+		if (DropShip_Warehouse != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(DropShip_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDropShip_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + DropShip_Warehouse.getUUID());
+			}
 		} else {
 			super.setDropShip_Warehouse_ID(0);
 		}
@@ -216,11 +246,16 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
 		MImage foreignEntity;
-		if (AD_Image != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-						.setParameters(AD_Image.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setLogo_ID(foreignEntity.get_ID());
+		if (AD_Image != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
+							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setLogo_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
+			}
 		} else {
 			super.setLogo_ID(0);
 		}
@@ -245,11 +280,16 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
 		MWarehouse_BH foreignEntity;
-		if (M_Warehouse != null &&
-				(foreignEntity = new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-						.setParameters(M_Warehouse.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Warehouse_ID(foreignEntity.get_ID());
+		if (M_Warehouse != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+			}
 		} else {
 			super.setM_Warehouse_ID(0);
 		}
@@ -274,11 +314,16 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
 		MUser_BH foreignEntity;
-		if (Supervisor != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(Supervisor.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setSupervisor_ID(foreignEntity.get_ID());
+		if (Supervisor != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setSupervisor_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
+			}
 		} else {
 			super.setSupervisor_ID(0);
 		}
@@ -303,11 +348,16 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	public void setTransferBankInput(ForeignEntityInput TransferBank) {
 		this.mTransferBank = TransferBank;
 		MBank foreignEntity;
-		if (TransferBank != null &&
-				(foreignEntity = new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
-						.setParameters(TransferBank.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setTransferBank_ID(foreignEntity.get_ID());
+		if (TransferBank != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
+							.setParameters(TransferBank.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setTransferBank_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Bank with UUID " + TransferBank.getUUID());
+			}
 		} else {
 			super.setTransferBank_ID(0);
 		}
@@ -332,11 +382,16 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	public void setTransferCashBookInput(ForeignEntityInput TransferCashBook) {
 		this.mTransferCashBook = TransferCashBook;
 		MCashBook foreignEntity;
-		if (TransferCashBook != null &&
-				(foreignEntity = new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-						.setParameters(TransferCashBook.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setTransferCashBook_ID(foreignEntity.get_ID());
+		if (TransferCashBook != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
+							.setParameters(TransferCashBook.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setTransferCashBook_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_CashBook with UUID " + TransferCashBook.getUUID());
+			}
 		} else {
 			super.setTransferCashBook_ID(0);
 		}

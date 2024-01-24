@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_PaySelectionLineSave(entity: C_PaySelectionLineInput!): C_PaySelectionLine!
+	C_PaySelectionLineSaveMany(entities: [C_PaySelectionLineInput!]!): [C_PaySelectionLine!]!
 	C_PaySelectionLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type C_PaySelectionLine {
 	C_PaySelection: C_PaySelection!
 	# Payment Selection Check
 	C_PaySelectionCheck: C_PaySelectionCheck
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -70,7 +71,7 @@ input C_PaySelectionLineInput {
 	C_PaySelection: ForeignEntityInput
 	# Payment Selection Check
 	C_PaySelectionCheck: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Difference Amount

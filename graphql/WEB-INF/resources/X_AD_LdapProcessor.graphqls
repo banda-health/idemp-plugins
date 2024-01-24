@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_LdapProcessorSave(entity: AD_LdapProcessorInput!): AD_LdapProcessor!
+	AD_LdapProcessorSaveMany(entities: [AD_LdapProcessorInput!]!): [AD_LdapProcessor!]!
 	AD_LdapProcessorDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_LdapProcessorConnection {
 type AD_LdapProcessor {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -49,7 +50,7 @@ type AD_LdapProcessor {
 }
 
 input AD_LdapProcessorInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Date the process was last run.

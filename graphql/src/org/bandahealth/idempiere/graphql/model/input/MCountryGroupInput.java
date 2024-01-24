@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MCountryGroupInput extends X_C_CountryGroupInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_CountryGroup_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCountryGroupInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MCountryGroupInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

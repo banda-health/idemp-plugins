@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_SearchDefinitionSave(entity: AD_SearchDefinitionInput!): AD_SearchDefinition!
+	AD_SearchDefinitionSaveMany(entities: [AD_SearchDefinitionInput!]!): [AD_SearchDefinition!]!
 	AD_SearchDefinitionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_SearchDefinition {
 	AD_Column: AD_Column
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Data entry or display window
@@ -62,7 +63,7 @@ input AD_SearchDefinitionInput {
 	AD_Column: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Data entry or display window

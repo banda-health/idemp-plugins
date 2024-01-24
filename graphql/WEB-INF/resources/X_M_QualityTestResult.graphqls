@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_QualityTestResultSave(entity: M_QualityTestResultInput!): M_QualityTestResult!
+	M_QualityTestResultSaveMany(entities: [M_QualityTestResultInput!]!): [M_QualityTestResult!]!
 	M_QualityTestResultDelete(uuids: [String!]!): Boolean!
 }
 
@@ -33,7 +34,7 @@ type M_QualityTestResult {
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	M_QualityTest: M_QualityTest!
-	ID: ID!
+	UUID: ID!
 	# The document has been processed
 	Processed: Boolean!
 	# Result of the action taken
@@ -53,7 +54,7 @@ input M_QualityTestResultInput {
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
 	M_QualityTest: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The document has been processed
 	Processed: Boolean
 	# Result of the action taken

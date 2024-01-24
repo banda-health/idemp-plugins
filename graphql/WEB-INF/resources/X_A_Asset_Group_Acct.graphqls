@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_Group_AcctSave(entity: A_Asset_Group_AcctInput!): A_Asset_Group_Acct!
+	A_Asset_Group_AcctSaveMany(entities: [A_Asset_Group_AcctInput!]!): [A_Asset_Group_Acct!]!
 	A_Asset_Group_AcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type A_Asset_Group_AcctConnection {
 type A_Asset_Group_Acct {
 	A_Accumdepreciation_A: C_ValidCombination!
 	A_Asset_A: C_ValidCombination!
-	ID: ID!
+	UUID: ID!
 	# Group of Assets
 	A_Asset_Group: A_Asset_Group!
 	A_Depreciation_A: C_ValidCombination!
@@ -73,7 +74,7 @@ type A_Asset_Group_Acct {
 input A_Asset_Group_AcctInput {
 	A_Accumdepreciation_A: ForeignEntityInput
 	A_Asset_A: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Group of Assets
 	A_Asset_Group: ForeignEntityInput
 	A_Depreciation_A: ForeignEntityInput

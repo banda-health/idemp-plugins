@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	T_DistributionRunDetailSave(entity: T_DistributionRunDetailInput!): T_DistributionRunDetail!
+	T_DistributionRunDetailSaveMany(entities: [T_DistributionRunDetailInput!]!): [T_DistributionRunDetail!]!
 	T_DistributionRunDetailDelete(uuids: [String!]!): Boolean!
 }
 
@@ -46,7 +47,7 @@ type T_DistributionRunDetail {
 	Qty: BigDecimal!
 	# Relative Ratio for Distributions
 	Ratio: BigDecimal!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -78,5 +79,5 @@ input T_DistributionRunDetailInput {
 	Qty: BigDecimal
 	# Relative Ratio for Distributions
 	Ratio: BigDecimal
-	ID: ID
+	UUID: ID
 }

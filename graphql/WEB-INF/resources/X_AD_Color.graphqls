@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ColorSave(entity: AD_ColorInput!): AD_Color!
+	AD_ColorSaveMany(entities: [AD_ColorInput!]!): [AD_Color!]!
 	AD_ColorDelete(uuids: [String!]!): Boolean!
 }
 
@@ -18,7 +19,7 @@ type AD_ColorConnection {
 type AD_Color {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
-	ID: ID!
+	UUID: ID!
 	# Image or Icon
 	AD_Image: AD_Image
 	# Organizational entity within client
@@ -68,7 +69,7 @@ type AD_Color {
 }
 
 input AD_ColorInput {
-	ID: ID
+	UUID: ID
 	# Image or Icon
 	AD_Image: ForeignEntityInput
 	# Organizational entity within client

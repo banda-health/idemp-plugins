@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_UOMSave(entity: C_UOMInput!): C_UOM!
+	C_UOMSaveMany(entities: [C_UOMInput!]!): [C_UOM!]!
 	C_UOMDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_UOM {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Rounding used costing calculations
 	CostingPrecision: Int!
 	# Date this record was created
@@ -51,7 +52,7 @@ type C_UOM {
 input C_UOMInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Rounding used costing calculations
 	CostingPrecision: Int
 	# Optional short description of the record

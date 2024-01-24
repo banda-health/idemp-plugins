@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.X_PA_ReportColumnSet;
+import org.compiere.report.MReportColumnSet;
 
 /**
  * Data Loader for PA_ReportColumnSet - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.compiere.model.X_PA_ReportColumnSet;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_ReportColumnSetDataLoader extends PODataLoader<X_PA_ReportColumnSet> {
+public class X_PA_ReportColumnSetDataLoader extends PODataLoader<MReportColumnSet> {
 	public static String DATALOADER_PA_ReportColumnSet_BY_ID = "PA_ReportColumnSetByIdDataLoader";
 	public static String DATALOADER_PA_ReportColumnSet_BY_UUID = "PA_ReportColumnSetByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return X_PA_ReportColumnSet.Table_Name;
+		return MReportColumnSet.Table_Name;
 	}
 
 	@Override

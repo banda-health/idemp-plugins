@@ -1,0 +1,127 @@
+mutation BH_VisitProcess($uuid: String!, $documentAction: String!) {
+	BH_VisitProcess(uuid: $uuid, documentAction: $documentAction) {
+		...BH_VisitFields
+	}
+}
+
+mutation BH_VisitSave($entity: BH_VisitInput!) {
+	BH_VisitSave(entity: $entity) {
+		...BH_VisitFields
+	}
+}
+
+mutation C_BPartner_LocationSave($entity: C_BPartner_LocationInput!) {
+	C_BPartner_LocationSave(entity: $entity) {
+		UUID
+	}
+}
+
+mutation C_BPartnerSave($entity: C_BPartnerInput!) {
+	C_BPartnerSave(entity: $entity) {
+		...C_BPartnerFields
+	}
+}
+
+mutation C_BPartnerSaveWithLocation(
+	$C_BPartner: C_BPartnerInput!
+	$C_Location: C_LocationInput!
+	$C_BPartner_Location: C_BPartner_LocationInput!
+) {
+	C_BPartnerSave(entity: $C_BPartner) {
+		...C_BPartnerFields
+	}
+	C_LocationSave(entity: $C_Location) {
+		...C_LocationFields
+	}
+	C_BPartner_LocationSave(entity: $C_BPartner_Location) {
+		UUID
+	}
+}
+
+mutation C_Charge_AcctSave($entity: C_Charge_AcctInput!) {
+	C_Charge_AcctSave(entity: $entity) {
+		UUID
+	}
+}
+
+mutation C_ChargeSave($entity: C_ChargeInput!) {
+	C_ChargeSave(entity: $entity) {
+		Description
+		UUID
+		Name
+		C_Charge_AcctList {
+			UUID
+			C_AcctSchema {
+				UUID
+			}
+		}
+	}
+}
+
+mutation C_LocationSave($entity: C_LocationInput!) {
+	C_LocationSave(entity: $entity) {
+		...C_LocationFields
+	}
+}
+
+mutation C_LocationUpdateWithBPartner(
+	$C_BPartner: C_BPartnerInput!
+	$C_Location: C_LocationInput!
+	$C_BPartner_Location: C_BPartner_LocationInput!
+) {
+	C_LocationSave(entity: $C_Location) {
+		...C_LocationFields
+	}
+	C_BPartner_LocationSave(entity: $C_BPartner_Location) {
+		UUID
+	}
+	C_BPartnerSave(entity: $C_BPartner) {
+		...C_BPartnerFields
+	}
+}
+
+mutation C_OrderLineSave($entity: C_OrderLineInput!) {
+	C_OrderLineSave(entity: $entity) {
+		UUID
+	}
+}
+
+mutation C_OrderProcess($uuid: String!, $documentAction: String!) {
+	C_OrderProcess(uuid: $uuid, documentAction: $documentAction) {
+		...C_OrderFields
+	}
+}
+
+mutation C_OrderSave($entity: C_OrderInput!) {
+	C_OrderSave(entity: $entity) {
+		...C_OrderFields
+	}
+}
+
+mutation C_OrderSaveWithOrderLines($C_Order: C_OrderInput!, $C_OrderLine: C_OrderLineInput!) {
+	C_OrderSave(entity: $C_Order) {
+		...C_OrderFields
+	}
+	C_OrderLineSave(entity: $C_OrderLine) {
+		UUID
+	}
+}
+
+mutation C_ValidCombinationGetOrCreate($AD_Org_UU: String, $C_AcctSchema_UU: String, $Account_UU: String, $C_SubAcct_UU: String, $M_Product_UU: String, $C_BPartner_UU: String, $AD_OrgTrx_UU: String, $C_LocFrom_UU: String, $C_LocTo_UU: String, $C_SalesRegion_UU: String, $C_Project_UU: String, $C_Campaign_UU: String, $C_Activity_UU: String, $User1_UU: String, $User2_UU: String, $UserElement1_UU: String, $UserElement2_UU: String) {
+	C_ValidCombinationGetOrCreate(AD_Org_UU: $AD_Org_UU, C_AcctSchema_UU: $C_AcctSchema_UU, Account_UU: $Account_UU, C_SubAcct_UU: $C_SubAcct_UU, M_Product_UU: $M_Product_UU, C_BPartner_UU: $C_BPartner_UU, AD_OrgTrx_UU: $AD_OrgTrx_UU, C_LocFrom_UU: $C_LocFrom_UU, C_LocTo_UU: $C_LocTo_UU, C_SalesRegion_UU: $C_SalesRegion_UU, C_Project_UU: $C_Project_UU, C_Campaign_UU: $C_Campaign_UU, C_Activity_UU: $C_Activity_UU, User1_UU: $User1_UU, User2_UU: $User2_UU, UserElement1_UU: $UserElement1_UU, UserElement2_UU: $UserElement2_UU) {
+		UUID
+	}
+}
+
+mutation M_ProductSave($entity: M_ProductInput!) {
+	M_ProductSave(entity: $entity) {
+		BH_BuyPrice
+		BH_SellPrice
+		Description
+		UUID
+		Name
+		M_Product_Category {
+			UUID
+		}
+	}
+}

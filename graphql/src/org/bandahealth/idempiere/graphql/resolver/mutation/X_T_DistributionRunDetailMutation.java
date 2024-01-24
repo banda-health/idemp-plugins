@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_T_DistributionRunDetailIn
 import org.compiere.model.MDistributionRunDetail;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for T_DistributionRunDetail - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_T_DistributionRunDetailMutation extends POMutation implements Gra
 		return X_T_DistributionRunDetailInput.Table_Name;
 	}
 
-	public MDistributionRunDetail T_DistributionRunDetailSave(I_T_DistributionRunDetailInput input, DataFetchingEnvironment environment) {
-		return (MDistributionRunDetail) super.save((X_T_DistributionRunDetailInput) input, environment);
+	public MDistributionRunDetail T_DistributionRunDetailSave(I_T_DistributionRunDetailInput entity, DataFetchingEnvironment environment) {
+		return (MDistributionRunDetail) super.save((X_T_DistributionRunDetailInput) entity, environment);
+	}
+
+	public List<MDistributionRunDetail> T_DistributionRunDetailSaveMany(List<I_T_DistributionRunDetailInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_T_DistributionRunDetailInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDistributionRunDetail) entity).collect(Collectors.toList());
 	}
 
 	public boolean T_DistributionRunDetailDelete(List<String> uuids, DataFetchingEnvironment environment) {

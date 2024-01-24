@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PInstanceSave(entity: AD_PInstanceInput!): AD_PInstance!
+	AD_PInstanceSaveMany(entities: [AD_PInstanceInput!]!): [AD_PInstance!]!
 	AD_PInstanceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type AD_PInstance {
 	AD_Language: AD_Language
 	# Organizational entity within client
 	AD_Org: AD_Org
-	ID: ID!
+	UUID: ID!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
 	# Process or Report
@@ -58,7 +59,7 @@ input AD_PInstanceInput {
 	AD_Language: ForeignEntityInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
 	# Process or Report

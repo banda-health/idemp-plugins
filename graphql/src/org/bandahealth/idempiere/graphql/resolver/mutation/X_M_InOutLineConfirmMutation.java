@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_InOutLineConfirmInput;
 import org.compiere.model.MInOutLineConfirm;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_InOutLineConfirm - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_InOutLineConfirmMutation extends POMutation implements GraphQLM
 		return X_M_InOutLineConfirmInput.Table_Name;
 	}
 
-	public MInOutLineConfirm M_InOutLineConfirmSave(I_M_InOutLineConfirmInput input, DataFetchingEnvironment environment) {
-		return (MInOutLineConfirm) super.save((X_M_InOutLineConfirmInput) input, environment);
+	public MInOutLineConfirm M_InOutLineConfirmSave(I_M_InOutLineConfirmInput entity, DataFetchingEnvironment environment) {
+		return (MInOutLineConfirm) super.save((X_M_InOutLineConfirmInput) entity, environment);
+	}
+
+	public List<MInOutLineConfirm> M_InOutLineConfirmSaveMany(List<I_M_InOutLineConfirmInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_InOutLineConfirmInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MInOutLineConfirm) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_InOutLineConfirmDelete(List<String> uuids, DataFetchingEnvironment environment) {

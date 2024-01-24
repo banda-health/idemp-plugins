@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MShipperPackagingInput extends X_M_ShipperPackagingInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_ShipperPackaging_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MShipperPackagingInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MShipperPackagingInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

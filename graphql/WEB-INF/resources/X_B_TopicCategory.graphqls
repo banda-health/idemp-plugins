@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	B_TopicCategorySave(entity: B_TopicCategoryInput!): B_TopicCategory!
+	B_TopicCategorySaveMany(entities: [B_TopicCategoryInput!]!): [B_TopicCategory!]!
 	B_TopicCategoryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type B_TopicCategory {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Auction Topic Type
 	B_TopicType: B_TopicType!
 	# Date this record was created
@@ -42,7 +43,7 @@ type B_TopicCategory {
 input B_TopicCategoryInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Auction Topic Type
 	B_TopicType: ForeignEntityInput
 	# Optional short description of the record

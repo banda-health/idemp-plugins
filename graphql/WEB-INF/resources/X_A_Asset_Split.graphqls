@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_SplitSave(entity: A_Asset_SplitInput!): A_Asset_Split!
+	A_Asset_SplitSaveMany(entities: [A_Asset_SplitInput!]!): [A_Asset_Split!]!
 	A_Asset_SplitDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type A_Asset_Split {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Asset_To: A_Asset
-	ID: ID!
+	UUID: ID!
 	A_Depreciation_Workfile_ID: Int!
 	A_Percent_Original: BigDecimal
 	A_Percent_Split: BigDecimal
@@ -62,7 +63,7 @@ input A_Asset_SplitInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Asset_To: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	A_Depreciation_Workfile_ID: Int
 	A_Percent_Original: BigDecimal
 	A_Percent_Split: BigDecimal

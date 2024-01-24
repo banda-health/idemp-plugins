@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_Product_CategoryDefaultSave(entity: BH_Product_CategoryDefaultInput!): BH_Product_CategoryDefault!
+	BH_Product_CategoryDefaultSaveMany(entities: [BH_Product_CategoryDefaultInput!]!): [BH_Product_CategoryDefault!]!
 	BH_Product_CategoryDefaultDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type BH_Product_CategoryDefault {
 	AD_Org: AD_Org!
 	# Contains a character the is linked to a ref list to determine types of product categories
 	BH_Product_Category_Type: AD_Ref_List!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,7 +47,7 @@ input BH_Product_CategoryDefaultInput {
 	AD_Org: ForeignEntityInput
 	# Contains a character the is linked to a ref list to determine types of product categories
 	BH_Product_Category_Type: AD_Ref_ListInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -9,6 +10,7 @@ import org.compiere.model.MBOM;
 import org.compiere.model.MChangeNotice;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -27,13 +29,16 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 	private I_AD_Ref_ListInput mBOMUse;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_BOM_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_BOMInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MBOM(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_BOMInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBOM(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -45,11 +50,16 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -72,11 +82,16 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 	public void setBOMTypeInput(I_AD_Ref_ListInput BOMType) {
 		this.mBOMType = BOMType;
 		MRefList_BH foreignEntity;
-		if (BOMType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BOMType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBOMType(foreignEntity.getValue());
+		if (BOMType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BOMType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBOMType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BOMType.getUUID());
+			}
 		} else {
 			this.setBOMType(null);
 		}
@@ -101,11 +116,16 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 	public void setBOMUseInput(I_AD_Ref_ListInput BOMUse) {
 		this.mBOMUse = BOMUse;
 		MRefList_BH foreignEntity;
-		if (BOMUse != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BOMUse.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBOMUse(foreignEntity.getValue());
+		if (BOMUse != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BOMUse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBOMUse(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BOMUse.getUUID());
+			}
 		} else {
 			this.setBOMUse(null);
 		}
@@ -133,20 +153,20 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_BOM_UU(ID);
+	public void setUUID(String UUID) {
+		setM_BOM_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_BOM_UU();
 	}
 
@@ -159,11 +179,16 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 	public void setM_ChangeNoticeInput(ForeignEntityInput M_ChangeNotice) {
 		this.mM_ChangeNotice = M_ChangeNotice;
 		MChangeNotice foreignEntity;
-		if (M_ChangeNotice != null &&
-				(foreignEntity = new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
-						.setParameters(M_ChangeNotice.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_ChangeNotice_ID(foreignEntity.get_ID());
+		if (M_ChangeNotice != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
+							.setParameters(M_ChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_ChangeNotice_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_ChangeNotice with UUID " + M_ChangeNotice.getUUID());
+			}
 		} else {
 			super.setM_ChangeNotice_ID(0);
 		}
@@ -188,11 +213,16 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
 		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && M_Product != null &&
-				(foreignEntity = new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-						.setParameters(M_Product.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Product_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_Product != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
 		}
 	}
 

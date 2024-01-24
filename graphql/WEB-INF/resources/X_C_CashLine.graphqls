@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CashLineSave(entity: C_CashLineInput!): C_CashLine!
+	C_CashLineSaveMany(entities: [C_CashLineInput!]!): [C_CashLine!]!
 	C_CashLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type C_CashLine {
 	C_BankAccount: C_BankAccount
 	# Cash Journal
 	C_Cash: C_Cash!
-	ID: ID!
+	UUID: ID!
 	# Additional document charges
 	C_Charge: C_Charge
 	# The Currency for this record
@@ -70,7 +71,7 @@ input C_CashLineInput {
 	C_BankAccount: ForeignEntityInput
 	# Cash Journal
 	C_Cash: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	# The Currency for this record

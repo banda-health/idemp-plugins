@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -11,6 +12,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -33,13 +35,16 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	private I_AD_Ref_ListInput mPriorityBase;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_BP_Group_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_BP_GroupInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MBPGroup_BH(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_BP_GroupInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBPGroup_BH(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -51,11 +56,16 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -78,11 +88,16 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor) {
 		this.mAD_PrintColor = AD_PrintColor;
 		X_AD_PrintColor foreignEntity;
-		if (AD_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-						.setParameters(AD_PrintColor.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_PrintColor_ID(foreignEntity.get_ID());
+		if (AD_PrintColor != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
+							.setParameters(AD_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_PrintColor_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintColor with UUID " + AD_PrintColor.getUUID());
+			}
 		} else {
 			super.setAD_PrintColor_ID(0);
 		}
@@ -107,11 +122,16 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public void setBH_SubTypeInput(I_AD_Ref_ListInput BH_SubType) {
 		this.mBH_SubType = BH_SubType;
 		MRefList_BH foreignEntity;
-		if (BH_SubType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(BH_SubType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setBH_SubType(foreignEntity.getValue());
+		if (BH_SubType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BH_SubType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setBH_SubType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BH_SubType.getUUID());
+			}
 		} else {
 			this.setBH_SubType(null);
 		}
@@ -139,20 +159,20 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_BP_Group_UU(ID);
+	public void setUUID(String UUID) {
+		setC_BP_Group_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_BP_Group_UU();
 	}
 
@@ -165,11 +185,16 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public void setC_DunningInput(ForeignEntityInput C_Dunning) {
 		this.mC_Dunning = C_Dunning;
 		MDunning foreignEntity;
-		if (C_Dunning != null &&
-				(foreignEntity = new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
-						.setParameters(C_Dunning.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Dunning_ID(foreignEntity.get_ID());
+		if (C_Dunning != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
+							.setParameters(C_Dunning.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Dunning_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Dunning with UUID " + C_Dunning.getUUID());
+			}
 		} else {
 			super.setC_Dunning_ID(0);
 		}
@@ -194,11 +219,16 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
 		MDiscountSchema foreignEntity;
-		if (M_DiscountSchema != null &&
-				(foreignEntity = new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-						.setParameters(M_DiscountSchema.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_DiscountSchema_ID(foreignEntity.get_ID());
+		if (M_DiscountSchema != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
+							.setParameters(M_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_DiscountSchema_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_DiscountSchema with UUID " + M_DiscountSchema.getUUID());
+			}
 		} else {
 			super.setM_DiscountSchema_ID(0);
 		}
@@ -223,11 +253,16 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
-		if (M_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-						.setParameters(M_PriceList.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_PriceList_ID(foreignEntity.get_ID());
+		if (M_PriceList != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
+							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_PriceList_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
+			}
 		} else {
 			super.setM_PriceList_ID(0);
 		}
@@ -252,11 +287,16 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public void setPO_DiscountSchemaInput(ForeignEntityInput PO_DiscountSchema) {
 		this.mPO_DiscountSchema = PO_DiscountSchema;
 		MDiscountSchema foreignEntity;
-		if (PO_DiscountSchema != null &&
-				(foreignEntity = new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-						.setParameters(PO_DiscountSchema.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPO_DiscountSchema_ID(foreignEntity.get_ID());
+		if (PO_DiscountSchema != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
+							.setParameters(PO_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPO_DiscountSchema_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_DiscountSchema with UUID " + PO_DiscountSchema.getUUID());
+			}
 		} else {
 			super.setPO_DiscountSchema_ID(0);
 		}
@@ -281,11 +321,16 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public void setPO_PriceListInput(ForeignEntityInput PO_PriceList) {
 		this.mPO_PriceList = PO_PriceList;
 		MPriceList foreignEntity;
-		if (PO_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-						.setParameters(PO_PriceList.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPO_PriceList_ID(foreignEntity.get_ID());
+		if (PO_PriceList != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
+							.setParameters(PO_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPO_PriceList_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PriceList with UUID " + PO_PriceList.getUUID());
+			}
 		} else {
 			super.setPO_PriceList_ID(0);
 		}
@@ -310,11 +355,16 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	public void setPriorityBaseInput(I_AD_Ref_ListInput PriorityBase) {
 		this.mPriorityBase = PriorityBase;
 		MRefList_BH foreignEntity;
-		if (PriorityBase != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PriorityBase.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPriorityBase(foreignEntity.getValue());
+		if (PriorityBase != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PriorityBase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPriorityBase(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PriorityBase.getUUID());
+			}
 		} else {
 			this.setPriorityBase(null);
 		}

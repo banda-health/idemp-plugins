@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ChangeNoticeSave(entity: M_ChangeNoticeInput!): M_ChangeNotice!
+	M_ChangeNoticeSaveMany(entities: [M_ChangeNoticeInput!]!): [M_ChangeNotice!]!
 	M_ChangeNoticeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_ChangeNotice {
 	IsActive: Boolean!
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# The document has been processed
@@ -59,7 +60,7 @@ input M_ChangeNoticeInput {
 	IsActive: Boolean
 	# Indicates if this document requires approval
 	IsApproved: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# The document has been processed

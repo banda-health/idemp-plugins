@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_StorageReservationSave(entity: M_StorageReservationInput!): M_StorageReservation!
+	M_StorageReservationSaveMany(entities: [M_StorageReservationInput!]!): [M_StorageReservation!]!
 	M_StorageReservationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_StorageReservation {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Product, Service, Item
 	M_Product: M_Product!
-	ID: ID!
+	UUID: ID!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Quantity
@@ -58,7 +59,7 @@ input M_StorageReservationInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Quantity

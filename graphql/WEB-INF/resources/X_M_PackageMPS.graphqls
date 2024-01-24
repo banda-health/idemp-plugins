@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_PackageMPSSave(entity: M_PackageMPSInput!): M_PackageMPS!
+	M_PackageMPSSaveMany(entities: [M_PackageMPSInput!]!): [M_PackageMPS!]!
 	M_PackageMPSDelete(uuids: [String!]!): Boolean!
 }
 
@@ -39,7 +40,7 @@ type M_PackageMPS {
 	Length: BigDecimal
 	# Shipment Package
 	M_Package: M_Package!
-	ID: ID!
+	UUID: ID!
 	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal
@@ -75,7 +76,7 @@ input M_PackageMPSInput {
 	Length: BigDecimal
 	# Shipment Package
 	M_Package: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal

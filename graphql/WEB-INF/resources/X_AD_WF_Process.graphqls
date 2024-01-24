@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WF_ProcessSave(entity: AD_WF_ProcessInput!): AD_WF_Process!
+	AD_WF_ProcessSaveMany(entities: [AD_WF_ProcessInput!]!): [AD_WF_Process!]!
 	AD_WF_ProcessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type AD_WF_Process {
 	AD_Table: AD_Table!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	ID: ID!
+	UUID: ID!
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: AD_WF_Responsible!
 	# Workflow or combination of tasks
@@ -63,7 +64,7 @@ input AD_WF_ProcessInput {
 	AD_Table: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: ForeignEntityInput
 	# Workflow or combination of tasks

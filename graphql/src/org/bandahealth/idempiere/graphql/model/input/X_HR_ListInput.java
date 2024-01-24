@@ -2,9 +2,11 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 import org.eevolution.model.X_HR_Department;
 import org.eevolution.model.X_HR_Employee;
 import org.eevolution.model.X_HR_List;
@@ -28,13 +30,16 @@ public class X_HR_ListInput extends X_HR_List implements I_HR_ListInput {
 	private ForeignEntityInput mHR_Payroll;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The HR_List_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_HR_ListInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_HR_List(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_HR_ListInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_HR_List(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -46,11 +51,16 @@ public class X_HR_ListInput extends X_HR_List implements I_HR_ListInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -73,11 +83,16 @@ public class X_HR_ListInput extends X_HR_List implements I_HR_ListInput {
 	public void setHR_DepartmentInput(ForeignEntityInput HR_Department) {
 		this.mHR_Department = HR_Department;
 		X_HR_Department foreignEntity;
-		if (HR_Department != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Department", "HR_Department_UU=?", get_TrxName())
-						.setParameters(HR_Department.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_Department_ID(foreignEntity.get_ID());
+		if (HR_Department != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Department", "HR_Department_UU=?", get_TrxName())
+							.setParameters(HR_Department.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_Department_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Department with UUID " + HR_Department.getUUID());
+			}
 		} else {
 			super.setHR_Department_ID(0);
 		}
@@ -102,11 +117,16 @@ public class X_HR_ListInput extends X_HR_List implements I_HR_ListInput {
 	public void setHR_EmployeeInput(ForeignEntityInput HR_Employee) {
 		this.mHR_Employee = HR_Employee;
 		X_HR_Employee foreignEntity;
-		if (HR_Employee != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Employee", "HR_Employee_UU=?", get_TrxName())
-						.setParameters(HR_Employee.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_Employee_ID(foreignEntity.get_ID());
+		if (HR_Employee != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Employee", "HR_Employee_UU=?", get_TrxName())
+							.setParameters(HR_Employee.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_Employee_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Employee with UUID " + HR_Employee.getUUID());
+			}
 		} else {
 			super.setHR_Employee_ID(0);
 		}
@@ -134,20 +154,20 @@ public class X_HR_ListInput extends X_HR_List implements I_HR_ListInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setHR_List_UU(ID);
+	public void setUUID(String UUID) {
+		setHR_List_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getHR_List_UU();
 	}
 
@@ -160,11 +180,16 @@ public class X_HR_ListInput extends X_HR_List implements I_HR_ListInput {
 	public void setHR_ListTypeInput(ForeignEntityInput HR_ListType) {
 		this.mHR_ListType = HR_ListType;
 		X_HR_ListType foreignEntity;
-		if (HR_ListType != null &&
-				(foreignEntity = new Query(getCtx(), "HR_ListType", "HR_ListType_UU=?", get_TrxName())
-						.setParameters(HR_ListType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_ListType_ID(foreignEntity.get_ID());
+		if (HR_ListType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_ListType", "HR_ListType_UU=?", get_TrxName())
+							.setParameters(HR_ListType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_ListType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_ListType with UUID " + HR_ListType.getUUID());
+			}
 		} else {
 			super.setHR_ListType_ID(0);
 		}
@@ -189,11 +214,16 @@ public class X_HR_ListInput extends X_HR_List implements I_HR_ListInput {
 	public void setHR_PayrollInput(ForeignEntityInput HR_Payroll) {
 		this.mHR_Payroll = HR_Payroll;
 		X_HR_Payroll foreignEntity;
-		if (HR_Payroll != null &&
-				(foreignEntity = new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
-						.setParameters(HR_Payroll.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setHR_Payroll_ID(foreignEntity.get_ID());
+		if (HR_Payroll != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
+							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setHR_Payroll_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table HR_Payroll with UUID " + HR_Payroll.getUUID());
+			}
 		} else {
 			super.setHR_Payroll_ID(0);
 		}

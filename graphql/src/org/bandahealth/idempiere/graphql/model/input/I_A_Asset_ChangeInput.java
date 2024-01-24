@@ -53,18 +53,18 @@ public interface I_A_Asset_ChangeInput extends I_A_Asset_Change {
 	ForeignEntityInput A_Asset_Addition();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set A_Asset.

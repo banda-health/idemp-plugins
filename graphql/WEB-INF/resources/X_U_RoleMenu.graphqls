@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	U_RoleMenuSave(entity: U_RoleMenuInput!): U_RoleMenu!
+	U_RoleMenuSaveMany(entities: [U_RoleMenuInput!]!): [U_RoleMenu!]!
 	U_RoleMenuDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type U_RoleMenu {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	U_WebMenu: U_WebMenu!
 	# Date this record was updated
 	Updated: Date!
@@ -43,6 +44,6 @@ input U_RoleMenuInput {
 	AD_Role: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	U_WebMenu: ForeignEntityInput
 }

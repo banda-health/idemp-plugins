@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_PeriodControlSave(entity: C_PeriodControlInput!): C_PeriodControl!
+	C_PeriodControlSaveMany(entities: [C_PeriodControlInput!]!): [C_PeriodControl!]!
 	C_PeriodControlDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_PeriodControl {
 	AD_Org: AD_Org!
 	# Period of the Calendar
 	C_Period: C_Period!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -47,7 +48,7 @@ input C_PeriodControlInput {
 	AD_Org: ForeignEntityInput
 	# Period of the Calendar
 	C_Period: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Logical type of document
 	DocBaseType: AD_Ref_ListInput
 	# The record is active in the system

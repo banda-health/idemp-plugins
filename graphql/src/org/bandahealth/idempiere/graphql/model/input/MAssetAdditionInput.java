@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MAssetAdditionInput extends X_A_Asset_AdditionInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The A_Asset_Addition_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAssetAdditionInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MAssetAdditionInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

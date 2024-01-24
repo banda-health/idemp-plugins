@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_AcctSchema_ElementInput
 import org.compiere.model.MAcctSchemaElement;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_AcctSchema_Element - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_AcctSchema_ElementMutation extends POMutation implements GraphQ
 		return X_C_AcctSchema_ElementInput.Table_Name;
 	}
 
-	public MAcctSchemaElement C_AcctSchema_ElementSave(I_C_AcctSchema_ElementInput input, DataFetchingEnvironment environment) {
-		return (MAcctSchemaElement) super.save((X_C_AcctSchema_ElementInput) input, environment);
+	public MAcctSchemaElement C_AcctSchema_ElementSave(I_C_AcctSchema_ElementInput entity, DataFetchingEnvironment environment) {
+		return (MAcctSchemaElement) super.save((X_C_AcctSchema_ElementInput) entity, environment);
+	}
+
+	public List<MAcctSchemaElement> C_AcctSchema_ElementSaveMany(List<I_C_AcctSchema_ElementInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_AcctSchema_ElementInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAcctSchemaElement) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_AcctSchema_ElementDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_B_TopicInput;
 import org.compiere.model.X_B_Topic;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for B_Topic - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_B_TopicMutation extends POMutation implements GraphQLMutationReso
 		return X_B_TopicInput.Table_Name;
 	}
 
-	public X_B_Topic B_TopicSave(I_B_TopicInput input, DataFetchingEnvironment environment) {
-		return (X_B_Topic) super.save((X_B_TopicInput) input, environment);
+	public X_B_Topic B_TopicSave(I_B_TopicInput entity, DataFetchingEnvironment environment) {
+		return (X_B_Topic) super.save((X_B_TopicInput) entity, environment);
+	}
+
+	public List<X_B_Topic> B_TopicSaveMany(List<I_B_TopicInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_B_TopicInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_B_Topic) entity).collect(Collectors.toList());
 	}
 
 	public boolean B_TopicDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_AttributeSetExcludeSave(entity: M_AttributeSetExcludeInput!): M_AttributeSetExclude!
+	M_AttributeSetExcludeSaveMany(entities: [M_AttributeSetExcludeInput!]!): [M_AttributeSetExclude!]!
 	M_AttributeSetExcludeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type M_AttributeSetExclude {
 	IsSOTrx: Boolean!
 	# Product Attribute Set
 	M_AttributeSet: M_AttributeSet!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -50,5 +51,5 @@ input M_AttributeSetExcludeInput {
 	IsSOTrx: Boolean
 	# Product Attribute Set
 	M_AttributeSet: ForeignEntityInput
-	ID: ID
+	UUID: ID
 }

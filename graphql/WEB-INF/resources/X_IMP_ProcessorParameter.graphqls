@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	IMP_ProcessorParameterSave(entity: IMP_ProcessorParameterInput!): IMP_ProcessorParameter!
+	IMP_ProcessorParameterSaveMany(entities: [IMP_ProcessorParameterInput!]!): [IMP_ProcessorParameter!]!
 	IMP_ProcessorParameterDelete(uuids: [String!]!): Boolean!
 }
 
@@ -29,7 +30,7 @@ type IMP_ProcessorParameter {
 	# Comment or Hint
 	Help: String
 	IMP_Processor: IMP_Processor!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -51,7 +52,7 @@ input IMP_ProcessorParameterInput {
 	# Comment or Hint
 	Help: String
 	IMP_Processor: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

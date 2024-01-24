@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_UserQuerySave(entity: AD_UserQueryInput!): AD_UserQuery!
+	AD_UserQuerySaveMany(entities: [AD_UserQueryInput!]!): [AD_UserQuery!]!
 	AD_UserQueryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type AD_UserQuery {
 	AD_Table: AD_Table!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	ID: ID!
+	UUID: ID!
 	# Data entry or display window
 	AD_Window: AD_Window!
 	# Validation Code
@@ -62,7 +63,7 @@ input AD_UserQueryInput {
 	AD_Table: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	# Validation Code

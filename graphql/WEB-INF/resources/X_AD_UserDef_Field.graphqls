@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_UserDef_FieldSave(entity: AD_UserDef_FieldInput!): AD_UserDef_Field!
+	AD_UserDef_FieldSaveMany(entities: [AD_UserDef_FieldInput!]!): [AD_UserDef_Field!]!
 	AD_UserDef_FieldDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type AD_UserDef_Field {
 	AD_Reference: AD_Reference
 	# Required to specify, if data type is Table or List
 	AD_Reference_Value: AD_Reference
-	ID: ID!
+	UUID: ID!
 	AD_UserDef_Tab: AD_UserDef_Tab!
 	# Dynamic Validation Rule
 	AD_Val_Rule: AD_Val_Rule
@@ -110,7 +111,7 @@ input AD_UserDef_FieldInput {
 	AD_Reference: ForeignEntityInput
 	# Required to specify, if data type is Table or List
 	AD_Reference_Value: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	AD_UserDef_Tab: ForeignEntityInput
 	# Dynamic Validation Rule
 	AD_Val_Rule: ForeignEntityInput

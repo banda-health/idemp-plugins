@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_BH_EncounterInput;
 import org.bandahealth.idempiere.graphql.model.input.X_BH_EncounterInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for BH_Encounter - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_BH_EncounterMutation extends POMutation implements GraphQLMutatio
 		return X_BH_EncounterInput.Table_Name;
 	}
 
-	public MBHEncounter BH_EncounterSave(I_BH_EncounterInput input, DataFetchingEnvironment environment) {
-		return (MBHEncounter) super.save((X_BH_EncounterInput) input, environment);
+	public MBHEncounter BH_EncounterSave(I_BH_EncounterInput entity, DataFetchingEnvironment environment) {
+		return (MBHEncounter) super.save((X_BH_EncounterInput) entity, environment);
+	}
+
+	public List<MBHEncounter> BH_EncounterSaveMany(List<I_BH_EncounterInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_BH_EncounterInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MBHEncounter) entity).collect(Collectors.toList());
 	}
 
 	public boolean BH_EncounterDelete(List<String> uuids, DataFetchingEnvironment environment) {

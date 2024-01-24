@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CurrencySave(entity: C_CurrencyInput!): C_Currency!
+	C_CurrencySaveMany(entities: [C_CurrencyInput!]!): [C_Currency!]!
 	C_CurrencyDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_Currency {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Rounding used costing calculations
 	CostingPrecision: Int!
 	# Date this record was created
@@ -58,7 +59,7 @@ type C_Currency {
 input C_CurrencyInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Rounding used costing calculations
 	CostingPrecision: Int
 	# The name of the currency

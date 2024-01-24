@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_ChangeSave(entity: A_Asset_ChangeInput!): A_Asset_Change!
+	A_Asset_ChangeSaveMany(entities: [A_Asset_ChangeInput!]!): [A_Asset_Change!]!
 	A_Asset_ChangeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type A_Asset_Change {
 	A_Asset_A: C_ValidCombination
 	A_Asset_Acct_ID: Int
 	A_Asset_Addition: A_Asset_Addition
-	ID: ID!
+	UUID: ID!
 	A_Asset_CreateDate: Date
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
@@ -129,7 +130,7 @@ input A_Asset_ChangeInput {
 	A_Asset_A: ForeignEntityInput
 	A_Asset_Acct_ID: Int
 	A_Asset_Addition: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	A_Asset_CreateDate: Date
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput

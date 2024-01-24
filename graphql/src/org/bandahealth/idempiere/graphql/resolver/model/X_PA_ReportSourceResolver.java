@@ -22,8 +22,8 @@ import org.compiere.model.MElementValue;
 import org.compiere.model.MLocation;
 import org.compiere.model.MProject;
 import org.compiere.model.MSalesRegion;
-import org.compiere.model.X_PA_ReportLine;
-import org.compiere.model.X_PA_ReportSource;
+import org.compiere.report.MReportLine;
+import org.compiere.report.MReportSource;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -36,7 +36,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_PA_ReportSourceResolver extends POResolver<X_PA_ReportSource> implements GraphQLResolver<X_PA_ReportSource> {
+public class X_PA_ReportSourceResolver extends POResolver<MReportSource> implements GraphQLResolver<MReportSource> {
 
 
 
@@ -45,7 +45,7 @@ public class X_PA_ReportSourceResolver extends POResolver<X_PA_ReportSource> imp
 	 *
 	 * @return Business Activity
 	 */
-	public CompletableFuture<MActivity> C_Activity(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MActivity> C_Activity(MReportSource entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Activity_ID() <= 0) {
 			return null;
 		}
@@ -60,7 +60,7 @@ public class X_PA_ReportSourceResolver extends POResolver<X_PA_ReportSource> imp
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public CompletableFuture<MBPartner_BH> C_BPartner(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MBPartner_BH> C_BPartner(MReportSource entity, DataFetchingEnvironment environment) {
 		if (entity.getC_BPartner_ID() <= 0) {
 			return null;
 		}
@@ -75,7 +75,7 @@ public class X_PA_ReportSourceResolver extends POResolver<X_PA_ReportSource> imp
 	 *
 	 * @return Marketing Campaign
 	 */
-	public CompletableFuture<MCampaign> C_Campaign(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCampaign> C_Campaign(MReportSource entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Campaign_ID() <= 0) {
 			return null;
 		}
@@ -90,7 +90,7 @@ public class X_PA_ReportSourceResolver extends POResolver<X_PA_ReportSource> imp
 	 *
 	 * @return Account Element
 	 */
-	public CompletableFuture<MElementValue> C_ElementValue(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MElementValue> C_ElementValue(MReportSource entity, DataFetchingEnvironment environment) {
 		if (entity.getC_ElementValue_ID() <= 0) {
 			return null;
 		}
@@ -105,7 +105,7 @@ public class X_PA_ReportSourceResolver extends POResolver<X_PA_ReportSource> imp
 	 *
 	 * @return Location or Address
 	 */
-	public CompletableFuture<MLocation> C_Location(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MLocation> C_Location(MReportSource entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Location_ID() <= 0) {
 			return null;
 		}
@@ -120,7 +120,7 @@ public class X_PA_ReportSourceResolver extends POResolver<X_PA_ReportSource> imp
 	 *
 	 * @return Financial Project
 	 */
-	public CompletableFuture<MProject> C_Project(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProject> C_Project(MReportSource entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Project_ID() <= 0) {
 			return null;
 		}
@@ -135,7 +135,7 @@ public class X_PA_ReportSourceResolver extends POResolver<X_PA_ReportSource> imp
 	 *
 	 * @return Sales coverage region
 	 */
-	public CompletableFuture<MSalesRegion> C_SalesRegion(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MSalesRegion> C_SalesRegion(MReportSource entity, DataFetchingEnvironment environment) {
 		if (entity.getC_SalesRegion_ID() <= 0) {
 			return null;
 		}
@@ -165,60 +165,60 @@ public class X_PA_ReportSourceResolver extends POResolver<X_PA_ReportSource> imp
 			put("CO", "a852a154-ddbe-43a6-b753-c247521d6bf7");
 		}
 	};
-	public CompletableFuture<MRefList_BH> ElementType(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> ElementType(MReportSource entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getElementType())) {
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(ELEMENTTYPE_UUIDS_BY_VALUE.get(entity.getElementType()));
 	}
 
-	public Boolean IsIncludeNullsActivity(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsActivity(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsActivity();
 	}
 
-	public Boolean IsIncludeNullsBPartner(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsBPartner(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsBPartner();
 	}
 
-	public Boolean IsIncludeNullsCampaign(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsCampaign(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsCampaign();
 	}
 
-	public Boolean IsIncludeNullsElementValue(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsElementValue(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsElementValue();
 	}
 
-	public Boolean IsIncludeNullsLocation(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsLocation(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsLocation();
 	}
 
-	public Boolean IsIncludeNullsOrg(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsOrg(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsOrg();
 	}
 
-	public Boolean IsIncludeNullsOrgTrx(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsOrgTrx(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsOrgTrx();
 	}
 
-	public Boolean IsIncludeNullsProduct(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsProduct(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsProduct();
 	}
 
-	public Boolean IsIncludeNullsProject(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsProject(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsProject();
 	}
 
-	public Boolean IsIncludeNullsSalesRegion(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsSalesRegion(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsSalesRegion();
 	}
 
-	public Boolean IsIncludeNullsUserElement1(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsUserElement1(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsUserElement1();
 	}
 
-	public Boolean IsIncludeNullsUserElement2(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public Boolean IsIncludeNullsUserElement2(MReportSource entity, DataFetchingEnvironment environment) {
 		return entity.isIncludeNullsUserElement2();
 	}
 
@@ -228,7 +228,7 @@ public class X_PA_ReportSourceResolver extends POResolver<X_PA_ReportSource> imp
 	 *
 	 * @return Product, Service, Item
 	 */
-	public CompletableFuture<MProduct_BH> M_Product(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProduct_BH> M_Product(MReportSource entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Product_ID() <= 0) {
 			return null;
 		}
@@ -243,11 +243,11 @@ public class X_PA_ReportSourceResolver extends POResolver<X_PA_ReportSource> imp
 	 *
 	 * @return Report Line
 	 */
-	public CompletableFuture<X_PA_ReportLine> PA_ReportLine(X_PA_ReportSource entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportLine> PA_ReportLine(MReportSource entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, X_PA_ReportLine> dataLoader =
+		DataLoader<Integer, MReportLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineDataLoader.DATALOADER_PA_ReportLine_BY_ID);
 		return dataLoader.load(entity.getPA_ReportLine_ID());
 	}

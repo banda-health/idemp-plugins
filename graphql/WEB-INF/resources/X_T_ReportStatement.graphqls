@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	T_ReportStatementSave(entity: T_ReportStatementInput!): T_ReportStatement!
+	T_ReportStatementSaveMany(entities: [T_ReportStatementInput!]!): [T_ReportStatement!]!
 	T_ReportStatementDelete(uuids: [String!]!): Boolean!
 }
 
@@ -33,7 +34,7 @@ type T_ReportStatement {
 	Name: String
 	# Quantity
 	Qty: BigDecimal
-	ID: ID!
+	UUID: ID!
 }
 
 input T_ReportStatementInput {
@@ -54,5 +55,5 @@ input T_ReportStatementInput {
 	Name: String
 	# Quantity
 	Qty: BigDecimal
-	ID: ID
+	UUID: ID
 }

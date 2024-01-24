@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCountry;
@@ -13,6 +14,7 @@ import org.compiere.model.MTax;
 import org.compiere.model.MTaxCategory;
 import org.compiere.model.MTaxProvider;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -37,13 +39,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	private I_AD_Ref_ListInput mSOPOType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_Tax_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_TaxInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MTax(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_TaxInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MTax(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -55,11 +60,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -82,11 +92,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setAD_RuleInput(ForeignEntityInput AD_Rule) {
 		this.mAD_Rule = AD_Rule;
 		MRule foreignEntity;
-		if (AD_Rule != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Rule", "AD_Rule_UU=?", get_TrxName())
-						.setParameters(AD_Rule.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Rule_ID(foreignEntity.get_ID());
+		if (AD_Rule != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Rule", "AD_Rule_UU=?", get_TrxName())
+							.setParameters(AD_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Rule_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Rule with UUID " + AD_Rule.getUUID());
+			}
 		} else {
 			super.setAD_Rule_ID(0);
 		}
@@ -111,11 +126,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
 		MCountry foreignEntity;
-		if (C_Country != null &&
-				(foreignEntity = new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-						.setParameters(C_Country.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Country_ID(foreignEntity.get_ID());
+		if (C_Country != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
+							.setParameters(C_Country.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Country_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Country with UUID " + C_Country.getUUID());
+			}
 		} else {
 			super.setC_Country_ID(0);
 		}
@@ -140,11 +160,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setC_CountryGroupFromInput(ForeignEntityInput C_CountryGroupFrom) {
 		this.mC_CountryGroupFrom = C_CountryGroupFrom;
 		MCountryGroup foreignEntity;
-		if (C_CountryGroupFrom != null &&
-				(foreignEntity = new Query(getCtx(), "C_CountryGroup", "C_CountryGroup_UU=?", get_TrxName())
-						.setParameters(C_CountryGroupFrom.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_CountryGroupFrom_ID(foreignEntity.get_ID());
+		if (C_CountryGroupFrom != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_CountryGroup", "C_CountryGroup_UU=?", get_TrxName())
+							.setParameters(C_CountryGroupFrom.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_CountryGroupFrom_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_CountryGroup with UUID " + C_CountryGroupFrom.getUUID());
+			}
 		} else {
 			super.setC_CountryGroupFrom_ID(0);
 		}
@@ -169,11 +194,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setC_CountryGroupToInput(ForeignEntityInput C_CountryGroupTo) {
 		this.mC_CountryGroupTo = C_CountryGroupTo;
 		MCountryGroup foreignEntity;
-		if (C_CountryGroupTo != null &&
-				(foreignEntity = new Query(getCtx(), "C_CountryGroup", "C_CountryGroup_UU=?", get_TrxName())
-						.setParameters(C_CountryGroupTo.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_CountryGroupTo_ID(foreignEntity.get_ID());
+		if (C_CountryGroupTo != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_CountryGroup", "C_CountryGroup_UU=?", get_TrxName())
+							.setParameters(C_CountryGroupTo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_CountryGroupTo_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_CountryGroup with UUID " + C_CountryGroupTo.getUUID());
+			}
 		} else {
 			super.setC_CountryGroupTo_ID(0);
 		}
@@ -198,11 +228,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setC_RegionInput(ForeignEntityInput C_Region) {
 		this.mC_Region = C_Region;
 		MRegion foreignEntity;
-		if (C_Region != null &&
-				(foreignEntity = new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-						.setParameters(C_Region.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Region_ID(foreignEntity.get_ID());
+		if (C_Region != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
+							.setParameters(C_Region.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Region_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Region with UUID " + C_Region.getUUID());
+			}
 		} else {
 			super.setC_Region_ID(0);
 		}
@@ -230,20 +265,20 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_Tax_UU(ID);
+	public void setUUID(String UUID) {
+		setC_Tax_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_Tax_UU();
 	}
 
@@ -256,11 +291,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setC_TaxCategoryInput(ForeignEntityInput C_TaxCategory) {
 		this.mC_TaxCategory = C_TaxCategory;
 		MTaxCategory foreignEntity;
-		if (C_TaxCategory != null &&
-				(foreignEntity = new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
-						.setParameters(C_TaxCategory.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_TaxCategory_ID(foreignEntity.get_ID());
+		if (C_TaxCategory != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
+							.setParameters(C_TaxCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_TaxCategory_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_TaxCategory with UUID " + C_TaxCategory.getUUID());
+			}
 		} else {
 			super.setC_TaxCategory_ID(0);
 		}
@@ -285,11 +325,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setC_TaxProviderInput(ForeignEntityInput C_TaxProvider) {
 		this.mC_TaxProvider = C_TaxProvider;
 		MTaxProvider foreignEntity;
-		if (C_TaxProvider != null &&
-				(foreignEntity = new Query(getCtx(), "C_TaxProvider", "C_TaxProvider_UU=?", get_TrxName())
-						.setParameters(C_TaxProvider.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_TaxProvider_ID(foreignEntity.get_ID());
+		if (C_TaxProvider != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_TaxProvider", "C_TaxProvider_UU=?", get_TrxName())
+							.setParameters(C_TaxProvider.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_TaxProvider_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_TaxProvider with UUID " + C_TaxProvider.getUUID());
+			}
 		} else {
 			super.setC_TaxProvider_ID(0);
 		}
@@ -314,11 +359,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setParent_TaxInput(ForeignEntityInput Parent_Tax) {
 		this.mParent_Tax = Parent_Tax;
 		MTax foreignEntity;
-		if (Parent_Tax != null &&
-				(foreignEntity = new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-						.setParameters(Parent_Tax.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setParent_Tax_ID(foreignEntity.get_ID());
+		if (Parent_Tax != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
+							.setParameters(Parent_Tax.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setParent_Tax_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Tax with UUID " + Parent_Tax.getUUID());
+			}
 		} else {
 			super.setParent_Tax_ID(0);
 		}
@@ -343,11 +393,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setSOPOTypeInput(I_AD_Ref_ListInput SOPOType) {
 		this.mSOPOType = SOPOType;
 		MRefList_BH foreignEntity;
-		if (SOPOType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(SOPOType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setSOPOType(foreignEntity.getValue());
+		if (SOPOType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(SOPOType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setSOPOType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + SOPOType.getUUID());
+			}
 		} else {
 			this.setSOPOType(null);
 		}
@@ -372,11 +427,16 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	public void setTo_RegionInput(ForeignEntityInput To_Region) {
 		this.mTo_Region = To_Region;
 		MRegion foreignEntity;
-		if (To_Region != null &&
-				(foreignEntity = new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-						.setParameters(To_Region.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setTo_Region_ID(foreignEntity.get_ID());
+		if (To_Region != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
+							.setParameters(To_Region.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setTo_Region_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Region with UUID " + To_Region.getUUID());
+			}
 		} else {
 			super.setTo_Region_ID(0);
 		}

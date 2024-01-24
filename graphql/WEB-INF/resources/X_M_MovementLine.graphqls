@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_MovementLineSave(entity: M_MovementLineInput!): M_MovementLine!
+	M_MovementLineSaveMany(entities: [M_MovementLineInput!]!): [M_MovementLine!]!
 	M_MovementLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -43,7 +44,7 @@ type M_MovementLine {
 	M_LocatorTo: M_Locator!
 	# Movement of Inventory
 	M_Movement: M_Movement!
-	ID: ID!
+	UUID: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Quantity of a product moved.
@@ -86,7 +87,7 @@ input M_MovementLineInput {
 	M_LocatorTo: ForeignEntityInput
 	# Movement of Inventory
 	M_Movement: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Quantity of a product moved.

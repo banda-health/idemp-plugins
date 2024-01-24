@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	S_ResourceUnAvailableSave(entity: S_ResourceUnAvailableInput!): S_ResourceUnAvailable!
+	S_ResourceUnAvailableSaveMany(entities: [S_ResourceUnAvailableInput!]!): [S_ResourceUnAvailable!]!
 	S_ResourceUnAvailableDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type S_ResourceUnAvailable {
 	IsActive: Boolean!
 	# Resource
 	S_Resource: S_Resource!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -54,5 +55,5 @@ input S_ResourceUnAvailableInput {
 	IsActive: Boolean
 	# Resource
 	S_Resource: ForeignEntityInput
-	ID: ID
+	UUID: ID
 }

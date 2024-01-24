@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_SubAcctSave(entity: C_SubAcctInput!): C_SubAcct!
+	C_SubAcctSaveMany(entities: [C_SubAcctInput!]!): [C_SubAcct!]!
 	C_SubAcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_SubAcct {
 	AD_Org: AD_Org!
 	# Account Element
 	C_ElementValue: C_ElementValue!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,7 +49,7 @@ input C_SubAcctInput {
 	AD_Org: ForeignEntityInput
 	# Account Element
 	C_ElementValue: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

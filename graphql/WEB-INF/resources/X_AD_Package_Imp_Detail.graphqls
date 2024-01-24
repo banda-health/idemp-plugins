@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Package_Imp_DetailSave(entity: AD_Package_Imp_DetailInput!): AD_Package_Imp_Detail!
+	AD_Package_Imp_DetailSaveMany(entities: [AD_Package_Imp_DetailInput!]!): [AD_Package_Imp_Detail!]!
 	AD_Package_Imp_DetailDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Package_Imp_Detail {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	AD_Package_Imp: AD_Package_Imp!
 	# Database Table information
 	AD_Table: AD_Table
@@ -53,7 +54,7 @@ input AD_Package_Imp_DetailInput {
 	Action: String
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	AD_Package_Imp: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput

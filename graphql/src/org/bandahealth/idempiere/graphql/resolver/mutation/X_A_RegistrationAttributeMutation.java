@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_A_RegistrationAttributeIn
 import org.compiere.model.MRegistrationAttribute;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for A_RegistrationAttribute - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_A_RegistrationAttributeMutation extends POMutation implements Gra
 		return X_A_RegistrationAttributeInput.Table_Name;
 	}
 
-	public MRegistrationAttribute A_RegistrationAttributeSave(I_A_RegistrationAttributeInput input, DataFetchingEnvironment environment) {
-		return (MRegistrationAttribute) super.save((X_A_RegistrationAttributeInput) input, environment);
+	public MRegistrationAttribute A_RegistrationAttributeSave(I_A_RegistrationAttributeInput entity, DataFetchingEnvironment environment) {
+		return (MRegistrationAttribute) super.save((X_A_RegistrationAttributeInput) entity, environment);
+	}
+
+	public List<MRegistrationAttribute> A_RegistrationAttributeSaveMany(List<I_A_RegistrationAttributeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_A_RegistrationAttributeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRegistrationAttribute) entity).collect(Collectors.toList());
 	}
 
 	public boolean A_RegistrationAttributeDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_StandardResponseSave(entity: R_StandardResponseInput!): R_StandardResponse!
+	R_StandardResponseSaveMany(entities: [R_StandardResponseInput!]!): [R_StandardResponse!]!
 	R_StandardResponseDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type R_StandardResponse {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	# Request Response Text
 	ResponseText: String!
 	# Date this record was updated
@@ -44,7 +45,7 @@ input R_StandardResponseInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 	# Request Response Text
 	ResponseText: String
 }

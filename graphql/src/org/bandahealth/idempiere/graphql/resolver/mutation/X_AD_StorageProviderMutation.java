@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_StorageProviderInput;
 import org.compiere.model.MStorageProvider;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_StorageProvider - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_StorageProviderMutation extends POMutation implements GraphQLM
 		return X_AD_StorageProviderInput.Table_Name;
 	}
 
-	public MStorageProvider AD_StorageProviderSave(I_AD_StorageProviderInput input, DataFetchingEnvironment environment) {
-		return (MStorageProvider) super.save((X_AD_StorageProviderInput) input, environment);
+	public MStorageProvider AD_StorageProviderSave(I_AD_StorageProviderInput entity, DataFetchingEnvironment environment) {
+		return (MStorageProvider) super.save((X_AD_StorageProviderInput) entity, environment);
+	}
+
+	public List<MStorageProvider> AD_StorageProviderSaveMany(List<I_AD_StorageProviderInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_StorageProviderInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MStorageProvider) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_StorageProviderDelete(List<String> uuids, DataFetchingEnvironment environment) {

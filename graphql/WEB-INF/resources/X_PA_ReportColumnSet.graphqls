@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_ReportColumnSetSave(entity: PA_ReportColumnSetInput!): PA_ReportColumnSet!
+	PA_ReportColumnSetSaveMany(entities: [PA_ReportColumnSetInput!]!): [PA_ReportColumnSet!]!
 	PA_ReportColumnSetDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type PA_ReportColumnSet {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
@@ -47,6 +48,6 @@ input PA_ReportColumnSetInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 	Processing: Boolean
 }

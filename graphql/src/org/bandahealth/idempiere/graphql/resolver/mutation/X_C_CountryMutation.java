@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_CountryInput;
 import org.compiere.model.MCountry;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_Country - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_CountryMutation extends POMutation implements GraphQLMutationRe
 		return X_C_CountryInput.Table_Name;
 	}
 
-	public MCountry C_CountrySave(I_C_CountryInput input, DataFetchingEnvironment environment) {
-		return (MCountry) super.save((X_C_CountryInput) input, environment);
+	public MCountry C_CountrySave(I_C_CountryInput entity, DataFetchingEnvironment environment) {
+		return (MCountry) super.save((X_C_CountryInput) entity, environment);
+	}
+
+	public List<MCountry> C_CountrySaveMany(List<I_C_CountryInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_CountryInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MCountry) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_CountryDelete(List<String> uuids, DataFetchingEnvironment environment) {

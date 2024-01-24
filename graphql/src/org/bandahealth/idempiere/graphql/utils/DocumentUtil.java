@@ -41,7 +41,7 @@ public class DocumentUtil {
 		}
 		ModelUtil.getTableAndCheckAccess(entity.getCtx(), entity.get_TableName(), true);
 
-		if (!isDocActionValidForUser(MDocType_BH.get(entity.getCtx(), documentTypeId).getName(), documentAction)) {
+		if (!isDocActionValidForUser(MDocType_BH.get(entity.getCtx(), documentTypeId).getDocBaseType(), documentAction)) {
 			return null;
 		}
 

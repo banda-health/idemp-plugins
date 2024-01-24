@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_RfQResponseLineQtySave(entity: C_RfQResponseLineQtyInput!): C_RfQResponseLineQty!
+	C_RfQResponseLineQtySaveMany(entities: [C_RfQResponseLineQtyInput!]!): [C_RfQResponseLineQty!]!
 	C_RfQResponseLineQtyDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_RfQResponseLineQty {
 	C_RfQLineQty: C_RfQLineQty!
 	# Request for Quotation Response Line
 	C_RfQResponseLine: C_RfQResponseLine!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,7 +51,7 @@ input C_RfQResponseLineQtyInput {
 	C_RfQLineQty: ForeignEntityInput
 	# Request for Quotation Response Line
 	C_RfQResponseLine: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Discount in percent
 	Discount: BigDecimal
 	# The record is active in the system

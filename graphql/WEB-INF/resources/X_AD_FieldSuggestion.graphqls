@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_FieldSuggestionSave(entity: AD_FieldSuggestionInput!): AD_FieldSuggestion!
+	AD_FieldSuggestionSaveMany(entities: [AD_FieldSuggestionInput!]!): [AD_FieldSuggestion!]!
 	AD_FieldSuggestionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_FieldSuggestion {
 	AD_Client: AD_Client!
 	# Field on a database table
 	AD_Field: AD_Field!
-	ID: ID!
+	UUID: ID!
 	# Language for this entity
 	AD_Language: AD_Language!
 	# Organizational entity within client
@@ -67,7 +68,7 @@ input AD_FieldSuggestionInput {
 	AcceptSuggestion: String
 	# Field on a database table
 	AD_Field: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within client

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_ServiceLevelSave(entity: C_ServiceLevelInput!): C_ServiceLevel!
+	C_ServiceLevelSaveMany(entities: [C_ServiceLevelInput!]!): [C_ServiceLevel!]!
 	C_ServiceLevelDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_ServiceLevel {
 	AD_Org: AD_Org!
 	# Plan for recognizing or recording revenue
 	C_RevenueRecognition_Plan: C_RevenueRecognition_Plan!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -51,7 +52,7 @@ input C_ServiceLevelInput {
 	AD_Org: ForeignEntityInput
 	# Plan for recognizing or recording revenue
 	C_RevenueRecognition_Plan: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MXIFAJournalInput extends X_I_FAJournalInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The I_FAJournal_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MXIFAJournalInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MXIFAJournalInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

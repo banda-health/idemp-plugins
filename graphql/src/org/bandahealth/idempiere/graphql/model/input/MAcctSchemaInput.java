@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MAcctSchemaInput extends X_C_AcctSchemaInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_AcctSchema_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAcctSchemaInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MAcctSchemaInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MRefListInput extends X_AD_Ref_ListInput {
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param ID
+	 * @param UUID The AD_Ref_List_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRefListInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MRefListInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

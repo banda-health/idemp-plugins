@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MInvoiceInput extends X_C_InvoiceInput {
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param ID
+	 * @param UUID The C_Invoice_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInvoiceInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MInvoiceInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

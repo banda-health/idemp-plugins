@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_PP_Order_NodeNextInput;
 import org.eevolution.model.X_PP_Order_NodeNext;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for PP_Order_NodeNext - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_PP_Order_NodeNextMutation extends POMutation implements GraphQLMu
 		return X_PP_Order_NodeNextInput.Table_Name;
 	}
 
-	public X_PP_Order_NodeNext PP_Order_NodeNextSave(I_PP_Order_NodeNextInput input, DataFetchingEnvironment environment) {
-		return (X_PP_Order_NodeNext) super.save((X_PP_Order_NodeNextInput) input, environment);
+	public X_PP_Order_NodeNext PP_Order_NodeNextSave(I_PP_Order_NodeNextInput entity, DataFetchingEnvironment environment) {
+		return (X_PP_Order_NodeNext) super.save((X_PP_Order_NodeNextInput) entity, environment);
+	}
+
+	public List<X_PP_Order_NodeNext> PP_Order_NodeNextSaveMany(List<I_PP_Order_NodeNextInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_PP_Order_NodeNextInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_PP_Order_NodeNext) entity).collect(Collectors.toList());
 	}
 
 	public boolean PP_Order_NodeNextDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MLocationInput extends X_C_LocationInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_Location_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MLocationInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MLocationInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

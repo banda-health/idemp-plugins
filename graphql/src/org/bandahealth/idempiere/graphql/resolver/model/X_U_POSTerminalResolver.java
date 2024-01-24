@@ -138,7 +138,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(CARDTRANSFERTYPE_UUIDS_BY_VALUE.get(entity.getCardTransferType()));
 	}
 
@@ -153,7 +153,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(CASHBOOKTRANSFERTYPE_UUIDS_BY_VALUE.get(entity.getCashBookTransferType()));
 	}
 
@@ -243,7 +243,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(CHECKTRANSFERTYPE_UUIDS_BY_VALUE.get(entity.getCheckTransferType()));
 	}
 

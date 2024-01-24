@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BankAccountSave(entity: C_BankAccountInput!): C_BankAccount!
+	C_BankAccountSaveMany(entities: [C_BankAccountInput!]!): [C_BankAccount!]!
 	C_BankAccountDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type C_BankAccount {
 	BBAN: String
 	# Bank
 	C_Bank: C_Bank!
-	ID: ID!
+	UUID: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -69,7 +70,7 @@ input C_BankAccountInput {
 	BBAN: String
 	# Bank
 	C_Bank: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Amount of Credit allowed

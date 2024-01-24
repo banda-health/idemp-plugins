@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PInstance_ParaSave(entity: AD_PInstance_ParaInput!): AD_PInstance_Para!
+	AD_PInstance_ParaSaveMany(entities: [AD_PInstance_ParaInput!]!): [AD_PInstance_Para!]!
 	AD_PInstance_ParaDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_PInstance_Para {
 	AD_Org: AD_Org
 	# Instance of the process
 	AD_PInstance: AD_PInstance!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,7 +57,7 @@ input AD_PInstance_ParaInput {
 	AD_Org: ForeignEntityInput
 	# Instance of the process
 	AD_PInstance: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Information
 	Info: String
 	Info_To: String

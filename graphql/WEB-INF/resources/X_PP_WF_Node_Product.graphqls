@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_WF_Node_ProductSave(entity: PP_WF_Node_ProductInput!): PP_WF_Node_Product!
+	PP_WF_Node_ProductSaveMany(entities: [PP_WF_Node_ProductInput!]!): [PP_WF_Node_Product!]!
 	PP_WF_Node_ProductDelete(uuids: [String!]!): Boolean!
 }
 
@@ -35,7 +36,7 @@ type PP_WF_Node_Product {
 	IsSubcontracting: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
-	ID: ID!
+	UUID: ID!
 	# Quantity
 	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first
@@ -60,7 +61,7 @@ input PP_WF_Node_ProductInput {
 	IsSubcontracting: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Quantity
 	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first

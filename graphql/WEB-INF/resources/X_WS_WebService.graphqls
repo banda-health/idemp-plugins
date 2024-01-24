@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	WS_WebServiceSave(entity: WS_WebServiceInput!): WS_WebService!
+	WS_WebServiceSaveMany(entities: [WS_WebServiceInput!]!): [WS_WebService!]!
 	WS_WebServiceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type WS_WebService {
 	UpdatedBy: AD_User!
 	# Search key for the record in the format required - must be unique
 	Value: String!
-	ID: ID!
+	UUID: ID!
 }
 
 input WS_WebServiceInput {
@@ -54,5 +55,5 @@ input WS_WebServiceInput {
 	Name: String
 	# Search key for the record in the format required - must be unique
 	Value: String
-	ID: ID
+	UUID: ID
 }

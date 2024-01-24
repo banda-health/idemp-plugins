@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_CityInput;
 import org.compiere.model.MCity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_City - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_CityMutation extends POMutation implements GraphQLMutationResol
 		return X_C_CityInput.Table_Name;
 	}
 
-	public MCity C_CitySave(I_C_CityInput input, DataFetchingEnvironment environment) {
-		return (MCity) super.save((X_C_CityInput) input, environment);
+	public MCity C_CitySave(I_C_CityInput entity, DataFetchingEnvironment environment) {
+		return (MCity) super.save((X_C_CityInput) entity, environment);
+	}
+
+	public List<MCity> C_CitySaveMany(List<I_C_CityInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_CityInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MCity) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_CityDelete(List<String> uuids, DataFetchingEnvironment environment) {

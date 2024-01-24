@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	B_SellerSave(entity: B_SellerInput!): B_Seller!
+	B_SellerSaveMany(entities: [B_SellerInput!]!): [B_Seller!]!
 	B_SellerDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type B_Seller {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,7 +49,7 @@ input B_SellerInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

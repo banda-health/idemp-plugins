@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_AttributeInstanceSave(entity: M_AttributeInstanceInput!): M_AttributeInstance!
+	M_AttributeInstanceSaveMany(entities: [M_AttributeInstanceInput!]!): [M_AttributeInstance!]!
 	M_AttributeInstanceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -28,7 +29,7 @@ type M_AttributeInstance {
 	IsActive: Boolean!
 	# Product Attribute
 	M_Attribute: M_Attribute!
-	ID: ID!
+	UUID: ID!
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Product Attribute Value
@@ -51,7 +52,7 @@ input M_AttributeInstanceInput {
 	IsActive: Boolean
 	# Product Attribute
 	M_Attribute: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
 	# Product Attribute Value

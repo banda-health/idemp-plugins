@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BankSave(entity: C_BankInput!): C_Bank!
+	C_BankSaveMany(entities: [C_BankInput!]!): [C_Bank!]!
 	C_BankDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_Bank {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Location or Address
 	C_Location: C_Location
 	# Date this record was created
@@ -48,7 +49,7 @@ type C_Bank {
 input C_BankInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Location or Address
 	C_Location: ForeignEntityInput
 	# Optional short description of the record

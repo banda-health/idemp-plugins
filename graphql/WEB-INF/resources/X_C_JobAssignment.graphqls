@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_JobAssignmentSave(entity: C_JobAssignmentInput!): C_JobAssignment!
+	C_JobAssignmentSaveMany(entities: [C_JobAssignmentInput!]!): [C_JobAssignment!]!
 	C_JobAssignmentDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_JobAssignment {
 	AD_User: AD_User!
 	# Job Position
 	C_Job: C_Job!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,7 +51,7 @@ input C_JobAssignmentInput {
 	AD_User: ForeignEntityInput
 	# Job Position
 	C_Job: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

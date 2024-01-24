@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_Table_AccessInput;
 import org.compiere.model.MTableAccess;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Table_Access - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_Table_AccessMutation extends POMutation implements GraphQLMuta
 		return X_AD_Table_AccessInput.Table_Name;
 	}
 
-	public MTableAccess AD_Table_AccessSave(I_AD_Table_AccessInput input, DataFetchingEnvironment environment) {
-		return (MTableAccess) super.save((X_AD_Table_AccessInput) input, environment);
+	public MTableAccess AD_Table_AccessSave(I_AD_Table_AccessInput entity, DataFetchingEnvironment environment) {
+		return (MTableAccess) super.save((X_AD_Table_AccessInput) entity, environment);
+	}
+
+	public List<MTableAccess> AD_Table_AccessSaveMany(List<I_AD_Table_AccessInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_Table_AccessInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MTableAccess) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_Table_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {

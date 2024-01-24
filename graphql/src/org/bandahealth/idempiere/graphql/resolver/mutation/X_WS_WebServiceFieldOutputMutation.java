@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_WS_WebServiceFieldOutputI
 import org.compiere.model.X_WS_WebServiceFieldOutput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for WS_WebServiceFieldOutput - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_WS_WebServiceFieldOutputMutation extends POMutation implements Gr
 		return X_WS_WebServiceFieldOutputInput.Table_Name;
 	}
 
-	public X_WS_WebServiceFieldOutput WS_WebServiceFieldOutputSave(I_WS_WebServiceFieldOutputInput input, DataFetchingEnvironment environment) {
-		return (X_WS_WebServiceFieldOutput) super.save((X_WS_WebServiceFieldOutputInput) input, environment);
+	public X_WS_WebServiceFieldOutput WS_WebServiceFieldOutputSave(I_WS_WebServiceFieldOutputInput entity, DataFetchingEnvironment environment) {
+		return (X_WS_WebServiceFieldOutput) super.save((X_WS_WebServiceFieldOutputInput) entity, environment);
+	}
+
+	public List<X_WS_WebServiceFieldOutput> WS_WebServiceFieldOutputSaveMany(List<I_WS_WebServiceFieldOutputInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_WS_WebServiceFieldOutputInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_WS_WebServiceFieldOutput) entity).collect(Collectors.toList());
 	}
 
 	public boolean WS_WebServiceFieldOutputDelete(List<String> uuids, DataFetchingEnvironment environment) {

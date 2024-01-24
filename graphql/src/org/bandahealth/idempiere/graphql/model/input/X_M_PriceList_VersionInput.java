@@ -2,12 +2,14 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
 import org.compiere.model.MPriceListVersion;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -25,13 +27,16 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	private ForeignEntityInput mM_Pricelist_Version_Base;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_PriceList_Version_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_PriceList_VersionInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MPriceListVersion(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_PriceList_VersionInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPriceListVersion(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -43,11 +48,16 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -70,11 +80,16 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
 		MDiscountSchema foreignEntity;
-		if (M_DiscountSchema != null &&
-				(foreignEntity = new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-						.setParameters(M_DiscountSchema.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_DiscountSchema_ID(foreignEntity.get_ID());
+		if (M_DiscountSchema != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
+							.setParameters(M_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_DiscountSchema_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_DiscountSchema with UUID " + M_DiscountSchema.getUUID());
+			}
 		} else {
 			super.setM_DiscountSchema_ID(0);
 		}
@@ -99,11 +114,16 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
 		MPriceList foreignEntity;
-		if (get_ID() == 0 && M_PriceList != null &&
-				(foreignEntity = new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-						.setParameters(M_PriceList.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_PriceList_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_PriceList != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
+							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_PriceList_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
+			}
 		}
 	}
 
@@ -126,11 +146,16 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	public void setM_Pricelist_Version_BaseInput(ForeignEntityInput M_Pricelist_Version_Base) {
 		this.mM_Pricelist_Version_Base = M_Pricelist_Version_Base;
 		MPriceListVersion foreignEntity;
-		if (M_Pricelist_Version_Base != null &&
-				(foreignEntity = new Query(getCtx(), "M_PriceList_Version", "M_PriceList_Version_UU=?", get_TrxName())
-						.setParameters(M_Pricelist_Version_Base.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Pricelist_Version_Base_ID(foreignEntity.get_ID());
+		if (M_Pricelist_Version_Base != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PriceList_Version", "M_PriceList_Version_UU=?", get_TrxName())
+							.setParameters(M_Pricelist_Version_Base.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Pricelist_Version_Base_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PriceList_Version with UUID " + M_Pricelist_Version_Base.getUUID());
+			}
 		} else {
 			super.setM_Pricelist_Version_Base_ID(0);
 		}
@@ -158,20 +183,20 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_PriceList_Version_UU(ID);
+	public void setUUID(String UUID) {
+		setM_PriceList_Version_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_PriceList_Version_UU();
 	}
 }

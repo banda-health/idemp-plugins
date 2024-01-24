@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_AllocationHdrSave(entity: C_AllocationHdrInput!): C_AllocationHdr!
+	C_AllocationHdrSaveMany(entities: [C_AllocationHdrInput!]!): [C_AllocationHdr!]!
 	C_AllocationHdrDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_AllocationHdr {
 	AD_Org: AD_Org!
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal!
-	ID: ID!
+	UUID: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Document type or rules
@@ -69,7 +70,7 @@ input C_AllocationHdrInput {
 	AD_Org: ForeignEntityInput
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal
-	ID: ID
+	UUID: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Document type or rules

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_Payer_Info_Fld_Val_SugSave(entity: BH_Payer_Info_Fld_Val_SugInput!): BH_Payer_Info_Fld_Val_Sug!
+	BH_Payer_Info_Fld_Val_SugSaveMany(entities: [BH_Payer_Info_Fld_Val_SugInput!]!): [BH_Payer_Info_Fld_Val_Sug!]!
 	BH_Payer_Info_Fld_Val_SugDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type BH_Payer_Info_Fld_Val_Sug {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	BH_Payer_Info_Fld_Sug: BH_Payer_Info_Fld_Sug!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,7 +45,7 @@ input BH_Payer_Info_Fld_Val_SugInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	BH_Payer_Info_Fld_Sug: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

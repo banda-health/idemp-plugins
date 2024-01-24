@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_MovementLineConfirmInpu
 import org.compiere.model.MMovementLineConfirm;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_MovementLineConfirm - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_MovementLineConfirmMutation extends POMutation implements Graph
 		return X_M_MovementLineConfirmInput.Table_Name;
 	}
 
-	public MMovementLineConfirm M_MovementLineConfirmSave(I_M_MovementLineConfirmInput input, DataFetchingEnvironment environment) {
-		return (MMovementLineConfirm) super.save((X_M_MovementLineConfirmInput) input, environment);
+	public MMovementLineConfirm M_MovementLineConfirmSave(I_M_MovementLineConfirmInput entity, DataFetchingEnvironment environment) {
+		return (MMovementLineConfirm) super.save((X_M_MovementLineConfirmInput) entity, environment);
+	}
+
+	public List<MMovementLineConfirm> M_MovementLineConfirmSaveMany(List<I_M_MovementLineConfirmInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_MovementLineConfirmInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MMovementLineConfirm) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_MovementLineConfirmDelete(List<String> uuids, DataFetchingEnvironment environment) {

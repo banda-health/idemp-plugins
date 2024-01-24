@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_CostTypeSave(entity: M_CostTypeInput!): M_CostType!
+	M_CostTypeSaveMany(entities: [M_CostTypeInput!]!): [M_CostType!]!
 	M_CostTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_CostType {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -48,7 +49,7 @@ input M_CostTypeInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_DefaultIncludedRoleSave(entity: BH_DefaultIncludedRoleInput!): BH_DefaultIncludedRole!
+	BH_DefaultIncludedRoleSaveMany(entities: [BH_DefaultIncludedRoleInput!]!): [BH_DefaultIncludedRole!]!
 	BH_DefaultIncludedRoleDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type BH_DefaultIncludedRole {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -43,7 +44,7 @@ type BH_DefaultIncludedRole {
 input BH_DefaultIncludedRoleInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The User Type when a new client is created
 	DB_UserType: AD_Ref_ListInput
 	# Optional short description of the record

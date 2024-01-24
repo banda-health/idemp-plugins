@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	R_StatusSave(entity: R_StatusInput!): R_Status!
+	R_StatusSaveMany(entities: [R_StatusInput!]!): [R_Status!]!
 	R_StatusDelete(uuids: [String!]!): Boolean!
 }
 
@@ -44,7 +45,7 @@ type R_Status {
 	Name: String!
 	# Move to next status automatically after timeout
 	Next_Status: R_Status
-	ID: ID!
+	UUID: ID!
 	# Request Status Category
 	R_StatusCategory: R_StatusCategory!
 	# Method of ordering records; lowest number comes first
@@ -84,7 +85,7 @@ input R_StatusInput {
 	Name: String
 	# Move to next status automatically after timeout
 	Next_Status: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Request Status Category
 	R_StatusCategory: ForeignEntityInput
 	# Method of ordering records; lowest number comes first

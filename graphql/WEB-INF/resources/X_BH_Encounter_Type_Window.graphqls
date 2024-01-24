@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_Encounter_Type_WindowSave(entity: BH_Encounter_Type_WindowInput!): BH_Encounter_Type_Window!
+	BH_Encounter_Type_WindowSaveMany(entities: [BH_Encounter_Type_WindowInput!]!): [BH_Encounter_Type_Window!]!
 	BH_Encounter_Type_WindowDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type BH_Encounter_Type_Window {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -36,7 +37,7 @@ type BH_Encounter_Type_Window {
 input BH_Encounter_Type_WindowInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 }

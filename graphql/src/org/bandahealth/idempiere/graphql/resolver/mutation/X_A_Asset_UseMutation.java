@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_A_Asset_UseInput;
 import org.compiere.model.MAssetUse;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for A_Asset_Use - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_A_Asset_UseMutation extends POMutation implements GraphQLMutation
 		return X_A_Asset_UseInput.Table_Name;
 	}
 
-	public MAssetUse A_Asset_UseSave(I_A_Asset_UseInput input, DataFetchingEnvironment environment) {
-		return (MAssetUse) super.save((X_A_Asset_UseInput) input, environment);
+	public MAssetUse A_Asset_UseSave(I_A_Asset_UseInput entity, DataFetchingEnvironment environment) {
+		return (MAssetUse) super.save((X_A_Asset_UseInput) entity, environment);
+	}
+
+	public List<MAssetUse> A_Asset_UseSaveMany(List<I_A_Asset_UseInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_UseInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAssetUse) entity).collect(Collectors.toList());
 	}
 
 	public boolean A_Asset_UseDelete(List<String> uuids, DataFetchingEnvironment environment) {

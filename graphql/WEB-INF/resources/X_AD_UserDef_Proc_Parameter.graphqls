@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_UserDef_Proc_ParameterSave(entity: AD_UserDef_Proc_ParameterInput!): AD_UserDef_Proc_Parameter!
+	AD_UserDef_Proc_ParameterSaveMany(entities: [AD_UserDef_Proc_ParameterInput!]!): [AD_UserDef_Proc_Parameter!]!
 	AD_UserDef_Proc_ParameterDelete(uuids: [String!]!): Boolean!
 }
 
@@ -27,7 +28,7 @@ type AD_UserDef_Proc_Parameter {
 	AD_Reference_Value: AD_Reference
 	# Primary Key : User defined Process
 	AD_UserDef_Proc: AD_UserDef_Proc!
-	ID: ID!
+	UUID: ID!
 	# Dynamic Validation Rule
 	AD_Val_Rule: AD_Val_Rule
 	# Date this record was created
@@ -83,7 +84,7 @@ input AD_UserDef_Proc_ParameterInput {
 	AD_Reference_Value: ForeignEntityInput
 	# Primary Key : User defined Process
 	AD_UserDef_Proc: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Dynamic Validation Rule
 	AD_Val_Rule: ForeignEntityInput
 	# Default value hierarchy, separated by ;

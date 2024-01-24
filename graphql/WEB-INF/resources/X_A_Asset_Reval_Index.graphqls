@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	A_Asset_Reval_IndexSave(entity: A_Asset_Reval_IndexInput!): A_Asset_Reval_Index!
+	A_Asset_Reval_IndexSaveMany(entities: [A_Asset_Reval_IndexInput!]!): [A_Asset_Reval_Index!]!
 	A_Asset_Reval_IndexDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type A_Asset_Reval_IndexConnection {
 }
 
 type A_Asset_Reval_Index {
-	ID: ID!
+	UUID: ID!
 	A_Effective_Date: Date!
 	A_Reval_Code: AD_Ref_List!
 	A_Reval_Multiplier: AD_Ref_List!
@@ -38,7 +39,7 @@ type A_Asset_Reval_Index {
 }
 
 input A_Asset_Reval_IndexInput {
-	ID: ID
+	UUID: ID
 	A_Effective_Date: Date
 	A_Reval_Code: AD_Ref_ListInput
 	A_Reval_Multiplier: AD_Ref_ListInput

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_TableSave(entity: AD_TableInput!): AD_Table!
+	AD_TableSaveMany(entities: [AD_TableInput!]!): [AD_Table!]!
 	AD_TableDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Table {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Dynamic Validation Rule
 	AD_Val_Rule: AD_Val_Rule
 	# Data entry or display window
@@ -78,7 +79,7 @@ input AD_TableInput {
 	AccessLevel: AD_Ref_ListInput
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Dynamic Validation Rule
 	AD_Val_Rule: ForeignEntityInput
 	# Data entry or display window

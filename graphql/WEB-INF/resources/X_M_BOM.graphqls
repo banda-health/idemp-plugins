@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_BOMSave(entity: M_BOMInput!): M_BOM!
+	M_BOMSaveMany(entities: [M_BOMInput!]!): [M_BOM!]!
 	M_BOMDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_BOM {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: M_ChangeNotice
 	# Product, Service, Item
@@ -61,7 +62,7 @@ input M_BOMInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: ForeignEntityInput
 	# Product, Service, Item

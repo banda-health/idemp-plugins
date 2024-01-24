@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Task_AccessSave(entity: AD_Task_AccessInput!): AD_Task_Access!
+	AD_Task_AccessSaveMany(entities: [AD_Task_AccessInput!]!): [AD_Task_Access!]!
 	AD_Task_AccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_Task_Access {
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
-	ID: ID!
+	UUID: ID!
 	# Operation System Task
 	AD_Task: AD_Task!
 	# Date this record was created
@@ -44,7 +45,7 @@ input AD_Task_AccessInput {
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Operation System Task
 	AD_Task: ForeignEntityInput
 	# The record is active in the system

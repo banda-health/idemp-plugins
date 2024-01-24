@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MPriceListVersionInput extends X_M_PriceList_VersionInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_PriceList_Version_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPriceListVersionInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MPriceListVersionInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

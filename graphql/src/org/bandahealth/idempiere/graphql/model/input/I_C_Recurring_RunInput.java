@@ -95,18 +95,18 @@ public interface I_C_Recurring_RunInput extends I_C_Recurring_Run {
 	ForeignEntityInput C_Recurring();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set GL_JournalBatch.

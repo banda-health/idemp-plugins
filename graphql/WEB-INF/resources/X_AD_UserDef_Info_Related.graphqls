@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_UserDef_Info_RelatedSave(entity: AD_UserDef_Info_RelatedInput!): AD_UserDef_Info_Related!
+	AD_UserDef_Info_RelatedSaveMany(entities: [AD_UserDef_Info_RelatedInput!]!): [AD_UserDef_Info_Related!]!
 	AD_UserDef_Info_RelatedDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_UserDef_Info_Related {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	AD_UserDef_Info: AD_UserDef_Info!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,7 +51,7 @@ input AD_UserDef_Info_RelatedInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	AD_UserDef_Info: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# If the Field is displayed, the result determines if the field is actually displayed

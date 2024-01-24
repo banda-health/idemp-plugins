@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MDepreciationEntryInput extends X_A_Depreciation_EntryInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The A_Depreciation_Entry_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDepreciationEntryInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MDepreciationEntryInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

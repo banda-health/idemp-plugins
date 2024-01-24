@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ProductPriceSave(entity: M_ProductPriceInput!): M_ProductPrice!
+	M_ProductPriceSaveMany(entities: [M_ProductPriceInput!]!): [M_ProductPrice!]!
 	M_ProductPriceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type M_ProductPrice {
 	M_PriceList_Version: M_PriceList_Version!
 	# Product, Service, Item
 	M_Product: M_Product!
-	ID: ID!
+	UUID: ID!
 	# Lowest price for a product
 	PriceLimit: BigDecimal!
 	# List Price
@@ -58,7 +59,7 @@ input M_ProductPriceInput {
 	M_PriceList_Version: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Lowest price for a product
 	PriceLimit: BigDecimal
 	# List Price

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_PP_Order_BOMLineInput;
 import org.eevolution.model.X_PP_Order_BOMLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for PP_Order_BOMLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_PP_Order_BOMLineMutation extends POMutation implements GraphQLMut
 		return X_PP_Order_BOMLineInput.Table_Name;
 	}
 
-	public X_PP_Order_BOMLine PP_Order_BOMLineSave(I_PP_Order_BOMLineInput input, DataFetchingEnvironment environment) {
-		return (X_PP_Order_BOMLine) super.save((X_PP_Order_BOMLineInput) input, environment);
+	public X_PP_Order_BOMLine PP_Order_BOMLineSave(I_PP_Order_BOMLineInput entity, DataFetchingEnvironment environment) {
+		return (X_PP_Order_BOMLine) super.save((X_PP_Order_BOMLineInput) entity, environment);
+	}
+
+	public List<X_PP_Order_BOMLine> PP_Order_BOMLineSaveMany(List<I_PP_Order_BOMLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_PP_Order_BOMLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_PP_Order_BOMLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean PP_Order_BOMLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

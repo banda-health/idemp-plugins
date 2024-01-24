@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_A_Depreciation_BuildInput
 import org.compiere.model.MDepreciationBuild;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for A_Depreciation_Build - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_A_Depreciation_BuildMutation extends POMutation implements GraphQ
 		return X_A_Depreciation_BuildInput.Table_Name;
 	}
 
-	public MDepreciationBuild A_Depreciation_BuildSave(I_A_Depreciation_BuildInput input, DataFetchingEnvironment environment) {
-		return (MDepreciationBuild) super.save((X_A_Depreciation_BuildInput) input, environment);
+	public MDepreciationBuild A_Depreciation_BuildSave(I_A_Depreciation_BuildInput entity, DataFetchingEnvironment environment) {
+		return (MDepreciationBuild) super.save((X_A_Depreciation_BuildInput) entity, environment);
+	}
+
+	public List<MDepreciationBuild> A_Depreciation_BuildSaveMany(List<I_A_Depreciation_BuildInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_A_Depreciation_BuildInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDepreciationBuild) entity).collect(Collectors.toList());
 	}
 
 	public boolean A_Depreciation_BuildDelete(List<String> uuids, DataFetchingEnvironment environment) {

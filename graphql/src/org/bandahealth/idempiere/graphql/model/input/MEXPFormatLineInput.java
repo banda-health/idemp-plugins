@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MEXPFormatLineInput extends X_EXP_FormatLineInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The EXP_FormatLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MEXPFormatLineInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MEXPFormatLineInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

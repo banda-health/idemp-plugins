@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -16,6 +17,7 @@ import org.compiere.model.MRequest;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.model.X_R_IssueKnown;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -43,13 +45,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	private I_AD_Ref_ListInput mSystemStatus;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Issue_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_IssueInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MIssue(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_IssueInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MIssue(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -61,11 +66,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
-		if (get_ID() == 0 && A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-						.setParameters(A_Asset.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Asset_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && A_Asset != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
+							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Asset_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
+			}
 		}
 	}
 
@@ -88,11 +98,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setAD_FormInput(ForeignEntityInput AD_Form) {
 		this.mAD_Form = AD_Form;
 		MForm foreignEntity;
-		if (AD_Form != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-						.setParameters(AD_Form.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Form_ID(foreignEntity.get_ID());
+		if (AD_Form != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
+							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Form_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Form with UUID " + AD_Form.getUUID());
+			}
 		} else {
 			super.setAD_Form_ID(0);
 		}
@@ -120,20 +135,20 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_Issue_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_Issue_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_Issue_UU();
 	}
 
@@ -146,11 +161,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -173,11 +193,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
-		if (AD_Process != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-						.setParameters(AD_Process.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Process_ID(foreignEntity.get_ID());
+		if (AD_Process != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
+							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Process_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
+			}
 		} else {
 			super.setAD_Process_ID(0);
 		}
@@ -202,11 +227,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
-		if (AD_Window != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-						.setParameters(AD_Window.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Window_ID(foreignEntity.get_ID());
+		if (AD_Window != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
+							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Window_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+			}
 		} else {
 			super.setAD_Window_ID(0);
 		}
@@ -253,11 +283,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setIsReproducibleInput(I_AD_Ref_ListInput IsReproducible) {
 		this.mIsReproducible = IsReproducible;
 		MRefList_BH foreignEntity;
-		if (IsReproducible != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsReproducible.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setIsReproducible(foreignEntity.getValue());
+		if (IsReproducible != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsReproducible.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setIsReproducible(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsReproducible.getUUID());
+			}
 		} else {
 			this.setIsReproducible(null);
 		}
@@ -282,11 +317,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setIssueSourceInput(I_AD_Ref_ListInput IssueSource) {
 		this.mIssueSource = IssueSource;
 		MRefList_BH foreignEntity;
-		if (IssueSource != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IssueSource.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setIssueSource(foreignEntity.getValue());
+		if (IssueSource != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IssueSource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setIssueSource(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IssueSource.getUUID());
+			}
 		} else {
 			this.setIssueSource(null);
 		}
@@ -311,11 +351,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setIsVanillaSystemInput(I_AD_Ref_ListInput IsVanillaSystem) {
 		this.mIsVanillaSystem = IsVanillaSystem;
 		MRefList_BH foreignEntity;
-		if (IsVanillaSystem != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsVanillaSystem.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setIsVanillaSystem(foreignEntity.getValue());
+		if (IsVanillaSystem != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsVanillaSystem.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setIsVanillaSystem(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsVanillaSystem.getUUID());
+			}
 		} else {
 			this.setIsVanillaSystem(null);
 		}
@@ -406,11 +451,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setR_IssueKnownInput(ForeignEntityInput R_IssueKnown) {
 		this.mR_IssueKnown = R_IssueKnown;
 		X_R_IssueKnown foreignEntity;
-		if (R_IssueKnown != null &&
-				(foreignEntity = new Query(getCtx(), "R_IssueKnown", "R_IssueKnown_UU=?", get_TrxName())
-						.setParameters(R_IssueKnown.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setR_IssueKnown_ID(foreignEntity.get_ID());
+		if (R_IssueKnown != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_IssueKnown", "R_IssueKnown_UU=?", get_TrxName())
+							.setParameters(R_IssueKnown.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setR_IssueKnown_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_IssueKnown with UUID " + R_IssueKnown.getUUID());
+			}
 		} else {
 			super.setR_IssueKnown_ID(0);
 		}
@@ -435,11 +485,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setR_IssueProjectInput(ForeignEntityInput R_IssueProject) {
 		this.mR_IssueProject = R_IssueProject;
 		MIssueProject foreignEntity;
-		if (R_IssueProject != null &&
-				(foreignEntity = new Query(getCtx(), "R_IssueProject", "R_IssueProject_UU=?", get_TrxName())
-						.setParameters(R_IssueProject.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setR_IssueProject_ID(foreignEntity.get_ID());
+		if (R_IssueProject != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_IssueProject", "R_IssueProject_UU=?", get_TrxName())
+							.setParameters(R_IssueProject.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setR_IssueProject_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_IssueProject with UUID " + R_IssueProject.getUUID());
+			}
 		} else {
 			super.setR_IssueProject_ID(0);
 		}
@@ -464,11 +519,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setR_IssueSystemInput(ForeignEntityInput R_IssueSystem) {
 		this.mR_IssueSystem = R_IssueSystem;
 		MIssueSystem foreignEntity;
-		if (R_IssueSystem != null &&
-				(foreignEntity = new Query(getCtx(), "R_IssueSystem", "R_IssueSystem_UU=?", get_TrxName())
-						.setParameters(R_IssueSystem.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setR_IssueSystem_ID(foreignEntity.get_ID());
+		if (R_IssueSystem != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_IssueSystem", "R_IssueSystem_UU=?", get_TrxName())
+							.setParameters(R_IssueSystem.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setR_IssueSystem_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_IssueSystem with UUID " + R_IssueSystem.getUUID());
+			}
 		} else {
 			super.setR_IssueSystem_ID(0);
 		}
@@ -493,11 +553,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setR_IssueUserInput(ForeignEntityInput R_IssueUser) {
 		this.mR_IssueUser = R_IssueUser;
 		MIssueUser foreignEntity;
-		if (R_IssueUser != null &&
-				(foreignEntity = new Query(getCtx(), "R_IssueUser", "R_IssueUser_UU=?", get_TrxName())
-						.setParameters(R_IssueUser.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setR_IssueUser_ID(foreignEntity.get_ID());
+		if (R_IssueUser != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_IssueUser", "R_IssueUser_UU=?", get_TrxName())
+							.setParameters(R_IssueUser.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setR_IssueUser_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_IssueUser with UUID " + R_IssueUser.getUUID());
+			}
 		} else {
 			super.setR_IssueUser_ID(0);
 		}
@@ -522,11 +587,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setR_RequestInput(ForeignEntityInput R_Request) {
 		this.mR_Request = R_Request;
 		MRequest foreignEntity;
-		if (get_ID() == 0 && R_Request != null &&
-				(foreignEntity = new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
-						.setParameters(R_Request.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setR_Request_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && R_Request != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
+							.setParameters(R_Request.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setR_Request_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_Request with UUID " + R_Request.getUUID());
+			}
 		}
 	}
 
@@ -626,11 +696,16 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	public void setSystemStatusInput(I_AD_Ref_ListInput SystemStatus) {
 		this.mSystemStatus = SystemStatus;
 		MRefList_BH foreignEntity;
-		if (SystemStatus != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(SystemStatus.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setSystemStatus(foreignEntity.getValue());
+		if (SystemStatus != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(SystemStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setSystemStatus(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + SystemStatus.getUUID());
+			}
 		} else {
 			this.setSystemStatus(null);
 		}

@@ -13,7 +13,9 @@ import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.model.AuthenticationResponse;
-import org.bandahealth.idempiere.graphql.model.input.AuthenticationData;
+import org.bandahealth.idempiere.graphql.model.ChangeAccessResponse;
+import org.bandahealth.idempiere.graphql.model.input.AuthenticationInput;
+import org.bandahealth.idempiere.graphql.model.input.ChangeAccessInput;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.LoginClaims;
 import org.bandahealth.idempiere.graphql.utils.TokenUtils;
@@ -56,7 +58,7 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 	 * @param environment The environment associated with all calls, containing context.
 	 * @return An appropriate response containing a JWT token and user information.
 	 */
-	public AuthenticationResponse signIn(AuthenticationData credentials, DataFetchingEnvironment environment) {
+	public AuthenticationResponse signIn(AuthenticationInput credentials, DataFetchingEnvironment environment) {
 //		return authenticationRepository.signIn(credentials, BandaGraphQLContext.getCtx(environment));
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
 		Login login = new Login(idempiereContext);
@@ -91,7 +93,7 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 		response.setUser(new MUser_BH(idempiereContext, user.getAD_User_ID(), null));
 
 		// has user changed client and role?
-		if (credentials.getClientId() != null && credentials.getRoleId() != null) {
+		if (credentials.getClientUuid() != null && credentials.getRoleUuid() != null) {
 			changeLoginProperties(credentials, builder, response, idempiereContext);
 		} else {
 			// set default properties
@@ -114,7 +116,7 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 	 * @param environment The environment associated with all calls, containing context.
 	 * @return An appropriate response containing a JWT token and user information.
 	 */
-	public AuthenticationResponse changePassword(AuthenticationData credentials, DataFetchingEnvironment environment) {
+	public AuthenticationResponse changePassword(AuthenticationInput credentials, DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
 		Login login = new Login(idempiereContext);
 
@@ -161,7 +163,7 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 	 * @param credentials
 	 * @return
 	 */
-	public AuthenticationResponse changeAccess(AuthenticationData credentials, DataFetchingEnvironment environment) {
+	public ChangeAccessResponse changeAccess(ChangeAccessInput credentials, DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
 		try {
 			MUser user = MUser.get(idempiereContext, Env.getAD_User_ID(idempiereContext));
@@ -179,10 +181,10 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 
 			List<Object> parameters = new ArrayList<>();
 			parameters.add(user.get_ID());
-			parameters.add(credentials.getRoleId());
+			parameters.add(credentials.getRoleUuid());
 			parameters.add("Y");
 			parameters.add("Y");
-			parameters.add(credentials.getClientId());
+			parameters.add(credentials.getClientUuid());
 
 			String joinClause = "INNER JOIN " + MUser.Table_Name + " ON " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_User_ID + "=" + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID;
@@ -208,20 +210,20 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 			if (!warehouseAccessList.isEmpty()) {
 				// fetch organization
 				MOrg organization = (MOrg) Repository.getByUuids(idempiereContext, MOrg.Table_Name, null,
-						Collections.singleton(credentials.getOrganizationId())).get(credentials.getOrganizationId());
+						Collections.singleton(credentials.getOrganizationUuid())).get(credentials.getOrganizationUuid());
 				// get available warehouses
 				List<MWarehouse> warehouses = Arrays.asList(MWarehouse.getForOrg(idempiereContext, organization.get_ID()));
 
-				MRole role = Repository.getByUuid(idempiereContext, MRole.Table_Name, null, credentials.getRoleId());
+				MRole role = Repository.getByUuid(idempiereContext, MRole.Table_Name, null, credentials.getRoleUuid());
 				Optional<MBHRoleWarehouseAccess> foundWarehouseAccess = warehouseAccessList.stream()
 						.filter((warehouseAccess) -> {
 
 							Optional<MWarehouse> foundWarehouse = warehouses.stream().filter((warehouse) -> warehouse
-									.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseId())).findFirst();
+									.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseUuid())).findFirst();
 
 							return foundWarehouse
 									.filter(mWarehouse -> warehouseAccess.getAD_Role_ID() == role.getAD_Role_ID() && mWarehouse
-											.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseId()))
+											.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseUuid()))
 									.isPresent();
 						}).findAny();
 				if (foundWarehouseAccess.isEmpty()) {
@@ -266,7 +268,7 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 	 * @param credentials
 	 * @param clients
 	 */
-	private void updateUsersPassword(AuthenticationData credentials, KeyNamePair[] clients,
+	private void updateUsersPassword(AuthenticationInput credentials, KeyNamePair[] clients,
 			Properties idempiereContext) {
 		Trx trx = null;
 		try {
@@ -331,12 +333,12 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 	 * @param credentials
 	 * @param builder
 	 */
-	private void changeLoginProperties(AuthenticationData credentials, JWTCreator.Builder builder,
+	private void changeLoginProperties(ChangeAccessInput credentials, JWTCreator.Builder builder,
 			AuthenticationResponse response, Properties idempiereContext) {
 		// set client id
-		if (credentials.getClientId() != null) {
+		if (credentials.getClientUuid() != null) {
 			MClient_BH client = new Query(idempiereContext, MClient.Table_Name, MClient.COLUMNNAME_AD_Client_UU +
-					"=?", null).setParameters(credentials.getClientId()).first();
+					"=?", null).setParameters(credentials.getClientUuid()).first();
 			if (client != null) {
 				response.getAD_Clients().add(client);
 
@@ -346,27 +348,27 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 		}
 
 		// set role
-		if (credentials.getRoleId() != null) {
+		if (credentials.getRoleUuid() != null) {
 			MRole role = new Query(idempiereContext, MRole.Table_Name, MRole.COLUMNNAME_AD_Role_UU + "=?",
-					null).setParameters(credentials.getRoleId()).first();
+					null).setParameters(credentials.getRoleUuid()).first();
 			Env.setContext(idempiereContext, Env.AD_ROLE_ID, role.getAD_Role_ID());
 			builder.withClaim(LoginClaims.AD_Role_ID.name(), role.getAD_Role_ID());
 			response.setAD_Role(role);
 		}
 
 		// check organization
-		if (credentials.getOrganizationId() != null) {
+		if (credentials.getOrganizationUuid() != null) {
 			MOrg organization = new Query(idempiereContext, MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?",
-					null).setParameters(credentials.getOrganizationId()).first();
+					null).setParameters(credentials.getOrganizationUuid()).first();
 			Env.setContext(idempiereContext, Env.AD_ORG_ID, organization.getAD_Org_ID());
 			builder.withClaim(LoginClaims.AD_Org_ID.name(), organization.getAD_Org_ID());
 		}
 
 		// check warehouse
-		if (credentials.getWarehouseId() != null) {
+		if (credentials.getWarehouseUuid() != null) {
 			MWarehouse warehouse = new Query(idempiereContext, MWarehouse.Table_Name,
 					MWarehouse.COLUMNNAME_M_Warehouse_UU + "=?", null)
-					.setParameters(credentials.getWarehouseId()).first();
+					.setParameters(credentials.getWarehouseUuid()).first();
 			Env.setContext(idempiereContext, Env.M_WAREHOUSE_ID, warehouse.get_ID());
 			builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouse.get_ID());
 		}

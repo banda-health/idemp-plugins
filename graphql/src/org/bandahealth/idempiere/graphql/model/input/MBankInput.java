@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MBankInput extends X_C_BankInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_Bank_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBankInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MBankInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

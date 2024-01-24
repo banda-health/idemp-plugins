@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_SerNoCtlSave(entity: M_SerNoCtlInput!): M_SerNoCtl!
+	M_SerNoCtlSaveMany(entities: [M_SerNoCtlInput!]!): [M_SerNoCtl!]!
 	M_SerNoCtlDelete(uuids: [String!]!): Boolean!
 }
 
@@ -34,7 +35,7 @@ type M_SerNoCtl {
 	IncrementNo: Int!
 	# The record is active in the system
 	IsActive: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Prefix before the sequence number
@@ -62,7 +63,7 @@ input M_SerNoCtlInput {
 	IncrementNo: Int
 	# The record is active in the system
 	IsActive: Boolean
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Prefix before the sequence number

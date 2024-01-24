@@ -15,7 +15,7 @@ public class MInvoiceMutation extends X_C_InvoiceMutation {
 	public MInvoice_BH C_InvoiceProcess(String uuid, String documentAction, DataFetchingEnvironment environment) {
 		MInvoice_BH entity =
 				Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MInvoice_BH.Table_Name, null, uuid);
-		return DocumentUtil.Process(entity, documentAction, entity.getC_DocType_ID(),
+		return DocumentUtil.Process(entity, documentAction, entity.getC_DocTypeTarget_ID(),
 				MProcess_BH.PROCESSID_PROCESS_INVOICE);
 	}
 

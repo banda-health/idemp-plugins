@@ -19,6 +19,7 @@ import javax.ws.rs.core.HttpHeaders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bandahealth.idempiere.graphql.utils.AuthenticationUtil;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MSystem;
 import org.compiere.util.Env;
 import org.compiere.util.Util;
 
@@ -36,10 +37,11 @@ public class AuthenticationFilter implements Filter {
 	/**
 	 * These are the queries that can be used without authentication
 	 */
-	private final List<String> ALLOWABLE_UNAUTHENTICATED_QUERIES = new ArrayList<String>() {{
-		add("signIn");
-		add("changePassword");
-	}};
+	private final List<String> ALLOWABLE_UNAUTHENTICATED_QUERIES = List.of("signIn", "changePassword");
+	/**
+	 * These are the queries that are available in non-PROD environments
+	 */
+	private final List<String> ALLOWABLE_UNAUTHENTICATED_NON_PROD_QUERIES = List.of("IntrospectionQuery");
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -74,10 +76,20 @@ public class AuthenticationFilter implements Filter {
 		// Don't filter a request to get an authentication session or to change a password
 		if (bandaRequest.getMethod().equals(HttpMethod.POST)) {
 			boolean requestCanProceedWithoutAuthentication = false;
-			for (String allowableUnauthenticatedQuery : ALLOWABLE_UNAUTHENTICATED_QUERIES) {
-				if (requestQuery.contains(allowableUnauthenticatedQuery + "(")) {
-					requestCanProceedWithoutAuthentication = true;
-					break;
+			if (!MSystem.get(Env.getCtx()).getSystemStatus().equals(MSystem.SYSTEMSTATUS_Production)) {
+				for (String allowableUnauthenticatedQuery : ALLOWABLE_UNAUTHENTICATED_NON_PROD_QUERIES) {
+					if (requestQuery.contains("query " + allowableUnauthenticatedQuery + " {")) {
+						requestCanProceedWithoutAuthentication = true;
+						break;
+					}
+				}
+			}
+			if (!requestCanProceedWithoutAuthentication) {
+				for (String allowableUnauthenticatedQuery : ALLOWABLE_UNAUTHENTICATED_QUERIES) {
+					if (requestQuery.contains(allowableUnauthenticatedQuery + "(")) {
+						requestCanProceedWithoutAuthentication = true;
+						break;
+					}
 				}
 			}
 			if (requestCanProceedWithoutAuthentication) {

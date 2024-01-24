@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Ref_ListSave(entity: AD_Ref_ListInput!): AD_Ref_List!
+	AD_Ref_ListSaveMany(entities: [AD_Ref_ListInput!]!): [AD_Ref_List!]!
 	AD_Ref_ListDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Ref_List {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# System Reference and Validation
 	AD_Reference: AD_Reference!
 	BH_Add_All: String
@@ -52,7 +53,7 @@ type AD_Ref_List {
 input AD_Ref_ListInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# System Reference and Validation
 	AD_Reference: ForeignEntityInput
 	BH_Add_All: String

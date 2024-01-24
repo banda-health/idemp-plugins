@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
@@ -13,6 +14,7 @@ import org.compiere.model.X_AD_WF_Node;
 import org.compiere.model.X_AD_WF_Responsible;
 import org.compiere.model.X_AD_Workflow;
 import org.compiere.model.X_AD_WorkflowProcessor;
+import org.compiere.util.Env;
 import org.eevolution.model.X_PP_Order;
 import org.eevolution.model.X_PP_Order_Node;
 import org.eevolution.model.X_PP_Order_Workflow;
@@ -44,13 +46,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	private I_AD_Ref_ListInput mWorkflowType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The PP_Order_Workflow_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PP_Order_WorkflowInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_PP_Order_Workflow(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_PP_Order_WorkflowInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_PP_Order_Workflow(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -62,11 +67,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel) {
 		this.mAccessLevel = AccessLevel;
 		MRefList_BH foreignEntity;
-		if (AccessLevel != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(AccessLevel.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setAccessLevel(foreignEntity.getValue());
+		if (AccessLevel != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(AccessLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAccessLevel(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + AccessLevel.getUUID());
+			}
 		} else {
 			this.setAccessLevel(null);
 		}
@@ -91,11 +101,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		} else {
 			super.setAD_Org_ID(0);
 		}
@@ -120,11 +135,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
-		if (AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-						.setParameters(AD_Table.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Table_ID(foreignEntity.get_ID());
+		if (AD_Table != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Table_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+			}
 		} else {
 			super.setAD_Table_ID(0);
 		}
@@ -149,11 +169,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setAD_WF_NodeInput(ForeignEntityInput AD_WF_Node) {
 		this.mAD_WF_Node = AD_WF_Node;
 		X_AD_WF_Node foreignEntity;
-		if (AD_WF_Node != null &&
-				(foreignEntity = new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
-						.setParameters(AD_WF_Node.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_WF_Node_ID(foreignEntity.get_ID());
+		if (AD_WF_Node != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
+							.setParameters(AD_WF_Node.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_WF_Node_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_WF_Node with UUID " + AD_WF_Node.getUUID());
+			}
 		} else {
 			super.setAD_WF_Node_ID(0);
 		}
@@ -178,11 +203,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setAD_WF_ResponsibleInput(ForeignEntityInput AD_WF_Responsible) {
 		this.mAD_WF_Responsible = AD_WF_Responsible;
 		X_AD_WF_Responsible foreignEntity;
-		if (AD_WF_Responsible != null &&
-				(foreignEntity = new Query(getCtx(), "AD_WF_Responsible", "AD_WF_Responsible_UU=?", get_TrxName())
-						.setParameters(AD_WF_Responsible.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_WF_Responsible_ID(foreignEntity.get_ID());
+		if (AD_WF_Responsible != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_WF_Responsible", "AD_WF_Responsible_UU=?", get_TrxName())
+							.setParameters(AD_WF_Responsible.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_WF_Responsible_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_WF_Responsible with UUID " + AD_WF_Responsible.getUUID());
+			}
 		} else {
 			super.setAD_WF_Responsible_ID(0);
 		}
@@ -207,11 +237,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
 		X_AD_Workflow foreignEntity;
-		if (AD_Workflow != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-						.setParameters(AD_Workflow.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Workflow_ID(foreignEntity.get_ID());
+		if (AD_Workflow != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
+							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Workflow_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Workflow with UUID " + AD_Workflow.getUUID());
+			}
 		} else {
 			super.setAD_Workflow_ID(0);
 		}
@@ -236,11 +271,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setAD_WorkflowProcessorInput(ForeignEntityInput AD_WorkflowProcessor) {
 		this.mAD_WorkflowProcessor = AD_WorkflowProcessor;
 		X_AD_WorkflowProcessor foreignEntity;
-		if (AD_WorkflowProcessor != null &&
-				(foreignEntity = new Query(getCtx(), "AD_WorkflowProcessor", "AD_WorkflowProcessor_UU=?", get_TrxName())
-						.setParameters(AD_WorkflowProcessor.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_WorkflowProcessor_ID(foreignEntity.get_ID());
+		if (AD_WorkflowProcessor != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_WorkflowProcessor", "AD_WorkflowProcessor_UU=?", get_TrxName())
+							.setParameters(AD_WorkflowProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_WorkflowProcessor_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_WorkflowProcessor with UUID " + AD_WorkflowProcessor.getUUID());
+			}
 		} else {
 			super.setAD_WorkflowProcessor_ID(0);
 		}
@@ -265,11 +305,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setDurationUnitInput(I_AD_Ref_ListInput DurationUnit) {
 		this.mDurationUnit = DurationUnit;
 		MRefList_BH foreignEntity;
-		if (DurationUnit != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DurationUnit.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDurationUnit(foreignEntity.getValue());
+		if (DurationUnit != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DurationUnit.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDurationUnit(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DurationUnit.getUUID());
+			}
 		} else {
 			this.setDurationUnit(null);
 		}
@@ -294,11 +339,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
-		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-						.setParameters(AD_EntityType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setEntityType(foreignEntity.getEntityType());
+		if (AD_EntityType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setEntityType(foreignEntity.getEntityType());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+			}
 		} else {
 			super.setEntityType(null);
 		}
@@ -323,11 +373,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
 		X_PP_Order foreignEntity;
-		if (get_ID() == 0 && PP_Order != null &&
-				(foreignEntity = new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
-						.setParameters(PP_Order.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPP_Order_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && PP_Order != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
+							.setParameters(PP_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPP_Order_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PP_Order with UUID " + PP_Order.getUUID());
+			}
 		}
 	}
 
@@ -350,11 +405,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setPP_Order_NodeInput(ForeignEntityInput PP_Order_Node) {
 		this.mPP_Order_Node = PP_Order_Node;
 		X_PP_Order_Node foreignEntity;
-		if (PP_Order_Node != null &&
-				(foreignEntity = new Query(getCtx(), "PP_Order_Node", "PP_Order_Node_UU=?", get_TrxName())
-						.setParameters(PP_Order_Node.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setPP_Order_Node_ID(foreignEntity.get_ID());
+		if (PP_Order_Node != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "PP_Order_Node", "PP_Order_Node_UU=?", get_TrxName())
+							.setParameters(PP_Order_Node.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPP_Order_Node_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PP_Order_Node with UUID " + PP_Order_Node.getUUID());
+			}
 		} else {
 			super.setPP_Order_Node_ID(0);
 		}
@@ -382,20 +442,20 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setPP_Order_Workflow_UU(ID);
+	public void setUUID(String UUID) {
+		setPP_Order_Workflow_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getPP_Order_Workflow_UU();
 	}
 
@@ -408,11 +468,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setProcessTypeInput(I_AD_Ref_ListInput ProcessType) {
 		this.mProcessType = ProcessType;
 		MRefList_BH foreignEntity;
-		if (ProcessType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ProcessType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setProcessType(foreignEntity.getValue());
+		if (ProcessType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ProcessType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setProcessType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ProcessType.getUUID());
+			}
 		} else {
 			this.setProcessType(null);
 		}
@@ -437,11 +502,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setPublishStatusInput(I_AD_Ref_ListInput PublishStatus) {
 		this.mPublishStatus = PublishStatus;
 		MRefList_BH foreignEntity;
-		if (PublishStatus != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PublishStatus.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPublishStatus(foreignEntity.getValue());
+		if (PublishStatus != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PublishStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPublishStatus(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PublishStatus.getUUID());
+			}
 		} else {
 			this.setPublishStatus(null);
 		}
@@ -466,11 +536,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
 		MResource foreignEntity;
-		if (S_Resource != null &&
-				(foreignEntity = new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
-						.setParameters(S_Resource.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setS_Resource_ID(foreignEntity.get_ID());
+		if (S_Resource != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
+							.setParameters(S_Resource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setS_Resource_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table S_Resource with UUID " + S_Resource.getUUID());
+			}
 		} else {
 			super.setS_Resource_ID(0);
 		}
@@ -495,11 +570,16 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	public void setWorkflowTypeInput(I_AD_Ref_ListInput WorkflowType) {
 		this.mWorkflowType = WorkflowType;
 		MRefList_BH foreignEntity;
-		if (WorkflowType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(WorkflowType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setWorkflowType(foreignEntity.getValue());
+		if (WorkflowType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(WorkflowType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setWorkflowType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + WorkflowType.getUUID());
+			}
 		} else {
 			this.setWorkflowType(null);
 		}

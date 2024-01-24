@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_DepositBatchInput;
 import org.compiere.model.MDepositBatch;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_DepositBatch - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_DepositBatchMutation extends POMutation implements GraphQLMutat
 		return X_C_DepositBatchInput.Table_Name;
 	}
 
-	public MDepositBatch C_DepositBatchSave(I_C_DepositBatchInput input, DataFetchingEnvironment environment) {
-		return (MDepositBatch) super.save((X_C_DepositBatchInput) input, environment);
+	public MDepositBatch C_DepositBatchSave(I_C_DepositBatchInput entity, DataFetchingEnvironment environment) {
+		return (MDepositBatch) super.save((X_C_DepositBatchInput) entity, environment);
+	}
+
+	public List<MDepositBatch> C_DepositBatchSaveMany(List<I_C_DepositBatchInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_DepositBatchInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MDepositBatch) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_DepositBatchDelete(List<String> uuids, DataFetchingEnvironment environment) {

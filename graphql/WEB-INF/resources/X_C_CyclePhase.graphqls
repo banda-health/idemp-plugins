@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CyclePhaseSave(entity: C_CyclePhaseInput!): C_CyclePhase!
+	C_CyclePhaseSaveMany(entities: [C_CyclePhaseInput!]!): [C_CyclePhase!]!
 	C_CyclePhaseDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_CyclePhase {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# The step for this Cycle
 	C_CycleStep: C_CycleStep!
 	# Standard Phase of the Project Type
@@ -40,7 +41,7 @@ type C_CyclePhase {
 input C_CyclePhaseInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The step for this Cycle
 	C_CycleStep: ForeignEntityInput
 	# Standard Phase of the Project Type

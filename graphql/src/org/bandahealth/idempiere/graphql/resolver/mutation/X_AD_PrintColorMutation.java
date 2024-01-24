@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_PrintColorInput;
 import org.compiere.model.X_AD_PrintColor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_PrintColor - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_PrintColorMutation extends POMutation implements GraphQLMutati
 		return X_AD_PrintColorInput.Table_Name;
 	}
 
-	public X_AD_PrintColor AD_PrintColorSave(I_AD_PrintColorInput input, DataFetchingEnvironment environment) {
-		return (X_AD_PrintColor) super.save((X_AD_PrintColorInput) input, environment);
+	public X_AD_PrintColor AD_PrintColorSave(I_AD_PrintColorInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_PrintColor) super.save((X_AD_PrintColorInput) entity, environment);
+	}
+
+	public List<X_AD_PrintColor> AD_PrintColorSaveMany(List<I_AD_PrintColorInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_PrintColorInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_PrintColor) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_PrintColorDelete(List<String> uuids, DataFetchingEnvironment environment) {

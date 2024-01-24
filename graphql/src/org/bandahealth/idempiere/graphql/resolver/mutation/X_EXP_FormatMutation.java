@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_EXP_FormatInput;
 import org.compiere.model.MEXPFormat;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for EXP_Format - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_EXP_FormatMutation extends POMutation implements GraphQLMutationR
 		return X_EXP_FormatInput.Table_Name;
 	}
 
-	public MEXPFormat EXP_FormatSave(I_EXP_FormatInput input, DataFetchingEnvironment environment) {
-		return (MEXPFormat) super.save((X_EXP_FormatInput) input, environment);
+	public MEXPFormat EXP_FormatSave(I_EXP_FormatInput entity, DataFetchingEnvironment environment) {
+		return (MEXPFormat) super.save((X_EXP_FormatInput) entity, environment);
+	}
+
+	public List<MEXPFormat> EXP_FormatSaveMany(List<I_EXP_FormatInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_EXP_FormatInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MEXPFormat) entity).collect(Collectors.toList());
 	}
 
 	public boolean EXP_FormatDelete(List<String> uuids, DataFetchingEnvironment environment) {

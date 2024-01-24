@@ -37,7 +37,7 @@ public class X_AD_Table_AccessResolver extends POResolver<MTableAccess> implemen
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(ACCESSTYPERULE_UUIDS_BY_VALUE.get(entity.getAccessTypeRule()));
 	}
 

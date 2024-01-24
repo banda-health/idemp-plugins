@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CommissionLineSave(entity: C_CommissionLineInput!): C_CommissionLine!
+	C_CommissionLineSaveMany(entities: [C_CommissionLineInput!]!): [C_CommissionLine!]!
 	C_CommissionLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type C_CommissionLine {
 	C_BPartner: C_BPartner
 	# Commission
 	C_Commission: C_Commission!
-	ID: ID!
+	UUID: ID!
 	# Sales coverage region
 	C_SalesRegion: C_SalesRegion
 	# Commission only Orders or Invoices, where this Sales Rep is entered
@@ -76,7 +77,7 @@ input C_CommissionLineInput {
 	C_BPartner: ForeignEntityInput
 	# Commission
 	C_Commission: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Sales coverage region
 	C_SalesRegion: ForeignEntityInput
 	# Commission only Orders or Invoices, where this Sales Rep is entered

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	S_TimeExpenseSave(entity: S_TimeExpenseInput!): S_TimeExpense!
+	S_TimeExpenseSaveMany(entities: [S_TimeExpenseInput!]!): [S_TimeExpense!]!
 	S_TimeExpenseDelete(uuids: [String!]!): Boolean!
 }
 
@@ -49,7 +50,7 @@ type S_TimeExpense {
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -84,5 +85,5 @@ input S_TimeExpenseInput {
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean
-	ID: ID
+	UUID: ID
 }

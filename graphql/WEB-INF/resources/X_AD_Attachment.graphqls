@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_AttachmentSave(entity: AD_AttachmentInput!): AD_Attachment!
+	AD_AttachmentSaveMany(entities: [AD_AttachmentInput!]!): [AD_Attachment!]!
 	AD_AttachmentDelete(uuids: [String!]!): Boolean!
 }
 
@@ -16,7 +17,7 @@ type AD_AttachmentConnection {
 }
 
 type AD_Attachment {
-	ID: ID!
+	UUID: ID!
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within client
@@ -44,7 +45,7 @@ type AD_Attachment {
 }
 
 input AD_AttachmentInput {
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Database Table information

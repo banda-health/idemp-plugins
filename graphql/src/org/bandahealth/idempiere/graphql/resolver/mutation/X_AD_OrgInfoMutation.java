@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_AD_OrgInfoInput;
 import org.bandahealth.idempiere.graphql.model.input.X_AD_OrgInfoInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_OrgInfo - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_OrgInfoMutation extends POMutation implements GraphQLMutationR
 		return X_AD_OrgInfoInput.Table_Name;
 	}
 
-	public MOrgInfo_BH AD_OrgInfoSave(I_AD_OrgInfoInput input, DataFetchingEnvironment environment) {
-		return (MOrgInfo_BH) super.save((X_AD_OrgInfoInput) input, environment);
+	public MOrgInfo_BH AD_OrgInfoSave(I_AD_OrgInfoInput entity, DataFetchingEnvironment environment) {
+		return (MOrgInfo_BH) super.save((X_AD_OrgInfoInput) entity, environment);
+	}
+
+	public List<MOrgInfo_BH> AD_OrgInfoSaveMany(List<I_AD_OrgInfoInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_OrgInfoInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MOrgInfo_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_OrgInfoDelete(List<String> uuids, DataFetchingEnvironment environment) {

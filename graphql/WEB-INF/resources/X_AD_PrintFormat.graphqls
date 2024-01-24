@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PrintFormatSave(entity: AD_PrintFormatInput!): AD_PrintFormat!
+	AD_PrintFormatSaveMany(entities: [AD_PrintFormatInput!]!): [AD_PrintFormat!]!
 	AD_PrintFormatDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type AD_PrintFormat {
 	AD_PrintColor: AD_PrintColor!
 	# Maintain Print Font
 	AD_PrintFont: AD_PrintFont!
-	ID: ID!
+	UUID: ID!
 	# Printer paper definition
 	AD_PrintPaper: AD_PrintPaper!
 	# Table Format in Reports
@@ -80,7 +81,7 @@ input AD_PrintFormatInput {
 	AD_PrintColor: ForeignEntityInput
 	# Maintain Print Font
 	AD_PrintFont: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Printer paper definition
 	AD_PrintPaper: ForeignEntityInput
 	# Table Format in Reports

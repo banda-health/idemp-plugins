@@ -1,5 +1,5 @@
 extend type Mutation {
-	C_OrderProcess(uuid: String!, documentAction: String): C_Order
+	C_OrderProcess(uuid: String!, documentAction: String!): C_Order
 }
 
 extend type C_Order {

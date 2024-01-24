@@ -11,18 +11,18 @@ import org.compiere.model.I_A_Asset_Reval_Index;
 public interface I_A_Asset_Reval_IndexInput extends I_A_Asset_Reval_Index {
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set A_Reval_Code.

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_FindSave(entity: AD_FindInput!): AD_Find!
+	AD_FindSaveMany(entities: [AD_FindInput!]!): [AD_Find!]!
 	AD_FindDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Find {
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column!
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Logical operation: AND or OR
@@ -47,7 +48,7 @@ type AD_Find {
 input AD_FindInput {
 	# Column in the table
 	AD_Column: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Logical operation: AND or OR

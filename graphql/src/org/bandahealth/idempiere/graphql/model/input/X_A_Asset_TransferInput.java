@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAccount;
@@ -11,6 +12,7 @@ import org.compiere.model.MAssetTransfer;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -43,13 +45,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	private I_AD_Ref_ListInput mPostingType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The A_Asset_Transfer_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_A_Asset_TransferInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MAssetTransfer(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_A_Asset_TransferInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAssetTransfer(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -61,11 +66,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Accumdepreciation_AInput(ForeignEntityInput A_Accumdepreciation_A) {
 		this.mA_Accumdepreciation_A = A_Accumdepreciation_A;
 		MAccount foreignEntity;
-		if (get_ID() == 0 && A_Accumdepreciation_A != null &&
-				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-						.setParameters(A_Accumdepreciation_A.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Accumdepreciation_Acct(foreignEntity.get_ID());
+		if (get_ID() == 0 && A_Accumdepreciation_A != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(A_Accumdepreciation_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Accumdepreciation_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UUID " + A_Accumdepreciation_A.getUUID());
+			}
 		}
 	}
 
@@ -99,11 +109,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Accumdepreciation_New_AInput(ForeignEntityInput A_Accumdepreciation_New_A) {
 		this.mA_Accumdepreciation_New_A = A_Accumdepreciation_New_A;
 		MAccount foreignEntity;
-		if (A_Accumdepreciation_New_A != null &&
-				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-						.setParameters(A_Accumdepreciation_New_A.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Accumdepreciation_New_Acct(foreignEntity.get_ID());
+		if (A_Accumdepreciation_New_A != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(A_Accumdepreciation_New_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Accumdepreciation_New_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UUID " + A_Accumdepreciation_New_A.getUUID());
+			}
 		} else {
 			super.setA_Accumdepreciation_New_Acct(0);
 		}
@@ -128,11 +143,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Asset_AInput(ForeignEntityInput A_Asset_A) {
 		this.mA_Asset_A = A_Asset_A;
 		MAccount foreignEntity;
-		if (get_ID() == 0 && A_Asset_A != null &&
-				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-						.setParameters(A_Asset_A.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Asset_Acct(foreignEntity.get_ID());
+		if (get_ID() == 0 && A_Asset_A != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(A_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Asset_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UUID " + A_Asset_A.getUUID());
+			}
 		}
 	}
 
@@ -166,11 +186,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
 		MAsset foreignEntity;
-		if (get_ID() == 0 && A_Asset != null &&
-				(foreignEntity = new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-						.setParameters(A_Asset.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Asset_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && A_Asset != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
+							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Asset_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
+			}
 		}
 	}
 
@@ -193,11 +218,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Asset_New_AInput(ForeignEntityInput A_Asset_New_A) {
 		this.mA_Asset_New_A = A_Asset_New_A;
 		MAccount foreignEntity;
-		if (A_Asset_New_A != null &&
-				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-						.setParameters(A_Asset_New_A.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Asset_New_Acct(foreignEntity.get_ID());
+		if (A_Asset_New_A != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(A_Asset_New_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Asset_New_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UUID " + A_Asset_New_A.getUUID());
+			}
 		} else {
 			super.setA_Asset_New_Acct(0);
 		}
@@ -225,20 +255,20 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setA_Asset_Transfer_UU(ID);
+	public void setUUID(String UUID) {
+		setA_Asset_Transfer_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getA_Asset_Transfer_UU();
 	}
 
@@ -251,11 +281,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_CapvsExpInput(I_AD_Ref_ListInput A_CapvsExp) {
 		this.mA_CapvsExp = A_CapvsExp;
 		MRefList_BH foreignEntity;
-		if (A_CapvsExp != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(A_CapvsExp.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setA_CapvsExp(foreignEntity.getValue());
+		if (A_CapvsExp != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(A_CapvsExp.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_CapvsExp(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + A_CapvsExp.getUUID());
+			}
 		} else {
 			this.setA_CapvsExp(null);
 		}
@@ -280,11 +315,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Depreciation_AInput(ForeignEntityInput A_Depreciation_A) {
 		this.mA_Depreciation_A = A_Depreciation_A;
 		MAccount foreignEntity;
-		if (get_ID() == 0 && A_Depreciation_A != null &&
-				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-						.setParameters(A_Depreciation_A.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Depreciation_Acct(foreignEntity.get_ID());
+		if (get_ID() == 0 && A_Depreciation_A != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(A_Depreciation_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Depreciation_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UUID " + A_Depreciation_A.getUUID());
+			}
 		}
 	}
 
@@ -318,11 +358,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Depreciation_New_AInput(ForeignEntityInput A_Depreciation_New_A) {
 		this.mA_Depreciation_New_A = A_Depreciation_New_A;
 		MAccount foreignEntity;
-		if (A_Depreciation_New_A != null &&
-				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-						.setParameters(A_Depreciation_New_A.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Depreciation_New_Acct(foreignEntity.get_ID());
+		if (A_Depreciation_New_A != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(A_Depreciation_New_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Depreciation_New_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UUID " + A_Depreciation_New_A.getUUID());
+			}
 		} else {
 			super.setA_Depreciation_New_Acct(0);
 		}
@@ -347,11 +392,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Disposal_Loss_AInput(ForeignEntityInput A_Disposal_Loss_A) {
 		this.mA_Disposal_Loss_A = A_Disposal_Loss_A;
 		MAccount foreignEntity;
-		if (get_ID() == 0 && A_Disposal_Loss_A != null &&
-				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-						.setParameters(A_Disposal_Loss_A.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Disposal_Loss_Acct(foreignEntity.get_ID());
+		if (get_ID() == 0 && A_Disposal_Loss_A != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(A_Disposal_Loss_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Disposal_Loss_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UUID " + A_Disposal_Loss_A.getUUID());
+			}
 		}
 	}
 
@@ -374,11 +424,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Disposal_Loss_New_AInput(ForeignEntityInput A_Disposal_Loss_New_A) {
 		this.mA_Disposal_Loss_New_A = A_Disposal_Loss_New_A;
 		MAccount foreignEntity;
-		if (A_Disposal_Loss_New_A != null &&
-				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-						.setParameters(A_Disposal_Loss_New_A.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Disposal_Loss_New_Acct(foreignEntity.get_ID());
+		if (A_Disposal_Loss_New_A != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(A_Disposal_Loss_New_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Disposal_Loss_New_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UUID " + A_Disposal_Loss_New_A.getUUID());
+			}
 		} else {
 			super.setA_Disposal_Loss_New_Acct(0);
 		}
@@ -414,11 +469,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Disposal_Revenue_AInput(ForeignEntityInput A_Disposal_Revenue_A) {
 		this.mA_Disposal_Revenue_A = A_Disposal_Revenue_A;
 		MAccount foreignEntity;
-		if (get_ID() == 0 && A_Disposal_Revenue_A != null &&
-				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-						.setParameters(A_Disposal_Revenue_A.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Disposal_Revenue_Acct(foreignEntity.get_ID());
+		if (get_ID() == 0 && A_Disposal_Revenue_A != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(A_Disposal_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Disposal_Revenue_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UUID " + A_Disposal_Revenue_A.getUUID());
+			}
 		}
 	}
 
@@ -441,11 +501,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setA_Disposal_Revenue_New_AInput(ForeignEntityInput A_Disposal_Revenue_New_A) {
 		this.mA_Disposal_Revenue_New_A = A_Disposal_Revenue_New_A;
 		MAccount foreignEntity;
-		if (A_Disposal_Revenue_New_A != null &&
-				(foreignEntity = new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-						.setParameters(A_Disposal_Revenue_New_A.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setA_Disposal_Revenue_New_Acct(foreignEntity.get_ID());
+		if (A_Disposal_Revenue_New_A != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(A_Disposal_Revenue_New_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setA_Disposal_Revenue_New_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UUID " + A_Disposal_Revenue_New_A.getUUID());
+			}
 		} else {
 			super.setA_Disposal_Revenue_New_Acct(0);
 		}
@@ -514,11 +579,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -541,11 +611,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
 		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null &&
-				(foreignEntity = new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-						.setParameters(C_AcctSchema.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_AcctSchema_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_AcctSchema != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+			}
 		}
 	}
 
@@ -568,11 +643,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
 		MPeriod foreignEntity;
-		if (C_Period != null &&
-				(foreignEntity = new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-						.setParameters(C_Period.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Period_ID(foreignEntity.get_ID());
+		if (C_Period != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
+							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Period_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
+			}
 		} else {
 			super.setC_Period_ID(0);
 		}
@@ -597,11 +677,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
 		this.mDocAction = DocAction;
 		MRefList_BH foreignEntity;
-		if (DocAction != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocAction.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocAction(foreignEntity.getValue());
+		if (DocAction != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocAction(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocAction.getUUID());
+			}
 		} else {
 			this.setDocAction(null);
 		}
@@ -626,11 +711,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		MRefList_BH foreignEntity;
-		if (DocStatus != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DocStatus.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDocStatus(foreignEntity.getValue());
+		if (DocStatus != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDocStatus(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocStatus.getUUID());
+			}
 		} else {
 			this.setDocStatus(null);
 		}
@@ -666,11 +756,16 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
 		this.mPostingType = PostingType;
 		MRefList_BH foreignEntity;
-		if (PostingType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(PostingType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setPostingType(foreignEntity.getValue());
+		if (PostingType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setPostingType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PostingType.getUUID());
+			}
 		} else {
 			this.setPostingType(null);
 		}

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	HR_ProcessSave(entity: HR_ProcessInput!): HR_Process!
+	HR_ProcessSaveMany(entities: [HR_ProcessInput!]!): [HR_Process!]!
 	HR_ProcessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -53,7 +54,7 @@ type HR_Process {
 	HR_Job: HR_Job
 	HR_Payroll: HR_Payroll!
 	HR_Period: HR_Period
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -105,7 +106,7 @@ input HR_ProcessInput {
 	HR_Job: ForeignEntityInput
 	HR_Payroll: ForeignEntityInput
 	HR_Period: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

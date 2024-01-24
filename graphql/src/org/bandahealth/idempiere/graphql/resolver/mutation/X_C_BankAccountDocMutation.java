@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_BankAccountDocInput;
 import org.compiere.model.X_C_BankAccountDoc;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_BankAccountDoc - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_BankAccountDocMutation extends POMutation implements GraphQLMut
 		return X_C_BankAccountDocInput.Table_Name;
 	}
 
-	public X_C_BankAccountDoc C_BankAccountDocSave(I_C_BankAccountDocInput input, DataFetchingEnvironment environment) {
-		return (X_C_BankAccountDoc) super.save((X_C_BankAccountDocInput) input, environment);
+	public X_C_BankAccountDoc C_BankAccountDocSave(I_C_BankAccountDocInput entity, DataFetchingEnvironment environment) {
+		return (X_C_BankAccountDoc) super.save((X_C_BankAccountDocInput) entity, environment);
+	}
+
+	public List<X_C_BankAccountDoc> C_BankAccountDocSaveMany(List<I_C_BankAccountDocInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_BankAccountDocInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_C_BankAccountDoc) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_BankAccountDocDelete(List<String> uuids, DataFetchingEnvironment environment) {

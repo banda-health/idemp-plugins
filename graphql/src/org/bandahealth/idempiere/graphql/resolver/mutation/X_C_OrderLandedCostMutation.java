@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_OrderLandedCostInput;
 import org.compiere.model.MOrderLandedCost;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_OrderLandedCost - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_OrderLandedCostMutation extends POMutation implements GraphQLMu
 		return X_C_OrderLandedCostInput.Table_Name;
 	}
 
-	public MOrderLandedCost C_OrderLandedCostSave(I_C_OrderLandedCostInput input, DataFetchingEnvironment environment) {
-		return (MOrderLandedCost) super.save((X_C_OrderLandedCostInput) input, environment);
+	public MOrderLandedCost C_OrderLandedCostSave(I_C_OrderLandedCostInput entity, DataFetchingEnvironment environment) {
+		return (MOrderLandedCost) super.save((X_C_OrderLandedCostInput) entity, environment);
+	}
+
+	public List<MOrderLandedCost> C_OrderLandedCostSaveMany(List<I_C_OrderLandedCostInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_OrderLandedCostInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MOrderLandedCost) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_OrderLandedCostDelete(List<String> uuids, DataFetchingEnvironment environment) {

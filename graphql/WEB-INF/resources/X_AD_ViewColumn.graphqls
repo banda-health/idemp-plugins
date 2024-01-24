@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_ViewColumnSave(entity: AD_ViewColumnInput!): AD_ViewColumn!
+	AD_ViewColumnSaveMany(entities: [AD_ViewColumnInput!]!): [AD_ViewColumn!]!
 	AD_ViewColumnDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_ViewColumn {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	AD_ViewComponent: AD_ViewComponent!
 	# Name of the column in the database
 	ColumnName: String!
@@ -50,7 +51,7 @@ type AD_ViewColumn {
 input AD_ViewColumnInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	AD_ViewComponent: ForeignEntityInput
 	# Name of the column in the database
 	ColumnName: String

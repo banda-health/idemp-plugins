@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	Fact_ReconciliationSave(entity: Fact_ReconciliationInput!): Fact_Reconciliation!
+	Fact_ReconciliationSaveMany(entities: [Fact_ReconciliationInput!]!): [Fact_Reconciliation!]!
 	Fact_ReconciliationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -33,7 +34,7 @@ type Fact_Reconciliation {
 	# Accounting Date
 	DateAcct: Date
 	Fact_Acct: Fact_Acct!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# String identifying related accounting facts
@@ -48,7 +49,7 @@ input Fact_ReconciliationInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	Fact_Acct: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# String identifying related accounting facts

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_CostSave(entity: M_CostInput!): M_Cost!
+	M_CostSaveMany(entities: [M_CostInput!]!): [M_Cost!]!
 	M_CostDelete(uuids: [String!]!): Boolean!
 }
 
@@ -48,7 +49,7 @@ type M_Cost {
 	IsCostFrozen: Boolean!
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
-	ID: ID!
+	UUID: ID!
 	# Product Cost Element
 	M_CostElement: M_CostElement!
 	# Type of Cost (e.g. Current, Plan, Future)
@@ -90,7 +91,7 @@ input M_CostInput {
 	IsCostFrozen: Boolean
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Product Cost Element
 	M_CostElement: ForeignEntityInput
 	# Type of Cost (e.g. Current, Plan, Future)

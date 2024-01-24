@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WorkflowProcessorSave(entity: AD_WorkflowProcessorInput!): AD_WorkflowProcessor!
+	AD_WorkflowProcessorSaveMany(entities: [AD_WorkflowProcessorInput!]!): [AD_WorkflowProcessor!]!
 	AD_WorkflowProcessorDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type AD_WorkflowProcessor {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	AD_Schedule: AD_Schedule!
-	ID: ID!
+	UUID: ID!
 	# Send alert email when over priority
 	AlertOverPriority: Int
 	# Date this record was created
@@ -57,7 +58,7 @@ input AD_WorkflowProcessorInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	AD_Schedule: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Send alert email when over priority
 	AlertOverPriority: Int
 	# Date the process was last run.

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_CtxHelpSuggestionSave(entity: AD_CtxHelpSuggestionInput!): AD_CtxHelpSuggestion!
+	AD_CtxHelpSuggestionSaveMany(entities: [AD_CtxHelpSuggestionInput!]!): [AD_CtxHelpSuggestion!]!
 	AD_CtxHelpSuggestionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_CtxHelpSuggestion {
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp!
 	AD_CtxHelpMsg: AD_CtxHelpMsg!
-	ID: ID!
+	UUID: ID!
 	# Language for this entity
 	AD_Language: AD_Language!
 	# Organizational entity within client
@@ -59,7 +60,7 @@ input AD_CtxHelpSuggestionInput {
 	AcceptSuggestion: String
 	AD_CtxHelp: ForeignEntityInput
 	AD_CtxHelpMsg: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within client

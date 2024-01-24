@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
@@ -13,6 +14,7 @@ import org.compiere.model.MProject;
 import org.compiere.model.MRecurring;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_RecurringGroup;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -36,13 +38,16 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	private I_AD_Ref_ListInput mRecurringType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_Recurring_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_RecurringInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MRecurring(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_RecurringInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRecurring(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -54,11 +59,16 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -81,11 +91,16 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
 		MInvoice_BH foreignEntity;
-		if (C_Invoice != null &&
-				(foreignEntity = new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-						.setParameters(C_Invoice.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Invoice_ID(foreignEntity.get_ID());
+		if (C_Invoice != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
+							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Invoice_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
+			}
 		} else {
 			super.setC_Invoice_ID(0);
 		}
@@ -110,11 +125,16 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
 		MOrder_BH foreignEntity;
-		if (C_Order != null &&
-				(foreignEntity = new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-						.setParameters(C_Order.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Order_ID(foreignEntity.get_ID());
+		if (C_Order != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
+							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Order_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
+			}
 		} else {
 			super.setC_Order_ID(0);
 		}
@@ -139,11 +159,16 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
 		MPayment_BH foreignEntity;
-		if (C_Payment != null &&
-				(foreignEntity = new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-						.setParameters(C_Payment.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Payment_ID(foreignEntity.get_ID());
+		if (C_Payment != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
+							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Payment_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Payment with UUID " + C_Payment.getUUID());
+			}
 		} else {
 			super.setC_Payment_ID(0);
 		}
@@ -168,11 +193,16 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
-		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-						.setParameters(C_Project.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Project_ID(foreignEntity.get_ID());
+		if (C_Project != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Project_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
+			}
 		} else {
 			super.setC_Project_ID(0);
 		}
@@ -200,20 +230,20 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_Recurring_UU(ID);
+	public void setUUID(String UUID) {
+		setC_Recurring_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_Recurring_UU();
 	}
 
@@ -226,11 +256,16 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public void setC_RecurringGroupInput(ForeignEntityInput C_RecurringGroup) {
 		this.mC_RecurringGroup = C_RecurringGroup;
 		X_C_RecurringGroup foreignEntity;
-		if (C_RecurringGroup != null &&
-				(foreignEntity = new Query(getCtx(), "C_RecurringGroup", "C_RecurringGroup_UU=?", get_TrxName())
-						.setParameters(C_RecurringGroup.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_RecurringGroup_ID(foreignEntity.get_ID());
+		if (C_RecurringGroup != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_RecurringGroup", "C_RecurringGroup_UU=?", get_TrxName())
+							.setParameters(C_RecurringGroup.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_RecurringGroup_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_RecurringGroup with UUID " + C_RecurringGroup.getUUID());
+			}
 		} else {
 			super.setC_RecurringGroup_ID(0);
 		}
@@ -266,11 +301,16 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType) {
 		this.mFrequencyType = FrequencyType;
 		MRefList_BH foreignEntity;
-		if (FrequencyType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(FrequencyType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setFrequencyType(foreignEntity.getValue());
+		if (FrequencyType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(FrequencyType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setFrequencyType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + FrequencyType.getUUID());
+			}
 		} else {
 			this.setFrequencyType(null);
 		}
@@ -295,11 +335,16 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public void setGL_JournalBatchInput(ForeignEntityInput GL_JournalBatch) {
 		this.mGL_JournalBatch = GL_JournalBatch;
 		MJournalBatch foreignEntity;
-		if (GL_JournalBatch != null &&
-				(foreignEntity = new Query(getCtx(), "GL_JournalBatch", "GL_JournalBatch_UU=?", get_TrxName())
-						.setParameters(GL_JournalBatch.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setGL_JournalBatch_ID(foreignEntity.get_ID());
+		if (GL_JournalBatch != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "GL_JournalBatch", "GL_JournalBatch_UU=?", get_TrxName())
+							.setParameters(GL_JournalBatch.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setGL_JournalBatch_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table GL_JournalBatch with UUID " + GL_JournalBatch.getUUID());
+			}
 		} else {
 			super.setGL_JournalBatch_ID(0);
 		}
@@ -324,11 +369,16 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	public void setRecurringTypeInput(I_AD_Ref_ListInput RecurringType) {
 		this.mRecurringType = RecurringType;
 		MRefList_BH foreignEntity;
-		if (RecurringType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(RecurringType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setRecurringType(foreignEntity.getValue());
+		if (RecurringType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(RecurringType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setRecurringType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + RecurringType.getUUID());
+			}
 		} else {
 			this.setRecurringType(null);
 		}

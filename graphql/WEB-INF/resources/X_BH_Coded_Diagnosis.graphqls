@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_Coded_DiagnosisSave(entity: BH_Coded_DiagnosisInput!): BH_Coded_Diagnosis!
+	BH_Coded_DiagnosisSaveMany(entities: [BH_Coded_DiagnosisInput!]!): [BH_Coded_Diagnosis!]!
 	BH_Coded_DiagnosisDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type BH_Coded_Diagnosis {
 	AD_Org: AD_Org!
 	BH_CielID: Int
 	bh_cielname: String
-	ID: ID!
+	UUID: ID!
 	bh_concept_class: String
 	bh_icd10who: String
 	bh_moh705a_lessthan5: String
@@ -51,7 +52,7 @@ input BH_Coded_DiagnosisInput {
 	AD_Org: ForeignEntityInput
 	BH_CielID: Int
 	bh_cielname: String
-	ID: ID
+	UUID: ID
 	bh_concept_class: String
 	bh_icd10who: String
 	bh_moh705a_lessthan5: String

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_LocationSave(entity: C_LocationInput!): C_Location!
+	C_LocationSaveMany(entities: [C_LocationInput!]!): [C_Location!]!
 	C_LocationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -35,7 +36,7 @@ type C_Location {
 	C_City: C_City
 	# Country 
 	C_Country: C_Country!
-	ID: ID!
+	UUID: ID!
 	# Identifies a geographical Region
 	C_Region: C_Region
 	# Identifies a City
@@ -83,7 +84,7 @@ input C_LocationInput {
 	C_City: ForeignEntityInput
 	# Country 
 	C_Country: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Identifies a geographical Region
 	C_Region: ForeignEntityInput
 	# Identifies a City

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_LanguageInput;
 import org.compiere.model.MLanguage;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Language - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_LanguageMutation extends POMutation implements GraphQLMutation
 		return X_AD_LanguageInput.Table_Name;
 	}
 
-	public MLanguage AD_LanguageSave(I_AD_LanguageInput input, DataFetchingEnvironment environment) {
-		return (MLanguage) super.save((X_AD_LanguageInput) input, environment);
+	public MLanguage AD_LanguageSave(I_AD_LanguageInput entity, DataFetchingEnvironment environment) {
+		return (MLanguage) super.save((X_AD_LanguageInput) entity, environment);
+	}
+
+	public List<MLanguage> AD_LanguageSaveMany(List<I_AD_LanguageInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_LanguageInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MLanguage) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_LanguageDelete(List<String> uuids, DataFetchingEnvironment environment) {

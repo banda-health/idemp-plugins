@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CommissionRunSave(entity: C_CommissionRunInput!): C_CommissionRun!
+	C_CommissionRunSaveMany(entities: [C_CommissionRunInput!]!): [C_CommissionRun!]!
 	C_CommissionRunDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_CommissionRun {
 	AD_Org: AD_Org!
 	# Commission
 	C_Commission: C_Commission!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -51,7 +52,7 @@ input C_CommissionRunInput {
 	AD_Org: ForeignEntityInput
 	# Commission
 	C_Commission: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document

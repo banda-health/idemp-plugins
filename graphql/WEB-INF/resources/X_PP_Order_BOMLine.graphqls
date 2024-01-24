@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_Order_BOMLineSave(entity: PP_Order_BOMLineInput!): PP_Order_BOMLine!
+	PP_Order_BOMLineSaveMany(entities: [PP_Order_BOMLineInput!]!): [PP_Order_BOMLine!]!
 	PP_Order_BOMLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -69,7 +70,7 @@ type PP_Order_BOMLine {
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	PP_Order_BOM: PP_Order_BOM!
-	ID: ID!
+	UUID: ID!
 	# Manufacturing Order
 	PP_Order: PP_Order!
 	# Indicate the Quantity % use in this Formula
@@ -147,7 +148,7 @@ input PP_Order_BOMLineInput {
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	PP_Order_BOM: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
 	# Indicate the Quantity % use in this Formula

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_DashboardContentSave(entity: PA_DashboardContentInput!): PA_DashboardContent!
+	PA_DashboardContentSaveMany(entities: [PA_DashboardContentInput!]!): [PA_DashboardContent!]!
 	PA_DashboardContentDelete(uuids: [String!]!): Boolean!
 }
 
@@ -55,7 +56,7 @@ type PA_DashboardContent {
 	Line: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	# Performance Goal
 	PA_Goal: PA_Goal
 	# Comma separated process parameter list
@@ -102,7 +103,7 @@ input PA_DashboardContentInput {
 	Line: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 	# Performance Goal
 	PA_Goal: ForeignEntityInput
 	# Comma separated process parameter list

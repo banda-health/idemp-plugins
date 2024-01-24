@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_RMATaxSave(entity: M_RMATaxInput!): M_RMATax!
+	M_RMATaxSaveMany(entities: [M_RMATaxInput!]!): [M_RMATax!]!
 	M_RMATaxDelete(uuids: [String!]!): Boolean!
 }
 
@@ -33,7 +34,7 @@ type M_RMATax {
 	IsTaxIncluded: Boolean!
 	# Return Material Authorization
 	M_RMA: M_RMA!
-	ID: ID!
+	UUID: ID!
 	# The document has been processed
 	Processed: Boolean!
 	# Tax Amount for a document
@@ -58,7 +59,7 @@ input M_RMATaxInput {
 	IsTaxIncluded: Boolean
 	# Return Material Authorization
 	M_RMA: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The document has been processed
 	Processed: Boolean
 	# Tax Amount for a document

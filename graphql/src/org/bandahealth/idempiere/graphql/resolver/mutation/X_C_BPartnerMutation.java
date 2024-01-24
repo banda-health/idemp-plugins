@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_C_BPartnerInput;
 import org.bandahealth.idempiere.graphql.model.input.X_C_BPartnerInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_BPartner - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_BPartnerMutation extends POMutation implements GraphQLMutationR
 		return X_C_BPartnerInput.Table_Name;
 	}
 
-	public MBPartner_BH C_BPartnerSave(I_C_BPartnerInput input, DataFetchingEnvironment environment) {
-		return (MBPartner_BH) super.save((X_C_BPartnerInput) input, environment);
+	public MBPartner_BH C_BPartnerSave(I_C_BPartnerInput entity, DataFetchingEnvironment environment) {
+		return (MBPartner_BH) super.save((X_C_BPartnerInput) entity, environment);
+	}
+
+	public List<MBPartner_BH> C_BPartnerSaveMany(List<I_C_BPartnerInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_BPartnerInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MBPartner_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_BPartnerDelete(List<String> uuids, DataFetchingEnvironment environment) {

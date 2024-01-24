@@ -39,18 +39,18 @@ public interface I_WS_WebService_ParaInput extends I_WS_WebService_Para {
 	I_AD_Ref_ListInput ParameterType();
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	void setID(String ID);
+	void setUUID(String UUID);
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	String getID();
+	String getUUID();
 
 	/**
 	 * Set WS_WebServiceType.

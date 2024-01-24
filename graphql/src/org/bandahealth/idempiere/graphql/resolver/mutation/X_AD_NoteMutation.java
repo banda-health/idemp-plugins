@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_NoteInput;
 import org.compiere.model.MNote;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Note - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_NoteMutation extends POMutation implements GraphQLMutationReso
 		return X_AD_NoteInput.Table_Name;
 	}
 
-	public MNote AD_NoteSave(I_AD_NoteInput input, DataFetchingEnvironment environment) {
-		return (MNote) super.save((X_AD_NoteInput) input, environment);
+	public MNote AD_NoteSave(I_AD_NoteInput entity, DataFetchingEnvironment environment) {
+		return (MNote) super.save((X_AD_NoteInput) entity, environment);
+	}
+
+	public List<MNote> AD_NoteSaveMany(List<I_AD_NoteInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_NoteInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MNote) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_NoteDelete(List<String> uuids, DataFetchingEnvironment environment) {

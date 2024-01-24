@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_Product_POSave(entity: M_Product_POInput!): M_Product_PO!
+	M_Product_POSaveMany(entities: [M_Product_POInput!]!): [M_Product_PO!]!
 	M_Product_PODelete(uuids: [String!]!): Boolean!
 }
 
@@ -48,7 +49,7 @@ type M_Product_PO {
 	IsCurrentVendor: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
-	ID: ID!
+	UUID: ID!
 	# Manufacturer of the Product
 	Manufacturer: String
 	# Minimum order quantity in UOM
@@ -108,7 +109,7 @@ input M_Product_POInput {
 	IsCurrentVendor: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Manufacturer of the Product
 	Manufacturer: String
 	# Minimum order quantity in UOM

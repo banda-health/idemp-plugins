@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	DD_OrderLineSave(entity: DD_OrderLineInput!): DD_OrderLine!
+	DD_OrderLineSaveMany(entities: [DD_OrderLineInput!]!): [DD_OrderLine!]!
 	DD_OrderLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -43,7 +44,7 @@ type DD_OrderLine {
 	# Date Order was promised
 	DatePromised: Date
 	DD_Order: DD_Order!
-	ID: ID!
+	UUID: ID!
 	# Optional short description of the record
 	Description: String
 	# Freight Amount 
@@ -118,7 +119,7 @@ input DD_OrderLineInput {
 	# Date Order was promised
 	DatePromised: Date
 	DD_Order: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Freight Amount 

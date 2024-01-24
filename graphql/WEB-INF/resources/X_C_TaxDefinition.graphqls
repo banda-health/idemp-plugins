@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_TaxDefinitionSave(entity: C_TaxDefinitionInput!): C_TaxDefinition!
+	C_TaxDefinitionSaveMany(entities: [C_TaxDefinitionInput!]!): [C_TaxDefinition!]!
 	C_TaxDefinitionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -31,7 +32,7 @@ type C_TaxDefinition {
 	C_TaxBase: C_TaxBase
 	# Tax Category
 	C_TaxCategory: C_TaxCategory
-	ID: ID!
+	UUID: ID!
 	C_TaxGroup: C_TaxGroup
 	C_TaxType: C_TaxType
 	# Date this record was created
@@ -82,7 +83,7 @@ input C_TaxDefinitionInput {
 	C_TaxBase: ForeignEntityInput
 	# Tax Category
 	C_TaxCategory: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	C_TaxGroup: ForeignEntityInput
 	C_TaxType: ForeignEntityInput
 	# Optional short description of the record

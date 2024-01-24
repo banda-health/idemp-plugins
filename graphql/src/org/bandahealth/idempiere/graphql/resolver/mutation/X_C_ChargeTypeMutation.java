@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_C_ChargeTypeInput;
 import org.bandahealth.idempiere.graphql.model.input.X_C_ChargeTypeInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_ChargeType - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_ChargeTypeMutation extends POMutation implements GraphQLMutatio
 		return X_C_ChargeTypeInput.Table_Name;
 	}
 
-	public MChargeType_BH C_ChargeTypeSave(I_C_ChargeTypeInput input, DataFetchingEnvironment environment) {
-		return (MChargeType_BH) super.save((X_C_ChargeTypeInput) input, environment);
+	public MChargeType_BH C_ChargeTypeSave(I_C_ChargeTypeInput entity, DataFetchingEnvironment environment) {
+		return (MChargeType_BH) super.save((X_C_ChargeTypeInput) entity, environment);
+	}
+
+	public List<MChargeType_BH> C_ChargeTypeSaveMany(List<I_C_ChargeTypeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_ChargeTypeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MChargeType_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_ChargeTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {

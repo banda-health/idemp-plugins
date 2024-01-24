@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	I_PriceListSave(entity: I_PriceListInput!): I_PriceList!
+	I_PriceListSaveMany(entities: [I_PriceListInput!]!): [I_PriceList!]!
 	I_PriceListDelete(uuids: [String!]!): Boolean!
 }
 
@@ -42,7 +43,7 @@ type I_PriceList {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Three letter ISO 4217 Code of the Currency
@@ -103,7 +104,7 @@ input I_PriceListInput {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Three letter ISO 4217 Code of the Currency

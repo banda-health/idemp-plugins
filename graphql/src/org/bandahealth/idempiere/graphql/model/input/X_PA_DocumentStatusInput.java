@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDocumentStatus;
@@ -15,6 +16,7 @@ import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
 import org.compiere.model.X_AD_Role;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -40,13 +42,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	private ForeignEntityInput mNumber_PrintFont;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The PA_DocumentStatus_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_DocumentStatusInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MDocumentStatus(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_PA_DocumentStatusInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDocumentStatus(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -58,11 +63,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setAD_FormInput(ForeignEntityInput AD_Form) {
 		this.mAD_Form = AD_Form;
 		MForm foreignEntity;
-		if (AD_Form != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-						.setParameters(AD_Form.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Form_ID(foreignEntity.get_ID());
+		if (AD_Form != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
+							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Form_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Form with UUID " + AD_Form.getUUID());
+			}
 		} else {
 			super.setAD_Form_ID(0);
 		}
@@ -87,11 +97,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -114,11 +129,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
 		X_AD_Role foreignEntity;
-		if (AD_Role != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-						.setParameters(AD_Role.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Role_ID(foreignEntity.get_ID());
+		if (AD_Role != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
+							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Role_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
+			}
 		} else {
 			super.setAD_Role_ID(0);
 		}
@@ -143,11 +163,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
-		if (AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-						.setParameters(AD_Table.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Table_ID(foreignEntity.get_ID());
+		if (AD_Table != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Table_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+			}
 		} else {
 			super.setAD_Table_ID(0);
 		}
@@ -172,11 +197,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
 		MUser_BH foreignEntity;
-		if (AD_User != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(AD_User.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_User_ID(foreignEntity.get_ID());
+		if (AD_User != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_User_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+			}
 		} else {
 			super.setAD_User_ID(0);
 		}
@@ -201,11 +231,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
 		MWindow foreignEntity;
-		if (AD_Window != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-						.setParameters(AD_Window.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Window_ID(foreignEntity.get_ID());
+		if (AD_Window != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
+							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Window_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+			}
 		} else {
 			super.setAD_Window_ID(0);
 		}
@@ -230,11 +265,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
 		MProject foreignEntity;
-		if (C_Project != null &&
-				(foreignEntity = new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-						.setParameters(C_Project.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Project_ID(foreignEntity.get_ID());
+		if (C_Project != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Project_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
+			}
 		} else {
 			super.setC_Project_ID(0);
 		}
@@ -259,11 +299,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
 		MEntityType foreignEntity;
-		if (AD_EntityType != null &&
-				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-						.setParameters(AD_EntityType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setEntityType(foreignEntity.getEntityType());
+		if (AD_EntityType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setEntityType(foreignEntity.getEntityType());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+			}
 		} else {
 			super.setEntityType(null);
 		}
@@ -288,11 +333,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setName_PrintColorInput(ForeignEntityInput Name_PrintColor) {
 		this.mName_PrintColor = Name_PrintColor;
 		X_AD_PrintColor foreignEntity;
-		if (Name_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-						.setParameters(Name_PrintColor.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setName_PrintColor_ID(foreignEntity.get_ID());
+		if (Name_PrintColor != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
+							.setParameters(Name_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setName_PrintColor_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintColor with UUID " + Name_PrintColor.getUUID());
+			}
 		} else {
 			super.setName_PrintColor_ID(0);
 		}
@@ -317,11 +367,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setName_PrintFontInput(ForeignEntityInput Name_PrintFont) {
 		this.mName_PrintFont = Name_PrintFont;
 		X_AD_PrintFont foreignEntity;
-		if (Name_PrintFont != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-						.setParameters(Name_PrintFont.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setName_PrintFont_ID(foreignEntity.get_ID());
+		if (Name_PrintFont != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
+							.setParameters(Name_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setName_PrintFont_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFont with UUID " + Name_PrintFont.getUUID());
+			}
 		} else {
 			super.setName_PrintFont_ID(0);
 		}
@@ -346,11 +401,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setNumber_PrintColorInput(ForeignEntityInput Number_PrintColor) {
 		this.mNumber_PrintColor = Number_PrintColor;
 		X_AD_PrintColor foreignEntity;
-		if (Number_PrintColor != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-						.setParameters(Number_PrintColor.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setNumber_PrintColor_ID(foreignEntity.get_ID());
+		if (Number_PrintColor != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
+							.setParameters(Number_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setNumber_PrintColor_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintColor with UUID " + Number_PrintColor.getUUID());
+			}
 		} else {
 			super.setNumber_PrintColor_ID(0);
 		}
@@ -375,11 +435,16 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	public void setNumber_PrintFontInput(ForeignEntityInput Number_PrintFont) {
 		this.mNumber_PrintFont = Number_PrintFont;
 		X_AD_PrintFont foreignEntity;
-		if (Number_PrintFont != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-						.setParameters(Number_PrintFont.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setNumber_PrintFont_ID(foreignEntity.get_ID());
+		if (Number_PrintFont != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
+							.setParameters(Number_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setNumber_PrintFont_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFont with UUID " + Number_PrintFont.getUUID());
+			}
 		} else {
 			super.setNumber_PrintFont_ID(0);
 		}
@@ -407,20 +472,20 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setPA_DocumentStatus_UU(ID);
+	public void setUUID(String UUID) {
+		setPA_DocumentStatus_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getPA_DocumentStatus_UU();
 	}
 }

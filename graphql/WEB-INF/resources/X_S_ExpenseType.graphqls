@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	S_ExpenseTypeSave(entity: S_ExpenseTypeInput!): S_ExpenseType!
+	S_ExpenseTypeSaveMany(entities: [S_ExpenseTypeInput!]!): [S_ExpenseType!]!
 	S_ExpenseTypeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type S_ExpenseType {
 	M_Product_Category: M_Product_Category!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -64,7 +65,7 @@ input S_ExpenseTypeInput {
 	M_Product_Category: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

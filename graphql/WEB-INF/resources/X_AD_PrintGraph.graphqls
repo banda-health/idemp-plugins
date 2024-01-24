@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PrintGraphSave(entity: AD_PrintGraphInput!): AD_PrintGraph!
+	AD_PrintGraphSaveMany(entities: [AD_PrintGraphInput!]!): [AD_PrintGraph!]!
 	AD_PrintGraphDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_PrintGraph {
 	AD_Org: AD_Org!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,7 +59,7 @@ input AD_PrintGraphInput {
 	AD_Org: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Data Column for Pie and Line Charts
 	Data_PrintFormatItem: ForeignEntityInput
 	# Data Column for Line Charts

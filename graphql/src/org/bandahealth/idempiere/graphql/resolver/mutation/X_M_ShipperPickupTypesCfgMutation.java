@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_ShipperPickupTypesCfgIn
 import org.compiere.model.X_M_ShipperPickupTypesCfg;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_ShipperPickupTypesCfg - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_ShipperPickupTypesCfgMutation extends POMutation implements Gra
 		return X_M_ShipperPickupTypesCfgInput.Table_Name;
 	}
 
-	public X_M_ShipperPickupTypesCfg M_ShipperPickupTypesCfgSave(I_M_ShipperPickupTypesCfgInput input, DataFetchingEnvironment environment) {
-		return (X_M_ShipperPickupTypesCfg) super.save((X_M_ShipperPickupTypesCfgInput) input, environment);
+	public X_M_ShipperPickupTypesCfg M_ShipperPickupTypesCfgSave(I_M_ShipperPickupTypesCfgInput entity, DataFetchingEnvironment environment) {
+		return (X_M_ShipperPickupTypesCfg) super.save((X_M_ShipperPickupTypesCfgInput) entity, environment);
+	}
+
+	public List<X_M_ShipperPickupTypesCfg> M_ShipperPickupTypesCfgSaveMany(List<I_M_ShipperPickupTypesCfgInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_ShipperPickupTypesCfgInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_M_ShipperPickupTypesCfg) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_ShipperPickupTypesCfgDelete(List<String> uuids, DataFetchingEnvironment environment) {

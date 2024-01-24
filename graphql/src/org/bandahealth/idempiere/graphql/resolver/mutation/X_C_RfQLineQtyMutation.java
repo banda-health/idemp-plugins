@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_RfQLineQtyInput;
 import org.compiere.model.MRfQLineQty;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_RfQLineQty - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_RfQLineQtyMutation extends POMutation implements GraphQLMutatio
 		return X_C_RfQLineQtyInput.Table_Name;
 	}
 
-	public MRfQLineQty C_RfQLineQtySave(I_C_RfQLineQtyInput input, DataFetchingEnvironment environment) {
-		return (MRfQLineQty) super.save((X_C_RfQLineQtyInput) input, environment);
+	public MRfQLineQty C_RfQLineQtySave(I_C_RfQLineQtyInput entity, DataFetchingEnvironment environment) {
+		return (MRfQLineQty) super.save((X_C_RfQLineQtyInput) entity, environment);
+	}
+
+	public List<MRfQLineQty> C_RfQLineQtySaveMany(List<I_C_RfQLineQtyInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_RfQLineQtyInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRfQLineQty) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_RfQLineQtyDelete(List<String> uuids, DataFetchingEnvironment environment) {

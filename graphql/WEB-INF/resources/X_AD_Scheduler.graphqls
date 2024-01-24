@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_SchedulerSave(entity: AD_SchedulerInput!): AD_Scheduler!
+	AD_SchedulerSaveMany(entities: [AD_SchedulerInput!]!): [AD_Scheduler!]!
 	AD_SchedulerDelete(uuids: [String!]!): Boolean!
 }
 
@@ -25,7 +26,7 @@ type AD_Scheduler {
 	# Process or Report
 	AD_Process: AD_Process!
 	AD_Schedule: AD_Schedule!
-	ID: ID!
+	UUID: ID!
 	# Database Table information
 	AD_Table: AD_Table
 	# Date this record was created
@@ -68,7 +69,7 @@ input AD_SchedulerInput {
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	AD_Schedule: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Date the process was last run.

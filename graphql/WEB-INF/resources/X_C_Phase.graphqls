@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_PhaseSave(entity: C_PhaseInput!): C_Phase!
+	C_PhaseSaveMany(entities: [C_PhaseInput!]!): [C_Phase!]!
 	C_PhaseDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_Phase {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Type of the project
 	C_ProjectType: C_ProjectType!
 	# Date this record was created
@@ -50,7 +51,7 @@ type C_Phase {
 input C_PhaseInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Type of the project
 	C_ProjectType: ForeignEntityInput
 	# Optional short description of the record

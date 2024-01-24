@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	ASP_ProcessSave(entity: ASP_ProcessInput!): ASP_Process!
+	ASP_ProcessSaveMany(entities: [ASP_ProcessInput!]!): [ASP_Process!]!
 	ASP_ProcessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -23,7 +24,7 @@ type ASP_Process {
 	# Process or Report
 	AD_Process: AD_Process!
 	ASP_Level: ASP_Level!
-	ID: ID!
+	UUID: ID!
 	ASP_Status: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
@@ -43,7 +44,7 @@ input ASP_ProcessInput {
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	ASP_Level: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	ASP_Status: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean

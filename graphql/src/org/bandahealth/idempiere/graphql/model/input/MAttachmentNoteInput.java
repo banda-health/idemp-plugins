@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MAttachmentNoteInput extends X_AD_AttachmentNoteInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_AttachmentNote_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAttachmentNoteInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MAttachmentNoteInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

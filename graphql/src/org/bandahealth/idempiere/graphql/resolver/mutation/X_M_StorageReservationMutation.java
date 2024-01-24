@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_StorageReservationInput
 import org.compiere.model.MStorageReservation;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_StorageReservation - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_StorageReservationMutation extends POMutation implements GraphQ
 		return X_M_StorageReservationInput.Table_Name;
 	}
 
-	public MStorageReservation M_StorageReservationSave(I_M_StorageReservationInput input, DataFetchingEnvironment environment) {
-		return (MStorageReservation) super.save((X_M_StorageReservationInput) input, environment);
+	public MStorageReservation M_StorageReservationSave(I_M_StorageReservationInput entity, DataFetchingEnvironment environment) {
+		return (MStorageReservation) super.save((X_M_StorageReservationInput) entity, environment);
+	}
+
+	public List<MStorageReservation> M_StorageReservationSaveMany(List<I_M_StorageReservationInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_StorageReservationInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MStorageReservation) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_StorageReservationDelete(List<String> uuids, DataFetchingEnvironment environment) {

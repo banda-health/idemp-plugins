@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_InventoryLineMASave(entity: M_InventoryLineMAInput!): M_InventoryLineMA!
+	M_InventoryLineMASaveMany(entities: [M_InventoryLineMAInput!]!): [M_InventoryLineMA!]!
 	M_InventoryLineMADelete(uuids: [String!]!): Boolean!
 }
 
@@ -33,7 +34,7 @@ type M_InventoryLineMA {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Unique line in an Inventory document
 	M_InventoryLine: M_InventoryLine!
-	ID: ID!
+	UUID: ID!
 	# Quantity of a product moved.
 	MovementQty: BigDecimal!
 	# Date this record was updated
@@ -54,7 +55,7 @@ input M_InventoryLineMAInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Unique line in an Inventory document
 	M_InventoryLine: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
 }

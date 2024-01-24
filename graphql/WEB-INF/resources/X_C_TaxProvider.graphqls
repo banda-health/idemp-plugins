@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_TaxProviderSave(entity: C_TaxProviderInput!): C_TaxProvider!
+	C_TaxProviderSaveMany(entities: [C_TaxProviderInput!]!): [C_TaxProvider!]!
 	C_TaxProviderDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type C_TaxProvider {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	C_TaxProviderCfg: C_TaxProviderCfg!
 	CompanyCode: String
 	# Date this record was created
@@ -46,7 +47,7 @@ input C_TaxProviderInput {
 	Account: String
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	C_TaxProviderCfg: ForeignEntityInput
 	CompanyCode: String
 	# The record is active in the system

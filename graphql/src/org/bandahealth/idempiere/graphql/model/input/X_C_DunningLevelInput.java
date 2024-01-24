@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDunning;
@@ -10,6 +11,7 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -28,13 +30,16 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	private I_AD_Ref_ListInput mInvoiceCollectionType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The C_DunningLevel_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_DunningLevelInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MDunningLevel(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_C_DunningLevelInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDunningLevel(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -46,11 +51,16 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -73,11 +83,16 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	public void setC_DunningInput(ForeignEntityInput C_Dunning) {
 		this.mC_Dunning = C_Dunning;
 		MDunning foreignEntity;
-		if (get_ID() == 0 && C_Dunning != null &&
-				(foreignEntity = new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
-						.setParameters(C_Dunning.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Dunning_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && C_Dunning != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
+							.setParameters(C_Dunning.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Dunning_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Dunning with UUID " + C_Dunning.getUUID());
+			}
 		}
 	}
 
@@ -103,20 +118,20 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setC_DunningLevel_UU(ID);
+	public void setUUID(String UUID) {
+		setC_DunningLevel_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getC_DunningLevel_UU();
 	}
 
@@ -129,11 +144,16 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
 		MPaymentTerm foreignEntity;
-		if (C_PaymentTerm != null &&
-				(foreignEntity = new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
-						.setParameters(C_PaymentTerm.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_PaymentTerm_ID(foreignEntity.get_ID());
+		if (C_PaymentTerm != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
+							.setParameters(C_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_PaymentTerm_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_PaymentTerm with UUID " + C_PaymentTerm.getUUID());
+			}
 		} else {
 			super.setC_PaymentTerm_ID(0);
 		}
@@ -158,11 +178,16 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	public void setDunning_PrintFormatInput(ForeignEntityInput Dunning_PrintFormat) {
 		this.mDunning_PrintFormat = Dunning_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (Dunning_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(Dunning_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setDunning_PrintFormat_ID(foreignEntity.get_ID());
+		if (Dunning_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(Dunning_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDunning_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + Dunning_PrintFormat.getUUID());
+			}
 		} else {
 			super.setDunning_PrintFormat_ID(0);
 		}
@@ -187,11 +212,16 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	public void setInvoiceCollectionTypeInput(I_AD_Ref_ListInput InvoiceCollectionType) {
 		this.mInvoiceCollectionType = InvoiceCollectionType;
 		MRefList_BH foreignEntity;
-		if (InvoiceCollectionType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(InvoiceCollectionType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setInvoiceCollectionType(foreignEntity.getValue());
+		if (InvoiceCollectionType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(InvoiceCollectionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setInvoiceCollectionType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + InvoiceCollectionType.getUUID());
+			}
 		} else {
 			this.setInvoiceCollectionType(null);
 		}

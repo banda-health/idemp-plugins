@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PA_ReportSourceSave(entity: PA_ReportSourceInput!): PA_ReportSource!
+	PA_ReportSourceSaveMany(entities: [PA_ReportSourceInput!]!): [PA_ReportSource!]!
 	PA_ReportSourceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -71,7 +72,7 @@ type PA_ReportSource {
 	# Product, Service, Item
 	M_Product: M_Product
 	PA_ReportLine: PA_ReportLine!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -128,5 +129,5 @@ input PA_ReportSourceInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	PA_ReportLine: ForeignEntityInput
-	ID: ID
+	UUID: ID
 }

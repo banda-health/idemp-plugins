@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_ShippingProcessorInput;
 import org.compiere.model.MShippingProcessor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_ShippingProcessor - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_ShippingProcessorMutation extends POMutation implements GraphQL
 		return X_M_ShippingProcessorInput.Table_Name;
 	}
 
-	public MShippingProcessor M_ShippingProcessorSave(I_M_ShippingProcessorInput input, DataFetchingEnvironment environment) {
-		return (MShippingProcessor) super.save((X_M_ShippingProcessorInput) input, environment);
+	public MShippingProcessor M_ShippingProcessorSave(I_M_ShippingProcessorInput entity, DataFetchingEnvironment environment) {
+		return (MShippingProcessor) super.save((X_M_ShippingProcessorInput) entity, environment);
+	}
+
+	public List<MShippingProcessor> M_ShippingProcessorSaveMany(List<I_M_ShippingProcessorInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_ShippingProcessorInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MShippingProcessor) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_ShippingProcessorDelete(List<String> uuids, DataFetchingEnvironment environment) {

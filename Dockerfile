@@ -14,9 +14,15 @@ WORKDIR /app/rest-test
 COPY ./rest-test/testing/package.json .
 RUN npm install
 
-COPY ./rest-test/testing .
+#GraphQL test files will change frequently, so now handle those
+WORKDIR /app/graphql-test
+COPY ./graphql-test/testing/package.json .
+RUN npm install
 
 WORKDIR /app
+COPY ./graphql-test/testing ./graphql-test
+COPY ./rest-test/testing ./rest-test
+
 
 HEALTHCHECK --interval=1s --timeout=1s --retries=1200 CMD ["sh", "-c", "[ ! -f \".unhealthy\" ] && exit 0 || exit 1"]
 CMD ["tail", "-f", "/dev/null"]

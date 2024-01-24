@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_ElementInput;
 import org.compiere.model.M_Element;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Element - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_ElementMutation extends POMutation implements GraphQLMutationR
 		return X_AD_ElementInput.Table_Name;
 	}
 
-	public M_Element AD_ElementSave(I_AD_ElementInput input, DataFetchingEnvironment environment) {
-		return (M_Element) super.save((X_AD_ElementInput) input, environment);
+	public M_Element AD_ElementSave(I_AD_ElementInput entity, DataFetchingEnvironment environment) {
+		return (M_Element) super.save((X_AD_ElementInput) entity, environment);
+	}
+
+	public List<M_Element> AD_ElementSaveMany(List<I_AD_ElementInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_ElementInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (M_Element) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_ElementDelete(List<String> uuids, DataFetchingEnvironment environment) {

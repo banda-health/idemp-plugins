@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_FormSave(entity: AD_FormInput!): AD_Form!
+	AD_FormSaveMany(entities: [AD_FormInput!]!): [AD_Form!]!
 	AD_FormDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type AD_Form {
 	# Client/Tenant for this installation.
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Java Classname
@@ -54,7 +55,7 @@ input AD_FormInput {
 	# Access Level required
 	AccessLevel: AD_Ref_ListInput
 	AD_CtxHelp: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Java Classname

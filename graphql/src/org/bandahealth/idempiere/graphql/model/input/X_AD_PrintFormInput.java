@@ -2,12 +2,14 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MMailText;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintForm;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -36,13 +38,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	private ForeignEntityInput mShipment_PrintFormat;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_PrintForm_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_PrintFormInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_AD_PrintForm(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_PrintFormInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_PrintForm(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -54,11 +59,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -84,20 +94,20 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_PrintForm_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_PrintForm_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_PrintForm_UU();
 	}
 
@@ -110,11 +120,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setDistrib_Order_MailTextInput(ForeignEntityInput Distrib_Order_MailText) {
 		this.mDistrib_Order_MailText = Distrib_Order_MailText;
 		MMailText foreignEntity;
-		if (Distrib_Order_MailText != null &&
-				(foreignEntity = new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-						.setParameters(Distrib_Order_MailText.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setDistrib_Order_MailText_ID(foreignEntity.get_ID());
+		if (Distrib_Order_MailText != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
+							.setParameters(Distrib_Order_MailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDistrib_Order_MailText_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_MailText with UUID " + Distrib_Order_MailText.getUUID());
+			}
 		} else {
 			super.setDistrib_Order_MailText_ID(0);
 		}
@@ -139,11 +154,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setDistrib_Order_PrintFormatInput(ForeignEntityInput Distrib_Order_PrintFormat) {
 		this.mDistrib_Order_PrintFormat = Distrib_Order_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (Distrib_Order_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(Distrib_Order_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setDistrib_Order_PrintFormat_ID(foreignEntity.get_ID());
+		if (Distrib_Order_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(Distrib_Order_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDistrib_Order_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + Distrib_Order_PrintFormat.getUUID());
+			}
 		} else {
 			super.setDistrib_Order_PrintFormat_ID(0);
 		}
@@ -168,11 +188,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setInvoice_MailTextInput(ForeignEntityInput Invoice_MailText) {
 		this.mInvoice_MailText = Invoice_MailText;
 		MMailText foreignEntity;
-		if (Invoice_MailText != null &&
-				(foreignEntity = new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-						.setParameters(Invoice_MailText.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setInvoice_MailText_ID(foreignEntity.get_ID());
+		if (Invoice_MailText != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
+							.setParameters(Invoice_MailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setInvoice_MailText_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_MailText with UUID " + Invoice_MailText.getUUID());
+			}
 		} else {
 			super.setInvoice_MailText_ID(0);
 		}
@@ -197,11 +222,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setInvoice_PrintFormatInput(ForeignEntityInput Invoice_PrintFormat) {
 		this.mInvoice_PrintFormat = Invoice_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (Invoice_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(Invoice_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setInvoice_PrintFormat_ID(foreignEntity.get_ID());
+		if (Invoice_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(Invoice_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setInvoice_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + Invoice_PrintFormat.getUUID());
+			}
 		} else {
 			super.setInvoice_PrintFormat_ID(0);
 		}
@@ -226,11 +256,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setManuf_Order_MailTextInput(ForeignEntityInput Manuf_Order_MailText) {
 		this.mManuf_Order_MailText = Manuf_Order_MailText;
 		MMailText foreignEntity;
-		if (Manuf_Order_MailText != null &&
-				(foreignEntity = new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-						.setParameters(Manuf_Order_MailText.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setManuf_Order_MailText_ID(foreignEntity.get_ID());
+		if (Manuf_Order_MailText != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
+							.setParameters(Manuf_Order_MailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setManuf_Order_MailText_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_MailText with UUID " + Manuf_Order_MailText.getUUID());
+			}
 		} else {
 			super.setManuf_Order_MailText_ID(0);
 		}
@@ -255,11 +290,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setManuf_Order_PrintFormatInput(ForeignEntityInput Manuf_Order_PrintFormat) {
 		this.mManuf_Order_PrintFormat = Manuf_Order_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (Manuf_Order_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(Manuf_Order_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setManuf_Order_PrintFormat_ID(foreignEntity.get_ID());
+		if (Manuf_Order_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(Manuf_Order_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setManuf_Order_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + Manuf_Order_PrintFormat.getUUID());
+			}
 		} else {
 			super.setManuf_Order_PrintFormat_ID(0);
 		}
@@ -284,11 +324,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setOrder_MailTextInput(ForeignEntityInput Order_MailText) {
 		this.mOrder_MailText = Order_MailText;
 		MMailText foreignEntity;
-		if (Order_MailText != null &&
-				(foreignEntity = new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-						.setParameters(Order_MailText.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setOrder_MailText_ID(foreignEntity.get_ID());
+		if (Order_MailText != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
+							.setParameters(Order_MailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setOrder_MailText_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_MailText with UUID " + Order_MailText.getUUID());
+			}
 		} else {
 			super.setOrder_MailText_ID(0);
 		}
@@ -313,11 +358,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setOrder_PrintFormatInput(ForeignEntityInput Order_PrintFormat) {
 		this.mOrder_PrintFormat = Order_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (Order_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(Order_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setOrder_PrintFormat_ID(foreignEntity.get_ID());
+		if (Order_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(Order_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setOrder_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + Order_PrintFormat.getUUID());
+			}
 		} else {
 			super.setOrder_PrintFormat_ID(0);
 		}
@@ -342,11 +392,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setProject_MailTextInput(ForeignEntityInput Project_MailText) {
 		this.mProject_MailText = Project_MailText;
 		MMailText foreignEntity;
-		if (Project_MailText != null &&
-				(foreignEntity = new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-						.setParameters(Project_MailText.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setProject_MailText_ID(foreignEntity.get_ID());
+		if (Project_MailText != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
+							.setParameters(Project_MailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setProject_MailText_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_MailText with UUID " + Project_MailText.getUUID());
+			}
 		} else {
 			super.setProject_MailText_ID(0);
 		}
@@ -371,11 +426,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setProject_PrintFormatInput(ForeignEntityInput Project_PrintFormat) {
 		this.mProject_PrintFormat = Project_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (Project_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(Project_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setProject_PrintFormat_ID(foreignEntity.get_ID());
+		if (Project_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(Project_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setProject_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + Project_PrintFormat.getUUID());
+			}
 		} else {
 			super.setProject_PrintFormat_ID(0);
 		}
@@ -400,11 +460,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setRemittance_MailTextInput(ForeignEntityInput Remittance_MailText) {
 		this.mRemittance_MailText = Remittance_MailText;
 		MMailText foreignEntity;
-		if (Remittance_MailText != null &&
-				(foreignEntity = new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-						.setParameters(Remittance_MailText.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setRemittance_MailText_ID(foreignEntity.get_ID());
+		if (Remittance_MailText != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
+							.setParameters(Remittance_MailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setRemittance_MailText_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_MailText with UUID " + Remittance_MailText.getUUID());
+			}
 		} else {
 			super.setRemittance_MailText_ID(0);
 		}
@@ -429,11 +494,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setRemittance_PrintFormatInput(ForeignEntityInput Remittance_PrintFormat) {
 		this.mRemittance_PrintFormat = Remittance_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (Remittance_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(Remittance_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setRemittance_PrintFormat_ID(foreignEntity.get_ID());
+		if (Remittance_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(Remittance_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setRemittance_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + Remittance_PrintFormat.getUUID());
+			}
 		} else {
 			super.setRemittance_PrintFormat_ID(0);
 		}
@@ -458,11 +528,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setShipment_MailTextInput(ForeignEntityInput Shipment_MailText) {
 		this.mShipment_MailText = Shipment_MailText;
 		MMailText foreignEntity;
-		if (Shipment_MailText != null &&
-				(foreignEntity = new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-						.setParameters(Shipment_MailText.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setShipment_MailText_ID(foreignEntity.get_ID());
+		if (Shipment_MailText != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
+							.setParameters(Shipment_MailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setShipment_MailText_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_MailText with UUID " + Shipment_MailText.getUUID());
+			}
 		} else {
 			super.setShipment_MailText_ID(0);
 		}
@@ -487,11 +562,16 @@ public class X_AD_PrintFormInput extends X_AD_PrintForm implements I_AD_PrintFor
 	public void setShipment_PrintFormatInput(ForeignEntityInput Shipment_PrintFormat) {
 		this.mShipment_PrintFormat = Shipment_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (Shipment_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(Shipment_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setShipment_PrintFormat_ID(foreignEntity.get_ID());
+		if (Shipment_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(Shipment_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setShipment_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + Shipment_PrintFormat.getUUID());
+			}
 		} else {
 			super.setShipment_PrintFormat_ID(0);
 		}

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ProductionSave(entity: M_ProductionInput!): M_Production!
+	M_ProductionSaveMany(entities: [M_ProductionInput!]!): [M_Production!]!
 	M_ProductionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -60,7 +61,7 @@ type M_Production {
 	M_Locator: M_Locator
 	# Product, Service, Item
 	M_Product: M_Product
-	ID: ID!
+	UUID: ID!
 	# Date a product was moved in or out of inventory
 	MovementDate: Date!
 	# Alphanumeric identifier of the entity
@@ -125,7 +126,7 @@ input M_ProductionInput {
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Alphanumeric identifier of the entity

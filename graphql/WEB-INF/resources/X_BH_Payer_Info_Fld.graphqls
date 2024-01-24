@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_Payer_Info_FldSave(entity: BH_Payer_Info_FldInput!): BH_Payer_Info_Fld!
+	BH_Payer_Info_FldSaveMany(entities: [BH_Payer_Info_FldInput!]!): [BH_Payer_Info_Fld!]!
 	BH_Payer_Info_FldDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type BH_Payer_Info_Fld {
 	AD_Org: AD_Org!
 	BH_FillFromPatient: Boolean!
 	BH_Payer: C_BPartner!
-	ID: ID!
+	UUID: ID!
 	BH_PayerInfoFieldDataType: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
@@ -47,7 +48,7 @@ input BH_Payer_Info_FldInput {
 	AD_Org: ForeignEntityInput
 	BH_FillFromPatient: Boolean
 	BH_Payer: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	BH_PayerInfoFieldDataType: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String

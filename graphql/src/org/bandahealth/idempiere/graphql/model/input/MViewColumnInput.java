@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MViewColumnInput extends X_AD_ViewColumnInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_ViewColumn_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MViewColumnInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MViewColumnInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

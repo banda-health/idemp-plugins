@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_C_InvoicePayScheduleInput
 import org.compiere.model.MInvoicePaySchedule;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for C_InvoicePaySchedule - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_C_InvoicePayScheduleMutation extends POMutation implements GraphQ
 		return X_C_InvoicePayScheduleInput.Table_Name;
 	}
 
-	public MInvoicePaySchedule C_InvoicePayScheduleSave(I_C_InvoicePayScheduleInput input, DataFetchingEnvironment environment) {
-		return (MInvoicePaySchedule) super.save((X_C_InvoicePayScheduleInput) input, environment);
+	public MInvoicePaySchedule C_InvoicePayScheduleSave(I_C_InvoicePayScheduleInput entity, DataFetchingEnvironment environment) {
+		return (MInvoicePaySchedule) super.save((X_C_InvoicePayScheduleInput) entity, environment);
+	}
+
+	public List<MInvoicePaySchedule> C_InvoicePayScheduleSaveMany(List<I_C_InvoicePayScheduleInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_C_InvoicePayScheduleInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MInvoicePaySchedule) entity).collect(Collectors.toList());
 	}
 
 	public boolean C_InvoicePayScheduleDelete(List<String> uuids, DataFetchingEnvironment environment) {

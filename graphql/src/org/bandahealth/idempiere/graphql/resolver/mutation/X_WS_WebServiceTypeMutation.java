@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_WS_WebServiceTypeInput;
 import org.compiere.model.X_WS_WebServiceType;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for WS_WebServiceType - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_WS_WebServiceTypeMutation extends POMutation implements GraphQLMu
 		return X_WS_WebServiceTypeInput.Table_Name;
 	}
 
-	public X_WS_WebServiceType WS_WebServiceTypeSave(I_WS_WebServiceTypeInput input, DataFetchingEnvironment environment) {
-		return (X_WS_WebServiceType) super.save((X_WS_WebServiceTypeInput) input, environment);
+	public X_WS_WebServiceType WS_WebServiceTypeSave(I_WS_WebServiceTypeInput entity, DataFetchingEnvironment environment) {
+		return (X_WS_WebServiceType) super.save((X_WS_WebServiceTypeInput) entity, environment);
+	}
+
+	public List<X_WS_WebServiceType> WS_WebServiceTypeSaveMany(List<I_WS_WebServiceTypeInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_WS_WebServiceTypeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_WS_WebServiceType) entity).collect(Collectors.toList());
 	}
 
 	public boolean WS_WebServiceTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {

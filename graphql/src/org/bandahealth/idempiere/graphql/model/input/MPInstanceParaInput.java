@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MPInstanceParaInput extends X_AD_PInstance_ParaInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_PInstance_Para_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPInstanceParaInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MPInstanceParaInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

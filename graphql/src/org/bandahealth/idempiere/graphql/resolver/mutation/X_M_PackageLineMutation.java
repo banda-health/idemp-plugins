@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_PackageLineInput;
 import org.compiere.model.MPackageLine;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_PackageLine - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_PackageLineMutation extends POMutation implements GraphQLMutati
 		return X_M_PackageLineInput.Table_Name;
 	}
 
-	public MPackageLine M_PackageLineSave(I_M_PackageLineInput input, DataFetchingEnvironment environment) {
-		return (MPackageLine) super.save((X_M_PackageLineInput) input, environment);
+	public MPackageLine M_PackageLineSave(I_M_PackageLineInput entity, DataFetchingEnvironment environment) {
+		return (MPackageLine) super.save((X_M_PackageLineInput) entity, environment);
+	}
+
+	public List<MPackageLine> M_PackageLineSaveMany(List<I_M_PackageLineInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_PackageLineInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MPackageLine) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_PackageLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

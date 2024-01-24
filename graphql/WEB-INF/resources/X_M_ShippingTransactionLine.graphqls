@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ShippingTransactionLineSave(entity: M_ShippingTransactionLineInput!): M_ShippingTransactionLine!
+	M_ShippingTransactionLineSaveMany(entities: [M_ShippingTransactionLineInput!]!): [M_ShippingTransactionLine!]!
 	M_ShippingTransactionLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -36,7 +37,7 @@ type M_ShippingTransactionLine {
 	Length: BigDecimal
 	M_PackageMPS: M_PackageMPS
 	M_ShippingTransaction: M_ShippingTransaction!
-	ID: ID!
+	UUID: ID!
 	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal
@@ -70,7 +71,7 @@ input M_ShippingTransactionLineInput {
 	Length: BigDecimal
 	M_PackageMPS: ForeignEntityInput
 	M_ShippingTransaction: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal

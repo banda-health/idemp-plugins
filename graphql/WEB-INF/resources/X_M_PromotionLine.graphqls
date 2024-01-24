@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_PromotionLineSave(entity: M_PromotionLineInput!): M_PromotionLine!
+	M_PromotionLineSaveMany(entities: [M_PromotionLineInput!]!): [M_PromotionLine!]!
 	M_PromotionLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type M_PromotionLine {
 	IsMandatoryPL: Boolean!
 	M_Promotion: M_Promotion!
 	M_PromotionGroup: M_PromotionGroup
-	ID: ID!
+	UUID: ID!
 	# Minimum Amount in Document Currency
 	MinimumAmt: BigDecimal
 	# Date this record was updated
@@ -48,7 +49,7 @@ input M_PromotionLineInput {
 	IsMandatoryPL: Boolean
 	M_Promotion: ForeignEntityInput
 	M_PromotionGroup: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Minimum Amount in Document Currency
 	MinimumAmt: BigDecimal
 }

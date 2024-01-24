@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ProductOperationSave(entity: M_ProductOperationInput!): M_ProductOperation!
+	M_ProductOperationSaveMany(entities: [M_ProductOperationInput!]!): [M_ProductOperation!]!
 	M_ProductOperationDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type M_ProductOperation {
 	IsActive: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
-	ID: ID!
+	UUID: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Setup time before starting Production
@@ -58,7 +59,7 @@ input M_ProductOperationInput {
 	IsActive: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Setup time before starting Production

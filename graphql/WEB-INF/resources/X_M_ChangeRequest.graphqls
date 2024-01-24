@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_ChangeRequestSave(entity: M_ChangeRequestInput!): M_ChangeRequest!
+	M_ChangeRequestSaveMany(entities: [M_ChangeRequestInput!]!): [M_ChangeRequest!]!
 	M_ChangeRequestDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type M_ChangeRequest {
 	IsApproved: Boolean!
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: M_ChangeNotice
-	ID: ID!
+	UUID: ID!
 	# Fixed in Change Notice
 	M_FixChangeNotice: M_ChangeNotice
 	# Alphanumeric identifier of the entity
@@ -70,7 +71,7 @@ input M_ChangeRequestInput {
 	IsApproved: Boolean
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Fixed in Change Notice
 	M_FixChangeNotice: ForeignEntityInput
 	# Alphanumeric identifier of the entity

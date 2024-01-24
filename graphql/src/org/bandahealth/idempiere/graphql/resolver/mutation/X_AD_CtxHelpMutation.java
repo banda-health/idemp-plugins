@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_CtxHelpInput;
 import org.compiere.model.MCtxHelp;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_CtxHelp - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_CtxHelpMutation extends POMutation implements GraphQLMutationR
 		return X_AD_CtxHelpInput.Table_Name;
 	}
 
-	public MCtxHelp AD_CtxHelpSave(I_AD_CtxHelpInput input, DataFetchingEnvironment environment) {
-		return (MCtxHelp) super.save((X_AD_CtxHelpInput) input, environment);
+	public MCtxHelp AD_CtxHelpSave(I_AD_CtxHelpInput entity, DataFetchingEnvironment environment) {
+		return (MCtxHelp) super.save((X_AD_CtxHelpInput) entity, environment);
+	}
+
+	public List<MCtxHelp> AD_CtxHelpSaveMany(List<I_AD_CtxHelpInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_CtxHelpInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MCtxHelp) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_CtxHelpDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	DD_OrderSave(entity: DD_OrderInput!): DD_Order!
+	DD_OrderSaveMany(entities: [DD_OrderInput!]!): [DD_Order!]!
 	DD_OrderDelete(uuids: [String!]!): Boolean!
 }
 
@@ -58,7 +59,7 @@ type DD_Order {
 	DatePromised: Date!
 	# Date a product was received
 	DateReceived: Date
-	ID: ID!
+	UUID: ID!
 	# Defines the timing of Delivery
 	DeliveryRule: AD_Ref_List!
 	# How the order will be delivered
@@ -173,7 +174,7 @@ input DD_OrderInput {
 	DatePromised: Date
 	# Date a product was received
 	DateReceived: Date
-	ID: ID
+	UUID: ID
 	# Defines the timing of Delivery
 	DeliveryRule: AD_Ref_ListInput
 	# How the order will be delivered

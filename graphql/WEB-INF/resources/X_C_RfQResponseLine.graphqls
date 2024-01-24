@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_RfQResponseLineSave(entity: C_RfQResponseLineInput!): C_RfQResponseLine!
+	C_RfQResponseLineSaveMany(entities: [C_RfQResponseLineInput!]!): [C_RfQResponseLine!]!
 	C_RfQResponseLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_RfQResponseLine {
 	C_RfQLine: C_RfQLine!
 	# Request for Quotation Response from a potential Vendor
 	C_RfQResponse: C_RfQResponse!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,7 +59,7 @@ input C_RfQResponseLineInput {
 	C_RfQLine: ForeignEntityInput
 	# Request for Quotation Response from a potential Vendor
 	C_RfQResponse: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Date when work is (planned to be) complete
 	DateWorkComplete: Date
 	# Date when work is (planned to be) started

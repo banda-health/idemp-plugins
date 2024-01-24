@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_BP_ShippingAcctSave(entity: C_BP_ShippingAcctInput!): C_BP_ShippingAcct!
+	C_BP_ShippingAcctSaveMany(entities: [C_BP_ShippingAcctInput!]!): [C_BP_ShippingAcct!]!
 	C_BP_ShippingAcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_BP_ShippingAcct {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Identifies the (ship to) address for this Business Partner
@@ -44,7 +45,7 @@ type C_BP_ShippingAcct {
 input C_BP_ShippingAcctInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Identifies the (ship to) address for this Business Partner

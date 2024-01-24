@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_SerNoCtlExcludeSave(entity: M_SerNoCtlExcludeInput!): M_SerNoCtlExclude!
+	M_SerNoCtlExcludeSaveMany(entities: [M_SerNoCtlExcludeInput!]!): [M_SerNoCtlExclude!]!
 	M_SerNoCtlExcludeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -32,7 +33,7 @@ type M_SerNoCtlExclude {
 	IsSOTrx: Boolean!
 	# Product Serial Number Control
 	M_SerNoCtl: M_SerNoCtl!
-	ID: ID!
+	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -50,5 +51,5 @@ input M_SerNoCtlExcludeInput {
 	IsSOTrx: Boolean
 	# Product Serial Number Control
 	M_SerNoCtl: ForeignEntityInput
-	ID: ID
+	UUID: ID
 }

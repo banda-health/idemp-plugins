@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_RecentItemSave(entity: AD_RecentItemInput!): AD_RecentItem!
+	AD_RecentItemSaveMany(entities: [AD_RecentItemInput!]!): [AD_RecentItem!]!
 	AD_RecentItemDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_RecentItem {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Responsibility Role
 	AD_Role: AD_Role!
 	# Tab within a Window
@@ -48,7 +49,7 @@ type AD_RecentItem {
 input AD_RecentItemInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
 	# Tab within a Window

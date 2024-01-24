@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_PromotionRewardSave(entity: M_PromotionRewardInput!): M_PromotionReward!
+	M_PromotionRewardSaveMany(entities: [M_PromotionRewardInput!]!): [M_PromotionReward!]!
 	M_PromotionRewardDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type M_PromotionReward {
 	IsSameDistribution: Boolean!
 	M_Promotion: M_Promotion!
 	M_PromotionDistribution: M_PromotionDistribution
-	ID: ID!
+	UUID: ID!
 	# Get product from target distribution to apply the promotion reward
 	M_TargetDistribution: M_PromotionDistribution
 	# Quantity
@@ -70,7 +71,7 @@ input M_PromotionRewardInput {
 	IsSameDistribution: Boolean
 	M_Promotion: ForeignEntityInput
 	M_PromotionDistribution: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Get product from target distribution to apply the promotion reward
 	M_TargetDistribution: ForeignEntityInput
 	# Quantity

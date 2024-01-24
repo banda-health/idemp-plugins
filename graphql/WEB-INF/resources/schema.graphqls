@@ -6,19 +6,11 @@ scalar Date
 scalar Binary
 scalar BigDecimal
 
-# Per the GraphQL standard, Query types cannot be split amongst files, so all are defined here
-type Query {
-  # Authentication
-  changePassword(credentials: AuthenticationData!): AuthenticationResponse
-  signIn(credentials: AuthenticationData!): AuthenticationResponse
-}
+# Define the root query type that can be extended in any files that want to add a query
+type Query {}
 
-# Per the GraphQL standard, Mutation types cannot be split amongst files, so all are defined here
-type Mutation {
-#  # Authentication
-#  changePassword(credentials: AuthenticationData!): AuthenticationResponse
-#  signIn(credentials: AuthenticationData!): AuthenticationResponse
-}
+# Define the root mutation type that can be extended in any files that want to add a mutation
+type Mutation {}
 
 # This is the root definition for GraphQL
 schema {

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_Workflow_AccessInput;
 import org.compiere.model.X_AD_Workflow_Access;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Workflow_Access - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_Workflow_AccessMutation extends POMutation implements GraphQLM
 		return X_AD_Workflow_AccessInput.Table_Name;
 	}
 
-	public X_AD_Workflow_Access AD_Workflow_AccessSave(I_AD_Workflow_AccessInput input, DataFetchingEnvironment environment) {
-		return (X_AD_Workflow_Access) super.save((X_AD_Workflow_AccessInput) input, environment);
+	public X_AD_Workflow_Access AD_Workflow_AccessSave(I_AD_Workflow_AccessInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_Workflow_Access) super.save((X_AD_Workflow_AccessInput) entity, environment);
+	}
+
+	public List<X_AD_Workflow_Access> AD_Workflow_AccessSaveMany(List<I_AD_Workflow_AccessInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_Workflow_AccessInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_Workflow_Access) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_Workflow_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {

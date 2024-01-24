@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_PaymentRef_BankAcctSave(entity: BH_PaymentRef_BankAcctInput!): BH_PaymentRef_BankAcct!
+	BH_PaymentRef_BankAcctSaveMany(entities: [BH_PaymentRef_BankAcctInput!]!): [BH_PaymentRef_BankAcct!]!
 	BH_PaymentRef_BankAcctDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type BH_PaymentRef_BankAcct {
 	AD_Org: AD_Org!
 	# Reference List based on Table
 	AD_Ref_List: AD_Ref_List
-	ID: ID!
+	UUID: ID!
 	BH_PaymentRef: BH_PaymentRef!
 	# The value of the payment reference list entry
 	BH_PaymentRefList_Value: String
@@ -50,7 +51,7 @@ input BH_PaymentRef_BankAcctInput {
 	AD_Org: ForeignEntityInput
 	# Reference List based on Table
 	AD_Ref_List: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	BH_PaymentRef: ForeignEntityInput
 	# The value of the payment reference list entry
 	BH_PaymentRefList_Value: String

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WorkbenchWindowSave(entity: AD_WorkbenchWindowInput!): AD_WorkbenchWindow!
+	AD_WorkbenchWindowSaveMany(entities: [AD_WorkbenchWindowInput!]!): [AD_WorkbenchWindow!]!
 	AD_WorkbenchWindowDelete(uuids: [String!]!): Boolean!
 }
 
@@ -30,7 +31,7 @@ type AD_WorkbenchWindow {
 	AD_Window: AD_Window
 	# Collection of windows, reports
 	AD_Workbench: AD_Workbench!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -62,7 +63,7 @@ input AD_WorkbenchWindowInput {
 	AD_Window: ForeignEntityInput
 	# Collection of windows, reports
 	AD_Workbench: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# The record is active in the system

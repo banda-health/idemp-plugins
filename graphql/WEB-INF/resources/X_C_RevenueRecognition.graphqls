@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_RevenueRecognitionSave(entity: C_RevenueRecognitionInput!): C_RevenueRecognition!
+	C_RevenueRecognitionSaveMany(entities: [C_RevenueRecognitionInput!]!): [C_RevenueRecognition!]!
 	C_RevenueRecognitionDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type C_RevenueRecognition {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,7 +47,7 @@ type C_RevenueRecognition {
 input C_RevenueRecognitionInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# Day of the period recognition occurs

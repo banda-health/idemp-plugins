@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	PP_Product_BOMSave(entity: PP_Product_BOMInput!): PP_Product_BOM!
+	PP_Product_BOMSaveMany(entities: [PP_Product_BOMInput!]!): [PP_Product_BOM!]!
 	PP_Product_BOMDelete(uuids: [String!]!): Boolean!
 }
 
@@ -48,7 +49,7 @@ type PP_Product_BOM {
 	M_Product: M_Product!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	ID: ID!
+	UUID: ID!
 	Processing: Boolean!
 	Revision: String
 	# Date this record was updated
@@ -90,7 +91,7 @@ input PP_Product_BOMInput {
 	M_Product: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
-	ID: ID
+	UUID: ID
 	Processing: Boolean
 	Revision: String
 	# Valid from including this date (first day)

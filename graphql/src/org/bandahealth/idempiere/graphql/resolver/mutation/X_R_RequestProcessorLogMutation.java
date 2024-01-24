@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_R_RequestProcessorLogInpu
 import org.compiere.model.MRequestProcessorLog;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for R_RequestProcessorLog - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_R_RequestProcessorLogMutation extends POMutation implements Graph
 		return X_R_RequestProcessorLogInput.Table_Name;
 	}
 
-	public MRequestProcessorLog R_RequestProcessorLogSave(I_R_RequestProcessorLogInput input, DataFetchingEnvironment environment) {
-		return (MRequestProcessorLog) super.save((X_R_RequestProcessorLogInput) input, environment);
+	public MRequestProcessorLog R_RequestProcessorLogSave(I_R_RequestProcessorLogInput entity, DataFetchingEnvironment environment) {
+		return (MRequestProcessorLog) super.save((X_R_RequestProcessorLogInput) entity, environment);
+	}
+
+	public List<MRequestProcessorLog> R_RequestProcessorLogSaveMany(List<I_R_RequestProcessorLogInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_R_RequestProcessorLogInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MRequestProcessorLog) entity).collect(Collectors.toList());
 	}
 
 	public boolean R_RequestProcessorLogDelete(List<String> uuids, DataFetchingEnvironment environment) {

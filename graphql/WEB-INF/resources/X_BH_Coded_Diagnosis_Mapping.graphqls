@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	BH_Coded_Diagnosis_MappingSave(entity: BH_Coded_Diagnosis_MappingInput!): BH_Coded_Diagnosis_Mapping!
+	BH_Coded_Diagnosis_MappingSaveMany(entities: [BH_Coded_Diagnosis_MappingInput!]!): [BH_Coded_Diagnosis_Mapping!]!
 	BH_Coded_Diagnosis_MappingDelete(uuids: [String!]!): Boolean!
 }
 
@@ -21,7 +22,7 @@ type BH_Coded_Diagnosis_Mapping {
 	# Organizational entity within client
 	AD_Org: AD_Org
 	BH_Coded_Diagnosis: BH_Coded_Diagnosis!
-	ID: ID!
+	UUID: ID!
 	# BH_Concept_Code
 	BH_Concept_Code: String
 	# BH_Concept_Name_Resolved
@@ -50,7 +51,7 @@ input BH_Coded_Diagnosis_MappingInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	BH_Coded_Diagnosis: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# BH_Concept_Code
 	BH_Concept_Code: String
 	# BH_Concept_Name_Resolved

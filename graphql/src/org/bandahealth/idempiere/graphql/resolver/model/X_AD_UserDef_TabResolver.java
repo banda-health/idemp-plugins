@@ -83,7 +83,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(ISALLOWADVANCEDLOOKUP_UUIDS_BY_VALUE.get(entity.getIsAllowAdvancedLookup()));
 	}
 
@@ -98,7 +98,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(ISLOOKUPONLYSELECTION_UUIDS_BY_VALUE.get(entity.getIsLookupOnlySelection()));
 	}
 
@@ -117,7 +117,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(ISREADONLY_UUIDS_BY_VALUE.get(entity.getIsReadOnly()));
 	}
 
@@ -132,7 +132,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 			return null;
 		}
 		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(ISSINGLEROW_UUIDS_BY_VALUE.get(entity.getIsSingleRow()));
 	}
 

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Tree_Favorite_NodeSave(entity: AD_Tree_Favorite_NodeInput!): AD_Tree_Favorite_Node!
+	AD_Tree_Favorite_NodeSaveMany(entities: [AD_Tree_Favorite_NodeInput!]!): [AD_Tree_Favorite_Node!]!
 	AD_Tree_Favorite_NodeDelete(uuids: [String!]!): Boolean!
 }
 
@@ -23,7 +24,7 @@ type AD_Tree_Favorite_Node {
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	AD_Tree_Favorite: AD_Tree_Favorite!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,7 +57,7 @@ input AD_Tree_Favorite_NodeInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	AD_Tree_Favorite: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Flag to indicate the state of the dashboard panel

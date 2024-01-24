@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_AttributeSetSave(entity: M_AttributeSetInput!): M_AttributeSet!
+	M_AttributeSetSaveMany(entities: [M_AttributeSetInput!]!): [M_AttributeSet!]!
 	M_AttributeSetDelete(uuids: [String!]!): Boolean!
 }
 
@@ -52,7 +53,7 @@ type M_AttributeSet {
 	# Lot/Batch Start Indicator overwrite - default «
 	LotCharSOverwrite: String
 	M_AttributeSet_Type: AD_Ref_List!
-	ID: ID!
+	UUID: ID!
 	# Product Lot Control
 	M_LotCtl: M_LotCtl
 	# Product Serial Number Control
@@ -103,7 +104,7 @@ input M_AttributeSetInput {
 	# Lot/Batch Start Indicator overwrite - default «
 	LotCharSOverwrite: String
 	M_AttributeSet_Type: AD_Ref_ListInput
-	ID: ID
+	UUID: ID
 	# Product Lot Control
 	M_LotCtl: ForeignEntityInput
 	# Product Serial Number Control

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_RfQ_TopicSubscriberOnlySave(entity: C_RfQ_TopicSubscriberOnlyInput!): C_RfQ_TopicSubscriberOnly!
+	C_RfQ_TopicSubscriberOnlySaveMany(entities: [C_RfQ_TopicSubscriberOnlyInput!]!): [C_RfQ_TopicSubscriberOnly!]!
 	C_RfQ_TopicSubscriberOnlyDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type C_RfQ_TopicSubscriberOnly {
 	AD_Org: AD_Org!
 	# Request for Quotation Topic Subscriber
 	C_RfQ_TopicSubscriber: C_RfQ_TopicSubscriber!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,7 +47,7 @@ input C_RfQ_TopicSubscriberOnlyInput {
 	AD_Org: ForeignEntityInput
 	# Request for Quotation Topic Subscriber
 	C_RfQ_TopicSubscriber: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

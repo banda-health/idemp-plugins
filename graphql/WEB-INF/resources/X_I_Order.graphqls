@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	I_OrderSave(entity: I_OrderInput!): I_Order!
+	I_OrderSaveMany(entities: [I_OrderInput!]!): [I_Order!]!
 	I_OrderDelete(uuids: [String!]!): Boolean!
 }
 
@@ -96,7 +97,7 @@ type I_Order {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean!
-	ID: ID!
+	UUID: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# This is a Sales Transaction
@@ -221,7 +222,7 @@ input I_OrderInput {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# This is a Sales Transaction

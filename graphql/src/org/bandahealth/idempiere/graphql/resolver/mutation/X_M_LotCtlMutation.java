@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_M_LotCtlInput;
 import org.compiere.model.MLotCtl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_LotCtl - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_LotCtlMutation extends POMutation implements GraphQLMutationRes
 		return X_M_LotCtlInput.Table_Name;
 	}
 
-	public MLotCtl M_LotCtlSave(I_M_LotCtlInput input, DataFetchingEnvironment environment) {
-		return (MLotCtl) super.save((X_M_LotCtlInput) input, environment);
+	public MLotCtl M_LotCtlSave(I_M_LotCtlInput entity, DataFetchingEnvironment environment) {
+		return (MLotCtl) super.save((X_M_LotCtlInput) entity, environment);
+	}
+
+	public List<MLotCtl> M_LotCtlSaveMany(List<I_M_LotCtlInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_LotCtlInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MLotCtl) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_LotCtlDelete(List<String> uuids, DataFetchingEnvironment environment) {

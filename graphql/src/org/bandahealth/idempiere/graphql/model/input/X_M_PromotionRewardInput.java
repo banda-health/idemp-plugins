@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -10,6 +11,7 @@ import org.compiere.model.Query;
 import org.compiere.model.X_M_Promotion;
 import org.compiere.model.X_M_PromotionDistribution;
 import org.compiere.model.X_M_PromotionReward;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -30,13 +32,16 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	private I_AD_Ref_ListInput mRewardType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_PromotionReward_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_PromotionRewardInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_M_PromotionReward(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_M_PromotionRewardInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_PromotionReward(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -48,11 +53,16 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -75,11 +85,16 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
 		MCharge_BH foreignEntity;
-		if (C_Charge != null &&
-				(foreignEntity = new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-						.setParameters(C_Charge.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setC_Charge_ID(foreignEntity.get_ID());
+		if (C_Charge != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
+							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setC_Charge_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
+			}
 		} else {
 			super.setC_Charge_ID(0);
 		}
@@ -104,11 +119,16 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	public void setDistributionSortingInput(I_AD_Ref_ListInput DistributionSorting) {
 		this.mDistributionSorting = DistributionSorting;
 		MRefList_BH foreignEntity;
-		if (DistributionSorting != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(DistributionSorting.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setDistributionSorting(foreignEntity.getValue());
+		if (DistributionSorting != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DistributionSorting.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setDistributionSorting(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DistributionSorting.getUUID());
+			}
 		} else {
 			this.setDistributionSorting(null);
 		}
@@ -133,11 +153,16 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	public void setM_PromotionInput(ForeignEntityInput M_Promotion) {
 		this.mM_Promotion = M_Promotion;
 		X_M_Promotion foreignEntity;
-		if (get_ID() == 0 && M_Promotion != null &&
-				(foreignEntity = new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
-						.setParameters(M_Promotion.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_Promotion_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && M_Promotion != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
+							.setParameters(M_Promotion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_Promotion_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Promotion with UUID " + M_Promotion.getUUID());
+			}
 		}
 	}
 
@@ -160,11 +185,16 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	public void setM_PromotionDistributionInput(ForeignEntityInput M_PromotionDistribution) {
 		this.mM_PromotionDistribution = M_PromotionDistribution;
 		X_M_PromotionDistribution foreignEntity;
-		if (M_PromotionDistribution != null &&
-				(foreignEntity = new Query(getCtx(), "M_PromotionDistribution", "M_PromotionDistribution_UU=?", get_TrxName())
-						.setParameters(M_PromotionDistribution.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_PromotionDistribution_ID(foreignEntity.get_ID());
+		if (M_PromotionDistribution != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PromotionDistribution", "M_PromotionDistribution_UU=?", get_TrxName())
+							.setParameters(M_PromotionDistribution.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_PromotionDistribution_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PromotionDistribution with UUID " + M_PromotionDistribution.getUUID());
+			}
 		} else {
 			super.setM_PromotionDistribution_ID(0);
 		}
@@ -192,20 +222,20 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setM_PromotionReward_UU(ID);
+	public void setUUID(String UUID) {
+		setM_PromotionReward_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getM_PromotionReward_UU();
 	}
 
@@ -218,11 +248,16 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	public void setM_TargetDistributionInput(ForeignEntityInput M_TargetDistribution) {
 		this.mM_TargetDistribution = M_TargetDistribution;
 		X_M_PromotionDistribution foreignEntity;
-		if (M_TargetDistribution != null &&
-				(foreignEntity = new Query(getCtx(), "M_PromotionDistribution", "M_PromotionDistribution_UU=?", get_TrxName())
-						.setParameters(M_TargetDistribution.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setM_TargetDistribution_ID(foreignEntity.get_ID());
+		if (M_TargetDistribution != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "M_PromotionDistribution", "M_PromotionDistribution_UU=?", get_TrxName())
+							.setParameters(M_TargetDistribution.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setM_TargetDistribution_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_PromotionDistribution with UUID " + M_TargetDistribution.getUUID());
+			}
 		} else {
 			super.setM_TargetDistribution_ID(0);
 		}
@@ -247,11 +282,16 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	public void setRewardTypeInput(I_AD_Ref_ListInput RewardType) {
 		this.mRewardType = RewardType;
 		MRefList_BH foreignEntity;
-		if (RewardType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(RewardType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setRewardType(foreignEntity.getValue());
+		if (RewardType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(RewardType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setRewardType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + RewardType.getUUID());
+			}
 		} else {
 			this.setRewardType(null);
 		}

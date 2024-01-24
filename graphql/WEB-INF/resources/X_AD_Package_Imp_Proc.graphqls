@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Package_Imp_ProcSave(entity: AD_Package_Imp_ProcInput!): AD_Package_Imp_Proc!
+	AD_Package_Imp_ProcSaveMany(entities: [AD_Package_Imp_ProcInput!]!): [AD_Package_Imp_Proc!]!
 	AD_Package_Imp_ProcDelete(uuids: [String!]!): Boolean!
 }
 
@@ -23,7 +24,7 @@ type AD_Package_Imp_Proc {
 	AD_Override_Dict: Boolean!
 	# Package directory, default to AdempiereHome/packages
 	AD_Package_Dir: String
-	ID: ID!
+	UUID: ID!
 	# Fully qualified package source file name
 	AD_Package_Source: String
 	# Type of package source - file, ftp, webservice etc
@@ -51,7 +52,7 @@ input AD_Package_Imp_ProcInput {
 	AD_Override_Dict: Boolean
 	# Package directory, default to AdempiereHome/packages
 	AD_Package_Dir: String
-	ID: ID
+	UUID: ID
 	# Fully qualified package source file name
 	AD_Package_Source: String
 	# Type of package source - file, ftp, webservice etc

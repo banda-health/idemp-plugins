@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	M_BP_PriceSave(entity: M_BP_PriceInput!): M_BP_Price!
+	M_BP_PriceSaveMany(entities: [M_BP_PriceInput!]!): [M_BP_Price!]!
 	M_BP_PriceDelete(uuids: [String!]!): Boolean!
 }
 
@@ -38,7 +39,7 @@ type M_BP_Price {
 	IsActive: Boolean!
 	# Net Price including all discounts
 	IsNetPrice: Boolean!
-	ID: ID!
+	UUID: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Lowest price for a product
@@ -76,7 +77,7 @@ input M_BP_PriceInput {
 	IsActive: Boolean
 	# Net Price including all discounts
 	IsNetPrice: Boolean
-	ID: ID
+	UUID: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Lowest price for a product

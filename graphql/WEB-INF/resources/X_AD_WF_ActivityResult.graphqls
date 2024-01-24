@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_WF_ActivityResultSave(entity: AD_WF_ActivityResultInput!): AD_WF_ActivityResult!
+	AD_WF_ActivityResultSaveMany(entities: [AD_WF_ActivityResultInput!]!): [AD_WF_ActivityResult!]!
 	AD_WF_ActivityResultDelete(uuids: [String!]!): Boolean!
 }
 
@@ -22,7 +23,7 @@ type AD_WF_ActivityResult {
 	AD_Org: AD_Org!
 	# Workflow Activity
 	AD_WF_Activity: AD_WF_Activity!
-	ID: ID!
+	UUID: ID!
 	# Name of the Attribute
 	AttributeName: String!
 	# Value of the Attribute
@@ -48,7 +49,7 @@ input AD_WF_ActivityResultInput {
 	AD_Org: ForeignEntityInput
 	# Workflow Activity
 	AD_WF_Activity: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Name of the Attribute
 	AttributeName: String
 	# Value of the Attribute

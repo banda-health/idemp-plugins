@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.I_M_AttributeSetInput;
 import org.bandahealth.idempiere.graphql.model.input.X_M_AttributeSetInput;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for M_AttributeSet - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_M_AttributeSetMutation extends POMutation implements GraphQLMutat
 		return X_M_AttributeSetInput.Table_Name;
 	}
 
-	public MAttributeSet_BH M_AttributeSetSave(I_M_AttributeSetInput input, DataFetchingEnvironment environment) {
-		return (MAttributeSet_BH) super.save((X_M_AttributeSetInput) input, environment);
+	public MAttributeSet_BH M_AttributeSetSave(I_M_AttributeSetInput entity, DataFetchingEnvironment environment) {
+		return (MAttributeSet_BH) super.save((X_M_AttributeSetInput) entity, environment);
+	}
+
+	public List<MAttributeSet_BH> M_AttributeSetSaveMany(List<I_M_AttributeSetInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_M_AttributeSetInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MAttributeSet_BH) entity).collect(Collectors.toList());
 	}
 
 	public boolean M_AttributeSetDelete(List<String> uuids, DataFetchingEnvironment environment) {

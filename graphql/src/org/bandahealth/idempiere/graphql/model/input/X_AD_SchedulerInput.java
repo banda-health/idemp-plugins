@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
@@ -13,6 +14,7 @@ import org.compiere.model.MScheduler;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.util.Env;
 
 import java.sql.ResultSet;
 
@@ -34,13 +36,16 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	private I_AD_Ref_ListInput mReportOutputType;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Scheduler_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_SchedulerInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MScheduler(null, (ResultSet) null, null), null, Table_Name, ID),
-				null);
-		setID(ID);
+	public X_AD_SchedulerInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MScheduler(null, (ResultSet) null, null),
+				null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -52,11 +57,16 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
 		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-						.setParameters(AD_Org.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Org_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Org != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+			}
 		}
 	}
 
@@ -79,11 +89,16 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
 		X_AD_PrintFormat foreignEntity;
-		if (AD_PrintFormat != null &&
-				(foreignEntity = new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-						.setParameters(AD_PrintFormat.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_PrintFormat_ID(foreignEntity.get_ID());
+		if (AD_PrintFormat != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
+			}
 		} else {
 			super.setAD_PrintFormat_ID(0);
 		}
@@ -108,11 +123,16 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
 		MProcess_BH foreignEntity;
-		if (get_ID() == 0 && AD_Process != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-						.setParameters(AD_Process.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Process_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && AD_Process != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
+							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Process_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
+			}
 		}
 	}
 
@@ -135,11 +155,16 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	public void setAD_ScheduleInput(ForeignEntityInput AD_Schedule) {
 		this.mAD_Schedule = AD_Schedule;
 		MSchedule foreignEntity;
-		if (AD_Schedule != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Schedule", "AD_Schedule_UU=?", get_TrxName())
-						.setParameters(AD_Schedule.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Schedule_ID(foreignEntity.get_ID());
+		if (AD_Schedule != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Schedule", "AD_Schedule_UU=?", get_TrxName())
+							.setParameters(AD_Schedule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Schedule_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Schedule with UUID " + AD_Schedule.getUUID());
+			}
 		} else {
 			super.setAD_Schedule_ID(0);
 		}
@@ -167,20 +192,20 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	}
 
 	/**
-	 * Set ID.
+	 * Set UUID.
 	 *
-	 * @param ID ID
+	 * @param UUID UUID
 	 */
-	public void setID(String ID) {
-		setAD_Scheduler_UU(ID);
+	public void setUUID(String UUID) {
+		setAD_Scheduler_UU(UUID);
 	}
 
 	/**
-	 * Get ID.
+	 * Get UUID.
 	 *
-	 * @return ID
+	 * @return UUID
 	 */
-	public String getID() {
+	public String getUUID() {
 		return getAD_Scheduler_UU();
 	}
 
@@ -193,11 +218,16 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
 		MTable foreignEntity;
-		if (AD_Table != null &&
-				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-						.setParameters(AD_Table.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setAD_Table_ID(foreignEntity.get_ID());
+		if (AD_Table != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setAD_Table_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+			}
 		} else {
 			super.setAD_Table_ID(0);
 		}
@@ -222,11 +252,16 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	public void setR_MailTextInput(ForeignEntityInput R_MailText) {
 		this.mR_MailText = R_MailText;
 		MMailText foreignEntity;
-		if (get_ID() == 0 && R_MailText != null &&
-				(foreignEntity = new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-						.setParameters(R_MailText.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setR_MailText_ID(foreignEntity.get_ID());
+		if (get_ID() == 0 && R_MailText != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
+							.setParameters(R_MailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setR_MailText_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table R_MailText with UUID " + R_MailText.getUUID());
+			}
 		}
 	}
 
@@ -249,11 +284,16 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	public void setReportOutputTypeInput(I_AD_Ref_ListInput ReportOutputType) {
 		this.mReportOutputType = ReportOutputType;
 		MRefList_BH foreignEntity;
-		if (ReportOutputType != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(ReportOutputType.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setReportOutputType(foreignEntity.getValue());
+		if (ReportOutputType != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ReportOutputType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setReportOutputType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ReportOutputType.getUUID());
+			}
 		} else {
 			this.setReportOutputType(null);
 		}
@@ -289,11 +329,16 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
 		MUser_BH foreignEntity;
-		if (Supervisor != null &&
-				(foreignEntity = new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-						.setParameters(Supervisor.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			super.setSupervisor_ID(foreignEntity.get_ID());
+		if (Supervisor != null) {
+			// If an entity was passed, make sure it's there
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+				this.setSupervisor_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
+			}
 		} else {
 			super.setSupervisor_ID(0);
 		}

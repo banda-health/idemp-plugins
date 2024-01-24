@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_MenuSave(entity: AD_MenuInput!): AD_Menu!
+	AD_MenuSaveMany(entities: [AD_MenuInput!]!): [AD_Menu!]!
 	AD_MenuDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type AD_Menu {
 	AD_Form: AD_Form
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow
-	ID: ID!
+	UUID: ID!
 	# Organizational entity within client
 	AD_Org: AD_Org!
 	# Process or Report
@@ -70,7 +71,7 @@ input AD_MenuInput {
 	AD_Form: ForeignEntityInput
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
 	# Process or Report

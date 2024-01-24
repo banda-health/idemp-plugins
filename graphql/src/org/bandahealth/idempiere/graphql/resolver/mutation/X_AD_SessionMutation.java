@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_SessionInput;
 import org.compiere.model.MSession;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_Session - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_SessionMutation extends POMutation implements GraphQLMutationR
 		return X_AD_SessionInput.Table_Name;
 	}
 
-	public MSession AD_SessionSave(I_AD_SessionInput input, DataFetchingEnvironment environment) {
-		return (MSession) super.save((X_AD_SessionInput) input, environment);
+	public MSession AD_SessionSave(I_AD_SessionInput entity, DataFetchingEnvironment environment) {
+		return (MSession) super.save((X_AD_SessionInput) entity, environment);
+	}
+
+	public List<MSession> AD_SessionSaveMany(List<I_AD_SessionInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_SessionInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MSession) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_SessionDelete(List<String> uuids, DataFetchingEnvironment environment) {

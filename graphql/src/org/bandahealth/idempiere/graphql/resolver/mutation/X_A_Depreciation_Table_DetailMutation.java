@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_A_Depreciation_Table_Deta
 import org.compiere.model.X_A_Depreciation_Table_Detail;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for A_Depreciation_Table_Detail - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_A_Depreciation_Table_DetailMutation extends POMutation implements
 		return X_A_Depreciation_Table_DetailInput.Table_Name;
 	}
 
-	public X_A_Depreciation_Table_Detail A_Depreciation_Table_DetailSave(I_A_Depreciation_Table_DetailInput input, DataFetchingEnvironment environment) {
-		return (X_A_Depreciation_Table_Detail) super.save((X_A_Depreciation_Table_DetailInput) input, environment);
+	public X_A_Depreciation_Table_Detail A_Depreciation_Table_DetailSave(I_A_Depreciation_Table_DetailInput entity, DataFetchingEnvironment environment) {
+		return (X_A_Depreciation_Table_Detail) super.save((X_A_Depreciation_Table_DetailInput) entity, environment);
+	}
+
+	public List<X_A_Depreciation_Table_Detail> A_Depreciation_Table_DetailSaveMany(List<I_A_Depreciation_Table_DetailInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_A_Depreciation_Table_DetailInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_A_Depreciation_Table_Detail) entity).collect(Collectors.toList());
 	}
 
 	public boolean A_Depreciation_Table_DetailDelete(List<String> uuids, DataFetchingEnvironment environment) {

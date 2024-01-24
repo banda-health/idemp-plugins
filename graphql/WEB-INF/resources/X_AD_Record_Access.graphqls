@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_Record_AccessSave(entity: AD_Record_AccessInput!): AD_Record_Access!
+	AD_Record_AccessSaveMany(entities: [AD_Record_AccessInput!]!): [AD_Record_Access!]!
 	AD_Record_AccessDelete(uuids: [String!]!): Boolean!
 }
 
@@ -20,7 +21,7 @@ type AD_Record_Access {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	ID: ID!
+	UUID: ID!
 	# Responsibility Role
 	AD_Role: AD_Role!
 	# Database Table information
@@ -48,7 +49,7 @@ type AD_Record_Access {
 input AD_Record_AccessInput {
 	# Organizational entity within client
 	AD_Org: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
 	# Database Table information

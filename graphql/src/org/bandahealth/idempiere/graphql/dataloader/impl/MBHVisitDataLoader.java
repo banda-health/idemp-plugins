@@ -94,7 +94,7 @@ public class MBHVisitDataLoader extends X_BH_VisitDataLoader {
 				}
 			});
 
-			return lastVisitDatesByPatientId.entrySet().stream()
+			return lastVisitDatesByPatientId.entrySet().stream().filter(entry -> entry.getValue() != null)
 					.collect(Collectors.toMap(entry -> ModelUtil.getModelKey(modelName, entry.getKey()), Map.Entry::getValue));
 		});
 	}

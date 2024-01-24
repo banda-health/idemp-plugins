@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	AD_PrintLabelLineSave(entity: AD_PrintLabelLineInput!): AD_PrintLabelLine!
+	AD_PrintLabelLineSaveMany(entities: [AD_PrintLabelLineInput!]!): [AD_PrintLabelLine!]!
 	AD_PrintLabelLineDelete(uuids: [String!]!): Boolean!
 }
 
@@ -26,7 +27,7 @@ type AD_PrintLabelLine {
 	AD_Org: AD_Org!
 	# Label Format to print
 	AD_PrintLabel: AD_PrintLabel!
-	ID: ID!
+	UUID: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,7 +61,7 @@ input AD_PrintLabelLineInput {
 	AD_Org: ForeignEntityInput
 	# Label Format to print
 	AD_PrintLabel: ForeignEntityInput
-	ID: ID
+	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Label Format Type

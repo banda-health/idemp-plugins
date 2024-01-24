@@ -1,0 +1,166 @@
+query AD_OrgInfoGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	AD_OrgInfoGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			C_Location {
+				C_Country {
+					UUID
+				}
+				C_Region {
+					UUID
+					Name
+				}
+				UUID
+			}
+			UUID
+		}
+	}
+}
+
+query C_BP_GroupGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_BP_GroupGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			Name
+		}
+	}
+}
+
+query C_BPartnerGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_BPartnerGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			...C_BPartnerFields
+		}
+	}
+}
+
+query C_Charge_AcctGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_Charge_AcctGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+		}
+	}
+}
+
+query C_ChargeGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_ChargeGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			Name
+			C_Charge_AcctList {
+				UUID
+				Ch_Expense_A {
+					UUID
+					Account {
+						UUID
+						Value
+					}
+				}
+			}
+			C_ChargeType {
+				UUID
+			}
+		}
+	}
+}
+
+query C_ChargeTypeGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_ChargeTypeGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			Name
+		}
+	}
+}
+
+query C_DocTypeGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_DocTypeGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			IsSOTrx
+		}
+	}
+}
+
+query C_ElementValueGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_ElementValueGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+		}
+	}
+}
+
+query C_LocationGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_LocationGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			...C_LocationFields
+		}
+	}
+}
+
+query C_TaxCategoryGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_TaxCategoryGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+		}
+	}
+}
+
+query C_UOMGetDefault {
+	C_UOMGetDefault {
+		UUID
+	}
+}
+
+query ChangeAccess($credentials: ChangeAccessInput!) {
+	changeAccess(credentials: $credentials) {
+		token
+	}
+}
+
+query M_Product_CategoryGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	M_Product_CategoryGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			Name
+		}
+	}
+}
+
+query SignIn($credentials: AuthenticationInput!) {
+	signIn(credentials: $credentials) {
+		token
+		AD_Clients {
+			UUID
+			Name
+			AD_Orgs {
+				UUID
+				Name
+				AD_Roles {
+					UUID
+					Name
+				}
+				M_Warehouses {
+					UUID
+					Name
+					BH_DefaultWarehouse
+					IsActive
+					M_Locators {
+						UUID
+					}
+				}
+			}
+		}
+		AD_Role {
+			IncludedRoles {
+				UUID
+			}
+			AD_Window_AccessList {
+				AD_Window {
+					UUID
+				}
+				BH_CanDeactivate
+				IsReadWrite
+			}
+		}
+	}
+}

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_T_CashFlowInput;
 import org.compiere.model.X_T_CashFlow;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for T_CashFlow - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_T_CashFlowMutation extends POMutation implements GraphQLMutationR
 		return X_T_CashFlowInput.Table_Name;
 	}
 
-	public X_T_CashFlow T_CashFlowSave(I_T_CashFlowInput input, DataFetchingEnvironment environment) {
-		return (X_T_CashFlow) super.save((X_T_CashFlowInput) input, environment);
+	public X_T_CashFlow T_CashFlowSave(I_T_CashFlowInput entity, DataFetchingEnvironment environment) {
+		return (X_T_CashFlow) super.save((X_T_CashFlowInput) entity, environment);
+	}
+
+	public List<X_T_CashFlow> T_CashFlowSaveMany(List<I_T_CashFlowInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_T_CashFlowInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_T_CashFlow) entity).collect(Collectors.toList());
 	}
 
 	public boolean T_CashFlowDelete(List<String> uuids, DataFetchingEnvironment environment) {

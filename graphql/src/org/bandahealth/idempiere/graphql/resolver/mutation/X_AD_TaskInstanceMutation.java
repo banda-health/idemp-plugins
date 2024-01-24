@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.model.input.X_AD_TaskInstanceInput;
 import org.compiere.model.X_AD_TaskInstance;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Generated Query Resolver for AD_TaskInstance - DO NOT CHANGE
@@ -20,8 +21,13 @@ public class X_AD_TaskInstanceMutation extends POMutation implements GraphQLMuta
 		return X_AD_TaskInstanceInput.Table_Name;
 	}
 
-	public X_AD_TaskInstance AD_TaskInstanceSave(I_AD_TaskInstanceInput input, DataFetchingEnvironment environment) {
-		return (X_AD_TaskInstance) super.save((X_AD_TaskInstanceInput) input, environment);
+	public X_AD_TaskInstance AD_TaskInstanceSave(I_AD_TaskInstanceInput entity, DataFetchingEnvironment environment) {
+		return (X_AD_TaskInstance) super.save((X_AD_TaskInstanceInput) entity, environment);
+	}
+
+	public List<X_AD_TaskInstance> AD_TaskInstanceSaveMany(List<I_AD_TaskInstanceInput> entities, DataFetchingEnvironment environment) {
+		return super.saveMany(entities.stream().map(entity -> (X_AD_TaskInstanceInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_AD_TaskInstance) entity).collect(Collectors.toList());
 	}
 
 	public boolean AD_TaskInstanceDelete(List<String> uuids, DataFetchingEnvironment environment) {

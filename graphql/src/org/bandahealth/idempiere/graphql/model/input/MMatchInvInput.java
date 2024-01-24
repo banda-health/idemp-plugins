@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MMatchInvInput extends X_M_MatchInvInput {
 	/**
-	 * Standard constructor
-	 * 
-	 * @param ID
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The M_MatchInv_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MMatchInvInput(@JsonProperty("ID") String ID) {
-		super(ID);
+	public MMatchInvInput(@JsonProperty("UUID") String UUID) {
+		super(UUID);
 	}
 }

@@ -7,6 +7,7 @@ extend type Query {
 
 extend type Mutation {
 	C_CountrySave(entity: C_CountryInput!): C_Country!
+	C_CountrySaveMany(entities: [C_CountryInput!]!): [C_Country!]!
 	C_CountryDelete(uuids: [String!]!): Boolean!
 }
 
@@ -24,7 +25,7 @@ type C_Country {
 	AD_Org: AD_Org!
 	# A flag to allow cities, currently not in the list, to be entered
 	AllowCitiesOutOfList: Boolean!
-	ID: ID!
+	UUID: ID!
 	# The Currency for this record
 	C_Currency: C_Currency
 	CaptureSequence: String
@@ -98,7 +99,7 @@ input C_CountryInput {
 	AD_Org: ForeignEntityInput
 	# A flag to allow cities, currently not in the list, to be entered
 	AllowCitiesOutOfList: Boolean
-	ID: ID
+	UUID: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	CaptureSequence: String

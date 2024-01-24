@@ -1,13 +1,18 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-public class ForeignEntityInput {
-	private String ID;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-	public String getID() {
-		return ID;
+public class ForeignEntityInput {
+	@JsonProperty("UUID")
+	private String UUID;
+
+	@JsonProperty("UUID")
+	public String getUUID() {
+		return UUID;
 	}
 
-	public void setID(String ID) {
-		this.ID = ID;
+	@JsonProperty("UUID")
+	public void setUUID(String UUID) {
+		this.UUID = UUID;
 	}
 }
