@@ -33,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_User - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLResolver<MUser_BH> {
 
@@ -166,6 +166,10 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 		return entity.isAddMailTextAutomatically();
 	}
 
+	public Boolean IsBillTo(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isBillTo();
+	}
+
 	public Boolean IsExpired(MUser_BH entity, DataFetchingEnvironment environment) {
 		return entity.isExpired();
 	}
@@ -209,8 +213,16 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 		return entity.isSalesLead();
 	}
 
+	public Boolean IsShipTo(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isShipTo();
+	}
+
 	public Boolean IsSupportUser(MUser_BH entity, DataFetchingEnvironment environment) {
 		return entity.isSupportUser();
+	}
+
+	public Boolean IsVendorLead(MUser_BH entity, DataFetchingEnvironment environment) {
+		return entity.isVendorLead();
 	}
 
 	static Map<String, String> LEADSOURCE_UUIDS_BY_VALUE = new HashMap<>() {

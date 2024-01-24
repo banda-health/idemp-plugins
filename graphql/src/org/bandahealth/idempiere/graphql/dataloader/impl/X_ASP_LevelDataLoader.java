@@ -6,7 +6,7 @@ import org.compiere.model.X_ASP_Level;
  * Data Loader for ASP_Level - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_ASP_LevelDataLoader extends PODataLoader<X_ASP_Level> {
 	public static String DATALOADER_ASP_Level_BY_ID = "ASP_LevelByIdDataLoader";

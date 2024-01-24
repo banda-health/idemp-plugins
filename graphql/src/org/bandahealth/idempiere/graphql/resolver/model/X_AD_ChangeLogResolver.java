@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ChangeLogDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -13,6 +12,7 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MChangeLog;
 import org.compiere.model.MColumn;
 import org.compiere.model.MSession;
+import org.compiere.model.MTable;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_ChangeLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements GraphQLResolver<MChangeLog> {
 
@@ -79,11 +79,11 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable_BH> AD_Table(MChangeLog entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable> AD_Table(MChangeLog entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTable_BH> dataLoader =
+		DataLoader<Integer, MTable> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}

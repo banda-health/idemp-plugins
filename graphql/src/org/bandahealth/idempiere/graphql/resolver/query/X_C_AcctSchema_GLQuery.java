@@ -9,7 +9,7 @@ import org.compiere.model.MAcctSchemaGL;
  * Generated Query Resolver for C_AcctSchema_GL - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_AcctSchema_GLQuery extends POQuery<MAcctSchemaGL> implements GraphQLQueryResolver {
 	@Override

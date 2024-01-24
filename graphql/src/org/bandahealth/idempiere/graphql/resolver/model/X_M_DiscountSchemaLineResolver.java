@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.model.MDiscountSchemaLine_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -16,6 +15,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_Product_CategoryDat
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MConversionType;
 import org.compiere.model.MDiscountSchema;
+import org.compiere.model.MDiscountSchemaLine;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -26,9 +26,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_DiscountSchemaLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLine_BH> implements GraphQLResolver<MDiscountSchemaLine_BH> {
+public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLine> implements GraphQLResolver<MDiscountSchemaLine> {
 
 
 
@@ -37,7 +37,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public CompletableFuture<MBPartner_BH> C_BPartner(MDiscountSchemaLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MBPartner_BH> C_BPartner(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_BPartner_ID() <= 0) {
 			return null;
 		}
@@ -52,13 +52,17 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 	 *
 	 * @return Currency Conversion Rate Type
 	 */
-	public CompletableFuture<MConversionType> C_ConversionType(MDiscountSchemaLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MConversionType> C_ConversionType(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_ConversionType_ID() <= 0) {
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ConversionTypeDataLoader.DATALOADER_C_ConversionType_BY_ID);
 		return dataLoader.load(entity.getC_ConversionType_ID());
+	}
+
+	public Boolean IsIgnoreIsCurrentVendor(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
+		return entity.isIgnoreIsCurrentVendor();
 	}
 
 	static Map<String, String> LIMIT_BASE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -70,7 +74,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			put("P", "ee848c2c-1648-441e-a33a-c064e6fb0203");
 		}
 	};
-	public CompletableFuture<MRefList_BH> Limit_Base(MDiscountSchemaLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> Limit_Base(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getLimit_Base())) {
 			return null;
 		}
@@ -93,7 +97,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			put("t", "ed450a1b-e56a-4101-be04-2936d85fae0a");
 		}
 	};
-	public CompletableFuture<MRefList_BH> Limit_Rounding(MDiscountSchemaLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> Limit_Rounding(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getLimit_Rounding())) {
 			return null;
 		}
@@ -111,7 +115,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			put("P", "ee848c2c-1648-441e-a33a-c064e6fb0203");
 		}
 	};
-	public CompletableFuture<MRefList_BH> List_Base(MDiscountSchemaLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> List_Base(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getList_Base())) {
 			return null;
 		}
@@ -134,7 +138,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			put("t", "ed450a1b-e56a-4101-be04-2936d85fae0a");
 		}
 	};
-	public CompletableFuture<MRefList_BH> List_Rounding(MDiscountSchemaLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> List_Rounding(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getList_Rounding())) {
 			return null;
 		}
@@ -149,7 +153,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 	 *
 	 * @return Schema to calculate the trade discount percentage
 	 */
-	public CompletableFuture<MDiscountSchema> M_DiscountSchema(MDiscountSchemaLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MDiscountSchema> M_DiscountSchema(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
 		if (entity.getM_DiscountSchema_ID() <= 0) {
 			return null;
 		}
@@ -164,7 +168,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 	 *
 	 * @return Category of a Product
 	 */
-	public CompletableFuture<MProductCategory_BH> M_Product_Category(MDiscountSchemaLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProductCategory_BH> M_Product_Category(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Product_Category_ID() <= 0) {
 			return null;
 		}
@@ -179,7 +183,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 	 *
 	 * @return Product, Service, Item
 	 */
-	public CompletableFuture<MProduct_BH> M_Product(MDiscountSchemaLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProduct_BH> M_Product(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Product_ID() <= 0) {
 			return null;
 		}
@@ -197,7 +201,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			put("P", "ee848c2c-1648-441e-a33a-c064e6fb0203");
 		}
 	};
-	public CompletableFuture<MRefList_BH> Std_Base(MDiscountSchemaLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> Std_Base(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getStd_Base())) {
 			return null;
 		}
@@ -220,7 +224,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 			put("t", "ed450a1b-e56a-4101-be04-2936d85fae0a");
 		}
 	};
-	public CompletableFuture<MRefList_BH> Std_Rounding(MDiscountSchemaLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> Std_Rounding(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getStd_Rounding())) {
 			return null;
 		}

@@ -439,12 +439,17 @@ public class BandaResolverComposer {
 				new MTree_NodeMMResolver(),
 				new MTree_NodePRResolver(),
 				new MTreeResolver(),
+				new MTreeFavoriteResolver(),
+				new MTreeFavoriteNodeResolver(),
 				new MUIButtonResolver(),
 				new MUOMConversionResolver(),
 				new MUOMResolver(),
 				new MUserBPAccessResolver(),
 				new MUserResolver(),
 				new MUserDefFieldResolver(),
+				new MUserDefInfoColumnResolver(),
+				new MUserDefInfoResolver(),
+				new MUserDefInfoRelatedResolver(),
 				new MUserDefProcResolver(),
 				new MUserDefProcParameterResolver(),
 				new MUserDefTabResolver(),
@@ -460,7 +465,6 @@ public class BandaResolverComposer {
 				new MWarehousePriceResolver(),
 				new MWebMenuResolver(),
 				new MWebPropertiesResolver(),
-				new MWebServiceTypeResolver(),
 				new MWFActivityApproverResolver(),
 				new MWindowAccessResolver(),
 				new MWindowResolver(),
@@ -766,7 +770,8 @@ public class BandaResolverComposer {
 				new X_WS_WebServiceResolver(),
 				new X_WS_WebServiceFieldInputResolver(),
 				new X_WS_WebServiceFieldOutputResolver(),
-				new X_WS_WebServiceMethodResolver()
+				new X_WS_WebServiceMethodResolver(),
+				new X_WS_WebServiceTypeResolver()
 		);
 	}
 }

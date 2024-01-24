@@ -1,6 +1,6 @@
 # Generated Schema for AD_User - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	AD_UserGet(page: Int, size: Int, sort: String, filter: String): AD_UserConnection!
 }
@@ -71,6 +71,8 @@ type AD_User {
 	IsActive: Boolean!
 	# The selected mail template will be automatically inserted when creating an email
 	IsAddMailTextAutomatically: Boolean!
+	# Business Partner Invoice/Bill Address
+	IsBillTo: Boolean!
 	IsExpired: Boolean!
 	# The user/contact has full access to Business Partner information and resources
 	IsFullBPAccess: Boolean!
@@ -83,7 +85,11 @@ type AD_User {
 	IsNoPasswordReset: Boolean!
 	# This contact is a sales lead
 	IsSalesLead: Boolean!
+	# Business Partner Shipment Address
+	IsShipTo: Boolean!
 	IsSupportUser: Boolean!
+	# This contact is a vendor lead
+	IsVendorLead: Boolean!
 	# Date this individual was last contacted
 	LastContact: Date
 	# Result of last contact
@@ -178,6 +184,8 @@ input AD_UserInput {
 	IsActive: Boolean
 	# The selected mail template will be automatically inserted when creating an email
 	IsAddMailTextAutomatically: Boolean
+	# Business Partner Invoice/Bill Address
+	IsBillTo: Boolean
 	IsExpired: Boolean
 	# The user/contact has full access to Business Partner information and resources
 	IsFullBPAccess: Boolean
@@ -190,7 +198,11 @@ input AD_UserInput {
 	IsNoPasswordReset: Boolean
 	# This contact is a sales lead
 	IsSalesLead: Boolean
+	# Business Partner Shipment Address
+	IsShipTo: Boolean
 	IsSupportUser: Boolean
+	# This contact is a vendor lead
+	IsVendorLead: Boolean
 	# Date this individual was last contacted
 	LastContact: Date
 	# Result of last contact

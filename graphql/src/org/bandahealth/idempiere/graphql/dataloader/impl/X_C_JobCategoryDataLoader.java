@@ -6,7 +6,7 @@ import org.compiere.model.X_C_JobCategory;
  * Data Loader for C_JobCategory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_JobCategoryDataLoader extends PODataLoader<X_C_JobCategory> {
 	public static String DATALOADER_C_JobCategory_BY_ID = "C_JobCategoryByIdDataLoader";

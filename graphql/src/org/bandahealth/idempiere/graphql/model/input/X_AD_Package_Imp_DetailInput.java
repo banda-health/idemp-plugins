@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
+import org.compiere.model.MTable;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Package_Imp;
 import org.compiere.model.X_AD_Package_Imp_Detail;
@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Package_Imp_Detail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_Package_Imp_DetailInput extends X_AD_Package_Imp_Detail implements I_AD_Package_Imp_DetailInput {
 
@@ -124,7 +124,7 @@ public class X_AD_Package_Imp_DetailInput extends X_AD_Package_Imp_Detail implem
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
+		MTable foreignEntity;
 		if (AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())

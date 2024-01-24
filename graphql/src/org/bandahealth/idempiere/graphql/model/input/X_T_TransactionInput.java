@@ -31,7 +31,7 @@ import java.sql.ResultSet;
  * Generated Model for T_Transaction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_T_TransactionInput extends X_T_Transaction implements I_T_TransactionInput {
 

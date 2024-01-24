@@ -6,7 +6,7 @@ import org.compiere.model.MBPartnerInfo;
  * Data Loader for RV_BPartner - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_RV_BPartnerDataLoader extends PODataLoader<MBPartnerInfo> {
 	public static String DATALOADER_RV_BPartner_BY_ID = "RV_BPartnerByIdDataLoader";

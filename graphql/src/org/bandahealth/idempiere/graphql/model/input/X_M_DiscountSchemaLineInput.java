@@ -3,13 +3,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
-import org.bandahealth.idempiere.base.model.MDiscountSchemaLine_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MConversionType;
 import org.compiere.model.MDiscountSchema;
+import org.compiere.model.MDiscountSchemaLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 
@@ -19,9 +19,9 @@ import java.sql.ResultSet;
  * Generated Model for M_DiscountSchemaLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine_BH implements I_M_DiscountSchemaLineInput {
+public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements I_M_DiscountSchemaLineInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_BPartner;
@@ -41,7 +41,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine_BH implemen
 	 */
 	@JsonCreator
 	public X_M_DiscountSchemaLineInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MDiscountSchemaLine_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MDiscountSchemaLine(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}

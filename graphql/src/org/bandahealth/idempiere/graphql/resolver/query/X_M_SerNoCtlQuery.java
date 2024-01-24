@@ -9,7 +9,7 @@ import org.bandahealth.idempiere.graphql.model.Connection;
  * Generated Query Resolver for M_SerNoCtl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_SerNoCtlQuery extends POQuery<MSerNoCtl_BH> implements GraphQLQueryResolver {
 	@Override

@@ -4,9 +4,11 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReferenceDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MEntityType;
 import org.compiere.model.X_AD_RelationType;
 import org.dataloader.DataLoader;
 
@@ -18,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_RelationType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> implements GraphQLResolver<X_AD_RelationType> {
 
@@ -51,6 +53,37 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 		DataLoader<Integer, MReference_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_ReferenceDataLoader.DATALOADER_AD_Reference_BY_ID);
 		return dataLoader.load(entity.getAD_Reference_Target_ID());
+	}
+
+	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
+		{
+			put("D", 10);
+			put("C", 20);
+			put("U", 100);
+			put("CUST", 110);
+			put("A", 200);
+			put("EXT", 210);
+			put("XX", 220);
+			put("EE01", 50000);
+			put("EE04", 50001);
+			put("EE05", 50003);
+			put("EE02", 50005);
+			put("WSTORE", 200015);
+		}
+	};
+
+	/**
+	 * Get Entity Type.
+	 *
+	 * @return Dictionary Entity Type; Determines ownership and synchronization
+	 */
+	public CompletableFuture<MEntityType> AD_EntityType(X_AD_RelationType entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
+			return null;
+		}
+		DataLoader<Integer, MEntityType> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
+		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
 	public Boolean IsDirected(X_AD_RelationType entity, DataFetchingEnvironment environment) {

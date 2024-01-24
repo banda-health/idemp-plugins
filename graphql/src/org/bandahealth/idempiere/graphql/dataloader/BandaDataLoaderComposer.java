@@ -426,12 +426,17 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MTree_NodeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MTree_NodeMMDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MTree_NodePRDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MTreeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MTreeFavoriteDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MTreeFavoriteNodeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MUIButtonDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MUOMConversionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MUOMDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MUserBPAccessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MUserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MUserDefFieldDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MUserDefInfoColumnDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MUserDefInfoDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MUserDefInfoRelatedDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MUserDefProcDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MUserDefProcParameterDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MUserDefTabDataLoader;
@@ -1269,12 +1274,17 @@ public class BandaDataLoaderComposer {
 				new MTree_NodeMMDataLoader(),
 				new MTree_NodePRDataLoader(),
 				new MTreeDataLoader(),
+				new MTreeFavoriteDataLoader(),
+				new MTreeFavoriteNodeDataLoader(),
 				new MUIButtonDataLoader(),
 				new MUOMConversionDataLoader(),
 				new MUOMDataLoader(),
 				new MUserBPAccessDataLoader(),
 				new MUserDataLoader(),
 				new MUserDefFieldDataLoader(),
+				new MUserDefInfoColumnDataLoader(),
+				new MUserDefInfoDataLoader(),
+				new MUserDefInfoRelatedDataLoader(),
 				new MUserDefProcDataLoader(),
 				new MUserDefProcParameterDataLoader(),
 				new MUserDefTabDataLoader(),

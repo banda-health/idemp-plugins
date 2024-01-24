@@ -9,7 +9,7 @@ import org.compiere.model.MTax;
  * Generated Query Resolver for C_Tax - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_TaxQuery extends POQuery<MTax> implements GraphQLQueryResolver {
 	@Override

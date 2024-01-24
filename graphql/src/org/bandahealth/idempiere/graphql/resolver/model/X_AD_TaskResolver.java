@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Task - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_TaskResolver extends POResolver<MTask> implements GraphQLResolver<MTask> {
 
@@ -123,10 +123,6 @@ public class X_AD_TaskResolver extends POResolver<MTask> implements GraphQLResol
 				.getDataLoader(X_AD_Task_TrlDataLoader.DATALOADER_AD_Task_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTask.COLUMNNAME_Help));
-	}
-
-	public Boolean IsServerProcess(MTask entity, DataFetchingEnvironment environment) {
-		return entity.isServerProcess();
 	}
 
 	/**

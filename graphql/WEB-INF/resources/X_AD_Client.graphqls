@@ -1,6 +1,6 @@
 # Generated Schema for AD_Client - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	AD_ClientGet(page: Int, size: Int, sort: String, filter: String): AD_ClientConnection!
 }
@@ -44,8 +44,6 @@ type AD_Client {
 	IsPostImmediate: Boolean!
 	# Use SSL/TLS for SMTP
 	IsSecureSMTP: Boolean!
-	# Send EMail from Server
-	IsServerEMail: Boolean!
 	# Your mail server requires Authentication
 	IsSmtpAuthorization: Boolean!
 	IsUseASP: Boolean!
@@ -102,8 +100,6 @@ input AD_ClientInput {
 	IsPostImmediate: Boolean
 	# Use SSL/TLS for SMTP
 	IsSecureSMTP: Boolean
-	# Send EMail from Server
-	IsServerEMail: Boolean
 	# Your mail server requires Authentication
 	IsSmtpAuthorization: Boolean
 	IsUseASP: Boolean

@@ -2,12 +2,13 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.MStatusLine;
 import org.compiere.model.MStatusLineUsedIn;
 import org.compiere.model.MTab;
+import org.compiere.model.MTable;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 
@@ -17,10 +18,11 @@ import java.sql.ResultSet;
  * Generated Model for AD_StatusLineUsedIn - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_AD_StatusLineUsedInInput {
 
+	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_StatusLine;
 	private ForeignEntityInput mAD_Tab;
@@ -157,7 +159,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
+		MTable foreignEntity;
 		if (AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())
@@ -205,5 +207,34 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	@JsonProperty("AD_Window")
 	public ForeignEntityInput AD_Window() {
 		return mAD_Window;
+	}
+
+	/**
+	 * Set Entity Type.
+	 *
+	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+	@JsonProperty("AD_EntityType")
+	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
+		this.mAD_EntityType = AD_EntityType;
+		MEntityType foreignEntity;
+		if (AD_EntityType != null &&
+				(foreignEntity = new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
+						.setParameters(AD_EntityType.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setEntityType(foreignEntity.getEntityType());
+		} else {
+			super.setEntityType(null);
+		}
+	}
+
+	/**
+	 * Get Entity Type.
+	 *
+	 * @return Dictionary Entity Type; Determines ownership and synchronization
+	 */
+	@JsonProperty("AD_EntityType")
+	public ForeignEntityInput AD_EntityType() {
+		return mAD_EntityType;
 	}
 }

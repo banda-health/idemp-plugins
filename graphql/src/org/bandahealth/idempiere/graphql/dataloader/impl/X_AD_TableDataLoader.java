@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.bandahealth.idempiere.base.model.MTable_BH;
+import org.compiere.model.MTable;
 
 /**
  * Data Loader for AD_Table - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_AD_TableDataLoader extends PODataLoader<MTable_BH> {
+public class X_AD_TableDataLoader extends PODataLoader<MTable> {
 	public static String DATALOADER_AD_Table_BY_ID = "AD_TableByIdDataLoader";
 	public static String DATALOADER_AD_Table_BY_UUID = "AD_TableByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MTable_BH.Table_Name;
+		return MTable.Table_Name;
 	}
 
 	@Override

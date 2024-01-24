@@ -6,7 +6,7 @@ import org.compiere.model.X_C_Subscription_Delivery;
  * Data Loader for C_Subscription_Delivery - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_Subscription_DeliveryDataLoader extends PODataLoader<X_C_Subscription_Delivery> {
 	public static String DATALOADER_C_Subscription_Delivery_BY_ID = "C_Subscription_DeliveryByIdDataLoader";

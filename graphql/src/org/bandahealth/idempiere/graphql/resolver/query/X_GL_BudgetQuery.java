@@ -9,7 +9,7 @@ import org.compiere.model.X_GL_Budget;
  * Generated Query Resolver for GL_Budget - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_GL_BudgetQuery extends POQuery<X_GL_Budget> implements GraphQLQueryResolver {
 	@Override

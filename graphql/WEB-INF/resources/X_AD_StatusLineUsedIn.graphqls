@@ -1,6 +1,6 @@
 # Generated Schema for AD_StatusLineUsedIn - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	AD_StatusLineUsedInGet(page: Int, size: Int, sort: String, filter: String): AD_StatusLineUsedInConnection!
 }
@@ -32,6 +32,8 @@ type AD_StatusLineUsedIn {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Defines if this record refers to a status line or to a help widget
@@ -55,6 +57,8 @@ input AD_StatusLineUsedInInput {
 	AD_Table: ForeignEntityInput
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Defines if this record refers to a status line or to a help widget

@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MReference_BH;
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoWindowDataLoader;
@@ -15,6 +14,7 @@ import org.compiere.model.MColumn;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MInfoWindow;
 import org.compiere.model.MRefTable;
+import org.compiere.model.MTable;
 import org.compiere.model.MWindow;
 import org.dataloader.DataLoader;
 
@@ -26,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Ref_Table - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_Ref_TableResolver extends POResolver<MRefTable> implements GraphQLResolver<MRefTable> {
 
@@ -97,11 +97,11 @@ public class X_AD_Ref_TableResolver extends POResolver<MRefTable> implements Gra
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable_BH> AD_Table(MRefTable entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable> AD_Table(MRefTable entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTable_BH> dataLoader =
+		DataLoader<Integer, MTable> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}

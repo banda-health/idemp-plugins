@@ -6,7 +6,7 @@ import org.compiere.model.I_RV_BPartner;
  * Generated Interface for RV_BPartner - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_RV_BPartnerInput extends I_RV_BPartner {
 

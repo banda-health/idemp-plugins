@@ -12,7 +12,7 @@ import java.util.List;
  * Generated Query Resolver for C_UOM_Conversion - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_UOM_ConversionMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

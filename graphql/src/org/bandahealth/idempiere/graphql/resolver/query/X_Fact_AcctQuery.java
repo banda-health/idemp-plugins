@@ -9,7 +9,7 @@ import org.compiere.model.MFactAcct;
  * Generated Query Resolver for Fact_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_Fact_AcctQuery extends POQuery<MFactAcct> implements GraphQLQueryResolver {
 	@Override

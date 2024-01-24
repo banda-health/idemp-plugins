@@ -9,7 +9,7 @@ import org.compiere.model.X_M_RMAType;
  * Generated Query Resolver for M_RMAType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_RMATypeQuery extends POQuery<X_M_RMAType> implements GraphQLQueryResolver {
 	@Override

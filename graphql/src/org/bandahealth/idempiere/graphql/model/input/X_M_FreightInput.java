@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCountry;
+import org.compiere.model.MFreight;
 import org.compiere.model.MFreightCategory;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRegion;
 import org.compiere.model.MShipper;
 import org.compiere.model.Query;
-import org.compiere.model.X_M_Freight;
 
 import java.sql.ResultSet;
 
@@ -18,9 +18,9 @@ import java.sql.ResultSet;
  * Generated Model for M_Freight - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_M_FreightInput extends X_M_Freight implements I_M_FreightInput {
+public class X_M_FreightInput extends MFreight implements I_M_FreightInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Country;
@@ -35,7 +35,7 @@ public class X_M_FreightInput extends X_M_Freight implements I_M_FreightInput {
 	 */
 	@JsonCreator
 	public X_M_FreightInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_M_Freight(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MFreight(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}

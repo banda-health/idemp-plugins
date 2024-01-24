@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Document_Action_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_Document_Action_AccessResolver extends POResolver<X_AD_Document_Action_Access> implements GraphQLResolver<X_AD_Document_Action_Access> {
 

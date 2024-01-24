@@ -6,7 +6,7 @@ import org.compiere.model.X_PA_Benchmark;
  * Data Loader for PA_Benchmark - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_PA_BenchmarkDataLoader extends PODataLoader<X_PA_Benchmark> {
 	public static String DATALOADER_PA_Benchmark_BY_ID = "PA_BenchmarkByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.MDunningLevel;
  * Data Loader for C_DunningLevel - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_DunningLevelDataLoader extends PODataLoader<MDunningLevel> {
 	public static String DATALOADER_C_DunningLevel_BY_ID = "C_DunningLevelByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Form;
  * Generated Interface for AD_Form - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_AD_FormInput extends I_AD_Form {
 

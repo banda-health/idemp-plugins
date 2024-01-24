@@ -12,7 +12,7 @@ import java.util.List;
  * Generated Query Resolver for ASP_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_ASP_TabMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

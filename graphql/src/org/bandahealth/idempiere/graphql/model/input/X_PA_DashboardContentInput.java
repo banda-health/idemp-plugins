@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for PA_DashboardContent - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_PA_DashboardContentInput extends MDashboardContent implements I_PA_DashboardContentInput {
 

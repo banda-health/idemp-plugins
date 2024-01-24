@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHDefaultDocActionAccess;
  * Data Loader for BH_Default_DocAction_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_BH_Default_DocAction_AccessDataLoader extends PODataLoader<MBHDefaultDocActionAccess> {
 	public static String DATALOADER_BH_Default_DocAction_Access_BY_ID = "BH_Default_DocAction_AccessByIdDataLoader";

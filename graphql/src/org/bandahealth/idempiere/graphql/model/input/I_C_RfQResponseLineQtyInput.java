@@ -6,7 +6,7 @@ import org.compiere.model.I_C_RfQResponseLineQty;
  * Generated Interface for C_RfQResponseLineQty - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_C_RfQResponseLineQtyInput extends I_C_RfQResponseLineQty {
 

@@ -38,7 +38,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for I_ProductPlanning - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_I_ProductPlanningResolver extends POResolver<X_I_ProductPlanning> implements GraphQLResolver<X_I_ProductPlanning> {
 

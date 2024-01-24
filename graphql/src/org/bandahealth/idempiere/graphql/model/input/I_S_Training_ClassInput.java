@@ -6,7 +6,7 @@ import org.compiere.model.I_S_Training_Class;
  * Generated Interface for S_Training_Class - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_S_Training_ClassInput extends I_S_Training_Class {
 

@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.QueryUtil;
+import org.compiere.model.MTable;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for AD_Table_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_Table_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_AD_Table_Trl_BY_ID = "AD_Table_TrlByIdDataLoader";
@@ -27,7 +27,7 @@ public class X_AD_Table_TrlDataLoader extends PODataLoader<PO> {
 
 	@Override
 	protected String getTableName() {
-		return MTable_BH.Table_Name + "_Trl";
+		return MTable.Table_Name + "_Trl";
 	}
 
 	@Override
@@ -54,10 +54,10 @@ public class X_AD_Table_TrlDataLoader extends PODataLoader<PO> {
 			String whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(keys, parameters);
 			parameters.add(Env.getLanguage(batchLoaderEnvironment.getContext()).getAD_Language());
 			List<PO> translations = new Query(batchLoaderEnvironment.getContext(), getTableName(),
-					MTable_BH.COLUMNNAME_AD_Table_ID + " IN (" + whereClause + ") AND AD_Language = ?", null).setParameters(
+					MTable.COLUMNNAME_AD_Table_ID + " IN (" + whereClause + ") AND AD_Language = ?", null).setParameters(
 					parameters).list();
 			return translations.stream().collect(
-					Collectors.toMap(translation -> translation.get_ValueAsInt(MTable_BH.COLUMNNAME_AD_Table_ID),
+					Collectors.toMap(translation -> translation.get_ValueAsInt(MTable.COLUMNNAME_AD_Table_ID),
 							translation -> translation));
 		});
 	}

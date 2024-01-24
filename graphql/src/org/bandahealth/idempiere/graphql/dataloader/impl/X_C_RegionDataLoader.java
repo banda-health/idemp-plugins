@@ -6,7 +6,7 @@ import org.compiere.model.MRegion;
  * Data Loader for C_Region - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_RegionDataLoader extends PODataLoader<MRegion> {
 	public static String DATALOADER_C_Region_BY_ID = "C_RegionByIdDataLoader";

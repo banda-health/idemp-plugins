@@ -30,7 +30,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PP_Order_Cost - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_PP_Order_CostResolver extends POResolver<X_PP_Order_Cost> implements GraphQLResolver<X_PP_Order_Cost> {
 

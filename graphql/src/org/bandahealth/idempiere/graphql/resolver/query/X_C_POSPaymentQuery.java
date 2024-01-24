@@ -9,7 +9,7 @@ import org.compiere.model.X_C_POSPayment;
  * Generated Query Resolver for C_POSPayment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_POSPaymentQuery extends POQuery<X_C_POSPayment> implements GraphQLQueryResolver {
 	@Override

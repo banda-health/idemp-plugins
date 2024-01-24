@@ -6,7 +6,7 @@ import org.eevolution.model.X_DD_NetworkDistributionLine;
  * Data Loader for DD_NetworkDistributionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_DD_NetworkDistributionLineDataLoader extends PODataLoader<X_DD_NetworkDistributionLine> {
 	public static String DATALOADER_DD_NetworkDistributionLine_BY_ID = "DD_NetworkDistributionLineByIdDataLoader";

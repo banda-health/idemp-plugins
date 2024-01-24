@@ -6,7 +6,7 @@ import org.compiere.model.I_M_BOMProduct;
  * Generated Interface for M_BOMProduct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_M_BOMProductInput extends I_M_BOMProduct {
 

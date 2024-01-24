@@ -1,6 +1,6 @@
 # Generated Schema for PA_Measure - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	PA_MeasureGet(page: Int, size: Int, sort: String, filter: String): PA_MeasureConnection!
 }

@@ -6,7 +6,7 @@ import org.compiere.model.I_A_Depreciation_Workfile;
  * Generated Interface for A_Depreciation_Workfile - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_A_Depreciation_WorkfileInput extends I_A_Depreciation_Workfile {
 

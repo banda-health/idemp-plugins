@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_Warehouse - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_WarehouseResolver extends POResolver<MWarehouse_BH> implements GraphQLResolver<MWarehouse_BH> {
 

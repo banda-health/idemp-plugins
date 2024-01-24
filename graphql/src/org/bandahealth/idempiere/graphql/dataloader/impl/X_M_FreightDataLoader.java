@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.X_M_Freight;
+import org.compiere.model.MFreight;
 
 /**
  * Data Loader for M_Freight - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_M_FreightDataLoader extends PODataLoader<X_M_Freight> {
+public class X_M_FreightDataLoader extends PODataLoader<MFreight> {
 	public static String DATALOADER_M_Freight_BY_ID = "M_FreightByIdDataLoader";
 	public static String DATALOADER_M_Freight_BY_UUID = "M_FreightByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return X_M_Freight.Table_Name;
+		return MFreight.Table_Name;
 	}
 
 	@Override

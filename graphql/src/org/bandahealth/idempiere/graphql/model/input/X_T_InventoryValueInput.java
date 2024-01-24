@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for T_InventoryValue - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_T_InventoryValueInput extends X_T_InventoryValue implements I_T_InventoryValueInput {
 

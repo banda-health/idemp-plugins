@@ -2,15 +2,16 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.base.model.MField_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
-import org.bandahealth.idempiere.base.model.MUserDefTab_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MOrg;
 import org.compiere.model.MStyle;
 import org.compiere.model.MUserDefField;
+import org.compiere.model.MUserDefTab;
 import org.compiere.model.MValRule;
 import org.compiere.model.Query;
 
@@ -20,11 +21,12 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserDef_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserDef_FieldInput {
 
 	private ForeignEntityInput mAD_Field;
+	private ForeignEntityInput mAD_FieldGroup;
 	private ForeignEntityInput mAD_FieldStyle;
 	private ForeignEntityInput mAD_LabelStyle;
 	private ForeignEntityInput mAD_Org;
@@ -32,6 +34,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	private ForeignEntityInput mAD_Reference_Value;
 	private ForeignEntityInput mAD_UserDef_Tab;
 	private ForeignEntityInput mAD_Val_Rule;
+	private ForeignEntityInput mAD_Val_Rule_Lookup;
 	private ForeignEntityInput mPA_DashboardContent;
 	private I_AD_Ref_ListInput mIsAlwaysUpdateable;
 	private I_AD_Ref_ListInput mIsAutocomplete;
@@ -79,6 +82,35 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	@JsonProperty("AD_Field")
 	public ForeignEntityInput AD_Field() {
 		return mAD_Field;
+	}
+
+	/**
+	 * Set Field Group.
+	 *
+	 * @param AD_FieldGroup Logical grouping of fields
+	 */
+	@JsonProperty("AD_FieldGroup")
+	public void setAD_FieldGroupInput(ForeignEntityInput AD_FieldGroup) {
+		this.mAD_FieldGroup = AD_FieldGroup;
+		MFieldGroup_BH foreignEntity;
+		if (AD_FieldGroup != null &&
+				(foreignEntity = new Query(getCtx(), "AD_FieldGroup", "AD_FieldGroup_UU=?", get_TrxName())
+						.setParameters(AD_FieldGroup.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_FieldGroup_ID(foreignEntity.get_ID());
+		} else {
+			super.setAD_FieldGroup_ID(0);
+		}
+	}
+
+	/**
+	 * Get Field Group.
+	 *
+	 * @return Logical grouping of fields
+	 */
+	@JsonProperty("AD_FieldGroup")
+	public ForeignEntityInput AD_FieldGroup() {
+		return mAD_FieldGroup;
 	}
 
 	/**
@@ -261,7 +293,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	@JsonProperty("AD_UserDef_Tab")
 	public void setAD_UserDef_TabInput(ForeignEntityInput AD_UserDef_Tab) {
 		this.mAD_UserDef_Tab = AD_UserDef_Tab;
-		MUserDefTab_BH foreignEntity;
+		MUserDefTab foreignEntity;
 		if (get_ID() == 0 && AD_UserDef_Tab != null &&
 				(foreignEntity = new Query(getCtx(), "AD_UserDef_Tab", "AD_UserDef_Tab_UU=?", get_TrxName())
 						.setParameters(AD_UserDef_Tab.getID())
@@ -307,6 +339,35 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	@JsonProperty("AD_Val_Rule")
 	public ForeignEntityInput AD_Val_Rule() {
 		return mAD_Val_Rule;
+	}
+
+	/**
+	 * Set Dynamic Validation (Lookup).
+	 *
+	 * @param AD_Val_Rule_Lookup Override Dynamic Validation Rule for Lookup Window
+	 */
+	@JsonProperty("AD_Val_Rule_Lookup")
+	public void setAD_Val_Rule_LookupInput(ForeignEntityInput AD_Val_Rule_Lookup) {
+		this.mAD_Val_Rule_Lookup = AD_Val_Rule_Lookup;
+		MValRule foreignEntity;
+		if (AD_Val_Rule_Lookup != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
+						.setParameters(AD_Val_Rule_Lookup.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Val_Rule_Lookup_ID(foreignEntity.get_ID());
+		} else {
+			super.setAD_Val_Rule_Lookup_ID(0);
+		}
+	}
+
+	/**
+	 * Get Dynamic Validation (Lookup).
+	 *
+	 * @return Override Dynamic Validation Rule for Lookup Window
+	 */
+	@JsonProperty("AD_Val_Rule_Lookup")
+	public ForeignEntityInput AD_Val_Rule_Lookup() {
+		return mAD_Val_Rule_Lookup;
 	}
 
 	/**

@@ -6,7 +6,7 @@ import org.compiere.model.MRecordAccess;
  * Data Loader for AD_Record_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_Record_AccessDataLoader extends PODataLoader<MRecordAccess> {
 	public static String DATALOADER_AD_Record_Access_BY_ID = "AD_Record_AccessByIdDataLoader";

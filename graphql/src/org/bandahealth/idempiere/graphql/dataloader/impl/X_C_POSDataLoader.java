@@ -6,7 +6,7 @@ import org.compiere.model.MPOS;
  * Data Loader for C_POS - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_POSDataLoader extends PODataLoader<MPOS> {
 	public static String DATALOADER_C_POS_BY_ID = "C_POSByIdDataLoader";

@@ -9,7 +9,7 @@ import org.compiere.model.X_T_1099Extract;
  * Generated Query Resolver for T_1099Extract - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_T_1099ExtractQuery extends POQuery<X_T_1099Extract> implements GraphQLQueryResolver {
 	@Override

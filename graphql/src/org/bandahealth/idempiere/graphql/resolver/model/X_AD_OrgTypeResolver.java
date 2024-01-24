@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_OrgType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_OrgTypeResolver extends POResolver<X_AD_OrgType> implements GraphQLResolver<X_AD_OrgType> {
 

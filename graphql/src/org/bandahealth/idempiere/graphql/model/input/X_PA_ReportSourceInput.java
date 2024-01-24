@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
-import org.bandahealth.idempiere.base.model.MReportLine_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
@@ -15,7 +14,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.MSalesRegion;
 import org.compiere.model.Query;
-import org.compiere.report.MReportSource;
+import org.compiere.model.X_PA_ReportLine;
+import org.compiere.model.X_PA_ReportSource;
 
 import java.sql.ResultSet;
 
@@ -23,9 +23,9 @@ import java.sql.ResultSet;
  * Generated Model for PA_ReportSource - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_PA_ReportSourceInput extends MReportSource implements I_PA_ReportSourceInput {
+public class X_PA_ReportSourceInput extends X_PA_ReportSource implements I_PA_ReportSourceInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Activity;
@@ -44,7 +44,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	 */
 	@JsonCreator
 	public X_PA_ReportSourceInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MReportSource(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new X_PA_ReportSource(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}
@@ -345,7 +345,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("PA_ReportLine")
 	public void setPA_ReportLineInput(ForeignEntityInput PA_ReportLine) {
 		this.mPA_ReportLine = PA_ReportLine;
-		MReportLine_BH foreignEntity;
+		X_PA_ReportLine foreignEntity;
 		if (get_ID() == 0 && PA_ReportLine != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
 						.setParameters(PA_ReportLine.getID())

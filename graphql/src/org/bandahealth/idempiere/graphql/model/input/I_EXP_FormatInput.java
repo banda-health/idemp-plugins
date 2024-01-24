@@ -6,7 +6,7 @@ import org.compiere.model.I_EXP_Format;
  * Generated Interface for EXP_Format - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_EXP_FormatInput extends I_EXP_Format {
 

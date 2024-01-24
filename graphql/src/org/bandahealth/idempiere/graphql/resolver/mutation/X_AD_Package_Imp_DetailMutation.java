@@ -12,7 +12,7 @@ import java.util.List;
  * Generated Query Resolver for AD_Package_Imp_Detail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_Package_Imp_DetailMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

@@ -1,6 +1,6 @@
 # Generated Schema for M_Product_BOM - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	M_Product_BOMGet(page: Int, size: Int, sort: String, filter: String): M_Product_BOMConnection!
 }

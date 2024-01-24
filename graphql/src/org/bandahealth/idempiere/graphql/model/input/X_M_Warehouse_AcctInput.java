@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for M_Warehouse_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_Warehouse_AcctInput {
 

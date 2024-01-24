@@ -1,6 +1,6 @@
 # Generated Schema for M_DiscountSchemaLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	M_DiscountSchemaLineGet(page: Int, size: Int, sort: String, filter: String): M_DiscountSchemaLineConnection!
 }
@@ -38,6 +38,8 @@ type M_DiscountSchemaLine {
 	Group2: String
 	# The record is active in the system
 	IsActive: Boolean!
+	# take all PO prices into account
+	IsIgnoreIsCurrentVendor: Boolean!
 	# Amount added to the converted/copied price before multiplying
 	Limit_AddAmt: BigDecimal!
 	# Base price for calculation of the new price
@@ -93,6 +95,8 @@ type M_DiscountSchemaLine {
 	Updated: Date!
 	# User who updated this records
 	UpdatedBy: AD_User!
+	# Product Category of the Business Partner
+	VendorCategory: String
 }
 
 input M_DiscountSchemaLineInput {
@@ -112,6 +116,8 @@ input M_DiscountSchemaLineInput {
 	Group2: String
 	# The record is active in the system
 	IsActive: Boolean
+	# take all PO prices into account
+	IsIgnoreIsCurrentVendor: Boolean
 	# Amount added to the converted/copied price before multiplying
 	Limit_AddAmt: BigDecimal
 	# Base price for calculation of the new price
@@ -163,4 +169,6 @@ input M_DiscountSchemaLineInput {
 	Std_MinAmt: BigDecimal
 	# Rounding rule for calculated price
 	Std_Rounding: AD_Ref_ListInput
+	# Product Category of the Business Partner
+	VendorCategory: String
 }

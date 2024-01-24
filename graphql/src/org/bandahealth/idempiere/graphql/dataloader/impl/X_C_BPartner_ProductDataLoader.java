@@ -6,7 +6,7 @@ import org.compiere.model.MBPartnerProduct;
  * Data Loader for C_BPartner_Product - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_BPartner_ProductDataLoader extends PODataLoader<MBPartnerProduct> {
 	public static String DATALOADER_C_BPartner_Product_BY_ID = "C_BPartner_ProductByIdDataLoader";

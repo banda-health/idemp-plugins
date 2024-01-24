@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.X_BH_I_Product_Quantity;
  * Data Loader for BH_I_Product_Quantity - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_BH_I_Product_QuantityDataLoader extends PODataLoader<X_BH_I_Product_Quantity> {
 	public static String DATALOADER_BH_I_Product_Quantity_BY_ID = "BH_I_Product_QuantityByIdDataLoader";

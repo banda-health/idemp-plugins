@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TabDataLoader;
@@ -10,6 +9,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
 import org.compiere.model.MTab;
+import org.compiere.model.MTable;
 import org.compiere.model.MUserQuery;
 import org.compiere.model.MWindow;
 import org.compiere.model.X_AD_Role;
@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_UserQuery - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_UserQueryResolver extends POResolver<MUserQuery> implements GraphQLResolver<MUserQuery> {
 
@@ -62,11 +62,11 @@ public class X_AD_UserQueryResolver extends POResolver<MUserQuery> implements Gr
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable_BH> AD_Table(MUserQuery entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable> AD_Table(MUserQuery entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTable_BH> dataLoader =
+		DataLoader<Integer, MTable> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
@@ -99,6 +99,10 @@ public class X_AD_UserQueryResolver extends POResolver<MUserQuery> implements Gr
 		DataLoader<Integer, MWindow> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
 		return dataLoader.load(entity.getAD_Window_ID());
+	}
+
+	public Boolean IsDefault(MUserQuery entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
 	}
 
 }

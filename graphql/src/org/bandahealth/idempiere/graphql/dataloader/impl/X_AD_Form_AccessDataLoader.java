@@ -6,7 +6,7 @@ import org.compiere.model.MFormAccess;
  * Data Loader for AD_Form_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_Form_AccessDataLoader extends PODataLoader<MFormAccess> {
 	public static String DATALOADER_AD_Form_Access_BY_ID = "AD_Form_AccessByIdDataLoader";

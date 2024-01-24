@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Column;
  * Generated Interface for AD_Column - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_AD_ColumnInput extends I_AD_Column {
 
@@ -135,6 +135,20 @@ public interface I_AD_ColumnInput extends I_AD_Column {
 	 * @return Dynamic Validation Rule
 	 */
 	ForeignEntityInput AD_Val_Rule();
+
+	/**
+	 * Set AD_Val_Rule_Lookup.
+	 *
+	 * @param AD_Val_Rule_Lookup Override Dynamic Validation Rule for Lookup Window
+	 */
+	void setAD_Val_Rule_LookupInput(ForeignEntityInput AD_Val_Rule_Lookup);
+
+	/**
+	 * Get AD_Val_Rule_Lookup.
+	 *
+	 * @return Override Dynamic Validation Rule for Lookup Window
+	 */
+	ForeignEntityInput AD_Val_Rule_Lookup();
 
 	/**
 	 * Set AD_EntityType.

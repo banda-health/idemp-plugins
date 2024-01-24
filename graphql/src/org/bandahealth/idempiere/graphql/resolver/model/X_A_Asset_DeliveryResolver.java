@@ -19,7 +19,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for A_Asset_Delivery - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_A_Asset_DeliveryResolver extends POResolver<MAssetDelivery> implements GraphQLResolver<MAssetDelivery> {
 

@@ -1,6 +1,6 @@
 # Generated Schema for AD_Process - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	AD_ProcessGet(page: Int, size: Int, sort: String, filter: String): AD_ProcessConnection!
 }
@@ -58,8 +58,6 @@ type AD_Process {
 	IsDirectPrint: Boolean!
 	# Indicates a Report record
 	IsReport: Boolean!
-	# Run this Process on Server only
-	IsServerProcess: Boolean!
 	JasperReport: String
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -117,8 +115,6 @@ input AD_ProcessInput {
 	IsDirectPrint: Boolean
 	# Indicates a Report record
 	IsReport: Boolean
-	# Run this Process on Server only
-	IsServerProcess: Boolean
 	JasperReport: String
 	# Alphanumeric identifier of the entity
 	Name: String

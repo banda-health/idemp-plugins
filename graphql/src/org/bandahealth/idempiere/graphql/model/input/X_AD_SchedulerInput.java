@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MMailText;
 import org.compiere.model.MOrg;
 import org.compiere.model.MSchedule;
 import org.compiere.model.MScheduler;
+import org.compiere.model.MTable;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
 
@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Scheduler - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInput {
 
@@ -192,7 +192,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
+		MTable foreignEntity;
 		if (AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())

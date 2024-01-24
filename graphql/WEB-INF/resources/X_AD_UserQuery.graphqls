@@ -1,6 +1,6 @@
 # Generated Schema for AD_UserQuery - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	AD_UserQueryGet(page: Int, size: Int, sort: String, filter: String): AD_UserQueryConnection!
 }
@@ -41,6 +41,8 @@ type AD_UserQuery {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -69,6 +71,8 @@ input AD_UserQueryInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
 }

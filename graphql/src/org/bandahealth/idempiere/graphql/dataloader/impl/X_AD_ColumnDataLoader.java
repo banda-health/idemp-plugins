@@ -6,7 +6,7 @@ import org.compiere.model.MColumn;
  * Data Loader for AD_Column - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_ColumnDataLoader extends PODataLoader<MColumn> {
 	public static String DATALOADER_AD_Column_BY_ID = "AD_ColumnByIdDataLoader";

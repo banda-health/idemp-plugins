@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for R_StatusCategory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_R_StatusCategoryResolver extends POResolver<MStatusCategory> implements GraphQLResolver<MStatusCategory> {
 

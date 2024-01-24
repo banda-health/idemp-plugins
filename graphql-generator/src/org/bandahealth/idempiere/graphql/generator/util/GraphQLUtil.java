@@ -25,11 +25,9 @@ public class GraphQLUtil {
 	public static Map<String, ModelMap> getModelsForTables(String customModelDirectory) throws IOException {
 		// Look through all files and find the generated class
 		String currentPath = Path.of("").toAbsolutePath().toString();
-		List<File> modelFiles = Stream.concat(Stream.concat(
+		List<File> modelFiles = Stream.concat(
 				Arrays.stream(
 						Objects.requireNonNull(new File(currentPath + "/org.adempiere.base/src/org/compiere/model").listFiles())),
-				Arrays.stream(
-						Objects.requireNonNull(new File(currentPath + "/org.adempiere.base/src/org/compiere/report").listFiles()))),
 				Arrays.stream(
 						Objects.requireNonNull(new File(currentPath + "/org.adempiere.base/src/org/eevolution/model").listFiles()))
 		).collect(Collectors.toList());
@@ -84,7 +82,7 @@ public class GraphQLUtil {
 			} else if (content.contains(" extends ")) {
 				// This is a manual model of some sort, so put it in the appropriate place if it's not final
 				if (!content.contains(" final class " + structureName)) {
-					String extendedClassName = content.split(" extends ")[1].trim().split("[\\s{]")[0].split(",")[0].trim();
+					String extendedClassName = content.split(" extends ")[1].trim().split("\\s")[0].split(",")[0].trim();
 					if (manualClassByExtendedClass.containsKey(extendedClassName)) {
 						log.warning(("More than one file extends class " + extendedClassName + ": " +
 								manualClassByExtendedClass.get(extendedClassName) + " and " + structureName));

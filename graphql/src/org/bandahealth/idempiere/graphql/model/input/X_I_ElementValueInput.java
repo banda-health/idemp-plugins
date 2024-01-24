@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for I_ElementValue - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_ElementValueInput {
 

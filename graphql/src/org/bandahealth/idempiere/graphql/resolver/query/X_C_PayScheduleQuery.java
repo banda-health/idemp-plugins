@@ -9,7 +9,7 @@ import org.compiere.model.MPaySchedule;
  * Generated Query Resolver for C_PaySchedule - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_PayScheduleQuery extends POQuery<MPaySchedule> implements GraphQLQueryResolver {
 	@Override

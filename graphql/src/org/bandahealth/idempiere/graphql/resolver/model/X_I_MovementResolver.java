@@ -31,7 +31,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for I_Movement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_I_MovementResolver extends POResolver<X_I_Movement> implements GraphQLResolver<X_I_Movement> {
 

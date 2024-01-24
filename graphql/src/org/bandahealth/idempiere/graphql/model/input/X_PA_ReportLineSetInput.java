@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.report.MReportLineSet;
+import org.compiere.model.X_PA_ReportLineSet;
 
 import java.sql.ResultSet;
 
@@ -13,9 +13,9 @@ import java.sql.ResultSet;
  * Generated Model for PA_ReportLineSet - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_PA_ReportLineSetInput extends MReportLineSet implements I_PA_ReportLineSetInput {
+public class X_PA_ReportLineSetInput extends X_PA_ReportLineSet implements I_PA_ReportLineSetInput {
 
 	private ForeignEntityInput mAD_Org;
 
@@ -24,7 +24,7 @@ public class X_PA_ReportLineSetInput extends MReportLineSet implements I_PA_Repo
 	 */
 	@JsonCreator
 	public X_PA_ReportLineSetInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MReportLineSet(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new X_PA_ReportLineSet(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}

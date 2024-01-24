@@ -6,7 +6,7 @@ import org.eevolution.model.X_HR_Year;
  * Data Loader for HR_Year - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_HR_YearDataLoader extends PODataLoader<X_HR_Year> {
 	public static String DATALOADER_HR_Year_BY_ID = "HR_YearByIdDataLoader";

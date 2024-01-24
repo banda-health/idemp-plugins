@@ -9,7 +9,7 @@ import org.compiere.model.X_PA_Ratio;
  * Generated Query Resolver for PA_Ratio - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_PA_RatioQuery extends POQuery<X_PA_Ratio> implements GraphQLQueryResolver {
 	@Override

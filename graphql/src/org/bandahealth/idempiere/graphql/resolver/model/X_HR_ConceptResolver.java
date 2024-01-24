@@ -26,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for HR_Concept - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_HR_ConceptResolver extends POResolver<X_HR_Concept> implements GraphQLResolver<X_HR_Concept> {
 

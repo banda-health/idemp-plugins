@@ -200,8 +200,13 @@ public class BandaObjectMapper {
 					addMapping(I_AD_TreeNodeU2Input.class, X_AD_TreeNodeU2Input.class);
 					addMapping(I_AD_TreeNodeU3Input.class, X_AD_TreeNodeU3Input.class);
 					addMapping(I_AD_TreeNodeU4Input.class, X_AD_TreeNodeU4Input.class);
+					addMapping(I_AD_Tree_FavoriteInput.class, MTreeFavoriteInput.class);
+					addMapping(I_AD_Tree_Favorite_NodeInput.class, MTreeFavoriteNodeInput.class);
 					addMapping(I_AD_UserBPAccessInput.class, MUserBPAccessInput.class);
 					addMapping(I_AD_UserDef_FieldInput.class, MUserDefFieldInput.class);
+					addMapping(I_AD_UserDef_InfoInput.class, MUserDefInfoInput.class);
+					addMapping(I_AD_UserDef_Info_ColumnInput.class, MUserDefInfoColumnInput.class);
+					addMapping(I_AD_UserDef_Info_RelatedInput.class, MUserDefInfoRelatedInput.class);
 					addMapping(I_AD_UserDef_ProcInput.class, MUserDefProcInput.class);
 					addMapping(I_AD_UserDef_Proc_ParameterInput.class, MUserDefProcParameterInput.class);
 					addMapping(I_AD_UserDef_TabInput.class, MUserDefTabInput.class);

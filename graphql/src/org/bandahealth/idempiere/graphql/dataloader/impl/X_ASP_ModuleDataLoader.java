@@ -6,7 +6,7 @@ import org.compiere.model.X_ASP_Module;
  * Data Loader for ASP_Module - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_ASP_ModuleDataLoader extends PODataLoader<X_ASP_Module> {
 	public static String DATALOADER_ASP_Module_BY_ID = "ASP_ModuleByIdDataLoader";

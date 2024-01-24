@@ -9,7 +9,7 @@ import org.compiere.model.MIssueSystem;
  * Generated Query Resolver for R_IssueSystem - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_R_IssueSystemQuery extends POQuery<MIssueSystem> implements GraphQLQueryResolver {
 	@Override

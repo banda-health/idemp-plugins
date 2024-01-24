@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
-import org.bandahealth.idempiere.base.model.MReportLine_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_GL_BudgetDataLoader;
@@ -13,7 +12,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLine_TrlData
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.PO;
 import org.compiere.model.X_GL_Budget;
-import org.compiere.report.MReportLineSet;
+import org.compiere.model.X_PA_ReportLine;
+import org.compiere.model.X_PA_ReportLineSet;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
 import org.dataloader.DataLoader;
@@ -26,9 +26,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PA_ReportLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implements GraphQLResolver<MReportLine_BH> {
+public class X_PA_ReportLineResolver extends POResolver<X_PA_ReportLine> implements GraphQLResolver<X_PA_ReportLine> {
 
 
 	static Map<String, String> CALCULATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -39,7 +39,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 			put("R", "1455fb91-3bd5-4f0f-b156-03bb03073ff9");
 		}
 	};
-	public CompletableFuture<MRefList_BH> CalculationType(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CalculationType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCalculationType())) {
 			return null;
 		}
@@ -53,14 +53,14 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 	 *
 	 * @return Optional short description of the record
 	 */
-	public CompletableFuture<String> Description(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<String> Description(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
 			return CompletableFuture.supplyAsync(entity::getDescription);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_ReportLine_TrlDataLoader.DATALOADER_PA_ReportLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MReportLine_BH.COLUMNNAME_Description));
+				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportLine.COLUMNNAME_Description));
 	}
 
 
@@ -69,7 +69,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 	 *
 	 * @return General Ledger Budget
 	 */
-	public CompletableFuture<X_GL_Budget> GL_Budget(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_GL_Budget> GL_Budget(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (entity.getGL_Budget_ID() <= 0) {
 			return null;
 		}
@@ -78,15 +78,15 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 		return dataLoader.load(entity.getGL_Budget_ID());
 	}
 
-	public Boolean IsInverseDebitCreditOnly(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public Boolean IsInverseDebitCreditOnly(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		return entity.isInverseDebitCreditOnly();
 	}
 
-	public Boolean IsPrinted(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public Boolean IsPrinted(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		return entity.isPrinted();
 	}
 
-	public Boolean IsShowOppositeSign(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public Boolean IsShowOppositeSign(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		return entity.isShowOppositeSign();
 	}
 
@@ -97,7 +97,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 			put("B", "bb000455-9057-4c8a-a656-b0f1074e3fd3");
 		}
 	};
-	public CompletableFuture<MRefList_BH> LineType(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> LineType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getLineType())) {
 			return null;
 		}
@@ -111,14 +111,14 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 	 *
 	 * @return Alphanumeric identifier of the entity
 	 */
-	public CompletableFuture<String> Name(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<String> Name(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
 			return CompletableFuture.supplyAsync(entity::getName);
 		}
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_ReportLine_TrlDataLoader.DATALOADER_PA_ReportLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MReportLine_BH.COLUMNNAME_Name));
+				.thenApply(translation -> translation.get_ValueAsString(X_PA_ReportLine.COLUMNNAME_Name));
 	}
 
 
@@ -127,11 +127,11 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 	 *
 	 * @return First operand for calculation
 	 */
-	public CompletableFuture<MReportLine_BH> Oper_1(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_PA_ReportLine> Oper_1(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (entity.getOper_1_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MReportLine_BH> dataLoader =
+		DataLoader<Integer, X_PA_ReportLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineDataLoader.DATALOADER_PA_ReportLine_BY_ID);
 		return dataLoader.load(entity.getOper_1_ID());
 	}
@@ -142,11 +142,11 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 	 *
 	 * @return Second operand for calculation
 	 */
-	public CompletableFuture<MReportLine_BH> Oper_2(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_PA_ReportLine> Oper_2(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (entity.getOper_2_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MReportLine_BH> dataLoader =
+		DataLoader<Integer, X_PA_ReportLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineDataLoader.DATALOADER_PA_ReportLine_BY_ID);
 		return dataLoader.load(entity.getOper_2_ID());
 	}
@@ -161,7 +161,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 			put("SD", "9e450ade-e54b-46e1-b96f-36c02b3090eb");
 		}
 	};
-	public CompletableFuture<MRefList_BH> OverlineStrokeType(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> OverlineStrokeType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getOverlineStrokeType())) {
 			return null;
 		}
@@ -176,11 +176,11 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 	 *
 	 * @return Report Line Set
 	 */
-	public CompletableFuture<MReportLineSet> PA_ReportLineSet(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_PA_ReportLineSet> PA_ReportLineSet(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportLineSet_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MReportLineSet> dataLoader =
+		DataLoader<Integer, X_PA_ReportLineSet> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineSetDataLoader.DATALOADER_PA_ReportLineSet_BY_ID);
 		return dataLoader.load(entity.getPA_ReportLineSet_ID());
 	}
@@ -195,7 +195,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 			put("R", "f6d19951-ac66-4c69-8626-6252daff15ae");
 		}
 	};
-	public CompletableFuture<MRefList_BH> PAAmountType(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PAAmountType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPAAmountType())) {
 			return null;
 		}
@@ -212,7 +212,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 			put("N", "aec483ce-9299-4786-a0cb-a1a851362950");
 		}
 	};
-	public CompletableFuture<MRefList_BH> PAPeriodType(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PAPeriodType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPAPeriodType())) {
 			return null;
 		}
@@ -230,7 +230,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 			put("R", "c1e61fc6-ba26-400c-9ae4-716b3c67e1d5");
 		}
 	};
-	public CompletableFuture<MRefList_BH> PostingType(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> PostingType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getPostingType())) {
 			return null;
 		}
@@ -249,7 +249,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine_BH> implemen
 			put("SD", "9e450ade-e54b-46e1-b96f-36c02b3090eb");
 		}
 	};
-	public CompletableFuture<MRefList_BH> UnderlineStrokeType(MReportLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> UnderlineStrokeType(X_PA_ReportLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getUnderlineStrokeType())) {
 			return null;
 		}

@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_AcctSchema_GL - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_AcctSchema_GLResolver extends POResolver<MAcctSchemaGL> implements GraphQLResolver<MAcctSchemaGL> {
 

@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for M_BOMProduct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductInput {
 

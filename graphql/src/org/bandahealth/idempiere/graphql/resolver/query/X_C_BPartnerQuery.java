@@ -9,7 +9,7 @@ import org.bandahealth.idempiere.graphql.model.Connection;
  * Generated Query Resolver for C_BPartner - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_BPartnerQuery extends POQuery<MBPartner_BH> implements GraphQLQueryResolver {
 	@Override

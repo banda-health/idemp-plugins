@@ -9,7 +9,7 @@ import org.compiere.model.X_CM_ChatUpdate;
  * Generated Query Resolver for CM_ChatUpdate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_CM_ChatUpdateQuery extends POQuery<X_CM_ChatUpdate> implements GraphQLQueryResolver {
 	@Override

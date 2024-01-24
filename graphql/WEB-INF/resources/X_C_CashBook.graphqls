@@ -1,6 +1,6 @@
 # Generated Schema for C_CashBook - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	C_CashBookGet(page: Int, size: Int, sort: String, filter: String): C_CashBookConnection!
 }

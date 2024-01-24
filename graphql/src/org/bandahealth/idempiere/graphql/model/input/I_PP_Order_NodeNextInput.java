@@ -6,7 +6,7 @@ import org.eevolution.model.I_PP_Order_NodeNext;
  * Generated Interface for PP_Order_NodeNext - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_PP_Order_NodeNextInput extends I_PP_Order_NodeNext {
 

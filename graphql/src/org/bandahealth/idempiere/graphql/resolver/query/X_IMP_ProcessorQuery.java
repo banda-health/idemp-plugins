@@ -9,7 +9,7 @@ import org.compiere.model.X_IMP_Processor;
  * Generated Query Resolver for IMP_Processor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_IMP_ProcessorQuery extends POQuery<X_IMP_Processor> implements GraphQLQueryResolver {
 	@Override

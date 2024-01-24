@@ -6,7 +6,7 @@ import org.compiere.model.X_R_IssueStatus;
  * Data Loader for R_IssueStatus - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_R_IssueStatusDataLoader extends PODataLoader<X_R_IssueStatus> {
 	public static String DATALOADER_R_IssueStatus_BY_ID = "R_IssueStatusByIdDataLoader";

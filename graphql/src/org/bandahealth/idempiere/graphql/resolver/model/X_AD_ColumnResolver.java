@@ -5,7 +5,6 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ChartDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Column_TrlDataLoader;
@@ -22,6 +21,7 @@ import org.compiere.model.MChart;
 import org.compiere.model.MColumn;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MEntityType;
+import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.M_Element;
 import org.compiere.model.PO;
@@ -37,7 +37,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Column - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLResolver<MColumn> {
 
@@ -123,11 +123,11 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable_BH> AD_Table(MColumn entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable> AD_Table(MColumn entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTable_BH> dataLoader =
+		DataLoader<Integer, MTable> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}
@@ -145,6 +145,21 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		DataLoader<Integer, MValRule> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
+	}
+
+
+	/**
+	 * Get Dynamic Validation (Lookup).
+	 *
+	 * @return Override Dynamic Validation Rule for Lookup Window
+	 */
+	public CompletableFuture<MValRule> AD_Val_Rule_Lookup(MColumn entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Val_Rule_Lookup_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MValRule> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
+		return dataLoader.load(entity.getAD_Val_Rule_Lookup_ID());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {

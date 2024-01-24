@@ -6,7 +6,7 @@ import org.compiere.model.MHierarchy;
  * Data Loader for PA_Hierarchy - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_PA_HierarchyDataLoader extends PODataLoader<MHierarchy> {
 	public static String DATALOADER_PA_Hierarchy_BY_ID = "PA_HierarchyByIdDataLoader";

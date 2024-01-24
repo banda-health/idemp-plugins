@@ -6,7 +6,7 @@ import org.compiere.model.I_S_TimeExpense;
  * Generated Interface for S_TimeExpense - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_S_TimeExpenseInput extends I_S_TimeExpense {
 

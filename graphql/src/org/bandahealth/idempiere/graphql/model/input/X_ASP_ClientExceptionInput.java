@@ -23,7 +23,7 @@ import java.sql.ResultSet;
  * Generated Model for ASP_ClientException - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements I_ASP_ClientExceptionInput {
 

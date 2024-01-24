@@ -6,7 +6,7 @@ import org.eevolution.model.X_HR_Movement;
  * Data Loader for HR_Movement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_HR_MovementDataLoader extends PODataLoader<X_HR_Movement> {
 	public static String DATALOADER_HR_Movement_BY_ID = "HR_MovementByIdDataLoader";

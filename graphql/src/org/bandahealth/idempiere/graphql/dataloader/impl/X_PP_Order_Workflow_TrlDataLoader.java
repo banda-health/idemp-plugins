@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for PP_Order_Workflow_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_PP_Order_Workflow_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_PP_Order_Workflow_Trl_BY_ID = "PP_Order_Workflow_TrlByIdDataLoader";

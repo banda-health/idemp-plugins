@@ -6,7 +6,7 @@ import org.compiere.model.MAcctProcessor;
  * Data Loader for C_AcctProcessor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_AcctProcessorDataLoader extends PODataLoader<MAcctProcessor> {
 	public static String DATALOADER_C_AcctProcessor_BY_ID = "C_AcctProcessorByIdDataLoader";

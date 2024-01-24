@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for T_ReportStatement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_T_ReportStatementResolver extends POResolver<X_T_ReportStatement> implements GraphQLResolver<X_T_ReportStatement> {
 

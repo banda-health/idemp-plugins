@@ -9,7 +9,7 @@ import org.compiere.model.X_M_RelatedProduct;
  * Generated Query Resolver for M_RelatedProduct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_RelatedProductQuery extends POQuery<X_M_RelatedProduct> implements GraphQLQueryResolver {
 	@Override

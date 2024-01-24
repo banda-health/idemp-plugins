@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  * Generated Model for R_Status - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 

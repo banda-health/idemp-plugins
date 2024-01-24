@@ -33,7 +33,7 @@ import java.sql.Timestamp;
  * Generated Model for R_RequestAction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_R_RequestActionInput extends MRequestAction implements I_R_RequestActionInput {
 

@@ -6,7 +6,7 @@ import org.compiere.model.X_A_Asset_Reval_Index;
  * Data Loader for A_Asset_Reval_Index - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_A_Asset_Reval_IndexDataLoader extends PODataLoader<X_A_Asset_Reval_Index> {
 	public static String DATALOADER_A_Asset_Reval_Index_BY_ID = "A_Asset_Reval_IndexByIdDataLoader";

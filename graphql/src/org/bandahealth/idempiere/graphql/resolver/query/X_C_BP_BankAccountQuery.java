@@ -9,7 +9,7 @@ import org.compiere.model.MBPBankAccount;
  * Generated Query Resolver for C_BP_BankAccount - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_BP_BankAccountQuery extends POQuery<MBPBankAccount> implements GraphQLQueryResolver {
 	@Override

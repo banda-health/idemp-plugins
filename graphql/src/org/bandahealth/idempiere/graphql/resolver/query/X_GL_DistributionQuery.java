@@ -9,7 +9,7 @@ import org.compiere.model.MDistribution;
  * Generated Query Resolver for GL_Distribution - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_GL_DistributionQuery extends POQuery<MDistribution> implements GraphQLQueryResolver {
 	@Override

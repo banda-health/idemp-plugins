@@ -1,6 +1,6 @@
 # Generated Schema for AD_Column - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	AD_ColumnGet(page: Int, size: Int, sort: String, filter: String): AD_ColumnConnection!
 }
@@ -34,6 +34,8 @@ type AD_Column {
 	AD_Table: AD_Table!
 	# Dynamic Validation Rule
 	AD_Val_Rule: AD_Val_Rule
+	# Override Dynamic Validation Rule for Lookup Window
+	AD_Val_Rule_Lookup: AD_Val_Rule
 	# Fully qualified class names and method - separated by semicolons
 	Callout: String
 	# Name of the column in the database
@@ -134,6 +136,8 @@ input AD_ColumnInput {
 	AD_Table: ForeignEntityInput
 	# Dynamic Validation Rule
 	AD_Val_Rule: ForeignEntityInput
+	# Override Dynamic Validation Rule for Lookup Window
+	AD_Val_Rule_Lookup: ForeignEntityInput
 	# Fully qualified class names and method - separated by semicolons
 	Callout: String
 	# Name of the column in the database

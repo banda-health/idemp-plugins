@@ -6,7 +6,7 @@ import org.compiere.model.I_I_Asset;
  * Generated Interface for I_Asset - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_I_AssetInput extends I_I_Asset {
 

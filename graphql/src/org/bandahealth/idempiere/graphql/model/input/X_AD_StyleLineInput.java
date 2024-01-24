@@ -6,8 +6,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
 import org.compiere.model.MStyle;
+import org.compiere.model.MStyleLine;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_StyleLine;
 
 import java.sql.ResultSet;
 
@@ -15,9 +15,9 @@ import java.sql.ResultSet;
  * Generated Model for AD_StyleLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_AD_StyleLineInput extends X_AD_StyleLine implements I_AD_StyleLineInput {
+public class X_AD_StyleLineInput extends MStyleLine implements I_AD_StyleLineInput {
 
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
@@ -28,7 +28,7 @@ public class X_AD_StyleLineInput extends X_AD_StyleLine implements I_AD_StyleLin
 	 */
 	@JsonCreator
 	public X_AD_StyleLineInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_AD_StyleLine(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MStyleLine(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}

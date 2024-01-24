@@ -6,7 +6,7 @@ import org.compiere.model.MIssueProject;
  * Data Loader for R_IssueProject - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_R_IssueProjectDataLoader extends PODataLoader<MIssueProject> {
 	public static String DATALOADER_R_IssueProject_BY_ID = "R_IssueProjectByIdDataLoader";

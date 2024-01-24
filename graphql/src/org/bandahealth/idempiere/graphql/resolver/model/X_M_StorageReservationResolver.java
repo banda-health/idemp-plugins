@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_StorageReservation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_StorageReservationResolver extends POResolver<MStorageReservation> implements GraphQLResolver<MStorageReservation> {
 

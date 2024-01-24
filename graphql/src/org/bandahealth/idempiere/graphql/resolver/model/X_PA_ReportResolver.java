@@ -14,9 +14,9 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MReportCube;
 import org.compiere.model.X_AD_PrintFormat;
-import org.compiere.report.MReport;
-import org.compiere.report.MReportColumnSet;
-import org.compiere.report.MReportLineSet;
+import org.compiere.model.X_PA_Report;
+import org.compiere.model.X_PA_ReportColumnSet;
+import org.compiere.model.X_PA_ReportLineSet;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -25,9 +25,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PA_Report - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLResolver<MReport> {
+public class X_PA_ReportResolver extends POResolver<X_PA_Report> implements GraphQLResolver<X_PA_Report> {
 
 
 
@@ -36,7 +36,7 @@ public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLR
 	 *
 	 * @return Data Print Format
 	 */
-	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(MReport entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(X_PA_Report entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_PrintFormat_ID() <= 0) {
 			return null;
 		}
@@ -51,7 +51,7 @@ public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLR
 	 *
 	 * @return Rules for accounting
 	 */
-	public CompletableFuture<MAcctSchema> C_AcctSchema(MReport entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MAcctSchema> C_AcctSchema(X_PA_Report entity, DataFetchingEnvironment environment) {
 		if (entity.getC_AcctSchema_ID() <= 0) {
 			return null;
 		}
@@ -66,7 +66,7 @@ public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLR
 	 *
 	 * @return Accounting Calendar Name
 	 */
-	public CompletableFuture<MCalendar> C_Calendar(MReport entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCalendar> C_Calendar(X_PA_Report entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Calendar_ID() <= 0) {
 			return null;
 		}
@@ -81,7 +81,7 @@ public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLR
 	 *
 	 * @return The Jasper Process used by the printengine if any process defined
 	 */
-	public CompletableFuture<MProcess_BH> JasperProcess(MReport entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProcess_BH> JasperProcess(X_PA_Report entity, DataFetchingEnvironment environment) {
 		if (entity.getJasperProcess_ID() <= 0) {
 			return null;
 		}
@@ -90,15 +90,15 @@ public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLR
 		return dataLoader.load(entity.getJasperProcess_ID());
 	}
 
-	public Boolean ListSources(MReport entity, DataFetchingEnvironment environment) {
+	public Boolean ListSources(X_PA_Report entity, DataFetchingEnvironment environment) {
 		return entity.isListSources();
 	}
 
-	public Boolean ListSourcesXTrx(MReport entity, DataFetchingEnvironment environment) {
+	public Boolean ListSourcesXTrx(X_PA_Report entity, DataFetchingEnvironment environment) {
 		return entity.isListSourcesXTrx();
 	}
 
-	public Boolean ListTrx(MReport entity, DataFetchingEnvironment environment) {
+	public Boolean ListTrx(X_PA_Report entity, DataFetchingEnvironment environment) {
 		return entity.isListTrx();
 	}
 
@@ -108,11 +108,11 @@ public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLR
 	 *
 	 * @return Collection of Columns for Report
 	 */
-	public CompletableFuture<MReportColumnSet> PA_ReportColumnSet(MReport entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_PA_ReportColumnSet> PA_ReportColumnSet(X_PA_Report entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportColumnSet_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MReportColumnSet> dataLoader =
+		DataLoader<Integer, X_PA_ReportColumnSet> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportColumnSetDataLoader.DATALOADER_PA_ReportColumnSet_BY_ID);
 		return dataLoader.load(entity.getPA_ReportColumnSet_ID());
 	}
@@ -123,7 +123,7 @@ public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLR
 	 *
 	 * @return Define reporting cube for pre-calculation of summary accounting data.
 	 */
-	public CompletableFuture<MReportCube> PA_ReportCube(MReport entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportCube> PA_ReportCube(X_PA_Report entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportCube_ID() <= 0) {
 			return null;
 		}
@@ -138,16 +138,16 @@ public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLR
 	 *
 	 * @return Report Line Set
 	 */
-	public CompletableFuture<MReportLineSet> PA_ReportLineSet(MReport entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_PA_ReportLineSet> PA_ReportLineSet(X_PA_Report entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportLineSet_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MReportLineSet> dataLoader =
+		DataLoader<Integer, X_PA_ReportLineSet> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineSetDataLoader.DATALOADER_PA_ReportLineSet_BY_ID);
 		return dataLoader.load(entity.getPA_ReportLineSet_ID());
 	}
 
-	public Boolean Processing(MReport entity, DataFetchingEnvironment environment) {
+	public Boolean Processing(X_PA_Report entity, DataFetchingEnvironment environment) {
 		return entity.isProcessing();
 	}
 

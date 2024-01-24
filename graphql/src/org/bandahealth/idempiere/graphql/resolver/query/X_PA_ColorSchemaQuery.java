@@ -9,7 +9,7 @@ import org.compiere.model.MColorSchema;
  * Generated Query Resolver for PA_ColorSchema - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_PA_ColorSchemaQuery extends POQuery<MColorSchema> implements GraphQLQueryResolver {
 	@Override

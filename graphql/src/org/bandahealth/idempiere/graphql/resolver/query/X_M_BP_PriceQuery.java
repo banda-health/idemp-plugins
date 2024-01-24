@@ -9,7 +9,7 @@ import org.compiere.model.X_M_BP_Price;
  * Generated Query Resolver for M_BP_Price - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_BP_PriceQuery extends POQuery<X_M_BP_Price> implements GraphQLQueryResolver {
 	@Override

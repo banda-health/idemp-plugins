@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Client - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_ClientResolver extends POResolver<MClient_BH> implements GraphQLResolver<MClient_BH> {
 
@@ -213,10 +213,6 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 
 	public Boolean IsSecureSMTP(MClient_BH entity, DataFetchingEnvironment environment) {
 		return entity.isSecureSMTP();
-	}
-
-	public Boolean IsServerEMail(MClient_BH entity, DataFetchingEnvironment environment) {
-		return entity.isServerEMail();
 	}
 
 	public Boolean IsSmtpAuthorization(MClient_BH entity, DataFetchingEnvironment environment) {

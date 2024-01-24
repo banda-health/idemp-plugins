@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.X_M_SerNoCtlExclude;
+import org.compiere.model.MSerNoCtlExclude;
 
 /**
  * Data Loader for M_SerNoCtlExclude - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_M_SerNoCtlExcludeDataLoader extends PODataLoader<X_M_SerNoCtlExclude> {
+public class X_M_SerNoCtlExcludeDataLoader extends PODataLoader<MSerNoCtlExclude> {
 	public static String DATALOADER_M_SerNoCtlExclude_BY_ID = "M_SerNoCtlExcludeByIdDataLoader";
 	public static String DATALOADER_M_SerNoCtlExclude_BY_UUID = "M_SerNoCtlExcludeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return X_M_SerNoCtlExclude.Table_Name;
+		return MSerNoCtlExclude.Table_Name;
 	}
 
 	@Override

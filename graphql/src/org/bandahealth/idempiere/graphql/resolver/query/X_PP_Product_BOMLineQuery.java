@@ -9,7 +9,7 @@ import org.eevolution.model.MPPProductBOMLine;
  * Generated Query Resolver for PP_Product_BOMLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_PP_Product_BOMLineQuery extends POQuery<MPPProductBOMLine> implements GraphQLQueryResolver {
 	@Override

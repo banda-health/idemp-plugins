@@ -1,6 +1,6 @@
 # Generated Schema for EXP_Processor_Type - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	EXP_Processor_TypeGet(page: Int, size: Int, sort: String, filter: String): EXP_Processor_TypeConnection!
 }

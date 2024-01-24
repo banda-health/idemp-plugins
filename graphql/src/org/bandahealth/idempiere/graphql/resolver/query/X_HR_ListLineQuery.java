@@ -9,7 +9,7 @@ import org.eevolution.model.X_HR_ListLine;
  * Generated Query Resolver for HR_ListLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_HR_ListLineQuery extends POQuery<X_HR_ListLine> implements GraphQLQueryResolver {
 	@Override

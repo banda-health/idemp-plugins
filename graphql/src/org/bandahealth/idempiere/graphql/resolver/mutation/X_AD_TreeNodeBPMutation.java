@@ -12,7 +12,7 @@ import java.util.List;
  * Generated Query Resolver for AD_TreeNodeBP - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_TreeNodeBPMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

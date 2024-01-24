@@ -1,6 +1,6 @@
 # Generated Schema for S_ResourceUnAvailable - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	S_ResourceUnAvailableGet(page: Int, size: Int, sort: String, filter: String): S_ResourceUnAvailableConnection!
 }

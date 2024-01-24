@@ -6,7 +6,7 @@ import org.compiere.model.I_C_BP_EDI;
  * Generated Interface for C_BP_EDI - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_C_BP_EDIInput extends I_C_BP_EDI {
 

@@ -6,7 +6,7 @@ import org.compiere.model.I_C_JobRemuneration;
  * Generated Interface for C_JobRemuneration - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_C_JobRemunerationInput extends I_C_JobRemuneration {
 

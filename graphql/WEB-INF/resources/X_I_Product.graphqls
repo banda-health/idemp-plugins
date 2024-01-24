@@ -1,6 +1,6 @@
 # Generated Schema for I_Product - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	I_ProductGet(page: Int, size: Int, sort: String, filter: String): I_ProductConnection!
 }
@@ -36,6 +36,8 @@ type I_Product {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User
+	# Customs Tariff Number, usually the HS-Code
+	CustomsTariffNumber: String
 	# Promised days between order and delivery
 	DeliveryTime_Promised: Int
 	# Optional short description of the record
@@ -48,6 +50,8 @@ type I_Product {
 	DiscontinuedAt: Date
 	# Additional information for a Document
 	DocumentNote: String
+	Group1: String
+	Group2: String
 	# Comment or Hint
 	Help: String
 	# Messages generated from import process
@@ -136,6 +140,8 @@ input I_ProductInput {
 	Classification: String
 	# Fixed Cost Per Order
 	CostPerOrder: BigDecimal
+	# Customs Tariff Number, usually the HS-Code
+	CustomsTariffNumber: String
 	# Promised days between order and delivery
 	DeliveryTime_Promised: Int
 	# Optional short description of the record
@@ -148,6 +154,8 @@ input I_ProductInput {
 	DiscontinuedAt: Date
 	# Additional information for a Document
 	DocumentNote: String
+	Group1: String
+	Group2: String
 	# Comment or Hint
 	Help: String
 	# Messages generated from import process

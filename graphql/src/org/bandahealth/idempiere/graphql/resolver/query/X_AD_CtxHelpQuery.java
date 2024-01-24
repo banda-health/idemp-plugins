@@ -9,7 +9,7 @@ import org.compiere.model.MCtxHelp;
  * Generated Query Resolver for AD_CtxHelp - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_CtxHelpQuery extends POQuery<MCtxHelp> implements GraphQLQueryResolver {
 	@Override

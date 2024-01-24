@@ -28,7 +28,7 @@ import java.sql.Timestamp;
  * Generated Model for DD_Order - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_DD_OrderInput extends MDDOrder implements I_DD_OrderInput {
 

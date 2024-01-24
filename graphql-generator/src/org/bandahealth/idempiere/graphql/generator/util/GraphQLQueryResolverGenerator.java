@@ -66,9 +66,9 @@ public class GraphQLQueryResolverGenerator {
 		this.packageName = packageName;
 
 		// Get the name of the model to extend
-		tableStructureExtensions = modelsForTables.get(MTable.get(Env.getCtx(), AD_Table_ID).getTableName());
+		tableStructureExtensions = modelsForTables.get(MTable.get(AD_Table_ID).getTableName());
 		if (tableStructureExtensions == null) {
-			throw new FileNotFoundException("Can't find file to match for table " + MTable.get(Env.getCtx(), AD_Table_ID).getTableName());
+			throw new FileNotFoundException("Can't find file to match for table " + MTable.get(AD_Table_ID).getTableName());
 		}
 
 		// Header

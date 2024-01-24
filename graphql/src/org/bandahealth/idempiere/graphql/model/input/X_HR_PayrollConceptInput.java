@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for HR_PayrollConcept - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_HR_PayrollConceptInput {
 

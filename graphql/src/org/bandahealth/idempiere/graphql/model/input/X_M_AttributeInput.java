@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.bandahealth.idempiere.base.model.MAttribute_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MAttribute;
 import org.compiere.model.MOrg;
 import org.compiere.model.MValRule;
 import org.compiere.model.Query;
@@ -17,9 +17,9 @@ import java.sql.ResultSet;
  * Generated Model for M_Attribute - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_M_AttributeInput extends MAttribute_BH implements I_M_AttributeInput {
+public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Reference;
@@ -33,7 +33,7 @@ public class X_M_AttributeInput extends MAttribute_BH implements I_M_AttributeIn
 	 */
 	@JsonCreator
 	public X_M_AttributeInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MAttribute_BH(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MAttribute(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}

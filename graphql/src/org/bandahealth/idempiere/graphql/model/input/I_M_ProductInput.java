@@ -8,7 +8,7 @@ import org.compiere.model.I_M_Product;
  * Generated Interface for M_Product - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_M_ProductInput extends I_M_Product {
 

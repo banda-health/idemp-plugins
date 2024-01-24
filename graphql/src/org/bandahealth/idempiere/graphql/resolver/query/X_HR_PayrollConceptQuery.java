@@ -9,7 +9,7 @@ import org.eevolution.model.X_HR_PayrollConcept;
  * Generated Query Resolver for HR_PayrollConcept - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_HR_PayrollConceptQuery extends POQuery<X_HR_PayrollConcept> implements GraphQLQueryResolver {
 	@Override

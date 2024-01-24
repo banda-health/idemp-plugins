@@ -9,7 +9,7 @@ import org.compiere.model.X_AD_Package_Imp_Backup;
  * Generated Query Resolver for AD_Package_Imp_Backup - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_Package_Imp_BackupQuery extends POQuery<X_AD_Package_Imp_Backup> implements GraphQLQueryResolver {
 	@Override

@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Package_UUID_Map;
  * Generated Interface for AD_Package_UUID_Map - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_AD_Package_UUID_MapInput extends I_AD_Package_UUID_Map {
 

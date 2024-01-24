@@ -6,7 +6,7 @@ import org.compiere.model.MInvoiceBatch;
  * Data Loader for C_InvoiceBatch - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_InvoiceBatchDataLoader extends PODataLoader<MInvoiceBatch> {
 	public static String DATALOADER_C_InvoiceBatch_BY_ID = "C_InvoiceBatchByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.I_M_BOMAlternative;
  * Generated Interface for M_BOMAlternative - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_M_BOMAlternativeInput extends I_M_BOMAlternative {
 

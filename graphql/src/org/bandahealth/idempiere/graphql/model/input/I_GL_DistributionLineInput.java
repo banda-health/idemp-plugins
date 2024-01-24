@@ -6,7 +6,7 @@ import org.compiere.model.I_GL_DistributionLine;
  * Generated Interface for GL_DistributionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_GL_DistributionLineInput extends I_GL_DistributionLine {
 

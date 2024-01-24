@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_BroadcastMessageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_MessageDataLoader;
@@ -11,6 +10,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WF_ActivityDataLoader;
 import org.compiere.model.MNote;
+import org.compiere.model.MTable;
 import org.compiere.model.X_AD_BroadcastMessage;
 import org.compiere.model.X_AD_WF_Activity;
 import org.dataloader.DataLoader;
@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Note - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_NoteResolver extends POResolver<MNote> implements GraphQLResolver<MNote> {
 
@@ -62,11 +62,11 @@ public class X_AD_NoteResolver extends POResolver<MNote> implements GraphQLResol
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable_BH> AD_Table(MNote entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable> AD_Table(MNote entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTable_BH> dataLoader =
+		DataLoader<Integer, MTable> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}

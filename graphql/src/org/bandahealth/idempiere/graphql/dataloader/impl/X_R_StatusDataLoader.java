@@ -6,7 +6,7 @@ import org.compiere.model.MStatus;
  * Data Loader for R_Status - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_R_StatusDataLoader extends PODataLoader<MStatus> {
 	public static String DATALOADER_R_Status_BY_ID = "R_StatusByIdDataLoader";

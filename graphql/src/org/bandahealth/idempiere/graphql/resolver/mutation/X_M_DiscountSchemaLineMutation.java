@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.mutation;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
-import org.bandahealth.idempiere.base.model.MDiscountSchemaLine_BH;
 import org.bandahealth.idempiere.graphql.model.input.I_M_DiscountSchemaLineInput;
 import org.bandahealth.idempiere.graphql.model.input.X_M_DiscountSchemaLineInput;
+import org.compiere.model.MDiscountSchemaLine;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * Generated Query Resolver for M_DiscountSchemaLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_DiscountSchemaLineMutation extends POMutation implements GraphQLMutationResolver {
 	@Override
@@ -20,8 +20,8 @@ public class X_M_DiscountSchemaLineMutation extends POMutation implements GraphQ
 		return X_M_DiscountSchemaLineInput.Table_Name;
 	}
 
-	public MDiscountSchemaLine_BH M_DiscountSchemaLineSave(I_M_DiscountSchemaLineInput input, DataFetchingEnvironment environment) {
-		return (MDiscountSchemaLine_BH) super.save((X_M_DiscountSchemaLineInput) input, environment);
+	public MDiscountSchemaLine M_DiscountSchemaLineSave(I_M_DiscountSchemaLineInput input, DataFetchingEnvironment environment) {
+		return (MDiscountSchemaLine) super.save((X_M_DiscountSchemaLineInput) input, environment);
 	}
 
 	public boolean M_DiscountSchemaLineDelete(List<String> uuids, DataFetchingEnvironment environment) {

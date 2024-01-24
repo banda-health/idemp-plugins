@@ -9,7 +9,7 @@ import org.compiere.model.MPaymentAllocate;
  * Generated Query Resolver for C_PaymentAllocate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_PaymentAllocateQuery extends POQuery<MPaymentAllocate> implements GraphQLQueryResolver {
 	@Override

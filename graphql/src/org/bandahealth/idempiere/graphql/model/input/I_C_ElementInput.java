@@ -6,7 +6,7 @@ import org.compiere.model.I_C_Element;
  * Generated Interface for C_Element - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_C_ElementInput extends I_C_Element {
 

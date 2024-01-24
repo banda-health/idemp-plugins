@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  * Generated Model for PA_Ratio - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_PA_RatioInput extends X_PA_Ratio implements I_PA_RatioInput {
 

@@ -133,21 +133,21 @@ public class ModelUtil {
 		}
 		sql.append(" FROM ").append(poInfo.getTableName())
 				.append(" WHERE ")
-				.append(modelTemplate.getUUIDColumnName() + "=?");
+				.append(modelTemplate.get_WhereClause(false, uuid));
 
 		//
 		//	int index = -1;
-		if (log.isLoggable(Level.FINEST)) log.finest(modelTemplate.getUUIDColumnName() + "=" + DB.TO_STRING(uuid));
+		if (log.isLoggable(Level.FINEST)) log.finest(modelTemplate.get_WhereClause(true, uuid));
 		try (PreparedStatement preparedStatement = DB.prepareStatement(sql.toString(), null)) {  //	local trx only
 			preparedStatement.setString(1, uuid);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				return resultSet;
 			} else {
-				log.log(Level.SEVERE, "NO Data found for " + modelTemplate.getUUIDColumnName() + "=" + DB.TO_STRING(uuid), new Exception());
+				log.log(Level.SEVERE, "NO Data found for " + modelTemplate.get_WhereClause(true, uuid), new Exception());
 			}
 		} catch (Exception e) {
-			String msg = modelTemplate.getUUIDColumnName() + "=" + DB.TO_STRING(uuid) + ", SQL=" + sql.toString();
+			String msg = modelTemplate.get_WhereClause(true, uuid) + ", SQL=" + sql.toString();
 			log.log(Level.SEVERE, msg, e);
 		}
 		return null;

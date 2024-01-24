@@ -6,7 +6,7 @@ import org.compiere.model.I_C_Task;
  * Generated Interface for C_Task - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_C_TaskInput extends I_C_Task {
 

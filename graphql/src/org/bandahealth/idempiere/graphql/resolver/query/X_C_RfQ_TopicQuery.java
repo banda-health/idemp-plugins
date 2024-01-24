@@ -9,7 +9,7 @@ import org.compiere.model.MRfQTopic;
  * Generated Query Resolver for C_RfQ_Topic - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_RfQ_TopicQuery extends POQuery<MRfQTopic> implements GraphQLQueryResolver {
 	@Override

@@ -2,11 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.base.model.MField_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
-import org.bandahealth.idempiere.base.model.MUserDefTab_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_FieldDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_FieldGroupDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReferenceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_StyleDataLoader;
@@ -17,6 +18,7 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MStyle;
 import org.compiere.model.MUserDefField;
+import org.compiere.model.MUserDefTab;
 import org.compiere.model.MValRule;
 import org.dataloader.DataLoader;
 
@@ -28,7 +30,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_UserDef_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implements GraphQLResolver<MUserDefField> {
 
@@ -46,6 +48,21 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		DataLoader<Integer, MField_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldDataLoader.DATALOADER_AD_Field_BY_ID);
 		return dataLoader.load(entity.getAD_Field_ID());
+	}
+
+
+	/**
+	 * Get Field Group.
+	 *
+	 * @return Logical grouping of fields
+	 */
+	public CompletableFuture<MFieldGroup_BH> AD_FieldGroup(MUserDefField entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_FieldGroup_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MFieldGroup_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldGroupDataLoader.DATALOADER_AD_FieldGroup_BY_ID);
+		return dataLoader.load(entity.getAD_FieldGroup_ID());
 	}
 
 
@@ -114,11 +131,11 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 *
 	 * @return User defined Tab
 	 */
-	public CompletableFuture<MUserDefTab_BH> AD_UserDef_Tab(MUserDefField entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MUserDefTab> AD_UserDef_Tab(MUserDefField entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_UserDef_Tab_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MUserDefTab_BH> dataLoader =
+		DataLoader<Integer, MUserDefTab> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDef_TabDataLoader.DATALOADER_AD_UserDef_Tab_BY_ID);
 		return dataLoader.load(entity.getAD_UserDef_Tab_ID());
 	}
@@ -136,6 +153,21 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 		DataLoader<Integer, MValRule> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
+	}
+
+
+	/**
+	 * Get Dynamic Validation (Lookup).
+	 *
+	 * @return Override Dynamic Validation Rule for Lookup Window
+	 */
+	public CompletableFuture<MValRule> AD_Val_Rule_Lookup(MUserDefField entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Val_Rule_Lookup_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MValRule> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
+		return dataLoader.load(entity.getAD_Val_Rule_Lookup_ID());
 	}
 
 	static Map<String, String> ISALWAYSUPDATEABLE_UUIDS_BY_VALUE = new HashMap<>() {

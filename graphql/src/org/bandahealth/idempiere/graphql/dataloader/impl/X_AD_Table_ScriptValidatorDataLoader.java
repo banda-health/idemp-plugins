@@ -6,7 +6,7 @@ import org.compiere.model.MTableScriptValidator;
  * Data Loader for AD_Table_ScriptValidator - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_Table_ScriptValidatorDataLoader extends PODataLoader<MTableScriptValidator> {
 	public static String DATALOADER_AD_Table_ScriptValidator_BY_ID = "AD_Table_ScriptValidatorByIdDataLoader";

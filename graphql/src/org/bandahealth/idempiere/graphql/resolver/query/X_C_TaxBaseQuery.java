@@ -9,7 +9,7 @@ import org.eevolution.model.X_C_TaxBase;
  * Generated Query Resolver for C_TaxBase - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_TaxBaseQuery extends POQuery<X_C_TaxBase> implements GraphQLQueryResolver {
 	@Override

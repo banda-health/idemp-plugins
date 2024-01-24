@@ -6,7 +6,7 @@ import org.compiere.model.MProductionLineMA;
  * Data Loader for M_ProductionLineMA - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_ProductionLineMADataLoader extends PODataLoader<MProductionLineMA> {
 	public static String DATALOADER_M_ProductionLineMA_BY_ID = "M_ProductionLineMAByIdDataLoader";

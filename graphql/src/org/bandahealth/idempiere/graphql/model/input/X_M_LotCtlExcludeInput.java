@@ -2,12 +2,12 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLotCtl;
+import org.compiere.model.MLotCtlExclude;
 import org.compiere.model.MOrg;
+import org.compiere.model.MTable;
 import org.compiere.model.Query;
-import org.compiere.model.X_M_LotCtlExclude;
 
 import java.sql.ResultSet;
 
@@ -15,9 +15,9 @@ import java.sql.ResultSet;
  * Generated Model for M_LotCtlExclude - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_M_LotCtlExcludeInput extends X_M_LotCtlExclude implements I_M_LotCtlExcludeInput {
+public class X_M_LotCtlExcludeInput extends MLotCtlExclude implements I_M_LotCtlExcludeInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Table;
@@ -28,7 +28,7 @@ public class X_M_LotCtlExcludeInput extends X_M_LotCtlExclude implements I_M_Lot
 	 */
 	@JsonCreator
 	public X_M_LotCtlExcludeInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_M_LotCtlExclude(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MLotCtlExclude(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}
@@ -68,7 +68,7 @@ public class X_M_LotCtlExcludeInput extends X_M_LotCtlExclude implements I_M_Lot
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
+		MTable foreignEntity;
 		if (AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())

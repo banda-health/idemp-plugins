@@ -9,7 +9,7 @@ import org.compiere.model.MStorageProvider;
  * Generated Query Resolver for AD_StorageProvider - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_StorageProviderQuery extends POQuery<MStorageProvider> implements GraphQLQueryResolver {
 	@Override

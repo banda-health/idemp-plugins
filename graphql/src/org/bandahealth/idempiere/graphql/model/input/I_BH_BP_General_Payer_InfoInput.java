@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.I_BH_BP_General_Payer_Info;
  * Generated Interface for BH_BP_General_Payer_Info - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_BH_BP_General_Payer_InfoInput extends I_BH_BP_General_Payer_Info {
 

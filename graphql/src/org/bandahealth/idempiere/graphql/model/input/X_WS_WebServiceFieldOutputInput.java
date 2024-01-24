@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for WS_WebServiceFieldOutput - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_WS_WebServiceFieldOutputInput extends X_WS_WebServiceFieldOutput implements I_WS_WebServiceFieldOutputInput {
 

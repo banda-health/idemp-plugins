@@ -6,7 +6,7 @@ import org.compiere.model.MAging;
  * Data Loader for T_Aging - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_T_AgingDataLoader extends PODataLoader<MAging> {
 	public static String DATALOADER_T_Aging_BY_ID = "T_AgingByIdDataLoader";

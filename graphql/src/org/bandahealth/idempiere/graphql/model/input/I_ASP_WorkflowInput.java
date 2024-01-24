@@ -6,7 +6,7 @@ import org.compiere.model.I_ASP_Workflow;
  * Generated Interface for ASP_Workflow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_ASP_WorkflowInput extends I_ASP_Workflow {
 

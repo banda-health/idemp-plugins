@@ -9,7 +9,7 @@ import org.compiere.model.MValRule;
  * Generated Query Resolver for AD_Val_Rule - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_Val_RuleQuery extends POQuery<MValRule> implements GraphQLQueryResolver {
 	@Override

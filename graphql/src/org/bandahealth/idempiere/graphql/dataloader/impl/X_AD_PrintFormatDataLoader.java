@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_PrintFormat;
  * Data Loader for AD_PrintFormat - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_PrintFormatDataLoader extends PODataLoader<X_AD_PrintFormat> {
 	public static String DATALOADER_AD_PrintFormat_BY_ID = "AD_PrintFormatByIdDataLoader";

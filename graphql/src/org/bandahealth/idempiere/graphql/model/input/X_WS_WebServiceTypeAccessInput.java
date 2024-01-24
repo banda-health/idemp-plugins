@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for WS_WebServiceTypeAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_WS_WebServiceTypeAccessInput extends X_WS_WebServiceTypeAccess implements I_WS_WebServiceTypeAccessInput {
 

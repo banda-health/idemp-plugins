@@ -9,7 +9,7 @@ import org.compiere.model.MPOS;
  * Generated Query Resolver for C_POS - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_C_POSQuery extends POQuery<MPOS> implements GraphQLQueryResolver {
 	@Override

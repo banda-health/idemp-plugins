@@ -9,7 +9,7 @@ import org.compiere.model.X_I_InOutLineConfirm;
  * Generated Query Resolver for I_InOutLineConfirm - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_I_InOutLineConfirmQuery extends POQuery<X_I_InOutLineConfirm> implements GraphQLQueryResolver {
 	@Override

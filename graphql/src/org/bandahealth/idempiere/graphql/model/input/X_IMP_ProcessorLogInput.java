@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  * Generated Model for IMP_ProcessorLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_IMP_ProcessorLogInput extends X_IMP_ProcessorLog implements I_IMP_ProcessorLogInput {
 

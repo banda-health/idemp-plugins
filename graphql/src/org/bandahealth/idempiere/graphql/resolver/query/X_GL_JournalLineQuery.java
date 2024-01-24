@@ -9,7 +9,7 @@ import org.compiere.model.MJournalLine;
  * Generated Query Resolver for GL_JournalLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_GL_JournalLineQuery extends POQuery<MJournalLine> implements GraphQLQueryResolver {
 	@Override

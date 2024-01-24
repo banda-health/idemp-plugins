@@ -1,6 +1,6 @@
 # Generated Schema for U_BlackListCheque - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	U_BlackListChequeGet(page: Int, size: Int, sort: String, filter: String): U_BlackListChequeConnection!
 }

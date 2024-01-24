@@ -25,7 +25,7 @@ import java.sql.ResultSet;
  * Generated Model for I_ProductPlanning - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I_ProductPlanningInput {
 

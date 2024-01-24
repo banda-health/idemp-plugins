@@ -3,14 +3,14 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
-import org.bandahealth.idempiere.base.model.MReportLine_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_I_ReportLine;
-import org.compiere.report.MReportLineSet;
-import org.compiere.report.MReportSource;
+import org.compiere.model.X_PA_ReportLine;
+import org.compiere.model.X_PA_ReportLineSet;
+import org.compiere.model.X_PA_ReportSource;
 
 import java.sql.ResultSet;
 
@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for I_ReportLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLineInput {
 
@@ -194,7 +194,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	@JsonProperty("PA_ReportLine")
 	public void setPA_ReportLineInput(ForeignEntityInput PA_ReportLine) {
 		this.mPA_ReportLine = PA_ReportLine;
-		MReportLine_BH foreignEntity;
+		X_PA_ReportLine foreignEntity;
 		if (PA_ReportLine != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
 						.setParameters(PA_ReportLine.getID())
@@ -223,7 +223,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	@JsonProperty("PA_ReportLineSet")
 	public void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet) {
 		this.mPA_ReportLineSet = PA_ReportLineSet;
-		MReportLineSet foreignEntity;
+		X_PA_ReportLineSet foreignEntity;
 		if (PA_ReportLineSet != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
 						.setParameters(PA_ReportLineSet.getID())
@@ -252,7 +252,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	@JsonProperty("PA_ReportSource")
 	public void setPA_ReportSourceInput(ForeignEntityInput PA_ReportSource) {
 		this.mPA_ReportSource = PA_ReportSource;
-		MReportSource foreignEntity;
+		X_PA_ReportSource foreignEntity;
 		if (PA_ReportSource != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportSource", "PA_ReportSource_UU=?", get_TrxName())
 						.setParameters(PA_ReportSource.getID())

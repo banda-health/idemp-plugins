@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for A_Depreciation_Table_Detail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_A_Depreciation_Table_DetailResolver extends POResolver<X_A_Depreciation_Table_Detail> implements GraphQLResolver<X_A_Depreciation_Table_Detail> {
 

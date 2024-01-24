@@ -6,7 +6,7 @@ import org.compiere.model.I_T_Replenish;
  * Generated Interface for T_Replenish - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_T_ReplenishInput extends I_T_Replenish {
 

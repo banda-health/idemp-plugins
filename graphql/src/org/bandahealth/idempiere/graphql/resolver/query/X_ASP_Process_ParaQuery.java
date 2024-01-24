@@ -9,7 +9,7 @@ import org.compiere.model.X_ASP_Process_Para;
  * Generated Query Resolver for ASP_Process_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_ASP_Process_ParaQuery extends POQuery<X_ASP_Process_Para> implements GraphQLQueryResolver {
 	@Override

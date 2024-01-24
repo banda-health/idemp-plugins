@@ -9,7 +9,7 @@ import org.eevolution.model.X_DD_NetworkDistributionLine;
  * Generated Query Resolver for DD_NetworkDistributionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_DD_NetworkDistributionLineQuery extends POQuery<X_DD_NetworkDistributionLine> implements GraphQLQueryResolver {
 	@Override

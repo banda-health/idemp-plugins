@@ -9,7 +9,7 @@ import org.bandahealth.idempiere.graphql.model.Connection;
  * Generated Query Resolver for M_Product_Category - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_Product_CategoryQuery extends POQuery<MProductCategory_BH> implements GraphQLQueryResolver {
 	@Override

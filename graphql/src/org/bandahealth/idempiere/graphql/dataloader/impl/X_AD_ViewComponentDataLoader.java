@@ -6,7 +6,7 @@ import org.compiere.model.MViewComponent;
  * Data Loader for AD_ViewComponent - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_ViewComponentDataLoader extends PODataLoader<MViewComponent> {
 	public static String DATALOADER_AD_ViewComponent_BY_ID = "AD_ViewComponentByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.MJournal;
  * Data Loader for GL_Journal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_GL_JournalDataLoader extends PODataLoader<MJournal> {
 	public static String DATALOADER_GL_Journal_BY_ID = "GL_JournalByIdDataLoader";

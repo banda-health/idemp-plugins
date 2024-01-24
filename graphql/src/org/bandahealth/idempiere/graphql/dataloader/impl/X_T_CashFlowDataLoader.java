@@ -6,7 +6,7 @@ import org.compiere.model.X_T_CashFlow;
  * Data Loader for T_CashFlow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_T_CashFlowDataLoader extends PODataLoader<X_T_CashFlow> {
 	public static String DATALOADER_T_CashFlow_BY_ID = "T_CashFlowByIdDataLoader";

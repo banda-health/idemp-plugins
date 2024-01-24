@@ -2,22 +2,22 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
-import org.bandahealth.idempiere.base.model.MUserPreference_BH;
 import org.bandahealth.idempiere.graphql.model.Connection;
+import org.compiere.model.X_AD_UserPreference;
 
 /**
  * Generated Query Resolver for AD_UserPreference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_AD_UserPreferenceQuery extends POQuery<MUserPreference_BH> implements GraphQLQueryResolver {
+public class X_AD_UserPreferenceQuery extends POQuery<X_AD_UserPreference> implements GraphQLQueryResolver {
 	@Override
 	protected String getTableName() {
-		return MUserPreference_BH.Table_Name;
+		return X_AD_UserPreference.Table_Name;
 	}
 
-	public Connection<MUserPreference_BH> AD_UserPreferenceGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_UserPreference> AD_UserPreferenceGet(int page, int pageSize, String sort, String filter,
 			DataFetchingEnvironment environment) {
 		return super.get(page, pageSize, sort, filter, environment);
 	}

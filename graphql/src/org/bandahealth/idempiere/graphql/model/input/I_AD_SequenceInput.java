@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Sequence;
  * Generated Interface for AD_Sequence - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_AD_SequenceInput extends I_AD_Sequence {
 

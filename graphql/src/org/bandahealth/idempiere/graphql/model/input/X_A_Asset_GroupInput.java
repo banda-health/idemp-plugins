@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for A_Asset_Group - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_GroupInput {
 

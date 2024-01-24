@@ -7,7 +7,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_StyleDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MStyle;
-import org.compiere.model.X_AD_StyleLine;
+import org.compiere.model.MStyleLine;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -18,9 +18,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_StyleLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_AD_StyleLineResolver extends POResolver<X_AD_StyleLine> implements GraphQLResolver<X_AD_StyleLine> {
+public class X_AD_StyleLineResolver extends POResolver<MStyleLine> implements GraphQLResolver<MStyleLine> {
 
 
 
@@ -29,7 +29,7 @@ public class X_AD_StyleLineResolver extends POResolver<X_AD_StyleLine> implement
 	 *
 	 * @return CSS style for field and label
 	 */
-	public CompletableFuture<MStyle> AD_Style(X_AD_StyleLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MStyle> AD_Style(MStyleLine entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Style_ID() <= 0) {
 			return null;
 		}
@@ -60,7 +60,7 @@ public class X_AD_StyleLineResolver extends POResolver<X_AD_StyleLine> implement
 	 *
 	 * @return Dictionary Entity Type; Determines ownership and synchronization
 	 */
-	public CompletableFuture<MEntityType> AD_EntityType(X_AD_StyleLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MEntityType> AD_EntityType(MStyleLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getEntityType())) {
 			return null;
 		}

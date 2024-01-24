@@ -1,6 +1,6 @@
 # Generated Schema for DD_NetworkDistributionLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 7.1 - $Id$
+#		@version Release 8.2 - $Id$
 extend type Query {
 	DD_NetworkDistributionLineGet(page: Int, size: Int, sort: String, filter: String): DD_NetworkDistributionLineConnection!
 }

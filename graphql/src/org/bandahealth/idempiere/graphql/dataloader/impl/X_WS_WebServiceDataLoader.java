@@ -6,7 +6,7 @@ import org.compiere.model.X_WS_WebService;
  * Data Loader for WS_WebService - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_WS_WebServiceDataLoader extends PODataLoader<X_WS_WebService> {
 	public static String DATALOADER_WS_WebService_BY_ID = "WS_WebServiceByIdDataLoader";

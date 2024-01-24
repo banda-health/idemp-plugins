@@ -6,7 +6,7 @@ import org.compiere.model.MPInstancePara;
  * Data Loader for AD_PInstance_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_PInstance_ParaDataLoader extends PODataLoader<MPInstancePara> {
 	public static String DATALOADER_AD_PInstance_Para_BY_ID = "AD_PInstance_ParaByIdDataLoader";

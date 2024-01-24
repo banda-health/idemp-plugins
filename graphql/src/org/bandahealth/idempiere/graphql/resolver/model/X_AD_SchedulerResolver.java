@@ -4,7 +4,6 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
@@ -17,6 +16,7 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MMailText;
 import org.compiere.model.MSchedule;
 import org.compiere.model.MScheduler;
+import org.compiere.model.MTable;
 import org.compiere.model.X_AD_PrintFormat;
 import org.dataloader.DataLoader;
 
@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Scheduler - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements GraphQLResolver<MScheduler> {
 
@@ -84,11 +84,11 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable_BH> AD_Table(MScheduler entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable> AD_Table(MScheduler entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTable_BH> dataLoader =
+		DataLoader<Integer, MTable> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}

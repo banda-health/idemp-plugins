@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for GL_Category_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_GL_Category_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_GL_Category_Trl_BY_ID = "GL_Category_TrlByIdDataLoader";

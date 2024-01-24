@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for M_RMAType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_M_RMATypeResolver extends POResolver<X_M_RMAType> implements GraphQLResolver<X_M_RMAType> {
 

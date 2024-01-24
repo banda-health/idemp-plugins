@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for QM_Specification - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_SpecificationInput {
 

@@ -12,7 +12,7 @@ import java.util.List;
  * Generated Query Resolver for IMP_ProcessorParameter - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_IMP_ProcessorParameterMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

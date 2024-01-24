@@ -9,10 +9,10 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_RegionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_FreightCategoryDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperDataLoader;
 import org.compiere.model.MCountry;
+import org.compiere.model.MFreight;
 import org.compiere.model.MFreightCategory;
 import org.compiere.model.MRegion;
 import org.compiere.model.MShipper;
-import org.compiere.model.X_M_Freight;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,9 +21,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_Freight - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
-public class X_M_FreightResolver extends POResolver<X_M_Freight> implements GraphQLResolver<X_M_Freight> {
+public class X_M_FreightResolver extends POResolver<MFreight> implements GraphQLResolver<MFreight> {
 
 
 
@@ -32,7 +32,7 @@ public class X_M_FreightResolver extends POResolver<X_M_Freight> implements Grap
 	 *
 	 * @return Country 
 	 */
-	public CompletableFuture<MCountry> C_Country(X_M_Freight entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCountry> C_Country(MFreight entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Country_ID() <= 0) {
 			return null;
 		}
@@ -47,7 +47,7 @@ public class X_M_FreightResolver extends POResolver<X_M_Freight> implements Grap
 	 *
 	 * @return The Currency for this record
 	 */
-	public CompletableFuture<MCurrency_BH> C_Currency(X_M_Freight entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCurrency_BH> C_Currency(MFreight entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Currency_ID() <= 0) {
 			return null;
 		}
@@ -62,7 +62,7 @@ public class X_M_FreightResolver extends POResolver<X_M_Freight> implements Grap
 	 *
 	 * @return Identifies a geographical Region
 	 */
-	public CompletableFuture<MRegion> C_Region(X_M_Freight entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRegion> C_Region(MFreight entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Region_ID() <= 0) {
 			return null;
 		}
@@ -77,7 +77,7 @@ public class X_M_FreightResolver extends POResolver<X_M_Freight> implements Grap
 	 *
 	 * @return Category of the Freight
 	 */
-	public CompletableFuture<MFreightCategory> M_FreightCategory(X_M_Freight entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MFreightCategory> M_FreightCategory(MFreight entity, DataFetchingEnvironment environment) {
 		if (entity.getM_FreightCategory_ID() <= 0) {
 			return null;
 		}
@@ -92,7 +92,7 @@ public class X_M_FreightResolver extends POResolver<X_M_Freight> implements Grap
 	 *
 	 * @return Method or manner of product delivery
 	 */
-	public CompletableFuture<MShipper> M_Shipper(X_M_Freight entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MShipper> M_Shipper(MFreight entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Shipper_ID() <= 0) {
 			return null;
 		}
@@ -107,7 +107,7 @@ public class X_M_FreightResolver extends POResolver<X_M_Freight> implements Grap
 	 *
 	 * @return Receiving Region
 	 */
-	public CompletableFuture<MRegion> To_Region(X_M_Freight entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRegion> To_Region(MFreight entity, DataFetchingEnvironment environment) {
 		if (entity.getTo_Region_ID() <= 0) {
 			return null;
 		}

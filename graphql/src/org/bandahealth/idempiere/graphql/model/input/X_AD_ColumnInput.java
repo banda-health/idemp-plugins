@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
-import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MChart;
 import org.compiere.model.MColumn;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
+import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.M_Element;
 import org.compiere.model.Query;
@@ -22,7 +22,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Column - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 
@@ -35,6 +35,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	private ForeignEntityInput mAD_Reference_Value;
 	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mAD_Val_Rule;
+	private ForeignEntityInput mAD_Val_Rule_Lookup;
 	private ForeignEntityInput mPA_DashboardContent;
 	private I_AD_Ref_ListInput mFKConstraintType;
 	private I_AD_Ref_ListInput mIsEncrypted;
@@ -259,7 +260,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
+		MTable foreignEntity;
 		if (get_ID() == 0 && AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())
@@ -305,6 +306,35 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("AD_Val_Rule")
 	public ForeignEntityInput AD_Val_Rule() {
 		return mAD_Val_Rule;
+	}
+
+	/**
+	 * Set Dynamic Validation (Lookup).
+	 *
+	 * @param AD_Val_Rule_Lookup Override Dynamic Validation Rule for Lookup Window
+	 */
+	@JsonProperty("AD_Val_Rule_Lookup")
+	public void setAD_Val_Rule_LookupInput(ForeignEntityInput AD_Val_Rule_Lookup) {
+		this.mAD_Val_Rule_Lookup = AD_Val_Rule_Lookup;
+		MValRule foreignEntity;
+		if (AD_Val_Rule_Lookup != null &&
+				(foreignEntity = new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
+						.setParameters(AD_Val_Rule_Lookup.getID())
+						.first()) != null && foreignEntity.get_ID() != 0) {
+			super.setAD_Val_Rule_Lookup_ID(foreignEntity.get_ID());
+		} else {
+			super.setAD_Val_Rule_Lookup_ID(0);
+		}
+	}
+
+	/**
+	 * Get Dynamic Validation (Lookup).
+	 *
+	 * @return Override Dynamic Validation Rule for Lookup Window
+	 */
+	@JsonProperty("AD_Val_Rule_Lookup")
+	public ForeignEntityInput AD_Val_Rule_Lookup() {
+		return mAD_Val_Rule_Lookup;
 	}
 
 	/**

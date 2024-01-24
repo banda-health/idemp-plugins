@@ -6,7 +6,7 @@ import org.eevolution.model.I_HR_ListVersion;
  * Generated Interface for HR_ListVersion - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_HR_ListVersionInput extends I_HR_ListVersion {
 

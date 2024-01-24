@@ -9,7 +9,7 @@ import org.compiere.model.X_ASP_ClientLevel;
  * Generated Query Resolver for ASP_ClientLevel - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_ASP_ClientLevelQuery extends POQuery<X_ASP_ClientLevel> implements GraphQLQueryResolver {
 	@Override

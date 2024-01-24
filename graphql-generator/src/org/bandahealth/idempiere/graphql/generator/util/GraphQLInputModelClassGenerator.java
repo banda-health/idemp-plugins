@@ -73,9 +73,9 @@ public class GraphQLInputModelClassGenerator {
 		this.modelsForTables = modelsForTables;
 
 		// Get the name of the model to extend
-		tableStructureExtensions = modelsForTables.get(MTable.get(Env.getCtx(), AD_Table_ID).getTableName());
+		tableStructureExtensions = modelsForTables.get(MTable.get(AD_Table_ID).getTableName());
 		if (tableStructureExtensions == null) {
-			throw new FileNotFoundException("Can't find file to match for table " + MTable.get(Env.getCtx(), AD_Table_ID).getTableName());
+			throw new FileNotFoundException("Can't find file to match for table " + MTable.get(AD_Table_ID).getTableName());
 		}
 
 		// create column access methods
@@ -530,7 +530,7 @@ public class GraphQLInputModelClassGenerator {
 		if ((isUpdateable && AD_Reference_ID <= 0) || columnsWhosSettersAreFinalInIDempiere.contains(columnName)) {
 			return columnBuilder.toString();
 		} else if (AD_Reference_ID > 0 &&
-				MReference.get(Env.getCtx(), AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
+				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
 				clazz.equals(String.class)) {
 			ModelMap classToUseMap = modelsForTables.get(MRefList.Table_Name);
 			classesToImport.add(classToUseMap.getClassPackageName() + "." + classToUseMap.getClassName());

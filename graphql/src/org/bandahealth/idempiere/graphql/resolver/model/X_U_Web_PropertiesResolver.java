@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for U_Web_Properties - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_U_Web_PropertiesResolver extends POResolver<MWebProperties> implements GraphQLResolver<MWebProperties> {
 

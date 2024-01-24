@@ -6,7 +6,7 @@ import org.compiere.model.I_M_PriceList_Version;
  * Generated Interface for M_PriceList_Version - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public interface I_M_PriceList_VersionInput extends I_M_PriceList_Version {
 

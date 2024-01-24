@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  * Generated Model for ASP_Level - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 

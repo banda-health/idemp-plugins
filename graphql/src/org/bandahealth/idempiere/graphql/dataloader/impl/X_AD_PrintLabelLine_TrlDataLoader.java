@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for AD_PrintLabelLine_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 7.1 - $Id$
+ * @version Release 8.2 - $Id$
  */
 public class X_AD_PrintLabelLine_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_AD_PrintLabelLine_Trl_BY_ID = "AD_PrintLabelLine_TrlByIdDataLoader";
