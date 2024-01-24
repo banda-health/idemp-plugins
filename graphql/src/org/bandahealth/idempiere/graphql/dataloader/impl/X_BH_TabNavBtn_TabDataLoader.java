@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MTabNavBtnTab;
  * Data Loader for BH_TabNavBtn_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_BH_TabNavBtn_TabDataLoader extends PODataLoader<MTabNavBtnTab> {
 	public static String DATALOADER_BH_TabNavBtn_Tab_BY_ID = "BH_TabNavBtn_TabByIdDataLoader";

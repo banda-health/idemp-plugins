@@ -6,7 +6,7 @@ import org.compiere.model.MReplicationLog;
  * Data Loader for AD_Replication_Log - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_Replication_LogDataLoader extends PODataLoader<MReplicationLog> {
 	public static String DATALOADER_AD_Replication_Log_BY_ID = "AD_Replication_LogByIdDataLoader";

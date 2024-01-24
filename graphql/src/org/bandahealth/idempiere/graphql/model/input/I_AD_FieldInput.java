@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Field;
  * Generated Interface for AD_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_AD_FieldInput extends I_AD_Field {
 
@@ -151,20 +151,6 @@ public interface I_AD_FieldInput extends I_AD_Field {
 	ForeignEntityInput AD_Val_Rule();
 
 	/**
-	 * Set AD_Val_Rule_Lookup.
-	 *
-	 * @param AD_Val_Rule_Lookup Override Dynamic Validation Rule for Lookup Window
-	 */
-	void setAD_Val_Rule_LookupInput(ForeignEntityInput AD_Val_Rule_Lookup);
-
-	/**
-	 * Get AD_Val_Rule_Lookup.
-	 *
-	 * @return Override Dynamic Validation Rule for Lookup Window
-	 */
-	ForeignEntityInput AD_Val_Rule_Lookup();
-
-	/**
 	 * Column name BH_Abbreviation
 	 */
 	static final String COLUMNNAME_BH_Abbreviation = "BH_Abbreviation";
@@ -252,20 +238,6 @@ public interface I_AD_FieldInput extends I_AD_Field {
 	 * @return Data entry is required in this column
 	 */
 	I_AD_Ref_ListInput IsMandatory();
-
-	/**
-	 * Set IsSelectionColumn.
-	 *
-	 * @param IsSelectionColumn Is this column used for finding rows in windows
-	 */
-	void setIsSelectionColumnInput(I_AD_Ref_ListInput IsSelectionColumn);
-
-	/**
-	 * Get IsSelectionColumn.
-	 *
-	 * @return Is this column used for finding rows in windows
-	 */
-	I_AD_Ref_ListInput IsSelectionColumn();
 
 	/**
 	 * Set IsToolbarButton.

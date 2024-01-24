@@ -9,7 +9,7 @@ import org.compiere.model.X_AD_RelationType;
  * Generated Query Resolver for AD_RelationType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_RelationTypeQuery extends POQuery<X_AD_RelationType> implements GraphQLQueryResolver {
 	@Override

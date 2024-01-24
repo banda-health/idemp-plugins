@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PInstanceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
 import org.compiere.model.MPInstance;
-import org.compiere.model.MTable;
 import org.compiere.model.X_AD_PInstance_Log;
 import org.dataloader.DataLoader;
 
@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_PInstance_Log - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_PInstance_LogResolver extends POResolver<X_AD_PInstance_Log> implements GraphQLResolver<X_AD_PInstance_Log> {
 
@@ -41,11 +41,11 @@ public class X_AD_PInstance_LogResolver extends POResolver<X_AD_PInstance_Log> i
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable> AD_Table(X_AD_PInstance_Log entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable_BH> AD_Table(X_AD_PInstance_Log entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTable> dataLoader =
+		DataLoader<Integer, MTable_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}

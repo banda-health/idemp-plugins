@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MAttributeSetExclude;
+import org.compiere.model.X_M_AttributeSetExclude;
 
 /**
  * Data Loader for M_AttributeSetExclude - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_M_AttributeSetExcludeDataLoader extends PODataLoader<MAttributeSetExclude> {
+public class X_M_AttributeSetExcludeDataLoader extends PODataLoader<X_M_AttributeSetExclude> {
 	public static String DATALOADER_M_AttributeSetExclude_BY_ID = "M_AttributeSetExcludeByIdDataLoader";
 	public static String DATALOADER_M_AttributeSetExclude_BY_UUID = "M_AttributeSetExcludeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MAttributeSetExclude.Table_Name;
+		return X_M_AttributeSetExclude.Table_Name;
 	}
 
 	@Override

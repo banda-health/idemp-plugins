@@ -8,6 +8,7 @@ import org.compiere.model.PO;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -35,6 +36,11 @@ public class MInvoice_BH extends MInvoice {
 	 */
 	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
 	private static final long serialVersionUID = 1L;
+    /** Column name IsOverrideCurrencyRate */
+    public static final String COLUMNNAME_IsOverrideCurrencyRate = "IsOverrideCurrencyRate";
+
+    /** Column name CurrencyRate */
+    public static final String COLUMNNAME_CurrencyRate = "CurrencyRate";
 
 	public MInvoice_BH(Properties ctx, int C_Invoice_ID, String trxName) {
 		super(ctx, C_Invoice_ID, trxName);
@@ -182,5 +188,49 @@ public class MInvoice_BH extends MInvoice {
 	 */
 	public Object getBH_NavButtons() {
 		return get_Value(COLUMNNAME_BH_NavButtons);
+	}
+
+	/** Set Override Currency Conversion Rate.
+	@param IsOverrideCurrencyRate 
+	Override Currency Conversion Rate
+	  */
+	public void setIsOverrideCurrencyRate (boolean IsOverrideCurrencyRate)
+	{
+		set_Value (COLUMNNAME_IsOverrideCurrencyRate, Boolean.valueOf(IsOverrideCurrencyRate));
+	}
+	
+	/** Get Override Currency Conversion Rate.
+		@return Override Currency Conversion Rate
+	  */
+	public boolean isOverrideCurrencyRate () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsOverrideCurrencyRate);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Rate.
+	@param CurrencyRate 
+	Currency Conversion Rate
+	  */
+	public void setCurrencyRate (BigDecimal CurrencyRate)
+	{
+		set_Value (COLUMNNAME_CurrencyRate, CurrencyRate);
+	}
+	
+	/** Get Rate.
+		@return Currency Conversion Rate
+	  */
+	public BigDecimal getCurrencyRate () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_CurrencyRate);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 }

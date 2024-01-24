@@ -9,7 +9,7 @@ import org.compiere.model.X_WS_WebServiceTypeAccess;
  * Generated Query Resolver for WS_WebServiceTypeAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_WS_WebServiceTypeAccessQuery extends POQuery<X_WS_WebServiceTypeAccess> implements GraphQLQueryResolver {
 	@Override

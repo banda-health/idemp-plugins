@@ -6,7 +6,7 @@ import org.compiere.model.MRfQTopicSubscriber;
  * Data Loader for C_RfQ_TopicSubscriber - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_RfQ_TopicSubscriberDataLoader extends PODataLoader<MRfQTopicSubscriber> {
 	public static String DATALOADER_C_RfQ_TopicSubscriber_BY_ID = "C_RfQ_TopicSubscriberByIdDataLoader";

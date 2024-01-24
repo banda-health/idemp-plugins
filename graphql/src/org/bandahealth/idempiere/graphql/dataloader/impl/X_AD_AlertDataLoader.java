@@ -6,7 +6,7 @@ import org.compiere.model.MAlert;
  * Data Loader for AD_Alert - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_AlertDataLoader extends PODataLoader<MAlert> {
 	public static String DATALOADER_AD_Alert_BY_ID = "AD_AlertByIdDataLoader";

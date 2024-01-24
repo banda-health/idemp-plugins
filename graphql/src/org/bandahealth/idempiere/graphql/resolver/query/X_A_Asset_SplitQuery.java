@@ -9,7 +9,7 @@ import org.compiere.model.X_A_Asset_Split;
  * Generated Query Resolver for A_Asset_Split - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_A_Asset_SplitQuery extends POQuery<X_A_Asset_Split> implements GraphQLQueryResolver {
 	@Override

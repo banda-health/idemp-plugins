@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for T_InvoiceGL - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLInput {
 

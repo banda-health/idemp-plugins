@@ -6,7 +6,7 @@ import org.compiere.model.I_C_RfQLine;
  * Generated Interface for C_RfQLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_C_RfQLineInput extends I_C_RfQLine {
 

@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_LdapAccess;
  * Generated Interface for AD_LdapAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_AD_LdapAccessInput extends I_AD_LdapAccess {
 

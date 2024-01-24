@@ -9,7 +9,7 @@ import org.compiere.model.MDepositBatchLine;
  * Generated Query Resolver for C_DepositBatchLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_DepositBatchLineQuery extends POQuery<MDepositBatchLine> implements GraphQLQueryResolver {
 	@Override

@@ -6,7 +6,7 @@ import org.compiere.model.MRoleIncluded;
  * Data Loader for AD_Role_Included - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_Role_IncludedDataLoader extends PODataLoader<MRoleIncluded> {
 	public static String DATALOADER_AD_Role_Included_BY_ID = "AD_Role_IncludedByIdDataLoader";

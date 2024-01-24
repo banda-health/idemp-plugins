@@ -1,6 +1,6 @@
 # Generated Schema for B_Buyer - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 7.1 - $Id$
 extend type Query {
 	B_BuyerGet(page: Int, size: Int, sort: String, filter: String): B_BuyerConnection!
 }

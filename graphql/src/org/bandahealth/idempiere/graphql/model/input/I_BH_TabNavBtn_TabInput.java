@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.I_BH_TabNavBtn_Tab;
  * Generated Interface for BH_TabNavBtn_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_BH_TabNavBtn_TabInput extends I_BH_TabNavBtn_Tab {
 

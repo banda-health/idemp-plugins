@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MReportLine_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ElementValueDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLineDataLoader;
@@ -11,9 +12,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportSourceDataLo
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MElementValue;
 import org.compiere.model.X_I_ReportLine;
-import org.compiere.model.X_PA_ReportLine;
-import org.compiere.model.X_PA_ReportLineSet;
-import org.compiere.model.X_PA_ReportSource;
+import org.compiere.report.MReportLineSet;
+import org.compiere.report.MReportSource;
 import org.dataloader.DataLoader;
 
 import java.util.HashMap;
@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for I_ReportLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implements GraphQLResolver<X_I_ReportLine> {
 
@@ -95,11 +95,11 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 	 *
 	 * @return Report Line
 	 */
-	public CompletableFuture<X_PA_ReportLine> PA_ReportLine(X_I_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportLine_BH> PA_ReportLine(X_I_ReportLine entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, X_PA_ReportLine> dataLoader =
+		DataLoader<Integer, MReportLine_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineDataLoader.DATALOADER_PA_ReportLine_BY_ID);
 		return dataLoader.load(entity.getPA_ReportLine_ID());
 	}
@@ -110,11 +110,11 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 	 *
 	 * @return Report Line Set
 	 */
-	public CompletableFuture<X_PA_ReportLineSet> PA_ReportLineSet(X_I_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportLineSet> PA_ReportLineSet(X_I_ReportLine entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportLineSet_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, X_PA_ReportLineSet> dataLoader =
+		DataLoader<Integer, MReportLineSet> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportLineSetDataLoader.DATALOADER_PA_ReportLineSet_BY_ID);
 		return dataLoader.load(entity.getPA_ReportLineSet_ID());
 	}
@@ -125,11 +125,11 @@ public class X_I_ReportLineResolver extends POResolver<X_I_ReportLine> implement
 	 *
 	 * @return Restriction of what will be shown in Report Line
 	 */
-	public CompletableFuture<X_PA_ReportSource> PA_ReportSource(X_I_ReportLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReportSource> PA_ReportSource(X_I_ReportLine entity, DataFetchingEnvironment environment) {
 		if (entity.getPA_ReportSource_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, X_PA_ReportSource> dataLoader =
+		DataLoader<Integer, MReportSource> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_ReportSourceDataLoader.DATALOADER_PA_ReportSource_BY_ID);
 		return dataLoader.load(entity.getPA_ReportSource_ID());
 	}

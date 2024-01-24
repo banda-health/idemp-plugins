@@ -6,7 +6,7 @@ import org.eevolution.model.MDDOrder;
  * Data Loader for DD_Order - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_DD_OrderDataLoader extends PODataLoader<MDDOrder> {
 	public static String DATALOADER_DD_Order_BY_ID = "DD_OrderByIdDataLoader";

@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MAttribute;
+import org.bandahealth.idempiere.base.model.MAttribute_BH;
 
 /**
  * Data Loader for M_Attribute - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_M_AttributeDataLoader extends PODataLoader<MAttribute> {
+public class X_M_AttributeDataLoader extends PODataLoader<MAttribute_BH> {
 	public static String DATALOADER_M_Attribute_BY_ID = "M_AttributeByIdDataLoader";
 	public static String DATALOADER_M_Attribute_BY_UUID = "M_AttributeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MAttribute.Table_Name;
+		return MAttribute_BH.Table_Name;
 	}
 
 	@Override

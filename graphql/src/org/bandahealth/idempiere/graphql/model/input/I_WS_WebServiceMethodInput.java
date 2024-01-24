@@ -6,7 +6,7 @@ import org.compiere.model.I_WS_WebServiceMethod;
  * Generated Interface for WS_WebServiceMethod - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_WS_WebServiceMethodInput extends I_WS_WebServiceMethod {
 

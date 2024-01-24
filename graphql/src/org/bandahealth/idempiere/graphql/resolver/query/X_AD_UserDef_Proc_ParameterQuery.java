@@ -9,7 +9,7 @@ import org.compiere.model.MUserDefProcParameter;
  * Generated Query Resolver for AD_UserDef_Proc_Parameter - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_UserDef_Proc_ParameterQuery extends POQuery<MUserDefProcParameter> implements GraphQLQueryResolver {
 	@Override

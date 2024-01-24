@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_RelationType;
  * Generated Interface for AD_RelationType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_AD_RelationTypeInput extends I_AD_RelationType {
 
@@ -65,20 +65,6 @@ public interface I_AD_RelationTypeInput extends I_AD_RelationType {
 	 * @return ID
 	 */
 	String getID();
-
-	/**
-	 * Set AD_EntityType.
-	 *
-	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-	void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType);
-
-	/**
-	 * Get AD_EntityType.
-	 *
-	 * @return Dictionary Entity Type; Determines ownership and synchronization
-	 */
-	ForeignEntityInput AD_EntityType();
 
 	/**
 	 * Set Role_Source.

@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for A_RegistrationProduct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_A_RegistrationProductResolver extends POResolver<X_A_RegistrationProduct> implements GraphQLResolver<X_A_RegistrationProduct> {
 

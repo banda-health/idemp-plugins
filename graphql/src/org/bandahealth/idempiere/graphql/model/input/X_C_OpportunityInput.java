@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Opportunity - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_OpportunityInput extends MOpportunity implements I_C_OpportunityInput {
 

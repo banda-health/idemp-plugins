@@ -2,10 +2,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEXPFormat;
 import org.compiere.model.MOrg;
-import org.compiere.model.MTable;
 import org.compiere.model.Query;
 
 import java.sql.ResultSet;
@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  * Generated Model for EXP_Format - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_EXP_FormatInput extends MEXPFormat implements I_EXP_FormatInput {
 
@@ -66,7 +66,7 @@ public class X_EXP_FormatInput extends MEXPFormat implements I_EXP_FormatInput {
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
+		MTable_BH foreignEntity;
 		if (AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())

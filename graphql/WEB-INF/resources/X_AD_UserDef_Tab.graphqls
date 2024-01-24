@@ -1,6 +1,6 @@
 # Generated Schema for AD_UserDef_Tab - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 7.1 - $Id$
 extend type Query {
 	AD_UserDef_TabGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_TabConnection!
 }
@@ -38,9 +38,6 @@ type AD_UserDef_Tab {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	IsAllowAdvancedLookup: AD_Ref_List
-	# When defined to true Lookup panel will display only selection columns. Default to false.
-	IsLookupOnlySelection: AD_Ref_List
 	# This applies to Multi-Row view only
 	IsMultiRowOnly: Boolean!
 	# Field is read only
@@ -80,9 +77,6 @@ input AD_UserDef_TabInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	IsAllowAdvancedLookup: AD_Ref_ListInput
-	# When defined to true Lookup panel will display only selection columns. Default to false.
-	IsLookupOnlySelection: AD_Ref_ListInput
 	# This applies to Multi-Row view only
 	IsMultiRowOnly: Boolean
 	# Field is read only

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MForm;
@@ -15,7 +16,6 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPackageExp;
 import org.compiere.model.MPackageExpDetail;
 import org.compiere.model.MReportView;
-import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
@@ -32,7 +32,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Package_Exp_Detail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I_AD_Package_Exp_DetailInput {
 
@@ -497,7 +497,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
+		MTable_BH foreignEntity;
 		if (AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())

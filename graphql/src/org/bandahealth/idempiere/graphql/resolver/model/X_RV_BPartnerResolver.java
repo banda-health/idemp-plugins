@@ -55,7 +55,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for RV_BPartner - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_RV_BPartnerResolver extends POResolver<MBPartnerInfo> implements GraphQLResolver<MBPartnerInfo> {
 

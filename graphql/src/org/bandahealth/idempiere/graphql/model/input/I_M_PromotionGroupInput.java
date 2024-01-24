@@ -6,7 +6,7 @@ import org.compiere.model.I_M_PromotionGroup;
  * Generated Interface for M_PromotionGroup - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_M_PromotionGroupInput extends I_M_PromotionGroup {
 

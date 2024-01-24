@@ -12,7 +12,7 @@ import java.util.List;
  * Generated Query Resolver for PP_Order_BOMLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_PP_Order_BOMLineMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

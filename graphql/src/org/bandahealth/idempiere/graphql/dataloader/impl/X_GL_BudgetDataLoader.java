@@ -6,7 +6,7 @@ import org.compiere.model.X_GL_Budget;
  * Data Loader for GL_Budget - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_GL_BudgetDataLoader extends PODataLoader<X_GL_Budget> {
 	public static String DATALOADER_GL_Budget_BY_ID = "GL_BudgetByIdDataLoader";

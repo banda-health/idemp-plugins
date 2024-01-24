@@ -6,7 +6,7 @@ import org.compiere.model.I_C_BP_Employee_Acct;
  * Generated Interface for C_BP_Employee_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_C_BP_Employee_AcctInput extends I_C_BP_Employee_Acct {
 

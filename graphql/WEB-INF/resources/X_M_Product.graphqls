@@ -1,6 +1,6 @@
 # Generated Schema for M_Product - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 7.1 - $Id$
 extend type Query {
 	M_ProductGet(page: Int, size: Int, sort: String, filter: String): M_ProductConnection!
 }
@@ -47,8 +47,6 @@ type M_Product {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
-	# Customs Tariff Number, usually the HS-Code
-	CustomsTariffNumber: String
 	# Optional short description of the record
 	Description: String
 	# URL for the description
@@ -190,8 +188,6 @@ input M_ProductInput {
 	Classification: String
 	# Copy From Record
 	CopyFrom: String
-	# Customs Tariff Number, usually the HS-Code
-	CustomsTariffNumber: String
 	# Optional short description of the record
 	Description: String
 	# URL for the description

@@ -9,7 +9,7 @@ import org.eevolution.model.X_PP_Order_Cost;
  * Generated Query Resolver for PP_Order_Cost - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_PP_Order_CostQuery extends POQuery<X_PP_Order_Cost> implements GraphQLQueryResolver {
 	@Override

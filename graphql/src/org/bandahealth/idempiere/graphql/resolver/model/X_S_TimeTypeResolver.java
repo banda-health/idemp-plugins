@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for S_TimeType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_S_TimeTypeResolver extends POResolver<X_S_TimeType> implements GraphQLResolver<X_S_TimeType> {
 

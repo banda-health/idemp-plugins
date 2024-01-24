@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MCurrency_BH;
  * Data Loader for C_Currency - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_CurrencyDataLoader extends PODataLoader<MCurrency_BH> {
 	public static String DATALOADER_C_Currency_BY_ID = "C_CurrencyByIdDataLoader";

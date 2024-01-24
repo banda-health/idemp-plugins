@@ -9,7 +9,7 @@ import org.compiere.model.X_C_SalesStage;
  * Generated Query Resolver for C_SalesStage - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_SalesStageQuery extends POQuery<X_C_SalesStage> implements GraphQLQueryResolver {
 	@Override

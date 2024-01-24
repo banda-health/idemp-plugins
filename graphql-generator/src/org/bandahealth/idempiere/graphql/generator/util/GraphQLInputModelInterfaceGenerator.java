@@ -74,9 +74,9 @@ public class GraphQLInputModelInterfaceGenerator {
 		this.customModelPackageName = customModelPackageName;
 
 		// Get the name of the model to extend
-		tableStructureExtensions = modelsForTables.get(MTable.get(AD_Table_ID).getTableName());
+		tableStructureExtensions = modelsForTables.get(MTable.get(Env.getCtx(), AD_Table_ID).getTableName());
 		if (tableStructureExtensions == null) {
-			throw new FileNotFoundException("Can't find file to match for table " + MTable.get(AD_Table_ID).getTableName());
+			throw new FileNotFoundException("Can't find file to match for table " + MTable.get(Env.getCtx(), AD_Table_ID).getTableName());
 		}
 
 		// create column access methods
@@ -251,7 +251,7 @@ public class GraphQLInputModelInterfaceGenerator {
 			} else {
 				String columnNameWithSuffixedIdRemoved = columnName.substring(0, columnName.length() - 3);
 				// Possibly there isn't a mapping, but a table does exist we can use
-				if (columnName.endsWith("_ID") && MTable.get(AD_Table_ID).getColumn(columnNameWithSuffixedIdRemoved) == null &&
+				if (columnName.endsWith("_ID") && MTable.get(Env.getCtx(), AD_Table_ID).getColumn(columnNameWithSuffixedIdRemoved) == null &&
 						MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					returnType = "I_" + columnNameWithSuffixedIdRemoved + "Input";
@@ -290,7 +290,7 @@ public class GraphQLInputModelInterfaceGenerator {
 		}
 
 		if (AD_Reference_ID > 0 &&
-				MReference.get(AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
+				MReference.get(Env.getCtx(), AD_Reference_ID).getValidationType().equals(MReference.VALIDATIONTYPE_ListValidation) &&
 				clazz.equals(String.class)) {
 //			columnName += "_RL";
 			columnBuilder.append("\n");
@@ -305,7 +305,7 @@ public class GraphQLInputModelInterfaceGenerator {
 		// If the column is user-maintained and the table isn't, we need to generate
 		boolean areColumnMethodsStoredOnAManualClassExtendingAnotherManualClass =
 				entityType.equals(MEntityType.ENTITYTYPE_UserMaintained) &&
-						!MTable.get(AD_Table_ID).getEntityType().equals(MEntityType.ENTITYTYPE_UserMaintained);
+						!MTable.get(Env.getCtx(), AD_Table_ID).getEntityType().equals(MEntityType.ENTITYTYPE_UserMaintained);
 		if (areColumnMethodsStoredOnAManualClassExtendingAnotherManualClass) {
 			columnBuilder
 					.append("\n\n")

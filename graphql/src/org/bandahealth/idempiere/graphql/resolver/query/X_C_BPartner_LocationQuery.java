@@ -9,7 +9,7 @@ import org.compiere.model.MBPartnerLocation;
  * Generated Query Resolver for C_BPartner_Location - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_BPartner_LocationQuery extends POQuery<MBPartnerLocation> implements GraphQLQueryResolver {
 	@Override

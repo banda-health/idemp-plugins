@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for WS_WebService_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_WS_WebService_ParaInput extends X_WS_WebService_Para implements I_WS_WebService_ParaInput {
 

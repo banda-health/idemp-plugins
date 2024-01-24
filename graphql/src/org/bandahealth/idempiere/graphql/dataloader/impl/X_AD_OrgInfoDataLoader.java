@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
  * Data Loader for AD_OrgInfo - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_OrgInfoDataLoader extends PODataLoader<MOrgInfo_BH> {
 	public static String DATALOADER_AD_OrgInfo_BY_ID = "AD_OrgInfoByIdDataLoader";

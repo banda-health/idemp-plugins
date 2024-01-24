@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  * Generated Model for I_InOutLineConfirm - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_I_InOutLineConfirmInput extends X_I_InOutLineConfirm implements I_I_InOutLineConfirmInput {
 

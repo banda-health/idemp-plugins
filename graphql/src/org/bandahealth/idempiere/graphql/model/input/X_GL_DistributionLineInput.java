@@ -22,7 +22,7 @@ import java.sql.ResultSet;
  * Generated Model for GL_DistributionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_GL_DistributionLineInput extends MDistributionLine implements I_GL_DistributionLineInput {
 

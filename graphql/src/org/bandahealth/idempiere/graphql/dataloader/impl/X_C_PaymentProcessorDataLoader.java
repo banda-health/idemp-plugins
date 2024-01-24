@@ -6,7 +6,7 @@ import org.compiere.model.MPaymentProcessor;
  * Data Loader for C_PaymentProcessor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_PaymentProcessorDataLoader extends PODataLoader<MPaymentProcessor> {
 	public static String DATALOADER_C_PaymentProcessor_BY_ID = "C_PaymentProcessorByIdDataLoader";

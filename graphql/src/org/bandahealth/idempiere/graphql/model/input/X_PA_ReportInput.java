@@ -10,9 +10,9 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MReportCube;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
-import org.compiere.model.X_PA_Report;
-import org.compiere.model.X_PA_ReportColumnSet;
-import org.compiere.model.X_PA_ReportLineSet;
+import org.compiere.report.MReport;
+import org.compiere.report.MReportColumnSet;
+import org.compiere.report.MReportLineSet;
 
 import java.sql.ResultSet;
 
@@ -20,9 +20,9 @@ import java.sql.ResultSet;
  * Generated Model for PA_Report - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
+public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PrintFormat;
@@ -38,7 +38,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	 */
 	@JsonCreator
 	public X_PA_ReportInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new X_PA_Report(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MReport(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}
@@ -223,7 +223,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	@JsonProperty("PA_ReportColumnSet")
 	public void setPA_ReportColumnSetInput(ForeignEntityInput PA_ReportColumnSet) {
 		this.mPA_ReportColumnSet = PA_ReportColumnSet;
-		X_PA_ReportColumnSet foreignEntity;
+		MReportColumnSet foreignEntity;
 		if (PA_ReportColumnSet != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportColumnSet", "PA_ReportColumnSet_UU=?", get_TrxName())
 						.setParameters(PA_ReportColumnSet.getID())
@@ -281,7 +281,7 @@ public class X_PA_ReportInput extends X_PA_Report implements I_PA_ReportInput {
 	@JsonProperty("PA_ReportLineSet")
 	public void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet) {
 		this.mPA_ReportLineSet = PA_ReportLineSet;
-		X_PA_ReportLineSet foreignEntity;
+		MReportLineSet foreignEntity;
 		if (PA_ReportLineSet != null &&
 				(foreignEntity = new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
 						.setParameters(PA_ReportLineSet.getID())

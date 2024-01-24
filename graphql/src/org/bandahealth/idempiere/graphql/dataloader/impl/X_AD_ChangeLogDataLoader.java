@@ -6,7 +6,7 @@ import org.compiere.model.MChangeLog;
  * Data Loader for AD_ChangeLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_ChangeLogDataLoader extends PODataLoader<MChangeLog> {
 	public static String DATALOADER_AD_ChangeLog_BY_ID = "AD_ChangeLogByIdDataLoader";

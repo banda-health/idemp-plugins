@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for AD_InfoWindow_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_InfoWindow_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_AD_InfoWindow_Trl_BY_ID = "AD_InfoWindow_TrlByIdDataLoader";

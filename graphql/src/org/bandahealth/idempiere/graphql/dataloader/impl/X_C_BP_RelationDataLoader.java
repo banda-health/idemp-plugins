@@ -6,7 +6,7 @@ import org.compiere.model.X_C_BP_Relation;
  * Data Loader for C_BP_Relation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_BP_RelationDataLoader extends PODataLoader<X_C_BP_Relation> {
 	public static String DATALOADER_C_BP_Relation_BY_ID = "C_BP_RelationByIdDataLoader";

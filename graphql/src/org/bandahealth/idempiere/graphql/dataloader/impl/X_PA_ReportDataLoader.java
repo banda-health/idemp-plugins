@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.X_PA_Report;
+import org.compiere.report.MReport;
 
 /**
  * Data Loader for PA_Report - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_PA_ReportDataLoader extends PODataLoader<X_PA_Report> {
+public class X_PA_ReportDataLoader extends PODataLoader<MReport> {
 	public static String DATALOADER_PA_Report_BY_ID = "PA_ReportByIdDataLoader";
 	public static String DATALOADER_PA_Report_BY_UUID = "PA_ReportByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return X_PA_Report.Table_Name;
+		return MReport.Table_Name;
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_PrintPaper;
  * Data Loader for AD_PrintPaper - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_PrintPaperDataLoader extends PODataLoader<X_AD_PrintPaper> {
 	public static String DATALOADER_AD_PrintPaper_BY_ID = "AD_PrintPaperByIdDataLoader";

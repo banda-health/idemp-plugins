@@ -9,7 +9,7 @@ import org.compiere.model.MAcctProcessorLog;
  * Generated Query Resolver for C_AcctProcessorLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_AcctProcessorLogQuery extends POQuery<MAcctProcessorLog> implements GraphQLQueryResolver {
 	@Override

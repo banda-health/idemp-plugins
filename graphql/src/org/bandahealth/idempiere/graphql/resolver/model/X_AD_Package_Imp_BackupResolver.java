@@ -3,13 +3,13 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Package_ImpDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Package_Imp_DetailDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReferenceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
 import org.compiere.model.MColumn;
-import org.compiere.model.MTable;
 import org.compiere.model.X_AD_Package_Imp;
 import org.compiere.model.X_AD_Package_Imp_Backup;
 import org.compiere.model.X_AD_Package_Imp_Detail;
@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Package_Imp_Backup - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp_Backup> implements GraphQLResolver<X_AD_Package_Imp_Backup> {
 
@@ -92,11 +92,11 @@ public class X_AD_Package_Imp_BackupResolver extends POResolver<X_AD_Package_Imp
 	 *
 	 * @return Database Table information
 	 */
-	public CompletableFuture<MTable> AD_Table(X_AD_Package_Imp_Backup entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTable_BH> AD_Table(X_AD_Package_Imp_Backup entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Table_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MTable> dataLoader =
+		DataLoader<Integer, MTable_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
 	}

@@ -45,7 +45,7 @@ public class MRoleDataLoader extends X_AD_RoleDataLoader {
 			// If the user is currently the system client, we can get everything
 			if (Env.getAD_Client_ID(batchLoaderEnvironment.getContext()) == 0) {
 				Repository.setApplyAccessFilterNotNeeded();
-				PO.setCrossTenantSafe();
+				//PO.setCrossTenantSafe();
 			}
 			Map<Integer, Integer> clientIdsByOrganizationId =
 					Repository.<MOrg>getByIds(batchLoaderEnvironment.getContext(), MOrg.Table_Name, null, organizationIds)
@@ -67,7 +67,7 @@ public class MRoleDataLoader extends X_AD_RoleDataLoader {
 			}
 
 			Repository.clearApplyAccessFilterNotNeeded();
-			PO.clearCrossTenantSafe();
+			//PO.clearCrossTenantSafe();
 			return rolesByOrganizationModelKey;
 		});
 	}

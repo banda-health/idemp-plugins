@@ -4,7 +4,7 @@ import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.model.input.I_PA_ReportLineSetInput;
 import org.bandahealth.idempiere.graphql.model.input.X_PA_ReportLineSetInput;
-import org.compiere.model.X_PA_ReportLineSet;
+import org.compiere.report.MReportLineSet;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * Generated Query Resolver for PA_ReportLineSet - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_PA_ReportLineSetMutation extends POMutation implements GraphQLMutationResolver {
 	@Override
@@ -20,8 +20,8 @@ public class X_PA_ReportLineSetMutation extends POMutation implements GraphQLMut
 		return X_PA_ReportLineSetInput.Table_Name;
 	}
 
-	public X_PA_ReportLineSet PA_ReportLineSetSave(I_PA_ReportLineSetInput input, DataFetchingEnvironment environment) {
-		return (X_PA_ReportLineSet) super.save((X_PA_ReportLineSetInput) input, environment);
+	public MReportLineSet PA_ReportLineSetSave(I_PA_ReportLineSetInput input, DataFetchingEnvironment environment) {
+		return (MReportLineSet) super.save((X_PA_ReportLineSetInput) input, environment);
 	}
 
 	public boolean PA_ReportLineSetDelete(List<String> uuids, DataFetchingEnvironment environment) {

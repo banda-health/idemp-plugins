@@ -6,7 +6,7 @@ import org.compiere.model.I_RV_WarehousePrice;
  * Generated Interface for RV_WarehousePrice - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_RV_WarehousePriceInput extends I_RV_WarehousePrice {
 

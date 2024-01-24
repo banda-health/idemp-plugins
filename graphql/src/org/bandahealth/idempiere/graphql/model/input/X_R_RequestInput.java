@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
@@ -26,7 +27,6 @@ import org.compiere.model.MRequestCategory;
 import org.compiere.model.MRequestType;
 import org.compiere.model.MResolution;
 import org.compiere.model.MStatus;
-import org.compiere.model.MTable;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
 import org.compiere.model.X_R_StandardResponse;
@@ -38,7 +38,7 @@ import java.sql.Timestamp;
  * Generated Model for R_Request - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 
@@ -181,7 +181,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
+		MTable_BH foreignEntity;
 		if (get_ID() == 0 && AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())

@@ -9,7 +9,7 @@ import org.compiere.model.MConversionType;
  * Generated Query Resolver for C_ConversionType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_ConversionTypeQuery extends POQuery<MConversionType> implements GraphQLQueryResolver {
 	@Override

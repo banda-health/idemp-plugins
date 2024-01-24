@@ -6,7 +6,7 @@ import org.compiere.model.X_M_PartType;
  * Data Loader for M_PartType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_PartTypeDataLoader extends PODataLoader<X_M_PartType> {
 	public static String DATALOADER_M_PartType_BY_ID = "M_PartTypeByIdDataLoader";

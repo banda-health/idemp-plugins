@@ -2,22 +2,22 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MDiscountSchemaLine_BH;
 import org.bandahealth.idempiere.graphql.model.Connection;
-import org.compiere.model.MDiscountSchemaLine;
 
 /**
  * Generated Query Resolver for M_DiscountSchemaLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_M_DiscountSchemaLineQuery extends POQuery<MDiscountSchemaLine> implements GraphQLQueryResolver {
+public class X_M_DiscountSchemaLineQuery extends POQuery<MDiscountSchemaLine_BH> implements GraphQLQueryResolver {
 	@Override
 	protected String getTableName() {
-		return MDiscountSchemaLine.Table_Name;
+		return MDiscountSchemaLine_BH.Table_Name;
 	}
 
-	public Connection<MDiscountSchemaLine> M_DiscountSchemaLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDiscountSchemaLine_BH> M_DiscountSchemaLineGet(int page, int pageSize, String sort, String filter,
 			DataFetchingEnvironment environment) {
 		return super.get(page, pageSize, sort, filter, environment);
 	}

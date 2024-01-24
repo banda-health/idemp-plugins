@@ -6,7 +6,7 @@ import org.compiere.model.MConversionType;
  * Data Loader for C_ConversionType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_ConversionTypeDataLoader extends PODataLoader<MConversionType> {
 	public static String DATALOADER_C_ConversionType_BY_ID = "C_ConversionTypeByIdDataLoader";

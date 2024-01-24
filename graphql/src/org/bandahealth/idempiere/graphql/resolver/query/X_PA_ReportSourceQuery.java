@@ -3,21 +3,21 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.model.Connection;
-import org.compiere.model.X_PA_ReportSource;
+import org.compiere.report.MReportSource;
 
 /**
  * Generated Query Resolver for PA_ReportSource - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_PA_ReportSourceQuery extends POQuery<X_PA_ReportSource> implements GraphQLQueryResolver {
+public class X_PA_ReportSourceQuery extends POQuery<MReportSource> implements GraphQLQueryResolver {
 	@Override
 	protected String getTableName() {
-		return X_PA_ReportSource.Table_Name;
+		return MReportSource.Table_Name;
 	}
 
-	public Connection<X_PA_ReportSource> PA_ReportSourceGet(int page, int pageSize, String sort, String filter,
+	public Connection<MReportSource> PA_ReportSourceGet(int page, int pageSize, String sort, String filter,
 			DataFetchingEnvironment environment) {
 		return super.get(page, pageSize, sort, filter, environment);
 	}

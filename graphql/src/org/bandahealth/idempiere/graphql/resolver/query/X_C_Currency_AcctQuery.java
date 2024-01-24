@@ -9,7 +9,7 @@ import org.compiere.model.MCurrencyAcct;
  * Generated Query Resolver for C_Currency_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_Currency_AcctQuery extends POQuery<MCurrencyAcct> implements GraphQLQueryResolver {
 	@Override

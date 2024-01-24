@@ -9,7 +9,7 @@ import org.eevolution.model.X_T_MRP_CRP;
  * Generated Query Resolver for T_MRP_CRP - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_T_MRP_CRPQuery extends POQuery<X_T_MRP_CRP> implements GraphQLQueryResolver {
 	@Override

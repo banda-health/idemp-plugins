@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MStyleLine;
+import org.compiere.model.X_AD_StyleLine;
 
 /**
  * Data Loader for AD_StyleLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_AD_StyleLineDataLoader extends PODataLoader<MStyleLine> {
+public class X_AD_StyleLineDataLoader extends PODataLoader<X_AD_StyleLine> {
 	public static String DATALOADER_AD_StyleLine_BY_ID = "AD_StyleLineByIdDataLoader";
 	public static String DATALOADER_AD_StyleLine_BY_UUID = "AD_StyleLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MStyleLine.Table_Name;
+		return X_AD_StyleLine.Table_Name;
 	}
 
 	@Override

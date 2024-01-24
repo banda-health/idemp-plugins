@@ -9,7 +9,7 @@ import org.compiere.model.MResource;
  * Generated Query Resolver for S_Resource - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_S_ResourceQuery extends POQuery<MResource> implements GraphQLQueryResolver {
 	@Override

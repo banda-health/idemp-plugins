@@ -4,13 +4,13 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MUserDefTab_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TabDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDef_WinDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MTab;
-import org.compiere.model.MUserDefTab;
 import org.compiere.model.MUserDefWin;
 import org.dataloader.DataLoader;
 
@@ -22,9 +22,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_UserDef_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements GraphQLResolver<MUserDefTab> {
+public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab_BH> implements GraphQLResolver<MUserDefTab_BH> {
 
 
 
@@ -33,7 +33,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 	 *
 	 * @return Process or Report
 	 */
-	public CompletableFuture<MProcess_BH> AD_Process(MUserDefTab entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProcess_BH> AD_Process(MUserDefTab_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Process_ID() <= 0) {
 			return null;
 		}
@@ -48,7 +48,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 	 *
 	 * @return Tab within a Window
 	 */
-	public CompletableFuture<MTab> AD_Tab(MUserDefTab entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTab> AD_Tab(MUserDefTab_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Tab_ID() <= 0) {
 			return null;
 		}
@@ -63,7 +63,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 	 *
 	 * @return User defined Window
 	 */
-	public CompletableFuture<MUserDefWin> AD_UserDef_Win(MUserDefTab entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MUserDefWin> AD_UserDef_Win(MUserDefTab_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_UserDef_Win_ID() <= 0) {
 			return null;
 		}
@@ -72,37 +72,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 		return dataLoader.load(entity.getAD_UserDef_Win_ID());
 	}
 
-	static Map<String, String> ISALLOWADVANCEDLOOKUP_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
-		}
-	};
-	public CompletableFuture<MRefList_BH> IsAllowAdvancedLookup(MUserDefTab entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getIsAllowAdvancedLookup())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
-		return dataLoader.load(ISALLOWADVANCEDLOOKUP_UUIDS_BY_VALUE.get(entity.getIsAllowAdvancedLookup()));
-	}
-
-	static Map<String, String> ISLOOKUPONLYSELECTION_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
-			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
-		}
-	};
-	public CompletableFuture<MRefList_BH> IsLookupOnlySelection(MUserDefTab entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getIsLookupOnlySelection())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_ID);
-		return dataLoader.load(ISLOOKUPONLYSELECTION_UUIDS_BY_VALUE.get(entity.getIsLookupOnlySelection()));
-	}
-
-	public Boolean IsMultiRowOnly(MUserDefTab entity, DataFetchingEnvironment environment) {
+	public Boolean IsMultiRowOnly(MUserDefTab_BH entity, DataFetchingEnvironment environment) {
 		return entity.isMultiRowOnly();
 	}
 
@@ -112,7 +82,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
 		}
 	};
-	public CompletableFuture<MRefList_BH> IsReadOnly(MUserDefTab entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> IsReadOnly(MUserDefTab_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getIsReadOnly())) {
 			return null;
 		}
@@ -127,7 +97,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
 		}
 	};
-	public CompletableFuture<MRefList_BH> IsSingleRow(MUserDefTab entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> IsSingleRow(MUserDefTab_BH entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getIsSingleRow())) {
 			return null;
 		}

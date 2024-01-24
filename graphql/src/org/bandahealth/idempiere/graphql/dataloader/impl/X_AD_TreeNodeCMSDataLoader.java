@@ -6,7 +6,7 @@ import org.compiere.model.MTree_NodeCMS;
  * Data Loader for AD_TreeNodeCMS - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_TreeNodeCMSDataLoader extends PODataLoader<MTree_NodeCMS> {
 	public static String DATALOADER_AD_TreeNodeCMS_BY_ID = "AD_TreeNodeCMSByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.I_ASP_Window;
  * Generated Interface for ASP_Window - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_ASP_WindowInput extends I_ASP_Window {
 

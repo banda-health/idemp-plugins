@@ -1,6 +1,6 @@
 # Generated Schema for AD_Tab - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 7.1 - $Id$
 extend type Query {
 	AD_TabGet(page: Int, size: Int, sort: String, filter: String): AD_TabConnection!
 }
@@ -60,13 +60,10 @@ type AD_Tab {
 	IsActive: Boolean!
 	# This Tab contains advanced Functionality
 	IsAdvancedTab: Boolean!
-	IsAllowAdvancedLookup: Boolean!
 	# This Tab contains accounting information
 	IsInfoTab: Boolean!
 	# The user can insert a new Record
 	IsInsertRecord: Boolean!
-	# When defined to true Lookup panel will display only selection columns. Default to false.
-	IsLookupOnlySelection: Boolean!
 	# Field is read only
 	IsReadOnly: Boolean!
 	# Default for toggle between Single- and Multi-Row (Grid) Layout
@@ -139,13 +136,10 @@ input AD_TabInput {
 	IsActive: Boolean
 	# This Tab contains advanced Functionality
 	IsAdvancedTab: Boolean
-	IsAllowAdvancedLookup: Boolean
 	# This Tab contains accounting information
 	IsInfoTab: Boolean
 	# The user can insert a new Record
 	IsInsertRecord: Boolean
-	# When defined to true Lookup panel will display only selection columns. Default to false.
-	IsLookupOnlySelection: Boolean
 	# Field is read only
 	IsReadOnly: Boolean
 	# Default for toggle between Single- and Multi-Row (Grid) Layout

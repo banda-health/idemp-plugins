@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MUserDefTab_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTab;
-import org.compiere.model.MUserDefTab;
 import org.compiere.model.MUserDefWin;
 import org.compiere.model.Query;
 
@@ -17,16 +17,14 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserDef_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_TabInput {
+public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDef_TabInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Process;
 	private ForeignEntityInput mAD_Tab;
 	private ForeignEntityInput mAD_UserDef_Win;
-	private I_AD_Ref_ListInput mIsAllowAdvancedLookup;
-	private I_AD_Ref_ListInput mIsLookupOnlySelection;
 	private I_AD_Ref_ListInput mIsReadOnly;
 	private I_AD_Ref_ListInput mIsSingleRow;
 
@@ -35,7 +33,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 */
 	@JsonCreator
 	public X_AD_UserDef_TabInput(@JsonProperty("ID") String ID) {
-		super(null, ModelUtil.getModelResultSet(new MUserDefTab(null, (ResultSet) null, null), null, Table_Name, ID),
+		super(null, ModelUtil.getModelResultSet(new MUserDefTab_BH(null, (ResultSet) null, null), null, Table_Name, ID),
 				null);
 		setID(ID);
 	}
@@ -179,64 +177,6 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	@JsonProperty("AD_UserDef_Win")
 	public ForeignEntityInput AD_UserDef_Win() {
 		return mAD_UserDef_Win;
-	}
-
-	/**
-	 * Set Allow Advanced Lookup.
-	 *
-	 * @param IsAllowAdvancedLookup Allow Advanced Lookup
-	 */
-	@JsonProperty("IsAllowAdvancedLookup")
-	public void setIsAllowAdvancedLookupInput(I_AD_Ref_ListInput IsAllowAdvancedLookup) {
-		this.mIsAllowAdvancedLookup = IsAllowAdvancedLookup;
-		MRefList_BH foreignEntity;
-		if (IsAllowAdvancedLookup != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsAllowAdvancedLookup.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setIsAllowAdvancedLookup(foreignEntity.getValue());
-		} else {
-			this.setIsAllowAdvancedLookup(null);
-		}
-	}
-
-	/**
-	 * Get Allow Advanced Lookup.
-	 *
-	 * @return Allow Advanced Lookup
-	 */
-	@JsonProperty("IsAllowAdvancedLookup")
-	public I_AD_Ref_ListInput IsAllowAdvancedLookup() {
-		return mIsAllowAdvancedLookup;
-	}
-
-	/**
-	 * Set Lookup Only Selection Columns.
-	 *
-	 * @param IsLookupOnlySelection When defined to true Lookup panel will display only selection columns. Default to false.
-	 */
-	@JsonProperty("IsLookupOnlySelection")
-	public void setIsLookupOnlySelectionInput(I_AD_Ref_ListInput IsLookupOnlySelection) {
-		this.mIsLookupOnlySelection = IsLookupOnlySelection;
-		MRefList_BH foreignEntity;
-		if (IsLookupOnlySelection != null &&
-				(foreignEntity = new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-						.setParameters(IsLookupOnlySelection.getID())
-						.first()) != null && foreignEntity.get_ID() != 0) {
-			this.setIsLookupOnlySelection(foreignEntity.getValue());
-		} else {
-			this.setIsLookupOnlySelection(null);
-		}
-	}
-
-	/**
-	 * Get Lookup Only Selection Columns.
-	 *
-	 * @return When defined to true Lookup panel will display only selection columns. Default to false.
-	 */
-	@JsonProperty("IsLookupOnlySelection")
-	public I_AD_Ref_ListInput IsLookupOnlySelection() {
-		return mIsLookupOnlySelection;
 	}
 
 	/**

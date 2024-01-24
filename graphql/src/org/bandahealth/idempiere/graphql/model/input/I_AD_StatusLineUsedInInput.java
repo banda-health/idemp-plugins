@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_StatusLineUsedIn;
  * Generated Interface for AD_StatusLineUsedIn - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_AD_StatusLineUsedInInput extends I_AD_StatusLineUsedIn {
 
@@ -93,18 +93,4 @@ public interface I_AD_StatusLineUsedInInput extends I_AD_StatusLineUsedIn {
 	 * @return Data entry or display window
 	 */
 	ForeignEntityInput AD_Window();
-
-	/**
-	 * Set AD_EntityType.
-	 *
-	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
-	 */
-	void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType);
-
-	/**
-	 * Get AD_EntityType.
-	 *
-	 * @return Dictionary Entity Type; Determines ownership and synchronization
-	 */
-	ForeignEntityInput AD_EntityType();
 }

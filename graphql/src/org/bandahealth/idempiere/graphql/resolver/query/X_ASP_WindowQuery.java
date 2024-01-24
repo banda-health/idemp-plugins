@@ -9,7 +9,7 @@ import org.compiere.model.X_ASP_Window;
  * Generated Query Resolver for ASP_Window - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_ASP_WindowQuery extends POQuery<X_ASP_Window> implements GraphQLQueryResolver {
 	@Override

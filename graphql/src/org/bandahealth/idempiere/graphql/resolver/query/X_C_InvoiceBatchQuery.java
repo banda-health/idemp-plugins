@@ -9,7 +9,7 @@ import org.compiere.model.MInvoiceBatch;
  * Generated Query Resolver for C_InvoiceBatch - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_InvoiceBatchQuery extends POQuery<MInvoiceBatch> implements GraphQLQueryResolver {
 	@Override

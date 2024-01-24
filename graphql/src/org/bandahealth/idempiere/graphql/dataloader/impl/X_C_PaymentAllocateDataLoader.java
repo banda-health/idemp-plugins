@@ -6,7 +6,7 @@ import org.compiere.model.MPaymentAllocate;
  * Data Loader for C_PaymentAllocate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_PaymentAllocateDataLoader extends PODataLoader<MPaymentAllocate> {
 	public static String DATALOADER_C_PaymentAllocate_BY_ID = "C_PaymentAllocateByIdDataLoader";

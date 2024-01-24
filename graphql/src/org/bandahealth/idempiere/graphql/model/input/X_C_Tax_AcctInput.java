@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Tax_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput {
 

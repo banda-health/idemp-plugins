@@ -13,7 +13,7 @@ import java.sql.ResultSet;
  * Generated Model for C_TaxProviderCfg - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_TaxProviderCfgInput extends X_C_TaxProviderCfg implements I_C_TaxProviderCfgInput {
 

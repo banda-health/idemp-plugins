@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MUserDefTab;
+import org.bandahealth.idempiere.base.model.MUserDefTab_BH;
 
 /**
  * Data Loader for AD_UserDef_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
-public class X_AD_UserDef_TabDataLoader extends PODataLoader<MUserDefTab> {
+public class X_AD_UserDef_TabDataLoader extends PODataLoader<MUserDefTab_BH> {
 	public static String DATALOADER_AD_UserDef_Tab_BY_ID = "AD_UserDef_TabByIdDataLoader";
 	public static String DATALOADER_AD_UserDef_Tab_BY_UUID = "AD_UserDef_TabByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MUserDefTab.Table_Name;
+		return MUserDefTab_BH.Table_Name;
 	}
 
 	@Override

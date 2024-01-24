@@ -12,7 +12,7 @@ import java.util.List;
  * Generated Query Resolver for U_Web_Properties - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_U_Web_PropertiesMutation extends POMutation implements GraphQLMutationResolver {
 	@Override

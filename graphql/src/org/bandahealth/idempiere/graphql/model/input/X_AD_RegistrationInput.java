@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Registration - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_RegistrationInput extends M_Registration implements I_AD_RegistrationInput {
 

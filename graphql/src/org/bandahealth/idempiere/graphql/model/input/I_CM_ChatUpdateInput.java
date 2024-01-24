@@ -6,7 +6,7 @@ import org.compiere.model.I_CM_ChatUpdate;
  * Generated Interface for CM_ChatUpdate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_CM_ChatUpdateInput extends I_CM_ChatUpdate {
 

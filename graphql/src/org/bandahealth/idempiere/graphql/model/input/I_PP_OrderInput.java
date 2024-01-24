@@ -6,7 +6,7 @@ import org.eevolution.model.I_PP_Order;
  * Generated Interface for PP_Order - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public interface I_PP_OrderInput extends I_PP_Order {
 

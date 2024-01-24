@@ -9,7 +9,7 @@ import org.compiere.model.MPackageMPS;
  * Generated Query Resolver for M_PackageMPS - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_PackageMPSQuery extends POQuery<MPackageMPS> implements GraphQLQueryResolver {
 	@Override

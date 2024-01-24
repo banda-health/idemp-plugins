@@ -15,7 +15,7 @@ import java.sql.Timestamp;
  * Generated Model for AD_AllUsers_V - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUsers_VInput {
 

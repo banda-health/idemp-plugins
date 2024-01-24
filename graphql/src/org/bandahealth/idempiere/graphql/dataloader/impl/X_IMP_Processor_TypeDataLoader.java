@@ -6,7 +6,7 @@ import org.compiere.model.X_IMP_Processor_Type;
  * Data Loader for IMP_Processor_Type - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_IMP_Processor_TypeDataLoader extends PODataLoader<X_IMP_Processor_Type> {
 	public static String DATALOADER_IMP_Processor_Type_BY_ID = "IMP_Processor_TypeByIdDataLoader";

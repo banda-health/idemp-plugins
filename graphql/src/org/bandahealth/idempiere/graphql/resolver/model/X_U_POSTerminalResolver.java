@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for U_POSTerminal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements GraphQLResolver<MPOSTerminal> {
 

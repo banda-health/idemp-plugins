@@ -9,7 +9,7 @@ import org.compiere.model.X_M_Warehouse_Acct;
  * Generated Query Resolver for M_Warehouse_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_Warehouse_AcctQuery extends POQuery<X_M_Warehouse_Acct> implements GraphQLQueryResolver {
 	@Override

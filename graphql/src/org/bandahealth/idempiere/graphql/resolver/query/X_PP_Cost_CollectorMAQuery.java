@@ -9,7 +9,7 @@ import org.eevolution.model.X_PP_Cost_CollectorMA;
  * Generated Query Resolver for PP_Cost_CollectorMA - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_PP_Cost_CollectorMAQuery extends POQuery<X_PP_Cost_CollectorMA> implements GraphQLQueryResolver {
 	@Override

@@ -6,7 +6,7 @@ import org.eevolution.model.MPPProductBOMLine;
  * Data Loader for PP_Product_BOMLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_PP_Product_BOMLineDataLoader extends PODataLoader<MPPProductBOMLine> {
 	public static String DATALOADER_PP_Product_BOMLine_BY_ID = "PP_Product_BOMLineByIdDataLoader";

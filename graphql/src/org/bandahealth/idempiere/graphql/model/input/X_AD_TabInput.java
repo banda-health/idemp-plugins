@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MTable_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MCtxHelp;
@@ -11,7 +12,6 @@ import org.compiere.model.MEntityType;
 import org.compiere.model.MImage;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTab;
-import org.compiere.model.MTable;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 
@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 
@@ -287,7 +287,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
+		MTable_BH foreignEntity;
 		if (AD_Table != null &&
 				(foreignEntity = new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 						.setParameters(AD_Table.getID())

@@ -9,7 +9,7 @@ import org.compiere.model.X_T_InvoiceGL;
  * Generated Query Resolver for T_InvoiceGL - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_T_InvoiceGLQuery extends POQuery<X_T_InvoiceGL> implements GraphQLQueryResolver {
 	@Override

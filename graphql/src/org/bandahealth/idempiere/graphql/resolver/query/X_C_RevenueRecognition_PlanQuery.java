@@ -9,7 +9,7 @@ import org.compiere.model.MRevenueRecognitionPlan;
  * Generated Query Resolver for C_RevenueRecognition_Plan - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_C_RevenueRecognition_PlanQuery extends POQuery<MRevenueRecognitionPlan> implements GraphQLQueryResolver {
 	@Override

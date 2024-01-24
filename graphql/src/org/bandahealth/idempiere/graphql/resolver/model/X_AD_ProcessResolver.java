@@ -33,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Process - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements GraphQLResolver<MProcess_BH> {
 
@@ -233,6 +233,10 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 
 	public Boolean IsReport(MProcess_BH entity, DataFetchingEnvironment environment) {
 		return entity.isReport();
+	}
+
+	public Boolean IsServerProcess(MProcess_BH entity, DataFetchingEnvironment environment) {
+		return entity.isServerProcess();
 	}
 
 	/**

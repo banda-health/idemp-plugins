@@ -2,8 +2,8 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.bandahealth.idempiere.base.model.MAttribute_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
-import org.compiere.model.MAttribute;
 import org.compiere.model.MAttributeValue;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -14,7 +14,7 @@ import java.sql.ResultSet;
  * Generated Model for M_AttributeValue - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_M_AttributeValueInput extends MAttributeValue implements I_M_AttributeValueInput {
 
@@ -66,7 +66,7 @@ public class X_M_AttributeValueInput extends MAttributeValue implements I_M_Attr
 	@JsonProperty("M_Attribute")
 	public void setM_AttributeInput(ForeignEntityInput M_Attribute) {
 		this.mM_Attribute = M_Attribute;
-		MAttribute foreignEntity;
+		MAttribute_BH foreignEntity;
 		if (get_ID() == 0 && M_Attribute != null &&
 				(foreignEntity = new Query(getCtx(), "M_Attribute", "M_Attribute_UU=?", get_TrxName())
 						.setParameters(M_Attribute.getID())

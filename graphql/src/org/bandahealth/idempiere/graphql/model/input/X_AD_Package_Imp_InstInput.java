@@ -13,7 +13,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Package_Imp_Inst - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 7.1 - $Id$
  */
 public class X_AD_Package_Imp_InstInput extends X_AD_Package_Imp_Inst implements I_AD_Package_Imp_InstInput {
 
